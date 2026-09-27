@@ -145,7 +145,8 @@ $(function(){initNavTree('DemonstrationCharacter_8h.html','',''); });
 
 <p>Le personnage de démonstration, chargé <b>une fois</b> pour tous les écrans (<span class="tt">LOT-86</span>).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;map&gt;</code><br />
+<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -170,8 +171,13 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a3cb4475bb268521d857c6fc4251f75f9" id="r_a3cb4475bb268521d857c6fc4251f75f9"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a3cb4475bb268521d857c6fc4251f75f9">hmi::playedCharacterFile</a> ()</td></tr>
 <tr class="memitem:aaf18529e7061f72c5c481ea2f30b6909" id="r_aaf18529e7061f72c5c481ea2f30b6909"><td class="memItemLeft"><a class="el" href="structhmi_1_1DemonstrationState.html">DemonstrationState</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aaf18529e7061f72c5c481ea2f30b6909">hmi::loadDemonstrationState</a> ()</td></tr>
-<tr class="memdesc:aaf18529e7061f72c5c481ea2f30b6909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage de démonstration et ses catalogues, en journalisant chaque manque.  <br /></td></tr>
+<tr class="memdesc:aaf18529e7061f72c5c481ea2f30b6909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage joué (<span class="tt"><a class="el" href="namespacehmi.html#a3cb4475bb268521d857c6fc4251f75f9">playedCharacterFile</a></span>) et ses catalogues, en journalisant chaque manque.  <br /></td></tr>
+<tr class="memitem:aa2976b1bc26d26e337e9273c9ff26976" id="r_aa2976b1bc26d26e337e9273c9ff26976"><td class="memItemLeft"><a class="el" href="structhmi_1_1DemonstrationState.html">DemonstrationState</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aa2976b1bc26d26e337e9273c9ff26976">hmi::loadDemonstrationState</a> (const std::filesystem::path &amp;characterFile)</td></tr>
+<tr class="memdesc:aa2976b1bc26d26e337e9273c9ff26976"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge la fiche <code class="param">characterFile</code> et ses catalogues : un membre du groupe qui ne mène pas, que l'écran de groupe montre.  <br /></td></tr>
+<tr class="memitem:a9003cdd50645942c3d35fd424f91d060" id="r_a9003cdd50645942c3d35fd424f91d060"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1DemonstrationCharacter.html">DemonstrationCharacter</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a9003cdd50645942c3d35fd424f91d060">hmi::loadCharacterValues</a> (const std::vector&lt; std::filesystem::path &gt; &amp;characterFiles)</td></tr>
+<tr class="memdesc:a9003cdd50645942c3d35fd424f91d060"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les tables de valeurs de chaque fiche de <code class="param">characterFiles</code>, dans cet ordre : les catalogues lus <b>une fois</b>, puis chaque fiche (<span class="tt">LOT-138</span>, l'écran de groupe).  <br /></td></tr>
 <tr class="memitem:a1f08c6b798997faab9cda3d79eebe751" id="r_a1f08c6b798997faab9cda3d79eebe751"><td class="memItemLeft"><a class="el" href="structhmi_1_1DemonstrationCharacter.html">DemonstrationCharacter</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a1f08c6b798997faab9cda3d79eebe751">hmi::demonstrationValues</a> (const <a class="el" href="structhmi_1_1DemonstrationState.html">DemonstrationState</a> &amp;state)</td></tr>
 <tr class="memdesc:a1f08c6b798997faab9cda3d79eebe751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les deux tables de valeurs d'un état, statistiques dérivées <b>recalculées</b>.  <br /></td></tr>
 <tr class="memitem:aa7f27ef2ac4ebf9ca9471566aa568af4" id="r_aa7f27ef2ac4ebf9ca9471566aa568af4"><td class="memItemLeft"><a class="el" href="structhmi_1_1DemonstrationCharacter.html">DemonstrationCharacter</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aa7f27ef2ac4ebf9ca9471566aa568af4">hmi::loadDemonstrationValues</a> ()</td></tr>

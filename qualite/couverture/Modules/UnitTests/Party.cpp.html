@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Party.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Rpg/Party.h"
+
+#include &lt;algorithm&gt;
+#include &lt;system_error&gt;
+#include &lt;utility&gt;
+
+#include "Core/Data/JsonDocument.h"
+
+namespace core {
+
+namespace {
+
+// Les fiches de personnage ne portent pas de numero de version (`core::loadCharacterSheet`).
+constexpr int SANS_GARDE_DE_VERSION = 0;
+
+}  // namespace
+
+<span style = "background-color:#dfd">Party::Party(const std::vector&lt;std::string&gt;&amp; members) {
+    for (const std::string&amp; member : members) {
+        static_cast&lt;void&gt;(add(member));
+    }
+}</span>
+
+<span style = "background-color:#dfd">bool Party::contains(std::string_view characterId) const noexcept {
+    return std::ranges::find(_members, characterId) != _members.end();
+}</span>
+
+<span style = "background-color:#dfd">PartyChange Party::add(std::string characterId) {
+    if (contains(characterId)) {
+        return PartyChange::AlreadyMember;</span>
+    }
+<span style = "background-color:#dfd">    if (_members.size() &gt;= MAX_MEMBERS) {
+        return PartyChange::Full;</span>
+    }
+<span style = "background-color:#dfd">    _members.push_back(std::move(characterId));
+    return PartyChange::Done;
+}</span>
+
+<span style = "background-color:#dfd">PartyChange Party::remove(std::string_view characterId) {
+    const auto found = std::ranges::find(_members, characterId);
+    if (found == _members.end()) {
+        return PartyChange::NotMember;</span>
+    }
+<span style = "background-color:#dfd">    if (_members.size() == 1) {
+        return PartyChange::LastMember;</span>
+    }
+<span style = "background-color:#dfd">    _members.erase(found);
+    return PartyChange::Done;
+}</span>
+
+<span style = "background-color:#dfd">PartyChange Party::setLeader(std::string_view characterId) {
+    const auto found = std::ranges::find(_members, characterId);
+    if (found == _members.end()) {
+        return PartyChange::NotMember;</span>
+    }
+    // Une rotation du debut jusqu'a lui : il passe en tete, et ceux qui le precedaient gardent
+    // leur ordre derriere lui.
+<span style = "background-color:#dfd">    std::rotate(_members.begin(), found, std::next(found));
+    return PartyChange::Done;
+}</span>
+
+<span style = "background-color:#dfd">PartyChange Party::rotateLeader() {
+    if (_members.empty()) {</span>
+<span style = "background-color:#fdd">        return PartyChange::NotMember;</span>
+    }
+<span style = "background-color:#dfd">    std::rotate(_members.begin(), std::next(_members.begin()), _members.end());
+    return PartyChange::Done;
+}</span>
+
+<span style = "background-color:#dfd">PartyChange Party::swap(std::size_t first, std::size_t second) {
+    if (first &gt;= _members.size() || second &gt;= _members.size()) {
+        return PartyChange::NotMember;</span>
+    }
+<span style = "background-color:#dfd">    std::swap(_members[first], _members[second]);
+    return PartyChange::Done;
+}</span>
+
+<span style = "background-color:#dfd">PartyCandidates loadPartyCandidates(const std::filesystem::path&amp; directory) {
+    PartyCandidates result;
+    std::error_code error;
+    if (!std::filesystem::is_directory(directory, error)) {
+        result.errors.push_back(directory.string() + " : dossier des personnages absent.");
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;std::filesystem::path&gt; files;
+    for (const auto&amp; entry : std::filesystem::directory_iterator(directory, error)) {
+        if (entry.is_regular_file() &amp;&amp; entry.path().extension() == ".json") {
+            files.push_back(entry.path());
+        }
+    }
+    std::ranges::sort(files);
+    for (const std::filesystem::path&amp; file : files) {
+        const JsonDocument document = readJsonObjectFromFile(file, SANS_GARDE_DE_VERSION);
+        if (!document.ok()) {</span>
+<span style = "background-color:#fdd">            result.errors.push_back(document.message);
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const auto text = [&amp;document](const char* field) {
+            const auto found = document.root.find(field);
+            return (found != document.root.end() &amp;&amp; found-&gt;is_string()) ? found-&gt;get&lt;std::string&gt;()</span>
+                                                                        : std::string{};
+<span style = "background-color:#dfd">        };</span>
+        PartyCandidate candidate{
+<span style = "background-color:#dfd">            .id = text("id"), .name = text("name"), .classId = text("classId"), .file = file};
+        if (candidate.id.empty()) {</span>
+<span style = "background-color:#fdd">            result.errors.push_back(file.string() + " : fiche sans identifiant.");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        result.candidates.push_back(std::move(candidate));
+    }
+    std::ranges::sort(result.candidates, {}, &amp;PartyCandidate::id);
+    return result;
+}</span>
+
+Party defaultParty(const std::vector&lt;PartyCandidate&gt;&amp; candidates,
+<span style = "background-color:#dfd">                   const std::vector&lt;std::string&gt;&amp; order) {
+    Party party;
+    for (const std::string&amp; id : order) {
+        if (std::ranges::find(candidates, id, &amp;PartyCandidate::id) != candidates.end()) {
+            static_cast&lt;void&gt;(party.add(id));</span>
+        }
+<span style = "background-color:#dfd">    }
+    for (const PartyCandidate&amp; candidate : candidates) {
+        if (party.size() &gt;= Party::MAX_MEMBERS) {
+            break;</span>
+        }
+<span style = "background-color:#dfd">        if (party.add(candidate.id) == PartyChange::Full) {</span>
+<span style = "background-color:#fdd">            break;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return party;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -547,6 +547,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les trois catalogues qu'un inventaire consulte pour peser et pour dériver.  <a href="structcore_1_1ItemLookup.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DerivedStats" id="r_DerivedStats"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1DerivedStats.html">DerivedStats</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'équipement porté produit — <b>recalculé</b>, jamais accumulé.  <a href="structcore_1_1DerivedStats.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Party" id="r_Party"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1Party.html">Party</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe du joueur : de un à quatre personnages, dans l'ordre de marche.  <a href="classcore_1_1Party.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PartyCandidate" id="r_PartyCandidate"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1PartyCandidate.html">PartyCandidate</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un personnage qu'on peut prendre dans le groupe : ce que l'écran de composition liste.  <a href="structcore_1_1PartyCandidate.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PartyCandidates" id="r_PartyCandidates"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1PartyCandidates.html">PartyCandidates</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les personnages d'un dossier de fiches, et ce qui n'a pas pu être lu.  <a href="structcore_1_1PartyCandidates.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SkillDefinition" id="r_SkillDefinition"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SkillDefinition.html">SkillDefinition</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une compétence et la caractéristique dont elle dépend.  <a href="structcore_1_1SkillDefinition.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SkillCatalog" id="r_SkillCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SkillCatalog.html">SkillCatalog</a></td></tr>
@@ -607,6 +613,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un événement du pas, et où il a eu lieu.  <a href="structcore_1_1ExplorationEvent.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ExplorationSession" id="r_ExplorationSession"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1ExplorationSession.html">ExplorationSession</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros sur la carte courante : marche, interaction, portails.  <a href="classcore_1_1ExplorationSession.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FollowTrail" id="r_FollowTrail"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1FollowTrail.html">FollowTrail</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La ligne parcourue par le meneur, du plus récent au plus ancien, et ce qu'on en retient.  <a href="classcore_1_1FollowTrail.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldMapInput" id="r_WorldMapInput"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1WorldMapInput.html">WorldMapInput</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte telle que <span class="tt"><a class="el" href="#a613ed3cc48dbcdf1ed1533b2bb6c9f9c" title="Construit le graphe à partir de cartes déjà lues.">buildWorldGraph</a></span> la reçoit : déjà lue, ou en échec de lecture.  <a href="structcore_1_1WorldMapInput.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldMapNode" id="r_WorldMapNode"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1WorldMapNode.html">WorldMapNode</a></td></tr>
@@ -646,6 +654,8 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:ac3cd7f319efbfd33f183ca31782d1731"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriétés libres, indexées par nom.  <br /></td></tr>
 <tr class="memitem:a6c8c611f5b03ec8461b387664a026ac0" id="r_a6c8c611f5b03ec8461b387664a026ac0"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a> = std::map&lt;std::string, std::string, std::less&lt;&gt;&gt;</td></tr>
 <tr class="memdesc:a6c8c611f5b03ec8461b387664a026ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier de chaque figurine qu'un lieu peut poser : slug → dossier relatif à <span class="tt">Assets/</span>.  <br /></td></tr>
+<tr class="memitem:ada797bec5feb2db47430f23934f11b26" id="r_ada797bec5feb2db47430f23934f11b26"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ada797bec5feb2db47430f23934f11b26">TrailPoint</a> = <a class="el" href="structcore_1_1Vector2.html">Vector2</a></td></tr>
+<tr class="memdesc:ada797bec5feb2db47430f23934f11b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un point continu de la trace, en cases (<span class="tt"><a class="el" href="structcore_1_1CellPoint.html" title="Position continue sur la grille, en cases.">core::CellPoint</a></span> sans dépendance à la session).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -1081,6 +1091,16 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:ab1c6c3303c34c417c9a3b6ac3ddb066d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rythme auquel une classe fait progresser le niveau de lanceur.  <a href="#ab1c6c3303c34c417c9a3b6ac3ddb066d">More...</a><br /></td></tr>
+<tr class="memitem:a77cd56d7668dd1f9e53f577524c62489" id="r_a77cd56d7668dd1f9e53f577524c62489"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a77cd56d7668dd1f9e53f577524c62489">PartyChange</a> { <br />
+&#160;&#160;<a class="el" href="#a77cd56d7668dd1f9e53f577524c62489af92965e2c8a7afb3c1b9a5c09a263636">Done</a>
+, <a class="el" href="#a77cd56d7668dd1f9e53f577524c62489abbd47109890259c0127154db1af26c75">Full</a>
+, <a class="el" href="#a77cd56d7668dd1f9e53f577524c62489a08fc83464bbb13eb7d4ccbe51177bbd1">AlreadyMember</a>
+, <a class="el" href="#a77cd56d7668dd1f9e53f577524c62489a2d48f7e936f78f7efe053a32870c786c">NotMember</a>
+, <br />
+&#160;&#160;<a class="el" href="#a77cd56d7668dd1f9e53f577524c62489a3a8ccf13e008351a5de6a01627371189">LastMember</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a77cd56d7668dd1f9e53f577524c62489"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une retouche du groupe a donné.  <a href="#a77cd56d7668dd1f9e53f577524c62489">More...</a><br /></td></tr>
 <tr class="memitem:aae5ed49bedbf68049f008e4efac2edfd" id="r_aae5ed49bedbf68049f008e4efac2edfd"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> { <br />
 &#160;&#160;<a class="el" href="#aae5ed49bedbf68049f008e4efac2edfdaed84f0285a129390ef34774e525b9b9e">Acid</a>
 , <a class="el" href="#aae5ed49bedbf68049f008e4efac2edfda8c92f858070d9bb44fb8e3fa1b7224ed">Bludgeoning</a>
@@ -1786,6 +1806,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:aedf7842b8c8c84ef5f6445c731072dfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom textuel d'une progression, tel que <span class="tt">multiclassing.json</span> l'écrit.  <br /></td></tr>
 <tr class="memitem:a6d334261c72e5b0735a542f53aac9131" id="r_a6d334261c72e5b0735a542f53aac9131"><td class="memItemLeft">std::optional&lt; <a class="el" href="#ab1c6c3303c34c417c9a3b6ac3ddb066d">CasterProgression</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6d334261c72e5b0735a542f53aac9131">parseCasterProgression</a> (std::string_view name)</td></tr>
 <tr class="memdesc:a6d334261c72e5b0735a542f53aac9131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit le nom d'une progression, tel que la donnée l'écrit, en valeur.  <br /></td></tr>
+<tr class="memitem:a03c44dfa161240189f6793dcbc8785b8" id="r_a03c44dfa161240189f6793dcbc8785b8"><td class="memItemLeft"><a class="el" href="structcore_1_1PartyCandidates.html">PartyCandidates</a>&#160;</td><td class="memItemRight"><a class="el" href="#a03c44dfa161240189f6793dcbc8785b8">loadPartyCandidates</a> (const std::filesystem::path &amp;directory)</td></tr>
+<tr class="memdesc:a03c44dfa161240189f6793dcbc8785b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les fiches de <code class="param">directory</code> (<span class="tt">Rpg/characters/</span>) sans les construire : identifiant, nom et classe.  <br /></td></tr>
+<tr class="memitem:ab5e633b89796ee51287aab6489f424f0" id="r_ab5e633b89796ee51287aab6489f424f0"><td class="memItemLeft"><a class="el" href="classcore_1_1Party.html">Party</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab5e633b89796ee51287aab6489f424f0">defaultParty</a> (const std::vector&lt; <a class="el" href="structcore_1_1PartyCandidate.html">PartyCandidate</a> &gt; &amp;candidates, const std::vector&lt; std::string &gt; &amp;order={})</td></tr>
+<tr class="memdesc:ab5e633b89796ee51287aab6489f424f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe d'une partie neuve : d'abord ceux de <code class="param">order</code> présents parmi <code class="param">candidates</code>, dans cet ordre, puis les autres candidats dans le leur, jusqu'à <a class="el" href="classcore_1_1Party.html#a54738c009dfbacd448f0f0ff5a70112f" title="Party::MAX_MEMBERS">Party::MAX_MEMBERS</a>.  <br /></td></tr>
 <tr class="memitem:a918b595ef74492bed349a6bbf82a9f64" id="r_a918b595ef74492bed349a6bbf82a9f64"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a918b595ef74492bed349a6bbf82a9f64">tilesFromMeters</a> (float meters) noexcept</td></tr>
 <tr class="memdesc:a918b595ef74492bed349a6bbf82a9f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une distance en mètres — telle que le corpus l'écrit — en nombre de cases.  <br /></td></tr>
 <tr class="memitem:a3bc1fb9934614684210eff9159619222" id="r_a3bc1fb9934614684210eff9159619222"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a3bc1fb9934614684210eff9159619222">metersFromTiles</a> (float tiles) noexcept</td></tr>
@@ -2233,6 +2257,22 @@ Variables</h2></td></tr>
 
 <p>Valeur d'une propriété libre : booléen, entier, réel ou chaîne. </p>
 <p>Volontairement <b>un type de <span class="tt">Core</span></b>, jamais un <span class="tt">nlohmann::json</span> : <span class="tt">Core</span> ne connaît pas le format de fichier (<span class="tt">EX-ARCH-001</span>), et la bibliothèque JSON lui est liée en <span class="tt">PRIVATE</span> — l'exposer dans un en-tête la propagerait à tous ses consommateurs. </p>
+
+</div>
+</div>
+<a id="ada797bec5feb2db47430f23934f11b26" name="ada797bec5feb2db47430f23934f11b26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada797bec5feb2db47430f23934f11b26">&#9670;&#160;</a></span>TrailPoint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#ada797bec5feb2db47430f23934f11b26">core::TrailPoint</a> = <a class="el" href="structcore_1_1Vector2.html">Vector2</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un point continu de la trace, en cases (<span class="tt"><a class="el" href="structcore_1_1CellPoint.html" title="Position continue sur la grille, en cases.">core::CellPoint</a></span> sans dépendance à la session). </p>
 
 </div>
 </div>
@@ -3946,6 +3986,42 @@ L'altitude est un attribut, jamais une géométrie</h2>
 <tr><td class="fieldname"><a id="ac0c9dc39aafc4bad02c96a9659df0c1bada099a58dee575669ba6db4611297762" name="ac0c9dc39aafc4bad02c96a9659df0c1bada099a58dee575669ba6db4611297762"></a>NotPlaced&#160;</td><td class="fielddoc"><p>Le combattant actif n'est pas sur la grille. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ac0c9dc39aafc4bad02c96a9659df0c1ba4bed942140642650ca78039de000796a" name="ac0c9dc39aafc4bad02c96a9659df0c1ba4bed942140642650ca78039de000796a"></a>Unreachable&#160;</td><td class="fielddoc"><p>La destination n'est pas une fin de déplacement permise dans ce qui reste du budget. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a77cd56d7668dd1f9e53f577524c62489" name="a77cd56d7668dd1f9e53f577524c62489"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77cd56d7668dd1f9e53f577524c62489">&#9670;&#160;</a></span>PartyChange</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a77cd56d7668dd1f9e53f577524c62489">core::PartyChange</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'une retouche du groupe a donné. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a77cd56d7668dd1f9e53f577524c62489af92965e2c8a7afb3c1b9a5c09a263636" name="a77cd56d7668dd1f9e53f577524c62489af92965e2c8a7afb3c1b9a5c09a263636"></a>Done&#160;</td><td class="fielddoc"><p>Le groupe a changé. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a77cd56d7668dd1f9e53f577524c62489abbd47109890259c0127154db1af26c75" name="a77cd56d7668dd1f9e53f577524c62489abbd47109890259c0127154db1af26c75"></a>Full&#160;</td><td class="fielddoc"><p>Le groupe compte déjà <span class="tt"><a class="el" href="classcore_1_1Party.html#a54738c009dfbacd448f0f0ff5a70112f" title="Quatre, le groupe de la table de jeu (Player&#39;s Guide to Tanares, les quatre fiches pré-tirées) ; l&#39;Em...">Party::MAX_MEMBERS</a></span> personnages. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a77cd56d7668dd1f9e53f577524c62489a08fc83464bbb13eb7d4ccbe51177bbd1" name="a77cd56d7668dd1f9e53f577524c62489a08fc83464bbb13eb7d4ccbe51177bbd1"></a>AlreadyMember&#160;</td><td class="fielddoc"><p>Le personnage est déjà du groupe. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a77cd56d7668dd1f9e53f577524c62489a2d48f7e936f78f7efe053a32870c786c" name="a77cd56d7668dd1f9e53f577524c62489a2d48f7e936f78f7efe053a32870c786c"></a>NotMember&#160;</td><td class="fielddoc"><p>Le personnage n'est pas du groupe. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a77cd56d7668dd1f9e53f577524c62489a3a8ccf13e008351a5de6a01627371189" name="a77cd56d7668dd1f9e53f577524c62489a3a8ccf13e008351a5de6a01627371189"></a>LastMember&#160;</td><td class="fielddoc"><p>On ne retire pas le dernier : un groupe vide n'a personne à mener. </p>
 </td></tr>
 </table>
 
@@ -7254,6 +7330,38 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="ab5e633b89796ee51287aab6489f424f0" name="ab5e633b89796ee51287aab6489f424f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5e633b89796ee51287aab6489f424f0">&#9670;&#160;</a></span>defaultParty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1Party.html">Party</a> core::defaultParty </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1PartyCandidate.html">PartyCandidate</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>candidates</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>order</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le groupe d'une partie neuve : d'abord ceux de <code class="param">order</code> présents parmi <code class="param">candidates</code>, dans cet ordre, puis les autres candidats dans le leur, jusqu'à <a class="el" href="classcore_1_1Party.html#a54738c009dfbacd448f0f0ff5a70112f" title="Party::MAX_MEMBERS">Party::MAX_MEMBERS</a>. </p>
+<p>Le jeu impose le groupe préformé (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#ac1c562398f6eec8d6cd894f99082dbe6" title="Le groupe qu&#39;impose « Nouvelle partie », dans l&#39;ordre de marche (LOT-138, décision de l&#39;auteur) : les...">hmi::WorldModel::STARTING_PARTY</a></span>) : Brawler, Priest, Scoundrel, Mage — décision de l'auteur, <span class="tt">LOT-138</span>. Un identifiant de <code class="param">order</code> absent du dossier est sauté. </p>
+
+</div>
+</div>
 <a id="acd687b89399df2a9dcc1bde15b5e46f7" name="acd687b89399df2a9dcc1bde15b5e46f7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acd687b89399df2a9dcc1bde15b5e46f7">&#9670;&#160;</a></span>demoEndingKey()</h2>
 
@@ -10391,6 +10499,34 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Charge les objets depuis leur dossier (<span class="tt">Rpg/items/</span>). </p>
+
+</div>
+</div>
+<a id="a03c44dfa161240189f6793dcbc8785b8" name="a03c44dfa161240189f6793dcbc8785b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03c44dfa161240189f6793dcbc8785b8">&#9670;&#160;</a></span>loadPartyCandidates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1PartyCandidates.html">PartyCandidates</a> core::loadPartyCandidates </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>directory</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit les fiches de <code class="param">directory</code> (<span class="tt">Rpg/characters/</span>) sans les construire : identifiant, nom et classe. </p>
+<p>Construire une fiche demande tous les catalogues de règles ; lister qui l'on peut prendre ne demande que trois champs. Un dossier absent donne une liste vide et une erreur. </p>
 
 </div>
 </div>

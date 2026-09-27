@@ -200,6 +200,9 @@ var namespacecore =
     [ "Inventory", "structcore_1_1Inventory.html", "structcore_1_1Inventory" ],
     [ "ItemLookup", "structcore_1_1ItemLookup.html", "structcore_1_1ItemLookup" ],
     [ "DerivedStats", "structcore_1_1DerivedStats.html", "structcore_1_1DerivedStats" ],
+    [ "Party", "classcore_1_1Party.html", "classcore_1_1Party" ],
+    [ "PartyCandidate", "structcore_1_1PartyCandidate.html", "structcore_1_1PartyCandidate" ],
+    [ "PartyCandidates", "structcore_1_1PartyCandidates.html", "structcore_1_1PartyCandidates" ],
     [ "SkillDefinition", "structcore_1_1SkillDefinition.html", "structcore_1_1SkillDefinition" ],
     [ "SkillCatalog", "structcore_1_1SkillCatalog.html", "structcore_1_1SkillCatalog" ],
     [ "SpellEffect", "structcore_1_1SpellEffect.html", "structcore_1_1SpellEffect" ],
@@ -230,6 +233,7 @@ var namespacecore =
     [ "ExplorationIntent", "structcore_1_1ExplorationIntent.html", "structcore_1_1ExplorationIntent" ],
     [ "ExplorationEvent", "structcore_1_1ExplorationEvent.html", "structcore_1_1ExplorationEvent" ],
     [ "ExplorationSession", "classcore_1_1ExplorationSession.html", "classcore_1_1ExplorationSession" ],
+    [ "FollowTrail", "classcore_1_1FollowTrail.html", "classcore_1_1FollowTrail" ],
     [ "WorldMapInput", "structcore_1_1WorldMapInput.html", "structcore_1_1WorldMapInput" ],
     [ "WorldMapNode", "structcore_1_1WorldMapNode.html", "structcore_1_1WorldMapNode" ],
     [ "WorldPortalLink", "structcore_1_1WorldPortalLink.html", "structcore_1_1WorldPortalLink" ],
@@ -248,6 +252,7 @@ var namespacecore =
     [ "PieceRenaming", "namespacecore.html#a7f09e06e2155fbe84001ac24b8bf762f", null ],
     [ "PropertyMap", "namespacecore.html#ac3cd7f319efbfd33f183ca31782d1731", null ],
     [ "PropertyValue", "namespacecore.html#a9f79b235a73b6264aa3a97d51267919d", null ],
+    [ "TrailPoint", "namespacecore.html#ada797bec5feb2db47430f23934f11b26", null ],
     [ "Ability", "namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1", [
       [ "Strength", "namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1a5a455a612047a34ede7a6c564fa67c0a", null ],
       [ "Dexterity", "namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1aa8747f5acdc2352d39f455bdd1689273", null ],
@@ -612,6 +617,13 @@ var namespacecore =
       [ "NotPlaced", "namespacecore.html#ac0c9dc39aafc4bad02c96a9659df0c1bada099a58dee575669ba6db4611297762", null ],
       [ "Unreachable", "namespacecore.html#ac0c9dc39aafc4bad02c96a9659df0c1ba4bed942140642650ca78039de000796a", null ]
     ] ],
+    [ "PartyChange", "namespacecore.html#a77cd56d7668dd1f9e53f577524c62489", [
+      [ "Done", "namespacecore.html#a77cd56d7668dd1f9e53f577524c62489af92965e2c8a7afb3c1b9a5c09a263636", null ],
+      [ "Full", "namespacecore.html#a77cd56d7668dd1f9e53f577524c62489abbd47109890259c0127154db1af26c75", null ],
+      [ "AlreadyMember", "namespacecore.html#a77cd56d7668dd1f9e53f577524c62489a08fc83464bbb13eb7d4ccbe51177bbd1", null ],
+      [ "NotMember", "namespacecore.html#a77cd56d7668dd1f9e53f577524c62489a2d48f7e936f78f7efe053a32870c786c", null ],
+      [ "LastMember", "namespacecore.html#a77cd56d7668dd1f9e53f577524c62489a3a8ccf13e008351a5de6a01627371189", null ]
+    ] ],
     [ "PieceTactical", "namespacecore.html#a096c9cc059de39edb20ccea06d18f252", [
       [ "Open", "namespacecore.html#a096c9cc059de39edb20ccea06d18f252ac3bf447eabe632720a3aa1a7ce401274", null ],
       [ "Difficult", "namespacecore.html#a096c9cc059de39edb20ccea06d18f252a429ee94cd13d541a0d434e93c798ac4c", null ],
@@ -868,6 +880,7 @@ var namespacecore =
     [ "declareQuestFlags", "namespacecore.html#a116ff967f1d1006befab83aefbb3eb09", null ],
     [ "defaultAssetKeyFor", "namespacecore.html#a511cc1f309ea0831c8af98b2df46b08a", null ],
     [ "defaultLogger", "namespacecore.html#a925cad771c457040a01272ff8be8e1a1", null ],
+    [ "defaultParty", "namespacecore.html#ab5e633b89796ee51287aab6489f424f0", null ],
     [ "demoEndingKey", "namespacecore.html#acd687b89399df2a9dcc1bde15b5e46f7", null ],
     [ "deriveCollision", "namespacecore.html#a3322a01062af04e9242df68f744c142f", null ],
     [ "derivedStatsFor", "namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1", null ],
@@ -963,6 +976,7 @@ var namespacecore =
     [ "loadEquipment", "namespacecore.html#a06839f5ee0eea764bdcd5f6b865f194c", null ],
     [ "loadExperienceTable", "namespacecore.html#a00be15bd9376cf46d81dedf0bc0f7d54", null ],
     [ "loadItems", "namespacecore.html#a00edce76b901663b3187437ecea2da10", null ],
+    [ "loadPartyCandidates", "namespacecore.html#a03c44dfa161240189f6793dcbc8785b8", null ],
     [ "loadQuest", "namespacecore.html#afa41f919bb154ba5431520e47b8674da", null ],
     [ "loadQuests", "namespacecore.html#a75c14c8a302648b21c37c8424273dbeb", null ],
     [ "loadSkills", "namespacecore.html#a42f5d87d7c735cf39527f76c7dda44da", null ],

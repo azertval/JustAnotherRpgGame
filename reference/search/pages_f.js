@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['même_20scène_20que_20le_20jeu_0',['La même scène que le jeu',['../CanvasScene_8h.html#autotoc_md69',1,'']]],
+  ['même_20scène_20que_20le_20jeu_0',['La même scène que le jeu',['../CanvasScene_8h.html#autotoc_md71',1,'']]],
   ['maître_20en_20dit_1',['Ce que le &lt;em&gt;Guide du Maître&lt;/em&gt; en dit',['../EnemyAi_8h.html#autotoc_md29',1,'']]],
   ['manquante_2',['Pourquoi un marqueur plutôt qu&apos;une image manquante',['../namespacecore.html#autotoc_md53',1,'']]],
   ['manuel_3',['Manuel',['../AreaOfEffect_8h.html#autotoc_md7',1,'Ce que dit le Manuel'],['../Arena_8h.html#autotoc_md12',1,'Les attaques du Manuel']]],
@@ -10,8 +10,8 @@ var searchData=
   ['marqueur_20plutôt_20qu_20une_20image_20manquante_7',['Pourquoi un marqueur plutôt qu&apos;une image manquante',['../namespacecore.html#autotoc_md53',1,'']]],
   ['ment_20pas_8',['Une prévisualisation qui ne ment pas',['../CombatPreview_8h.html#autotoc_md20',1,'']]],
   ['mesure_9',['Comment la grille le mesure',['../Flanking_8h.html#autotoc_md33',1,'']]],
-  ['migration_10',['La migration',['../MapFormat_8h.html#autotoc_md73',1,'']]],
-  ['miroir_11',['miroir',['../PaintTools_8h.html#autotoc_md75',1,'Le miroir'],['../Stamps_8h.html#autotoc_md78',1,'Le miroir']]],
+  ['migration_10',['La migration',['../MapFormat_8h.html#autotoc_md75',1,'']]],
+  ['miroir_11',['miroir',['../PaintTools_8h.html#autotoc_md77',1,'Le miroir'],['../Stamps_8h.html#autotoc_md80',1,'Le miroir']]],
   ['modules_12',['Les modules',['../index.html#autotoc_md2',1,'']]],
   ['moitié_20d_20une_20case_13',['Sur la grille : la moitié d&apos;une case',['../AreaOfEffect_8h.html#autotoc_md8',1,'']]],
   ['mort_20lot_20137_14',['L&apos;agonie et la mort (&lt;span class=&quot;tt&quot;&gt;LOT-137&lt;/span&gt;)',['../classcore_1_1CombatState.html#autotoc_md24',1,'']]]

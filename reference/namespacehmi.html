@@ -555,6 +555,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un chargement du personnage de démonstration produit, prêt à être publié au QML.  <a href="structhmi_1_1DemonstrationCharacter.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DemonstrationState" id="r_DemonstrationState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DemonstrationState.html">DemonstrationState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage de démonstration et tout ce qu'il faut pour le recalculer : la fiche, ce qu'il porte, et les catalogues (<span class="tt">LOT-87</span>, T3.5).  <a href="structhmi_1_1DemonstrationState.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Voix" id="r_Voix"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1Voix.html">Voix</a></td></tr>
 <tr class="memitem:DialogueModel" id="r_DialogueModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1DialogueModel.html">DialogueModel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue-modèle de l'écran de dialogue : elle tient un <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html" title="La machine à états qui joue un dialogue.">core::DialogueRunner</a></span> et rien d'autre ne décide.  <a href="classhmi_1_1DialogueModel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EncounterModel" id="r_EncounterModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EncounterModel.html">EncounterModel</a></td></tr>
@@ -569,6 +570,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue-modèle du lanceur de cartes (<span class="tt">Tools/MapLauncher.qml</span>, <span class="tt">--screen=MapLauncher</span>).  <a href="classhmi_1_1MapLauncherModel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:OptionsModel" id="r_OptionsModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1OptionsModel.html">OptionsModel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vue-modèle des options : lit et persiste les réglages, et <b>publie</b> leur changement.  <a href="classhmi_1_1OptionsModel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PartyModel" id="r_PartyModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PartyModel.html">PartyModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue-modèle du groupe : qui en est, qui mène, et ce que dit la fiche de chacun.  <a href="classhmi_1_1PartyModel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PendingData" id="r_PendingData"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PendingData.html">PendingData</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le point unique vers lequel pointe <b>tout ce qui n'a pas encore de source</b>.  <a href="classhmi_1_1PendingData.html#details">More...</a><br /></td></tr>
 <tr class="memitem:QuestJournalModel" id="r_QuestJournalModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1QuestJournalModel.html">QuestJournalModel</a></td></tr>
@@ -929,9 +932,10 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a86e4ce6097c7a029c683096302528e72a1c76cbfe21c6f44c1d1e59d54f3e4420">Company</a>
 , <br />
 &#160;&#160;<a class="el" href="#a86e4ce6097c7a029c683096302528e72a24a64995097c2618f6232d44c3b135ff">CombatHud</a>
+, <a class="el" href="#a86e4ce6097c7a029c683096302528e72a094a173d3b32f44f5b5c996e8710ae28">Party</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a86e4ce6097c7a029c683096302528e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les neuf écrans du RPG.  <a href="#a86e4ce6097c7a029c683096302528e72">More...</a><br /></td></tr>
+<tr class="memdesc:a86e4ce6097c7a029c683096302528e72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dix écrans du RPG.  <a href="#a86e4ce6097c7a029c683096302528e72">More...</a><br /></td></tr>
 <tr class="memitem:a168b24f798c2e6d06beb9472a071528d" id="r_a168b24f798c2e6d06beb9472a071528d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a168b24f798c2e6d06beb9472a071528d">ScreenId</a> { <br />
 &#160;&#160;<a class="el" href="#a168b24f798c2e6d06beb9472a071528dab61541208db7fa7dba42c85224405911">Menu</a>
 , <a class="el" href="#a168b24f798c2e6d06beb9472a071528da63d72051e901c069f8aa1b32aa0c43bb">Game</a>
@@ -1480,8 +1484,13 @@ Functions</h2></td></tr>
 <tr class="memdesc:a412bc5e35528e29f2ba6479cf6591057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit <span class="tt">world-maps.json</span>.  <br /></td></tr>
 <tr class="memitem:ab1a5bb49f127bf2cf10105f1e45da728" id="r_ab1a5bb49f127bf2cf10105f1e45da728"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldMapViews.html">WorldMapViews</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab1a5bb49f127bf2cf10105f1e45da728">joinWorldMaps</a> (const <a class="el" href="structcore_1_1Atlas.html">core::Atlas</a> &amp;atlas, const <a class="el" href="structhmi_1_1WorldMaps.html">WorldMaps</a> &amp;maps, std::vector&lt; std::string &gt; &amp;mismatches)</td></tr>
 <tr class="memdesc:ab1a5bb49f127bf2cf10105f1e45da728"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joint les cartes à l'atlas.  <br /></td></tr>
+<tr class="memitem:a3cb4475bb268521d857c6fc4251f75f9" id="r_a3cb4475bb268521d857c6fc4251f75f9"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a3cb4475bb268521d857c6fc4251f75f9">playedCharacterFile</a> ()</td></tr>
 <tr class="memitem:aaf18529e7061f72c5c481ea2f30b6909" id="r_aaf18529e7061f72c5c481ea2f30b6909"><td class="memItemLeft"><a class="el" href="structhmi_1_1DemonstrationState.html">DemonstrationState</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaf18529e7061f72c5c481ea2f30b6909">loadDemonstrationState</a> ()</td></tr>
-<tr class="memdesc:aaf18529e7061f72c5c481ea2f30b6909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage de démonstration et ses catalogues, en journalisant chaque manque.  <br /></td></tr>
+<tr class="memdesc:aaf18529e7061f72c5c481ea2f30b6909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage joué (<span class="tt"><a class="el" href="#a3cb4475bb268521d857c6fc4251f75f9">playedCharacterFile</a></span>) et ses catalogues, en journalisant chaque manque.  <br /></td></tr>
+<tr class="memitem:aa2976b1bc26d26e337e9273c9ff26976" id="r_aa2976b1bc26d26e337e9273c9ff26976"><td class="memItemLeft"><a class="el" href="structhmi_1_1DemonstrationState.html">DemonstrationState</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa2976b1bc26d26e337e9273c9ff26976">loadDemonstrationState</a> (const std::filesystem::path &amp;characterFile)</td></tr>
+<tr class="memdesc:aa2976b1bc26d26e337e9273c9ff26976"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge la fiche <code class="param">characterFile</code> et ses catalogues : un membre du groupe qui ne mène pas, que l'écran de groupe montre.  <br /></td></tr>
+<tr class="memitem:a9003cdd50645942c3d35fd424f91d060" id="r_a9003cdd50645942c3d35fd424f91d060"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1DemonstrationCharacter.html">DemonstrationCharacter</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9003cdd50645942c3d35fd424f91d060">loadCharacterValues</a> (const std::vector&lt; std::filesystem::path &gt; &amp;characterFiles)</td></tr>
+<tr class="memdesc:a9003cdd50645942c3d35fd424f91d060"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les tables de valeurs de chaque fiche de <code class="param">characterFiles</code>, dans cet ordre : les catalogues lus <b>une fois</b>, puis chaque fiche (<span class="tt">LOT-138</span>, l'écran de groupe).  <br /></td></tr>
 <tr class="memitem:aa7f27ef2ac4ebf9ca9471566aa568af4" id="r_aa7f27ef2ac4ebf9ca9471566aa568af4"><td class="memItemLeft"><a class="el" href="structhmi_1_1DemonstrationCharacter.html">DemonstrationCharacter</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa7f27ef2ac4ebf9ca9471566aa568af4">loadDemonstrationValues</a> ()</td></tr>
 <tr class="memdesc:aa7f27ef2ac4ebf9ca9471566aa568af4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage de démonstration livré en donnée, et calcule ses deux tables.  <br /></td></tr>
 <tr class="memitem:a1f08c6b798997faab9cda3d79eebe751" id="r_a1f08c6b798997faab9cda3d79eebe751"><td class="memItemLeft"><a class="el" href="structhmi_1_1DemonstrationCharacter.html">DemonstrationCharacter</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1f08c6b798997faab9cda3d79eebe751">demonstrationValues</a> (const <a class="el" href="structhmi_1_1DemonstrationState.html">DemonstrationState</a> &amp;state)</td></tr>
@@ -2707,7 +2716,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Les neuf écrans du RPG. </p>
+<p>Les dix écrans du RPG. </p>
 <p><span class="tt"><a class="el" href="classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bde" title="Lequel des huit écrans du RPG est ouvert, quand currentScreen vaut RpgScreen.">hmi::ScreenRouter::RpgScreen</a></span> les reprend valeur pour valeur pour le QML ; des <span class="tt">static_assert</span> de <span class="tt"><a class="el" href="ScreenRouter_8cpp.html">ScreenRouter.cpp</a></span> tiennent les deux énumérations alignées. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a86e4ce6097c7a029c683096302528e72aeb7e99d2187282628ef8b4c20cf7a714" name="a86e4ce6097c7a029c683096302528e72aeb7e99d2187282628ef8b4c20cf7a714"></a>CharacterSheet&#160;</td><td class="fielddoc"><p>Fiche de personnage (remplie par le <span class="tt">LOT-38</span>). </p>
@@ -2729,6 +2738,9 @@ Variables</h2></td></tr>
 <p>Remplie par <span class="tt">LOT-45</span> et <span class="tt">LOT-83</span>. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a86e4ce6097c7a029c683096302528e72a24a64995097c2618f6232d44c3b135ff" name="a86e4ce6097c7a029c683096302528e72a24a64995097c2618f6232d44c3b135ff"></a>CombatHud&#160;</td><td class="fielddoc"><p>Affichage tête haute de combat (<span class="tt">LOT-24</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a86e4ce6097c7a029c683096302528e72a094a173d3b32f44f5b5c996e8710ae28" name="a86e4ce6097c7a029c683096302528e72a094a173d3b32f44f5b5c996e8710ae28"></a>Party&#160;</td><td class="fielddoc"><p>Le <b>groupe</b> (<span class="tt">LOT-138</span>) : qui en est, qui mène, l'ordre de marche. </p>
+<p>Composé depuis les fiches pré-tirées ; la fiche de chacun et la montée de niveau viennent au <span class="tt">LOT-141</span>. </p>
 </td></tr>
 </table>
 
@@ -2806,7 +2818,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f" name="a168b24f798c2e6d06beb9472a071528da105b296a83f9c105355403f3332af50f"></a>Pause&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51" name="a168b24f798c2e6d06beb9472a071528da948a2e3548aaf7f9941a3192fa607d51"></a>Credits&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139" name="a168b24f798c2e6d06beb9472a071528da74f7bb96f40b089d24eea4863b269139"></a>RpgScreen&#160;</td><td class="fielddoc"><p><b>Un</b> écran du RPG est ouvert (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-090</span>). </p>
-<p>Lequel des neuf n'est pas la question de cette table : <span class="tt"><a class="el" href="classhmi_1_1ScreenRouter.html" title="Pilote la machine à états des écrans, et publie l&#39;écran courant.">hmi::ScreenRouter</a></span> le retient (<span class="tt"><a class="el" href="#a86e4ce6097c7a029c683096302528e72" title="Les neuf écrans du RPG.">hmi::RpgScreenId</a></span>) et la pile d'écrans QML pose son formulaire. Les y déclarer un par un aurait multiplié par neuf les transitions à écrire pour n'exprimer, neuf fois, que la même règle. </p>
+<p>Lequel des neuf n'est pas la question de cette table : <span class="tt"><a class="el" href="classhmi_1_1ScreenRouter.html" title="Pilote la machine à états des écrans, et publie l&#39;écran courant.">hmi::ScreenRouter</a></span> le retient (<span class="tt"><a class="el" href="#a86e4ce6097c7a029c683096302528e72" title="Les dix écrans du RPG.">hmi::RpgScreenId</a></span>) et la pile d'écrans QML pose son formulaire. Les y déclarer un par un aurait multiplié par neuf les transitions à écrire pour n'exprimer, neuf fois, que la même règle. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a168b24f798c2e6d06beb9472a071528da6097f89e3092d4ccd249c9d479785c1f" name="a168b24f798c2e6d06beb9472a071528da6097f89e3092d4ccd249c9d479785c1f"></a>Death&#160;</td><td class="fielddoc"><p>L'écran de mort (<span class="tt">LOT-119</span>) : le combat sur la carte est létal, la partie s'y termine. </p>
 <p>On n'en sort que par « Recommencer » (<span class="tt">OpenGame</span>) ou « Menu » (<span class="tt">OpenMenu</span>) — pas de retour à la partie où l'on vient de mourir. </p>
@@ -8003,6 +8015,34 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a9003cdd50645942c3d35fd424f91d060" name="a9003cdd50645942c3d35fd424f91d060"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9003cdd50645942c3d35fd424f91d060">&#9670;&#160;</a></span>loadCharacterValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1DemonstrationCharacter.html">DemonstrationCharacter</a> &gt; hmi::loadCharacterValues </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::filesystem::path &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>characterFiles</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les tables de valeurs de chaque fiche de <code class="param">characterFiles</code>, dans cet ordre : les catalogues lus <b>une fois</b>, puis chaque fiche (<span class="tt">LOT-138</span>, l'écran de groupe). </p>
+<p>Une fiche illisible donne des tables partielles, et son erreur est journalisée. </p>
+
+</div>
+</div>
 <a id="aa5077b41d16fae5444bba01296af35c2" name="aa5077b41d16fae5444bba01296af35c2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa5077b41d16fae5444bba01296af35c2">&#9670;&#160;</a></span>loadContentContext()</h2>
 
@@ -8030,7 +8070,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a id="aaf18529e7061f72c5c481ea2f30b6909" name="aaf18529e7061f72c5c481ea2f30b6909"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf18529e7061f72c5c481ea2f30b6909">&#9670;&#160;</a></span>loadDemonstrationState()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf18529e7061f72c5c481ea2f30b6909">&#9670;&#160;</a></span>loadDemonstrationState() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8052,7 +8092,34 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Charge le personnage de démonstration et ses catalogues, en journalisant chaque manque. </p>
+<p>Charge le personnage joué (<span class="tt"><a class="el" href="#a3cb4475bb268521d857c6fc4251f75f9">playedCharacterFile</a></span>) et ses catalogues, en journalisant chaque manque. </p>
+
+</div>
+</div>
+<a id="aa2976b1bc26d26e337e9273c9ff26976" name="aa2976b1bc26d26e337e9273c9ff26976"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2976b1bc26d26e337e9273c9ff26976">&#9670;&#160;</a></span>loadDemonstrationState() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DemonstrationState.html">DemonstrationState</a> hmi::loadDemonstrationState </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>characterFile</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge la fiche <code class="param">characterFile</code> et ses catalogues : un membre du groupe qui ne mène pas, que l'écran de groupe montre. </p>
 
 </div>
 </div>
@@ -8080,7 +8147,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Charge le personnage de démonstration livré en donnée, et calcule ses deux tables. </p>
-<p><b>ÉCHAFAUDAGE, et il est écrit comme tel.</b> Il n'existe encore ni groupe ni sauvegarde d'où tirer un personnage réel, et des écrans qui n'affichent aucun personnage ne se relisent pas. Le jour où une partie en fournira un, c'est <b>cette fonction</b> qui change — pas les écrans, qui ne consomment que des valeurs nommées, d'où qu'elles viennent.</p>
+<p><b>Le personnage joué est le meneur du groupe</b> (<span class="tt">LOT-138</span>) : <span class="tt"><a class="el" href="#a3cb4475bb268521d857c6fc4251f75f9">playedCharacterFile</a></span> le désigne, et c'est <b>cette fonction</b> qui a changé — pas les écrans, qui ne consomment que des valeurs nommées, d'où qu'elles viennent. Il n'existe toujours pas de sauvegarde : la fiche se relit de son fichier, telle qu'elle a été pré-tirée.</p>
 <p><b>Pourquoi une fonction partagée.</b> La fiche et l'inventaire décrivent le <b>même</b> personnage : charger deux fois les huit catalogues aurait doublé le travail et, surtout, permis aux deux écrans de diverger — la classe d'armure de la fiche vient de ce que l'inventaire contient, et deux chargements séparés auraient pu ne pas voir le même équipement.</p>
 <p>Une donnée manquante n'interrompt rien : l'erreur est journalisée en nommant son fichier (<span class="tt">EX-CNT-010</span>) et les tables sont partielles. Un écran partiel garde ses tirets, ce qui est la vérité — et vaut mieux qu'un écran vide. </p><dl class="section note"><dt>Note</dt><dd>Nommee <span class="tt"><a class="el" href="#aa7f27ef2ac4ebf9ca9471566aa568af4" title="Charge le personnage de démonstration livré en donnée, et calcule ses deux tables.">loadDemonstrationValues</a></span> et non <span class="tt">…Character</span> : les vues-modeles exposent au QML une methode <span class="tt">loadDemonstrationCharacter</span>, et deux noms identiques auraient fait que la methode s'appelle elle-meme &ndash; la recherche de nom trouve le membre avant la fonction libre. </dd></dl>
 
@@ -10753,6 +10820,32 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a3cb4475bb268521d857c6fc4251f75f9" name="a3cb4475bb268521d857c6fc4251f75f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cb4475bb268521d857c6fc4251f75f9">&#9670;&#160;</a></span>playedCharacterFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::playedCharacterFile </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La fiche du personnage joué : celle du <b>meneur</b> du groupe de la partie en cours (<span class="tt">LOT-138</span>), ou, sans partie, celle du Brawler pré-tiré. </dd></dl>
+
+</div>
+</div>
 <a id="a972ee7f157e264cf55a982955c2d0882" name="a972ee7f157e264cf55a982955c2d0882"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a972ee7f157e264cf55a982955c2d0882">&#9670;&#160;</a></span>playtestDirectory()</h2>
 
@@ -12019,7 +12112,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md116"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md119"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/checks/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>

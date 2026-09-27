@@ -1,0 +1,459 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::FollowTrail Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1FollowTrail.html','','classcore_1_1FollowTrail-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::FollowTrail Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La ligne parcourue par le meneur, du plus récent au plus ancien, et ce qu'on en retient.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="FollowTrail_8h_source.html">FollowTrail.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a15edb5ec18d79b01b0618a30c6b43793" id="r_a15edb5ec18d79b01b0618a30c6b43793"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a15edb5ec18d79b01b0618a30c6b43793">reset</a> (const std::vector&lt; <a class="el" href="namespacecore.html#ada797bec5feb2db47430f23934f11b26">TrailPoint</a> &gt; &amp;<a class="el" href="#a6bf4c1ffd1e0e239ce7d1adf1465c6d9">points</a>)</td></tr>
+<tr class="memdesc:a15edb5ec18d79b01b0618a30c6b43793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repart d'une trace neuve : <code class="param">points</code>, du meneur (le premier) vers l'arrière.  <br /></td></tr>
+<tr class="memitem:ac28f7f163312d66053ebf6056626c925" id="r_ac28f7f163312d66053ebf6056626c925"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac28f7f163312d66053ebf6056626c925">record</a> (<a class="el" href="namespacecore.html#ada797bec5feb2db47430f23934f11b26">TrailPoint</a> leader)</td></tr>
+<tr class="memdesc:ac28f7f163312d66053ebf6056626c925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le meneur est en <code class="param">leader</code> : un nouveau point si l'écart au dernier le mérite.  <br /></td></tr>
+<tr class="memitem:a1a6f5e27b43671964a0638d2d7cd647c" id="r_a1a6f5e27b43671964a0638d2d7cd647c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1a6f5e27b43671964a0638d2d7cd647c">keep</a> (float <a class="el" href="#aec2d031d3abccdca61eb332d51518cb5">length</a>)</td></tr>
+<tr class="memdesc:a1a6f5e27b43671964a0638d2d7cd647c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ne garde que <code class="param">length</code> cases de trace : au-delà, aucun suiveur ne se tient.  <br /></td></tr>
+<tr class="memitem:ae41200601a2382ddd1854b2d696ad048" id="r_ae41200601a2382ddd1854b2d696ad048"><td class="memItemLeft"><a class="el" href="namespacecore.html#ada797bec5feb2db47430f23934f11b26">TrailPoint</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae41200601a2382ddd1854b2d696ad048">pointBehind</a> (float distance) const</td></tr>
+<tr class="memitem:a31cfb0d1c5a35ad9b53991da718db9f8" id="r_a31cfb0d1c5a35ad9b53991da718db9f8"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a31cfb0d1c5a35ad9b53991da718db9f8">directionAt</a> (float distance) const</td></tr>
+<tr class="memitem:aec2d031d3abccdca61eb332d51518cb5" id="r_aec2d031d3abccdca61eb332d51518cb5"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aec2d031d3abccdca61eb332d51518cb5">length</a> () const noexcept</td></tr>
+<tr class="memitem:a6bf4c1ffd1e0e239ce7d1adf1465c6d9" id="r_a6bf4c1ffd1e0e239ce7d1adf1465c6d9"><td class="memItemLeft">const std::deque&lt; <a class="el" href="namespacecore.html#ada797bec5feb2db47430f23934f11b26">TrailPoint</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6bf4c1ffd1e0e239ce7d1adf1465c6d9">points</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a2cad85cde4ea3093e348ea8bee7048a3" id="r_a2cad85cde4ea3093e348ea8bee7048a3"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a2cad85cde4ea3093e348ea8bee7048a3">SPACING_CELLS</a> = 1.0F</td></tr>
+<tr class="memdesc:a2cad85cde4ea3093e348ea8bee7048a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance entre deux membres du groupe, le long de la trace, en cases : une case, la file indienne d'un couloir, sans que deux gabarits (0,6 case) se chevauchent.  <br /></td></tr>
+<tr class="memitem:a2fa8baef73b76462f498d778fde2b1c5" id="r_a2fa8baef73b76462f498d778fde2b1c5"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a2fa8baef73b76462f498d778fde2b1c5">MIN_STEP_CELLS</a> = 0.01F</td></tr>
+<tr class="memdesc:a2fa8baef73b76462f498d778fde2b1c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">En deçà, un déplacement du meneur ne pose pas de nouveau point : il piétine, et une trace faite de points confondus ne donne plus de direction.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ab2959b4106fa34acb3771bb08a2a5f31" id="r_ab2959b4106fa34acb3771bb08a2a5f31"><td class="memItemLeft">std::deque&lt; <a class="el" href="namespacecore.html#ada797bec5feb2db47430f23934f11b26">TrailPoint</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab2959b4106fa34acb3771bb08a2a5f31">_points</a></td></tr>
+<tr class="memitem:ac9337bc90b762cf246c7c2134a890ad3" id="r_ac9337bc90b762cf246c7c2134a890ad3"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ac9337bc90b762cf246c7c2134a890ad3">_kept</a> = 0.0F</td></tr>
+<tr class="memdesc:ac9337bc90b762cf246c7c2134a890ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Longueur gardée ; 0 : tout.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La ligne parcourue par le meneur, du plus récent au plus ancien, et ce qu'on en retient. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a31cfb0d1c5a35ad9b53991da718db9f8" name="a31cfb0d1c5a35ad9b53991da718db9f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31cfb0d1c5a35ad9b53991da718db9f8">&#9670;&#160;</a></span>directionAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::FollowTrail::directionAt </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>distance</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La direction de marche au point situé à <code class="param">distance</code> derrière le meneur, du plus ancien vers le plus récent (non normée) ; nulle si la trace n'a qu'un point. </dd></dl>
+
+</div>
+</div>
+<a id="a1a6f5e27b43671964a0638d2d7cd647c" name="a1a6f5e27b43671964a0638d2d7cd647c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a6f5e27b43671964a0638d2d7cd647c">&#9670;&#160;</a></span>keep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::FollowTrail::keep </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>length</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ne garde que <code class="param">length</code> cases de trace : au-delà, aucun suiveur ne se tient. </p>
+
+</div>
+</div>
+<a id="aec2d031d3abccdca61eb332d51518cb5" name="aec2d031d3abccdca61eb332d51518cb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec2d031d3abccdca61eb332d51518cb5">&#9670;&#160;</a></span>length()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::FollowTrail::length </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La longueur de la trace, en cases. </dd></dl>
+
+</div>
+</div>
+<a id="ae41200601a2382ddd1854b2d696ad048" name="ae41200601a2382ddd1854b2d696ad048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae41200601a2382ddd1854b2d696ad048">&#9670;&#160;</a></span>pointBehind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ada797bec5feb2db47430f23934f11b26">TrailPoint</a> core::FollowTrail::pointBehind </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>distance</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le point de la trace à <code class="param">distance</code> cases derrière le meneur ; le plus ancien point si la trace est plus courte — le suiveur attend alors là où le groupe est arrivé. </dd></dl>
+
+</div>
+</div>
+<a id="a6bf4c1ffd1e0e239ce7d1adf1465c6d9" name="a6bf4c1ffd1e0e239ce7d1adf1465c6d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bf4c1ffd1e0e239ce7d1adf1465c6d9">&#9670;&#160;</a></span>points()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::deque&lt; <a class="el" href="namespacecore.html#ada797bec5feb2db47430f23934f11b26">TrailPoint</a> &gt; &amp; core::FollowTrail::points </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les points, du plus récent au plus ancien. </dd></dl>
+
+</div>
+</div>
+<a id="ac28f7f163312d66053ebf6056626c925" name="ac28f7f163312d66053ebf6056626c925"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac28f7f163312d66053ebf6056626c925">&#9670;&#160;</a></span>record()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::FollowTrail::record </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#ada797bec5feb2db47430f23934f11b26">TrailPoint</a></td>          <td class="paramname"><span class="paramname"><em>leader</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le meneur est en <code class="param">leader</code> : un nouveau point si l'écart au dernier le mérite. </p>
+
+</div>
+</div>
+<a id="a15edb5ec18d79b01b0618a30c6b43793" name="a15edb5ec18d79b01b0618a30c6b43793"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15edb5ec18d79b01b0618a30c6b43793">&#9670;&#160;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::FollowTrail::reset </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="namespacecore.html#ada797bec5feb2db47430f23934f11b26">TrailPoint</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>points</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Repart d'une trace neuve : <code class="param">points</code>, du meneur (le premier) vers l'arrière. </p>
+<p>Une seule valeur pose tout le groupe sur le meneur ; plusieurs l'étirent derrière lui — ce que fait la session à l'arrivée sur une carte, quand la place derrière le meneur est libre. Une liste vide vide la trace. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ac9337bc90b762cf246c7c2134a890ad3" name="ac9337bc90b762cf246c7c2134a890ad3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9337bc90b762cf246c7c2134a890ad3">&#9670;&#160;</a></span>_kept</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::FollowTrail::_kept = 0.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Longueur gardée ; 0 : tout. </p>
+
+</div>
+</div>
+<a id="ab2959b4106fa34acb3771bb08a2a5f31" name="ab2959b4106fa34acb3771bb08a2a5f31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2959b4106fa34acb3771bb08a2a5f31">&#9670;&#160;</a></span>_points</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::deque&lt;<a class="el" href="namespacecore.html#ada797bec5feb2db47430f23934f11b26">TrailPoint</a>&gt; core::FollowTrail::_points</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2fa8baef73b76462f498d778fde2b1c5" name="a2fa8baef73b76462f498d778fde2b1c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa8baef73b76462f498d778fde2b1c5">&#9670;&#160;</a></span>MIN_STEP_CELLS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::FollowTrail::MIN_STEP_CELLS = 0.01F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>En deçà, un déplacement du meneur ne pose pas de nouveau point : il piétine, et une trace faite de points confondus ne donne plus de direction. </p>
+
+</div>
+</div>
+<a id="a2cad85cde4ea3093e348ea8bee7048a3" name="a2cad85cde4ea3093e348ea8bee7048a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cad85cde4ea3093e348ea8bee7048a3">&#9670;&#160;</a></span>SPACING_CELLS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::FollowTrail::SPACING_CELLS = 1.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Distance entre deux membres du groupe, le long de la trace, en cases : une case, la file indienne d'un couloir, sans que deux gabarits (0,6 case) se chevauchent. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/<a class="el" href="FollowTrail_8h_source.html">FollowTrail.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/<a class="el" href="FollowTrail_8cpp.html">FollowTrail.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1FollowTrail.html">FollowTrail</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

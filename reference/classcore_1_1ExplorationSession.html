@@ -164,6 +164,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6781bd6415f58cae52d3698168a9060e" id="r_a6781bd6415f58cae52d3698168a9060e"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6781bd6415f58cae52d3698168a9060e">heroCell</a> () const noexcept</td></tr>
 <tr class="memitem:a0830d60319ca57c8da2a78cee858d0d8" id="r_a0830d60319ca57c8da2a78cee858d0d8"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0830d60319ca57c8da2a78cee858d0d8">facing</a> () const noexcept</td></tr>
 <tr class="memitem:af2e543bbcc2b7987acb40f4f0cd2d367" id="r_af2e543bbcc2b7987acb40f4f0cd2d367"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#af2e543bbcc2b7987acb40f4f0cd2d367">aimedCell</a> () const</td></tr>
+<tr class="memitem:a49155fcde6f429fbf253a55ec8b1afd2" id="r_a49155fcde6f429fbf253a55ec8b1afd2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a49155fcde6f429fbf253a55ec8b1afd2">setFollowers</a> (std::size_t count)</td></tr>
+<tr class="memdesc:a49155fcde6f429fbf253a55ec8b1afd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros mène <code class="param">count</code> suiveurs (<span class="tt">LOT-138</span>) : les autres membres du groupe.  <br /></td></tr>
+<tr class="memitem:a6e050fa39b1588a726bcc68167185f16" id="r_a6e050fa39b1588a726bcc68167185f16"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a6e050fa39b1588a726bcc68167185f16">followers</a> () const noexcept</td></tr>
+<tr class="memitem:a873073b90c460b2478d5c88eaae09bfc" id="r_a873073b90c460b2478d5c88eaae09bfc"><td class="memItemLeft"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a873073b90c460b2478d5c88eaae09bfc">followerPoint</a> (std::size_t rank) const</td></tr>
+<tr class="memitem:a17c4e3f9880894e7065e7139ff4c4be5" id="r_a17c4e3f9880894e7065e7139ff4c4be5"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a17c4e3f9880894e7065e7139ff4c4be5">followerFacing</a> (std::size_t rank) const</td></tr>
 <tr class="memitem:af53b61732272ba7cb69bf2ed5f1a4e79" id="r_af53b61732272ba7cb69bf2ed5f1a4e79"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af53b61732272ba7cb69bf2ed5f1a4e79">flags</a> () noexcept</td></tr>
 <tr class="memdesc:af53b61732272ba7cb69bf2ed5f1a4e79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux du monde, pour ce qui les écrit (dialogues, quêtes, interactions).  <br /></td></tr>
 <tr class="memitem:ac6da465cb6cdc7a08d0631394df45eb9" id="r_ac6da465cb6cdc7a08d0631394df45eb9"><td class="memItemLeft">const <a class="el" href="classcore_1_1WorldFlags.html">WorldFlags</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac6da465cb6cdc7a08d0631394df45eb9">flags</a> () const noexcept</td></tr>
@@ -205,6 +210,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a371e5175317dc045a3020c27f35eed8e" id="r_a371e5175317dc045a3020c27f35eed8e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a371e5175317dc045a3020c27f35eed8e">fits</a> (<a class="el" href="structcore_1_1CellPoint.html">CellPoint</a> point) const</td></tr>
 <tr class="memitem:a809f6f2a0566700a8250e1139c3e4491" id="r_a809f6f2a0566700a8250e1139c3e4491"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a809f6f2a0566700a8250e1139c3e4491">walk</a> (<a class="el" href="structcore_1_1Vector2.html">Vector2</a> move, float seconds)</td></tr>
 <tr class="memdesc:a809f6f2a0566700a8250e1139c3e4491"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marche d'un pas, axe par axe : un mur pris en biais fait glisser le long, il n'arrête pas.  <br /></td></tr>
+<tr class="memitem:a230724fe5665cbe7a1243b4a9d481622" id="r_a230724fe5665cbe7a1243b4a9d481622"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a230724fe5665cbe7a1243b4a9d481622">lineUpFollowers</a> ()</td></tr>
+<tr class="memdesc:a230724fe5665cbe7a1243b4a9d481622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range les suiveurs derrière le héros, dans le dos de son orientation, tant que la place est libre ; ceux qui n'ont plus de place attendent sur le dernier point libre.  <br /></td></tr>
 <tr class="memitem:a29ef9f7951615bed2866ab6902a6ae1e" id="r_a29ef9f7951615bed2866ab6902a6ae1e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a29ef9f7951615bed2866ab6902a6ae1e">crossPortal</a> (std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; &amp;events)</td></tr>
 <tr class="memdesc:a29ef9f7951615bed2866ab6902a6ae1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Franchit le portail de la case du héros, s'il y en a un.  <br /></td></tr>
 <tr class="memitem:a1f9d908231a964928680b68b3e544ee0" id="r_a1f9d908231a964928680b68b3e544ee0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1f9d908231a964928680b68b3e544ee0">resolveInteraction</a> (std::vector&lt; <a class="el" href="structcore_1_1ExplorationEvent.html">ExplorationEvent</a> &gt; &amp;events)</td></tr>
@@ -224,6 +231,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a7e8c8d77c368edc94820890ca0422e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang, dans les entités de la carte, des zones à déclencheur où se tient le héros.  <br /></td></tr>
 <tr class="memitem:a78990bfe40fea6c6f66a3d3322afe532" id="r_a78990bfe40fea6c6f66a3d3322afe532"><td class="memItemLeft"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a78990bfe40fea6c6f66a3d3322afe532">_hero</a> {}</td></tr>
 <tr class="memitem:a6aac839cf41db1a8821d50f4da65ad16" id="r_a6aac839cf41db1a8821d50f4da65ad16"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6aac839cf41db1a8821d50f4da65ad16">_facing</a> {0.0F, 1.0F}</td></tr>
+<tr class="memitem:aea728426ba7c9a94b228b8a4e05912cc" id="r_aea728426ba7c9a94b228b8a4e05912cc"><td class="memItemLeft"><a class="el" href="classcore_1_1FollowTrail.html">FollowTrail</a>&#160;</td><td class="memItemRight"><a class="el" href="#aea728426ba7c9a94b228b8a4e05912cc">_trail</a></td></tr>
+<tr class="memdesc:aea728426ba7c9a94b228b8a4e05912cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pas du héros, que les suiveurs parcourent (<span class="tt">LOT-138</span>).  <br /></td></tr>
+<tr class="memitem:af8e49885ca4e661391a790287ae244db" id="r_af8e49885ca4e661391a790287ae244db"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#af8e49885ca4e661391a790287ae244db">_followers</a> = 0</td></tr>
 <tr class="memitem:a8de37f24a97f9319f841c471451aadb2" id="r_a8de37f24a97f9319f841c471451aadb2"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8de37f24a97f9319f841c471451aadb2">_lastCell</a> {}</td></tr>
 <tr class="memdesc:a8de37f24a97f9319f841c471451aadb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case du héros au pas précédent : un portail se franchit <b>en y arrivant</b>, pas à chaque pas où l'on reste dessus — sans quoi un portail qui ramène sur place bouclerait.  <br /></td></tr>
 <tr class="memitem:a6aa8df4a937fec8ed16b697738d99994" id="r_a6aa8df4a937fec8ed16b697738d99994"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6aa8df4a937fec8ed16b697738d99994">_frozen</a> = false</td></tr>
@@ -499,6 +509,84 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a17c4e3f9880894e7065e7139ff4c4be5" name="a17c4e3f9880894e7065e7139ff4c4be5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17c4e3f9880894e7065e7139ff4c4be5">&#9670;&#160;</a></span>followerFacing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">Vector2</a> core::ExplorationSession::followerFacing </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>rank</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La direction où marche le suiveur de rang <code class="param">rank</code> ; nulle s'il n'a jamais bougé. </dd></dl>
+
+</div>
+</div>
+<a id="a873073b90c460b2478d5c88eaae09bfc" name="a873073b90c460b2478d5c88eaae09bfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a873073b90c460b2478d5c88eaae09bfc">&#9670;&#160;</a></span>followerPoint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1CellPoint.html">CellPoint</a> core::ExplorationSession::followerPoint </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>rank</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La position du suiveur de rang <code class="param">rank</code> (0 : le premier derrière le héros). </dd></dl>
+
+</div>
+</div>
+<a id="a6e050fa39b1588a726bcc68167185f16" name="a6e050fa39b1588a726bcc68167185f16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e050fa39b1588a726bcc68167185f16">&#9670;&#160;</a></span>followers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t core::ExplorationSession::followers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de suiveurs. </dd></dl>
+
+</div>
+</div>
 <a id="a335330a71db09257b636e34996be93d0" name="a335330a71db09257b636e34996be93d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a335330a71db09257b636e34996be93d0">&#9670;&#160;</a></span>freeze()</h2>
 
@@ -655,6 +743,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vrai si l'entité <code class="param">entity</code> de la carte courante est présente sous les drapeaux. </p>
+
+</div>
+</div>
+<a id="a230724fe5665cbe7a1243b4a9d481622" name="a230724fe5665cbe7a1243b4a9d481622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a230724fe5665cbe7a1243b4a9d481622">&#9670;&#160;</a></span>lineUpFollowers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::lineUpFollowers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Range les suiveurs derrière le héros, dans le dos de son orientation, tant que la place est libre ; ceux qui n'ont plus de place attendent sur le dernier point libre. </p>
 
 </div>
 </div>
@@ -866,6 +981,26 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a49155fcde6f429fbf253a55ec8b1afd2" name="a49155fcde6f429fbf253a55ec8b1afd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49155fcde6f429fbf253a55ec8b1afd2">&#9670;&#160;</a></span>setFollowers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ExplorationSession::setFollowers </td>
+          <td>(</td>
+          <td class="paramtype">std::size_t</td>          <td class="paramname"><span class="paramname"><em>count</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le héros mène <code class="param">count</code> suiveurs (<span class="tt">LOT-138</span>) : les autres membres du groupe. </p>
+<p>Ils marchent <b>dans ses pas</b> (<span class="tt"><a class="el" href="classcore_1_1FollowTrail.html" title="La ligne parcourue par le meneur, du plus récent au plus ancien, et ce qu&#39;on en retient.">core::FollowTrail</a></span>), à une case l'un de l'autre, et ne touchent à rien : ni portail, ni zone, ni interaction — c'est le meneur qui agit. À l'entrée sur une carte ou quand on repose le héros, ils se rangent derrière lui, dans le dos de son orientation, aussi loin que la place le permet. </p>
+
+</div>
+</div>
 <a id="ae5f69b7aa246623ce16406da08d831b6" name="ae5f69b7aa246623ce16406da08d831b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae5f69b7aa246623ce16406da08d831b6">&#9670;&#160;</a></span>setQuests()</h2>
 
@@ -1060,6 +1195,28 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="af8e49885ca4e661391a790287ae244db" name="af8e49885ca4e661391a790287ae244db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8e49885ca4e661391a790287ae244db">&#9670;&#160;</a></span>_followers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t core::ExplorationSession::_followers = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6aa8df4a937fec8ed16b697738d99994" name="a6aa8df4a937fec8ed16b697738d99994"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6aa8df4a937fec8ed16b697738d99994">&#9670;&#160;</a></span>_frozen</h2>
 
@@ -1217,6 +1374,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Révision des drapeaux que la liste des interactifs et les quêtes reflètent. </p>
+
+</div>
+</div>
+<a id="aea728426ba7c9a94b228b8a4e05912cc" name="aea728426ba7c9a94b228b8a4e05912cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea728426ba7c9a94b228b8a4e05912cc">&#9670;&#160;</a></span>_trail</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1FollowTrail.html">FollowTrail</a> core::ExplorationSession::_trail</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les pas du héros, que les suiveurs parcourent (<span class="tt">LOT-138</span>). </p>
 
 </div>
 </div>

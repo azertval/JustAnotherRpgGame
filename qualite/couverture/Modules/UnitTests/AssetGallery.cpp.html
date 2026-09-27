@@ -142,10 +142,14 @@ void readFigures(const std::filesystem::path&amp; root, const std::string&amp; d
         if (item.is_directory()) {
             models.push_back(item.path().filename().string());
         }
-    }
-    for (const std::string&amp; npc : stringList(document.root, "npcs")) {
-        if (npc.find('/') != std::string::npos) {
-            models.push_back(npc);
+    }</span>
+    // Les PNJ rangÃ©s plus bas, et les portraits d'attente (`LOT-145`) : un hÃ©ros qui a son visage
+    // avant sa figurine.
+<span style = "background-color:#dfd">    for (const char* list : {"npcs", "portraits"}) {
+        for (const std::string&amp; npc : stringList(document.root, list)) {
+            if (npc.find('/') != std::string::npos) {
+                models.push_back(npc);
+            }
         }
     }
     std::ranges::sort(models);

@@ -145,7 +145,8 @@ $(function(){initNavTree('test__exploration__session_8cpp.html','',''); });
 
 <p>Tests de la session d'exploration du jeu (LOT-09) : marcher, buter sur un mur, franchir un portail, parler a ce qu'on regarde.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;map&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
@@ -161,6 +162,7 @@ $(function(){initNavTree('test__exploration__session_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="Dialogue_8h_source.html">Core/Rpg/Dialogue.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EntityKinds_8h_source.html">Core/World/EntityKinds.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ExplorationSession_8h_source.html">Core/World/ExplorationSession.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="FollowTrail_8h_source.html">Core/World/FollowTrail.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -172,12 +174,18 @@ Functions</h2></td></tr>
 <tr class="memdesc:a6c6690faa811780cd659f13742315f6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">On parle au PNJ que l'on regarde, et a lui seul.  <br /></td></tr>
 <tr class="memitem:a12cc1c1e12329bcb2cbc62a6aa8447a4" id="r_a12cc1c1e12329bcb2cbc62a6aa8447a4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a12cc1c1e12329bcb2cbc62a6aa8447a4">TEST</a> (ExplorationSessionTest, UneCarteGeleeNeBougePlus)</td></tr>
 <tr class="memdesc:a12cc1c1e12329bcb2cbc62a6aa8447a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte gelee ne bouge plus et n'interagit plus.  <br /></td></tr>
+<tr class="memitem:a82ca35786ce8d9d983dad1f9a5767e48" id="r_a82ca35786ce8d9d983dad1f9a5767e48"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a82ca35786ce8d9d983dad1f9a5767e48">TEST</a> (ExplorationSessionTest, UnGroupeDeQuatrePasseLesAnglesSansResterCoince)</td></tr>
+<tr class="memdesc:a82ca35786ce8d9d983dad1f9a5767e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trois suiveurs passent les deux angles d'un U sans jamais entrer dans le mur (EX-EXP-013).  <br /></td></tr>
+<tr class="memitem:aff3b7b51db7b2ca658c3a6c5511217f2" id="r_aff3b7b51db7b2ca658c3a6c5511217f2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aff3b7b51db7b2ca658c3a6c5511217f2">TEST</a> (ExplorationSessionTest, LesSuiveursSeRangentDansLeDosDuMeneur)</td></tr>
+<tr class="memdesc:aff3b7b51db7b2ca658c3a6c5511217f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A l'entree d'une carte, les suiveurs se rangent derriere le meneur, dans la place libre (EX-EXP-013).  <br /></td></tr>
+<tr class="memitem:addae6b37a36a8c4201c586192702c5c2" id="r_addae6b37a36a8c4201c586192702c5c2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#addae6b37a36a8c4201c586192702c5c2">TEST</a> (FollowTrailTest, LaTraceSeMesureLeLongDuChemin)</td></tr>
+<tr class="memdesc:addae6b37a36a8c4201c586192702c5c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">La trace se mesure le long du chemin, et ne garde que ce qu'il faut.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests de la session d'exploration du jeu (LOT-09) : marcher, buter sur un mur, franchir un portail, parler a ce qu'on regarde. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aa1094b48de5dee19d3803b3cf9c7d740" name="aa1094b48de5dee19d3803b3cf9c7d740"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1094b48de5dee19d3803b3cf9c7d740">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1094b48de5dee19d3803b3cf9c7d740">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,8 +216,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aff3b7b51db7b2ca658c3a6c5511217f2" name="aff3b7b51db7b2ca658c3a6c5511217f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff3b7b51db7b2ca658c3a6c5511217f2">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ExplorationSessionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesSuiveursSeRangentDansLeDosDuMeneur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A l'entree d'une carte, les suiveurs se rangent derriere le meneur, dans la place libre (EX-EXP-013). </p>
+<p><b>Cas de test :</b> <b>Reposer le meneur range les suiveurs dans son dos, et un mur arrete la file.</b><br  />
+ <b>Categorie :</b> Unitaire · Groupe<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser le meneur au milieu de la carte, tourne vers le sud ; trois suiveurs.<br  />
+</p><ol type="1">
+<li>Le poser en (1, 2), tourne vers le sud : le mur du nord est a une case et demie.<br  />
+ <b>Resultat attendu :</b> Au milieu, les trois en file au nord, a une case l'un de l'autre ; contre le mur, tous tiennent, et ceux qui n'ont plus de place attendent sur le dernier point libre. </li>
+</ol>
+
+</div>
+</div>
 <a id="a6c6690faa811780cd659f13742315f6e" name="a6c6690faa811780cd659f13742315f6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c6690faa811780cd659f13742315f6e">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c6690faa811780cd659f13742315f6e">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -241,7 +281,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a12cc1c1e12329bcb2cbc62a6aa8447a4" name="a12cc1c1e12329bcb2cbc62a6aa8447a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12cc1c1e12329bcb2cbc62a6aa8447a4">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a12cc1c1e12329bcb2cbc62a6aa8447a4">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,8 +312,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a82ca35786ce8d9d983dad1f9a5767e48" name="a82ca35786ce8d9d983dad1f9a5767e48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82ca35786ce8d9d983dad1f9a5767e48">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ExplorationSessionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnGroupeDeQuatrePasseLesAnglesSansResterCoince</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trois suiveurs passent les deux angles d'un U sans jamais entrer dans le mur (EX-EXP-013). </p>
+<p><b>Cas de test :</b> <b>Un groupe de quatre traverse une carte en U : aucun suiveur ne reste coince, aucun n'entre dans un mur.</b><br  />
+ <b>Categorie :</b> Unitaire · Groupe<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Un meneur et trois suiveurs a l'entree d'une carte coupee par un mur interieur.<br  />
+</p><ol type="1">
+<li>Descendre, passer sous le mur, remonter de l'autre cote.<br  />
+</li>
+<li>A chaque pas, verifier le gabarit de chaque suiveur.<br  />
+ <b>Resultat attendu :</b> Aucun suiveur dans le plein a aucun pas ; a l'arrivee, les trois ont passe le mur, en file a une case l'un de l'autre derriere le meneur. </li>
+</ol>
+
+</div>
+</div>
 <a id="a0a85221ee204ffd20db37bb35e7d06da" name="a0a85221ee204ffd20db37bb35e7d06da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a85221ee204ffd20db37bb35e7d06da">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a85221ee204ffd20db37bb35e7d06da">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,6 +374,38 @@ Functions</h2></td></tr>
 </p><ol type="1">
 <li>Rester dessus quelques pas.<br  />
  <b>Resultat attendu :</b> Un evenement <span class="tt">MapEntered</span>, le heros au centre du point d'arrivee de la carte cible, et AUCUNE seconde traversee tant qu'on ne quitte pas la case. </li>
+</ol>
+
+</div>
+</div>
+<a id="addae6b37a36a8c4201c586192702c5c2" name="addae6b37a36a8c4201c586192702c5c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addae6b37a36a8c4201c586192702c5c2">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">FollowTrailTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaTraceSeMesureLeLongDuChemin</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La trace se mesure le long du chemin, et ne garde que ce qu'il faut. </p>
+<p><b>Cas de test :</b> <b>Un point a une distance donnee derriere le meneur se lit le long du chemin, angles compris ; la trace oublie ce qu'aucun suiveur n'atteint.</b><br  />
+ <b>Categorie :</b> Unitaire · Groupe<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Une trace en L : (0, 0), (2, 0), (2, 2), le meneur au bout.<br  />
+</p><ol type="1">
+<li>Lire les points a 1, 3 et 10 cases ; puis garder 1,5 case et prolonger la trace.<br  />
+ <b>Resultat attendu :</b> (2, 1), (1, 0), puis le plus ancien point ; la direction a 3 cases va vers l'est ; la trace gardee couvre au moins 1,5 case et pas beaucoup plus. </li>
 </ol>
 
 </div>

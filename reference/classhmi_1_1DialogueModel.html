@@ -173,6 +173,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5b3abb0445ed29d6fc01d9eee257de51" id="r_a5b3abb0445ed29d6fc01d9eee257de51"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5b3abb0445ed29d6fc01d9eee257de51">dialogueId</a> () const</td></tr>
 <tr class="memitem:a82645440644586364341bb798fba4c01" id="r_a82645440644586364341bb798fba4c01"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a82645440644586364341bb798fba4c01">setDialogueId</a> (const QString &amp;id)</td></tr>
 <tr class="memitem:a17e77a671b69bfb772eddfc08c7834c7" id="r_a17e77a671b69bfb772eddfc08c7834c7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a17e77a671b69bfb772eddfc08c7834c7">speakerName</a> () const</td></tr>
+<tr class="memitem:a3f46635ed06919479f0efdede804778d" id="r_a3f46635ed06919479f0efdede804778d"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3f46635ed06919479f0efdede804778d">partyVoice</a> () const</td></tr>
+<tr class="memitem:ae91ee4b472703a317c83f803b34c2807" id="r_ae91ee4b472703a317c83f803b34c2807"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae91ee4b472703a317c83f803b34c2807">voiceId</a> () const</td></tr>
+<tr class="memitem:aee0ac1a5a0fe8e6fceb563a25ccdcbf3" id="r_aee0ac1a5a0fe8e6fceb563a25ccdcbf3"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#aee0ac1a5a0fe8e6fceb563a25ccdcbf3">voicePortrait</a> () const</td></tr>
+<tr class="memitem:a4c4b2d2f0c5a9274093fd8a48fd9a2cb" id="r_a4c4b2d2f0c5a9274093fd8a48fd9a2cb"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a4c4b2d2f0c5a9274093fd8a48fd9a2cb">voices</a> () const</td></tr>
+<tr class="memitem:accb369cdc434a0987f9df2c41b0c8e14" id="r_accb369cdc434a0987f9df2c41b0c8e14"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#accb369cdc434a0987f9df2c41b0c8e14">selectVoice</a> (const QString &amp;characterId)</td></tr>
+<tr class="memdesc:accb369cdc434a0987f9df2c41b0c8e14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait parler <code class="param">characterId</code> pour le groupe : ses langues, ses jets.  <br /></td></tr>
+<tr class="memitem:a5b852aed5d2d74fa09297e1c6974ec5a" id="r_a5b852aed5d2d74fa09297e1c6974ec5a"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a5b852aed5d2d74fa09297e1c6974ec5a">cycleVoice</a> (int step)</td></tr>
+<tr class="memdesc:a5b852aed5d2d74fa09297e1c6974ec5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne la parole au suivant (<code class="param">step</code> = 1) ou au précédent (-1) : <span class="tt">Tab</span>, la manette.  <br /></td></tr>
 <tr class="memitem:a3cb792a72e33b34e9d8f3271d83f8f62" id="r_a3cb792a72e33b34e9d8f3271d83f8f62"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3cb792a72e33b34e9d8f3271d83f8f62">attitude</a> () const</td></tr>
 <tr class="memitem:adb7ff43722d893b9912cfe78bd25fe56" id="r_adb7ff43722d893b9912cfe78bd25fe56"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#adb7ff43722d893b9912cfe78bd25fe56">line</a> () const</td></tr>
 <tr class="memitem:a7fd2026f6d06834369a764f6d97d4a74" id="r_a7fd2026f6d06834369a764f6d97d4a74"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a7fd2026f6d06834369a764f6d97d4a74">checkOutcome</a> () const</td></tr>
@@ -199,6 +207,12 @@ Properties</h2></td></tr>
 <tr class="memitem:a1c376e04d9cb74bb0030ae72dfe30480" id="r_a1c376e04d9cb74bb0030ae72dfe30480"><td class="memItemLeft">QML_ELEMENTQString&#160;</td><td class="memItemRight"><a class="el" href="#a1c376e04d9cb74bb0030ae72dfe30480">dialogueId</a></td></tr>
 <tr class="memdesc:a1c376e04d9cb74bb0030ae72dfe30480"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dialogue à jouer, par identifiant. L'écrire ouvre la conversation.  <br /></td></tr>
 <tr class="memitem:a5be7ee1780c414a9cf0768e408fdb26d" id="r_a5be7ee1780c414a9cf0768e408fdb26d"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5be7ee1780c414a9cf0768e408fdb26d">speakerName</a></td></tr>
+<tr class="memitem:aa840860405f1f77c3d72543c7334ce94" id="r_aa840860405f1f77c3d72543c7334ce94"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa840860405f1f77c3d72543c7334ce94">partyVoice</a></td></tr>
+<tr class="memdesc:aa840860405f1f77c3d72543c7334ce94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qui parle pour le groupe et jette les dés : celui que le joueur <b>choisit</b> dans le menu du bas (<span class="tt">LOT-138</span>, D-28) ; le meneur à l'ouverture.  <br /></td></tr>
+<tr class="memitem:a16a9ea1f306d20a2266659aa55cb8044" id="r_a16a9ea1f306d20a2266659aa55cb8044"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a16a9ea1f306d20a2266659aa55cb8044">voiceId</a></td></tr>
+<tr class="memitem:afb508ea7d7f21b524aa1fb8aad31137c" id="r_afb508ea7d7f21b524aa1fb8aad31137c"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#afb508ea7d7f21b524aa1fb8aad31137c">voicePortrait</a></td></tr>
+<tr class="memitem:a2a3d726ee5ec43e616b4b1a14473b738" id="r_a2a3d726ee5ec43e616b4b1a14473b738"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a2a3d726ee5ec43e616b4b1a14473b738">voices</a></td></tr>
+<tr class="memdesc:a2a3d726ee5ec43e616b4b1a14473b738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ceux qui peuvent parler, dans l'ordre de marche : <span class="tt">id</span>, <span class="tt">name</span>, <span class="tt">portrait</span>, <span class="tt">current</span>.  <br /></td></tr>
 <tr class="memitem:a78b3e3e0b7b59100c7f821085555c6a7" id="r_a78b3e3e0b7b59100c7f821085555c6a7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a78b3e3e0b7b59100c7f821085555c6a7">attitude</a></td></tr>
 <tr class="memitem:a592028e7408a21f11bdeb1efe008c1e7" id="r_a592028e7408a21f11bdeb1efe008c1e7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a592028e7408a21f11bdeb1efe008c1e7">line</a></td></tr>
 <tr class="memdesc:a592028e7408a21f11bdeb1efe008c1e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">La réplique affichée, traduite ; le refus s'il n'y a pas de langue commune.  <br /></td></tr>
@@ -225,6 +239,8 @@ Properties</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a59470be54084c8acc76ed2a5adb2840e" id="r_a59470be54084c8acc76ed2a5adb2840e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a59470be54084c8acc76ed2a5adb2840e">open</a> ()</td></tr>
 <tr class="memitem:a6a74e37cf17bb19d8eb06446a9571ec3" id="r_a6a74e37cf17bb19d8eb06446a9571ec3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a74e37cf17bb19d8eb06446a9571ec3">refresh</a> ()</td></tr>
+<tr class="memitem:a5d7ff94a3f071ab47a59a5850d258dd9" id="r_a5d7ff94a3f071ab47a59a5850d258dd9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5d7ff94a3f071ab47a59a5850d258dd9">loadVoices</a> ()</td></tr>
+<tr class="memdesc:a5d7ff94a3f071ab47a59a5850d258dd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit le groupe de la partie : qui peut parler, le meneur d'abord.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -234,10 +250,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'écran de dialogue : elle tient un <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html" title="La machine à états qui joue un dialogue.">core::DialogueRunner</a></span> et rien d'autre ne décide. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md101"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md103"></a>
 Ce qu'elle tient</h2>
-<p>Le catalogue des dialogues (<span class="tt">Source/Elements/World/dialogues</span>), l'échelle des degrés de difficulté, le personnage de démonstration comme interlocuteur (<span class="tt"><a class="el" href="classcore_1_1CharacterListener.html" title="Un personnage, sa fiche et son sac, comme interlocuteur d&#39;un PNJ.">core::CharacterListener</a></span>) et une conversation en cours. Chaque réponse cliquée devient <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html#aaafa292cb3538efff82c7aed7424de71" title="Donne la réponse choiceId, puis avance jusqu&#39;à la réplique suivante ou la fin.">core::DialogueRunner::choose</a></span>, et ce que l'écran affiche est relu par <span class="tt"><a class="el" href="namespacehmi.html#af12483a48d0fd35f0f44e94c201c3893" title="Traduit l&#39;état d&#39;un runner en valeurs affichables.">hmi::dialogueScreenValues</a></span> après chaque geste.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md102"></a>
+<p>Le catalogue des dialogues (<span class="tt">Source/Elements/World/dialogues</span>), l'échelle des degrés de difficulté, le membre du groupe <b>qui parle</b> comme interlocuteur (<span class="tt"><a class="el" href="classcore_1_1CharacterListener.html" title="Un personnage, sa fiche et son sac, comme interlocuteur d&#39;un PNJ.">core::CharacterListener</a></span>, <span class="tt">LOT-138</span>) et une conversation en cours. Le joueur choisit qui parle, dans le menu du bas (D-28) : c'est lui qui jette, avec ses modificateurs. Le meneur parle à l'ouverture. Chaque réponse cliquée devient <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html#aaafa292cb3538efff82c7aed7424de71" title="Donne la réponse choiceId, puis avance jusqu&#39;à la réplique suivante ou la fin.">core::DialogueRunner::choose</a></span>, et ce que l'écran affiche est relu par <span class="tt"><a class="el" href="namespacehmi.html#af12483a48d0fd35f0f44e94c201c3893" title="Traduit l&#39;état d&#39;un runner en valeurs affichables.">hmi::dialogueScreenValues</a></span> après chaque geste.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md104"></a>
 Ce qui est un échafaudage, et le dit</h2>
 <p>Il n'existe ni partie ni sauvegarde (<span class="tt">LOT-17</span>) : les <b>drapeaux de monde</b> de la conversation vivent donc le temps du processus, partagés par toutes les instances de ce modèle — rouvrir l'écran retrouve le héraut qui vous a déjà vu. L'interlocuteur est le personnage de démonstration, rechargé à chaque écran : un objet qu'un PNJ lui donne ne survit pas à la fermeture. Le jour où une partie fournira ses drapeaux et son groupe, c'est ce fichier qui change, pas le runner ni le formulaire. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -530,6 +546,25 @@ Ce qui est un échafaudage, et le dit</h2>
 
 </div>
 </div>
+<a id="a5b852aed5d2d74fa09297e1c6974ec5a" name="a5b852aed5d2d74fa09297e1c6974ec5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b852aed5d2d74fa09297e1c6974ec5a">&#9670;&#160;</a></span>cycleVoice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::cycleVoice </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>step</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Donne la parole au suivant (<code class="param">step</code> = 1) ou au précédent (-1) : <span class="tt">Tab</span>, la manette. </p>
+
+</div>
+</div>
 <a id="ac6df3725adb704a03c90ee14acefda51" name="ac6df3725adb704a03c90ee14acefda51"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6df3725adb704a03c90ee14acefda51">&#9670;&#160;</a></span>demoEnded</h2>
 
@@ -684,6 +719,33 @@ Ce qui est un échafaudage, et le dit</h2>
 
 </div>
 </div>
+<a id="a5d7ff94a3f071ab47a59a5850d258dd9" name="a5d7ff94a3f071ab47a59a5850d258dd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d7ff94a3f071ab47a59a5850d258dd9">&#9670;&#160;</a></span>loadVoices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::DialogueModel::loadVoices </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit le groupe de la partie : qui peut parler, le meneur d'abord. </p>
+
+</div>
+</div>
 <a id="a59470be54084c8acc76ed2a5adb2840e" name="a59470be54084c8acc76ed2a5adb2840e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59470be54084c8acc76ed2a5adb2840e">&#9670;&#160;</a></span>open()</h2>
 
@@ -703,6 +765,31 @@ Ce qui est un échafaudage, et le dit</h2>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3f46635ed06919479f0efdede804778d" name="a3f46635ed06919479f0efdede804778d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f46635ed06919479f0efdede804778d">&#9670;&#160;</a></span>partyVoice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::partyVoice </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -803,6 +890,26 @@ Ce qui est un échafaudage, et le dit</h2>
 
 </div>
 </div>
+<a id="accb369cdc434a0987f9df2c41b0c8e14" name="accb369cdc434a0987f9df2c41b0c8e14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accb369cdc434a0987f9df2c41b0c8e14">&#9670;&#160;</a></span>selectVoice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::DialogueModel::selectVoice </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait parler <code class="param">characterId</code> pour le groupe : ses langues, ses jets. </p>
+<dl class="section return"><dt>Returns</dt><dd>Faux s'il n'est pas du groupe. </dd></dl>
+
+</div>
+</div>
 <a id="a82645440644586364341bb798fba4c01" name="a82645440644586364341bb798fba4c01"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a82645440644586364341bb798fba4c01">&#9670;&#160;</a></span>setDialogueId()</h2>
 
@@ -873,6 +980,81 @@ Ce qui est un échafaudage, et le dit</h2>
       <table class="memname">
         <tr>
           <td class="memname">QString hmi::DialogueModel::status </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae91ee4b472703a317c83f803b34c2807" name="ae91ee4b472703a317c83f803b34c2807"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae91ee4b472703a317c83f803b34c2807">&#9670;&#160;</a></span>voiceId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::voiceId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee0ac1a5a0fe8e6fceb563a25ccdcbf3" name="aee0ac1a5a0fe8e6fceb563a25ccdcbf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee0ac1a5a0fe8e6fceb563a25ccdcbf3">&#9670;&#160;</a></span>voicePortrait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QUrl hmi::DialogueModel::voicePortrait </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c4b2d2f0c5a9274093fd8a48fd9a2cb" name="a4c4b2d2f0c5a9274093fd8a48fd9a2cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c4b2d2f0c5a9274093fd8a48fd9a2cb">&#9670;&#160;</a></span>voices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::DialogueModel::voices </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -1209,6 +1391,30 @@ Ce qui est un échafaudage, et le dit</h2>
 
 </div>
 </div>
+<a id="aa840860405f1f77c3d72543c7334ce94" name="aa840860405f1f77c3d72543c7334ce94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa840860405f1f77c3d72543c7334ce94">&#9670;&#160;</a></span>partyVoice</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::partyVoice</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Qui parle pour le groupe et jette les dés : celui que le joueur <b>choisit</b> dans le menu du bas (<span class="tt">LOT-138</span>, D-28) ; le meneur à l'ouverture. </p>
+
+</div>
+</div>
 <a id="a8f295c17802fd0e4e7e4e7363e3e5481" name="a8f295c17802fd0e4e7e4e7363e3e5481"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8f295c17802fd0e4e7e4e7363e3e5481">&#9670;&#160;</a></span>replies</h2>
 
@@ -1300,6 +1506,74 @@ Ce qui est un échafaudage, et le dit</h2>
 </div><div class="memdoc">
 
 <p>Ce qui empêche de jouer : catalogue illisible, dialogue inconnu. Vide si tout va bien. </p>
+
+</div>
+</div>
+<a id="a16a9ea1f306d20a2266659aa55cb8044" name="a16a9ea1f306d20a2266659aa55cb8044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16a9ea1f306d20a2266659aa55cb8044">&#9670;&#160;</a></span>voiceId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::DialogueModel::voiceId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afb508ea7d7f21b524aa1fb8aad31137c" name="afb508ea7d7f21b524aa1fb8aad31137c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb508ea7d7f21b524aa1fb8aad31137c">&#9670;&#160;</a></span>voicePortrait</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QUrl hmi::DialogueModel::voicePortrait</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a3d726ee5ec43e616b4b1a14473b738" name="a2a3d726ee5ec43e616b4b1a14473b738"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a3d726ee5ec43e616b4b1a14473b738">&#9670;&#160;</a></span>voices</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::DialogueModel::voices</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ceux qui peuvent parler, dans l'ordre de marche : <span class="tt">id</span>, <span class="tt">name</span>, <span class="tt">portrait</span>, <span class="tt">current</span>. </p>
 
 </div>
 </div>

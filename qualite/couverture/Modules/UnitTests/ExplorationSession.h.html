@@ -24,6 +24,7 @@
 #include "Core/Levels/GridPosition.h"
 #include "Core/Levels/Level.h"
 #include "Core/Math/Vector2.h"
+#include "Core/World/FollowTrail.h"
 #include "Core/World/WorldTravel.h"
 
 /**
@@ -171,6 +172,27 @@ public:
     /// @return La case que le hÃ©ros regarde (`core::aimedCell`).
     [[nodiscard]] GridPosition aimedCell() const;
 
+    /**
+     * @brief Le hÃ©ros mÃ¨ne @p count suiveurs (`LOT-138`) : les autres membres du groupe.
+     *
+     * Ils marchent **dans ses pas** (`core::FollowTrail`), Ã  une case l'un de l'autre, et ne
+     * touchent Ã  rien : ni portail, ni zone, ni interaction â c'est le meneur qui agit. Ã
+     * l'entrÃ©e sur une carte ou quand on repose le hÃ©ros, ils se rangent derriÃ¨re lui, dans le dos
+     * de son orientation, aussi loin que la place le permet.
+     */
+    void setFollowers(std::size_t count);
+
+    /// @return Le nombre de suiveurs.
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t followers() const noexcept {
+        return _followers;
+    }</span>
+
+    /// @return La position du suiveur de rang @p rank (0 : le premier derriÃ¨re le hÃ©ros).
+    [[nodiscard]] CellPoint followerPoint(std::size_t rank) const;
+
+    /// @return La direction oÃ¹ marche le suiveur de rang @p rank ; nulle s'il n'a jamais bougÃ©.
+    [[nodiscard]] Vector2 followerFacing(std::size_t rank) const;
+
     /// @brief Les drapeaux du monde, pour ce qui les Ã©crit (dialogues, quÃªtes, interactions).
 <span style = "background-color:#dfd">    [[nodiscard]] WorldFlags&amp; flags() noexcept {
         return _flags;
@@ -247,6 +269,9 @@ private:
     [[nodiscard]] bool fits(CellPoint point) const;
     /// Marche d'un pas, axe par axe : un mur pris en biais fait glisser le long, il n'arrÃªte pas.
     void walk(Vector2 move, float seconds);
+    /// Range les suiveurs derriÃ¨re le hÃ©ros, dans le dos de son orientation, tant que la place
+    /// est libre ; ceux qui n'ont plus de place attendent sur le dernier point libre.
+    void lineUpFollowers();
     /// Franchit le portail de la case du hÃ©ros, s'il y en a un.
     void crossPortal(std::vector&lt;ExplorationEvent&gt;&amp; events);
     /// RÃ©sout l'interaction demandÃ©e.
@@ -264,6 +289,9 @@ private:
     std::vector&lt;std::size_t&gt; _insideZones;
 <span style = "background-color:#dfd">    CellPoint _hero{};
     Vector2 _facing{0.0F, 1.0F};</span>
+    /// Les pas du hÃ©ros, que les suiveurs parcourent (`LOT-138`).
+    FollowTrail _trail;
+<span style = "background-color:#dfd">    std::size_t _followers = 0;</span>
     /// Case du hÃ©ros au pas prÃ©cÃ©dent : un portail se franchit **en y arrivant**, pas Ã  chaque pas
     /// oÃ¹ l'on reste dessus â sans quoi un portail qui ramÃ¨ne sur place bouclerait.
 <span style = "background-color:#dfd">    GridPosition _lastCell{};

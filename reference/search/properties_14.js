@@ -6,6 +6,9 @@ var searchData=
   ['viewrow_3',['viewRow',['../classhmi_1_1AssetGalleryItem.html#a9c8fb5641ea6d471df593648b5633c96',1,'hmi::AssetGalleryItem']]],
   ['viewrows_4',['viewRows',['../classhmi_1_1AssetGalleryItem.html#a43b42d31f31390cbaf26c6275e5a6f36',1,'hmi::AssetGalleryItem']]],
   ['visiteddistricts_5',['visitedDistricts',['../classhmi_1_1WorldModel.html#abbd27d6c2cb84fd8d7f57fd6f4c0b145',1,'hmi::WorldModel']]],
-  ['volume_6',['volume',['../classhmi_1_1OptionsModel.html#a0577a4c5c12f6bbc8f756bd92a0a4280',1,'hmi::OptionsModel']]],
-  ['vsync_7',['vsync',['../classhmi_1_1OptionsModel.html#a8a907b9efd8a1079fb0dc6d88ca45e24',1,'hmi::OptionsModel']]]
+  ['voiceid_6',['voiceId',['../classhmi_1_1DialogueModel.html#a16a9ea1f306d20a2266659aa55cb8044',1,'hmi::DialogueModel']]],
+  ['voiceportrait_7',['voicePortrait',['../classhmi_1_1DialogueModel.html#afb508ea7d7f21b524aa1fb8aad31137c',1,'hmi::DialogueModel']]],
+  ['voices_8',['voices',['../classhmi_1_1DialogueModel.html#a2a3d726ee5ec43e616b4b1a14473b738',1,'hmi::DialogueModel']]],
+  ['volume_9',['volume',['../classhmi_1_1OptionsModel.html#a0577a4c5c12f6bbc8f756bd92a0a4280',1,'hmi::OptionsModel']]],
+  ['vsync_10',['vsync',['../classhmi_1_1OptionsModel.html#a8a907b9efd8a1079fb0dc6d88ca45e24',1,'hmi::OptionsModel']]]
 ];

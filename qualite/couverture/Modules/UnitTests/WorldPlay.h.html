@@ -98,6 +98,25 @@ public:
     }
     void setHeroFigure(std::string figure);
 
+    /**
+     * @brief Les figurines des **suiveurs** (`LOT-138`) : les membres du groupe derriÃ¨re le
+     *        meneur, dans l'ordre de marche. Leur nombre est celui des suiveurs de la session.
+     */
+    void setFollowerFigures(std::vector&lt;std::string&gt; figures);
+
+    /// @return Les figurines des suiveurs, telles que nommÃ©es.
+    [[nodiscard]] const std::vector&lt;std::string&gt;&amp; followerFigures() const noexcept {
+        return _followerFigures;
+    }
+
+    /**
+     * @return La figurine que dessine @p figure : la sienne, ou son mannequin humanoÃ¯de (le
+     *         dossier de ses portrait et jeton, quand elle en a).
+     */
+    [[nodiscard]] const ResolvedFigure&amp; resolveHero(std::string_view figure) const {
+        return _figures.resolve(figure, {}, _appearance);
+    }
+
     /// @return L'orientation du hÃ©ros ; `None` si sa figurine n'a pas de bandes orientÃ©es.
 <span style = "background-color:#dfd">    [[nodiscard]] FigureFacing heroFacing() const noexcept {
         return _hero.oriented ? _heroFacing : FigureFacing::None;
@@ -122,7 +141,8 @@ public:
         return _appearance;
     }
 
-    /// @return Les figurines de la carte courante : les PNJ, puis le hÃ©ros, qui passe devant.
+    /// @return Les figurines de la carte courante : les PNJ, les suiveurs du groupe, puis le
+    ///         hÃ©ros, qui passe devant.
     [[nodiscard]] std::vector&lt;WorldFigureSnapshot&gt; figures() const;
 
     /**
@@ -161,6 +181,20 @@ private:
     ResolvedFigure _hero;
     /// DerniÃ¨re orientation du hÃ©ros : il la garde Ã  l'arrÃªt.
 <span style = "background-color:#dfd">    FigureFacing _heroFacing = FigureFacing::SouthEast;</span>
+    /// Un suiveur du groupe (`LOT-138`) : sa figurine, et ce qui choisit sa bande.
+    struct Follower {
+        ResolvedFigure figure;
+        FigureFacing facing = FigureFacing::SouthEast;
+        bool walking = false;
+        core::CellPoint point{};
+    };
+    /// Relit la figurine rÃ©solue de chaque suiveur (la figurine ou le lieu ont changÃ©).
+    void resolveFollowers();
+    /// Les suiveurs ont-ils bougÃ©, se sont-ils tournÃ©s ? Vrai si leur dessin change.
+    bool followFollowers();
+
+    std::vector&lt;std::string&gt; _followerFigures;
+    std::vector&lt;Follower&gt; _followers;
     /// Temps Ã©coulÃ© sur la carte : l'image des bandes de figurine en dÃ©pend.
 <span style = "background-color:#dfd">    float _elapsed = 0.0F;</span>
     /// Le hÃ©ros marche : sa bande est `walk`, sinon `idle`.

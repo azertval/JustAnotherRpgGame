@@ -14,6 +14,7 @@
 
 #include "HMI/Game/WorldPlay.h"
 
+#include &lt;cmath&gt;
 #include &lt;cstddef&gt;
 #include &lt;utility&gt;
 #include &lt;variant&gt;
@@ -32,6 +33,9 @@ namespace {
 constexpr float FIGURE_FRAME_SECONDS = 0.15F;
 // Le dÃ©calage de respiration entre deux PNJ, en secondes : ni nul, ni un multiple de la bande.
 constexpr float NPC_BREATH_OFFSET_SECONDS = 0.37F;
+// Au-dela, un suiveur qui change de place en un pas a ete repose, il n'a pas marche : a 2 cases
+// par seconde, un pas de 16 ms en fait 0,03.
+constexpr float MAX_FOLLOWER_STEP_CELLS = 0.5F;
 
 // Les entitÃ©s de la carte courante que les drapeaux laissent paraÃ®tre (`LOT-116`) : une copie,
 // que la carte, lue d'un fichier qui ignore la partie, ne peut pas Ãªtre.
@@ -66,6 +70,51 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 <span style = "background-color:#dfd">    invalidateScene();
 }</span>
 
+<span style = "background-color:#fdd">void WorldPlay::setFollowerFigures(std::vector&lt;std::string&gt; figures) {
+    _followerFigures = std::move(figures);
+    _session.setFollowers(_followerFigures.size());
+    _followers.assign(_followerFigures.size(), Follower{});
+    resolveFollowers();
+    for (std::size_t rang = 0; rang &lt; _followers.size(); ++rang) {
+        _followers[rang].point = _session.followerPoint(rang);
+    }
+    invalidateScene();
+}</span>
+
+<span style = "background-color:#dfd">void WorldPlay::resolveFollowers() {
+    for (std::size_t rang = 0; rang &lt; _followers.size() &amp;&amp; rang &lt; _followerFigures.size(); ++rang) {</span>
+<span style = "background-color:#fdd">        _followers[rang].figure = _figures.resolve(_followerFigures[rang], {}, _appearance);
+    }</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">bool WorldPlay::followFollowers() {
+    bool changed = false;
+    for (std::size_t rang = 0; rang &lt; _followers.size(); ++rang) {</span>
+<span style = "background-color:#fdd">        Follower&amp; suiveur = _followers[rang];
+        const core::CellPoint point = _session.followerPoint(rang);</span>
+        // Un suiveur marche s'il a bouge ce pas-ci : c'est le meneur qui l'entraine, et il
+        // s'arrete avec lui -- ou avant, s'il attend au bout d'une trace trop courte. Un saut
+        // (le groupe repose ailleurs, au retour d'un combat) n'est pas un pas.
+<span style = "background-color:#fdd">        const float ecart =</span>
+            std::hypot(point.column - suiveur.point.column, point.row - suiveur.point.row);
+<span style = "background-color:#fdd">        const bool walking = ecart &gt; 0.0F &amp;&amp; ecart &lt; MAX_FOLLOWER_STEP_CELLS;
+        if (walking != suiveur.walking) {
+            suiveur.walking = walking;
+            changed = true;</span>
+        }
+<span style = "background-color:#fdd">        if (walking) {
+            const core::Vector2 direction = _session.followerFacing(rang);
+            const FigureFacing facing = figureFacingFor(direction, suiveur.facing);
+            if (facing != suiveur.facing) {
+                suiveur.facing = facing;
+                changed = true;</span>
+            }
+        }
+<span style = "background-color:#fdd">        suiveur.point = point;
+    }</span>
+<span style = "background-color:#dfd">    return changed;
+}</span>
+
 <span style = "background-color:#dfd">bool WorldPlay::enter(std::string_view mapId, std::string_view arrival) {
     if (!_session.start(mapId, arrival)) {</span>
 <span style = "background-color:#fdd">        return false;</span>
@@ -74,6 +123,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
     _walking = false;
     _drawnFlags = _session.flags().revision();
     reloadAppearance();
+    followFollowers();
     return true;
 }</span>
 
@@ -97,6 +147,9 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
             _heroFacing = facing;
             result.figuresChanged = true;</span>
         }
+    }
+<span style = "background-color:#dfd">    if (followFollowers()) {</span>
+<span style = "background-color:#fdd">        result.figuresChanged = true;</span>
     }
     // Un hÃ©ros qui pousse contre un mur ne change pas de case, mais sa bande continue de tourner :
     // la scÃ¨ne doit se redessiner autant que s'il avait bougÃ©.
@@ -127,6 +180,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
     if (map == nullptr) {</span>
 <span style = "background-color:#fdd">        _appearance = PlaceAppearance{};
         _hero = _figures.resolve(_heroFigure, {}, _appearance);
+        resolveFollowers();
         return;</span>
     }
 <span style = "background-color:#dfd">    const std::string place = scenePlaceOf(*map);
@@ -147,6 +201,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 <span style = "background-color:#dfd">        _appearance = std::move(read.appearance);
     }
     _hero = _figures.resolve(_heroFigure, {}, _appearance);
+    resolveFollowers();
 }</span>
 
 <span style = "background-color:#dfd">std::vector&lt;WorldFigureSnapshot&gt; WorldPlay::figures() const {
@@ -176,8 +231,20 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 <span style = "background-color:#dfd">        figure.figure = resolue.directory;
         figure.facing = resolue.oriented ? FigureFacing::SouthEast : FigureFacing::None;
         figure.seconds = _elapsed + (static_cast&lt;float&gt;(rang) * NPC_BREATH_OFFSET_SECONDS);
-    }
-    figures.push_back(</span>
+    }</span>
+    // Les suiveurs du groupe (LOT-138), derriere le meneur : a egalite de profondeur, il passe
+    // devant eux.
+<span style = "background-color:#dfd">    for (const Follower&amp; suiveur : _followers) {</span>
+<span style = "background-color:#fdd">        figures.push_back(WorldFigureSnapshot{</span>
+            .figure = suiveur.figure.directory,
+            .clip = std::string{suiveur.walking ? figure_clips::WALK : figure_clips::IDLE},
+            .point = {suiveur.point.column, suiveur.point.row},
+            .frame = frame,
+            .facing = suiveur.figure.oriented ? suiveur.facing : FigureFacing::None,
+            .seconds = _elapsed,
+            .hero = false});
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    figures.push_back(</span>
         WorldFigureSnapshot{.figure = _hero.directory,
                             .clip = std::string{_walking ? figure_clips::WALK : figure_clips::IDLE},
                             .point = {_session.heroPoint().column, _session.heroPoint().row},

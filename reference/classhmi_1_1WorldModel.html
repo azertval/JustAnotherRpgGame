@@ -176,6 +176,8 @@ Signals</h2></td></tr>
 <tr class="memdesc:a852e806d47fc1182ecd2cfec8ab6a528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un portail est condamné (<span class="tt">LOT-126</span>) : il est là, il ne s'ouvre pas.  <br /></td></tr>
 <tr class="memitem:ab475b1b1da2ebf4bb6169abcdc93795f" id="r_ab475b1b1da2ebf4bb6169abcdc93795f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab475b1b1da2ebf4bb6169abcdc93795f">questAdvanced</a> (const QString &amp;quest, const QString &amp;<a class="el" href="#a3abef1c2c71454c345db59ef5dd3c892">step</a>)</td></tr>
 <tr class="memdesc:ab475b1b1da2ebf4bb6169abcdc93795f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une quête a atteint une étape (<span class="tt">quest</span>) : le journal se relit.  <br /></td></tr>
+<tr class="memitem:a9c5c0c50c1ab2e5e3bd7b43fd9093acd" id="r_a9c5c0c50c1ab2e5e3bd7b43fd9093acd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9c5c0c50c1ab2e5e3bd7b43fd9093acd">partyChanged</a> ()</td></tr>
+<tr class="memdesc:a9c5c0c50c1ab2e5e3bd7b43fd9093acd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe a changé : membres, ordre de marche ou meneur (<span class="tt">LOT-138</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -200,6 +202,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5c5d079b8d494c9ce9eb02cb7bb0e94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La direction que le joueur demande, de longueur au plus 1.  <br /></td></tr>
 <tr class="memitem:a249dfdbd9f4596ca3a64f3892db16c5b" id="r_a249dfdbd9f4596ca3a64f3892db16c5b"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a249dfdbd9f4596ca3a64f3892db16c5b">interact</a> ()</td></tr>
 <tr class="memdesc:a249dfdbd9f4596ca3a64f3892db16c5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le joueur presse la touche d'interaction : le prochain pas la résoudra.  <br /></td></tr>
+<tr class="memitem:a458fa740cb0e531d6f2fab0de4a15c9b" id="r_a458fa740cb0e531d6f2fab0de4a15c9b"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#a458fa740cb0e531d6f2fab0de4a15c9b">setLeader</a> (const QString &amp;characterId)</td></tr>
+<tr class="memdesc:a458fa740cb0e531d6f2fab0de4a15c9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait de <code class="param">characterId</code> le meneur (<span class="tt"><a class="el" href="classcore_1_1Party.html#a1a6486f2bfc9fc8efb3c32d31926e254" title="Fait de characterId le meneur ; les autres gardent leur ordre relatif.">core::Party::setLeader</a></span>).  <br /></td></tr>
+<tr class="memitem:a61bb51e13ab76e4b47b1abfdb2462509" id="r_a61bb51e13ab76e4b47b1abfdb2462509"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#a61bb51e13ab76e4b47b1abfdb2462509">rotateLeader</a> ()</td></tr>
+<tr class="memdesc:a61bb51e13ab76e4b47b1abfdb2462509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Passe la tête au suivant (<span class="tt"><a class="el" href="classcore_1_1Party.html#a0e0e835c4fd85e63ebd8de34e10f5261" title="Passe la tête au suivant : le meneur va en queue, les autres avancent d&#39;un rang.">core::Party::rotateLeader</a></span>) : la touche du meneur.  <br /></td></tr>
+<tr class="memitem:ab2b7aff2f77331373a9464befcf30172" id="r_ab2b7aff2f77331373a9464befcf30172"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#ab2b7aff2f77331373a9464befcf30172">toggleMember</a> (const QString &amp;characterId)</td></tr>
+<tr class="memdesc:ab2b7aff2f77331373a9464befcf30172"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prend <code class="param">characterId</code> dans le groupe, ou l'en retire.  <br /></td></tr>
+<tr class="memitem:a665d2023cf5a86194ac2b47341873202" id="r_a665d2023cf5a86194ac2b47341873202"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#a665d2023cf5a86194ac2b47341873202">moveMember</a> (const QString &amp;characterId, int offset)</td></tr>
+<tr class="memdesc:a665d2023cf5a86194ac2b47341873202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance (<code class="param">offset</code> négatif) ou recule <code class="param">characterId</code> dans l'ordre de marche, en l'échangeant avec son voisin.  <br /></td></tr>
 <tr class="memitem:a95fe288ccddfe13ab1b82d943ee1ace6" id="r_a95fe288ccddfe13ab1b82d943ee1ace6"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a95fe288ccddfe13ab1b82d943ee1ace6">mapId</a> () const</td></tr>
 <tr class="memitem:aba8ad669c4a643fac23f3f040dc4454a" id="r_aba8ad669c4a643fac23f3f040dc4454a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aba8ad669c4a643fac23f3f040dc4454a">mapName</a> () const</td></tr>
 <tr class="memitem:ac551bc77339c94cb470f2e2bf5131c9a" id="r_ac551bc77339c94cb470f2e2bf5131c9a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ac551bc77339c94cb470f2e2bf5131c9a">status</a> () const</td></tr>
@@ -215,6 +225,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2a2d717ca339db7543fdc8c567838175" id="r_a2a2d717ca339db7543fdc8c567838175"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a2a2d717ca339db7543fdc8c567838175">cityLocation</a> () const</td></tr>
 <tr class="memitem:a77833d510860ab3e8b0325ec5f8df4f8" id="r_a77833d510860ab3e8b0325ec5f8df4f8"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a77833d510860ab3e8b0325ec5f8df4f8">districtId</a> () const</td></tr>
 <tr class="memitem:a9e2ed6a1599df88493a0f92ff495cc5d" id="r_a9e2ed6a1599df88493a0f92ff495cc5d"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a9e2ed6a1599df88493a0f92ff495cc5d">visitedDistricts</a> () const</td></tr>
+<tr class="memitem:adc8c244735fd48f014ecd9827624d8f4" id="r_adc8c244735fd48f014ecd9827624d8f4"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#adc8c244735fd48f014ecd9827624d8f4">partyMembers</a> () const</td></tr>
+<tr class="memitem:a19eb37496984a741945b38039e7c520b" id="r_a19eb37496984a741945b38039e7c520b"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a19eb37496984a741945b38039e7c520b">partyCandidates</a> () const</td></tr>
+<tr class="memitem:aa5d764797c5a063293d40e8f06bb27f3" id="r_aa5d764797c5a063293d40e8f06bb27f3"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa5d764797c5a063293d40e8f06bb27f3">leaderId</a> () const</td></tr>
+<tr class="memitem:abb76ee6ab83e12d3cf1e2169d61d5efd" id="r_abb76ee6ab83e12d3cf1e2169d61d5efd"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#abb76ee6ab83e12d3cf1e2169d61d5efd">leaderName</a> () const</td></tr>
+<tr class="memitem:aec6a2c1fa8b5e943b682950df7ff87c8" id="r_aec6a2c1fa8b5e943b682950df7ff87c8"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#aec6a2c1fa8b5e943b682950df7ff87c8">leaderPortrait</a> () const</td></tr>
+<tr class="memitem:a326f6e58ef31097654a987d65f457d39" id="r_a326f6e58ef31097654a987d65f457d39"><td class="memItemLeft">const <a class="el" href="classcore_1_1Party.html">core::Party</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a326f6e58ef31097654a987d65f457d39">party</a> () const noexcept</td></tr>
+<tr class="memitem:a6a2cbf099df8c24a5fe5b4a3838ea286" id="r_a6a2cbf099df8c24a5fe5b4a3838ea286"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6a2cbf099df8c24a5fe5b4a3838ea286">candidates</a> () const noexcept</td></tr>
+<tr class="memitem:adc69a4b8f62eaa2b53a6fc40f9be55ee" id="r_adc69a4b8f62eaa2b53a6fc40f9be55ee"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#adc69a4b8f62eaa2b53a6fc40f9be55ee">leaderSheetFile</a> () const</td></tr>
+<tr class="memitem:aa45be739876d9bcc9f036eb9a1fb12a0" id="r_aa45be739876d9bcc9f036eb9a1fb12a0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa45be739876d9bcc9f036eb9a1fb12a0">setParty</a> (const <a class="el" href="classcore_1_1Party.html">core::Party</a> &amp;<a class="el" href="#a326f6e58ef31097654a987d65f457d39">party</a>)</td></tr>
+<tr class="memdesc:aa45be739876d9bcc9f036eb9a1fb12a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplace le groupe — un test, ou la sauvegarde un jour.  <br /></td></tr>
 <tr class="memitem:ad9421c6fb0964e93a8f9cce9bea25018" id="r_ad9421c6fb0964e93a8f9cce9bea25018"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad9421c6fb0964e93a8f9cce9bea25018">scene</a> () const</td></tr>
 <tr class="memitem:a014873bddbbead42b168a3084e0cf5ec" id="r_a014873bddbbead42b168a3084e0cf5ec"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a014873bddbbead42b168a3084e0cf5ec">figures</a> () const</td></tr>
 <tr class="memitem:a0b0a8899de46ea91bfea78d9795669ea" id="r_a0b0a8899de46ea91bfea78d9795669ea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0b0a8899de46ea91bfea78d9795669ea">setCombatFigures</a> (std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; <a class="el" href="#a014873bddbbead42b168a3084e0cf5ec">figures</a>, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> heroPoint)</td></tr>
@@ -235,6 +255,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a30776294a743b811e954bd823371ca2a" id="r_a30776294a743b811e954bd823371ca2a"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a30776294a743b811e954bd823371ca2a">maxPartySize</a> () noexcept</td></tr>
+<tr class="memitem:aaf550c3bb2cce030828b7c9461fbdb46" id="r_aaf550c3bb2cce030828b7c9461fbdb46"><td class="memItemLeft">static std::string&#160;</td><td class="memItemRight"><a class="el" href="#aaf550c3bb2cce030828b7c9461fbdb46">heroFigureOf</a> (std::string_view classId)</td></tr>
 <tr class="memitem:a215e71e24d063d6198776c55e240d5e9" id="r_a215e71e24d063d6198776c55e240d5e9"><td class="memItemLeft">static <a class="el" href="#ad26c761aa266d35a60f559668b593baa">WorldModel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a215e71e24d063d6198776c55e240d5e9">current</a> () noexcept</td></tr>
 <tr class="memdesc:a215e71e24d063d6198776c55e240d5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">La partie en cours, s'il y en a une : ce que le dialogue et le journal lisent et écrivent (<span class="tt">LOT-116</span>).  <br /></td></tr>
 </table><table class="memberdecls">
@@ -242,6 +264,8 @@ Static Public Member Functions</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a290b130a26608596f2bafbaa9f7e89c9" id="r_a290b130a26608596f2bafbaa9f7e89c9"><td class="memItemLeft">static constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="#a290b130a26608596f2bafbaa9f7e89c9">START_CITY</a> = &quot;capital&quot;</td></tr>
 <tr class="memdesc:a290b130a26608596f2bafbaa9f7e89c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">La ville où « Nouvelle partie » ouvre le jeu, sous <span class="tt">World/cities/</span> : la Capitale (<span class="tt">LOT-96</span>).  <br /></td></tr>
+<tr class="memitem:ac1c562398f6eec8d6cd894f99082dbe6" id="r_ac1c562398f6eec8d6cd894f99082dbe6"><td class="memItemLeft">static const std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac1c562398f6eec8d6cd894f99082dbe6">STARTING_PARTY</a></td></tr>
+<tr class="memdesc:ac1c562398f6eec8d6cd894f99082dbe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe qu'impose « Nouvelle partie », dans l'ordre de marche (<span class="tt">LOT-138</span>, décision de l'auteur) : les quatre fiches pré-tirées, le Brawler en tête.  <br /></td></tr>
 <tr class="memitem:a4584a4eb811579bcd67cf52c50c93239" id="r_a4584a4eb811579bcd67cf52c50c93239"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a4584a4eb811579bcd67cf52c50c93239">STEP_MILLISECONDS</a> = 16</td></tr>
 <tr class="memdesc:a4584a4eb811579bcd67cf52c50c93239"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pas fixe de la simulation, en millisecondes.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -261,7 +285,7 @@ Properties</h2></td></tr>
 <tr class="memdesc:ad2d15bde921ae2e52036d27181dbb6c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case du héros, en coordonnées <b>continues</b> : c'est ce que la caméra suit.  <br /></td></tr>
 <tr class="memitem:ab8f17caf20bd69aa673b661cbba984e1" id="r_ab8f17caf20bd69aa673b661cbba984e1"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#ab8f17caf20bd69aa673b661cbba984e1">heroRow</a></td></tr>
 <tr class="memitem:ac69f3c3985bc1b48dfdfa79738255454" id="r_ac69f3c3985bc1b48dfdfa79738255454"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ac69f3c3985bc1b48dfdfa79738255454">heroFigure</a></td></tr>
-<tr class="memdesc:ac69f3c3985bc1b48dfdfa79738255454"><td class="mdescLeft">&#160;</td><td class="mdescRight">La figurine du héros (<span class="tt">Assets/Npc/&lt;slug&gt;</span>).  <br /></td></tr>
+<tr class="memdesc:ac69f3c3985bc1b48dfdfa79738255454"><td class="mdescLeft">&#160;</td><td class="mdescRight">La figurine du héros — le <b>meneur</b> du groupe : celle de sa classe (<span class="tt">LOT-138</span>).  <br /></td></tr>
 <tr class="memitem:a0f39a57d440f80dc7cd85924a70a1340" id="r_a0f39a57d440f80dc7cd85924a70a1340"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0f39a57d440f80dc7cd85924a70a1340">frozen</a></td></tr>
 <tr class="memdesc:a0f39a57d440f80dc7cd85924a70a1340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai quand la carte est gelée : un dialogue ou un combat est à l'écran.  <br /></td></tr>
 <tr class="memitem:acf424613f83cbc23a161f7e8d960d33c" id="r_acf424613f83cbc23a161f7e8d960d33c"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#acf424613f83cbc23a161f7e8d960d33c">cityLocation</a></td></tr>
@@ -270,6 +294,17 @@ Properties</h2></td></tr>
 <tr class="memdesc:a7aff4f8e9deb81cb1dd60d9747307a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le quartier où se tient le héros (sa fiche d'atlas), vide hors d'un quartier.  <br /></td></tr>
 <tr class="memitem:abbd27d6c2cb84fd8d7f57fd6f4c0b145" id="r_abbd27d6c2cb84fd8d7f57fd6f4c0b145"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#abbd27d6c2cb84fd8d7f57fd6f4c0b145">visitedDistricts</a></td></tr>
 <tr class="memdesc:abbd27d6c2cb84fd8d7f57fd6f4c0b145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quartiers déjà parcourus depuis « Nouvelle partie », dans l'ordre de la première visite.  <br /></td></tr>
+<tr class="memitem:a0ed9e9775cda8e947b02bad5fc9bf4b8" id="r_a0ed9e9775cda8e947b02bad5fc9bf4b8"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a0ed9e9775cda8e947b02bad5fc9bf4b8">partyMembers</a></td></tr>
+<tr class="memdesc:a0ed9e9775cda8e947b02bad5fc9bf4b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe (<span class="tt">LOT-138</span>), dans l'ordre de marche, meneur en tête.  <br /></td></tr>
+<tr class="memitem:a660029f33ac497bf4841f58788b8d1dd" id="r_a660029f33ac497bf4841f58788b8d1dd"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a660029f33ac497bf4841f58788b8d1dd">partyCandidates</a></td></tr>
+<tr class="memdesc:a660029f33ac497bf4841f58788b8d1dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les personnages qu'on peut prendre dans le groupe (<span class="tt">Rpg/characters/</span>), dans l'ordre de leurs identifiants : les mêmes clés, plus <span class="tt">rank</span> (rang dans l'ordre de marche, -1 hors du groupe).  <br /></td></tr>
+<tr class="memitem:a941cc5cf201e272ccb8fe8c822c7e5c1" id="r_a941cc5cf201e272ccb8fe8c822c7e5c1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a941cc5cf201e272ccb8fe8c822c7e5c1">leaderId</a></td></tr>
+<tr class="memdesc:a941cc5cf201e272ccb8fe8c822c7e5c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le meneur : celui qu'on déplace, qui parle le premier dans un dialogue et qui combat.  <br /></td></tr>
+<tr class="memitem:ab7641239bdf79da62bef595f406b2157" id="r_ab7641239bdf79da62bef595f406b2157"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ab7641239bdf79da62bef595f406b2157">leaderName</a></td></tr>
+<tr class="memitem:ab554820863d52d56a39600b67d2843b7" id="r_ab554820863d52d56a39600b67d2843b7"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#ab554820863d52d56a39600b67d2843b7">leaderPortrait</a></td></tr>
+<tr class="memdesc:ab554820863d52d56a39600b67d2843b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le portrait du meneur, vide si sa figurine n'en a pas encore (<span class="tt">LOT-136</span>).  <br /></td></tr>
+<tr class="memitem:a0b7a79905fb3e44bb622c2a950933ef7" id="r_a0b7a79905fb3e44bb622c2a950933ef7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0b7a79905fb3e44bb622c2a950933ef7">maxPartySize</a></td></tr>
+<tr class="memdesc:a0b7a79905fb3e44bb622c2a950933ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quatre (<span class="tt"><a class="el" href="classcore_1_1Party.html#a54738c009dfbacd448f0f0ff5a70112f" title="Quatre, le groupe de la table de jeu (Player&#39;s Guide to Tanares, les quatre fiches pré-tirées) ; l&#39;Em...">core::Party::MAX_MEMBERS</a></span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -285,6 +320,10 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a607b89abcc862c2f2c8bbd32167197d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose <code class="param">flags</code> sur la session (<span class="tt">--<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>=</span>), sans les retenir.  <br /></td></tr>
 <tr class="memitem:adc66b2547875ba03914fe3186cd9e7c4" id="r_adc66b2547875ba03914fe3186cd9e7c4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adc66b2547875ba03914fe3186cd9e7c4">noteDistrictVisit</a> ()</td></tr>
 <tr class="memdesc:adc66b2547875ba03914fe3186cd9e7c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retient le quartier de la carte courante parmi les quartiers visités.  <br /></td></tr>
+<tr class="memitem:ad4c86942a2fbf0cd24b5851fc3b07eaa" id="r_ad4c86942a2fbf0cd24b5851fc3b07eaa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad4c86942a2fbf0cd24b5851fc3b07eaa">applyParty</a> ()</td></tr>
+<tr class="memdesc:ad4c86942a2fbf0cd24b5851fc3b07eaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne au monde les figurines du groupe — le meneur, puis ses suiveurs — et l'annonce.  <br /></td></tr>
+<tr class="memitem:aaeb58e1332d119d05291e53bf5f02b75" id="r_aaeb58e1332d119d05291e53bf5f02b75"><td class="memItemLeft">const <a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aaeb58e1332d119d05291e53bf5f02b75">candidate</a> (std::string_view characterId) const</td></tr>
+<tr class="memitem:a8aa500a3950752f8257d3c827c383e71" id="r_a8aa500a3950752f8257d3c827c383e71"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#a8aa500a3950752f8257d3c827c383e71">candidateRow</a> (const <a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a> &amp;<a class="el" href="#aaeb58e1332d119d05291e53bf5f02b75">candidate</a>) const</td></tr>
 <tr class="memitem:a06a39edc9a1f4f20fea65226c2c16bcd" id="r_a06a39edc9a1f4f20fea65226c2c16bcd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a06a39edc9a1f4f20fea65226c2c16bcd">releaseInput</a> () noexcept</td></tr>
 <tr class="memdesc:a06a39edc9a1f4f20fea65226c2c16bcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie la direction et l'interaction demandées : le héros s'arrête.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -306,6 +345,12 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a1e39e071f83fd8ce132426c2b29e434d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dossiers de <span class="tt">--levels=</span>, lus avant le <span class="tt">Levels/</span> du contenu (<span class="tt">LOT-EDITOR-10</span>).  <br /></td></tr>
 <tr class="memitem:a4ef356b5ee7c5b34080f460a048b7fa4" id="r_a4ef356b5ee7c5b34080f460a048b7fa4"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a4ef356b5ee7c5b34080f460a048b7fa4">_startFlags</a></td></tr>
 <tr class="memdesc:a4ef356b5ee7c5b34080f460a048b7fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux de <span class="tt">--<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>=</span> : reposés à chaque partie neuve (<span class="tt"><a class="el" href="#a3ecec460681d282a80941ae0062fec99" title="La partie est finie (LOT-119) : mort, ou retour au menu depuis l&#39;écran de fin.">endGame</a></span>).  <br /></td></tr>
+<tr class="memitem:a5df27225ac4e015c412c775937ce34cf" id="r_a5df27225ac4e015c412c775937ce34cf"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5df27225ac4e015c412c775937ce34cf">_candidates</a></td></tr>
+<tr class="memdesc:a5df27225ac4e015c412c775937ce34cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les personnages qu'on peut prendre, lus une fois (<span class="tt">Rpg/characters/</span>, <span class="tt">LOT-138</span>).  <br /></td></tr>
+<tr class="memitem:a183c0a674260f7b16e971a6dbaf825fb" id="r_a183c0a674260f7b16e971a6dbaf825fb"><td class="memItemLeft"><a class="el" href="classcore_1_1Party.html">core::Party</a>&#160;</td><td class="memItemRight"><a class="el" href="#a183c0a674260f7b16e971a6dbaf825fb">_party</a></td></tr>
+<tr class="memdesc:a183c0a674260f7b16e971a6dbaf825fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe de la partie : les quatre fiches pré-tirées au départ.  <br /></td></tr>
+<tr class="memitem:a697ffa3eba330a4bc41e8286b7028586" id="r_a697ffa3eba330a4bc41e8286b7028586"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a697ffa3eba330a4bc41e8286b7028586">_heroFigureOverride</a></td></tr>
+<tr class="memdesc:a697ffa3eba330a4bc41e8286b7028586"><td class="mdescLeft">&#160;</td><td class="mdescRight">La figurine imposée au meneur (<span class="tt">--hero-figure=</span>, la console de débogage) ; vide : celle de sa classe.  <br /></td></tr>
 <tr class="memitem:abebba2b18b07805157fe133092ef526b" id="r_abebba2b18b07805157fe133092ef526b"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#abebba2b18b07805157fe133092ef526b">_move</a> {}</td></tr>
 <tr class="memitem:a933009a644601ba3b075e17f89c9d1bf" id="r_a933009a644601ba3b075e17f89c9d1bf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a933009a644601ba3b075e17f89c9d1bf">_interact</a> = false</td></tr>
 <tr class="memitem:aa9a833a6634a208feed602de1352ea34" id="r_aa9a833a6634a208feed602de1352ea34"><td class="memItemLeft">quint64&#160;</td><td class="memItemRight"><a class="el" href="#aa9a833a6634a208feed602de1352ea34">_sceneRevision</a> = 1</td></tr>
@@ -319,7 +364,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'exploration — <b>la partie en cours</b> : entrer sur une carte, marcher, parler, franchir. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md119"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md122"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span> et fait tourner son <b>pas fixe</b> ; chaque geste de l'écran devient une intention passée à la session, et ce que l'écran montre est relu d'elle. Elle ne décide rien du monde : ni la collision, ni la traversée, ni ce qu'un PNJ répond.</p>
 <p>Même partage que le combat : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante, posée dans la vue de jeu.">hmi::WorldViewportItem</a></span>) prend un <b>instantané en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Une carte en valeurs, telle que la composition la lit : sa grille, ses pièces par case,...">hmi::WorldSceneSnapshot</a></span>) dans <span class="tt">synchronize()</span>, pendant que le fil graphique est bloqué. Le modèle ne lui passe jamais la session. </p>
@@ -399,6 +444,111 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Pose <code class="param">flags</code> sur la session (<span class="tt">--<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>=</span>), sans les retenir. </p>
+
+</div>
+</div>
+<a id="ad4c86942a2fbf0cd24b5851fc3b07eaa" name="ad4c86942a2fbf0cd24b5851fc3b07eaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4c86942a2fbf0cd24b5851fc3b07eaa">&#9670;&#160;</a></span>applyParty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::applyParty </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Donne au monde les figurines du groupe — le meneur, puis ses suiveurs — et l'annonce. </p>
+
+</div>
+</div>
+<a id="aaeb58e1332d119d05291e53bf5f02b75" name="aaeb58e1332d119d05291e53bf5f02b75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeb58e1332d119d05291e53bf5f02b75">&#9670;&#160;</a></span>candidate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a> * hmi::WorldModel::candidate </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le candidat <code class="param">characterId</code>, ou <span class="tt">nullptr</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a8aa500a3950752f8257d3c827c383e71" name="a8aa500a3950752f8257d3c827c383e71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aa500a3950752f8257d3c827c383e71">&#9670;&#160;</a></span>candidateRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::WorldModel::candidateRow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>candidate</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La ligne QML d'un candidat (<span class="tt"><a class="el" href="#a0ed9e9775cda8e947b02bad5fc9bf4b8" title="Le groupe (LOT-138), dans l&#39;ordre de marche, meneur en tête.">partyMembers</a></span>, <span class="tt"><a class="el" href="#a660029f33ac497bf4841f58788b8d1dd" title="Les personnages qu&#39;on peut prendre dans le groupe (Rpg/characters/), dans l&#39;ordre de leurs identifian...">partyCandidates</a></span>). </dd></dl>
+
+</div>
+</div>
+<a id="a6a2cbf099df8c24a5fe5b4a3838ea286" name="a6a2cbf099df8c24a5fe5b4a3838ea286"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a2cbf099df8c24a5fe5b4a3838ea286">&#9670;&#160;</a></span>candidates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a> &gt; &amp; hmi::WorldModel::candidates </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les personnages qu'on peut prendre dans le groupe, lus au démarrage. </dd></dl>
 
 </div>
 </div>
@@ -853,6 +1003,32 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="aaf550c3bb2cce030828b7c9461fbdb46" name="aaf550c3bb2cce030828b7c9461fbdb46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf550c3bb2cce030828b7c9461fbdb46">&#9670;&#160;</a></span>heroFigureOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::WorldModel::heroFigureOf </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>classId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La figurine d'un héros de la classe <code class="param">classId</code> : les héros se rangent par classe (<span class="tt">Common/Characters/Heroes/&lt;classe&gt;</span>, <span class="tt">LOT-124</span>). </dd></dl>
+
+</div>
+</div>
 <a id="a0fa7eb478594477e7068a98c0936e5eb" name="a0fa7eb478594477e7068a98c0936e5eb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0fa7eb478594477e7068a98c0936e5eb">&#9670;&#160;</a></span>heroMoved</h2>
 
@@ -974,6 +1150,107 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La case de l'entité avec laquelle le héros a interagi en dernier — le PNJ dont le dialogue engage la rencontre, l'entité <span class="tt">encounter</span> —, ou rien. </dd></dl>
+
+</div>
+</div>
+<a id="aa5d764797c5a063293d40e8f06bb27f3" name="aa5d764797c5a063293d40e8f06bb27f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5d764797c5a063293d40e8f06bb27f3">&#9670;&#160;</a></span>leaderId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldModel::leaderId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb76ee6ab83e12d3cf1e2169d61d5efd" name="abb76ee6ab83e12d3cf1e2169d61d5efd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb76ee6ab83e12d3cf1e2169d61d5efd">&#9670;&#160;</a></span>leaderName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldModel::leaderName </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aec6a2c1fa8b5e943b682950df7ff87c8" name="aec6a2c1fa8b5e943b682950df7ff87c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec6a2c1fa8b5e943b682950df7ff87c8">&#9670;&#160;</a></span>leaderPortrait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QUrl hmi::WorldModel::leaderPortrait </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc69a4b8f62eaa2b53a6fc40f9be55ee" name="adc69a4b8f62eaa2b53a6fc40f9be55ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc69a4b8f62eaa2b53a6fc40f9be55ee">&#9670;&#160;</a></span>leaderSheetFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::filesystem::path hmi::WorldModel::leaderSheetFile </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La fiche du meneur (<span class="tt">Rpg/characters/&lt;id&gt;.json</span>) ; vide si le groupe n'a personne qu'on sache lire. </dd></dl>
 
 </div>
 </div>
@@ -1105,6 +1382,55 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a30776294a743b811e954bd823371ca2a" name="a30776294a743b811e954bd823371ca2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30776294a743b811e954bd823371ca2a">&#9670;&#160;</a></span>maxPartySize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldModel::maxPartySize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a665d2023cf5a86194ac2b47341873202" name="a665d2023cf5a86194ac2b47341873202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a665d2023cf5a86194ac2b47341873202">&#9670;&#160;</a></span>moveMember()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::moveMember </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Avance (<code class="param">offset</code> négatif) ou recule <code class="param">characterId</code> dans l'ordre de marche, en l'échangeant avec son voisin. </p>
+<p>Passer devant le meneur le fait meneur. </p>
+
+</div>
+</div>
 <a id="adc66b2547875ba03914fe3186cd9e7c4" name="adc66b2547875ba03914fe3186cd9e7c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adc66b2547875ba03914fe3186cd9e7c4">&#9670;&#160;</a></span>noteDistrictVisit()</h2>
 
@@ -1129,6 +1455,109 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Retient le quartier de la carte courante parmi les quartiers visités. </p>
+
+</div>
+</div>
+<a id="a326f6e58ef31097654a987d65f457d39" name="a326f6e58ef31097654a987d65f457d39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a326f6e58ef31097654a987d65f457d39">&#9670;&#160;</a></span>party()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1Party.html">core::Party</a> &amp; hmi::WorldModel::party </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le groupe de la partie en cours. </dd></dl>
+
+</div>
+</div>
+<a id="a19eb37496984a741945b38039e7c520b" name="a19eb37496984a741945b38039e7c520b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19eb37496984a741945b38039e7c520b">&#9670;&#160;</a></span>partyCandidates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::WorldModel::partyCandidates </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9c5c0c50c1ab2e5e3bd7b43fd9093acd" name="a9c5c0c50c1ab2e5e3bd7b43fd9093acd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c5c0c50c1ab2e5e3bd7b43fd9093acd">&#9670;&#160;</a></span>partyChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::partyChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le groupe a changé : membres, ordre de marche ou meneur (<span class="tt">LOT-138</span>). </p>
+
+</div>
+</div>
+<a id="adc8c244735fd48f014ecd9827624d8f4" name="adc8c244735fd48f014ecd9827624d8f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc8c244735fd48f014ecd9827624d8f4">&#9670;&#160;</a></span>partyMembers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::WorldModel::partyMembers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1396,6 +1825,25 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a61bb51e13ab76e4b47b1abfdb2462509" name="a61bb51e13ab76e4b47b1abfdb2462509"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61bb51e13ab76e4b47b1abfdb2462509">&#9670;&#160;</a></span>rotateLeader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::rotateLeader </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Passe la tête au suivant (<span class="tt"><a class="el" href="classcore_1_1Party.html#a0e0e835c4fd85e63ebd8de34e10f5261" title="Passe la tête au suivant : le meneur va en queue, les autres avancent d&#39;un rang.">core::Party::rotateLeader</a></span>) : la touche du meneur. </p>
+
+</div>
+</div>
 <a id="ac86f1bb3f3f3d8b51c1a5a868146d779" name="ac86f1bb3f3f3d8b51c1a5a868146d779"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac86f1bb3f3f3d8b51c1a5a868146d779">&#9670;&#160;</a></span>rows()</h2>
 
@@ -1530,6 +1978,26 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a458fa740cb0e531d6f2fab0de4a15c9b" name="a458fa740cb0e531d6f2fab0de4a15c9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a458fa740cb0e531d6f2fab0de4a15c9b">&#9670;&#160;</a></span>setLeader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::setLeader </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fait de <code class="param">characterId</code> le meneur (<span class="tt"><a class="el" href="classcore_1_1Party.html#a1a6486f2bfc9fc8efb3c32d31926e254" title="Fait de characterId le meneur ; les autres gardent leur ordre relatif.">core::Party::setLeader</a></span>). </p>
+<dl class="section return"><dt>Returns</dt><dd>Vrai s'il l'est. </dd></dl>
+
+</div>
+</div>
 <a id="a9759d84f0662c6fb79b308769f496c10" name="a9759d84f0662c6fb79b308769f496c10"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9759d84f0662c6fb79b308769f496c10">&#9670;&#160;</a></span>setLevelDirectories()</h2>
 
@@ -1571,6 +2039,26 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 <p>La direction que le joueur demande, de longueur au plus 1. </p>
 <p>Tenue jusqu'au prochain appel : c'est l'état d'une touche enfoncée, pas un pas. </p>
+
+</div>
+</div>
+<a id="aa45be739876d9bcc9f036eb9a1fb12a0" name="aa45be739876d9bcc9f036eb9a1fb12a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa45be739876d9bcc9f036eb9a1fb12a0">&#9670;&#160;</a></span>setParty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::setParty </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Party.html">core::Party</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>party</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remplace le groupe — un test, ou la sauvegarde un jour. </p>
+<p>Les identifiants inconnus du dossier des personnages sont écartés ; un groupe vide garde l'ancien. </p>
 
 </div>
 </div>
@@ -1760,6 +2248,26 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="ab2b7aff2f77331373a9464befcf30172" name="ab2b7aff2f77331373a9464befcf30172"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2b7aff2f77331373a9464befcf30172">&#9670;&#160;</a></span>toggleMember()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::toggleMember </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prend <code class="param">characterId</code> dans le groupe, ou l'en retire. </p>
+<p>Refusé au-delà de quatre, et pour le dernier membre. </p><dl class="section return"><dt>Returns</dt><dd>Vrai si le groupe a changé. </dd></dl>
+
+</div>
+</div>
 <a id="a9e2ed6a1599df88493a0f92ff495cc5d" name="a9e2ed6a1599df88493a0f92ff495cc5d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9e2ed6a1599df88493a0f92ff495cc5d">&#9670;&#160;</a></span>visitedDistricts()</h2>
 
@@ -1786,6 +2294,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a5df27225ac4e015c412c775937ce34cf" name="a5df27225ac4e015c412c775937ce34cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5df27225ac4e015c412c775937ce34cf">&#9670;&#160;</a></span>_candidates</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a>&gt; hmi::WorldModel::_candidates</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les personnages qu'on peut prendre, lus une fois (<span class="tt">Rpg/characters/</span>, <span class="tt">LOT-138</span>). </p>
+
+</div>
+</div>
 <a id="ae2f859429dc0a59c56366e24b75f1517" name="ae2f859429dc0a59c56366e24b75f1517"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae2f859429dc0a59c56366e24b75f1517">&#9670;&#160;</a></span>_city</h2>
 
@@ -1902,6 +2434,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a697ffa3eba330a4bc41e8286b7028586" name="a697ffa3eba330a4bc41e8286b7028586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a697ffa3eba330a4bc41e8286b7028586">&#9670;&#160;</a></span>_heroFigureOverride</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::WorldModel::_heroFigureOverride</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La figurine imposée au meneur (<span class="tt">--hero-figure=</span>, la console de débogage) ; vide : celle de sa classe. </p>
+
+</div>
+</div>
 <a id="a933009a644601ba3b075e17f89c9d1bf" name="a933009a644601ba3b075e17f89c9d1bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a933009a644601ba3b075e17f89c9d1bf">&#9670;&#160;</a></span>_interact</h2>
 
@@ -1991,6 +2547,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a183c0a674260f7b16e971a6dbaf825fb" name="a183c0a674260f7b16e971a6dbaf825fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a183c0a674260f7b16e971a6dbaf825fb">&#9670;&#160;</a></span>_party</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1Party.html">core::Party</a> hmi::WorldModel::_party</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le groupe de la partie : les quatre fiches pré-tirées au départ. </p>
 
 </div>
 </div>
@@ -2202,6 +2782,32 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="ac1c562398f6eec8d6cd894f99082dbe6" name="ac1c562398f6eec8d6cd894f99082dbe6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1c562398f6eec8d6cd894f99082dbe6">&#9670;&#160;</a></span>STARTING_PARTY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;std::string&gt; hmi::WorldModel::STARTING_PARTY</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">{<span class="stringliteral">&quot;heros-brawler&quot;</span>, <span class="stringliteral">&quot;heros-priest&quot;</span>,</div>
+<div class="line">                                                                <span class="stringliteral">&quot;heros-scoundrel&quot;</span>, <span class="stringliteral">&quot;heros-mage&quot;</span>}</div>
+</div><!-- fragment -->
+<p>Le groupe qu'impose « Nouvelle partie », dans l'ordre de marche (<span class="tt">LOT-138</span>, décision de l'auteur) : les quatre fiches pré-tirées, le Brawler en tête. </p>
+
+</div>
+</div>
 <a id="a4584a4eb811579bcd67cf52c50c93239" name="a4584a4eb811579bcd67cf52c50c93239"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4584a4eb811579bcd67cf52c50c93239">&#9670;&#160;</a></span>STEP_MILLISECONDS</h2>
 
@@ -2365,8 +2971,8 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </table>
 </div><div class="memdoc">
 
-<p>La figurine du héros (<span class="tt">Assets/Npc/&lt;slug&gt;</span>). </p>
-<p><em>Provisoire</em> : le héros créé à « Nouvelle partie » donnera la sienne (<span class="tt">LOT-43</span>), et cette valeur par défaut partira avec le reste du contenu provisoire. </p>
+<p>La figurine du héros — le <b>meneur</b> du groupe : celle de sa classe (<span class="tt">LOT-138</span>). </p>
+<p>L'écrire l'impose à tout meneur (<span class="tt">--hero-figure=</span>, la console de débogage) ; l'écrire vide rend la sienne à chacun. </p>
 
 </div>
 </div>
@@ -2389,6 +2995,76 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a941cc5cf201e272ccb8fe8c822c7e5c1" name="a941cc5cf201e272ccb8fe8c822c7e5c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a941cc5cf201e272ccb8fe8c822c7e5c1">&#9670;&#160;</a></span>leaderId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldModel::leaderId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le meneur : celui qu'on déplace, qui parle le premier dans un dialogue et qui combat. </p>
+
+</div>
+</div>
+<a id="ab7641239bdf79da62bef595f406b2157" name="ab7641239bdf79da62bef595f406b2157"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7641239bdf79da62bef595f406b2157">&#9670;&#160;</a></span>leaderName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldModel::leaderName</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab554820863d52d56a39600b67d2843b7" name="ab554820863d52d56a39600b67d2843b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab554820863d52d56a39600b67d2843b7">&#9670;&#160;</a></span>leaderPortrait</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QUrl hmi::WorldModel::leaderPortrait</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le portrait du meneur, vide si sa figurine n'en a pas encore (<span class="tt">LOT-136</span>). </p>
 
 </div>
 </div>
@@ -2461,6 +3137,79 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Nom de la carte, tel qu'elle le porte. </p>
+
+</div>
+</div>
+<a id="a0b7a79905fb3e44bb622c2a950933ef7" name="a0b7a79905fb3e44bb622c2a950933ef7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b7a79905fb3e44bb622c2a950933ef7">&#9670;&#160;</a></span>maxPartySize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldModel::maxPartySize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Quatre (<span class="tt"><a class="el" href="classcore_1_1Party.html#a54738c009dfbacd448f0f0ff5a70112f" title="Quatre, le groupe de la table de jeu (Player&#39;s Guide to Tanares, les quatre fiches pré-tirées) ; l&#39;Em...">core::Party::MAX_MEMBERS</a></span>). </p>
+
+</div>
+</div>
+<a id="a660029f33ac497bf4841f58788b8d1dd" name="a660029f33ac497bf4841f58788b8d1dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a660029f33ac497bf4841f58788b8d1dd">&#9670;&#160;</a></span>partyCandidates</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::WorldModel::partyCandidates</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les personnages qu'on peut prendre dans le groupe (<span class="tt">Rpg/characters/</span>), dans l'ordre de leurs identifiants : les mêmes clés, plus <span class="tt">rank</span> (rang dans l'ordre de marche, -1 hors du groupe). </p>
+
+</div>
+</div>
+<a id="a0ed9e9775cda8e947b02bad5fc9bf4b8" name="a0ed9e9775cda8e947b02bad5fc9bf4b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ed9e9775cda8e947b02bad5fc9bf4b8">&#9670;&#160;</a></span>partyMembers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::WorldModel::partyMembers</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le groupe (<span class="tt">LOT-138</span>), dans l'ordre de marche, meneur en tête. </p>
+<p>Une ligne par membre : <span class="tt">id</span>, <span class="tt">name</span>, <span class="tt">classId</span>, <span class="tt">figure</span>, <span class="tt">portrait</span> (adresse, vide sans portrait), <span class="tt">leader</span>. </p>
 
 </div>
 </div>

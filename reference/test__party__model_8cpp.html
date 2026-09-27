@@ -1,0 +1,330 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/test_party_model.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__party__model_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_party_model.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests du groupe dans la partie (<span class="tt">LOT-138</span>) : le meneur change la figurine menée, le portrait et la voix du dialogue, et celui qui combat ; les suiveurs se dessinent derrière lui ; l'écran de groupe lit les fiches des quatre.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;QString&gt;</code><br />
+<code>#include &lt;QStringList&gt;</code><br />
+<code>#include &lt;QUrl&gt;</code><br />
+<code>#include &lt;QVariantList&gt;</code><br />
+<code>#include &lt;QVariantMap&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ExecutableDirectory_8h_source.html">HMI/Platform/ExecutableDirectory.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DialogueModel_8h_source.html">HMI/Runtime/DialogueModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EncounterModel_8h_source.html">HMI/Runtime/EncounterModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PartyModel_8h_source.html">HMI/Runtime/PartyModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldModel_8h_source.html">HMI/Runtime/WorldModel.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a83dc231722296f1c4b07c931cb4d64fa" id="r_a83dc231722296f1c4b07c931cb4d64fa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a83dc231722296f1c4b07c931cb4d64fa">TEST</a> (PartyModelTest, ChangerDeMeneurChangeLaFigurineEtLePortrait)</td></tr>
+<tr class="memdesc:a83dc231722296f1c4b07c931cb4d64fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changer de meneur change la figurine menee et le portrait du dialogue (EX-EXP-014).  <br /></td></tr>
+<tr class="memitem:a25b735da6e03443a3b061907bf71ec7b" id="r_a25b735da6e03443a3b061907bf71ec7b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a25b735da6e03443a3b061907bf71ec7b">TEST</a> (PartyModelTest, LeJoueurChoisitQuiParle)</td></tr>
+<tr class="memdesc:a25b735da6e03443a3b061907bf71ec7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le joueur choisit qui parle pour le groupe, et c'est lui qui jette (D-28).  <br /></td></tr>
+<tr class="memitem:ad04d191dbe7811a93e00d039cdb8376e" id="r_ad04d191dbe7811a93e00d039cdb8376e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad04d191dbe7811a93e00d039cdb8376e">TEST</a> (PartyModelTest, LeMeneurEstCeluiQuiCombat)</td></tr>
+<tr class="memdesc:ad04d191dbe7811a93e00d039cdb8376e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le meneur est celui qui combat sur la carte (EX-EXP-014).  <br /></td></tr>
+<tr class="memitem:a95505170e470e8009523dccc589b3c46" id="r_a95505170e470e8009523dccc589b3c46"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a95505170e470e8009523dccc589b3c46">TEST</a> (PartyModelTest, LEcranDeGroupeCompose)</td></tr>
+<tr class="memdesc:a95505170e470e8009523dccc589b3c46"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'ecran de groupe compose : prendre, laisser, mener, avancer (EX-EXP-013).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests du groupe dans la partie (<span class="tt">LOT-138</span>) : le meneur change la figurine menée, le portrait et la voix du dialogue, et celui qui combat ; les suiveurs se dessinent derrière lui ; l'écran de groupe lit les fiches des quatre. </p>
+<p>Comme les autres tests des vues-modèles, les règles et les fiches se lisent à côté de l'exécutable ; la carte et la rencontre viennent de la racine d'essai. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a83dc231722296f1c4b07c931cb4d64fa" name="a83dc231722296f1c4b07c931cb4d64fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83dc231722296f1c4b07c931cb4d64fa">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChangerDeMeneurChangeLaFigurineEtLePortrait</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Changer de meneur change la figurine menee et le portrait du dialogue (EX-EXP-014). </p>
+<p><b>Cas de test :</b> <b>Le groupe de depart compte les quatre fiches pre-tirees ; passer la main change la figurine menee, le portrait du meneur et la voix du dialogue.</b><br  />
+ <b>Categorie :</b> Unitaire · Groupe<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Nouvelle partie dans le donjon d'essai.<br  />
+</p><ol type="1">
+<li>Passer la main au suivant (la touche <span class="tt">Tab</span>).<br  />
+</li>
+<li>Ouvrir un dialogue.<br  />
+ <b>Resultat attendu :</b> Au depart, le groupe preforme : le Brawler mene, avec sa figurine et son portrait, suivi du Priest, du Scoundrel et du Mage ; apres, le Priest mene : sa figurine (celle de sa classe), un autre portrait, le Brawler passe en queue ; le dialogue parle par Helga Pierre-Sure. </li>
+</ol>
+
+</div>
+</div>
+<a id="a95505170e470e8009523dccc589b3c46" name="a95505170e470e8009523dccc589b3c46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95505170e470e8009523dccc589b3c46">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LEcranDeGroupeCompose</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'ecran de groupe compose : prendre, laisser, mener, avancer (EX-EXP-013). </p>
+<p><b>Cas de test :</b> <b>L'ecran de groupe lit la fiche des quatre et compose le groupe de la partie.</b><br  />
+ <b>Categorie :</b> Unitaire · Groupe<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Ouvrir le modele de l'ecran de groupe.<br  />
+</p><ol type="1">
+<li>Laisser la Scoundrel, puis tenter de laisser tous les autres.<br  />
+</li>
+<li>Reprendre la Scoundrel, la faire mener, reculer le Mage.<br  />
+ <b>Resultat attendu :</b> Chaque ligne porte les points de vie, la classe et la classe d'armure de la fiche ; laisser un membre raccourcit la file (trois suiveurs de moins un) ; le dernier ne se laisse pas ; la Scoundrel reprise mene ; le Mage recule d'un rang. </li>
+</ol>
+
+</div>
+</div>
+<a id="a25b735da6e03443a3b061907bf71ec7b" name="a25b735da6e03443a3b061907bf71ec7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25b735da6e03443a3b061907bf71ec7b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeJoueurChoisitQuiParle</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le joueur choisit qui parle pour le groupe, et c'est lui qui jette (D-28). </p>
+<p><b>Cas de test :</b> <b>Dans le dialogue, le menu du bas donne la parole a un membre du groupe : le jet de Persuasion se fait avec ses modificateurs.</b><br  />
+ <b>Categorie :</b> Unitaire · Groupe<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Ouvrir le dialogue du garde a la graine 7 : le meneur (Grom, Charisme 8) parle ; tenter de le convaincre.<br  />
+</p><ol type="1">
+<li>Rouvrir a la meme graine, donner la parole a Nessa (Charisme 13), tenter de nouveau.<br  />
+ <b>Resultat attendu :</b> Quatre voix, le meneur d'abord et choisi ; le meme d20 les deux fois, mais un total plus haut pour Nessa ; un personnage hors du groupe ne prend pas la parole. </li>
+</ol>
+
+</div>
+</div>
+<a id="ad04d191dbe7811a93e00d039cdb8376e" name="ad04d191dbe7811a93e00d039cdb8376e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad04d191dbe7811a93e00d039cdb8376e">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeMeneurEstCeluiQuiCombat</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le meneur est celui qui combat sur la carte (EX-EXP-014). </p>
+<p><b>Cas de test :</b> <b>Une rencontre engagee apres un changement de meneur met le nouveau meneur en jeu.</b><br  />
+ <b>Categorie :</b> Unitaire · Groupe<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Engager « rats-du-donjon », puis fuir.<br  />
+</p><ol type="1">
+<li>Faire mener la Scoundrel, engager de nouveau.<br  />
+ <b>Resultat attendu :</b> Le premier combat met Grom Tranche-Ecaille en jeu, le second Nessa Double-Vie : le heros de combat se relit quand le meneur change. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_c911b180da51e85765e60707d4387a94.html">Runtime</a></li><li class="navelem"><a href="test__party__model_8cpp.html">test_party_model.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

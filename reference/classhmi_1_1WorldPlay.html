@@ -148,6 +148,11 @@ $(function(){initNavTree('classhmi_1_1WorldPlay.html','','classhmi_1_1WorldPlay-
 
 <p><code>#include &lt;<a class="el" href="WorldPlay_8h_source.html">WorldPlay.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:Follower" id="r_Follower"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldPlay_1_1Follower.html">Follower</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un suiveur du groupe (<span class="tt">LOT-138</span>) : sa figurine, et ce qui choisit sa bande.  <a href="structhmi_1_1WorldPlay_1_1Follower.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af2211f66356d410034a5eec68fd1701c" id="r_af2211f66356d410034a5eec68fd1701c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af2211f66356d410034a5eec68fd1701c">WorldPlay</a> (<a class="el" href="classcore_1_1WorldTravel.html#a3cb015fe13e6071f96b03ba0e819362e">core::WorldTravel::MapLoader</a> loader, std::filesystem::path assetsDirectory)</td></tr>
@@ -159,6 +164,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4da6a24453ad49e3737754441f0655fa" id="r_a4da6a24453ad49e3737754441f0655fa"><td class="memItemLeft">const <a class="el" href="classcore_1_1ExplorationSession.html">core::ExplorationSession</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4da6a24453ad49e3737754441f0655fa">session</a> () const noexcept</td></tr>
 <tr class="memitem:a9ae5c3165df10c8f1f3624b613ecc40e" id="r_a9ae5c3165df10c8f1f3624b613ecc40e"><td class="memItemLeft">const std::string &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9ae5c3165df10c8f1f3624b613ecc40e">heroFigure</a> () const noexcept</td></tr>
 <tr class="memitem:ade46c5a042fb26bca54746333c47a98b" id="r_ade46c5a042fb26bca54746333c47a98b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade46c5a042fb26bca54746333c47a98b">setHeroFigure</a> (std::string figure)</td></tr>
+<tr class="memitem:a9403cfa658d68d81e1284cfbf303e9d1" id="r_a9403cfa658d68d81e1284cfbf303e9d1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9403cfa658d68d81e1284cfbf303e9d1">setFollowerFigures</a> (std::vector&lt; std::string &gt; <a class="el" href="#acbef06d44780edb3de38785805e3a10c">figures</a>)</td></tr>
+<tr class="memdesc:a9403cfa658d68d81e1284cfbf303e9d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines des <b>suiveurs</b> (<span class="tt">LOT-138</span>) : les membres du groupe derrière le meneur, dans l'ordre de marche.  <br /></td></tr>
+<tr class="memitem:a50bef3da1d9f4453130b4bb482bc0c43" id="r_a50bef3da1d9f4453130b4bb482bc0c43"><td class="memItemLeft">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a50bef3da1d9f4453130b4bb482bc0c43">followerFigures</a> () const noexcept</td></tr>
+<tr class="memitem:a5ada950a19b13ce1048b92b32d7774d3" id="r_a5ada950a19b13ce1048b92b32d7774d3"><td class="memItemLeft">const <a class="el" href="structhmi_1_1ResolvedFigure.html">ResolvedFigure</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a5ada950a19b13ce1048b92b32d7774d3">resolveHero</a> (std::string_view figure) const</td></tr>
 <tr class="memitem:ab359b28cfd1ae307fc8a93ef215e6f04" id="r_ab359b28cfd1ae307fc8a93ef215e6f04"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab359b28cfd1ae307fc8a93ef215e6f04">heroFacing</a> () const noexcept</td></tr>
 <tr class="memitem:aea2588f32f9c53e2cdf736151a8013cd" id="r_aea2588f32f9c53e2cdf736151a8013cd"><td class="memItemLeft">const <a class="el" href="structhmi_1_1ResolvedFigure.html">ResolvedFigure</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aea2588f32f9c53e2cdf736151a8013cd">heroResolved</a> () const noexcept</td></tr>
 <tr class="memitem:ab88bc3ee8bafb003646a596673e32d36" id="r_ab88bc3ee8bafb003646a596673e32d36"><td class="memItemLeft">const <a class="el" href="structhmi_1_1ResolvedFigure.html">ResolvedFigure</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab88bc3ee8bafb003646a596673e32d36">resolveFigure</a> (std::string_view figure, std::string_view silhouette) const</td></tr>
@@ -181,6 +190,10 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a05af7d965c7b1bb8871355f4a0e55fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit la table d'apparence du lieu de la carte courante.  <br /></td></tr>
 <tr class="memitem:aa0238c49b3c92777bc3ce5c71fa2ea02" id="r_aa0238c49b3c92777bc3ce5c71fa2ea02"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa0238c49b3c92777bc3ce5c71fa2ea02">invalidateScene</a> () noexcept</td></tr>
 <tr class="memdesc:aa0238c49b3c92777bc3ce5c71fa2ea02"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte est à refaire à la prochaine demande.  <br /></td></tr>
+<tr class="memitem:ad1d7cc238ea2aefe78841bee90aa8e2b" id="r_ad1d7cc238ea2aefe78841bee90aa8e2b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad1d7cc238ea2aefe78841bee90aa8e2b">resolveFollowers</a> ()</td></tr>
+<tr class="memdesc:ad1d7cc238ea2aefe78841bee90aa8e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relit la figurine résolue de chaque suiveur (la figurine ou le lieu ont changé).  <br /></td></tr>
+<tr class="memitem:ae137a2a04e43941e0e9ff27a72f0df4e" id="r_ae137a2a04e43941e0e9ff27a72f0df4e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae137a2a04e43941e0e9ff27a72f0df4e">followFollowers</a> ()</td></tr>
+<tr class="memdesc:ae137a2a04e43941e0e9ff27a72f0df4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les suiveurs ont-ils bougé, se sont-ils tournés ? Vrai si leur dessin change.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -194,6 +207,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ae67e2d06524e8c80b53efabfaa650aeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">La figurine du héros résolue : son dossier, ses orientations.  <br /></td></tr>
 <tr class="memitem:a0729d639a27a4412f44f3b68caa21da1" id="r_a0729d639a27a4412f44f3b68caa21da1"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0729d639a27a4412f44f3b68caa21da1">_heroFacing</a> = <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a></td></tr>
 <tr class="memdesc:a0729d639a27a4412f44f3b68caa21da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dernière orientation du héros : il la garde à l'arrêt.  <br /></td></tr>
+<tr class="memitem:adc603cf79293643b2ada41ec5efdbebb" id="r_adc603cf79293643b2ada41ec5efdbebb"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adc603cf79293643b2ada41ec5efdbebb">_followerFigures</a></td></tr>
+<tr class="memitem:aa91e90cc66ff65a244c9a298912b789a" id="r_aa91e90cc66ff65a244c9a298912b789a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldPlay_1_1Follower.html">Follower</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa91e90cc66ff65a244c9a298912b789a">_followers</a></td></tr>
 <tr class="memitem:a665d463a7132ae8b6ce4185861c9728f" id="r_a665d463a7132ae8b6ce4185861c9728f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a665d463a7132ae8b6ce4185861c9728f">_elapsed</a> = 0.0F</td></tr>
 <tr class="memdesc:a665d463a7132ae8b6ce4185861c9728f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps écoulé sur la carte : l'image des bandes de figurine en dépend.  <br /></td></tr>
 <tr class="memitem:a2ff668f3c939a7bed7948b1345889295" id="r_a2ff668f3c939a7bed7948b1345889295"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2ff668f3c939a7bed7948b1345889295">_walking</a> = false</td></tr>
@@ -333,7 +348,60 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les figurines de la carte courante : les PNJ, puis le héros, qui passe devant. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les figurines de la carte courante : les PNJ, les suiveurs du groupe, puis le héros, qui passe devant. </dd></dl>
+
+</div>
+</div>
+<a id="a50bef3da1d9f4453130b4bb482bc0c43" name="a50bef3da1d9f4453130b4bb482bc0c43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50bef3da1d9f4453130b4bb482bc0c43">&#9670;&#160;</a></span>followerFigures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; std::string &gt; &amp; hmi::WorldPlay::followerFigures </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les figurines des suiveurs, telles que nommées. </dd></dl>
+
+</div>
+</div>
+<a id="ae137a2a04e43941e0e9ff27a72f0df4e" name="ae137a2a04e43941e0e9ff27a72f0df4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae137a2a04e43941e0e9ff27a72f0df4e">&#9670;&#160;</a></span>followFollowers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldPlay::followFollowers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les suiveurs ont-ils bougé, se sont-ils tournés ? Vrai si leur dessin change. </p>
 
 </div>
 </div>
@@ -499,6 +567,59 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ad1d7cc238ea2aefe78841bee90aa8e2b" name="ad1d7cc238ea2aefe78841bee90aa8e2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1d7cc238ea2aefe78841bee90aa8e2b">&#9670;&#160;</a></span>resolveFollowers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldPlay::resolveFollowers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Relit la figurine résolue de chaque suiveur (la figurine ou le lieu ont changé). </p>
+
+</div>
+</div>
+<a id="a5ada950a19b13ce1048b92b32d7774d3" name="a5ada950a19b13ce1048b92b32d7774d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ada950a19b13ce1048b92b32d7774d3">&#9670;&#160;</a></span>resolveHero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1ResolvedFigure.html">ResolvedFigure</a> &amp; hmi::WorldPlay::resolveHero </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>figure</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La figurine que dessine <code class="param">figure</code> : la sienne, ou son mannequin humanoïde (le dossier de ses portrait et jeton, quand elle en a). </dd></dl>
+
+</div>
+</div>
 <a id="ac6f08ec64b8fd2fa0c0cb50982166a98" name="ac6f08ec64b8fd2fa0c0cb50982166a98"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6f08ec64b8fd2fa0c0cb50982166a98">&#9670;&#160;</a></span>scene()</h2>
 
@@ -574,6 +695,26 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9403cfa658d68d81e1284cfbf303e9d1" name="a9403cfa658d68d81e1284cfbf303e9d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9403cfa658d68d81e1284cfbf303e9d1">&#9670;&#160;</a></span>setFollowerFigures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldPlay::setFollowerFigures </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::string &gt;</td>          <td class="paramname"><span class="paramname"><em>figures</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les figurines des <b>suiveurs</b> (<span class="tt">LOT-138</span>) : les membres du groupe derrière le meneur, dans l'ordre de marche. </p>
+<p>Leur nombre est celui des suiveurs de la session. </p>
 
 </div>
 </div>
@@ -757,6 +898,50 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le résolveur des figurines : ce qu'il a trouvé se retient le temps d'une carte. </p>
+
+</div>
+</div>
+<a id="adc603cf79293643b2ada41ec5efdbebb" name="adc603cf79293643b2ada41ec5efdbebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc603cf79293643b2ada41ec5efdbebb">&#9670;&#160;</a></span>_followerFigures</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::string&gt; hmi::WorldPlay::_followerFigures</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa91e90cc66ff65a244c9a298912b789a" name="aa91e90cc66ff65a244c9a298912b789a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa91e90cc66ff65a244c9a298912b789a">&#9670;&#160;</a></span>_followers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1WorldPlay_1_1Follower.html">Follower</a>&gt; hmi::WorldPlay::_followers</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

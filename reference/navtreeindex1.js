@@ -61,6 +61,9 @@ var NAVTREEINDEX1 =
 "Flanking_8cpp.html":[4,0,0,2,0,24],
 "Flanking_8h.html":[4,0,0,2,0,25],
 "Flanking_8h_source.html":[4,0,0,2,0,25],
+"FollowTrail_8cpp.html":[4,0,0,2,10,16],
+"FollowTrail_8h.html":[4,0,0,2,10,17],
+"FollowTrail_8h_source.html":[4,0,0,2,10,17],
 "GameLaunch_8cpp.html":[4,0,0,3,0,33],
 "GameLaunch_8h.html":[4,0,0,3,0,34],
 "GameLaunch_8h_source.html":[4,0,0,3,0,34],
@@ -246,8 +249,5 @@ var NAVTREEINDEX1 =
 "MissingTexture_8cpp.html":[4,0,0,6,2,19],
 "MissingTexture_8h.html":[4,0,0,6,2,20],
 "MissingTexture_8h_source.html":[4,0,0,6,2,20],
-"Multiclassing_8cpp.html":[4,0,0,2,8,20],
-"Multiclassing_8h.html":[4,0,0,2,8,21],
-"Multiclassing_8h_source.html":[4,0,0,2,8,21],
-"OptionsModel_8cpp.html":[4,0,0,6,7,28]
+"Multiclassing_8cpp.html":[4,0,0,2,8,20]
 };

@@ -9,6 +9,7 @@ var RpgScreens_8h =
       [ "hmi::RpgScreenId::Dialogue", "namespacehmi.html#a86e4ce6097c7a029c683096302528e72a359928afdf6c973ee869e1698023a812", null ],
       [ "hmi::RpgScreenId::Merchant", "namespacehmi.html#a86e4ce6097c7a029c683096302528e72a896890bfb700eac98300d639ca970f2b", null ],
       [ "hmi::RpgScreenId::Company", "namespacehmi.html#a86e4ce6097c7a029c683096302528e72a1c76cbfe21c6f44c1d1e59d54f3e4420", null ],
-      [ "hmi::RpgScreenId::CombatHud", "namespacehmi.html#a86e4ce6097c7a029c683096302528e72a24a64995097c2618f6232d44c3b135ff", null ]
+      [ "hmi::RpgScreenId::CombatHud", "namespacehmi.html#a86e4ce6097c7a029c683096302528e72a24a64995097c2618f6232d44c3b135ff", null ],
+      [ "hmi::RpgScreenId::Party", "namespacehmi.html#a86e4ce6097c7a029c683096302528e72a094a173d3b32f44f5b5c996e8710ae28", null ]
     ] ]
 ];

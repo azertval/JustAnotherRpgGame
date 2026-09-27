@@ -1,5 +1,14 @@
 var NAVTREEINDEX4 =
 {
+"classcore_1_1BattleGrid.html#acfb41d95fe00ce6b35df57404320d9b8":[2,0,1,21,8],
+"classcore_1_1BattleGrid.html#acfb41d95fe00ce6b35df57404320d9b8":[3,0,0,21,8],
+"classcore_1_1BattleGrid.html#ad268f78729d34e98bd7fca885900cad7":[2,0,1,21,21],
+"classcore_1_1BattleGrid.html#ad268f78729d34e98bd7fca885900cad7":[3,0,0,21,21],
+"classcore_1_1BattleGrid.html#ad541c35faece5fef76b23fe5cab9ca11":[2,0,1,21,10],
+"classcore_1_1BattleGrid.html#ad541c35faece5fef76b23fe5cab9ca11":[3,0,0,21,10],
+"classcore_1_1BattleGrid.html#adf5ddd3fe14b482355ca202829a5df64":[2,0,1,21,22],
+"classcore_1_1BattleGrid.html#adf5ddd3fe14b482355ca202829a5df64":[3,0,0,21,22],
+"classcore_1_1BattleGrid.html#ae0ba6838aef1098920abdc585688fcdb":[2,0,1,21,35],
 "classcore_1_1BattleGrid.html#ae0ba6838aef1098920abdc585688fcdb":[3,0,0,21,35],
 "classcore_1_1BattleGrid.html#ae1c46ff0bd7fe6f440336711d9338dcd":[2,0,1,21,37],
 "classcore_1_1BattleGrid.html#ae1c46ff0bd7fe6f440336711d9338dcd":[3,0,0,21,37],
@@ -240,14 +249,5 @@ var NAVTREEINDEX4 =
 "classcore_1_1ComponentPool.html#a7152c6405c12d02065547778a664fcaf":[2,0,1,85,13],
 "classcore_1_1ComponentPool.html#a7152c6405c12d02065547778a664fcaf":[3,0,0,85,13],
 "classcore_1_1ComponentPool.html#a79bfb21e11d5240cca2e36e86aebf356":[2,0,1,85,4],
-"classcore_1_1ComponentPool.html#a79bfb21e11d5240cca2e36e86aebf356":[3,0,0,85,4],
-"classcore_1_1ComponentPool.html#a7f018dd02b06e43193affdac6c6c82d2":[2,0,1,85,11],
-"classcore_1_1ComponentPool.html#a7f018dd02b06e43193affdac6c6c82d2":[3,0,0,85,11],
-"classcore_1_1ComponentPool.html#a7f399e6294d15b47dcf6a665a5f71d08":[2,0,1,85,5],
-"classcore_1_1ComponentPool.html#a7f399e6294d15b47dcf6a665a5f71d08":[3,0,0,85,5],
-"classcore_1_1ComponentPool.html#a8df498c6d5a55e013535f294e92738b1":[2,0,1,85,2],
-"classcore_1_1ComponentPool.html#a8df498c6d5a55e013535f294e92738b1":[3,0,0,85,2],
-"classcore_1_1ComponentPool.html#aa164388e6fac4b808c075cdf69f952b7":[2,0,1,85,10],
-"classcore_1_1ComponentPool.html#aa164388e6fac4b808c075cdf69f952b7":[3,0,0,85,10],
-"classcore_1_1ComponentPool.html#aa1ea89339a0b953f501acb46dd31cf73":[2,0,1,85,0]
+"classcore_1_1ComponentPool.html#a79bfb21e11d5240cca2e36e86aebf356":[3,0,0,85,4]
 };

@@ -1872,6 +1872,23 @@
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
+    <name>Party.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
+    <filename>Party_8cpp.html</filename>
+    <includes id="Party_8h" name="Party.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Party.h</includes>
+    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>Party.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
+    <filename>Party_8h.html</filename>
+    <class kind="class">core::Party</class>
+    <class kind="struct">core::PartyCandidate</class>
+    <class kind="struct">core::PartyCandidates</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
     <name>RpgEnumNames.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
     <filename>RpgEnumNames_8cpp.html</filename>
@@ -2448,11 +2465,27 @@
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="FollowTrail_8h" name="FollowTrail.h" local="yes" import="no" module="no" objc="no">Core/World/FollowTrail.h</includes>
     <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
     <class kind="struct">core::CellPoint</class>
     <class kind="struct">core::ExplorationIntent</class>
     <class kind="struct">core::ExplorationEvent</class>
     <class kind="class">core::ExplorationSession</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>FollowTrail.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
+    <filename>FollowTrail_8cpp.html</filename>
+    <includes id="FollowTrail_8h" name="FollowTrail.h" local="yes" import="no" module="no" objc="no">Core/World/FollowTrail.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>FollowTrail.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
+    <filename>FollowTrail_8h.html</filename>
+    <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <class kind="class">core::FollowTrail</class>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -4275,6 +4308,7 @@
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <class kind="struct">hmi::WorldPlayStep</class>
     <class kind="class">hmi::WorldPlay</class>
+    <class kind="struct">hmi::WorldPlay::Follower</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5275,6 +5309,7 @@
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
     <includes id="CharacterSheetValues_8h" name="CharacterSheetValues.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/CharacterSheetValues.h</includes>
     <includes id="InventoryValues_8h" name="InventoryValues.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/InventoryValues.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5305,6 +5340,7 @@
     <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
     <includes id="RuleLabels_8h" name="RuleLabels.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/RuleLabels.h</includes>
     <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <class kind="struct">hmi::Voix</class>
     <class kind="struct">hmi::DialogueModel::Session</class>
     <namespace>hmi</namespace>
   </compound>
@@ -5331,6 +5367,7 @@
     <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
+    <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
     <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
     <class kind="struct">hmi::EncounterModel::Catalogs</class>
     <namespace>hmi</namespace>
@@ -5438,6 +5475,23 @@
     <filename>OptionsModel_8h.html</filename>
     <class kind="class">hmi::OptionsModel</class>
     <namespace>core</namespace>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>PartyModel.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>PartyModel_8cpp.html</filename>
+    <includes id="PartyModel_8h" name="PartyModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/PartyModel.h</includes>
+    <includes id="Party_8h" name="Party.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Party.h</includes>
+    <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>PartyModel.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
+    <filename>PartyModel_8h.html</filename>
+    <class kind="class">hmi::PartyModel</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5561,6 +5615,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>WorldModel_8h.html</filename>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="Party_8h" name="Party.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Party.h</includes>
     <includes id="CityPlan_8h" name="CityPlan.h" local="yes" import="no" module="no" objc="no">Core/World/CityPlan.h</includes>
     <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
     <includes id="WorldPlay_8h" name="WorldPlay.h" local="yes" import="no" module="no" objc="no">HMI/Game/WorldPlay.h</includes>
@@ -9908,6 +9963,40 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_party.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/</path>
+    <filename>test__party_8cpp.html</filename>
+    <includes id="Party_8h" name="Party.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Party.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party_8cpp.html</anchorfile>
+      <anchor>abf471711fa3b6dfaa425e00a106979b5</anchor>
+      <arglist>(PartyTest, QuatreAuPlusJamaisVide)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party_8cpp.html</anchorfile>
+      <anchor>acee3fcf09493584ecabc43fdc29f363d</anchor>
+      <arglist>(PartyTest, LeMeneurEstLePremierDeLOrdreDeMarche)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party_8cpp.html</anchorfile>
+      <anchor>ac9c26be6d1b822919329c27baa5f2390</anchor>
+      <arglist>(PartyTest, LesQuatreFichesPreTireesFormentLeGroupeDeDepart)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party_8cpp.html</anchorfile>
+      <anchor>a80321292cb547ae48b25cdb29931be1b</anchor>
+      <arglist>(PartyTest, UnDossierAbsentSeSignale)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_premade_characters.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/</path>
     <filename>test__premade__characters_8cpp.html</filename>
@@ -10326,6 +10415,7 @@
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
     <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
     <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
+    <includes id="FollowTrail_8h" name="FollowTrail.h" local="yes" import="no" module="no" objc="no">Core/World/FollowTrail.h</includes>
     <member kind="function">
       <type></type>
       <name>TEST</name>
@@ -10353,6 +10443,27 @@
       <anchorfile>test__exploration__session_8cpp.html</anchorfile>
       <anchor>a12cc1c1e12329bcb2cbc62a6aa8447a4</anchor>
       <arglist>(ExplorationSessionTest, UneCarteGeleeNeBougePlus)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__exploration__session_8cpp.html</anchorfile>
+      <anchor>a82ca35786ce8d9d983dad1f9a5767e48</anchor>
+      <arglist>(ExplorationSessionTest, UnGroupeDeQuatrePasseLesAnglesSansResterCoince)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__exploration__session_8cpp.html</anchorfile>
+      <anchor>aff3b7b51db7b2ca658c3a6c5511217f2</anchor>
+      <arglist>(ExplorationSessionTest, LesSuiveursSeRangentDansLeDosDuMeneur)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__exploration__session_8cpp.html</anchorfile>
+      <anchor>addae6b37a36a8c4201c586192702c5c2</anchor>
+      <arglist>(FollowTrailTest, LaTraceSeMesureLeLongDuChemin)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14275,6 +14386,45 @@
       <anchorfile>test__encounter__model_8cpp.html</anchorfile>
       <anchor>a57f03272f57b5bf248b353b852f68331</anchor>
       <arglist>(EncounterModelTest, LesGestesAttendentLaFinDUnMouvement)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_party_model.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
+    <filename>test__party__model_8cpp.html</filename>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
+    <includes id="DialogueModel_8h" name="DialogueModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DialogueModel.h</includes>
+    <includes id="EncounterModel_8h" name="EncounterModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/EncounterModel.h</includes>
+    <includes id="PartyModel_8h" name="PartyModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/PartyModel.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__model_8cpp.html</anchorfile>
+      <anchor>a83dc231722296f1c4b07c931cb4d64fa</anchor>
+      <arglist>(PartyModelTest, ChangerDeMeneurChangeLaFigurineEtLePortrait)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__model_8cpp.html</anchorfile>
+      <anchor>a25b735da6e03443a3b061907bf71ec7b</anchor>
+      <arglist>(PartyModelTest, LeJoueurChoisitQuiParle)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__model_8cpp.html</anchorfile>
+      <anchor>ad04d191dbe7811a93e00d039cdb8376e</anchor>
+      <arglist>(PartyModelTest, LeMeneurEstCeluiQuiCombat)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__model_8cpp.html</anchorfile>
+      <anchor>a95505170e470e8009523dccc589b3c46</anchor>
+      <arglist>(PartyModelTest, LEcranDeGroupeCompose)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -18928,6 +19078,13 @@
       <name>hero</name>
       <anchorfile>structhmi_1_1EncounterModel_1_1Catalogs.html</anchorfile>
       <anchor>ac5b8a66d47e60c171c6f1ffc62dbf89d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>heroFile</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Catalogs.html</anchorfile>
+      <anchor>acc77b9a9dccd394ac73c47db03810102</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -24120,6 +24277,48 @@
     </member>
     <member kind="function">
       <type>QString</type>
+      <name>partyVoice</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a3f46635ed06919479f0efdede804778d</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>voiceId</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>ae91ee4b472703a317c83f803b34c2807</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QUrl</type>
+      <name>voicePortrait</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>aee0ac1a5a0fe8e6fceb563a25ccdcbf3</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>voices</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a4c4b2d2f0c5a9274093fd8a48fd9a2cb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>selectVoice</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>accb369cdc434a0987f9df2c41b0c8e14</anchor>
+      <arglist>(const QString &amp;characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>cycleVoice</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a5b852aed5d2d74fa09297e1c6974ec5a</anchor>
+      <arglist>(int step)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
       <name>attitude</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
       <anchor>a3cb792a72e33b34e9d8f3271d83f8f62</anchor>
@@ -24253,6 +24452,34 @@
     </member>
     <member kind="property">
       <type>QString</type>
+      <name>partyVoice</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>aa840860405f1f77c3d72543c7334ce94</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>voiceId</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a16a9ea1f306d20a2266659aa55cb8044</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QUrl</type>
+      <name>voicePortrait</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>afb508ea7d7f21b524aa1fb8aad31137c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>voices</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a2a3d726ee5ec43e616b4b1a14473b738</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
       <name>attitude</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
       <anchor>a78b3e3e0b7b59100c7f821085555c6a7</anchor>
@@ -24354,6 +24581,13 @@
       <name>refresh</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
       <anchor>a6a74e37cf17bb19d8eb06446a9571ec3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>loadVoices</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a5d7ff94a3f071ab47a59a5850d258dd9</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="variable" protection="private">
@@ -29027,6 +29261,34 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>setFollowers</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a49155fcde6f429fbf253a55ec8b1afd2</anchor>
+      <arglist>(std::size_t count)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>followers</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a6e050fa39b1588a726bcc68167185f16</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>CellPoint</type>
+      <name>followerPoint</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a873073b90c460b2478d5c88eaae09bfc</anchor>
+      <arglist>(std::size_t rank) const</arglist>
+    </member>
+    <member kind="function">
+      <type>Vector2</type>
+      <name>followerFacing</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a17c4e3f9880894e7065e7139ff4c4be5</anchor>
+      <arglist>(std::size_t rank) const</arglist>
+    </member>
+    <member kind="function">
       <type>WorldFlags &amp;</type>
       <name>flags</name>
       <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
@@ -29161,6 +29423,13 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>lineUpFollowers</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a230724fe5665cbe7a1243b4a9d481622</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>crossPortal</name>
       <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
       <anchor>a29ef9f7951615bed2866ab6902a6ae1e</anchor>
@@ -29234,6 +29503,20 @@
       <name>_facing</name>
       <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
       <anchor>a6aac839cf41db1a8821d50f4da65ad16</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>FollowTrail</type>
+      <name>_trail</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>aea728426ba7c9a94b228b8a4e05912cc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::size_t</type>
+      <name>_followers</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>af8e49885ca4e661391a790287ae244db</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -29611,6 +29894,119 @@
       <name>where</name>
       <anchorfile>structcore_1_1FlagRead.html</anchorfile>
       <anchor>a5175517f32e64d6f1ad5311e80ab3fa0</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::WorldPlay::Follower</name>
+    <filename>structhmi_1_1WorldPlay_1_1Follower.html</filename>
+    <member kind="variable">
+      <type>ResolvedFigure</type>
+      <name>figure</name>
+      <anchorfile>structhmi_1_1WorldPlay_1_1Follower.html</anchorfile>
+      <anchor>a295775ff04f3e50c0cb153c6ce27cc54</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>FigureFacing</type>
+      <name>facing</name>
+      <anchorfile>structhmi_1_1WorldPlay_1_1Follower.html</anchorfile>
+      <anchor>a124ddf5a2403419ce9f29955defb160c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>walking</name>
+      <anchorfile>structhmi_1_1WorldPlay_1_1Follower.html</anchorfile>
+      <anchor>a9b27e1cd044fc71939d67a27de4969ee</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::CellPoint</type>
+      <name>point</name>
+      <anchorfile>structhmi_1_1WorldPlay_1_1Follower.html</anchorfile>
+      <anchor>ae5c819cb8127e2030fba4a5e6afa59dc</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>core::FollowTrail</name>
+    <filename>classcore_1_1FollowTrail.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>reset</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>a15edb5ec18d79b01b0618a30c6b43793</anchor>
+      <arglist>(const std::vector&lt; TrailPoint &gt; &amp;points)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>record</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>ac28f7f163312d66053ebf6056626c925</anchor>
+      <arglist>(TrailPoint leader)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>keep</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>a1a6f5e27b43671964a0638d2d7cd647c</anchor>
+      <arglist>(float length)</arglist>
+    </member>
+    <member kind="function">
+      <type>TrailPoint</type>
+      <name>pointBehind</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>ae41200601a2382ddd1854b2d696ad048</anchor>
+      <arglist>(float distance) const</arglist>
+    </member>
+    <member kind="function">
+      <type>Vector2</type>
+      <name>directionAt</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>a31cfb0d1c5a35ad9b53991da718db9f8</anchor>
+      <arglist>(float distance) const</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>length</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>aec2d031d3abccdca61eb332d51518cb5</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::deque&lt; TrailPoint &gt; &amp;</type>
+      <name>points</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>a6bf4c1ffd1e0e239ce7d1adf1465c6d9</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>SPACING_CELLS</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>a2cad85cde4ea3093e348ea8bee7048a3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>MIN_STEP_CELLS</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>a2fa8baef73b76462f498d778fde2b1c5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::deque&lt; TrailPoint &gt;</type>
+      <name>_points</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>ab2959b4106fa34acb3771bb08a2a5f31</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_kept</name>
+      <anchorfile>classcore_1_1FollowTrail.html</anchorfile>
+      <anchor>ac9337bc90b762cf246c7c2134a890ad3</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -37189,6 +37585,172 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="class">
+    <name>core::Party</name>
+    <filename>classcore_1_1Party.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>Party</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>adc126ca2fdac37ed21912d8fc58cb5c5</anchor>
+      <arglist>()=default</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>Party</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>ac8716fc0a91ad743635cf98921975d08</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;members)</arglist>
+    </member>
+    <member kind="function">
+      <type>PartyChange</type>
+      <name>add</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a94fef3257dc81043649e96a329f7b459</anchor>
+      <arglist>(std::string characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>PartyChange</type>
+      <name>remove</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a9781568e9478adf625e20e012ac60379</anchor>
+      <arglist>(std::string_view characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>PartyChange</type>
+      <name>setLeader</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a1a6486f2bfc9fc8efb3c32d31926e254</anchor>
+      <arglist>(std::string_view characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>PartyChange</type>
+      <name>rotateLeader</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a0e0e835c4fd85e63ebd8de34e10f5261</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>PartyChange</type>
+      <name>swap</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a20df81b2b4e0c64c67b357579949de7e</anchor>
+      <arglist>(std::size_t first, std::size_t second)</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; std::string &gt; &amp;</type>
+      <name>members</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a0a21591bfe82c69a88c9a171644b1de7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string_view</type>
+      <name>leader</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a4b0a1080e064efaf5f9039b980b91255</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>contains</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a9998cb64be5155ad82f6b30cb11a1650</anchor>
+      <arglist>(std::string_view characterId) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>size</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>ac9be4c2a2fc94a2a6e6173763de83309</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>empty</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>abc2ee0dc405ea904c1ed21e3e0600520</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a3e10686bb21889a5876b4ca34aeaecec</anchor>
+      <arglist>(const Party &amp;) const =default</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr std::size_t</type>
+      <name>MAX_MEMBERS</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a54738c009dfbacd448f0f0ff5a70112f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>_members</name>
+      <anchorfile>classcore_1_1Party.html</anchorfile>
+      <anchor>a9579916b113b7ff22e1c570dd84d791c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::PartyCandidate</name>
+    <filename>structcore_1_1PartyCandidate.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1PartyCandidate.html</anchorfile>
+      <anchor>a38fc335f9337fafbf71f15f95f2fb18c</anchor>
+      <arglist>(const PartyCandidate &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>id</name>
+      <anchorfile>structcore_1_1PartyCandidate.html</anchorfile>
+      <anchor>a644cd4a18a31021d4e53f106fd171264</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structcore_1_1PartyCandidate.html</anchorfile>
+      <anchor>a3262fcbb749d4099ff09e431bfb53214</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>classId</name>
+      <anchorfile>structcore_1_1PartyCandidate.html</anchorfile>
+      <anchor>a34e2e39e9f38b5a67187bfb8ce1de92d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>file</name>
+      <anchorfile>structcore_1_1PartyCandidate.html</anchorfile>
+      <anchor>a3202d1053e2b7748031fea03e7959e58</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::PartyCandidates</name>
+    <filename>structcore_1_1PartyCandidates.html</filename>
+    <member kind="variable">
+      <type>std::vector&lt; PartyCandidate &gt;</type>
+      <name>candidates</name>
+      <anchorfile>structcore_1_1PartyCandidates.html</anchorfile>
+      <anchor>a6741ade610300e06760c80f5591feee6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>errors</name>
+      <anchorfile>structcore_1_1PartyCandidates.html</anchorfile>
+      <anchor>a96e88e191fe0850ac2c4a7f1e6f411b3</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="struct">
     <name>core::PartyMember</name>
     <filename>structcore_1_1PartyMember.html</filename>
@@ -37204,6 +37766,164 @@
       <name>position</name>
       <anchorfile>structcore_1_1PartyMember.html</anchorfile>
       <anchor>af751b2cb3aeff9fd98c8690525121e66</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::PartyModel</name>
+    <filename>classhmi_1_1PartyModel.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>changed</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>ad8bdb0fa8611463c96b8e43e1258e0b0</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>PartyModel</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>ac82036bb3279f461e562f365b99c1dc9</anchor>
+      <arglist>(QObject *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>members</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a0fbebebf39976d267ff422515d00fa9a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>candidates</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a25299bc97a6b0bc75b22e293bc0ea6f5</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>leaderName</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a75e1d9933a5ebc1dd4512e39c21239c5</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>leaderLevel</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a6f16a0e3b9a523265ce68c4f4183ce19</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>leaderHitPoints</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a5ed91c497a51bc76b0296b421bd8b34c</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>size</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a8613163eb94700750986b5738ba02acc</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>toggleMember</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a613ccb6abdf346e63c085425cb348ead</anchor>
+      <arglist>(const QString &amp;characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>setLeader</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a8193de2b664998579800edf65ea2831b</anchor>
+      <arglist>(const QString &amp;characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>moveMember</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a03faf214cf5adbe72c8cd67af2d58caa</anchor>
+      <arglist>(const QString &amp;characterId, int offset)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static int</type>
+      <name>maxSize</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>aba94f68ac09e3c04f0f251a4f9a66d67</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="property">
+      <type>QML_ELEMENTQVariantList</type>
+      <name>members</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>aa7b5784fb1022b0c8fc95a6e3c211328</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>candidates</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a10ec76cfab0730d93c193226ec9b0c64</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>leaderName</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a50aab2b6b3a4a37ee6071413b1a709ce</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>leaderLevel</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a2e4f404f66e161b24daa7c9bbdd0cd1e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>leaderHitPoints</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>aecf2680c690d1643ca9d9d50a903529c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>size</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a187879ec177c7e10a153821723888f35</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>maxSize</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a8dccbd43958de6fd12d7447dd7558481</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QString</type>
+      <name>sheetValue</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a7677a8fb2cd2dc6525c329aaf38e8690</anchor>
+      <arglist>(const QString &amp;characterId, const std::string &amp;key) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QVariantMap</type>
+      <name>withSheet</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>af3bee0c0ccccb8c1c90514583b6e49d6</anchor>
+      <arglist>(QVariantMap row) const</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, std::map&lt; std::string, std::string &gt;, std::less&lt;&gt; &gt;</type>
+      <name>_sheets</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a43dc7d5c452a4cffa478c2e16626600a</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -40579,6 +41299,7 @@
       <enumvalue file="classhmi_1_1ScreenRouter.html" anchor="a0277d29471d1699b63793797bbab3bdea896890bfb700eac98300d639ca970f2b">Merchant</enumvalue>
       <enumvalue file="classhmi_1_1ScreenRouter.html" anchor="a0277d29471d1699b63793797bbab3bdea1c76cbfe21c6f44c1d1e59d54f3e4420">Company</enumvalue>
       <enumvalue file="classhmi_1_1ScreenRouter.html" anchor="a0277d29471d1699b63793797bbab3bdea24a64995097c2618f6232d44c3b135ff">CombatHud</enumvalue>
+      <enumvalue file="classhmi_1_1ScreenRouter.html" anchor="a0277d29471d1699b63793797bbab3bdea094a173d3b32f44f5b5c996e8710ae28">Party</enumvalue>
     </member>
     <member kind="signal">
       <type>void</type>
@@ -40859,6 +41580,20 @@
       <name>character</name>
       <anchorfile>structhmi_1_1DialogueModel_1_1Session.html</anchorfile>
       <anchor>a9d14b91d5d26f18acb94f04c7b9039c6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; Voix &gt;</type>
+      <name>voices</name>
+      <anchorfile>structhmi_1_1DialogueModel_1_1Session.html</anchorfile>
+      <anchor>acbea76570712e2dcadcbbd6d9f576962</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::size_t</type>
+      <name>voice</name>
+      <anchorfile>structhmi_1_1DialogueModel_1_1Session.html</anchorfile>
+      <anchor>a5356505bd96865acf4060d271a2bad89</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -43276,6 +44011,38 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::Voix</name>
+    <filename>structhmi_1_1Voix.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>id</name>
+      <anchorfile>structhmi_1_1Voix.html</anchorfile>
+      <anchor>a486a9c87aa39c45afd1df9d067eaabba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QUrl</type>
+      <name>portrait</name>
+      <anchorfile>structhmi_1_1Voix.html</anchorfile>
+      <anchor>a48ed10a4cf4bdd507eba5800d7a1a4aa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::CharacterSheet</type>
+      <name>sheet</name>
+      <anchorfile>structhmi_1_1Voix.html</anchorfile>
+      <anchor>a00f31f792ca1300cd74f324172d3e5ce</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::Inventory</type>
+      <name>inventory</name>
+      <anchorfile>structhmi_1_1Voix.html</anchorfile>
+      <anchor>a7b0d43b21688dbcef1735b81ac768f10</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::Weapon</name>
     <filename>structcore_1_1Weapon.html</filename>
     <member kind="variable">
@@ -44728,6 +45495,13 @@
       <anchor>ab475b1b1da2ebf4bb6169abcdc93795f</anchor>
       <arglist>(const QString &amp;quest, const QString &amp;step)</arglist>
     </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>partyChanged</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a9c5c0c50c1ab2e5e3bd7b43fd9093acd</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>WorldModel</name>
@@ -44811,6 +45585,34 @@
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a249dfdbd9f4596ca3a64f3892db16c5b</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>setLeader</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a458fa740cb0e531d6f2fab0de4a15c9b</anchor>
+      <arglist>(const QString &amp;characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>rotateLeader</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a61bb51e13ab76e4b47b1abfdb2462509</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>toggleMember</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ab2b7aff2f77331373a9464befcf30172</anchor>
+      <arglist>(const QString &amp;characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>moveMember</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a665d2023cf5a86194ac2b47341873202</anchor>
+      <arglist>(const QString &amp;characterId, int offset)</arglist>
     </member>
     <member kind="function">
       <type>QString</type>
@@ -44918,6 +45720,69 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>QVariantList</type>
+      <name>partyMembers</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>adc8c244735fd48f014ecd9827624d8f4</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>partyCandidates</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a19eb37496984a741945b38039e7c520b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>leaderId</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>aa5d764797c5a063293d40e8f06bb27f3</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>leaderName</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>abb76ee6ab83e12d3cf1e2169d61d5efd</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QUrl</type>
+      <name>leaderPortrait</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>aec6a2c1fa8b5e943b682950df7ff87c8</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const core::Party &amp;</type>
+      <name>party</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a326f6e58ef31097654a987d65f457d39</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; core::PartyCandidate &gt; &amp;</type>
+      <name>candidates</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a6a2cbf099df8c24a5fe5b4a3838ea286</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::filesystem::path</type>
+      <name>leaderSheetFile</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>adc69a4b8f62eaa2b53a6fc40f9be55ee</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setParty</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>aa45be739876d9bcc9f036eb9a1fb12a0</anchor>
+      <arglist>(const core::Party &amp;party)</arglist>
+    </member>
+    <member kind="function">
       <type>std::shared_ptr&lt; const WorldSceneSnapshot &gt;</type>
       <name>scene</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -45016,6 +45881,20 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function" static="yes">
+      <type>static int</type>
+      <name>maxPartySize</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a30776294a743b811e954bd823371ca2a</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static std::string</type>
+      <name>heroFigureOf</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>aaf550c3bb2cce030828b7c9461fbdb46</anchor>
+      <arglist>(std::string_view classId)</arglist>
+    </member>
+    <member kind="function" static="yes">
       <type>static WorldModel *</type>
       <name>current</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -45027,6 +45906,13 @@
       <name>START_CITY</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a290b130a26608596f2bafbaa9f7e89c9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static const std::vector&lt; std::string &gt;</type>
+      <name>STARTING_PARTY</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ac1c562398f6eec8d6cd894f99082dbe6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" static="yes">
@@ -45127,6 +46013,48 @@
       <anchor>abbd27d6c2cb84fd8d7f57fd6f4c0b145</anchor>
       <arglist></arglist>
     </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>partyMembers</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a0ed9e9775cda8e947b02bad5fc9bf4b8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>partyCandidates</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a660029f33ac497bf4841f58788b8d1dd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>leaderId</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a941cc5cf201e272ccb8fe8c822c7e5c1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>leaderName</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ab7641239bdf79da62bef595f406b2157</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QUrl</type>
+      <name>leaderPortrait</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ab554820863d52d56a39600b67d2843b7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>maxPartySize</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a0b7a79905fb3e44bb622c2a950933ef7</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function" protection="private">
       <type>void</type>
       <name>step</name>
@@ -45168,6 +46096,27 @@
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>adc66b2547875ba03914fe3186cd9e7c4</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyParty</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ad4c86942a2fbf0cd24b5851fc3b07eaa</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>const core::PartyCandidate *</type>
+      <name>candidate</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>aaeb58e1332d119d05291e53bf5f02b75</anchor>
+      <arglist>(std::string_view characterId) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QVariantMap</type>
+      <name>candidateRow</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a8aa500a3950752f8257d3c827c383e71</anchor>
+      <arglist>(const core::PartyCandidate &amp;candidate) const</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -45247,6 +46196,27 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>std::vector&lt; core::PartyCandidate &gt;</type>
+      <name>_candidates</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a5df27225ac4e015c412c775937ce34cf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>core::Party</type>
+      <name>_party</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a183c0a674260f7b16e971a6dbaf825fb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::string</type>
+      <name>_heroFigureOverride</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a697ffa3eba330a4bc41e8286b7028586</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>core::Vector2</type>
       <name>_move</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -45299,6 +46269,7 @@
   <compound kind="class">
     <name>hmi::WorldPlay</name>
     <filename>classhmi_1_1WorldPlay.html</filename>
+    <class kind="struct">hmi::WorldPlay::Follower</class>
     <member kind="function">
       <type></type>
       <name>WorldPlay</name>
@@ -45347,6 +46318,27 @@
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
       <anchor>ade46c5a042fb26bca54746333c47a98b</anchor>
       <arglist>(std::string figure)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setFollowerFigures</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>a9403cfa658d68d81e1284cfbf303e9d1</anchor>
+      <arglist>(std::vector&lt; std::string &gt; figures)</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; std::string &gt; &amp;</type>
+      <name>followerFigures</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>a50bef3da1d9f4453130b4bb482bc0c43</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const ResolvedFigure &amp;</type>
+      <name>resolveHero</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>a5ada950a19b13ce1048b92b32d7774d3</anchor>
+      <arglist>(std::string_view figure) const</arglist>
     </member>
     <member kind="function">
       <type>FigureFacing</type>
@@ -45425,6 +46417,20 @@
       <anchor>aa0238c49b3c92777bc3ce5c71fa2ea02</anchor>
       <arglist>() noexcept</arglist>
     </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>resolveFollowers</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>ad1d7cc238ea2aefe78841bee90aa8e2b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>followFollowers</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>ae137a2a04e43941e0e9ff27a72f0df4e</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="variable" protection="private">
       <type>core::ExplorationSession</type>
       <name>_session</name>
@@ -45472,6 +46478,20 @@
       <name>_heroFacing</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
       <anchor>a0729d639a27a4412f44f3b68caa21da1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>_followerFigures</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>adc603cf79293643b2ada41ec5efdbebb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; Follower &gt;</type>
+      <name>_followers</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>aa91e90cc66ff65a244c9a298912b789a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -46773,6 +47793,9 @@
     <class kind="struct">core::Inventory</class>
     <class kind="struct">core::ItemLookup</class>
     <class kind="struct">core::DerivedStats</class>
+    <class kind="class">core::Party</class>
+    <class kind="struct">core::PartyCandidate</class>
+    <class kind="struct">core::PartyCandidates</class>
     <class kind="struct">core::SkillDefinition</class>
     <class kind="struct">core::SkillCatalog</class>
     <class kind="struct">core::SpellEffect</class>
@@ -46803,6 +47826,7 @@
     <class kind="struct">core::ExplorationIntent</class>
     <class kind="struct">core::ExplorationEvent</class>
     <class kind="class">core::ExplorationSession</class>
+    <class kind="class">core::FollowTrail</class>
     <class kind="struct">core::WorldMapInput</class>
     <class kind="struct">core::WorldMapNode</class>
     <class kind="struct">core::WorldPortalLink</class>
@@ -46885,6 +47909,13 @@
       <name>FigureDirectories</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a6c8c611f5b03ec8461b387664a026ac0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>Vector2</type>
+      <name>TrailPoint</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ada797bec5feb2db47430f23934f11b26</anchor>
       <arglist></arglist>
     </member>
     <member kind="enumeration">
@@ -47490,6 +48521,18 @@
       <enumvalue file="namespacecore.html" anchor="ab1c6c3303c34c417c9a3b6ac3ddb066dac48615a1bc4197056d522af276aa5a85">Half</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ab1c6c3303c34c417c9a3b6ac3ddb066dabbd47109890259c0127154db1af26c75">Full</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ab1c6c3303c34c417c9a3b6ac3ddb066dac84677e99721f89f0b5430df9f431a1d">Pact</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>PartyChange</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a77cd56d7668dd1f9e53f577524c62489</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="a77cd56d7668dd1f9e53f577524c62489af92965e2c8a7afb3c1b9a5c09a263636">Done</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a77cd56d7668dd1f9e53f577524c62489abbd47109890259c0127154db1af26c75">Full</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a77cd56d7668dd1f9e53f577524c62489a08fc83464bbb13eb7d4ccbe51177bbd1">AlreadyMember</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a77cd56d7668dd1f9e53f577524c62489a2d48f7e936f78f7efe053a32870c786c">NotMember</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a77cd56d7668dd1f9e53f577524c62489a3a8ccf13e008351a5de6a01627371189">LastMember</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -49501,6 +50544,20 @@
       <arglist>(std::string_view name)</arglist>
     </member>
     <member kind="function">
+      <type>PartyCandidates</type>
+      <name>loadPartyCandidates</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a03c44dfa161240189f6793dcbc8785b8</anchor>
+      <arglist>(const std::filesystem::path &amp;directory)</arglist>
+    </member>
+    <member kind="function">
+      <type>Party</type>
+      <name>defaultParty</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ab5e633b89796ee51287aab6489f424f0</anchor>
+      <arglist>(const std::vector&lt; PartyCandidate &gt; &amp;candidates, const std::vector&lt; std::string &gt; &amp;order={})</arglist>
+    </member>
+    <member kind="function">
       <type>constexpr float</type>
       <name>tilesFromMeters</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -50723,6 +51780,7 @@
     <class kind="class">hmi::DebugConsoleModel</class>
     <class kind="struct">hmi::DemonstrationCharacter</class>
     <class kind="struct">hmi::DemonstrationState</class>
+    <class kind="struct">hmi::Voix</class>
     <class kind="class">hmi::DialogueModel</class>
     <class kind="class">hmi::EncounterModel</class>
     <class kind="class">hmi::GamepadNavigator</class>
@@ -50730,6 +51788,7 @@
     <class kind="class">hmi::InventoryModel</class>
     <class kind="class">hmi::MapLauncherModel</class>
     <class kind="class">hmi::OptionsModel</class>
+    <class kind="class">hmi::PartyModel</class>
     <class kind="class">hmi::PendingData</class>
     <class kind="class">hmi::QuestJournalModel</class>
     <class kind="class">hmi::ScreenRouter</class>
@@ -51183,6 +52242,7 @@
       <enumvalue file="namespacehmi.html" anchor="a86e4ce6097c7a029c683096302528e72a896890bfb700eac98300d639ca970f2b">Merchant</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a86e4ce6097c7a029c683096302528e72a1c76cbfe21c6f44c1d1e59d54f3e4420">Company</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a86e4ce6097c7a029c683096302528e72a24a64995097c2618f6232d44c3b135ff">CombatHud</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a86e4ce6097c7a029c683096302528e72a094a173d3b32f44f5b5c996e8710ae28">Party</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -53390,11 +54450,32 @@
       <arglist>(const core::Atlas &amp;atlas, const WorldMaps &amp;maps, std::vector&lt; std::string &gt; &amp;mismatches)</arglist>
     </member>
     <member kind="function">
+      <type>std::filesystem::path</type>
+      <name>playedCharacterFile</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a3cb4475bb268521d857c6fc4251f75f9</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
       <type>DemonstrationState</type>
       <name>loadDemonstrationState</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>aaf18529e7061f72c5c481ea2f30b6909</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>DemonstrationState</type>
+      <name>loadDemonstrationState</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>aa2976b1bc26d26e337e9273c9ff26976</anchor>
+      <arglist>(const std::filesystem::path &amp;characterFile)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; DemonstrationCharacter &gt;</type>
+      <name>loadCharacterValues</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a9003cdd50645942c3d35fd424f91d060</anchor>
+      <arglist>(const std::vector&lt; std::filesystem::path &gt; &amp;characterFiles)</arglist>
     </member>
     <member kind="function">
       <type>DemonstrationCharacter</type>
@@ -54956,6 +56037,8 @@
     <file>Inventory.h</file>
     <file>Multiclassing.cpp</file>
     <file>Multiclassing.h</file>
+    <file>Party.cpp</file>
+    <file>Party.h</file>
     <file>RpgEnumNames.cpp</file>
     <file>RpgEnumNames.h</file>
     <file>RpgEnums.h</file>
@@ -54979,6 +56062,7 @@
     <file>test_equipment.cpp</file>
     <file>test_inventory.cpp</file>
     <file>test_multiclassing.cpp</file>
+    <file>test_party.cpp</file>
     <file>test_premade_characters.cpp</file>
     <file>test_rpg_enums.cpp</file>
   </compound>
@@ -55016,6 +56100,8 @@
     <file>MapLauncherModel.h</file>
     <file>OptionsModel.cpp</file>
     <file>OptionsModel.h</file>
+    <file>PartyModel.cpp</file>
+    <file>PartyModel.h</file>
     <file>PendingData.cpp</file>
     <file>PendingData.h</file>
     <file>QuestJournalModel.cpp</file>
@@ -55038,6 +56124,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
     <filename>dir_c911b180da51e85765e60707d4387a94.html</filename>
     <file>test_encounter_model.cpp</file>
+    <file>test_party_model.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source</name>
@@ -55163,6 +56250,8 @@
     <file>ExplorationReach.h</file>
     <file>ExplorationSession.cpp</file>
     <file>ExplorationSession.h</file>
+    <file>FollowTrail.cpp</file>
+    <file>FollowTrail.h</file>
     <file>WorldGraph.cpp</file>
     <file>WorldGraph.h</file>
     <file>WorldTravel.cpp</file>

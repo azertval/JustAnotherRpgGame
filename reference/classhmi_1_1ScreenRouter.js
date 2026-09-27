@@ -9,7 +9,8 @@ var classhmi_1_1ScreenRouter =
       [ "Dialogue", "classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea359928afdf6c973ee869e1698023a812", null ],
       [ "Merchant", "classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea896890bfb700eac98300d639ca970f2b", null ],
       [ "Company", "classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea1c76cbfe21c6f44c1d1e59d54f3e4420", null ],
-      [ "CombatHud", "classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea24a64995097c2618f6232d44c3b135ff", null ]
+      [ "CombatHud", "classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea24a64995097c2618f6232d44c3b135ff", null ],
+      [ "Party", "classhmi_1_1ScreenRouter.html#a0277d29471d1699b63793797bbab3bdea094a173d3b32f44f5b5c996e8710ae28", null ]
     ] ],
     [ "Screen", "classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7", [
       [ "Menu", "classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7ab61541208db7fa7dba42c85224405911", null ],

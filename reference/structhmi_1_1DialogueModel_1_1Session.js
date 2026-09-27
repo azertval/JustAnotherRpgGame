@@ -10,5 +10,7 @@ var structhmi_1_1DialogueModel_1_1Session =
     [ "problems", "structhmi_1_1DialogueModel_1_1Session.html#a061a0960cbcf1fe15a7e9378e9a82260", null ],
     [ "random", "structhmi_1_1DialogueModel_1_1Session.html#ab6b94fd64b0e79211dd284400ee2e7ed", null ],
     [ "runner", "structhmi_1_1DialogueModel_1_1Session.html#a408d5f63789daeed1c0d342d8e1b6967", null ],
-    [ "values", "structhmi_1_1DialogueModel_1_1Session.html#aaa0029eddd9430a658bb08a0f5fa5e09", null ]
+    [ "values", "structhmi_1_1DialogueModel_1_1Session.html#aaa0029eddd9430a658bb08a0f5fa5e09", null ],
+    [ "voice", "structhmi_1_1DialogueModel_1_1Session.html#a5356505bd96865acf4060d271a2bad89", null ],
+    [ "voices", "structhmi_1_1DialogueModel_1_1Session.html#acbea76570712e2dcadcbbd6d9f576962", null ]
 ];

@@ -10,5 +10,7 @@ var searchData=
   ['version_7',['version',['../structcore_1_1JsonDocument.html#a82433ff86ddc54ef83fa27e989da6399',1,'core::JsonDocument']]],
   ['view_8',['view',['../structhmi_1_1GestureState.html#a8adce05e1195b2d4125d88f61be85071',1,'hmi::GestureState']]],
   ['viewtabs_9',['viewTabs',['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aaf6af167086a860ae413e638887ffe4a',1,'hmi::LevelBrowserPanel::Widgets']]],
-  ['visible_10',['visible',['../structhmi_1_1LayerDisplay.html#a8a9b2b56a414ed5020c74472bad68d10',1,'hmi::LayerDisplay']]]
+  ['visible_10',['visible',['../structhmi_1_1LayerDisplay.html#a8a9b2b56a414ed5020c74472bad68d10',1,'hmi::LayerDisplay']]],
+  ['voice_11',['voice',['../structhmi_1_1DialogueModel_1_1Session.html#a5356505bd96865acf4060d271a2bad89',1,'hmi::DialogueModel::Session']]],
+  ['voices_12',['voices',['../structhmi_1_1DialogueModel_1_1Session.html#acbea76570712e2dcadcbbd6d9f576962',1,'hmi::DialogueModel::Session']]]
 ];

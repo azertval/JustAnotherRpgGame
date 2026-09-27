@@ -30,6 +30,8 @@ var dir_7eb0d0bc801e3eeb9c9e3cb238223789 =
     [ "MapLauncherModel.h", "MapLauncherModel_8h.html", "MapLauncherModel_8h" ],
     [ "OptionsModel.cpp", "OptionsModel_8cpp.html", null ],
     [ "OptionsModel.h", "OptionsModel_8h.html", "OptionsModel_8h" ],
+    [ "PartyModel.cpp", "PartyModel_8cpp.html", null ],
+    [ "PartyModel.h", "PartyModel_8h.html", "PartyModel_8h" ],
     [ "PendingData.cpp", "PendingData_8cpp.html", null ],
     [ "PendingData.h", "PendingData_8h.html", "PendingData_8h" ],
     [ "QuestJournalModel.cpp", "QuestJournalModel_8cpp.html", null ],
