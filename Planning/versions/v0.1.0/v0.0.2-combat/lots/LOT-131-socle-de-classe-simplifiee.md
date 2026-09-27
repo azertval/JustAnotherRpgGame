@@ -3,7 +3,7 @@ id = "LOT-131"
 titre = "Le socle de classe simplifiée"
 version = "0.0.2"
 filiere = "moteur"
-statut = "en-cours"
+statut = "livre"
 taille = "L"
 resume = "Une classe est une donnée : une table de progression, des capacités à effets nommés, des ressources qui se dépensent et se récupèrent."
 prerequis = ["LOT-130"]
@@ -32,7 +32,7 @@ ici ; le reste appartient à la `0.3.0`.
 
 ## Décisions de réalisation
 
-Livré le 27 septembre 2026 (PR à ouvrir). Le socle ne nomme aucune classe ni aucune capacité : il
+Livré le 27 septembre 2026 (**PR #147**). Le socle ne nomme aucune classe ni aucune capacité : il
 charge des **effets nommés** et les branche ; la classe d'essai de la racine de données
 (`Source/Test/Fixtures/GameData/Rpg/classes/lutteur-d-essai.json`, quatre capacités, trois sorts)
 est la seule à agir en combat dans ce lot, et seuls ses tests la nomment.
