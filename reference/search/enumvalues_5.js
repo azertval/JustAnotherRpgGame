@@ -4,7 +4,7 @@ var searchData=
   ['f10_1',['F10',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a',1,'hmi']]],
   ['f2_2',['F2',['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74',1,'hmi']]],
   ['failed_3',['Failed',['../namespacecore.html#a1c252a20a9f591109e789a58746652b1ad7c8c85bf79bbe1b7188497c32c3b0ca',1,'core']]],
-  ['failure_4',['Failure',['../namespacecore.html#af64ba20e2728c8383cde689f8e1308f2ae139a585510a502bbf1841cf589f5086',1,'core']]],
+  ['failure_4',['Failure',['../namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ae139a585510a502bbf1841cf589f5086',1,'core::Failure'],['../namespacecore.html#af64ba20e2728c8383cde689f8e1308f2ae139a585510a502bbf1841cf589f5086',1,'core::Failure']]],
   ['feet_5',['Feet',['../namespacecore.html#af71085608729d9857e7ee3fd17be6cd6a0f2e8e047e38898ec859c631576985e7',1,'core']]],
   ['fence_6',['Fence',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875afa1124a61230804809a9b5fc57932b40',1,'core']]],
   ['figure_7',['Figure',['../namespacehmi.html#a71e0c7e2c54951699d44b5c6f88f63caa666df2f48cd16f38212c093999248769',1,'hmi']]],
@@ -20,8 +20,9 @@ var searchData=
   ['flight_17',['Flight',['../namespacecore.html#a8825ea64ff05621b7c2c8a073d27577ca98415a6f570af1d10bebd54f054ce4b4',1,'core']]],
   ['floor_18',['Floor',['../namespacecore.html#a4a3860a249c1a2e07497950f57f4d461af3f6d0343d56ce88ce7958170ed05cb3',1,'core']]],
   ['fly_19',['Fly',['../namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffaac51deb7d2c3f9663a6df72c7c9b2b51',1,'core::Fly'],['../namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99aac51deb7d2c3f9663a6df72c7c9b2b51',1,'core::Fly']]],
-  ['force_20',['Force',['../namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda9eb6b78a99cdb6ffd3d40d18621d9f80',1,'core']]],
-  ['friendly_21',['Friendly',['../namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7a03fdbf12e03a4cd1409b84abe2b631df',1,'core']]],
-  ['frightened_22',['Frightened',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a76cc2c3b1bffba51a59c7e9d971bdfe1',1,'core']]],
-  ['full_23',['Full',['../namespacecore.html#ab1c6c3303c34c417c9a3b6ac3ddb066dabbd47109890259c0127154db1af26c75',1,'core']]]
+  ['flying_20',['Flying',['../namespacecore.html#abde919757944fef613e5f21cf21c3108a444733081a578880ba8a563d3c59d22d',1,'core']]],
+  ['force_21',['Force',['../namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda9eb6b78a99cdb6ffd3d40d18621d9f80',1,'core']]],
+  ['friendly_22',['Friendly',['../namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7a03fdbf12e03a4cd1409b84abe2b631df',1,'core']]],
+  ['frightened_23',['Frightened',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a76cc2c3b1bffba51a59c7e9d971bdfe1',1,'core']]],
+  ['full_24',['Full',['../namespacecore.html#ab1c6c3303c34c417c9a3b6ac3ddb066dabbd47109890259c0127154db1af26c75',1,'core']]]
 ];

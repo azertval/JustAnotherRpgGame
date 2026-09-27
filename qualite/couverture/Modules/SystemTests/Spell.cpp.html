@@ -84,6 +84,21 @@ constexpr std::array&lt;NomDEffet, 4&gt; EFFETS{{
             return false;</span>
         }
 <span style = "background-color:#dfd">    }
+    sort.stabilizes = lireBooleen(racine, "stabilizes");
+    if (const auto retour = racine.find("revives"); retour != racine.end()) {
+        SpellRevival revenant;
+        const auto pv = retour-&gt;is_object() ? retour-&gt;find("hitPoints") : retour-&gt;end();
+        const auto rounds = retour-&gt;is_object() ? retour-&gt;find("withinRounds") : retour-&gt;end();</span>
+        if (pv == retour-&gt;end() || !pv-&gt;is_number_integer() || pv-&gt;get&lt;int&gt;() &lt; 1 ||
+<span style = "background-color:#dfd">            rounds == retour-&gt;end() || !rounds-&gt;is_number_integer() || rounds-&gt;get&lt;int&gt;() &lt; 1) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier +</span>
+                              " : 'revives' demande 'hitPoints' et 'withinRounds' positifs.");
+<span style = "background-color:#fdd">            return false;</span>
+        }
+<span style = "background-color:#dfd">        revenant.hitPoints = pv-&gt;get&lt;int&gt;();
+        revenant.withinRounds = rounds-&gt;get&lt;int&gt;();
+        sort.revives = revenant;
+    }
     if (const auto cibles = racine.find("maxTargets"); cibles != racine.end()) {
         if (!cibles-&gt;is_number_integer() || cibles-&gt;get&lt;int&gt;() &lt; 1) {</span>
 <span style = "background-color:#fdd">            erreurs.push_back(fichier + " : 'maxTargets' doit etre un entier positif.");
@@ -297,6 +312,12 @@ constexpr std::array&lt;NomDEffet, 4&gt; EFFETS{{
     }
 <span style = "background-color:#dfd">    if (spell.healing.has_value()) {
         return SpellMechanism::Healing;</span>
+    }
+<span style = "background-color:#dfd">    if (spell.stabilizes) {
+        return SpellMechanism::Stabilize;</span>
+    }
+<span style = "background-color:#dfd">    if (spell.revives.has_value()) {
+        return SpellMechanism::Revive;</span>
     }
 <span style = "background-color:#dfd">    if (spell.effect.has_value()) {
         return SpellMechanism::Effect;</span>

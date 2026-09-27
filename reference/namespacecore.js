@@ -27,6 +27,7 @@ var namespacecore =
     [ "AttackPreview", "structcore_1_1AttackPreview.html", "structcore_1_1AttackPreview" ],
     [ "MovePreview", "structcore_1_1MovePreview.html", "structcore_1_1MovePreview" ],
     [ "CombatEvent", "structcore_1_1CombatEvent.html", "structcore_1_1CombatEvent" ],
+    [ "DeathSaves", "structcore_1_1DeathSaves.html", "structcore_1_1DeathSaves" ],
     [ "CombatantProfile", "structcore_1_1CombatantProfile.html", "structcore_1_1CombatantProfile" ],
     [ "Combatant", "structcore_1_1Combatant.html", "structcore_1_1Combatant" ],
     [ "EnlistResult", "structcore_1_1EnlistResult.html", "structcore_1_1EnlistResult" ],
@@ -202,6 +203,7 @@ var namespacecore =
     [ "SkillDefinition", "structcore_1_1SkillDefinition.html", "structcore_1_1SkillDefinition" ],
     [ "SkillCatalog", "structcore_1_1SkillCatalog.html", "structcore_1_1SkillCatalog" ],
     [ "SpellEffect", "structcore_1_1SpellEffect.html", "structcore_1_1SpellEffect" ],
+    [ "SpellRevival", "structcore_1_1SpellRevival.html", "structcore_1_1SpellRevival" ],
     [ "Spell", "structcore_1_1Spell.html", "structcore_1_1Spell" ],
     [ "SpellCatalog", "structcore_1_1SpellCatalog.html", "structcore_1_1SpellCatalog" ],
     [ "FixedTimestep", "classcore_1_1FixedTimestep.html", "classcore_1_1FixedTimestep" ],
@@ -288,6 +290,10 @@ var namespacecore =
       [ "BeforeOutcome", "namespacecore.html#ac7bf6427f29bbba33973526a5896c20da9bda4b2b935d4e3fa053e22ca4078390", null ],
       [ "Hit", "namespacecore.html#ac7bf6427f29bbba33973526a5896c20daebfe5e1791db03c4cd6ab95801e0977d", null ]
     ] ],
+    [ "AtZeroHitPoints", "namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76", [
+      [ "DeathSaves", "namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76a35dc1c89b9774d0daf5d83e5c2264e9b", null ],
+      [ "Dies", "namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76ae172da87ca16bcdd67da0fb694df227a", null ]
+    ] ],
     [ "CapacityEffectKind", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4", [
       [ "AttackBonus", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a024d7a2554a540559d2a2db537090311", null ],
       [ "ArmorClassBonus", "namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4aa5a5d7ffde0bfd0823f6f0a56f288de3", null ],
@@ -319,7 +325,18 @@ var namespacecore =
     [ "CombatantStatus", "namespacecore.html#ab77b88490327a0c26ec09d4f6126e382", [
       [ "Standing", "namespacecore.html#ab77b88490327a0c26ec09d4f6126e382aa66b284e632fb96f19e27dca96b78fd7", null ],
       [ "Down", "namespacecore.html#ab77b88490327a0c26ec09d4f6126e382a08a38277b0309070706f6652eeae9a53", null ],
+      [ "Dead", "namespacecore.html#ab77b88490327a0c26ec09d4f6126e382a183b62c7f067711f9c5a54913c054617", null ],
       [ "Withdrawn", "namespacecore.html#ab77b88490327a0c26ec09d4f6126e382af62dedad685b570f499b61e94084dab2", null ]
+    ] ],
+    [ "CombatCondition", "namespacecore.html#abde919757944fef613e5f21cf21c3108", [
+      [ "Unconscious", "namespacecore.html#abde919757944fef613e5f21cf21c3108acb6b56b0daf97dc9660af8977785a0e8", null ],
+      [ "Prone", "namespacecore.html#abde919757944fef613e5f21cf21c3108a0d7fa52c0200c09318ddc6c0d7a377ec", null ],
+      [ "Stable", "namespacecore.html#abde919757944fef613e5f21cf21c3108afa3aff3c185c6dc7754235f397c2099a", null ],
+      [ "Dead", "namespacecore.html#abde919757944fef613e5f21cf21c3108a183b62c7f067711f9c5a54913c054617", null ],
+      [ "Blessed", "namespacecore.html#abde919757944fef613e5f21cf21c3108a582f060800c793f1196f45a236d275a5", null ],
+      [ "Invisible", "namespacecore.html#abde919757944fef613e5f21cf21c3108a8bcda43732b0928d269955e0f09ff76f", null ],
+      [ "Flying", "namespacecore.html#abde919757944fef613e5f21cf21c3108a444733081a578880ba8a563d3c59d22d", null ],
+      [ "Concentrating", "namespacecore.html#abde919757944fef613e5f21cf21c3108aa020a34193d50813b2d30e19503a471e", null ]
     ] ],
     [ "CombatHook", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9", [
       [ "BeforeFirstTurn", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a9146e3e958df55f213ab4a470d861dc3", null ],
@@ -330,6 +347,8 @@ var namespacecore =
       [ "AttackDeclared", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af", null ],
       [ "DamageTaken", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a3007032a944ef3638beb8825cbb3c28b", null ],
       [ "CombatantDowned", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ac963ba0b22143d6653abb38826c9a254", null ],
+      [ "DeathSaveDue", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a25bee0ac1d4ef5158dff040ace25c848", null ],
+      [ "CombatantDied", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a229eb82b4e2b7b30ff9ec61c90805135", null ],
       [ "CombatantJoined", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a6b262362e4626c332872a4645efc154c", null ],
       [ "CombatantLeft", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a228189956989fdf6b5e1340df902051b", null ],
       [ "CombatEnded", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a8e2cadedb4267fb709cbf7bfffcf1a64", null ]
@@ -420,6 +439,14 @@ var namespacecore =
       [ "Radiant", "namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda416eef8099932e27b7e55168643ea14d", null ],
       [ "Slashing", "namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda8c5d5b09768823ed63d3d3a95a7a962a", null ],
       [ "Thunder", "namespacecore.html#aae5ed49bedbf68049f008e4efac2edfda7db228551936f49a61c6b965886ad840", null ]
+    ] ],
+    [ "DeathSaveOutcome", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254", [
+      [ "Success", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254a505a83f220c02df2f85c3810cd9ceb38", null ],
+      [ "Failure", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ae139a585510a502bbf1841cf589f5086", null ],
+      [ "Stabilized", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254afda22026db89cdc5e88b262ad9424b41", null ],
+      [ "Died", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ab4ee54591aaa4862bf37f75f6839b514", null ],
+      [ "Revived", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254a608ff442e5491bad46bc86c5f16c6655", null ],
+      [ "Ignored", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ad96143ba1b15645919cea00ec9d1be62", null ]
     ] ],
     [ "DialogueActionKind", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680", [
       [ "SetFlag", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680af7728eea36126ba401b5df30bb93f528", null ],
@@ -675,7 +702,9 @@ var namespacecore =
       [ "AutoHit", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba25f61a28f33b14bb363490241f18ef77", null ],
       [ "SavingThrow", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d", null ],
       [ "Effect", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa", null ],
-      [ "Healing", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543", null ]
+      [ "Healing", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543", null ],
+      [ "Stabilize", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba5b881cec5eb79c7e74a5c9f43f38b905", null ],
+      [ "Revive", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144bad78a1701177a08aebfbccceb9f1eb63a", null ]
     ] ],
     [ "SpellTarget", "namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ec", [
       [ "Enemy", "namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3eca8c6d21187fb58b7a079d70030686b33e", null ],
@@ -815,6 +844,7 @@ var namespacecore =
     [ "collisionAgrees", "namespacecore.html#a81edd55832615bfecbb8da06147ef2c6", null ],
     [ "collisionTileOf", "namespacecore.html#a54b64d433a22d60c2c1345b4aa840b6b", null ],
     [ "combatantsInArea", "namespacecore.html#a4dfe01f34b52d84d20c9c6785eb464aa", null ],
+    [ "combatConditionLabel", "namespacecore.html#a0c9f2b8fa32045a19b8c958a8067290f", null ],
     [ "combatZoneOf", "namespacecore.html#a2f5aee616c4afd984124b93ee026af37", null ],
     [ "combatZonesOf", "namespacecore.html#a7c047c5fef857528c6b8441b5a3155a4", null ],
     [ "commonEntityProperties", "namespacecore.html#a3b401d6cc78df915d5a4dd0c8f7dbcc9", null ],

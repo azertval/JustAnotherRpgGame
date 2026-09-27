@@ -1,6 +1,7 @@
 var CombatState_8h =
 [
     [ "core::CombatEvent", "structcore_1_1CombatEvent.html", "structcore_1_1CombatEvent" ],
+    [ "core::DeathSaves", "structcore_1_1DeathSaves.html", "structcore_1_1DeathSaves" ],
     [ "core::CombatantProfile", "structcore_1_1CombatantProfile.html", "structcore_1_1CombatantProfile" ],
     [ "core::Combatant", "structcore_1_1Combatant.html", "structcore_1_1Combatant" ],
     [ "core::EnlistResult", "structcore_1_1EnlistResult.html", "structcore_1_1EnlistResult" ],
@@ -11,9 +12,14 @@ var CombatState_8h =
     [ "core::MountRefusal", "structcore_1_1MountRefusal.html", "structcore_1_1MountRefusal" ],
     [ "core::EncounterMount", "structcore_1_1EncounterMount.html", "structcore_1_1EncounterMount" ],
     [ "core::CombatListener", "namespacecore.html#aec8883b9ba0315c5d8d5b710a34d03d4", null ],
+    [ "core::AtZeroHitPoints", "namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76", [
+      [ "core::AtZeroHitPoints::DeathSaves", "namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76a35dc1c89b9774d0daf5d83e5c2264e9b", null ],
+      [ "core::AtZeroHitPoints::Dies", "namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76ae172da87ca16bcdd67da0fb694df227a", null ]
+    ] ],
     [ "core::CombatantStatus", "namespacecore.html#ab77b88490327a0c26ec09d4f6126e382", [
       [ "core::CombatantStatus::Standing", "namespacecore.html#ab77b88490327a0c26ec09d4f6126e382aa66b284e632fb96f19e27dca96b78fd7", null ],
       [ "core::CombatantStatus::Down", "namespacecore.html#ab77b88490327a0c26ec09d4f6126e382a08a38277b0309070706f6652eeae9a53", null ],
+      [ "core::CombatantStatus::Dead", "namespacecore.html#ab77b88490327a0c26ec09d4f6126e382a183b62c7f067711f9c5a54913c054617", null ],
       [ "core::CombatantStatus::Withdrawn", "namespacecore.html#ab77b88490327a0c26ec09d4f6126e382af62dedad685b570f499b61e94084dab2", null ]
     ] ],
     [ "core::CombatHook", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9", [
@@ -25,6 +31,8 @@ var CombatState_8h =
       [ "core::CombatHook::AttackDeclared", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af", null ],
       [ "core::CombatHook::DamageTaken", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a3007032a944ef3638beb8825cbb3c28b", null ],
       [ "core::CombatHook::CombatantDowned", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ac963ba0b22143d6653abb38826c9a254", null ],
+      [ "core::CombatHook::DeathSaveDue", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a25bee0ac1d4ef5158dff040ace25c848", null ],
+      [ "core::CombatHook::CombatantDied", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a229eb82b4e2b7b30ff9ec61c90805135", null ],
       [ "core::CombatHook::CombatantJoined", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a6b262362e4626c332872a4645efc154c", null ],
       [ "core::CombatHook::CombatantLeft", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a228189956989fdf6b5e1340df902051b", null ],
       [ "core::CombatHook::CombatEnded", "namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a8e2cadedb4267fb709cbf7bfffcf1a64", null ]
@@ -36,6 +44,14 @@ var CombatState_8h =
       [ "core::CombatPhase::TurnActive", "namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840a5015d46b35dcee9bb9a0438bf3adf01f", null ],
       [ "core::CombatPhase::TurnEnd", "namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840add2a059ce5c2b0e39ede932ecb5af42f", null ],
       [ "core::CombatPhase::Ended", "namespacecore.html#a7257683f3d1f85e256dfdce8b29bc840a0157fbb99be9622bdaa6e544270c0622", null ]
+    ] ],
+    [ "core::DeathSaveOutcome", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254", [
+      [ "core::DeathSaveOutcome::Success", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254a505a83f220c02df2f85c3810cd9ceb38", null ],
+      [ "core::DeathSaveOutcome::Failure", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ae139a585510a502bbf1841cf589f5086", null ],
+      [ "core::DeathSaveOutcome::Stabilized", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254afda22026db89cdc5e88b262ad9424b41", null ],
+      [ "core::DeathSaveOutcome::Died", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ab4ee54591aaa4862bf37f75f6839b514", null ],
+      [ "core::DeathSaveOutcome::Revived", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254a608ff442e5491bad46bc86c5f16c6655", null ],
+      [ "core::DeathSaveOutcome::Ignored", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ad96143ba1b15645919cea00ec9d1be62", null ]
     ] ],
     [ "core::MoveResult", "namespacecore.html#ac0c9dc39aafc4bad02c96a9659df0c1b", [
       [ "core::MoveResult::Moved", "namespacecore.html#ac0c9dc39aafc4bad02c96a9659df0c1ba95bfdefaaf01553cbf21ccd942855c69", null ],

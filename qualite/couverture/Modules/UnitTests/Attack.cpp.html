@@ -36,7 +36,7 @@ namespace core {
         case Ability::Dexterity:
 <span style = "background-color:#dfd">            return "Dexterite";</span>
         case Ability::Constitution:
-<span style = "background-color:#fdd">            return "Constitution";</span>
+<span style = "background-color:#dfd">            return "Constitution";</span>
         case Ability::Intelligence:
 <span style = "background-color:#dfd">            return "Intelligence";</span>
         case Ability::Wisdom:
@@ -492,8 +492,12 @@ std::optional&lt;AttackOutcome&gt; resolveAttack(CombatState&amp; combat, Combat
         texte += jet.isNaturalOne() ? " : rate (1 naturel)" : " : rate";
         return texte;</span>
     }
-<span style = "background-color:#dfd">    texte +=</span>
-        roll.critical ? " : critique (" + std::to_string(jet.keptDie) + " naturel)" : " : touche";
+<span style = "background-color:#dfd">    if (roll.critical &amp;&amp; !roll.criticalSource.empty()) {
+        texte += " : critique (" + roll.criticalSource + ")";
+    } else {
+        texte += roll.critical ? " : critique (" + std::to_string(jet.keptDie) + " naturel)"</span>
+                               : " : touche";
+    }
 <span style = "background-color:#dfd">    return texte + describeDamage(damage, report);
 }</span>
 

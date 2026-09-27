@@ -178,6 +178,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a87bcc03ab56f6e3adc14ba788e3eee50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le modificateur d'incantation s'ajoute aux dégâts ou au soin.  <br /></td></tr>
 <tr class="memitem:a34117030ae56809aee2a61a0963bf4d6" id="r_a34117030ae56809aee2a61a0963bf4d6"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Dice.html">Dice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a34117030ae56809aee2a61a0963bf4d6">healing</a></td></tr>
 <tr class="memdesc:a34117030ae56809aee2a61a0963bf4d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés de soin (<em>soin des blessures</em>, <span class="tt">LOT-134</span>).  <br /></td></tr>
+<tr class="memitem:ac37f3c25deec03c12661b23afff0e62f" id="r_ac37f3c25deec03c12661b23afff0e62f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac37f3c25deec03c12661b23afff0e62f">stabilizes</a> = false</td></tr>
+<tr class="memdesc:ac37f3c25deec03c12661b23afff0e62f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stabilise une créature à terre (<em>épargner les mourants</em>, <span class="tt">LOT-137</span>).  <br /></td></tr>
+<tr class="memitem:adcc69cf1b8ffda86270e0cf6e636303f" id="r_adcc69cf1b8ffda86270e0cf6e636303f"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1SpellRevival.html">SpellRevival</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adcc69cf1b8ffda86270e0cf6e636303f">revives</a></td></tr>
+<tr class="memdesc:adcc69cf1b8ffda86270e0cf6e636303f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ramène un mort (<em>revigorer</em>, <span class="tt">LOT-137</span>).  <br /></td></tr>
 <tr class="memitem:a9047893bb6649fb1ff013cae04f19e81" id="r_a9047893bb6649fb1ff013cae04f19e81"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9047893bb6649fb1ff013cae04f19e81">bonusAction</a> = false</td></tr>
 <tr class="memdesc:a9047893bb6649fb1ff013cae04f19e81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le sort se lance par une action bonus.  <br /></td></tr>
 <tr class="memitem:a562e548f68be02effde174ad42502db1" id="r_a562e548f68be02effde174ad42502db1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a562e548f68be02effde174ad42502db1">maxTargets</a> = 1</td></tr>
@@ -569,6 +573,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="adcc69cf1b8ffda86270e0cf6e636303f" name="adcc69cf1b8ffda86270e0cf6e636303f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcc69cf1b8ffda86270e0cf6e636303f">&#9670;&#160;</a></span>revives</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1SpellRevival.html">SpellRevival</a>&gt; core::Spell::revives</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ramène un mort (<em>revigorer</em>, <span class="tt">LOT-137</span>). </p>
+
+</div>
+</div>
 <a id="a72fc45028d262c6abacce401e30ff917" name="a72fc45028d262c6abacce401e30ff917"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a72fc45028d262c6abacce401e30ff917">&#9670;&#160;</a></span>ritual</h2>
 
@@ -638,6 +658,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac37f3c25deec03c12661b23afff0e62f" name="ac37f3c25deec03c12661b23afff0e62f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac37f3c25deec03c12661b23afff0e62f">&#9670;&#160;</a></span>stabilizes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Spell::stabilizes = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stabilise une créature à terre (<em>épargner les mourants</em>, <span class="tt">LOT-137</span>). </p>
 
 </div>
 </div>

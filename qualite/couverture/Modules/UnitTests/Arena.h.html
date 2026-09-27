@@ -152,6 +152,8 @@ struct ArenaSpell {
     int maxTargets = 1;
     /// Les dÃ©s de soin, modificateur d'incantation compris s'il s'y ajoute.
     std::optional&lt;Dice&gt; healing;
+    /// Le retour Ã  la vie qu'il accorde (*revigorer*, `LOT-137`).
+    std::optional&lt;SpellRevival&gt; revival;
 
     /// @brief Vrai si le sort se lance encore.
 <span style = "background-color:#dfd">    [[nodiscard]] bool available() const noexcept {
@@ -181,6 +183,34 @@ struct ArenaEffect {
     /// `Bless` : les dÃ©s ajoutÃ©s Ã  ses jets d'attaque et de sauvegarde.
     std::optional&lt;Dice&gt; dice;
 };
+
+/**
+ * @brief Un Ã©tat qu'un combattant porte en combat (`LOT-137`) : ceux dont les quatre classes ont
+ *        besoin jusqu'au niveau 5, pas le catalogue du *Manuel* (annexe A).
+ */
+enum class CombatCondition : std::uint8_t {
+    /// Ã 0 point de vie : attaquÃ© avec avantage, critique au contact, sauvegardes de Force et de
+    /// DextÃ©ritÃ© ratÃ©es.
+    Unconscious,
+    /// Ã terre : attaquÃ© avec avantage au contact et dÃ©savantage Ã  distance ; ses attaques sont
+    /// dÃ©savantagÃ©es.
+    Prone,
+    /// StabilisÃ© : il ne fait plus de jets contre la mort.
+    Stable,
+    /// Mort.
+    Dead,
+    /// BÃ©ni : 1d4 Ã  ses jets d'attaque et de sauvegarde (*bÃ©nÃ©diction*).
+    Blessed,
+    /// Invisible.
+    Invisible,
+    /// En vol (*vol*).
+    Flying,
+    /// ConcentrÃ© sur un sort : des dÃ©gÃ¢ts demandent un jet de Constitution.
+    Concentrating,
+};
+
+/// @brief Le nom d'un Ã©tat, tel que le journal et l'Ã©cran l'Ã©crivent (Â« inconscient Â»).
+[[nodiscard]] std::string_view combatConditionLabel(CombatCondition condition) noexcept;
 
 /// @brief Un combattant tel que l'Ã©cran de mise en place le compose.
 struct ArenaContestant {
@@ -260,7 +290,8 @@ enum class ArenaActionResult : std::uint8_t {
     OutOfReach,
     /// La cible est sous abri total : aucune ligne de vue ne la relie Ã  l'attaquant (`LOT-22`).
     TotalCover,
-    /// Inconnue, soi-mÃªme, un alliÃ©, ou une cible qui n'est pas debout.
+    /// Inconnue, soi-mÃªme, un alliÃ©, ou une cible que l'action ne peut pas viser : un mort, un
+    /// debout pour *revigorer*.
     InvalidTarget,
     /// Le combattant n'a pas d'attaque de cet indice.
     NoAttack,
@@ -348,6 +379,13 @@ public:
     [[nodiscard]] bool hasEffect(CombatantId combatant, SpellEffectKind kind) const;
 
     /**
+     * @brief Les Ã©tats que porte @p combatant (`LOT-137`), dans l'ordre de `CombatCondition` :
+     *        ceux de son statut (inconscient, Ã  terre, stabilisÃ©, mort) et ceux de ses sorts
+     *        (bÃ©ni, invisible, en vol, concentrÃ©).
+     */
+    [[nodiscard]] std::vector&lt;CombatCondition&gt; conditionsOf(CombatantId combatant) const;
+
+    /**
      * @brief L'action *lancer un sort* du combattant actif, avec son sort @p spellIndex
      *        (`LOT-131`, `LOT-133`, `EX-RPG-025`).
      *
@@ -364,7 +402,14 @@ public:
      * - **effet** : posÃ© sur la cible â et sur les alliÃ©s les plus proches du lanceur, pour un
      *   sort Ã  plusieurs cibles â, jusqu'Ã  sa fin (`ArenaEffect`) ;
      * - **soin** : des points de vie rendus Ã  une crÃ©ature de son camp, qui se relÃ¨ve si elle
-     *   Ã©tait Ã  terre (`LOT-134`).
+     *   Ã©tait Ã  terre (`LOT-134`) ;
+     * - **stabiliser** : une crÃ©ature de son camp Ã  terre ne fait plus de jets contre la mort
+     *   (*Ã©pargner les mourants*, `LOT-137`) ;
+     * - **ramener** : une crÃ©ature de son camp morte depuis au plus `SpellRevival::withinRounds`
+     *   rounds revient avec ses points de vie (*revigorer*, `LOT-137`).
+     *
+     * Un sort qui blesse ne vise qu'une crÃ©ature debout ; le soin et la stabilisation, aussi une
+     * crÃ©ature Ã  terre ; *revigorer*, un mort seulement.
      *
      * Un sort d'action bonus dÃ©pense l'action bonus. Tant que l'arme spirituelle d'un lanceur
      * dure, relancer le sort la fait frapper **sans** dÃ©penser de lancer.
@@ -379,8 +424,9 @@ public:
      *
      * VÃ©rifie la cible, la portÃ©e et la vue (`core::checkTarget`), dÃ©pense l'action, puis rÃ©sout
      * (`core::resolveAttack`) : dÃ©claration, abri, jet, dÃ©gÃ¢ts. Une cible qui esquive et voit son
-     * attaquant impose le dÃ©savantage. Tout passe par la suite alÃ©atoire de la session : un rejeu
-     * redonne les mÃªmes coups.
+     * attaquant impose le dÃ©savantage. Une cible **Ã  terre** se vise â l'achever (`LOT-137`) :
+     * avantage, et critique si elle est touchÃ©e au contact ; un mort, non. Tout passe par la suite
+     * alÃ©atoire de la session : un rejeu redonne les mÃªmes coups.
      *
      * Une capacitÃ© qui ajoute des attaques Ã  l'action (*Extra Attack*, `LOT-132`) les octroie
      * quand l'action se dÃ©pense (`EXTRA_ATTACK_RESOURCE`) : l'attaque suivante du mÃªme tour les
@@ -538,6 +584,19 @@ private:
     /// Les points de vie rendus Ã  la cible.
     ArenaAttack castHealing(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
                             const std::string&amp; prefix);
+    /// La cible Ã  terre, stabilisÃ©e.
+    ArenaAttack castStabilize(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
+                              const std::string&amp; prefix);
+    /// La cible morte, ramenÃ©e.
+    ArenaAttack castRevive(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
+                           const std::string&amp; prefix);
+    /// Le jet contre la mort de @p combatant, Ã  sa place dans l'ordre (`LOT-137`).
+    void rollDeathSave(CombatantId combatant);
+    /// Ce que des dÃ©gÃ¢ts subis dÃ©clenchent : l'Ã©chec d'un combattant blessÃ© Ã  terre, la mort
+    /// instantanÃ©e, le jet de concentration du lanceur.
+    void onDamageTaken(const CombatEvent&amp; event);
+    /// Â« S succes, F echec(s) Â» : le compteur des jets contre la mort de @p combatant.
+    [[nodiscard]] std::string deathSaveTally(CombatantId combatant) const;
     /// Le dÃ© de *bÃ©nÃ©diction* de @p combatant, lancÃ© et nommÃ©, s'il en porte une.
     std::optional&lt;Modifier&gt; blessingFor(CombatantId combatant);
     /// L'effet qui dure, posÃ© sur la cible.

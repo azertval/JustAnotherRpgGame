@@ -6,10 +6,11 @@ var searchData=
   ['keyforentity_3',['keyForEntity',['../namespacecore.html#a1a6b22027beb38aaf525b6dff5d3d2b8',1,'core']]],
   ['keypressevent_4',['keyPressEvent',['../classhmi_1_1EditorViewport.html#a3bc6aa80b04542a1193c142c9cc90858',1,'hmi::EditorViewport']]],
   ['keyreleaseevent_5',['keyReleaseEvent',['../classhmi_1_1EditorViewport.html#a85791f3a3510bb5854dba82f144bb519',1,'hmi::EditorViewport']]],
-  ['kindtoplace_6',['kindToPlace',['../classhmi_1_1EntityPanel.html#a3e09c0091086b69baf02c9d9c2e92c3a',1,'hmi::EntityPanel']]],
-  ['kindtoplacechanged_7',['kindToPlaceChanged',['../classhmi_1_1EntityPanel.html#a7e69f5cb14a7e3e569ea913dfdebb6b1',1,'hmi::EntityPanel']]],
-  ['knownentitykinds_8',['knownEntityKinds',['../namespacecore.html#a3c877363f8258fc1ba137c48aa283397',1,'core']]],
-  ['knowninteractablekinds_9',['knownInteractableKinds',['../namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea',1,'core']]],
-  ['knownmapstates_10',['knownMapStates',['../namespacehmi.html#ae57583841fc02117460e1187182aefd0',1,'hmi']]],
-  ['knownspell_11',['knownSpell',['../structcore_1_1CharacterSheet.html#a07e1da48497cc95a542a29c546329ab5',1,'core::CharacterSheet']]]
+  ['kill_6',['kill',['../classcore_1_1CombatState.html#ad9f96f584cce4d2f67ed5cf8bf325540',1,'core::CombatState']]],
+  ['kindtoplace_7',['kindToPlace',['../classhmi_1_1EntityPanel.html#a3e09c0091086b69baf02c9d9c2e92c3a',1,'hmi::EntityPanel']]],
+  ['kindtoplacechanged_8',['kindToPlaceChanged',['../classhmi_1_1EntityPanel.html#a7e69f5cb14a7e3e569ea913dfdebb6b1',1,'hmi::EntityPanel']]],
+  ['knownentitykinds_9',['knownEntityKinds',['../namespacecore.html#a3c877363f8258fc1ba137c48aa283397',1,'core']]],
+  ['knowninteractablekinds_10',['knownInteractableKinds',['../namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea',1,'core']]],
+  ['knownmapstates_11',['knownMapStates',['../namespacehmi.html#ae57583841fc02117460e1187182aefd0',1,'hmi']]],
+  ['knownspell_12',['knownSpell',['../structcore_1_1CharacterSheet.html#a07e1da48497cc95a542a29c546329ab5',1,'core::CharacterSheet']]]
 ];

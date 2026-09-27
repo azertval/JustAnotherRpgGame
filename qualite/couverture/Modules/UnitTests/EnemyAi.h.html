@@ -140,29 +140,35 @@ struct BehaviorProfile {
     std::string id;
     std::string name;
     /// Les dÃ©gÃ¢ts qu'on espÃ¨re infliger.
-    int damageDealt = 100;
+<span style = "background-color:#dfd">    int damageDealt = 100;</span>
     /// Ce qui s'ajoute quand la cible est ensanglantÃ©e : l'achever.
-    int bloodiedTarget = 0;
+<span style = "background-color:#dfd">    int bloodiedTarget = 0;</span>
     /// Ce qui s'ajoute par alliÃ© dÃ©jÃ  au contact de la cible : frapper ensemble.
-    int focusFire = 0;
+<span style = "background-color:#dfd">    int focusFire = 0;</span>
     /// Ce qui s'ajoute quand la cible est au contact d'un alliÃ© ensanglantÃ© : le dÃ©gager.
-    int protectBloodiedAlly = 0;
+<span style = "background-color:#dfd">    int protectBloodiedAlly = 0;</span>
     /// Les dÃ©gÃ¢ts qu'on s'attend Ã  subir au prochain round, lÃ  oÃ¹ l'on finit.
-    int threatTaken = 100;
+<span style = "background-color:#dfd">    int threatTaken = 100;</span>
     /// La mÃªme menace, quand on est soi-mÃªme ensanglantÃ©.
-    int threatWhenBloodied = 100;
+<span style = "background-color:#dfd">    int threatWhenBloodied = 100;</span>
     /// Les attaques d'opportunitÃ© qu'un chemin provoque.
-    int opportunityTaken = 100;
+<span style = "background-color:#dfd">    int opportunityTaken = 100;</span>
     /// Le prix d'une case entre soi et la cible, en pour cent d'un point de dÃ©gÃ¢t.
-    int approachPerTile = 100;
+<span style = "background-color:#dfd">    int approachPerTile = 100;</span>
     /// Combien d'ennemis peuvent frapper la case de fin de tour au contact, sans bouger, au plus.
-    int toleratedThreats = 2;
+<span style = "background-color:#dfd">    int toleratedThreats = 2;</span>
     /// Le jet requis au-delÃ  duquel on ne prend pas l'attaque d'opportunitÃ© (21 : toujours).
-    int opportunityMaximumRoll = 21;
+<span style = "background-color:#dfd">    int opportunityMaximumRoll = 21;</span>
     /// Vrai si, faute de pouvoir attaquer et menacÃ©, on esquive plutÃ´t que de se prÃ©cipiter.
-    bool dodgeWhenThreatened = false;
+<span style = "background-color:#dfd">    bool dodgeWhenThreatened = false;</span>
     /// Vrai si, aprÃ¨s avoir attaquÃ©, on s'Ã©loigne vers une case moins menacÃ©e.
-    bool retreatAfterAttack = false;
+<span style = "background-color:#dfd">    bool retreatAfterAttack = false;</span>
+    /**
+     * @brief Ce que pÃ¨se un ennemi **Ã  terre** dans un combat oÃ¹ l'on meurt : l'achever
+     *        (`LOT-137`), en pour cent de l'espÃ©rance de dÃ©gÃ¢ts, comme `damageDealt` pour un
+     *        ennemi debout. 0 : on l'Ã©pargne â il n'est pas une cible.
+     */
+<span style = "background-color:#dfd">    int finishDowned = 0;</span>
 };
 
 /// @brief Une rÃ¨gle d'attribution : un trait, une crÃ©ature, ou le goÃ»t du tir.
@@ -232,7 +238,8 @@ struct TurnPlan {
  * @brief DÃ©cide le tour de @p actor, qui doit Ãªtre le combattant actif de la session.
  *
  * Toutes les cases oÃ¹ finir le dÃ©placement (`core::ReachableArea`), et la case de dÃ©part, sont
- * examinÃ©es avec chaque attaque et chaque ennemi debout ; si aucune attaque n'est possible, les
+ * examinÃ©es avec chaque attaque et chaque ennemi debout â et chaque ennemi Ã  terre, si le profil
+ * l'achÃ¨ve (`BehaviorProfile::finishDowned`) ; si aucune attaque n'est possible, les
  * cases le long du chemin vers l'ennemi le plus proche (`core::findPath`). Rien n'est jouÃ©.
  */
 [[nodiscard]] TurnPlan planTurn(const ArenaSession&amp; session, CombatantId actor,

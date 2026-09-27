@@ -24,11 +24,13 @@ var structcore_1_1Spell =
     [ "range", "structcore_1_1Spell.html#a10fb3d3a50f43b92d15b6b48b99e8d46", null ],
     [ "rangeMeters", "structcore_1_1Spell.html#a13a40e4ebf6de96e790c55cebfd00088", null ],
     [ "requiredMechanisms", "structcore_1_1Spell.html#af487b886ad6d013d9375994e51a01024", null ],
+    [ "revives", "structcore_1_1Spell.html#adcc69cf1b8ffda86270e0cf6e636303f", null ],
     [ "ritual", "structcore_1_1Spell.html#a72fc45028d262c6abacce401e30ff917", null ],
     [ "saveEffect", "structcore_1_1Spell.html#a547c0ff2dcbaf49273c984aadad33c7b", null ],
     [ "savingThrow", "structcore_1_1Spell.html#a2ea5964597cc155ee0e7394182bee591", null ],
     [ "school", "structcore_1_1Spell.html#aa72c1a6dd6299f5cdcfceeaca02a7d1f", null ],
     [ "source", "structcore_1_1Spell.html#a1458886ef3e77c68405df00dce8f73ca", null ],
+    [ "stabilizes", "structcore_1_1Spell.html#ac37f3c25deec03c12661b23afff0e62f", null ],
     [ "target", "structcore_1_1Spell.html#abbb6dc3d250ba8933584e8ac5c2a9975", null ],
     [ "text", "structcore_1_1Spell.html#a56ecbd7a015e9e599a1e5b3169369595", null ],
     [ "unsupportedArea", "structcore_1_1Spell.html#a5c459861e4bdc81512449c80911114ec", null ]

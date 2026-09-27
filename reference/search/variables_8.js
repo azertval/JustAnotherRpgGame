@@ -22,7 +22,7 @@ var searchData=
   ['hitdice_19',['hitDice',['../structcore_1_1Creature.html#a61e0193ade889479b1b2eb0b9506a4a4',1,'core::Creature']]],
   ['hitdie_20',['hitDie',['../structcore_1_1PlayableClass.html#a9f2304ce7895d59e0793f29cb3644a24',1,'core::PlayableClass']]],
   ['hitpointloss_21',['hitPointLoss',['../structcore_1_1DamageWork.html#a968b5823523352a1e463d9ba96d2710e',1,'core::DamageWork']]],
-  ['hitpoints_22',['hitPoints',['../structcore_1_1GridObject.html#aff9938e4fc616d5538368b29681c999f',1,'core::GridObject::hitPoints'],['../structcore_1_1Creature.html#a7a0d61688b76d8555a09defbf43a13d9',1,'core::Creature::hitPoints']]],
+  ['hitpoints_22',['hitPoints',['../structcore_1_1GridObject.html#aff9938e4fc616d5538368b29681c999f',1,'core::GridObject::hitPoints'],['../structcore_1_1Creature.html#a7a0d61688b76d8555a09defbf43a13d9',1,'core::Creature::hitPoints'],['../structcore_1_1SpellRevival.html#a0144c6418de818484bcf37bb5205b152',1,'core::SpellRevival::hitPoints']]],
   ['hitpointsafter_23',['hitPointsAfter',['../structcore_1_1CombatEvent.html#a17dced5c645c0998427206cd6eede6b5',1,'core::CombatEvent::hitPointsAfter'],['../structcore_1_1DamageReport.html#a5f0942dd61fdb70850c76bddf1937453',1,'core::DamageReport::hitPointsAfter']]],
   ['hitpointsbefore_24',['hitPointsBefore',['../structcore_1_1CombatEvent.html#a40a43039f3a72994607c3f050ce03059',1,'core::CombatEvent::hitPointsBefore'],['../structcore_1_1DamageReport.html#ae626ec8a63ea2c421db0b677f32b8103',1,'core::DamageReport::hitPointsBefore']]],
   ['hitpointsgained_25',['hitPointsGained',['../structcore_1_1LevelUpResult.html#a06e76aff6d73239de44e902c26bc2f84',1,'core::LevelUpResult']]],

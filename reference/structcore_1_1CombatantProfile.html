@@ -171,6 +171,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a56bfe782f09a73dadfb8dc635ae4566b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résistances, vulnérabilités et immunités (<span class="tt">EX-CBT-032</span>).  <br /></td></tr>
 <tr class="memitem:a71158ae5717a4c88f4fa558cfdac2c62" id="r_a71158ae5717a4c88f4fa558cfdac2c62"><td class="memItemLeft">std::array&lt; int, 6 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a71158ae5717a4c88f4fa558cfdac2c62">savingThrows</a> {}</td></tr>
 <tr class="memdesc:a71158ae5717a4c88f4fa558cfdac2c62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le modificateur de chaque jet de sauvegarde, dans l'ordre de <span class="tt"><a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1" title="Une des six caractéristiques d&#39;un personnage ou d&#39;une créature (EX-REG-010).">core::Ability</a></span> (<span class="tt">LOT-133</span>) : ce que lit un sort qui en demande un (<em>boule de feu</em>).  <br /></td></tr>
+<tr class="memitem:aa313446a64c2a132673999a4802472f4" id="r_aa313446a64c2a132673999a4802472f4"><td class="memItemLeft"><a class="el" href="namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76">AtZeroHitPoints</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa313446a64c2a132673999a4802472f4">atZero</a> = <a class="el" href="namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76a35dc1c89b9774d0daf5d83e5c2264e9b">AtZeroHitPoints::DeathSaves</a></td></tr>
+<tr class="memdesc:aa313446a64c2a132673999a4802472f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui lui arrive à 0 point de vie : un personnage agonise, un monstre meurt (<span class="tt">LOT-137</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce que le combat doit savoir d'un combattant — ni fiche, ni bloc de statistiques. </p>
@@ -190,6 +192,22 @@ Public Attributes</h2></td></tr>
 
 <p>La classe d'armure contre laquelle on l'attaque (<span class="tt">EX-CBT-030</span>). </p>
 <p><b>Recalculée depuis ses sources</b> au moment où le profil se construit — l'équipement porté (<span class="tt"><a class="el" href="namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1" title="Calcule tout ce que l&#39;équipement porté produit, depuis la fiche et les catalogues.">core::derivedStatsFor</a></span>), le bloc de bestiaire —, jamais tenue à jour à la main : un équipement ne change pas au milieu d'un combat, et ce qui la change en combat (un abri, une posture) s'ajoute au jet par un crochet, sans toucher à ce nombre. </p>
+
+</div>
+</div>
+<a id="aa313446a64c2a132673999a4802472f4" name="aa313446a64c2a132673999a4802472f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa313446a64c2a132673999a4802472f4">&#9670;&#160;</a></span>atZero</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76">AtZeroHitPoints</a> core::CombatantProfile::atZero = <a class="el" href="namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76a35dc1c89b9774d0daf5d83e5c2264e9b">AtZeroHitPoints::DeathSaves</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce qui lui arrive à 0 point de vie : un personnage agonise, un monstre meurt (<span class="tt">LOT-137</span>). </p>
 
 </div>
 </div>

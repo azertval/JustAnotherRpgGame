@@ -172,6 +172,8 @@ $(function(){initNavTree('CombatState_8h.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:core_3A_3ACombatEvent" id="r_core_3A_3ACombatEvent"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CombatEvent.html">core::CombatEvent</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un crochet annonce.  <a href="structcore_1_1CombatEvent.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3ADeathSaves" id="r_core_3A_3ADeathSaves"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1DeathSaves.html">core::DeathSaves</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le compteur des jets contre la mort d'un combattant à terre.  <a href="structcore_1_1DeathSaves.html#details">More...</a><br /></td></tr>
 <tr class="memitem:core_3A_3ACombatantProfile" id="r_core_3A_3ACombatantProfile"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CombatantProfile.html">core::CombatantProfile</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le combat doit savoir d'un combattant — ni fiche, ni bloc de statistiques.  <a href="structcore_1_1CombatantProfile.html#details">More...</a><br /></td></tr>
 <tr class="memitem:core_3A_3ACombatant" id="r_core_3A_3ACombatant"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Combatant.html">core::Combatant</a></td></tr>
@@ -225,17 +227,36 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a3007032a944ef3638beb8825cbb3c28b">core::DamageTaken</a>
 , <a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9ac963ba0b22143d6653abb38826c9a254">core::CombatantDowned</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a6b262362e4626c332872a4645efc154c">core::CombatantJoined</a>
+&#160;&#160;<a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a25bee0ac1d4ef5158dff040ace25c848">core::DeathSaveDue</a>
+, <a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a229eb82b4e2b7b30ff9ec61c90805135">core::CombatantDied</a>
+, <a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a6b262362e4626c332872a4645efc154c">core::CombatantJoined</a>
 , <a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a228189956989fdf6b5e1340df902051b">core::CombatantLeft</a>
-, <a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a8e2cadedb4267fb709cbf7bfffcf1a64">core::CombatEnded</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a8e2cadedb4267fb709cbf7bfffcf1a64">core::CombatEnded</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a942a0cabc5c97e0e10dfb8a148e26fb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les <b>points d'insertion</b> du combat : où une capacité peut se greffer.  <a href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9">More...</a><br /></td></tr>
 <tr class="memitem:ab77b88490327a0c26ec09d4f6126e382" id="r_ab77b88490327a0c26ec09d4f6126e382"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ab77b88490327a0c26ec09d4f6126e382">core::CombatantStatus</a> : std::uint8_t { <a class="el" href="namespacecore.html#ab77b88490327a0c26ec09d4f6126e382aa66b284e632fb96f19e27dca96b78fd7">core::Standing</a>
 , <a class="el" href="namespacecore.html#ab77b88490327a0c26ec09d4f6126e382a08a38277b0309070706f6652eeae9a53">core::Down</a>
+, <a class="el" href="namespacecore.html#ab77b88490327a0c26ec09d4f6126e382a183b62c7f067711f9c5a54913c054617">core::Dead</a>
 , <a class="el" href="namespacecore.html#ab77b88490327a0c26ec09d4f6126e382af62dedad685b570f499b61e94084dab2">core::Withdrawn</a>
  }</td></tr>
 <tr class="memdesc:ab77b88490327a0c26ec09d4f6126e382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où en est un combattant.  <a href="namespacecore.html#ab77b88490327a0c26ec09d4f6126e382">More...</a><br /></td></tr>
+<tr class="memitem:a18034afdf1d6d9fbf127ce25d9001c76" id="r_a18034afdf1d6d9fbf127ce25d9001c76"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76">core::AtZeroHitPoints</a> : std::uint8_t { <a class="el" href="namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76a35dc1c89b9774d0daf5d83e5c2264e9b">core::DeathSaves</a>
+, <a class="el" href="namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76ae172da87ca16bcdd67da0fb694df227a">core::Dies</a>
+ }</td></tr>
+<tr class="memdesc:a18034afdf1d6d9fbf127ce25d9001c76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui arrive à un combattant qui tombe à 0 point de vie (Manuel des Joueurs, « Tomber à 0 point de vie », PDF p.  <a href="namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76">More...</a><br /></td></tr>
+<tr class="memitem:a2eaea3fb74698b3474825cda0cdce254" id="r_a2eaea3fb74698b3474825cda0cdce254"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a2eaea3fb74698b3474825cda0cdce254">core::DeathSaveOutcome</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#a2eaea3fb74698b3474825cda0cdce254a505a83f220c02df2f85c3810cd9ceb38">core::Success</a>
+, <a class="el" href="namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ae139a585510a502bbf1841cf589f5086">core::Failure</a>
+, <a class="el" href="namespacecore.html#a2eaea3fb74698b3474825cda0cdce254afda22026db89cdc5e88b262ad9424b41">core::Stabilized</a>
+, <a class="el" href="namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ab4ee54591aaa4862bf37f75f6839b514">core::Died</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#a2eaea3fb74698b3474825cda0cdce254a608ff442e5491bad46bc86c5f16c6655">core::Revived</a>
+, <a class="el" href="namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ad96143ba1b15645919cea00ec9d1be62">core::Ignored</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a2eaea3fb74698b3474825cda0cdce254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un jet contre la mort a donné (<span class="tt"><a class="el" href="classcore_1_1CombatState.html#a58ab865ce5dce4958ed07e3ad59612e3" title="Note le jet contre la mort de combatant (Manuel, « Jets de sauvegarde contre la mort ») : 10 ou plus,...">CombatState::recordDeathSave</a></span>).  <a href="namespacecore.html#a2eaea3fb74698b3474825cda0cdce254">More...</a><br /></td></tr>
 <tr class="memitem:ae1ab268fb5658f04b32b785790e7c082" id="r_ae1ab268fb5658f04b32b785790e7c082"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ae1ab268fb5658f04b32b785790e7c082">core::WithdrawResult</a> : std::uint8_t { <a class="el" href="namespacecore.html#ae1ab268fb5658f04b32b785790e7c082af62dedad685b570f499b61e94084dab2">core::Withdrawn</a>
 , <a class="el" href="namespacecore.html#ae1ab268fb5658f04b32b785790e7c082aa6bdb933c351cf222821ac7c5dd158b6">core::NotEscapable</a>
 , <a class="el" href="namespacecore.html#ae1ab268fb5658f04b32b785790e7c082a9e21f7ee0cee28526201edff8a19f87b">core::NotInCombat</a>

@@ -176,6 +176,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a73d047ae8a5ef120e86867fa6ac2f3f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si, faute de pouvoir attaquer et menacé, on esquive plutôt que de se précipiter.  <br /></td></tr>
 <tr class="memitem:a4e505a6fee947013b86012b0934e3d2b" id="r_a4e505a6fee947013b86012b0934e3d2b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4e505a6fee947013b86012b0934e3d2b">retreatAfterAttack</a> = false</td></tr>
 <tr class="memdesc:a4e505a6fee947013b86012b0934e3d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si, après avoir attaqué, on s'éloigne vers une case moins menacée.  <br /></td></tr>
+<tr class="memitem:a7352cc6521fe0e461734ceca63b1ff41" id="r_a7352cc6521fe0e461734ceca63b1ff41"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7352cc6521fe0e461734ceca63b1ff41">finishDowned</a> = 0</td></tr>
+<tr class="memdesc:a7352cc6521fe0e461734ceca63b1ff41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que pèse un ennemi <b>à terre</b> dans un combat où l'on meurt : l'achever (<span class="tt">LOT-137</span>), en pour cent de l'espérance de dégâts, comme <span class="tt"><a class="el" href="#a0341d1b6b05b4202f1a8a58d6a0a33f0" title="Les dégâts qu&#39;on espère infliger.">damageDealt</a></span> pour un ennemi debout.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un profil de comportement : des poids, en pour cent, et deux règles. </p>
@@ -242,6 +244,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vrai si, faute de pouvoir attaquer et menacé, on esquive plutôt que de se précipiter. </p>
+
+</div>
+</div>
+<a id="a7352cc6521fe0e461734ceca63b1ff41" name="a7352cc6521fe0e461734ceca63b1ff41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7352cc6521fe0e461734ceca63b1ff41">&#9670;&#160;</a></span>finishDowned</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::BehaviorProfile::finishDowned = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que pèse un ennemi <b>à terre</b> dans un combat où l'on meurt : l'achever (<span class="tt">LOT-137</span>), en pour cent de l'espérance de dégâts, comme <span class="tt"><a class="el" href="#a0341d1b6b05b4202f1a8a58d6a0a33f0" title="Les dégâts qu&#39;on espère infliger.">damageDealt</a></span> pour un ennemi debout. </p>
+<p>0 : on l'épargne — il n'est pas une cible. </p>
 
 </div>
 </div>

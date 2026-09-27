@@ -78,8 +78,9 @@ var searchData=
   ['attackroll_75',['attackRoll',['../structcore_1_1Spell.html#a0ce39b883f1a89efd5d5fbfae2f78133',1,'core::Spell']]],
   ['attacks_76',['attacks',['../structcore_1_1ArenaContestant.html#a86a1bacc54063ba082ffcae7c8b456fc',1,'core::ArenaContestant::attacks'],['../structcore_1_1CreatureAttacks.html#a946292ced81ca6d75f8833dae2c5a2df',1,'core::CreatureAttacks::attacks']]],
   ['attitude_77',['attitude',['../structcore_1_1DialogueNode.html#a86f2bf91ba9193f3d532b3f43908f955',1,'core::DialogueNode::attitude'],['../structcore_1_1DialogueGraph.html#a10cdcfc2e508d50478ff9575eec602d9',1,'core::DialogueGraph::attitude'],['../structhmi_1_1DialogueScreenValues.html#afbdd2fdf4e1f0079965d3d2b7837c150',1,'hmi::DialogueScreenValues::attitude']]],
-  ['autohit_78',['autoHit',['../structcore_1_1Spell.html#a64e565cba9ae7e96144566338768a1e1',1,'core::Spell']]],
-  ['autosave_5fformat_79',['AUTOSAVE_FORMAT',['../namespacehmi.html#ae89429fc222ed90274545f4bd5dd9511',1,'hmi']]],
-  ['ax_80',['ax',['../structhmi_1_1LineQuad.html#ab5c2f6803c2cdae87e0b50d4eb8589c1',1,'hmi::LineQuad']]],
-  ['ay_81',['ay',['../structhmi_1_1LineQuad.html#aa9e7c817ab1c5e01364faed685182a69',1,'hmi::LineQuad']]]
+  ['atzero_78',['atZero',['../structcore_1_1CombatantProfile.html#aa313446a64c2a132673999a4802472f4',1,'core::CombatantProfile']]],
+  ['autohit_79',['autoHit',['../structcore_1_1Spell.html#a64e565cba9ae7e96144566338768a1e1',1,'core::Spell']]],
+  ['autosave_5fformat_80',['AUTOSAVE_FORMAT',['../namespacehmi.html#ae89429fc222ed90274545f4bd5dd9511',1,'hmi']]],
+  ['ax_81',['ax',['../structhmi_1_1LineQuad.html#ab5c2f6803c2cdae87e0b50d4eb8589c1',1,'hmi::LineQuad']]],
+  ['ay_82',['ay',['../structhmi_1_1LineQuad.html#aa9e7c817ab1c5e01364faed685182a69',1,'hmi::LineQuad']]]
 ];

@@ -4,6 +4,7 @@ var structcore_1_1BehaviorProfile =
     [ "bloodiedTarget", "structcore_1_1BehaviorProfile.html#adf6c463b3d92f415bd0a349f986e5a6a", null ],
     [ "damageDealt", "structcore_1_1BehaviorProfile.html#a0341d1b6b05b4202f1a8a58d6a0a33f0", null ],
     [ "dodgeWhenThreatened", "structcore_1_1BehaviorProfile.html#a73d047ae8a5ef120e86867fa6ac2f3f8", null ],
+    [ "finishDowned", "structcore_1_1BehaviorProfile.html#a7352cc6521fe0e461734ceca63b1ff41", null ],
     [ "focusFire", "structcore_1_1BehaviorProfile.html#a0ee927d6439342aa9bbbd6483cf8c0f0", null ],
     [ "id", "structcore_1_1BehaviorProfile.html#a9adef4720dc9332eb5c3028f46eddf68", null ],
     [ "name", "structcore_1_1BehaviorProfile.html#adf15dabe17ee362c5f0dbd6ad61932c0", null ],

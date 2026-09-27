@@ -1,6 +1,7 @@
 var structcore_1_1CombatantProfile =
 [
     [ "armorClass", "structcore_1_1CombatantProfile.html#ada5d2d10aab3c03e3eeb1c997d5d14a8", null ],
+    [ "atZero", "structcore_1_1CombatantProfile.html#aa313446a64c2a132673999a4802472f4", null ],
     [ "currentHitPoints", "structcore_1_1CombatantProfile.html#a0e93aedad6e03dc07a91298babe5a459", null ],
     [ "damageTraits", "structcore_1_1CombatantProfile.html#a56bfe782f09a73dadfb8dc635ae4566b", null ],
     [ "dexterity", "structcore_1_1CombatantProfile.html#ad628b91105fde9e22114102f52994eca", null ],

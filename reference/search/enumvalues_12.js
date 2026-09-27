@@ -3,7 +3,7 @@ var searchData=
   ['ui_0',['UI',['../namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919a71ff71526d15db86eb50fcac245d183b',1,'hmi']]],
   ['unarmoredarmorclass_1',['UnarmoredArmorClass',['../namespacecore.html#aca154ea380a8647bf0cff5b10e5043d4a03d2b5864ac8fdb5b162248164c67e1e',1,'core']]],
   ['unavailable_2',['Unavailable',['../namespacecore.html#adefc12cd0a71ea980213f083ce537aa1a453e6aa38d87b28ccae545967c53004f',1,'core']]],
-  ['unconscious_3',['Unconscious',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493acb6b56b0daf97dc9660af8977785a0e8',1,'core']]],
+  ['unconscious_3',['Unconscious',['../namespacecore.html#abde919757944fef613e5f21cf21c3108acb6b56b0daf97dc9660af8977785a0e8',1,'core::Unconscious'],['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493acb6b56b0daf97dc9660af8977785a0e8',1,'core::Unconscious']]],
   ['undeclaredflagvalue_4',['UndeclaredFlagValue',['../namespacecore.html#ac1032ee70b0c730c8727b80822ab035ead77aeb58096115840558f741fb7d8564',1,'core']]],
   ['undo_5',['Undo',['../namespacehmi.html#aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119',1,'hmi::Undo'],['../namespacehmi.html#a576cb29b1af75dc6bda8abb048330f18a1cdc076b28f70afac5fcedadf99fa119',1,'hmi::Undo']]],
   ['unencumbered_6',['Unencumbered',['../namespacecore.html#ad77756d2c98fad50a0b353e7924843a5ae0c8631adc840f2dc3d7ad58f3353734',1,'core']]],

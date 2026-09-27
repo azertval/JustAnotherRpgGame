@@ -202,6 +202,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un déplacement tel qu'il serait joué.  <a href="structcore_1_1MovePreview.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CombatEvent" id="r_CombatEvent"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CombatEvent.html">CombatEvent</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un crochet annonce.  <a href="structcore_1_1CombatEvent.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DeathSaves" id="r_DeathSaves"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1DeathSaves.html">DeathSaves</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le compteur des jets contre la mort d'un combattant à terre.  <a href="structcore_1_1DeathSaves.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CombatantProfile" id="r_CombatantProfile"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le combat doit savoir d'un combattant — ni fiche, ni bloc de statistiques.  <a href="structcore_1_1CombatantProfile.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Combatant" id="r_Combatant"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Combatant.html">Combatant</a></td></tr>
@@ -551,6 +553,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les compétences chargées, et ce qui n'a pas pu l'être.  <a href="structcore_1_1SkillCatalog.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SpellEffect" id="r_SpellEffect"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SpellEffect.html">SpellEffect</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un effet qui dure, posé par un sort.  <a href="structcore_1_1SpellEffect.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SpellRevival" id="r_SpellRevival"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SpellRevival.html">SpellRevival</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le retour à la vie qu'un sort accorde (<em>revigorer</em>, <span class="tt">LOT-137</span>).  <a href="structcore_1_1SpellRevival.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Spell" id="r_Spell"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Spell.html">Spell</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sort, tel que <span class="tt">spell.schema.json</span> l'écrit.  <a href="structcore_1_1Spell.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SpellCatalog" id="r_SpellCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SpellCatalog.html">SpellCatalog</a></td></tr>
@@ -655,6 +659,19 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:ad490fa58f4db55cab180bf278e3db721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cinq formes du Manuel.  <a href="#ad490fa58f4db55cab180bf278e3db721">More...</a><br /></td></tr>
+<tr class="memitem:abde919757944fef613e5f21cf21c3108" id="r_abde919757944fef613e5f21cf21c3108"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#abde919757944fef613e5f21cf21c3108">CombatCondition</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="#abde919757944fef613e5f21cf21c3108acb6b56b0daf97dc9660af8977785a0e8">Unconscious</a>
+, <a class="el" href="#abde919757944fef613e5f21cf21c3108a0d7fa52c0200c09318ddc6c0d7a377ec">Prone</a>
+, <a class="el" href="#abde919757944fef613e5f21cf21c3108afa3aff3c185c6dc7754235f397c2099a">Stable</a>
+, <a class="el" href="#abde919757944fef613e5f21cf21c3108a183b62c7f067711f9c5a54913c054617">Dead</a>
+, <br />
+&#160;&#160;<a class="el" href="#abde919757944fef613e5f21cf21c3108a582f060800c793f1196f45a236d275a5">Blessed</a>
+, <a class="el" href="#abde919757944fef613e5f21cf21c3108a8bcda43732b0928d269955e0f09ff76f">Invisible</a>
+, <a class="el" href="#abde919757944fef613e5f21cf21c3108a444733081a578880ba8a563d3c59d22d">Flying</a>
+, <a class="el" href="#abde919757944fef613e5f21cf21c3108aa020a34193d50813b2d30e19503a471e">Concentrating</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:abde919757944fef613e5f21cf21c3108"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un état qu'un combattant porte en combat (<span class="tt">LOT-137</span>) : ceux dont les quatre classes ont besoin jusqu'au niveau 5, pas le catalogue du <em>Manuel</em> (annexe A).  <a href="#abde919757944fef613e5f21cf21c3108">More...</a><br /></td></tr>
 <tr class="memitem:ac011cdb67f4c31ececbaaceeace4cbed" id="r_ac011cdb67f4c31ececbaaceeace4cbed"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac011cdb67f4c31ececbaaceeace4cbed">ArenaActionResult</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="#ac011cdb67f4c31ececbaaceeace4cbedaf92965e2c8a7afb3c1b9a5c09a263636">Done</a>
 , <a class="el" href="#ac011cdb67f4c31ececbaaceeace4cbeda8cb45f47274f0e76f8d60401f43b0fb7">NoActiveTurn</a>
@@ -736,17 +753,36 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a942a0cabc5c97e0e10dfb8a148e26fb9a3007032a944ef3638beb8825cbb3c28b">DamageTaken</a>
 , <a class="el" href="#a942a0cabc5c97e0e10dfb8a148e26fb9ac963ba0b22143d6653abb38826c9a254">CombatantDowned</a>
 , <br />
-&#160;&#160;<a class="el" href="#a942a0cabc5c97e0e10dfb8a148e26fb9a6b262362e4626c332872a4645efc154c">CombatantJoined</a>
+&#160;&#160;<a class="el" href="#a942a0cabc5c97e0e10dfb8a148e26fb9a25bee0ac1d4ef5158dff040ace25c848">DeathSaveDue</a>
+, <a class="el" href="#a942a0cabc5c97e0e10dfb8a148e26fb9a229eb82b4e2b7b30ff9ec61c90805135">CombatantDied</a>
+, <a class="el" href="#a942a0cabc5c97e0e10dfb8a148e26fb9a6b262362e4626c332872a4645efc154c">CombatantJoined</a>
 , <a class="el" href="#a942a0cabc5c97e0e10dfb8a148e26fb9a228189956989fdf6b5e1340df902051b">CombatantLeft</a>
-, <a class="el" href="#a942a0cabc5c97e0e10dfb8a148e26fb9a8e2cadedb4267fb709cbf7bfffcf1a64">CombatEnded</a>
+, <br />
+&#160;&#160;<a class="el" href="#a942a0cabc5c97e0e10dfb8a148e26fb9a8e2cadedb4267fb709cbf7bfffcf1a64">CombatEnded</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a942a0cabc5c97e0e10dfb8a148e26fb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les <b>points d'insertion</b> du combat : où une capacité peut se greffer.  <a href="#a942a0cabc5c97e0e10dfb8a148e26fb9">More...</a><br /></td></tr>
 <tr class="memitem:ab77b88490327a0c26ec09d4f6126e382" id="r_ab77b88490327a0c26ec09d4f6126e382"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ab77b88490327a0c26ec09d4f6126e382">CombatantStatus</a> : std::uint8_t { <a class="el" href="#ab77b88490327a0c26ec09d4f6126e382aa66b284e632fb96f19e27dca96b78fd7">Standing</a>
 , <a class="el" href="#ab77b88490327a0c26ec09d4f6126e382a08a38277b0309070706f6652eeae9a53">Down</a>
+, <a class="el" href="#ab77b88490327a0c26ec09d4f6126e382a183b62c7f067711f9c5a54913c054617">Dead</a>
 , <a class="el" href="#ab77b88490327a0c26ec09d4f6126e382af62dedad685b570f499b61e94084dab2">Withdrawn</a>
  }</td></tr>
 <tr class="memdesc:ab77b88490327a0c26ec09d4f6126e382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où en est un combattant.  <a href="#ab77b88490327a0c26ec09d4f6126e382">More...</a><br /></td></tr>
+<tr class="memitem:a18034afdf1d6d9fbf127ce25d9001c76" id="r_a18034afdf1d6d9fbf127ce25d9001c76"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a18034afdf1d6d9fbf127ce25d9001c76">AtZeroHitPoints</a> : std::uint8_t { <a class="el" href="#a18034afdf1d6d9fbf127ce25d9001c76a35dc1c89b9774d0daf5d83e5c2264e9b">DeathSaves</a>
+, <a class="el" href="#a18034afdf1d6d9fbf127ce25d9001c76ae172da87ca16bcdd67da0fb694df227a">Dies</a>
+ }</td></tr>
+<tr class="memdesc:a18034afdf1d6d9fbf127ce25d9001c76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui arrive à un combattant qui tombe à 0 point de vie (Manuel des Joueurs, « Tomber à 0 point de vie », PDF p.  <a href="#a18034afdf1d6d9fbf127ce25d9001c76">More...</a><br /></td></tr>
+<tr class="memitem:a2eaea3fb74698b3474825cda0cdce254" id="r_a2eaea3fb74698b3474825cda0cdce254"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a2eaea3fb74698b3474825cda0cdce254">DeathSaveOutcome</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="#a2eaea3fb74698b3474825cda0cdce254a505a83f220c02df2f85c3810cd9ceb38">Success</a>
+, <a class="el" href="#a2eaea3fb74698b3474825cda0cdce254ae139a585510a502bbf1841cf589f5086">Failure</a>
+, <a class="el" href="#a2eaea3fb74698b3474825cda0cdce254afda22026db89cdc5e88b262ad9424b41">Stabilized</a>
+, <a class="el" href="#a2eaea3fb74698b3474825cda0cdce254ab4ee54591aaa4862bf37f75f6839b514">Died</a>
+, <br />
+&#160;&#160;<a class="el" href="#a2eaea3fb74698b3474825cda0cdce254a608ff442e5491bad46bc86c5f16c6655">Revived</a>
+, <a class="el" href="#a2eaea3fb74698b3474825cda0cdce254ad96143ba1b15645919cea00ec9d1be62">Ignored</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a2eaea3fb74698b3474825cda0cdce254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un jet contre la mort a donné (<span class="tt"><a class="el" href="classcore_1_1CombatState.html#a58ab865ce5dce4958ed07e3ad59612e3" title="Note le jet contre la mort de combatant (Manuel, « Jets de sauvegarde contre la mort ») : 10 ou plus,...">CombatState::recordDeathSave</a></span>).  <a href="#a2eaea3fb74698b3474825cda0cdce254">More...</a><br /></td></tr>
 <tr class="memitem:ae1ab268fb5658f04b32b785790e7c082" id="r_ae1ab268fb5658f04b32b785790e7c082"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ae1ab268fb5658f04b32b785790e7c082">WithdrawResult</a> : std::uint8_t { <a class="el" href="#ae1ab268fb5658f04b32b785790e7c082af62dedad685b570f499b61e94084dab2">Withdrawn</a>
 , <a class="el" href="#ae1ab268fb5658f04b32b785790e7c082aa6bdb933c351cf222821ac7c5dd158b6">NotEscapable</a>
 , <a class="el" href="#ae1ab268fb5658f04b32b785790e7c082a9e21f7ee0cee28526201edff8a19f87b">NotInCombat</a>
@@ -1133,6 +1169,8 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa">Effect</a>
 , <br />
 &#160;&#160;<a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543">Healing</a>
+, <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144ba5b881cec5eb79c7e74a5c9f43f38b905">Stabilize</a>
+, <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144bad78a1701177a08aebfbccceb9f1eb63a">Revive</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a6eee9bc9a9ca2edde9d16a7a6281144b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les mécanismes de sort que le moteur sait jouer en combat.  <a href="#a6eee9bc9a9ca2edde9d16a7a6281144b">More...</a><br /></td></tr>
@@ -1293,6 +1331,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5f3db4ca6c004505a376ed726e7770b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les cases réellement atteintes : le gabarit, moins celles qu'aucune ligne droite ne relie à l'origine sans traverser ce qui arrête la vue.  <br /></td></tr>
 <tr class="memitem:a4dfe01f34b52d84d20c9c6785eb464aa" id="r_a4dfe01f34b52d84d20c9c6785eb464aa"><td class="memItemLeft">std::vector&lt; <a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4dfe01f34b52d84d20c9c6785eb464aa">combatantsInArea</a> (const <a class="el" href="classcore_1_1CombatState.html">CombatState</a> &amp;combat, const <a class="el" href="structcore_1_1AreaOfEffect.html">AreaOfEffect</a> &amp;area)</td></tr>
 <tr class="memdesc:a4dfe01f34b52d84d20c9c6785eb464aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les combattants dont une case au moins est atteinte, par identifiant croissant.  <br /></td></tr>
+<tr class="memitem:a0c9f2b8fa32045a19b8c958a8067290f" id="r_a0c9f2b8fa32045a19b8c958a8067290f"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a0c9f2b8fa32045a19b8c958a8067290f">combatConditionLabel</a> (<a class="el" href="#abde919757944fef613e5f21cf21c3108">CombatCondition</a> condition) noexcept</td></tr>
+<tr class="memdesc:a0c9f2b8fa32045a19b8c958a8067290f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nom d'un état, tel que le journal et l'écran l'écrivent (« inconscient »).  <br /></td></tr>
 <tr class="memitem:a91e905d2d65ad1c9a0916752b0fd9b95" id="r_a91e905d2d65ad1c9a0916752b0fd9b95"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ArenaEntryPoint.html">ArenaEntryPoint</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a91e905d2d65ad1c9a0916752b0fd9b95">arenaEntryPoints</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
 <tr class="memdesc:a91e905d2d65ad1c9a0916752b0fd9b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points d'entrée d'une carte, rangés par camp, rang, puis position.  <br /></td></tr>
 <tr class="memitem:a7195d9f7d6b4f5e48eb604871553d6f9" id="r_a7195d9f7d6b4f5e48eb604871553d6f9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7195d9f7d6b4f5e48eb604871553d6f9">arenaSpellsFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> &amp;playableClass, const <a class="el" href="structcore_1_1SpellCatalog.html">SpellCatalog</a> &amp;spells, int <a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>, std::vector&lt; std::string &gt; &amp;skipped)</td></tr>
@@ -2136,7 +2176,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"> </div>
 <div class="line">std::function&lt;bool(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1ArenaSession.html">ArenaSession</a>&amp;, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> reactor, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> mover)&gt;</div>
-<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:282</div></div>
+<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:313</div></div>
 <div class="ttc" id="anamespacecore_html_a91235fd72a18c305c494723774630841"><div class="ttname"><a href="#a91235fd72a18c305c494723774630841">core::CombatantId</a></div><div class="ttdeci">CombatantId</div><div class="ttdoc">Identifiant d&#39;un combattant sur la grille.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:38</div></div>
 </div><!-- fragment -->
 <p>Décide si <code class="param">reactor</code> prend l'attaque d'opportunité que <code class="param">mover</code> lui offre. </p>
@@ -2293,7 +2333,7 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="ac011cdb67f4c31ececbaaceeace4cbeda62da737bbf89f486e90024dc099e2bc4" name="ac011cdb67f4c31ececbaaceeace4cbeda62da737bbf89f486e90024dc099e2bc4"></a>TotalCover&#160;</td><td class="fielddoc"><p>La cible est sous abri total : aucune ligne de vue ne la relie à l'attaquant (<span class="tt">LOT-22</span>). </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ac011cdb67f4c31ececbaaceeace4cbeda6f923f50457fdf3e12863922643f9a71" name="ac011cdb67f4c31ececbaaceeace4cbeda6f923f50457fdf3e12863922643f9a71"></a>InvalidTarget&#160;</td><td class="fielddoc"><p>Inconnue, soi-même, un allié, ou une cible qui n'est pas debout. </p>
+<tr><td class="fieldname"><a id="ac011cdb67f4c31ececbaaceeace4cbeda6f923f50457fdf3e12863922643f9a71" name="ac011cdb67f4c31ececbaaceeace4cbeda6f923f50457fdf3e12863922643f9a71"></a>InvalidTarget&#160;</td><td class="fielddoc"><p>Inconnue, soi-même, un allié, ou une cible que l'action ne peut pas viser : un mort, un debout pour <em>revigorer</em>. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ac011cdb67f4c31ececbaaceeace4cbedafd717fc56e019faf5bdeb3429d6eb17d" name="ac011cdb67f4c31ececbaaceeace4cbedafd717fc56e019faf5bdeb3429d6eb17d"></a>NoAttack&#160;</td><td class="fielddoc"><p>Le combattant n'a pas d'attaque de cet indice. </p>
 </td></tr>
@@ -2396,6 +2436,37 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="ac7bf6427f29bbba33973526a5896c20daebfe5e1791db03c4cd6ab95801e0977d" name="ac7bf6427f29bbba33973526a5896c20daebfe5e1791db03c4cd6ab95801e0977d"></a>Hit&#160;</td><td class="fielddoc"><p>L'attaque <b>touche</b>, les dés de dégâts ne sont pas encore lancés : ajouter des dés (<span class="tt"><a class="el" href="structcore_1_1AttackRoll.html#ab0f49c854c77edf77fd20e86459ead19" title="Les dés que l&#39;étape Hit a ajoutés, lancés avec ceux du profil, critique compris.">AttackRoll::bonusDamage</a></span>) — l'attaque sournoise, <em>Deadly</em> (<span class="tt">LOT-131</span>). </p>
 <p>Jamais appelé sur un raté. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a18034afdf1d6d9fbf127ce25d9001c76" name="a18034afdf1d6d9fbf127ce25d9001c76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18034afdf1d6d9fbf127ce25d9001c76">&#9670;&#160;</a></span>AtZeroHitPoints</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a18034afdf1d6d9fbf127ce25d9001c76">core::AtZeroHitPoints</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qui arrive à un combattant qui tombe à 0 point de vie (Manuel des Joueurs, « Tomber à 0 point de vie », PDF p. </p>
+<p>199). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a18034afdf1d6d9fbf127ce25d9001c76a35dc1c89b9774d0daf5d83e5c2264e9b" name="a18034afdf1d6d9fbf127ce25d9001c76a35dc1c89b9774d0daf5d83e5c2264e9b"></a>DeathSaves&#160;</td><td class="fielddoc"><p>Il perd conscience et fait ses jets contre la mort : un personnage. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a18034afdf1d6d9fbf127ce25d9001c76ae172da87ca16bcdd67da0fb694df227a" name="a18034afdf1d6d9fbf127ce25d9001c76ae172da87ca16bcdd67da0fb694df227a"></a>Dies&#160;</td><td class="fielddoc"><p>Il meurt : « la plupart des MD considèrent que les monstres meurent dès qu'ils atteignent 0 point de vie ». </p>
 </td></tr>
 </table>
 
@@ -2594,10 +2665,54 @@ Variables</h2></td></tr>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab77b88490327a0c26ec09d4f6126e382aa66b284e632fb96f19e27dca96b78fd7" name="ab77b88490327a0c26ec09d4f6126e382aa66b284e632fb96f19e27dca96b78fd7"></a>Standing&#160;</td><td class="fielddoc"><p>En état de combattre. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ab77b88490327a0c26ec09d4f6126e382a08a38277b0309070706f6652eeae9a53" name="ab77b88490327a0c26ec09d4f6126e382a08a38277b0309070706f6652eeae9a53"></a>Down&#160;</td><td class="fielddoc"><p>À 0 point de vie : il garde sa place dans l'ordre, et ses tours sont passés tant qu'il n'est pas relevé. </p>
-<p>L'agonie et les jets contre la mort sont au <span class="tt">LOT-72</span>. </p>
+<tr><td class="fieldname"><a id="ab77b88490327a0c26ec09d4f6126e382a08a38277b0309070706f6652eeae9a53" name="ab77b88490327a0c26ec09d4f6126e382a08a38277b0309070706f6652eeae9a53"></a>Down&#160;</td><td class="fielddoc"><p>À 0 point de vie, <b>inconscient</b> et à terre : il garde sa place dans l'ordre, et ses tours sont passés tant qu'il n'est pas relevé ; à sa place, il fait son jet contre la mort (<span class="tt"><a class="el" href="#a942a0cabc5c97e0e10dfb8a148e26fb9a25bee0ac1d4ef5158dff040ace25c848">CombatHook::DeathSaveDue</a></span>, <span class="tt">LOT-137</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab77b88490327a0c26ec09d4f6126e382a183b62c7f067711f9c5a54913c054617" name="ab77b88490327a0c26ec09d4f6126e382a183b62c7f067711f9c5a54913c054617"></a>Dead&#160;</td><td class="fielddoc"><p>Mort (<span class="tt">LOT-137</span>) : trois échecs, des dégâts massifs, ou un monstre à 0 point de vie. </p>
+<p>Il reste sur la grille — son corps —, et seul <em>revigorer</em> le ramène (<span class="tt"><a class="el" href="classcore_1_1CombatState.html#a64d2d6f283513d20fbc83c41cff336cf" title="Ramène un mort avec hitPoints points de vie (revigorer) : il se relève, à terre jusqu&#39;à son tour.">CombatState::revive</a></span>). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ab77b88490327a0c26ec09d4f6126e382af62dedad685b570f499b61e94084dab2" name="ab77b88490327a0c26ec09d4f6126e382af62dedad685b570f499b61e94084dab2"></a>Withdrawn&#160;</td><td class="fielddoc"><p>Sorti du combat : il a quitté la grille et l'ordre. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="abde919757944fef613e5f21cf21c3108" name="abde919757944fef613e5f21cf21c3108"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abde919757944fef613e5f21cf21c3108">&#9670;&#160;</a></span>CombatCondition</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#abde919757944fef613e5f21cf21c3108">core::CombatCondition</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Un état qu'un combattant porte en combat (<span class="tt">LOT-137</span>) : ceux dont les quatre classes ont besoin jusqu'au niveau 5, pas le catalogue du <em>Manuel</em> (annexe A). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abde919757944fef613e5f21cf21c3108acb6b56b0daf97dc9660af8977785a0e8" name="abde919757944fef613e5f21cf21c3108acb6b56b0daf97dc9660af8977785a0e8"></a>Unconscious&#160;</td><td class="fielddoc"><p>À 0 point de vie : attaqué avec avantage, critique au contact, sauvegardes de Force et de Dextérité ratées. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abde919757944fef613e5f21cf21c3108a0d7fa52c0200c09318ddc6c0d7a377ec" name="abde919757944fef613e5f21cf21c3108a0d7fa52c0200c09318ddc6c0d7a377ec"></a>Prone&#160;</td><td class="fielddoc"><p>À terre : attaqué avec avantage au contact et désavantage à distance ; ses attaques sont désavantagées. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abde919757944fef613e5f21cf21c3108afa3aff3c185c6dc7754235f397c2099a" name="abde919757944fef613e5f21cf21c3108afa3aff3c185c6dc7754235f397c2099a"></a>Stable&#160;</td><td class="fielddoc"><p>Stabilisé : il ne fait plus de jets contre la mort. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abde919757944fef613e5f21cf21c3108a183b62c7f067711f9c5a54913c054617" name="abde919757944fef613e5f21cf21c3108a183b62c7f067711f9c5a54913c054617"></a>Dead&#160;</td><td class="fielddoc"><p>Mort. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abde919757944fef613e5f21cf21c3108a582f060800c793f1196f45a236d275a5" name="abde919757944fef613e5f21cf21c3108a582f060800c793f1196f45a236d275a5"></a>Blessed&#160;</td><td class="fielddoc"><p>Béni : 1d4 à ses jets d'attaque et de sauvegarde (<em>bénédiction</em>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abde919757944fef613e5f21cf21c3108a8bcda43732b0928d269955e0f09ff76f" name="abde919757944fef613e5f21cf21c3108a8bcda43732b0928d269955e0f09ff76f"></a>Invisible&#160;</td><td class="fielddoc"><p>Invisible. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abde919757944fef613e5f21cf21c3108a444733081a578880ba8a563d3c59d22d" name="abde919757944fef613e5f21cf21c3108a444733081a578880ba8a563d3c59d22d"></a>Flying&#160;</td><td class="fielddoc"><p>En vol (<em>vol</em>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abde919757944fef613e5f21cf21c3108aa020a34193d50813b2d30e19503a471e" name="abde919757944fef613e5f21cf21c3108aa020a34193d50813b2d30e19503a471e"></a>Concentrating&#160;</td><td class="fielddoc"><p>Concentré sur un sort : des dégâts demandent un jet de Constitution. </p>
 </td></tr>
 </table>
 
@@ -2643,12 +2758,9 @@ Variables</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">DamageTaken</span>  </td><td class="markdownTableBodyNone">un seuil franchi (<em>Battle Fury</em> sous 50 %), des dégâts subis à 0 PV  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">CombatantDowned</span>  </td><td class="markdownTableBodyNone">un déclencheur à la chute (explosion, apparition) ; l'agonie (<span class="tt">LOT-72</span>)  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">CombatantJoined</span>, <span class="tt">CombatantLeft</span>  </td><td class="markdownTableBodyNone">un renfort, une fuite  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><span class="tt">CombatEnded</span>  </td><td class="markdownTableBodyNone">l'expérience (<span class="tt">LOT-74</span>), le retour à l'exploration (<span class="tt">LOT-18</span>)  </td></tr>
+<td class="markdownTableBodyNone"><span class="tt">CombatantDowned</span>  </td><td class="markdownTableBodyNone">un déclencheur à la chute (explosion, apparition) ; la concentration perdue  </td></tr>
 </table>
+<p>| | <span class="tt">DeathSaveDue</span> | le jet contre la mort d'un mourant, à sa place dans l'ordre (<span class="tt">LOT-137</span>) | | <span class="tt">CombatantDied</span> | la mort : le journal, <em>revigorer</em> qui compte ses rounds (<span class="tt">LOT-137</span>) | | <span class="tt">CombatantJoined</span>, <span class="tt">CombatantLeft</span> | un renfort, une fuite | | <span class="tt">CombatEnded</span> | l'expérience (<span class="tt">LOT-74</span>), le retour à l'exploration (<span class="tt">LOT-18</span>) | </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a942a0cabc5c97e0e10dfb8a148e26fb9a9146e3e958df55f213ab4a470d861dc3" name="a942a0cabc5c97e0e10dfb8a148e26fb9a9146e3e958df55f213ab4a470d861dc3"></a>BeforeFirstTurn&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a942a0cabc5c97e0e10dfb8a148e26fb9ae279ccaa0940305fd66b36348b823963" name="a942a0cabc5c97e0e10dfb8a148e26fb9ae279ccaa0940305fd66b36348b823963"></a>RoundStart&#160;</td><td class="fielddoc"></td></tr>
@@ -2658,6 +2770,8 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af" name="a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af"></a>AttackDeclared&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a942a0cabc5c97e0e10dfb8a148e26fb9a3007032a944ef3638beb8825cbb3c28b" name="a942a0cabc5c97e0e10dfb8a148e26fb9a3007032a944ef3638beb8825cbb3c28b"></a>DamageTaken&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a942a0cabc5c97e0e10dfb8a148e26fb9ac963ba0b22143d6653abb38826c9a254" name="a942a0cabc5c97e0e10dfb8a148e26fb9ac963ba0b22143d6653abb38826c9a254"></a>CombatantDowned&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a942a0cabc5c97e0e10dfb8a148e26fb9a25bee0ac1d4ef5158dff040ace25c848" name="a942a0cabc5c97e0e10dfb8a148e26fb9a25bee0ac1d4ef5158dff040ace25c848"></a>DeathSaveDue&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a942a0cabc5c97e0e10dfb8a148e26fb9a229eb82b4e2b7b30ff9ec61c90805135" name="a942a0cabc5c97e0e10dfb8a148e26fb9a229eb82b4e2b7b30ff9ec61c90805135"></a>CombatantDied&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a942a0cabc5c97e0e10dfb8a148e26fb9a6b262362e4626c332872a4645efc154c" name="a942a0cabc5c97e0e10dfb8a148e26fb9a6b262362e4626c332872a4645efc154c"></a>CombatantJoined&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a942a0cabc5c97e0e10dfb8a148e26fb9a228189956989fdf6b5e1340df902051b" name="a942a0cabc5c97e0e10dfb8a148e26fb9a228189956989fdf6b5e1340df902051b"></a>CombatantLeft&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a942a0cabc5c97e0e10dfb8a148e26fb9a8e2cadedb4267fb709cbf7bfffcf1a64" name="a942a0cabc5c97e0e10dfb8a148e26fb9a8e2cadedb4267fb709cbf7bfffcf1a64"></a>CombatEnded&#160;</td><td class="fielddoc"></td></tr>
@@ -3056,6 +3170,44 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="aae5ed49bedbf68049f008e4efac2edfda416eef8099932e27b7e55168643ea14d" name="aae5ed49bedbf68049f008e4efac2edfda416eef8099932e27b7e55168643ea14d"></a>Radiant&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aae5ed49bedbf68049f008e4efac2edfda8c5d5b09768823ed63d3d3a95a7a962a" name="aae5ed49bedbf68049f008e4efac2edfda8c5d5b09768823ed63d3d3a95a7a962a"></a>Slashing&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aae5ed49bedbf68049f008e4efac2edfda7db228551936f49a61c6b965886ad840" name="aae5ed49bedbf68049f008e4efac2edfda7db228551936f49a61c6b965886ad840"></a>Thunder&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a2eaea3fb74698b3474825cda0cdce254" name="a2eaea3fb74698b3474825cda0cdce254"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2eaea3fb74698b3474825cda0cdce254">&#9670;&#160;</a></span>DeathSaveOutcome</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a2eaea3fb74698b3474825cda0cdce254">core::DeathSaveOutcome</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'un jet contre la mort a donné (<span class="tt"><a class="el" href="classcore_1_1CombatState.html#a58ab865ce5dce4958ed07e3ad59612e3" title="Note le jet contre la mort de combatant (Manuel, « Jets de sauvegarde contre la mort ») : 10 ou plus,...">CombatState::recordDeathSave</a></span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2eaea3fb74698b3474825cda0cdce254a505a83f220c02df2f85c3810cd9ceb38" name="a2eaea3fb74698b3474825cda0cdce254a505a83f220c02df2f85c3810cd9ceb38"></a>Success&#160;</td><td class="fielddoc"><p>10 ou plus : un succès de plus. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2eaea3fb74698b3474825cda0cdce254ae139a585510a502bbf1841cf589f5086" name="a2eaea3fb74698b3474825cda0cdce254ae139a585510a502bbf1841cf589f5086"></a>Failure&#160;</td><td class="fielddoc"><p>Moins de 10 : un échec de plus ; un 1 naturel en compte deux. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2eaea3fb74698b3474825cda0cdce254afda22026db89cdc5e88b262ad9424b41" name="a2eaea3fb74698b3474825cda0cdce254afda22026db89cdc5e88b262ad9424b41"></a>Stabilized&#160;</td><td class="fielddoc"><p>Le troisième succès : il est stabilisé. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2eaea3fb74698b3474825cda0cdce254ab4ee54591aaa4862bf37f75f6839b514" name="a2eaea3fb74698b3474825cda0cdce254ab4ee54591aaa4862bf37f75f6839b514"></a>Died&#160;</td><td class="fielddoc"><p>Le troisième échec : il meurt. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2eaea3fb74698b3474825cda0cdce254a608ff442e5491bad46bc86c5f16c6655" name="a2eaea3fb74698b3474825cda0cdce254a608ff442e5491bad46bc86c5f16c6655"></a>Revived&#160;</td><td class="fielddoc"><p>Un 20 naturel : il récupère 1 point de vie et se relève. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2eaea3fb74698b3474825cda0cdce254ad96143ba1b15645919cea00ec9d1be62" name="a2eaea3fb74698b3474825cda0cdce254ad96143ba1b15645919cea00ec9d1be62"></a>Ignored&#160;</td><td class="fielddoc"><p>Personne à faire jeter : inconnu, debout, mort, déjà stable, ou combat sans mort. </p>
+</td></tr>
 </table>
 
 </div>
@@ -4266,6 +4418,10 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </td></tr>
 <tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543" name="a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543"></a>Healing&#160;</td><td class="fielddoc"><p>Des points de vie rendus à une créature de son camp (<em>soin des blessures</em>, <span class="tt">LOT-134</span>). </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144ba5b881cec5eb79c7e74a5c9f43f38b905" name="a6eee9bc9a9ca2edde9d16a7a6281144ba5b881cec5eb79c7e74a5c9f43f38b905"></a>Stabilize&#160;</td><td class="fielddoc"><p>Une créature à terre stabilisée (<em>épargner les mourants</em>, <span class="tt">LOT-137</span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144bad78a1701177a08aebfbccceb9f1eb63a" name="a6eee9bc9a9ca2edde9d16a7a6281144bad78a1701177a08aebfbccceb9f1eb63a"></a>Revive&#160;</td><td class="fielddoc"><p>Un mort ramené à la vie (<em>revigorer</em>, <span class="tt">LOT-137</span>). </p>
+</td></tr>
 </table>
 
 </div>
@@ -4801,7 +4957,7 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </div><div class="memdoc">
 
 <p>Vrai si <code class="param">first</code> joue avant <code class="param">second</code>. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
 La règle de départage</h2>
 <p>Manuel des Joueurs, « Initiative » (PDF p. 191) : les combattants se classent du plus haut résultat au plus bas, et « en cas d'égalité », c'est le MD qui tranche entre ses créatures, les joueurs entre leurs personnages, et le MD encore entre un monstre et un personnage. Le jeu n'a pas de MD : la règle doit être <b>écrite</b>, et elle ne peut pas dépendre de l'ordre dans lequel les combattants ont été rangés en mémoire (<span class="tt">EX-CBT-010</span>). Dans l'ordre :</p>
 <ol type="1">
@@ -5158,10 +5314,10 @@ La règle de départage</h2>
 
 <p>Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide. </p>
 <p>Le combat se joue <b>sur la carte d'exploration</b> : une rencontre posée dans un couloir d'une case, ou dont la formation entre dans un mur, ne se découvrirait sinon qu'en jeu. Cette fonction le dit à l'auteur au moment où il pose.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
 Une seule règle pour « se tenir ici »</h2>
 <p>Les combattants sont posés sur une <span class="tt"><a class="el" href="classcore_1_1BattleGrid.html" title="La grille tactique d&#39;une rencontre.">core::BattleGrid</a></span> construite depuis <code class="param">collision</code>, par <span class="tt"><a class="el" href="classcore_1_1BattleGrid.html#ae717e61951843569c4bed5e1b9adba67" title="Place combatant, d&#39;emprise side × side, avec anchor pour coin haut-gauche.">core::BattleGrid::place</a></span>, dans l'ordre de la formation — ce que fait le montage (<span class="tt"><a class="el" href="#a5921fce291ef1e0650a91c91bc158a3e" title="Monte la rencontre run sur combat : le groupe, puis les créatures, dans cet ordre.">core::mountEncounter</a></span>). Un avertissement de l'éditeur et un refus au montage ne peuvent donc pas diverger. La zone est une <span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span> : diagonales, coins de mur et terrain difficile y suivent la règle du <span class="tt">LOT-19</span>, sans seconde implémentation.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
 Ce qu'elle ne vérifie pas</h2>
 <p>Une rencontre absente de <code class="param">encounters</code> est <b>ignorée</b> : un autre validateur la signale, et la signaler deux fois n'apprendrait rien. Une créature absente du bestiaire — ou un bestiaire absent — compte pour une emprise de taille M. Le groupe du joueur n'est pas posé : ses cases ne sont pas connues avant le jeu, et c'est la taille de la zone qui en répond.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -5661,10 +5817,10 @@ Ce qu'elle ne vérifie pas</h2>
 </div><div class="memdoc">
 
 <p>Peint le marqueur d'une clé d'asset. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md52"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
 Pourquoi un marqueur plutôt qu'une image manquante</h2>
 <p><span class="tt">EX-CNT-041</span> : le jeu doit tourner <b>complet</b> avant qu'aucune illustration ne soit produite. Sans marqueur, trois cents entrées s'afficheraient comme des trous, la production graphique deviendrait un préalable bloquant, et rien ne pourrait être joué ni relu avant elle. Avec, elle devient un <b>remplacement progressif</b> : on remplace un marqueur par une image, une à la fois, et le jeu ne cesse jamais d'être jouable.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md54"></a>
 Déterministe, et c'est le point</h2>
 <p>La même clé donne <b>toujours</b> le même marqueur — même teinte, même figure. Un marqueur tiré au hasard changerait à chaque lancement : le loup ne serait plus reconnaissable d'une partie à l'autre, deux captures d'écran du même combat différeraient, et un test ne pourrait rien en dire. La teinte est donc dérivée de la clé elle-même, par un hachage stable écrit ici plutôt qu'emprunté à <span class="tt">std::hash</span>, dont la valeur n'est <b>pas</b> garantie d'une plateforme ou d'une version de bibliothèque à l'autre.</p>
 <p>Le marqueur reste <b>manifestement</b> un marqueur : deux diagonales barrent la vignette, de sorte qu'on ne le prenne jamais pour une illustration définitive livrée un peu vite.</p>
@@ -6377,6 +6533,33 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Les combattants dont une case au moins est atteinte, par identifiant croissant. </p>
+
+</div>
+</div>
+<a id="a0c9f2b8fa32045a19b8c958a8067290f" name="a0c9f2b8fa32045a19b8c958a8067290f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c9f2b8fa32045a19b8c958a8067290f">&#9670;&#160;</a></span>combatConditionLabel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::combatConditionLabel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#abde919757944fef613e5f21cf21c3108">CombatCondition</a></td>          <td class="paramname"><span class="paramname"><em>condition</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le nom d'un état, tel que le journal et l'écran l'écrivent (« inconscient »). </p>
 
 </div>
 </div>
@@ -11641,7 +11824,7 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Décide le tour de <code class="param">actor</code>, qui doit être le combattant actif de la session. </p>
-<p>Toutes les cases où finir le déplacement (<span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span>), et la case de départ, sont examinées avec chaque attaque et chaque ennemi debout ; si aucune attaque n'est possible, les cases le long du chemin vers l'ennemi le plus proche (<span class="tt"><a class="el" href="#ad018fcc5c0c0bcabf187d6ae09568067" title="Le meilleur chemin de mover jusqu&#39;à destination, sans limite de budget.">core::findPath</a></span>). Rien n'est joué. </p>
+<p>Toutes les cases où finir le déplacement (<span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span>), et la case de départ, sont examinées avec chaque attaque et chaque ennemi debout — et chaque ennemi à terre, si le profil l'achève (<span class="tt"><a class="el" href="structcore_1_1BehaviorProfile.html#a7352cc6521fe0e461734ceca63b1ff41" title="Ce que pèse un ennemi à terre dans un combat où l&#39;on meurt : l&#39;achever (LOT-137), en pour cent de l&#39;e...">BehaviorProfile::finishDowned</a></span>) ; si aucune attaque n'est possible, les cases le long du chemin vers l'ennemi le plus proche (<span class="tt"><a class="el" href="#ad018fcc5c0c0bcabf187d6ae09568067" title="Le meilleur chemin de mover jusqu&#39;à destination, sans limite de budget.">core::findPath</a></span>). Rien n'est joué. </p>
 
 </div>
 </div>
@@ -11832,10 +12015,10 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Prépare <code class="param">encounter</code> sur <code class="param">map</code>, déclenchée en <code class="param">trigger</code>, le héros en <code class="param">heroCell</code>. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md39"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
 La zone</h2>
 <p>La zone de combat qui <b>contient le déclencheur</b> ; à défaut, celle qui contient le héros ; à défaut, refus — un combat sur la carte se joue sur une zone que l'éditeur a posée et contrôlée (<span class="tt"><a class="el" href="#a2f8f6aa025b66709486f9e1e585ac334" title="Relève ce qui empêche une zone d&#39;être une grille tactique (EX-NFR-040).">core::validateCombatZones</a></span>), jamais sur une fenêtre inventée autour du héros, qui mettrait la moitié d'une maison dans la grille.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
 Les places</h2>
 <p>Le héros garde sa case si elle est dans la zone et libre ; sinon la case libre de la zone la plus proche de lui. Chaque combattant de la rencontre garde la case que sa formation lui donne autour du déclencheur (<span class="tt"><a class="el" href="#a63e47d6c989b07bf0c2c7e0a568d1e02" title="Place les combattants d&#39;une rencontre autour de trigger.">core::placeCombatants</a></span>) si elle est dans la zone, libre et inoccupée ; sinon la case libre la plus proche de celle qu'il voulait. Une place déplacée se note : le journal du combat le dira, plutôt que de laisser croire que la formation a été respectée.</p>
 <dl class="params"><dt>Parameters</dt><dd>

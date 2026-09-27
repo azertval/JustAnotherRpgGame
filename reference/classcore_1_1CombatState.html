@@ -166,6 +166,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a701bbdcdbb354c4d3d8ae3ae97ccb830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose un repère d'initiative fixe (actions de repaire à 20, renforts à 0).  <br /></td></tr>
 <tr class="memitem:a1a0b7643e2a1ad8a1b3ab5262dec6c0b" id="r_a1a0b7643e2a1ad8a1b3ab5262dec6c0b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1a0b7643e2a1ad8a1b3ab5262dec6c0b">setEscapable</a> (bool <a class="el" href="#a21d4d4efd3e42a1249a8218338578ebf">escapable</a>) noexcept</td></tr>
 <tr class="memdesc:a1a0b7643e2a1ad8a1b3ab5262dec6c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permet ou interdit la fuite des alliés — recopié de la rencontre.  <br /></td></tr>
+<tr class="memitem:a196306a247bfc367a047e1330d36041a" id="r_a196306a247bfc367a047e1330d36041a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a196306a247bfc367a047e1330d36041a">setLethal</a> (bool <a class="el" href="#a4ff00ef937a158046e03cf54bc05699c">lethal</a>) noexcept</td></tr>
+<tr class="memdesc:a196306a247bfc367a047e1330d36041a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combat où l'on meurt (le défaut), ou non : la Marque Héroïque des Arènes (<span class="tt">LOT-137</span>).  <br /></td></tr>
 <tr class="memitem:aea633b2feb4807ca7db6870344dfb56d" id="r_aea633b2feb4807ca7db6870344dfb56d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aea633b2feb4807ca7db6870344dfb56d">subscribe</a> (<a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9">CombatHook</a> hook, <a class="el" href="namespacecore.html#aec8883b9ba0315c5d8d5b710a34d03d4">CombatListener</a> listener)</td></tr>
 <tr class="memdesc:aea633b2feb4807ca7db6870344dfb56d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abonne <code class="param">listener</code> à <code class="param">hook</code>.  <br /></td></tr>
 <tr class="memitem:a311f1bd4157e775aaa91f3fc8c43d2bb" id="r_a311f1bd4157e775aaa91f3fc8c43d2bb"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a311f1bd4157e775aaa91f3fc8c43d2bb">start</a> (<a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random)</td></tr>
@@ -181,6 +183,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a262ea3a0ba978bcbfcb1b8c2e6a7c4c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'issue, une fois le combat terminé.  <br /></td></tr>
 <tr class="memitem:a21d4d4efd3e42a1249a8218338578ebf" id="r_a21d4d4efd3e42a1249a8218338578ebf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a21d4d4efd3e42a1249a8218338578ebf">escapable</a> () const noexcept</td></tr>
 <tr class="memdesc:a21d4d4efd3e42a1249a8218338578ebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si les alliés peuvent fuir ce combat (recopié de la rencontre, <span class="tt"><a class="el" href="#a1a0b7643e2a1ad8a1b3ab5262dec6c0b" title="Permet ou interdit la fuite des alliés — recopié de la rencontre.">setEscapable</a></span>).  <br /></td></tr>
+<tr class="memitem:a4ff00ef937a158046e03cf54bc05699c" id="r_a4ff00ef937a158046e03cf54bc05699c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4ff00ef937a158046e03cf54bc05699c">lethal</a> () const noexcept</td></tr>
+<tr class="memdesc:a4ff00ef937a158046e03cf54bc05699c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si l'on peut mourir dans ce combat (<span class="tt"><a class="el" href="#a196306a247bfc367a047e1330d36041a" title="Un combat où l&#39;on meurt (le défaut), ou non : la Marque Héroïque des Arènes (LOT-137).">setLethal</a></span>).  <br /></td></tr>
+<tr class="memitem:a877b39f49e9703b491a5daa438c9f507" id="r_a877b39f49e9703b491a5daa438c9f507"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a877b39f49e9703b491a5daa438c9f507">isDying</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memdesc:a877b39f49e9703b491a5daa438c9f507"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">combatant</code> agonise : à terre, pas stabilisé, dans un combat où l'on meurt.  <br /></td></tr>
 <tr class="memitem:ace46dff01f1bb0ba355ad6486e77a8ca" id="r_ace46dff01f1bb0ba355ad6486e77a8ca"><td class="memItemLeft">const <a class="el" href="structcore_1_1Combatant.html">Combatant</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ace46dff01f1bb0ba355ad6486e77a8ca">find</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
 <tr class="memdesc:ace46dff01f1bb0ba355ad6486e77a8ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le combattant enrôlé d'identifiant <code class="param">combatant</code>, sorti compris, ou <span class="tt">nullptr</span>.  <br /></td></tr>
 <tr class="memitem:a5c0db7c9ec1ab1853757e9f047a968cc" id="r_a5c0db7c9ec1ab1853757e9f047a968cc"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5c0db7c9ec1ab1853757e9f047a968cc">combatants</a> () const</td></tr>
@@ -216,7 +222,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a42ce988bb498483d064a799c2a8ae62c" id="r_a42ce988bb498483d064a799c2a8ae62c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a42ce988bb498483d064a799c2a8ae62c">applyDamage</a> (std::span&lt; const <a class="el" href="structcore_1_1HitPointChange.html">HitPointChange</a> &gt; changes)</td></tr>
 <tr class="memdesc:a42ce988bb498483d064a799c2a8ae62c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applique plusieurs dégâts <b>d'un seul coup</b> : l'issue n'est évaluée qu'une fois.  <br /></td></tr>
 <tr class="memitem:a1e3393e02294763a744e669875379eaf" id="r_a1e3393e02294763a744e669875379eaf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1e3393e02294763a744e669875379eaf">heal</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, int amount)</td></tr>
-<tr class="memdesc:a1e3393e02294763a744e669875379eaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">amount</code> points de vie, sans dépasser le maximum ; relève un combattant à terre.  <br /></td></tr>
+<tr class="memdesc:a1e3393e02294763a744e669875379eaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">amount</code> points de vie, sans dépasser le maximum ; relève un combattant à terre, dont les jets contre la mort repartent de zéro.  <br /></td></tr>
+<tr class="memitem:a58ab865ce5dce4958ed07e3ad59612e3" id="r_a58ab865ce5dce4958ed07e3ad59612e3"><td class="memItemLeft"><a class="el" href="namespacecore.html#a2eaea3fb74698b3474825cda0cdce254">DeathSaveOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="#a58ab865ce5dce4958ed07e3ad59612e3">recordDeathSave</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, int natural, int total)</td></tr>
+<tr class="memdesc:a58ab865ce5dce4958ed07e3ad59612e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Note le jet contre la mort de <code class="param">combatant</code> (Manuel, « Jets de sauvegarde contre la mort ») : 10 ou plus, un succès ; un 1 naturel, deux échecs ; un 20 naturel, 1 point de vie.  <br /></td></tr>
+<tr class="memitem:af89cca22ea2594765d2f08e91bf6294c" id="r_af89cca22ea2594765d2f08e91bf6294c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af89cca22ea2594765d2f08e91bf6294c">stabilize</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
+<tr class="memdesc:af89cca22ea2594765d2f08e91bf6294c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stabilise un combattant à terre (<em>épargner les mourants</em>) : il ne jette plus, et reste inconscient jusqu'à ce qu'on le soigne ; de nouveaux dégâts le refont agoniser.  <br /></td></tr>
+<tr class="memitem:a64d2d6f283513d20fbc83c41cff336cf" id="r_a64d2d6f283513d20fbc83c41cff336cf"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a64d2d6f283513d20fbc83c41cff336cf">revive</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, int hitPoints)</td></tr>
+<tr class="memdesc:a64d2d6f283513d20fbc83c41cff336cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ramène un mort avec <code class="param">hitPoints</code> points de vie (<em>revigorer</em>) : il se relève, à terre jusqu'à son tour.  <br /></td></tr>
 <tr class="memitem:a9bf629284941ad3a0e4d8bce749a87c2" id="r_a9bf629284941ad3a0e4d8bce749a87c2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9bf629284941ad3a0e4d8bce749a87c2">grantReserve</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, <a class="el" href="structcore_1_1HitPointReserve.html">HitPointReserve</a> reserve)</td></tr>
 <tr class="memdesc:a9bf629284941ad3a0e4d8bce749a87c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne une réserve de points de vie.  <br /></td></tr>
 <tr class="memitem:aee8ca6f077852d4866fe08c7834712fb" id="r_aee8ca6f077852d4866fe08c7834712fb"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1HitPointReserve.html">HitPointReserve</a> &gt; *&#160;</td><td class="memItemRight"><a class="el" href="#aee8ca6f077852d4866fe08c7834712fb">reserves</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
@@ -235,6 +247,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:aac0adc9df379ab0e0b674a1db47b57d1" id="r_aac0adc9df379ab0e0b674a1db47b57d1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aac0adc9df379ab0e0b674a1db47b57d1">rollInitiative</a> (<a class="el" href="structcore_1_1Combatant.html">Combatant</a> &amp;combatant, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random)</td></tr>
 <tr class="memitem:ab29728916a627f5e463bbe3928e46179" id="r_ab29728916a627f5e463bbe3928e46179"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab29728916a627f5e463bbe3928e46179">takeFixedInitiative</a> (<a class="el" href="structcore_1_1Combatant.html">Combatant</a> &amp;combatant, int initiative)</td></tr>
 <tr class="memitem:afafb334909b80667445bd12b5e8a8e4b" id="r_afafb334909b80667445bd12b5e8a8e4b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afafb334909b80667445bd12b5e8a8e4b">damage</a> (const <a class="el" href="structcore_1_1HitPointChange.html">HitPointChange</a> &amp;change)</td></tr>
+<tr class="memitem:ad9f96f584cce4d2f67ed5cf8bf325540" id="r_ad9f96f584cce4d2f67ed5cf8bf325540"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad9f96f584cce4d2f67ed5cf8bf325540">kill</a> (<a class="el" href="structcore_1_1Combatant.html">Combatant</a> &amp;combatant)</td></tr>
+<tr class="memdesc:ad9f96f584cce4d2f67ed5cf8bf325540"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tue <code class="param">combatant</code> et annonce <span class="tt"><a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a229eb82b4e2b7b30ff9ec61c90805135">CombatHook::CombatantDied</a></span>.  <br /></td></tr>
 <tr class="memitem:a60abc195d90cdbaf8f966905338a5006" id="r_a60abc195d90cdbaf8f966905338a5006"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a60abc195d90cdbaf8f966905338a5006">dispatch</a> (const <a class="el" href="structcore_1_1CombatEvent.html">CombatEvent</a> &amp;event)</td></tr>
 <tr class="memitem:ae34d81af106fe34f4bbaef2d07db203f" id="r_ae34d81af106fe34f4bbaef2d07db203f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae34d81af106fe34f4bbaef2d07db203f">settle</a> ()</td></tr>
 <tr class="memitem:aa078e84132bf19acbac3fcc06fa7505c" id="r_aa078e84132bf19acbac3fcc06fa7505c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa078e84132bf19acbac3fcc06fa7505c">reachEndIfDecided</a> ()</td></tr>
@@ -244,6 +258,11 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a52af7bc3bd2bb2916b131a8214ab57d8" id="r_a52af7bc3bd2bb2916b131a8214ab57d8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a52af7bc3bd2bb2916b131a8214ab57d8">startTurn</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
 <tr class="memitem:a7c8e2542cf6057e92c18ad47a1e793d3" id="r_a7c8e2542cf6057e92c18ad47a1e793d3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7c8e2542cf6057e92c18ad47a1e793d3">finishTurn</a> ()</td></tr>
 <tr class="memitem:aa93b046d87f05f9ebcbdb01f497d9078" id="r_aa93b046d87f05f9ebcbdb01f497d9078"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa93b046d87f05f9ebcbdb01f497d9078">canPassThrough</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> mover, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> other) const</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:af3ce81b7fa1166bcdcbce97b61ff1d04" id="r_af3ce81b7fa1166bcdcbce97b61ff1d04"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#af3ce81b7fa1166bcdcbce97b61ff1d04">standUp</a> (<a class="el" href="structcore_1_1Combatant.html">Combatant</a> &amp;combatant)</td></tr>
+<tr class="memdesc:af3ce81b7fa1166bcdcbce97b61ff1d04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relève <code class="param">combatant</code> avec des points de vie : debout, compteur remis à zéro, à terre.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -258,6 +277,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a99b177367e82ffd0e77f18be022ba83f" id="r_a99b177367e82ffd0e77f18be022ba83f"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a99b177367e82ffd0e77f18be022ba83f">_active</a></td></tr>
 <tr class="memitem:a8059cb2465de3aa1373b3d68e66b2b54" id="r_a8059cb2465de3aa1373b3d68e66b2b54"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a8825ea64ff05621b7c2c8a073d27577c">CombatOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8059cb2465de3aa1373b3d68e66b2b54">_outcome</a></td></tr>
 <tr class="memitem:a11db283e9f30838c82e22af217242c73" id="r_a11db283e9f30838c82e22af217242c73"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a11db283e9f30838c82e22af217242c73">_escapable</a> = true</td></tr>
+<tr class="memitem:a1a2c7db3a35aa6250be1a6a2681c0202" id="r_a1a2c7db3a35aa6250be1a6a2681c0202"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1a2c7db3a35aa6250be1a6a2681c0202">_lethal</a> = true</td></tr>
 <tr class="memitem:a5557696fbddc8315807720401570adea" id="r_a5557696fbddc8315807720401570adea"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1TurnSlot.html">TurnSlot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5557696fbddc8315807720401570adea">_cursor</a></td></tr>
 <tr class="memdesc:a5557696fbddc8315807720401570adea"><td class="mdescLeft">&#160;</td><td class="mdescRight">La dernière place parcourue dans le round.  <br /></td></tr>
 <tr class="memitem:a49d96286a0822ad235828403c81393e1" id="r_a49d96286a0822ad235828403c81393e1"><td class="memItemLeft">std::deque&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a49d96286a0822ad235828403c81393e1">_interjections</a></td></tr>
@@ -280,13 +300,18 @@ Les trois fins</h2>
 <ul>
 <li><b>victoire</b> — plus aucun ennemi n'est debout : tous à terre, ou partis ;</li>
 <li><b>défaite</b> — plus aucun allié n'est debout, et aucun n'est parti : tous à terre ;</li>
-<li><b>fuite</b> — plus aucun allié n'est debout, et au moins un est <b>parti</b>. Ceux qui restent à terre derrière lui sont l'affaire de l'agonie (<span class="tt">LOT-72</span>), pas de l'issue.</li>
+<li><b>fuite</b> — plus aucun allié n'est debout, et au moins un est <b>parti</b>. Ceux qui restent à terre derrière lui sont l'affaire de l'agonie (<span class="tt">LOT-137</span>), pas de l'issue.</li>
 </ul>
-<p>Si un même changement abat les deux camps à la fois, la défaite l'emporte : on ne gagne pas un combat où plus personne ne se tient debout de son côté.</p>
+<p>« Debout » compte seul : un allié à terre, stabilisé ou mort n'empêche pas la défaite du groupe — tous à terre, c'est perdu (<span class="tt">LOT-137</span>).</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
+L'agonie et la mort (<span class="tt">LOT-137</span>)</h2>
+<p>Manuel des Joueurs, « Tomber à 0 point de vie » (PDF p. 199). Un combattant qui tombe à 0 point de vie est à terre, inconscient ; s'il ne fait pas de jets contre la mort (<span class="tt"><a class="el" href="namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76ae172da87ca16bcdd67da0fb694df227a" title="Il meurt : « la plupart des MD considèrent que les monstres meurent dès qu&#39;ils atteignent 0 point de ...">AtZeroHitPoints::Dies</a></span>), ou si les dégâts restants atteignent son maximum, il meurt sur le coup. Blessé à 0 point de vie, il note un échec — deux sur un critique —, et meurt si ces dégâts atteignent son maximum. À sa place dans l'ordre, la machine annonce <span class="tt"><a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a25bee0ac1d4ef5158dff040ace25c848">CombatHook::DeathSaveDue</a></span> : qui tient les dés jette le d20 (<span class="tt"><a class="el" href="#a58ab865ce5dce4958ed07e3ad59612e3" title="Note le jet contre la mort de combatant (Manuel, « Jets de sauvegarde contre la mort ») : 10 ou plus,...">recordDeathSave</a></span>). Un soin le relève et remet le compteur à zéro ; un mort ne se soigne pas, seul <span class="tt"><a class="el" href="#a64d2d6f283513d20fbc83c41cff336cf" title="Ramène un mort avec hitPoints points de vie (revigorer) : il se relève, à terre jusqu&#39;à son tour.">revive</a></span> le ramène.</p>
+<p>Un combat <b>sans mort</b> (<span class="tt">setLethal(false)</span> : le rituel de la Marque Héroïque) ne tue personne et ne fait pas jeter : on y tombe, et l'on se relève à la fin.</p>
+<p>Si un même changement abat les deux camps à la fois, la défaite l'emporte : on ne gagne pas un combat où plus personne ne se tient debout de son côté.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
 Les changements en cascade</h2>
 <p>Un abonné peut changer l'état pendant qu'on l'avertit : infliger des dégâts qui abattent le combattant dont le tour commence, faire entrer un renfort. Ces conséquences ne sont <b>jamais</b> tirées au milieu d'une annonce : la machine les règle quand l'appel extérieur se termine, une par une et dans un ordre fixe — la fin du combat d'abord, puis le tour d'un combattant qui ne peut plus le jouer, puis la place suivante. Deux abonnés de même crochet sont avertis dans l'ordre de leur abonnement.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
 Sans héros unique</h2>
 <p>Rien ici ne suppose un personnage seul : les alliés sont un camp, en nombre quelconque, et un test en monte quatre (<span class="tt">LOT-29</span>).</p>
 <p>L'état n'est ni copiable ni déplaçable : les <span class="tt"><a class="el" href="structcore_1_1Mover.html" title="Qui se déplace, comment, et à travers qui.">core::Mover</a></span> qu'il construit et les abonnés qui le reçoivent le désignent par son adresse. </p>
@@ -647,7 +672,8 @@ Sans héros unique</h2>
 
 <p>Annonce qu'une attaque est <b>déclarée</b>, avant tout jet (<span class="tt"><a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af">CombatHook::AttackDeclared</a></span>). </p>
 <p>Le jet et les dégâts sont dans <span class="tt"><a class="el" href="namespacecore.html#ab1a4d741effe8706e8261be043b9224a" title="Résout une attaque dans le combat : déclaration, jet, dégâts, points de vie.">core::resolveAttack</a></span> (<span class="tt">LOT-21</span>) ; ce crochet est la fenêtre où une posture répond à l'intention, avant que le dé ne tombe.</p>
-<dl class="section return"><dt>Returns</dt><dd>Faux si l'un des deux n'est pas debout, ou si le combat n'est pas en cours. </dd></dl>
+<p>Une cible à terre se déclare : l'achever est une attaque (<span class="tt">LOT-137</span>) ; un mort, non.</p>
+<dl class="section return"><dt>Returns</dt><dd>Faux si l'attaquant n'est pas debout, si la cible est morte ou sortie, ou si le combat n'est pas en cours. </dd></dl>
 
 </div>
 </div>
@@ -949,8 +975,9 @@ Sans héros unique</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Rend <code class="param">amount</code> points de vie, sans dépasser le maximum ; relève un combattant à terre. </p>
-<p>Les réserves ne se soignent pas. </p>
+<p>Rend <code class="param">amount</code> points de vie, sans dépasser le maximum ; relève un combattant à terre, dont les jets contre la mort repartent de zéro. </p>
+<p>Les réserves ne se soignent pas ; un mort ne récupère rien (Manuel, « Soins »).</p>
+<p>Relevé, il reste <b>à terre</b> jusqu'au début de son tour, où il se relève. </p>
 
 </div>
 </div>
@@ -972,6 +999,33 @@ Sans héros unique</h2>
 <p>Demande qu'un acteur flottant joue <b>avant le prochain tour</b>. </p>
 <p>Appelé pendant un tour, l'acteur joue dès que ce tour se termine ; appelé depuis un crochet de début de round ou de repère, il joue avant la place suivante. Une fois par round.</p>
 <dl class="section return"><dt>Returns</dt><dd>Faux si le combattant n'est pas un acteur flottant debout, ou s'il a déjà joué ce round-ci. </dd></dl>
+
+</div>
+</div>
+<a id="a877b39f49e9703b491a5daa438c9f507" name="a877b39f49e9703b491a5daa438c9f507"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a877b39f49e9703b491a5daa438c9f507">&#9670;&#160;</a></span>isDying()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::isDying </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si <code class="param">combatant</code> agonise : à terre, pas stabilisé, dans un combat où l'on meurt. </p>
 
 </div>
 </div>
@@ -1029,6 +1083,60 @@ Sans héros unique</h2>
 </div><div class="memdoc">
 
 <p>Fait entrer un combattant à une initiative <b>imposée</b> — un renfort « au rang 0 ». </p>
+
+</div>
+</div>
+<a id="ad9f96f584cce4d2f67ed5cf8bf325540" name="ad9f96f584cce4d2f67ed5cf8bf325540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9f96f584cce4d2f67ed5cf8bf325540">&#9670;&#160;</a></span>kill()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::kill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Combatant.html">Combatant</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tue <code class="param">combatant</code> et annonce <span class="tt"><a class="el" href="namespacecore.html#a942a0cabc5c97e0e10dfb8a148e26fb9a229eb82b4e2b7b30ff9ec61c90805135">CombatHook::CombatantDied</a></span>. </p>
+
+</div>
+</div>
+<a id="a4ff00ef937a158046e03cf54bc05699c" name="a4ff00ef937a158046e03cf54bc05699c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ff00ef937a158046e03cf54bc05699c">&#9670;&#160;</a></span>lethal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::lethal </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si l'on peut mourir dans ce combat (<span class="tt"><a class="el" href="#a196306a247bfc367a047e1330d36041a" title="Un combat où l&#39;on meurt (le défaut), ou non : la Marque Héroïque des Arènes (LOT-137).">setLethal</a></span>). </p>
 
 </div>
 </div>
@@ -1235,6 +1343,43 @@ Sans héros unique</h2>
 
 </div>
 </div>
+<a id="a58ab865ce5dce4958ed07e3ad59612e3" name="a58ab865ce5dce4958ed07e3ad59612e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58ab865ce5dce4958ed07e3ad59612e3">&#9670;&#160;</a></span>recordDeathSave()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a2eaea3fb74698b3474825cda0cdce254">DeathSaveOutcome</a> core::CombatState::recordDeathSave </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>natural</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>total</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Note le jet contre la mort de <code class="param">combatant</code> (Manuel, « Jets de sauvegarde contre la mort ») : 10 ou plus, un succès ; un 1 naturel, deux échecs ; un 20 naturel, 1 point de vie. </p>
+<p>Trois succès stabilisent, trois échecs tuent.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">combatant</td><td>Un combattant qui agonise (<span class="tt"><a class="el" href="#a877b39f49e9703b491a5daa438c9f507" title="Vrai si combatant agonise : à terre, pas stabilisé, dans un combat où l&#39;on meurt.">isDying</a></span>). </td></tr>
+    <tr><td class="paramname">natural</td><td>Le d20 tel qu'il est tombé. </td></tr>
+    <tr><td class="paramname">total</td><td>Le d20 et ce qui s'y ajoute (<em>bénédiction</em>). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a5882ba9f52bd6f27c182605457552795" name="a5882ba9f52bd6f27c182605457552795"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5882ba9f52bd6f27c182605457552795">&#9670;&#160;</a></span>reentrant()</h2>
 
@@ -1285,6 +1430,30 @@ Sans héros unique</h2>
 
 <p>Les réserves d'un combattant, pour que le pipeline les consomme. </p>
 <p><span class="tt">nullptr</span> s'il est inconnu. </p>
+
+</div>
+</div>
+<a id="a64d2d6f283513d20fbc83c41cff336cf" name="a64d2d6f283513d20fbc83c41cff336cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64d2d6f283513d20fbc83c41cff336cf">&#9670;&#160;</a></span>revive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::revive </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>hitPoints</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ramène un mort avec <code class="param">hitPoints</code> points de vie (<em>revigorer</em>) : il se relève, à terre jusqu'à son tour. </p>
+<dl class="section return"><dt>Returns</dt><dd>Faux s'il n'est pas mort. </dd></dl>
 
 </div>
 </div>
@@ -1396,6 +1565,34 @@ Sans héros unique</h2>
 
 </div>
 </div>
+<a id="a196306a247bfc367a047e1330d36041a" name="a196306a247bfc367a047e1330d36041a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a196306a247bfc367a047e1330d36041a">&#9670;&#160;</a></span>setLethal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::setLethal </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>lethal</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Un combat où l'on meurt (le défaut), ou non : la Marque Héroïque des Arènes (<span class="tt">LOT-137</span>). </p>
+<p>Sans mort, personne ne meurt et personne ne fait de jet contre la mort. </p>
+
+</div>
+</div>
 <a id="a8cb719ae3543214095a84b337e674a5b" name="a8cb719ae3543214095a84b337e674a5b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8cb719ae3543214095a84b337e674a5b">&#9670;&#160;</a></span>setLocomotion()</h2>
 
@@ -1471,6 +1668,53 @@ Sans héros unique</h2>
 </div><div class="memdoc">
 
 <p>Dépense une ressource du combattant actif. Faux s'il n'y a pas de tour, ou pas assez. </p>
+
+</div>
+</div>
+<a id="af89cca22ea2594765d2f08e91bf6294c" name="af89cca22ea2594765d2f08e91bf6294c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af89cca22ea2594765d2f08e91bf6294c">&#9670;&#160;</a></span>stabilize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::stabilize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stabilise un combattant à terre (<em>épargner les mourants</em>) : il ne jette plus, et reste inconscient jusqu'à ce qu'on le soigne ; de nouveaux dégâts le refont agoniser. </p>
+<dl class="section return"><dt>Returns</dt><dd>Faux s'il n'est pas à terre. </dd></dl>
+
+</div>
+</div>
+<a id="af3ce81b7fa1166bcdcbce97b61ff1d04" name="af3ce81b7fa1166bcdcbce97b61ff1d04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3ce81b7fa1166bcdcbce97b61ff1d04">&#9670;&#160;</a></span>standUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::CombatState::standUp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Combatant.html">Combatant</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>combatant</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Relève <code class="param">combatant</code> avec des points de vie : debout, compteur remis à zéro, à terre. </p>
 
 </div>
 </div>
@@ -1899,6 +2143,28 @@ Sans héros unique</h2>
 </div><div class="memdoc">
 
 <p>Les tours d'acteurs flottants à jouer avant la place suivante. </p>
+
+</div>
+</div>
+<a id="a1a2c7db3a35aa6250be1a6a2681c0202" name="a1a2c7db3a35aa6250be1a6a2681c0202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a2c7db3a35aa6250be1a6a2681c0202">&#9670;&#160;</a></span>_lethal</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::_lethal = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

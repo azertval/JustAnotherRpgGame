@@ -177,6 +177,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a939d9433a590fcc2a28b0be6168fd317" id="r_a939d9433a590fcc2a28b0be6168fd317"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a939d9433a590fcc2a28b0be6168fd317">hit</a> = false</td></tr>
 <tr class="memdesc:a939d9433a590fcc2a28b0be6168fd317"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'issue, figée après <span class="tt">BeforeOutcome</span>.  <br /></td></tr>
 <tr class="memitem:a9d3fda07cfa265bb01b1a82c7a237227" id="r_a9d3fda07cfa265bb01b1a82c7a237227"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9d3fda07cfa265bb01b1a82c7a237227">critical</a> = false</td></tr>
+<tr class="memitem:af2325dd061688b7af10f973826f58de7" id="r_af2325dd061688b7af10f973826f58de7"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#af2325dd061688b7af10f973826f58de7">criticalSource</a></td></tr>
+<tr class="memdesc:af2325dd061688b7af10f973826f58de7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui rend le coup critique sans le dé, posé à l'étape <span class="tt">Hit</span> : une cible inconsciente frappée au contact (<span class="tt">LOT-137</span>).  <br /></td></tr>
 <tr class="memitem:a1317273848873f06810eb5effde86372" id="r_a1317273848873f06810eb5effde86372"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1317273848873f06810eb5effde86372">damageType</a></td></tr>
 <tr class="memdesc:a1317273848873f06810eb5effde86372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le type de la première clause de dégâts du profil : celui que prennent les dés ajoutés à l'étape <span class="tt">Hit</span> (l'attaque sournoise est « du type de l'arme »).  <br /></td></tr>
 <tr class="memitem:ab0f49c854c77edf77fd20e86459ead19" id="r_ab0f49c854c77edf77fd20e86459ead19"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1BonusDamage.html">BonusDamage</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab0f49c854c77edf77fd20e86459ead19">bonusDamage</a></td></tr>
@@ -390,6 +392,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="af2325dd061688b7af10f973826f58de7" name="af2325dd061688b7af10f973826f58de7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2325dd061688b7af10f973826f58de7">&#9670;&#160;</a></span>criticalSource</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::AttackRoll::criticalSource</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce qui rend le coup critique sans le dé, posé à l'étape <span class="tt">Hit</span> : une cible inconsciente frappée au contact (<span class="tt">LOT-137</span>). </p>
+<p>Vide pour un critique au d20. </p>
 
 </div>
 </div>

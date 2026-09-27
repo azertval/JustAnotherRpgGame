@@ -7,5 +7,6 @@ var searchData=
   ['armorcategory_4',['ArmorCategory',['../namespacecore.html#a7ad0450d2b476419d40745fbfa9ac105',1,'core']]],
   ['assetgalleryvisibility_5',['AssetGalleryVisibility',['../namespacehmi.html#a9bcda977efbe65c2ab28905feb685040',1,'hmi']]],
   ['attackkind_6',['AttackKind',['../namespacecore.html#ac7c907f80d9ec08c831616af9902aae3',1,'core']]],
-  ['attackrollstage_7',['AttackRollStage',['../namespacecore.html#ac7bf6427f29bbba33973526a5896c20d',1,'core']]]
+  ['attackrollstage_7',['AttackRollStage',['../namespacecore.html#ac7bf6427f29bbba33973526a5896c20d',1,'core']]],
+  ['atzerohitpoints_8',['AtZeroHitPoints',['../namespacecore.html#a18034afdf1d6d9fbf127ce25d9001c76',1,'core']]]
 ];

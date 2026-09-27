@@ -12,6 +12,7 @@ var structcore_1_1AttackRoll =
     [ "check", "structcore_1_1AttackRoll.html#a37ab090c371ec71aa4105fd6eda95f2e", null ],
     [ "cover", "structcore_1_1AttackRoll.html#ac7d1344427cadd508ea5bc7df5c50a28", null ],
     [ "critical", "structcore_1_1AttackRoll.html#a9d3fda07cfa265bb01b1a82c7a237227", null ],
+    [ "criticalSource", "structcore_1_1AttackRoll.html#af2325dd061688b7af10f973826f58de7", null ],
     [ "criticalThreshold", "structcore_1_1AttackRoll.html#a4d6074ea25d9eee80056cdfb9da46cbb", null ],
     [ "damageType", "structcore_1_1AttackRoll.html#a1317273848873f06810eb5effde86372", null ],
     [ "disadvantages", "structcore_1_1AttackRoll.html#a336d74ae9da041c697992ef3c8ae0ba9", null ],

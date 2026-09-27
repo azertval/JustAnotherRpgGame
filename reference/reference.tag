@@ -529,6 +529,7 @@
     <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
     <includes id="RpgEnums_8h" name="RpgEnums.h" local="yes" import="no" module="no" objc="no">Core/Rpg/RpgEnums.h</includes>
     <class kind="struct">core::CombatEvent</class>
+    <class kind="struct">core::DeathSaves</class>
     <class kind="struct">core::CombatantProfile</class>
     <class kind="struct">core::Combatant</class>
     <class kind="struct">core::EnlistResult</class>
@@ -2266,6 +2267,7 @@
     <includes id="Dice_8h" name="Dice.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dice.h</includes>
     <includes id="RpgEnums_8h" name="RpgEnums.h" local="yes" import="no" module="no" objc="no">Core/Rpg/RpgEnums.h</includes>
     <class kind="struct">core::SpellEffect</class>
+    <class kind="struct">core::SpellRevival</class>
     <class kind="struct">core::Spell</class>
     <class kind="struct">core::SpellCatalog</class>
     <namespace>core</namespace>
@@ -6582,6 +6584,111 @@
       <anchorfile>test__damage_8cpp.html</anchorfile>
       <anchor>aeffd7b168620fd0525ad75cf715364ee</anchor>
       <arglist>(DamageTest, LesStructuresOntDesPointsDeVieEtLeBestiaireSesAffinites)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_death_and_dying.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
+    <filename>test__death__and__dying_8cpp.html</filename>
+    <includes id="ActionEconomy_8h" name="ActionEconomy.h" local="yes" import="no" module="no" objc="no">Core/Combat/ActionEconomy.h</includes>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
+    <includes id="CombatState_8h" name="CombatState.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatState.h</includes>
+    <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
+    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="DeterministicRandom_8h" name="DeterministicRandom.h" local="yes" import="no" module="no" objc="no">Core/Math/DeterministicRandom.h</includes>
+    <includes id="ClassArena_8h" name="ClassArena.h" local="yes" import="no" module="no" objc="no">Test/Support/ClassArena.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>a566a1e5b22cfde2f429100e16b961211</anchor>
+      <arglist>(DeathAndDyingTest, TroisEchecsTuent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>a22590db397e047dd9c81b23cfabb8102</anchor>
+      <arglist>(DeathAndDyingTest, UnVingtReleveUnUnCompteDouble)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>a21f140f31025bb60b285de3cfa0abf4b</anchor>
+      <arglist>(DeathAndDyingTest, LesDegatsATerreEtLaMortInstantanee)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>a242e4d96cf94571394736d1c921e80df</anchor>
+      <arglist>(DeathAndDyingTest, UnMonstreMeurtEtLaMarqueProtege)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>acc5083ce8139d4c8376f741d08ed3914</anchor>
+      <arglist>(DeathAndDyingTest, LeJetSeFaitASaPlaceEtUnVingtRejoue)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>ae57c9e40544d6b537c4cf059051beaae</anchor>
+      <arglist>(DeathAndDyingTest, ReviveNeRameneQueLesMorts)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>ae3287de963e978312bb279ec3f652d60</anchor>
+      <arglist>(DeathAndDyingTest, UnAllieATerreSeReleveParSoinEtRejoue)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>acb6c3721c168cf639b40cb39f84ab4c4</anchor>
+      <arglist>(DeathAndDyingTest, LeJetContreLaMortSeJetteDansLArene)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>a65651bce2e274880c3c0d3863717fde1</anchor>
+      <arglist>(DeathAndDyingTest, EpargnerLesMourantsStabilise)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>a033be4e0530a596978489f27e8b1b97f</anchor>
+      <arglist>(DeathAndDyingTest, RevigorerRameneUnMortDeMoinsDUneMinute)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>a952c288cc60a3019683c4045181d24af</anchor>
+      <arglist>(DeathAndDyingTest, FrapperUnInconscientAuContactEstCritique)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>a25b2a912ad61479e154b6b4a23af605f</anchor>
+      <arglist>(DeathAndDyingTest, DesDegatsRompentLaConcentration)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__death__and__dying_8cpp.html</anchorfile>
+      <anchor>a8a3650fad204468c1b4ac195ac7933a8</anchor>
+      <arglist>(DeathAndDyingTest, LIaAcheveOuEpargneSelonSonProfil)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14846,6 +14953,13 @@
       <arglist>(CombatantId combatant, SpellEffectKind kind) const</arglist>
     </member>
     <member kind="function">
+      <type>std::vector&lt; CombatCondition &gt;</type>
+      <name>conditionsOf</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a7e81bf19c2e1efda7cddcddb58807f93</anchor>
+      <arglist>(CombatantId combatant) const</arglist>
+    </member>
+    <member kind="function">
       <type>ArenaAttack</type>
       <name>castSpell</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
@@ -15075,6 +15189,41 @@
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>a3b257eeb42aa0ca2bf905e9c17fa3e54</anchor>
       <arglist>(CombatantId caster, CombatantId target, const ArenaSpell &amp;spell, const std::string &amp;prefix)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>ArenaAttack</type>
+      <name>castStabilize</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a9c6005b759ae0e5b006c46ff119905c6</anchor>
+      <arglist>(CombatantId caster, CombatantId target, const ArenaSpell &amp;spell, const std::string &amp;prefix)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>ArenaAttack</type>
+      <name>castRevive</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a3180f51918045ff4ffe434c10e1d82ca</anchor>
+      <arglist>(CombatantId caster, CombatantId target, const ArenaSpell &amp;spell, const std::string &amp;prefix)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>rollDeathSave</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>aa688bb79865dea9471e0c4f5c9f888eb</anchor>
+      <arglist>(CombatantId combatant)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>onDamageTaken</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a9f897b50134b0209caddf28c23c899bd</anchor>
+      <arglist>(const CombatEvent &amp;event)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>std::string</type>
+      <name>deathSaveTally</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a87dffc0607bb120dcff28cdb44fb69bd</anchor>
+      <arglist>(CombatantId combatant) const</arglist>
     </member>
     <member kind="function" protection="private">
       <type>std::optional&lt; Modifier &gt;</type>
@@ -15351,6 +15500,13 @@
       <name>healing</name>
       <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
       <anchor>a9cdc58664012609ffa082efab4997621</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; SpellRevival &gt;</type>
+      <name>revival</name>
+      <anchorfile>structcore_1_1ArenaSpell.html</anchorfile>
+      <anchor>a4b2dd885d0f5e031700bd7a5dc1a2a32</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -17384,6 +17540,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::string</type>
+      <name>criticalSource</name>
+      <anchorfile>structcore_1_1AttackRoll.html</anchorfile>
+      <anchor>af2325dd061688b7af10f973826f58de7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::optional&lt; DamageType &gt;</type>
       <name>damageType</name>
       <anchorfile>structcore_1_1AttackRoll.html</anchorfile>
@@ -18209,6 +18372,13 @@
       <name>retreatAfterAttack</name>
       <anchorfile>structcore_1_1BehaviorProfile.html</anchorfile>
       <anchor>a4e505a6fee947013b86012b0934e3d2b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>finishDowned</name>
+      <anchorfile>structcore_1_1BehaviorProfile.html</anchorfile>
+      <anchor>a7352cc6521fe0e461734ceca63b1ff41</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -20395,6 +20565,27 @@
       <anchor>aee6b98def7c1a4a96f1808fd5980aae2</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>DeathSaves</type>
+      <name>deathSaves</name>
+      <anchorfile>structcore_1_1Combatant.html</anchorfile>
+      <anchor>a02b5ded3c8253c6718ac3363a9a58827</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>prone</name>
+      <anchorfile>structcore_1_1Combatant.html</anchorfile>
+      <anchor>a681d2c722dc48ddf1206f18e804eb2f6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; int &gt;</type>
+      <name>diedAtRound</name>
+      <anchorfile>structcore_1_1Combatant.html</anchorfile>
+      <anchor>a4ea7771d5d6f246f2d85d36dcda4c452</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::CombatantPlacement</name>
@@ -20513,6 +20704,13 @@
       <name>savingThrows</name>
       <anchorfile>structcore_1_1CombatantProfile.html</anchorfile>
       <anchor>a71158ae5717a4c88f4fa558cfdac2c62</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>AtZeroHitPoints</type>
+      <name>atZero</name>
+      <anchorfile>structcore_1_1CombatantProfile.html</anchorfile>
+      <anchor>aa313446a64c2a132673999a4802472f4</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -21295,6 +21493,13 @@
     </member>
     <member kind="function">
       <type>void</type>
+      <name>setLethal</name>
+      <anchorfile>classcore_1_1CombatState.html</anchorfile>
+      <anchor>a196306a247bfc367a047e1330d36041a</anchor>
+      <arglist>(bool lethal) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
       <name>subscribe</name>
       <anchorfile>classcore_1_1CombatState.html</anchorfile>
       <anchor>aea633b2feb4807ca7db6870344dfb56d</anchor>
@@ -21348,6 +21553,20 @@
       <anchorfile>classcore_1_1CombatState.html</anchorfile>
       <anchor>a21d4d4efd3e42a1249a8218338578ebf</anchor>
       <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>lethal</name>
+      <anchorfile>classcore_1_1CombatState.html</anchorfile>
+      <anchor>a4ff00ef937a158046e03cf54bc05699c</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isDying</name>
+      <anchorfile>classcore_1_1CombatState.html</anchorfile>
+      <anchor>a877b39f49e9703b491a5daa438c9f507</anchor>
+      <arglist>(CombatantId combatant) const</arglist>
     </member>
     <member kind="function">
       <type>const Combatant *</type>
@@ -21476,6 +21695,27 @@
       <arglist>(CombatantId combatant, int amount)</arglist>
     </member>
     <member kind="function">
+      <type>DeathSaveOutcome</type>
+      <name>recordDeathSave</name>
+      <anchorfile>classcore_1_1CombatState.html</anchorfile>
+      <anchor>a58ab865ce5dce4958ed07e3ad59612e3</anchor>
+      <arglist>(CombatantId combatant, int natural, int total)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>stabilize</name>
+      <anchorfile>classcore_1_1CombatState.html</anchorfile>
+      <anchor>af89cca22ea2594765d2f08e91bf6294c</anchor>
+      <arglist>(CombatantId combatant)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>revive</name>
+      <anchorfile>classcore_1_1CombatState.html</anchorfile>
+      <anchor>a64d2d6f283513d20fbc83c41cff336cf</anchor>
+      <arglist>(CombatantId combatant, int hitPoints)</arglist>
+    </member>
+    <member kind="function">
       <type>bool</type>
       <name>grantReserve</name>
       <anchorfile>classcore_1_1CombatState.html</anchorfile>
@@ -21554,6 +21794,13 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>kill</name>
+      <anchorfile>classcore_1_1CombatState.html</anchorfile>
+      <anchor>ad9f96f584cce4d2f67ed5cf8bf325540</anchor>
+      <arglist>(Combatant &amp;combatant)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>dispatch</name>
       <anchorfile>classcore_1_1CombatState.html</anchorfile>
       <anchor>a60abc195d90cdbaf8f966905338a5006</anchor>
@@ -21607,6 +21854,13 @@
       <anchorfile>classcore_1_1CombatState.html</anchorfile>
       <anchor>aa93b046d87f05f9ebcbdb01f497d9078</anchor>
       <arglist>(CombatantId mover, CombatantId other) const</arglist>
+    </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static void</type>
+      <name>standUp</name>
+      <anchorfile>classcore_1_1CombatState.html</anchorfile>
+      <anchor>af3ce81b7fa1166bcdcbce97b61ff1d04</anchor>
+      <arglist>(Combatant &amp;combatant)</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>BattleGrid</type>
@@ -21676,6 +21930,13 @@
       <name>_escapable</name>
       <anchorfile>classcore_1_1CombatState.html</anchorfile>
       <anchor>a11db283e9f30838c82e22af217242c73</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_lethal</name>
+      <anchorfile>classcore_1_1CombatState.html</anchorfile>
+      <anchor>a1a2c7db3a35aa6250be1a6a2681c0202</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -23018,6 +23279,38 @@
       <name>trace</name>
       <anchorfile>structcore_1_1DamageWork.html</anchorfile>
       <anchor>aa783bbb5659ba98b03df5f3d340b4bec</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::DeathSaves</name>
+    <filename>structcore_1_1DeathSaves.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1DeathSaves.html</anchorfile>
+      <anchor>a1bbe822547aacd683209f1c70831e481</anchor>
+      <arglist>(const DeathSaves &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>successes</name>
+      <anchorfile>structcore_1_1DeathSaves.html</anchorfile>
+      <anchor>aadf3d762dd5ce8efe1c1adc0991bcb5f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>failures</name>
+      <anchorfile>structcore_1_1DeathSaves.html</anchorfile>
+      <anchor>afa31aec225c9d1dcaa44eb10352792d5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>stable</name>
+      <anchorfile>structcore_1_1DeathSaves.html</anchorfile>
+      <anchor>a998095fbfa66ecb0862dcff82825cbae</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -41147,6 +41440,20 @@
     </member>
     <member kind="variable">
       <type>bool</type>
+      <name>stabilizes</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>ac37f3c25deec03c12661b23afff0e62f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; SpellRevival &gt;</type>
+      <name>revives</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>adcc69cf1b8ffda86270e0cf6e636303f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
       <name>bonusAction</name>
       <anchorfile>structcore_1_1Spell.html</anchorfile>
       <anchor>a9047893bb6649fb1ff013cae04f19e81</anchor>
@@ -41316,6 +41623,24 @@
       <name>durationRounds</name>
       <anchorfile>structcore_1_1SpellEffect.html</anchorfile>
       <anchor>a5511a1f161a1717773939865066fe025</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::SpellRevival</name>
+    <filename>structcore_1_1SpellRevival.html</filename>
+    <member kind="variable">
+      <type>int</type>
+      <name>hitPoints</name>
+      <anchorfile>structcore_1_1SpellRevival.html</anchorfile>
+      <anchor>a0144c6418de818484bcf37bb5205b152</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>withinRounds</name>
+      <anchorfile>structcore_1_1SpellRevival.html</anchorfile>
+      <anchor>aed3fcf2f0b04bde163ebcc48405e398e</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -46275,6 +46600,7 @@
     <class kind="struct">core::AttackPreview</class>
     <class kind="struct">core::MovePreview</class>
     <class kind="struct">core::CombatEvent</class>
+    <class kind="struct">core::DeathSaves</class>
     <class kind="struct">core::CombatantProfile</class>
     <class kind="struct">core::Combatant</class>
     <class kind="struct">core::EnlistResult</class>
@@ -46450,6 +46776,7 @@
     <class kind="struct">core::SkillDefinition</class>
     <class kind="struct">core::SkillCatalog</class>
     <class kind="struct">core::SpellEffect</class>
+    <class kind="struct">core::SpellRevival</class>
     <class kind="struct">core::Spell</class>
     <class kind="struct">core::SpellCatalog</class>
     <class kind="class">core::FixedTimestep</class>
@@ -46571,6 +46898,21 @@
       <enumvalue file="namespacecore.html" anchor="ad490fa58f4db55cab180bf278e3db721a2ec2c2961c7ce5a114d969c1f562a563">Cylinder</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ad490fa58f4db55cab180bf278e3db721a4803e6b9e63dabf04de980788d6a13c4">Line</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ad490fa58f4db55cab180bf278e3db721ab7095f057db3fefa7325ad93a04e14fd">Sphere</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>CombatCondition</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>abde919757944fef613e5f21cf21c3108</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108acb6b56b0daf97dc9660af8977785a0e8">Unconscious</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108a0d7fa52c0200c09318ddc6c0d7a377ec">Prone</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108afa3aff3c185c6dc7754235f397c2099a">Stable</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108a183b62c7f067711f9c5a54913c054617">Dead</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108a582f060800c793f1196f45a236d275a5">Blessed</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108a8bcda43732b0928d269955e0f09ff76f">Invisible</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108a444733081a578880ba8a563d3c59d22d">Flying</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108aa020a34193d50813b2d30e19503a471e">Concentrating</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -46696,6 +47038,8 @@
       <enumvalue file="namespacecore.html" anchor="a942a0cabc5c97e0e10dfb8a148e26fb9a5a4f89385b5dfc0953b794f3df6378af">AttackDeclared</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a942a0cabc5c97e0e10dfb8a148e26fb9a3007032a944ef3638beb8825cbb3c28b">DamageTaken</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a942a0cabc5c97e0e10dfb8a148e26fb9ac963ba0b22143d6653abb38826c9a254">CombatantDowned</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a942a0cabc5c97e0e10dfb8a148e26fb9a25bee0ac1d4ef5158dff040ace25c848">DeathSaveDue</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a942a0cabc5c97e0e10dfb8a148e26fb9a229eb82b4e2b7b30ff9ec61c90805135">CombatantDied</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a942a0cabc5c97e0e10dfb8a148e26fb9a6b262362e4626c332872a4645efc154c">CombatantJoined</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a942a0cabc5c97e0e10dfb8a148e26fb9a228189956989fdf6b5e1340df902051b">CombatantLeft</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a942a0cabc5c97e0e10dfb8a148e26fb9a8e2cadedb4267fb709cbf7bfffcf1a64">CombatEnded</enumvalue>
@@ -46708,7 +47052,30 @@
       <arglist></arglist>
       <enumvalue file="namespacecore.html" anchor="ab77b88490327a0c26ec09d4f6126e382aa66b284e632fb96f19e27dca96b78fd7">Standing</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ab77b88490327a0c26ec09d4f6126e382a08a38277b0309070706f6652eeae9a53">Down</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="ab77b88490327a0c26ec09d4f6126e382a183b62c7f067711f9c5a54913c054617">Dead</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ab77b88490327a0c26ec09d4f6126e382af62dedad685b570f499b61e94084dab2">Withdrawn</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>AtZeroHitPoints</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a18034afdf1d6d9fbf127ce25d9001c76</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="a18034afdf1d6d9fbf127ce25d9001c76a35dc1c89b9774d0daf5d83e5c2264e9b">DeathSaves</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a18034afdf1d6d9fbf127ce25d9001c76ae172da87ca16bcdd67da0fb694df227a">Dies</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>DeathSaveOutcome</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a2eaea3fb74698b3474825cda0cdce254</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="a2eaea3fb74698b3474825cda0cdce254a505a83f220c02df2f85c3810cd9ceb38">Success</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a2eaea3fb74698b3474825cda0cdce254ae139a585510a502bbf1841cf589f5086">Failure</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a2eaea3fb74698b3474825cda0cdce254afda22026db89cdc5e88b262ad9424b41">Stabilized</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a2eaea3fb74698b3474825cda0cdce254ab4ee54591aaa4862bf37f75f6839b514">Died</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a2eaea3fb74698b3474825cda0cdce254a608ff442e5491bad46bc86c5f16c6655">Revived</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a2eaea3fb74698b3474825cda0cdce254ad96143ba1b15645919cea00ec9d1be62">Ignored</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -47235,6 +47602,8 @@
       <enumvalue file="namespacecore.html" anchor="a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d">SavingThrow</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa">Effect</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543">Healing</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a6eee9bc9a9ca2edde9d16a7a6281144ba5b881cec5eb79c7e74a5c9f43f38b905">Stabilize</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a6eee9bc9a9ca2edde9d16a7a6281144bad78a1701177a08aebfbccceb9f1eb63a">Revive</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -47436,6 +47805,13 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a4dfe01f34b52d84d20c9c6785eb464aa</anchor>
       <arglist>(const CombatState &amp;combat, const AreaOfEffect &amp;area)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string_view</type>
+      <name>combatConditionLabel</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a0c9f2b8fa32045a19b8c958a8067290f</anchor>
+      <arglist>(CombatCondition condition) noexcept</arglist>
     </member>
     <member kind="function">
       <type>std::vector&lt; ArenaEntryPoint &gt;</type>
@@ -53909,6 +54285,7 @@
     <file>test_combat_preview.cpp</file>
     <file>test_combat_state.cpp</file>
     <file>test_damage.cpp</file>
+    <file>test_death_and_dying.cpp</file>
     <file>test_encounter.cpp</file>
     <file>test_enemy_ai.cpp</file>
     <file>test_iso_projection.cpp</file>

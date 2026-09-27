@@ -13,6 +13,7 @@ var structcore_1_1ArenaSpell =
     [ "mechanism", "structcore_1_1ArenaSpell.html#a865f85042228a54239e242c345f63a1e", null ],
     [ "name", "structcore_1_1ArenaSpell.html#ae8834bd90f613aa6e66953c31e4393fb", null ],
     [ "projectiles", "structcore_1_1ArenaSpell.html#a8f14c8975444e89a442246deda311287", null ],
+    [ "revival", "structcore_1_1ArenaSpell.html#a4b2dd885d0f5e031700bd7a5dc1a2a32", null ],
     [ "save", "structcore_1_1ArenaSpell.html#ab04108329d0e656cd580ab675e5afcfe", null ],
     [ "saveDc", "structcore_1_1ArenaSpell.html#afe66f0dede301c5debfc1a3a7253025c", null ],
     [ "saveEffect", "structcore_1_1ArenaSpell.html#ad49eac1f4d232436805e3038bad7d5d1", null ],

@@ -160,6 +160,12 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a956cd5e749ca3cdd94241445037e25d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour un acteur flottant : a-t-il déjà joué ce round-ci ?  <br /></td></tr>
 <tr class="memitem:aee6b98def7c1a4a96f1808fd5980aae2" id="r_aee6b98def7c1a4a96f1808fd5980aae2"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1HitPointReserve.html">HitPointReserve</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aee6b98def7c1a4a96f1808fd5980aae2">reserves</a></td></tr>
 <tr class="memdesc:aee6b98def7c1a4a96f1808fd5980aae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui absorbe les dégâts avant les points de vie, dans l'ordre où on les a reçus.  <br /></td></tr>
+<tr class="memitem:a02b5ded3c8253c6718ac3363a9a58827" id="r_a02b5ded3c8253c6718ac3363a9a58827"><td class="memItemLeft"><a class="el" href="structcore_1_1DeathSaves.html">DeathSaves</a>&#160;</td><td class="memItemRight"><a class="el" href="#a02b5ded3c8253c6718ac3363a9a58827">deathSaves</a></td></tr>
+<tr class="memdesc:a02b5ded3c8253c6718ac3363a9a58827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ses jets contre la mort, tant qu'il est à terre ; remis à zéro dès qu'il est soigné.  <br /></td></tr>
+<tr class="memitem:a681d2c722dc48ddf1206f18e804eb2f6" id="r_a681d2c722dc48ddf1206f18e804eb2f6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a681d2c722dc48ddf1206f18e804eb2f6">prone</a> = false</td></tr>
+<tr class="memdesc:a681d2c722dc48ddf1206f18e804eb2f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">À terre (Manuel, annexe A) : tombé à 0 point de vie, et encore allongé une fois relevé par un soin, jusqu'au début de son tour où il se relève.  <br /></td></tr>
+<tr class="memitem:a4ea7771d5d6f246f2d85d36dcda4c452" id="r_a4ea7771d5d6f246f2d85d36dcda4c452"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4ea7771d5d6f246f2d85d36dcda4c452">diedAtRound</a></td></tr>
+<tr class="memdesc:a4ea7771d5d6f246f2d85d36dcda4c452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le round de sa mort : <em>revigorer</em> ne ramène qu'un mort « depuis moins d'une minute ».  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un combattant engagé : son profil, son état, son économie et son jet d'initiative. </p>
@@ -177,6 +183,38 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Pour un acteur flottant : a-t-il déjà joué ce round-ci ? </p>
+
+</div>
+</div>
+<a id="a02b5ded3c8253c6718ac3363a9a58827" name="a02b5ded3c8253c6718ac3363a9a58827"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02b5ded3c8253c6718ac3363a9a58827">&#9670;&#160;</a></span>deathSaves</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1DeathSaves.html">DeathSaves</a> core::Combatant::deathSaves</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ses jets contre la mort, tant qu'il est à terre ; remis à zéro dès qu'il est soigné. </p>
+
+</div>
+</div>
+<a id="a4ea7771d5d6f246f2d85d36dcda4c452" name="a4ea7771d5d6f246f2d85d36dcda4c452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ea7771d5d6f246f2d85d36dcda4c452">&#9670;&#160;</a></span>diedAtRound</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; core::Combatant::diedAtRound</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le round de sa mort : <em>revigorer</em> ne ramène qu'un mort « depuis moins d'une minute ». </p>
 
 </div>
 </div>
@@ -236,6 +274,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a681d2c722dc48ddf1206f18e804eb2f6" name="a681d2c722dc48ddf1206f18e804eb2f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a681d2c722dc48ddf1206f18e804eb2f6">&#9670;&#160;</a></span>prone</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Combatant::prone = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>À terre (Manuel, annexe A) : tombé à 0 point de vie, et encore allongé une fois relevé par un soin, jusqu'au début de son tour où il se relève. </p>
 
 </div>
 </div>

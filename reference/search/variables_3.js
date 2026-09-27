@@ -91,9 +91,10 @@ var searchData=
   ['creatures_88',['creatures',['../structcore_1_1Bestiary.html#afce8b735e98e75ac3c9aafd3309647f9',1,'core::Bestiary']]],
   ['creaturetype_89',['creatureType',['../structcore_1_1Creature.html#af273a69103daae5d3c8b983a18047c8e',1,'core::Creature']]],
   ['critical_90',['critical',['../structcore_1_1AttackRoll.html#a9d3fda07cfa265bb01b1a82c7a237227',1,'core::AttackRoll::critical'],['../structcore_1_1CombatEvent.html#ab5ca5e21d721e18698b2f3971d6c9034',1,'core::CombatEvent::critical'],['../structcore_1_1HitPointChange.html#a63e990ebd095122aa91c8bb2e322b716',1,'core::HitPointChange::critical'],['../structcore_1_1RolledDamage.html#a3d00e1c88934507d49d16a3fcf51f715',1,'core::RolledDamage::critical']]],
-  ['criticalthreshold_91',['criticalThreshold',['../structcore_1_1AttackProfile.html#a825dccf168ecdfd7b7304def28cb188b',1,'core::AttackProfile::criticalThreshold'],['../structcore_1_1AttackRoll.html#a4d6074ea25d9eee80056cdfb9da46cbb',1,'core::AttackRoll::criticalThreshold']]],
-  ['cue_92',['cue',['../structhmi_1_1CombatCueTrack_1_1Running.html#a2ac79d58964403a0721a4cbd610c4e77',1,'hmi::CombatCueTrack::Running']]],
-  ['culled_93',['culled',['../structhmi_1_1SceneStatistics.html#a944649e434a4fab1f0a72e0fbf23f1cf',1,'hmi::SceneStatistics']]],
-  ['culling_5fmargin_5funits_94',['CULLING_MARGIN_UNITS',['../classhmi_1_1ComposedScene.html#ad8dd91b7cee4c5d987aae7b22fac4d7e',1,'hmi::ComposedScene']]],
-  ['currenthitpoints_95',['currentHitPoints',['../structcore_1_1CombatantProfile.html#a0e93aedad6e03dc07a91298babe5a459',1,'core::CombatantProfile::currentHitPoints'],['../structcore_1_1CharacterSheet.html#a866fe7b5be97e74f1de1068d17c6392c',1,'core::CharacterSheet::currentHitPoints']]]
+  ['criticalsource_91',['criticalSource',['../structcore_1_1AttackRoll.html#af2325dd061688b7af10f973826f58de7',1,'core::AttackRoll']]],
+  ['criticalthreshold_92',['criticalThreshold',['../structcore_1_1AttackProfile.html#a825dccf168ecdfd7b7304def28cb188b',1,'core::AttackProfile::criticalThreshold'],['../structcore_1_1AttackRoll.html#a4d6074ea25d9eee80056cdfb9da46cbb',1,'core::AttackRoll::criticalThreshold']]],
+  ['cue_93',['cue',['../structhmi_1_1CombatCueTrack_1_1Running.html#a2ac79d58964403a0721a4cbd610c4e77',1,'hmi::CombatCueTrack::Running']]],
+  ['culled_94',['culled',['../structhmi_1_1SceneStatistics.html#a944649e434a4fab1f0a72e0fbf23f1cf',1,'hmi::SceneStatistics']]],
+  ['culling_5fmargin_5funits_95',['CULLING_MARGIN_UNITS',['../classhmi_1_1ComposedScene.html#ad8dd91b7cee4c5d987aae7b22fac4d7e',1,'hmi::ComposedScene']]],
+  ['currenthitpoints_96',['currentHitPoints',['../structcore_1_1CombatantProfile.html#a0e93aedad6e03dc07a91298babe5a459',1,'core::CombatantProfile::currentHitPoints'],['../structcore_1_1CharacterSheet.html#a866fe7b5be97e74f1de1068d17c6392c',1,'core::CharacterSheet::currentHitPoints']]]
 ];

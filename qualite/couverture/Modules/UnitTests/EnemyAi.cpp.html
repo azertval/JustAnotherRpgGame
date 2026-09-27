@@ -146,8 +146,14 @@ public:
                 .combattant = c,
                 .emprise = {.anchor = *position, .side = footprintSide(c-&gt;profile.size)},
                 .attaques = session.attacks(id)};
-            _places.push_back(present);
-            if (id == acteur || c-&gt;status != CombatantStatus::Standing) {
+            _places.push_back(present);</span>
+            // Un ennemi a terre n'est ni une menace ni un obstacle au choix : une cible, si le
+            // profil l'acheve et que l'on meurt dans ce combat (LOT-137).
+            if (id != acteur &amp;&amp; c-&gt;status == CombatantStatus::Down &amp;&amp; _combat.lethal() &amp;&amp;
+<span style = "background-color:#dfd">                c-&gt;profile.side != _moi.combattant-&gt;profile.side &amp;&amp; profil.finishDowned &gt; 0) {
+                _aTerre.push_back(present);</span>
+            }
+<span style = "background-color:#dfd">            if (id == acteur || c-&gt;status != CombatantStatus::Standing) {
                 continue;</span>
             }
 <span style = "background-color:#dfd">            (c-&gt;profile.side == _moi.combattant-&gt;profile.side ? _allies : _ennemis)</span>
@@ -306,7 +312,15 @@ public:
 <span style = "background-color:#dfd">        const Footprint ici = empriseEn(ancre);</span>
         // Un ennemi qui voit l'acteur a une case gene le tir : une fois par ancre, pas par cible.
 <span style = "background-color:#dfd">        std::optional&lt;bool&gt; auContact;
+        std::vector&lt;const Present*&gt; visees;
         for (const Present&amp; cible : _ennemis) {
+            visees.push_back(&amp;cible);
+        }
+        for (const Present&amp; cible : _aTerre) {
+            visees.push_back(&amp;cible);
+        }
+        for (const Present* visee : visees) {
+            const Present&amp; cible = *visee;
             const int distance = ecart(ancre, ici.side, cible.emprise.anchor, cible.emprise.side);
             const bool uneAPortee = std::ranges::any_of(
                 *_moi.attaques, [&amp;](const AttackProfile&amp; a) { return porte(a, distance); });
@@ -316,7 +330,9 @@ public:
 <span style = "background-color:#dfd">            const std::vector&lt;Footprint&gt; abris = corps(_moi.id, cible.id, ancre);
             const Cover abri = coverFrom(_grille, ici, cible.emprise, abris);
             const int ca = cible.combattant-&gt;profile.armorClass + coverBonus(abri);
-            const long long pourcent = pourcentContre(cible);</span>
+            const long long pourcent = cible.combattant-&gt;status == CombatantStatus::Down</span>
+                                           ? _profil.finishDowned
+                                           : pourcentContre(cible);
 
 <span style = "background-color:#dfd">            for (std::size_t i = 0; i &lt; _moi.attaques-&gt;size(); ++i) {
                 const AttackProfile&amp; attaque = (*_moi.attaques)[i];
@@ -375,8 +391,22 @@ private:
 <span style = "background-color:#dfd">                                       std::optional&lt;bool&gt;&amp; auContact, Frappe&amp; frappe) const {
         const Footprint ici = empriseEn(ancre);
         int avantages = 0;
-        int desavantages = 0;
-        if (attaque.kind == AttackKind::Melee &amp;&amp; _session.bout().flanking &amp;&amp;</span>
+        int desavantages = 0;</span>
+        // Manuel, annexe A : ce que la session ajoutera au jet (LOT-137).
+<span style = "background-color:#dfd">        if (cible.combattant-&gt;status == CombatantStatus::Down) {
+            ++avantages;
+            frappe.circonstances.emplace_back("cible inconsciente");</span>
+        }
+<span style = "background-color:#dfd">        if (cible.combattant-&gt;prone || cible.combattant-&gt;status == CombatantStatus::Down) {
+            if (distance == 1) {
+                ++avantages;
+                frappe.circonstances.emplace_back("cible a terre au contact");
+            } else {</span>
+<span style = "background-color:#fdd">                ++desavantages;
+                frappe.circonstances.emplace_back("cible a terre a distance");</span>
+            }
+        }
+<span style = "background-color:#dfd">        if (attaque.kind == AttackKind::Melee &amp;&amp; _session.bout().flanking &amp;&amp;</span>
             isFlankedFrom(_combat, _moi.id, ancre, cible.id)) {
 <span style = "background-color:#dfd">            ++avantages;
             frappe.circonstances.emplace_back("prise en tenaille");</span>
@@ -430,6 +460,8 @@ private:
     std::vector&lt;Present&gt; _places;
     std::vector&lt;Present&gt; _allies;
     std::vector&lt;Present&gt; _ennemis;
+    /// Les ennemis a terre que le profil acheve (LOT-137) : des cibles, jamais des menaces.
+    std::vector&lt;Present&gt; _aTerre;
     std::vector&lt;std::vector&lt;GridPosition&gt;&gt; _mobilite;
 };
 
@@ -624,7 +656,8 @@ struct Approche {
             .dodgeWhenThreatened =
 <span style = "background-color:#dfd">                lireBooleen(entree, "dodgeWhenThreatened", defaut.dodgeWhenThreatened),</span>
             .retreatAfterAttack =
-<span style = "background-color:#dfd">                lireBooleen(entree, "retreatAfterAttack", defaut.retreatAfterAttack)};
+<span style = "background-color:#dfd">                lireBooleen(entree, "retreatAfterAttack", defaut.retreatAfterAttack),
+            .finishDowned = lireEntier(entree, "finishDowned", defaut.finishDowned)};
         if (profil.id.empty()) {</span>
 <span style = "background-color:#fdd">            catalogue.errors.push_back(fichier + " : profil sans identifiant.");
             continue;</span>

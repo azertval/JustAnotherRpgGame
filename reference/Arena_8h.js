@@ -21,8 +21,19 @@ var Arena_8h =
       [ "core::ArenaActionResult::NoSpell", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda608f236a0fe9b2d3e8e409556b7b7571", null ],
       [ "core::ArenaActionResult::Exhausted", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedaa1a698ed9bd0897ab0578ac2114397ff", null ]
     ] ],
+    [ "core::CombatCondition", "namespacecore.html#abde919757944fef613e5f21cf21c3108", [
+      [ "core::CombatCondition::Unconscious", "namespacecore.html#abde919757944fef613e5f21cf21c3108acb6b56b0daf97dc9660af8977785a0e8", null ],
+      [ "core::CombatCondition::Prone", "namespacecore.html#abde919757944fef613e5f21cf21c3108a0d7fa52c0200c09318ddc6c0d7a377ec", null ],
+      [ "core::CombatCondition::Stable", "namespacecore.html#abde919757944fef613e5f21cf21c3108afa3aff3c185c6dc7754235f397c2099a", null ],
+      [ "core::CombatCondition::Dead", "namespacecore.html#abde919757944fef613e5f21cf21c3108a183b62c7f067711f9c5a54913c054617", null ],
+      [ "core::CombatCondition::Blessed", "namespacecore.html#abde919757944fef613e5f21cf21c3108a582f060800c793f1196f45a236d275a5", null ],
+      [ "core::CombatCondition::Invisible", "namespacecore.html#abde919757944fef613e5f21cf21c3108a8bcda43732b0928d269955e0f09ff76f", null ],
+      [ "core::CombatCondition::Flying", "namespacecore.html#abde919757944fef613e5f21cf21c3108a444733081a578880ba8a563d3c59d22d", null ],
+      [ "core::CombatCondition::Concentrating", "namespacecore.html#abde919757944fef613e5f21cf21c3108aa020a34193d50813b2d30e19503a471e", null ]
+    ] ],
     [ "core::arenaEntryPoints", "namespacecore.html#a91e905d2d65ad1c9a0916752b0fd9b95", null ],
     [ "core::arenaSpellsFor", "namespacecore.html#a7195d9f7d6b4f5e48eb604871553d6f9", null ],
+    [ "core::combatConditionLabel", "namespacecore.html#a0c9f2b8fa32045a19b8c958a8067290f", null ],
     [ "core::ARENA_ENTRY_ENTITY_TYPE", "namespacecore.html#a93cf3e3bbcfd17745d5f4084773b1a4a", null ],
     [ "core::ARENA_RANK_PROPERTY", "namespacecore.html#a6bb32367b37b63b19cbbcb5d0aeabd31", null ],
     [ "core::ARENA_SIDE_PROPERTY", "namespacecore.html#ad0cadfeea4d0cb712df6feb11ff12b9d", null ],

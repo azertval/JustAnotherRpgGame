@@ -167,7 +167,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a96799ceb33fdf18c4ca859830a4dad67" id="r_a96799ceb33fdf18c4ca859830a4dad67"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a96799ceb33fdf18c4ca859830a4dad67">TEST</a> (ClassPriestTest, ArmeSpirituelleFrappeParActionBonus)</td></tr>
 <tr class="memdesc:a96799ceb33fdf18c4ca859830a4dad67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arme spirituelle (N3) : action bonus, attaque de sort au corps a corps, puis l'arme frappe de nouveau a chaque tour sans lancer.  <br /></td></tr>
 <tr class="memitem:a6e0c4321823e5f6bf644b4102717088e" id="r_a6e0c4321823e5f6bf644b4102717088e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6e0c4321823e5f6bf644b4102717088e">TEST</a> (ClassPriestTest, DuNiveau1AuNiveau5LaTableSeLit)</td></tr>
-<tr class="memdesc:a6e0c4321823e5f6bf644b4102717088e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Du niveau 1 au niveau 5, la table du Priest se lit ; les sorts qui attendent le LOT-137 sont connus et dits.  <br /></td></tr>
+<tr class="memdesc:a6e0c4321823e5f6bf644b4102717088e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Du niveau 1 au niveau 5, la table du Priest se lit ; epargner les mourants et revigorer se jouent depuis le LOT-137, restauration inferieure attend toujours.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le Priest du <em>Player's Guide to Tanares</em> (p. </p>
@@ -257,14 +257,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Du niveau 1 au niveau 5, la table du Priest se lit ; les sorts qui attendent le LOT-137 sont connus et dits. </p>
-<p><b>Cas de test :</b> <b>Monter la Priest de la page 203 jusqu'au niveau 5 donne ses capacites et ses neuf sorts ; epargner les mourants, restauration inferieure, lumiere du jour et revigorer ne se jouent pas en combat et declarent ce qu'ils attendent.</b><br  />
+<p>Du niveau 1 au niveau 5, la table du Priest se lit ; epargner les mourants et revigorer se jouent depuis le LOT-137, restauration inferieure attend toujours. </p>
+<p><b>Cas de test :</b> <b>Monter la Priest de la page 203 jusqu'au niveau 5 donne ses capacites et ses neuf sorts ; epargner les mourants et revigorer entrent au grimoire de combat (LOT-137) ; restauration inferieure ne se joue pas et declare ce qu'elle attend.</b><br  />
  <b>Categorie :</b> Unitaire · Classes<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
  1. Monter de 1 a 5.<br  />
 2. Lire capacites, sorts connus, grimoire de combat.<br  />
- <b>Resultat attendu :</b> Aucun manquant ; quatre capacites ; neuf sorts connus ; grimoire de quatre sorts ; cinq sorts ignores, dont trois qui declarent un mecanisme requis. </p>
+ <b>Resultat attendu :</b> Aucun manquant ; quatre capacites ; neuf sorts connus ; grimoire de six sorts, dont epargner les mourants et revigorer ; trois sorts ignores, dont restauration inferieure qui declare un mecanisme requis. </p>
 
 </div>
 </div>

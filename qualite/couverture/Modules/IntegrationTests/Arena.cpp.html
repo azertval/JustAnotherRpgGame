@@ -85,6 +85,10 @@ namespace {
 <span style = "background-color:#fdd">            return "degats";</span>
         case CombatHook::CombatantDowned:
 <span style = "background-color:#dfd">            return "a terre";</span>
+        case CombatHook::DeathSaveDue:
+<span style = "background-color:#fdd">            return "jet contre la mort";</span>
+        case CombatHook::CombatantDied:
+<span style = "background-color:#dfd">            return "mort";</span>
         case CombatHook::CombatantJoined:
 <span style = "background-color:#fdd">            return "entree";</span>
         case CombatHook::CombatantLeft:
@@ -119,7 +123,46 @@ namespace {
     return arret;
 }</span>
 
+// Â« 2 succes, 1 echec Â» : le compteur d'un mourant.
+<span style = "background-color:#dfd">[[nodiscard]] std::string compteDesJets(const DeathSaves&amp; jets) {
+    return std::to_string(jets.successes) + " succes, " + std::to_string(jets.failures) +</span>
+           (jets.failures &gt; 1 ? " echecs" : " echec");
+<span style = "background-color:#dfd">}</span>
+
+// Â« d20 = 14 + 2 (Benediction) = 16 Â» : le jet contre la mort, sans verdict -- le 1 et le 20 le
+// tranchent autrement que le total.
+<span style = "background-color:#dfd">[[nodiscard]] std::string decrireLeD20(const CheckResult&amp; jet) {
+    std::string texte = "d20 = " + std::to_string(jet.keptDie);
+    for (const Modifier&amp; modificateur : jet.modifiers) {</span>
+<span style = "background-color:#fdd">        texte += modificateur.value &gt;= 0 ? " + " : " - ";
+        texte += std::to_string(std::abs(modificateur.value)) + " (" + modificateur.source + ')';
+    }</span>
+<span style = "background-color:#dfd">    return texte + " = " + std::to_string(jet.total);
+}</span>
+
 }  // namespace
+
+<span style = "background-color:#dfd">std::string_view combatConditionLabel(CombatCondition condition) noexcept {
+    switch (condition) {</span>
+        case CombatCondition::Unconscious:
+<span style = "background-color:#fdd">            return "inconscient";</span>
+        case CombatCondition::Prone:
+<span style = "background-color:#fdd">            return "a terre";</span>
+        case CombatCondition::Stable:
+<span style = "background-color:#fdd">            return "stabilise";</span>
+        case CombatCondition::Dead:
+<span style = "background-color:#fdd">            return "mort";</span>
+        case CombatCondition::Blessed:
+<span style = "background-color:#fdd">            return "beni";</span>
+        case CombatCondition::Invisible:
+<span style = "background-color:#fdd">            return "invisible";</span>
+        case CombatCondition::Flying:
+<span style = "background-color:#fdd">            return "en vol";</span>
+        case CombatCondition::Concentrating:
+<span style = "background-color:#dfd">            return "concentre";</span>
+    }
+<span style = "background-color:#fdd">    return "?";</span>
+<span style = "background-color:#dfd">}</span>
 
 // --- Points d'entree --------------------------------------------------------------------------
 
@@ -163,11 +206,11 @@ ArenaSession::ArenaSession(Level level)
 <span style = "background-color:#dfd">    };</span>
     // Les degats subis ne font pas une ligne a eux seuls : l'attaque qui les inflige les ecrit
     // deja, etape par etape. La chute, elle, en fait une.
-<span style = "background-color:#dfd">    constexpr std::array&lt;CombatHook, 10&gt; CROCHETS{</span>
-        CombatHook::BeforeFirstTurn, CombatHook::RoundStart,      CombatHook::InitiativeCount,
-        CombatHook::TurnStart,       CombatHook::TurnEnd,         CombatHook::AttackDeclared,
-        CombatHook::CombatantDowned, CombatHook::CombatantJoined, CombatHook::CombatantLeft,
-        CombatHook::CombatEnded};
+<span style = "background-color:#dfd">    constexpr std::array&lt;CombatHook, 11&gt; CROCHETS{</span>
+        CombatHook::BeforeFirstTurn, CombatHook::RoundStart,    CombatHook::InitiativeCount,
+        CombatHook::TurnStart,       CombatHook::TurnEnd,       CombatHook::AttackDeclared,
+        CombatHook::CombatantDowned, CombatHook::CombatantDied, CombatHook::CombatantJoined,
+        CombatHook::CombatantLeft,   CombatHook::CombatEnded};
 <span style = "background-color:#dfd">    for (const CombatHook crochet : CROCHETS) {
         _combat-&gt;subscribe(crochet, [this, nommer](CombatState&amp; etat, const CombatEvent&amp; e) {
             std::string ligne = std::string(nomDuCrochet(e.hook));
@@ -193,6 +236,8 @@ ArenaSession::ArenaSession(Level level)
 <span style = "background-color:#dfd">                    ligne += " " + nommer(e.combatant);
                     break;</span>
                 case CombatHook::CombatantDowned:
+                case CombatHook::CombatantDied:
+                case CombatHook::DeathSaveDue:
                 case CombatHook::DamageTaken:
                 case CombatHook::CombatantJoined:
                 case CombatHook::CombatantLeft:
@@ -232,7 +277,155 @@ ArenaSession::ArenaSession(Level level)
                 restoreAll();</span>
             }
 <span style = "background-color:#dfd">        });
+    }</span>
+    // L'agonie (LOT-137) : le jet contre la mort a sa place, et ce que des degats declenchent.
+<span style = "background-color:#dfd">    _combat-&gt;subscribe(CombatHook::DeathSaveDue, [this](CombatState&amp;, const CombatEvent&amp; e) {
+        if (e.combatant.has_value()) {
+            rollDeathSave(*e.combatant);</span>
+        }
+<span style = "background-color:#dfd">    });
+    _combat-&gt;subscribe(CombatHook::DamageTaken,
+                       [this](CombatState&amp;, const CombatEvent&amp; e) { onDamageTaken(e); });
+}</span>
+
+<span style = "background-color:#dfd">std::string ArenaSession::deathSaveTally(CombatantId combatant) const {
+    const Combatant* c = _combat-&gt;find(combatant);
+    return c == nullptr ? std::string("?") : compteDesJets(c-&gt;deathSaves);
+}</span>
+
+<span style = "background-color:#dfd">void ArenaSession::rollDeathSave(CombatantId combatant) {
+    const Combatant* mourant = _combat-&gt;find(combatant);
+    if (mourant == nullptr) {</span>
+<span style = "background-color:#fdd">        return;</span>
     }
+<span style = "background-color:#dfd">    const std::string nom = mourant-&gt;profile.name;</span>
+    // Manuel, Â« Jets de sauvegarde contre la mort Â» : un d20 que rien ne modifie, sinon les sorts
+    // qui aident une sauvegarde -- la benediction.
+<span style = "background-color:#dfd">    std::vector&lt;Modifier&gt; modificateurs;
+    if (std::optional&lt;Modifier&gt; de = blessingFor(combatant)) {</span>
+<span style = "background-color:#fdd">        modificateurs.push_back(std::move(*de));</span>
+<span style = "background-color:#dfd">    }
+    const CheckResult jet = rollCheck(10, modificateurs, RollStance::Normal, _random);</span>
+    // La ligne se reserve : la mort que le jet declenche s'ecrit apres lui.
+<span style = "background-color:#dfd">    const std::size_t place = _journal.size();
+    _journal.emplace_back();
+    const DeathSaveOutcome issue = _combat-&gt;recordDeathSave(combatant, jet.keptDie, jet.total);
+    std::string ligne = "jet contre la mort " + nom + " : " + decrireLeD20(jet) + " : ";
+    switch (issue) {</span>
+        case DeathSaveOutcome::Success:
+<span style = "background-color:#dfd">            ligne += "reussite ; " + deathSaveTally(combatant);
+            break;</span>
+        case DeathSaveOutcome::Failure:
+<span style = "background-color:#dfd">            ligne += (jet.isNaturalOne() ? "1 naturel, deux echecs ; " : "echec ; ") +</span>
+                     deathSaveTally(combatant);
+<span style = "background-color:#dfd">            break;</span>
+        case DeathSaveOutcome::Stabilized:
+<span style = "background-color:#fdd">            ligne += "troisieme reussite, stabilise";
+            break;</span>
+        case DeathSaveOutcome::Died:
+<span style = "background-color:#fdd">            ligne += "troisieme echec";
+            break;</span>
+        case DeathSaveOutcome::Revived:
+<span style = "background-color:#dfd">            ligne += "20 naturel, reprend 1 PV et se releve";
+            break;</span>
+        case DeathSaveOutcome::Ignored:
+<span style = "background-color:#fdd">            ligne += "sans effet";</span>
+            break;
+    }
+<span style = "background-color:#dfd">    _journal[place] = std::move(ligne);
+}</span>
+
+<span style = "background-color:#dfd">void ArenaSession::onDamageTaken(const CombatEvent&amp; event) {
+    if (!event.combatant.has_value() || event.amount &lt;= 0) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const CombatantId blesse = *event.combatant;
+    const Combatant* c = _combat-&gt;find(blesse);
+    if (c == nullptr) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const bool mort = c-&gt;status == CombatantStatus::Dead;
+    if (_combat-&gt;lethal() &amp;&amp; c-&gt;profile.atZero == AtZeroHitPoints::DeathSaves) {
+        if (event.hitPointsBefore == 0) {</span>
+            // Manuel, Â« Degats a 0 point de vie Â» : un echec, deux sur un critique ; la mort si
+            // les degats atteignent le maximum.
+<span style = "background-color:#dfd">            std::string ligne =</span>
+                "agonie " + c-&gt;profile.name + " : blesse a terre, " +
+                (event.critical ? std::string("critique, deux echecs") : std::string("un echec"));
+<span style = "background-color:#dfd">            if (mort &amp;&amp; event.amount &gt;= event.maximumHitPoints) {
+                ligne += " ; degats au moins egaux au maximum";
+            } else if (!mort) {
+                ligne += " ; " + deathSaveTally(blesse);</span>
+            }
+<span style = "background-color:#dfd">            record(std::move(ligne));
+        } else if (mort) {
+            record("mort instantanee " + c-&gt;profile.name + " : " + std::to_string(event.overflow) +</span>
+                   " degats restants pour " + std::to_string(event.maximumHitPoints) +
+                   " PV maximum");
+        }
+    }
+    // Manuel, Â« Concentration Â» : des degats subis demandent une sauvegarde de Constitution, DD 10
+    // ou la moitie des degats ; un echec rompt la concentration. Un lanceur qui tombe la perd sans
+    // jet (crochet de la chute).
+<span style = "background-color:#dfd">    if (c-&gt;status != CombatantStatus::Standing ||
+        std::ranges::none_of(_effects, [blesse](const ArenaEffect&amp; effet) {
+            return effet.concentration &amp;&amp; effet.caster == blesse;
+        })) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const int dd = std::max(10, event.amount / 2);
+    std::vector&lt;Modifier&gt; modificateurs{</span>
+        {.source = "sauvegarde de " + std::string(abilityLabel(Ability::Constitution)),
+         .value = c-&gt;profile.savingThrows[static_cast&lt;std::size_t&gt;(Ability::Constitution)]}};
+<span style = "background-color:#dfd">    if (std::optional&lt;Modifier&gt; de = blessingFor(blesse)) {
+        modificateurs.push_back(std::move(*de));
+    }
+    const CheckResult jet = rollCheck(dd, modificateurs, RollStance::Normal, _random);
+    record("concentration " + c-&gt;profile.name + " : " + jet.describe() +</span>
+           (jet.succeeded() ? " ; maintenue" : " ; rompue"));
+<span style = "background-color:#dfd">    if (!jet.succeeded()) {
+        endEffects(
+            [blesse](const ArenaEffect&amp; effet) {
+                return effet.concentration &amp;&amp; effet.caster == blesse;
+            },</span>
+            "concentration rompue");
+    }
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;CombatCondition&gt; ArenaSession::conditionsOf(CombatantId combatant) const {
+    std::vector&lt;CombatCondition&gt; etats;
+    const Combatant* c = _combat-&gt;find(combatant);
+    if (c == nullptr || c-&gt;status == CombatantStatus::Withdrawn) {</span>
+<span style = "background-color:#fdd">        return etats;</span>
+    }
+<span style = "background-color:#dfd">    if (c-&gt;status == CombatantStatus::Down) {
+        etats.push_back(CombatCondition::Unconscious);</span>
+    }
+<span style = "background-color:#dfd">    if (c-&gt;prone || c-&gt;status == CombatantStatus::Down) {
+        etats.push_back(CombatCondition::Prone);</span>
+    }
+<span style = "background-color:#dfd">    if (c-&gt;status == CombatantStatus::Down &amp;&amp; c-&gt;deathSaves.stable) {
+        etats.push_back(CombatCondition::Stable);</span>
+    }
+<span style = "background-color:#dfd">    if (c-&gt;status == CombatantStatus::Dead) {
+        etats.push_back(CombatCondition::Dead);
+        return etats;</span>
+    }
+<span style = "background-color:#dfd">    if (hasEffect(combatant, SpellEffectKind::Bless)) {
+        etats.push_back(CombatCondition::Blessed);</span>
+    }
+<span style = "background-color:#dfd">    if (hasEffect(combatant, SpellEffectKind::Invisible)) {</span>
+<span style = "background-color:#fdd">        etats.push_back(CombatCondition::Invisible);</span>
+    }
+<span style = "background-color:#dfd">    if (hasEffect(combatant, SpellEffectKind::Fly)) {</span>
+<span style = "background-color:#fdd">        etats.push_back(CombatCondition::Flying);</span>
+    }
+<span style = "background-color:#dfd">    if (std::ranges::any_of(_effects, [combatant](const ArenaEffect&amp; effet) {
+            return effet.concentration &amp;&amp; effet.caster == combatant;
+        })) {
+        etats.push_back(CombatCondition::Concentrating);</span>
+    }
+<span style = "background-color:#dfd">    return etats;
 }</span>
 
 <span style = "background-color:#dfd">void ArenaSession::restoreAll() {
@@ -265,6 +458,8 @@ ArenaSession::ArenaSession(Level level)
     _journal.clear();
     subscribe();
     _combat-&gt;setEscapable(bout.escapable);</span>
+    // La Marque Heroique fait des Arenes un lieu sans mort ; la carte, non (LOT-137).
+<span style = "background-color:#dfd">    _combat-&gt;setLethal(bout.lethal);</span>
 
 <span style = "background-color:#dfd">    ArenaMount montage;
     std::vector&lt;ArenaEntryPoint&gt; entrees = arenaEntryPoints(_level);
@@ -475,7 +670,18 @@ std::optional&lt;AttackOutcome&gt; ArenaSession::resolveAndRecord(CombatantId at
                             }
                         });</span>
     }
-<span style = "background-color:#dfd">    AttackContext contexte = contextAgainst(attacker, target, profile);
+    // Manuel, annexe A, Â« Inconscient Â» : toute attaque qui touche est un critique si l'assaillant
+    // est a 1,50 metre ou moins (LOT-137).
+<span style = "background-color:#dfd">    crochets.insert(AttackRollStage::Hit, [this](AttackRoll&amp; jet, DeterministicRandom&amp;) {
+        const Combatant* cible = _combat-&gt;find(jet.target);</span>
+        if (cible != nullptr &amp;&amp; cible-&gt;status == CombatantStatus::Down &amp;&amp;
+<span style = "background-color:#dfd">            gridDistance(*_combat, jet.attacker, jet.target) == std::optional&lt;int&gt;(1) &amp;&amp;</span>
+            !jet.critical) {
+<span style = "background-color:#dfd">            jet.critical = true;
+            jet.criticalSource = "cible inconsciente au contact";</span>
+        }
+<span style = "background-color:#dfd">    });
+    AttackContext contexte = contextAgainst(attacker, target, profile);
     contexte.hooks = &amp;crochets;
     std::optional&lt;AttackOutcome&gt; issue =</span>
         resolveAttack(*_combat, attacker, target, profile, _random, contexte);
@@ -502,6 +708,23 @@ AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId tar
 <span style = "background-color:#dfd">    if (hasEffect(attacker, SpellEffectKind::Invisible)) {
         contexte.circumstances.advantages.emplace_back("attaquant invisible");</span>
     }
+    // Manuel, annexe A (LOT-137) : une cible inconsciente s'attaque avec avantage ; une cible a
+    // terre, avec avantage au contact et desavantage au-dela ; qui est a terre attaque desavantage.
+<span style = "background-color:#dfd">    const Combatant* cible = _combat-&gt;find(target);
+    const Combatant* assaillant = _combat-&gt;find(attacker);
+    if (cible != nullptr &amp;&amp; cible-&gt;status == CombatantStatus::Down) {
+        contexte.circumstances.advantages.emplace_back("cible inconsciente");</span>
+    }
+<span style = "background-color:#dfd">    if (cible != nullptr &amp;&amp; (cible-&gt;prone || cible-&gt;status == CombatantStatus::Down)) {
+        if (gridDistance(*_combat, attacker, target) == std::optional&lt;int&gt;(1)) {
+            contexte.circumstances.advantages.emplace_back("cible a terre au contact");
+        } else {</span>
+<span style = "background-color:#fdd">            contexte.circumstances.disadvantages.emplace_back("cible a terre a distance");</span>
+        }
+    }
+<span style = "background-color:#dfd">    if (assaillant != nullptr &amp;&amp; assaillant-&gt;prone) {</span>
+<span style = "background-color:#fdd">        contexte.circumstances.disadvantages.emplace_back("attaquant a terre");</span>
+    }
     // Guide du Maitre, Â« la prise en tenaille Â» : avantage aux jets d'attaque au corps a corps.
 <span style = "background-color:#dfd">    if (_bout.flanking &amp;&amp; profile.kind == AttackKind::Melee &amp;&amp;</span>
         isFlanked(*_combat, attacker, target)) {
@@ -516,9 +739,10 @@ AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId tar
         return {.result = ArenaActionResult::NoActiveTurn, .outcome = std::nullopt};</span>
     }
 <span style = "background-color:#dfd">    const Combatant* attaquant = _combat-&gt;find(*actif);
-    const Combatant* cible = _combat-&gt;find(target);
-    if (cible == nullptr || target == *actif || cible-&gt;profile.side == attaquant-&gt;profile.side ||</span>
-        cible-&gt;status != CombatantStatus::Standing) {
+    const Combatant* cible = _combat-&gt;find(target);</span>
+    // Une cible a terre se vise : l'achever (LOT-137). Un mort, non.
+<span style = "background-color:#dfd">    if (cible == nullptr || target == *actif || cible-&gt;profile.side == attaquant-&gt;profile.side ||</span>
+        (cible-&gt;status != CombatantStatus::Standing &amp;&amp; cible-&gt;status != CombatantStatus::Down)) {
 <span style = "background-color:#dfd">        return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};</span>
     }
 <span style = "background-color:#dfd">    const std::vector&lt;AttackProfile&gt;* liste = attacks(*actif);
@@ -593,13 +817,32 @@ AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId tar
     }
 <span style = "background-color:#dfd">    const Combatant* lanceur = _combat-&gt;find(*actif);
     const Combatant* cible = _combat-&gt;find(target);</span>
-    // Une cible debout ; un soin releve aussi qui est a terre (LOT-134).
-<span style = "background-color:#dfd">    const bool atteignable =</span>
-        cible != nullptr &amp;&amp;
-        (cible-&gt;status == CombatantStatus::Standing ||
-         (cible-&gt;status == CombatantStatus::Down &amp;&amp; sort.mechanism == SpellMechanism::Healing));
-<span style = "background-color:#dfd">    if (!atteignable) {</span>
-<span style = "background-color:#fdd">        return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};</span>
+    // Une cible debout ; un soin releve aussi qui est a terre (LOT-134), epargner les mourants le
+    // stabilise ; revigorer ne vise qu'un mort (LOT-137).
+<span style = "background-color:#dfd">    const bool atteignable = [&amp;] {
+        if (cible == nullptr) {</span>
+<span style = "background-color:#fdd">            return false;</span>
+        }
+<span style = "background-color:#dfd">        switch (sort.mechanism) {</span>
+            case SpellMechanism::Healing:
+<span style = "background-color:#dfd">                return cible-&gt;status == CombatantStatus::Standing ||</span>
+                       cible-&gt;status == CombatantStatus::Down;
+            case SpellMechanism::Stabilize:
+<span style = "background-color:#dfd">                return cible-&gt;status == CombatantStatus::Down;</span>
+            case SpellMechanism::Revive:
+<span style = "background-color:#dfd">                return cible-&gt;status == CombatantStatus::Dead &amp;&amp; sort.revival.has_value() &amp;&amp;</span>
+                       cible-&gt;diedAtRound.has_value() &amp;&amp;
+                       _combat-&gt;round() - *cible-&gt;diedAtRound &lt;= sort.revival-&gt;withinRounds;
+            case SpellMechanism::AttackRoll:
+            case SpellMechanism::AutoHit:
+            case SpellMechanism::SavingThrow:
+            case SpellMechanism::Effect:
+                break;
+        }
+<span style = "background-color:#dfd">        return cible-&gt;status == CombatantStatus::Standing;
+    }();
+    if (!atteignable) {
+        return {.result = ArenaActionResult::InvalidTarget, .outcome = std::nullopt};</span>
     }
     // La cible que le sort vise (LOT-133) : un sort qui blesse ne soigne pas un allie par erreur,
     // un sort qui aide ne se pose pas sur l'ennemi.
@@ -692,6 +935,12 @@ AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId tar
         case SpellMechanism::Healing:
 <span style = "background-color:#dfd">            finInvisibilite();
             return castHealing(lanceurId, target, lance, prefixe);</span>
+        case SpellMechanism::Stabilize:
+<span style = "background-color:#dfd">            finInvisibilite();
+            return castStabilize(lanceurId, target, lance, prefixe);</span>
+        case SpellMechanism::Revive:
+<span style = "background-color:#dfd">            finInvisibilite();
+            return castRevive(lanceurId, target, lance, prefixe);</span>
     }
 <span style = "background-color:#fdd">    return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};
 }</span>
@@ -783,8 +1032,20 @@ ArenaAttack ArenaSession::castSavingThrow(CombatantId caster, CombatantId target
     };
 <span style = "background-color:#dfd">    std::vector&lt;LigneDeCible&gt; lignes;
     for (const CombatantId id : cibles) {
-        const Combatant* creature = _combat-&gt;find(id);
-        if (creature == nullptr || creature-&gt;status != CombatantStatus::Standing) {</span>
+        const Combatant* creature = _combat-&gt;find(id);</span>
+        // La sphere prend aussi qui est a terre (LOT-137) : un mourant pris dans la boule de feu
+        // note un echec. Un mort n'y est plus qu'un corps.
+<span style = "background-color:#dfd">        if (creature == nullptr || (creature-&gt;status != CombatantStatus::Standing &amp;&amp;</span>
+                                    creature-&gt;status != CombatantStatus::Down)) {
+<span style = "background-color:#fdd">            continue;</span>
+        }
+        // Manuel, annexe A, Â« Inconscient Â» : il rate ses sauvegardes de Force et de Dexterite.
+<span style = "background-color:#dfd">        if (creature-&gt;status == CombatantStatus::Down &amp;&amp;</span>
+            (caracteristique == Ability::Strength || caracteristique == Ability::Dexterity)) {
+<span style = "background-color:#fdd">            salve.push_back({.target = id, .damage = des});
+            lignes.push_back({.texte = "  " + creature-&gt;profile.name +</span>
+                                       " : inconscient, sauvegarde ratee d'office",
+                              .blesse = true});
 <span style = "background-color:#fdd">            continue;</span>
         }
 <span style = "background-color:#dfd">        std::vector&lt;Modifier&gt; modificateurs{</span>
@@ -851,6 +1112,34 @@ ArenaAttack ArenaSession::castHealing(CombatantId caster, CombatantId target,
         prefix + "soin " + (lanceur == nullptr ? std::string("?") : lanceur-&gt;profile.name) +
         " -&gt; " + apres-&gt;profile.name + " : " + soin.describe() + " ; PV " +
         std::to_string(pvAvant) + " -&gt; " + std::to_string(apres-&gt;profile.currentHitPoints);
+<span style = "background-color:#dfd">    record(ligne);
+    return {.result = ArenaActionResult::Done, .outcome = std::nullopt, .summary = ligne};</span>
+<span style = "background-color:#fdd">}</span>
+
+ArenaAttack ArenaSession::castStabilize(CombatantId caster, CombatantId target,
+<span style = "background-color:#dfd">                                        const ArenaSpell&amp; /*spell*/, const std::string&amp; prefix) {
+    static_cast&lt;void&gt;(_combat-&gt;stabilize(target));
+    const Combatant* lanceur = _combat-&gt;find(caster);
+    const Combatant* cible = _combat-&gt;find(target);
+    std::string ligne = prefix + "stabilisation " +</span>
+                        (lanceur == nullptr ? std::string("?") : lanceur-&gt;profile.name) + " -&gt; " +
+                        (cible == nullptr ? std::string("?") : cible-&gt;profile.name) +
+                        " : ne fait plus de jets contre la mort";
+<span style = "background-color:#dfd">    record(ligne);
+    return {.result = ArenaActionResult::Done, .outcome = std::nullopt, .summary = ligne};</span>
+<span style = "background-color:#fdd">}</span>
+
+ArenaAttack ArenaSession::castRevive(CombatantId caster, CombatantId target,
+<span style = "background-color:#dfd">                                     const ArenaSpell&amp; spell, const std::string&amp; prefix) {
+    const int pv = spell.revival.has_value() ? spell.revival-&gt;hitPoints : 1;
+    static_cast&lt;void&gt;(_combat-&gt;revive(target, pv));
+    const Combatant* lanceur = _combat-&gt;find(caster);
+    const Combatant* cible = _combat-&gt;find(target);
+    std::string ligne = prefix + "retour a la vie " +</span>
+                        (lanceur == nullptr ? std::string("?") : lanceur-&gt;profile.name) + " -&gt; " +
+                        (cible == nullptr ? std::string("?") : cible-&gt;profile.name) +
+                        " : PV 0 -&gt; " +
+                        std::to_string(cible == nullptr ? 0 : cible-&gt;profile.currentHitPoints);
 <span style = "background-color:#dfd">    record(ligne);
     return {.result = ArenaActionResult::Done, .outcome = std::nullopt, .summary = ligne};</span>
 <span style = "background-color:#fdd">}</span>
@@ -1236,7 +1525,8 @@ std::vector&lt;ArenaSpell&gt; arenaSpellsFor(const CharacterSheet&amp; sheet,
              .concentration = sort-&gt;concentration,
              .bonusAction = sort-&gt;bonusAction,
              .maxTargets = sort-&gt;maxTargets,
-             .healing = soinDe(*sort)});
+             .healing = soinDe(*sort),
+             .revival = sort-&gt;revives});
 <span style = "background-color:#dfd">    }
     return grimoire;
 }</span>

@@ -202,6 +202,19 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:abde919757944fef613e5f21cf21c3108" id="r_abde919757944fef613e5f21cf21c3108"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#abde919757944fef613e5f21cf21c3108">core::CombatCondition</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#abde919757944fef613e5f21cf21c3108acb6b56b0daf97dc9660af8977785a0e8">core::Unconscious</a>
+, <a class="el" href="namespacecore.html#abde919757944fef613e5f21cf21c3108a0d7fa52c0200c09318ddc6c0d7a377ec">core::Prone</a>
+, <a class="el" href="namespacecore.html#abde919757944fef613e5f21cf21c3108afa3aff3c185c6dc7754235f397c2099a">core::Stable</a>
+, <a class="el" href="namespacecore.html#abde919757944fef613e5f21cf21c3108a183b62c7f067711f9c5a54913c054617">core::Dead</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#abde919757944fef613e5f21cf21c3108a582f060800c793f1196f45a236d275a5">core::Blessed</a>
+, <a class="el" href="namespacecore.html#abde919757944fef613e5f21cf21c3108a8bcda43732b0928d269955e0f09ff76f">core::Invisible</a>
+, <a class="el" href="namespacecore.html#abde919757944fef613e5f21cf21c3108a444733081a578880ba8a563d3c59d22d">core::Flying</a>
+, <a class="el" href="namespacecore.html#abde919757944fef613e5f21cf21c3108aa020a34193d50813b2d30e19503a471e">core::Concentrating</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:abde919757944fef613e5f21cf21c3108"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un état qu'un combattant porte en combat (<span class="tt">LOT-137</span>) : ceux dont les quatre classes ont besoin jusqu'au niveau 5, pas le catalogue du <em>Manuel</em> (annexe A).  <a href="namespacecore.html#abde919757944fef613e5f21cf21c3108">More...</a><br /></td></tr>
 <tr class="memitem:ac011cdb67f4c31ececbaaceeace4cbed" id="r_ac011cdb67f4c31ececbaaceeace4cbed"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbed">core::ArenaActionResult</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedaf92965e2c8a7afb3c1b9a5c09a263636">core::Done</a>
 , <a class="el" href="namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda8cb45f47274f0e76f8d60401f43b0fb7">core::NoActiveTurn</a>
@@ -222,6 +235,8 @@ Enumerations</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a91e905d2d65ad1c9a0916752b0fd9b95" id="r_a91e905d2d65ad1c9a0916752b0fd9b95"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ArenaEntryPoint.html">ArenaEntryPoint</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a91e905d2d65ad1c9a0916752b0fd9b95">core::arenaEntryPoints</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
 <tr class="memdesc:a91e905d2d65ad1c9a0916752b0fd9b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points d'entrée d'une carte, rangés par camp, rang, puis position.  <br /></td></tr>
+<tr class="memitem:a0c9f2b8fa32045a19b8c958a8067290f" id="r_a0c9f2b8fa32045a19b8c958a8067290f"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a0c9f2b8fa32045a19b8c958a8067290f">core::combatConditionLabel</a> (<a class="el" href="namespacecore.html#abde919757944fef613e5f21cf21c3108">CombatCondition</a> condition) noexcept</td></tr>
+<tr class="memdesc:a0c9f2b8fa32045a19b8c958a8067290f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nom d'un état, tel que le journal et l'écran l'écrivent (« inconscient »).  <br /></td></tr>
 <tr class="memitem:a7195d9f7d6b4f5e48eb604871553d6f9" id="r_a7195d9f7d6b4f5e48eb604871553d6f9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a7195d9f7d6b4f5e48eb604871553d6f9">core::arenaSpellsFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> &amp;playableClass, const <a class="el" href="structcore_1_1SpellCatalog.html">SpellCatalog</a> &amp;spells, int <a class="el" href="namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>, std::vector&lt; std::string &gt; &amp;skipped)</td></tr>
 <tr class="memdesc:a7195d9f7d6b4f5e48eb604871553d6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts qu'une fiche sait lancer dans l'arène (<span class="tt">LOT-131</span>, <span class="tt">LOT-133</span>) : ceux qu'elle connaît (<span class="tt"><a class="el" href="structcore_1_1CharacterSheet.html#aa50a06bbc0a1771f5931244a0b9e583c" title="Les sorts connus et leurs lancers restants dans la journée (EX-RPG-025).">CharacterSheet::knownSpells</a></span>) et que le moteur sait jouer (<span class="tt"><a class="el" href="namespacecore.html#aaad5d2aff3f5506f00ce7a09ff8b418e" title="Le mécanisme par lequel le moteur joue ce sort, ou std::nullopt s&#39;il n&#39;en a aucun : un sort narratif,...">core::spellMechanism</a></span>), avec leurs lancers restants, le profil de sort de sa classe et son degré de difficulté.  <br /></td></tr>
 </table><table class="memberdecls">

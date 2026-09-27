@@ -1,6 +1,7 @@
 var Spell_8h =
 [
     [ "core::SpellEffect", "structcore_1_1SpellEffect.html", "structcore_1_1SpellEffect" ],
+    [ "core::SpellRevival", "structcore_1_1SpellRevival.html", "structcore_1_1SpellRevival" ],
     [ "core::Spell", "structcore_1_1Spell.html", "structcore_1_1Spell" ],
     [ "core::SpellCatalog", "structcore_1_1SpellCatalog.html", "structcore_1_1SpellCatalog" ],
     [ "core::SaveEffect", "namespacecore.html#a66591e3012ab5919cc621550ff6720e1", [
@@ -18,7 +19,9 @@ var Spell_8h =
       [ "core::SpellMechanism::AutoHit", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba25f61a28f33b14bb363490241f18ef77", null ],
       [ "core::SpellMechanism::SavingThrow", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d", null ],
       [ "core::SpellMechanism::Effect", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa", null ],
-      [ "core::SpellMechanism::Healing", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543", null ]
+      [ "core::SpellMechanism::Healing", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba80dd330a5c08653498c49a219a124543", null ],
+      [ "core::SpellMechanism::Stabilize", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba5b881cec5eb79c7e74a5c9f43f38b905", null ],
+      [ "core::SpellMechanism::Revive", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144bad78a1701177a08aebfbccceb9f1eb63a", null ]
     ] ],
     [ "core::SpellTarget", "namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ec", [
       [ "core::SpellTarget::Enemy", "namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3eca8c6d21187fb58b7a079d70030686b33e", null ],
