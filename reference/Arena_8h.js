@@ -2,6 +2,7 @@ var Arena_8h =
 [
     [ "core::ArenaEntryPoint", "structcore_1_1ArenaEntryPoint.html", "structcore_1_1ArenaEntryPoint" ],
     [ "core::ArenaSpell", "structcore_1_1ArenaSpell.html", "structcore_1_1ArenaSpell" ],
+    [ "core::ArenaEffect", "structcore_1_1ArenaEffect.html", "structcore_1_1ArenaEffect" ],
     [ "core::ArenaContestant", "structcore_1_1ArenaContestant.html", "structcore_1_1ArenaContestant" ],
     [ "core::ArenaBout", "structcore_1_1ArenaBout.html", "structcore_1_1ArenaBout" ],
     [ "core::ArenaMount", "structcore_1_1ArenaMount.html", "structcore_1_1ArenaMount" ],

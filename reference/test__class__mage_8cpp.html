@@ -1,0 +1,508 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/test_class_mage.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__class__mage_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_class_mage.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Le Mage du <em>Player's Guide to Tanares</em> (p.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="ActionEconomy_8h_source.html">Core/Combat/ActionEconomy.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Arena_8h_source.html">Core/Combat/Arena.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Spell_8h_source.html">Core/Rpg/Spell.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ClassArena_8h_source.html">Test/Support/ClassArena.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a00bb105b99a96358380b5c1f1a47051d" id="r_a00bb105b99a96358380b5c1f1a47051d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a00bb105b99a96358380b5c1f1a47051d">TEST</a> (ClassMageTest, LaFichePreTireeSeJoueAvecSesSortsDeNiveau1)</td></tr>
+<tr class="memdesc:a00bb105b99a96358380b5c1f1a47051d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche pre-tiree du Mage porte ses sorts de niveau 1 et se joue avec eux.  <br /></td></tr>
+<tr class="memitem:a87cd6bae3cc2876d9a9f3a482d98e198" id="r_a87cd6bae3cc2876d9a9f3a482d98e198"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a87cd6bae3cc2876d9a9f3a482d98e198">TEST</a> (ClassMageTest, TraitDeFeuEstUneAttaqueDeSort)</td></tr>
+<tr class="memdesc:a87cd6bae3cc2876d9a9f3a482d98e198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trait de feu : une attaque de sort a distance, nommee au journal ; 2d10 au niveau 5.  <br /></td></tr>
+<tr class="memitem:a84b6d98745007122146ea5c18684f925" id="r_a84b6d98745007122146ea5c18684f925"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a84b6d98745007122146ea5c18684f925">TEST</a> (ClassMageTest, ProjectileMagiqueToucheSansJet)</td></tr>
+<tr class="memdesc:a84b6d98745007122146ea5c18684f925"><td class="mdescLeft">&#160;</td><td class="mdescRight">Projectile magique : trois flechettes sans jet, 1d4+1 de force chacune, deux par jour.  <br /></td></tr>
+<tr class="memitem:a1012f3fcb634f35240b5af7cf312d410" id="r_a1012f3fcb634f35240b5af7cf312d410"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1012f3fcb634f35240b5af7cf312d410">TEST</a> (ClassMageTest, ArcaneProtectionDonneTreizePlusDex)</td></tr>
+<tr class="memdesc:a1012f3fcb634f35240b5af7cf312d410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arcane Protection (N2) : sans armure, CA 13 + Dex.  <br /></td></tr>
+<tr class="memitem:a0e83ea0942f7a741a95bddf7beb336c6" id="r_a0e83ea0942f7a741a95bddf7beb336c6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0e83ea0942f7a741a95bddf7beb336c6">TEST</a> (ClassMageTest, RayonArdentJetteUnJetParRayon)</td></tr>
+<tr class="memdesc:a0e83ea0942f7a741a95bddf7beb336c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rayon ardent (N3) : trois rayons, un jet chacun ; ceux qui restent quand la cible tombe sont perdus.  <br /></td></tr>
+<tr class="memitem:a24ef959bd5b062d07383bddf464886eb" id="r_a24ef959bd5b062d07383bddf464886eb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a24ef959bd5b062d07383bddf464886eb">TEST</a> (ClassMageTest, InvisibiliteGeneLAttaquantEtCesseAuSortSuivant)</td></tr>
+<tr class="memdesc:a24ef959bd5b062d07383bddf464886eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invisibilite (N3) : attaque desavantagee contre le Mage, avantage au sien, fin quand il lance un sort.  <br /></td></tr>
+<tr class="memitem:a9c6e75eb951e7a28093fe85949c2ace7" id="r_a9c6e75eb951e7a28093fe85949c2ace7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9c6e75eb951e7a28093fe85949c2ace7">TEST</a> (ClassMageTest, BouleDeFeuFaitSauvegarderToutLeMonde)</td></tr>
+<tr class="memdesc:a9c6e75eb951e7a28093fe85949c2ace7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Boule de feu (N5) : une sauvegarde de Dexterite par creature de la sphere, la moitie a qui reussit, allies compris ; rien hors de la sphere.  <br /></td></tr>
+<tr class="memitem:a0b4462e3299157d5c48a049860894723" id="r_a0b4462e3299157d5c48a049860894723"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0b4462e3299157d5c48a049860894723">TEST</a> (ClassMageTest, VolDonneDouzeCasesEtCedeALaConcentration)</td></tr>
+<tr class="memdesc:a0b4462e3299157d5c48a049860894723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vol (N5) : le Mage vole a 12 cases par tour ; un second sort de concentration y met fin.  <br /></td></tr>
+<tr class="memitem:a538d3182b7193ecac350ec44335b7141" id="r_a538d3182b7193ecac350ec44335b7141"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a538d3182b7193ecac350ec44335b7141">TEST</a> (ClassMageTest, DuNiveau1AuNiveau5LaTableSeLit)</td></tr>
+<tr class="memdesc:a538d3182b7193ecac350ec44335b7141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Du niveau 1 au niveau 5, la table du Mage se lit marche par marche.  <br /></td></tr>
+<tr class="memitem:a94af77468a1d86a89a1ca9fba0a6eeee" id="r_a94af77468a1d86a89a1ca9fba0a6eeee"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a94af77468a1d86a89a1ca9fba0a6eeee">TEST</a> (ClassMageTest, UnEffetInconnuEstRefuseEtUnConeNeSeJouePas)</td></tr>
+<tr class="memdesc:a94af77468a1d86a89a1ca9fba0a6eeee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le catalogue refuse un effet de sort inconnu, et charge sans le jouer une zone que le moteur ne pose pas.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Le Mage du <em>Player's Guide to Tanares</em> (p. </p>
+<p>196-199) se joue du niveau 1 au niveau 5 (<span class="tt">LOT-133</span>) : ses sorts mineurs, ses sorts à deux lancers par jour, <em>Arcane Protection</em>, et les mécanismes de sort qu'ils demandent — projectiles, touche sans jet, sauvegarde dans une sphère, effets qui durent sous concentration.</p>
+<p>Chaque sort joué a son test qui le lance et vérifie son effet et sa ligne de journal, sur la fiche pré-tirée de la page 199 montée au niveau voulu. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a1012f3fcb634f35240b5af7cf312d410" name="a1012f3fcb634f35240b5af7cf312d410"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1012f3fcb634f35240b5af7cf312d410">&#9670;&#160;</a></span>TEST() <span class="overload">[1/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassMageTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ArcaneProtectionDonneTreizePlusDex</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Arcane Protection (N2) : sans armure, CA 13 + Dex. </p>
+<p><b>Cas de test :</b> <b>Au niveau 2, la CA du Mage passe de 12 a 15.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Monter le Mage de la page 199 au niveau 2.<br  />
+2. Lire sa CA avec ce qu'il porte, et son profil de combat.<br  />
+ <b>Resultat attendu :</b> 15 = 13 + Dex 2 ; Arcane Protection est active. </p>
+
+</div>
+</div>
+<a id="a9c6e75eb951e7a28093fe85949c2ace7" name="a9c6e75eb951e7a28093fe85949c2ace7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c6e75eb951e7a28093fe85949c2ace7">&#9670;&#160;</a></span>TEST() <span class="overload">[2/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassMageTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BouleDeFeuFaitSauvegarderToutLeMonde</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Boule de feu (N5) : une sauvegarde de Dexterite par creature de la sphere, la moitie a qui reussit, allies compris ; rien hors de la sphere. </p>
+<p><b>Cas de test :</b> <b>La boule de feu centree sur un mannequin prend son voisin et l'allie a trois cases, pas le mannequin eloigne ; chacun a sa ligne de sauvegarde.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mage N5 en (1, 3) ; mannequins en (8, 3) et (9, 4), un allie en (8, 6), un mannequin lointain en (3, 7), hors des quatre cases du rayon.<br  />
+2. Boule de feu sur (8, 3).<br  />
+ <b>Resultat attendu :</b> Entete « sauvegarde de Dexterite DD 14 ; 3 creature(s) » et 8d6 ; trois lignes de sauvegarde ; le lointain intact ; qui reussit perd la moitie des des lances. </p>
+
+</div>
+</div>
+<a id="a538d3182b7193ecac350ec44335b7141" name="a538d3182b7193ecac350ec44335b7141"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a538d3182b7193ecac350ec44335b7141">&#9670;&#160;</a></span>TEST() <span class="overload">[3/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassMageTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DuNiveau1AuNiveau5LaTableSeLit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Du niveau 1 au niveau 5, la table du Mage se lit marche par marche. </p>
+<p><b>Cas de test :</b> <b>Monter le Mage de la page 199 niveau par niveau donne les capacites et les sorts de la table, sans manquant.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger la fiche N1.<br  />
+2. Monter jusqu'au 5, lire capacites et sorts connus.<br  />
+ <b>Resultat attendu :</b> N2 + Experience, Arcane Protection ; N3 + main du mage, invisibilite, rayon ardent ; N4 + Ability Score Improvement ; N5 + boule de feu, vol ; aucun manquant ; les sorts a deux lancers, les mineurs a volonte. </p>
+
+</div>
+</div>
+<a id="a24ef959bd5b062d07383bddf464886eb" name="a24ef959bd5b062d07383bddf464886eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24ef959bd5b062d07383bddf464886eb">&#9670;&#160;</a></span>TEST() <span class="overload">[4/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassMageTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">InvisibiliteGeneLAttaquantEtCesseAuSortSuivant</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Invisibilite (N3) : attaque desavantagee contre le Mage, avantage au sien, fin quand il lance un sort. </p>
+<p><b>Cas de test :</b> <b>Le Mage invisible est attaque avec desavantage ; son trait de feu suivant a l'avantage, puis l'invisibilite prend fin et le journal le dit.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mage N3 au contact d'un mannequin ; lancer invisibilite sur soi.<br  />
+2. Tour du mannequin : il attaque le Mage.<br  />
+3. Tour du Mage : trait de feu.<br  />
+ <b>Resultat attendu :</b> « effet Invisibilite sur … : invisible » ; l'attaque du mannequin porte « cible invisible » ; le trait de feu porte « attaquant invisible » ; « fin de l'effet Invisibilite … (il lance un sort) » ; plus d'effet. </p>
+
+</div>
+</div>
+<a id="a00bb105b99a96358380b5c1f1a47051d" name="a00bb105b99a96358380b5c1f1a47051d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00bb105b99a96358380b5c1f1a47051d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassMageTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaFichePreTireeSeJoueAvecSesSortsDeNiveau1</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La fiche pre-tiree du Mage porte ses sorts de niveau 1 et se joue avec eux. </p>
+<p><b>Cas de test :</b> <b>La fiche de la page 199 connait trait de feu, lumiere, detection de la magie et projectile magique ; les deux qui se jouent en combat entrent au grimoire.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger heros-mage.json.<br  />
+2. Lire capacites, sorts connus, CA, et le grimoire de combat.<br  />
+ <b>Resultat attendu :</b> Aucun avertissement ; Simplified Spellcasting et Specific Cantrips ; CA 12 (Arcane Protection n'arrive qu'au niveau 2) ; grimoire : trait de feu a volonte (+5 au toucher, 1d10 feu), projectile magique a deux lancers ; lumiere et detection de la magie dites, sans effet en combat. </p>
+
+</div>
+</div>
+<a id="a84b6d98745007122146ea5c18684f925" name="a84b6d98745007122146ea5c18684f925"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84b6d98745007122146ea5c18684f925">&#9670;&#160;</a></span>TEST() <span class="overload">[6/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassMageTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ProjectileMagiqueToucheSansJet</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Projectile magique : trois flechettes sans jet, 1d4+1 de force chacune, deux par jour. </p>
+<p><b>Cas de test :</b> <b>Contre une CA de 40, projectile magique touche : trois fois 1d4+1 de force ; au troisieme lancer du jour, le sort est epuise.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mage N1 contre un mannequin a la CA 40.<br  />
+2. Lancer projectile magique ; tour suivant, le relancer ; tour suivant, le relancer.<br  />
+ <b>Resultat attendu :</b> Premier lancer : « touche sans jet (3 projectile(s)) », trois clauses 1d4+1 force, PV perdus entre 6 et 15 ; deuxieme : 0 restant ; troisieme : Exhausted, aucune action depensee. </p>
+
+</div>
+</div>
+<a id="a0e83ea0942f7a741a95bddf7beb336c6" name="a0e83ea0942f7a741a95bddf7beb336c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e83ea0942f7a741a95bddf7beb336c6">&#9670;&#160;</a></span>TEST() <span class="overload">[7/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassMageTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RayonArdentJetteUnJetParRayon</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rayon ardent (N3) : trois rayons, un jet chacun ; ceux qui restent quand la cible tombe sont perdus. </p>
+<p><b>Cas de test :</b> <b>Trois lignes « 1/3 », « 2/3 », « 3/3 » contre un mannequin solide ; contre un mannequin a 1 PV touche au premier rayon, deux rayons perdus.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mage N3 contre un mannequin a 200 PV, lancer rayon ardent.<br  />
+2. Mage N3 contre un mannequin a 1 PV et CA 0 ; graine choisie pour que le premier rayon touche.<br  />
+ <b>Resultat attendu :</b> Trois jets d'attaque au journal ; puis « 2 projectile(s) perdu(s) ». </p>
+
+</div>
+</div>
+<a id="a87cd6bae3cc2876d9a9f3a482d98e198" name="a87cd6bae3cc2876d9a9f3a482d98e198"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87cd6bae3cc2876d9a9f3a482d98e198">&#9670;&#160;</a></span>TEST() <span class="overload">[8/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassMageTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TraitDeFeuEstUneAttaqueDeSort</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trait de feu : une attaque de sort a distance, nommee au journal ; 2d10 au niveau 5. </p>
+<p><b>Cas de test :</b> <b>Le Mage lance trait de feu sur un mannequin a six cases ; au niveau 5 le sort lance deux d10.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mage N1 contre un mannequin en (7, 3).<br  />
+2. Lancer trait de feu.<br  />
+3. Refaire au niveau 5.<br  />
+ <b>Resultat attendu :</b> Done, une ligne « sort Trait de feu : attaque … (Trait de feu) » ; le sort reste a volonte ; N5 : 2d10. </p>
+
+</div>
+</div>
+<a id="a94af77468a1d86a89a1ca9fba0a6eeee" name="a94af77468a1d86a89a1ca9fba0a6eeee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94af77468a1d86a89a1ca9fba0a6eeee">&#9670;&#160;</a></span>TEST() <span class="overload">[9/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassMageTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnEffetInconnuEstRefuseEtUnConeNeSeJouePas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le catalogue refuse un effet de sort inconnu, et charge sans le jouer une zone que le moteur ne pose pas. </p>
+<p><b>Cas de test :</b> <b>Un sort a l'effet « petrify » est refuse ; un sort en cone se charge, mais aucun mecanisme ne le joue.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire les deux sorts dans un dossier temporaire.<br  />
+2. Charger.<br  />
+ <b>Resultat attendu :</b> Une erreur nommant petrifie.json ; le cone charge, spellMechanism vide. </p>
+
+</div>
+</div>
+<a id="a0b4462e3299157d5c48a049860894723" name="a0b4462e3299157d5c48a049860894723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b4462e3299157d5c48a049860894723">&#9670;&#160;</a></span>TEST() <span class="overload">[10/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ClassMageTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VolDonneDouzeCasesEtCedeALaConcentration</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vol (N5) : le Mage vole a 12 cases par tour ; un second sort de concentration y met fin. </p>
+<p><b>Cas de test :</b> <b>Le Mage se lance vol : il vole, 12 cases ; il lance ensuite invisibilite, et le vol prend fin, sa marche et ses 6 cases rendues.</b><br  />
+ <b>Categorie :</b> Unitaire · Classes<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Mage N5 ; vol sur soi.<br  />
+2. Tour suivant : invisibilite sur soi.<br  />
+ <b>Resultat attendu :</b> Profil en vol, 12 cases, budget du tour a 12 ; puis « fin de l'effet Vol … (concentration sur Invisibilite) », marche, 6 cases. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_e4f77e6506ec5ae5855f8bd23358af3b.html">Combat</a></li><li class="navelem"><a href="test__class__mage_8cpp.html">test_class_mage.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

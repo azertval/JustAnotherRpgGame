@@ -24,7 +24,8 @@ namespace hmi {
 <span style = "background-color:#dfd">core::ArenaContestant heroContestant(const HeroContestantSource&amp; hero, core::CombatSide side) {</span>
     // Le profil lit la fiche : vitesse et resistances des capacites comprises (LOT-131). La classe
     // d'armure, elle, vient de l'equipement porte (EX-CBT-030), recalculee par l'appelant.
-<span style = "background-color:#dfd">    core::CombatantProfile profile = core::profileFor(hero.sheet, side);
+    // Les sauvegardes maitrisees prennent la maitrise (LOT-133) : une boule de feu les lit.
+<span style = "background-color:#dfd">    core::CombatantProfile profile = core::profileFor(hero.sheet, side, hero.proficiency);
     profile.armorClass = hero.armorClass;</span>
     // L'arme d'abord, les mains nues ensuite. La maitrise de l'arme se lit dans la fiche, qui
     // reunit celles de la classe et de l'espece (LOT-131) : une arme non maitrisee se frappe sans

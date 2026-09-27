@@ -28,9 +28,8 @@
 #include "Core/Rpg/Spell.h"
 
 namespace core {
-namespace {
 
-<span style = "background-color:#dfd">[[nodiscard]] std::string_view nomDeCaracteristique(Ability caracteristique) noexcept {
+<span style = "background-color:#dfd">std::string_view abilityLabel(Ability caracteristique) noexcept {
     switch (caracteristique) {</span>
         case Ability::Strength:
 <span style = "background-color:#dfd">            return "Force";</span>
@@ -47,6 +46,8 @@ namespace {
     }
 <span style = "background-color:#fdd">    return "?";</span>
 <span style = "background-color:#dfd">}</span>
+
+namespace {
 
 <span style = "background-color:#dfd">[[nodiscard]] std::string signe(int valeur) {
     return (valeur &gt;= 0 ? " + " : " - ") + std::to_string(valeur &gt;= 0 ? valeur : -valeur);
@@ -151,7 +152,7 @@ AttackProfile weaponAttackFor(const CharacterSheet&amp; sheet, const Weapon* wea
         profil.range = porteeDe(weapon-&gt;rangeNormal, weapon-&gt;rangeLong);</span>
     }
 <span style = "background-color:#dfd">    profil.modifiers.push_back(</span>
-        {.source = std::string(nomDeCaracteristique(caracteristique)), .value = modificateur});
+        {.source = std::string(abilityLabel(caracteristique)), .value = modificateur});
 <span style = "background-color:#dfd">    if (proficient) {
         profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});</span>
     }
@@ -166,24 +167,34 @@ AttackProfile weaponAttackFor(const CharacterSheet&amp; sheet, const Weapon* wea
 }</span>
 
 std::optional&lt;AttackProfile&gt; spellAttackFor(const CharacterSheet&amp; sheet, const Spell&amp; spell,
-<span style = "background-color:#dfd">                                            Ability ability, int proficiencyBonus) {
-    if (!isAttackSpell(spell)) {</span>
-<span style = "background-color:#fdd">        return std::nullopt;</span>
+<span style = "background-color:#fdd">                                            Ability ability, int proficiencyBonus) {
+    if (!isAttackSpell(spell)) {
+        return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    AttackProfile profil;
+<span style = "background-color:#fdd">    return spellProfileFor(sheet, spell, ability, proficiencyBonus);
+}</span>
+
+AttackProfile spellProfileFor(const CharacterSheet&amp; sheet, const Spell&amp; spell, Ability ability,
+<span style = "background-color:#dfd">                              int proficiencyBonus) {
+    AttackProfile profil;
     profil.label = spell.name;
     profil.kind = AttackKind::Ranged;</span>
     // Une portee unique : deux nombres egaux. Sans portee, le sort vise au contact.
 <span style = "background-color:#dfd">    profil.range =</span>
         porteeDe(spell.rangeMeters &gt; 0.0F ? std::optional&lt;float&gt;(spell.rangeMeters) : std::nullopt,
                  std::nullopt);
-<span style = "background-color:#dfd">    profil.modifiers.push_back(</span>
-        {.source = std::string(nomDeCaracteristique(ability)), .value = sheet.modifier(ability)});
-<span style = "background-color:#dfd">    profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});
-    profil.damage.push_back({.dice = *spell.damage,</span>
-                             .type = *spell.damageType,
-                             .flags = static_cast&lt;DamageFlags&gt;(flagsOf(DamageFlag::Spell) |
-                                                               flagsOf(DamageFlag::Magical))});
+<span style = "background-color:#dfd">    if (spell.attackRoll) {
+        profil.modifiers.push_back(</span>
+            {.source = std::string(abilityLabel(ability)), .value = sheet.modifier(ability)});
+<span style = "background-color:#dfd">        profil.modifiers.push_back({.source = "maitrise", .value = proficiencyBonus});</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;Dice&gt; des = spellDamageAt(spell, sheet.level);
+    if (des.has_value() &amp;&amp; spell.damageType.has_value()) {
+        profil.damage.push_back({.dice = *des,</span>
+                                 .type = *spell.damageType,
+                                 .flags = static_cast&lt;DamageFlags&gt;(flagsOf(DamageFlag::Spell) |
+                                                                   flagsOf(DamageFlag::Magical))});
+    }
 <span style = "background-color:#dfd">    return profil;
 }</span>
 
@@ -473,7 +484,13 @@ std::optional&lt;AttackOutcome&gt; resolveAttack(CombatState&amp; combat, Combat
     }
 <span style = "background-color:#dfd">    texte +=</span>
         roll.critical ? " : critique (" + std::to_string(jet.keptDie) + " naturel)" : " : touche";
-<span style = "background-color:#dfd">    for (const RolledDamage&amp; lance : damage) {
+<span style = "background-color:#dfd">    return texte + describeDamage(damage, report);
+}</span>
+
+std::string describeDamage(const std::vector&lt;RolledDamage&gt;&amp; damage,
+<span style = "background-color:#dfd">                           const std::optional&lt;DamageReport&gt;&amp; report) {
+    std::string texte;
+    for (const RolledDamage&amp; lance : damage) {
         texte += " ; degats " + lance.roll.describe();
         if (lance.critical) {
             texte += " (des doubles)";</span>

@@ -165,8 +165,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3dc6b71791568af78f3f66d6987df23c" id="r_a3dc6b71791568af78f3f66d6987df23c"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> &gt; *&#160;</td><td class="memItemRight"><a class="el" href="#a3dc6b71791568af78f3f66d6987df23c">attacks</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
 <tr class="memitem:a37fe5fc7f309b7fcbb4b396ab876a273" id="r_a37fe5fc7f309b7fcbb4b396ab876a273"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &gt; *&#160;</td><td class="memItemRight"><a class="el" href="#a37fe5fc7f309b7fcbb4b396ab876a273">spells</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
 <tr class="memitem:a2c14edfa7153f6b451650d0bd3f0e7df" id="r_a2c14edfa7153f6b451650d0bd3f0e7df"><td class="memItemLeft">std::span&lt; const <a class="el" href="structcore_1_1Capacity.html">Capacity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2c14edfa7153f6b451650d0bd3f0e7df">capacitiesOf</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
+<tr class="memitem:aff46a7c844f818490dbd2bc6d0d55a0e" id="r_aff46a7c844f818490dbd2bc6d0d55a0e"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1ArenaEffect.html">ArenaEffect</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aff46a7c844f818490dbd2bc6d0d55a0e">effects</a> () const noexcept</td></tr>
+<tr class="memitem:a61f37a271340eb9c3f602cb2a6c07317" id="r_a61f37a271340eb9c3f602cb2a6c07317"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a61f37a271340eb9c3f602cb2a6c07317">hasEffect</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, <a class="el" href="namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99">SpellEffectKind</a> kind) const</td></tr>
+<tr class="memdesc:a61f37a271340eb9c3f602cb2a6c07317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si <code class="param">combatant</code> porte un effet de sort de ce genre.  <br /></td></tr>
 <tr class="memitem:a4c66e3a8f4aa73bd21da742945b5b5dd" id="r_a4c66e3a8f4aa73bd21da742945b5b5dd"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4c66e3a8f4aa73bd21da742945b5b5dd">castSpell</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, std::size_t spellIndex)</td></tr>
-<tr class="memdesc:a4c66e3a8f4aa73bd21da742945b5b5dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'action <em>lancer un sort</em> du combattant actif, avec son sort <code class="param">spellIndex</code> (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-025</span>).  <br /></td></tr>
+<tr class="memdesc:a4c66e3a8f4aa73bd21da742945b5b5dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'action <em>lancer un sort</em> du combattant actif, avec son sort <code class="param">spellIndex</code> (<span class="tt">LOT-131</span>, <span class="tt">LOT-133</span>, <span class="tt">EX-RPG-025</span>).  <br /></td></tr>
 <tr class="memitem:af6df2744b75f2368435b6a7ba12b01e3" id="r_af6df2744b75f2368435b6a7ba12b01e3"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#af6df2744b75f2368435b6a7ba12b01e3">attack</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, std::size_t attackIndex=0)</td></tr>
 <tr class="memdesc:af6df2744b75f2368435b6a7ba12b01e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'action <em>attaquer</em> du combattant actif, avec son attaque <code class="param">attackIndex</code>.  <br /></td></tr>
 <tr class="memitem:a8fe411d2eeeb7eec646bafd6baa5269a" id="r_a8fe411d2eeeb7eec646bafd6baa5269a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8fe411d2eeeb7eec646bafd6baa5269a">dodge</a> ()</td></tr>
@@ -222,6 +225,16 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:aa5db74127aa200ec419457e753b60536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le même calcul, <b>sans</b> tenir compte du désengagement ni des capacités : ce que le pas aurait provoqué.  <br /></td></tr>
 <tr class="memitem:ae327de7aee4320e246557290c95eccb0" id="r_ae327de7aee4320e246557290c95eccb0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae327de7aee4320e246557290c95eccb0">hookCapacities</a> (<a class="el" href="classcore_1_1AttackHooks.html">AttackHooks</a> &amp;hooks, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> attacker)</td></tr>
 <tr class="memdesc:ae327de7aee4320e246557290c95eccb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche sur <code class="param">hooks</code> les effets des capacités de <code class="param">attacker</code> : bonus au jet, dés en plus.  <br /></td></tr>
+<tr class="memitem:adb9b0a107e9d9d7d36e09d60da4e9641" id="r_adb9b0a107e9d9d7d36e09d60da4e9641"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#adb9b0a107e9d9d7d36e09d60da4e9641">castAttackRolls</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> caster, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;spell, const std::string &amp;prefix)</td></tr>
+<tr class="memdesc:adb9b0a107e9d9d7d36e09d60da4e9641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un jet d'attaque par projectile, une fois la cible, la portée et l'action vérifiées.  <br /></td></tr>
+<tr class="memitem:a3d59ba7a9f9f0206296544b9352a4fa2" id="r_a3d59ba7a9f9f0206296544b9352a4fa2"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3d59ba7a9f9f0206296544b9352a4fa2">castAutoHit</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> caster, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;spell, const std::string &amp;prefix)</td></tr>
+<tr class="memdesc:a3d59ba7a9f9f0206296544b9352a4fa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés de chaque projectile, sans jet, en une salve.  <br /></td></tr>
+<tr class="memitem:a0cd440226d698edee552b6952c97a09f" id="r_a0cd440226d698edee552b6952c97a09f"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0cd440226d698edee552b6952c97a09f">castSavingThrow</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> caster, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;spell, const std::string &amp;prefix)</td></tr>
+<tr class="memdesc:a0cd440226d698edee552b6952c97a09f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés lancés une fois, puis une sauvegarde par créature atteinte.  <br /></td></tr>
+<tr class="memitem:ad642d79d5d1b89a1913e1145f94da3de" id="r_ad642d79d5d1b89a1913e1145f94da3de"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad642d79d5d1b89a1913e1145f94da3de">castEffect</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> caster, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;spell, const std::string &amp;prefix)</td></tr>
+<tr class="memdesc:ad642d79d5d1b89a1913e1145f94da3de"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'effet qui dure, posé sur la cible.  <br /></td></tr>
+<tr class="memitem:a8df9256906d1b64da91bf03af49ecf46" id="r_a8df9256906d1b64da91bf03af49ecf46"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8df9256906d1b64da91bf03af49ecf46">endEffects</a> (const std::function&lt; bool(const <a class="el" href="structcore_1_1ArenaEffect.html">ArenaEffect</a> &amp;)&gt; &amp;ends, const std::string &amp;reason)</td></tr>
+<tr class="memdesc:a8df9256906d1b64da91bf03af49ecf46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met fin aux effets qui répondent à <code class="param">ends</code>, en rendant ce qu'ils avaient pris, et l'écrit.  <br /></td></tr>
 <tr class="memitem:ae2175f68b5c450d3c2e09b7a9fc8ebbe" id="r_ae2175f68b5c450d3c2e09b7a9fc8ebbe"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae2175f68b5c450d3c2e09b7a9fc8ebbe">takeOpportunities</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> mover, const std::vector&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt; &amp;reactors)</td></tr>
 <tr class="memdesc:ae2175f68b5c450d3c2e09b7a9fc8ebbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les attaques d'opportunité de <code class="param">reactors</code> contre <code class="param">mover</code>, tant qu'il est debout, que le combat dure et que l'opportuniste l'est aussi.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -242,6 +255,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a4034c02d8e32b175dbba41999b5646fe" id="r_a4034c02d8e32b175dbba41999b5646fe"><td class="memItemLeft"><a class="el" href="classcore_1_1DamagePipeline.html">DamagePipeline</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4034c02d8e32b175dbba41999b5646fe">_damagePipeline</a></td></tr>
 <tr class="memitem:af3041cfba8f35666776f7d72b8bb8c5b" id="r_af3041cfba8f35666776f7d72b8bb8c5b"><td class="memItemLeft">std::set&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af3041cfba8f35666776f7d72b8bb8c5b">_dodging</a></td></tr>
 <tr class="memitem:a8c9838d3f035652baef9b7653c1cd921" id="r_a8c9838d3f035652baef9b7653c1cd921"><td class="memItemLeft">std::set&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8c9838d3f035652baef9b7653c1cd921">_disengaged</a></td></tr>
+<tr class="memitem:a9d56bbe6582a2b16160bdbb7a4a548fd" id="r_a9d56bbe6582a2b16160bdbb7a4a548fd"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ArenaEffect.html">ArenaEffect</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9d56bbe6582a2b16160bdbb7a4a548fd">_effects</a></td></tr>
 <tr class="memitem:a95fa6187920a6c5fbebd02b9c44603da" id="r_a95fa6187920a6c5fbebd02b9c44603da"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a95fa6187920a6c5fbebd02b9c44603da">_journal</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -411,6 +425,170 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="adb9b0a107e9d9d7d36e09d60da4e9641" name="adb9b0a107e9d9d7d36e09d60da4e9641"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb9b0a107e9d9d7d36e09d60da4e9641">&#9670;&#160;</a></span>castAttackRolls()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a> core::ArenaSession::castAttackRolls </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>caster</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>spell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>prefix</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Un jet d'attaque par projectile, une fois la cible, la portée et l'action vérifiées. </p>
+
+</div>
+</div>
+<a id="a3d59ba7a9f9f0206296544b9352a4fa2" name="a3d59ba7a9f9f0206296544b9352a4fa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d59ba7a9f9f0206296544b9352a4fa2">&#9670;&#160;</a></span>castAutoHit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a> core::ArenaSession::castAutoHit </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>caster</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>spell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>prefix</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les dés de chaque projectile, sans jet, en une salve. </p>
+
+</div>
+</div>
+<a id="ad642d79d5d1b89a1913e1145f94da3de" name="ad642d79d5d1b89a1913e1145f94da3de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad642d79d5d1b89a1913e1145f94da3de">&#9670;&#160;</a></span>castEffect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a> core::ArenaSession::castEffect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>caster</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>spell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>prefix</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'effet qui dure, posé sur la cible. </p>
+
+</div>
+</div>
+<a id="a0cd440226d698edee552b6952c97a09f" name="a0cd440226d698edee552b6952c97a09f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cd440226d698edee552b6952c97a09f">&#9670;&#160;</a></span>castSavingThrow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a> core::ArenaSession::castSavingThrow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>caster</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>spell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>prefix</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les dés lancés une fois, puis une sauvegarde par créature atteinte. </p>
+
+</div>
+</div>
 <a id="a4c66e3a8f4aa73bd21da742945b5b5dd" name="a4c66e3a8f4aa73bd21da742945b5b5dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4c66e3a8f4aa73bd21da742945b5b5dd">&#9670;&#160;</a></span>castSpell()</h2>
 
@@ -430,8 +608,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>L'action <em>lancer un sort</em> du combattant actif, avec son sort <code class="param">spellIndex</code> (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-025</span>). </p>
-<p>Un sort épuisé est refusé (<span class="tt">Exhausted</span>) <b>avant</b> toute dépense ; sinon même chemin qu'une attaque — cible, portée, vue, action —, puis un lancer de moins. Le journal préfixe la ligne de « sort : ». </p>
+<p>L'action <em>lancer un sort</em> du combattant actif, avec son sort <code class="param">spellIndex</code> (<span class="tt">LOT-131</span>, <span class="tt">LOT-133</span>, <span class="tt">EX-RPG-025</span>). </p>
+<p>Un sort épuisé est refusé (<span class="tt">Exhausted</span>) <b>avant</b> toute dépense. La cible doit être celle que le sort vise (<span class="tt"><a class="el" href="namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ec" title="Qui un sort peut viser (LOT-133).">SpellTarget</a></span>) : une créature hostile, une de son camp, ou soi. Puis la portée et la vue, l'action, un lancer de moins, et le mécanisme :</p>
+<ul>
+<li><b>jet d'attaque</b> : un jet par projectile, comme une attaque ; les rayons qui restent quand la cible tombe sont perdus, et le journal le dit ;</li>
+<li><b>sans jet</b> : les dés de chaque projectile, en une salve ;</li>
+<li><b>sauvegarde</b> : les dés lancés <b>une fois</b>, puis chaque créature de la sphère — alliés et lanceur compris — ou la cible seule jette sa sauvegarde contre le DD du lanceur ; une réussite annule ou divise par deux, selon le sort ;</li>
+<li><b>effet</b> : posé sur la cible, jusqu'à sa fin (<span class="tt"><a class="el" href="structcore_1_1ArenaEffect.html" title="Un effet de sort qui dure, sur un combattant (LOT-133) : le vol, l&#39;invisibilité.">ArenaEffect</a></span>).</li>
+</ul>
+<p>Lancer un sort met fin à l'invisibilité du lanceur ; un sort de concentration met fin à celui qu'il tenait. Le journal préfixe la ligne de « sort ». </p>
 
 </div>
 </div>
@@ -621,6 +806,63 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aff46a7c844f818490dbd2bc6d0d55a0e" name="aff46a7c844f818490dbd2bc6d0d55a0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff46a7c844f818490dbd2bc6d0d55a0e">&#9670;&#160;</a></span>effects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1ArenaEffect.html">ArenaEffect</a> &gt; &amp; core::ArenaSession::effects </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les effets de sort qui durent, dans l'ordre où ils ont été posés. </dd></dl>
+
+</div>
+</div>
+<a id="a8df9256906d1b64da91bf03af49ecf46" name="a8df9256906d1b64da91bf03af49ecf46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8df9256906d1b64da91bf03af49ecf46">&#9670;&#160;</a></span>endEffects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ArenaSession::endEffects </td>
+          <td>(</td>
+          <td class="paramtype">const std::function&lt; bool(const <a class="el" href="structcore_1_1ArenaEffect.html">ArenaEffect</a> &amp;)&gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>ends</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>reason</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Met fin aux effets qui répondent à <code class="param">ends</code>, en rendant ce qu'ils avaient pris, et l'écrit. </p>
+
+</div>
+</div>
 <a id="a6d429af2387a6dc634c54af286fd64fd" name="a6d429af2387a6dc634c54af286fd64fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6d429af2387a6dc634c54af286fd64fd">&#9670;&#160;</a></span>endTurn()</h2>
 
@@ -709,6 +951,37 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le premier pas de <code class="param">cases</code> qui sort de l'allonge d'un ennemi, et ceux qu'il provoque, ajoutés à <code class="param">reactors</code> ; vide pour un combattant désengagé ou qu'une capacité soustrait aux attaques d'opportunité (<span class="tt">LOT-131</span>). </p>
+
+</div>
+</div>
+<a id="a61f37a271340eb9c3f602cb2a6c07317" name="a61f37a271340eb9c3f602cb2a6c07317"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61f37a271340eb9c3f602cb2a6c07317">&#9670;&#160;</a></span>hasEffect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ArenaSession::hasEffect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99">SpellEffectKind</a></td>          <td class="paramname"><span class="paramname"><em>kind</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai si <code class="param">combatant</code> porte un effet de sort de ce genre. </p>
 
 </div>
 </div>
@@ -1559,6 +1832,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::set&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>&gt; core::ArenaSession::_dodging</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d56bbe6582a2b16160bdbb7a4a548fd" name="a9d56bbe6582a2b16160bdbb7a4a548fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d56bbe6582a2b16160bdbb7a4a548fd">&#9670;&#160;</a></span>_effects</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1ArenaEffect.html">ArenaEffect</a>&gt; core::ArenaSession::_effects</td>
         </tr>
       </table>
   </td>

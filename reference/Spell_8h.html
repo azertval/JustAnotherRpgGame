@@ -145,7 +145,8 @@ $(function(){initNavTree('Spell_8h.html','',''); });
 
 <p>Le catalogue des sorts (<span class="tt">spell.schema.json</span>), et ce que le moteur sait en jouer (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-050</span>, <span class="tt">EX-RPG-051</span>).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
@@ -158,6 +159,8 @@ $(function(){initNavTree('Spell_8h.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:core_3A_3ASpellEffect" id="r_core_3A_3ASpellEffect"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SpellEffect.html">core::SpellEffect</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un effet qui dure, posé par un sort.  <a href="structcore_1_1SpellEffect.html#details">More...</a><br /></td></tr>
 <tr class="memitem:core_3A_3ASpell" id="r_core_3A_3ASpell"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Spell.html">core::Spell</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sort, tel que <span class="tt">spell.schema.json</span> l'écrit.  <a href="structcore_1_1Spell.html#details">More...</a><br /></td></tr>
 <tr class="memitem:core_3A_3ASpellCatalog" id="r_core_3A_3ASpellCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SpellCatalog.html">core::SpellCatalog</a></td></tr>
@@ -168,16 +171,44 @@ Namespaces</h2></td></tr>
 <tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
 <tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ae0c0027156a24e64ca36dcb6e379b3ec" id="r_ae0c0027156a24e64ca36dcb6e379b3ec"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ec">core::SpellTarget</a> : std::uint8_t { <a class="el" href="namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3eca8c6d21187fb58b7a079d70030686b33e">core::Enemy</a>
+, <a class="el" href="namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3eca0dd87782600574e2f791bcfe639d4fcc">core::Ally</a>
+, <a class="el" href="namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ecaad6e7652b1bdfb38783486c2c3d5e806">core::Self</a>
+ }</td></tr>
+<tr class="memdesc:ae0c0027156a24e64ca36dcb6e379b3ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qui un sort peut viser (<span class="tt">LOT-133</span>).  <a href="namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ec">More...</a><br /></td></tr>
+<tr class="memitem:a66591e3012ab5919cc621550ff6720e1" id="r_a66591e3012ab5919cc621550ff6720e1"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a66591e3012ab5919cc621550ff6720e1">core::SaveEffect</a> : std::uint8_t { <a class="el" href="namespacecore.html#a66591e3012ab5919cc621550ff6720e1abf2979df229a6a9fa42ae6b60d0f0b1e">core::Negates</a>
+, <a class="el" href="namespacecore.html#a66591e3012ab5919cc621550ff6720e1ac48615a1bc4197056d522af276aa5a85">core::Half</a>
+ }</td></tr>
+<tr class="memdesc:a66591e3012ab5919cc621550ff6720e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une sauvegarde réussie fait des dégâts d'un sort.  <a href="namespacecore.html#a66591e3012ab5919cc621550ff6720e1">More...</a><br /></td></tr>
+<tr class="memitem:a949e652a2fd4c81697cb49b39cd45a99" id="r_a949e652a2fd4c81697cb49b39cd45a99"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99">core::SpellEffectKind</a> : std::uint8_t { <a class="el" href="namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99aac51deb7d2c3f9663a6df72c7c9b2b51">core::Fly</a>
+, <a class="el" href="namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f">core::Invisible</a>
+ }</td></tr>
+<tr class="memdesc:a949e652a2fd4c81697cb49b39cd45a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les effets qui durent qu'un sort pose sur une créature, et que le moteur sait jouer.  <a href="namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99">More...</a><br /></td></tr>
+<tr class="memitem:a6eee9bc9a9ca2edde9d16a7a6281144b" id="r_a6eee9bc9a9ca2edde9d16a7a6281144b"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144b">core::SpellMechanism</a> : std::uint8_t { <a class="el" href="namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba8589ce3fdba93ae0fa91574412b1f0b5">core::AttackRoll</a>
+, <a class="el" href="namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba25f61a28f33b14bb363490241f18ef77">core::AutoHit</a>
+, <a class="el" href="namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d">core::SavingThrow</a>
+, <a class="el" href="namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa">core::Effect</a>
+ }</td></tr>
+<tr class="memdesc:a6eee9bc9a9ca2edde9d16a7a6281144b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les mécanismes de sort que le moteur sait jouer en combat.  <a href="namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144b">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a8b37e659ff44dc3fc970f38e35aad322" id="r_a8b37e659ff44dc3fc970f38e35aad322"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a8b37e659ff44dc3fc970f38e35aad322">core::spellEffectKindName</a> (<a class="el" href="namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99">SpellEffectKind</a> kind) noexcept</td></tr>
+<tr class="memdesc:a8b37e659ff44dc3fc970f38e35aad322"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de donnée d'un genre d'effet de sort (<span class="tt">fly</span>…), celui du schéma.  <br /></td></tr>
 <tr class="memitem:af48cbccac960ef036b33c5e543a990cd" id="r_af48cbccac960ef036b33c5e543a990cd"><td class="memItemLeft"><a class="el" href="structcore_1_1SpellCatalog.html">SpellCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#af48cbccac960ef036b33c5e543a990cd">core::loadSpells</a> (const std::filesystem::path &amp;spellsDir)</td></tr>
 <tr class="memdesc:af48cbccac960ef036b33c5e543a990cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les sorts depuis leur dossier (<span class="tt">Source/Elements/Rpg/spells</span>).  <br /></td></tr>
 <tr class="memitem:acda21c95fdff4cecac87781e5ea4cbce" id="r_acda21c95fdff4cecac87781e5ea4cbce"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#acda21c95fdff4cecac87781e5ea4cbce">core::isAttackSpell</a> (const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell) noexcept</td></tr>
 <tr class="memdesc:acda21c95fdff4cecac87781e5ea4cbce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le moteur sait jouer ce sort comme une <b>attaque</b> : jet d'attaque, dés et type de dégâts.  <br /></td></tr>
+<tr class="memitem:aaad5d2aff3f5506f00ce7a09ff8b418e" id="r_aaad5d2aff3f5506f00ce7a09ff8b418e"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144b">SpellMechanism</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aaad5d2aff3f5506f00ce7a09ff8b418e">core::spellMechanism</a> (const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell) noexcept</td></tr>
+<tr class="memdesc:aaad5d2aff3f5506f00ce7a09ff8b418e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mécanisme par lequel le moteur joue ce sort, ou <span class="tt">std::nullopt</span> s'il n'en a aucun : un sort narratif, un sort qui exige un mécanisme absent, une zone qui n'est pas une sphère.  <br /></td></tr>
+<tr class="memitem:a31bfc1e994e6b387ed3038d535d241f2" id="r_a31bfc1e994e6b387ed3038d535d241f2"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Dice.html">Dice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a31bfc1e994e6b387ed3038d535d241f2">core::spellDamageAt</a> (const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell, int casterLevel) noexcept</td></tr>
+<tr class="memdesc:a31bfc1e994e6b387ed3038d535d241f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés d'un sort au niveau <code class="param">casterLevel</code> du lanceur : un dé de plus aux niveaux 5, 11 et 17 pour un sort mineur qui le déclare (<span class="tt">cantripScaling</span>), les dés du sort sinon.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le catalogue des sorts (<span class="tt">spell.schema.json</span>), et ce que le moteur sait en jouer (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-050</span>, <span class="tt">EX-RPG-051</span>). </p>
-<p>Un sort est une <b>combinaison déclarée de mécanismes</b>, jamais une fonction. Ce lot n'en joue qu'un : le sort à <b>jet d'attaque</b> (<em>fire bolt</em>, <em>sacred flame</em> n'en est pas un), résolu comme une attaque à distance au modificateur de la caractéristique d'incantation plus la maîtrise (<span class="tt"><a class="el" href="namespacecore.html#a871311984840c7991c36bb370786fe1e" title="L&#39;attaque d&#39;un sort à jet d&#39;attaque (LOT-131, EX-RPG-025) : fire bolt.">core::spellAttackFor</a></span>). Les sorts à jet de sauvegarde, de soin ou de condition déclarent leurs champs ici et attendent leurs mécanismes (<span class="tt">LOT-133</span>, <span class="tt">LOT-134</span>, <span class="tt">LOT-137</span>) ; <span class="tt">isAttackSpell</span> dit, sort par sort, ce que le moteur sait faire aujourd'hui — aucun ne tombe dans un cas par défaut. </p>
+<p>Un sort est une <b>combinaison déclarée de mécanismes</b>, jamais une fonction. Le socle (<span class="tt">LOT-131</span>) jouait le sort à <b>jet d'attaque</b> ; le Mage (<span class="tt">LOT-133</span>) ajoute les <b>projectiles</b> (un jet ou des dés par rayon), le sort qui <b>touche sans jet</b>, le sort à <b>jet de sauvegarde</b> — sur une cible ou dans une <b>sphère</b> —, et l'<b>effet qui dure</b> posé sur une créature (le vol, l'invisibilité), sous concentration. <span class="tt"><a class="el" href="namespacecore.html#aaad5d2aff3f5506f00ce7a09ff8b418e" title="Le mécanisme par lequel le moteur joue ce sort, ou std::nullopt s&#39;il n&#39;en a aucun : un sort narratif,...">core::spellMechanism</a></span> dit, sort par sort, lequel le moteur sait jouer : aucun ne tombe dans un cas par défaut, et un sort sans mécanisme est dit, pas tu (<span class="tt">EX-RPG-051</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

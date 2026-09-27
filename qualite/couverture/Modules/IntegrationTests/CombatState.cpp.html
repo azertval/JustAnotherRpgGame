@@ -46,7 +46,7 @@ private:
     CombatState&amp; _state;
 };
 
-<span style = "background-color:#dfd">CombatantProfile profileFor(const CharacterSheet&amp; sheet, CombatSide side) {</span>
+<span style = "background-color:#dfd">CombatantProfile profileFor(const CharacterSheet&amp; sheet, CombatSide side, int proficiencyBonus) {</span>
     // Les resistances que les capacites de classe donnent (LOT-131), chacune au nom de sa
     // capacite pour que le journal l'ecrive : &lt;&lt; resistance a tous les types &gt;&gt; s'ecrit treize
     // affinites, une par type, comme le pipeline les lit.
@@ -66,6 +66,12 @@ private:
                                          .source = resistance.source});
 <span style = "background-color:#dfd">        }
     }
+    std::array&lt;int, 6&gt; sauvegardes{};
+    for (const Ability caracteristique : allAbilities()) {
+        const bool maitrisee = sheet.savingThrowProficiencies.contains(caracteristique);
+        sauvegardes[static_cast&lt;std::size_t&gt;(caracteristique)] =</span>
+            sheet.modifier(caracteristique) + (maitrisee ? proficiencyBonus : 0);
+<span style = "background-color:#dfd">    }
     return {</span>
         .name = sheet.name,
         .side = side,
@@ -81,6 +87,7 @@ private:
         .floating = false,
         .armorClass = sheet.armorClass,
         .damageTraits = std::move(traits),
+        .savingThrows = sauvegardes,
     };
 <span style = "background-color:#fdd">}</span>
 
@@ -102,6 +109,13 @@ private:
         .floating = false,
         .armorClass = creature.armorClass,
         .damageTraits = damageTraitsFor(creature),
+        // Le bestiaire ne porte pas encore les sauvegardes maitrisees : le modificateur nu.
+        .savingThrows = {abilityModifier(creature.ability(Ability::Strength)),
+                         abilityModifier(creature.ability(Ability::Dexterity)),
+                         abilityModifier(creature.ability(Ability::Constitution)),
+                         abilityModifier(creature.ability(Ability::Intelligence)),
+                         abilityModifier(creature.ability(Ability::Wisdom)),
+                         abilityModifier(creature.ability(Ability::Charisma))},
     };
 <span style = "background-color:#dfd">}</span>
 
@@ -382,6 +396,28 @@ EnlistResult CombatState::joinAtInitiative(CombatantProfile profile, GridPositio
 <span style = "background-color:#dfd">            .canPassThrough = [this, combatant](CombatantId other) {
                 return canPassThrough(combatant, other);
             }};
+}</span>
+
+<span style = "background-color:#dfd">bool CombatState::setLocomotion(CombatantId combatant, Locomotion locomotion, int movement) {
+    Combatant* found = findMutable(combatant);
+    if (found == nullptr) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const int before = found-&gt;profile.movement;
+    const int remaining = found-&gt;economy.remaining(MOVEMENT_RESOURCE);
+    const int walked = std::max(0, before - remaining);
+    const int granted = std::max(0, remaining - before);
+    found-&gt;profile.locomotion = locomotion;
+    found-&gt;profile.movement = movement;</span>
+    // `declare` remplit : on repaie ce qui a deja ete marche, et on rend l'octroi en cours.
+<span style = "background-color:#dfd">    found-&gt;economy.declare(MOVEMENT_RESOURCE, movement);
+    if (walked &gt; 0) {</span>
+<span style = "background-color:#fdd">        static_cast&lt;void&gt;(found-&gt;economy.spend(MOVEMENT_RESOURCE, std::min(walked, movement)));</span>
+    }
+<span style = "background-color:#dfd">    if (granted &gt; 0) {</span>
+<span style = "background-color:#fdd">        found-&gt;economy.grant(MOVEMENT_RESOURCE, granted);</span>
+    }
+<span style = "background-color:#dfd">    return true;
 }</span>
 
 // --- MÃ©canique interne -----------------------------------------------------------------------

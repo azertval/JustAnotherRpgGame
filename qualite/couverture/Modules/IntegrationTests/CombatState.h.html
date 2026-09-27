@@ -20,6 +20,7 @@
  *        `EX-CBT-011`, `EX-CBT-012`).
  */
 
+#include &lt;array&gt;
 #include &lt;cstdint&gt;
 #include &lt;deque&gt;
 #include &lt;functional&gt;
@@ -201,12 +202,27 @@ struct CombatantProfile {
 <span style = "background-color:#dfd">    int armorClass = 10;</span>
     /// RÃ©sistances, vulnÃ©rabilitÃ©s et immunitÃ©s (`EX-CBT-032`).
     DamageTraits damageTraits;
+    /**
+     * @brief Le modificateur de chaque jet de sauvegarde, dans l'ordre de `core::Ability`
+     *        (`LOT-133`) : ce que lit un sort qui en demande un (*boule de feu*).
+     */
+    std::array&lt;int, 6&gt; savingThrows{};
 };
 
-/// @brief Le profil d'un personnage : ses points de vie courants, sa DextÃ©ritÃ©, sa vitesse.
-/// La fiche ne porte pas de taille : un personnage est de taille M jusqu'Ã  ce qu'elle en porte une.
+/**
+ * @brief Le profil d'un personnage : ses points de vie courants, sa DextÃ©ritÃ©, sa vitesse, ses
+ *        sauvegardes.
+ *
+ * La fiche ne porte pas de taille : un personnage est de taille M jusqu'Ã  ce qu'elle en porte une.
+ *
+ * @param sheet La fiche.
+ * @param side Son camp.
+ * @param proficiencyBonus Le bonus de maÃ®trise Ã  son niveau, ajoutÃ© aux sauvegardes qu'il
+ *        maÃ®trise ; 0 laisse les modificateurs nus.
+ */
 [[nodiscard]] CombatantProfile profileFor(const CharacterSheet&amp; sheet,
-                                          CombatSide side = CombatSide::Allies);
+                                          CombatSide side = CombatSide::Allies,
+                                          int proficiencyBonus = 0);
 
 /**
  * @brief Le profil d'une crÃ©ature du bestiaire.
@@ -528,6 +544,17 @@ public:
      * son adresse, et ne vit pas plus longtemps que lui.
      */
     [[nodiscard]] Mover moverFor(CombatantId combatant) const;
+
+    /**
+     * @brief Change la maniÃ¨re dont @p combatant se dÃ©place et son budget par tour â le *vol*
+     *        d'un sort (`LOT-133`), et sa fin.
+     *
+     * Ce qu'il a dÃ©jÃ  marchÃ© ce tour reste dÃ©pensÃ© : il gagne la diffÃ©rence des budgets, ou la
+     * perd. Un octroi en cours (*se prÃ©cipiter*) est gardÃ©.
+     *
+     * @return Faux si le combattant est inconnu.
+     */
+    bool setLocomotion(CombatantId combatant, Locomotion locomotion, int movement);
 
 private:
     /// Tient la profondeur d'appel : les consÃ©quences ne se rÃ¨glent qu'en sortant de l'appel

@@ -15,6 +15,7 @@
 #include "Core/Rpg/Spell.h"
 
 #include &lt;algorithm&gt;
+#include &lt;array&gt;
 #include &lt;system_error&gt;
 #include &lt;utility&gt;
 
@@ -36,6 +37,96 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
 <span style = "background-color:#dfd">[[nodiscard]] bool lireBooleen(const nlohmann::json&amp; objet, const char* champ) {
     const auto trouve = objet.find(champ);
     return trouve != objet.end() &amp;&amp; trouve-&gt;is_boolean() &amp;&amp; trouve-&gt;get&lt;bool&gt;();
+}</span>
+
+struct NomDEffet {
+    SpellEffectKind genre;
+    std::string_view nom;
+};
+
+// Les noms sont ceux de `spell.schema.json` : le schema et le moteur disent la meme liste.
+constexpr std::array&lt;NomDEffet, 2&gt; EFFETS{{
+    {SpellEffectKind::Fly, "fly"},
+    {SpellEffectKind::Invisible, "invisible"},
+}};
+
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;SpellEffectKind&gt; lireGenreDEffet(std::string_view nom) {
+    for (const NomDEffet&amp; entree : EFFETS) {
+        if (entree.nom == nom) {
+            return entree.genre;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return std::nullopt;
+}</span>
+
+// Les champs du LOT-133 : projectiles, sans jet, sauvegarde, zone, cible, effet qui dure. Une
+// valeur que le moteur ne sait pas lire refuse le sort : joue a moitie, il tromperait plus
+// qu'absent et nomme dans les erreurs.
+[[nodiscard]] bool lireMecanismes(const nlohmann::json&amp; racine, const std::string&amp; fichier,
+<span style = "background-color:#dfd">                                  Spell&amp; sort, std::vector&lt;std::string&gt;&amp; erreurs) {
+    sort.autoHit = lireBooleen(racine, "autoHit");
+    sort.cantripScaling = lireBooleen(racine, "cantripScaling");
+    if (const auto projectiles = racine.find("projectiles"); projectiles != racine.end()) {
+        if (!projectiles-&gt;is_number_integer() || projectiles-&gt;get&lt;int&gt;() &lt; 1) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : 'projectiles' doit etre un entier positif.");
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        sort.projectiles = projectiles-&gt;get&lt;int&gt;();
+    }
+    const std::string sauvegarde = lireTexte(racine, "saveEffect");
+    if (sauvegarde == "half") {
+        sort.saveEffect = SaveEffect::Half;
+    } else if (!sauvegarde.empty() &amp;&amp; sauvegarde != "negates") {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : 'saveEffect' '" + sauvegarde + "' inconnu du moteur.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const std::string cible = lireTexte(racine, "target");
+    if (cible == "ally") {
+        sort.target = SpellTarget::Ally;
+    } else if (cible == "self") {</span>
+<span style = "background-color:#fdd">        sort.target = SpellTarget::Self;</span>
+<span style = "background-color:#dfd">    } else if (!cible.empty() &amp;&amp; cible != "enemy") {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : cible '" + cible + "' inconnue du moteur.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (const auto zone = racine.find("area"); zone != racine.end() &amp;&amp; zone-&gt;is_object()) {
+        const std::string forme = lireTexte(*zone, "shape");
+        const auto metres = zone-&gt;find("meters");
+        if (metres == zone-&gt;end() || !metres-&gt;is_number() || metres-&gt;get&lt;float&gt;() &lt;= 0.0F) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : zone sans 'meters' positifs.");
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        if (forme == "sphere") {
+            sort.areaRadiusMeters = metres-&gt;get&lt;float&gt;();
+        } else {</span>
+            // Une forme connue du Manuel mais que le moteur ne pose pas encore : le sort se
+            // charge, et `spellMechanism` dit qu'il ne se joue pas.
+<span style = "background-color:#dfd">            sort.unsupportedArea = forme;</span>
+        }
+<span style = "background-color:#dfd">    }
+    if (const auto effet = racine.find("effect"); effet != racine.end() &amp;&amp; effet-&gt;is_object()) {
+        const std::string genre = lireTexte(*effet, "kind");
+        const std::optional&lt;SpellEffectKind&gt; lu = lireGenreDEffet(genre);
+        if (!lu.has_value()) {
+            erreurs.push_back(fichier + " : effet de sort '" + genre + "' inconnu du moteur.");
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        SpellEffect pose{.kind = *lu, .meters = 0.0F, .durationRounds = 0};
+        if (const auto metres = effet-&gt;find("meters");
+            metres != effet-&gt;end() &amp;&amp; metres-&gt;is_number()) {
+            pose.meters = metres-&gt;get&lt;float&gt;();
+        }
+        if (pose.kind == SpellEffectKind::Fly &amp;&amp; pose.meters &lt;= 0.0F) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : effet 'fly' sans vitesse ('meters').");
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        if (const auto duree = effet-&gt;find("durationRounds");
+            duree != effet-&gt;end() &amp;&amp; duree-&gt;is_number_integer()) {</span>
+<span style = "background-color:#fdd">            pose.durationRounds = std::max(0, duree-&gt;get&lt;int&gt;());</span>
+<span style = "background-color:#dfd">        }
+        sort.effect = pose;
+    }
+    return true;
 }</span>
 
 [[nodiscard]] std::optional&lt;Spell&gt; lireSort(const nlohmann::json&amp; racine,
@@ -87,22 +178,25 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
         }
 <span style = "background-color:#dfd">    }
     if (const auto sauvegarde = racine.find("savingThrow");
-        sauvegarde != racine.end() &amp;&amp; sauvegarde-&gt;is_string()) {</span>
-<span style = "background-color:#fdd">        sort.savingThrow = parseAbility(sauvegarde-&gt;get&lt;std::string&gt;());
-        if (!sort.savingThrow.has_value()) {
-            erreurs.push_back(fichier + " : jet de sauvegarde '" + sauvegarde-&gt;get&lt;std::string&gt;() +</span>
+        sauvegarde != racine.end() &amp;&amp; sauvegarde-&gt;is_string()) {
+        sort.savingThrow = parseAbility(sauvegarde-&gt;get&lt;std::string&gt;());
+        if (!sort.savingThrow.has_value()) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : jet de sauvegarde '" + sauvegarde-&gt;get&lt;std::string&gt;() +</span>
                               "' inconnu du moteur.");
 <span style = "background-color:#fdd">            return std::nullopt;</span>
         }
 <span style = "background-color:#dfd">    }
-    if (const auto mecanismes = racine.find("mecanismesRequis");
-        mecanismes != racine.end() &amp;&amp; mecanismes-&gt;is_array()) {</span>
-<span style = "background-color:#fdd">        for (const auto&amp; element : *mecanismes) {
+    if (!lireMecanismes(racine, fichier, sort, erreurs)) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    if (const auto mecanismes = racine.find("mecanismesRequis");
+        mecanismes != racine.end() &amp;&amp; mecanismes-&gt;is_array()) {
+        for (const auto&amp; element : *mecanismes) {
             if (element.is_string()) {
                 sort.requiredMechanisms.push_back(element.get&lt;std::string&gt;());
             }
-        }</span>
-<span style = "background-color:#dfd">    }
+        }
+    }
     return sort;
 }</span>
 
@@ -142,8 +236,53 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
     return catalogue;
 }</span>
 
-<span style = "background-color:#dfd">bool isAttackSpell(const Spell&amp; spell) noexcept {
+<span style = "background-color:#fdd">bool isAttackSpell(const Spell&amp; spell) noexcept {
     return spell.attackRoll &amp;&amp; spell.damage.has_value() &amp;&amp; spell.damageType.has_value();
+}</span>
+
+<span style = "background-color:#fdd">std::string_view spellEffectKindName(SpellEffectKind kind) noexcept {
+    for (const NomDEffet&amp; entree : EFFETS) {
+        if (entree.genre == kind) {
+            return entree.nom;</span>
+        }
+<span style = "background-color:#fdd">    }
+    return "?";
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;SpellMechanism&gt; spellMechanism(const Spell&amp; spell) noexcept {
+    if (spell.narrative || !spell.unsupportedArea.empty()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const bool blesse = spell.damage.has_value() &amp;&amp; spell.damageType.has_value();
+    if (blesse &amp;&amp; spell.attackRoll) {
+        return SpellMechanism::AttackRoll;</span>
+    }
+<span style = "background-color:#dfd">    if (blesse &amp;&amp; spell.autoHit) {
+        return SpellMechanism::AutoHit;</span>
+    }
+<span style = "background-color:#dfd">    if (blesse &amp;&amp; spell.savingThrow.has_value()) {
+        return SpellMechanism::SavingThrow;</span>
+    }
+<span style = "background-color:#dfd">    if (spell.effect.has_value()) {
+        return SpellMechanism::Effect;</span>
+    }
+<span style = "background-color:#fdd">    return std::nullopt;</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;Dice&gt; spellDamageAt(const Spell&amp; spell, int casterLevel) noexcept {
+    if (!spell.damage.has_value()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    Dice des = *spell.damage;
+    if (spell.cantripScaling &amp;&amp; spell.level == 0) {</span>
+        // Manuel, Â« Tours de magie Â» : les degats augmentent d'un de aux niveaux 5, 11 et 17.
+<span style = "background-color:#dfd">        for (const int palier : {5, 11, 17}) {
+            if (casterLevel &gt;= palier) {
+                des.count += spell.damage-&gt;count;</span>
+            }
+<span style = "background-color:#dfd">        }</span>
+    }
+<span style = "background-color:#dfd">    return des;
 }</span>
 
 }  // namespace core</pre>

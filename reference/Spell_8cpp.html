@@ -144,6 +144,7 @@ $(function(){initNavTree('Spell_8cpp.html','',''); });
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="Spell_8h_source.html">Core/Rpg/Spell.h</a>&quot;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
 <code>#include &lt;system_error&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &quot;<a class="el" href="JsonDocument_8h_source.html">Core/Data/JsonDocument.h</a>&quot;</code><br />
@@ -160,6 +161,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:af48cbccac960ef036b33c5e543a990cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les sorts depuis leur dossier (<span class="tt">Source/Elements/Rpg/spells</span>).  <br /></td></tr>
 <tr class="memitem:acda21c95fdff4cecac87781e5ea4cbce" id="r_acda21c95fdff4cecac87781e5ea4cbce"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#acda21c95fdff4cecac87781e5ea4cbce">core::isAttackSpell</a> (const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell) noexcept</td></tr>
 <tr class="memdesc:acda21c95fdff4cecac87781e5ea4cbce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le moteur sait jouer ce sort comme une <b>attaque</b> : jet d'attaque, dés et type de dégâts.  <br /></td></tr>
+<tr class="memitem:a8b37e659ff44dc3fc970f38e35aad322" id="r_a8b37e659ff44dc3fc970f38e35aad322"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a8b37e659ff44dc3fc970f38e35aad322">core::spellEffectKindName</a> (<a class="el" href="namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99">SpellEffectKind</a> kind) noexcept</td></tr>
+<tr class="memdesc:a8b37e659ff44dc3fc970f38e35aad322"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de donnée d'un genre d'effet de sort (<span class="tt">fly</span>…), celui du schéma.  <br /></td></tr>
+<tr class="memitem:aaad5d2aff3f5506f00ce7a09ff8b418e" id="r_aaad5d2aff3f5506f00ce7a09ff8b418e"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144b">SpellMechanism</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aaad5d2aff3f5506f00ce7a09ff8b418e">core::spellMechanism</a> (const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell) noexcept</td></tr>
+<tr class="memdesc:aaad5d2aff3f5506f00ce7a09ff8b418e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mécanisme par lequel le moteur joue ce sort, ou <span class="tt">std::nullopt</span> s'il n'en a aucun : un sort narratif, un sort qui exige un mécanisme absent, une zone qui n'est pas une sphère.  <br /></td></tr>
+<tr class="memitem:a31bfc1e994e6b387ed3038d535d241f2" id="r_a31bfc1e994e6b387ed3038d535d241f2"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Dice.html">Dice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a31bfc1e994e6b387ed3038d535d241f2">core::spellDamageAt</a> (const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell, int casterLevel) noexcept</td></tr>
+<tr class="memdesc:a31bfc1e994e6b387ed3038d535d241f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés d'un sort au niveau <code class="param">casterLevel</code> du lanceur : un dé de plus aux niveaux 5, 11 et 17 pour un sort mineur qui le déclare (<span class="tt">cantripScaling</span>), les dés du sort sinon.  <br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -50,6 +50,6 @@ var CombatState_8h =
     ] ],
     [ "core::crossedBelow", "namespacecore.html#a7a167c903e311c5d67c0dedf3292eaa5", null ],
     [ "core::mountEncounter", "namespacecore.html#a5921fce291ef1e0650a91c91bc158a3e", null ],
-    [ "core::profileFor", "namespacecore.html#a781adb33ce539ef59c9ed60f57e51901", null ],
+    [ "core::profileFor", "namespacecore.html#aaf88a4a4366d6a6ec1735e663041105f", null ],
     [ "core::profileFor", "namespacecore.html#a42dc4a900c3340d179d7270def49fde9", null ]
 ];

@@ -5,6 +5,7 @@ var namespacecore =
     [ "AreaOfEffect", "structcore_1_1AreaOfEffect.html", "structcore_1_1AreaOfEffect" ],
     [ "ArenaEntryPoint", "structcore_1_1ArenaEntryPoint.html", "structcore_1_1ArenaEntryPoint" ],
     [ "ArenaSpell", "structcore_1_1ArenaSpell.html", "structcore_1_1ArenaSpell" ],
+    [ "ArenaEffect", "structcore_1_1ArenaEffect.html", "structcore_1_1ArenaEffect" ],
     [ "ArenaContestant", "structcore_1_1ArenaContestant.html", "structcore_1_1ArenaContestant" ],
     [ "ArenaBout", "structcore_1_1ArenaBout.html", "structcore_1_1ArenaBout" ],
     [ "ArenaMount", "structcore_1_1ArenaMount.html", "structcore_1_1ArenaMount" ],
@@ -200,6 +201,7 @@ var namespacecore =
     [ "DerivedStats", "structcore_1_1DerivedStats.html", "structcore_1_1DerivedStats" ],
     [ "SkillDefinition", "structcore_1_1SkillDefinition.html", "structcore_1_1SkillDefinition" ],
     [ "SkillCatalog", "structcore_1_1SkillCatalog.html", "structcore_1_1SkillCatalog" ],
+    [ "SpellEffect", "structcore_1_1SpellEffect.html", "structcore_1_1SpellEffect" ],
     [ "Spell", "structcore_1_1Spell.html", "structcore_1_1Spell" ],
     [ "SpellCatalog", "structcore_1_1SpellCatalog.html", "structcore_1_1SpellCatalog" ],
     [ "FixedTimestep", "classcore_1_1FixedTimestep.html", "classcore_1_1FixedTimestep" ],
@@ -644,6 +646,10 @@ var namespacecore =
       [ "Advantage", "namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a1b2430d20c750dada9aaaed48b4eb8f1", null ],
       [ "Disadvantage", "namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9ae755d083f9085a585ef791919be5a004", null ]
     ] ],
+    [ "SaveEffect", "namespacecore.html#a66591e3012ab5919cc621550ff6720e1", [
+      [ "Negates", "namespacecore.html#a66591e3012ab5919cc621550ff6720e1abf2979df229a6a9fa42ae6b60d0f0b1e", null ],
+      [ "Half", "namespacecore.html#a66591e3012ab5919cc621550ff6720e1ac48615a1bc4197056d522af276aa5a85", null ]
+    ] ],
     [ "ScenePieceClass", "namespacecore.html#a4a3860a249c1a2e07497950f57f4d461", [
       [ "Floor", "namespacecore.html#a4a3860a249c1a2e07497950f57f4d461af3f6d0343d56ce88ce7958170ed05cb3", null ],
       [ "Tall", "namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a31fdedff3e473efdbd079e3b59fcb4f9", null ],
@@ -656,6 +662,21 @@ var namespacecore =
       [ "ParseError", "namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbccae41199faa7290c167f70f314c5e6c165", null ],
       [ "UnsupportedVersion", "namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcca0f89bc98e9b12bdeda0604e57bdc0518", null ],
       [ "MalformedStructure", "namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbccaa809debdbe0cae246d363461916d924d", null ]
+    ] ],
+    [ "SpellEffectKind", "namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99", [
+      [ "Fly", "namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99aac51deb7d2c3f9663a6df72c7c9b2b51", null ],
+      [ "Invisible", "namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f", null ]
+    ] ],
+    [ "SpellMechanism", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144b", [
+      [ "AttackRoll", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba8589ce3fdba93ae0fa91574412b1f0b5", null ],
+      [ "AutoHit", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144ba25f61a28f33b14bb363490241f18ef77", null ],
+      [ "SavingThrow", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d", null ],
+      [ "Effect", "namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa", null ]
+    ] ],
+    [ "SpellTarget", "namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ec", [
+      [ "Enemy", "namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3eca8c6d21187fb58b7a079d70030686b33e", null ],
+      [ "Ally", "namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3eca0dd87782600574e2f791bcfe639d4fcc", null ],
+      [ "Self", "namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ecaad6e7652b1bdfb38783486c2c3d5e806", null ]
     ] ],
     [ "TacticalIssueCode", "namespacecore.html#a81dfcf1ac21704e4f64a7780ec772910", [
       [ "CombatantOutOfBounds", "namespacecore.html#a81dfcf1ac21704e4f64a7780ec772910ad885d5cf20dfaace9079e6e7400ac431", null ],
@@ -739,6 +760,7 @@ var namespacecore =
       [ "Portal", "namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44a3e9b3ac6f082ec46a2d1d3f1f1647456", null ],
       [ "Transfer", "namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44a6950810f0d2bba97a6f710c7b965b84e", null ]
     ] ],
+    [ "abilityLabel", "namespacecore.html#a6492cf00497924279c0f171546cbed96", null ],
     [ "abilityModifier", "namespacecore.html#ab1f3cc471902daa6c652cd68eee0bcef", null ],
     [ "abilityName", "namespacecore.html#ad539e41d55b3f90675658586d0d0b77e", null ],
     [ "abilityScoreWith", "namespacecore.html#a94f7b2f3a63555d1eb113d01619edf1a", null ],
@@ -816,6 +838,7 @@ var namespacecore =
     [ "deriveCollision", "namespacecore.html#a3322a01062af04e9242df68f744c142f", null ],
     [ "derivedStatsFor", "namespacecore.html#a9a5cbcc72fe725bdada14f1b5a38e3d1", null ],
     [ "deriveSeed", "namespacecore.html#a743d1073227b83fb7f8a727a4e0829ae", null ],
+    [ "describeDamage", "namespacecore.html#afef55f3fdbd88dfb9bcb035e462af405", null ],
     [ "describeFlagCondition", "namespacecore.html#a1fe7c8d4dbc2fe8759a922819280749a", null ],
     [ "dialogueAttitudeKey", "namespacecore.html#a58479e55baaecd8fde393467a4db7236", null ],
     [ "dialogueAttitudeName", "namespacecore.html#a07385d9b9ea590d3a3b7b11bd820b891", null ],
@@ -963,7 +986,7 @@ var namespacecore =
     [ "previewAttack", "namespacecore.html#a331ece5830ae73d553faf88ddecc116c", null ],
     [ "previewMove", "namespacecore.html#ac10191346bb1e11cc0c720ea9f4a5c79", null ],
     [ "proficiencyBonus", "namespacecore.html#ab3286191c0a02de9afbc9e711ec799d1", null ],
-    [ "profileFor", "namespacecore.html#a781adb33ce539ef59c9ed60f57e51901", null ],
+    [ "profileFor", "namespacecore.html#aaf88a4a4366d6a6ec1735e663041105f", null ],
     [ "profileFor", "namespacecore.html#a42dc4a900c3340d179d7270def49fde9", null ],
     [ "questProgress", "namespacecore.html#a65fd043ff3badf928d4bd699b4bf72bd", null ],
     [ "questStartedFlag", "namespacecore.html#acadb420f48a33466a637a863e9c8e814", null ],
@@ -1007,6 +1030,10 @@ var namespacecore =
     [ "spawnMapEntities", "namespacecore.html#adb2706947c6f0111c0cdd008fde5779e", null ],
     [ "speedBonusFrom", "namespacecore.html#aa68f689a14531b2d2a3f6a657a326a04", null ],
     [ "spellAttackFor", "namespacecore.html#a871311984840c7991c36bb370786fe1e", null ],
+    [ "spellDamageAt", "namespacecore.html#a31bfc1e994e6b387ed3038d535d241f2", null ],
+    [ "spellEffectKindName", "namespacecore.html#a8b37e659ff44dc3fc970f38e35aad322", null ],
+    [ "spellMechanism", "namespacecore.html#aaad5d2aff3f5506f00ce7a09ff8b418e", null ],
+    [ "spellProfileFor", "namespacecore.html#a0edd9f28abc7ed83a7df586b4ece79ad", null ],
     [ "spendSpellUse", "namespacecore.html#a81a033471d0e316c917988c797973280", null ],
     [ "splitFlagValues", "namespacecore.html#a59e9846af749656610281d2f82bc6fbe", null ],
     [ "splitMix64", "namespacecore.html#aabea08fea40eec17f439cef7c5a34e56", null ],

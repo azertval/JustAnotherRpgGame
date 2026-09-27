@@ -54,5 +54,6 @@ var searchData=
   ['draftjson_51',['draftJson',['../structhmi_1_1AutosaveRecord.html#ab293f6a9a9244e43467fd7469995d142',1,'hmi::AutosaveRecord']]],
   ['drawn_52',['drawn',['../structhmi_1_1AssetGalleryFrame.html#a89b2649772ed2a910f02f660f097736c',1,'hmi::AssetGalleryFrame']]],
   ['duplicatebutton_53',['duplicateButton',['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aeb72381be7ebb77de59d4f5dcbc414b8',1,'hmi::LevelBrowserPanel::Widgets']]],
-  ['duration_54',['duration',['../structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8',1,'core::Spell']]]
+  ['duration_54',['duration',['../structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8',1,'core::Spell']]],
+  ['durationrounds_55',['durationRounds',['../structcore_1_1SpellEffect.html#a5511a1f161a1717773939865066fe025',1,'core::SpellEffect']]]
 ];

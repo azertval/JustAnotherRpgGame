@@ -150,7 +150,7 @@ var searchData=
   ['floorrequested_147',['floorRequested',['../classhmi_1_1LayersPanel.html#a41a8c0d70342d5b54785bbc6d96b3a52',1,'hmi::LayersPanel']]],
   ['floors_148',['floors',['../structhmi_1_1IsoBandOpacity.html#a6593f20b89451d75808c6596a388c220',1,'hmi::IsoBandOpacity::floors'],['../structhmi_1_1WorldSceneSnapshot.html#a07a1eb5f4f5b3137b943484975173f06',1,'hmi::WorldSceneSnapshot::floors']]],
   ['floorspin_149',['floorSpin',['../structhmi_1_1LayersPanel_1_1Widgets.html#afa7209fc82e3441dfc0cfe49681183bd',1,'hmi::LayersPanel::Widgets']]],
-  ['fly_150',['Fly',['../namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffaac51deb7d2c3f9663a6df72c7c9b2b51',1,'core']]],
+  ['fly_150',['Fly',['../namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ffaac51deb7d2c3f9663a6df72c7c9b2b51',1,'core::Fly'],['../namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99aac51deb7d2c3f9663a6df72c7c9b2b51',1,'core::Fly']]],
   ['fly_151',['fly',['../structcore_1_1CreatureSpeed.html#a37c2fa80536e700482b1f3272bcdc38f',1,'core::CreatureSpeed']]],
   ['focus_152',['focus',['../structhmi_1_1CityBlockFraming.html#a14b4c9cf57b01297b8ba7c4f0e10b4c6',1,'hmi::CityBlockFraming::focus'],['../classhmi_1_1WorldSceneRenderer.html#ab0160a58f9a4c26eef4ea0d7ae44e08d',1,'hmi::WorldSceneRenderer::focus()']]],
   ['focusfire_153',['focusFire',['../structcore_1_1BehaviorProfile.html#a0ee927d6439342aa9bbbd6483cf8c0f0',1,'core::BehaviorProfile']]],

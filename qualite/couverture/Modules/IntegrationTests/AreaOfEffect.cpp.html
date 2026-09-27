@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>AreaOfEffect.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/AreaOfEffect.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cmath&gt;
+#include &lt;cstddef&gt;
+#include &lt;set&gt;
+
+#include "Core/Combat/CombatState.h"
+#include "Core/Rpg/Scale.h"
+
+namespace core {
+namespace {
+
+// Â« Au moins la moitie Â» : une case couverte a exactement 50 % est dans la zone. La tolerance
+// absorbe l'arrondi d'une racine de 2, jamais une vraie difference de surface.
+constexpr double MOITIE = 0.5 - 1e-9;
+
+struct Point {
+    double x = 0.0;
+    double y = 0.0;
+};
+
+using Polygone = std::vector&lt;Point&gt;;
+
+// Decoupe un polygone convexe par le demi-plan ou `garder` est vrai (Sutherland-Hodgman).
+template &lt;typename Garder, typename Couper&gt;
+<span style = "background-color:#dfd">[[nodiscard]] Polygone decouper(const Polygone&amp; polygone, Garder garder, Couper couper) {
+    Polygone resultat;
+    for (std::size_t i = 0; i &lt; polygone.size(); ++i) {
+        const Point&amp; a = polygone[i];
+        const Point&amp; b = polygone[(i + 1) % polygone.size()];
+        const bool dedansA = garder(a);
+        const bool dedansB = garder(b);
+        if (dedansA) {
+            resultat.push_back(a);</span>
+        }
+<span style = "background-color:#dfd">        if (dedansA != dedansB) {
+            resultat.push_back(couper(a, b));</span>
+        }
+<span style = "background-color:#dfd">    }
+    return resultat;
+}</span>
+
+// Surface d'un polygone convexe dans la case [x0, x0 + 1] x [y0, y0 + 1].
+<span style = "background-color:#dfd">[[nodiscard]] double surfaceDansCase(Polygone polygone, double x0, double y0) {
+    const auto surX = [](double bord) {
+        return [bord](const Point&amp; a, const Point&amp; b) {
+            const double t = (bord - a.x) / (b.x - a.x);
+            return Point{.x = bord, .y = a.y + (t * (b.y - a.y))};
+        };
+    };
+    const auto surY = [](double bord) {
+        return [bord](const Point&amp; a, const Point&amp; b) {
+            const double t = (bord - a.y) / (b.y - a.y);
+            return Point{.x = a.x + (t * (b.x - a.x)), .y = bord};
+        };
+    };
+    polygone = decouper(polygone, [x0](const Point&amp; p) { return p.x &gt;= x0; }, surX(x0));
+    polygone = decouper(polygone, [x0](const Point&amp; p) { return p.x &lt;= x0 + 1.0; }, surX(x0 + 1.0));
+    polygone = decouper(polygone, [y0](const Point&amp; p) { return p.y &gt;= y0; }, surY(y0));
+    polygone = decouper(polygone, [y0](const Point&amp; p) { return p.y &lt;= y0 + 1.0; }, surY(y0 + 1.0));
+    double doubleSurface = 0.0;
+    for (std::size_t i = 0; i &lt; polygone.size(); ++i) {
+        const Point&amp; a = polygone[i];
+        const Point&amp; b = polygone[(i + 1) % polygone.size()];
+        doubleSurface += (a.x * b.y) - (b.x * a.y);
+    }
+    return std::abs(doubleSurface) / 2.0;
+}</span>
+
+// Primitive de sqrt(r^2 - x^2).
+<span style = "background-color:#dfd">[[nodiscard]] double primitiveDemiDisque(double x, double rayon) {
+    const double borne = std::clamp(x / rayon, -1.0, 1.0);
+    return 0.5 * ((x * std::sqrt(std::max(0.0, (rayon * rayon) - (x * x)))) +</span>
+                  (rayon * rayon * std::asin(borne)));
+<span style = "background-color:#dfd">}</span>
+
+// Surface du disque de centre (0, 0) et de rayon @p rayon dans le rectangle [x0, x1] x [y0, y1].
+//
+// L'integrale sur x de la hauteur du disque tronquee au rectangle. Entre deux abscisses ou le
+// cercle croise y0 ou y1, chaque borne est soit la droite, soit l'arc, et se primitive exactement.
+[[nodiscard]] double surfaceDisqueRectangle(double rayon, double x0, double y0, double x1,
+<span style = "background-color:#dfd">                                            double y1) {
+    const double a = std::max(x0, -rayon);
+    const double b = std::min(x1, rayon);
+    if (a &gt;= b) {
+        return 0.0;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;double&gt; bornes{a, b};
+    for (const double y : {y0, y1}) {
+        if (std::abs(y) &lt; rayon) {
+            const double q = std::sqrt((rayon * rayon) - (y * y));
+            for (const double x : {-q, q}) {
+                if (x &gt; a &amp;&amp; x &lt; b) {
+                    bornes.push_back(x);</span>
+                }
+<span style = "background-color:#dfd">            }</span>
+        }
+<span style = "background-color:#dfd">    }
+    std::ranges::sort(bornes);
+    double surface = 0.0;
+    for (std::size_t i = 0; i + 1 &lt; bornes.size(); ++i) {
+        const double p = bornes[i];
+        const double q = bornes[i + 1];
+        if (q &lt;= p) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const double milieu = (p + q) / 2.0;
+        const double s = std::sqrt(std::max(0.0, (rayon * rayon) - (milieu * milieu)));
+        const bool hautSurArc = s &lt; y1;
+        const bool basSurArc = -s &gt; y0;
+        if ((hautSurArc ? s : y1) &lt;= (basSurArc ? -s : y0)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const double arc = primitiveDemiDisque(q, rayon) - primitiveDemiDisque(p, rayon);
+        surface += (hautSurArc ? arc : y1 * (q - p)) - (basSurArc ? -arc : y0 * (q - p));
+    }
+    return surface;
+}</span>
+
+// La forme en polygone (cone, cube, ligne), en cases ; vide si elle n'a pas de direction.
+<span style = "background-color:#dfd">[[nodiscard]] Polygone polygoneDe(const AreaOfEffect&amp; zone) {
+    const auto dx = static_cast&lt;double&gt;(zone.toward.x - zone.origin.x);
+    const auto dy = static_cast&lt;double&gt;(zone.toward.y - zone.origin.y);
+    const double norme = std::hypot(dx, dy);
+    if (norme == 0.0 || zone.size &lt;= 0) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    const Point o{.x = zone.origin.x / 2.0, .y = zone.origin.y / 2.0};
+    const Point u{.x = dx / norme, .y = dy / norme};
+    const Point n{.x = -u.y, .y = u.x};
+    const double longueur = zone.size;</span>
+    // Demi-largeur au bout de la forme : L/2 pour un cone (largeur = distance), L/2 pour un cube,
+    // W/2 pour une ligne.
+<span style = "background-color:#dfd">    const double demiLargeur =</span>
+        zone.shape == AreaShape::Line ? std::max(0, zone.width) / 2.0 : longueur / 2.0;
+<span style = "background-color:#dfd">    if (demiLargeur &lt;= 0.0) {</span>
+<span style = "background-color:#fdd">        return {};</span>
+    }
+<span style = "background-color:#dfd">    const auto point = [&amp;](double leLong, double enTravers) {
+        return Point{.x = o.x + (leLong * u.x) + (enTravers * n.x),</span>
+                     .y = o.y + (leLong * u.y) + (enTravers * n.y)};
+<span style = "background-color:#dfd">    };
+    if (zone.shape == AreaShape::Cone) {
+        return {o, point(longueur, demiLargeur), point(longueur, -demiLargeur)};</span>
+    }
+<span style = "background-color:#dfd">    return {point(0.0, -demiLargeur), point(0.0, demiLargeur), point(longueur, demiLargeur),</span>
+            point(longueur, -demiLargeur)};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool estCirculaire(AreaShape forme) noexcept {
+    return forme == AreaShape::Sphere || forme == AreaShape::Cylinder;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::optional&lt;int&gt; areaTilesFromMeters(float meters) {
+    if (!(meters &gt; 0.0F)) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+    // 6 m / 1,5 = 4 exactement, mais 4,5 / 1,5 peut tomber a 2,9999 : la marge evite de perdre une
+    // case sur un arrondi.
+<span style = "background-color:#dfd">    const int cases = static_cast&lt;int&gt;(std::floor(tilesFromMeters(meters) + 1e-4F));
+    return cases &gt; 0 ? std::optional&lt;int&gt;(cases) : std::nullopt;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;GridPosition&gt; areaTemplate(const AreaOfEffect&amp; area, int columns, int rows) {
+    std::vector&lt;GridPosition&gt; cases;
+    if (area.size &lt;= 0 || columns &lt;= 0 || rows &lt;= 0) {</span>
+<span style = "background-color:#fdd">        return cases;</span>
+    }
+<span style = "background-color:#dfd">    const Polygone polygone = estCirculaire(area.shape) ? Polygone{} : polygoneDe(area);
+    if (!estCirculaire(area.shape) &amp;&amp; polygone.empty()) {
+        return cases;</span>
+    }
+
+    // La boite englobante de la forme, en cases.
+<span style = "background-color:#dfd">    double minX = 0.0;
+    double minY = 0.0;
+    double maxX = 0.0;
+    double maxY = 0.0;
+    const double cx = area.origin.x / 2.0;
+    const double cy = area.origin.y / 2.0;
+    if (estCirculaire(area.shape)) {
+        minX = cx - area.size;
+        maxX = cx + area.size;
+        minY = cy - area.size;
+        maxY = cy + area.size;
+    } else {
+        minX = maxX = polygone.front().x;
+        minY = maxY = polygone.front().y;
+        for (const Point&amp; p : polygone) {
+            minX = std::min(minX, p.x);
+            maxX = std::max(maxX, p.x);
+            minY = std::min(minY, p.y);
+            maxY = std::max(maxY, p.y);
+        }</span>
+    }
+<span style = "background-color:#dfd">    const int colonneMin = std::max(0, static_cast&lt;int&gt;(std::floor(minX)));
+    const int colonneMax = std::min(columns - 1, static_cast&lt;int&gt;(std::ceil(maxX)));
+    const int ligneMin = std::max(0, static_cast&lt;int&gt;(std::floor(minY)));
+    const int ligneMax = std::min(rows - 1, static_cast&lt;int&gt;(std::ceil(maxY)));</span>
+
+<span style = "background-color:#dfd">    for (int ligne = ligneMin; ligne &lt;= ligneMax; ++ligne) {
+        for (int colonne = colonneMin; colonne &lt;= colonneMax; ++colonne) {
+            const double surface = estCirculaire(area.shape)</span>
+                                       ? surfaceDisqueRectangle(area.size, colonne - cx, ligne - cy,
+                                                                colonne + 1 - cx, ligne + 1 - cy)
+                                       : surfaceDansCase(polygone, colonne, ligne);
+<span style = "background-color:#dfd">            if (surface &gt;= MOITIE) {
+                cases.push_back({.column = colonne, .row = ligne});</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return cases;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;GridPosition&gt; affectedCells(const BattleGrid&amp; grid, const AreaOfEffect&amp; area) {
+    std::vector&lt;GridPosition&gt; atteintes;
+    for (const GridPosition cellule : areaTemplate(area, grid.width(), grid.height())) {
+        if (grid.blocksSight(cellule)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const GridPoint coin = cornerOf(cellule);
+        const std::array&lt;GridPoint, 4&gt; coins{{coin,
+                                              {.x = coin.x + 2, .y = coin.y},
+                                              {.x = coin.x, .y = coin.y + 2},
+                                              {.x = coin.x + 2, .y = coin.y + 2}}};
+        if (std::ranges::any_of(coins,
+                                [&amp;](GridPoint p) { return isSightClear(grid, area.origin, p); })) {
+            atteintes.push_back(cellule);
+        }
+    }
+    return atteintes;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;CombatantId&gt; combatantsInArea(const CombatState&amp; combat, const AreaOfEffect&amp; area) {
+    std::set&lt;CombatantId&gt; touches;
+    for (const GridPosition cellule : affectedCells(combat.grid(), area)) {
+        if (const std::optional&lt;CombatantId&gt; occupant = combat.grid().occupantAt(cellule)) {
+            touches.insert(*occupant);
+        }
+    }
+    return {touches.begin(), touches.end()};
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -119,7 +119,7 @@ var searchData=
   ['inventoryvalues_116',['inventoryValues',['../namespacehmi.html#a4810fe71383c48ab7f7c445521b954d4',1,'hmi']]],
   ['inventoryvalues_2ecpp_117',['InventoryValues.cpp',['../InventoryValues_8cpp.html',1,'']]],
   ['inventoryvalues_2eh_118',['InventoryValues.h',['../InventoryValues_8h.html',1,'']]],
-  ['invisible_119',['Invisible',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a8bcda43732b0928d269955e0f09ff76f',1,'core']]],
+  ['invisible_119',['Invisible',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493a8bcda43732b0928d269955e0f09ff76f',1,'core::Invisible'],['../namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f',1,'core::Invisible']]],
   ['isalive_120',['isAlive',['../classcore_1_1EntityManager.html#a937aabf7ba0a10ba6c946a075ef55a8a',1,'core::EntityManager::isAlive()'],['../classcore_1_1World.html#a1cbcfaf8115bb885cccea7ca60fc3a9f',1,'core::World::isAlive()']]],
   ['isattackspell_121',['isAttackSpell',['../namespacecore.html#acda21c95fdff4cecac87781e5ea4cbce',1,'core']]],
   ['isbloodied_122',['isBloodied',['../namespacecore.html#a4614784f31f78b56e87ec55af65262a8',1,'core']]],

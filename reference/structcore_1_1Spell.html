@@ -166,6 +166,21 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a72fc45028d262c6abacce401e30ff917" id="r_a72fc45028d262c6abacce401e30ff917"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a72fc45028d262c6abacce401e30ff917">ritual</a> = false</td></tr>
 <tr class="memitem:a0ce39b883f1a89efd5d5fbfae2f78133" id="r_a0ce39b883f1a89efd5d5fbfae2f78133"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0ce39b883f1a89efd5d5fbfae2f78133">attackRoll</a> = false</td></tr>
 <tr class="memdesc:a0ce39b883f1a89efd5d5fbfae2f78133"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour un sort qui demande un jet d'attaque de sort contre la CA.  <br /></td></tr>
+<tr class="memitem:a64e565cba9ae7e96144566338768a1e1" id="r_a64e565cba9ae7e96144566338768a1e1"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a64e565cba9ae7e96144566338768a1e1">autoHit</a> = false</td></tr>
+<tr class="memdesc:a64e565cba9ae7e96144566338768a1e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour un sort qui touche <b>sans jet</b> (<em>projectile magique</em>).  <br /></td></tr>
+<tr class="memitem:a3da3a4de808e16a6384b5994834b2457" id="r_a3da3a4de808e16a6384b5994834b2457"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3da3a4de808e16a6384b5994834b2457">projectiles</a> = 1</td></tr>
+<tr class="memdesc:a3da3a4de808e16a6384b5994834b2457"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de projectiles ou de rayons, chacun ses dés — et son jet s'il en demande un.  <br /></td></tr>
+<tr class="memitem:a71e940e1fb387e671ec0b0f55d675fe4" id="r_a71e940e1fb387e671ec0b0f55d675fe4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a71e940e1fb387e671ec0b0f55d675fe4">cantripScaling</a> = false</td></tr>
+<tr class="memdesc:a71e940e1fb387e671ec0b0f55d675fe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour un sort mineur dont les dés montent aux niveaux 5, 11 et 17 du lanceur (Manuel, « Tours de magie »).  <br /></td></tr>
+<tr class="memitem:a547c0ff2dcbaf49273c984aadad33c7b" id="r_a547c0ff2dcbaf49273c984aadad33c7b"><td class="memItemLeft"><a class="el" href="namespacecore.html#a66591e3012ab5919cc621550ff6720e1">SaveEffect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a547c0ff2dcbaf49273c984aadad33c7b">saveEffect</a> = <a class="el" href="namespacecore.html#a66591e3012ab5919cc621550ff6720e1abf2979df229a6a9fa42ae6b60d0f0b1e">SaveEffect::Negates</a></td></tr>
+<tr class="memdesc:a547c0ff2dcbaf49273c984aadad33c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une sauvegarde réussie fait des dégâts.  <br /></td></tr>
+<tr class="memitem:a80bc592286d71922cb034ce2fe9f4fc7" id="r_a80bc592286d71922cb034ce2fe9f4fc7"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a80bc592286d71922cb034ce2fe9f4fc7">areaRadiusMeters</a> = 0.0F</td></tr>
+<tr class="memdesc:a80bc592286d71922cb034ce2fe9f4fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rayon de la <b>sphère</b> que le sort remplit, en mètres ; 0 : une seule cible.  <br /></td></tr>
+<tr class="memitem:a5c459861e4bdc81512449c80911114ec" id="r_a5c459861e4bdc81512449c80911114ec"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5c459861e4bdc81512449c80911114ec">unsupportedArea</a></td></tr>
+<tr class="memdesc:a5c459861e4bdc81512449c80911114ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une forme de zone que le moteur ne sait pas poser (cône, ligne…) : le sort n'est pas joué.  <br /></td></tr>
+<tr class="memitem:abbb6dc3d250ba8933584e8ac5c2a9975" id="r_abbb6dc3d250ba8933584e8ac5c2a9975"><td class="memItemLeft"><a class="el" href="namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ec">SpellTarget</a>&#160;</td><td class="memItemRight"><a class="el" href="#abbb6dc3d250ba8933584e8ac5c2a9975">target</a> = <a class="el" href="namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3eca8c6d21187fb58b7a079d70030686b33e">SpellTarget::Enemy</a></td></tr>
+<tr class="memitem:a5832a54bd6b2c3aebb89a14afd450ec0" id="r_a5832a54bd6b2c3aebb89a14afd450ec0"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1SpellEffect.html">SpellEffect</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5832a54bd6b2c3aebb89a14afd450ec0">effect</a></td></tr>
+<tr class="memdesc:a5832a54bd6b2c3aebb89a14afd450ec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'effet qui dure, si le sort en pose un que le moteur sait jouer.  <br /></td></tr>
 <tr class="memitem:aef19780c81f39eaceba166b293aa34db" id="r_aef19780c81f39eaceba166b293aa34db"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Dice.html">Dice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aef19780c81f39eaceba166b293aa34db">damage</a></td></tr>
 <tr class="memitem:a0020691c9ee8a8f71deaf9fe6b63900f" id="r_a0020691c9ee8a8f71deaf9fe6b63900f"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0020691c9ee8a8f71deaf9fe6b63900f">damageType</a></td></tr>
 <tr class="memitem:a2ea5964597cc155ee0e7394182bee591" id="r_a2ea5964597cc155ee0e7394182bee591"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2ea5964597cc155ee0e7394182bee591">savingThrow</a></td></tr>
@@ -192,6 +207,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a80bc592286d71922cb034ce2fe9f4fc7" name="a80bc592286d71922cb034ce2fe9f4fc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80bc592286d71922cb034ce2fe9f4fc7">&#9670;&#160;</a></span>areaRadiusMeters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Spell::areaRadiusMeters = 0.0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le rayon de la <b>sphère</b> que le sort remplit, en mètres ; 0 : une seule cible. </p>
+
+</div>
+</div>
 <a id="a0ce39b883f1a89efd5d5fbfae2f78133" name="a0ce39b883f1a89efd5d5fbfae2f78133"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ce39b883f1a89efd5d5fbfae2f78133">&#9670;&#160;</a></span>attackRoll</h2>
 
@@ -205,6 +236,38 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vrai pour un sort qui demande un jet d'attaque de sort contre la CA. </p>
+
+</div>
+</div>
+<a id="a64e565cba9ae7e96144566338768a1e1" name="a64e565cba9ae7e96144566338768a1e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64e565cba9ae7e96144566338768a1e1">&#9670;&#160;</a></span>autoHit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Spell::autoHit = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai pour un sort qui touche <b>sans jet</b> (<em>projectile magique</em>). </p>
+
+</div>
+</div>
+<a id="a71e940e1fb387e671ec0b0f55d675fe4" name="a71e940e1fb387e671ec0b0f55d675fe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71e940e1fb387e671ec0b0f55d675fe4">&#9670;&#160;</a></span>cantripScaling</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Spell::cantripScaling = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai pour un sort mineur dont les dés montent aux niveaux 5, 11 et 17 du lanceur (Manuel, « Tours de magie »). </p>
 
 </div>
 </div>
@@ -278,6 +341,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a5832a54bd6b2c3aebb89a14afd450ec0" name="a5832a54bd6b2c3aebb89a14afd450ec0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5832a54bd6b2c3aebb89a14afd450ec0">&#9670;&#160;</a></span>effect</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1SpellEffect.html">SpellEffect</a>&gt; core::Spell::effect</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'effet qui dure, si le sort en pose un que le moteur sait jouer. </p>
+
+</div>
+</div>
 <a id="a301a7c0b55d9cc325db6f654d8a884f4" name="a301a7c0b55d9cc325db6f654d8a884f4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a301a7c0b55d9cc325db6f654d8a884f4">&#9670;&#160;</a></span>id</h2>
 
@@ -335,6 +414,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Déclaré sans mécanisme joué (<span class="tt">EX-RPG-051</span>). </p>
+
+</div>
+</div>
+<a id="a3da3a4de808e16a6384b5994834b2457" name="a3da3a4de808e16a6384b5994834b2457"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3da3a4de808e16a6384b5994834b2457">&#9670;&#160;</a></span>projectiles</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Spell::projectiles = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le nombre de projectiles ou de rayons, chacun ses dés — et son jet s'il en demande un. </p>
 
 </div>
 </div>
@@ -398,6 +493,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a547c0ff2dcbaf49273c984aadad33c7b" name="a547c0ff2dcbaf49273c984aadad33c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a547c0ff2dcbaf49273c984aadad33c7b">&#9670;&#160;</a></span>saveEffect</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a66591e3012ab5919cc621550ff6720e1">SaveEffect</a> core::Spell::saveEffect = <a class="el" href="namespacecore.html#a66591e3012ab5919cc621550ff6720e1abf2979df229a6a9fa42ae6b60d0f0b1e">SaveEffect::Negates</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce qu'une sauvegarde réussie fait des dégâts. </p>
+
+</div>
+</div>
 <a id="a2ea5964597cc155ee0e7394182bee591" name="a2ea5964597cc155ee0e7394182bee591"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ea5964597cc155ee0e7394182bee591">&#9670;&#160;</a></span>savingThrow</h2>
 
@@ -440,6 +551,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="abbb6dc3d250ba8933584e8ac5c2a9975" name="abbb6dc3d250ba8933584e8ac5c2a9975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbb6dc3d250ba8933584e8ac5c2a9975">&#9670;&#160;</a></span>target</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ec">SpellTarget</a> core::Spell::target = <a class="el" href="namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3eca8c6d21187fb58b7a079d70030686b33e">SpellTarget::Enemy</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a56ecbd7a015e9e599a1e5b3169369595" name="a56ecbd7a015e9e599a1e5b3169369595"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a56ecbd7a015e9e599a1e5b3169369595">&#9670;&#160;</a></span>text</h2>
 
@@ -451,6 +576,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c459861e4bdc81512449c80911114ec" name="a5c459861e4bdc81512449c80911114ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c459861e4bdc81512449c80911114ec">&#9670;&#160;</a></span>unsupportedArea</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Spell::unsupportedArea</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une forme de zone que le moteur ne sait pas poser (cône, ligne…) : le sort n'est pas joué. </p>
 
 </div>
 </div>

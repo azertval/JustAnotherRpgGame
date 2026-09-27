@@ -11,6 +11,7 @@ var structcore_1_1CombatantProfile =
     [ "maximumHitPoints", "structcore_1_1CombatantProfile.html#a5e599dd45695ea84581951275664d614", null ],
     [ "movement", "structcore_1_1CombatantProfile.html#a39bdcb49ec9955df4be07f7c7a812824", null ],
     [ "name", "structcore_1_1CombatantProfile.html#ac5cb9015587c83a1875e39b5d6fd4227", null ],
+    [ "savingThrows", "structcore_1_1CombatantProfile.html#a71158ae5717a4c88f4fa558cfdac2c62", null ],
     [ "side", "structcore_1_1CombatantProfile.html#a032fe17fa529b1a5d47c96bf8139bcc5", null ],
     [ "size", "structcore_1_1CombatantProfile.html#a025818f10d93efa6ad3544b9f5d0c908", null ]
 ];

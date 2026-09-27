@@ -223,6 +223,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aee8ca6f077852d4866fe08c7834712fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les réserves d'un combattant, pour que le pipeline les consomme.  <br /></td></tr>
 <tr class="memitem:accaddc06b725f6bc88576a494c14701f" id="r_accaddc06b725f6bc88576a494c14701f"><td class="memItemLeft"><a class="el" href="structcore_1_1Mover.html">Mover</a>&#160;</td><td class="memItemRight"><a class="el" href="#accaddc06b725f6bc88576a494c14701f">moverFor</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant) const</td></tr>
 <tr class="memdesc:accaddc06b725f6bc88576a494c14701f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <span class="tt"><a class="el" href="structcore_1_1Mover.html" title="Qui se déplace, comment, et à travers qui.">core::Mover</a></span> d'un combattant, droit de passage compris.  <br /></td></tr>
+<tr class="memitem:a8cb719ae3543214095a84b337e674a5b" id="r_a8cb719ae3543214095a84b337e674a5b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8cb719ae3543214095a84b337e674a5b">setLocomotion</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant, <a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a> locomotion, int movement)</td></tr>
+<tr class="memdesc:a8cb719ae3543214095a84b337e674a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change la manière dont <code class="param">combatant</code> se déplace et son budget par tour — le <em>vol</em> d'un sort (<span class="tt">LOT-133</span>), et sa fin.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -1391,6 +1393,36 @@ Sans héros unique</h2>
 </div><div class="memdoc">
 
 <p>Permet ou interdit la fuite des alliés — recopié de la rencontre. </p>
+
+</div>
+</div>
+<a id="a8cb719ae3543214095a84b337e674a5b" name="a8cb719ae3543214095a84b337e674a5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cb719ae3543214095a84b337e674a5b">&#9670;&#160;</a></span>setLocomotion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CombatState::setLocomotion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>combatant</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff">Locomotion</a></td>          <td class="paramname"><span class="paramname"><em>locomotion</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>movement</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change la manière dont <code class="param">combatant</code> se déplace et son budget par tour — le <em>vol</em> d'un sort (<span class="tt">LOT-133</span>), et sa fin. </p>
+<p>Ce qu'il a déjà marché ce tour reste dépensé : il gagne la différence des budgets, ou la perd. Un octroi en cours (<em>se précipiter</em>) est gardé.</p>
+<dl class="section return"><dt>Returns</dt><dd>Faux si le combattant est inconnu. </dd></dl>
 
 </div>
 </div>

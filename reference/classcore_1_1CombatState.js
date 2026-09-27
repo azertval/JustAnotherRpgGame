@@ -44,6 +44,7 @@ var classcore_1_1CombatState =
     [ "round", "classcore_1_1CombatState.html#a776b38369177ac00b08247954993c0d9", null ],
     [ "running", "classcore_1_1CombatState.html#a20bd1b31111e341582b808664570a07a", null ],
     [ "setEscapable", "classcore_1_1CombatState.html#a1a0b7643e2a1ad8a1b3ab5262dec6c0b", null ],
+    [ "setLocomotion", "classcore_1_1CombatState.html#a8cb719ae3543214095a84b337e674a5b", null ],
     [ "settle", "classcore_1_1CombatState.html#ae34d81af106fe34f4bbaef2d07db203f", null ],
     [ "spend", "classcore_1_1CombatState.html#a5b6c2527f4086d3e128ecccf78889768", null ],
     [ "start", "classcore_1_1CombatState.html#a311f1bd4157e775aaa91f3fc8c43d2bb", null ],

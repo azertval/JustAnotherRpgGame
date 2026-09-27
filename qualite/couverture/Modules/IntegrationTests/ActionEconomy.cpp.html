@@ -29,8 +29,8 @@ namespace core {
 
 <span style = "background-color:#dfd">void ActionEconomy::declare(std::string_view id, int perTurn) {
     const int allowance = std::max(perTurn, 0);
-    if (ActionResource* existing = find(id)) {</span>
-<span style = "background-color:#fdd">        existing-&gt;perTurn = allowance;
+    if (ActionResource* existing = find(id)) {
+        existing-&gt;perTurn = allowance;
         existing-&gt;remaining = allowance;
         return;</span>
     }

@@ -72,6 +72,7 @@
 
 #include "Core/Combat/Attack.h"
 #include "Core/Rpg/CharacterOptions.h"
+#include "Core/Rpg/Spell.h"
 
 namespace core {
 
@@ -108,12 +109,11 @@ struct ArenaEntryPoint {
 [[nodiscard]] std::vector&lt;ArenaEntryPoint&gt; arenaEntryPoints(const Level&amp; level);
 
 /**
- * @brief Un sort tel qu'un combattant le lance dans l'arÃ¨ne (`LOT-131`) : son attaque, et ses
- *        lancers restants dans la journÃ©e.
+ * @brief Un sort tel qu'un combattant le lance dans l'arÃ¨ne (`LOT-131`, `LOT-133`) : son
+ *        mÃ©canisme, ce qu'il lui faut pour le jouer, et ses lancers restants dans la journÃ©e.
  *
- * Ce lot ne joue que les sorts Ã  **jet d'attaque** (`core::isAttackSpell`) ; les autres attendent
- * leurs mÃ©canismes avec leur classe. Les lancers sont ceux de la fiche au moment du montage
- * (`core::KnownSpell`) : la session les dÃ©compte, et qui la tient les reporte sur la fiche.
+ * Les lancers sont ceux de la fiche au moment du montage (`core::KnownSpell`) : la session les
+ * dÃ©compte, et qui la tient les reporte sur la fiche.
  */
 struct ArenaSpell {
     std::string id;
@@ -122,13 +122,56 @@ struct ArenaSpell {
     int level = 0;
     /// Lancers restants ; `-1` : Ã  volontÃ©.
     int uses = -1;
-    /// L'attaque de sort : modificateur de la caractÃ©ristique d'incantation, maÃ®trise, dÃ©s, portÃ©e.
+    /// Comment le moteur le joue (`core::spellMechanism`).
+    SpellMechanism mechanism = SpellMechanism::AttackRoll;
+    /**
+     * @brief Le profil du sort : sa portÃ©e et ses dÃ©s, et pour un sort Ã  jet d'attaque le
+     *        modificateur de la caractÃ©ristique d'incantation et la maÃ®trise
+     *        (`core::spellProfileFor`).
+     */
     AttackProfile attack;
+    /// Qui il peut viser.
+    SpellTarget target = SpellTarget::Enemy;
+    /// Projectiles ou rayons, chacun ses dÃ©s et son jet.
+    int projectiles = 1;
+    /// La caractÃ©ristique de la sauvegarde qu'il demande.
+    std::optional&lt;Ability&gt; save;
+    /// Son degrÃ© de difficultÃ© : 8 + maÃ®trise + modificateur d'incantation (*Player's Guide*,
+    /// p. 197).
+    int saveDc = 0;
+    SaveEffect saveEffect = SaveEffect::Negates;
+    /// Le rayon de sa sphÃ¨re, en cases ; 0 : une seule cible.
+    int areaRadius = 0;
+    /// L'effet qui dure qu'il pose.
+    std::optional&lt;SpellEffect&gt; effect;
+    /// Sous concentration : un second sort de concentration met fin au premier.
+    bool concentration = false;
 
     /// @brief Vrai si le sort se lance encore.
 <span style = "background-color:#dfd">    [[nodiscard]] bool available() const noexcept {
         return uses != 0;
     }</span>
+};
+
+/**
+ * @brief Un effet de sort qui dure, sur un combattant (`LOT-133`) : le *vol*, l'invisibilitÃ©.
+ *
+ * Il prend fin Ã  l'Ã©chÃ©ance de sa durÃ©e, quand son lanceur se concentre sur un autre sort ou
+ * tombe, ou â l'invisibilitÃ© â quand son porteur attaque ou lance un sort ; le journal Ã©crit
+ * Â« fin de l'effet â¦ (raison) Â».
+ */
+struct ArenaEffect {
+    CombatantId bearer{};
+    CombatantId caster{};
+    SpellEffectKind kind = SpellEffectKind::Fly;
+    /// Le sort qui le pose, tel que le journal le nomme.
+    std::string source;
+    bool concentration = false;
+    /// Rounds restants ; `-1` : jusqu'Ã  la fin du combat.
+    int roundsLeft = -1;
+    /// `Fly` : ce que le porteur avait avant de voler, rendu Ã  la fin de l'effet.
+    Locomotion previousLocomotion = Locomotion::Walk;
+    int previousMovement = 0;
 };
 
 /// @brief Un combattant tel que l'Ã©cran de mise en place le compose.
@@ -222,7 +265,10 @@ enum class ArenaActionResult : std::uint8_t {
 /// @brief Une attaque jouÃ©e dans l'arÃ¨ne : le refus, ou l'attaque rÃ©solue.
 struct ArenaAttack {
     ArenaActionResult result = ArenaActionResult::InvalidTarget;
+    /// Le premier jet d'attaque, s'il y en a eu un : un sort sans jet n'en a pas.
     std::optional&lt;AttackOutcome&gt; outcome;
+    /// La ligne du journal qui dit l'action, ce qu'un Ã©cran affiche : l'attaque, le sort.
+    std::string summary;
 };
 
 /**
@@ -285,13 +331,32 @@ public:
     /// @return Les capacitÃ©s de classe d'un combattant enrÃ´lÃ© ; vide s'il n'en a pas.
     [[nodiscard]] std::span&lt;const Capacity&gt; capacitiesOf(CombatantId combatant) const;
 
+    /// @return Les effets de sort qui durent, dans l'ordre oÃ¹ ils ont Ã©tÃ© posÃ©s.
+    [[nodiscard]] const std::vector&lt;ArenaEffect&gt;&amp; effects() const noexcept {
+        return _effects;
+    }
+
+    /// @brief Vrai si @p combatant porte un effet de sort de ce genre.
+    [[nodiscard]] bool hasEffect(CombatantId combatant, SpellEffectKind kind) const;
+
     /**
      * @brief L'action *lancer un sort* du combattant actif, avec son sort @p spellIndex
-     *        (`LOT-131`, `EX-RPG-025`).
+     *        (`LOT-131`, `LOT-133`, `EX-RPG-025`).
      *
-     * Un sort Ã©puisÃ© est refusÃ© (`Exhausted`) **avant** toute dÃ©pense ; sinon mÃªme chemin qu'une
-     * attaque â cible, portÃ©e, vue, action â, puis un lancer de moins. Le journal prÃ©fixe la ligne
-     * de Â« sort : Â».
+     * Un sort Ã©puisÃ© est refusÃ© (`Exhausted`) **avant** toute dÃ©pense. La cible doit Ãªtre celle
+     * que le sort vise (`SpellTarget`) : une crÃ©ature hostile, une de son camp, ou soi. Puis la
+     * portÃ©e et la vue, l'action, un lancer de moins, et le mÃ©canisme :
+     *
+     * - **jet d'attaque** : un jet par projectile, comme une attaque ; les rayons qui restent
+     *   quand la cible tombe sont perdus, et le journal le dit ;
+     * - **sans jet** : les dÃ©s de chaque projectile, en une salve ;
+     * - **sauvegarde** : les dÃ©s lancÃ©s **une fois**, puis chaque crÃ©ature de la sphÃ¨re â alliÃ©s
+     *   et lanceur compris â ou la cible seule jette sa sauvegarde contre le DD du lanceur ; une
+     *   rÃ©ussite annule ou divise par deux, selon le sort ;
+     * - **effet** : posÃ© sur la cible, jusqu'Ã  sa fin (`ArenaEffect`).
+     *
+     * Lancer un sort met fin Ã  l'invisibilitÃ© du lanceur ; un sort de concentration met fin Ã 
+     * celui qu'il tenait. Le journal prÃ©fixe la ligne de Â« sort Â».
      */
     ArenaAttack castSpell(CombatantId target, std::size_t spellIndex);
 
@@ -447,6 +512,20 @@ private:
         std::vector&lt;CombatantId&gt;&amp; reactors) const;
     /// Branche sur @p hooks les effets des capacitÃ©s de @p attacker : bonus au jet, dÃ©s en plus.
     void hookCapacities(AttackHooks&amp; hooks, CombatantId attacker);
+    /// Un jet d'attaque par projectile, une fois la cible, la portÃ©e et l'action vÃ©rifiÃ©es.
+    ArenaAttack castAttackRolls(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
+                                const std::string&amp; prefix);
+    /// Les dÃ©s de chaque projectile, sans jet, en une salve.
+    ArenaAttack castAutoHit(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
+                            const std::string&amp; prefix);
+    /// Les dÃ©s lancÃ©s une fois, puis une sauvegarde par crÃ©ature atteinte.
+    ArenaAttack castSavingThrow(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
+                                const std::string&amp; prefix);
+    /// L'effet qui dure, posÃ© sur la cible.
+    ArenaAttack castEffect(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
+                           const std::string&amp; prefix);
+    /// Met fin aux effets qui rÃ©pondent Ã  @p ends, en rendant ce qu'ils avaient pris, et l'Ã©crit.
+    void endEffects(const std::function&lt;bool(const ArenaEffect&amp;)&gt;&amp; ends, const std::string&amp; reason);
     /// Les attaques d'opportunitÃ© de @p reactors contre @p mover, tant qu'il est debout, que le
     /// combat dure et que l'opportuniste l'est aussi.
     void takeOpportunities(CombatantId mover, const std::vector&lt;CombatantId&gt;&amp; reactors);
@@ -466,13 +545,15 @@ private:
     DamagePipeline _damagePipeline;
     std::set&lt;CombatantId&gt; _dodging;
     std::set&lt;CombatantId&gt; _disengaged;
+    std::vector&lt;ArenaEffect&gt; _effects;
     std::vector&lt;std::string&gt; _journal;
 };
 
 /**
- * @brief Les sorts qu'une fiche sait lancer dans l'arÃ¨ne (`LOT-131`) : ceux qu'elle connaÃ®t
- *        (`CharacterSheet::knownSpells`) et que le moteur sait jouer (`core::isAttackSpell`),
- *        avec leurs lancers restants et l'attaque de sort de sa classe.
+ * @brief Les sorts qu'une fiche sait lancer dans l'arÃ¨ne (`LOT-131`, `LOT-133`) : ceux qu'elle
+ *        connaÃ®t (`CharacterSheet::knownSpells`) et que le moteur sait jouer
+ *        (`core::spellMechanism`), avec leurs lancers restants, le profil de sort de sa classe et
+ *        son degrÃ© de difficultÃ©.
  *
  * @param sheet La fiche du lanceur : ses sorts connus et leurs lancers restants.
  * @param playableClass Sa classe, pour la caractÃ©ristique d'incantation.

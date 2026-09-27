@@ -157,7 +157,9 @@ Classes</h2></td></tr>
 <tr class="memitem:ArenaEntryPoint" id="r_ArenaEntryPoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaEntryPoint.html">ArenaEntryPoint</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un point d'entrée de l'arène : une case, un camp, un rang d'appel.  <a href="structcore_1_1ArenaEntryPoint.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ArenaSpell" id="r_ArenaSpell"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sort tel qu'un combattant le lance dans l'arène (<span class="tt">LOT-131</span>) : son attaque, et ses lancers restants dans la journée.  <a href="structcore_1_1ArenaSpell.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sort tel qu'un combattant le lance dans l'arène (<span class="tt">LOT-131</span>, <span class="tt">LOT-133</span>) : son mécanisme, ce qu'il lui faut pour le jouer, et ses lancers restants dans la journée.  <a href="structcore_1_1ArenaSpell.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ArenaEffect" id="r_ArenaEffect"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaEffect.html">ArenaEffect</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un effet de sort qui dure, sur un combattant (<span class="tt">LOT-133</span>) : le <em>vol</em>, l'invisibilité.  <a href="structcore_1_1ArenaEffect.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ArenaContestant" id="r_ArenaContestant"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaContestant.html">ArenaContestant</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combattant tel que l'écran de mise en place le compose.  <a href="structcore_1_1ArenaContestant.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ArenaBout" id="r_ArenaBout"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaBout.html">ArenaBout</a></td></tr>
@@ -547,6 +549,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une compétence et la caractéristique dont elle dépend.  <a href="structcore_1_1SkillDefinition.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SkillCatalog" id="r_SkillCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SkillCatalog.html">SkillCatalog</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les compétences chargées, et ce qui n'a pas pu l'être.  <a href="structcore_1_1SkillCatalog.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SpellEffect" id="r_SpellEffect"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SpellEffect.html">SpellEffect</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un effet qui dure, posé par un sort.  <a href="structcore_1_1SpellEffect.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Spell" id="r_Spell"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Spell.html">Spell</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sort, tel que <span class="tt">spell.schema.json</span> l'écrit.  <a href="structcore_1_1Spell.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SpellCatalog" id="r_SpellCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SpellCatalog.html">SpellCatalog</a></td></tr>
@@ -1105,6 +1109,25 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:ae6c6faeaa28aa7b90280f4dc39237204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie de taille d'une créature (<span class="tt">EX-CNT-011</span>).  <a href="#ae6c6faeaa28aa7b90280f4dc39237204">More...</a><br /></td></tr>
+<tr class="memitem:ae0c0027156a24e64ca36dcb6e379b3ec" id="r_ae0c0027156a24e64ca36dcb6e379b3ec"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ae0c0027156a24e64ca36dcb6e379b3ec">SpellTarget</a> : std::uint8_t { <a class="el" href="#ae0c0027156a24e64ca36dcb6e379b3eca8c6d21187fb58b7a079d70030686b33e">Enemy</a>
+, <a class="el" href="#ae0c0027156a24e64ca36dcb6e379b3eca0dd87782600574e2f791bcfe639d4fcc">Ally</a>
+, <a class="el" href="#ae0c0027156a24e64ca36dcb6e379b3ecaad6e7652b1bdfb38783486c2c3d5e806">Self</a>
+ }</td></tr>
+<tr class="memdesc:ae0c0027156a24e64ca36dcb6e379b3ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qui un sort peut viser (<span class="tt">LOT-133</span>).  <a href="#ae0c0027156a24e64ca36dcb6e379b3ec">More...</a><br /></td></tr>
+<tr class="memitem:a66591e3012ab5919cc621550ff6720e1" id="r_a66591e3012ab5919cc621550ff6720e1"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a66591e3012ab5919cc621550ff6720e1">SaveEffect</a> : std::uint8_t { <a class="el" href="#a66591e3012ab5919cc621550ff6720e1abf2979df229a6a9fa42ae6b60d0f0b1e">Negates</a>
+, <a class="el" href="#a66591e3012ab5919cc621550ff6720e1ac48615a1bc4197056d522af276aa5a85">Half</a>
+ }</td></tr>
+<tr class="memdesc:a66591e3012ab5919cc621550ff6720e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une sauvegarde réussie fait des dégâts d'un sort.  <a href="#a66591e3012ab5919cc621550ff6720e1">More...</a><br /></td></tr>
+<tr class="memitem:a949e652a2fd4c81697cb49b39cd45a99" id="r_a949e652a2fd4c81697cb49b39cd45a99"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99">SpellEffectKind</a> : std::uint8_t { <a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99aac51deb7d2c3f9663a6df72c7c9b2b51">Fly</a>
+, <a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f">Invisible</a>
+ }</td></tr>
+<tr class="memdesc:a949e652a2fd4c81697cb49b39cd45a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les effets qui durent qu'un sort pose sur une créature, et que le moteur sait jouer.  <a href="#a949e652a2fd4c81697cb49b39cd45a99">More...</a><br /></td></tr>
+<tr class="memitem:a6eee9bc9a9ca2edde9d16a7a6281144b" id="r_a6eee9bc9a9ca2edde9d16a7a6281144b"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144b">SpellMechanism</a> : std::uint8_t { <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144ba8589ce3fdba93ae0fa91574412b1f0b5">AttackRoll</a>
+, <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144ba25f61a28f33b14bb363490241f18ef77">AutoHit</a>
+, <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d">SavingThrow</a>
+, <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa">Effect</a>
+ }</td></tr>
+<tr class="memdesc:a6eee9bc9a9ca2edde9d16a7a6281144b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les mécanismes de sort que le moteur sait jouer en combat.  <a href="#a6eee9bc9a9ca2edde9d16a7a6281144b">More...</a><br /></td></tr>
 <tr class="memitem:aee1e9954e6e76342687aaa9dcf3cbc5a" id="r_aee1e9954e6e76342687aaa9dcf3cbc5a"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aee1e9954e6e76342687aaa9dcf3cbc5a">RegionGrade</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="#aee1e9954e6e76342687aaa9dcf3cbc5aa89655e31f5f56a0f7860c4a85b7e9752">VeryLow</a> = 0
 , <a class="el" href="#aee1e9954e6e76342687aaa9dcf3cbc5aa28d0edd045e05cf5af64e35ae0c4c6ef">Low</a>
@@ -1265,13 +1288,17 @@ Functions</h2></td></tr>
 <tr class="memitem:a91e905d2d65ad1c9a0916752b0fd9b95" id="r_a91e905d2d65ad1c9a0916752b0fd9b95"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ArenaEntryPoint.html">ArenaEntryPoint</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a91e905d2d65ad1c9a0916752b0fd9b95">arenaEntryPoints</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level)</td></tr>
 <tr class="memdesc:a91e905d2d65ad1c9a0916752b0fd9b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points d'entrée d'une carte, rangés par camp, rang, puis position.  <br /></td></tr>
 <tr class="memitem:a7195d9f7d6b4f5e48eb604871553d6f9" id="r_a7195d9f7d6b4f5e48eb604871553d6f9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7195d9f7d6b4f5e48eb604871553d6f9">arenaSpellsFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> &amp;playableClass, const <a class="el" href="structcore_1_1SpellCatalog.html">SpellCatalog</a> &amp;spells, int <a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>, std::vector&lt; std::string &gt; &amp;skipped)</td></tr>
-<tr class="memdesc:a7195d9f7d6b4f5e48eb604871553d6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts qu'une fiche sait lancer dans l'arène (<span class="tt">LOT-131</span>) : ceux qu'elle connaît (<span class="tt"><a class="el" href="structcore_1_1CharacterSheet.html#aa50a06bbc0a1771f5931244a0b9e583c" title="Les sorts connus et leurs lancers restants dans la journée (EX-RPG-025).">CharacterSheet::knownSpells</a></span>) et que le moteur sait jouer (<span class="tt"><a class="el" href="#acda21c95fdff4cecac87781e5ea4cbce" title="Vrai si le moteur sait jouer ce sort comme une attaque : jet d&#39;attaque, dés et type de dégâts.">core::isAttackSpell</a></span>), avec leurs lancers restants et l'attaque de sort de sa classe.  <br /></td></tr>
+<tr class="memdesc:a7195d9f7d6b4f5e48eb604871553d6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts qu'une fiche sait lancer dans l'arène (<span class="tt">LOT-131</span>, <span class="tt">LOT-133</span>) : ceux qu'elle connaît (<span class="tt"><a class="el" href="structcore_1_1CharacterSheet.html#aa50a06bbc0a1771f5931244a0b9e583c" title="Les sorts connus et leurs lancers restants dans la journée (EX-RPG-025).">CharacterSheet::knownSpells</a></span>) et que le moteur sait jouer (<span class="tt"><a class="el" href="#aaad5d2aff3f5506f00ce7a09ff8b418e" title="Le mécanisme par lequel le moteur joue ce sort, ou std::nullopt s&#39;il n&#39;en a aucun : un sort narratif,...">core::spellMechanism</a></span>), avec leurs lancers restants, le profil de sort de sa classe et son degré de difficulté.  <br /></td></tr>
+<tr class="memitem:a6492cf00497924279c0f171546cbed96" id="r_a6492cf00497924279c0f171546cbed96"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a6492cf00497924279c0f171546cbed96">abilityLabel</a> (<a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> ability) noexcept</td></tr>
+<tr class="memdesc:a6492cf00497924279c0f171546cbed96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nom français d'une caractéristique, tel que le journal l'écrit : « Dexterite ».  <br /></td></tr>
 <tr class="memitem:a9f790045523fda834167bed21d202dd3" id="r_a9f790045523fda834167bed21d202dd3"><td class="memItemLeft"><a class="el" href="structcore_1_1CreatureAttacks.html">CreatureAttacks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9f790045523fda834167bed21d202dd3">attacksFor</a> (const <a class="el" href="structcore_1_1Creature.html">Creature</a> &amp;creature)</td></tr>
 <tr class="memdesc:a9f790045523fda834167bed21d202dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les attaques d'un bloc de bestiaire : chaque action qui a un bonus d'attaque et des dégâts.  <br /></td></tr>
 <tr class="memitem:a1881c42c8483587a6baa65c336a230c2" id="r_a1881c42c8483587a6baa65c336a230c2"><td class="memItemLeft"><a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1881c42c8483587a6baa65c336a230c2">weaponAttackFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1Weapon.html">Weapon</a> *weapon, int <a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>, bool proficient=true)</td></tr>
 <tr class="memdesc:a1881c42c8483587a6baa65c336a230c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'attaque d'un personnage avec une arme, ou à mains nues si <code class="param">weapon</code> est nul.  <br /></td></tr>
 <tr class="memitem:a871311984840c7991c36bb370786fe1e" id="r_a871311984840c7991c36bb370786fe1e"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a871311984840c7991c36bb370786fe1e">spellAttackFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell, <a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> ability, int <a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>)</td></tr>
 <tr class="memdesc:a871311984840c7991c36bb370786fe1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'attaque d'un <b>sort à jet d'attaque</b> (<span class="tt">LOT-131</span>, <span class="tt">EX-RPG-025</span>) : <em>fire bolt</em>.  <br /></td></tr>
+<tr class="memitem:a0edd9f28abc7ed83a7df586b4ece79ad" id="r_a0edd9f28abc7ed83a7df586b4ece79ad"><td class="memItemLeft"><a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0edd9f28abc7ed83a7df586b4ece79ad">spellProfileFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell, <a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> ability, int <a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>)</td></tr>
+<tr class="memdesc:a0edd9f28abc7ed83a7df586b4ece79ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le profil d'<b>un</b> sort quel que soit son mécanisme (<span class="tt">LOT-133</span>) : sa portée, ses dés au niveau du lanceur, et le jet d'attaque de sort s'il en demande un.  <br /></td></tr>
 <tr class="memitem:acc72525dbecb690d39a4f7ebe97423b5" id="r_acc72525dbecb690d39a4f7ebe97423b5"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acc72525dbecb690d39a4f7ebe97423b5">thrownAttackFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1Weapon.html">Weapon</a> &amp;weapon, int <a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>, bool proficient=true)</td></tr>
 <tr class="memdesc:acc72525dbecb690d39a4f7ebe97423b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'attaque d'une arme <b>lancée</b> — dague, hachette, javeline —, si elle a la propriété <span class="tt">thrown</span>.  <br /></td></tr>
 <tr class="memitem:ad19e2dfeb2158624471c2a07e5a776e6" id="r_ad19e2dfeb2158624471c2a07e5a776e6"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad19e2dfeb2158624471c2a07e5a776e6">gridDistanceFrom</a> (const <a class="el" href="classcore_1_1CombatState.html">CombatState</a> &amp;combat, <a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> mover, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> moverAnchor, <a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> other)</td></tr>
@@ -1288,6 +1315,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a4f1692682e25dadb017d37ca0a42e9aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jette le d20 d'une attaque : crochets, dés, amendements, puis l'issue.  <br /></td></tr>
 <tr class="memitem:ab1a4d741effe8706e8261be043b9224a" id="r_ab1a4d741effe8706e8261be043b9224a"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1AttackOutcome.html">AttackOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab1a4d741effe8706e8261be043b9224a">resolveAttack</a> (<a class="el" href="classcore_1_1CombatState.html">CombatState</a> &amp;combat, <a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> attacker, <a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> &amp;profile, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random, const <a class="el" href="structcore_1_1AttackContext.html">AttackContext</a> &amp;context={})</td></tr>
 <tr class="memdesc:ab1a4d741effe8706e8261be043b9224a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résout une attaque dans le combat : déclaration, jet, dégâts, points de vie.  <br /></td></tr>
+<tr class="memitem:afef55f3fdbd88dfb9bcb035e462af405" id="r_afef55f3fdbd88dfb9bcb035e462af405"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#afef55f3fdbd88dfb9bcb035e462af405">describeDamage</a> (const std::vector&lt; <a class="el" href="structcore_1_1RolledDamage.html">RolledDamage</a> &gt; &amp;damage, const std::optional&lt; <a class="el" href="structcore_1_1DamageReport.html">DamageReport</a> &gt; &amp;report)</td></tr>
+<tr class="memdesc:afef55f3fdbd88dfb9bcb035e462af405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés de dégâts lancés et ce que la cible en a reçu, tels que le journal les écrit : « ; degats 1d4+1 : 3+1 = 4 force ; resistance (force ; X) 4 -&gt; 2 ; PV 10 -&gt; 8 ».  <br /></td></tr>
 <tr class="memitem:a64de19e2c29ae4e9c60441599e61d808" id="r_a64de19e2c29ae4e9c60441599e61d808"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a64de19e2c29ae4e9c60441599e61d808">footprintSide</a> (<a class="el" href="#ae6c6faeaa28aa7b90280f4dc39237204">CreatureSize</a> size) noexcept</td></tr>
 <tr class="memdesc:a64de19e2c29ae4e9c60441599e61d808"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en cases, de l'emprise d'une créature de taille <code class="param">size</code>.  <br /></td></tr>
 <tr class="memitem:a331ece5830ae73d553faf88ddecc116c" id="r_a331ece5830ae73d553faf88ddecc116c"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1AttackPreview.html">AttackPreview</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a331ece5830ae73d553faf88ddecc116c">previewAttack</a> (const <a class="el" href="classcore_1_1ArenaSession.html">ArenaSession</a> &amp;session, <a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> target, std::size_t attackIndex)</td></tr>
@@ -1296,8 +1325,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:aa16398d9f2424d88762163aa2bfe850e"><td class="mdescLeft">&#160;</td><td class="mdescRight">La première attaque du combattant actif qui peut viser <code class="param">target</code> — celle que le geste « attaquer » choisit quand le joueur n'en a pas désigné.  <br /></td></tr>
 <tr class="memitem:ac10191346bb1e11cc0c720ea9f4a5c79" id="r_ac10191346bb1e11cc0c720ea9f4a5c79"><td class="memItemLeft"><a class="el" href="structcore_1_1MovePreview.html">MovePreview</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac10191346bb1e11cc0c720ea9f4a5c79">previewMove</a> (const <a class="el" href="classcore_1_1ArenaSession.html">ArenaSession</a> &amp;session, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> destination)</td></tr>
 <tr class="memdesc:ac10191346bb1e11cc0c720ea9f4a5c79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le déplacement du combattant actif jusqu'à <code class="param">destination</code>.  <br /></td></tr>
-<tr class="memitem:a781adb33ce539ef59c9ed60f57e51901" id="r_a781adb33ce539ef59c9ed60f57e51901"><td class="memItemLeft"><a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a>&#160;</td><td class="memItemRight"><a class="el" href="#a781adb33ce539ef59c9ed60f57e51901">profileFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, <a class="el" href="#a5de8069e593ab57dab3a12c60b40b717">CombatSide</a> side=<a class="el" href="#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">CombatSide::Allies</a>)</td></tr>
-<tr class="memdesc:a781adb33ce539ef59c9ed60f57e51901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le profil d'un personnage : ses points de vie courants, sa Dextérité, sa vitesse.  <br /></td></tr>
+<tr class="memitem:aaf88a4a4366d6a6ec1735e663041105f" id="r_aaf88a4a4366d6a6ec1735e663041105f"><td class="memItemLeft"><a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaf88a4a4366d6a6ec1735e663041105f">profileFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, <a class="el" href="#a5de8069e593ab57dab3a12c60b40b717">CombatSide</a> side=<a class="el" href="#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">CombatSide::Allies</a>, int <a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>=0)</td></tr>
+<tr class="memdesc:aaf88a4a4366d6a6ec1735e663041105f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le profil d'un personnage : ses points de vie courants, sa Dextérité, sa vitesse, ses sauvegardes.  <br /></td></tr>
 <tr class="memitem:a42dc4a900c3340d179d7270def49fde9" id="r_a42dc4a900c3340d179d7270def49fde9"><td class="memItemLeft"><a class="el" href="structcore_1_1CombatantProfile.html">CombatantProfile</a>&#160;</td><td class="memItemRight"><a class="el" href="#a42dc4a900c3340d179d7270def49fde9">profileFor</a> (const <a class="el" href="structcore_1_1Creature.html">Creature</a> &amp;creature, <a class="el" href="#a5de8069e593ab57dab3a12c60b40b717">CombatSide</a> side=<a class="el" href="#a5de8069e593ab57dab3a12c60b40b717af181304e789fd0882df5cb02d232fc69">CombatSide::Enemies</a>)</td></tr>
 <tr class="memdesc:a42dc4a900c3340d179d7270def49fde9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le profil d'une créature du bestiaire.  <br /></td></tr>
 <tr class="memitem:a5921fce291ef1e0650a91c91bc158a3e" id="r_a5921fce291ef1e0650a91c91bc158a3e"><td class="memItemLeft"><a class="el" href="structcore_1_1EncounterMount.html">EncounterMount</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5921fce291ef1e0650a91c91bc158a3e">mountEncounter</a> (<a class="el" href="classcore_1_1CombatState.html">CombatState</a> &amp;combat, const <a class="el" href="structcore_1_1EncounterRun.html">EncounterRun</a> &amp;run, const <a class="el" href="structcore_1_1Bestiary.html">Bestiary</a> &amp;bestiary, std::span&lt; const <a class="el" href="structcore_1_1PartyMember.html">PartyMember</a> &gt; party)</td></tr>
@@ -1715,6 +1744,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:af48cbccac960ef036b33c5e543a990cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les sorts depuis leur dossier (<span class="tt">Source/Elements/Rpg/spells</span>).  <br /></td></tr>
 <tr class="memitem:acda21c95fdff4cecac87781e5ea4cbce" id="r_acda21c95fdff4cecac87781e5ea4cbce"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acda21c95fdff4cecac87781e5ea4cbce">isAttackSpell</a> (const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell) noexcept</td></tr>
 <tr class="memdesc:acda21c95fdff4cecac87781e5ea4cbce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le moteur sait jouer ce sort comme une <b>attaque</b> : jet d'attaque, dés et type de dégâts.  <br /></td></tr>
+<tr class="memitem:a8b37e659ff44dc3fc970f38e35aad322" id="r_a8b37e659ff44dc3fc970f38e35aad322"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a8b37e659ff44dc3fc970f38e35aad322">spellEffectKindName</a> (<a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99">SpellEffectKind</a> kind) noexcept</td></tr>
+<tr class="memdesc:a8b37e659ff44dc3fc970f38e35aad322"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de donnée d'un genre d'effet de sort (<span class="tt">fly</span>…), celui du schéma.  <br /></td></tr>
+<tr class="memitem:aaad5d2aff3f5506f00ce7a09ff8b418e" id="r_aaad5d2aff3f5506f00ce7a09ff8b418e"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144b">SpellMechanism</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaad5d2aff3f5506f00ce7a09ff8b418e">spellMechanism</a> (const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell) noexcept</td></tr>
+<tr class="memdesc:aaad5d2aff3f5506f00ce7a09ff8b418e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mécanisme par lequel le moteur joue ce sort, ou <span class="tt">std::nullopt</span> s'il n'en a aucun : un sort narratif, un sort qui exige un mécanisme absent, une zone qui n'est pas une sphère.  <br /></td></tr>
+<tr class="memitem:a31bfc1e994e6b387ed3038d535d241f2" id="r_a31bfc1e994e6b387ed3038d535d241f2"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Dice.html">Dice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a31bfc1e994e6b387ed3038d535d241f2">spellDamageAt</a> (const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;spell, int casterLevel) noexcept</td></tr>
+<tr class="memdesc:a31bfc1e994e6b387ed3038d535d241f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés d'un sort au niveau <code class="param">casterLevel</code> du lanceur : un dé de plus aux niveaux 5, 11 et 17 pour un sort mineur qui le déclare (<span class="tt">cantripScaling</span>), les dés du sort sinon.  <br /></td></tr>
 <tr class="memitem:ab4aa0ab49f1c6aa68a857e65576a2832" id="r_ab4aa0ab49f1c6aa68a857e65576a2832"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ab4aa0ab49f1c6aa68a857e65576a2832">regionGradeName</a> (<a class="el" href="#aee1e9954e6e76342687aaa9dcf3cbc5a">RegionGrade</a> grade)</td></tr>
 <tr class="memdesc:ab4aa0ab49f1c6aa68a857e65576a2832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nom d'une note, tel que le schéma l'écrit (<span class="tt">veryLow</span>, <span class="tt">normal</span>, …).  <br /></td></tr>
 <tr class="memitem:ae11b18a52cca73be017c8bd2989a79b9" id="r_ae11b18a52cca73be017c8bd2989a79b9"><td class="memItemLeft">std::optional&lt; <a class="el" href="#aee1e9954e6e76342687aaa9dcf3cbc5a">RegionGrade</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae11b18a52cca73be017c8bd2989a79b9">regionGradeFromName</a> (std::string_view name)</td></tr>
@@ -2089,7 +2124,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"> </div>
 <div class="line">std::function&lt;bool(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1ArenaSession.html">ArenaSession</a>&amp;, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> reactor, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> mover)&gt;</div>
-<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:228</div></div>
+<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:274</div></div>
 <div class="ttc" id="anamespacecore_html_a91235fd72a18c305c494723774630841"><div class="ttname"><a href="#a91235fd72a18c305c494723774630841">core::CombatantId</a></div><div class="ttdeci">CombatantId</div><div class="ttdoc">Identifiant d&#39;un combattant sur la grille.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:38</div></div>
 </div><!-- fragment -->
 <p>Décide si <code class="param">reactor</code> prend l'attaque d'opportunité que <code class="param">mover</code> lui offre. </p>
@@ -4056,6 +4091,36 @@ L'altitude est un attribut, jamais une géométrie</h2>
 
 </div>
 </div>
+<a id="a66591e3012ab5919cc621550ff6720e1" name="a66591e3012ab5919cc621550ff6720e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66591e3012ab5919cc621550ff6720e1">&#9670;&#160;</a></span>SaveEffect</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a66591e3012ab5919cc621550ff6720e1">core::SaveEffect</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'une sauvegarde réussie fait des dégâts d'un sort. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a66591e3012ab5919cc621550ff6720e1abf2979df229a6a9fa42ae6b60d0f0b1e" name="a66591e3012ab5919cc621550ff6720e1abf2979df229a6a9fa42ae6b60d0f0b1e"></a>Negates&#160;</td><td class="fielddoc"><p>Rien : la cible qui réussit ne subit rien (<em>flamme sacrée</em>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a66591e3012ab5919cc621550ff6720e1ac48615a1bc4197056d522af276aa5a85" name="a66591e3012ab5919cc621550ff6720e1ac48615a1bc4197056d522af276aa5a85"></a>Half&#160;</td><td class="fielddoc"><p>La moitié, arrondie à l'inférieur (<em>boule de feu</em>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="a4a3860a249c1a2e07497950f57f4d461" name="a4a3860a249c1a2e07497950f57f4d461"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a3860a249c1a2e07497950f57f4d461">&#9670;&#160;</a></span>ScenePieceClass</h2>
 
@@ -4117,6 +4182,102 @@ L'altitude est un attribut, jamais une géométrie</h2>
 <tr><td class="fieldname"><a id="a79edc6fa3ed0d05e7bad4f1756e2fbccae41199faa7290c167f70f314c5e6c165" name="a79edc6fa3ed0d05e7bad4f1756e2fbccae41199faa7290c167f70f314c5e6c165"></a>ParseError&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a79edc6fa3ed0d05e7bad4f1756e2fbcca0f89bc98e9b12bdeda0604e57bdc0518" name="a79edc6fa3ed0d05e7bad4f1756e2fbcca0f89bc98e9b12bdeda0604e57bdc0518"></a>UnsupportedVersion&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a79edc6fa3ed0d05e7bad4f1756e2fbccaa809debdbe0cae246d363461916d924d" name="a79edc6fa3ed0d05e7bad4f1756e2fbccaa809debdbe0cae246d363461916d924d"></a>MalformedStructure&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a949e652a2fd4c81697cb49b39cd45a99" name="a949e652a2fd4c81697cb49b39cd45a99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a949e652a2fd4c81697cb49b39cd45a99">&#9670;&#160;</a></span>SpellEffectKind</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99">core::SpellEffectKind</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les effets qui durent qu'un sort pose sur une créature, et que le moteur sait jouer. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a949e652a2fd4c81697cb49b39cd45a99aac51deb7d2c3f9663a6df72c7c9b2b51" name="a949e652a2fd4c81697cb49b39cd45a99aac51deb7d2c3f9663a6df72c7c9b2b51"></a>Fly&#160;</td><td class="fielddoc"><p>La créature vole, à la vitesse que l'effet donne (<em>vol</em>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f" name="a949e652a2fd4c81697cb49b39cd45a99a8bcda43732b0928d269955e0f09ff76f"></a>Invisible&#160;</td><td class="fielddoc"><p>La créature est invisible : attaquée avec désavantage, elle attaque avec avantage ; l'effet cesse quand elle attaque ou lance un sort (<em>invisibilité</em>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a6eee9bc9a9ca2edde9d16a7a6281144b" name="a6eee9bc9a9ca2edde9d16a7a6281144b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eee9bc9a9ca2edde9d16a7a6281144b">&#9670;&#160;</a></span>SpellMechanism</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144b">core::SpellMechanism</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les mécanismes de sort que le moteur sait jouer en combat. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144ba8589ce3fdba93ae0fa91574412b1f0b5" name="a6eee9bc9a9ca2edde9d16a7a6281144ba8589ce3fdba93ae0fa91574412b1f0b5"></a>AttackRoll&#160;</td><td class="fielddoc"><p>Un jet d'attaque de sort par projectile (<em>trait de feu</em>, <em>rayon ardent</em>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144ba25f61a28f33b14bb363490241f18ef77" name="a6eee9bc9a9ca2edde9d16a7a6281144ba25f61a28f33b14bb363490241f18ef77"></a>AutoHit&#160;</td><td class="fielddoc"><p>Des dés par projectile, sans jet (<em>projectile magique</em>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d" name="a6eee9bc9a9ca2edde9d16a7a6281144bac45ea9cc5c098638ec989e069c3e5d1d"></a>SavingThrow&#160;</td><td class="fielddoc"><p>Un jet de sauvegarde de chaque cible, sur une créature ou dans une sphère (<em>boule de feu</em>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa" name="a6eee9bc9a9ca2edde9d16a7a6281144baa62d22910732d5343689f5117999abfa"></a>Effect&#160;</td><td class="fielddoc"><p>Un effet qui dure, posé sur une créature (<em>vol</em>, <em>invisibilité</em>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ae0c0027156a24e64ca36dcb6e379b3ec" name="ae0c0027156a24e64ca36dcb6e379b3ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0c0027156a24e64ca36dcb6e379b3ec">&#9670;&#160;</a></span>SpellTarget</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ae0c0027156a24e64ca36dcb6e379b3ec">core::SpellTarget</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Qui un sort peut viser (<span class="tt">LOT-133</span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae0c0027156a24e64ca36dcb6e379b3eca8c6d21187fb58b7a079d70030686b33e" name="ae0c0027156a24e64ca36dcb6e379b3eca8c6d21187fb58b7a079d70030686b33e"></a>Enemy&#160;</td><td class="fielddoc"><p>Une créature hostile : les sorts qui blessent. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae0c0027156a24e64ca36dcb6e379b3eca0dd87782600574e2f791bcfe639d4fcc" name="ae0c0027156a24e64ca36dcb6e379b3eca0dd87782600574e2f791bcfe639d4fcc"></a>Ally&#160;</td><td class="fielddoc"><p>Une créature de son camp, soi compris : les sorts qui aident (<em>vol</em>, <em>invisibilité</em>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ae0c0027156a24e64ca36dcb6e379b3ecaad6e7652b1bdfb38783486c2c3d5e806" name="ae0c0027156a24e64ca36dcb6e379b3ecaad6e7652b1bdfb38783486c2c3d5e806"></a>Self&#160;</td><td class="fielddoc"><p>Le lanceur seul. </p>
+</td></tr>
 </table>
 
 </div>
@@ -4459,6 +4620,33 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a6492cf00497924279c0f171546cbed96" name="a6492cf00497924279c0f171546cbed96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6492cf00497924279c0f171546cbed96">&#9670;&#160;</a></span>abilityLabel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::abilityLabel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a></td>          <td class="paramname"><span class="paramname"><em>caracteristique</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le nom français d'une caractéristique, tel que le journal l'écrit : « Dexterite ». </p>
+
+</div>
+</div>
 <a id="ab1f3cc471902daa6c652cd68eee0bcef" name="ab1f3cc471902daa6c652cd68eee0bcef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab1f3cc471902daa6c652cd68eee0bcef">&#9670;&#160;</a></span>abilityModifier()</h2>
 
@@ -5238,7 +5426,7 @@ Ce qu'elle ne vérifie pas</h2>
 </table>
 </div><div class="memdoc">
 
-<p>Les sorts qu'une fiche sait lancer dans l'arène (<span class="tt">LOT-131</span>) : ceux qu'elle connaît (<span class="tt"><a class="el" href="structcore_1_1CharacterSheet.html#aa50a06bbc0a1771f5931244a0b9e583c" title="Les sorts connus et leurs lancers restants dans la journée (EX-RPG-025).">CharacterSheet::knownSpells</a></span>) et que le moteur sait jouer (<span class="tt"><a class="el" href="#acda21c95fdff4cecac87781e5ea4cbce" title="Vrai si le moteur sait jouer ce sort comme une attaque : jet d&#39;attaque, dés et type de dégâts.">core::isAttackSpell</a></span>), avec leurs lancers restants et l'attaque de sort de sa classe. </p>
+<p>Les sorts qu'une fiche sait lancer dans l'arène (<span class="tt">LOT-131</span>, <span class="tt">LOT-133</span>) : ceux qu'elle connaît (<span class="tt"><a class="el" href="structcore_1_1CharacterSheet.html#aa50a06bbc0a1771f5931244a0b9e583c" title="Les sorts connus et leurs lancers restants dans la journée (EX-RPG-025).">CharacterSheet::knownSpells</a></span>) et que le moteur sait jouer (<span class="tt"><a class="el" href="#aaad5d2aff3f5506f00ce7a09ff8b418e" title="Le mécanisme par lequel le moteur joue ce sort, ou std::nullopt s&#39;il n&#39;en a aucun : un sort narratif,...">core::spellMechanism</a></span>), avec leurs lancers restants, le profil de sort de sa classe et son degré de difficulté. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sheet</td><td>La fiche du lanceur : ses sorts connus et leurs lancers restants. </td></tr>
@@ -7042,6 +7230,38 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="afef55f3fdbd88dfb9bcb035e462af405" name="afef55f3fdbd88dfb9bcb035e462af405"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afef55f3fdbd88dfb9bcb035e462af405">&#9670;&#160;</a></span>describeDamage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::describeDamage </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1RolledDamage.html">RolledDamage</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>damage</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; <a class="el" href="structcore_1_1DamageReport.html">DamageReport</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>report</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les dés de dégâts lancés et ce que la cible en a reçu, tels que le journal les écrit : « ; degats 1d4+1 : 3+1 = 4 force ; resistance (force ; X) 4 -&gt; 2 ; PV 10 -&gt; 8 ». </p>
+<p>La moitié de l'écriture d'une attaque (<span class="tt"><a class="el" href="structcore_1_1AttackOutcome.html#ab0969d0c7ca522d8bb90a10149a71750" title="L&#39;entrée de journal (EX-REG-003) : qui, quoi, le d20 et chaque modificateur avec son origine,...">AttackOutcome::describe</a></span>), réemployée par les sorts qui blessent sans jet d'attaque (<span class="tt">LOT-133</span>). </p>
+
+</div>
+</div>
 <a id="a1fe7c8d4dbc2fe8759a922819280749a" name="a1fe7c8d4dbc2fe8759a922819280749a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fe7c8d4dbc2fe8759a922819280749a">&#9670;&#160;</a></span>describeFlagCondition()</h2>
 
@@ -8797,7 +9017,6 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Vrai si le moteur sait jouer ce sort comme une <b>attaque</b> : jet d'attaque, dés et type de dégâts. </p>
-<p>C'est le seul mécanisme de sort de ce lot. </p>
 
 </div>
 </div>
@@ -11734,8 +11953,8 @@ Les places</h2>
 
 </div>
 </div>
-<a id="a781adb33ce539ef59c9ed60f57e51901" name="a781adb33ce539ef59c9ed60f57e51901"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a781adb33ce539ef59c9ed60f57e51901">&#9670;&#160;</a></span>profileFor() <span class="overload">[1/2]</span></h2>
+<a id="aaf88a4a4366d6a6ec1735e663041105f" name="aaf88a4a4366d6a6ec1735e663041105f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf88a4a4366d6a6ec1735e663041105f">&#9670;&#160;</a></span>profileFor() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -11751,7 +11970,12 @@ Les places</h2>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a5de8069e593ab57dab3a12c60b40b717">CombatSide</a></td>          <td class="paramname"><span class="paramname"><em>side</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">CombatSide::Allies</a></span>&#160;)</td>
+          <td class="paramtype"><a class="el" href="#a5de8069e593ab57dab3a12c60b40b717">CombatSide</a></td>          <td class="paramname"><span class="paramname"><em>side</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a5de8069e593ab57dab3a12c60b40b717a4ff52320ad589c7346c8562c2c715fd6">CombatSide::Allies</a></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>proficiencyBonus</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -11761,8 +11985,16 @@ Les places</h2>
 </table>
 </div><div class="memdoc">
 
-<p>Le profil d'un personnage : ses points de vie courants, sa Dextérité, sa vitesse. </p>
-<p>La fiche ne porte pas de taille : un personnage est de taille M jusqu'à ce qu'elle en porte une. </p>
+<p>Le profil d'un personnage : ses points de vie courants, sa Dextérité, sa vitesse, ses sauvegardes. </p>
+<p>La fiche ne porte pas de taille : un personnage est de taille M jusqu'à ce qu'elle en porte une.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sheet</td><td>La fiche. </td></tr>
+    <tr><td class="paramname">side</td><td>Son camp. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1" title="Le bonus de maîtrise de la fiche, lu dans la table au niveau courant.">proficiencyBonus</a></td><td>Le bonus de maîtrise à son niveau, ajouté aux sauvegardes qu'il maîtrise ; 0 laisse les modificateurs nus. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -13240,6 +13472,142 @@ Les places</h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Vide si le sort n'est pas un sort d'attaque (<span class="tt"><a class="el" href="#acda21c95fdff4cecac87781e5ea4cbce" title="Vrai si le moteur sait jouer ce sort comme une attaque : jet d&#39;attaque, dés et type de dégâts.">core::isAttackSpell</a></span>). </dd></dl>
+
+</div>
+</div>
+<a id="a31bfc1e994e6b387ed3038d535d241f2" name="a31bfc1e994e6b387ed3038d535d241f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31bfc1e994e6b387ed3038d535d241f2">&#9670;&#160;</a></span>spellDamageAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structcore_1_1Dice.html">Dice</a> &gt; core::spellDamageAt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>spell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>casterLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les dés d'un sort au niveau <code class="param">casterLevel</code> du lanceur : un dé de plus aux niveaux 5, 11 et 17 pour un sort mineur qui le déclare (<span class="tt">cantripScaling</span>), les dés du sort sinon. </p>
+
+</div>
+</div>
+<a id="a8b37e659ff44dc3fc970f38e35aad322" name="a8b37e659ff44dc3fc970f38e35aad322"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b37e659ff44dc3fc970f38e35aad322">&#9670;&#160;</a></span>spellEffectKindName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::spellEffectKindName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a949e652a2fd4c81697cb49b39cd45a99">SpellEffectKind</a></td>          <td class="paramname"><span class="paramname"><em>kind</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nom de donnée d'un genre d'effet de sort (<span class="tt">fly</span>…), celui du schéma. </p>
+
+</div>
+</div>
+<a id="aaad5d2aff3f5506f00ce7a09ff8b418e" name="aaad5d2aff3f5506f00ce7a09ff8b418e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaad5d2aff3f5506f00ce7a09ff8b418e">&#9670;&#160;</a></span>spellMechanism()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="#a6eee9bc9a9ca2edde9d16a7a6281144b">SpellMechanism</a> &gt; core::spellMechanism </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>spell</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le mécanisme par lequel le moteur joue ce sort, ou <span class="tt">std::nullopt</span> s'il n'en a aucun : un sort narratif, un sort qui exige un mécanisme absent, une zone qui n'est pas une sphère. </p>
+
+</div>
+</div>
+<a id="a0edd9f28abc7ed83a7df586b4ece79ad" name="a0edd9f28abc7ed83a7df586b4ece79ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0edd9f28abc7ed83a7df586b4ece79ad">&#9670;&#160;</a></span>spellProfileFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a> core::spellProfileFor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Spell.html">Spell</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>spell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a></td>          <td class="paramname"><span class="paramname"><em>ability</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>proficiencyBonus</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le profil d'<b>un</b> sort quel que soit son mécanisme (<span class="tt">LOT-133</span>) : sa portée, ses dés au niveau du lanceur, et le jet d'attaque de sort s'il en demande un. </p>
+<p>Ce que la session lit pour viser (portée, abri) et pour blesser (dés et type, marqués <span class="tt"><a class="el" href="structcore_1_1Spell.html" title="Un sort, tel que spell.schema.json l&#39;écrit.">Spell</a></span> et <span class="tt">Magical</span>). Un sort <b>au contact</b> (1,50 m) vise à une case ; un sort <b>personnel</b> n'a pas de portée et ne vise que son lanceur. Les dés d'un sort mineur montent avec le niveau de la fiche (<span class="tt"><a class="el" href="#a31bfc1e994e6b387ed3038d535d241f2" title="Les dés d&#39;un sort au niveau casterLevel du lanceur : un dé de plus aux niveaux 5, 11 et 17 pour un so...">core::spellDamageAt</a></span>).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sheet</td><td>La fiche du lanceur : sa caractéristique d'incantation, son niveau. </td></tr>
+    <tr><td class="paramname">spell</td><td>Le sort, tel que le catalogue le décrit. </td></tr>
+    <tr><td class="paramname">ability</td><td>La caractéristique d'incantation de la classe. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1" title="Le bonus de maîtrise de la fiche, lu dans la table au niveau courant.">proficiencyBonus</a></td><td>Le bonus de maîtrise au niveau de la fiche. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
