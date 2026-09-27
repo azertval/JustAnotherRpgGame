@@ -22,6 +22,7 @@
  */
 
 #include <optional>
+#include <span>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -46,8 +47,11 @@ struct MapEncounterSetup {
     CombatZone zone;
     /// La carte réduite à la zone : la grille tactique.
     Level battlefield;
-    /// Où le héros se dresse, en cases de la grille.
+    /// Où le héros — le meneur du groupe — se dresse, en cases de la grille : `partyCells.front()`.
     GridPosition heroCell{};
+    /// Où chaque membre du groupe se dresse, dans l'ordre de marche (`LOT-139`) : le meneur
+    /// d'abord, puis ses suiveurs. Jamais vide.
+    std::vector<GridPosition> partyCells;
     /// La rencontre engagée ; ses `placements` sont en cases de la grille.
     EncounterRun run;
     /// Ce qui a dû être déplacé pour tenir dans la zone, en clair : lu par le journal.
@@ -79,7 +83,10 @@ struct MapEncounterResult {
  * ## Les places
  *
  * Le héros garde sa case si elle est dans la zone et libre ; sinon la case libre de la zone la
- * plus proche de lui. Chaque combattant de la rencontre garde la case que sa formation lui donne
+ * plus proche de lui. Chaque **suiveur** du groupe (`LOT-139`) garde de même la case où
+ * l'exploration l'a laissé — dans les pas du meneur —, ou la case libre la plus proche : le
+ * groupe entre en combat **là où il marche**, en file derrière son meneur, et non dans une
+ * formation inventée. Chaque combattant de la rencontre garde la case que sa formation lui donne
  * autour du déclencheur (`core::placeCombatants`) si elle est dans la zone, libre et inoccupée ;
  * sinon la case libre la plus proche de celle qu'il voulait. Une place déplacée se note : le
  * journal du combat le dira, plutôt que de laisser croire que la formation a été respectée.
@@ -88,10 +95,19 @@ struct MapEncounterResult {
  * @param mapId         Son identifiant : les clés de drapeau et les refus le citent.
  * @param encounter     La rencontre, telle que la donnée la décrit.
  * @param trigger       La case du déclencheur (le PNJ qui lance le combat, l'entité `encounter`).
- * @param heroCell      La case du héros au moment du déclenchement.
+ * @param partyCells    Les cases du groupe au moment du déclenchement, meneur d'abord ; au moins
+ *                      une.
  * @param exploration   L'état d'exploration à retrouver ensuite.
  * @param defeatFlagKey Le drapeau qu'une victoire acquerra, ou une chaîne vide.
  */
+[[nodiscard]] MapEncounterResult prepareMapEncounter(const Level& map, std::string_view mapId,
+                                                     const Encounter& encounter,
+                                                     GridPosition trigger,
+                                                     std::span<const GridPosition> partyCells,
+                                                     const ExplorationSnapshot& exploration,
+                                                     std::string defeatFlagKey);
+
+/// @brief Un héros seul en @p heroCell : `prepareMapEncounter` avec un groupe d'un membre.
 [[nodiscard]] MapEncounterResult prepareMapEncounter(const Level& map, std::string_view mapId,
                                                      const Encounter& encounter,
                                                      GridPosition trigger, GridPosition heroCell,

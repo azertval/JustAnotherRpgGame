@@ -114,6 +114,8 @@ REGLES = {
     'heroic-marks': 'heroic-marks',
     # L'IA tactique (LOT-23) : les poids des profils sont des donnees (EX-VIS-007).
     'behaviors': 'behaviors',
+    # Le budget d'une rencontre (LOT-139) : seuils, multiplicateurs et PX par indice.
+    'encounter-difficulty': 'encounter-difficulty',
 }
 
 # Énumération fermée d'un schéma ↔ catégorie du lexique. `equivalence` exige l'égalité des deux

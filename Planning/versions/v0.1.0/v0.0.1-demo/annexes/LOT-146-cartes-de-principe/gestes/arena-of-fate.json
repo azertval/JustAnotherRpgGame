@@ -2622,7 +2622,7 @@
     "e6"
    ],
    "set": {
-    "encounterId": "arene-combattant",
+    "encounterId": "arene-bandits",
     "presenceFlag": "quete.pommes",
     "presenceTest": "equals",
     "presenceValue": "condamne"

@@ -65,9 +65,28 @@ QString PartyModel::sheetValue(const QString& characterId, const std::string& ke
     return value != sheet->second.end() ? toQt(value->second) : QString::fromUtf8(EMPTY_MARK);
 }
 
+QString PartyModel::hitPointsOf(const QString& characterId) const {
+    // Les points de vie de la fiche, ou ce que le dernier combat en a laisse (LOT-139) : le
+    // registre de la partie ne dit que le courant, le maximum reste celui de la fiche.
+    const QString ecrit = sheetValue(characterId, "sheet.hit_points");
+    const WorldModel* const world = WorldModel::current();
+    if (world == nullptr) {
+        return ecrit;
+    }
+    const core::MemberRecord* const record = world->ledger().record(characterId.toStdString());
+    if (record == nullptr || !record->hitPoints.has_value()) {
+        return ecrit;
+    }
+    const QStringList parts = ecrit.split(QLatin1Char('/'));
+    if (parts.size() != 2) {
+        return ecrit;
+    }
+    return QString::number(*record->hitPoints) + " / " + parts[1].trimmed();
+}
+
 QVariantMap PartyModel::withSheet(QVariantMap row) const {
     const QString id = row.value(QStringLiteral("id")).toString();
-    const QString hitPoints = sheetValue(id, "sheet.hit_points");
+    const QString hitPoints = hitPointsOf(id);
     row.insert(QStringLiteral("label"), row.value(QStringLiteral("name")));
     row.insert(QStringLiteral("value"), hitPoints);
     row.insert(QStringLiteral("ratio"), hitPointsRatio(hitPoints));
@@ -112,7 +131,7 @@ QString PartyModel::leaderLevel() const {
 
 QString PartyModel::leaderHitPoints() const {
     const WorldModel* const world = WorldModel::current();
-    return world != nullptr ? sheetValue(world->leaderId(), "sheet.hit_points") : QString{};
+    return world != nullptr ? hitPointsOf(world->leaderId()) : QString{};
 }
 
 int PartyModel::size() const {

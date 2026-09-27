@@ -1,0 +1,50 @@
+{
+  "id": "bandit-archer",
+  "name": "Bandit arbalétrier",
+  "source": "original",
+  "size": "medium",
+  "creatureType": "humanoïde",
+  "alignment": "chaotique neutre",
+  "silhouette": "humanoid",
+  "description": "Un bandit qui préfère l'arbalète légère au cimeterre : il tient ses distances, tire depuis le fond du sable et ne cherche le contact que lorsqu'on le lui impose, une dague à la main.",
+  "abilities": {
+    "strength": 11,
+    "dexterity": 12,
+    "constitution": 12,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10
+  },
+  "armorClass": 12,
+  "hitPoints": 11,
+  "hitDice": "2d8+2",
+  "speed": {
+    "walk": 9
+  },
+  "challengeRating": 0.125,
+  "senses": [
+    "Perception passive 10"
+  ],
+  "languages": [
+    "commun"
+  ],
+  "actions": [
+    {
+      "name": "Arbalète légère",
+      "text": "Attaque à distance avec une arme : +3 au toucher, portée 24/96 m, une cible. Touché : 5 (1d8 + 1) dégâts perforants.",
+      "attackBonus": 3,
+      "rangeNormal": 24,
+      "rangeLong": 96,
+      "damage": "1d8+1",
+      "damageType": "piercing"
+    },
+    {
+      "name": "Dague",
+      "text": "Attaque au corps à corps avec une arme : +3 au toucher, allonge 1,50 m, une cible. Touché : 3 (1d4 + 1) dégâts perforants.",
+      "attackBonus": 3,
+      "reach": 1.5,
+      "damage": "1d4+1",
+      "damageType": "piercing"
+    }
+  ]
+}

@@ -8,6 +8,8 @@
  */
 
 #include <algorithm>
+#include <array>
+#include <span>
 #include <string>
 #include <vector>
 
@@ -131,6 +133,56 @@ TEST(MapEncounterTest, UnePlaceImpossibleSeRapprocheEtSeNote) {
         EXPECT_TRUE(
             dehors.setup->zone.contains(core::zoneToMap(dehors.setup->zone, place.position)));
     }
+}
+
+/**
+ * @brief Le groupe entre en combat là où il marche (`LOT-139`) : chaque suiveur garde sa case, et
+ *        celui qui déborde de la zone prend la case libre la plus proche de la sienne.
+ * \castest{<b>Les cases du groupe se posent dans l'ordre de marche, sans partage.</b><br/>
+ * \tcat Unitaire · Combat sur la carte<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Preparer les loups, declenches en (14, 8), le groupe en (15, 10), (16, 10),
+ * (17, 10) et (22, 10) -- la derniere hors de la zone « cour ».<br/>2. Preparer avec un groupe
+ * vide.<br/>
+ * \tattendu Quatre cases, le meneur en (5, 5) de la grille, les deux suiveurs sur leurs cases,
+ * le quatrieme sur une case libre de la zone la plus proche de (22, 10) ; aucune case partagee,
+ * y compris avec les loups ; une note dit le suiveur deplace ; le groupe vide est refuse.
+ * }
+ */
+TEST(MapEncounterTest, LeGroupeEntreLaOuIlMarche) {
+    const std::array<core::GridPosition, 4> groupe{
+        core::GridPosition{.column = 15, .row = 10}, core::GridPosition{.column = 16, .row = 10},
+        core::GridPosition{.column = 17, .row = 10}, core::GridPosition{.column = 22, .row = 10}};
+    const core::MapEncounterResult resultat = core::prepareMapEncounter(
+        carte(), "essai", rencontre(), {.column = 14, .row = 8}, groupe, exploration(), {});
+    ASSERT_TRUE(resultat.ok()) << resultat.issue;
+    const core::MapEncounterSetup& montage = *resultat.setup;
+    ASSERT_EQ(montage.partyCells.size(), 4U);
+    EXPECT_EQ(montage.heroCell, montage.partyCells.front());
+    EXPECT_EQ(montage.partyCells[0], (core::GridPosition{.column = 5, .row = 5}));
+    EXPECT_EQ(montage.partyCells[1], (core::GridPosition{.column = 6, .row = 5}));
+    EXPECT_EQ(montage.partyCells[2], (core::GridPosition{.column = 7, .row = 5}));
+    const core::GridPosition dernier = core::zoneToMap(montage.zone, montage.partyCells[3]);
+    EXPECT_TRUE(montage.zone.contains(dernier));
+    // La case libre la plus proche, a la distance de la grille (Tchebychev) : le bord de la zone.
+    EXPECT_EQ(std::max(std::abs(dernier.column - 22), std::abs(dernier.row - 10)), 3);
+    std::vector<core::GridPosition> cases = montage.partyCells;
+    for (const core::CombatantPlacement& place : montage.run.placements) {
+        cases.push_back(place.position);
+    }
+    for (std::size_t i = 0; i < cases.size(); ++i) {
+        for (std::size_t j = i + 1; j < cases.size(); ++j) {
+            EXPECT_NE(cases[i], cases[j]) << "case partagee";
+        }
+    }
+    ASSERT_EQ(montage.notes.size(), 1U);
+    EXPECT_NE(montage.notes.front().find("suiveur 3"), std::string::npos);
+
+    const core::MapEncounterResult vide =
+        core::prepareMapEncounter(carte(), "essai", rencontre(), {.column = 14, .row = 8},
+                                  std::span<const core::GridPosition>{}, exploration(), {});
+    EXPECT_FALSE(vide.ok());
+    EXPECT_NE(vide.issue.find("groupe"), std::string::npos);
 }
 
 /**

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://justanotherrpggame.local/rpg/encounter-difficulty.schema.json",
+  "title": "Difficulte d'une rencontre de combat",
+  "description": "Le budget d'une rencontre (LOT-139) : les seuils de PX par niveau de personnage et par categorie de difficulte, le multiplicateur selon le nombre de monstres, et les PX que vaut chaque indice de dangerosite. Source : Guide du Maitre, << La difficulte d'une rencontre de combat >> p. 82-83, et << Les points d'experience en fonction de l'indice de dangerosite >> p. 274. Une rencontre se juge en sommant les seuils des membres du groupe, puis en comparant la somme des PX des monstres, multipliee, au seuil inferieur le plus proche.",
+  "allOf": [
+    {
+      "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/entree"
+    }
+  ],
+  "type": "object",
+  "properties": {
+    "id": true,
+    "name": true,
+    "source": true,
+    "status": true,
+    "asset": true,
+    "mecanismesRequis": true,
+    "narratif": true,
+    "categories": {
+      "type": "array",
+      "minItems": 2,
+      "description": "Les categories de difficulte, de la plus facile a la plus dure ; chacune est une cle des seuils. L'ordre est significatif : le verdict est la derniere categorie dont le seuil est atteint.",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "thresholds": {
+      "type": "array",
+      "minItems": 20,
+      "maxItems": 20,
+      "description": "Les seuils de PX d'un personnage, par niveau, un entier par categorie (p. 82).",
+      "items": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          }
+        },
+        "required": ["level"],
+        "additionalProperties": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "multipliers": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Les multiplicateurs de rencontre (p. 83) : a partir de `minMonsters` monstres, la somme de leurs PX est multipliee par `multiplier`. Croissants par nombre de monstres.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "minMonsters": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "multiplier": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": ["minMonsters", "multiplier"],
+        "additionalProperties": false
+      }
+    },
+    "smallPartyMultiplier": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Un groupe de moins de trois personnages prend le multiplicateur de la categorie superieure ; au-dela de la derniere, celui-ci (p. 83 : 5 pour quinze monstres ou plus)."
+    },
+    "largePartyMultiplier": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Un groupe de six personnages ou plus prend le multiplicateur de la categorie inferieure ; en deca de la premiere, celui-ci (p. 83 : 0,5 contre un monstre seul)."
+    },
+    "experienceByChallenge": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Les PX que vaut un monstre, par indice de dangerosite (p. 274). Un indice absent de la table vaut 0 PX : la rencontre est alors annoncee sans budget plutot que faussee.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "challengeRating": {
+            "type": "number",
+            "minimum": 0
+          },
+          "experience": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": ["challengeRating", "experience"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "source",
+    "categories",
+    "thresholds",
+    "multipliers",
+    "smallPartyMultiplier",
+    "largePartyMultiplier",
+    "experienceByChallenge"
+  ],
+  "additionalProperties": false
+}

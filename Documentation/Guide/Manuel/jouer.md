@@ -71,9 +71,11 @@ corps à corps, mais une Persuasion à −1 — la parole n'est pas son fort. Le
      voir sa mère. Raté, la réponse disparaît, et il ne reste que la suivante.
    - **Endosser** le vol — le garde vous emmène à sa place. Suivez-le : l'escalier de l'arène
      descend au **vestiaire A**, dont la porte se referme derrière vous.
-3. **Arena of Fate.** Montez sur le **sable** et parlez au **maître d'arène** : il lâche le
-   **combattant de l'arène**, seul contre vous. La victoire libère l'enfant et rouvre les portes ;
-   la défaite est **définitive**.
+3. **Arena of Fate.** Montez sur le **sable** et parlez au **maître d'arène** : il lâche
+   **six bandits** — trois au cimeterre, trois à l'arbalète — sur votre groupe, qui entre en
+   combat au complet, là où il se tient, à gauche du sable ; les bandits partent de la droite.
+   Chaque membre joue à son tour. La victoire libère l'enfant et rouvre les portes ; la défaite
+   est **définitive**.
 4. **Retour à Martpart** par les portails : l'enfant est auprès de sa mère, et le dernier dialogue
    clôt la démo.
 

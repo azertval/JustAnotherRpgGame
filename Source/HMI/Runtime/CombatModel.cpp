@@ -147,11 +147,16 @@ CombatModel::~CombatModel() = default;
 
 std::optional<HeroContestantSource> CombatModel::loadHeroSource(
     std::vector<std::string>& problems) {
-    // Le heros de la demo, par le meme chemin que la fiche : un seul chargement, une seule verite
-    // sur ce qu'il porte (LOT-87, LOT-112).
-    const DemonstrationState demonstration = loadDemonstrationState();
+    return loadHeroSource(playedCharacterFile(), problems);
+}
+
+std::optional<HeroContestantSource> CombatModel::loadHeroSource(
+    const std::filesystem::path& characterFile, std::vector<std::string>& problems) {
+    // Le heros, par le meme chemin que la fiche : un seul chargement, une seule verite sur ce
+    // qu'il porte (LOT-87, LOT-112).
+    const DemonstrationState demonstration = loadDemonstrationState(characterFile);
     if (demonstration.sheet.name.empty()) {
-        problems.emplace_back("personnage de demonstration absent");
+        problems.emplace_back("fiche absente ou illisible : " + characterFile.string());
         return std::nullopt;
     }
     HeroContestantSource hero{

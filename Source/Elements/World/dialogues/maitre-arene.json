@@ -19,7 +19,7 @@
     {
       "id": "engage",
       "type": "action",
-      "actions": [{ "type": "startEncounter", "encounter": "arene-combattant" }],
+      "actions": [{ "type": "startEncounter", "encounter": "arene-bandits" }],
       "next": "fin"
     },
     {

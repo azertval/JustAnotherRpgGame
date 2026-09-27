@@ -1239,9 +1239,9 @@
     {
       "id": "e6",
       "type": "encounter",
-      "x": 23,
+      "x": 25,
       "y": 10,
-      "encounterId": "arene-combattant",
+      "encounterId": "arene-bandits",
       "presenceFlag": "quete.pommes",
       "presenceTest": "equals",
       "presenceValue": "condamne",

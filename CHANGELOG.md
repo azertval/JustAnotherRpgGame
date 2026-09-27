@@ -6,6 +6,23 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-139 — Le combat de groupe.** Les **quatre** entrent en combat, là où l'exploration les a
+  laissés — le meneur garde sa case, chaque suiveur la sienne dans ses pas, ou la case libre la
+  plus proche (`core::prepareMapEncounter` prend les cases du groupe) —, et chacun est **joué par
+  le joueur à son tour** d'initiative, par les gestes du HUD de combat ; l'IA ne joue que les
+  ennemis. Le portrait en avant est celui du membre dont c'est le tour, la case du groupe du cadre
+  suit (`EncounterModel.partyMembers`, `activeMember`). Le combat **laisse aux fiches** ce qu'il
+  en reste (`core::PartyLedger`, tenu par la partie) : points de vie, lancers de sorts ; un membre
+  à terre à la victoire se relève à 1 PV ; un membre **mort** quitte le groupe et ne suit plus.
+  La **prise en tenaille** se joue sur la carte. L'IA **répartit ses coups** : elle n'achève pas
+  un personnage à terre tant qu'un autre la menace au contact. Le **budget d'une rencontre**
+  (`core::rateEncounter`, `Rpg/rules/encounter-difficulty.json`) juge une rencontre contre le
+  groupe par la méthode du *Guide du Maître* (p. 82-83, 274). La démo change de combat : le
+  maître d'arène lâche **six bandits** (`arene-bandits`, trois au cimeterre, trois à l'arbalète,
+  créatures `bandit` et `bandit-archer`), qui partent du côté droit du sable, une rencontre
+  **difficile** au budget pour le groupe de départ — le groupe joué par l'IA, à l'arme seule, la
+  gagne une fois sur deux ; la rencontre `arene-combattant` est retirée.
+
 - **LOT-145 — Le mannequin humanoïde aux quatre orientations, et les portraits des alliés.** Le
   mannequin humanoïde a désormais ses 24 bandes orientées (SE, SW, NE, NW ; repos, marche,
   attaque, sort, touché, mort, huit images), installées par `install_hd_asset.py` ; les bandes sans

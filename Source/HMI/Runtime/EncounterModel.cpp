@@ -3,6 +3,8 @@
 
 #include "HMI/Runtime/EncounterModel.h"
 
+#include <QUrl>
+#include <QVariantMap>
 #include <algorithm>
 #include <chrono>
 #include <cstdint>
@@ -14,6 +16,7 @@
 #include "Core/Combat/Encounter.h"
 #include "Core/Combat/EnemyAi.h"
 #include "Core/Rpg/Bestiary.h"
+#include "Core/Rpg/Party.h"
 #include "Core/Rpg/Scale.h"
 #include "Core/World/ExplorationSession.h"
 #include "HMI/Game/CombatContestants.h"
@@ -30,9 +33,10 @@ struct EncounterModel::Catalogs {
     core::Bestiary bestiary;
     core::EncounterCatalog encounters;
     core::BehaviorCatalog behaviors;
-    std::optional<HeroContestantSource> hero;
-    /// La fiche d'où le héros a été lu : le meneur du groupe à ce moment-là (`LOT-138`).
-    std::filesystem::path heroFile;
+    /// Les fiches du groupe lues comme sources de combattant (`LOT-139`), par fichier : une fiche
+    /// se lit à sa première rencontre, pleine ; ce que les combats en ont laissé est dans le
+    /// registre de la partie, appliqué au montage.
+    std::map<std::string, HeroContestantSource> heroes;
 };
 
 namespace {
@@ -44,6 +48,18 @@ EncounterModel*& rencontreCourante() noexcept {
 
 [[nodiscard]] QString toQt(const std::string& text) {
     return QString::fromStdString(text);
+}
+
+// Les points de vie « 12 / 15 » d'un combattant, et leur part.
+[[nodiscard]] QString hitPointsText(const core::CombatantProfile& profile) {
+    return QString::number(profile.currentHitPoints) + " / " +
+           QString::number(profile.maximumHitPoints);
+}
+
+[[nodiscard]] double hitPointsRatioOf(const core::CombatantProfile& profile) {
+    return std::clamp(
+        static_cast<double>(profile.currentHitPoints) / std::max(1, profile.maximumHitPoints), 0.0,
+        1.0);
 }
 
 [[nodiscard]] QString outcomeName(core::CombatOutcome outcome) {
@@ -74,24 +90,22 @@ void logCatalogErrors(const std::string& prefix, const std::vector<std::string>&
     }
 }
 
-// La clé de drapeau de la rencontre posée sur la case @p trigger, s'il y en a une. Une entité
-// `encounter` posée là se combat une fois : sa clé de drapeau la fait disparaître pour de bon
-// (`core::encounterTriggerFor`). Un combat engagé par un dialogue n'a pas de clé : ce sont les
-// drapeaux de la quête qui en tirent les conséquences (LOT-116).
-[[nodiscard]] std::string defeatFlagKeyAt(const core::Level& map, const std::string& mapId,
-                                          const core::GridPosition& trigger,
-                                          const core::Encounter& encounter) {
+// L'entité `encounter` de la carte qui porte @p encounter, s'il y en a une : c'est LA que la
+// rencontre paraît -- sa formation s'écrit autour d'elle, et l'éditeur la contrôle là (LOT-146,
+// LOT-139) --, que le combat soit engagé en marchant dessus ou par un dialogue. Une entité posée
+// se combat une fois : sa clé de drapeau la fait disparaître pour de bon
+// (`core::encounterTriggerFor`). Sans entité, un combat engagé par un dialogue n'a pas de clé :
+// ce sont les drapeaux de la quête qui en tirent les conséquences (LOT-116).
+[[nodiscard]] std::optional<core::EncounterTrigger> encounterMarkerFor(
+    const core::Level& map, const std::string& mapId, const core::Encounter& encounter) {
     for (const core::MapEntity& entity : map.entities()) {
-        if (entity.position != trigger) {
-            continue;
-        }
         if (const std::optional<core::EncounterTrigger> declencheur =
                 core::encounterTriggerFor(entity, mapId);
             declencheur.has_value() && declencheur->encounterId == encounter.id) {
-            return declencheur->defeatFlagKey;
+            return declencheur;
         }
     }
-    return {};
+    return std::nullopt;
 }
 
 }  // namespace
@@ -125,16 +139,7 @@ const core::BehaviorCatalog* EncounterModel::behaviors() const {
 
 bool EncounterModel::ensureCatalogs() {
     if (_catalogs != nullptr) {
-        // Le meneur a change depuis la derniere rencontre (LOT-138) : c'est lui qui combat, et
-        // seul le heros se relit -- le bestiaire n'a pas bouge.
-        if (const std::filesystem::path meneur = playedCharacterFile();
-            meneur != _catalogs->heroFile) {
-            std::vector<std::string> problemes;
-            _catalogs->hero = loadHeroSource(problemes);
-            _catalogs->heroFile = meneur;
-            logCatalogErrors("", problemes);
-        }
-        return _catalogs->hero.has_value();
+        return true;
     }
     auto catalogs = std::make_unique<Catalogs>();
     catalogs->bestiary = core::loadBestiary(_contentRoot / "Rpg" / "creatures");
@@ -144,15 +149,49 @@ bool EncounterModel::ensureCatalogs() {
     logCatalogErrors("bestiaire, ", catalogs->bestiary.errors);
     logCatalogErrors("catalogue, ", catalogs->encounters.errors);
     logCatalogErrors("profils de comportement, ", catalogs->behaviors.errors);
-    std::vector<std::string> problemes;
-    catalogs->heroFile = playedCharacterFile();
-    catalogs->hero = loadHeroSource(problemes);
-    logCatalogErrors("", problemes);
     if (catalogs->behaviors.profiles.empty()) {
         HMI_LOG_WARNING("Rencontre : aucun profil d'IA, les ennemis ne joueront pas.");
     }
     _catalogs = std::move(catalogs);
-    return _catalogs->hero.has_value();
+    return true;
+}
+
+std::vector<std::pair<std::string, HeroContestantSource>> EncounterModel::partySources(
+    const WorldModel& world) {
+    // Les quatre entrent en combat (LOT-139), dans l'ordre de marche : chaque fiche se lit une
+    // fois, et le registre de la partie dit ce que les combats precedents en ont laisse.
+    std::vector<std::pair<std::string, HeroContestantSource>> sources;
+    for (const std::string& membre : world.party().members()) {
+        const auto candidat =
+            std::ranges::find(world.candidates(), membre, &core::PartyCandidate::id);
+        if (candidat == world.candidates().end()) {
+            HMI_LOG_WARNING("Rencontre : membre du groupe sans fiche, " + membre);
+            continue;
+        }
+        const std::string fichier = candidat->file.string();
+        auto lue = _catalogs->heroes.find(fichier);
+        if (lue == _catalogs->heroes.end()) {
+            std::vector<std::string> problemes;
+            std::optional<HeroContestantSource> source = loadHeroSource(candidat->file, problemes);
+            logCatalogErrors("", problemes);
+            if (!source.has_value()) {
+                continue;
+            }
+            lue = _catalogs->heroes.emplace(fichier, std::move(*source)).first;
+        }
+        HeroContestantSource source = lue->second;
+        if (const core::MemberRecord* const record = world.ledger().record(membre)) {
+            core::applyRecord(source.sheet, *record);
+            for (core::ArenaSpell& sort : source.spells) {
+                const auto restant = record->spellUses.find(sort.id);
+                if (restant != record->spellUses.end() && sort.uses >= 0) {
+                    sort.uses = std::max(0, restant->second);
+                }
+            }
+        }
+        sources.emplace_back(membre, std::move(source));
+    }
+    return sources;
 }
 
 void EncounterModel::setSeed(int seed) {
@@ -177,8 +216,10 @@ bool EncounterModel::begin(const QString& encounterId) {
         emit changed();
         return false;
     }
-    if (!ensureCatalogs()) {
-        _status = tr("Le heros de la demo n'a pas de fiche : rien a engager.");
+    static_cast<void>(ensureCatalogs());
+    const std::vector<std::pair<std::string, HeroContestantSource>> party = partySources(*world);
+    if (party.empty()) {
+        _status = tr("Aucun membre du groupe n'a de fiche : rien a engager.");
         emit changed();
         return false;
     }
@@ -190,19 +231,29 @@ bool EncounterModel::begin(const QString& encounterId) {
         return false;
     }
 
-    // Le lieu : la case de la derniere interaction -- le PNJ dont le dialogue engage le combat,
-    // l'entite `encounter` --, a defaut la case que le heros regarde.
+    // Le lieu : l'entite `encounter` de la carte qui porte cette rencontre, la ou elle parait ;
+    // a defaut la case de la derniere interaction -- le PNJ dont le dialogue engage le combat --,
+    // a defaut la case que le heros regarde.
     const core::ExplorationSession& session = world->play().session();
     const core::Level* const map = session.map();
-    const core::GridPosition trigger = world->lastInteractionCell().value_or(session.aimedCell());
-    std::string defeatFlagKey = defeatFlagKeyAt(*map, session.mapId(), trigger, *encounter);
+    const std::optional<core::EncounterTrigger> marqueur =
+        encounterMarkerFor(*map, session.mapId(), *encounter);
+    const core::GridPosition trigger =
+        marqueur.has_value() ? marqueur->position
+                             : world->lastInteractionCell().value_or(session.aimedCell());
+    std::string defeatFlagKey = marqueur.has_value() ? marqueur->defeatFlagKey : std::string{};
     const core::ExplorationSnapshot exploration{
         .playerPosition = {session.heroPoint().column, session.heroPoint().row},
         .playerFacing = session.facing(),
         .cameraPosition = {session.heroPoint().column, session.heroPoint().row},
         .captured = true};
+    // Le groupe entre la ou il marche (LOT-139) : le meneur, puis chaque suiveur dans ses pas.
+    std::vector<core::GridPosition> partyCells{session.heroCell()};
+    for (std::size_t rang = 0; rang + 1 < party.size() && rang < session.followers(); ++rang) {
+        partyCells.push_back(core::cellOf(session.followerPoint(rang)));
+    }
     core::MapEncounterResult prepared =
-        core::prepareMapEncounter(*map, session.mapId(), *encounter, trigger, session.heroCell(),
+        core::prepareMapEncounter(*map, session.mapId(), *encounter, trigger, partyCells,
                                   exploration, std::move(defeatFlagKey));
     if (!prepared.ok()) {
         _status = toQt(prepared.issue);
@@ -213,8 +264,8 @@ bool EncounterModel::begin(const QString& encounterId) {
     _setup = std::move(*prepared.setup);
     _encounterName = encounter->name;
 
-    const core::ArenaMount mount = mountBout();
-    if (!keepMount(mount)) {
+    const core::ArenaMount mount = mountBout(party);
+    if (!keepMount(mount, party)) {
         emit changed();
         return false;
     }
@@ -236,7 +287,8 @@ bool EncounterModel::begin(const QString& encounterId) {
     return true;
 }
 
-core::ArenaMount EncounterModel::mountBout() {
+core::ArenaMount EncounterModel::mountBout(
+    const std::vector<std::pair<std::string, HeroContestantSource>>& party) {
     // La session, sur la grille de la zone.
     _session = std::make_unique<core::ArenaSession>(_setup->battlefield);
     _session->setOpportunityPolicy(core::aiOpportunityPolicy(_catalogs->behaviors));
@@ -249,11 +301,18 @@ core::ArenaMount EncounterModel::mountBout() {
                          // s'y termine (LOT-119). Les Marques sont celles du Colisee.
                          .lethal = true,
                          .heroicMark = false,
-                         .flanking = false,
+                         // La prise en tenaille, regle optionnelle du Guide du Maitre, se joue
+                         // sur la carte (LOT-139) : a quatre, la place de chacun compte, et
+                         // l'IA la cherche autant que le joueur.
+                         .flanking = true,
                          .escapable = _setup->run.escapable};
-    core::ArenaContestant hero = heroContestant(*_catalogs->hero, core::CombatSide::Allies);
-    hero.position = _setup->heroCell;
-    bout.contestants.push_back(std::move(hero));
+    for (std::size_t rang = 0; rang < party.size(); ++rang) {
+        core::ArenaContestant membre = heroContestant(party[rang].second, core::CombatSide::Allies);
+        if (rang < _setup->partyCells.size()) {
+            membre.position = _setup->partyCells[rang];
+        }
+        bout.contestants.push_back(std::move(membre));
+    }
     for (const core::CombatantPlacement& placement : _setup->run.placements) {
         const core::Creature* const creature = _catalogs->bestiary.find(placement.creatureId);
         if (creature == nullptr) {
@@ -275,11 +334,18 @@ core::ArenaMount EncounterModel::mountBout() {
 }
 
 void EncounterModel::bindFigures(WorldModel& world, const core::ArenaMount& mount) {
-    // Ce que chacun dessine : le heros sa figurine, chaque creature la sienne ou son mannequin.
+    // Ce que chacun dessine : le meneur sa figurine (celle que --hero-figure impose, sinon celle
+    // de sa classe), chaque suiveur celle de sa classe, chaque creature la sienne ou son
+    // mannequin.
     _bindings.clear();
-    const ResolvedFigure& heroFigure = world.play().heroResolved();
-    _bindings[*_hero] =
-        Binding{.directory = heroFigure.directory, .oriented = heroFigure.oriented, .hero = true};
+    for (const Member& membre : _members) {
+        const bool meneur = _hero.has_value() && membre.combatant == *_hero;
+        const ResolvedFigure& figure =
+            meneur ? world.play().heroResolved()
+                   : world.play().resolveHero(WorldModel::heroFigureOf(membre.classId));
+        _bindings[membre.combatant] =
+            Binding{.directory = figure.directory, .oriented = figure.oriented, .hero = meneur};
+    }
     std::size_t rang = 0;
     for (const core::CombatantPlacement& placement : _setup->run.placements) {
         const core::Creature* const creature = _catalogs->bestiary.find(placement.creatureId);
@@ -293,7 +359,9 @@ void EncounterModel::bindFigures(WorldModel& world, const core::ArenaMount& moun
     }
 }
 
-bool EncounterModel::keepMount(const core::ArenaMount& mount) {
+bool EncounterModel::keepMount(
+    const core::ArenaMount& mount,
+    const std::vector<std::pair<std::string, HeroContestantSource>>& party) {
     if (mount.allies.empty() || mount.enemies.empty()) {
         _status += tr(" Un camp est vide apres le montage : rien a engager.");
         HMI_LOG_WARNING("Rencontre : un camp est vide apres le montage.");
@@ -301,7 +369,34 @@ bool EncounterModel::keepMount(const core::ArenaMount& mount) {
         _setup.reset();
         return false;
     }
-    _hero = mount.allies.front();
+    // Les allies montes, dans l'ordre presente : un membre refuse (sans place) decale les
+    // suivants, et le montage l'a dit ; on apparie par le nom pour ne pas se tromper de fiche.
+    _members.clear();
+    for (const core::CombatantId id : mount.allies) {
+        const core::Combatant* const combattant = _session->combat().find(id);
+        if (combattant == nullptr) {
+            continue;
+        }
+        const auto source = std::ranges::find_if(party, [&](const auto& membre) {
+            return membre.second.sheet.name == combattant->profile.name &&
+                   std::ranges::none_of(_members, [&](const Member& deja) {
+                       return deja.characterId == membre.first;
+                   });
+        });
+        if (source == party.end()) {
+            continue;
+        }
+        _members.push_back(Member{.characterId = source->first,
+                                  .classId = source->second.sheet.classId,
+                                  .combatant = id});
+    }
+    if (_members.empty()) {
+        _status += tr(" Aucun membre du groupe n'est monte : rien a engager.");
+        _session.reset();
+        _setup.reset();
+        return false;
+    }
+    _hero = _members.front().combatant;
     return true;
 }
 
@@ -470,17 +565,65 @@ void EncounterModel::leave() {
         // contredirait ce que le joueur vient de voir (decision D3 du LOT-118 ; l'instantane
         // d'exploration ne restitue que l'orientation).
         static_cast<void>(core::endEncounter(_setup->run, *outcome, world->flags()));
-        if (_hero.has_value()) {
-            if (const std::optional<core::GridPosition> cell =
-                    _session->combat().grid().positionOf(*_hero)) {
-                world->placeHero(core::cellCenter(core::zoneToMap(_setup->zone, *cell)));
+        // Le groupe reprend la marche la ou se tient son meneur -- ou, s'il est mort, le
+        // premier membre qui tient encore debout (LOT-139).
+        std::optional<core::GridPosition> reprise;
+        for (const Member& membre : _members) {
+            const core::Combatant* const combattant = _session->combat().find(membre.combatant);
+            if (combattant == nullptr || combattant->status == core::CombatantStatus::Dead) {
+                continue;
             }
+            reprise = _session->combat().grid().positionOf(membre.combatant);
+            if (reprise.has_value()) {
+                break;
+            }
+        }
+        settleParty(*world, *outcome);
+        if (reprise.has_value()) {
+            world->placeHero(core::cellCenter(core::zoneToMap(_setup->zone, *reprise)));
         }
     }
     teardown();
     HMI_LOG_INFO("Rencontre : quittee, issue " + issue.toStdString() + ".");
     emit finished(issue);
     emitSceneChanged();
+}
+
+void EncounterModel::settleParty(WorldModel& world, core::CombatOutcome outcome) const {
+    // Une defaite ne laisse rien : la partie s'y termine (LOT-119), et l'ecran de mort quitte
+    // le combat lui-meme.
+    if (outcome == core::CombatOutcome::Defeat) {
+        return;
+    }
+    std::vector<std::string> morts;
+    for (const Member& membre : _members) {
+        const core::Combatant* const combattant = _session->combat().find(membre.combatant);
+        if (combattant == nullptr) {
+            continue;
+        }
+        if (combattant->status == core::CombatantStatus::Dead) {
+            morts.push_back(membre.characterId);
+            continue;
+        }
+        core::MemberRecord record;
+        // A terre a la fin d'un combat gagne, un personnage se releve a 1 point de vie : le
+        // Manuel le rend a 1 PV apres 1d4 heures une fois stabilise ; ici, la victoire vaut ce
+        // repos (decision du LOT-139). Debout, il garde ce qui lui reste.
+        record.hitPoints = combattant->status == core::CombatantStatus::Down
+                               ? 1
+                               : std::max(1, combattant->profile.currentHitPoints);
+        if (const std::vector<core::ArenaSpell>* const sorts = _session->spells(membre.combatant)) {
+            for (const core::ArenaSpell& sort : *sorts) {
+                if (sort.uses >= 0) {
+                    record.spellUses.emplace(sort.id, sort.uses);
+                }
+            }
+        }
+        world.recordMember(membre.characterId, std::move(record));
+    }
+    for (const std::string& mort : morts) {
+        static_cast<void>(world.buryMember(mort));
+    }
 }
 
 void EncounterModel::teardown() {
@@ -490,6 +633,7 @@ void EncounterModel::teardown() {
     _cues.clear();
     _bindings.clear();
     _hero.reset();
+    _members.clear();
     _session.reset();
     _setup.reset();
     _followed.reset();
@@ -528,11 +672,7 @@ QString EncounterModel::heroHitPoints() const {
         return {};
     }
     const core::Combatant* const hero = _session->combat().find(*_hero);
-    if (hero == nullptr) {
-        return {};
-    }
-    return QString::number(hero->profile.currentHitPoints) + " / " +
-           QString::number(hero->profile.maximumHitPoints);
+    return hero != nullptr ? hitPointsText(hero->profile) : QString{};
 }
 
 qreal EncounterModel::heroHitPointsRatio() const {
@@ -540,12 +680,57 @@ qreal EncounterModel::heroHitPointsRatio() const {
         return 0.0;
     }
     const core::Combatant* const hero = _session->combat().find(*_hero);
-    if (hero == nullptr) {
-        return 0.0;
+    return hero != nullptr ? hitPointsRatioOf(hero->profile) : 0.0;
+}
+
+QVariantList EncounterModel::partyMembers() const {
+    QVariantList rows;
+    if (_session == nullptr || !_inCombat) {
+        return rows;
     }
-    return std::clamp(static_cast<double>(hero->profile.currentHitPoints) /
-                          std::max(1, hero->profile.maximumHitPoints),
-                      0.0, 1.0);
+    const WorldModel* const world = WorldModel::current();
+    const std::optional<core::CombatantId> active = _session->combat().activeCombatant();
+    for (const Member& membre : _members) {
+        const core::Combatant* const combattant = _session->combat().find(membre.combatant);
+        if (combattant == nullptr) {
+            continue;
+        }
+        QVariantMap row;
+        row.insert(QStringLiteral("id"), toQt(membre.characterId));
+        row.insert(QStringLiteral("label"), toQt(combattant->profile.name));
+        row.insert(QStringLiteral("value"), hitPointsText(combattant->profile));
+        row.insert(QStringLiteral("ratio"), hitPointsRatioOf(combattant->profile));
+        row.insert(QStringLiteral("active"), active == membre.combatant);
+        row.insert(QStringLiteral("dead"), combattant->status == core::CombatantStatus::Dead);
+        row.insert(QStringLiteral("down"), combattant->status == core::CombatantStatus::Down ||
+                                               combattant->status == core::CombatantStatus::Dead);
+        QUrl portrait;
+        if (world != nullptr) {
+            for (const QVariant& ligne : world->partyMembers()) {
+                const QVariantMap membreDuMonde = ligne.toMap();
+                if (membreDuMonde.value(QStringLiteral("id")).toString() ==
+                    toQt(membre.characterId)) {
+                    portrait = membreDuMonde.value(QStringLiteral("portrait")).toUrl();
+                }
+            }
+        }
+        row.insert(QStringLiteral("portrait"), portrait);
+        rows.append(row);
+    }
+    return rows;
+}
+
+int EncounterModel::activeMember() const {
+    if (_session == nullptr || !_inCombat) {
+        return -1;
+    }
+    const std::optional<core::CombatantId> active = _session->combat().activeCombatant();
+    for (std::size_t rang = 0; rang < _members.size(); ++rang) {
+        if (active == _members[rang].combatant) {
+            return static_cast<int>(rang);
+        }
+    }
+    return -1;
 }
 
 QVariantMap EncounterModel::target() const {

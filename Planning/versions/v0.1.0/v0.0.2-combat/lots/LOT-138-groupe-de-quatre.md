@@ -3,7 +3,7 @@ id = "LOT-138"
 titre = "Le groupe de quatre"
 version = "0.0.2"
 filiere = "moteur"
-statut = "en-cours"
+statut = "livre"
 taille = "M"
 resume = "Le joueur mène jusqu'à quatre personnages : composition, meneur, suivi en exploration."
 prerequis = ["LOT-130"]
@@ -31,7 +31,7 @@ sources = [
 
 ## Décisions de réalisation
 
-Réalisé le 27 septembre 2026 (exigences `EX-EXP-013`, `EX-EXP-014`), **PR #153**.
+Livré le 27 septembre 2026 (exigences `EX-EXP-013`, `EX-EXP-014`), **PR #153**.
 
 1. **Le groupe est un ordre.** `core::Party` est une liste ordonnée d'identifiants de fiche, de un
    à quatre : le premier **mène**, les autres suivent dans cet ordre. Pas de champ « meneur » à

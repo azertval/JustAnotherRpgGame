@@ -18,6 +18,13 @@ QtObject {
     readonly property string heroName: "Grom Tranche-Écaille"
     readonly property string heroHitPoints: "15 / 15"
     readonly property real heroHitPointsRatio: 1
+    readonly property var partyMembers: [
+        { id: "heros-brawler", label: "Grom Tranche-Écaille", value: "15 / 15", ratio: 1, portrait: "", active: true, down: false, dead: false },
+        { id: "heros-priest", label: "Helga Pierre-Sûre", value: "9 / 12", ratio: 0.75, portrait: "", active: false, down: false, dead: false },
+        { id: "heros-scoundrel", label: "Nessa Double-Vie", value: "10 / 10", ratio: 1, portrait: "", active: false, down: false, dead: false },
+        { id: "heros-mage", label: "Faelar Trace-Carte", value: "0 / 8", ratio: 0, portrait: "", active: false, down: true, dead: false }
+    ]
+    readonly property int activeMember: 0
     readonly property var target: ({ name: "Rat", side: "enemies", hitPoints: "", hitPointsRatio: 1,
                                     armorClass: "10", speed: "9 m", conditions: "Aucun" })
     property int seed: 0

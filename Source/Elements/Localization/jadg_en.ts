@@ -1247,76 +1247,76 @@
         <translation>bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="470"/>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="504"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="475"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="509"/>
         <source>Hors d&apos;allonge ou de portee.</source>
         <translation>Out of reach or range.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="473"/>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="507"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="478"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="512"/>
         <source>Cible hors de vue : abri total.</source>
         <translation>Target out of sight: total cover.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="476"/>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="510"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="481"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="515"/>
         <source>L&apos;action de ce tour est deja depensee.</source>
         <translation>This turn&apos;s action is already spent.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="479"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="484"/>
         <source>Ce combattant n&apos;a aucune attaque.</source>
         <translation>This fighter has no attack.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="485"/>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="515"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="490"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="520"/>
         <source>Attaque refusee.</source>
         <translation>Attack refused.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="524"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="529"/>
         <source>Deplacement : %1 case(s).</source>
         <translation>Move: %1 square(s).</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="527"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="532"/>
         <source>Case hors de portee de ce qui reste du deplacement.</source>
         <translation>Square beyond the movement left.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="531"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="536"/>
         <source>Aucun combattant a deplacer.</source>
         <translation>No fighter to move.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="698"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="703"/>
         <source>Rien a faire sur cette case.</source>
         <translation>Nothing to do on this square.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="715"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="720"/>
         <source>Il frappera l&apos;ennemi qui quitte son allonge.</source>
         <translation>They will strike an enemy leaving their reach.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="716"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="721"/>
         <source>Il laissera passer l&apos;ennemi qui quitte son allonge.</source>
         <translation>They will let an enemy leave their reach.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="770"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="775"/>
         <source>Sorti du combat.</source>
         <translation>Left the fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="773"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="778"/>
         <source>On ne fuit pas ce combat.</source>
         <translation>There is no fleeing this fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="776"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="781"/>
         <source>Personne a retirer.</source>
         <translation>Nobody to withdraw.</translation>
     </message>
@@ -1331,12 +1331,12 @@
         <translation>Spell: %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="498"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="503"/>
         <source>Sort epuise : un repos long le rendra.</source>
         <translation>Spell exhausted: a long rest will restore it.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="501"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="506"/>
         <source>Ce combattant n&apos;a pas ce sort.</source>
         <translation>This combatant does not have that spell.</translation>
     </message>
@@ -1344,67 +1344,72 @@
 <context>
     <name>hmi::EncounterModel</name>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="170"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="210"/>
         <source>Un combat est deja engage.</source>
         <translation>A fight is already under way.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="176"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="216"/>
         <source>Aucune carte ou engager le combat.</source>
         <translation>No map to fight on.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="181"/>
-        <source>Le heros de la demo n&apos;a pas de fiche : rien a engager.</source>
-        <translation>The demo hero has no sheet: nothing to fight with.</translation>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="223"/>
+        <source>Aucun membre du groupe n&apos;a de fiche : rien a engager.</source>
+        <translation>No member of the party has a sheet: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="187"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="229"/>
         <source>Rencontre inconnue : %1</source>
         <translation>Unknown encounter: %1</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="298"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="363"/>
         <source> Un camp est vide apres le montage : rien a engager.</source>
         <translation> One side is empty after mounting: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="461"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="391"/>
+        <source> Aucun membre du groupe n&apos;est monte : rien a engager.</source>
+        <translation> No member of the party was mounted: nothing to fight.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="553"/>
         <source>Le combat n&apos;est pas fini.</source>
         <translation>The fight is not over.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="579"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="762"/>
         <source>mort</source>
         <translation>dead</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="582"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="765"/>
         <source>a terre</source>
         <translation>down</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="585"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="768"/>
         <source>ensanglante</source>
         <translation>bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="594"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="777"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="605"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="788"/>
         <source>Ensanglante</source>
         <translation>Bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="608"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="791"/>
         <source>Esquive</source>
         <translation>Dodging</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="610"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="793"/>
         <source>Aucun</source>
         <translation>None</translation>
     </message>
@@ -1431,12 +1436,12 @@
 <context>
     <name>hmi::WorldModel</name>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="96"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="97"/>
         <source>La ville de départ ne s&apos;ouvre pas.</source>
         <translation>The starting city will not open.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="200"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="203"/>
         <source>La carte « %1 » ne s&apos;ouvre pas.</source>
         <translation>The map “%1” does not open.</translation>
     </message>
