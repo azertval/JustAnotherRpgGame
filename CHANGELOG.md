@@ -6,6 +6,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+### Corrigé
+
+- **Les deux dernières alertes clang-tidy de Code scanning.** La mini-carte de l'éditeur appelle
+  `EditorViewport::tileColor` par sa classe, sans capturer la fenêtre, et la mise en page des
+  drapeaux de quête de `WorldStateEditor` est confiée à sa boîte par `setLayout`, où l'analyseur
+  voit le transfert de propriété. Comportement inchangé.
+
 ## [0.0.1] - 2026-09-26
 
 **La démo basique.** Première version publiée du jeu : une quête, « Des pommes pour l'arène »,
