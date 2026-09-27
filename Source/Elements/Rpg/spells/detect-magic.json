@@ -1,0 +1,19 @@
+{
+  "id": "detect-magic",
+  "name": "Detection de la magie",
+  "source": "phb-fr",
+  "level": 1,
+  "school": "divination",
+  "castingTime": "1 action",
+  "range": "personnelle",
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": false
+  },
+  "duration": "concentration, jusqu'a 10 minutes",
+  "concentration": true,
+  "ritual": true,
+  "narratif": true,
+  "text": "Manuel des Joueurs, PDF p. 234 (detect magic). Le lanceur percoit la magie a 9 metres et l'ecole d'une aura. Un sort d'exploration : sans effet en combat."
+}

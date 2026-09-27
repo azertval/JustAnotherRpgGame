@@ -1,0 +1,21 @@
+{
+  "id": "fire-bolt",
+  "name": "Trait de feu",
+  "source": "phb-fr",
+  "level": 0,
+  "school": "evocation",
+  "castingTime": "1 action",
+  "range": "36 metres",
+  "rangeMeters": 36,
+  "attackRoll": true,
+  "cantripScaling": true,
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": false
+  },
+  "duration": "instantanee",
+  "damage": "1d10",
+  "damageType": "fire",
+  "text": "Manuel des Joueurs, PDF p. 287 (fire bolt). Un trait enflamme vise une creature a portee : attaque de sort a distance, 1d10 degats de feu. Les degats augmentent d'un d10 aux niveaux 5, 11 et 17."
+}

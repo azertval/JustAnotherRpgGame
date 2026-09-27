@@ -6,6 +6,20 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-133 — Classe Mage.** Le Mage du *Player's Guide to Tanares* (p. 196-199) se joue du
+  niveau 1 au niveau 5. Sa table est reprise niveau par niveau jusqu'au 20, sorts mineurs et sorts
+  compris ; *Arcane Protection* (CA 13 + Dex) donne 15 à la fiche de la page 199 au niveau 2.
+  Neuf sorts entrent au catalogue `Rpg/spells/`, nommés d'après le *Manuel des Joueurs*, et le
+  moteur gagne les mécanismes qu'ils déclarent (`spell.schema.json`, `core::spellMechanism`) :
+  **projectiles** à un jet chacun (*rayon ardent*, rayons perdus écrits au journal), sort qui
+  **touche sans jet** (*projectile magique*), **sauvegarde** dans une **sphère** qui prend alliés
+  et lanceur, la moitié à qui réussit (*boule de feu*, une ligne par créature), **effets qui
+  durent** sous **concentration** (*vol* : locomotion et budget changés ; *invisibilité* :
+  désavantage contre, avantage pour, pas d'attaque d'opportunité, fin à la première attaque ou
+  au premier sort), dés des sorts mineurs qui montent au niveau 5. Le profil de combat porte ses
+  sauvegardes ; l'écran lance un sort sur la créature cliquée, alliée ou non. Les icônes des
+  trois capacités et des neuf sorts (nouvelle pièce `ui/icon/spell`) sont au cahier, en attente
+  de génération. Tests : `test_class_mage.cpp`.
 - **LOT-132 — Classe Brawler.** Le Brawler du *Player's Guide to Tanares* (p. 192-195) se joue
   du niveau 1 au niveau 5 : ses capacités entrent au catalogue `Rpg/capacities/` et le moteur n'y
   gagne qu'un genre d'effet. *Tough as Nails* (CA sans armure 10 + Dex + Con, bouclier permis ;

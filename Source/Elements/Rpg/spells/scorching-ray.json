@@ -1,0 +1,21 @@
+{
+  "id": "scorching-ray",
+  "name": "Rayon ardent",
+  "source": "phb-fr",
+  "level": 2,
+  "school": "evocation",
+  "castingTime": "1 action",
+  "range": "36 metres",
+  "rangeMeters": 36,
+  "attackRoll": true,
+  "projectiles": 3,
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": false
+  },
+  "duration": "instantanee",
+  "damage": "2d6",
+  "damageType": "fire",
+  "text": "Manuel des Joueurs, PDF p. 274 (scorching ray). Trois rayons de feu, une attaque de sort a distance chacun, 2d6 degats de feu par rayon qui touche. Le livre permet de les repartir ; le moteur les dirige sur une seule cible, et ceux qui restent quand elle tombe sont perdus."
+}

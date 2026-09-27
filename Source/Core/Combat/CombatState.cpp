@@ -35,7 +35,7 @@ private:
     CombatState& _state;
 };
 
-CombatantProfile profileFor(const CharacterSheet& sheet, CombatSide side) {
+CombatantProfile profileFor(const CharacterSheet& sheet, CombatSide side, int proficiencyBonus) {
     // Les resistances que les capacites de classe donnent (LOT-131), chacune au nom de sa
     // capacite pour que le journal l'ecrive : << resistance a tous les types >> s'ecrit treize
     // affinites, une par type, comme le pipeline les lit.
@@ -55,6 +55,12 @@ CombatantProfile profileFor(const CharacterSheet& sheet, CombatSide side) {
                                          .source = resistance.source});
         }
     }
+    std::array<int, 6> sauvegardes{};
+    for (const Ability caracteristique : allAbilities()) {
+        const bool maitrisee = sheet.savingThrowProficiencies.contains(caracteristique);
+        sauvegardes[static_cast<std::size_t>(caracteristique)] =
+            sheet.modifier(caracteristique) + (maitrisee ? proficiencyBonus : 0);
+    }
     return {
         .name = sheet.name,
         .side = side,
@@ -70,6 +76,7 @@ CombatantProfile profileFor(const CharacterSheet& sheet, CombatSide side) {
         .floating = false,
         .armorClass = sheet.armorClass,
         .damageTraits = std::move(traits),
+        .savingThrows = sauvegardes,
     };
 }
 
@@ -91,6 +98,13 @@ CombatantProfile profileFor(const Creature& creature, CombatSide side) {
         .floating = false,
         .armorClass = creature.armorClass,
         .damageTraits = damageTraitsFor(creature),
+        // Le bestiaire ne porte pas encore les sauvegardes maitrisees : le modificateur nu.
+        .savingThrows = {abilityModifier(creature.ability(Ability::Strength)),
+                         abilityModifier(creature.ability(Ability::Dexterity)),
+                         abilityModifier(creature.ability(Ability::Constitution)),
+                         abilityModifier(creature.ability(Ability::Intelligence)),
+                         abilityModifier(creature.ability(Ability::Wisdom)),
+                         abilityModifier(creature.ability(Ability::Charisma))},
     };
 }
 
@@ -371,6 +385,28 @@ Mover CombatState::moverFor(CombatantId combatant) const {
             .canPassThrough = [this, combatant](CombatantId other) {
                 return canPassThrough(combatant, other);
             }};
+}
+
+bool CombatState::setLocomotion(CombatantId combatant, Locomotion locomotion, int movement) {
+    Combatant* found = findMutable(combatant);
+    if (found == nullptr) {
+        return false;
+    }
+    const int before = found->profile.movement;
+    const int remaining = found->economy.remaining(MOVEMENT_RESOURCE);
+    const int walked = std::max(0, before - remaining);
+    const int granted = std::max(0, remaining - before);
+    found->profile.locomotion = locomotion;
+    found->profile.movement = movement;
+    // `declare` remplit : on repaie ce qui a deja ete marche, et on rend l'octroi en cours.
+    found->economy.declare(MOVEMENT_RESOURCE, movement);
+    if (walked > 0) {
+        static_cast<void>(found->economy.spend(MOVEMENT_RESOURCE, std::min(walked, movement)));
+    }
+    if (granted > 0) {
+        found->economy.grant(MOVEMENT_RESOURCE, granted);
+    }
+    return true;
 }
 
 // --- Mécanique interne -----------------------------------------------------------------------

@@ -4,6 +4,7 @@
 #include "Core/Rpg/Spell.h"
 
 #include <algorithm>
+#include <array>
 #include <system_error>
 #include <utility>
 
@@ -25,6 +26,96 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
 [[nodiscard]] bool lireBooleen(const nlohmann::json& objet, const char* champ) {
     const auto trouve = objet.find(champ);
     return trouve != objet.end() && trouve->is_boolean() && trouve->get<bool>();
+}
+
+struct NomDEffet {
+    SpellEffectKind genre;
+    std::string_view nom;
+};
+
+// Les noms sont ceux de `spell.schema.json` : le schema et le moteur disent la meme liste.
+constexpr std::array<NomDEffet, 2> EFFETS{{
+    {SpellEffectKind::Fly, "fly"},
+    {SpellEffectKind::Invisible, "invisible"},
+}};
+
+[[nodiscard]] std::optional<SpellEffectKind> lireGenreDEffet(std::string_view nom) {
+    for (const NomDEffet& entree : EFFETS) {
+        if (entree.nom == nom) {
+            return entree.genre;
+        }
+    }
+    return std::nullopt;
+}
+
+// Les champs du LOT-133 : projectiles, sans jet, sauvegarde, zone, cible, effet qui dure. Une
+// valeur que le moteur ne sait pas lire refuse le sort : joue a moitie, il tromperait plus
+// qu'absent et nomme dans les erreurs.
+[[nodiscard]] bool lireMecanismes(const nlohmann::json& racine, const std::string& fichier,
+                                  Spell& sort, std::vector<std::string>& erreurs) {
+    sort.autoHit = lireBooleen(racine, "autoHit");
+    sort.cantripScaling = lireBooleen(racine, "cantripScaling");
+    if (const auto projectiles = racine.find("projectiles"); projectiles != racine.end()) {
+        if (!projectiles->is_number_integer() || projectiles->get<int>() < 1) {
+            erreurs.push_back(fichier + " : 'projectiles' doit etre un entier positif.");
+            return false;
+        }
+        sort.projectiles = projectiles->get<int>();
+    }
+    const std::string sauvegarde = lireTexte(racine, "saveEffect");
+    if (sauvegarde == "half") {
+        sort.saveEffect = SaveEffect::Half;
+    } else if (!sauvegarde.empty() && sauvegarde != "negates") {
+        erreurs.push_back(fichier + " : 'saveEffect' '" + sauvegarde + "' inconnu du moteur.");
+        return false;
+    }
+    const std::string cible = lireTexte(racine, "target");
+    if (cible == "ally") {
+        sort.target = SpellTarget::Ally;
+    } else if (cible == "self") {
+        sort.target = SpellTarget::Self;
+    } else if (!cible.empty() && cible != "enemy") {
+        erreurs.push_back(fichier + " : cible '" + cible + "' inconnue du moteur.");
+        return false;
+    }
+    if (const auto zone = racine.find("area"); zone != racine.end() && zone->is_object()) {
+        const std::string forme = lireTexte(*zone, "shape");
+        const auto metres = zone->find("meters");
+        if (metres == zone->end() || !metres->is_number() || metres->get<float>() <= 0.0F) {
+            erreurs.push_back(fichier + " : zone sans 'meters' positifs.");
+            return false;
+        }
+        if (forme == "sphere") {
+            sort.areaRadiusMeters = metres->get<float>();
+        } else {
+            // Une forme connue du Manuel mais que le moteur ne pose pas encore : le sort se
+            // charge, et `spellMechanism` dit qu'il ne se joue pas.
+            sort.unsupportedArea = forme;
+        }
+    }
+    if (const auto effet = racine.find("effect"); effet != racine.end() && effet->is_object()) {
+        const std::string genre = lireTexte(*effet, "kind");
+        const std::optional<SpellEffectKind> lu = lireGenreDEffet(genre);
+        if (!lu.has_value()) {
+            erreurs.push_back(fichier + " : effet de sort '" + genre + "' inconnu du moteur.");
+            return false;
+        }
+        SpellEffect pose{.kind = *lu, .meters = 0.0F, .durationRounds = 0};
+        if (const auto metres = effet->find("meters");
+            metres != effet->end() && metres->is_number()) {
+            pose.meters = metres->get<float>();
+        }
+        if (pose.kind == SpellEffectKind::Fly && pose.meters <= 0.0F) {
+            erreurs.push_back(fichier + " : effet 'fly' sans vitesse ('meters').");
+            return false;
+        }
+        if (const auto duree = effet->find("durationRounds");
+            duree != effet->end() && duree->is_number_integer()) {
+            pose.durationRounds = std::max(0, duree->get<int>());
+        }
+        sort.effect = pose;
+    }
+    return true;
 }
 
 [[nodiscard]] std::optional<Spell> lireSort(const nlohmann::json& racine,
@@ -84,6 +175,9 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
             return std::nullopt;
         }
     }
+    if (!lireMecanismes(racine, fichier, sort, erreurs)) {
+        return std::nullopt;
+    }
     if (const auto mecanismes = racine.find("mecanismesRequis");
         mecanismes != racine.end() && mecanismes->is_array()) {
         for (const auto& element : *mecanismes) {
@@ -133,6 +227,51 @@ SpellCatalog loadSpells(const std::filesystem::path& spellsDir) {
 
 bool isAttackSpell(const Spell& spell) noexcept {
     return spell.attackRoll && spell.damage.has_value() && spell.damageType.has_value();
+}
+
+std::string_view spellEffectKindName(SpellEffectKind kind) noexcept {
+    for (const NomDEffet& entree : EFFETS) {
+        if (entree.genre == kind) {
+            return entree.nom;
+        }
+    }
+    return "?";
+}
+
+std::optional<SpellMechanism> spellMechanism(const Spell& spell) noexcept {
+    if (spell.narrative || !spell.unsupportedArea.empty()) {
+        return std::nullopt;
+    }
+    const bool blesse = spell.damage.has_value() && spell.damageType.has_value();
+    if (blesse && spell.attackRoll) {
+        return SpellMechanism::AttackRoll;
+    }
+    if (blesse && spell.autoHit) {
+        return SpellMechanism::AutoHit;
+    }
+    if (blesse && spell.savingThrow.has_value()) {
+        return SpellMechanism::SavingThrow;
+    }
+    if (spell.effect.has_value()) {
+        return SpellMechanism::Effect;
+    }
+    return std::nullopt;
+}
+
+std::optional<Dice> spellDamageAt(const Spell& spell, int casterLevel) noexcept {
+    if (!spell.damage.has_value()) {
+        return std::nullopt;
+    }
+    Dice des = *spell.damage;
+    if (spell.cantripScaling && spell.level == 0) {
+        // Manuel, « Tours de magie » : les degats augmentent d'un de aux niveaux 5, 11 et 17.
+        for (const int palier : {5, 11, 17}) {
+            if (casterLevel >= palier) {
+                des.count += spell.damage->count;
+            }
+        }
+    }
+    return des;
 }
 
 }  // namespace core

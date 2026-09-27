@@ -149,6 +149,9 @@ struct CreatureAttacks {
 
 struct Spell;
 
+/// @brief Le nom français d'une caractéristique, tel que le journal l'écrit : « Dexterite ».
+[[nodiscard]] std::string_view abilityLabel(Ability ability) noexcept;
+
 /**
  * @brief L'attaque d'un **sort à jet d'attaque** (`LOT-131`, `EX-RPG-025`) : *fire bolt*.
  *
@@ -166,6 +169,33 @@ struct Spell;
 [[nodiscard]] std::optional<AttackProfile> spellAttackFor(const CharacterSheet& sheet,
                                                           const Spell& spell, Ability ability,
                                                           int proficiencyBonus);
+
+/**
+ * @brief Le profil d'**un** sort quel que soit son mécanisme (`LOT-133`) : sa portée, ses dés au
+ *        niveau du lanceur, et le jet d'attaque de sort s'il en demande un.
+ *
+ * Ce que la session lit pour viser (portée, abri) et pour blesser (dés et type, marqués `Spell` et
+ * `Magical`). Un sort **au contact** (1,50 m) vise à une case ; un sort **personnel** n'a pas de
+ * portée et ne vise que son lanceur. Les dés d'un sort mineur montent avec le niveau de la fiche
+ * (`core::spellDamageAt`).
+ *
+ * @param sheet La fiche du lanceur : sa caractéristique d'incantation, son niveau.
+ * @param spell Le sort, tel que le catalogue le décrit.
+ * @param ability La caractéristique d'incantation de la classe.
+ * @param proficiencyBonus Le bonus de maîtrise au niveau de la fiche.
+ */
+[[nodiscard]] AttackProfile spellProfileFor(const CharacterSheet& sheet, const Spell& spell,
+                                            Ability ability, int proficiencyBonus);
+
+/**
+ * @brief Les dés de dégâts lancés et ce que la cible en a reçu, tels que le journal les écrit :
+ *        « ; degats 1d4+1 : 3+1 = 4 force ; resistance (force ; X) 4 -> 2 ; PV 10 -> 8 ».
+ *
+ * La moitié de l'écriture d'une attaque (`AttackOutcome::describe`), réemployée par les sorts qui
+ * blessent sans jet d'attaque (`LOT-133`).
+ */
+[[nodiscard]] std::string describeDamage(const std::vector<RolledDamage>& damage,
+                                         const std::optional<DamageReport>& report);
 
 /**
  * @brief L'attaque d'une arme **lancée** — dague, hachette, javeline —, si elle a la propriété

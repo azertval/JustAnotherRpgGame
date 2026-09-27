@@ -3719,5 +3719,23 @@
       "sha256": "976547eeab84b2b5378320c79f8c61f6a4ecb6ea5785305d50f29a3a4790b981"
     }
   ],
-  "pending": []
+  "pending": [
+    {
+      "keys": [
+        "ui/icon/capacity/arcane-protection",
+        "ui/icon/capacity/simplified-spellcasting",
+        "ui/icon/capacity/specific-cantrips",
+        "ui/icon/spell/fire-bolt",
+        "ui/icon/spell/light",
+        "ui/icon/spell/mage-hand",
+        "ui/icon/spell/detect-magic",
+        "ui/icon/spell/magic-missile",
+        "ui/icon/spell/invisibility",
+        "ui/icon/spell/scorching-ray",
+        "ui/icon/spell/fireball",
+        "ui/icon/spell/fly"
+      ],
+      "reason": "icônes du LOT-133 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
+    }
+  ]
 }

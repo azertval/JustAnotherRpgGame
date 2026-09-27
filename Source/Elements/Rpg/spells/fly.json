@@ -1,0 +1,27 @@
+{
+  "id": "fly",
+  "name": "Vol",
+  "source": "phb-fr",
+  "level": 3,
+  "school": "transmutation",
+  "castingTime": "1 action",
+  "range": "contact",
+  "rangeMeters": 1.5,
+  "target": "ally",
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": true,
+    "materialText": "une remige"
+  },
+  "duration": "concentration, jusqu'a 10 minutes",
+  "concentration": true,
+  "effect": {
+    "kind": "fly",
+    "meters": 18
+  },
+  "mecanismesRequis": [
+    "jet-de-concentration"
+  ],
+  "text": "Manuel des Joueurs, PDF p. 291 (fly). La creature consentante touchee vole a 18 metres par tour pendant la duree du sort : elle survole l'eau profonde et le vide de la grille. La concentration rompue par les degats est au LOT-137."
+}

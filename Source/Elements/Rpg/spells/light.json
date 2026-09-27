@@ -1,0 +1,18 @@
+{
+  "id": "light",
+  "name": "Lumiere",
+  "source": "phb-fr",
+  "level": 0,
+  "school": "evocation",
+  "castingTime": "1 action",
+  "range": "contact",
+  "components": {
+    "verbal": true,
+    "somatic": false,
+    "material": true,
+    "materialText": "une luciole ou de la mousse phosphorescente"
+  },
+  "duration": "1 heure",
+  "narratif": true,
+  "text": "Manuel des Joueurs, PDF p. 257 (light). Un objet touche emet une vive lumiere sur 6 metres, une faible lumiere sur 6 metres de plus. Sans effet en combat tant que la lumiere et les sens ne sont pas joues."
+}

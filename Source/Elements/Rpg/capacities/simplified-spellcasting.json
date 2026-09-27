@@ -1,0 +1,12 @@
+{
+  "id": "simplified-spellcasting",
+  "name": "Simplified Spellcasting",
+  "source": "tanares",
+  "status": {
+    "provisoire": true,
+    "raison": "capacite d'une classe simplifiee du Player's Guide to Tanares (Mage, Priest), provisoire comme sa classe tant que le systeme complet de classes n'est pas livre",
+    "retraitSi": "les classes simplifiees qui la nomment sont retirees (leur propre critere) et aucune donnee definitive ne la reference"
+  },
+  "narratif": true,
+  "text": "Player's Guide to Tanares, p. 197 et 201. Les sorts sont fixes par la table de la classe et chacun se lance deux fois par jour, sans emplacement. Le moteur le joue par la table (`spells`) et `spellcasting.castsPerDay` : la capacite ne porte aucun effet a elle seule. Lancer un sort a un niveau superieur en depensant un autre sort n'est pas joue."
+}

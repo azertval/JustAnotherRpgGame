@@ -1,0 +1,21 @@
+{
+  "id": "magic-missile",
+  "name": "Projectile magique",
+  "source": "phb-fr",
+  "level": 1,
+  "school": "evocation",
+  "castingTime": "1 action",
+  "range": "36 metres",
+  "rangeMeters": 36,
+  "autoHit": true,
+  "projectiles": 3,
+  "components": {
+    "verbal": true,
+    "somatic": true,
+    "material": false
+  },
+  "duration": "instantanee",
+  "damage": "1d4+1",
+  "damageType": "force",
+  "text": "Manuel des Joueurs, PDF p. 273 (magic missile). Trois flechettes touchent sans jet, 1d4+1 degats de force chacune, toutes en meme temps. Le livre permet de les repartir entre plusieurs creatures ; le moteur les dirige sur une seule."
+}
