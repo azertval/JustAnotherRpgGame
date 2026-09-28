@@ -164,6 +164,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combattant tel que l'écran de mise en place le compose.  <a href="structcore_1_1ArenaContestant.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ArenaBout" id="r_ArenaBout"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaBout.html">ArenaBout</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une composition d'affrontement : qui, contre qui, à quelle graine, sous quelle règle.  <a href="structcore_1_1ArenaBout.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ArenaActionNotice" id="r_ArenaActionNotice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaActionNotice.html">ArenaActionNotice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'écran veut savoir d'une attaque ou d'un sort du combattant actif (<span class="tt">LOT-136</span>) : le geste à jouer — à l'arme, à distance, un sort —, sa cible, et l'effet à montrer.  <a href="structcore_1_1ArenaActionNotice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ArenaMount" id="r_ArenaMount"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaMount.html">ArenaMount</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le montage d'un affrontement a produit : les enrôlés par camp, et les refus.  <a href="structcore_1_1ArenaMount.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ArenaAttack" id="r_ArenaAttack"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a></td></tr>
@@ -650,6 +652,8 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:a838239698e3440af150c5de8127b830e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décide si <code class="param">reactor</code> prend l'attaque d'opportunité que <code class="param">mover</code> lui offre.  <br /></td></tr>
 <tr class="memitem:a9ae3355e126e768022cd22fffaeabd25" id="r_a9ae3355e126e768022cd22fffaeabd25"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a9ae3355e126e768022cd22fffaeabd25">MoveObserver</a> = std::function&lt;void(<a class="el" href="#a91235fd72a18c305c494723774630841">CombatantId</a> mover, const <a class="el" href="structcore_1_1Path.html">Path</a>&amp; path)&gt;</td></tr>
 <tr class="memdesc:a9ae3355e126e768022cd22fffaeabd25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'écran veut savoir d'un pas : qui a marché, par où (<span class="tt">LOT-118</span>).  <br /></td></tr>
+<tr class="memitem:a733e637c1b8d277e39c760fbbbd90526" id="r_a733e637c1b8d277e39c760fbbbd90526"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a733e637c1b8d277e39c760fbbbd90526">ActionObserver</a> = std::function&lt;void(const <a class="el" href="structcore_1_1ArenaActionNotice.html">ArenaActionNotice</a>&amp; notice)&gt;</td></tr>
+<tr class="memdesc:a733e637c1b8d277e39c760fbbbd90526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prévenu au début et à la fin de chaque attaque et de chaque sort (<span class="tt">LOT-136</span>).  <br /></td></tr>
 <tr class="memitem:a70920b2a35cc8c7a80281c47514c3d97" id="r_a70920b2a35cc8c7a80281c47514c3d97"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a70920b2a35cc8c7a80281c47514c3d97">AttackRollListener</a> = std::function&lt;void(<a class="el" href="structcore_1_1AttackRoll.html">AttackRoll</a>&amp;, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a>&amp;)&gt;</td></tr>
 <tr class="memdesc:a70920b2a35cc8c7a80281c47514c3d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un point d'insertion d'un jet d'attaque.  <br /></td></tr>
 <tr class="memitem:aec8883b9ba0315c5d8d5b710a34d03d4" id="r_aec8883b9ba0315c5d8d5b710a34d03d4"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#aec8883b9ba0315c5d8d5b710a34d03d4">CombatListener</a> = std::function&lt;void(<a class="el" href="classcore_1_1CombatState.html">CombatState</a>&amp;, const <a class="el" href="structcore_1_1CombatEvent.html">CombatEvent</a>&amp;)&gt;</td></tr>
@@ -696,6 +700,10 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:abde919757944fef613e5f21cf21c3108"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un état qu'un combattant porte en combat (<span class="tt">LOT-137</span>) : ceux dont les quatre classes ont besoin jusqu'au niveau 5, pas le catalogue du <em>Manuel</em> (annexe A).  <a href="#abde919757944fef613e5f21cf21c3108">More...</a><br /></td></tr>
+<tr class="memitem:a77eaf11c39e56d216f9354bcea69aea8" id="r_a77eaf11c39e56d216f9354bcea69aea8"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a77eaf11c39e56d216f9354bcea69aea8">ArenaActionPhase</a> : std::uint8_t { <a class="el" href="#a77eaf11c39e56d216f9354bcea69aea8a1a06729125544cab7cee73195fc044f0">Begin</a>
+, <a class="el" href="#a77eaf11c39e56d216f9354bcea69aea8a87557f11575c0ad78e4e28abedc13b6e">End</a>
+ }</td></tr>
+<tr class="memdesc:a77eaf11c39e56d216f9354bcea69aea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le moment d'une action que l'écran suit : son départ, puis son issue.  <a href="#a77eaf11c39e56d216f9354bcea69aea8">More...</a><br /></td></tr>
 <tr class="memitem:ac011cdb67f4c31ececbaaceeace4cbed" id="r_ac011cdb67f4c31ececbaaceeace4cbed"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac011cdb67f4c31ececbaaceeace4cbed">ArenaActionResult</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="#ac011cdb67f4c31ececbaaceeace4cbedaf92965e2c8a7afb3c1b9a5c09a263636">Done</a>
 , <a class="el" href="#ac011cdb67f4c31ececbaaceeace4cbeda8cb45f47274f0e76f8d60401f43b0fb7">NoActiveTurn</a>
@@ -2096,6 +2104,22 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Espace de noms du moteur et de la logique de jeu. </p>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="a733e637c1b8d277e39c760fbbbd90526" name="a733e637c1b8d277e39c760fbbbd90526"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a733e637c1b8d277e39c760fbbbd90526">&#9670;&#160;</a></span>ActionObserver</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a733e637c1b8d277e39c760fbbbd90526">core::ActionObserver</a> = std::function&lt;void(const <a class="el" href="structcore_1_1ArenaActionNotice.html">ArenaActionNotice</a>&amp; notice)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prévenu au début et à la fin de chaque attaque et de chaque sort (<span class="tt">LOT-136</span>). </p>
+
+</div>
+</div>
 <a id="af16dfcce848d49387703fb5a0b155485" name="af16dfcce848d49387703fb5a0b155485"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af16dfcce848d49387703fb5a0b155485">&#9670;&#160;</a></span>AssertionHandler</h2>
 
@@ -2225,7 +2249,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"> </div>
 <div class="line">std::function&lt;bool(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1ArenaSession.html">ArenaSession</a>&amp;, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> reactor, <a class="code hl_enumeration" href="#a91235fd72a18c305c494723774630841">CombatantId</a> mover)&gt;</div>
-<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:313</div></div>
+<div class="ttc" id="aclasscore_1_1ArenaSession_html"><div class="ttname"><a href="classcore_1_1ArenaSession.html">core::ArenaSession</a></div><div class="ttdoc">Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.</div><div class="ttdef"><b>Definition</b> Arena.h:343</div></div>
 <div class="ttc" id="anamespacecore_html_a91235fd72a18c305c494723774630841"><div class="ttname"><a href="#a91235fd72a18c305c494723774630841">core::CombatantId</a></div><div class="ttdeci">CombatantId</div><div class="ttdoc">Identifiant d&#39;un combattant sur la grille.</div><div class="ttdef"><b>Definition</b> BattleGrid.h:38</div></div>
 </div><!-- fragment -->
 <p>Décide si <code class="param">reactor</code> prend l'attaque d'opportunité que <code class="param">mover</code> lui offre. </p>
@@ -2362,6 +2386,36 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="ad490fa58f4db55cab180bf278e3db721a2ec2c2961c7ce5a114d969c1f562a563" name="ad490fa58f4db55cab180bf278e3db721a2ec2c2961c7ce5a114d969c1f562a563"></a>Cylinder&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad490fa58f4db55cab180bf278e3db721a4803e6b9e63dabf04de980788d6a13c4" name="ad490fa58f4db55cab180bf278e3db721a4803e6b9e63dabf04de980788d6a13c4"></a>Line&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad490fa58f4db55cab180bf278e3db721ab7095f057db3fefa7325ad93a04e14fd" name="ad490fa58f4db55cab180bf278e3db721ab7095f057db3fefa7325ad93a04e14fd"></a>Sphere&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a77eaf11c39e56d216f9354bcea69aea8" name="a77eaf11c39e56d216f9354bcea69aea8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77eaf11c39e56d216f9354bcea69aea8">&#9670;&#160;</a></span>ArenaActionPhase</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a77eaf11c39e56d216f9354bcea69aea8">core::ArenaActionPhase</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le moment d'une action que l'écran suit : son départ, puis son issue. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a77eaf11c39e56d216f9354bcea69aea8a1a06729125544cab7cee73195fc044f0" name="a77eaf11c39e56d216f9354bcea69aea8a1a06729125544cab7cee73195fc044f0"></a>Begin&#160;</td><td class="fielddoc"><p>L'action est dépensée, rien n'est encore jeté : le geste commence. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a77eaf11c39e56d216f9354bcea69aea8a87557f11575c0ad78e4e28abedc13b6e" name="a77eaf11c39e56d216f9354bcea69aea8a87557f11575c0ad78e4e28abedc13b6e"></a>End&#160;</td><td class="fielddoc"><p>L'action est résolue : les coups, les chutes, déjà annoncés par le combat. </p>
+</td></tr>
 </table>
 
 </div>

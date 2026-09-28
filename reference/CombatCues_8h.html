@@ -149,6 +149,7 @@ $(function(){initNavTree('CombatCues_8h.html','',''); });
 <code>#include &lt;deque&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="BattleGrid_8h_source.html">Core/Combat/BattleGrid.h</a>&quot;</code><br />
@@ -162,6 +163,8 @@ $(function(){initNavTree('CombatCues_8h.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3ACombatCue" id="r_hmi_3A_3ACombatCue"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CombatCue.html">hmi::CombatCue</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un fait du combat à montrer.  <a href="structhmi_1_1CombatCue.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AEffectMotion" id="r_hmi_3A_3AEffectMotion"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EffectMotion.html">hmi::EffectMotion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un effet à dessiner à cet instant (<span class="tt">LOT-136</span>).  <a href="structhmi_1_1EffectMotion.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AFigureMotion" id="r_hmi_3A_3AFigureMotion"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FigureMotion.html">hmi::FigureMotion</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une figurine montre à cet instant.  <a href="structhmi_1_1FigureMotion.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ACombatCueTrack" id="r_hmi_3A_3ACombatCueTrack"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatCueTrack.html">hmi::CombatCueTrack</a></td></tr>
@@ -181,9 +184,15 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d">hmi::Hit</a>
 , <br />
 &#160;&#160;<a class="el" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f">hmi::Death</a>
+, <a class="el" href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aa62d22910732d5343689f5117999abfa">hmi::Effect</a>
 <br />
  }</td></tr>
 <tr class="memdesc:af50d48ed1cc573c620ff2a1c420f7406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un combattant fait de visible.  <a href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4194f9c77255fd090763ac425476d7dc" id="r_a4194f9c77255fd090763ac425476d7dc"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a4194f9c77255fd090763ac425476d7dc">hmi::FX_DIRECTORY</a> = &quot;Common/Fx&quot;</td></tr>
+<tr class="memdesc:a4194f9c77255fd090763ac425476d7dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier des effets, depuis la racine des assets : une bande par effet (<span class="tt">LOT-136</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce que le combat <b>montre</b> après ce qu'il a décidé : les pas, les coups, les chutes, joués dans le temps par les figurines (<span class="tt">LOT-118</span>). </p>

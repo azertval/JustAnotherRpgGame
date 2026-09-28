@@ -5,6 +5,7 @@ var classhmi_1_1CombatCueTrack =
     [ "apply", "classhmi_1_1CombatCueTrack.html#a6d209291b75fd618b9098690fdc6bf0a", null ],
     [ "busy", "classhmi_1_1CombatCueTrack.html#a40e87f2f4dc51a0410eb2c5cf9e9c67a", null ],
     [ "clear", "classhmi_1_1CombatCueTrack.html#adb88d297e2690e8a941c9ef447f6e31a", null ],
+    [ "effects", "classhmi_1_1CombatCueTrack.html#a59568b98a0002eb2537ce890e2271764", null ],
     [ "finishAll", "classhmi_1_1CombatCueTrack.html#ae50a51156e9374e17265695fdbd660ef", null ],
     [ "motionOf", "classhmi_1_1CombatCueTrack.html#a49e582ba9ecdf7f00af7b43bc22c02e0", null ],
     [ "pending", "classhmi_1_1CombatCueTrack.html#ab3e55c85793523ec65bc841f0e768fff", null ],
@@ -16,6 +17,7 @@ var classhmi_1_1CombatCueTrack =
     [ "_queue", "classhmi_1_1CombatCueTrack.html#a0934d9870bb052824ebf88742b5efb04", null ],
     [ "_running", "classhmi_1_1CombatCueTrack.html#a49bf29271602ddc3a7297e31400e0393", null ],
     [ "ACTION_SECONDS", "classhmi_1_1CombatCueTrack.html#ac838aa510aa11e1d6256337e85026600", null ],
+    [ "EFFECT_SECONDS", "classhmi_1_1CombatCueTrack.html#aca7ea23ea75bf334fa558758fb52e61e", null ],
     [ "IMPACT_FRACTION", "classhmi_1_1CombatCueTrack.html#afd0414c9c8565543290b89aa58a7d098", null ],
     [ "WALK_CELLS_PER_SECOND", "classhmi_1_1CombatCueTrack.html#a5fd46f6bc9c924e710b7c54412301ee0", null ]
 ];

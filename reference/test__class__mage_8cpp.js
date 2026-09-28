@@ -9,5 +9,6 @@ var test__class__mage_8cpp =
     [ "TEST", "test__class__mage_8cpp.html#a0e83ea0942f7a741a95bddf7beb336c6", null ],
     [ "TEST", "test__class__mage_8cpp.html#a87cd6bae3cc2876d9a9f3a482d98e198", null ],
     [ "TEST", "test__class__mage_8cpp.html#a94af77468a1d86a89a1ca9fba0a6eeee", null ],
+    [ "TEST", "test__class__mage_8cpp.html#a45c57b5d6a8b6945852e03ece5c5624f", null ],
     [ "TEST", "test__class__mage_8cpp.html#a0b4462e3299157d5c48a049860894723", null ]
 ];

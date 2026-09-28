@@ -150,8 +150,8 @@ enum class FigureFacing : std::uint8_t {
 [[nodiscard]] FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept;
 
 /**
- * @brief Les six bandes d'une figurine (standard 2D HD, Â§5) : ce qu'une figurine complÃ¨te sait
- *        jouer, et ce qu'un combattant prÃ©charge (`LOT-118`).
+ * @brief Les bandes d'une figurine (standard 2D HD, Â§5, et le tir du `LOT-136`) : ce qu'une
+ * figurine complÃ¨te sait jouer, et ce qu'un combattant prÃ©charge (`LOT-118`).
  *
  * Le repos et la marche **bouclent** ; les quatre autres se jouent une fois et se figent sur leur
  * derniÃ¨re image (`SceneTexture::loop`, lu dans le `.anim.json` de la bande).
@@ -165,12 +165,21 @@ inline constexpr std::string_view WALK = "walk";
 inline constexpr std::string_view ATTACK = "attack";
 /// L'incantation, jouÃ©e une fois.
 inline constexpr std::string_view CAST = "cast";
+/// Le tir, jouÃ© une fois (`LOT-136`) ; une figurine qui n'en a pas joue son `attack`.
+inline constexpr std::string_view RANGED = "ranged";
 /// Le coup encaissÃ©, jouÃ© une fois.
 inline constexpr std::string_view HIT = "hit";
 /// La chute, jouÃ©e une fois ; la derniÃ¨re image reste.
 inline constexpr std::string_view DEATH = "death";
 /// Toutes, dans l'ordre du standard.
-inline constexpr std::array&lt;std::string_view, 6&gt; ALL = {IDLE, WALK, ATTACK, CAST, HIT, DEATH};
+inline constexpr std::array&lt;std::string_view, 7&gt; ALL = {IDLE, WALK, ATTACK, RANGED,
+                                                        CAST, HIT,  DEATH};
+
+/// @brief La bande qu'une figurine joue Ã  dÃ©faut de @p clip : le tir sans bande de tir est une
+///        attaque ; les autres n'ont pas de repli (vide).
+<span style = "background-color:#dfd">[[nodiscard]] constexpr std::string_view fallbackOf(std::string_view clip) noexcept {
+    return clip == RANGED ? ATTACK : std::string_view{};
+}</span>
 }  // namespace figure_clips
 
 /// @brief Le dossier d'un mannequin de remplacement, par silhouette (`LOT-145`) : ce que dessine
@@ -204,7 +213,7 @@ struct WorldFigureSnapshot {
 <span style = "background-color:#dfd">    float seconds = -1.0F;</span>
     /// Le hÃ©ros : un Ã©tage qui le masque s'efface (`LOT-129`).
 <span style = "background-color:#dfd">    bool hero = false;</span>
-    /// Un combattant (`LOT-118`) : ses six bandes se prÃ©chargent, pour qu'un coup ne charge pas une
+    /// Un combattant (`LOT-118`) : ses bandes se prÃ©chargent, pour qu'un coup ne charge pas une
     /// texture au milieu d'une image. Une figurine d'exploration n'en prÃ©charge que deux.
 <span style = "background-color:#dfd">    bool combatant = false;</span>
 

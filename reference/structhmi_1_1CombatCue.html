@@ -156,6 +156,12 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a0f1117a00c38875257108ba245d511e6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">Walk</span> : les cases traversées, départ <b>exclu</b>, arrivée incluse (<span class="tt"><a class="el" href="structcore_1_1Path.html#ae0dc848c470d5ca70205c5277f1e5e02">core::Path::steps</a></span>).  <br /></td></tr>
 <tr class="memitem:ae3ddf7b9429272c30e370c053c0efc1e" id="r_ae3ddf7b9429272c30e370c053c0efc1e"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae3ddf7b9429272c30e370c053c0efc1e">target</a></td></tr>
 <tr class="memdesc:ae3ddf7b9429272c30e370c053c0efc1e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">Attack</span>, <span class="tt">Cast</span> : la case visée, pour tourner la figurine vers elle.  <br /></td></tr>
+<tr class="memitem:aee286e8cdbfc2db90a529401e5996dfe" id="r_aee286e8cdbfc2db90a529401e5996dfe"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aee286e8cdbfc2db90a529401e5996dfe">ranged</a> = false</td></tr>
+<tr class="memdesc:aee286e8cdbfc2db90a529401e5996dfe"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">Attack</span> : un tir, joué par la bande <span class="tt"><a class="el" href="#aee286e8cdbfc2db90a529401e5996dfe" title="Attack : un tir, joué par la bande ranged (LOT-136).">ranged</a></span> (<span class="tt">LOT-136</span>).  <br /></td></tr>
+<tr class="memitem:af85324c7f22d962c2141f95efaa234b0" id="r_af85324c7f22d962c2141f95efaa234b0"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#af85324c7f22d962c2141f95efaa234b0">effect</a></td></tr>
+<tr class="memdesc:af85324c7f22d962c2141f95efaa234b0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">Effect</span> : la bande de l'effet (<span class="tt">fire-bolt</span>, <span class="tt">impact</span>), dans <span class="tt">Common/Fx/</span>.  <br /></td></tr>
+<tr class="memitem:afa3008822f9a651ec5ec4dbe39c0cd40" id="r_afa3008822f9a651ec5ec4dbe39c0cd40"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afa3008822f9a651ec5ec4dbe39c0cd40">travels</a> = false</td></tr>
+<tr class="memdesc:afa3008822f9a651ec5ec4dbe39c0cd40"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">Effect</span> : un projectile, qui vole de l'acteur à la cible jusqu'à l'impact.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un fait du combat à montrer. </p>
@@ -171,6 +177,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="af85324c7f22d962c2141f95efaa234b0" name="af85324c7f22d962c2141f95efaa234b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af85324c7f22d962c2141f95efaa234b0">&#9670;&#160;</a></span>effect</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::CombatCue::effect</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">Effect</span> : la bande de l'effet (<span class="tt">fire-bolt</span>, <span class="tt">impact</span>), dans <span class="tt">Common/Fx/</span>. </p>
 
 </div>
 </div>
@@ -204,6 +226,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aee286e8cdbfc2db90a529401e5996dfe" name="aee286e8cdbfc2db90a529401e5996dfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee286e8cdbfc2db90a529401e5996dfe">&#9670;&#160;</a></span>ranged</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::CombatCue::ranged = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">Attack</span> : un tir, joué par la bande <span class="tt"><a class="el" href="#aee286e8cdbfc2db90a529401e5996dfe" title="Attack : un tir, joué par la bande ranged (LOT-136).">ranged</a></span> (<span class="tt">LOT-136</span>). </p>
+
+</div>
+</div>
 <a id="ae3ddf7b9429272c30e370c053c0efc1e" name="ae3ddf7b9429272c30e370c053c0efc1e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae3ddf7b9429272c30e370c053c0efc1e">&#9670;&#160;</a></span>target</h2>
 
@@ -217,6 +255,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p><span class="tt">Attack</span>, <span class="tt">Cast</span> : la case visée, pour tourner la figurine vers elle. </p>
+<p><span class="tt">Effect</span> : où il paraît. </p>
+
+</div>
+</div>
+<a id="afa3008822f9a651ec5ec4dbe39c0cd40" name="afa3008822f9a651ec5ec4dbe39c0cd40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa3008822f9a651ec5ec4dbe39c0cd40">&#9670;&#160;</a></span>travels</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::CombatCue::travels = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">Effect</span> : un projectile, qui vole de l'acteur à la cible jusqu'à l'impact. </p>
 
 </div>
 </div>

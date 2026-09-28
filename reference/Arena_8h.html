@@ -181,6 +181,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combattant tel que l'écran de mise en place le compose.  <a href="structcore_1_1ArenaContestant.html#details">More...</a><br /></td></tr>
 <tr class="memitem:core_3A_3AArenaBout" id="r_core_3A_3AArenaBout"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaBout.html">core::ArenaBout</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une composition d'affrontement : qui, contre qui, à quelle graine, sous quelle règle.  <a href="structcore_1_1ArenaBout.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AArenaActionNotice" id="r_core_3A_3AArenaActionNotice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaActionNotice.html">core::ArenaActionNotice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'écran veut savoir d'une attaque ou d'un sort du combattant actif (<span class="tt">LOT-136</span>) : le geste à jouer — à l'arme, à distance, un sort —, sa cible, et l'effet à montrer.  <a href="structcore_1_1ArenaActionNotice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:core_3A_3AArenaMount" id="r_core_3A_3AArenaMount"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le montage d'un affrontement a produit : les enrôlés par camp, et les refus.  <a href="structcore_1_1ArenaMount.html#details">More...</a><br /></td></tr>
 <tr class="memitem:core_3A_3AArenaAttack" id="r_core_3A_3AArenaAttack"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ArenaAttack.html">core::ArenaAttack</a></td></tr>
@@ -199,6 +201,8 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:a838239698e3440af150c5de8127b830e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Décide si <code class="param">reactor</code> prend l'attaque d'opportunité que <code class="param">mover</code> lui offre.  <br /></td></tr>
 <tr class="memitem:a9ae3355e126e768022cd22fffaeabd25" id="r_a9ae3355e126e768022cd22fffaeabd25"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a9ae3355e126e768022cd22fffaeabd25">core::MoveObserver</a> = std::function&lt;void(<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> mover, const <a class="el" href="structcore_1_1Path.html">Path</a>&amp; path)&gt;</td></tr>
 <tr class="memdesc:a9ae3355e126e768022cd22fffaeabd25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'écran veut savoir d'un pas : qui a marché, par où (<span class="tt">LOT-118</span>).  <br /></td></tr>
+<tr class="memitem:a733e637c1b8d277e39c760fbbbd90526" id="r_a733e637c1b8d277e39c760fbbbd90526"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a733e637c1b8d277e39c760fbbbd90526">core::ActionObserver</a> = std::function&lt;void(const <a class="el" href="structcore_1_1ArenaActionNotice.html">ArenaActionNotice</a>&amp; notice)&gt;</td></tr>
+<tr class="memdesc:a733e637c1b8d277e39c760fbbbd90526"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prévenu au début et à la fin de chaque attaque et de chaque sort (<span class="tt">LOT-136</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -215,6 +219,10 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:abde919757944fef613e5f21cf21c3108"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un état qu'un combattant porte en combat (<span class="tt">LOT-137</span>) : ceux dont les quatre classes ont besoin jusqu'au niveau 5, pas le catalogue du <em>Manuel</em> (annexe A).  <a href="namespacecore.html#abde919757944fef613e5f21cf21c3108">More...</a><br /></td></tr>
+<tr class="memitem:a77eaf11c39e56d216f9354bcea69aea8" id="r_a77eaf11c39e56d216f9354bcea69aea8"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a77eaf11c39e56d216f9354bcea69aea8">core::ArenaActionPhase</a> : std::uint8_t { <a class="el" href="namespacecore.html#a77eaf11c39e56d216f9354bcea69aea8a1a06729125544cab7cee73195fc044f0">core::Begin</a>
+, <a class="el" href="namespacecore.html#a77eaf11c39e56d216f9354bcea69aea8a87557f11575c0ad78e4e28abedc13b6e">core::End</a>
+ }</td></tr>
+<tr class="memdesc:a77eaf11c39e56d216f9354bcea69aea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le moment d'une action que l'écran suit : son départ, puis son issue.  <a href="namespacecore.html#a77eaf11c39e56d216f9354bcea69aea8">More...</a><br /></td></tr>
 <tr class="memitem:ac011cdb67f4c31ececbaaceeace4cbed" id="r_ac011cdb67f4c31ececbaaceeace4cbed"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbed">core::ArenaActionResult</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedaf92965e2c8a7afb3c1b9a5c09a263636">core::Done</a>
 , <a class="el" href="namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda8cb45f47274f0e76f8d60401f43b0fb7">core::NoActiveTurn</a>

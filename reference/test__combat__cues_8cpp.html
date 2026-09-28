@@ -145,7 +145,8 @@ $(function(){initNavTree('test__combat__cues_8cpp.html','',''); });
 
 <p>Tests de la file des mouvements du combat (<span class="tt">LOT-118</span>) : une marche se joue case par case à la vitesse du monde, un coup porte au milieu de son geste, un mort reste à terre.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;gtest/gtest.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="CombatCues_8h_source.html">HMI/Game/CombatCues.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
@@ -156,12 +157,16 @@ Functions</h2></td></tr>
 <tr class="memdesc:a19dad789ea7ef1cb251cc2a9cf7d85b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coup porte au milieu du geste : le touché de la cible commence à mi-attaque, et une chute laisse la cible à terre pour de bon.  <br /></td></tr>
 <tr class="memitem:af5e4d02f2f5bb882b43808e0587f6712" id="r_af5e4d02f2f5bb882b43808e0587f6712"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af5e4d02f2f5bb882b43808e0587f6712">TEST</a> (CombatCuesTest, LInconnuEstIgnoreEtToutPeutFinirDUnCoup)</td></tr>
 <tr class="memdesc:af5e4d02f2f5bb882b43808e0587f6712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui n'a pas de figurine ne se montre pas, une marche vide non plus, et <span class="tt">finishAll</span> vide la file en posant chacun à son arrivée.  <br /></td></tr>
+<tr class="memitem:a5d23b438d830521883b6609376c3ee95" id="r_a5d23b438d830521883b6609376c3ee95"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5d23b438d830521883b6609376c3ee95">TEST</a> (CombatCuesTest, UnTirJoueSaBandeEtSaFlecheVole)</td></tr>
+<tr class="memdesc:a5d23b438d830521883b6609376c3ee95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un tir joue la bande <span class="tt">ranged</span> ; sa fleche vole de l'archer a la cible jusqu'a l'impact, puis le rate parait a la cible (<span class="tt">LOT-136</span>).  <br /></td></tr>
+<tr class="memitem:ad1a0b6b5f0da0becdc82ce7bae4e341b" id="r_ad1a0b6b5f0da0becdc82ce7bae4e341b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad1a0b6b5f0da0becdc82ce7bae4e341b">TEST</a> (CombatCuesTest, UnProjectileVersLaGaucheEstLeMiroir)</td></tr>
+<tr class="memdesc:ad1a0b6b5f0da0becdc82ce7bae4e341b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un projectile qui vole vers la gauche de l'ecran prend sa bande miroir, et un effet pose sans geste se joue seul (<span class="tt">LOT-136</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests de la file des mouvements du combat (<span class="tt">LOT-118</span>) : une marche se joue case par case à la vitesse du monde, un coup porte au milieu de son geste, un mort reste à terre. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a19dad789ea7ef1cb251cc2a9cf7d85b4" name="a19dad789ea7ef1cb251cc2a9cf7d85b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19dad789ea7ef1cb251cc2a9cf7d85b4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a19dad789ea7ef1cb251cc2a9cf7d85b4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,7 +196,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af5e4d02f2f5bb882b43808e0587f6712" name="af5e4d02f2f5bb882b43808e0587f6712"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5e4d02f2f5bb882b43808e0587f6712">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e4d02f2f5bb882b43808e0587f6712">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -221,7 +226,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3e11f27a0b1f414d78e5bc95208e0dc2" name="a3e11f27a0b1f414d78e5bc95208e0dc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e11f27a0b1f414d78e5bc95208e0dc2">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e11f27a0b1f414d78e5bc95208e0dc2">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,6 +254,67 @@ Functions</h2></td></tr>
 <li>Avancer de 0,25 s, puis de 0,5 s, puis jusqu'au bout.<br  />
  <b>Resultat attendu :</b> A 0,25 s il est a mi-chemin de la premiere case, en marche, tourne au sud-est ; a 0,75 s il est entre la premiere et la deuxieme ; a 1,5 s il est au repos en (2, 1), tourne au sud-ouest, et la file est vide. </li>
 </ol>
+
+</div>
+</div>
+<a id="ad1a0b6b5f0da0becdc82ce7bae4e341b" name="ad1a0b6b5f0da0becdc82ce7bae4e341b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1a0b6b5f0da0becdc82ce7bae4e341b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatCuesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnProjectileVersLaGaucheEstLeMiroir</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un projectile qui vole vers la gauche de l'ecran prend sa bande miroir, et un effet pose sans geste se joue seul (<span class="tt">LOT-136</span>). </p>
+<p><b>Cas de test :</b> <b>Un trait de feu vers la gauche de l'ecran joue <span class="tt">fire-bolt-left</span>.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat sur la carte<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Heros en (0, 0), rat en (0, 3) ; pousser un sort du heros sur le rat et son trait de feu en vol.<br  />
+2. Avancer de 0,1 s, puis tout finir.<br  />
+3. Pousser seul un impact sur le rat et avancer de 0,1 s.<br  />
+ <b>Resultat attendu :</b> Le heros joue <span class="tt">cast</span> ; l'effet est <span class="tt">fire-bolt-left</span> ; seul, l'impact parait tout de suite a la case du rat, puis la file se vide. </p>
+
+</div>
+</div>
+<a id="a5d23b438d830521883b6609376c3ee95" name="a5d23b438d830521883b6609376c3ee95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d23b438d830521883b6609376c3ee95">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatCuesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnTirJoueSaBandeEtSaFlecheVole</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un tir joue la bande <span class="tt">ranged</span> ; sa fleche vole de l'archer a la cible jusqu'a l'impact, puis le rate parait a la cible (<span class="tt">LOT-136</span>). </p>
+<p><b>Cas de test :</b> <b>Le tir, sa fleche et le rate s'enchainent sur le geste.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat sur la carte<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser le heros en (0, 0) et le rat en (3, 0) ; pousser un tir du heros sur le rat, la fleche en vol, un rate a la case du rat.<br  />
+2. Avancer de 0,16 s, puis jusqu'a 0,4 s, puis d'une seconde et demie.<br  />
+ <b>Resultat attendu :</b> A 0,16 s : le heros joue <span class="tt">ranged</span>, un seul effet, <span class="tt">arrow</span> (la cible est a droite de l'ecran), a mi-chemin. A 0,4 s : la fleche est arrivee et partie, le rate est a la case du rat. A la fin : plus aucun effet, la file est vide, le heros est au repos. </p>
 
 </div>
 </div>

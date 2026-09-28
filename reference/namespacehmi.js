@@ -1,12 +1,14 @@
 var namespacehmi =
 [
     [ "figure_clips", "namespacehmi_1_1figure__clips.html", [
-      [ "ALL", "namespacehmi_1_1figure__clips.html#a1ffc4db808c30be4b0d0d57c7837a3d0", null ],
+      [ "fallbackOf", "namespacehmi_1_1figure__clips.html#ad4d345c0899afeb51e4fb86fd920e167", null ],
+      [ "ALL", "namespacehmi_1_1figure__clips.html#a4dcd03567bc0276e741e4c38a34d94c9", null ],
       [ "ATTACK", "namespacehmi_1_1figure__clips.html#a89105a8d4361791fa8c9174588706da9", null ],
       [ "CAST", "namespacehmi_1_1figure__clips.html#ac3fac5359aef0f16361178db4a73821c", null ],
       [ "DEATH", "namespacehmi_1_1figure__clips.html#a10983e8d484be06fd85c312cf79dd9be", null ],
       [ "HIT", "namespacehmi_1_1figure__clips.html#a6945b3e99d97b537060eb38de45a7774", null ],
       [ "IDLE", "namespacehmi_1_1figure__clips.html#ae32b43afe6206e30237ba1bcfae6f724", null ],
+      [ "RANGED", "namespacehmi_1_1figure__clips.html#ad2b35214a0080c88eecfc21414ad0ddd", null ],
       [ "WALK", "namespacehmi_1_1figure__clips.html#a41fa10121357be1d449dbde15e73e918", null ]
     ] ],
     [ "AutosaveRecord", "structhmi_1_1AutosaveRecord.html", "structhmi_1_1AutosaveRecord" ],
@@ -110,6 +112,7 @@ var namespacehmi =
     [ "AudioEngine", "classhmi_1_1AudioEngine.html", "classhmi_1_1AudioEngine" ],
     [ "HeroContestantSource", "structhmi_1_1HeroContestantSource.html", "structhmi_1_1HeroContestantSource" ],
     [ "CombatCue", "structhmi_1_1CombatCue.html", "structhmi_1_1CombatCue" ],
+    [ "EffectMotion", "structhmi_1_1EffectMotion.html", "structhmi_1_1EffectMotion" ],
     [ "FigureMotion", "structhmi_1_1FigureMotion.html", "structhmi_1_1FigureMotion" ],
     [ "CombatCueTrack", "classhmi_1_1CombatCueTrack.html", "classhmi_1_1CombatCueTrack" ],
     [ "DebugOption", "structhmi_1_1DebugOption.html", "structhmi_1_1DebugOption" ],
@@ -262,7 +265,8 @@ var namespacehmi =
       [ "Attack", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a", null ],
       [ "Cast", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c", null ],
       [ "Hit", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d", null ],
-      [ "Death", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f", null ]
+      [ "Death", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f", null ],
+      [ "Effect", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aa62d22910732d5343689f5117999abfa", null ]
     ] ],
     [ "DebugOptionScope", "namespacehmi.html#a2ffc1a507d314cef8672b08e6a13b2e2", [
       [ "Live", "namespacehmi.html#a2ffc1a507d314cef8672b08e6a13b2e2a955ad3298db330b5ee880c2c9e6f23a0", null ],
@@ -879,6 +883,7 @@ var namespacehmi =
     [ "FIGURE_MARKER_HEIGHT_PIXELS", "namespacehmi.html#ad62487d1ec9ecc1772ed1ea86fafbb38", null ],
     [ "FIGURE_MARKER_WIDTH_PIXELS", "namespacehmi.html#a801f08adca1e98026ef017093099229d", null ],
     [ "FLOOR_SEAM_OVERLAP", "namespacehmi.html#ac8defcd53d2643e64d9985a898796481", null ],
+    [ "FX_DIRECTORY", "namespacehmi.html#a4194f9c77255fd090763ac425476d7dc", null ],
     [ "GAMEPAD_BUTTON_COUNT", "namespacehmi.html#aab59d64d595ba17a55cc07311285ba14", null ],
     [ "GAMEPAD_DISCONNECTED_PROBE_PERIOD", "namespacehmi.html#a2a20dc2308d9f364b3d764c4443ef799", null ],
     [ "GESTURE_SCRIPT_FORMAT", "namespacehmi.html#a5d67831ba4723f9904629c2b54bc7f9c", null ],

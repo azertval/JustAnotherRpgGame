@@ -13,7 +13,7 @@ var searchData=
   ['editorviewport_10',['EditorViewport',['../classhmi_1_1EditorViewport.html#acc70ccb133e78c37229a7d3d28f12251',1,'hmi::EditorViewport::EditorViewport(StartContent content=StartContent::StartMap, QWidget *parent=nullptr)'],['../classhmi_1_1EditorViewport.html#aca765328d041d38121a730fd7920e11b',1,'hmi::EditorViewport::EditorViewport(const EditorViewport &amp;)=delete']]],
   ['effectiveopacity_11',['effectiveOpacity',['../structhmi_1_1LayerDisplay.html#a078355bc96773737419fd3e450655e80',1,'hmi::LayerDisplay']]],
   ['effectivespeedmeters_12',['effectiveSpeedMeters',['../structcore_1_1CharacterSheet.html#a7af4bb81101430aa9afc3a94d5760506',1,'core::CharacterSheet']]],
-  ['effects_13',['effects',['../classcore_1_1ArenaSession.html#aff46a7c844f818490dbd2bc6d0d55a0e',1,'core::ArenaSession']]],
+  ['effects_13',['effects',['../classcore_1_1ArenaSession.html#aff46a7c844f818490dbd2bc6d0d55a0e',1,'core::ArenaSession::effects()'],['../classhmi_1_1CombatCueTrack.html#a59568b98a0002eb2537ce890e2271764',1,'hmi::CombatCueTrack::effects()']]],
   ['elevationat_14',['elevationAt',['../structcore_1_1TileLayer.html#a3e8783d816158a9f664727059e7d83a0',1,'core::TileLayer']]],
   ['emitscenechanged_15',['emitSceneChanged',['../classhmi_1_1CombatModel.html#a0659205d31e32dd04ec35d5e15bca4bc',1,'hmi::CombatModel']]],
   ['emitzoomifchanged_16',['emitZoomIfChanged',['../classhmi_1_1EditorViewport.html#a98a9b209eb9ca1dfa7a2648a282f27c0',1,'hmi::EditorViewport']]],

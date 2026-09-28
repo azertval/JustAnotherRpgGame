@@ -778,10 +778,24 @@ AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId tar
             _combat-&gt;economy(*actif)-&gt;grant(EXTRA_ATTACK_RESOURCE, enPlus-&gt;count);</span>
         }
     }
+<span style = "background-color:#dfd">    ArenaActionNotice annonce{.phase = ArenaActionPhase::Begin,
+                              .actor = *actif,
+                              .target = target,
+                              .spell = {},
+                              .ranged = profil.range.has_value(),
+                              .missed = false};
+    if (_actionObserver) {</span>
+<span style = "background-color:#fdd">        _actionObserver(annonce);</span>
+    }
 <span style = "background-color:#dfd">    ArenaAttack attaque{.result = ArenaActionResult::Done, .outcome = std::nullopt};
     attaque.outcome = resolveAndRecord(*actif, target, profil, {});
     if (attaque.outcome.has_value()) {
         attaque.summary = attaque.outcome-&gt;describe();</span>
+    }
+<span style = "background-color:#dfd">    if (_actionObserver) {</span>
+<span style = "background-color:#fdd">        annonce.phase = ArenaActionPhase::End;
+        annonce.missed = attaque.outcome.has_value() &amp;&amp; !attaque.outcome-&gt;roll.hit;
+        _actionObserver(annonce);</span>
     }
     // L'invisibilite cesse pour qui attaque -- apres l'attaque, qui en a profite.
 <span style = "background-color:#dfd">    const CombatantId attaquantId = *actif;
@@ -899,6 +913,27 @@ AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId tar
             },</span>
             "concentration sur " + lance.name);
     }
+<span style = "background-color:#dfd">    ArenaActionNotice annonce{.phase = ArenaActionPhase::Begin,
+                              .actor = lanceurId,
+                              .target = target,
+                              .spell = lance.id,
+                              .ranged = false,
+                              .missed = false};
+    if (_actionObserver) {
+        _actionObserver(annonce);</span>
+    }
+<span style = "background-color:#dfd">    ArenaAttack issue = resolveSpell(lanceurId, target, lance, prefixe, armeInvoquee);
+    if (_actionObserver) {
+        annonce.phase = ArenaActionPhase::End;
+        annonce.missed = issue.outcome.has_value() &amp;&amp; !issue.outcome-&gt;roll.hit;
+        _actionObserver(annonce);</span>
+    }
+<span style = "background-color:#dfd">    return issue;
+}</span>
+
+ArenaAttack ArenaSession::resolveSpell(CombatantId lanceurId, CombatantId target,
+                                       const ArenaSpell&amp; lance, const std::string&amp; prefixe,
+<span style = "background-color:#dfd">                                       bool armeInvoquee) {</span>
     // L'invisibilite cesse pour qui lance un sort : avant l'effet qu'il pose, apres les degats qui
     // en ont profite.
 <span style = "background-color:#dfd">    const auto finInvisibilite = [this, lanceurId] {
@@ -942,8 +977,8 @@ AttackContext ArenaSession::contextAgainst(CombatantId attacker, CombatantId tar
 <span style = "background-color:#dfd">            finInvisibilite();
             return castRevive(lanceurId, target, lance, prefixe);</span>
     }
-<span style = "background-color:#fdd">    return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};
-}</span>
+<span style = "background-color:#fdd">    return {.result = ArenaActionResult::NoSpell, .outcome = std::nullopt};</span>
+<span style = "background-color:#dfd">}</span>
 
 ArenaAttack ArenaSession::castAttackRolls(CombatantId caster, CombatantId target,
 <span style = "background-color:#dfd">                                          const ArenaSpell&amp; spell, const std::string&amp; prefix) {

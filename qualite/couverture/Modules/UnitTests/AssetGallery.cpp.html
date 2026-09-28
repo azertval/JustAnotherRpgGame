@@ -234,7 +234,12 @@ void readSceneFamily(const std::filesystem::path&amp; root, const std::string&am
             .anchorX = piece.anchorX,
             .anchorY = piece.anchorY,
             .tilePixels = read.manifest.tileWidth()});
-<span style = "background-color:#dfd">    }
+        // Une piÃ¨ce animÃ©e -- un effet de `Common/Fx` (`LOT-136`) -- a son `.anim.json` Ã  cÃ´tÃ© :
+        // elle se joue dans la galerie au lieu de s'y Ã©taler en bande.
+<span style = "background-color:#dfd">        std::filesystem::path animation = root / directory / piece.file;
+        animation.replace_extension(".anim.json");
+        static_cast&lt;void&gt;(readAnimatedEntry(family.entries.back(), animation, catalog.errors));
+    }
     std::ranges::stable_sort(family.entries,
                              [](const AssetGalleryEntry&amp; left, const AssetGalleryEntry&amp; right) {
                                  return classRank(left.model) &lt; classRank(right.model);

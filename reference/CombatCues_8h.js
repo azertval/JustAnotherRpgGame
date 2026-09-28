@@ -1,6 +1,7 @@
 var CombatCues_8h =
 [
     [ "hmi::CombatCue", "structhmi_1_1CombatCue.html", "structhmi_1_1CombatCue" ],
+    [ "hmi::EffectMotion", "structhmi_1_1EffectMotion.html", "structhmi_1_1EffectMotion" ],
     [ "hmi::FigureMotion", "structhmi_1_1FigureMotion.html", "structhmi_1_1FigureMotion" ],
     [ "hmi::CombatCueTrack", "classhmi_1_1CombatCueTrack.html", "classhmi_1_1CombatCueTrack" ],
     [ "hmi::CombatCueTrack::Running", "structhmi_1_1CombatCueTrack_1_1Running.html", "structhmi_1_1CombatCueTrack_1_1Running" ],
@@ -9,6 +10,8 @@ var CombatCues_8h =
       [ "hmi::CombatCueKind::Attack", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406adcfafcb4323b102c7e204555d313ba0a", null ],
       [ "hmi::CombatCueKind::Cast", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c", null ],
       [ "hmi::CombatCueKind::Hit", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d", null ],
-      [ "hmi::CombatCueKind::Death", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f", null ]
-    ] ]
+      [ "hmi::CombatCueKind::Death", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f", null ],
+      [ "hmi::CombatCueKind::Effect", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aa62d22910732d5343689f5117999abfa", null ]
+    ] ],
+    [ "hmi::FX_DIRECTORY", "namespacehmi.html#a4194f9c77255fd090763ac425476d7dc", null ]
 ];

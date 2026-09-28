@@ -156,7 +156,7 @@ var searchData=
   ['perturn_153',['perTurn',['../structcore_1_1ActionResource.html#a9c5f045329148530b285cfafe063e41b',1,'core::ActionResource']]],
   ['petrified_154',['Petrified',['../namespacecore.html#aae82873d6c7bd0b4db085354c50e1493ad2040899620064c4a4e0ae965d9d3105',1,'core']]],
   ['peut_20on_20se_20tenir_20ici_20»_155',['Une seule source de vérité pour « peut-on se tenir ici »',['../classcore_1_1BattleGrid.html#autotoc_md17',1,'']]],
-  ['phase_156',['phase',['../classcore_1_1CombatState.html#a0474d17b1316dd9d0936ee799861621e',1,'core::CombatState']]],
+  ['phase_156',['phase',['../structcore_1_1ArenaActionNotice.html#aed3b539af7f2ae08aaedb05dc8e39cce',1,'core::ArenaActionNotice::phase'],['../classcore_1_1CombatState.html#a0474d17b1316dd9d0936ee799861621e',1,'core::CombatState::phase()']]],
   ['pièce_20format_20v4_20lot_20editor_2012_20ex_20lvl_20019_157',['Une case = un type et une pièce (format v4, &lt;span class=&quot;tt&quot;&gt;LOT-EDITOR-12&lt;/span&gt;, &lt;span class=&quot;tt&quot;&gt;EX-LVL-019&lt;/span&gt;)',['../structcore_1_1TileLayer.html#autotoc_md52',1,'']]],
   ['pickat_158',['pickAt',['../classhmi_1_1EditorViewport.html#ace595443371f40efd2f9daadd0f3967c',1,'hmi::EditorViewport']]],
   ['pickbrush_159',['pickBrush',['../namespacehmi.html#ab96fa423fcd48543b29174b992e6f5c0',1,'hmi']]],
@@ -272,7 +272,7 @@ var searchData=
   ['plutôt_20qu_20une_20image_20manquante_269',['Pourquoi un marqueur plutôt qu&apos;une image manquante',['../namespacecore.html#autotoc_md53',1,'']]],
   ['plutôt_20que_20la_20table_20brute_270',['Pourquoi des propriétés nommées plutôt que la table brute',['../classhmi_1_1CharacterSheetModel.html#autotoc_md100',1,'']]],
   ['point_271',['Point',['../namespacecore.html#a64b3830ace127763a5bb2d6eca3194b9a2a3cd5946cfd317eb99c3d32e35e2d4c',1,'core']]],
-  ['point_272',['point',['../namespacecore.html#autotoc_md54',1,'Déterministe, et c&apos;est le point'],['../structhmi_1_1FigureMotion.html#a46023823e82a90da915cab00c624a98b',1,'hmi::FigureMotion::point'],['../structhmi_1_1WorldPlay_1_1Follower.html#ae5c819cb8127e2030fba4a5e6afa59dc',1,'hmi::WorldPlay::Follower::point'],['../structhmi_1_1WorldFigureSnapshot.html#a765cc286fa6496a8a8184ea2fcd1fdec',1,'hmi::WorldFigureSnapshot::point']]],
+  ['point_272',['point',['../namespacecore.html#autotoc_md54',1,'Déterministe, et c&apos;est le point'],['../structhmi_1_1EffectMotion.html#a5e5dc505ba9df96ff408f381a9ee0c6a',1,'hmi::EffectMotion::point'],['../structhmi_1_1FigureMotion.html#a46023823e82a90da915cab00c624a98b',1,'hmi::FigureMotion::point'],['../structhmi_1_1WorldPlay_1_1Follower.html#ae5c819cb8127e2030fba4a5e6afa59dc',1,'hmi::WorldPlay::Follower::point'],['../structhmi_1_1WorldFigureSnapshot.html#a765cc286fa6496a8a8184ea2fcd1fdec',1,'hmi::WorldFigureSnapshot::point']]],
   ['pointbehind_273',['pointBehind',['../classcore_1_1FollowTrail.html#ae41200601a2382ddd1854b2d696ad048',1,'core::FollowTrail']]],
   ['pointcursor_274',['pointCursor',['../classhmi_1_1CombatModel.html#ab13311c4dd097f0f857ddd713daf54a1',1,'hmi::CombatModel']]],
   ['points_275',['points',['../structhmi_1_1MapCityView.html#a5efbc38d366afbfc53b6f6f84427346b',1,'hmi::MapCityView::points'],['../classcore_1_1FollowTrail.html#a6bf4c1ffd1e0e239ce7d1adf1465c6d9',1,'core::FollowTrail::points()']]],
@@ -419,5 +419,6 @@ var searchData=
   ['purse_416',['purse',['../classhmi_1_1InventoryModel.html#a996e8e82699dcefdd215b1570ba17440',1,'hmi::InventoryModel::purse'],['../classhmi_1_1InventoryModel.html#ad145dfad038799a59937922c2aa24a5a',1,'hmi::InventoryModel::purse() const']]],
   ['pursecopper_417',['purseCopper',['../structcore_1_1Inventory.html#a120cf3f2b69a7f317f5b0dcefd773c0e',1,'core::Inventory']]],
   ['push_418',['push',['../classhmi_1_1CombatCueTrack.html#ad8833d40491f43b045a9d71f68053d92',1,'hmi::CombatCueTrack']]],
-  ['pushundo_419',['pushUndo',['../classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d',1,'core::LevelDraft']]]
+  ['pusheffect_419',['pushEffect',['../classhmi_1_1EncounterModel.html#a8572a9dc36120ccb7da4102458b7ea4e',1,'hmi::EncounterModel']]],
+  ['pushundo_420',['pushUndo',['../classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d',1,'core::LevelDraft']]]
 ];

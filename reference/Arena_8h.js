@@ -5,11 +5,17 @@ var Arena_8h =
     [ "core::ArenaEffect", "structcore_1_1ArenaEffect.html", "structcore_1_1ArenaEffect" ],
     [ "core::ArenaContestant", "structcore_1_1ArenaContestant.html", "structcore_1_1ArenaContestant" ],
     [ "core::ArenaBout", "structcore_1_1ArenaBout.html", "structcore_1_1ArenaBout" ],
+    [ "core::ArenaActionNotice", "structcore_1_1ArenaActionNotice.html", "structcore_1_1ArenaActionNotice" ],
     [ "core::ArenaMount", "structcore_1_1ArenaMount.html", "structcore_1_1ArenaMount" ],
     [ "core::ArenaAttack", "structcore_1_1ArenaAttack.html", "structcore_1_1ArenaAttack" ],
     [ "core::ArenaSession", "classcore_1_1ArenaSession.html", "classcore_1_1ArenaSession" ],
+    [ "core::ActionObserver", "namespacecore.html#a733e637c1b8d277e39c760fbbbd90526", null ],
     [ "core::MoveObserver", "namespacecore.html#a9ae3355e126e768022cd22fffaeabd25", null ],
     [ "core::OpportunityPolicy", "namespacecore.html#a838239698e3440af150c5de8127b830e", null ],
+    [ "core::ArenaActionPhase", "namespacecore.html#a77eaf11c39e56d216f9354bcea69aea8", [
+      [ "core::ArenaActionPhase::Begin", "namespacecore.html#a77eaf11c39e56d216f9354bcea69aea8a1a06729125544cab7cee73195fc044f0", null ],
+      [ "core::ArenaActionPhase::End", "namespacecore.html#a77eaf11c39e56d216f9354bcea69aea8a87557f11575c0ad78e4e28abedc13b6e", null ]
+    ] ],
     [ "core::ArenaActionResult", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbed", [
       [ "core::ArenaActionResult::Done", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedaf92965e2c8a7afb3c1b9a5c09a263636", null ],
       [ "core::ArenaActionResult::NoActiveTurn", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbeda8cb45f47274f0e76f8d60401f43b0fb7", null ],

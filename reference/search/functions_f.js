@@ -190,5 +190,6 @@ var searchData=
   ['publishfigures_187',['publishFigures',['../classhmi_1_1EncounterModel.html#a66c403badc0d1b18c8cf2c764c13317d',1,'hmi::EncounterModel']]],
   ['purse_188',['purse',['../classhmi_1_1InventoryModel.html#ad145dfad038799a59937922c2aa24a5a',1,'hmi::InventoryModel']]],
   ['push_189',['push',['../classhmi_1_1CombatCueTrack.html#ad8833d40491f43b045a9d71f68053d92',1,'hmi::CombatCueTrack']]],
-  ['pushundo_190',['pushUndo',['../classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d',1,'core::LevelDraft']]]
+  ['pusheffect_190',['pushEffect',['../classhmi_1_1EncounterModel.html#a8572a9dc36120ccb7da4102458b7ea4e',1,'hmi::EncounterModel']]],
+  ['pushundo_191',['pushUndo',['../classcore_1_1LevelDraft.html#a949cfb0148244f0ba05257d4f523f51d',1,'core::LevelDraft']]]
 ];

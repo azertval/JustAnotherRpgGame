@@ -8,6 +8,7 @@ var namespacecore =
     [ "ArenaEffect", "structcore_1_1ArenaEffect.html", "structcore_1_1ArenaEffect" ],
     [ "ArenaContestant", "structcore_1_1ArenaContestant.html", "structcore_1_1ArenaContestant" ],
     [ "ArenaBout", "structcore_1_1ArenaBout.html", "structcore_1_1ArenaBout" ],
+    [ "ArenaActionNotice", "structcore_1_1ArenaActionNotice.html", "structcore_1_1ArenaActionNotice" ],
     [ "ArenaMount", "structcore_1_1ArenaMount.html", "structcore_1_1ArenaMount" ],
     [ "ArenaAttack", "structcore_1_1ArenaAttack.html", "structcore_1_1ArenaAttack" ],
     [ "ArenaSession", "classcore_1_1ArenaSession.html", "classcore_1_1ArenaSession" ],
@@ -248,6 +249,7 @@ var namespacecore =
     [ "PortalTarget", "structcore_1_1PortalTarget.html", "structcore_1_1PortalTarget" ],
     [ "WorldIssue", "structcore_1_1WorldIssue.html", "structcore_1_1WorldIssue" ],
     [ "WorldTravel", "classcore_1_1WorldTravel.html", "classcore_1_1WorldTravel" ],
+    [ "ActionObserver", "namespacecore.html#a733e637c1b8d277e39c760fbbbd90526", null ],
     [ "AssertionHandler", "namespacecore.html#af16dfcce848d49387703fb5a0b155485", null ],
     [ "AttackRollListener", "namespacecore.html#a70920b2a35cc8c7a80281c47514c3d97", null ],
     [ "CombatListener", "namespacecore.html#aec8883b9ba0315c5d8d5b710a34d03d4", null ],
@@ -274,6 +276,10 @@ var namespacecore =
       [ "Cylinder", "namespacecore.html#ad490fa58f4db55cab180bf278e3db721a2ec2c2961c7ce5a114d969c1f562a563", null ],
       [ "Line", "namespacecore.html#ad490fa58f4db55cab180bf278e3db721a4803e6b9e63dabf04de980788d6a13c4", null ],
       [ "Sphere", "namespacecore.html#ad490fa58f4db55cab180bf278e3db721ab7095f057db3fefa7325ad93a04e14fd", null ]
+    ] ],
+    [ "ArenaActionPhase", "namespacecore.html#a77eaf11c39e56d216f9354bcea69aea8", [
+      [ "Begin", "namespacecore.html#a77eaf11c39e56d216f9354bcea69aea8a1a06729125544cab7cee73195fc044f0", null ],
+      [ "End", "namespacecore.html#a77eaf11c39e56d216f9354bcea69aea8a87557f11575c0ad78e4e28abedc13b6e", null ]
     ] ],
     [ "ArenaActionResult", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbed", [
       [ "Done", "namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedaf92965e2c8a7afb3c1b9a5c09a263636", null ],

@@ -271,6 +271,36 @@ using OpportunityPolicy =
  */
 using MoveObserver = std::function&lt;void(CombatantId mover, const Path&amp; path)&gt;;
 
+/// @brief Le moment d'une action que l'Ã©cran suit : son dÃ©part, puis son issue.
+enum class ArenaActionPhase : std::uint8_t {
+    /// L'action est dÃ©pensÃ©e, rien n'est encore jetÃ© : le geste commence.
+    Begin,
+    /// L'action est rÃ©solue : les coups, les chutes, dÃ©jÃ  annoncÃ©s par le combat.
+    End,
+};
+
+/**
+ * @brief Ce que l'Ã©cran veut savoir d'une attaque ou d'un sort du combattant actif (`LOT-136`) :
+ *        le geste Ã  jouer â Ã  l'arme, Ã  distance, un sort â, sa cible, et l'effet Ã  montrer.
+ *
+ * Les crochets du combat (`CombatHook::AttackDeclared`) ne disent ni si l'arme tire, ni quel sort
+ * se lance, ni un sort sans jet d'attaque : c'est la session qui le sait.
+ */
+struct ArenaActionNotice {
+    ArenaActionPhase phase = ArenaActionPhase::Begin;
+    CombatantId actor{};
+    CombatantId target{};
+    /// L'identifiant du sort (`fire-bolt`), vide pour une attaque Ã  l'arme.
+    std::string spell;
+    /// Une attaque Ã  distance : l'arme a une portÃ©e (`AttackProfile::range`).
+    bool ranged = false;
+    /// `End` : un jet d'attaque a eu lieu et a manquÃ©.
+    bool missed = false;
+};
+
+/// @brief PrÃ©venu au dÃ©but et Ã  la fin de chaque attaque et de chaque sort (`LOT-136`).
+using ActionObserver = std::function&lt;void(const ArenaActionNotice&amp; notice)&gt;;
+
 /// @brief Ce que le montage d'un affrontement a produit : les enrÃ´lÃ©s par camp, et les refus.
 struct ArenaMount {
     std::vector&lt;CombatantId&gt; allies;
@@ -503,6 +533,12 @@ public:
         _moveObserver = std::move(observer);
     }
 
+    /// @brief PrÃ©vient @p observer au dÃ©but et Ã  la fin de chaque attaque et de chaque sort
+    ///        (`LOT-136`).
+<span style = "background-color:#dfd">    void setActionObserver(ActionObserver observer) {
+        _actionObserver = std::move(observer);
+    }</span>
+
     /// @brief Ajoute une ligne au journal : la dÃ©cision d'un comportement, pour qu'elle se relise.
 <span style = "background-color:#dfd">    void note(std::string line) {
         record(std::move(line));
@@ -572,6 +608,9 @@ private:
         std::vector&lt;CombatantId&gt;&amp; reactors) const;
     /// Branche sur @p hooks les effets des capacitÃ©s de @p attacker : bonus au jet, dÃ©s en plus.
     void hookCapacities(AttackHooks&amp; hooks, CombatantId attacker);
+    /// Le mÃ©canisme d'un sort dÃ©jÃ  payÃ© (`castSpell`) : jet, salve, sauvegarde, effet, soin.
+    ArenaAttack resolveSpell(CombatantId lanceurId, CombatantId target, const ArenaSpell&amp; lance,
+                             const std::string&amp; prefixe, bool armeInvoquee);
     /// Un jet d'attaque par projectile, une fois la cible, la portÃ©e et l'action vÃ©rifiÃ©es.
     ArenaAttack castAttackRolls(CombatantId caster, CombatantId target, const ArenaSpell&amp; spell,
                                 const std::string&amp; prefix);
@@ -618,6 +657,7 @@ private:
     std::map&lt;CombatantId, std::string&gt; _behaviors;
     OpportunityPolicy _opportunityPolicy;
     MoveObserver _moveObserver;
+    ActionObserver _actionObserver;
     std::set&lt;CombatantId&gt; _declinesOpportunities;
     AttackHooks _attackHooks;
     DamagePipeline _damagePipeline;

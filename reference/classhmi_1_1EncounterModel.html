@@ -350,6 +350,10 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a149af1205eda85e59702a9664b18b921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose la file des mouvements sur les cases de départ des combattants.  <br /></td></tr>
 <tr class="memitem:a342172e5ec90ee7200202d03f37b9ec3" id="r_a342172e5ec90ee7200202d03f37b9ec3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a342172e5ec90ee7200202d03f37b9ec3">subscribeCues</a> ()</td></tr>
 <tr class="memdesc:a342172e5ec90ee7200202d03f37b9ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche la file des mouvements sur la session montée.  <br /></td></tr>
+<tr class="memitem:a3c485caaa3863b8b1eca5cd33d638649" id="r_a3c485caaa3863b8b1eca5cd33d638649"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3c485caaa3863b8b1eca5cd33d638649">showAction</a> (const <a class="el" href="structcore_1_1ArenaActionNotice.html">core::ArenaActionNotice</a> &amp;notice)</td></tr>
+<tr class="memdesc:a3c485caaa3863b8b1eca5cd33d638649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met dans la file le geste d'une attaque ou d'un sort, et son effet (<span class="tt">LOT-136</span>).  <br /></td></tr>
+<tr class="memitem:a8572a9dc36120ccb7da4102458b7ea4e" id="r_a8572a9dc36120ccb7da4102458b7ea4e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8572a9dc36120ccb7da4102458b7ea4e">pushEffect</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> <a class="el" href="#a039813caec05398c354ffd7d20f3fb9e">target</a>, std::string effect, bool travels)</td></tr>
+<tr class="memdesc:a8572a9dc36120ccb7da4102458b7ea4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met dans la file l'effet <code class="param">effect</code>, de <code class="param">actor</code> vers la case de <code class="param">target</code>.  <br /></td></tr>
 <tr class="memitem:a66c403badc0d1b18c8cf2c764c13317d" id="r_a66c403badc0d1b18c8cf2c764c13317d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a66c403badc0d1b18c8cf2c764c13317d">publishFigures</a> ()</td></tr>
 <tr class="memdesc:a66c403badc0d1b18c8cf2c764c13317d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publie les figurines des combattants dans le monde.  <br /></td></tr>
 <tr class="memitem:af35df2306a62ab79b8df9f7a94df9c63" id="r_af35df2306a62ab79b8df9f7a94df9c63"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af35df2306a62ab79b8df9f7a94df9c63">settleOutcome</a> ()</td></tr>
@@ -370,6 +374,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a41cd490cedb4ac8fffa66592efbdcb4d" id="r_a41cd490cedb4ac8fffa66592efbdcb4d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EncounterModel_1_1Member.html">Member</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a41cd490cedb4ac8fffa66592efbdcb4d">_members</a></td></tr>
 <tr class="memdesc:a41cd490cedb4ac8fffa66592efbdcb4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les membres du groupe montés, dans l'ordre de marche.  <br /></td></tr>
 <tr class="memitem:a1a0334bf6b30b70f5a5b93ca32ae1041" id="r_a1a0334bf6b30b70f5a5b93ca32ae1041"><td class="memItemLeft"><a class="el" href="classhmi_1_1CombatCueTrack.html">CombatCueTrack</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1a0334bf6b30b70f5a5b93ca32ae1041">_cues</a></td></tr>
+<tr class="memitem:a4c080327e9b9d0019bc189da2ae080b8" id="r_a4c080327e9b9d0019bc189da2ae080b8"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4c080327e9b9d0019bc189da2ae080b8">_gesture</a></td></tr>
+<tr class="memdesc:a4c080327e9b9d0019bc189da2ae080b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le combattant dont la session joue une attaque ou un sort (<span class="tt">LOT-136</span>) : son geste est déjà dans la file, l'attaque que le combat annonce ensuite n'en ajoute pas un second.  <br /></td></tr>
 <tr class="memitem:a7de691c1bfeb8cd701e7904cfa20ce47" id="r_a7de691c1bfeb8cd701e7904cfa20ce47"><td class="memItemLeft">QTimer&#160;</td><td class="memItemRight"><a class="el" href="#a7de691c1bfeb8cd701e7904cfa20ce47">_clock</a></td></tr>
 <tr class="memitem:a09d6e88bcc6e2525a346a473e8c5f0fc" id="r_a09d6e88bcc6e2525a346a473e8c5f0fc"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a09d6e88bcc6e2525a346a473e8c5f0fc">_outcome</a></td></tr>
 <tr class="memitem:a07b481b5214b5271ca543557bd0e06bf" id="r_a07b481b5214b5271ca543557bd0e06bf"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a07b481b5214b5271ca543557bd0e06bf">_seed</a> = 0</td></tr>
@@ -1110,6 +1116,47 @@ Les issues</h2>
 
 </div>
 </div>
+<a id="a8572a9dc36120ccb7da4102458b7ea4e" name="a8572a9dc36120ccb7da4102458b7ea4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8572a9dc36120ccb7da4102458b7ea4e">&#9670;&#160;</a></span>pushEffect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EncounterModel::pushEffect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>actor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>effect</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>travels</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Met dans la file l'effet <code class="param">effect</code>, de <code class="param">actor</code> vers la case de <code class="param">target</code>. </p>
+
+</div>
+</div>
 <a id="a569f4f76b0d178214578652428302c25" name="a569f4f76b0d178214578652428302c25"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a569f4f76b0d178214578652428302c25">&#9670;&#160;</a></span>seed()</h2>
 
@@ -1260,6 +1307,33 @@ Les issues</h2>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Le montage en cours, pour qui vérifie sans fenêtre. </dd></dl>
+
+</div>
+</div>
+<a id="a3c485caaa3863b8b1eca5cd33d638649" name="a3c485caaa3863b8b1eca5cd33d638649"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c485caaa3863b8b1eca5cd33d638649">&#9670;&#160;</a></span>showAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EncounterModel::showAction </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaActionNotice.html">core::ArenaActionNotice</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>notice</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Met dans la file le geste d'une attaque ou d'un sort, et son effet (<span class="tt">LOT-136</span>). </p>
 
 </div>
 </div>
@@ -1586,6 +1660,30 @@ Les issues</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c080327e9b9d0019bc189da2ae080b8" name="a4c080327e9b9d0019bc189da2ae080b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c080327e9b9d0019bc189da2ae080b8">&#9670;&#160;</a></span>_gesture</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a>&gt; hmi::EncounterModel::_gesture</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le combattant dont la session joue une attaque ou un sort (<span class="tt">LOT-136</span>) : son geste est déjà dans la file, l'attaque que le combat annonce ensuite n'en ajoute pas un second. </p>
 
 </div>
 </div>

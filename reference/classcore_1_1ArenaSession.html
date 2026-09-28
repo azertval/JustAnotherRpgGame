@@ -196,6 +196,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7e87ed448b5a3fe93115802b2a417c1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qui décide des attaques d'opportunité. Sans politique, chacune est prise.  <br /></td></tr>
 <tr class="memitem:aeaed382f27369145400b710e905d5d94" id="r_aeaed382f27369145400b710e905d5d94"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeaed382f27369145400b710e905d5d94">setMoveObserver</a> (<a class="el" href="namespacecore.html#a9ae3355e126e768022cd22fffaeabd25">MoveObserver</a> observer)</td></tr>
 <tr class="memdesc:aeaed382f27369145400b710e905d5d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prévient <code class="param">observer</code> à chaque pas effectué, avec son chemin (<span class="tt">LOT-118</span>).  <br /></td></tr>
+<tr class="memitem:a051b285d7592ec1194c8faf659e14d7b" id="r_a051b285d7592ec1194c8faf659e14d7b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a051b285d7592ec1194c8faf659e14d7b">setActionObserver</a> (<a class="el" href="namespacecore.html#a733e637c1b8d277e39c760fbbbd90526">ActionObserver</a> observer)</td></tr>
+<tr class="memdesc:a051b285d7592ec1194c8faf659e14d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prévient <code class="param">observer</code> au début et à la fin de chaque attaque et de chaque sort (<span class="tt">LOT-136</span>).  <br /></td></tr>
 <tr class="memitem:ad9d4850a9d42e1eb18cf9cb17c688f03" id="r_ad9d4850a9d42e1eb18cf9cb17c688f03"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad9d4850a9d42e1eb18cf9cb17c688f03">note</a> (std::string line)</td></tr>
 <tr class="memdesc:ad9d4850a9d42e1eb18cf9cb17c688f03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute une ligne au journal : la décision d'un comportement, pour qu'elle se relise.  <br /></td></tr>
 <tr class="memitem:ae110a3d6fe0b565b9dfbdbaad5f13990" id="r_ae110a3d6fe0b565b9dfbdbaad5f13990"><td class="memItemLeft"><a class="el" href="structcore_1_1MoveOutcome.html">MoveOutcome</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae110a3d6fe0b565b9dfbdbaad5f13990">move</a> (<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> destination)</td></tr>
@@ -227,6 +229,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:aa5db74127aa200ec419457e753b60536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le même calcul, <b>sans</b> tenir compte du désengagement ni des capacités : ce que le pas aurait provoqué.  <br /></td></tr>
 <tr class="memitem:ae327de7aee4320e246557290c95eccb0" id="r_ae327de7aee4320e246557290c95eccb0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae327de7aee4320e246557290c95eccb0">hookCapacities</a> (<a class="el" href="classcore_1_1AttackHooks.html">AttackHooks</a> &amp;hooks, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> attacker)</td></tr>
 <tr class="memdesc:ae327de7aee4320e246557290c95eccb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Branche sur <code class="param">hooks</code> les effets des capacités de <code class="param">attacker</code> : bonus au jet, dés en plus.  <br /></td></tr>
+<tr class="memitem:a22eb86c8ad931b0f4bf60151109dbe9e" id="r_a22eb86c8ad931b0f4bf60151109dbe9e"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#a22eb86c8ad931b0f4bf60151109dbe9e">resolveSpell</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> lanceurId, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;lance, const std::string &amp;prefixe, bool armeInvoquee)</td></tr>
+<tr class="memdesc:a22eb86c8ad931b0f4bf60151109dbe9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mécanisme d'un sort déjà payé (<span class="tt"><a class="el" href="#a4c66e3a8f4aa73bd21da742945b5b5dd" title="L&#39;action lancer un sort du combattant actif, avec son sort spellIndex (LOT-131, LOT-133,...">castSpell</a></span>) : jet, salve, sauvegarde, effet, soin.  <br /></td></tr>
 <tr class="memitem:adb9b0a107e9d9d7d36e09d60da4e9641" id="r_adb9b0a107e9d9d7d36e09d60da4e9641"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#adb9b0a107e9d9d7d36e09d60da4e9641">castAttackRolls</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> caster, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;spell, const std::string &amp;prefix)</td></tr>
 <tr class="memdesc:adb9b0a107e9d9d7d36e09d60da4e9641"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un jet d'attaque par projectile, une fois la cible, la portée et l'action vérifiées.  <br /></td></tr>
 <tr class="memitem:a3d59ba7a9f9f0206296544b9352a4fa2" id="r_a3d59ba7a9f9f0206296544b9352a4fa2"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3d59ba7a9f9f0206296544b9352a4fa2">castAutoHit</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> caster, <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> target, const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;spell, const std::string &amp;prefix)</td></tr>
@@ -266,6 +270,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a38808d9b9189c755c35f14cbe7159e07" id="r_a38808d9b9189c755c35f14cbe7159e07"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a>, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a38808d9b9189c755c35f14cbe7159e07">_behaviors</a></td></tr>
 <tr class="memitem:a63ea433e5165843c03cbce0d9f42d7fc" id="r_a63ea433e5165843c03cbce0d9f42d7fc"><td class="memItemLeft"><a class="el" href="namespacecore.html#a838239698e3440af150c5de8127b830e">OpportunityPolicy</a>&#160;</td><td class="memItemRight"><a class="el" href="#a63ea433e5165843c03cbce0d9f42d7fc">_opportunityPolicy</a></td></tr>
 <tr class="memitem:a9557d66f98acedb6746c35a605093a0a" id="r_a9557d66f98acedb6746c35a605093a0a"><td class="memItemLeft"><a class="el" href="namespacecore.html#a9ae3355e126e768022cd22fffaeabd25">MoveObserver</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9557d66f98acedb6746c35a605093a0a">_moveObserver</a></td></tr>
+<tr class="memitem:af22a2ebcff8f755b8a837953ec1d4987" id="r_af22a2ebcff8f755b8a837953ec1d4987"><td class="memItemLeft"><a class="el" href="namespacecore.html#a733e637c1b8d277e39c760fbbbd90526">ActionObserver</a>&#160;</td><td class="memItemRight"><a class="el" href="#af22a2ebcff8f755b8a837953ec1d4987">_actionObserver</a></td></tr>
 <tr class="memitem:a3582c5bbd58f6c52c7ed986c28b5f1d7" id="r_a3582c5bbd58f6c52c7ed986c28b5f1d7"><td class="memItemLeft">std::set&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3582c5bbd58f6c52c7ed986c28b5f1d7">_declinesOpportunities</a></td></tr>
 <tr class="memitem:affcf58712798b74df13c294096f6a692" id="r_affcf58712798b74df13c294096f6a692"><td class="memItemLeft"><a class="el" href="classcore_1_1AttackHooks.html">AttackHooks</a>&#160;</td><td class="memItemRight"><a class="el" href="#affcf58712798b74df13c294096f6a692">_attackHooks</a></td></tr>
 <tr class="memitem:a4034c02d8e32b175dbba41999b5646fe" id="r_a4034c02d8e32b175dbba41999b5646fe"><td class="memItemLeft"><a class="el" href="classcore_1_1DamagePipeline.html">DamagePipeline</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4034c02d8e32b175dbba41999b5646fe">_damagePipeline</a></td></tr>
@@ -1621,6 +1626,52 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a22eb86c8ad931b0f4bf60151109dbe9e" name="a22eb86c8ad931b0f4bf60151109dbe9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22eb86c8ad931b0f4bf60151109dbe9e">&#9670;&#160;</a></span>resolveSpell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1ArenaAttack.html">ArenaAttack</a> core::ArenaSession::resolveSpell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>lanceurId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lance</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>prefixe</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>armeInvoquee</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le mécanisme d'un sort déjà payé (<span class="tt"><a class="el" href="#a4c66e3a8f4aa73bd21da742945b5b5dd" title="L&#39;action lancer un sort du combattant actif, avec son sort spellIndex (LOT-131, LOT-133,...">castSpell</a></span>) : jet, salve, sauvegarde, effet, soin. </p>
+
+</div>
+</div>
 <a id="a0267ab08d63cdd1e97c7aa776b16739e" name="a0267ab08d63cdd1e97c7aa776b16739e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0267ab08d63cdd1e97c7aa776b16739e">&#9670;&#160;</a></span>restoreAll()</h2>
 
@@ -1673,6 +1724,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le jet contre la mort de <code class="param">combatant</code>, à sa place dans l'ordre (<span class="tt">LOT-137</span>). </p>
+
+</div>
+</div>
+<a id="a051b285d7592ec1194c8faf659e14d7b" name="a051b285d7592ec1194c8faf659e14d7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a051b285d7592ec1194c8faf659e14d7b">&#9670;&#160;</a></span>setActionObserver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ArenaSession::setActionObserver </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a733e637c1b8d277e39c760fbbbd90526">ActionObserver</a></td>          <td class="paramname"><span class="paramname"><em>observer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prévient <code class="param">observer</code> au début et à la fin de chaque attaque et de chaque sort (<span class="tt">LOT-136</span>). </p>
 
 </div>
 </div>
@@ -1902,6 +1980,28 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="af22a2ebcff8f755b8a837953ec1d4987" name="af22a2ebcff8f755b8a837953ec1d4987"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af22a2ebcff8f755b8a837953ec1d4987">&#9670;&#160;</a></span>_actionObserver</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacecore.html#a733e637c1b8d277e39c760fbbbd90526">ActionObserver</a> core::ArenaSession::_actionObserver</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="affcf58712798b74df13c294096f6a692" name="affcf58712798b74df13c294096f6a692"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#affcf58712798b74df13c294096f6a692">&#9670;&#160;</a></span>_attackHooks</h2>
 

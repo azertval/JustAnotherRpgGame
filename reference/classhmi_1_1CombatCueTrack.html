@@ -168,6 +168,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:adb88d297e2690e8a941c9ef447f6e31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie tout : la fin du combat.  <br /></td></tr>
 <tr class="memitem:a40e87f2f4dc51a0410eb2c5cf9e9c67a" id="r_a40e87f2f4dc51a0410eb2c5cf9e9c67a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a40e87f2f4dc51a0410eb2c5cf9e9c67a">busy</a> () const noexcept</td></tr>
 <tr class="memitem:a49e582ba9ecdf7f00af7b43bc22c02e0" id="r_a49e582ba9ecdf7f00af7b43bc22c02e0"><td class="memItemLeft">const <a class="el" href="structhmi_1_1FigureMotion.html">FigureMotion</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a49e582ba9ecdf7f00af7b43bc22c02e0">motionOf</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor) const</td></tr>
+<tr class="memitem:a59568b98a0002eb2537ce890e2271764" id="r_a59568b98a0002eb2537ce890e2271764"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EffectMotion.html">EffectMotion</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a59568b98a0002eb2537ce890e2271764">effects</a> () const</td></tr>
 <tr class="memitem:ab3e55c85793523ec65bc841f0e768fff" id="r_ab3e55c85793523ec65bc841f0e768fff"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ab3e55c85793523ec65bc841f0e768fff">pending</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
@@ -178,6 +179,8 @@ Static Public Attributes</h2></td></tr>
 <tr class="memdesc:ac838aa510aa11e1d6256337e85026600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action ponctuelle dure sa bande : huit images à 80 ms (<span class="tt">LOT-112</span>).  <br /></td></tr>
 <tr class="memitem:afd0414c9c8565543290b89aa58a7d098" id="r_afd0414c9c8565543290b89aa58a7d098"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#afd0414c9c8565543290b89aa58a7d098">IMPACT_FRACTION</a> = 0.5F</td></tr>
 <tr class="memdesc:afd0414c9c8565543290b89aa58a7d098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coup <b>porte</b> au milieu de la bande d'attaque : le touché et la chute de la cible commencent là, pas quand l'attaquant a fini son geste.  <br /></td></tr>
+<tr class="memitem:aca7ea23ea75bf334fa558758fb52e61e" id="r_aca7ea23ea75bf334fa558758fb52e61e"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aca7ea23ea75bf334fa558758fb52e61e">EFFECT_SECONDS</a> = 0.8F</td></tr>
+<tr class="memdesc:aca7ea23ea75bf334fa558758fb52e61e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un effet dure sa bande : huit images, une petite seconde (<span class="tt">LOT-136</span>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -293,6 +296,32 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Oublie tout : la fin du combat. </p>
+
+</div>
+</div>
+<a id="a59568b98a0002eb2537ce890e2271764" name="a59568b98a0002eb2537ce890e2271764"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59568b98a0002eb2537ce890e2271764">&#9670;&#160;</a></span>effects()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1EffectMotion.html">EffectMotion</a> &gt; hmi::CombatCueTrack::effects </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les effets en cours, dans l'ordre où ils ont paru (<span class="tt">LOT-136</span>). </dd></dl>
 
 </div>
 </div>
@@ -548,6 +577,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Une action ponctuelle dure sa bande : huit images à 80 ms (<span class="tt">LOT-112</span>). </p>
+
+</div>
+</div>
+<a id="aca7ea23ea75bf334fa558758fb52e61e" name="aca7ea23ea75bf334fa558758fb52e61e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca7ea23ea75bf334fa558758fb52e61e">&#9670;&#160;</a></span>EFFECT_SECONDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::CombatCueTrack::EFFECT_SECONDS = 0.8F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Un effet dure sa bande : huit images, une petite seconde (<span class="tt">LOT-136</span>). </p>
 
 </div>
 </div>

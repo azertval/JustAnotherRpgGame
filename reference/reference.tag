@@ -400,6 +400,7 @@
     <class kind="struct">core::ArenaEffect</class>
     <class kind="struct">core::ArenaContestant</class>
     <class kind="struct">core::ArenaBout</class>
+    <class kind="struct">core::ArenaActionNotice</class>
     <class kind="struct">core::ArenaMount</class>
     <class kind="struct">core::ArenaAttack</class>
     <class kind="class">core::ArenaSession</class>
@@ -4240,6 +4241,7 @@
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <class kind="struct">hmi::CombatCue</class>
+    <class kind="struct">hmi::EffectMotion</class>
     <class kind="struct">hmi::FigureMotion</class>
     <class kind="class">hmi::CombatCueTrack</class>
     <class kind="struct">hmi::CombatCueTrack::Running</class>
@@ -5414,6 +5416,7 @@
     <name>EncounterModel.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>EncounterModel_8h.html</filename>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
     <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
     <includes id="MapEncounter_8h" name="MapEncounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/MapEncounter.h</includes>
     <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
@@ -6374,6 +6377,13 @@
       <anchorfile>test__class__mage_8cpp.html</anchorfile>
       <anchor>a94af77468a1d86a89a1ca9fba0a6eeee</anchor>
       <arglist>(ClassMageTest, UnEffetInconnuEstRefuseEtUnConeNeSeJouePas)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__class__mage_8cpp.html</anchorfile>
+      <anchor>a45c57b5d6a8b6945852e03ece5c5624f</anchor>
+      <arglist>(ClassMageTest, UnSortSAnnonceAuDebutEtALaFin)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -12633,6 +12643,20 @@
       <anchor>af5e4d02f2f5bb882b43808e0587f6712</anchor>
       <arglist>(CombatCuesTest, LInconnuEstIgnoreEtToutPeutFinirDUnCoup)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__combat__cues_8cpp.html</anchorfile>
+      <anchor>a5d23b438d830521883b6609376c3ee95</anchor>
+      <arglist>(CombatCuesTest, UnTirJoueSaBandeEtSaFlecheVole)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__combat__cues_8cpp.html</anchorfile>
+      <anchor>ad1a0b6b5f0da0becdc82ce7bae4e341b</anchor>
+      <arglist>(CombatCuesTest, UnProjectileVersLaGaucheEstLeMiroir)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_debug_commands.cpp</name>
@@ -12838,6 +12862,13 @@
       <anchorfile>test__asset__gallery_8cpp.html</anchorfile>
       <anchor>affebaa5b26189b422ba3394463411723</anchor>
       <arglist>(AssetGalleryTest, UnHerosOrienteRangeParClasse)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__asset__gallery_8cpp.html</anchorfile>
+      <anchor>a22a9cb101143188f562fda1146fbbb20</anchor>
+      <arglist>(AssetGalleryTest, UnEffetSeJoueDansLaGalerie)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13752,8 +13783,8 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
-      <anchor>abf05c7b7eac9bc08ba397c67106e09aa</anchor>
-      <arglist>(WorldSceneComposerTest, UnCombattantPrechargeSesSixBandes)</arglist>
+      <anchor>ac012fdf5789b35bcf597f6696be741d3</anchor>
+      <arglist>(WorldSceneComposerTest, UnCombattantPrechargeSesSeptBandes)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -13761,6 +13792,13 @@
       <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
       <anchor>af65839afc77b69f030256c093d9d22e5</anchor>
       <arglist>(MaquetteRenderTest, LeMannequinRemplaceLeJetonDUnPnjSansFigurine)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
+      <anchor>a4c7683644ebc405e5ae72cf0adb2c766</anchor>
+      <arglist>(WorldSceneComposerTest, LeTirSansBandeJoueLAttaque)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14873,6 +14911,52 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::ArenaActionNotice</name>
+    <filename>structcore_1_1ArenaActionNotice.html</filename>
+    <member kind="variable">
+      <type>ArenaActionPhase</type>
+      <name>phase</name>
+      <anchorfile>structcore_1_1ArenaActionNotice.html</anchorfile>
+      <anchor>aed3b539af7f2ae08aaedb05dc8e39cce</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>CombatantId</type>
+      <name>actor</name>
+      <anchorfile>structcore_1_1ArenaActionNotice.html</anchorfile>
+      <anchor>a39588958666801267bb29acadc145869</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>CombatantId</type>
+      <name>target</name>
+      <anchorfile>structcore_1_1ArenaActionNotice.html</anchorfile>
+      <anchor>a895634a3d9dd5d9fc3cb668010b3dfe3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>spell</name>
+      <anchorfile>structcore_1_1ArenaActionNotice.html</anchorfile>
+      <anchor>a57a67a42df59e3f27cdedf8a9b19999c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>ranged</name>
+      <anchorfile>structcore_1_1ArenaActionNotice.html</anchorfile>
+      <anchor>aa04077dedeed4493d7b68c44e63d743b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>missed</name>
+      <anchorfile>structcore_1_1ArenaActionNotice.html</anchorfile>
+      <anchor>a9c3dad6c76bfa406e16f3d935b3ee28a</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::ArenaAttack</name>
     <filename>structcore_1_1ArenaAttack.html</filename>
     <member kind="variable">
@@ -15314,6 +15398,13 @@
     </member>
     <member kind="function">
       <type>void</type>
+      <name>setActionObserver</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a051b285d7592ec1194c8faf659e14d7b</anchor>
+      <arglist>(ActionObserver observer)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
       <name>note</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>ad9d4850a9d42e1eb18cf9cb17c688f03</anchor>
@@ -15423,6 +15514,13 @@
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>ae327de7aee4320e246557290c95eccb0</anchor>
       <arglist>(AttackHooks &amp;hooks, CombatantId attacker)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>ArenaAttack</type>
+      <name>resolveSpell</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>a22eb86c8ad931b0f4bf60151109dbe9e</anchor>
+      <arglist>(CombatantId lanceurId, CombatantId target, const ArenaSpell &amp;lance, const std::string &amp;prefixe, bool armeInvoquee)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>ArenaAttack</type>
@@ -15583,6 +15681,13 @@
       <name>_moveObserver</name>
       <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
       <anchor>a9557d66f98acedb6746c35a605093a0a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>ActionObserver</type>
+      <name>_actionObserver</name>
+      <anchorfile>classcore_1_1ArenaSession.html</anchorfile>
+      <anchor>af22a2ebcff8f755b8a837953ec1d4987</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -21025,6 +21130,27 @@
       <anchor>ae3ddf7b9429272c30e370c053c0efc1e</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>ranged</name>
+      <anchorfile>structhmi_1_1CombatCue.html</anchorfile>
+      <anchor>aee286e8cdbfc2db90a529401e5996dfe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>effect</name>
+      <anchorfile>structhmi_1_1CombatCue.html</anchorfile>
+      <anchor>af85324c7f22d962c2141f95efaa234b0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>travels</name>
+      <anchorfile>structhmi_1_1CombatCue.html</anchorfile>
+      <anchor>afa3008822f9a651ec5ec4dbe39c0cd40</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::CombatCueTrack</name>
@@ -21087,6 +21213,13 @@
       <arglist>(core::CombatantId actor) const</arglist>
     </member>
     <member kind="function">
+      <type>std::vector&lt; EffectMotion &gt;</type>
+      <name>effects</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a59568b98a0002eb2537ce890e2271764</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
       <type>std::size_t</type>
       <name>pending</name>
       <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
@@ -21112,6 +21245,13 @@
       <name>IMPACT_FRACTION</name>
       <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
       <anchor>afd0414c9c8565543290b89aa58a7d098</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>EFFECT_SECONDS</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>aca7ea23ea75bf334fa558758fb52e61e</anchor>
       <arglist></arglist>
     </member>
     <member kind="function" protection="private">
@@ -27566,6 +27706,38 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::EffectMotion</name>
+    <filename>structhmi_1_1EffectMotion.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1EffectMotion.html</anchorfile>
+      <anchor>adbae84f45090cca4bcaf2d3a9fc80dc6</anchor>
+      <arglist>(const EffectMotion &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>effect</name>
+      <anchorfile>structhmi_1_1EffectMotion.html</anchorfile>
+      <anchor>a45d72b38ef6dadf1c254e3d048a65aae</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::Vector2</type>
+      <name>point</name>
+      <anchorfile>structhmi_1_1EffectMotion.html</anchorfile>
+      <anchor>a5e5dc505ba9df96ff408f381a9ee0c6a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>seconds</name>
+      <anchorfile>structhmi_1_1EffectMotion.html</anchorfile>
+      <anchor>a60b4b7b7119f4726ea34a7e6358efba2</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::Encounter</name>
     <filename>structcore_1_1Encounter.html</filename>
     <member kind="variable">
@@ -28126,6 +28298,20 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>showAction</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a3c485caaa3863b8b1eca5cd33d638649</anchor>
+      <arglist>(const core::ArenaActionNotice &amp;notice)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>pushEffect</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a8572a9dc36120ccb7da4102458b7ea4e</anchor>
+      <arglist>(core::CombatantId actor, core::CombatantId target, std::string effect, bool travels)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>publishFigures</name>
       <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
       <anchor>a66c403badc0d1b18c8cf2c764c13317d</anchor>
@@ -28206,6 +28392,13 @@
       <name>_cues</name>
       <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
       <anchor>a1a0334bf6b30b70f5a5b93ca32ae1041</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::optional&lt; core::CombatantId &gt;</type>
+      <name>_gesture</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a4c080327e9b9d0019bc189da2ae080b8</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -48061,6 +48254,7 @@
     <class kind="struct">core::ArenaEffect</class>
     <class kind="struct">core::ArenaContestant</class>
     <class kind="struct">core::ArenaBout</class>
+    <class kind="struct">core::ArenaActionNotice</class>
     <class kind="struct">core::ArenaMount</class>
     <class kind="struct">core::ArenaAttack</class>
     <class kind="class">core::ArenaSession</class>
@@ -48316,6 +48510,13 @@
       <arglist></arglist>
     </member>
     <member kind="typedef">
+      <type>std::function&lt; void(const ArenaActionNotice &amp;notice)&gt;</type>
+      <name>ActionObserver</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a733e637c1b8d277e39c760fbbbd90526</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
       <type>std::function&lt; void(AttackRoll &amp;, DeterministicRandom &amp;)&gt;</type>
       <name>AttackRollListener</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -48411,6 +48612,15 @@
       <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108a8bcda43732b0928d269955e0f09ff76f">Invisible</enumvalue>
       <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108a444733081a578880ba8a563d3c59d22d">Flying</enumvalue>
       <enumvalue file="namespacecore.html" anchor="abde919757944fef613e5f21cf21c3108aa020a34193d50813b2d30e19503a471e">Concentrating</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>ArenaActionPhase</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a77eaf11c39e56d216f9354bcea69aea8</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="a77eaf11c39e56d216f9354bcea69aea8a1a06729125544cab7cee73195fc044f0">Begin</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a77eaf11c39e56d216f9354bcea69aea8a87557f11575c0ad78e4e28abedc13b6e">End</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -52194,6 +52404,7 @@
     <class kind="class">hmi::AudioEngine</class>
     <class kind="struct">hmi::HeroContestantSource</class>
     <class kind="struct">hmi::CombatCue</class>
+    <class kind="struct">hmi::EffectMotion</class>
     <class kind="struct">hmi::FigureMotion</class>
     <class kind="class">hmi::CombatCueTrack</class>
     <class kind="struct">hmi::DebugOption</class>
@@ -52554,6 +52765,7 @@
       <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406a4cd9f3996d60790cd11c04f842ebc43c">Cast</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d">Hit</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f">Death</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="af50d48ed1cc573c620ff2a1c420f7406aa62d22910732d5343689f5117999abfa">Effect</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -55295,6 +55507,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>FX_DIRECTORY</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a4194f9c77255fd090763ac425476d7dc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>constexpr char</type>
       <name>LAUNCH_LIST_SEPARATOR</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -55620,6 +55839,13 @@
   <compound kind="namespace">
     <name>hmi::figure_clips</name>
     <filename>namespacehmi_1_1figure__clips.html</filename>
+    <member kind="function">
+      <type>constexpr std::string_view</type>
+      <name>fallbackOf</name>
+      <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
+      <anchor>ad4d345c0899afeb51e4fb86fd920e167</anchor>
+      <arglist>(std::string_view clip) noexcept</arglist>
+    </member>
     <member kind="variable">
       <type>constexpr std::string_view</type>
       <name>IDLE</name>
@@ -55650,6 +55876,13 @@
     </member>
     <member kind="variable">
       <type>constexpr std::string_view</type>
+      <name>RANGED</name>
+      <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
+      <anchor>ad2b35214a0080c88eecfc21414ad0ddd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
       <name>HIT</name>
       <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
       <anchor>a6945b3e99d97b537060eb38de45a7774</anchor>
@@ -55663,10 +55896,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>constexpr std::array&lt; std::string_view, 6 &gt;</type>
+      <type>constexpr std::array&lt; std::string_view, 7 &gt;</type>
       <name>ALL</name>
       <anchorfile>namespacehmi_1_1figure__clips.html</anchorfile>
-      <anchor>a1ffc4db808c30be4b0d0d57c7837a3d0</anchor>
+      <anchor>a4dcd03567bc0276e741e4c38a34d94c9</anchor>
       <arglist></arglist>
     </member>
   </compound>

@@ -42,6 +42,18 @@ constexpr std::size_t MAX_FINISH_STEPS = 4096;
     return kind == CombatCueKind::Hit || kind == CombatCueKind::Death;
 }</span>
 
+// Le temps de vol d'un projectile : il arrive quand le coup porte.
+constexpr float FLIGHT_SECONDS = CombatCueTrack::ACTION_SECONDS * CombatCueTrack::IMPACT_FRACTION;
+
+// Le suffixe d'un projectile qui vole vers la gauche de l'ecran : ses bandes sont peintes vers la
+// droite, et `build_fx.py` en pose le miroir (`&lt;effet&gt;-left`). En isometrique, l'ecran va vers la
+// droite quand la colonne croit plus que la rangee.
+[[nodiscard]] std::string projectileStrip(const std::string&amp; effect, core::Vector2 from,
+<span style = "background-color:#dfd">                                          core::Vector2 to) {
+    const float versLaDroite = (to.x - from.x) - (to.y - from.y);
+    return versLaDroite &lt; 0.0F ? effect + "-left" : effect;
+}</span>
+
 }  // namespace
 
 <span style = "background-color:#dfd">void CombatCueTrack::place(core::CombatantId actor, core::GridPosition cell, FigureFacing facing) {
@@ -77,6 +89,29 @@ constexpr std::size_t MAX_FINISH_STEPS = 4096;
     _running.clear();
 }</span>
 
+<span style = "background-color:#dfd">std::vector&lt;EffectMotion&gt; CombatCueTrack::effects() const {
+    std::vector&lt;EffectMotion&gt; effets;
+    for (const Running&amp; running : _running) {
+        if (running.cue.kind != CombatCueKind::Effect || running.elapsed &lt; 0.0F ||</span>
+            !running.cue.target.has_value()) {
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const core::Vector2 cible = centerOf(*running.cue.target);
+        if (running.cue.travels) {
+            const float t = std::min(1.0F, running.elapsed / FLIGHT_SECONDS);
+            effets.push_back(EffectMotion{</span>
+                .effect = projectileStrip(running.cue.effect, running.from, cible),
+                .point = core::Vector2{running.from.x + ((cible.x - running.from.x) * t),
+                                       running.from.y + ((cible.y - running.from.y) * t)},
+                .seconds = running.elapsed});
+<span style = "background-color:#dfd">        } else {
+            effets.push_back(EffectMotion{</span>
+                .effect = running.cue.effect, .point = cible, .seconds = running.elapsed});
+        }
+<span style = "background-color:#dfd">    }
+    return effets;
+}</span>
+
 <span style = "background-color:#dfd">const FigureMotion* CombatCueTrack::motionOf(core::CombatantId actor) const {
     const auto found = _figures.find(actor);
     return found != _figures.end() ? &amp;found-&gt;second : nullptr;
@@ -100,12 +135,24 @@ constexpr std::size_t MAX_FINISH_STEPS = 4096;
         return;</span>
     }
     // Le coup porte au milieu du geste : les touches et les chutes qui le suivent immediatement
-    // -- ceux d'AUTRES combattants -- demarrent a cet instant, pas apres le geste entier.
-<span style = "background-color:#dfd">    while (!_queue.empty() &amp;&amp; isVictimCue(_queue.front().kind) &amp;&amp;</span>
-           _queue.front().actor != attacker) {
-<span style = "background-color:#dfd">        _running.push_back(Running{.cue = std::move(_queue.front()),</span>
-                                   .elapsed = -ACTION_SECONDS * IMPACT_FRACTION,
-                                   .from = {}});
+    // -- ceux d'AUTRES combattants -- demarrent a cet instant, pas apres le geste entier. Les
+    // effets l'accompagnent aussi : un projectile part avec le geste, le reste parait a l'impact.
+<span style = "background-color:#dfd">    while (!_queue.empty()) {
+        CombatCue&amp; suivant = _queue.front();
+        if (suivant.kind == CombatCueKind::Effect) {
+            const float depart = suivant.travels ? 0.0F : -ACTION_SECONDS * IMPACT_FRACTION;
+            Running effet{.cue = std::move(suivant), .elapsed = depart, .from = {}};
+            if (const FigureMotion* figure = motionOf(effet.cue.actor)) {
+                effet.from = figure-&gt;point;</span>
+            }
+<span style = "background-color:#dfd">            _running.push_back(std::move(effet));
+        } else if (isVictimCue(suivant.kind) &amp;&amp; suivant.actor != attacker) {
+            _running.push_back(Running{.cue = std::move(suivant),</span>
+                                       .elapsed = -ACTION_SECONDS * IMPACT_FRACTION,
+                                       .from = {}});
+<span style = "background-color:#dfd">        } else {</span>
+<span style = "background-color:#fdd">            break;</span>
+        }
 <span style = "background-color:#dfd">        _queue.pop_front();
     }
 }</span>
@@ -155,8 +202,11 @@ constexpr std::size_t MAX_FINISH_STEPS = 4096;
                 figure.clipSeconds = 0.0F;
                 return true;</span>
             }
-<span style = "background-color:#dfd">            figure.clip = running.cue.kind == CombatCueKind::Attack ? figure_clips::ATTACK</span>
-                                                                    : figure_clips::CAST;
+<span style = "background-color:#dfd">            if (running.cue.kind == CombatCueKind::Cast) {
+                figure.clip = figure_clips::CAST;
+            } else {
+                figure.clip = running.cue.ranged ? figure_clips::RANGED : figure_clips::ATTACK;</span>
+            }
 <span style = "background-color:#dfd">            figure.clipSeconds = std::max(0.0F, elapsed);
             return false;</span>
         }
@@ -176,6 +226,8 @@ constexpr std::size_t MAX_FINISH_STEPS = 4096;
             figure.clipSeconds = elapsed;
             return false;</span>
         }
+        case CombatCueKind::Effect:
+<span style = "background-color:#dfd">            return elapsed &gt;= (running.cue.travels ? FLIGHT_SECONDS : EFFECT_SECONDS);</span>
         case CombatCueKind::Death: {
 <span style = "background-color:#dfd">            if (elapsed &lt; 0.0F) {
                 return false;</span>
