@@ -92,6 +92,10 @@ enum class DialogueActionKind {
     /// nommée par `target` (`core::demoEndingKey`). Le dialogue ne connaît pas l'écran ; il le
     /// demande (`core::DialogueListener::endDemo`).
     EndDemo,
+    /// **Donne un niveau** (`LOT-141`) au personnage nommé par `target`, ou à tout le groupe
+    /// (`party`) : la montée de niveau est donnée par la quête tant que l'expérience n'arrive pas
+    /// (`core::DialogueListener::levelUp`).
+    LevelUp,
 };
 
 /// @brief Un effet d'un nœud d'action.
@@ -336,7 +340,15 @@ public:
     virtual void endDemo(std::string_view ending) {
         static_cast<void>(ending);
     }
+    /// Le PNJ donne un niveau à @p characterId — `party` : à tout le groupe (`LOT-141`). Sans
+    /// effet par défaut, pour la même raison que `startEncounter`.
+    virtual void levelUp(std::string_view characterId) {
+        static_cast<void>(characterId);
+    }
 };
+
+/// @brief La cible d'un `levelUp` qui vise tout le groupe.
+inline constexpr std::string_view LEVEL_UP_PARTY = "party";
 
 /**
  * @brief Un personnage, sa fiche et son sac, comme interlocuteur d'un PNJ.

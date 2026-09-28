@@ -385,6 +385,29 @@ LevelUpResult gainExperience(CharacterSheet& sheet, const ExperienceTable& table
                              int amount);
 
 /**
+ * @brief Monte @p sheet **jusqu'au** niveau @p level, par le chemin d'une partie (`LOT-141`) :
+ *        l'expérience du seuil (`gainExperience`), puis ce que la classe donne à ce niveau
+ *        (`applyClassFeatures`) — capacités, sorts, classe d'armure sans armure.
+ *
+ * Un niveau déjà atteint ou dépassé ne change rien ; la table borne le niveau à son maximum. La
+ * montée est **donnée** — par une quête, par un bouton de débogage — tant que l'expérience et sa
+ * courbe n'arrivent pas (`0.2.0`) : c'est la même fonction qui servira alors, avec le montant
+ * gagné au lieu du seuil.
+ *
+ * @param sheet La fiche, modifiée sur place.
+ * @param level Le niveau visé.
+ * @param playableClass La classe de la fiche.
+ * @param options Les catalogues que la classe désigne (capacités, sorts).
+ * @param rules Les constantes de création (la classe d'armure sans armure).
+ * @param table La table d'expérience.
+ * @param missing Ce que la table nomme et qu'aucun catalogue ne porte (`EX-CNT-031`).
+ * @return Ce que la montée a produit.
+ */
+LevelUpResult levelUpTo(CharacterSheet& sheet, int level, const PlayableClass& playableClass,
+                        const CharacterOptions& options, const CharacterCreationRules& rules,
+                        const ExperienceTable& table, std::vector<std::string>& missing);
+
+/**
  * @brief Construit une fiche depuis une espèce, une classe et un historique.
  *
  * Les trois catalogues du `LOT-36` deviennent ici une fiche jouable : les augmentations de

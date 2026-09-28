@@ -3,16 +3,17 @@ import Jadg.Ui
 import Jadg.Runtime
 
 /*!
-    Groupe -- CABLAGE, cote developpeur (LOT-138).
+    Groupe -- CABLAGE, cote developpeur (LOT-138, LOT-141).
 
     Chaque propriete du formulaire se lit de `PartyModel`, qui ne garde aucune composition : le
     groupe est a la partie (`WorldModel`), et chaque geste lui passe. Le personnage designe l'est au
     clavier ou a la manette, et reste le meme personnage quand l'ordre de marche change.
 
     Au clavier : `Haut` et `Bas` designent, `Entree` prend ou laisse, `M` fait mener, `Page
-    precedente` et `Page suivante` avancent et reculent dans l'ordre de marche, `Echap` referme.
+    precedente` et `Page suivante` avancent et reculent dans l'ordre de marche, `F` ouvre la
+    fiche du designe (LOT-141 : `WorldModel.showCharacter`, puis l'ecran Fiche), `Echap` referme.
     A la manette : la croix designe, `A` prend ou laisse, `X` fait mener, `LB` et `RB` avancent et
-    reculent, `B` referme.
+    reculent, `Y` ouvre la fiche, `B` referme.
 */
 PartyForm {
     id: root
@@ -25,6 +26,7 @@ PartyForm {
 
     members: party.members
     candidates: party.candidates
+    currentId: root.current !== null ? root.current.id : ""
     maxSize: party.maxSize
     toggleText: root.currentIsMember ? qsTr("Laisser") : qsTr("Prendre")
     // Le dernier ne se laisse pas, un cinquieme ne se prend pas : le bouton le dit avant le refus.
@@ -50,11 +52,19 @@ PartyForm {
         if (root.current !== null)
             root.party.moveMember(root.current.id, offset);
     }
+    /// La fiche du designe : la partie retient qui, l'ecran Fiche le lit (LOT-141).
+    function openSheet() {
+        if (root.current !== null) {
+            WorldModel.showCharacter(root.current.id)
+            ScreenRouter.openRpgScreen(ScreenRouter.CharacterSheet)
+        }
+    }
 
     onCandidateClicked: (index) => { root.currentIndex = index }
     onToggleClicked: root.toggle()
     onLeadClicked: root.lead()
     onMoveClicked: (offset) => root.move(offset)
+    onSheetClicked: root.openSheet()
 
     Keys.onPressed: (event) => {
         switch (event.key) {
@@ -66,6 +76,7 @@ PartyForm {
         case Qt.Key_M: root.lead(); break
         case Qt.Key_PageUp: root.move(-1); break
         case Qt.Key_PageDown: root.move(1); break
+        case Qt.Key_F: root.openSheet(); break
         case Qt.Key_Escape: ScreenRouter.closeRpgScreen(); break
         default: return
         }
@@ -82,6 +93,7 @@ PartyForm {
             case "x": root.lead(); break
             case "lb": root.move(-1); break
             case "rb": root.move(1); break
+            case "y": root.openSheet(); break
             case "b": ScreenRouter.closeRpgScreen(); break
             }
         }

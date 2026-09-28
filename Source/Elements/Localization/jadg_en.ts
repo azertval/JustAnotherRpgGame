@@ -20,114 +20,142 @@
     </message>
 </context>
 <context>
+    <name>CharacterSheet</name>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/CharacterSheet.qml" line="137"/>
+        <location filename="../../App/Game/Qml/Screens/CharacterSheet.qml" line="153"/>
+        <source>Niveau %1</source>
+        <translation>Level %1</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/CharacterSheet.qml" line="143"/>
+        <source>À venir · niveau %1</source>
+        <translation>Coming · level %1</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/CharacterSheet.qml" line="153"/>
+        <source>Sort mineur</source>
+        <translation>Cantrip</translation>
+    </message>
+</context>
+<context>
     <name>CharacterSheetForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="146"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="176"/>
         <source>FOR</source>
         <translation>STR</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="157"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="187"/>
         <source>DEX</source>
         <translation>DEX</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="168"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="198"/>
         <source>CON</source>
         <translation>CON</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="179"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="209"/>
         <source>INT</source>
         <translation>INT</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="190"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="220"/>
         <source>SAG</source>
         <translation>WIS</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="201"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="231"/>
         <source>CHA</source>
         <translation>CHA</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="216"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="246"/>
         <source>CA</source>
         <translation>AC</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="217"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="247"/>
         <source>INIT.</source>
         <translation>INIT.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="218"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="248"/>
         <source>VITESSE</source>
         <translation>SPEED</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="219"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="249"/>
         <source>MAÎTRISE</source>
         <translation>PROF.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="220"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="250"/>
         <source>PERC. PASS.</source>
         <translation>PASS. PERC.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="232"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="262"/>
         <source>Identité du personnage</source>
         <translation>Character identity</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="241"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="271"/>
         <source>Nom</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="242"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="272"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="409"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="430"/>
         <source>Classe</source>
         <translation>Class</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="243"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="273"/>
         <source>Niveau</source>
         <translation>Level</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="244"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="274"/>
         <source>Origine</source>
         <translation>Background</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="245"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="275"/>
         <source>Espèce</source>
         <translation>Species</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="246"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="276"/>
         <source>Matricule</source>
         <translation>Registration</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="264"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="294"/>
         <source>Points de vie</source>
         <translation>Hit Points</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="293"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="323"/>
         <source>Expérience</source>
         <translation>Experience</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="376"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="409"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="421"/>
         <source>Compétences</source>
         <translation>Skills</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="387"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="409"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="439"/>
+        <source>Sorts</source>
+        <translation>Spells</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="454"/>
         <source>Compétences et sorts</source>
         <translation>Skills and spells</translation>
     </message>
@@ -909,12 +937,12 @@
 <context>
     <name>Party</name>
     <message>
-        <location filename="../../App/Game/Qml/Screens/Party.qml" line="29"/>
+        <location filename="../../App/Game/Qml/Screens/Party.qml" line="31"/>
         <source>Laisser</source>
         <translation>Leave out</translation>
     </message>
     <message>
-        <location filename="../../App/Game/Qml/Screens/Party.qml" line="29"/>
+        <location filename="../../App/Game/Qml/Screens/Party.qml" line="31"/>
         <source>Prendre</source>
         <translation>Take</translation>
     </message>
@@ -922,75 +950,81 @@
 <context>
     <name>PartyForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="39"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="45"/>
         <source>Laisser</source>
         <translation>Leave out</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="58"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="66"/>
         <source>Groupe</source>
         <translation>Party</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="77"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="85"/>
         <source>Ordre de marche</source>
         <translation>Marching order</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="118"/>
-        <source>PV</source>
-        <translation>HP</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="135"/>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="264"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="195"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="293"/>
         <source>Meneur</source>
         <translation>Leader</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="147"/>
-        <source>%1 sur %2 — le meneur parle et jette les dés pour le groupe.</source>
-        <translation>%1 of %2 — the leader speaks and rolls for the party.</translation>
-    </message>
-    <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="174"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="219"/>
         <source>Personnages</source>
         <translation>Characters</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="251"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="280"/>
         <source>PV %1 · CA %2 · Vitesse %3</source>
         <translation>HP %1 · AC %2 · Speed %3</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="265"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="195"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="294"/>
         <source>Rang %1</source>
         <translation>Rank %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="266"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="120"/>
+        <source>Place libre</source>
+        <translation>Free slot</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="174"/>
+        <source>CA %1 · Vitesse %2</source>
+        <translation>AC %1 · Speed %2</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="295"/>
         <source>Disponible</source>
         <translation>Available</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="295"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="324"/>
         <source>Mener</source>
         <translation>Lead</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="302"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="331"/>
         <source>Avancer</source>
         <translation>Move up</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="309"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="338"/>
         <source>Reculer</source>
         <translation>Move down</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="317"/>
-        <source>Entrée : prendre ou laisser · M : mener · Page préc. / suiv. : avancer, reculer · Échap : fermer</source>
-        <translation>Enter: take or leave out · M: lead · Page Up / Down: move up, down · Esc: close</translation>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="345"/>
+        <source>Fiche</source>
+        <translation>Sheet</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="352"/>
+        <source>Entrée : prendre ou laisser · M : mener · Page préc. / suiv. : avancer, reculer · F : fiche · Échap : fermer</source>
+        <translation>Enter: take or leave · M: lead · Page Up / Down: move up, move down · F: sheet · Esc: close</translation>
     </message>
 </context>
 <context>
@@ -1237,6 +1271,44 @@
         <location filename="../../Ui/Screens/WorldMapForm.ui.qml" line="134"/>
         <source>Le monde connu</source>
         <translation>The known world</translation>
+    </message>
+</context>
+<context>
+    <name>hmi::CharacterSheetModel</name>
+    <message>
+        <location filename="../../HMI/Runtime/CharacterSheetModel.cpp" line="175"/>
+        <source>Incantation : %1</source>
+        <translation>Casting time: %1</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CharacterSheetModel.cpp" line="178"/>
+        <source>Portée : %1</source>
+        <translation>Range: %1</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CharacterSheetModel.cpp" line="181"/>
+        <source>Durée : %1</source>
+        <translation>Duration: %1</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CharacterSheetModel.cpp" line="182"/>
+        <source> (concentration)</source>
+        <translation> (concentration)</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CharacterSheetModel.cpp" line="185"/>
+        <source>Dégâts : %1%2</source>
+        <translation>Damage: %1%2</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CharacterSheetModel.cpp" line="193"/>
+        <source>Soin : %1</source>
+        <translation>Healing: %1</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CharacterSheetModel.cpp" line="203"/>
+        <source>à volonté</source>
+        <translation>at will</translation>
     </message>
 </context>
 <context>
@@ -1674,72 +1746,72 @@
 <context>
     <name>hmi::EncounterModel</name>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="242"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="251"/>
         <source>Un combat est deja engage.</source>
         <translation>A fight is already under way.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="248"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="257"/>
         <source>Aucune carte ou engager le combat.</source>
         <translation>No map to fight on.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="255"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="264"/>
         <source>Aucun membre du groupe n&apos;a de fiche : rien a engager.</source>
         <translation>No member of the party has a sheet: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="261"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="270"/>
         <source>Rencontre inconnue : %1</source>
         <translation>Unknown encounter: %1</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="399"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="408"/>
         <source> Un camp est vide apres le montage : rien a engager.</source>
         <translation> One side is empty after mounting: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="427"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="436"/>
         <source> Aucun membre du groupe n&apos;est monte : rien a engager.</source>
         <translation> No member of the party was mounted: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="665"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="674"/>
         <source>Le combat n&apos;est pas fini.</source>
         <translation>The fight is not over.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="873"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="882"/>
         <source>mort</source>
         <translation>dead</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="876"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="885"/>
         <source>a terre</source>
         <translation>down</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="879"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="888"/>
         <source>ensanglante</source>
         <translation>bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="888"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="897"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="899"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="908"/>
         <source>Ensanglante</source>
         <translation>Bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="902"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="911"/>
         <source>Esquive</source>
         <translation>Dodging</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="904"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="913"/>
         <source>Aucun</source>
         <translation>None</translation>
     </message>
@@ -1766,12 +1838,12 @@
 <context>
     <name>hmi::WorldModel</name>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="97"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="98"/>
         <source>La ville de départ ne s&apos;ouvre pas.</source>
         <translation>The starting city will not open.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="203"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="204"/>
         <source>La carte « %1 » ne s&apos;ouvre pas.</source>
         <translation>The map “%1” does not open.</translation>
     </message>

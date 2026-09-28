@@ -43,6 +43,20 @@ PartyModel::PartyModel(QObject* parent) : QObject(parent) {
     if (world == nullptr) {
         return;
     }
+    reloadSheets();
+    // Les fiches se relisent quand le groupe change (LOT-141) : une montee de niveau, des points
+    // de vie laisses par un combat, se voient a l'ecran de groupe sans le rouvrir.
+    connect(world, &WorldModel::partyChanged, this, [this]() {
+        reloadSheets();
+        emit changed();
+    });
+}
+
+void PartyModel::reloadSheets() {
+    const WorldModel* const world = WorldModel::current();
+    if (world == nullptr) {
+        return;
+    }
     std::vector<std::filesystem::path> files;
     std::vector<std::string> ids;
     for (const core::PartyCandidate& candidate : world->candidates()) {
@@ -50,10 +64,10 @@ PartyModel::PartyModel(QObject* parent) : QObject(parent) {
         ids.push_back(candidate.id);
     }
     std::vector<DemonstrationCharacter> values = loadCharacterValues(files);
+    _sheets.clear();
     for (std::size_t rank = 0; rank < values.size() && rank < ids.size(); ++rank) {
         _sheets.emplace(ids[rank], std::move(values[rank].sheet));
     }
-    connect(world, &WorldModel::partyChanged, this, &PartyModel::changed);
 }
 
 QString PartyModel::sheetValue(const QString& characterId, const std::string& key) const {

@@ -1,8 +1,9 @@
 import QtQuick
+import QtQuick.Layouts
 import Jadg.Ui
 
 /*!
-    Fiche de personnage -- FORMULAIRE, cote conception (LOT-87, T3.4 ; maquette 03).
+    Fiche de personnage -- FORMULAIRE, cote conception (LOT-87, T3.4 ; maquette 03 ; LOT-141).
 
     Transcrit de la maquette `03_Character_Sheet_Mockup.png` (1536 x 1024), cotes ramenees a
     1920 x 1080 puis multipliees par `Tokens.uiScale`. Un grand parchemin relie, en trois colonnes :
@@ -11,7 +12,9 @@ import Jadg.Ui
       constantes de combat en medaillons derives (sur la rose des vents en filigrane) ;
     - au centre, l'identite du personnage : nom, classe, niveau, origine, espece, matricule, les
       jauges de vie et d'experience, le sceau, l'ecusson et le paraphe ;
-    - a droite, les dix-huit competences, pastille de maitrise, icone, nom et modificateur.
+    - a droite, trois onglets (LOT-141) : les dix-huit competences, pastille de maitrise, icone,
+      nom et modificateur ; la CLASSE, capacites acquises avec le niveau qui les donne et celles a
+      venir ; les SORTS connus et leurs lancers restants.
 
     Les proprietes portent des VALEURS D'EXEMPLE, pour que la mise en page se juge dans l'atelier ;
     le jumeau les remplace par celles de la vue-modele.
@@ -62,6 +65,33 @@ Item {
     // un ecran valide sur l'exemple s'afficherait vide une fois branche.
     /// Le bouton qui ouvre les competences et sorts (LOT-87, T3.8), branche par le jumeau.
     property alias skillsButton: skillsControl
+
+    // --- Les onglets de la colonne droite (LOT-141) -------------------------------------------------
+    /// L'onglet courant : 0 competences, 1 classe, 2 sorts.
+    property int currentTab: 0
+    property alias skillsTab: skillsTabControl
+    property alias classTab: classTabControl
+    property alias spellsTab: spellsTabControl
+    /// Les listes de la classe et des sorts, pour que le jumeau les fasse defiler au clavier.
+    property alias classList: classView
+    property alias spellList: spellView
+    /// Les capacites, acquises puis a venir : `label` le nom, `value` la cle de l'icone, `detail`
+    /// la regle, `levelText` (« Niveau 3 »), `upcoming`.
+    property var classRows: exampleClassRows
+    /// Les sorts connus : `label` le nom, `value` l'icone, `detail` (portee, duree, des),
+    /// `uses` (« 1 / 2 », « a volonte »), `levelText`.
+    property var spellRows: exampleSpellRows
+
+    readonly property ListModel exampleClassRows: ListModel {
+        ListElement { rowId: "tough"; label: "Tough as Nails"; value: "ui/icon/capacity/tough-as-nails"; detail: "Player's Guide to Tanares, p. 193. Résistance à tous les dégâts."; levelText: "Niveau 1"; upcoming: false }
+        ListElement { rowId: "mark"; label: "Hit the Mark"; value: "ui/icon/capacity/hit-the-mark"; detail: "Player's Guide to Tanares, p. 193. +2 aux jets d'attaque."; levelText: "À venir · niveau 3"; upcoming: true }
+        ListElement { rowId: "extra"; label: "Extra Attack"; value: "ui/icon/capacity/extra-attack"; detail: "Player's Guide to Tanares, p. 193. Deux attaques par action."; levelText: "À venir · niveau 5"; upcoming: true }
+    }
+
+    readonly property ListModel exampleSpellRows: ListModel {
+        ListElement { rowId: "fire-bolt"; label: "Trait de feu"; value: "ui/icon/spell/fire-bolt"; detail: "Portée : 36 mètres, dégâts : 1d10 feu"; uses: "à volonté"; levelText: "Sort mineur" }
+        ListElement { rowId: "magic-missile"; label: "Projectile magique"; value: "ui/icon/spell/magic-missile"; detail: "Portée : 36 mètres, dégâts : 1d4+1 force"; uses: "1 / 2"; levelText: "Niveau 1" }
+    }
 
     readonly property ListModel exampleSkills: ListModel {
         ListElement { rowId: "athletics"; label: "Athlétisme"; value: "+5 •" }
@@ -365,7 +395,10 @@ Item {
         }
     }
 
-    // === Colonne droite : competences =================================================================
+    // === Colonne droite : competences, classe, sorts (LOT-141) ==========================================
+    // Trois onglets sur la meme colonne : les competences de la maquette, la classe (capacites
+    // acquises, a venir), les sorts (lancers restants). Le jumeau fait tourner `currentTab` (Page
+    // suiv. / prec., RB / LB) ; les onglets se cliquent aussi.
 
     TitlePlate {
         anchors.horizontalCenter: parent.left
@@ -373,7 +406,41 @@ Item {
         y: 58 * Tokens.uiScale
         width: 460 * Tokens.uiScale
         material: "black"
-        text: qsTr("Compétences")
+        text: root.currentTab === 0 ? qsTr("Compétences") : (root.currentTab === 1 ? qsTr("Classe") : qsTr("Sorts"))
+    }
+
+    Row {
+        x: 1400 * Tokens.uiScale
+        y: 150 * Tokens.uiScale
+        spacing: Tokens.gapSmall
+
+        OrnateTab {
+            id: skillsTabControl
+            width: 174 * Tokens.uiScale
+            material: "parchment"
+            text: qsTr("Compétences")
+            checkable: false
+            checked: root.currentTab === 0
+            focusPolicy: Qt.NoFocus
+        }
+        OrnateTab {
+            id: classTabControl
+            width: 130 * Tokens.uiScale
+            material: "parchment"
+            text: qsTr("Classe")
+            checkable: false
+            checked: root.currentTab === 1
+            focusPolicy: Qt.NoFocus
+        }
+        OrnateTab {
+            id: spellsTabControl
+            width: 130 * Tokens.uiScale
+            material: "parchment"
+            text: qsTr("Sorts")
+            checkable: false
+            checked: root.currentTab === 2
+            focusPolicy: Qt.NoFocus
+        }
     }
 
     // L'entree des sorts (LOT-87, T3.8) : sous les competences, qui en sont le voisin naturel.
@@ -387,36 +454,177 @@ Item {
         text: qsTr("Compétences et sorts")
     }
 
-    ListView {
+    StackLayout {
         x: 1400 * Tokens.uiScale
-        y: 150 * Tokens.uiScale
+        y: 220 * Tokens.uiScale
         width: 450 * Tokens.uiScale
-        height: 880 * Tokens.uiScale
-        clip: true
-        interactive: false
-        model: root.skills
+        height: 760 * Tokens.uiScale
+        currentIndex: root.currentTab
 
-        // Une enveloppe et non `SkillRow` directement : la brique porte deja `label` et `value`, et un
-        // delegue ne peut pas redeclarer en `required` une propriete de son type.
-        delegate: Item {
-            id: skillEntry
+        // ===== Onglet Competences ==========================================================================
+        ListView {
+            clip: true
+            interactive: false
+            model: root.skills
 
-            required property string rowId
-            required property string label
-            required property string value
+            // Une enveloppe et non `SkillRow` directement : la brique porte deja `label` et `value`, et un
+            // delegue ne peut pas redeclarer en `required` une propriete de son type.
+            delegate: Item {
+                id: skillEntry
 
-            width: ListView.view.width
-            height: skillLine.implicitHeight
+                required property string rowId
+                required property string label
+                required property string value
 
-            SkillRow {
-                id: skillLine
+                width: ListView.view.width
+                height: skillLine.implicitHeight
 
-                anchors.fill: parent
-                skillId: skillEntry.rowId
-                label: skillEntry.label
-                // La maitrise est portee par la pastille : le point de la ligne de texte s'efface.
-                value: skillEntry.value.replace(" •", "")
-                proficient: skillEntry.value.indexOf("•") >= 0
+                SkillRow {
+                    id: skillLine
+
+                    anchors.fill: parent
+                    skillId: skillEntry.rowId
+                    label: skillEntry.label
+                    // La maitrise est portee par la pastille : le point de la ligne de texte s'efface.
+                    value: skillEntry.value.replace(" •", "")
+                    proficient: skillEntry.value.indexOf("•") >= 0
+                }
+            }
+        }
+
+        // ===== Onglet Classe : acquis, puis a venir ========================================================
+        ListView {
+            id: classView
+
+            clip: true
+            spacing: Tokens.gapSmall
+            model: root.classRows
+
+            delegate: Item {
+                id: capacityEntry
+
+                required property string label
+                required property string value
+                required property string detail
+                required property string levelText
+                required property bool upcoming
+
+                width: ListView.view.width
+                height: Math.max(capacityIcon.height, capacityColumn.implicitHeight) + Tokens.gapSmall
+                opacity: capacityEntry.upcoming ? 0.6 : 1
+
+                Item {
+                    id: capacityIcon
+
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    width: 64 * Tokens.uiScale
+                    height: 64 * Tokens.uiScale
+
+                    Rectangle {
+                        anchors.fill: parent
+                        visible: !capacityRing.delivered
+                        radius: width / 2
+                        color: Tokens.panel
+                        border.color: Tokens.accent
+                        border.width: 2 * Tokens.strokeWidth
+                    }
+
+                    FixedArt {
+                        id: capacityRing
+
+                        anchors.fill: parent
+                        key: "ui/medallion/icon-ring"
+                    }
+
+                    FixedArt {
+                        anchors.fill: parent
+                        anchors.margins: 11 * Tokens.uiScale
+                        key: capacityEntry.value
+                    }
+                }
+
+                Column {
+                    id: capacityColumn
+
+                    anchors.left: capacityIcon.right
+                    anchors.right: parent.right
+                    anchors.leftMargin: Tokens.gapMedium
+                    anchors.top: parent.top
+
+                    Text {
+                        width: parent.width
+                        text: capacityEntry.label
+                        color: Tokens.text
+                        font.family: Tokens.bodyFamily
+                        font.pixelSize: Tokens.fontBody
+                        font.weight: Font.DemiBold
+                        elide: Text.ElideRight
+                    }
+
+                    Text {
+                        width: parent.width
+                        text: capacityEntry.levelText
+                        color: capacityEntry.upcoming ? Tokens.textMuted : Tokens.accent
+                        font.family: Tokens.titleFamily
+                        font.pixelSize: Tokens.fontCaption
+                        elide: Text.ElideRight
+                    }
+
+                    Text {
+                        width: parent.width
+                        text: capacityEntry.detail
+                        color: Tokens.textMuted
+                        font.family: Tokens.bodyFamily
+                        font.pixelSize: Tokens.fontCaption
+                        wrapMode: Text.WordWrap
+                        maximumLineCount: 3
+                        elide: Text.ElideRight
+                    }
+                }
+            }
+        }
+
+        // ===== Onglet Sorts : les sorts connus et leurs lancers ===========================================
+        ListView {
+            id: spellView
+
+            clip: true
+            spacing: Tokens.gapSmall
+            model: root.spellRows
+
+            delegate: Item {
+                id: spellRow
+
+                required property string label
+                required property string value
+                required property string detail
+                required property string uses
+                required property string levelText
+
+                width: ListView.view.width
+                height: spellLine.implicitHeight + Tokens.gapSmall
+
+                SpellEntry {
+                    id: spellLine
+
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    name: spellRow.label
+                    iconKey: spellRow.value
+                    details: spellRow.levelText + "\n" + spellRow.detail
+                }
+
+                // Les lancers restants, a droite du nom : ce que le combat en a laisse (LOT-139).
+                Text {
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    text: spellRow.uses
+                    color: Tokens.accent
+                    font.family: Tokens.titleFamily
+                    font.pixelSize: Tokens.fontBody
+                    font.weight: Font.DemiBold
+                }
             }
         }
     }

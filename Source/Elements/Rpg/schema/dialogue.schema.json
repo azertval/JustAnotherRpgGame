@@ -323,6 +323,23 @@
                       "ending"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "description": "Donne un niveau (LOT-141) au personnage nomme (identifiant de fiche), ou a tout le groupe (party).",
+                    "properties": {
+                      "type": {
+                        "const": "levelUp"
+                      },
+                      "character": {
+                        "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "character"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               }

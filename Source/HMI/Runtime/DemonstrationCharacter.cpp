@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <filesystem>
 #include <string>
+#include <system_error>
 #include <utility>
 #include <vector>
 
@@ -30,7 +31,44 @@ constexpr const char* DEMONSTRATION_CHARACTER_FILE = "heros-brawler.json";
 // Le même signe que les autres écrans posent sur un champ sans source.
 constexpr const char* EMPTY_MARK = "—";
 
+// Ce que la partie en cours dit de la fiche `characterFile` -- niveau donne, points de vie,
+// lancers -- s'applique a `state` (LOT-141). Sans partie, ou pour une fiche qui n'est pas celle
+// d'un de ses personnages : rien.
+void applyPartyRecordFor(DemonstrationState& state, const std::filesystem::path& characterFile) {
+    const WorldModel* const partie = WorldModel::current();
+    if (partie == nullptr) {
+        return;
+    }
+    std::error_code erreur;
+    for (const core::PartyCandidate& candidat : partie->candidates()) {
+        if (candidat.file != characterFile &&
+            !std::filesystem::equivalent(candidat.file, characterFile, erreur)) {
+            continue;
+        }
+        if (const core::MemberRecord* const record = partie->ledger().record(candidat.id)) {
+            applyMemberRecord(state, *record);
+        }
+        return;
+    }
+}
+
 }  // namespace
+
+void applyMemberRecord(DemonstrationState& state, const core::MemberRecord& record) {
+    if (record.level.has_value() && *record.level > state.sheet.level) {
+        if (const core::PlayableClass* const classe =
+                state.options.findClass(state.sheet.classId)) {
+            std::vector<std::string> manquants;
+            static_cast<void>(core::levelUpTo(state.sheet, *record.level, *classe, state.options,
+                                              state.rules, state.experience, manquants));
+            for (const std::string& manquant : manquants) {
+                HMI_LOG_WARNING("Montee de niveau : '" + manquant +
+                                "' nomme par la classe, que le moteur ne joue pas (EX-CNT-031).");
+            }
+        }
+    }
+    core::applyRecord(state.sheet, record);
+}
 
 std::filesystem::path playedCharacterFile() {
     // Le meneur du groupe de la partie en cours (LOT-138) : c'est lui qui combat, qui parle a
@@ -76,6 +114,7 @@ DemonstrationState loadDemonstrationState(const std::filesystem::path& character
     }
     state.sheet = std::move(loaded.sheet);
     state.inventory = std::move(loaded.inventory);
+    applyPartyRecordFor(state, characterFile);
 
     state.items = core::loadItems(rpg / "items");
     state.equipment = core::loadEquipment(rpg / "weapons", rpg / "armors");
@@ -108,6 +147,7 @@ std::vector<DemonstrationCharacter> loadCharacterValues(
         }
         state.sheet = std::move(loaded.sheet);
         state.inventory = std::move(loaded.inventory);
+        applyPartyRecordFor(state, characterFiles[rank]);
         result.push_back(demonstrationValues(state));
     }
     return result;

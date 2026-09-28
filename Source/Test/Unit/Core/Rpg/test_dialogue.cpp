@@ -93,10 +93,14 @@ public:
     void endDemo(std::string_view voie) override {
         fins.emplace_back(voie);
     }
+    void levelUp(std::string_view personnage) override {
+        niveaux.emplace_back(personnage);
+    }
 
     std::vector<std::pair<std::string, int>> recus;
     std::vector<std::string> rencontres;
     std::vector<std::string> fins;
+    std::vector<std::string> niveaux;
 
 private:
     std::set<std::string> _langues;
@@ -814,5 +818,41 @@ TEST(DialogueTest, UnDialoguePeutTerminerLaDemo) {
         graphe(R"({"id":"a","type":"action","actions":[{"type":"endDemo"}],"next":"fin"},)"
                R"({"id":"fin","type":"end"})"),
         "sans-voie.json");
+    EXPECT_FALSE(refuse.graph.has_value());
+}
+
+/**
+ * @brief L'action `levelUp` donne un niveau à l'interlocuteur nommé, ou à tout le groupe
+ *        (`party`) : la montée de niveau est donnée par la quête (`LOT-141`).
+ * \castest{<b>Un dialogue peut donner un niveau.</b><br/>
+ * \tcat Unitaire · Dialogue<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Lire un graphe dont le noeud d'action porte `levelUp` vers « party » puis vers
+ * « heros-mage ».<br/>2. Le jouer avec un auditeur d'essai.<br/>3. Lire un graphe dont l'action
+ * `levelUp` n'a pas de champ `character`.<br/>
+ * \tattendu L'auditeur a recu « party » puis « heros-mage », le journal dit « niveau donne » ;
+ * le second graphe est refuse.
+ * }
+ */
+TEST(DialogueTest, UnDialoguePeutDonnerUnNiveau) {
+    const core::DialogueLoad lu = core::readDialogue(
+        graphe(R"({"id":"a","type":"action","actions":[)"
+               R"({"type":"levelUp","character":"party"},)"
+               R"({"type":"levelUp","character":"heros-mage"}],"next":"fin"},)"
+               R"({"id":"fin","type":"end"})"),
+        "niveau.json");
+    ASSERT_TRUE(lu.graph.has_value()) << lu.errors.front();
+    core::WorldFlags drapeaux;
+    Auditeur receveur({"common"}, 0);
+    core::DeterministicRandom hasard(3);
+    core::DialogueRunner runner(*lu.graph, drapeaux, receveur, echelle(), hasard);
+    EXPECT_EQ(runner.start(), core::DialogueState::Ended);
+    EXPECT_EQ(receveur.niveaux, (std::vector<std::string>{"party", "heros-mage"}));
+    EXPECT_TRUE(contient(runner.journal(), "niveau donne : party"));
+
+    const core::DialogueLoad refuse = core::readDialogue(
+        graphe(R"({"id":"a","type":"action","actions":[{"type":"levelUp"}],"next":"fin"},)"
+               R"({"id":"fin","type":"end"})"),
+        "sans-personnage.json");
     EXPECT_FALSE(refuse.graph.has_value());
 }

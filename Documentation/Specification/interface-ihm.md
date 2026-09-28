@@ -58,6 +58,15 @@ les aides de grille (`EX-CBT-020`, `EX-CBT-021`). La cible montre ce que le joue
   qui **est le jet** (`core::previewAttack`, `core::previewMove`) et **nomme la capacité qui
   jouera**, ou pourquoi elle ne jouera pas ; d'un adversaire, rien que ce que la table voit
   (`EX-CBT-050`). Tout ce que ces panneaux montrent se pilote par les gestes du tour, sans souris.
+- **EX-IHM-109** — La **fiche de personnage** s'ouvre pour **chaque membre** du groupe, et montre sa
+  classe : un onglet **Classe** (les capacités acquises, avec le niveau qui les donne, et celles à
+  venir aux prochains niveaux), un onglet **Sorts** (les sorts connus et leurs **lancers
+  restants**). L'écran **Groupe** montre les **quatre profils côte à côte** dans l'ordre de marche,
+  le meneur marqué. Chaque fiche pré-tirée s'affiche **comme sa page du livre, valeur pour
+  valeur** ; ce que la partie en a fait — niveau donné, points de vie, lancers — s'applique à la
+  fiche, à l'écran de groupe et au combat par le **même** registre (`core::PartyLedger`). La
+  montée de niveau est **donnée** (action de dialogue `levelUp`, console de débogage) tant que
+  l'expérience n'arrive pas.
 
 - **EX-IHM-004** — Le jeu doit offrir un **écran de pause** suspendant
   réellement la simulation, sans consommer de pas de temps fixe, navigable au clavier, à la souris

@@ -3,7 +3,7 @@ import Jadg.Ui
 import Jadg.Runtime
 
 /*!
-    Fiche de personnage — CÂBLAGE, côté développeur (LOT-86, LOT-87 T3.4).
+    Fiche de personnage — CÂBLAGE, côté développeur (LOT-86, LOT-87 T3.4, LOT-141).
 
     Ce fichier ne décrit aucune apparence : il relie le formulaire `CharacterSheetForm.ui.qml` à la
     vue-modèle C++. C'est la seule moitié que la conception n'ouvre jamais, et la seule où du code
@@ -12,13 +12,23 @@ import Jadg.Runtime
     Presque tout vient de `CharacterSheetModel`, dont la table `values` porte le score et le
     modificateur séparés de chaque caractéristique. Deux champs de la maquette n'ont pas encore de
     source et passent par `PendingData` : le **matricule**, et le **seuil du niveau suivant** qui
-    remplit la jauge d'expérience (`LOT-74`). Le portrait aussi, tant qu'aucun jeton du corpus n'est
-    extrait et déclaré au manifeste.
+    remplit la jauge d'expérience (`LOT-74`). Le portrait est celui de la figurine de la classe,
+    que la partie connaît.
+
+    LA FICHE DE CHACUN (LOT-141). La fiche ouverte est celle du personnage que la partie désigne
+    (`WorldModel.shownCharacterId` : celui de l'écran de groupe, sinon le meneur) ; `Tab` passe
+    au membre suivant, `Maj+Tab` au précédent. Les trois onglets de la colonne droite se
+    parcourent par `Page suiv.` / `Page préc.` (manette : `RB` / `LB`) ; dans l'onglet Classe ou
+    Sorts, `Haut` / `Bas` (croix) font défiler la liste. `Échap` (`B`) referme.
 */
 CharacterSheetForm {
     id: root
 
+    focus: true
+
     readonly property CharacterSheetModel sheet: CharacterSheetModel {}
+    /// Les membres du groupe, pour passer de l'un à l'autre.
+    readonly property var members: WorldModel.partyMembers
 
     /// Une valeur de la fiche par sa clé, ou le tiret si la fiche ne la porte pas.
     function field(key) {
@@ -27,12 +37,12 @@ CharacterSheetForm {
     }
 
     characterName: sheet.name
-    className: root.field("sheet.class")
+    className: sheet.className
     level: sheet.level
     background: sheet.background
     species: sheet.species
     registration: PendingData.value("character_sheet.registration")
-    portrait: PendingData.image("character_sheet.portrait")
+    portrait: root.portraitOf(sheet.characterId)
 
     hitPointsText: sheet.hitPoints
     // « 25 / 30 » : le courant se lit avant la barre, le maximum a sa propre clé.
@@ -70,9 +80,121 @@ CharacterSheetForm {
     passivePerception: sheet.passivePerception
 
     skills: sheet.skills
+    classRows: root.classRowsOf(sheet.capacities, sheet.upcomingCapacities)
+    spellRows: root.spellRowsOf(sheet.spells)
 
-    Component.onCompleted: sheet.loadDemonstrationCharacter()
+    Component.onCompleted: sheet.loadShownCharacter()
 
+    // Une montée de niveau, un combat : la fiche se relit quand la partie change le groupe.
+    Connections {
+        target: WorldModel
+        function onPartyChanged() { root.sheet.loadShownCharacter() }
+    }
+
+    /// Le portrait de la figurine du membre `characterId`, ou vide.
+    function portraitOf(characterId) {
+        for (let i = 0; i < root.members.length; ++i) {
+            if (root.members[i].id === characterId) {
+                return root.members[i].portrait
+            }
+        }
+        return ""
+    }
+
+    /// Passe au membre suivant (`step` 1) ou précédent (-1) du groupe.
+    function cycleMember(step) {
+        const count = root.members.length
+        if (count === 0) {
+            return
+        }
+        let index = 0
+        for (let i = 0; i < count; ++i) {
+            if (root.members[i].id === root.sheet.characterId) {
+                index = i
+            }
+        }
+        WorldModel.showCharacter(root.members[(index + step + count) % count].id)
+    }
+
+    function cycleTab(step) {
+        root.currentTab = (root.currentTab + step + 3) % 3
+    }
+
+    /// Fait défiler la liste de l'onglet courant (classe, sorts) d'un cran.
+    function scroll(step) {
+        const view = root.currentTab === 1 ? root.classList : (root.currentTab === 2 ? root.spellList : null)
+        if (view === null) {
+            return
+        }
+        const cran = 96 * Tokens.uiScale
+        view.contentY = Math.max(0, Math.min(Math.max(0, view.contentHeight - view.height), view.contentY + step * cran))
+    }
+
+    function classRowsOf(capacities, upcoming) {
+        const rows = []
+        for (let i = 0; i < capacities.length; ++i) {
+            rows.push({ rowId: capacities[i].id, label: capacities[i].name, value: capacities[i].iconKey,
+                        detail: capacities[i].text, levelText: qsTr("Niveau %1").arg(capacities[i].level),
+                        upcoming: false })
+        }
+        for (let i = 0; i < upcoming.length; ++i) {
+            rows.push({ rowId: "next-" + upcoming[i].id + "-" + upcoming[i].level, label: upcoming[i].name,
+                        value: upcoming[i].iconKey, detail: upcoming[i].text,
+                        levelText: qsTr("À venir · niveau %1").arg(upcoming[i].level), upcoming: true })
+        }
+        return rows
+    }
+
+    function spellRowsOf(spells) {
+        const rows = []
+        for (let i = 0; i < spells.length; ++i) {
+            rows.push({ rowId: spells[i].id, label: spells[i].name, value: spells[i].iconKey,
+                        detail: spells[i].details, uses: spells[i].usesText,
+                        levelText: spells[i].level === 0 ? qsTr("Sort mineur") : qsTr("Niveau %1").arg(spells[i].level) })
+        }
+        return rows
+    }
+
+    Keys.onPressed: (event) => {
+        switch (event.key) {
+        case Qt.Key_PageDown: root.cycleTab(1); break
+        case Qt.Key_PageUp: root.cycleTab(-1); break
+        case Qt.Key_Tab: root.cycleMember(1); break
+        case Qt.Key_Backtab: root.cycleMember(-1); break
+        case Qt.Key_Down: root.scroll(1); break
+        case Qt.Key_Up: root.scroll(-1); break
+        case Qt.Key_Escape: ScreenRouter.closeRpgScreen(); break
+        default: return
+        }
+        event.accepted = true
+    }
+
+    GamepadNavigator {
+        active: root.visible
+        onPressed: (button) => {
+            switch (button) {
+            case "rb": root.cycleTab(1); break
+            case "lb": root.cycleTab(-1); break
+            case "x": root.cycleMember(1); break
+            case "down": root.scroll(1); break
+            case "up": root.scroll(-1); break
+            case "b": ScreenRouter.closeRpgScreen(); break
+            }
+        }
+    }
+
+    Connections {
+        target: root.skillsTab
+        function onClicked() { root.currentTab = 0 }
+    }
+    Connections {
+        target: root.classTab
+        function onClicked() { root.currentTab = 1 }
+    }
+    Connections {
+        target: root.spellsTab
+        function onClicked() { root.currentTab = 2 }
+    }
     Connections {
         target: root.skillsButton
         function onClicked() { ScreenRouter.openRpgScreen(ScreenRouter.Skills) }

@@ -80,6 +80,8 @@ private:
     /// Les valeurs de fiche d'un personnage (`sheet.*`), par identifiant.
     std::map<std::string, std::map<std::string, std::string>, std::less<>> _sheets;
 
+    /// @brief Relit les fiches des candidats, registre de la partie applique (`LOT-141`).
+    void reloadSheets();
     /// @return La valeur @p key de la fiche de @p characterId, ou un tiret.
     [[nodiscard]] QString sheetValue(const QString& characterId, const std::string& key) const;
     /// @return Les points de vie « courant / maximum » de @p characterId : ceux de la fiche, ou

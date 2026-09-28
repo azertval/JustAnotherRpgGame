@@ -151,7 +151,11 @@ CombatModel::Identity EncounterModel::identityOf(core::CombatantId combatant) co
         const auto candidat =
             std::ranges::find(world->candidates(), membre->characterId, &core::PartyCandidate::id);
         if (candidat != world->candidates().end()) {
-            const auto lue = _catalogs->heroes.find(candidat->file.string());
+            const core::MemberRecord* const record = world->ledger().record(membre->characterId);
+            const auto lue = _catalogs->heroes.find(
+                candidat->file.string() + "#" +
+                std::to_string(record != nullptr && record->level.has_value() ? *record->level
+                                                                              : 0));
             if (lue != _catalogs->heroes.end()) {
                 identity.level = lue->second.sheet.level;
             }
@@ -201,7 +205,12 @@ std::vector<std::pair<std::string, HeroContestantSource>> EncounterModel::partyS
             HMI_LOG_WARNING("Rencontre : membre du groupe sans fiche, " + membre);
             continue;
         }
-        const std::string fichier = candidat->file.string();
+        // La cle porte le niveau donne (LOT-141) : une fiche montee se relit, et la lecture
+        // applique le registre (loadDemonstrationState).
+        const core::MemberRecord* const record = world.ledger().record(membre);
+        const std::string fichier =
+            candidat->file.string() + "#" +
+            std::to_string(record != nullptr && record->level.has_value() ? *record->level : 0);
         auto lue = _catalogs->heroes.find(fichier);
         if (lue == _catalogs->heroes.end()) {
             std::vector<std::string> problemes;
@@ -213,7 +222,7 @@ std::vector<std::pair<std::string, HeroContestantSource>> EncounterModel::partyS
             lue = _catalogs->heroes.emplace(fichier, std::move(*source)).first;
         }
         HeroContestantSource source = lue->second;
-        if (const core::MemberRecord* const record = world.ledger().record(membre)) {
+        if (record != nullptr) {
             core::applyRecord(source.sheet, *record);
             for (core::ArenaSpell& sort : source.spells) {
                 const auto restant = record->spellUses.find(sort.id);

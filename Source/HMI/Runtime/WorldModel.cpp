@@ -18,6 +18,7 @@
 #include "HMI/Game/GameQuests.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/ExecutableDirectory.h"
+#include "HMI/Runtime/DemonstrationCharacter.h"
 #include "HMI/Runtime/RuleLabels.h"
 
 namespace hmi {
@@ -427,6 +428,72 @@ void WorldModel::applyParty() {
     emit changed();
     emit figuresChanged();
     emit partyChanged();
+}
+
+bool WorldModel::levelUp(const QString& characterId) {
+    std::vector<std::string> cibles;
+    if (characterId == QString::fromUtf8(core::LEVEL_UP_PARTY.data(),
+                                         static_cast<qsizetype>(core::LEVEL_UP_PARTY.size()))) {
+        cibles = _party.members();
+    } else {
+        cibles.push_back(characterId.toStdString());
+    }
+    bool monte = false;
+    for (const std::string& id : cibles) {
+        const core::PartyCandidate* const candidat = candidate(id);
+        if (candidat == nullptr) {
+            HMI_LOG_WARNING("Montee de niveau : personnage inconnu, " + id);
+            continue;
+        }
+        // La fiche telle que la partie l'a laissee (registre applique), montee d'un niveau ; le
+        // registre retient le niveau et les points de vie qui en resultent -- la montee n'est pas
+        // un soin, les blessures restent (core::gainExperience).
+        DemonstrationState etat = loadDemonstrationState(candidat->file);
+        const core::PlayableClass* const classe = etat.options.findClass(etat.sheet.classId);
+        if (classe == nullptr) {
+            HMI_LOG_WARNING("Montee de niveau : classe inconnue pour " + id);
+            continue;
+        }
+        std::vector<std::string> manquants;
+        const core::LevelUpResult resultat =
+            core::levelUpTo(etat.sheet, etat.sheet.level + 1, *classe, etat.options, etat.rules,
+                            etat.experience, manquants);
+        if (!resultat.gainedLevel()) {
+            HMI_LOG_INFO("Montee de niveau : " + id + " est deja au niveau maximal.");
+            continue;
+        }
+        core::MemberRecord record;
+        if (const core::MemberRecord* const ancien = _ledger.record(id)) {
+            record = *ancien;
+        }
+        record.level = resultat.newLevel;
+        record.hitPoints = etat.sheet.currentHitPoints;
+        _ledger.write(id, std::move(record));
+        HMI_LOG_INFO("Montee de niveau : " + id + " passe au niveau " +
+                     std::to_string(resultat.newLevel) + " (+" +
+                     std::to_string(resultat.hitPointsGained) + " PV).");
+        monte = true;
+    }
+    if (monte) {
+        emit partyChanged();
+    }
+    return monte;
+}
+
+void WorldModel::showCharacter(const QString& characterId) {
+    const std::string id = characterId.toStdString();
+    if (_shownCharacterId == id) {
+        return;
+    }
+    _shownCharacterId = candidate(id) != nullptr ? id : std::string{};
+    emit partyChanged();
+}
+
+QString WorldModel::shownCharacterId() const {
+    if (!_shownCharacterId.empty() && _party.contains(_shownCharacterId)) {
+        return QString::fromStdString(_shownCharacterId);
+    }
+    return leaderId();
 }
 
 void WorldModel::recordMember(const std::string& characterId, core::MemberRecord record) {

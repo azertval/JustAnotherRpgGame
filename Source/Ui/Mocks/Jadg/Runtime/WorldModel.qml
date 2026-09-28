@@ -29,6 +29,7 @@ QtObject {
     readonly property string leaderName: "Grom Tranche-Écaille"
     readonly property url leaderPortrait: ""
     readonly property int maxPartySize: 4
+    readonly property string shownCharacterId: "heros-brawler"
 
     signal partyChanged()
 
@@ -45,4 +46,6 @@ QtObject {
     function rotateLeader() { return true }
     function toggleMember(characterId) { return true }
     function moveMember(characterId, offset) { return true }
+    function levelUp(characterId) { return true }
+    function showCharacter(characterId) {}
 }

@@ -6,6 +6,7 @@
 #include <QAbstractItemModel>
 #include <QObject>
 #include <QString>
+#include <QVariantList>
 #include <QVariantMap>
 #include <QtQmlIntegration>
 #include <map>
@@ -82,6 +83,24 @@ class CharacterSheetModel : public QObject {
     /// non douze propriétés : les clés existent déjà dans `hmi::characterSheetValues`, les
     /// recopier une à une en propriétés aurait fait un second endroit à tenir.
     Q_PROPERTY(QVariantMap values READ values NOTIFY changed)
+    /// Le personnage chargé (`heros-brawler`…), vide tant que rien ne l'est (`LOT-141`).
+    Q_PROPERTY(QString characterId READ characterId NOTIFY changed)
+    /// La classe, déjà mise en forme (`sheet.class`).
+    Q_PROPERTY(QString className READ className NOTIFY changed)
+    /**
+     * Les capacités de classe **acquises** (`LOT-141`, onglet Classe) : `id`, `name`, `iconKey`
+     * (`ui/icon/capacity/<base>`), `text` (la page du livre et sa règle), `level` (le niveau où la
+     * table la donne), `narrative` (déclarée sans mécanisme joué).
+     */
+    Q_PROPERTY(QVariantList capacities READ capacities NOTIFY changed)
+    /// Les capacités **à venir**, mêmes rôles, pour les quatre prochains niveaux de la table.
+    Q_PROPERTY(QVariantList upcomingCapacities READ upcomingCapacities NOTIFY changed)
+    /**
+     * Les sorts connus (`LOT-141`, onglet Sorts) : `id`, `name`, `iconKey` (`ui/icon/spell/<id>`),
+     * `level` (0 : mineur), `perDay`, `remaining`, `usesText` (« 1 / 2 », « à volonté »),
+     * `details` (portée, durée, dés, une caractéristique par ligne), `school`.
+     */
+    Q_PROPERTY(QVariantList spells READ spells NOTIFY changed)
 
 public:
     explicit CharacterSheetModel(QObject* parent = nullptr);
@@ -99,8 +118,35 @@ public:
      * mieux qu'un écran vide.
      */
     Q_INVOKABLE void loadDemonstrationCharacter();
+    /**
+     * @brief Charge la fiche du personnage @p characterId (`LOT-141`) : un membre du groupe de la
+     *        partie, ou une fiche pré-tirée de `Rpg/characters/` ; vide, le personnage joué.
+     *
+     * Ce que la partie en a fait s'applique (`loadDemonstrationState`) : niveau donné, points de
+     * vie et lancers restants. Un identifiant inconnu charge le personnage joué, et le journal le
+     * dit.
+     */
+    Q_INVOKABLE void loadCharacter(const QString& characterId);
+    /// @brief Charge le personnage que la partie désigne pour la fiche
+    ///        (`WorldModel::shownCharacterId`), sinon le personnage joué.
+    Q_INVOKABLE void loadShownCharacter();
 
     [[nodiscard]] QVariantMap values() const;
+    [[nodiscard]] QString characterId() const {
+        return _characterId;
+    }
+    [[nodiscard]] QString className() const {
+        return value("sheet.class");
+    }
+    [[nodiscard]] QVariantList capacities() const {
+        return _capacities;
+    }
+    [[nodiscard]] QVariantList upcomingCapacities() const {
+        return _upcoming;
+    }
+    [[nodiscard]] QVariantList spells() const {
+        return _spells;
+    }
 
     [[nodiscard]] QString name() const {
         return value("sheet.name");
@@ -164,6 +210,10 @@ private:
     std::map<std::string, std::string> _values;
     SheetRowModel _abilities;
     SheetRowModel _skills;
+    QString _characterId;
+    QVariantList _capacities;
+    QVariantList _upcoming;
+    QVariantList _spells;
 };
 
 }  // namespace hmi
