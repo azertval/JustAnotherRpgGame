@@ -6,7 +6,9 @@
 #include <QObject>
 #include <QString>
 #include <QStringList>
+#include <QUrl>
 #include <QVariantList>
+#include <QVariantMap>
 #include <cstddef>
 #include <filesystem>
 #include <memory>
@@ -66,9 +68,38 @@ class CombatModel : public QObject {
     Q_PROPERTY(int cursorRow READ cursorRow NOTIFY cursorChanged)
     /// Le chemin que le déplacement vers le curseur emprunterait.
     Q_PROPERTY(QVariantList pathCells READ pathCells NOTIFY cursorChanged)
-    /// Les actions du tour du joueur : attaques, puis celles du Manuel, puis la réaction.
+    /**
+     * Les actions du tour du joueur : attaques, puis sorts, puis celles du Manuel, puis la
+     * réaction. Chaque ligne : `label`, `kind`, `enabled`, `selected`, et depuis le `LOT-140`
+     * `detail` (« +5 · 1d8+3 perforant », « 2 lancers »), `uses` (lancers restants, `-1` à
+     * volonté ou sans objet), `iconKey` (l'icône du sort, ou vide).
+     */
     Q_PROPERTY(QVariantList turnActions READ turnActions NOTIFY cursorChanged)
+    /**
+     * L'ordre d'initiative : `name`, `total`, `side`, `active`, `down`, et depuis le `LOT-140`
+     * `token` (le jeton d'un membre du groupe, ou vide) et `initials` (deux lettres pour un jeton
+     * qui manque).
+     */
     Q_PROPERTY(QVariantList turnOrder READ turnOrder NOTIFY changed)
+    /// Le round en cours, 0 hors combat.
+    Q_PROPERTY(int round READ round NOTIFY changed)
+    /**
+     * Le combattant actif tel que son panneau le montre (`LOT-140`) : `name`, `classId`, `level`,
+     * `portrait`, `hitPoints`, `hitPointsRatio`, `armorClass`, `speed`, `conditions` (liste de
+     * libellés), les ressources du tour (`action`, `actionMax`, `bonusAction`, `bonusActionMax`,
+     * `movement`, `movementMax`, en cases), `capacities` (`id`, `name`, `iconKey`, `text`,
+     * `narrative`) et `spells` (`id`, `name`, `level`, `uses`, `iconKey`). Vide hors combat ; un
+     * ennemi au tour de l'IA n'y montre que ce que la table voit.
+     */
+    Q_PROPERTY(QVariantMap activeProfile READ activeProfile NOTIFY changed)
+    /**
+     * Ce que l'action choisie donnerait sur la case du curseur (`LOT-140`, `EX-CBT-020`) : `kind`
+     * (`attack`, `spell`, `move`, `action`, vide), `title`, `lines` (liste de `{label, value}`),
+     * `capacities` (liste de `{name, dice, applies, reason}` : ce qui jouera, ce qui ne jouera
+     * pas), `expected` (« 6,1 »), `valid`. La prévisualisation **est le jet** : elle passe par
+     * `core::previewAttack` et `core::previewMove`.
+     */
+    Q_PROPERTY(QVariantMap preview READ preview NOTIFY cursorChanged)
     Q_PROPERTY(QString activeName READ activeName NOTIFY changed)
     Q_PROPERTY(QString activeResources READ activeResources NOTIFY changed)
     Q_PROPERTY(QStringList journal READ journal NOTIFY changed)
@@ -97,6 +128,9 @@ public:
     [[nodiscard]] QVariantList pathCells() const;
     [[nodiscard]] QVariantList turnActions() const;
     [[nodiscard]] QVariantList turnOrder() const;
+    [[nodiscard]] int round() const;
+    [[nodiscard]] QVariantMap activeProfile() const;
+    [[nodiscard]] QVariantMap preview() const;
     [[nodiscard]] QString activeName() const;
     [[nodiscard]] QString activeResources() const;
     [[nodiscard]] QStringList journal() const;
@@ -151,8 +185,25 @@ signals:
     void combatSceneChanged();
 
 protected:
+    /// @brief Ce qu'un combattant est hors de la session : un membre du groupe a une fiche et une
+    ///        figurine (`LOT-140`).
+    struct Identity {
+        /// La classe (`brawler`…), vide pour une créature.
+        QString classId;
+        /// Le niveau de la fiche, 0 pour une créature.
+        int level = 0;
+        QUrl portrait;
+        /// Le jeton rond de la figurine (`token.png`), ou vide.
+        QUrl token;
+    };
     /// @return Les profils de l'IA que `core::playTurn` lit ; `nullptr` : l'IA ne joue pas.
     [[nodiscard]] virtual const core::BehaviorCatalog* behaviors() const = 0;
+    /// @return Ce que le combattant @p combatant est hors de la session ; vide par défaut — la
+    ///         rencontre sur la carte sait qui sont les membres du groupe.
+    [[nodiscard]] virtual Identity identityOf(core::CombatantId combatant) const {
+        static_cast<void>(combatant);
+        return {};
+    }
     /**
      * @brief Joue les tours de l'IA jusqu'au prochain tour du joueur, ou la fin.
      *
@@ -180,6 +231,16 @@ protected:
     ///        jet, ou le refus — un sort épuisé, notamment.
     void castAt(core::CombatantId target, std::size_t index);
     void moveTo(core::GridPosition cell);
+    /// @brief Écrit dans @p map et @p lines l'attaque @p attackIndex contre @p target telle
+    ///        qu'elle serait jetée, et dans @p capacities ce que les capacités y feraient.
+    void previewAttack(QVariantMap& map, QVariantList& lines, QVariantList& capacities,
+                       core::CombatantId target, std::size_t attackIndex) const;
+    /// @brief Écrit dans @p map et @p lines le sort @p spellIndex : lancers, portée, zone, jet,
+    ///        dés ; @p target, s'il y en a un sous le curseur, dit s'il est à portée.
+    void previewSpell(QVariantMap& map, QVariantList& lines, std::size_t spellIndex,
+                      const core::Combatant* target) const;
+    /// @brief Écrit dans @p map et @p lines le déplacement jusqu'au curseur.
+    void previewMove(QVariantMap& map, QVariantList& lines) const;
     /// @brief Le héros de la démo — le meneur — comme source de combattant ; `std::nullopt` sans
     ///        fiche, et @p problems dit pourquoi.
     [[nodiscard]] static std::optional<HeroContestantSource> loadHeroSource(

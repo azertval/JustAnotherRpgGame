@@ -3,10 +3,45 @@
 
 #include "Core/Combat/CombatPreview.h"
 
+#include <cstdint>
+#include <string>
+
+#include "Core/Combat/CombatCounters.h"
 #include "Core/Combat/EnemyAi.h"
+#include "Core/Combat/Flanking.h"
 #include "Core/Combat/LineOfSight.h"
+#include "Core/Rpg/ClassCapacities.h"
 
 namespace core {
+
+namespace {
+
+/// Les dés que les capacités de @p actif ajouteraient a la touche, et s'ils joueraient : les memes
+/// conditions que le crochet `Hit` de la session (`ArenaSession::hookCapacities`), lues sans rien
+/// compter.
+[[nodiscard]] std::vector<ExtraDamagePreview> extraDamagePreview(const ArenaSession& session,
+                                                                 CombatantId actif,
+                                                                 CombatantId target) {
+    std::vector<ExtraDamagePreview> apercus;
+    const std::string proprietaire = std::to_string(static_cast<std::uint32_t>(actif));
+    for (const NamedExtraDamage& supplement : extraDamageFrom(session.capacitiesOf(actif))) {
+        ExtraDamagePreview apercu{.source = supplement.source, .dice = supplement.dice};
+        if (supplement.allyAdjacentToTarget &&
+            !isAdjacentToAllyOf(session.combat(), actif, target)) {
+            apercu.applies = false;
+            apercu.reason = "un allie au contact de la cible est requis";
+        } else if (supplement.oncePerTurn &&
+                   session.combat().counters().value(CounterScope::Turn, proprietaire,
+                                                     supplement.capacityId) > 0) {
+            apercu.applies = false;
+            apercu.reason = "deja jouee ce tour";
+        }
+        apercus.push_back(std::move(apercu));
+    }
+    return apercus;
+}
+
+}  // namespace
 
 std::optional<AttackPreview> previewAttack(const ArenaSession& session, CombatantId target,
                                            std::size_t attackIndex) {
@@ -38,10 +73,27 @@ std::optional<AttackPreview> previewAttack(const ArenaSession& session, Combatan
                                static_cast<int>(apercu.disadvantages.size()));
     apercu.cover = coverBetween(combat, *actif, target);
     apercu.armorClass = cible->profile.armorClass + coverBonus(apercu.cover);
-    apercu.requiredRoll = requiredRoll(apercu.armorClass, attackBonusOf(profil));
+    // Les capacites entrent comme dans le jet (LOT-131) : le bonus au jet avant le de, les des
+    // en plus a la touche. Le profil « tel qu'il sera jete » les porte, et l'esperance se calcule
+    // sur lui : une seule formule, celle de l'IA.
+    AttackProfile jete = profil;
+    apercu.capacityModifiers = attackModifiersFrom(session.capacitiesOf(*actif));
+    jete.modifiers.insert(jete.modifiers.end(), apercu.capacityModifiers.begin(),
+                          apercu.capacityModifiers.end());
+    apercu.attackBonus = attackBonusOf(jete);
+    apercu.requiredRoll = requiredRoll(apercu.armorClass, apercu.attackBonus);
+    if (!profil.damage.empty()) {
+        apercu.extraDamage = extraDamagePreview(session, *actif, target);
+        for (const ExtraDamagePreview& supplement : apercu.extraDamage) {
+            if (supplement.applies) {
+                jete.damage.push_back(
+                    {.dice = supplement.dice, .type = profil.damage.front().type, .flags = 0});
+            }
+        }
+    }
     if (apercu.check == TargetCheck::Valid) {
         apercu.hitChance = hitChance(apercu.requiredRoll, apercu.stance, profil.criticalThreshold);
-        apercu.expectedDamage = expectedDamage(profil, apercu.armorClass, apercu.stance);
+        apercu.expectedDamage = expectedDamage(jete, apercu.armorClass, apercu.stance);
     }
     return apercu;
 }

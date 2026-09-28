@@ -9,6 +9,7 @@
 #include <chrono>
 #include <cstdint>
 #include <filesystem>
+#include <system_error>
 #include <utility>
 
 #include "Core/Combat/Attack.h"
@@ -135,6 +136,38 @@ void EncounterModel::setContentRoot(std::filesystem::path root) {
 
 const core::BehaviorCatalog* EncounterModel::behaviors() const {
     return _catalogs != nullptr ? &_catalogs->behaviors : nullptr;
+}
+
+CombatModel::Identity EncounterModel::identityOf(core::CombatantId combatant) const {
+    Identity identity;
+    const auto membre = std::ranges::find(_members, combatant, &Member::combatant);
+    if (membre == _members.end()) {
+        return identity;
+    }
+    identity.classId = toQt(membre->classId);
+    // Le niveau, sur la fiche lue au montage ; l'image, a cote de la figurine de la classe.
+    const WorldModel* const world = WorldModel::current();
+    if (world != nullptr && _catalogs != nullptr) {
+        const auto candidat =
+            std::ranges::find(world->candidates(), membre->characterId, &core::PartyCandidate::id);
+        if (candidat != world->candidates().end()) {
+            const auto lue = _catalogs->heroes.find(candidat->file.string());
+            if (lue != _catalogs->heroes.end()) {
+                identity.level = lue->second.sheet.level;
+            }
+        }
+    }
+    const std::filesystem::path figure =
+        dataDirectory() / "Assets" / WorldModel::heroFigureOf(membre->classId);
+    std::error_code erreur;
+    for (const auto& [nom, cible] :
+         {std::pair{"portrait.png", &identity.portrait}, std::pair{"token.png", &identity.token}}) {
+        const std::filesystem::path image = figure / nom;
+        if (std::filesystem::is_regular_file(image, erreur)) {
+            *cible = QUrl::fromLocalFile(QString::fromStdString(image.string()));
+        }
+    }
+    return identity;
 }
 
 bool EncounterModel::ensureCatalogs() {

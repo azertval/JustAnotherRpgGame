@@ -137,6 +137,7 @@ TEST(ClassCapacitiesTest, LeCatalogueSeChargeEtRefuseLInconnu) {
     const core::Capacity* ameliore = catalogue.find("coup-precis-ameliore");
     ASSERT_NE(ameliore, nullptr);
     EXPECT_EQ(ameliore->replaces, "coup-precis");
+    EXPECT_TRUE(ameliore->iconId.empty()) << "au catalogue, l'icone reprise n'est pas encore posee";
 
     // Les noms du schema et ceux du moteur disent la meme liste.
     for (const char* nom :
@@ -221,6 +222,13 @@ TEST(ClassCapacitiesTest, LaTableDonneLesCapacitesEtLesSortsAuNiveau) {
     EXPECT_EQ(identifiants(core::resolveCapacities(classe, 3, options.capacities, manquants)),
               (std::vector<std::string>{"peau-de-fer", "pas-de-danseur", "coup-precis-ameliore"}));
     EXPECT_TRUE(manquants.empty());
+    // Le palier garde l'icone de sa base (LOT-140) : l'ecran lit `iconId`.
+    {
+        const std::vector<core::Capacity> niveau3 =
+            core::resolveCapacities(classe, 3, options.capacities, manquants);
+        EXPECT_EQ(niveau3.back().iconId, "coup-precis");
+        EXPECT_TRUE(niveau3.front().iconId.empty());
+    }
 
     EXPECT_EQ(classe.cantripsAt(1), (std::vector<std::string>{"etincelle-d-essai"}));
     EXPECT_EQ(classe.spellsAt(1), (std::vector<std::string>{"trait-de-feu-d-essai"}));

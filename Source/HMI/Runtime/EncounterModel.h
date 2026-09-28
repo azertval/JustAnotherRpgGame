@@ -180,6 +180,9 @@ signals:
 
 protected:
     [[nodiscard]] const core::BehaviorCatalog* behaviors() const override;
+    /// Un membre du groupe : sa classe, le niveau de sa fiche, son portrait et son jeton
+    /// (`Common/Characters/Heroes/<classe>/token.png`) ; une créature : rien (`LOT-140`).
+    [[nodiscard]] Identity identityOf(core::CombatantId combatant) const override;
     /// Sur la carte, l'IA ne joue pas d'un bloc : `tick` joue un tour quand la file est vide.
     void playAiTurns() override;
     [[nodiscard]] bool acceptsInput() const override {

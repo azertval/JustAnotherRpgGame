@@ -1,9 +1,10 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import QtQuick.Effects
 import Jadg.Ui
 
 /*!
-    HUD de combat -- FORMULAIRE, cote conception (LOT-86, LOT-87 T4.1 ; maquette 01).
+    HUD de combat -- FORMULAIRE, cote conception (LOT-86, LOT-87 T4.1 ; maquette 01 ; LOT-140).
 
     Le seul ecran qui ne s'ouvre PAS par-dessus le jeu : il EST le jeu pendant un combat. Il ne
     suspend donc rien, et le tour par tour decidera de son rythme. Le cadre commun a la vue de jeu
@@ -13,10 +14,24 @@ import Jadg.Ui
     Chaque action porte son RACCOURCI, ecrit sous sa case : un combat doit se jouer entierement au
     clavier et entierement a la manette, le critere que la feuille de route dit « souvent oublie ».
 
-    Les listes ont les roles de `SheetRowModel` (`rowId`, `label`, `value`) :
-    - `initiative` : `label` le combattant, `value` son camp (`ally`, `enemy`) ;
+    LE GROUPE (LOT-140, maquette `combat-de-groupe.svg`). L'ordre d'initiative se lit AUX JETONS :
+    le jeton rond d'un membre du groupe, deux lettres pour une creature, l'actif cercle d'or. Le
+    PANNEAU DU TOUR, sous le nom du personnage actif, dit son niveau, sa CA, ses etats, ce qu'il
+    lui reste a depenser (action, action bonus, deplacement) et ses capacites de classe ; la
+    jauge d'experience du cadre lui laisse la place. La PREVISUALISATION prend la place des quetes :
+    l'action choisie sur la case du curseur -- le jet, la CA vue, la chance, les des, LA CAPACITE
+    QUI JOUE ou pourquoi elle ne joue pas, l'esperance. La barre d'actions montre HUIT cases, une
+    fenetre glissante autour de l'action choisie, chaque sort avec son icone et ses lancers.
+
+    Les listes ont les roles de `SheetRowModel` (`rowId`, `label`, `value`), et ce que le combat
+    y ajoute :
+    - `initiative` : `label` le combattant, `value` son camp (`ally`, `enemy`), `token` l'URL de
+      son jeton ou vide, `initials` deux lettres, `down` s'il est a terre ;
     - `combatLog` : `label` la ligne, `value` le tour qu'elle ouvre (`ally`, `enemy`) ou vide ;
-    - `actions` : `label` l'action, `value` ses charges restantes ou vide.
+    - `actions` : `label` l'action, `value` ses charges restantes ou vide, `iconKey` son icone ;
+    - `activeCapacities` : `label` la capacite, `value` la cle de son icone ;
+    - `previewLines` : `label` la rubrique, `value` sa valeur ;
+    - `previewCapacities` : `label` la capacite, `value` ses des, `applies`, `reason`.
 
     Le combat sur la carte (LOT-118) y ajoute le CALQUE TACTIQUE par-dessus la surface -- cases
     atteignables, curseur, chemin, combattants (`TacticalLayer`, le meme qu'au Colisee) --, le
@@ -55,17 +70,43 @@ HudFrame {
     signal leaveRequested()
     /// Le joueur rend la main (le geste « Espace » / « Y », a la souris).
     signal endTurnRequested()
+    /// Le joueur clique une case de la barre d'actions (indice dans `actions`).
+    signal actionClicked(int index)
 
+    // --- L'ordre d'initiative ------------------------------------------------------------------
     property var initiative: exampleInitiative
     /// Le combattant dont c'est le tour (indice dans `initiative`).
     property int activeIndex: 0
+    property string round: "2"
+
+    // --- Le tour du personnage actif (LOT-140) --------------------------------------------------
+    property string activeLevel: "1"
+    property string activeArmorClass: "14"
+    /// Les etats, deja joints (« Ensanglante, Beni »), ou vide.
+    property string activeConditions: ""
+    property int activeActions: 1
+    property int activeActionsMax: 1
+    property int activeBonusActions: 1
+    property int activeBonusActionsMax: 1
+    property string activeMovement: "6 / 6"
+    property var activeCapacities: exampleCapacities
 
     property var combatLog: exampleLog
 
     property var actions: exampleActions
     /// L'action choisie (indice dans `actions`).
     property int activeAction: 0
-    property string activeActionLabel: "Arc long"
+    property string activeActionLabel: "Rapière"
+    property string activeActionDetail: "+5 · 1d8+3 perforant"
+
+    // --- La previsualisation (LOT-140) ----------------------------------------------------------
+    property string previewTitle: "Rapière › Bandit"
+    property var previewLines: examplePreview
+    property var previewCapacities: examplePreviewCapacities
+    /// L'esperance de degats (« 6,1 »), ou vide.
+    property string previewExpected: "6,1"
+    /// Faux quand l'action ne peut pas se jouer sur cette case : la carte se grise.
+    property bool previewValid: true
 
     property string targetName: "Bandit"
     property string targetLevel: "3"
@@ -78,33 +119,51 @@ HudFrame {
     property url targetPortrait: ""
 
     readonly property ListModel exampleInitiative: ListModel {
-        ListElement { rowId: "brenna"; label: "Brenna"; value: "ally" }
-        ListElement { rowId: "bandit-1"; label: "Bandit"; value: "enemy" }
-        ListElement { rowId: "sarre"; label: "Sarre"; value: "ally" }
-        ListElement { rowId: "bandit-2"; label: "Bandit"; value: "enemy" }
-        ListElement { rowId: "ourse"; label: "Ourse"; value: "ally" }
+        ListElement { rowId: "nessa"; label: "Nessa"; value: "ally"; token: ""; initials: "Ne"; down: false }
+        ListElement { rowId: "bandit-1"; label: "Bandit"; value: "enemy"; token: ""; initials: "B1"; down: false }
+        ListElement { rowId: "grom"; label: "Grom"; value: "ally"; token: ""; initials: "Gr"; down: false }
+        ListElement { rowId: "bandit-2"; label: "Bandit"; value: "enemy"; token: ""; initials: "B2"; down: true }
+        ListElement { rowId: "helga"; label: "Helga"; value: "ally"; token: ""; initials: "He"; down: false }
+        ListElement { rowId: "faelar"; label: "Faelar"; value: "ally"; token: ""; initials: "Fa"; down: false }
+        ListElement { rowId: "archer"; label: "Archer"; value: "enemy"; token: ""; initials: "Ar"; down: false }
+    }
+
+    readonly property ListModel exampleCapacities: ListModel {
+        ListElement { rowId: "sneak"; label: "Sneak Attack Simplified"; value: "ui/icon/capacity/sneak-attack-simplified" }
+        ListElement { rowId: "agility"; label: "Scoundrel's Agility"; value: "ui/icon/capacity/scoundrels-agility" }
     }
 
     readonly property ListModel exampleLog: ListModel {
-        ListElement { rowId: "1"; label: "Tour de Brenna"; value: "ally" }
-        ListElement { rowId: "2"; label: "Brenna se déplace de 4 cases."; value: "" }
-        ListElement { rowId: "3"; label: "Brenna tire sur Bandit : 12 dégâts."; value: "" }
+        ListElement { rowId: "1"; label: "Tour de Nessa"; value: "ally" }
+        ListElement { rowId: "2"; label: "Nessa se déplace de 4 cases."; value: "" }
+        ListElement { rowId: "3"; label: "Nessa frappe Bandit : 12 dégâts."; value: "" }
         ListElement { rowId: "4"; label: "Bandit est à terre."; value: "" }
         ListElement { rowId: "5"; label: "Tour de l'ennemi"; value: "enemy" }
     }
 
     readonly property ListModel exampleActions: ListModel {
-        ListElement { rowId: "arc"; label: "Arc long"; value: "" }
-        ListElement { rowId: "trait"; label: "Trait de givre"; value: "3" }
-        ListElement { rowId: "cacher"; label: "Se cacher"; value: "" }
-        ListElement { rowId: "potion"; label: "Potion"; value: "3" }
-        ListElement { rowId: "parade"; label: "Parade"; value: "" }
-        ListElement { rowId: "feu"; label: "Flèche de feu"; value: "3" }
-        ListElement { rowId: "piege"; label: "Piège"; value: "1" }
-        ListElement { rowId: "passer"; label: "Passer"; value: "" }
+        ListElement { rowId: "rapiere"; label: "Rapière"; value: ""; iconKey: "" }
+        ListElement { rowId: "arc"; label: "Arc court"; value: ""; iconKey: "" }
+        ListElement { rowId: "dague"; label: "Dague"; value: ""; iconKey: "" }
+        ListElement { rowId: "trait"; label: "Trait de feu"; value: ""; iconKey: "ui/icon/spell/fire-bolt" }
+        ListElement { rowId: "projectile"; label: "Projectile magique"; value: "2"; iconKey: "ui/icon/spell/magic-missile" }
+        ListElement { rowId: "esquiver"; label: "Esquiver"; value: ""; iconKey: "" }
+        ListElement { rowId: "desengager"; label: "Se désengager"; value: ""; iconKey: "" }
+        ListElement { rowId: "precipiter"; label: "Se précipiter"; value: ""; iconKey: "" }
+    }
+
+    readonly property ListModel examplePreview: ListModel {
+        ListElement { rowId: "toucher"; label: "Toucher"; value: "d20 +5 contre CA 15 · 55 %" }
+        ListElement { rowId: "degats"; label: "Dégâts"; value: "1d8+3 perforant" }
+    }
+
+    readonly property ListModel examplePreviewCapacities: ListModel {
+        ListElement { rowId: "sneak"; label: "Sneak Attack Simplified"; value: "1d8"; applies: true; reason: "" }
     }
 
     mode: "combat"
+    showExperience: false
+    showQuests: false
 
     // --- Le calque tactique, par-dessus la surface (LOT-118) ---------------------------------------------
     // Le contenu d'un HudFrame remplit le cadre, comme l'hote de la surface : meme rectangle.
@@ -130,7 +189,7 @@ HudFrame {
     // --- Le statut du dernier geste, sous l'ordre d'initiative ------------------------------------------
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 172 * Tokens.uiScale
+        y: 316 * Tokens.uiScale
         width: 900 * Tokens.uiScale
         visible: text.length > 0
         text: root.busy ? "" : root.status
@@ -185,54 +244,274 @@ HudFrame {
         }
     }
 
-    // --- Ordre d'initiative, sous la boussole ------------------------------------------------------------
-    Row {
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: 128 * Tokens.uiScale
-        spacing: Tokens.gapSmall
+    // --- Le tour du personnage actif (LOT-140) : sous son nom, a la place de l'experience --------------
+    PanelFrame {
+        x: 216 * Tokens.uiScale
+        y: 138 * Tokens.uiScale
+        width: 384 * Tokens.uiScale
+        height: 164 * Tokens.uiScale
+        subpanel: true
 
-        Repeater {
-            model: root.initiative
+        Column {
+            anchors.fill: parent
+            spacing: 4 * Tokens.uiScale
+            clip: true
 
-            Rectangle {
-                id: combatant
+            Text {
+                width: parent.width
+                text: qsTr("Niv. %1 · CA %2").arg(root.activeLevel).arg(root.activeArmorClass)
+                      + (root.activeConditions.length > 0 ? " · " + root.activeConditions : "")
+                color: Tokens.textOnPanel
+                font.family: Tokens.bodyFamily
+                font.pixelSize: Tokens.fontCaption
+                elide: Text.ElideRight
+            }
 
-                required property int index
-                required property string label
-                required property string value
+            // Ce qu'il reste a depenser : une pastille par action, pleine tant qu'elle est la.
+            Row {
+                spacing: Tokens.gapSmall
 
-                readonly property bool current: combatant.index === root.activeIndex
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Action")
+                    color: Tokens.textOnPanelMuted
+                    font.family: Tokens.bodyFamily
+                    font.pixelSize: Tokens.fontCaption
+                }
 
-                width: chipRow.implicitWidth + 2 * Tokens.gapMedium
-                height: 36 * Tokens.uiScale
-                color: combatant.current ? Tokens.panelRaised : Tokens.panel
-                border.color: combatant.current ? Tokens.goldLight : Tokens.panelEdge
-                border.width: (combatant.current ? 2 : 1) * Tokens.strokeWidth
+                Repeater {
+                    model: root.activeActionsMax
 
-                Row {
-                    id: chipRow
-
-                    anchors.centerIn: parent
-                    spacing: Tokens.gapSmall
-
-                    // Le camp se lit a la marque autant qu'a la teinte : losange pour un allie,
-                    // rond pour un ennemi.
                     Rectangle {
+                        id: actionPip
+
+                        required property int index
+
                         anchors.verticalCenter: parent.verticalCenter
-                        width: 10 * Tokens.uiScale
-                        height: 10 * Tokens.uiScale
-                        rotation: combatant.value === "enemy" ? 0 : 45
-                        radius: combatant.value === "enemy" ? width / 2 : 0
-                        color: combatant.value === "enemy" ? Tokens.textEnemy
-                               : (combatant.value === "ally" ? Tokens.textAlly : Tokens.textOnPanelMuted)
+                        width: 12 * Tokens.uiScale
+                        height: 12 * Tokens.uiScale
+                        radius: width / 2
+                        color: actionPip.index < root.activeActions ? Tokens.goldLight : "transparent"
+                        border.color: Tokens.goldLight
+                        border.width: Tokens.strokeWidth
+                    }
+                }
+
+                Item { width: Tokens.gapSmall; height: 1 }
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Bonus")
+                    color: Tokens.textOnPanelMuted
+                    font.family: Tokens.bodyFamily
+                    font.pixelSize: Tokens.fontCaption
+                }
+
+                Repeater {
+                    model: root.activeBonusActionsMax
+
+                    Rectangle {
+                        id: bonusPip
+
+                        required property int index
+
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: 12 * Tokens.uiScale
+                        height: 12 * Tokens.uiScale
+                        radius: width / 2
+                        color: bonusPip.index < root.activeBonusActions ? Tokens.goldLight : "transparent"
+                        border.color: Tokens.goldLight
+                        border.width: Tokens.strokeWidth
+                    }
+                }
+
+                Item { width: Tokens.gapSmall; height: 1 }
+
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Déplacement %1").arg(root.activeMovement)
+                    color: Tokens.textOnPanelMuted
+                    font.family: Tokens.bodyFamily
+                    font.pixelSize: Tokens.fontCaption
+                }
+            }
+
+            // Les capacites de classe, icone et nom : ce que la fiche apporte au combat.
+            Repeater {
+                model: root.activeCapacities
+
+                Item {
+                    id: capacity
+
+                    required property string label
+                    required property string value
+
+                    width: parent.width
+                    height: 28 * Tokens.uiScale
+
+                    Rectangle {
+                        id: capacityFallback
+
+                        anchors.left: parent.left
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: 24 * Tokens.uiScale
+                        height: 24 * Tokens.uiScale
+                        radius: width / 2
+                        visible: !capacityIcon.delivered
+                        color: Tokens.panelRaised
+                        border.color: Tokens.goldLight
+                        border.width: Tokens.strokeWidth
+
+                        Text {
+                            anchors.centerIn: parent
+                            text: capacity.label.length > 0 ? capacity.label.charAt(0) : ""
+                            color: Tokens.goldLight
+                            font.family: Tokens.titleFamily
+                            font.pixelSize: Tokens.fontCaption
+                        }
+                    }
+
+                    FixedArt {
+                        id: capacityIcon
+
+                        anchors.left: parent.left
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: 24 * Tokens.uiScale
+                        height: 24 * Tokens.uiScale
+                        key: capacity.value
                     }
 
                     Text {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: 32 * Tokens.uiScale
                         anchors.verticalCenter: parent.verticalCenter
+                        text: capacity.label
+                        color: Tokens.textOnPanel
+                        font.family: Tokens.bodyFamily
+                        font.pixelSize: Tokens.fontCaption
+                        elide: Text.ElideRight
+                    }
+                }
+            }
+        }
+    }
+
+    // --- Ordre d'initiative aux jetons (LOT-140), sous la boussole ---------------------------------------
+    Item {
+        x: 640 * Tokens.uiScale
+        y: 118 * Tokens.uiScale
+        width: 960 * Tokens.uiScale
+        height: 96 * Tokens.uiScale
+
+        Text {
+            id: roundLabel
+
+            anchors.left: parent.left
+            anchors.top: parent.top
+            text: qsTr("Round %1").arg(root.round)
+            color: Tokens.goldLight
+            font.family: Tokens.titleFamily
+            font.pixelSize: Tokens.fontCaption
+            font.weight: Font.DemiBold
+            style: Text.Outline
+            styleColor: Tokens.panel
+        }
+
+        Row {
+            anchors.left: parent.left
+            anchors.top: roundLabel.bottom
+            anchors.topMargin: 2 * Tokens.uiScale
+            spacing: Tokens.gapSmall
+
+            Repeater {
+                model: root.initiative
+
+                Item {
+                    id: combatant
+
+                    required property int index
+                    required property string label
+                    required property string value
+                    required property string token
+                    required property string initials
+                    required property bool down
+
+                    readonly property bool current: combatant.index === root.activeIndex
+                    readonly property bool enemy: combatant.value === "enemy"
+                    readonly property color tint: combatant.enemy ? Tokens.textEnemy : Tokens.textAlly
+
+                    width: 88 * Tokens.uiScale
+                    height: 72 * Tokens.uiScale
+                    opacity: combatant.down ? 0.45 : 1
+
+                    // Le jeton : l'image du membre du groupe, sinon deux lettres sur un disque du
+                    // camp. L'actif est cercle d'or (maquette : ①).
+                    Rectangle {
+                        id: tokenRing
+
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.top: parent.top
+                        width: 48 * Tokens.uiScale
+                        height: 48 * Tokens.uiScale
+                        radius: width / 2
+                        color: Tokens.panel
+                        border.color: combatant.current ? Tokens.goldLight : combatant.tint
+                        border.width: (combatant.current ? 3 : 2) * Tokens.strokeWidth
+
+                        Rectangle {
+                            id: tokenMask
+
+                            anchors.fill: parent
+                            anchors.margins: tokenRing.border.width
+                            radius: width / 2
+                            color: Tokens.panelRaised
+                            layer.enabled: true
+                        }
+
+                        Image {
+                            id: tokenImage
+
+                            anchors.fill: tokenMask
+                            visible: false
+                            source: combatant.token
+                            fillMode: Image.PreserveAspectCrop
+                            smooth: true
+                            mipmap: true
+                        }
+
+                        MultiEffect {
+                            anchors.fill: tokenMask
+                            visible: combatant.token.length > 0
+                            source: tokenImage
+                            maskEnabled: true
+                            maskSource: tokenMask
+                        }
+
+                        Text {
+                            anchors.centerIn: parent
+                            visible: combatant.token.length === 0
+                            text: combatant.initials
+                            color: combatant.current ? Tokens.goldLight : combatant.tint
+                            font.family: Tokens.titleFamily
+                            font.pixelSize: Tokens.fontCaption
+                            font.weight: Font.DemiBold
+                        }
+                    }
+
+                    Text {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: tokenRing.bottom
+                        anchors.topMargin: 2 * Tokens.uiScale
                         text: combatant.label
                         color: combatant.current ? Tokens.goldLight : Tokens.textOnPanel
                         font.family: Tokens.bodyFamily
                         font.pixelSize: Tokens.fontCaption
+                        horizontalAlignment: Text.AlignHCenter
+                        elide: Text.ElideRight
+                        style: Text.Outline
+                        styleColor: Tokens.panel
                     }
                 }
             }
@@ -323,22 +602,43 @@ HudFrame {
             key: "ui/medallion/action-wheel"
         }
 
-        Text {
+        Column {
             anchors.centerIn: parent
             width: parent.width * 0.64
-            text: root.activeActionLabel
-            color: Tokens.textOnPanel
-            font.family: Tokens.titleFamily
-            font.pixelSize: Tokens.fontBody
-            font.weight: Font.DemiBold
-            horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.WordWrap
-            maximumLineCount: 3
-            elide: Text.ElideRight
+            spacing: 2 * Tokens.uiScale
+
+            Text {
+                width: parent.width
+                text: root.activeActionLabel
+                color: Tokens.textOnPanel
+                font.family: Tokens.titleFamily
+                font.pixelSize: Tokens.fontBody
+                font.weight: Font.DemiBold
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WordWrap
+                maximumLineCount: 2
+                elide: Text.ElideRight
+            }
+
+            // Le jet et les des de l'action choisie (LOT-140).
+            Text {
+                width: parent.width
+                visible: text.length > 0
+                text: root.activeActionDetail
+                color: Tokens.goldLight
+                font.family: Tokens.bodyFamily
+                font.pixelSize: Tokens.fontCaption
+                horizontalAlignment: Text.AlignHCenter
+                wrapMode: Text.WordWrap
+                maximumLineCount: 2
+                elide: Text.ElideRight
+            }
         }
     }
 
     // --- Barre d'actions (maquette : 555, 778 -> 1090, 880) ------------------------------------------------
+    // Huit cases : une fenetre glissante sur les actions du tour, que le jumeau fait suivre l'action
+    // choisie (un mage de niveau 5 en a quatorze).
     PanelFrame {
         x: 640 * Tokens.uiScale
         y: 884 * Tokens.uiScale
@@ -358,11 +658,17 @@ HudFrame {
 
                     required property int index
                     required property string value
+                    required property string iconKey
                     required label
 
                     quantity: actionCell.value
                     shortcut: "" + (actionCell.index + 1)
                     active: actionCell.index === root.activeAction
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: root.actionClicked(actionCell.index)
+                    }
                 }
             }
         }
@@ -378,7 +684,170 @@ HudFrame {
         onClicked: root.endTurnRequested()
     }
 
+    // --- Previsualisation (LOT-140) : a la place des quetes, au-dessus de la cible -----------------------------
+    PanelFrame {
+        x: 1600 * Tokens.uiScale
+        y: 312 * Tokens.uiScale
+        width: 296 * Tokens.uiScale
+        height: 428 * Tokens.uiScale
+        subpanel: true
+
+        Text {
+            id: previewHeading
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            text: qsTr("Prévisualisation")
+            color: Tokens.textOnPanel
+            font.family: Tokens.titleFamily
+            font.pixelSize: Tokens.fontSectionTitle
+            font.weight: Font.DemiBold
+            elide: Text.ElideRight
+        }
+
+        GoldDivider {
+            id: previewDivider
+
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: previewHeading.bottom
+            anchors.topMargin: Tokens.gapSmall
+        }
+
+        Column {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: previewDivider.bottom
+            anchors.bottom: parent.bottom
+            anchors.topMargin: Tokens.gapSmall
+            spacing: 4 * Tokens.uiScale
+            clip: true
+            opacity: root.previewValid ? 1 : 0.7
+
+            Text {
+                width: parent.width
+                text: root.previewTitle
+                color: Tokens.goldLight
+                font.family: Tokens.titleFamily
+                font.pixelSize: Tokens.fontBody
+                font.weight: Font.DemiBold
+                wrapMode: Text.WordWrap
+                maximumLineCount: 2
+                elide: Text.ElideRight
+            }
+
+            Repeater {
+                model: root.previewLines
+
+                Item {
+                    id: previewRow
+
+                    required property string label
+                    required property string value
+
+                    width: parent.width
+                    height: Math.max(previewLabel.implicitHeight, previewValue.implicitHeight)
+
+                    Text {
+                        id: previewLabel
+
+                        anchors.left: parent.left
+                        anchors.top: parent.top
+                        width: 86 * Tokens.uiScale
+                        text: previewRow.label
+                        color: Tokens.textOnPanelMuted
+                        font.family: Tokens.bodyFamily
+                        font.pixelSize: Tokens.fontCaption
+                        elide: Text.ElideRight
+                    }
+
+                    Text {
+                        id: previewValue
+
+                        anchors.left: previewLabel.right
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.leftMargin: Tokens.gapSmall
+                        text: previewRow.value
+                        color: Tokens.textOnPanel
+                        font.family: Tokens.bodyFamily
+                        font.pixelSize: Tokens.fontCaption
+                        wrapMode: Text.WordWrap
+                        maximumLineCount: 3
+                        elide: Text.ElideRight
+                    }
+                }
+            }
+
+            // La capacite qui joue -- et celle qui ne joue pas, avec sa raison (maquette : ④).
+            Repeater {
+                model: root.previewCapacities
+
+                Rectangle {
+                    id: previewCapacity
+
+                    required property string label
+                    required property string value
+                    required property bool applies
+                    required property string reason
+
+                    width: parent.width
+                    height: capacityColumn.implicitHeight + Tokens.gapSmall
+                    color: previewCapacity.applies ? Tokens.panelRaised : "transparent"
+                    border.color: previewCapacity.applies ? Tokens.goldLight : Tokens.panelEdge
+                    border.width: Tokens.strokeWidth
+
+                    Column {
+                        id: capacityColumn
+
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.margins: Tokens.gapSmall / 2
+                        spacing: 0
+
+                        Text {
+                            width: parent.width
+                            text: (previewCapacity.applies ? "+ " : "") + previewCapacity.label + "  " + previewCapacity.value
+                            color: previewCapacity.applies ? Tokens.goldLight : Tokens.textOnPanelMuted
+                            font.family: Tokens.bodyFamily
+                            font.pixelSize: Tokens.fontCaption
+                            font.weight: previewCapacity.applies ? Font.DemiBold : Font.Normal
+                            elide: Text.ElideRight
+                        }
+
+                        Text {
+                            width: parent.width
+                            visible: text.length > 0
+                            text: previewCapacity.reason
+                            color: Tokens.textOnPanelMuted
+                            font.family: Tokens.loreFamily
+                            font.italic: true
+                            font.pixelSize: Tokens.fontCaption
+                            wrapMode: Text.WordWrap
+                            maximumLineCount: 2
+                            elide: Text.ElideRight
+                        }
+                    }
+                }
+            }
+
+            Text {
+                width: parent.width
+                visible: root.previewExpected.length > 0
+                text: qsTr("Attendu  %1 dégâts").arg(root.previewExpected)
+                color: Tokens.textOnPanel
+                font.family: Tokens.bodyFamily
+                font.pixelSize: Tokens.fontCaption
+                elide: Text.ElideRight
+            }
+        }
+    }
+
     // --- Fiche de la cible (maquette : 1100, 678 -> 1390, 828) ----------------------------------------------
+    // Rien que ce que la table voit (LOT-23) : un ennemi n'a pas de chiffre de vie, seulement
+    // « ensanglante », « a terre », « mort ».
     PanelFrame {
         x: 1256 * Tokens.uiScale
         y: 756 * Tokens.uiScale
@@ -406,6 +875,7 @@ HudFrame {
 
             anchors.right: parent.right
             anchors.baseline: targetTitle.baseline
+            visible: root.targetLevel.length > 0
             text: qsTr("Niv. %1").arg(root.targetLevel)
             color: Tokens.textOnPanel
             font.family: Tokens.bodyFamily

@@ -105,6 +105,10 @@ struct Capacity {
     std::string text;
     /// La capacité que celle-ci remplace à un niveau supérieur, ou vide.
     std::string replaces;
+    /// L'identifiant de la capacité dont l'icône est reprise (`ui/icon/capacity/<iconId>`) : la
+    /// base d'une chaîne de `replaces`, posée par `resolveCapacities` ; vide, l'icône est la
+    /// sienne.
+    std::string iconId;
     std::vector<CapacityEffect> effects;
     /// Déclarée sans mécanisme joué (`EX-RPG-051`, transposé aux capacités).
     bool narrative = false;

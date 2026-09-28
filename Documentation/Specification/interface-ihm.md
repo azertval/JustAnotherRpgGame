@@ -49,6 +49,16 @@ quatre ressources consommables une fois (`EX-CBT-011`), la fin de tour explicite
 les aides de grille (`EX-CBT-020`, `EX-CBT-021`). La cible montre ce que le joueur **sait** d'elle —
 « ensanglanté », pas un nombre de points de vie que rien ne lui a appris.
 
+- **EX-IHM-108** — En combat de **groupe** (`EX-CBT-061`), l'interface montre : l'ordre
+  d'initiative **aux jetons** des personnages (le jeton de la figurine pour un membre du groupe,
+  deux lettres pour une créature, l'actif cerclé) et le round ; le **combattant actif** avec son
+  niveau, sa classe d'armure, ses états, ce qu'il lui reste à dépenser (action, action bonus,
+  déplacement), ses capacités de classe et ses sorts avec leurs **lancers restants** ; la
+  **prévisualisation** de l'action choisie sur la case du curseur — attaque, sort ou déplacement —,
+  qui **est le jet** (`core::previewAttack`, `core::previewMove`) et **nomme la capacité qui
+  jouera**, ou pourquoi elle ne jouera pas ; d'un adversaire, rien que ce que la table voit
+  (`EX-CBT-050`). Tout ce que ces panneaux montrent se pilote par les gestes du tour, sans souris.
+
 - **EX-IHM-004** — Le jeu doit offrir un **écran de pause** suspendant
   réellement la simulation, sans consommer de pas de temps fixe, navigable au clavier, à la souris
   et à la manette comme le reste de l'interface, et passant par le catalogue de traduction
