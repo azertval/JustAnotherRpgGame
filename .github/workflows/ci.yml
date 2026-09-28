@@ -617,7 +617,7 @@ jobs:
 
       - name: Envoyer le SARIF a Code scanning
         if: ${{ !cancelled() && hashFiles('clang-tidy.sarif') != '' }}
-        uses: github/codeql-action/upload-sarif@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
+        uses: github/codeql-action/upload-sarif@1c5b675653bb5c22dbe9b12b556ec555138e09fd # v4.38.1
         with:
           sarif_file: clang-tidy.sarif
           category: clang-tidy
@@ -696,7 +696,7 @@ jobs:
       # dossier .venv/bin passe en tête du PATH, donc chaque `python3 scripts/…` ci-dessous s'exécute
       # avec ces dépendances — et scripts/check.py lit toujours ces lignes telles quelles.
       - name: Installer uv ${{ env.UV_VERSION }}
-        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
         with:
           version: ${{ env.UV_VERSION }}
           enable-cache: true
