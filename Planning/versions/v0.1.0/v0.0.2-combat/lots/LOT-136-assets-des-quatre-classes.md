@@ -36,7 +36,7 @@ avec les trois autres, dans l'atelier commun (décision de l'auteur, 28 sept. 20
 ## Décisions de réalisation
 
 Livré le 28 septembre 2026 après l'essai en jeu de l'auteur, branche
-`lot-136-assets-des-quatre-classes`, **PR #PRNUM**.
+`lot-136-assets-des-quatre-classes`, **PR #158**.
 
 - **Les images de l'atelier sont prises telles quelles.** Source :
   `Tools/AssetHd/NPC/Classes/LOT-136-v1/` (hors Git), une pose HD par image, habillée sur le
