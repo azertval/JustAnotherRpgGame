@@ -1,0 +1,218 @@
+{
+  "walk-se": {
+    "fingerprint": "e012ded28b5d283374e46cce1211facac6da0dc32dd8c720157fdbc2ee4089a2",
+    "reviewer": "Auteur du projet, avis explicite du 24 septembre 2026",
+    "evidence": "Retour utilisateur dans la conversation : aucune des quatre marches valide ; appuis non alternes, voire immobiles dans certains cas. Pas de mesure anatomique fournie.",
+    "notes": "REFUS AUTEUR : quatre marches non valides. Appuis non alternes ; immobilite signalee dans certains cas, sans attribution precise par direction.",
+    "visual": {
+      "alternating_support": false,
+      "in_game_motion": false
+    },
+    "contacts": {
+      "left": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "right": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "support": {
+      "left": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "right": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "walk-sw": {
+    "fingerprint": "e1e000cbe585052b866a2ee04701ee35cad1aa2c0e14f08e7309cc00d8b22a08",
+    "reviewer": "Auteur du projet, avis explicite du 24 septembre 2026",
+    "evidence": "Retour utilisateur dans la conversation : aucune des quatre marches valide ; appuis non alternes, voire immobiles dans certains cas. Pas de mesure anatomique fournie.",
+    "notes": "REFUS AUTEUR : quatre marches non valides. Appuis non alternes ; immobilite signalee dans certains cas, sans attribution precise par direction.",
+    "visual": {
+      "alternating_support": false,
+      "in_game_motion": false
+    },
+    "contacts": {
+      "left": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "right": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "support": {
+      "left": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "right": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "walk-ne": {
+    "fingerprint": "0151d1f19d93975a568f4c7c0aa7500e6517177ba96dacdb8692c3aaeb954a12",
+    "reviewer": "Auteur du projet, avis explicite du 24 septembre 2026",
+    "evidence": "Retour utilisateur dans la conversation : aucune des quatre marches valide ; appuis non alternes, voire immobiles dans certains cas. Pas de mesure anatomique fournie.",
+    "notes": "REFUS AUTEUR : quatre marches non valides. Appuis non alternes ; immobilite signalee dans certains cas, sans attribution precise par direction.",
+    "visual": {
+      "alternating_support": false,
+      "in_game_motion": false
+    },
+    "contacts": {
+      "left": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "right": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "support": {
+      "left": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "right": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  },
+  "walk-nw": {
+    "fingerprint": "7395d9f3f19c5550edd02782aad917b1b98bfb326f09762dc370d036ff8c4d41",
+    "reviewer": "Auteur du projet, avis explicite du 24 septembre 2026",
+    "evidence": "Retour utilisateur dans la conversation : aucune des quatre marches valide ; appuis non alternes, voire immobiles dans certains cas. Pas de mesure anatomique fournie.",
+    "notes": "REFUS AUTEUR : quatre marches non valides. Appuis non alternes ; immobilite signalee dans certains cas, sans attribution precise par direction.",
+    "visual": {
+      "alternating_support": false,
+      "in_game_motion": false
+    },
+    "contacts": {
+      "left": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "right": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    "support": {
+      "left": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "right": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  }
+}
