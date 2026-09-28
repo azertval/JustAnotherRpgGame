@@ -142,14 +142,14 @@ HudFrame {
     }
 
     readonly property ListModel exampleActions: ListModel {
-        ListElement { rowId: "rapiere"; label: "Rapière"; value: ""; iconKey: "" }
-        ListElement { rowId: "arc"; label: "Arc court"; value: ""; iconKey: "" }
-        ListElement { rowId: "dague"; label: "Dague"; value: ""; iconKey: "" }
+        ListElement { rowId: "rapiere"; label: "Rapière"; value: ""; iconKey: "ui/icon/action/melee" }
+        ListElement { rowId: "arc"; label: "Arc court"; value: ""; iconKey: "ui/icon/action/ranged" }
+        ListElement { rowId: "dague"; label: "Dague"; value: ""; iconKey: "ui/icon/action/melee" }
         ListElement { rowId: "trait"; label: "Trait de feu"; value: ""; iconKey: "ui/icon/spell/fire-bolt" }
         ListElement { rowId: "projectile"; label: "Projectile magique"; value: "2"; iconKey: "ui/icon/spell/magic-missile" }
-        ListElement { rowId: "esquiver"; label: "Esquiver"; value: ""; iconKey: "" }
-        ListElement { rowId: "desengager"; label: "Se désengager"; value: ""; iconKey: "" }
-        ListElement { rowId: "precipiter"; label: "Se précipiter"; value: ""; iconKey: "" }
+        ListElement { rowId: "esquiver"; label: "Esquiver"; value: ""; iconKey: "ui/icon/action/dodge" }
+        ListElement { rowId: "desengager"; label: "Se désengager"; value: ""; iconKey: "ui/icon/action/disengage" }
+        ListElement { rowId: "precipiter"; label: "Se précipiter"; value: ""; iconKey: "ui/icon/action/dash" }
     }
 
     readonly property ListModel examplePreview: ListModel {
@@ -658,8 +658,10 @@ HudFrame {
 
                     required property int index
                     required property string value
-                    required property string iconKey
+                    // `label` et `iconKey` sont des proprietes de la brique : on les exige, sans
+                    // les redeclarer -- une redeclaration en masquerait la valeur.
                     required label
+                    required iconKey
 
                     quantity: actionCell.value
                     shortcut: "" + (actionCell.index + 1)

@@ -114,6 +114,38 @@ TEST(ScreenFlowTest, TransitionInterditeEstRefusee) {
 }
 
 /**
+ * @brief Le bouton Options du HUD ouvre les réglages depuis le jeu et depuis un écran du RPG (le
+ *        HUD de combat), et les réglages reviennent d'où ils viennent, provenance du RPG comprise
+ *        (`LOT-141`).
+ * \castest{<b>Options depuis le jeu et depuis le HUD de combat, et retour.</b><br/>
+ * 	cat Unitaire · Machine à états des écrans<br/>
+ * 	crit Critique<br/>
+ * 	etapes 1. Depuis le jeu, ouvrir Options puis les fermer.<br/>2. Depuis un ecran du RPG ouvert
+ * sur le jeu, ouvrir Options, les fermer, puis fermer l'ecran du RPG.<br/>
+ * 	attendu Retour au jeu ; retour a l'ecran du RPG, puis au jeu -- pas au menu.
+ * }
+ */
+TEST(ScreenFlowTest, OptionsSOuvrentDepuisLeJeuEtLeCombat) {
+    const ScreenState game{.screen = ScreenId::Game, .optionsReturnTo = ScreenId::Menu};
+    const std::optional<ScreenState> options = resolveTransition(game, ScreenEvent::OpenOptions);
+    ASSERT_TRUE(options.has_value());
+    EXPECT_EQ(options->screen, ScreenId::Options);
+    EXPECT_EQ(resolveTransition(*options, ScreenEvent::CloseOptions)->screen, ScreenId::Game);
+
+    const std::optional<ScreenState> combat = resolveTransition(game, ScreenEvent::OpenRpgScreen);
+    ASSERT_TRUE(combat.has_value());
+    const std::optional<ScreenState> reglages =
+        resolveTransition(*combat, ScreenEvent::OpenOptions);
+    ASSERT_TRUE(reglages.has_value());
+    EXPECT_EQ(reglages->screen, ScreenId::Options);
+    const std::optional<ScreenState> retour =
+        resolveTransition(*reglages, ScreenEvent::CloseOptions);
+    ASSERT_TRUE(retour.has_value());
+    EXPECT_EQ(retour->screen, ScreenId::RpgScreen);
+    EXPECT_EQ(resolveTransition(*retour, ScreenEvent::CloseRpgScreen)->screen, ScreenId::Game);
+}
+
+/**
  * @brief Un écran du RPG revient vers l'écran d'où il a été ouvert -- menu, jeu ou pause -- porté
  *        par l'état, comme la provenance d'Options (`LOT-68`, `EX-IHM-090`).
  * \castest{<b>Un ecran du RPG revient vers son ecran d'origine (Menu, Game ou Pause).</b><br/>

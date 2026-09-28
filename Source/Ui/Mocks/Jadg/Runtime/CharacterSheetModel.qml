@@ -61,8 +61,11 @@ QtObject {
         { id: "extra-attack", name: "Extra Attack", iconKey: "ui/icon/capacity/extra-attack", text: "Player's Guide to Tanares, p. 193.", level: 5, narrative: false }
     ]
     readonly property var spells: [
-        { id: "fire-bolt", name: "Trait de feu", iconKey: "ui/icon/spell/fire-bolt", level: 0, perDay: 0, remaining: 0, usesText: "à volonté", details: "Portée : 36 mètres\nDégâts : 1d10 feu", school: "evocation" },
-        { id: "magic-missile", name: "Projectile magique", iconKey: "ui/icon/spell/magic-missile", level: 1, perDay: 2, remaining: 1, usesText: "1 / 2", details: "Portée : 36 mètres\nDégâts : 1d4+1 force", school: "evocation" }
+        { id: "fire-bolt", name: "Trait de feu", iconKey: "ui/icon/spell/fire-bolt", level: 0, perDay: 0, remaining: 0, usesText: "à volonté", details: "Portée : 36 mètres\nDégâts : 1d10 feu", school: "evocation", text: "Un trait de feu vers une créature ou un objet à portée.", castingTime: "1 action", range: "36 mètres", duration: "instantanée", components: "V, S", damage: "1d10", damageType: "feu" },
+        { id: "magic-missile", name: "Projectile magique", iconKey: "ui/icon/spell/magic-missile", level: 1, perDay: 2, remaining: 1, usesText: "1 / 2", details: "Portée : 36 mètres\nDégâts : 1d4+1 force", school: "evocation", text: "Trois fléchettes touchent sans jet.", castingTime: "1 action", range: "36 mètres", duration: "instantanée", components: "V, S", damage: "1d4+1", damageType: "force" }
+    ]
+    readonly property var attacks: [
+        { rowId: "grande-hache", label: "Grande hache", value: "+5 · 1d12+3 tranchant" }
     ]
 
     function loadDemonstrationCharacter() {}

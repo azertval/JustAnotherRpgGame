@@ -103,6 +103,34 @@ Item {
     }
 
     /*!
+        La croix qui referme un écran du RPG (LOT-141) : fiche, compétences, inventaire, journal,
+        carte, groupe, compagnie, marchand -- un seul geste, à la même place, pour revenir au jeu
+        (ou à ce qui a ouvert l'écran). Pas sur le HUD de combat ni le dialogue : ils se quittent
+        par leurs propres gestes. Posée ici, au-dessus de la pile, plutôt que dans chaque
+        formulaire : le retour est une règle du routeur, pas un ornement de l'écran.
+    */
+    readonly property bool closable: root.pinnedScreen.length === 0
+                                     && ScreenRouter.currentScreen === ScreenRouter.RpgScreen
+                                     && ScreenRouter.currentRpgScreen !== ScreenRouter.CombatHud
+                                     && ScreenRouter.currentRpgScreen !== ScreenRouter.Dialogue
+
+    Ui.OrnateRoundButton {
+        id: closeCross
+
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.topMargin: 28 * Ui.Tokens.uiScale
+        anchors.rightMargin: 28 * Ui.Tokens.uiScale
+        width: 56 * Ui.Tokens.uiScale
+        height: 56 * Ui.Tokens.uiScale
+        visible: root.closable
+        text: "×"
+        focusPolicy: Qt.NoFocus
+        Accessible.name: qsTr("Fermer")
+        onClicked: ScreenRouter.closeRpgScreen()
+    }
+
+    /*!
         Le menu de développement, ouvert par F9. Absent des binaires livrés : il se lie lui-même
         à `ScreenRouter.developerBuild`, et le raccourci aussi. Il remplace le sélecteur d'écrans
         et la console de debug : un seul outil, une seule touche.

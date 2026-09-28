@@ -1,6 +1,6 @@
 # Couverture des exigences
 
-**39 exigences en vigueur sur 307** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
+**41 exigences en vigueur sur 309** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
 
 ## Par famille
 
@@ -14,7 +14,7 @@
 | `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 76 | 8 | 68 |
 | `EX-EXP` | [Exploration](../Specification/exploration.md) | 14 | 3 | 11 |
 | `EX-GP` | [Gameplay](../Specification/gameplay.md) | 7 | 1 | 6 |
-| `EX-IHM` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | 32 | 2 | 30 |
+| `EX-IHM` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | 34 | 4 | 30 |
 | `EX-INV` | [Inventaire et économie](../Specification/inventaire.md) | 8 | 0 | 8 |
 | `EX-LVL` | [Cartes & format](../Specification/niveaux.md) | 20 | 7 | 13 |
 | `EX-NFR` | [Exigences non fonctionnelles](../Specification/exigences-non-fonctionnelles.md) | 19 | 2 | 17 |
@@ -22,7 +22,7 @@
 | `EX-REN` | [Rendu & cible technique](../Specification/rendu-technique.md) | 26 | 4 | 22 |
 | `EX-RPG` | [Personnage et progression](../Specification/rpg.md) | 19 | 1 | 18 |
 | `EX-VIS` | [Vision & périmètre](../Specification/vision.md) | 9 | 0 | 9 |
-| **Total** | | **307** | **39** | **268** |
+| **Total** | | **309** | **41** | **268** |
 
 ## Exigence par exigence
 
@@ -263,6 +263,8 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-IHM-105` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | — |
 | `EX-IHM-106` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | — |
 | `EX-IHM-107` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | — |
+| `EX-IHM-108` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | [`EncounterModelTest.LInterfaceDeGroupeLitLaVueModele`](hmi-runtime.md#encountermodeltestlinterfacedegroupelitlavuemodele) |
+| `EX-IHM-109` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | [`CharacterSheetModelTest.LesQuatreFichesSontLeursPagesDuLivre`](hmi-runtime.md#charactersheetmodeltestlesquatrefichessontleurspagesdulivre) |
 
 ### `EX-INV`
 

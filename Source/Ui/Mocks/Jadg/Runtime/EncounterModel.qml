@@ -46,12 +46,12 @@ QtObject {
     readonly property int cursorRow: 10
     readonly property var pathCells: []
     readonly property var turnActions: [
-        { label: "Grande hache", kind: "attack", enabled: true, selected: true, detail: "+5 · 1d12+3 tranchant", uses: -1, iconKey: "" },
-        { label: "Esquiver", kind: "dodge", enabled: true, selected: false, detail: "", uses: -1, iconKey: "" },
-        { label: "Se desengager", kind: "disengage", enabled: true, selected: false, detail: "", uses: -1, iconKey: "" },
-        { label: "Se precipiter", kind: "dash", enabled: true, selected: false, detail: "", uses: -1, iconKey: "" },
-        { label: "Attendre", kind: "wait", enabled: true, selected: false, detail: "", uses: -1, iconKey: "" },
-        { label: "Reaction : saisir les opportunites", kind: "reaction", enabled: true, selected: false, detail: "", uses: -1, iconKey: "" }
+        { label: "Grande hache", kind: "attack", enabled: true, selected: true, detail: "+5 · 1d12+3 tranchant", uses: -1, iconKey: "ui/icon/action/melee" },
+        { label: "Esquiver", kind: "dodge", enabled: true, selected: false, detail: "", uses: -1, iconKey: "ui/icon/action/dodge" },
+        { label: "Se desengager", kind: "disengage", enabled: true, selected: false, detail: "", uses: -1, iconKey: "ui/icon/action/disengage" },
+        { label: "Se precipiter", kind: "dash", enabled: true, selected: false, detail: "", uses: -1, iconKey: "ui/icon/action/dash" },
+        { label: "Attendre", kind: "wait", enabled: true, selected: false, detail: "", uses: -1, iconKey: "ui/icon/action/wait" },
+        { label: "Reaction : saisir les opportunites", kind: "reaction", enabled: true, selected: false, detail: "", uses: -1, iconKey: "ui/icon/action/reaction" }
     ]
     readonly property var turnOrder: [
         { name: "Grom Tranche-Écaille", total: 14, side: "allies", active: true, down: false, token: "", initials: "GT" },

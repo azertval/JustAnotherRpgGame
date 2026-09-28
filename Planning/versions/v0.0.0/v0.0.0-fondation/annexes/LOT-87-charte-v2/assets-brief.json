@@ -3550,6 +3550,58 @@
       "fallback": ["goldLight"]
     },
     {
+      "key": "ui/icon/action",
+      "name": "Actions du tour",
+      "material": "dark",
+      "size": [128, 128],
+      "display": "fixed",
+      "transparent": true,
+      "displaySizes": [[32, 32], [48, 48], [64, 64]],
+      "members": [
+        {
+          "id": "melee",
+          "label": "Attaque au contact",
+          "prompt": "a sword blade in a short slashing arc"
+        },
+        {
+          "id": "ranged",
+          "label": "Attaque à distance",
+          "prompt": "a nocked arrow on a drawn bow"
+        },
+        {
+          "id": "dodge",
+          "label": "Esquiver",
+          "prompt": "a leaning silhouette slipping aside from an arrow"
+        },
+        {
+          "id": "disengage",
+          "label": "Se désengager",
+          "prompt": "two footprints stepping back from a blade"
+        },
+        {
+          "id": "dash",
+          "label": "Se précipiter",
+          "prompt": "a running figure with three speed lines"
+        },
+        {
+          "id": "wait",
+          "label": "Attendre",
+          "prompt": "a small hourglass"
+        },
+        {
+          "id": "reaction",
+          "label": "Réaction",
+          "prompt": "a raised round shield meeting a sword point"
+        }
+      ],
+      "description": "Les actions du tour dans la barre du combat (LOT-140, LOT-141) : l'attaque de l'arme au contact ou à distance, et les actions du Manuel — esquiver, se désengager, se précipiter, attendre, la réaction. Les sorts ont déjà leur icône (`ui/icon/spell`). Elles se posent dans la case de la barre d'actions (`ui/slot/action`), à la place du nom.",
+      "prompt": "Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background.",
+      "mockups": [],
+      "derivedFrom": "ui/icon/capacity",
+      "screens": ["T4.1"],
+      "fallback": ["goldLight"]
+    },
+    {
       "key": "ui/icon/spell",
       "name": "Sorts",
       "material": "dark",

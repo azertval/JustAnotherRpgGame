@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **169 cas** (33 bloquants, 93 critiques, 42 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **170 cas** (33 bloquants, 94 critiques, 42 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -16,7 +16,7 @@ Tests unitaires — **169 cas** (33 bloquants, 93 critiques, 42 majeurs, 1 mineu
 | [`test_class_mage.cpp`](#test-class-magecpp) | 11 | - | 9 | 2 | - |
 | [`test_class_priest.cpp`](#test-class-priestcpp) | 6 | - | 6 | - | - |
 | [`test_class_scoundrel.cpp`](#test-class-scoundrelcpp) | 7 | - | 5 | 2 | - |
-| [`test_combat_preview.cpp`](#test-combat-previewcpp) | 2 | 1 | 1 | - | - |
+| [`test_combat_preview.cpp`](#test-combat-previewcpp) | 3 | 1 | 2 | - | - |
 | [`test_combat_state.cpp`](#test-combat-statecpp) | 13 | 6 | 6 | 1 | - |
 | [`test_damage.cpp`](#test-damagecpp) | 7 | 3 | 3 | 1 | - |
 | [`test_death_and_dying.cpp`](#test-death-and-dyingcpp) | 13 | - | 9 | 4 | - |
@@ -1691,7 +1691,7 @@ Monter la Scoundrel de la page 207 jusqu'au niveau 5 donne les capacites de la t
 
 ### CombatPreviewTest.LaPrevisualisationEstLeJet
 
-*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_combat_preview.cpp:84`
+*Bloquant · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_combat_preview.cpp:85`
 
 Ce que l'ecran montre avant l'attaque -- CA abri compris, posture, sources d'avantage et de desavantage, chance de toucher -- est exactement ce que le jet jette.
 
@@ -1729,7 +1729,7 @@ Ce que l'ecran montre avant l'attaque -- CA abri compris, posture, sources d'ava
 
 ### CombatPreviewTest.LeDeplacementSePrevisualiseEtLOpportuniteSeDecline
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_combat_preview.cpp:156`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_combat_preview.cpp:157`
 
 La previsualisation d'un deplacement donne le chemin, le deplacement restant et qui frappera en chemin ; un combattant dont le joueur laisse passer les opportunites ne frappe pas.
 
@@ -1753,6 +1753,44 @@ La previsualisation d'un deplacement donne le chemin, le deplacement restant et 
 - Vérifie que `std::ranges::none_of( session.journal(), [](const std::string& l) { return l.starts_with("opportunite : "); })` est vrai.
 - Vérifie que `session.combat().find(CombatantId{2})->economy.remaining(core::REACTION_RESOURCE)` vaut `1`.
 - Vérifie que `session.takesOpportunities(CombatantId{2})` est faux.
+
+### CombatPreviewTest.LesCapacitesEntrentDansLaPrevisualisation
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_combat_preview.cpp:199`
+
+Le bonus au jet d'une capacite s'ajoute au jet requis ; les des d'une capacite a condition entrent dans l'esperance quand la condition tient, et la previsualisation nomme la capacite et la raison quand elle ne joue pas.
+
+**Étapes**
+
+1. Une heroine a « +2 au jet » et « 1d6 en plus, une fois par tour, si un allie est au contact de la cible » ; un allie au contact d'une cible, une autre cible seule.
+2. Previsualiser sur chaque cible.
+3. Frapper la premiere, previsualiser encore.
+
+**Résultat attendu**
+
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{1}`.
+- Vérifie que `flanque.has_value()` est vrai.
+- Vérifie que `flanque->attackBonus` vaut `6`.
+- Vérifie que `flanque->requiredRoll` vaut `6`.
+- Vérifie que `flanque->capacityModifiers.size()` vaut `1U`.
+- Vérifie que `flanque->capacityModifiers.front().source` vaut `"Viser juste"`.
+- Vérifie que `flanque->extraDamage.size()` vaut `1U`.
+- Vérifie que `flanque->extraDamage.front().source` vaut `"Attaque sournoise"`.
+- Vérifie que `flanque->extraDamage.front().applies` est vrai.
+- Vérifie que `seul.has_value()` est vrai.
+- Vérifie que `seul->extraDamage.size()` vaut `1U`.
+- Vérifie que `seul->extraDamage.front().applies` est faux.
+- Vérifie que `seul->extraDamage.front().reason.empty()` est faux.
+- Vérifie que `seul->hitChance` vaut `flanque->hitChance`.
+- Vérifie que `flanque->expectedDamage` est strictement supérieur à `seul->expectedDamage`.
+- Vérifie que `flanque->expectedDamage - seul->expectedDamage` vaut `flanque->hitChance * 7 + core::criticalChance(20, flanque->stance) * 7`.
+- Vérifie que `coup.outcome.has_value()` est vrai.
+- Vérifie que `apres.has_value()` est vrai.
+- Vérifie que `apres->extraDamage.size()` vaut `1U`.
+- Vérifie que `apres->extraDamage.front().applies` est faux.
+- Vérifie que `apres->extraDamage.front().reason` vaut `"deja jouee ce tour"`.
+- Vérifie que `apres->extraDamage.front().applies` est vrai.
 
 ## test_combat_state.cpp
 

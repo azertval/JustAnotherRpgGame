@@ -65,6 +65,11 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                 case ScreenEvent::OpenPause:
                     return ScreenState{.screen = ScreenId::Pause,
                                        .optionsReturnTo = ScreenId::Menu};
+                // Le bouton Options du HUD (LOT-141) : les reglages s'ouvrent sur la partie et y
+                // reviennent, comme depuis la pause.
+                case ScreenEvent::OpenOptions:
+                    return ScreenState{.screen = ScreenId::Options,
+                                       .optionsReturnTo = ScreenId::Game};
                 // Depuis le jeu : la fiche, l'inventaire ou la carte s'ouvrent et se referment sur
                 // la partie en cours. Le gel de la simulation (EX-IHM-091) n'est pas decide ici :
                 // c'est la vue de jeu (`GameView.qml`, `onActiveFocusChanged`) qui gele la carte
@@ -85,8 +90,11 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
         case ScreenId::Options:
             switch (event) {
                 case ScreenEvent::CloseOptions:
+                    // La provenance d'un ecran du RPG (le HUD de combat) survit au detour par les
+                    // reglages : sans elle, le combat reviendrait au menu.
                     return ScreenState{.screen = current.optionsReturnTo,
-                                       .optionsReturnTo = ScreenId::Menu};
+                                       .optionsReturnTo = ScreenId::Menu,
+                                       .rpgReturnTo = current.rpgReturnTo};
                 default:
                     return std::nullopt;
             }
@@ -116,6 +124,12 @@ std::optional<ScreenState> resolveTransition(const ScreenState& current,
                     return ScreenState{.screen = current.rpgReturnTo,
                                        .optionsReturnTo = ScreenId::Menu,
                                        .rpgReturnTo = ScreenId::Menu};
+                // Le bouton Options du HUD de combat (LOT-141) : les reglages reviennent sur le
+                // meme ecran du RPG, dont la provenance est gardee.
+                case ScreenEvent::OpenOptions:
+                    return ScreenState{.screen = ScreenId::Options,
+                                       .optionsReturnTo = ScreenId::RpgScreen,
+                                       .rpgReturnTo = current.rpgReturnTo};
                 // Le heros tombe sur le HUD de combat, la demo se clot dans un dialogue : l'ecran
                 // de fin prend la place, sans repasser par la carte (LOT-119).
                 case ScreenEvent::OpenDeath:

@@ -3,6 +3,7 @@
 
 #include "HMI/Runtime/CharacterSheetModel.h"
 
+#include <QRegularExpression>
 #include <QStringList>
 #include <QVector>
 #include <algorithm>
@@ -11,12 +12,16 @@
 #include <string>
 #include <system_error>
 
+#include "Core/Combat/Attack.h"
 #include "Core/Combat/Damage.h"
+#include "Core/Combat/EnemyAi.h"
 #include "Core/Rpg/Ability.h"
 #include "Core/Rpg/CharacterOptions.h"
 #include "Core/Rpg/CharacterSheet.h"
 #include "Core/Rpg/ClassCapacities.h"
 #include "Core/Rpg/Dice.h"
+#include "Core/Rpg/Equipment.h"
+#include "Core/Rpg/Inventory.h"
 #include "Core/Rpg/Party.h"
 #include "Core/Rpg/Spell.h"
 #include "HMI/HmiLog.h"
@@ -49,6 +54,32 @@ constexpr std::array<core::Ability, 6> ABILITIES{
     return found == values.end() ? QString() : toQt(found->second);
 }
 
+// Ce que le joueur lit d'une regle : la citation de la page qui l'atteste (« Player's Guide to
+// Tanares, p. 204-205. », « Manuel des Joueurs, PDF p. 273 (magic missile). ») reste dans la
+// donnee, ou elle fait foi (EX-VIS-007), mais ne s'affiche pas.
+[[nodiscard]] QString playerText(const std::string& text) {
+    static const QRegularExpression citation(QStringLiteral(R"(^[^.]*\bp\. ?\d[^.]*\.\s*)"));
+    QString lisible = toQt(text);
+    lisible.remove(citation);
+    return lisible;
+}
+
+// La ligne d'une attaque d'arme : « +5 · 1d8+3 perforant ».
+[[nodiscard]] QString attackLine(const core::AttackProfile& profile) {
+    QStringList parts;
+    parts << (core::attackBonusOf(profile) >= 0 ? QStringLiteral("+") : QString()) +
+                 QString::number(core::attackBonusOf(profile));
+    QStringList degats;
+    for (const core::DamageClause& clause : profile.damage) {
+        degats << toQt(core::formatDice(clause.dice)) + " " +
+                      toQt(std::string(core::damageTypeLabel(clause.type)));
+    }
+    if (!degats.isEmpty()) {
+        parts << degats.join(QStringLiteral(" + "));
+    }
+    return parts.join(QStringLiteral(" · "));
+}
+
 // Les niveaux a venir que l'onglet Classe montre : la page de la classe, d'un coup d'oeil, sans
 // derouler vingt niveaux.
 constexpr int UPCOMING_LEVELS = 4;
@@ -69,7 +100,7 @@ constexpr int UPCOMING_LEVELS = 4;
         {"name", toQt(capacity.name)},
         {"iconKey", QStringLiteral("ui/icon/capacity/") +
                         toQt(capacity.iconId.empty() ? capacity.id : capacity.iconId)},
-        {"text", toQt(capacity.text)},
+        {"text", playerText(capacity.text)},
         {"level", level},
         {"narrative", capacity.narrative}};
 }
@@ -145,6 +176,20 @@ void CharacterSheetModel::loadCharacter(const QString& characterId) {
     _capacities.clear();
     _upcoming.clear();
     _spells.clear();
+    _attacks.clear();
+    // Les attaques d'arme : l'arme en main directrice, sinon les mains nues (EX-CBT-030 : le jet
+    // vient de ce qui est porte).
+    {
+        const core::Weapon* const arme =
+            state.equipment.findWeapon(state.inventory.at(core::EquipmentSlot::MainHand));
+        const int maitrise = core::proficiencyBonus(state.sheet, state.experience);
+        const core::AttackProfile attaque =
+            core::weaponAttackFor(state.sheet, arme, maitrise,
+                                  arme == nullptr || core::isProficientWith(state.sheet, *arme));
+        _attacks << QVariantMap{{"rowId", toQt(attaque.label)},
+                                {"label", toQt(attaque.label)},
+                                {"value", attackLine(attaque)}};
+    }
     const core::PlayableClass* const classe = state.options.findClass(state.sheet.classId);
     for (const core::Capacity& capacity : state.sheet.capacities) {
         _capacities << capacityRow(capacity, classe != nullptr ? levelOf(*classe, capacity.id) : 0);
@@ -203,7 +248,18 @@ void CharacterSheetModel::loadCharacter(const QString& characterId) {
                              ? tr("à volonté")
                              : QStringLiteral("%1 / %2").arg(known.remaining).arg(known.perDay)},
             {"details", details.join(QLatin1Char('\n'))},
-            {"school", toQt(spell->school)}};
+            {"school", toQt(spell->school)},
+            {"text", playerText(spell->text)},
+            {"castingTime", toQt(spell->castingTime)},
+            {"range", toQt(spell->range)},
+            {"duration",
+             toQt(spell->duration) + (spell->concentration ? tr(" (concentration)") : QString())},
+            {"components", toQt(spell->components)},
+            {"damage",
+             spell->damage.has_value() ? toQt(core::formatDice(*spell->damage)) : QString()},
+            {"damageType", spell->damageType.has_value()
+                               ? toQt(std::string(core::damageTypeLabel(*spell->damageType)))
+                               : QString()}};
     }
 
     // Les noms francais des six caracteristiques sont une DONNEE, pas une constante de code : ils

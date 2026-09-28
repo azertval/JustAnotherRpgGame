@@ -1,6 +1,6 @@
 # Core · Rpg
 
-Tests unitaires — **103 cas** (3 bloquants, 60 critiques, 38 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **104 cas** (3 bloquants, 61 critiques, 38 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -11,7 +11,7 @@ Tests unitaires — **103 cas** (3 bloquants, 60 critiques, 38 majeurs, 2 mineur
 | [`test_character_sheet.cpp`](#test-character-sheetcpp) | 10 | - | 6 | 4 | - |
 | [`test_check.cpp`](#test-checkcpp) | 5 | - | 4 | 1 | - |
 | [`test_class_capacities.cpp`](#test-class-capacitiescpp) | 5 | - | 4 | 1 | - |
-| [`test_dialogue.cpp`](#test-dialoguecpp) | 15 | 3 | 7 | 5 | - |
+| [`test_dialogue.cpp`](#test-dialoguecpp) | 16 | 3 | 8 | 5 | - |
 | [`test_dice.cpp`](#test-dicecpp) | 9 | - | 5 | 4 | - |
 | [`test_equipment.cpp`](#test-equipmentcpp) | 7 | - | 6 | 1 | - |
 | [`test_inventory.cpp`](#test-inventorycpp) | 13 | - | 5 | 7 | 1 |
@@ -664,6 +664,7 @@ Quatre capacites d'essai se chargent avec leurs effets ; un genre d'effet inconn
 - Vérifie que `peau->effects[1].allDamageTypes` est vrai.
 - Vérifie que `ameliore` diffère de `nullptr`.
 - Vérifie que `ameliore->replaces` vaut `"coup-precis"`.
+- Vérifie que `ameliore->iconId.empty()` est vrai.
 - Vérifie que `genre.has_value()` est vrai.
 - Vérifie que `core::capacityEffectKindName(*genre)` vaut `nom`.
 - Vérifie que `core::parseCapacityEffectKind("devenir-invincible").has_value()` est faux.
@@ -679,7 +680,7 @@ Quatre capacites d'essai se chargent avec leurs effets ; un genre d'effet inconn
 
 ### ClassCapacitiesTest.LaTableDonneLesCapacitesEtLesSortsAuNiveau
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:177`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:178`
 
 Une classe se charge avec ses maitrises, son incantation et sa table ; les capacites actives suivent le niveau, une capacite qui en remplace une autre la retire, une capacite absente du catalogue est nommee.
 
@@ -713,6 +714,8 @@ Une classe se charge avec ses maitrises, son incantation et sa table ; les capac
 - Vérifie que `identifiants(core::resolveCapacities(classe, 2, options.capacities, manquants))` vaut `(std::vector<std::string>{"coup-precis", "peau-de-fer", "pas-de-danseur"})`.
 - Vérifie que `identifiants(core::resolveCapacities(classe, 3, options.capacities, manquants))` vaut `(std::vector<std::string>{"peau-de-fer", "pas-de-danseur", "coup-precis-ameliore"})`.
 - Vérifie que `manquants.empty()` est vrai.
+- Vérifie que `niveau3.back().iconId` vaut `"coup-precis"`.
+- Vérifie que `niveau3.front().iconId.empty()` est vrai.
 - Vérifie que `classe.cantripsAt(1)` vaut `(std::vector<std::string>{"etincelle-d-essai"})`.
 - Vérifie que `classe.spellsAt(1)` vaut `(std::vector<std::string>{"trait-de-feu-d-essai"})`.
 - Vérifie que `classe.spellsAt(2)` vaut `(std::vector<std::string>{"trait-de-feu-d-essai"})`.
@@ -722,7 +725,7 @@ Une classe se charge avec ses maitrises, son incantation et sa table ; les capac
 
 ### ClassCapacitiesTest.LaFicheTireSesValeursDeSesCapacites
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:241`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:249`
 
 Exigences : `EX-CBT-030`
 
@@ -765,7 +768,7 @@ Au niveau 3, la fiche d'essai a la CA de sa formule sans armure (bouclier permis
 
 ### ClassCapacitiesTest.LIncantationSimplifieeCompteLesLancersEtLeReposLesRend
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:321`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:329`
 
 Un sort mineur se lance a volonte ; un sort de la table se lance deux fois puis plus ; le repos long rend les deux lancers et les points de vie ; monter de niveau apprend un sort sans rendre les lancers depenses.
 
@@ -802,7 +805,7 @@ Un sort mineur se lance a volonte ; un sort de la table se lance deux fois puis 
 
 ### ClassCapacitiesTest.LesQuatreClassesDeclarentLeursMaitrises
 
-*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:377`
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Rpg/test_class_capacities.cpp:385`
 
 Brawler, Mage, Priest et Scoundrel portent les maitrises d'armes et d'armures, les competences au choix et, pour les deux lanceurs, l'incantation simplifiee a deux lancers par jour ; le nain fait maitriser ses quatre armes.
 
@@ -846,7 +849,7 @@ Brawler, Mage, Priest et Scoundrel portent les maitrises d'armes et d'armures, l
 
 ### DialogueTest.LesDialoguesDeLaDemoSeChargentEtLeursReferencesExistent
 
-*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:153`
+*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:157`
 
 Les dialogues de la demo se chargent et leurs references existent.
 
@@ -868,7 +871,7 @@ Les dialogues de la demo se chargent et leurs references existent.
 
 ### DialogueTest.LeDialogueDuHerautDEssaiSeParcourtEnHeadless
 
-*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:196`
+*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:200`
 
 Le dialogue du heraut d'essai se parcourt sans fenetre.
 
@@ -922,7 +925,7 @@ Le dialogue du heraut d'essai se parcourt sans fenetre.
 
 ### DialogueTest.UnEchecMeneALAutreSuiteEtFermeLaReponseConditionnelle
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:269`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:273`
 
 Un echec de Persuasion ferme la reponse de retentative.
 
@@ -953,7 +956,7 @@ Un echec de Persuasion ferme la reponse de retentative.
 
 ### DialogueTest.UnDialogueEstRefuseFauteDeLangueCommune
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:305`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:309`
 
 Exigences : `EX-RPG-042`
 
@@ -976,7 +979,7 @@ Un dialogue est refuse faute de langue commune.
 
 ### DialogueTest.UnGrapheMalFormeEstRejeteAuChargement
 
-*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:334`
+*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:338`
 
 Les graphes mal formes sont refuses au chargement.
 
@@ -992,7 +995,7 @@ Les graphes mal formes sont refuses au chargement.
 
 ### DialogueTest.UneReponseAJetRateeNeSeProposePlus
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:423`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:427`
 
 Une reponse a jet ratee ne se propose plus.
 
@@ -1033,7 +1036,7 @@ Une reponse a jet ratee ne se propose plus.
 
 ### DialogueTest.UneBouclePasseeParUnChoixEstUnHubVoulu
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:489`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:493`
 
 Une boucle par une replique a reponses est acceptee.
 
@@ -1055,7 +1058,7 @@ Une boucle par une replique a reponses est acceptee.
 
 ### DialogueTest.LesActionsTouchentLeMonde
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:526`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:530`
 
 Les quatre actions d'un dialogue s'appliquent.
 
@@ -1077,7 +1080,7 @@ Les quatre actions d'un dialogue s'appliquent.
 
 ### DialogueTest.UnDialogueSeRejoueAGraineFixee
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:564`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:568`
 
 Un dialogue se rejoue a l'identique a graine fixee.
 
@@ -1094,7 +1097,7 @@ Un dialogue se rejoue a l'identique a graine fixee.
 
 ### DialogueTest.LesDialoguesSontTraduitsEnFrancaisEtEnAnglais
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:601`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:605`
 
 Les dialogues sont traduits en francais et en anglais.
 
@@ -1111,7 +1114,7 @@ Les dialogues sont traduits en francais et en anglais.
 
 ### DialogueTest.LesDegresDeDifficulteSeChargent
 
-*Majeur · Unitaire · Jet de d20* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:637`
+*Majeur · Unitaire · Jet de d20* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:641`
 
 Les degres de difficulte se chargent.
 
@@ -1134,7 +1137,7 @@ Les degres de difficulte se chargent.
 
 ### DialogueTest.LaFicheEcouteUnPnjAvecSesLanguesEtSesModificateurs
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:662`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:666`
 
 La fiche ecoute un PNJ : langues et modificateurs.
 
@@ -1163,7 +1166,7 @@ La fiche ecoute un PNJ : langues et modificateurs.
 
 ### DialogueTest.UnPnjDeCarteOuvreSonDialogue
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:711`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:715`
 
 Un PNJ de carte ouvre son dialogue.
 
@@ -1184,7 +1187,7 @@ Un PNJ de carte ouvre son dialogue.
 
 ### DialogueTest.UnDialoguePeutEngagerUneRencontreSurLaCarte
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:748`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:752`
 
 Un dialogue peut engager une rencontre sur la carte.
 
@@ -1205,7 +1208,7 @@ Un dialogue peut engager une rencontre sur la carte.
 
 ### DialogueTest.UnDialoguePeutTerminerLaDemo
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:785`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:789`
 
 Un dialogue peut terminer la demo.
 
@@ -1224,6 +1227,26 @@ Un dialogue peut terminer la demo.
 - Vérifie que `contient(runner.journal(), "fin de la demo : arene")` est vrai.
 - Vérifie que `std::ranges::find(cles, core::demoEndingKey("arene"))` diffère de `cles.end()`.
 - Vérifie que `core::demoEndingKey("arene")` vaut `"ending.arene"`.
+- Vérifie que `refuse.graph.has_value()` est faux.
+
+### DialogueTest.UnDialoguePeutDonnerUnNiveau
+
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:827`
+
+Un dialogue peut donner un niveau.
+
+**Étapes**
+
+1. Lire un graphe dont le noeud d'action porte `levelUp` vers « party » puis vers « heros-mage ».
+2. Le jouer avec un auditeur d'essai.
+3. Lire un graphe dont l'action `levelUp` n'a pas de champ `character`.
+
+**Résultat attendu**
+
+- Vérifie que `lu.graph.has_value()` est vrai.
+- Vérifie que `runner.start()` vaut `core::DialogueState::Ended`.
+- Vérifie que `receveur.niveaux` vaut `(std::vector<std::string>{"party", "heros-mage"})`.
+- Vérifie que `contient(runner.journal(), "niveau donne : party")` est vrai.
 - Vérifie que `refuse.graph.has_value()` est faux.
 
 ## test_dice.cpp

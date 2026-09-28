@@ -119,6 +119,12 @@ struct TurnActionEntry {
     return QStringLiteral("ui/icon/spell/") + toQt(spell.id);
 }
 
+// L'icone d'une action du tour (piece `ui/icon/action` du cahier, LOT-141) : l'attaque selon sa
+// portee, les actions du Manuel par leur nom.
+[[nodiscard]] QString actionIconKey(const char* member) {
+    return QStringLiteral("ui/icon/action/") + QLatin1String(member);
+}
+
 [[nodiscard]] QString capacityIconKey(const core::Capacity& capacity) {
     return QStringLiteral("ui/icon/capacity/") +
            toQt(capacity.iconId.empty() ? capacity.id : capacity.iconId);
@@ -179,10 +185,13 @@ struct TurnActionEntry {
     std::vector<TurnActionEntry> entries;
     if (const std::vector<core::AttackProfile>* attacks = session.attacks(active)) {
         for (std::size_t i = 0; i < attacks->size(); ++i) {
-            entries.push_back({.kind = TurnActionKind::ATTACK,
-                               .attack = i,
-                               .label = toQt((*attacks)[i].label),
-                               .detail = attackDetail((*attacks)[i])});
+            entries.push_back(
+                {.kind = TurnActionKind::ATTACK,
+                 .attack = i,
+                 .label = toQt((*attacks)[i].label),
+                 .detail = attackDetail((*attacks)[i]),
+                 .iconKey = actionIconKey(
+                     (*attacks)[i].kind == core::AttackKind::Ranged ? "ranged" : "melee")});
         }
     }
     if (const std::vector<core::ArenaSpell>* spells = session.spells(active)) {
@@ -208,22 +217,30 @@ struct TurnActionEntry {
                  .iconKey = spellIconKey(spell)});
         }
     }
-    entries.push_back(
-        {.kind = TurnActionKind::DODGE, .attack = 0, .label = CombatModel::tr("Esquiver")});
+    entries.push_back({.kind = TurnActionKind::DODGE,
+                       .attack = 0,
+                       .label = CombatModel::tr("Esquiver"),
+                       .iconKey = actionIconKey("dodge")});
     entries.push_back({.kind = TurnActionKind::DISENGAGE,
                        .attack = 0,
-                       .label = CombatModel::tr("Se desengager")});
-    entries.push_back(
-        {.kind = TurnActionKind::DASH, .attack = 0, .label = CombatModel::tr("Se precipiter")});
+                       .label = CombatModel::tr("Se desengager"),
+                       .iconKey = actionIconKey("disengage")});
+    entries.push_back({.kind = TurnActionKind::DASH,
+                       .attack = 0,
+                       .label = CombatModel::tr("Se precipiter"),
+                       .iconKey = actionIconKey("dash")});
     // Attendre : rendre la main sans rien depenser (LOT-140) -- la fin du tour a sa case dans la
     // barre, pour la souris comme pour les touches numerotees.
-    entries.push_back(
-        {.kind = TurnActionKind::WAIT, .attack = 0, .label = CombatModel::tr("Attendre")});
+    entries.push_back({.kind = TurnActionKind::WAIT,
+                       .attack = 0,
+                       .label = CombatModel::tr("Attendre"),
+                       .iconKey = actionIconKey("wait")});
     entries.push_back({.kind = TurnActionKind::REACTION,
                        .attack = 0,
                        .label = session.takesOpportunities(active)
                                     ? CombatModel::tr("Reaction : saisir les opportunites")
-                                    : CombatModel::tr("Reaction : laisser passer")});
+                                    : CombatModel::tr("Reaction : laisser passer"),
+                       .iconKey = actionIconKey("reaction")});
     return entries;
 }
 
