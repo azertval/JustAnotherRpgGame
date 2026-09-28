@@ -1,6 +1,6 @@
 # HMI · Interface
 
-Tests unitaires — **22 cas** (2 bloquants, 8 critiques, 11 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **23 cas** (2 bloquants, 8 critiques, 12 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -9,7 +9,7 @@ Tests unitaires — **22 cas** (2 bloquants, 8 critiques, 11 majeurs, 1 mineur).
 | [`test_character_sheet_values.cpp`](#test-character-sheet-valuescpp) | 5 | - | 1 | 3 | 1 |
 | [`test_dialogue_screen.cpp`](#test-dialogue-screencpp) | 4 | - | - | 4 | - |
 | [`test_identity_scale.cpp`](#test-identity-scalecpp) | 8 | 2 | 2 | 4 | - |
-| [`test_screen_flow.cpp`](#test-screen-flowcpp) | 5 | - | 5 | - | - |
+| [`test_screen_flow.cpp`](#test-screen-flowcpp) | 6 | - | 5 | 1 | - |
 
 ## Exigences vérifiées par cette page
 
@@ -413,9 +413,27 @@ Une transition interdite est refusée.
 - Vérifie que `resolveTransition(game, ScreenEvent::OpenCredits)` vaut `std::nullopt`.
 - Vérifie que `resolveTransition(menu, ScreenEvent::CloseRpgScreen)` vaut `std::nullopt`.
 
+### ScreenFlowTest.OptionsSOuvrentDepuisLeJeuEtLeCombat
+
+*Majeur* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:120`
+
+Options depuis le jeu et depuis le HUD de combat, et retour. cat Unitaire · Machine à états des écrans crit Critique etapes 1. Depuis le jeu, ouvrir Options puis les fermer. 2. Depuis un ecran du RPG ouvert sur le jeu, ouvrir Options, les fermer, puis fermer l'ecran du RPG. attendu Retour au jeu ; retour a l'ecran du RPG, puis au jeu -- pas au menu.
+
+**Résultat attendu**
+
+- Vérifie que `options.has_value()` est vrai.
+- Vérifie que `options->screen` vaut `ScreenId::Options`.
+- Vérifie que `resolveTransition(*options, ScreenEvent::CloseOptions)->screen` vaut `ScreenId::Game`.
+- Vérifie que `combat.has_value()` est vrai.
+- Vérifie que `reglages.has_value()` est vrai.
+- Vérifie que `reglages->screen` vaut `ScreenId::Options`.
+- Vérifie que `retour.has_value()` est vrai.
+- Vérifie que `retour->screen` vaut `ScreenId::RpgScreen`.
+- Vérifie que `resolveTransition(*retour, ScreenEvent::CloseRpgScreen)->screen` vaut `ScreenId::Game`.
+
 ### ScreenFlowTest.EcranDuRpgRevientVersSonEcranDOrigine
 
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:119`
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:151`
 
 Exigences : `EX-IHM-090`
 
@@ -434,7 +452,7 @@ Un ecran du RPG revient vers son ecran d'origine (Menu, Game ou Pause).
 
 ### ScreenFlowTest.LesEcransDeFinFermentLaPartie
 
-*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:148`
+*Critique · Unitaire · Machine à états des écrans* — `Source/Test/Unit/HMI/Interface/test_screen_flow.cpp:180`
 
 Exigences : `EX-IHM-091`
 

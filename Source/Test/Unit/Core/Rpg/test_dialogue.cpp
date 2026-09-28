@@ -835,12 +835,12 @@ TEST(DialogueTest, UnDialoguePeutTerminerLaDemo) {
  * }
  */
 TEST(DialogueTest, UnDialoguePeutDonnerUnNiveau) {
-    const core::DialogueLoad lu = core::readDialogue(
-        graphe(R"({"id":"a","type":"action","actions":[)"
-               R"({"type":"levelUp","character":"party"},)"
-               R"({"type":"levelUp","character":"heros-mage"}],"next":"fin"},)"
-               R"({"id":"fin","type":"end"})"),
-        "niveau.json");
+    const core::DialogueLoad lu =
+        core::readDialogue(graphe(R"({"id":"a","type":"action","actions":[)"
+                                  R"({"type":"levelUp","character":"party"},)"
+                                  R"({"type":"levelUp","character":"heros-mage"}],"next":"fin"},)"
+                                  R"({"id":"fin","type":"end"})"),
+                           "niveau.json");
     ASSERT_TRUE(lu.graph.has_value()) << lu.errors.front();
     core::WorldFlags drapeaux;
     Auditeur receveur({"common"}, 0);
