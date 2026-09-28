@@ -66,6 +66,8 @@ add_library(Core STATIC
     Combat/CombatPreview.cpp
     Combat/IsoProjection.cpp
     Combat/TacticalTerrain.cpp
+    # Le groupe de quatre sur la zone de combat de sa rencontre (LOT-143).
+    Combat/PartyDeployment.cpp
     Rpg/RpgEnumNames.cpp
     Rpg/Multiclassing.cpp
     Rpg/Party.cpp

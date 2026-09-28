@@ -19,6 +19,7 @@
 #include "Core/World/EntityKinds.h"
 #include "Editor/Logic/EntityGesture.h"
 #include "Editor/Logic/EntityShapes.h"
+#include "Editor/Logic/EntityVerdicts.h"
 #include "Editor/Logic/PieceCatalog.h"
 #include "Editor/Logic/Stamps.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -87,6 +88,8 @@ public:
             const core::GridPosition to = cell("to");
             _result.log.push_back("measure " + cellText(from) + " → " + cellText(to) + ": " +
                                   measureLabel(measureBetween(from, to)));
+        } else if (tool == "inspect") {
+            inspect();
         } else if (tool == "note") {
             _result.notesChanged =
                 setNote(_sidecar, cell("at"), text("text")) || _result.notesChanged;
@@ -232,6 +235,36 @@ private:
         armBrush();
         armEntities();
         armPrefab();
+        if (const nlohmann::json* level = field("partyLevel")) {
+            if (!level->is_number_integer() || level->get<int>() < 1 || level->get<int>() > 20) {
+                throw GestureRefused("\"partyLevel\" must be a level from 1 to 20");
+            }
+            _partyLevel = level->get<int>();
+        }
+    }
+
+    // Ce que le canevas ecrit a cote de l'entite selectionnee (`hmi::entityVerdicts`, LOT-143),
+    // dans le compte rendu : une ligne par ligne du verdict, precedee de l'identifiant.
+    void inspect() {
+        if (!_state.selectedEntity) {
+            throw GestureRefused("no entity selected to inspect");
+        }
+        if (!_references) {
+            _references = _dataRoot.empty() ? EditorReferences{} : loadEditorReferences(_dataRoot);
+        }
+        const std::vector<core::MapEntity>& entities = _draft.entities();
+        const std::string id = entities[*_state.selectedEntity].id;
+        const std::vector<EntityVerdict> verdicts =
+            entityVerdicts(_draft.tileMap(), entities, verdictContext(*_references, _partyLevel));
+        const auto found =
+            std::ranges::find(verdicts, *_state.selectedEntity, &EntityVerdict::entityIndex);
+        if (found == verdicts.end()) {
+            _result.log.push_back("inspect " + id + ": no verdict");
+            return;
+        }
+        for (const std::string& line : found->lines) {
+            _result.log.push_back("inspect " + id + (found->ok ? ": " : " [refused]: ") + line);
+        }
     }
 
     // La bibliotheque du lieu (LOT-EDITOR-08) : un prefabrique devient le tampon a poser.
@@ -602,6 +635,10 @@ private:
     GestureScriptResult& _result;
     GestureState _state;
     const nlohmann::json* _gesture = nullptr;
+    /// Les catalogues du verdict, lus au premier `inspect`.
+    std::optional<EditorReferences> _references;
+    /// Le niveau du groupe du budget des rencontres (`partyLevel`).
+    int _partyLevel = 1;
 };
 
 [[nodiscard]] std::string gestureName(const nlohmann::json& gesture, std::size_t index) {

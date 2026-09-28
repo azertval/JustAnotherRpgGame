@@ -39,6 +39,7 @@
 #include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/EditorTool.h"
 #include "Editor/Logic/EntityGesture.h"
+#include "Editor/Logic/EntityVerdicts.h"
 #include "Editor/Logic/LayerView.h"
 #include "Editor/Logic/PaintTools.h"
 #include "Editor/Logic/PieceCatalog.h"
@@ -360,9 +361,15 @@ public:
     void removeEntity(std::size_t index);
     /// Retire toutes les entités sélectionnées, en un pas.
     void removeSelectedEntities();
-    /// @return Le verdict de chaque zone de combat du brouillon (`core::analyzeCombatZones`).
-    [[nodiscard]] const std::vector<core::CombatZoneTerrain>& combatZones() const noexcept {
-        return _zoneVerdicts;
+    /// @return Le verdict de chaque entité qui en a un (`hmi::entityVerdicts`) : zones de combat
+    ///         face au groupe, budget des rencontres (`LOT-143`).
+    [[nodiscard]] const std::vector<EntityVerdict>& entityVerdicts() const noexcept {
+        return _verdicts;
+    }
+    /// @brief Le niveau du groupe de quatre dont le budget des rencontres se calcule (1 à 20).
+    void setPartyLevel(int level);
+    [[nodiscard]] int partyLevel() const noexcept {
+        return _partyLevel;
     }
     [[nodiscard]] const std::vector<EditorDiagnostic>& diagnostics() const noexcept {
         return _diagnostics;
@@ -503,9 +510,11 @@ private:
     /// Les entités par leur forme : zones, trajets, marqueurs, étiquettes, poignées et aperçu du
     /// glisser, en iso ou à plat.
     void paintEntities(QPainter& painter, const CellRange& cells, bool iso);
-    /// Le verdict de la zone de combat sélectionnée : cases libres et pleines, entrées d'arène
-    /// (`EX-EDIT-071`), recalculé sur l'aperçu pendant qu'on la tire.
-    void paintZoneVerdict(QPainter& painter, bool iso);
+    /// Les verdicts des entités (`hmi::entityVerdicts`) : la première ligne à côté de chacune,
+    /// toutes les lignes et les cases marquées pour la sélectionnée — cases libres et pleines,
+    /// entrées d'arène (`EX-EDIT-071`), formation adverse et places du groupe (`LOT-143`) —,
+    /// recalculés sur l'aperçu pendant qu'on tire.
+    void paintEntityVerdicts(QPainter& painter, bool iso);
     [[nodiscard]] bool hasVisualLayers() const;
 
     using Clock = std::chrono::steady_clock;
@@ -604,8 +613,10 @@ private:
     bool _shapeErasing = false;
     core::EntityReferenceContext _referenceContext;
     std::vector<core::EncounterTerrain> _terrains;
-    std::vector<core::CombatZoneTerrain> _zoneVerdicts;
+    std::vector<EntityVerdict> _verdicts;
     std::vector<EditorDiagnostic> _diagnostics;
+    /// Le niveau du groupe du budget des rencontres (`LOT-143`).
+    int _partyLevel = 1;
 
     // --- État de partie (LOT-126) ---
     std::vector<std::string> _stateEntries;

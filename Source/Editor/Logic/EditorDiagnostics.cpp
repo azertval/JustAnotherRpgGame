@@ -79,6 +79,48 @@ const char* tacticalIssueTemplate(core::TacticalIssueCode code) noexcept {
     return R"(Encounter "%1": area too narrow to fight in (%2 free cells, %3 required).)";
 }
 
+const char* deploymentIssueTemplate(core::DeploymentIssueCode code) noexcept {
+    switch (code) {
+        case core::DeploymentIssueCode::NoCombatZone:
+            return R"(Encounter "%1": the map has no combat zone to fight it in.)";
+        case core::DeploymentIssueCode::TriggerOutsideZone:
+            return R"(Encounter "%1": its marker stands outside combat zone "%3".)";
+        case core::DeploymentIssueCode::CombatantOutsideZone:
+            return R"(Encounter "%1": "%2" would stand outside combat zone "%3".)";
+        case core::DeploymentIssueCode::PartyCannotDeploy:
+            return R"(Encounter "%1": a party of %2 cannot deploy in combat zone "%3" (%4 places).)";
+        case core::DeploymentIssueCode::ZoneTooNarrow:
+            return R"(Encounter "%1": combat zone "%3" too narrow for %2 combatants (%4 free cells, %5 required).)";
+    }
+    return R"(Encounter "%1": the map has no combat zone to fight it in.)";
+}
+
+std::string deploymentIssueText(const core::PartyDeployment& deployment,
+                                const core::DeploymentIssue& issue,
+                                const std::vector<core::MapEntity>& entities) {
+    const std::string zone = deployment.zoneIndex && *deployment.zoneIndex < entities.size()
+                                 ? core::combatZoneOf(entities[*deployment.zoneIndex]).name
+                                 : std::string{};
+    const int combatants = static_cast<int>(deployment.formation.size()) + deployment.partySize;
+    std::vector<std::string> args{deployment.encounterId, issue.creatureId, zone};
+    switch (issue.code) {
+        case core::DeploymentIssueCode::PartyCannotDeploy:
+            args[1] = std::to_string(deployment.partySize);
+            args.push_back(std::to_string(deployment.partyPlaces.size()));
+            break;
+        case core::DeploymentIssueCode::ZoneTooNarrow:
+            args[1] = std::to_string(combatants);
+            args.push_back(std::to_string(deployment.reachableCells));
+            args.push_back(std::to_string(deployment.requiredCells));
+            break;
+        case core::DeploymentIssueCode::NoCombatZone:
+        case core::DeploymentIssueCode::TriggerOutsideZone:
+        case core::DeploymentIssueCode::CombatantOutsideZone:
+            break;
+    }
+    return hmi::format(deploymentIssueTemplate(issue.code), args);
+}
+
 namespace {
 
 [[nodiscard]] const char* combatZoneTemplate(core::WorldIssueCode code) noexcept {
@@ -115,10 +157,11 @@ std::string combatZoneSummary(const core::CombatZoneTerrain& zone) {
          std::to_string(zone.entriesInside.size()), std::to_string(zone.entriesOutside.size())});
 }
 
-std::vector<EditorDiagnostic> editorDiagnostics(const std::vector<core::MapEntity>& entities,
-                                                const std::vector<core::EntityIssue>& issues,
-                                                const std::vector<core::EncounterTerrain>& terrains,
-                                                const std::vector<core::CombatZoneTerrain>& zones) {
+std::vector<EditorDiagnostic> editorDiagnostics(
+    const std::vector<core::MapEntity>& entities, const std::vector<core::EntityIssue>& issues,
+    const std::vector<core::EncounterTerrain>& terrains,
+    const std::vector<core::CombatZoneTerrain>& zones,
+    const std::vector<core::PartyDeployment>& deployments) {
     std::vector<EditorDiagnostic> lines;
     for (const core::EntityIssue& issue : issues) {
         if (issue.entityIndex >= entities.size()) {
@@ -152,6 +195,15 @@ std::vector<EditorDiagnostic> editorDiagnostics(const std::vector<core::MapEntit
                                              .entityIndex = zone.entityIndex,
                                              .cell = zone.zone.origin,
                                              .message = combatZoneSummary(zone)});
+        }
+    }
+    for (const core::PartyDeployment& deployment : deployments) {
+        for (const core::DeploymentIssue& issue : deployment.issues) {
+            lines.push_back(
+                EditorDiagnostic{.kind = EditorDiagnosticKind::Terrain,
+                                 .entityIndex = deployment.encounterIndex,
+                                 .cell = issue.cell,
+                                 .message = deploymentIssueText(deployment, issue, entities)});
         }
     }
     // Une entree d'arene hors de TOUTE zone : aucun combat de cette carte ne la verra.

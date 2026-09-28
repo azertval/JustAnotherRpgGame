@@ -134,6 +134,9 @@ private:
                                         QWidget* content, Qt::DockWidgetArea area);
     void buildMenus();
     void connectMapPanels();
+    /// @return Le niveau du groupe du budget des rencontres, gardé d'une session à l'autre
+    ///         (`LOT-143`).
+    [[nodiscard]] static int partyLevel();
     /// Les panneaux relisent le canevas actif : couches, entités, mini-carte, palette du lieu.
     void refreshLayersPanel();
     void refreshEntitiesPanel();

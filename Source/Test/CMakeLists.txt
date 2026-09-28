@@ -52,6 +52,7 @@ add_executable(UnitTests
     Unit/Core/Combat/test_combat_preview.cpp
     Unit/Core/Combat/test_iso_projection.cpp
     Unit/Core/Combat/test_tactical_terrain.cpp
+    Unit/Core/Combat/test_party_deployment.cpp
     Unit/Core/Resources/test_asset_keys.cpp
     Unit/Core/Resources/test_scene_piece_manifest.cpp
     Unit/Core/Resources/test_scene_place.cpp

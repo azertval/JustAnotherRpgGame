@@ -91,6 +91,8 @@ constexpr const char* GEOMETRY_KEY = "mainWindow/geometry";
 constexpr const char* STATE_KEY = "mainWindow/state";
 // Réglage de mise en avant automatique des panneaux.
 constexpr const char* FOLLOW_ACTIVE_TOOL_KEY = "panels/followActiveTool";
+/// Le niveau du groupe dont se calcule le budget des rencontres (LOT-143), d'une session à l'autre.
+constexpr const char* PARTY_LEVEL_KEY = "entities/partyLevel";
 // Cote de la vignette d'un prefabrique, en pixels : celle de la palette (LOT-EDITOR-08).
 constexpr int PREFAB_THUMBNAIL_SIDE = 72;
 
@@ -213,6 +215,7 @@ EditorViewport* MainWindow::addDocument() {
     view->setFocusPolicy(Qt::StrongFocus);
     view->setEditorReferences(_references.get());  // les mêmes catalogues pour tous les onglets
     view->setWorldState(_runChoice.flags, _statePreview);  // et le même état de partie
+    view->setPartyLevel(partyLevel());                     // et le même niveau de groupe
     const int index = _tabs->addTab(view, QString::fromStdString(documentLabel({}, false)));
     _tabs->setCurrentIndex(index);  // `currentChanged` branche le canevas neuf
     if (_viewport != view) {
@@ -595,12 +598,15 @@ void MainWindow::refreshLayersPanel() {
 }
 
 void MainWindow::refreshEntitiesPanel() {
-    // Le verdict de la zone de combat principale, s'il y en a une (LOT-EDITOR-05).
+    // Le verdict de l'entité principale, s'il y en a un (LOT-EDITOR-05, LOT-143).
     std::string verdict;
     if (const std::optional<std::size_t> selected = _viewport->selectedEntity()) {
-        for (const core::CombatZoneTerrain& zone : _viewport->combatZones()) {
-            if (zone.entityIndex == *selected) {
-                verdict = hmi::combatZoneSummary(zone);
+        for (const hmi::EntityVerdict& found : _viewport->entityVerdicts()) {
+            if (found.entityIndex != *selected) {
+                continue;
+            }
+            for (const std::string& line : found.lines) {
+                verdict += (verdict.empty() ? "" : "\n") + line;
             }
         }
     }
@@ -689,6 +695,21 @@ void MainWindow::connectMapPanels() {
             });
     connect(_entities, &EntityPanel::removeRequested, this,
             [this] { _viewport->removeSelectedEntities(); });
+    // Le niveau du groupe vaut pour tous les onglets : c'est un réglage de l'auteur, pas de la
+    // carte.
+    _entities->setPartyLevel(partyLevel());
+    connect(_entities, &EntityPanel::partyLevelChanged, this, [this](int level) {
+        QSettings().setValue(QString::fromLatin1(PARTY_LEVEL_KEY), level);
+        for (int index = 0; index < _tabs->count(); ++index) {
+            if (EditorViewport* const view = documentAt(index)) {
+                view->setPartyLevel(level);
+            }
+        }
+    });
+}
+
+int MainWindow::partyLevel() {
+    return QSettings().value(QString::fromLatin1(PARTY_LEVEL_KEY), 1).toInt();
 }
 
 bool MainWindow::saveMap() {

@@ -528,6 +528,19 @@ des données écrites à la main.
   **qui le pose et qui le lit** sur les cartes ouvertes. Une quête écrite là est **la même donnée**
   que celle que le jeu lit : le mode n'a pas de format à lui. Porté par le `LOT-144`.
 
+## 24. Des zones de combat pour un groupe (`LOT-143`)
+
+- **EX-EDIT-101** — Le verdict d'une zone de combat compte le **groupe de quatre** et **toute la
+  rencontre** qui s'y joue (celle dont le marqueur est dedans, sinon la plus proche) : la formation
+  adverse posée sur la zone seule, les **quatre places** du groupe — les entrées d'arène alliées
+  d'abord, puis le front opposé au marqueur —, reliées à la formation, et `(adversaires + 4) × 4`
+  cases libres. Le canevas écrit à côté de chaque entité la première ligne de son verdict, toutes
+  pour la sélectionnée, et marque formation et places ; tout est recalculé pendant qu'on tire. À
+  côté de l'entité `encounter`, le **budget de difficulté** (`core::rateEncounter`) pour quatre
+  personnages du niveau choisi dans le panneau des entités. `--check` refuse une rencontre face à
+  laquelle le groupe ne se déploie pas ; `--apply` verse un verdict au compte rendu par l'outil
+  `inspect`.
+
 ## Exigences retirées {#edit-retirees}
 
 > Ancres conservées, jamais renumérotées : les lots livrés s'y réfèrent. Chacune servait un
