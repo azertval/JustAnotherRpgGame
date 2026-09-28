@@ -138,6 +138,9 @@ struct Spell {
     std::optional<DamageType> damageType;
     std::optional<Ability> savingThrow;
     std::string appliesCondition;
+    /// Les composantes, telles que la fiche les écrit : « V, S », « V, S, M » ; vide si le fichier
+    /// ne les porte pas.
+    std::string components;
     std::string text;
     /// Déclaré sans mécanisme joué (`EX-RPG-051`).
     bool narrative = false;

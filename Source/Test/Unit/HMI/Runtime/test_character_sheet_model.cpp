@@ -121,6 +121,14 @@ TEST(CharacterSheetModelTest, LesQuatreFichesSontLeursPagesDuLivre) {
                 QStringLiteral("ui/icon/capacity/")));
         }
         EXPECT_FALSE(fiche.upcomingCapacities().isEmpty()) << page.id;
+        // Une attaque d'arme, au jet signe ; les descriptions sans la citation de la page.
+        ASSERT_EQ(fiche.attacks().size(), 1) << page.id;
+        EXPECT_TRUE(fiche.attacks().front().toMap().value("value").toString().startsWith('+'));
+        for (const QVariant& row : fiche.capacities()) {
+            const QString texte = row.toMap().value("text").toString();
+            EXPECT_FALSE(texte.contains(QStringLiteral(" p. "))) << texte.toStdString();
+            EXPECT_FALSE(texte.isEmpty());
+        }
     }
 
     // Les lancers du Mage : les sorts mineurs a volonte, les autres deux fois par jour.
@@ -134,6 +142,10 @@ TEST(CharacterSheetModelTest, LesQuatreFichesSontLeursPagesDuLivre) {
         }
         EXPECT_TRUE(sort.value("iconKey").toString().startsWith(QStringLiteral("ui/icon/spell/")));
         EXPECT_FALSE(sort.value("details").toString().isEmpty());
+        EXPECT_FALSE(sort.value("text").toString().contains(QStringLiteral(" p. ")));
+        EXPECT_FALSE(sort.value("text").toString().isEmpty());
+        EXPECT_FALSE(sort.value("components").toString().isEmpty());
+        EXPECT_FALSE(sort.value("range").toString().isEmpty());
     }
 
     // A venir pour le Scoundrel de niveau 1 : le palier 2d8 et Adventurer's Aptitude, au niveau 3.

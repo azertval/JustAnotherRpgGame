@@ -17,7 +17,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   menu `F9` ; le registre du groupe retient le niveau et les points de vie gagnés — la montée
   n'est pas un soin —, et la fiche, l'écran de groupe et le combat lisent la **même** fiche
   (`loadDemonstrationState` applique le registre). Les quatre fiches pré-tirées s'affichent
-  comme leur page du livre, valeur pour valeur (`EX-IHM-109`).
+  comme leur page du livre, valeur pour valeur (`EX-IHM-109`). L'écran **Compétences et sorts**
+  lit enfin la fiche : l'attaque de l'arme en main, les sorts mineurs, les sorts par école et le
+  détail du sort désigné (portée, dés, incantation, composantes, durée, lancers) ; les descriptions
+  affichées ne citent plus la page du livre. La barre d'actions du combat pose une icône sur
+  chaque attaque et chaque action du *Manuel* (pièce `ui/icon/action` du cahier, sept envois
+  préparés ; le nom reste dans la case tant qu'elles ne sont pas générées). Une **croix** referme
+  tout écran du RPG pour revenir au jeu, et le bouton **Options** du HUD ouvre enfin les réglages
+  (depuis le jeu comme depuis le combat, avec retour au même endroit).
 
 - **LOT-140 — L'interface de combat, à jour.** Le HUD de combat montre le **groupe** : l'ordre
   d'initiative **aux jetons** des personnages (le jeton de la figurine, deux lettres pour une

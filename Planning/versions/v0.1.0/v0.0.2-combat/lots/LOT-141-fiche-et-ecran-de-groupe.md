@@ -61,14 +61,36 @@ Livré le 28 septembre 2026 (exigence `EX-IHM-109`), **PR #160**, branche empil�
    figurine de la classe. L'écran **Groupe** montre les **quatre profils côte à côte** dans
    l'ordre de marche (portrait, nom, espèce · classe niveau, jauge, CA · vitesse, meneur marqué,
    rang, place libre), les personnages en lignes compactes dessous.
-6. **Valeur pour valeur** : `test_character_sheet_model.cpp` ouvre les quatre fiches par leur
+6. **L'écran « Compétences et sorts » n'est plus vide.** Il lisait des données en attente
+   (`PendingData`, `skills.*`) : il lit désormais `CharacterSheetModel` — l'attaque de l'arme en
+   main (`core::weaponAttackFor`, nouvelle propriété `attacks`), les sorts mineurs, les sorts
+   connus rangés par école avec leurs lancers, et le détail du sort désigné (Haut / Bas l'école,
+   Gauche / Droite le sort) : description, école, portée, dés, incantation, composantes
+   (`core::Spell::components`, lues du fichier), durée et lancers. **Les descriptions affichées ne
+   citent plus la page** : la citation reste en tête du `text` de la donnée, où elle atteste la
+   règle, et la vue-modèle la retire avant l'écran (`playerText`) — le joueur n'en a pas besoin.
+7. **Les icônes de la barre d'actions.** Les sorts avaient les leurs (`ui/icon/spell`) ; les
+   attaques d'arme et les actions du *Manuel* n'en avaient pas, et la case écrivait leur nom.
+   Nouvelle pièce du cahier `ui/icon/action` (sept membres : `melee`, `ranged`, `dodge`,
+   `disengage`, `dash`, `wait`, `reaction`), clés posées par `CombatModel` (`iconKey`), envois
+   préparés dans `Tools/Envois/LOT-141/`, clés en attente au manifeste : l'auteur génère,
+   `receive_ui_assets.py` installe, `publish_asset_kit.py UI` publie — d'ici là, la case garde
+   le nom, comme avant.
+8. **Revenir au jeu.** Une **croix** referme tout écran du RPG (fiche, compétences, inventaire,
+   journal, carte, groupe, compagnie, marchand), posée une fois au-dessus de la pile
+   (`ScreenStack.qml`, `ScreenRouter.closeRpgScreen`) plutôt que dans chaque formulaire — le
+   retour est une règle du routeur ; ni sur le HUD de combat ni sur le dialogue, qui ont leurs
+   gestes. Le bouton **Options** du HUD ne faisait rien : la machine d'écrans n'avait pas de
+   transition `OpenOptions` depuis le jeu ni depuis un écran du RPG (`hmi::resolveTransition`) ;
+   elle les a, et les réglages reviennent d'où ils viennent, provenance du combat comprise.
+9. **Valeur pour valeur** : `test_character_sheet_model.cpp` ouvre les quatre fiches par leur
    identifiant et compare nom, classe, niveau, points de vie, CA, capacités acquises, sorts
    connus et lancers aux pages du *Player's Guide* (registre du `LOT-130`) ; les valeurs
    dérivées restent celles de `test_premade_characters.cpp`.
 
 Tests : `test_dialogue.cpp` (l'action `levelUp`), `test_character_sheet_model.cpp` (les quatre
 pages ; la montée donnée vue par la fiche, l'écran de groupe et le combat ; la borne),
-`QmlTests` (captures `CharacterSheetForm.png` et `PartyForm.png` refaites).
+`QmlTests` (captures `CharacterSheetForm.png` et `PartyForm.png` refaites) ; l'écran Compétences et sorts vérifié par capture du jeu.
 
 ## Ce qui n'est pas ici
 

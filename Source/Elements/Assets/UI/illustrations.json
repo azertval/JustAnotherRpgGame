@@ -4055,5 +4055,18 @@
       "sha256": "436cba002aa79f3a3cba09b6676041da1f4083f9eca3276c42069b81bce1aa90"
     }
   ],
-  "pending": []
+  "pending": [
+    {
+      "keys": [
+        "ui/icon/action/melee",
+        "ui/icon/action/ranged",
+        "ui/icon/action/dodge",
+        "ui/icon/action/disengage",
+        "ui/icon/action/dash",
+        "ui/icon/action/wait",
+        "ui/icon/action/reaction"
+      ],
+      "reason": "icônes du LOT-141 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
+    }
+  ]
 }

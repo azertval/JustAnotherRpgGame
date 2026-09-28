@@ -101,6 +101,9 @@ class CharacterSheetModel : public QObject {
      * `details` (portée, durée, dés, une caractéristique par ligne), `school`.
      */
     Q_PROPERTY(QVariantList spells READ spells NOTIFY changed)
+    /// Les attaques d'arme du personnage (`LOT-141`, écran Compétences et sorts) : `label`
+    /// (l'arme), `value` (« +5 · 1d8+3 perforant »).
+    Q_PROPERTY(QVariantList attacks READ attacks NOTIFY changed)
 
 public:
     explicit CharacterSheetModel(QObject* parent = nullptr);
@@ -146,6 +149,9 @@ public:
     }
     [[nodiscard]] QVariantList spells() const {
         return _spells;
+    }
+    [[nodiscard]] QVariantList attacks() const {
+        return _attacks;
     }
 
     [[nodiscard]] QString name() const {
@@ -214,6 +220,7 @@ private:
     QVariantList _capacities;
     QVariantList _upcoming;
     QVariantList _spells;
+    QVariantList _attacks;
 };
 
 }  // namespace hmi
