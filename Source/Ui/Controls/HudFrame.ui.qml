@@ -38,6 +38,11 @@ Item {
     /// Le mode de jeu courant : `exploration` ou `combat` (`IGameMode::name()`).
     property string mode: "exploration"
 
+    /// La jauge d'experience : le combat la retire, le tour prend sa place (LOT-140).
+    property bool showExperience: true
+    /// Le panneau des quetes : le combat le retire, la previsualisation prend sa place (LOT-140).
+    property bool showQuests: true
+
     // --- Le personnage actif -----------------------------------------------------------------------
     property string characterName: "Brenna Pierrefonte"
     property string level: "3"
@@ -152,6 +157,7 @@ Item {
         y: 138 * Tokens.uiScale
         width: 344 * Tokens.uiScale
         height: 32 * Tokens.uiScale
+        visible: root.showExperience
         kind: "experience"
         value: root.experienceRatio
         label: root.experienceText
@@ -188,10 +194,13 @@ Item {
                 readonly property string label: member.model.label
                 readonly property string value: member.model.value
                 readonly property real ratio: member.model.ratio !== undefined ? member.model.ratio : 0
+                // Role FACULTATIF (LOT-140) : un membre a terre ou mort s'eteint dans la colonne.
+                readonly property bool down: member.model.down !== undefined && member.model.down === true
 
                 // Le rail des points de vie mord sur le bas du portrait, comme sur la maquette.
                 width: 112 * Tokens.uiScale
                 height: 112 * Tokens.uiScale
+                opacity: member.down ? 0.45 : 1
 
                 PortraitFrame {
                     id: memberPortrait
@@ -348,6 +357,7 @@ Item {
         y: 312 * Tokens.uiScale
         width: 296 * Tokens.uiScale
         height: 244 * Tokens.uiScale
+        visible: root.showQuests
         subpanel: true
 
         Text {

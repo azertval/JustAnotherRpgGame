@@ -20,6 +20,11 @@ constexpr std::array CATALOGUE = {
     DebugOption{.name = "--at=",
                 .syntax = "--at=<colonne>,<ligne>",
                 .description = "Pose le heros sur cette case de la carte ouverte par --map=."},
+    DebugOption{.name = "--encounter=",
+                .syntax = "--encounter=<rencontre>",
+                .description = "Engage cette rencontre des l'arrivee sur la carte ouverte par "
+                               "--map=, et ouvre le HUD de combat.",
+                .scope = DebugOptionScope::LaunchOnly},
     DebugOption{.name = "--flags=",
                 .syntax = "--flags=<drapeau>[=<valeur>],<drapeau>",
                 .description = "Pose ces drapeaux de monde : la carte telle qu'elle est apres une "

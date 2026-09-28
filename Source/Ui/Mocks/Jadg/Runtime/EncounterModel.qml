@@ -2,7 +2,7 @@ pragma Singleton
 import QtQuick
 
 /*!
-    Doublure de `hmi::EncounterModel` pour Qt Design Studio (LOT-118).
+    Doublure de `hmi::EncounterModel` pour Qt Design Studio (LOT-118, LOT-140).
 
     Memes proprietes et methodes que le type C++ (`Source/HMI/Runtime/EncounterModel.h`), avec un
     combat d'exemple sur une zone de la carte, pour que l'affichage de combat se dessine dans
@@ -46,17 +46,31 @@ QtObject {
     readonly property int cursorRow: 10
     readonly property var pathCells: []
     readonly property var turnActions: [
-        { label: "Grande hache", kind: "attack", enabled: true, selected: true },
-        { label: "Esquiver", kind: "dodge", enabled: true, selected: false },
-        { label: "Se desengager", kind: "disengage", enabled: true, selected: false },
-        { label: "Se precipiter", kind: "dash", enabled: true, selected: false },
-        { label: "Reaction : saisir les opportunites", kind: "reaction", enabled: true, selected: false }
+        { label: "Grande hache", kind: "attack", enabled: true, selected: true, detail: "+5 · 1d12+3 tranchant", uses: -1, iconKey: "" },
+        { label: "Esquiver", kind: "dodge", enabled: true, selected: false, detail: "", uses: -1, iconKey: "" },
+        { label: "Se desengager", kind: "disengage", enabled: true, selected: false, detail: "", uses: -1, iconKey: "" },
+        { label: "Se precipiter", kind: "dash", enabled: true, selected: false, detail: "", uses: -1, iconKey: "" },
+        { label: "Attendre", kind: "wait", enabled: true, selected: false, detail: "", uses: -1, iconKey: "" },
+        { label: "Reaction : saisir les opportunites", kind: "reaction", enabled: true, selected: false, detail: "", uses: -1, iconKey: "" }
     ]
     readonly property var turnOrder: [
-        { name: "Grom Tranche-Écaille", total: 14, side: "allies", active: true, down: false },
-        { name: "Rat", total: 11, side: "enemies", active: false, down: false },
-        { name: "Rat", total: 9, side: "enemies", active: false, down: true }
+        { name: "Grom Tranche-Écaille", total: 14, side: "allies", active: true, down: false, token: "", initials: "GT" },
+        { name: "Rat", total: 11, side: "enemies", active: false, down: false, token: "", initials: "Ra" },
+        { name: "Rat", total: 9, side: "enemies", active: false, down: true, token: "", initials: "Ra" }
     ]
+    readonly property int round: 1
+    readonly property var activeProfile: ({
+        name: "Grom Tranche-Écaille", side: "allies", classId: "brawler", level: 1, portrait: "", token: "",
+        hitPoints: "15/15", hitPointsRatio: 1, armorClass: 14, speed: "9 m", conditions: [],
+        action: 1, actionMax: 1, bonusAction: 1, bonusActionMax: 1, movement: 6, movementMax: 6,
+        capacities: [ { id: "tough-as-nails", name: "Tough as Nails", iconKey: "ui/icon/capacity/tough-as-nails", text: "", narrative: false } ],
+        spells: []
+    })
+    readonly property var preview: ({
+        kind: "attack", title: "Grande hache › Rat", valid: true, expected: "6,1",
+        lines: [ { label: "Toucher", value: "d20 +5 contre CA 10 · 80 %" }, { label: "Degats", value: "1d12+3 tranchant" } ],
+        capacities: []
+    })
     readonly property string activeName: "Grom Tranche-Écaille"
     readonly property string activeResources: "action 1 · movement 6"
     readonly property var journal: [ "initiative Grom #1 = 14", "Tour de Grom" ]

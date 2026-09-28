@@ -18,8 +18,12 @@
  * vient du jet requis du *Guide du Maître*, comme pour l'IA (`core::hitChance`). Un test compare la
  * prévisualisation au jet que la session jette ensuite : même CA, même posture, mêmes sources.
  *
- * Ce qu'elle ne peut pas savoir : ce qu'un greffon `BeforeRoll` changera au jet (une capacité de
- * classe), et les dés. Le premier n'existe encore pour personne ; les seconds sont le jeu.
+ * Les capacités de classe (`LOT-131`) y entrent comme dans le jet : le bonus au jet d'une
+ * capacité (*Hit the Mark*) s'ajoute au bonus d'attaque, les dés qu'une capacité ajoute à la touche
+ * (*Sneak Attack*) entrent dans l'espérance **quand leur condition tient** — l'allié au contact,
+ * la cadence « une fois par tour » lue dans les compteurs du combat — et la prévisualisation nomme
+ * la capacité qui jouera, ou pourquoi elle ne jouera pas (`LOT-140`). Ce qu'elle ne peut pas
+ * savoir : les dés.
  *
  * ## Le déplacement
  *
@@ -35,8 +39,22 @@
 
 #include "Core/Combat/Arena.h"
 #include "Core/Combat/Attack.h"
+#include "Core/Rpg/Check.h"
+#include "Core/Rpg/Dice.h"
 
 namespace core {
+
+/// @brief Des dés qu'une capacité ajouterait à la touche (`LOT-140`), et s'ils joueront.
+struct ExtraDamagePreview {
+    /// Le nom de la capacité, tel que le journal l'écrit.
+    std::string source;
+    Dice dice{};
+    /// Vrai si les dés entrent dans l'espérance : leur condition tient maintenant.
+    bool applies = true;
+    /// Pourquoi ils ne joueraient pas : « allié au contact requis », « déjà jouée ce tour » ; vide
+    /// s'ils jouent.
+    std::string reason;
+};
 
 /// @brief Une attaque telle qu'elle serait jetée.
 struct AttackPreview {
@@ -47,6 +65,12 @@ struct AttackPreview {
     /// La CA visée, abri compris.
     int armorClass = 0;
     Cover cover = Cover::None;
+    /// Le bonus d'attaque : celui du profil, plus ce que les capacités y ajoutent.
+    int attackBonus = 0;
+    /// Le bonus au jet que les capacités de classe donnent, à leur nom (`LOT-131`).
+    std::vector<Modifier> capacityModifiers;
+    /// Les dés que les capacités ajouteraient à la touche, et s'ils joueront (`LOT-140`).
+    std::vector<ExtraDamagePreview> extraDamage;
     /// Le jet requis du *Guide du Maître* : la CA visée moins le bonus d'attaque.
     int requiredRoll = 0;
     RollStance stance = RollStance::Normal;
@@ -54,8 +78,13 @@ struct AttackPreview {
     std::vector<std::string> disadvantages;
     /// La chance de toucher, en quatre-centièmes (`core::CHANCE_SCALE`).
     int hitChance = 0;
-    /// L'espérance de dégâts, en huit-centièmes de point (`core::expectedDamage`).
+    /// L'espérance de dégâts, en huit-centièmes de point (`core::expectedDamage`), les dés des
+    /// capacités qui jouent compris.
     long long expectedDamage = 0;
+    /// @brief L'espérance en dixièmes de point, arrondie au plus proche (« 6,1 »).
+    [[nodiscard]] long long expectedTenths() const noexcept {
+        return (expectedDamage * 10 + 400) / 800;
+    }
 
     /// @brief La chance en pour cent, arrondie au plus proche.
     [[nodiscard]] int hitPercent() const noexcept {

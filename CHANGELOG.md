@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-140 — L'interface de combat, à jour.** Le HUD de combat montre le **groupe** : l'ordre
+  d'initiative **aux jetons** des personnages (le jeton de la figurine, deux lettres pour une
+  créature, l'actif cerclé d'or) et le round ; sous le nom du personnage actif, le **panneau du
+  tour** — niveau, CA, états, ce qu'il reste à dépenser (action, action bonus, déplacement), ses
+  capacités de classe — à la place de la jauge d'expérience ; la **prévisualisation** de l'action
+  choisie sur la case du curseur, à la place des quêtes : le jet (« d20 +5 contre CA 15 · 55 % »),
+  les dés, l'avantage, **la capacité qui jouera** (*Sneak Attack* si un allié est au contact) ou
+  pourquoi elle ne jouera pas, l'espérance de dégâts ; pour un sort, ses lancers, sa portée, sa
+  zone, son jet ou son DD. La prévisualisation **est le jet** : `core::previewAttack` compte
+  désormais le bonus au jet et les dés des capacités de classe, aux mêmes conditions que la
+  session. La barre d'actions glisse sur **huit cases** autour de l'action choisie (un mage de
+  niveau 5 en a quatorze), chaque sort avec son icône et ses lancers restants, et la case
+  **Attendre** rend la main. Tout se pilote sans souris ; la capture de référence du HUD est
+  refaite (`EX-IHM-108`).
+
 - **LOT-136 — Les figurines des quatre classes et leurs effets.** Le Brawler, le Mage, le Priest et
   le Scoundrel ont leurs figurines HD : repos, marche, attaque, touché, mort, et selon la classe
   l'incantation ou le **tir à l'arc**, huit images, quatre orientations — le Brawler du `LOT-112`

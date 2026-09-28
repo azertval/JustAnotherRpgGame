@@ -6,11 +6,19 @@
 #include <QVariantMap>
 #include <algorithm>
 #include <cstdint>
+#include <string_view>
 #include <utility>
 
 #include "Core/Combat/BattleGrid.h"
 #include "Core/Combat/CombatPreview.h"
+#include "Core/Combat/Damage.h"
+#include "Core/Combat/LineOfSight.h"
 #include "Core/Combat/Pathfinding.h"
+#include "Core/Rpg/Ability.h"
+#include "Core/Rpg/ClassCapacities.h"
+#include "Core/Rpg/Dice.h"
+#include "Core/Rpg/Scale.h"
+#include "Core/Rpg/Spell.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Runtime/DemonstrationCharacter.h"
 
@@ -27,7 +35,7 @@ namespace {
 }
 
 // Une action du tour telle que l'écran la propose.
-enum class TurnActionKind : std::uint8_t { ATTACK, SPELL, DODGE, DISENGAGE, DASH, REACTION };
+enum class TurnActionKind : std::uint8_t { ATTACK, SPELL, DODGE, DISENGAGE, DASH, WAIT, REACTION };
 
 struct TurnActionEntry {
     TurnActionKind kind = TurnActionKind::ATTACK;
@@ -38,7 +46,131 @@ struct TurnActionEntry {
     bool available = true;
     /// Un sort d'action bonus (`LOT-134`) : il demande l'action bonus, pas l'action.
     bool bonusAction = false;
+    /// Ce que la case écrit sous le nom (`LOT-140`) : le jet et les dés, la portée, les lancers.
+    QString detail;
+    /// Lancers restants d'un sort ; `-1` : à volonté, ou sans objet.
+    int uses = -1;
+    /// L'icône du cahier (`ui/icon/spell/<id>`), ou vide.
+    QString iconKey;
 };
+
+[[nodiscard]] QStringList joined(const std::vector<std::string>& texts) {
+    QStringList list;
+    for (const std::string& text : texts) {
+        list << toQt(text);
+    }
+    return list;
+}
+
+[[nodiscard]] QString signedNumber(int value) {
+    return (value >= 0 ? QStringLiteral("+") : QString()) + QString::number(value);
+}
+
+// « 1d8+3 perforant », ou « 1d6 tranchant + 1d4 feu ».
+[[nodiscard]] QString damageText(const std::vector<core::DamageClause>& clauses) {
+    QStringList parts;
+    for (const core::DamageClause& clause : clauses) {
+        parts << toQt(core::formatDice(clause.dice)) + " " +
+                     toQt(std::string(core::damageTypeLabel(clause.type)));
+    }
+    return parts.join(QStringLiteral(" + "));
+}
+
+// La portée d'une attaque en mètres : « 24 m », ou « 24 / 96 m » avec la longue portée.
+[[nodiscard]] QString rangeText(const core::AttackProfile& profile) {
+    if (!profile.range.has_value()) {
+        return {};
+    }
+    const auto metres = [](int cells) {
+        return QString::number(static_cast<double>(cells) * core::METERS_PER_TILE, 'g', 3);
+    };
+    if (profile.range->maximum > profile.range->normal) {
+        return metres(profile.range->normal) + " / " + metres(profile.range->maximum) +
+               CombatModel::tr(" m");
+    }
+    return metres(profile.range->normal) + CombatModel::tr(" m");
+}
+
+// Ce que la case d'une attaque écrit sous son nom : « +5 · 1d8+3 perforant · 24 / 96 m ».
+[[nodiscard]] QString attackDetail(const core::AttackProfile& profile) {
+    QStringList parts;
+    parts << signedNumber(core::attackBonusOf(profile));
+    if (!profile.damage.empty()) {
+        parts << damageText(profile.damage);
+    }
+    if (const QString portee = rangeText(profile); !portee.isEmpty()) {
+        parts << portee;
+    }
+    return parts.join(QStringLiteral(" · "));
+}
+
+// Ce que la case d'un sort écrit sous son nom : ses lancers, puis sa portée.
+[[nodiscard]] QString spellDetail(const core::ArenaSpell& spell) {
+    QStringList parts;
+    parts << (spell.uses < 0 ? CombatModel::tr("a volonte")
+                             : CombatModel::tr("%1 lancer(s)").arg(spell.uses));
+    if (const QString portee = rangeText(spell.attack); !portee.isEmpty()) {
+        parts << portee;
+    }
+    return parts.join(QStringLiteral(" · "));
+}
+
+[[nodiscard]] QString spellIconKey(const core::ArenaSpell& spell) {
+    return QStringLiteral("ui/icon/spell/") + toQt(spell.id);
+}
+
+[[nodiscard]] QString capacityIconKey(const core::Capacity& capacity) {
+    return QStringLiteral("ui/icon/capacity/") +
+           toQt(capacity.iconId.empty() ? capacity.id : capacity.iconId);
+}
+
+// Les états d'un combattant, tels que l'écran les écrit : ceux de la session (LOT-137), puis
+// « Ensanglante » et « Esquive » que la table voit aussi.
+[[nodiscard]] QStringList conditionLabels(const core::ArenaSession& session, core::CombatantId id) {
+    QStringList labels;
+    const core::Combatant* combatant = session.combat().find(id);
+    if (combatant == nullptr) {
+        return labels;
+    }
+    for (const core::CombatCondition condition : session.conditionsOf(id)) {
+        QString label = toQt(std::string(core::combatConditionLabel(condition)));
+        if (!label.isEmpty()) {
+            label[0] = label[0].toUpper();
+        }
+        labels << label;
+    }
+    const bool down = combatant->status == core::CombatantStatus::Down ||
+                      combatant->status == core::CombatantStatus::Dead;
+    if (core::isBloodied(combatant->profile) && !down) {
+        labels << CombatModel::tr("Ensanglante");
+    }
+    if (session.isDodging(id)) {
+        labels << CombatModel::tr("Esquive");
+    }
+    return labels;
+}
+
+// Deux lettres pour un jeton qui manque : « Bandit archer » → « BA », « Rat #2 » → « R2 »,
+// « Grom » → « Gr ».
+[[nodiscard]] QString initialsOf(const QString& name) {
+    const QStringList words = name.split(' ', Qt::SkipEmptyParts);
+    if (words.isEmpty()) {
+        return {};
+    }
+    QString initials = words.front().left(1).toUpper();
+    if (words.size() > 1) {
+        const QString& last = words.back();
+        const QString digits = last.section('#', -1);
+        initials += digits.front().isDigit() ? digits.left(1) : last.left(1).toUpper();
+    } else if (words.front().size() > 1) {
+        initials += words.front().mid(1, 1).toLower();
+    }
+    return initials;
+}
+
+[[nodiscard]] QVariantMap previewLine(const QString& label, const QString& value) {
+    return QVariantMap{{"label", label}, {"value", value}};
+}
 
 // Les actions du combattant `active` : ses attaques, ses sorts, puis les actions du Manuel, puis
 // sa réaction.
@@ -47,8 +179,10 @@ struct TurnActionEntry {
     std::vector<TurnActionEntry> entries;
     if (const std::vector<core::AttackProfile>* attacks = session.attacks(active)) {
         for (std::size_t i = 0; i < attacks->size(); ++i) {
-            entries.push_back(
-                {.kind = TurnActionKind::ATTACK, .attack = i, .label = toQt((*attacks)[i].label)});
+            entries.push_back({.kind = TurnActionKind::ATTACK,
+                               .attack = i,
+                               .label = toQt((*attacks)[i].label),
+                               .detail = attackDetail((*attacks)[i])});
         }
     }
     if (const std::vector<core::ArenaSpell>* spells = session.spells(active)) {
@@ -68,7 +202,10 @@ struct TurnActionEntry {
                               (spell.effect.has_value() &&
                                spell.effect->kind == core::SpellEffectKind::SpiritualWeapon &&
                                session.hasEffect(active, core::SpellEffectKind::SpiritualWeapon)),
-                 .bonusAction = spell.bonusAction});
+                 .bonusAction = spell.bonusAction,
+                 .detail = spellDetail(spell),
+                 .uses = spell.uses,
+                 .iconKey = spellIconKey(spell)});
         }
     }
     entries.push_back(
@@ -78,6 +215,10 @@ struct TurnActionEntry {
                        .label = CombatModel::tr("Se desengager")});
     entries.push_back(
         {.kind = TurnActionKind::DASH, .attack = 0, .label = CombatModel::tr("Se precipiter")});
+    // Attendre : rendre la main sans rien depenser (LOT-140) -- la fin du tour a sa case dans la
+    // barre, pour la souris comme pour les touches numerotees.
+    entries.push_back(
+        {.kind = TurnActionKind::WAIT, .attack = 0, .label = CombatModel::tr("Attendre")});
     entries.push_back({.kind = TurnActionKind::REACTION,
                        .attack = 0,
                        .label = session.takesOpportunities(active)
@@ -98,6 +239,8 @@ struct TurnActionEntry {
             return QStringLiteral("disengage");
         case TurnActionKind::DASH:
             return QStringLiteral("dash");
+        case TurnActionKind::WAIT:
+            return QStringLiteral("wait");
         case TurnActionKind::REACTION:
             return QStringLiteral("reaction");
     }
@@ -303,12 +446,15 @@ QVariantList CombatModel::turnOrder() const {
         if (combatant == nullptr) {
             continue;
         }
+        const Identity identity = identityOf(entry.combatant);
         list << QVariantMap{{"name", toQt(combatant->profile.name)},
                             {"total", entry.total},
                             {"side", sideName(entry.side)},
                             {"active", active == entry.combatant},
                             {"down", combatant->status == core::CombatantStatus::Down ||
-                                         combatant->status == core::CombatantStatus::Dead}};
+                                         combatant->status == core::CombatantStatus::Dead},
+                            {"token", identity.token},
+                            {"initials", initialsOf(toQt(combatant->profile.name))}};
     }
     return list;
 }
@@ -445,7 +591,8 @@ QVariantList CombatModel::turnActions() const {
         combatant != nullptr && combatant->economy.remaining(core::BONUS_ACTION_RESOURCE) > 0;
     const std::vector<TurnActionEntry> entries = turnActionsOf(*_session, *active);
     for (std::size_t i = 0; i < entries.size(); ++i) {
-        const bool needsAction = entries[i].kind != TurnActionKind::REACTION;
+        const bool needsAction =
+            entries[i].kind != TurnActionKind::REACTION && entries[i].kind != TurnActionKind::WAIT;
         const bool affordable =
             entries[i].bonusAction
                 ? bonusAction
@@ -453,9 +600,361 @@ QVariantList CombatModel::turnActions() const {
         list << QVariantMap{{"label", entries[i].label},
                             {"kind", kindName(entries[i].kind)},
                             {"enabled", (!needsAction || affordable) && entries[i].available},
-                            {"selected", std::cmp_equal(i, _selectedAction)}};
+                            {"selected", std::cmp_equal(i, _selectedAction)},
+                            {"detail", entries[i].detail},
+                            {"uses", entries[i].uses},
+                            {"iconKey", entries[i].iconKey}};
     }
     return list;
+}
+
+int CombatModel::round() const {
+    return _session != nullptr && _inCombat ? _session->combat().round() : 0;
+}
+
+QVariantMap CombatModel::activeProfile() const {
+    QVariantMap map;
+    if (_session == nullptr || !_inCombat) {
+        return map;
+    }
+    const std::optional<core::CombatantId> active = _session->combat().activeCombatant();
+    const core::Combatant* combatant =
+        active.has_value() ? _session->combat().find(*active) : nullptr;
+    if (combatant == nullptr) {
+        return map;
+    }
+    const core::CombatantProfile& profile = combatant->profile;
+    const bool dead = combatant->status == core::CombatantStatus::Dead;
+    const bool down = dead || combatant->status == core::CombatantStatus::Down;
+    const Identity identity = identityOf(*active);
+    const HealthDisplay health = healthDisplayOf(profile, down, dead);
+    map.insert("name", toQt(profile.name));
+    map.insert("side", sideName(profile.side));
+    map.insert("classId", identity.classId);
+    map.insert("level", identity.level);
+    map.insert("portrait", identity.portrait);
+    map.insert("token", identity.token);
+    map.insert("hitPoints", health.hitPoints);
+    map.insert("hitPointsRatio", health.ratio);
+    map.insert("armorClass", profile.armorClass);
+    map.insert("speed", QString::number(
+                            static_cast<double>(profile.movement) * core::METERS_PER_TILE, 'g', 3) +
+                            tr(" m"));
+    map.insert("conditions", conditionLabels(*_session, *active));
+    // Les ressources du tour : ce qu'il en reste, sur ce que le tour en donne.
+    const auto resource = [&](std::string_view id) -> std::pair<int, int> {
+        for (const core::ActionResource& r : combatant->economy.resources()) {
+            if (r.id == id) {
+                return {r.remaining, r.perTurn};
+            }
+        }
+        return {0, 0};
+    };
+    const auto [action, actionMax] = resource(core::ACTION_RESOURCE);
+    const auto [bonus, bonusMax] = resource(core::BONUS_ACTION_RESOURCE);
+    const auto [movement, movementMax] = resource(core::MOVEMENT_RESOURCE);
+    map.insert("action", action);
+    map.insert("actionMax", actionMax);
+    map.insert("bonusAction", bonus);
+    map.insert("bonusActionMax", bonusMax);
+    map.insert("movement", movement);
+    map.insert("movementMax", movementMax);
+    // Ce que la fiche apporte au combat (LOT-131) : la table ne voit pas celles d'un ennemi.
+    QVariantList capacities;
+    QVariantList spells;
+    if (profile.side == core::CombatSide::Allies) {
+        for (const core::Capacity& capacity : _session->capacitiesOf(*active)) {
+            capacities << QVariantMap{{"id", toQt(capacity.id)},
+                                      {"name", toQt(capacity.name)},
+                                      {"iconKey", capacityIconKey(capacity)},
+                                      {"text", toQt(capacity.text)},
+                                      {"narrative", capacity.narrative}};
+        }
+        if (const std::vector<core::ArenaSpell>* known = _session->spells(*active)) {
+            for (const core::ArenaSpell& spell : *known) {
+                spells << QVariantMap{{"id", toQt(spell.id)},
+                                      {"name", toQt(spell.name)},
+                                      {"level", spell.level},
+                                      {"uses", spell.uses},
+                                      {"iconKey", spellIconKey(spell)}};
+            }
+        }
+    }
+    map.insert("capacities", capacities);
+    map.insert("spells", spells);
+    return map;
+}
+
+QVariantMap CombatModel::preview() const {
+    QVariantMap map;
+    const std::optional<core::CombatantId> active = playerTurn();
+    if (!active.has_value()) {
+        return map;
+    }
+    const core::CombatState& combat = _session->combat();
+    const std::vector<TurnActionEntry> entries = turnActionsOf(*_session, *active);
+    const TurnActionEntry& chosen = entries[static_cast<std::size_t>(
+        std::clamp(_selectedAction, 0, static_cast<int>(entries.size()) - 1))];
+    QVariantList lines;
+    QVariantList capacities;
+    map.insert("valid", true);
+    map.insert("expected", QString());
+    switch (chosen.kind) {
+        case TurnActionKind::DODGE:
+            map.insert("kind", QStringLiteral("action"));
+            map.insert("title", chosen.label);
+            lines << previewLine(tr("Effet"), tr("Les attaques contre lui sont desavantagees "
+                                                 "jusqu'a son prochain tour, s'il voit "
+                                                 "l'attaquant."));
+            break;
+        case TurnActionKind::DISENGAGE:
+            map.insert("kind", QStringLiteral("action"));
+            map.insert("title", chosen.label);
+            lines << previewLine(tr("Effet"), tr("Ses deplacements ne provoquent plus d'attaque "
+                                                 "d'opportunite ce tour-ci."));
+            break;
+        case TurnActionKind::DASH:
+            map.insert("kind", QStringLiteral("action"));
+            map.insert("title", chosen.label);
+            lines << previewLine(tr("Effet"),
+                                 tr("Un deplacement supplementaire egal a sa vitesse."));
+            break;
+        case TurnActionKind::WAIT:
+            map.insert("kind", QStringLiteral("action"));
+            map.insert("title", chosen.label);
+            lines << previewLine(tr("Effet"), tr("Rend la main : le tour passe au suivant, sans "
+                                                 "rien depenser."));
+            break;
+        case TurnActionKind::REACTION:
+            map.insert("kind", QStringLiteral("action"));
+            map.insert("title", chosen.label);
+            lines << previewLine(tr("Effet"), _session->takesOpportunities(*active)
+                                                  ? tr("Il frappera l'ennemi qui quitte son "
+                                                       "allonge. Confirmer pour le laisser passer.")
+                                                  : tr("Il laissera passer l'ennemi qui quitte son "
+                                                       "allonge. Confirmer pour frapper."));
+            break;
+        case TurnActionKind::ATTACK:
+        case TurnActionKind::SPELL: {
+            const std::optional<core::CombatantId> occupant = combat.grid().occupantAt(_cursor);
+            const core::Combatant* self = combat.find(*active);
+            const core::Combatant* other = occupant.has_value() ? combat.find(*occupant) : nullptr;
+            if (chosen.kind == TurnActionKind::SPELL) {
+                previewSpell(map, lines, chosen.attack, other);
+                break;
+            }
+            if (other != nullptr && self != nullptr && other->profile.side != self->profile.side) {
+                previewAttack(map, lines, capacities, *occupant, chosen.attack);
+                break;
+            }
+            if (other != nullptr) {
+                map.insert("kind", QStringLiteral("attack"));
+                map.insert("title", toQt(other->profile.name));
+                map.insert("valid", false);
+                lines << previewLine(tr("Cible"), tr("Un allie : rien a frapper ici."));
+                break;
+            }
+            previewMove(map, lines);
+            break;
+        }
+    }
+    map.insert("lines", lines);
+    map.insert("capacities", capacities);
+    return map;
+}
+
+void CombatModel::previewAttack(QVariantMap& map, QVariantList& lines, QVariantList& capacities,
+                                core::CombatantId target, std::size_t attackIndex) const {
+    const core::Combatant* other = _session->combat().find(target);
+    const std::optional<core::AttackPreview> attack =
+        core::previewAttack(*_session, target, attackIndex);
+    map.insert("kind", QStringLiteral("attack"));
+    if (!attack.has_value() || other == nullptr) {
+        map.insert("title", QString());
+        map.insert("valid", false);
+        return;
+    }
+    map.insert("title", toQt(attack->label) + QStringLiteral(" › ") + toQt(other->profile.name));
+    switch (attack->check) {
+        case core::TargetCheck::Valid:
+            break;
+        case core::TargetCheck::OutOfReach:
+            map.insert("valid", false);
+            lines << previewLine(tr("Cible"), tr("Hors d'allonge ou de portee."));
+            return;
+        case core::TargetCheck::TotalCover:
+            map.insert("valid", false);
+            lines << previewLine(tr("Cible"), tr("Hors de vue : abri total."));
+            return;
+        case core::TargetCheck::NotOnGrid:
+            map.insert("valid", false);
+            lines << previewLine(tr("Cible"), tr("Cible invalide."));
+            return;
+    }
+    // Le jet tel qu'il sera jete : d20 + bonus contre la CA vue, et la chance qui en sort.
+    QString ca = tr("CA %1").arg(attack->armorClass);
+    if (attack->cover != core::Cover::None) {
+        ca += tr(", dont %1").arg(toQt(std::string(core::coverLabel(attack->cover))));
+    }
+    lines << previewLine(tr("Toucher"), tr("d20 %1 contre %2 · %3 %")
+                                            .arg(signedNumber(attack->attackBonus))
+                                            .arg(ca)
+                                            .arg(attack->hitPercent()));
+    for (const core::Modifier& modifier : attack->capacityModifiers) {
+        lines << previewLine(toQt(modifier.source), signedNumber(modifier.value) + tr(" au jet"));
+    }
+    if (!attack->advantages.empty()) {
+        lines << previewLine(tr("Avantage"), joined(attack->advantages).join(QStringLiteral(", ")));
+    }
+    if (!attack->disadvantages.empty()) {
+        lines << previewLine(tr("Desavantage"),
+                             joined(attack->disadvantages).join(QStringLiteral(", ")));
+    }
+    if (const std::vector<core::AttackProfile>* attacks = _session->attacks(*playerTurn());
+        attacks != nullptr && attackIndex < attacks->size()) {
+        lines << previewLine(tr("Degats"), damageText((*attacks)[attackIndex].damage));
+    }
+    // Les capacites qui jouent, et celles qui ne jouent pas -- et pourquoi (LOT-140).
+    for (const core::ExtraDamagePreview& extra : attack->extraDamage) {
+        capacities << QVariantMap{{"name", toQt(extra.source)},
+                                  {"dice", toQt(core::formatDice(extra.dice))},
+                                  {"applies", extra.applies},
+                                  {"reason", toQt(extra.reason)}};
+    }
+    const long long tenths = attack->expectedTenths();
+    map.insert("expected", QString::number(tenths / 10) + tr(",") + QString::number(tenths % 10));
+}
+
+void CombatModel::previewSpell(QVariantMap& map, QVariantList& lines, std::size_t spellIndex,
+                               const core::Combatant* target) const {
+    const std::optional<core::CombatantId> active = playerTurn();
+    const std::vector<core::ArenaSpell>* spells =
+        active.has_value() ? _session->spells(*active) : nullptr;
+    map.insert("kind", QStringLiteral("spell"));
+    if (spells == nullptr || spellIndex >= spells->size()) {
+        map.insert("title", QString());
+        map.insert("valid", false);
+        return;
+    }
+    const core::ArenaSpell& spell = (*spells)[spellIndex];
+    map.insert("title", target != nullptr
+                            ? toQt(spell.name) + QStringLiteral(" › ") + toQt(target->profile.name)
+                            : toQt(spell.name));
+    lines << previewLine(tr("Lancers"),
+                         spell.uses < 0 ? tr("a volonte") : tr("%1 restant(s)").arg(spell.uses));
+    if (const QString portee = rangeText(spell.attack); !portee.isEmpty()) {
+        lines << previewLine(tr("Portee"), portee);
+    }
+    if (spell.areaRadius > 0) {
+        lines << previewLine(tr("Zone"), tr("sphere de %1 case(s) de rayon").arg(spell.areaRadius));
+    } else if (spell.maxTargets > 1) {
+        lines << previewLine(tr("Cibles"), tr("jusqu'a %1").arg(spell.maxTargets));
+    }
+    switch (spell.mechanism) {
+        case core::SpellMechanism::AttackRoll:
+            lines << previewLine(
+                tr("Jet"),
+                tr("d20 %1 contre la CA%2")
+                    .arg(signedNumber(core::attackBonusOf(spell.attack)))
+                    .arg(spell.projectiles > 1 ? tr(", %1 projectile(s)").arg(spell.projectiles)
+                                               : QString()));
+            break;
+        case core::SpellMechanism::SavingThrow:
+            lines << previewLine(
+                tr("Jet"),
+                tr("sauvegarde de %1 contre DD %2%3")
+                    .arg(spell.save.has_value() ? toQt(std::string(core::abilityName(*spell.save)))
+                                                : QString())
+                    .arg(spell.saveDc)
+                    .arg(spell.saveEffect == core::SaveEffect::Half ? tr(", degats de moitie")
+                                                                    : tr(", annule")));
+            break;
+        case core::SpellMechanism::AutoHit:
+            lines << previewLine(tr("Jet"),
+                                 spell.projectiles > 1
+                                     ? tr("touche, %1 projectile(s)").arg(spell.projectiles)
+                                     : tr("touche"));
+            break;
+        case core::SpellMechanism::Effect:
+            lines << previewLine(
+                tr("Effet"), spell.effect.has_value()
+                                 ? toQt(std::string(core::spellEffectKindName(spell.effect->kind)))
+                                 : QString());
+            break;
+        case core::SpellMechanism::Healing:
+            if (spell.healing.has_value()) {
+                lines << previewLine(tr("Soin"), toQt(core::formatDice(*spell.healing)));
+            }
+            break;
+        case core::SpellMechanism::Stabilize:
+            lines << previewLine(tr("Effet"), tr("stabilise un mourant"));
+            break;
+        case core::SpellMechanism::Revive:
+            if (spell.revival.has_value()) {
+                lines << previewLine(
+                    tr("Effet"),
+                    tr("rend %1 point(s) de vie a un mort recent").arg(spell.revival->hitPoints));
+            }
+            break;
+    }
+    if (!spell.attack.damage.empty()) {
+        lines << previewLine(tr("Degats"), damageText(spell.attack.damage));
+    }
+    if (spell.concentration) {
+        lines << previewLine(tr("Concentration"), tr("un seul sort de concentration a la fois"));
+    }
+    if (spell.bonusAction) {
+        lines << previewLine(tr("Action"), tr("action bonus"));
+    }
+    if (!spell.available() &&
+        !(spell.effect.has_value() &&
+          spell.effect->kind == core::SpellEffectKind::SpiritualWeapon && active.has_value() &&
+          _session->hasEffect(*active, core::SpellEffectKind::SpiritualWeapon))) {
+        map.insert("valid", false);
+        lines << previewLine(tr("Cible"), tr("Sort epuise : un repos long le rendra."));
+        return;
+    }
+    if (target != nullptr && active.has_value()) {
+        switch (core::checkTarget(_session->combat(), *active, target->id, spell.attack)) {
+            case core::TargetCheck::Valid:
+                break;
+            case core::TargetCheck::OutOfReach:
+                map.insert("valid", false);
+                lines << previewLine(tr("Cible"), tr("Hors de portee."));
+                break;
+            case core::TargetCheck::TotalCover:
+                map.insert("valid", false);
+                lines << previewLine(tr("Cible"), tr("Hors de vue : abri total."));
+                break;
+            case core::TargetCheck::NotOnGrid:
+                map.insert("valid", false);
+                lines << previewLine(tr("Cible"), tr("Cible invalide."));
+                break;
+        }
+    }
+}
+
+void CombatModel::previewMove(QVariantMap& map, QVariantList& lines) const {
+    map.insert("kind", QStringLiteral("move"));
+    map.insert("title", tr("Deplacement"));
+    const core::MovePreview move = core::previewMove(*_session, _cursor);
+    if (!move.path.has_value()) {
+        map.insert("valid", false);
+        lines << previewLine(tr("Chemin"), tr("Case hors d'atteinte ce tour-ci."));
+        return;
+    }
+    lines << previewLine(
+        tr("Chemin"),
+        tr("%1 case(s), il en restera %2").arg(move.path->cost).arg(move.movementLeft));
+    if (!move.opportunities.empty()) {
+        QStringList names;
+        for (const core::CombatantId id : move.opportunities) {
+            if (const core::Combatant* c = _session->combat().find(id)) {
+                names << toQt(c->profile.name);
+            }
+        }
+        lines << previewLine(tr("Opportunite"), names.join(QStringLiteral(", ")));
+    }
 }
 
 // --- Les gestes -------------------------------------------------------------------------------
@@ -713,6 +1212,9 @@ void CombatModel::confirm() {
             return;
         case TurnActionKind::DASH:
             dash();
+            return;
+        case TurnActionKind::WAIT:
+            endTurn();
             return;
         case TurnActionKind::REACTION: {
             const bool takes = !_session->takesOpportunities(*active);

@@ -3,7 +3,7 @@ import Jadg.Ui
 import Jadg.Runtime
 
 /*!
-    HUD de combat -- CABLAGE, cote developpeur (LOT-86, LOT-87 T4.1, LOT-118).
+    HUD de combat -- CABLAGE, cote developpeur (LOT-86, LOT-87 T4.1, LOT-118, LOT-140).
 
     LE COMBAT SUR LA CARTE. `EncounterModel` tient la rencontre montee sur la zone de combat de la
     carte courante ; `WorldViewport` dessine la carte gelee et, a la place des figurines de
@@ -20,22 +20,29 @@ import Jadg.Runtime
     | Deplacer le curseur | fleches | croix ou stick gauche |
     | Confirmer (attaquer, se deplacer, l'action choisie) ; quitter une fois fini | Entree | A |
     | Cible suivante, precedente | Tab, Maj+Tab | X |
-    | Action suivante, precedente | Page suivante, Page precedente, 1 a 9 | RB, LB |
+    | Action suivante, precedente | Page suivante, Page precedente, 1 a 8 (la case visible) | RB, LB |
     | Recentrer sur le combattant actif | Retour arriere | B |
     | Fin du tour (aussi le bouton sous la fiche de la cible) | Espace | Y |
     | Fuir (si la rencontre le permet) | F | -- |
 
-    LE GROUPE (LOT-139). Les quatre entrent en combat ; chacun est joue par ces memes gestes a son
-    tour d'initiative. Le portrait en avant est celui du membre dont c'est le tour (sinon le
-    meneur), et la case du groupe du cadre marque le membre actif (`activeMember`).
+    LE GROUPE (LOT-139, LOT-140). Les quatre entrent en combat ; chacun est joue par ces memes
+    gestes a son tour d'initiative. Le portrait en avant est celui du membre dont c'est le tour
+    (sinon le meneur), le panneau du tour lit `activeProfile` (niveau, CA, etats, ressources,
+    capacites), l'ordre d'initiative ses jetons (`turnOrder`), la previsualisation `preview` --
+    l'action choisie sur la case du curseur, telle qu'elle serait jetee. Tout ce que le panneau
+    montre se pilote par les gestes ci-dessus : la previsualisation suit le curseur et l'action
+    choisie, rien n'y demande la souris.
+
+    LA BARRE D'ACTIONS montre huit cases : une fenetre glissante sur `turnActions`, qui suit
+    l'action choisie (`windowStart`). Les touches 1 a 8 choisissent la case VISIBLE de ce rang.
 
     Tant qu'un mouvement se joue (`busy`), les gestes attendent : le modele les ignore, et
     `Entree` saute l'animation. Une fois l'issue publiee, `Entree` ou le bouton du panneau rendent
     l'exploration (`leave`). Une DEFAITE ouvre l'ecran de mort des qu'elle est publiee (LOT-119) :
     le combat n'est pas quitte, pour que l'ecran de mort montre la scene ou le heros est tombe.
 
-    Les valeurs du HUD qui ne viennent pas encore d'un lot (groupe, quetes, horloge, minicarte)
-    restent des donnees en attente (`PendingData`, cles `hud.*`), comme dans la vue de jeu.
+    Les valeurs du HUD qui ne viennent pas encore d'un lot (horloge, minicarte) restent des
+    donnees en attente (`PendingData`, cles `hud.*`), comme dans la vue de jeu.
 */
 CombatHudForm {
     id: root
@@ -43,10 +50,17 @@ CombatHudForm {
     focus: true
     pending: !EncounterModel.active
 
+    /// La barre montre huit cases a la fois.
+    readonly property int actionWindow: 8
+    /// La premiere action visible dans la barre : la fenetre suit l'action choisie.
+    readonly property int windowStart: root.windowStartFor(EncounterModel.turnActions, root.selectedRow(EncounterModel.turnActions))
+
     // Le personnage en avant : le membre du groupe dont c'est le tour, sinon le meneur (LOT-139).
     readonly property var focusMember: root.memberInFront(EncounterModel.partyMembers, EncounterModel.activeMember)
+    readonly property var profile: EncounterModel.activeProfile
+    readonly property var previewMap: EncounterModel.preview
     characterName: EncounterModel.active ? (focusMember ? focusMember.label : EncounterModel.heroName) : PendingData.value("hud.character.name")
-    level: PendingData.value("hud.character.level")
+    level: EncounterModel.active && profile.level !== undefined && profile.level > 0 ? "" + profile.level : PendingData.value("hud.character.level")
     hitPointsText: EncounterModel.active ? (focusMember ? focusMember.value : EncounterModel.heroHitPoints) : PendingData.value("hud.character.hit_points")
     hitPointsRatio: EncounterModel.active ? (focusMember ? focusMember.ratio : EncounterModel.heroHitPointsRatio) : 0
     experienceText: PendingData.value("hud.character.experience")
@@ -63,10 +77,32 @@ CombatHudForm {
     // (`label`, `value`).
     initiative: root.initiativeRows(EncounterModel.turnOrder)
     activeIndex: root.activeRow(EncounterModel.turnOrder)
+    round: "" + EncounterModel.round
     combatLog: root.logRows(EncounterModel.journal)
-    actions: root.actionRows(EncounterModel.turnActions)
-    activeAction: root.selectedRow(EncounterModel.turnActions)
-    activeActionLabel: root.selectedLabel(EncounterModel.turnActions)
+    actions: root.actionRows(EncounterModel.turnActions, root.windowStart)
+    activeAction: root.selectedRow(EncounterModel.turnActions) - root.windowStart
+    activeActionLabel: root.selectedField(EncounterModel.turnActions, "label")
+    activeActionDetail: root.selectedField(EncounterModel.turnActions, "detail")
+
+    // Le tour du personnage actif (LOT-140).
+    activeLevel: profile.level !== undefined && profile.level > 0 ? "" + profile.level : "—"
+    activeArmorClass: profile.armorClass !== undefined ? "" + profile.armorClass : ""
+    activeConditions: profile.conditions !== undefined ? profile.conditions.join(", ") : ""
+    activeActions: profile.action !== undefined ? profile.action : 0
+    activeActionsMax: profile.actionMax !== undefined ? profile.actionMax : 0
+    activeBonusActions: profile.bonusAction !== undefined ? profile.bonusAction : 0
+    activeBonusActionsMax: profile.bonusActionMax !== undefined ? profile.bonusActionMax : 0
+    activeMovement: profile.movement !== undefined ? profile.movement + " / " + profile.movementMax : ""
+    activeCapacities: root.capacityRows(profile.capacities)
+
+    // La previsualisation (LOT-140) : l'action choisie sur la case du curseur.
+    previewTitle: previewMap.title !== undefined ? previewMap.title : ""
+    previewLines: root.previewRows(previewMap.lines)
+    previewCapacities: root.previewCapacityRows(previewMap.capacities)
+    previewExpected: previewMap.expected !== undefined ? previewMap.expected : ""
+    previewValid: previewMap.valid !== undefined ? previewMap.valid : true
+
+    // La cible : rien que ce que la table voit (LOT-23).
     targetName: EncounterModel.target.name !== undefined ? EncounterModel.target.name : ""
     targetLevel: ""
     targetHitPoints: EncounterModel.target.hitPoints !== undefined ? EncounterModel.target.hitPoints : ""
@@ -121,6 +157,10 @@ CombatHudForm {
     onLeaveRequested: root.leave()
     onEndTurnRequested: {
         EncounterModel.endTurn()
+        root.forceActiveFocus()
+    }
+    onActionClicked: (index) => {
+        EncounterModel.selectAction(root.windowStart + index)
         root.forceActiveFocus()
     }
 
@@ -196,8 +236,9 @@ CombatHudForm {
         case Qt.Key_Space: EncounterModel.endTurn(); break
         case Qt.Key_F: EncounterModel.withdraw(); break
         default:
-            if (event.key >= Qt.Key_1 && event.key <= Qt.Key_9) {
-                EncounterModel.selectAction(event.key - Qt.Key_1)
+            // Les touches 1 a 8 : la case VISIBLE de ce rang dans la fenetre de la barre.
+            if (event.key >= Qt.Key_1 && event.key <= Qt.Key_1 + root.actionWindow - 1) {
+                EncounterModel.selectAction(root.windowStart + event.key - Qt.Key_1)
                 break
             }
             return
@@ -217,7 +258,12 @@ CombatHudForm {
     function initiativeRows(order) {
         const rows = []
         for (let i = 0; i < order.length; ++i) {
-            rows.push({ rowId: "" + i, label: order[i].name, value: order[i].side === "allies" ? "ally" : "enemy" })
+            rows.push({ rowId: "" + i,
+                        label: order[i].name,
+                        value: order[i].side === "allies" ? "ally" : "enemy",
+                        token: order[i].token !== undefined ? order[i].token.toString() : "",
+                        initials: order[i].initials !== undefined ? order[i].initials : "",
+                        down: order[i].down === true })
         }
         return rows
     }
@@ -242,10 +288,24 @@ CombatHudForm {
         return rows
     }
 
-    function actionRows(actions) {
+    /// La premiere action visible : la fenetre glisse pour que l'action choisie y soit.
+    function windowStartFor(actions, selected) {
+        const count = actions ? actions.length : 0
+        if (count <= root.actionWindow) {
+            return 0
+        }
+        const last = count - root.actionWindow
+        return Math.max(0, Math.min(last, selected - Math.floor(root.actionWindow / 2)))
+    }
+
+    function actionRows(actions, start) {
         const rows = []
-        for (let i = 0; i < actions.length && i < 8; ++i) {
-            rows.push({ rowId: "" + i, label: actions[i].label, value: actions[i].enabled ? "" : "0" })
+        for (let i = start; i < actions.length && i < start + root.actionWindow; ++i) {
+            // `value` : les lancers restants d'un sort, ou « 0 » pour une action grisee.
+            const uses = actions[i].uses !== undefined ? actions[i].uses : -1
+            const value = !actions[i].enabled ? "0" : (uses >= 0 ? "" + uses : "")
+            rows.push({ rowId: "" + i, label: actions[i].label, value: value,
+                        iconKey: actions[i].iconKey !== undefined ? actions[i].iconKey : "" })
         }
         return rows
     }
@@ -259,9 +319,43 @@ CombatHudForm {
         return 0
     }
 
-    function selectedLabel(actions) {
+    function selectedField(actions, field) {
         const row = root.selectedRow(actions)
-        return row < actions.length ? actions[row].label : ""
+        return row < actions.length && actions[row][field] !== undefined ? actions[row][field] : ""
+    }
+
+    function capacityRows(capacities) {
+        const rows = []
+        if (!capacities) {
+            return rows
+        }
+        for (let i = 0; i < capacities.length; ++i) {
+            rows.push({ rowId: capacities[i].id, label: capacities[i].name, value: capacities[i].iconKey })
+        }
+        return rows
+    }
+
+    function previewRows(lines) {
+        const rows = []
+        if (!lines) {
+            return rows
+        }
+        for (let i = 0; i < lines.length; ++i) {
+            rows.push({ rowId: "" + i, label: lines[i].label, value: lines[i].value })
+        }
+        return rows
+    }
+
+    function previewCapacityRows(capacities) {
+        const rows = []
+        if (!capacities) {
+            return rows
+        }
+        for (let i = 0; i < capacities.length; ++i) {
+            rows.push({ rowId: "" + i, label: capacities[i].name, value: capacities[i].dice,
+                        applies: capacities[i].applies === true, reason: capacities[i].reason })
+        }
+        return rows
     }
 
     Connections {

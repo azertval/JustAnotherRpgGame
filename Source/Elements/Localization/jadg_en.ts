@@ -148,57 +148,92 @@
 <context>
     <name>CombatHudForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="159"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="218"/>
         <source>Victoire</source>
         <translation>Victory</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="160"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="219"/>
         <source>Vous avez pris la fuite</source>
         <translation>You fled</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="161"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="220"/>
         <source>Vous êtes mort</source>
         <translation>You are dead</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="182"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="241"/>
         <source>Fin de la démo</source>
         <translation>End of the demo</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="182"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="241"/>
         <source>Reprendre l&apos;exploration</source>
         <translation>Back to exploring</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="376"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="262"/>
+        <source>Niv. %1 · CA %2</source>
+        <translation>Lvl %1 · AC %2</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="276"/>
+        <source>Action</source>
+        <translation>Action</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="304"/>
+        <source>Bonus</source>
+        <translation>Bonus</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="332"/>
+        <source>Déplacement %1</source>
+        <translation>Movement %1</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="412"/>
+        <source>Round %1</source>
+        <translation>Round %1</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="682"/>
         <source>Fin du tour</source>
         <translation>End turn</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="409"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="701"/>
+        <source>Prévisualisation</source>
+        <translation>Preview</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="839"/>
+        <source>Attendu  %1 dégâts</source>
+        <translation>Expected  %1 damage</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="879"/>
         <source>Niv. %1</source>
         <translation>Lvl %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="445"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="915"/>
         <source>CA</source>
         <translation>AC</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="446"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="916"/>
         <source>Initiative</source>
         <translation>Initiative</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="447"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="917"/>
         <source>Vitesse</source>
         <translation>Speed</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="448"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="918"/>
         <source>États</source>
         <translation>Conditions</translation>
     </message>
@@ -493,54 +528,54 @@
 <context>
     <name>HudFrame.ui</name>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="258"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="267"/>
         <source>O</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="259"/>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="335"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="268"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="344"/>
         <source>N</source>
         <translation>N</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="260"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="269"/>
         <source>E</source>
         <translation>E</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="278"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="287"/>
         <source>HUD dessiné, données à venir</source>
         <translation>HUD designed, data to come</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="358"/>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="519"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="368"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="529"/>
         <source>Quêtes</source>
         <translation>Quests</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="511"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="521"/>
         <source>Sac</source>
         <translation>Bag</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="527"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="537"/>
         <source>Carte</source>
         <translation>Map</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="535"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="545"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="568"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="578"/>
         <source>Exploration</source>
         <translation>Exploration</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="584"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="594"/>
         <source>Tactique</source>
         <translation>Tactical</translation>
     </message>
@@ -1207,136 +1242,431 @@
 <context>
     <name>hmi::CombatModel</name>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="75"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="212"/>
         <source>Esquiver</source>
         <translation>Dodge</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="78"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="215"/>
         <source>Se desengager</source>
         <translation>Disengage</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="80"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="217"/>
         <source>Se precipiter</source>
         <translation>Dash</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="84"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="221"/>
+        <source>Attendre</source>
+        <translation>Wait</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="225"/>
         <source>Reaction : saisir les opportunites</source>
         <translation>Reaction: take opportunity attacks</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="85"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="226"/>
         <source>Reaction : laisser passer</source>
         <translation>Reaction: let them go</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="127"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="270"/>
         <source>mort</source>
         <translation>dead</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="130"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="273"/>
         <source>a terre</source>
         <translation>down</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="133"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="276"/>
         <source>ensanglante</source>
         <translation>bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="475"/>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="509"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="706"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="713"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="719"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="725"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="731"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="880"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="890"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="895"/>
+        <source>Effet</source>
+        <translation>Effect</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="706"/>
+        <source>Les attaques contre lui sont desavantagees jusqu&apos;a son prochain tour, s&apos;il voit l&apos;attaquant.</source>
+        <translation>Attacks against them have disadvantage until their next turn, if they can see the attacker.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="713"/>
+        <source>Ses deplacements ne provoquent plus d&apos;attaque d&apos;opportunite ce tour-ci.</source>
+        <translation>Their movement no longer provokes opportunity attacks this turn.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="720"/>
+        <source>Un deplacement supplementaire egal a sa vitesse.</source>
+        <translation>Extra movement equal to their speed.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="725"/>
+        <source>Rend la main : le tour passe au suivant, sans rien depenser.</source>
+        <translation>Passes: the turn goes to the next combatant, nothing spent.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="732"/>
+        <source>Il frappera l&apos;ennemi qui quitte son allonge. Confirmer pour le laisser passer.</source>
+        <translation>They will strike the enemy leaving their reach. Confirm to let them pass.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="734"/>
+        <source>Il laissera passer l&apos;ennemi qui quitte son allonge. Confirmer pour frapper.</source>
+        <translation>They will let the enemy leaving their reach pass. Confirm to strike.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="754"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="783"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="787"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="791"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="914"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="923"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="927"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="931"/>
+        <source>Cible</source>
+        <translation>Target</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="754"/>
+        <source>Un allie : rien a frapper ici.</source>
+        <translation>An ally: nothing to strike here.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="783"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="974"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1008"/>
         <source>Hors d&apos;allonge ou de portee.</source>
         <translation>Out of reach or range.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="478"/>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="512"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="787"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="927"/>
+        <source>Hors de vue : abri total.</source>
+        <translation>Out of sight: total cover.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="791"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="931"/>
+        <source>Cible invalide.</source>
+        <translation>Invalid target.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="795"/>
+        <source>CA %1</source>
+        <translation>AC %1</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="797"/>
+        <source>, dont %1</source>
+        <translation>, including %1</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="799"/>
+        <source>Toucher</source>
+        <translation>To hit</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="799"/>
+        <source>d20 %1 contre %2 · %3 %</source>
+        <translation>d20 %1 against %2 · %3 %</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="804"/>
+        <source> au jet</source>
+        <translation> to the roll</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="807"/>
+        <source>Avantage</source>
+        <translation>Advantage</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="810"/>
+        <source>Desavantage</source>
+        <translation>Disadvantage</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="815"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="901"/>
+        <source>Degats</source>
+        <translation>Damage</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="825"/>
+        <source>,</source>
+        <translation>.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="843"/>
+        <source>Lancers</source>
+        <translation>Casts</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="844"/>
+        <source>%1 restant(s)</source>
+        <translation>%1 left</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="846"/>
+        <source>Portee</source>
+        <translation>Range</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="849"/>
+        <source>Zone</source>
+        <translation>Area</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="849"/>
+        <source>sphere de %1 case(s) de rayon</source>
+        <translation>sphere, %1-square radius</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="851"/>
+        <source>Cibles</source>
+        <translation>Targets</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="851"/>
+        <source>jusqu&apos;a %1</source>
+        <translation>up to %1</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="856"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="864"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="873"/>
+        <source>Jet</source>
+        <translation>Roll</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="857"/>
+        <source>d20 %1 contre la CA%2</source>
+        <translation>d20 %1 against AC%2</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="859"/>
+        <source>, %1 projectile(s)</source>
+        <translation>, %1 projectile(s)</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="865"/>
+        <source>sauvegarde de %1 contre DD %2%3</source>
+        <translation>%1 saving throw against DC %2%3</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="869"/>
+        <source>, degats de moitie</source>
+        <translation>, half damage</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="870"/>
+        <source>, annule</source>
+        <translation>, negates</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="875"/>
+        <source>touche, %1 projectile(s)</source>
+        <translation>hits, %1 projectile(s)</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="876"/>
+        <source>touche</source>
+        <translation>hits</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="886"/>
+        <source>Soin</source>
+        <translation>Healing</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="890"/>
+        <source>stabilise un mourant</source>
+        <translation>stabilises a dying creature</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="896"/>
+        <source>rend %1 point(s) de vie a un mort recent</source>
+        <translation>returns %1 hit point(s) to a recently dead creature</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="904"/>
+        <source>Concentration</source>
+        <translation>Concentration</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="904"/>
+        <source>un seul sort de concentration a la fois</source>
+        <translation>only one concentration spell at a time</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="907"/>
+        <source>Action</source>
+        <translation>Action</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="907"/>
+        <source>action bonus</source>
+        <translation>bonus action</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="923"/>
+        <source>Hors de portee.</source>
+        <translation>Out of range.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="939"/>
+        <source>Deplacement</source>
+        <translation>Movement</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="943"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="947"/>
+        <source>Chemin</source>
+        <translation>Path</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="943"/>
+        <source>Case hors d&apos;atteinte ce tour-ci.</source>
+        <translation>Square out of reach this turn.</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="948"/>
+        <source>%1 case(s), il en restera %2</source>
+        <translation>%1 square(s), %2 left</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="956"/>
+        <source>Opportunite</source>
+        <translation>Opportunity</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="977"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1011"/>
         <source>Cible hors de vue : abri total.</source>
         <translation>Target out of sight: total cover.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="481"/>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="515"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="980"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1014"/>
         <source>L&apos;action de ce tour est deja depensee.</source>
         <translation>This turn&apos;s action is already spent.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="484"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="983"/>
         <source>Ce combattant n&apos;a aucune attaque.</source>
         <translation>This fighter has no attack.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="490"/>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="520"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="989"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1019"/>
         <source>Attaque refusee.</source>
         <translation>Attack refused.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="529"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1028"/>
         <source>Deplacement : %1 case(s).</source>
         <translation>Move: %1 square(s).</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="532"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1031"/>
         <source>Case hors de portee de ce qui reste du deplacement.</source>
         <translation>Square beyond the movement left.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="536"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1035"/>
         <source>Aucun combattant a deplacer.</source>
         <translation>No fighter to move.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="703"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1202"/>
         <source>Rien a faire sur cette case.</source>
         <translation>Nothing to do on this square.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="720"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1222"/>
         <source>Il frappera l&apos;ennemi qui quitte son allonge.</source>
         <translation>They will strike an enemy leaving their reach.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="721"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1223"/>
         <source>Il laissera passer l&apos;ennemi qui quitte son allonge.</source>
         <translation>They will let an enemy leave their reach.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="775"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1277"/>
         <source>Sorti du combat.</source>
         <translation>Left the fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="778"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1280"/>
         <source>On ne fuit pas ce combat.</source>
         <translation>There is no fleeing this fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="781"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1283"/>
         <source>Personne a retirer.</source>
         <translation>Nobody to withdraw.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="63"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="197"/>
         <source>Sort : %1</source>
         <translation>Spell: %1</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="64"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="89"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="91"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="642"/>
+        <source> m</source>
+        <translation> m</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="110"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="844"/>
+        <source>a volonte</source>
+        <translation>at will</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="111"/>
+        <source>%1 lancer(s)</source>
+        <translation>%1 cast(s)</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="145"/>
+        <source>Ensanglante</source>
+        <translation>Bloodied</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="148"/>
+        <source>Esquive</source>
+        <translation>Dodging</translation>
+    </message>
+    <message>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="198"/>
         <source>Sort : %1 (%2)</source>
         <translation>Spell: %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="503"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="914"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1002"/>
         <source>Sort epuise : un repos long le rendra.</source>
         <translation>Spell exhausted: a long rest will restore it.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/CombatModel.cpp" line="506"/>
+        <location filename="../../HMI/Runtime/CombatModel.cpp" line="1005"/>
         <source>Ce combattant n&apos;a pas ce sort.</source>
         <translation>This combatant does not have that spell.</translation>
     </message>
@@ -1344,72 +1674,72 @@
 <context>
     <name>hmi::EncounterModel</name>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="210"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="242"/>
         <source>Un combat est deja engage.</source>
         <translation>A fight is already under way.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="216"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="248"/>
         <source>Aucune carte ou engager le combat.</source>
         <translation>No map to fight on.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="223"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="255"/>
         <source>Aucun membre du groupe n&apos;a de fiche : rien a engager.</source>
         <translation>No member of the party has a sheet: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="229"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="261"/>
         <source>Rencontre inconnue : %1</source>
         <translation>Unknown encounter: %1</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="363"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="399"/>
         <source> Un camp est vide apres le montage : rien a engager.</source>
         <translation> One side is empty after mounting: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="391"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="427"/>
         <source> Aucun membre du groupe n&apos;est monte : rien a engager.</source>
         <translation> No member of the party was mounted: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="553"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="665"/>
         <source>Le combat n&apos;est pas fini.</source>
         <translation>The fight is not over.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="762"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="873"/>
         <source>mort</source>
         <translation>dead</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="765"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="876"/>
         <source>a terre</source>
         <translation>down</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="768"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="879"/>
         <source>ensanglante</source>
         <translation>bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="777"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="888"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="788"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="899"/>
         <source>Ensanglante</source>
         <translation>Bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="791"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="902"/>
         <source>Esquive</source>
         <translation>Dodging</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="793"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="904"/>
         <source>Aucun</source>
         <translation>None</translation>
     </message>

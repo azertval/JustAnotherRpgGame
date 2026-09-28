@@ -26,6 +26,7 @@
 
 #include "Core/Rpg/PartyLedger.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
+#include "HMI/Platform/ExecutableDirectory.h"
 #include "HMI/Runtime/EncounterModel.h"
 #include "HMI/Runtime/PartyModel.h"
 #include "HMI/Runtime/WorldModel.h"
@@ -345,4 +346,115 @@ TEST(EncounterModelTest, LeCombatLaisseAuxFichesCeQuIlEnReste) {
     EXPECT_TRUE(monde.buryMember("heros-scoundrel"));
     EXPECT_FALSE(monde.buryMember("heros-mage")) << "le dernier ne s'enterre pas";
     EXPECT_EQ(monde.party().size(), 1U);
+}
+
+/**
+ * @brief L'interface de combat de groupe (`LOT-140`, `EX-IHM-108`) lit ce que la vue-modèle
+ *        publie : le round, les jetons de l'ordre d'initiative, le panneau du combattant actif, le
+ *        détail des actions et la prévisualisation de l'action choisie sur la case du curseur.
+ * \castest{<b>Round, jetons, panneau de l'actif, actions detaillees, previsualisation.</b><br/>
+ * \tcat Unitaire · Combat sur la carte<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Engager les rats a la graine 2026, jusqu'au tour du joueur.<br/>2. Lire `round`,
+ * `turnOrder`, `activeProfile`, `turnActions`.<br/>3. Viser le rat le plus proche avec la premiere
+ * attaque ; puis ramener le curseur sur soi ; puis viser une case libre atteignable.<br/>
+ * \tattendu Round 1 ; chaque ligne de l'ordre a ses initiales, les membres du groupe leur jeton
+ * s'il est installe ; le panneau porte la classe, le niveau 1, une action et un deplacement a
+ * depenser, les capacites de la fiche ; la premiere action ecrit son jet et ses des ; la
+ * previsualisation est une attaque titree « arme → cible » avec la ligne « Toucher », puis
+ * refuse la case d'un allie, puis decrit un deplacement.
+ * }
+ */
+TEST(EncounterModelTest, LInterfaceDeGroupeLitLaVueModele) {
+    hmi::WorldModel monde;
+    ouvrirLeDonjon(monde);
+    hmi::EncounterModel rencontre;
+    rencontre.setContentRoot(dataRoot());
+    rencontre.setSeed(2026);
+    ASSERT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon")))
+        << rencontre.status().toStdString();
+    std::set<std::string> bandes;
+    jusquAuJoueur(rencontre, monde, bandes);
+    ASSERT_FALSE(rencontre.ended());
+    EXPECT_EQ(rencontre.round(), 1);
+
+    // L'ordre d'initiative : des initiales pour tous, un jeton pour les membres du groupe.
+    const QVariantList ordre = rencontre.turnOrder();
+    ASSERT_EQ(ordre.size(), 7);
+    for (const QVariant& ligne : ordre) {
+        const QVariantMap rang = ligne.toMap();
+        EXPECT_FALSE(rang.value("initials").toString().isEmpty());
+        const QUrl jeton = rang.value("token").toUrl();
+        if (rang.value("side").toString() == QStringLiteral("allies")) {
+            const std::filesystem::path installe = hmi::dataDirectory() / "Assets" / "Common" /
+                                                   "Characters" / "Heroes" / "brawler" /
+                                                   "token.png";
+            if (std::filesystem::exists(installe)) {
+                EXPECT_TRUE(jeton.toString().endsWith(QStringLiteral("token.png")));
+            }
+        } else {
+            EXPECT_TRUE(jeton.isEmpty());
+        }
+    }
+
+    // Le panneau du combattant actif : un membre du groupe, sa classe, son niveau, son tour.
+    const QVariantMap actif = rencontre.activeProfile();
+    EXPECT_EQ(actif.value("name").toString(), rencontre.activeName());
+    EXPECT_EQ(actif.value("side").toString(), QStringLiteral("allies"));
+    const std::set<QString> classes{"brawler", "mage", "priest", "scoundrel"};
+    EXPECT_TRUE(classes.contains(actif.value("classId").toString()))
+        << actif.value("classId").toString().toStdString();
+    EXPECT_EQ(actif.value("level").toInt(), 1);
+    EXPECT_EQ(actif.value("action").toInt(), 1);
+    EXPECT_EQ(actif.value("actionMax").toInt(), 1);
+    EXPECT_GT(actif.value("movementMax").toInt(), 0);
+    EXPECT_GT(actif.value("armorClass").toInt(), 9);
+    EXPECT_FALSE(actif.value("capacities").toList().isEmpty()) << "chaque classe a une capacite";
+    for (const QVariant& capacite : actif.value("capacities").toList()) {
+        EXPECT_TRUE(capacite.toMap().value("iconKey").toString().startsWith(
+            QStringLiteral("ui/icon/capacity/")));
+    }
+
+    // Les actions ecrivent leur detail : la premiere est une attaque, son jet signe.
+    const QVariantList actions = rencontre.turnActions();
+    ASSERT_FALSE(actions.isEmpty());
+    EXPECT_EQ(actions.front().toMap().value("kind").toString(), QStringLiteral("attack"));
+    EXPECT_TRUE(actions.front().toMap().value("detail").toString().startsWith('+'))
+        << actions.front().toMap().value("detail").toString().toStdString();
+    EXPECT_EQ(actions.front().toMap().value("uses").toInt(), -1);
+
+    // La previsualisation : l'attaque sur le rat le plus proche, puis la case d'un allie, puis un
+    // deplacement.
+    rencontre.selectAction(0);
+    rencontre.cycleTarget(1);
+    QVariantMap apercu = rencontre.preview();
+    EXPECT_EQ(apercu.value("kind").toString(), QStringLiteral("attack"));
+    EXPECT_TRUE(apercu.value("title").toString().contains(QStringLiteral("›")))
+        << apercu.value("title").toString().toStdString();
+    const QVariantList lignes = apercu.value("lines").toList();
+    ASSERT_FALSE(lignes.isEmpty());
+    if (apercu.value("valid").toBool()) {
+        EXPECT_EQ(lignes.front().toMap().value("label").toString(), QStringLiteral("Toucher"));
+        EXPECT_FALSE(apercu.value("expected").toString().isEmpty());
+    } else {
+        EXPECT_EQ(lignes.front().toMap().value("label").toString(), QStringLiteral("Cible"));
+    }
+
+    rencontre.centerCursor();
+    apercu = rencontre.preview();
+    EXPECT_EQ(apercu.value("kind").toString(), QStringLiteral("attack"));
+    EXPECT_FALSE(apercu.value("valid").toBool()) << "sa propre case : rien a frapper";
+
+    const QVariantList atteignables = rencontre.reachableCells();
+    ASSERT_FALSE(atteignables.isEmpty());
+    const QVariantMap libre = atteignables.front().toMap();
+    rencontre.pointCursor(libre.value("column").toInt(), libre.value("row").toInt());
+    apercu = rencontre.preview();
+    EXPECT_EQ(apercu.value("kind").toString(), QStringLiteral("move"));
+    EXPECT_TRUE(apercu.value("valid").toBool());
+    EXPECT_EQ(apercu.value("lines").toList().front().toMap().value("label").toString(),
+              QStringLiteral("Chemin"));
+
+    fuir(rencontre, monde, bandes);
+    rencontre.leave();
 }

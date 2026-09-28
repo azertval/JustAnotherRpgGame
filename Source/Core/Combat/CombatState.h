@@ -501,6 +501,10 @@ public:
     [[nodiscard]] ScopedCounters& counters() noexcept {
         return _counters;
     }
+    /// @brief Les mêmes compteurs, en lecture : ce que la prévisualisation consulte.
+    [[nodiscard]] const ScopedCounters& counters() const noexcept {
+        return _counters;
+    }
 
     // --- Le tour -------------------------------------------------------------------------------
 

@@ -19,6 +19,7 @@
 #include "Core/Combat/EnemyAi.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/TileMap.h"
+#include "Core/Rpg/ClassCapacities.h"
 #include "Core/Rpg/Dice.h"
 
 namespace {
@@ -191,4 +192,79 @@ TEST(CombatPreviewTest, LeDeplacementSePrevisualiseEtLOpportuniteSeDecline) {
     // Le choix survit au rejeu.
     session.replay();
     EXPECT_FALSE(session.takesOpportunities(CombatantId{2}));
+}
+
+/**
+ * @brief Les capacités de classe entrent dans la prévisualisation comme dans le jet (`LOT-140`).
+ * \castest{<b>Le bonus au jet d'une capacite s'ajoute au jet requis ; les des d'une capacite a
+ * condition entrent dans l'esperance quand la condition tient, et la previsualisation nomme la
+ * capacite et la raison quand elle ne joue pas.</b><br/>
+ * \tcat Unitaire · Combat<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Une heroine a « +2 au jet » et « 1d6 en plus, une fois par tour, si un allie est au
+ * contact de la cible » ; un allie au contact d'une cible, une autre cible seule.<br/>2.
+ * Previsualiser sur chaque cible.<br/>3. Frapper la premiere, previsualiser encore.<br/>
+ * \tattendu Jet requis avec le +2 ; sur la cible flanquee, l'esperance porte le 1d6 et la capacite
+ * est nommee ; sur la cible seule, la capacite est nommee sans jouer, avec la raison ; apres une
+ * touche, la raison est « deja jouee ce tour ».
+ * }
+ */
+TEST(CombatPreviewTest, LesCapacitesEntrentDansLaPrevisualisation) {
+    core::Capacity viser{.id = "viser", .name = "Viser juste"};
+    viser.effects.push_back({.kind = core::CapacityEffectKind::AttackBonus, .value = 2});
+    core::Capacity sournoise{.id = "sournoise", .name = "Attaque sournoise"};
+    core::CapacityEffect des;
+    des.kind = core::CapacityEffectKind::ExtraDamage;
+    des.dice = *core::parseDice("1d6");
+    des.oncePerTurn = true;
+    des.allyAdjacentToTarget = true;
+    sournoise.effects.push_back(des);
+
+    core::ArenaBout bout{.seed = 4, .lethal = false, .heroicMark = false};
+    core::ArenaContestant heroine = combattant("Heroine", CombatSide::Allies, {4, 3}, 100, 12, 4);
+    heroine.capacities = {viser, sournoise};
+    bout.contestants = {heroine, combattant("Allie", CombatSide::Allies, {6, 3}, 0),
+                        combattant("Flanque", CombatSide::Enemies, {5, 3}, -100, 12, 0),
+                        combattant("Seul", CombatSide::Enemies, {4, 4}, -100, 12, 0)};
+    core::ArenaSession session(salle(12, 8));
+    session.mount(bout);
+    ASSERT_TRUE(session.start());
+    ASSERT_EQ(session.combat().activeCombatant(), CombatantId{1});
+
+    const std::optional<core::AttackPreview> flanque =
+        core::previewAttack(session, CombatantId{3}, 0);
+    ASSERT_TRUE(flanque.has_value());
+    EXPECT_EQ(flanque->attackBonus, 6);
+    EXPECT_EQ(flanque->requiredRoll, 6);
+    ASSERT_EQ(flanque->capacityModifiers.size(), 1U);
+    EXPECT_EQ(flanque->capacityModifiers.front().source, "Viser juste");
+    ASSERT_EQ(flanque->extraDamage.size(), 1U);
+    EXPECT_EQ(flanque->extraDamage.front().source, "Attaque sournoise");
+    EXPECT_TRUE(flanque->extraDamage.front().applies);
+
+    const std::optional<core::AttackPreview> seul = core::previewAttack(session, CombatantId{4}, 0);
+    ASSERT_TRUE(seul.has_value());
+    ASSERT_EQ(seul->extraDamage.size(), 1U);
+    EXPECT_FALSE(seul->extraDamage.front().applies);
+    EXPECT_FALSE(seul->extraDamage.front().reason.empty());
+    // Meme jet requis, meme chance : seuls les des different -- 1d6 de plus, soit 3,5 points par
+    // touche.
+    EXPECT_EQ(seul->hitChance, flanque->hitChance);
+    EXPECT_GT(flanque->expectedDamage, seul->expectedDamage);
+    EXPECT_EQ(flanque->expectedDamage - seul->expectedDamage,
+              flanque->hitChance * 7 + core::criticalChance(20, flanque->stance) * 7);
+
+    // Une fois jouee, la capacite ne joue plus ce tour : la previsualisation le dit.
+    const core::ArenaAttack coup = session.attack(CombatantId{3}, 0);
+    ASSERT_TRUE(coup.outcome.has_value());
+    const std::optional<core::AttackPreview> apres =
+        core::previewAttack(session, CombatantId{3}, 0);
+    ASSERT_TRUE(apres.has_value());
+    ASSERT_EQ(apres->extraDamage.size(), 1U);
+    if (coup.outcome->roll.hit) {
+        EXPECT_FALSE(apres->extraDamage.front().applies);
+        EXPECT_EQ(apres->extraDamage.front().reason, "deja jouee ce tour");
+    } else {
+        EXPECT_TRUE(apres->extraDamage.front().applies);
+    }
 }
