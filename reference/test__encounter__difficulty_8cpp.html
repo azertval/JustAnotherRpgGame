@@ -1,0 +1,275 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/test_encounter_difficulty.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__encounter__difficulty_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_encounter_difficulty.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests du budget d'une rencontre (<span class="tt">LOT-139</span>, <span class="tt">EX-CBT-063</span>) : les cinq étapes du <em>Guide du Maître</em> (p.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="EncounterDifficulty_8h_source.html">Core/Combat/EncounterDifficulty.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6e15743b3d57ac2e45e941d6b1e117ef" id="r_a6e15743b3d57ac2e45e941d6b1e117ef"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6e15743b3d57ac2e45e941d6b1e117ef">TEST</a> (EncounterDifficultyTest, LesReglesSeChargent)</td></tr>
+<tr class="memdesc:a6e15743b3d57ac2e45e941d6b1e117ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les règles livrées portent les quatre catégories, vingt niveaux et la table des PX.  <br /></td></tr>
+<tr class="memitem:a1cb8cb72032783b86ea6456bc39628a3" id="r_a1cb8cb72032783b86ea6456bc39628a3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1cb8cb72032783b86ea6456bc39628a3">TEST</a> (EncounterDifficultyTest, LExempleDuLivreTient)</td></tr>
+<tr class="memdesc:a1cb8cb72032783b86ea6456bc39628a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'exemple du livre : trois personnages de niveau 3 et un de niveau 2 ont pour seuils 275, 550, 825 et 1 400 PX ; un gobelours et trois hobgobelins (1 000 PX modifiés) sont une rencontre difficile.  <br /></td></tr>
+<tr class="memitem:adec9ac1030f1a8b0fb10d731e053c201" id="r_adec9ac1030f1a8b0fb10d731e053c201"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adec9ac1030f1a8b0fb10d731e053c201">TEST</a> (EncounterDifficultyTest, LesBanditsDeLaDemoSontUneRencontreDifficile)</td></tr>
+<tr class="memdesc:adec9ac1030f1a8b0fb10d731e053c201"><td class="mdescLeft">&#160;</td><td class="mdescRight">La rencontre de la démo, six bandits contre le groupe de quatre au niveau 1, est une rencontre <b>difficile</b> ; une créature inconnue compte pour rien et se dit.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests du budget d'une rencontre (<span class="tt">LOT-139</span>, <span class="tt">EX-CBT-063</span>) : les cinq étapes du <em>Guide du Maître</em> (p. </p>
+<p>82-83), rejouées sur les règles livrées et sur les exemples du livre. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="adec9ac1030f1a8b0fb10d731e053c201" name="adec9ac1030f1a8b0fb10d731e053c201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adec9ac1030f1a8b0fb10d731e053c201">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterDifficultyTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesBanditsDeLaDemoSontUneRencontreDifficile</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La rencontre de la démo, six bandits contre le groupe de quatre au niveau 1, est une rencontre <b>difficile</b> ; une créature inconnue compte pour rien et se dit. </p>
+<p><b>Cas de test :</b> <b>Les bandits de l'Arena of Fate sont une rencontre difficile pour le groupe de depart.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat · Budget<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Juger <span class="tt">arene-bandits</span> pour quatre niveaux 1.<br  />
+2. Juger une rencontre d'une creature inconnue.<br  />
+ <b>Resultat attendu :</b> 6 x 25 PX, x2 : 300 PX modifies, seuils 100 / 200 / 300 / 400 : « difficile » ; la creature inconnue est nommee, la categorie est vide. </p>
+
+</div>
+</div>
+<a id="a6e15743b3d57ac2e45e941d6b1e117ef" name="a6e15743b3d57ac2e45e941d6b1e117ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e15743b3d57ac2e45e941d6b1e117ef">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterDifficultyTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesReglesSeChargent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les règles livrées portent les quatre catégories, vingt niveaux et la table des PX. </p>
+<p><b>Cas de test :</b> <b>Les regles du budget de rencontre se chargent.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat · Budget<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger <span class="tt">Rpg/rules/encounter-difficulty.json</span>.<br  />
+ <b>Resultat attendu :</b> Quatre categories dans l'ordre du livre ; vingt niveaux ; un indice 1/8 vaut 25 PX, un indice 5 en vaut 1 800, un indice inconnu 0. </p>
+
+</div>
+</div>
+<a id="a1cb8cb72032783b86ea6456bc39628a3" name="a1cb8cb72032783b86ea6456bc39628a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cb8cb72032783b86ea6456bc39628a3">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterDifficultyTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LExempleDuLivreTient</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'exemple du livre : trois personnages de niveau 3 et un de niveau 2 ont pour seuils 275, 550, 825 et 1 400 PX ; un gobelours et trois hobgobelins (1 000 PX modifiés) sont une rencontre difficile. </p>
+<p><b>Cas de test :</b> <b>Les seuils du groupe et le multiplicateur suivent l'exemple du Guide du Maitre.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat · Budget<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Sommer les seuils de trois niveaux 3 et un niveau 2.<br  />
+2. Multiplier 500 PX de quatre monstres.<br  />
+3. Comparer le multiplicateur d'un groupe de deux et de six.<br  />
+ <b>Resultat attendu :</b> 275 / 550 / 825 / 1 400 ; x2 pour quatre monstres, donc 1 000 ; un groupe de deux contre un monstre seul prend x1,5 ; un groupe de six contre un monstre seul prend x0,5. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_e4f77e6506ec5ae5855f8bd23358af3b.html">Combat</a></li><li class="navelem"><a href="test__encounter__difficulty_8cpp.html">test_encounter_difficulty.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['s_20applique_20quand_0',['Ce qui s&apos;applique quand',['../classhmi_1_1OptionsModel.html#autotoc_md114',1,'']]],
+  ['s_20applique_20quand_0',['Ce qui s&apos;applique quand',['../classhmi_1_1OptionsModel.html#autotoc_md115',1,'']]],
   ['s_20arrête_20que_20sur_20une_20réplique_1',['Le joueur ne s&apos;arrête que sur une réplique',['../classcore_1_1DialogueRunner.html#autotoc_md58',1,'']]],
   ['s_20y_20retrouver_2',['S&apos;y retrouver',['../index.html#autotoc_md1',1,'']]],
   ['sans_20héros_20unique_3',['Sans héros unique',['../classcore_1_1CombatState.html#autotoc_md26',1,'']]],
   ['scène_20fondue_4',['Les couches, dans une scène fondue',['../CanvasScene_8h.html#autotoc_md72',1,'']]],
   ['scène_20que_20le_20jeu_5',['La même scène que le jeu',['../CanvasScene_8h.html#autotoc_md71',1,'']]],
-  ['se_20cacher_6',['Ce qui change vraiment, et qu&apos;il ne faut pas se cacher',['../classhmi_1_1GameViewportItem.html#autotoc_md111',1,'']]],
+  ['se_20cacher_6',['Ce qui change vraiment, et qu&apos;il ne faut pas se cacher',['../classhmi_1_1GameViewportItem.html#autotoc_md112',1,'']]],
   ['se_20désigne_20par_20son_20pied_7',['Un relief haut se désigne par son pied',['../CanvasPicking_8h.html#autotoc_md69',1,'']]],
   ['se_20fractionne_8',['Le déplacement se fractionne',['../classcore_1_1ActionEconomy.html#autotoc_md6',1,'']]],
   ['se_20tenir_20ici_20»_9',['se tenir ici »',['../namespacecore.html#autotoc_md44',1,'Une seule règle pour « se tenir ici »'],['../classcore_1_1BattleGrid.html#autotoc_md17',1,'Une seule source de vérité pour « peut-on se tenir ici »']]],
@@ -16,7 +16,7 @@ var searchData=
   ['seule_20règle_20pour_20«_20se_20tenir_20ici_20»_13',['Une seule règle pour « se tenir ici »',['../namespacecore.html#autotoc_md44',1,'']]],
   ['seule_20source_20de_20vérité_20pour_20«_20peut_20on_20se_20tenir_20ici_20»_14',['Une seule source de vérité pour « peut-on se tenir ici »',['../classcore_1_1BattleGrid.html#autotoc_md17',1,'']]],
   ['signaux_15',['Signaux',['../classhmi_1_1CombatModel.html#autotoc_md102',1,'']]],
-  ['singleton_20comme_20la_20partie_16',['Un singleton, comme la partie',['../classhmi_1_1EncounterModel.html#autotoc_md106',1,'']]],
+  ['singleton_20comme_20la_20partie_16',['Un singleton, comme la partie',['../classhmi_1_1EncounterModel.html#autotoc_md107',1,'']]],
   ['son_20intérêt_17',['Pure, et c&apos;est tout son intérêt',['../classcore_1_1DialogueRunner.html#autotoc_md57',1,'']]],
   ['son_20pied_18',['Un relief haut se désigne par son pied',['../CanvasPicking_8h.html#autotoc_md69',1,'']]],
   ['source_20de_20vérité_20pour_20«_20peut_20on_20se_20tenir_20ici_20»_19',['Une seule source de vérité pour « peut-on se tenir ici »',['../classcore_1_1BattleGrid.html#autotoc_md17',1,'']]],

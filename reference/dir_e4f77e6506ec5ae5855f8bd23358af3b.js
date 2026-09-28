@@ -15,6 +15,7 @@ var dir_e4f77e6506ec5ae5855f8bd23358af3b =
     [ "test_damage.cpp", "test__damage_8cpp.html", "test__damage_8cpp" ],
     [ "test_death_and_dying.cpp", "test__death__and__dying_8cpp.html", "test__death__and__dying_8cpp" ],
     [ "test_encounter.cpp", "test__encounter_8cpp.html", "test__encounter_8cpp" ],
+    [ "test_encounter_difficulty.cpp", "test__encounter__difficulty_8cpp.html", "test__encounter__difficulty_8cpp" ],
     [ "test_enemy_ai.cpp", "test__enemy__ai_8cpp.html", "test__enemy__ai_8cpp" ],
     [ "test_iso_projection.cpp", "test__iso__projection_8cpp.html", "test__iso__projection_8cpp" ],
     [ "test_line_of_sight.cpp", "test__line__of__sight_8cpp.html", "test__line__of__sight_8cpp" ],

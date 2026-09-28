@@ -161,8 +161,15 @@ public:
 <span style = "background-color:#dfd">        }
         for (const Present&amp; ennemi : _ennemis) {
             _mobilite.push_back(destinationsDe(ennemi));
+        }</span>
+        // L'IA repartit ses coups (LOT-139) : un ennemi a terre ne se finit que si aucun ennemi
+        // debout ne menace l'acteur au contact -- s'acharner sur un blesse pendant qu'un autre
+        // frappe, c'est ce que le critere du lot interdit. Decision nommee : le Guide du Maitre
+        // ne dit rien d'achever (LOT-137, D10).
+<span style = "background-color:#dfd">        if (!_aTerre.empty() &amp;&amp; menacesImmediates(*ancre) &gt; 0) {
+            _aTerre.clear();</span>
         }
-    }</span>
+<span style = "background-color:#dfd">    }</span>
 
 <span style = "background-color:#dfd">    [[nodiscard]] bool valide() const noexcept {
         return _valide;
@@ -336,8 +343,8 @@ public:
 
 <span style = "background-color:#dfd">            for (std::size_t i = 0; i &lt; _moi.attaques-&gt;size(); ++i) {
                 const AttackProfile&amp; attaque = (*_moi.attaques)[i];
-                if (!porte(attaque, distance)) {</span>
-<span style = "background-color:#fdd">                    continue;</span>
+                if (!porte(attaque, distance)) {
+                    continue;</span>
                 }
 <span style = "background-color:#dfd">                Frappe frappe{.cible = cible.id, .indice = i, .circonstances = {}};
                 const RollStance posture =</span>
@@ -412,8 +419,8 @@ private:
             frappe.circonstances.emplace_back("prise en tenaille");</span>
         }
 <span style = "background-color:#dfd">        if (attaque.kind == AttackKind::Ranged) {
-            if (attaque.range.has_value() &amp;&amp; distance &gt; attaque.range-&gt;normal) {</span>
-<span style = "background-color:#fdd">                ++desavantages;
+            if (attaque.range.has_value() &amp;&amp; distance &gt; attaque.range-&gt;normal) {
+                ++desavantages;
                 frappe.circonstances.emplace_back("longue portee");</span>
             }
 <span style = "background-color:#dfd">            if (!auContact.has_value()) {

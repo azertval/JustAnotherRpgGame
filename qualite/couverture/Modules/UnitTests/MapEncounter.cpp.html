@@ -15,6 +15,7 @@
 #include "Core/Combat/MapEncounter.h"
 
 #include &lt;algorithm&gt;
+#include &lt;array&gt;
 #include &lt;cstdlib&gt;
 #include &lt;utility&gt;
 
@@ -70,7 +71,22 @@ MapEncounterResult prepareMapEncounter(const Level&amp; map, std::string_view ma
                                        GridPosition heroCell,
                                        const ExplorationSnapshot&amp; exploration,
 <span style = "background-color:#dfd">                                       std::string defeatFlagKey) {
-    MapEncounterResult result;</span>
+    const std::array&lt;GridPosition, 1&gt; seul{heroCell};
+    return prepareMapEncounter(map, mapId, encounter, trigger, seul, exploration,</span>
+                               std::move(defeatFlagKey));
+<span style = "background-color:#dfd">}</span>
+
+MapEncounterResult prepareMapEncounter(const Level&amp; map, std::string_view mapId,
+                                       const Encounter&amp; encounter, GridPosition trigger,
+                                       std::span&lt;const GridPosition&gt; partyCells,
+                                       const ExplorationSnapshot&amp; exploration,
+<span style = "background-color:#dfd">                                       std::string defeatFlagKey) {
+    MapEncounterResult result;
+    if (partyCells.empty()) {
+        result.issue = std::string{mapId} + " : aucun membre du groupe a mettre en combat.";
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    const GridPosition heroCell = partyCells.front();</span>
 
     // La zone : celle du declencheur, a defaut celle du heros. Le terrain deja analyse par
     // l'editeur (`analyzeCombatZones`) dit si elle est jouable et quelles cases y sont libres.
@@ -104,7 +120,8 @@ MapEncounterResult prepareMapEncounter(const Level&amp; map, std::string_view ma
 <span style = "background-color:#dfd">        .zone = zone,
         .battlefield = cropLevelToZone(map, zone),</span>
         .heroCell = {},
-<span style = "background-color:#dfd">        .run = beginEncounter(encounter, exploration, trigger, std::move(defeatFlagKey)),
+<span style = "background-color:#dfd">        .partyCells = {},
+        .run = beginEncounter(encounter, exploration, trigger, std::move(defeatFlagKey)),
         .notes = {}};</span>
 
     // Les cases libres, en cases de la carte ; ce qui est pris s'y retire au fil des places.
@@ -132,8 +149,15 @@ MapEncounterResult prepareMapEncounter(const Level&amp; map, std::string_view ma
 <span style = "background-color:#dfd">        return *proche;
     };</span>
 
-    // Le heros d'abord : c'est lui que la rencontre entoure.
+    // Le heros d'abord : c'est lui que la rencontre entoure. Puis ses suiveurs, dans l'ordre de
+    // marche, la ou l'exploration les a laisses (LOT-139) : un suiveur hors de la zone -- la file
+    // depasse du sable -- prend la case libre la plus proche de la sienne, donc du meneur.
 <span style = "background-color:#dfd">    setup.heroCell = mapToZone(zone, placer(heroCell, "heros"));
+    setup.partyCells.push_back(setup.heroCell);
+    for (std::size_t rang = 1; rang &lt; partyCells.size(); ++rang) {
+        setup.partyCells.push_back(</span>
+            mapToZone(zone, placer(partyCells[rang], "suiveur " + std::to_string(rang))));
+<span style = "background-color:#dfd">    }
     for (CombatantPlacement&amp; placement : setup.run.placements) {
         placement.position = mapToZone(zone, placer(placement.position, placement.creatureId));
     }

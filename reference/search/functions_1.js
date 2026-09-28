@@ -49,5 +49,6 @@ var searchData=
   ['buildstatusbar_46',['buildStatusBar',['../classhmi_1_1MainWindow.html#a871837448750fb40e380fe52af2f666f',1,'hmi::MainWindow']]],
   ['buildui_47',['buildUi',['../classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666',1,'hmi::MainWindow']]],
   ['buildworldgraph_48',['buildWorldGraph',['../namespacecore.html#a613ed3cc48dbcdf1ed1533b2bb6c9f9c',1,'core']]],
-  ['busy_49',['busy',['../classhmi_1_1CombatCueTrack.html#a40e87f2f4dc51a0410eb2c5cf9e9c67a',1,'hmi::CombatCueTrack::busy()'],['../classhmi_1_1EncounterModel.html#a2b96bcaea5f01905cb698b443535c333',1,'hmi::EncounterModel::busy()']]]
+  ['burymember_49',['buryMember',['../classhmi_1_1WorldModel.html#a266e215336e2fd9194e63f1cc589531c',1,'hmi::WorldModel']]],
+  ['busy_50',['busy',['../classhmi_1_1CombatCueTrack.html#a40e87f2f4dc51a0410eb2c5cf9e9c67a',1,'hmi::CombatCueTrack::busy()'],['../classhmi_1_1EncounterModel.html#a2b96bcaea5f01905cb698b443535c333',1,'hmi::EncounterModel::busy()']]]
 ];

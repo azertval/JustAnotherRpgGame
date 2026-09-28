@@ -153,9 +153,12 @@ $(function(){initNavTree('test__encounter__model_8cpp.html','',''); });
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="PartyLedger_8h_source.html">Core/Rpg/PartyLedger.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EncounterModel_8h_source.html">HMI/Runtime/EncounterModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PartyModel_8h_source.html">HMI/Runtime/PartyModel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldModel_8h_source.html">HMI/Runtime/WorldModel.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
@@ -166,13 +169,17 @@ Functions</h2></td></tr>
 <tr class="memdesc:a13091cdd041fbd14624e766f78024ab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une rencontre inconnue, ou déclenchée hors de toute zone de combat, est refusée et l'exploration continue.  <br /></td></tr>
 <tr class="memitem:a57f03272f57b5bf248b353b852f68331" id="r_a57f03272f57b5bf248b353b852f68331"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a57f03272f57b5bf248b353b852f68331">TEST</a> (EncounterModelTest, LesGestesAttendentLaFinDUnMouvement)</td></tr>
 <tr class="memdesc:a57f03272f57b5bf248b353b852f68331"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pendant qu'un mouvement se joue, les gestes attendent ; sauter l'animation les rouvre.  <br /></td></tr>
+<tr class="memitem:a682c768c589460bb6e5f8cfaf32afb20" id="r_a682c768c589460bb6e5f8cfaf32afb20"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a682c768c589460bb6e5f8cfaf32afb20">TEST</a> (EncounterModelTest, LeRejeuAGraineFixeeDonneLeMemeCombat)</td></tr>
+<tr class="memdesc:a682c768c589460bb6e5f8cfaf32afb20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rejeu à graine fixée donne le même combat (<span class="tt">LOT-139</span>) : deux rencontres montées à la même graine, jouées par les mêmes gestes, écrivent le même journal — et chaque membre du groupe y est joué par le joueur à son tour (<span class="tt">EX-CBT-061</span>).  <br /></td></tr>
+<tr class="memitem:a9b3fbfe0690679c0d4ff4f9c143abfaa" id="r_a9b3fbfe0690679c0d4ff4f9c143abfaa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9b3fbfe0690679c0d4ff4f9c143abfaa">TEST</a> (EncounterModelTest, LeCombatLaisseAuxFichesCeQuIlEnReste)</td></tr>
+<tr class="memdesc:a9b3fbfe0690679c0d4ff4f9c143abfaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le combat laisse aux fiches (<span class="tt">LOT-139</span>) : les points de vie qui restent sont relus au combat suivant et montrés par l'écran de groupe ; un membre mort quitte le groupe, et s'il menait, le suivant mène.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests du combat sur la carte (<span class="tt">LOT-118</span>) : une rencontre engagée pendant l'exploration se monte sur la zone de combat de la carte, se joue par les gestes du Colisée, se montre par les figurines de la carte gelée, et rend l'exploration. </p>
 <p>La vue-modèle lit ses règles à côté de l'exécutable, comme le jeu ; la <b>carte</b> et le <b>contenu</b> — la rencontre, le rat d'essai, le maître d'arène d'essai — viennent de la racine d'essai (<span class="tt">Source/Test/Fixtures/GameData</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ad8de3b269713065ab5b65be5a738b15a" name="ad8de3b269713065ab5b65be5a738b15a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8de3b269713065ab5b65be5a738b15a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8de3b269713065ab5b65be5a738b15a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,8 +210,69 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9b3fbfe0690679c0d4ff4f9c143abfaa" name="a9b3fbfe0690679c0d4ff4f9c143abfaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b3fbfe0690679c0d4ff4f9c143abfaa">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeCombatLaisseAuxFichesCeQuIlEnReste</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que le combat laisse aux fiches (<span class="tt">LOT-139</span>) : les points de vie qui restent sont relus au combat suivant et montrés par l'écran de groupe ; un membre mort quitte le groupe, et s'il menait, le suivant mène. </p>
+<p><b>Cas de test :</b> <b>Le registre du groupe : points de vie relus, mort qui ne suit plus.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat sur la carte<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Noter au registre 5 PV pour le Brawler ; engager les rats.<br  />
+2. Fuir ; lire le registre.<br  />
+3. Enterrer le Brawler, puis tenter d'enterrer tout le monde.<br  />
+ <b>Resultat attendu :</b> Le Brawler entre en combat a 5 / 15, l'ecran de groupe le dit ; apres la fuite, chaque membre a un enregistrement, au moins 1 PV ; enterre, le Brawler quitte le groupe, le Priest mene, deux suiveurs ; le dernier ne s'enterre pas. </p>
+
+</div>
+</div>
+<a id="a682c768c589460bb6e5f8cfaf32afb20" name="a682c768c589460bb6e5f8cfaf32afb20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a682c768c589460bb6e5f8cfaf32afb20">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeRejeuAGraineFixeeDonneLeMemeCombat</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le rejeu à graine fixée donne le même combat (<span class="tt">LOT-139</span>) : deux rencontres montées à la même graine, jouées par les mêmes gestes, écrivent le même journal — et chaque membre du groupe y est joué par le joueur à son tour (<span class="tt">EX-CBT-061</span>). </p>
+<p><b>Cas de test :</b> <b>Deux combats de groupe a la meme graine sont identiques.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat sur la carte<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Engager les rats a la graine 41, jouer trois rounds (attaquer, finir le tour), relever le journal, fuir.<br  />
+2. Reposer le groupe, recommencer a la meme graine.<br  />
+ <b>Resultat attendu :</b> Les deux journaux sont identiques, et ont vu plus d'un membre du groupe jouer. </p>
+
+</div>
+</div>
 <a id="a57f03272f57b5bf248b353b852f68331" name="a57f03272f57b5bf248b353b852f68331"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57f03272f57b5bf248b353b852f68331">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a57f03272f57b5bf248b353b852f68331">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -236,7 +304,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a13091cdd041fbd14624e766f78024ab7" name="a13091cdd041fbd14624e766f78024ab7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13091cdd041fbd14624e766f78024ab7">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a13091cdd041fbd14624e766f78024ab7">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

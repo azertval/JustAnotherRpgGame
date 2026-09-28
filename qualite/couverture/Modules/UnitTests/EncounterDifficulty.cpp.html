@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EncounterDifficulty.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/EncounterDifficulty.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;cstdlib&gt;
+
+#include "Core/Data/JsonDocument.h"
+
+namespace core {
+namespace {
+
+constexpr int SANS_GARDE_DE_VERSION = 0;
+// Les tailles de groupe qui changent le multiplicateur (Guide du Maitre, p. 83).
+constexpr int PETIT_GROUPE = 3;
+constexpr int GRAND_GROUPE = 6;
+
+<span style = "background-color:#dfd">[[nodiscard]] double lireReel(const nlohmann::json&amp; objet, const char* champ, double defaut) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_number()) ? trouve-&gt;get&lt;double&gt;() : defaut;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">EncounterDifficultyRules loadEncounterDifficultyRules(const std::filesystem::path&amp; path) {
+    EncounterDifficultyRules rules;
+    const JsonDocument document = readJsonObjectFromFile(path, SANS_GARDE_DE_VERSION);
+    if (!document.ok()) {</span>
+<span style = "background-color:#fdd">        rules.errors.push_back(document.message);
+        return rules;</span>
+    }
+<span style = "background-color:#dfd">    const nlohmann::json&amp; racine = document.root;
+    const std::string fichier = path.string();</span>
+
+<span style = "background-color:#dfd">    const auto categories = racine.find("categories");
+    if (categories == racine.end() || !categories-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        rules.errors.push_back(fichier + " : champ 'categories' absent ou non tableau.");
+    } else {</span>
+<span style = "background-color:#dfd">        for (const nlohmann::json&amp; categorie : *categories) {
+            if (categorie.is_string()) {
+                rules.categories.push_back(categorie.get&lt;std::string&gt;());
+            }
+        }</span>
+    }
+
+<span style = "background-color:#dfd">    const auto seuils = racine.find("thresholds");
+    if (seuils == racine.end() || !seuils-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        rules.errors.push_back(fichier + " : champ 'thresholds' absent ou non tableau.");
+    } else {</span>
+<span style = "background-color:#dfd">        for (const nlohmann::json&amp; ligne : *seuils) {
+            const auto niveau = ligne.is_object() ? ligne.find("level") : ligne.end();
+            if (niveau == ligne.end() || !niveau-&gt;is_number_integer()) {</span>
+<span style = "background-color:#fdd">                rules.errors.push_back(fichier + " : seuil sans niveau.");
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            DifficultyThresholds seuil{.level = niveau-&gt;get&lt;int&gt;(), .experience = {}};
+            for (const std::string&amp; categorie : rules.categories) {
+                const auto valeur = ligne.find(categorie);
+                if (valeur == ligne.end() || !valeur-&gt;is_number_integer()) {</span>
+<span style = "background-color:#fdd">                    rules.errors.push_back(fichier + " : niveau " + std::to_string(seuil.level) +</span>
+                                           " sans seuil Â« " + categorie + " Â».");
+<span style = "background-color:#fdd">                    continue;</span>
+                }
+<span style = "background-color:#dfd">                seuil.experience.emplace(categorie, valeur-&gt;get&lt;int&gt;());
+            }
+            rules.thresholds.push_back(std::move(seuil));
+        }
+        std::ranges::sort(rules.thresholds, {}, &amp;DifficultyThresholds::level);</span>
+    }
+
+<span style = "background-color:#dfd">    const auto multiplicateurs = racine.find("multipliers");
+    if (multiplicateurs == racine.end() || !multiplicateurs-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        rules.errors.push_back(fichier + " : champ 'multipliers' absent ou non tableau.");
+    } else {</span>
+<span style = "background-color:#dfd">        for (const nlohmann::json&amp; ligne : *multiplicateurs) {
+            if (!ligne.is_object()) {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            rules.multipliers.push_back(EncounterMultiplier{</span>
+                .minMonsters = static_cast&lt;int&gt;(lireReel(ligne, "minMonsters", 1.0)),
+                .multiplier = lireReel(ligne, "multiplier", 1.0)});
+<span style = "background-color:#dfd">        }
+        std::ranges::sort(rules.multipliers, {}, &amp;EncounterMultiplier::minMonsters);</span>
+    }
+<span style = "background-color:#dfd">    rules.smallPartyMultiplier = lireReel(racine, "smallPartyMultiplier", 1.0);
+    rules.largePartyMultiplier = lireReel(racine, "largePartyMultiplier", 1.0);</span>
+
+<span style = "background-color:#dfd">    const auto px = racine.find("experienceByChallenge");
+    if (px == racine.end() || !px-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        rules.errors.push_back(fichier + " : champ 'experienceByChallenge' absent ou non tableau.");
+    } else {</span>
+<span style = "background-color:#dfd">        for (const nlohmann::json&amp; ligne : *px) {
+            if (!ligne.is_object()) {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            rules.experienceByChallenge.push_back(ChallengeExperience{</span>
+                .challengeRating = static_cast&lt;float&gt;(lireReel(ligne, "challengeRating", 0.0)),
+                .experience = static_cast&lt;int&gt;(lireReel(ligne, "experience", 0.0))});
+<span style = "background-color:#dfd">        }</span>
+    }
+<span style = "background-color:#dfd">    return rules;
+}</span>
+
+<span style = "background-color:#dfd">int experienceForChallenge(const EncounterDifficultyRules&amp; rules, float challengeRating) {</span>
+    // Les indices fractionnaires (1/8, 1/4, 1/2) se comparent a une tolerance : 0.125 ecrit en
+    // donnee et lu en flottant ne differe de lui-meme que par le bruit du format.
+<span style = "background-color:#dfd">    constexpr float TOLERANCE = 0.001F;
+    for (const ChallengeExperience&amp; entree : rules.experienceByChallenge) {
+        if (std::fabs(entree.challengeRating - challengeRating) &lt; TOLERANCE) {
+            return entree.experience;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return 0;
+}</span>
+
+<span style = "background-color:#dfd">double encounterMultiplierFor(const EncounterDifficultyRules&amp; rules, int monsters, int partySize) {
+    if (rules.multipliers.empty() || monsters &lt;= 0) {
+        return 1.0;</span>
+    }
+    // La categorie du nombre de monstres : la derniere dont le plancher est atteint.
+<span style = "background-color:#dfd">    std::size_t categorie = 0;
+    for (std::size_t i = 0; i &lt; rules.multipliers.size(); ++i) {
+        if (monsters &gt;= rules.multipliers[i].minMonsters) {
+            categorie = i;</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+    // Moins de trois personnages : la categorie superieure ; six ou plus : l'inferieure.
+<span style = "background-color:#dfd">    if (partySize &gt; 0 &amp;&amp; partySize &lt; PETIT_GROUPE) {
+        if (categorie + 1 &gt;= rules.multipliers.size()) {
+            return rules.smallPartyMultiplier;</span>
+        }
+<span style = "background-color:#dfd">        return rules.multipliers[categorie + 1].multiplier;</span>
+    }
+<span style = "background-color:#dfd">    if (partySize &gt;= GRAND_GROUPE) {
+        if (categorie == 0) {
+            return rules.largePartyMultiplier;</span>
+        }
+<span style = "background-color:#dfd">        return rules.multipliers[categorie - 1].multiplier;</span>
+    }
+<span style = "background-color:#dfd">    return rules.multipliers[categorie].multiplier;
+}</span>
+
+std::map&lt;std::string, int&gt; partyThresholds(const EncounterDifficultyRules&amp; rules,
+<span style = "background-color:#dfd">                                           std::span&lt;const int&gt; partyLevels) {
+    std::map&lt;std::string, int&gt; total;
+    if (rules.thresholds.empty()) {</span>
+<span style = "background-color:#fdd">        return total;</span>
+    }
+<span style = "background-color:#dfd">    for (const int niveau : partyLevels) {</span>
+        // Le seuil du niveau, ou du plus proche : un niveau 0 ou 25 n'a pas de ligne.
+<span style = "background-color:#dfd">        const DifficultyThresholds* proche = &amp;rules.thresholds.front();
+        for (const DifficultyThresholds&amp; seuil : rules.thresholds) {
+            if (std::abs(seuil.level - niveau) &lt; std::abs(proche-&gt;level - niveau)) {
+                proche = &amp;seuil;</span>
+            }
+<span style = "background-color:#dfd">        }
+        for (const auto&amp; [categorie, valeur] : proche-&gt;experience) {
+            total[categorie] += valeur;
+        }
+    }
+    return total;
+}</span>
+
+EncounterBudget rateEncounter(const EncounterDifficultyRules&amp; rules, const Encounter&amp; encounter,
+<span style = "background-color:#dfd">                              const Bestiary&amp; bestiary, std::span&lt;const int&gt; partyLevels) {
+    EncounterBudget budget;</span>
+    // Etape 3 : la somme des PX des monstres.
+<span style = "background-color:#dfd">    for (const EncounterCombatant&amp; combattant : encounter.combatants) {
+        const Creature* const creature = bestiary.find(combattant.creatureId);
+        if (creature == nullptr) {
+            budget.unknownCreatures.push_back(combattant.creatureId);
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        ++budget.monsters;
+        budget.monsterExperience += experienceForChallenge(rules, creature-&gt;challengeRating);
+    }</span>
+    // Etape 4 : le multiplicateur selon leur nombre, et la taille du groupe.
+<span style = "background-color:#dfd">    budget.multiplier =</span>
+        encounterMultiplierFor(rules, budget.monsters, static_cast&lt;int&gt;(partyLevels.size()));
+<span style = "background-color:#dfd">    budget.adjustedExperience = static_cast&lt;int&gt;(</span>
+        std::lround(static_cast&lt;double&gt;(budget.monsterExperience) * budget.multiplier));
+    // Etapes 1 et 2 : les seuils du groupe ; etape 5 : le seuil inferieur le plus proche.
+<span style = "background-color:#dfd">    budget.thresholds = partyThresholds(rules, partyLevels);
+    for (const std::string&amp; categorie : rules.categories) {
+        const auto seuil = budget.thresholds.find(categorie);
+        if (seuil != budget.thresholds.end() &amp;&amp; budget.adjustedExperience &gt;= seuil-&gt;second) {
+            budget.category = categorie;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return budget;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

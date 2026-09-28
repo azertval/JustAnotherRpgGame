@@ -247,7 +247,7 @@ var NAVTREEINDEX0 =
 "EditorViewport_8h_source.html":[4,0,0,3,1,7],
 "Editor_2Main_8cpp.html":[4,0,0,0,1,0],
 "Editor_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627":[4,0,0,0,1,0,0],
-"EncounterModel_8cpp.html":[4,0,0,6,7,18],
-"EncounterModel_8h.html":[4,0,0,6,7,19],
-"EncounterModel_8h_source.html":[4,0,0,6,7,19]
+"EncounterDifficulty_8cpp.html":[4,0,0,2,0,22],
+"EncounterDifficulty_8h.html":[4,0,0,2,0,23],
+"EncounterDifficulty_8h_source.html":[4,0,0,2,0,23]
 };

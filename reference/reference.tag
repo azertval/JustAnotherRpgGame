@@ -613,6 +613,27 @@
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
+    <name>EncounterDifficulty.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
+    <filename>EncounterDifficulty_8cpp.html</filename>
+    <includes id="EncounterDifficulty_8h" name="EncounterDifficulty.h" local="yes" import="no" module="no" objc="no">Core/Combat/EncounterDifficulty.h</includes>
+    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>EncounterDifficulty.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
+    <filename>EncounterDifficulty_8h.html</filename>
+    <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
+    <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
+    <class kind="struct">core::DifficultyThresholds</class>
+    <class kind="struct">core::EncounterMultiplier</class>
+    <class kind="struct">core::ChallengeExperience</class>
+    <class kind="struct">core::EncounterDifficultyRules</class>
+    <class kind="struct">core::EncounterBudget</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
     <name>EnemyAi.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
     <filename>EnemyAi_8cpp.html</filename>
@@ -1886,6 +1907,22 @@
     <class kind="class">core::Party</class>
     <class kind="struct">core::PartyCandidate</class>
     <class kind="struct">core::PartyCandidates</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>PartyLedger.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
+    <filename>PartyLedger_8cpp.html</filename>
+    <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>PartyLedger.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
+    <filename>PartyLedger_8h.html</filename>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <class kind="struct">core::MemberRecord</class>
+    <class kind="class">core::PartyLedger</class>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -5362,6 +5399,7 @@
     <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
     <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
     <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
+    <includes id="Party_8h" name="Party.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Party.h</includes>
     <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
     <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
     <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
@@ -5378,11 +5416,13 @@
     <filename>EncounterModel_8h.html</filename>
     <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
     <includes id="MapEncounter_8h" name="MapEncounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/MapEncounter.h</includes>
+    <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
     <includes id="CombatCues_8h" name="CombatCues.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatCues.h</includes>
     <includes id="FigureResolver_8h" name="FigureResolver.h" local="yes" import="no" module="no" objc="no">HMI/Game/FigureResolver.h</includes>
     <includes id="CombatModel_8h" name="CombatModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/CombatModel.h</includes>
     <class kind="class">hmi::EncounterModel</class>
     <class kind="struct">hmi::EncounterModel::Binding</class>
+    <class kind="struct">hmi::EncounterModel::Member</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5616,6 +5656,7 @@
     <filename>WorldModel_8h.html</filename>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
     <includes id="Party_8h" name="Party.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Party.h</includes>
+    <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
     <includes id="CityPlan_8h" name="CityPlan.h" local="yes" import="no" module="no" objc="no">Core/World/CityPlan.h</includes>
     <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
     <includes id="WorldPlay_8h" name="WorldPlay.h" local="yes" import="no" module="no" objc="no">HMI/Game/WorldPlay.h</includes>
@@ -6839,6 +6880,33 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_encounter_difficulty.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
+    <filename>test__encounter__difficulty_8cpp.html</filename>
+    <includes id="EncounterDifficulty_8h" name="EncounterDifficulty.h" local="yes" import="no" module="no" objc="no">Core/Combat/EncounterDifficulty.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__difficulty_8cpp.html</anchorfile>
+      <anchor>a6e15743b3d57ac2e45e941d6b1e117ef</anchor>
+      <arglist>(EncounterDifficultyTest, LesReglesSeChargent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__difficulty_8cpp.html</anchorfile>
+      <anchor>a1cb8cb72032783b86ea6456bc39628a3</anchor>
+      <arglist>(EncounterDifficultyTest, LExempleDuLivreTient)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__difficulty_8cpp.html</anchorfile>
+      <anchor>adec9ac1030f1a8b0fb10d731e053c201</anchor>
+      <arglist>(EncounterDifficultyTest, LesBanditsDeLaDemoSontUneRencontreDifficile)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_enemy_ai.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
     <filename>test__enemy__ai_8cpp.html</filename>
@@ -7057,6 +7125,13 @@
       <anchorfile>test__map__encounter_8cpp.html</anchorfile>
       <anchor>af58087ee4c633d13661b99d178a233fe</anchor>
       <arglist>(MapEncounterTest, UnePlaceImpossibleSeRapprocheEtSeNote)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__map__encounter_8cpp.html</anchorfile>
+      <anchor>a053278ad6ab0a66d051d4e620215db9f</anchor>
+      <arglist>(MapEncounterTest, LeGroupeEntreLaOuIlMarche)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -9994,6 +10069,27 @@
       <anchorfile>test__party_8cpp.html</anchorfile>
       <anchor>a80321292cb547ae48b25cdb29931be1b</anchor>
       <arglist>(PartyTest, UnDossierAbsentSeSignale)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_party_ledger.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/</path>
+    <filename>test__party__ledger_8cpp.html</filename>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__ledger_8cpp.html</anchorfile>
+      <anchor>afaa35d9e802d44d4654e20c2c475919d</anchor>
+      <arglist>(PartyLedgerTest, UnEnregistrementSAppliqueBorne)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__ledger_8cpp.html</anchorfile>
+      <anchor>a3d11bcb2865a7f89b5c89123d929590f</anchor>
+      <arglist>(PartyLedgerTest, LeRegistreSOublie)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14363,8 +14459,10 @@
     <name>test_encounter_model.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
     <filename>test__encounter__model_8cpp.html</filename>
+    <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <includes id="EncounterModel_8h" name="EncounterModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/EncounterModel.h</includes>
+    <includes id="PartyModel_8h" name="PartyModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/PartyModel.h</includes>
     <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
     <member kind="function">
       <type></type>
@@ -14386,6 +14484,20 @@
       <anchorfile>test__encounter__model_8cpp.html</anchorfile>
       <anchor>a57f03272f57b5bf248b353b852f68331</anchor>
       <arglist>(EncounterModelTest, LesGestesAttendentLaFinDUnMouvement)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__model_8cpp.html</anchorfile>
+      <anchor>a682c768c589460bb6e5f8cfaf32afb20</anchor>
+      <arglist>(EncounterModelTest, LeRejeuAGraineFixeeDonneLeMemeCombat)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__model_8cpp.html</anchorfile>
+      <anchor>a9b3fbfe0690679c0d4ff4f9c143abfaa</anchor>
+      <arglist>(EncounterModelTest, LeCombatLaisseAuxFichesCeQuIlEnReste)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -19074,17 +19186,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>std::optional&lt; HeroContestantSource &gt;</type>
-      <name>hero</name>
+      <type>std::map&lt; std::string, HeroContestantSource &gt;</type>
+      <name>heroes</name>
       <anchorfile>structhmi_1_1EncounterModel_1_1Catalogs.html</anchorfile>
-      <anchor>ac5b8a66d47e60c171c6f1ffc62dbf89d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>std::filesystem::path</type>
-      <name>heroFile</name>
-      <anchorfile>structhmi_1_1EncounterModel_1_1Catalogs.html</anchorfile>
-      <anchor>acc77b9a9dccd394ac73c47db03810102</anchor>
+      <anchor>aca20d59eed59ee8b90c2bf7e5ec34cb3</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -19209,6 +19314,24 @@
       <name>rows</name>
       <anchorfile>structhmi_1_1CellRect.html</anchorfile>
       <anchor>a625f677436bf6933fad514d74e4f1d10</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::ChallengeExperience</name>
+    <filename>structcore_1_1ChallengeExperience.html</filename>
+    <member kind="variable">
+      <type>float</type>
+      <name>challengeRating</name>
+      <anchorfile>structcore_1_1ChallengeExperience.html</anchorfile>
+      <anchor>a76ad23776396ff2d578657ffc146b6a0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>experience</name>
+      <anchorfile>structcore_1_1ChallengeExperience.html</anchorfile>
+      <anchor>a2ebb5035d65e8b2dbb0aca8f25a90f8b</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -21432,6 +21555,13 @@
       <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
       <anchor>a7ac0389079eca6646ead97c235560b92</anchor>
       <arglist>(std::vector&lt; std::string &gt; &amp;problems)</arglist>
+    </member>
+    <member kind="function" protection="protected" static="yes">
+      <type>static std::optional&lt; HeroContestantSource &gt;</type>
+      <name>loadHeroSource</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a41ebee4fa2080c5d1c787fdbf38606de</anchor>
+      <arglist>(const std::filesystem::path &amp;characterFile, std::vector&lt; std::string &gt; &amp;problems)</arglist>
     </member>
     <member kind="variable" protection="protected">
       <type>std::unique_ptr&lt; core::ArenaSession &gt;</type>
@@ -25146,6 +25276,24 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::DifficultyThresholds</name>
+    <filename>structcore_1_1DifficultyThresholds.html</filename>
+    <member kind="variable">
+      <type>int</type>
+      <name>level</name>
+      <anchorfile>structcore_1_1DifficultyThresholds.html</anchorfile>
+      <anchor>abdfce585d7b8d22a0093c5f12c99cdcf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::map&lt; std::string, int &gt;</type>
+      <name>experience</name>
+      <anchorfile>structcore_1_1DifficultyThresholds.html</anchorfile>
+      <anchor>a2c44868f3d0d6d604cd102e41d0840e8</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::DifficultyTier</name>
     <filename>structcore_1_1DifficultyTier.html</filename>
     <member kind="variable">
@@ -27457,6 +27605,59 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::EncounterBudget</name>
+    <filename>structcore_1_1EncounterBudget.html</filename>
+    <member kind="variable">
+      <type>int</type>
+      <name>monsterExperience</name>
+      <anchorfile>structcore_1_1EncounterBudget.html</anchorfile>
+      <anchor>a277fbaee14eebddb3a049d9f313f9215</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>monsters</name>
+      <anchorfile>structcore_1_1EncounterBudget.html</anchorfile>
+      <anchor>ac543403225f99e70640def4a0f5f8c24</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>multiplier</name>
+      <anchorfile>structcore_1_1EncounterBudget.html</anchorfile>
+      <anchor>aa6109f90cb9f28f4ec6f369aeae8357a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>adjustedExperience</name>
+      <anchorfile>structcore_1_1EncounterBudget.html</anchorfile>
+      <anchor>a4da3266ba1fd9e32fdc322e66adefb21</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::map&lt; std::string, int &gt;</type>
+      <name>thresholds</name>
+      <anchorfile>structcore_1_1EncounterBudget.html</anchorfile>
+      <anchor>a02464dc6c78fa0cbc413fafce49c2326</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>category</name>
+      <anchorfile>structcore_1_1EncounterBudget.html</anchorfile>
+      <anchor>a1bc58316215605cfd6c24038679538f4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>unknownCreatures</name>
+      <anchorfile>structcore_1_1EncounterBudget.html</anchorfile>
+      <anchor>aa54dd68644901d4909a33ddb7b419a37</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::EncounterCatalog</name>
     <filename>structcore_1_1EncounterCatalog.html</filename>
     <member kind="function">
@@ -27506,11 +27707,72 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>core::EncounterDifficultyRules</name>
+    <filename>structcore_1_1EncounterDifficultyRules.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>ok</name>
+      <anchorfile>structcore_1_1EncounterDifficultyRules.html</anchorfile>
+      <anchor>a50d58a7a1b0deb680714481817cef8cb</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>categories</name>
+      <anchorfile>structcore_1_1EncounterDifficultyRules.html</anchorfile>
+      <anchor>ad074bd30bdc37014b18d3fb385a5dac0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; DifficultyThresholds &gt;</type>
+      <name>thresholds</name>
+      <anchorfile>structcore_1_1EncounterDifficultyRules.html</anchorfile>
+      <anchor>a5f68658ae9fd3c4877995568951cf644</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; EncounterMultiplier &gt;</type>
+      <name>multipliers</name>
+      <anchorfile>structcore_1_1EncounterDifficultyRules.html</anchorfile>
+      <anchor>ae10124f1340851f2db5cc7a44bae2432</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>smallPartyMultiplier</name>
+      <anchorfile>structcore_1_1EncounterDifficultyRules.html</anchorfile>
+      <anchor>af3c9884ae086b725cb997a17234c3f22</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>largePartyMultiplier</name>
+      <anchorfile>structcore_1_1EncounterDifficultyRules.html</anchorfile>
+      <anchor>a1f6351dc085b6ea932d2a32aa74ca1c9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; ChallengeExperience &gt;</type>
+      <name>experienceByChallenge</name>
+      <anchorfile>structcore_1_1EncounterDifficultyRules.html</anchorfile>
+      <anchor>a1457d0221c2f2d05c1b6350f18e51b59</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>errors</name>
+      <anchorfile>structcore_1_1EncounterDifficultyRules.html</anchorfile>
+      <anchor>a315a4c29631bcd80606d428fd0b20957</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="class">
     <name>hmi::EncounterModel</name>
     <filename>classhmi_1_1EncounterModel.html</filename>
     <base>hmi::CombatModel</base>
     <class kind="struct">hmi::EncounterModel::Binding</class>
+    <class kind="struct">hmi::EncounterModel::Member</class>
     <class kind="struct">hmi::EncounterModel::Catalogs</class>
     <member kind="signal">
       <type>void</type>
@@ -27629,6 +27891,20 @@
       <name>heroHitPointsRatio</name>
       <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
       <anchor>a5827fdecffabae8e0f069664f815b6b1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>partyMembers</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a852aedf60aa4bb40687bd2b14d4bcb2a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>activeMember</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a5598aa2e4a55b003f2cc9bb40357f585</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -27765,6 +28041,20 @@
       <arglist></arglist>
     </member>
     <member kind="property">
+      <type>QVariantList</type>
+      <name>partyMembers</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>ae518885a37b0e53c74b8c7ffc85e3e07</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>activeMember</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a3142fb9495e669ee7bf465176d31b8e7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
       <type>QVariantMap</type>
       <name>target</name>
       <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
@@ -27786,11 +28076,18 @@
       <arglist>()</arglist>
     </member>
     <member kind="function" protection="private">
+      <type>std::vector&lt; std::pair&lt; std::string, HeroContestantSource &gt; &gt;</type>
+      <name>partySources</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a3eb95a5dbb00dea289f2e284e78e03f2</anchor>
+      <arglist>(const WorldModel &amp;world)</arglist>
+    </member>
+    <member kind="function" protection="private">
       <type>core::ArenaMount</type>
       <name>mountBout</name>
       <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
-      <anchor>a3281b166bca8fe7da2543e5662098658</anchor>
-      <arglist>()</arglist>
+      <anchor>a82e76fd2e3e935e3596a039b343a23f4</anchor>
+      <arglist>(const std::vector&lt; std::pair&lt; std::string, HeroContestantSource &gt; &gt; &amp;party)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -27803,8 +28100,15 @@
       <type>bool</type>
       <name>keepMount</name>
       <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
-      <anchor>a8810eb9ffc6038c1b9bb46b8102d3916</anchor>
-      <arglist>(const core::ArenaMount &amp;mount)</arglist>
+      <anchor>a7ac4863d59d54d34dc6071f021c521f2</anchor>
+      <arglist>(const core::ArenaMount &amp;mount, const std::vector&lt; std::pair&lt; std::string, HeroContestantSource &gt; &gt; &amp;party)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>settleParty</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>ac59037bf87c5e936f6e990c4307e232a</anchor>
+      <arglist>(WorldModel &amp;world, core::CombatOutcome outcome) const</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -27891,6 +28195,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>std::vector&lt; Member &gt;</type>
+      <name>_members</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a41cd490cedb4ac8fffa66592efbdcb4d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>CombatCueTrack</type>
       <name>_cues</name>
       <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
@@ -27941,6 +28252,24 @@
       <name>refusals</name>
       <anchorfile>structcore_1_1EncounterMount.html</anchorfile>
       <anchor>af4bc940f51a11ebfe1639e40af665997</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::EncounterMultiplier</name>
+    <filename>structcore_1_1EncounterMultiplier.html</filename>
+    <member kind="variable">
+      <type>int</type>
+      <name>minMonsters</name>
+      <anchorfile>structcore_1_1EncounterMultiplier.html</anchorfile>
+      <anchor>af3b3a924f8fb0aa5be03aaeb9c2cbf3b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>multiplier</name>
+      <anchorfile>structcore_1_1EncounterMultiplier.html</anchorfile>
+      <anchor>a318ad612e582858f8040a78b491b1cfc</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -35484,6 +35813,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::vector&lt; GridPosition &gt;</type>
+      <name>partyCells</name>
+      <anchorfile>structcore_1_1MapEncounterSetup.html</anchorfile>
+      <anchor>a45a7c4174641f6d7073732ef34c2d437</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>EncounterRun</type>
       <name>run</name>
       <anchorfile>structcore_1_1MapEncounterSetup.html</anchorfile>
@@ -36639,6 +36975,49 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>hmi::EncounterModel::Member</name>
+    <filename>structhmi_1_1EncounterModel_1_1Member.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>characterId</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Member.html</anchorfile>
+      <anchor>a179f85041624ece75b02a8fac161c11e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>classId</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Member.html</anchorfile>
+      <anchor>a3c2ed8bb45815aaf34112ed4784bd52e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::CombatantId</type>
+      <name>combatant</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Member.html</anchorfile>
+      <anchor>a7707a8b422593793ca99564ec9cc73aa</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MemberRecord</name>
+    <filename>structcore_1_1MemberRecord.html</filename>
+    <member kind="variable">
+      <type>std::optional&lt; int &gt;</type>
+      <name>hitPoints</name>
+      <anchorfile>structcore_1_1MemberRecord.html</anchorfile>
+      <anchor>a9528144c728aeeda237f2283fac6880e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::map&lt; std::string, int &gt;</type>
+      <name>spellUses</name>
+      <anchorfile>structcore_1_1MemberRecord.html</anchorfile>
+      <anchor>a465fe6b4e75ecc4f7db3c7fd75a6533d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="class">
     <name>core::MemoryLogSink</name>
     <filename>classcore_1_1MemoryLogSink.html</filename>
@@ -37751,6 +38130,52 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="class">
+    <name>core::PartyLedger</name>
+    <filename>classcore_1_1PartyLedger.html</filename>
+    <member kind="function">
+      <type>const MemberRecord *</type>
+      <name>record</name>
+      <anchorfile>classcore_1_1PartyLedger.html</anchorfile>
+      <anchor>a291aafc913cbe6f54412858ce5ca5a85</anchor>
+      <arglist>(std::string_view characterId) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classcore_1_1PartyLedger.html</anchorfile>
+      <anchor>a94f270f45b2a85b282bbcc66d80820de</anchor>
+      <arglist>(std::string characterId, MemberRecord record)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>erase</name>
+      <anchorfile>classcore_1_1PartyLedger.html</anchorfile>
+      <anchor>a1b2229b53122af7e4bd48490724acd5a</anchor>
+      <arglist>(std::string_view characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clear</name>
+      <anchorfile>classcore_1_1PartyLedger.html</anchorfile>
+      <anchor>abbe5d4e5aaa031d20684528d535bc69b</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>empty</name>
+      <anchorfile>classcore_1_1PartyLedger.html</anchorfile>
+      <anchor>a517cb2b9683ba012c896dd45b769cce2</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, MemberRecord, std::less&lt;&gt; &gt;</type>
+      <name>_records</name>
+      <anchorfile>classcore_1_1PartyLedger.html</anchorfile>
+      <anchor>ae04f4a2781e0d515788ed3b1e60ea89b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="struct">
     <name>core::PartyMember</name>
     <filename>structcore_1_1PartyMember.html</filename>
@@ -37911,6 +38336,13 @@
       <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
       <anchor>a7677a8fb2cd2dc6525c329aaf38e8690</anchor>
       <arglist>(const QString &amp;characterId, const std::string &amp;key) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QString</type>
+      <name>hitPointsOf</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a4d0b2027752c96c888543a4c7354e719</anchor>
+      <arglist>(const QString &amp;characterId) const</arglist>
     </member>
     <member kind="function" protection="private">
       <type>QVariantMap</type>
@@ -45783,6 +46215,27 @@
       <arglist>(const core::Party &amp;party)</arglist>
     </member>
     <member kind="function">
+      <type>const core::PartyLedger &amp;</type>
+      <name>ledger</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ae2177fa3c49dfb58338f5bc8a4de20d7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>recordMember</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a65f08bfa75b50fa3418b0b882ae665f1</anchor>
+      <arglist>(const std::string &amp;characterId, core::MemberRecord record)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>buryMember</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a266e215336e2fd9194e63f1cc589531c</anchor>
+      <arglist>(const std::string &amp;characterId)</arglist>
+    </member>
+    <member kind="function">
       <type>std::shared_ptr&lt; const WorldSceneSnapshot &gt;</type>
       <name>scene</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -46207,6 +46660,13 @@
       <name>_party</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a183c0a674260f7b16e971a6dbaf825fb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>core::PartyLedger</type>
+      <name>_ledger</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a1bec3e9befd172168f6dbc97e780227e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -47648,6 +48108,11 @@
     <class kind="struct">core::Encounter</class>
     <class kind="struct">core::EncounterCatalog</class>
     <class kind="struct">core::CombatantPlacement</class>
+    <class kind="struct">core::DifficultyThresholds</class>
+    <class kind="struct">core::EncounterMultiplier</class>
+    <class kind="struct">core::ChallengeExperience</class>
+    <class kind="struct">core::EncounterDifficultyRules</class>
+    <class kind="struct">core::EncounterBudget</class>
     <class kind="struct">core::BehaviorProfile</class>
     <class kind="struct">core::BehaviorAssignment</class>
     <class kind="struct">core::BehaviorCatalog</class>
@@ -47796,6 +48261,8 @@
     <class kind="class">core::Party</class>
     <class kind="struct">core::PartyCandidate</class>
     <class kind="struct">core::PartyCandidates</class>
+    <class kind="struct">core::MemberRecord</class>
+    <class kind="class">core::PartyLedger</class>
     <class kind="struct">core::SkillDefinition</class>
     <class kind="struct">core::SkillCatalog</class>
     <class kind="struct">core::SpellEffect</class>
@@ -49109,6 +49576,41 @@
       <arglist>(const Encounter &amp;encounter, GridPosition trigger)</arglist>
     </member>
     <member kind="function">
+      <type>EncounterDifficultyRules</type>
+      <name>loadEncounterDifficultyRules</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a804218b1e3acdd82c38d9059601b4864</anchor>
+      <arglist>(const std::filesystem::path &amp;path)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>experienceForChallenge</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a8e61520c89b91031d6880e3f0049bb41</anchor>
+      <arglist>(const EncounterDifficultyRules &amp;rules, float challengeRating)</arglist>
+    </member>
+    <member kind="function">
+      <type>double</type>
+      <name>encounterMultiplierFor</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a0e6181766b203b4714706317159b1478</anchor>
+      <arglist>(const EncounterDifficultyRules &amp;rules, int monsters, int partySize)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::map&lt; std::string, int &gt;</type>
+      <name>partyThresholds</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a36285a02485befed3ee446e3f8101054</anchor>
+      <arglist>(const EncounterDifficultyRules &amp;rules, std::span&lt; const int &gt; partyLevels)</arglist>
+    </member>
+    <member kind="function">
+      <type>EncounterBudget</type>
+      <name>rateEncounter</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a75becdf98d80bd3385935aafb613c1a8</anchor>
+      <arglist>(const EncounterDifficultyRules &amp;rules, const Encounter &amp;encounter, const Bestiary &amp;bestiary, std::span&lt; const int &gt; partyLevels)</arglist>
+    </member>
+    <member kind="function">
       <type>int</type>
       <name>attackBonusOf</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -49317,6 +49819,13 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>acedbd9be2b83f7c6219a695e97819da5</anchor>
       <arglist>(const Level &amp;map, std::string_view mapId, const Encounter &amp;encounter, GridPosition trigger, GridPosition heroCell, const ExplorationSnapshot &amp;exploration, std::string defeatFlagKey)</arglist>
+    </member>
+    <member kind="function">
+      <type>MapEncounterResult</type>
+      <name>prepareMapEncounter</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>abb340366e5cbcbb9a3b2b5d3f46131c9</anchor>
+      <arglist>(const Level &amp;map, std::string_view mapId, const Encounter &amp;encounter, GridPosition trigger, std::span&lt; const GridPosition &gt; partyCells, const ExplorationSnapshot &amp;exploration, std::string defeatFlagKey)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -50556,6 +51065,13 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>ab5e633b89796ee51287aab6489f424f0</anchor>
       <arglist>(const std::vector&lt; PartyCandidate &gt; &amp;candidates, const std::vector&lt; std::string &gt; &amp;order={})</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>applyRecord</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a855344de0ea0275ba049eb73f8eaab4e</anchor>
+      <arglist>(CharacterSheet &amp;sheet, const MemberRecord &amp;record)</arglist>
     </member>
     <member kind="function">
       <type>constexpr float</type>
@@ -55332,6 +55848,8 @@
     <file>Damage.h</file>
     <file>Encounter.cpp</file>
     <file>Encounter.h</file>
+    <file>EncounterDifficulty.cpp</file>
+    <file>EncounterDifficulty.h</file>
     <file>EnemyAi.cpp</file>
     <file>EnemyAi.h</file>
     <file>Flanking.cpp</file>
@@ -55368,6 +55886,7 @@
     <file>test_damage.cpp</file>
     <file>test_death_and_dying.cpp</file>
     <file>test_encounter.cpp</file>
+    <file>test_encounter_difficulty.cpp</file>
     <file>test_enemy_ai.cpp</file>
     <file>test_iso_projection.cpp</file>
     <file>test_line_of_sight.cpp</file>
@@ -56039,6 +56558,8 @@
     <file>Multiclassing.h</file>
     <file>Party.cpp</file>
     <file>Party.h</file>
+    <file>PartyLedger.cpp</file>
+    <file>PartyLedger.h</file>
     <file>RpgEnumNames.cpp</file>
     <file>RpgEnumNames.h</file>
     <file>RpgEnums.h</file>
@@ -56063,6 +56584,7 @@
     <file>test_inventory.cpp</file>
     <file>test_multiclassing.cpp</file>
     <file>test_party.cpp</file>
+    <file>test_party_ledger.cpp</file>
     <file>test_premade_characters.cpp</file>
     <file>test_rpg_enums.cpp</file>
   </compound>

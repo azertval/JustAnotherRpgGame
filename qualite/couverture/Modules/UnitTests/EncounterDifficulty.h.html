@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EncounterDifficulty.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Combat/EncounterDifficulty.h
+ * @brief Le **budget d'une rencontre** (`LOT-139`) : ce que pÃ¨se une rencontre Ã  plusieurs
+ *        adversaires pour un groupe de niveau donnÃ©, d'aprÃ¨s le *Guide du MaÃ®tre*.
+ *
+ * La mÃ©thode est celle de Â« La difficultÃ© d'une rencontre de combat Â» (p. 82-83) : les seuils de
+ * PX de chaque personnage, sommÃ©s par catÃ©gorie ; la somme des PX des monstres, multipliÃ©e selon
+ * leur nombre ; le seuil infÃ©rieur le plus proche donne la catÃ©gorie. Les PX d'un monstre viennent
+ * de son indice de dangerositÃ© (p. 274). Tout est donnÃ©e (`Rpg/rules/encounter-difficulty.json`) :
+ * aucun seuil n'est Ã©crit ici (`EX-REG-021`).
+ *
+ * Ce que ce fichier ne fait pas : choisir les monstres. Il **juge** une rencontre Ã©crite, pour
+ * l'auteur de contenu (l'Ã©diteur, `LOT-143`) et pour les tests qui vÃ©rifient qu'une rencontre
+ * livrÃ©e est Ã  la hauteur du groupe.
+ */
+
+#include &lt;filesystem&gt;
+#include &lt;map&gt;
+#include &lt;span&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/Encounter.h"
+#include "Core/Rpg/Bestiary.h"
+
+namespace core {
+
+/// @brief Les seuils de PX d'un personnage d'un niveau, par catÃ©gorie de difficultÃ©.
+struct DifficultyThresholds {
+    int level = 1;
+    /// Par catÃ©gorie, dans l'ordre de `EncounterDifficultyRules::categories`.
+    std::map&lt;std::string, int&gt; experience;
+};
+
+/// @brief Le multiplicateur qui s'applique Ã  partir de `minMonsters` monstres.
+struct EncounterMultiplier {
+    int minMonsters = 1;
+    double multiplier = 1.0;
+};
+
+/// @brief Les PX que vaut un indice de dangerositÃ©.
+struct ChallengeExperience {
+    float challengeRating = 0.0F;
+    int experience = 0;
+};
+
+/**
+ * @brief Les rÃ¨gles du budget, telles que `rules/encounter-difficulty.json` les dÃ©clare.
+ */
+struct EncounterDifficultyRules {
+    /// Les catÃ©gories, de la plus facile Ã  la plus dure (Â« facile Â», Â« moyenne Â», Â« difficile Â»,
+    /// Â« mortelle Â»).
+    std::vector&lt;std::string&gt; categories;
+    /// Les seuils par niveau, du niveau 1 au niveau 20.
+    std::vector&lt;DifficultyThresholds&gt; thresholds;
+    /// Les multiplicateurs, croissants par nombre de monstres.
+    std::vector&lt;EncounterMultiplier&gt; multipliers;
+    /// Au-delÃ  du dernier multiplicateur, pour un groupe de moins de trois.
+    double smallPartyMultiplier = 1.0;
+    /// En deÃ§Ã  du premier, pour un groupe de six ou plus.
+    double largePartyMultiplier = 1.0;
+    /// Les PX par indice.
+    std::vector&lt;ChallengeExperience&gt; experienceByChallenge;
+    /// Ce qui a manquÃ© Ã  la lecture ; vide si tout est lÃ .
+    std::vector&lt;std::string&gt; errors;
+
+    /// @return Vrai si les rÃ¨gles portent au moins une catÃ©gorie et un seuil.
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return !categories.empty() &amp;&amp; !thresholds.empty();
+    }</span>
+};
+
+/// @brief Charge `rules/encounter-difficulty.json` ; une rÃ¨gle illisible a ses `errors`.
+[[nodiscard]] EncounterDifficultyRules loadEncounterDifficultyRules(
+    const std::filesystem::path&amp; path);
+
+/// @return Les PX d'un monstre d'indice @p challengeRating ; 0 si la table ne le connaÃ®t pas.
+[[nodiscard]] int experienceForChallenge(const EncounterDifficultyRules&amp; rules,
+                                         float challengeRating);
+
+/**
+ * @return Le multiplicateur d'une rencontre de @p monsters monstres pour un groupe de
+ *         @p partySize personnages (p. 83) : celui de son nombre ; la catÃ©gorie supÃ©rieure pour
+ *         moins de trois personnages, l'infÃ©rieure pour six ou plus.
+ */
+[[nodiscard]] double encounterMultiplierFor(const EncounterDifficultyRules&amp; rules, int monsters,
+                                            int partySize);
+
+/// @return Les seuils du **groupe** : la somme, par catÃ©gorie, des seuils de chaque niveau de
+///         @p partyLevels (p. 82, Ã©tape 2). Un niveau hors table compte pour le plus proche.
+[[nodiscard]] std::map&lt;std::string, int&gt; partyThresholds(const EncounterDifficultyRules&amp; rules,
+                                                         std::span&lt;const int&gt; partyLevels);
+
+/// @brief Le verdict sur une rencontre, pour un groupe.
+struct EncounterBudget {
+    /// La somme des PX des monstres, telle que le profil de chacun la donne.
+    int monsterExperience = 0;
+    /// Le nombre de monstres comptÃ©s (ceux que le bestiaire connaÃ®t).
+    int monsters = 0;
+    /// Le multiplicateur appliquÃ©.
+    double multiplier = 1.0;
+    /// La valeur modifiÃ©e, comparÃ©e aux seuils.
+    int adjustedExperience = 0;
+    /// Les seuils du groupe, par catÃ©gorie.
+    std::map&lt;std::string, int&gt; thresholds;
+    /// La catÃ©gorie atteinte : la derniÃ¨re dont le seuil est atteint ; vide si mÃªme le premier ne
+    /// l'est pas â une rencontre en deÃ§Ã  de Â« facile Â».
+    std::string category;
+    /// Les crÃ©atures que le bestiaire ne connaÃ®t pas : comptÃ©es pour 0, et dites.
+    std::vector&lt;std::string&gt; unknownCreatures;
+};
+
+/**
+ * @brief Juge @p encounter pour un groupe de niveaux @p partyLevels (p. 82-83, les cinq Ã©tapes).
+ * @param rules       Les rÃ¨gles du budget.
+ * @param encounter   La rencontre.
+ * @param bestiary    Le bestiaire, pour l'indice de chaque crÃ©ature.
+ * @param partyLevels Le niveau de chaque membre du groupe ; vide : aucun seuil, catÃ©gorie vide.
+ */
+[[nodiscard]] EncounterBudget rateEncounter(const EncounterDifficultyRules&amp; rules,
+                                            const Encounter&amp; encounter, const Bestiary&amp; bestiary,
+                                            std::span&lt;const int&gt; partyLevels);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

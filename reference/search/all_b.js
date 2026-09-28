@@ -56,7 +56,7 @@ var searchData=
   ['gold_53',['gold',['../classhmi_1_1InventoryModel.html#a0ecfd55853c19a77e84b95a907fe1a23',1,'hmi::InventoryModel::gold'],['../classhmi_1_1InventoryModel.html#a51bf2487db923b4b3b4555e58be2c856',1,'hmi::InventoryModel::gold() const']]],
   ['gotocitation_54',['goToCitation',['../classhmi_1_1MainWindow.html#aa6c58df46de1f9b8770f7c6e9962d5d5',1,'hmi::MainWindow']]],
   ['gotofinding_55',['goToFinding',['../classhmi_1_1MainWindow.html#aa8690f8dc7dcf1406906c04a54d10553',1,'hmi::MainWindow']]],
-  ['gouverne_20cette_20classe_56',['La règle qui gouverne cette classe',['../classhmi_1_1OptionsModel.html#autotoc_md113',1,'']]],
+  ['gouverne_20cette_20classe_56',['La règle qui gouverne cette classe',['../classhmi_1_1OptionsModel.html#autotoc_md114',1,'']]],
   ['government_57',['government',['../structcore_1_1Region.html#ab2fcfb2827210b97d085a810023d1196',1,'core::Region::government'],['../structhmi_1_1MapRegionView.html#a6f5d6b1a1e94283593b4a4e75f02d7a2',1,'hmi::MapRegionView::government']]],
   ['governmentcorruption_58',['GovernmentCorruption',['../namespacecore.html#a1471b5a70feb139829909360f5b07940ab581cd8e9b61b71e5f3d39c384a643b8',1,'core']]],
   ['grab_59',['Grab',['../namespacehmi.html#a406a41b256977e2be0da3b64f976cce1ab635ceb01a10e96cdbefa95d72b25750',1,'hmi']]],
@@ -90,9 +90,10 @@ var searchData=
   ['ground_87',['Ground',['../namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5da3519d51443d41746a097cd54cd5c11cf',1,'core']]],
   ['groundline_88',['groundLine',['../structhmi_1_1SceneTexture.html#af856af7e668f6e54537bc5b99b527919',1,'hmi::SceneTexture::groundLine'],['../structhmi_1_1SceneTextureTraits.html#a3c7f13b1aca0e224dacbfb2cb253e999',1,'hmi::SceneTextureTraits::groundLine']]],
   ['groundobstacle_89',['GroundObstacle',['../classcore_1_1BattleGrid.html#afa362bf2c8a692ba969b6a319c7a987fa9359d5f3ea6721150c54b95c46f49cba',1,'core::BattleGrid']]],
-  ['guardmap_90',['guardMap',['../structcore_1_1CityDistrict.html#a9923745226857a2e0df0cfc283a67548',1,'core::CityDistrict']]],
-  ['guardmapid_91',['guardMapId',['../structhmi_1_1CityDistrictView.html#ac2f2cdd09e4ea0fdf37c492d5d3036a2',1,'hmi::CityDistrictView']]],
-  ['guide_92',['Ce que dit le Guide',['../Flanking_8h.html#autotoc_md32',1,'']]],
-  ['guide_20du_20maître_20en_20dit_93',['Ce que le &lt;em&gt;Guide du Maître&lt;/em&gt; en dit',['../EnemyAi_8h.html#autotoc_md29',1,'']]],
-  ['guide_20ne_20dit_20pas_94',['Ce que ce fichier décide, et que le Guide ne dit pas',['../EnemyAi_8h.html#autotoc_md30',1,'']]]
+  ['groupe_20lot_20139_90',['Le groupe (&lt;span class=&quot;tt&quot;&gt;LOT-139&lt;/span&gt;)',['../classhmi_1_1EncounterModel.html#autotoc_md106',1,'']]],
+  ['guardmap_91',['guardMap',['../structcore_1_1CityDistrict.html#a9923745226857a2e0df0cfc283a67548',1,'core::CityDistrict']]],
+  ['guardmapid_92',['guardMapId',['../structhmi_1_1CityDistrictView.html#ac2f2cdd09e4ea0fdf37c492d5d3036a2',1,'hmi::CityDistrictView']]],
+  ['guide_93',['Ce que dit le Guide',['../Flanking_8h.html#autotoc_md32',1,'']]],
+  ['guide_20du_20maître_20en_20dit_94',['Ce que le &lt;em&gt;Guide du Maître&lt;/em&gt; en dit',['../EnemyAi_8h.html#autotoc_md29',1,'']]],
+  ['guide_20ne_20dit_20pas_95',['Ce que ce fichier décide, et que le Guide ne dit pas',['../EnemyAi_8h.html#autotoc_md30',1,'']]]
 ];

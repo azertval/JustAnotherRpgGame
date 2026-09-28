@@ -24,6 +24,8 @@ var dir_de25d93b7b4ef75f45504127491f58b5 =
     [ "Multiclassing.h", "Multiclassing_8h.html", "Multiclassing_8h" ],
     [ "Party.cpp", "Party_8cpp.html", "Party_8cpp" ],
     [ "Party.h", "Party_8h.html", "Party_8h" ],
+    [ "PartyLedger.cpp", "PartyLedger_8cpp.html", "PartyLedger_8cpp" ],
+    [ "PartyLedger.h", "PartyLedger_8h.html", "PartyLedger_8h" ],
     [ "RpgEnumNames.cpp", "RpgEnumNames_8cpp.html", "RpgEnumNames_8cpp" ],
     [ "RpgEnumNames.h", "RpgEnumNames_8h.html", "RpgEnumNames_8h" ],
     [ "RpgEnums.h", "RpgEnums_8h.html", "RpgEnums_8h" ],

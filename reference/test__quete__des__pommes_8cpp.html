@@ -186,9 +186,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ab3de9ec51551fbac7b707bc37cb7d31f" id="r_ab3de9ec51551fbac7b707bc37cb7d31f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab3de9ec51551fbac7b707bc37cb7d31f">TEST</a> (QueteDesPommes, LaDefaiteSurLeSable)</td></tr>
 <tr class="memdesc:ab3de9ec51551fbac7b707bc37cb7d31f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La défaite : le combat de l'arène est létal, la démo s'y termine, la quête ne bouge pas.  <br /></td></tr>
 <tr class="memitem:af8389963d55d051d4a9bf227a108c2ad" id="r_af8389963d55d051d4a9bf227a108c2ad"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af8389963d55d051d4a9bf227a108c2ad">TEST</a> (QueteDesPommes, LeCombatSeGagneDeuxFoisSurTrois)</td></tr>
-<tr class="memdesc:af8389963d55d051d4a9bf227a108c2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'équilibrage : sur cent combats simulés avec le héros de la démo, il l'emporte entre 60 et 70 fois (critère du <span class="tt">LOT-120</span>).  <br /></td></tr>
+<tr class="memdesc:af8389963d55d051d4a9bf227a108c2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'équilibrage : sur cent combats simulés, le groupe de la démo joué par l'IA — sans sort ni soin, à l'arme seule — l'emporte sur les six bandits une fois sur deux, entre 45 et 60 fois (<span class="tt">LOT-139</span>, qui remplace le critère du <span class="tt">LOT-120</span> écrit pour un duel).  <br /></td></tr>
 <tr class="memitem:abf1805695d3a89b74706d7a64c3d7ac8" id="r_abf1805695d3a89b74706d7a64c3d7ac8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abf1805695d3a89b74706d7a64c3d7ac8">TEST</a> (QueteDesPommes, LaProbabiliteDeVictoireTientSurMilleGraines)</td></tr>
-<tr class="memdesc:abf1805695d3a89b74706d7a64c3d7ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">La probabilité de victoire tient sur mille graines tirées d'une graine maîtresse — un échantillon qu'on renouvelle en changeant la graine maîtresse, comme un fuzzer renouvelle ses entrées : deux tiers, à cinq points près.  <br /></td></tr>
+<tr class="memdesc:abf1805695d3a89b74706d7a64c3d7ac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">La probabilité de victoire tient sur deux cents graines tirées d'une graine maîtresse — un échantillon qu'on renouvelle en changeant la graine maîtresse, comme un fuzzer renouvelle ses entrées : une sur deux, à huit points près.  <br /></td></tr>
 <tr class="memitem:a8ab9df99f4ba59acfe4103c052008ce8" id="r_a8ab9df99f4ba59acfe4103c052008ce8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8ab9df99f4ba59acfe4103c052008ce8">TEST</a> (QueteDesPommes, LaPersuasionReussitUneFoisSurQuatre)</td></tr>
 <tr class="memdesc:a8ab9df99f4ba59acfe4103c052008ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le jet de Persuasion du garde, au degré « moyenne », réussit une fois sur quatre au héros de la démo (Charisme 8, sans maîtrise) : la voie pacifique est une chance, la voie de l'arène est le chemin attendu.  <br /></td></tr>
 </table>
@@ -275,14 +275,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>La probabilité de victoire tient sur mille graines tirées d'une graine maîtresse — un échantillon qu'on renouvelle en changeant la graine maîtresse, comme un fuzzer renouvelle ses entrées : deux tiers, à cinq points près. </p>
-<p><b>Cas de test :</b> <b>Sur mille combats a graines tirees, le heros gagne deux fois sur trois.</b><br  />
+<p>La probabilité de victoire tient sur deux cents graines tirées d'une graine maîtresse — un échantillon qu'on renouvelle en changeant la graine maîtresse, comme un fuzzer renouvelle ses entrées : une sur deux, à huit points près. </p>
+<p>Deux cents et non mille : un combat à dix se joue en deux secondes en Debug, et la CI n'a pas une demi-heure à y mettre (<span class="tt">LOT-139</span>). <b>Cas de test :</b> <b>Sur deux cents combats a graines tirees, le groupe gagne une fois sur deux.</b><br  />
  <b>Categorie :</b> Integration · Quete de la demo · Equilibrage<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
- 1. Mille graines tirees de la graine maitresse 120.<br  />
+ 1. Deux cents graines tirees de la graine maitresse 120.<br  />
 2. Un combat par graine, les deux camps par l'IA.<br  />
- <b>Resultat attendu :</b> Chaque combat se termine ; entre 600 et 700 victoires. </p>
+ <b>Resultat attendu :</b> Chaque combat se termine ; entre 85 et 115 victoires. </p>
 
 </div>
 </div>
@@ -369,14 +369,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>L'équilibrage : sur cent combats simulés avec le héros de la démo, il l'emporte entre 60 et 70 fois (critère du <span class="tt">LOT-120</span>). </p>
-<p><b>Cas de test :</b> <b>Le heros gagne le combat de l'arene entre 60 et 70 fois sur cent.</b><br  />
+<p>L'équilibrage : sur cent combats simulés, le groupe de la démo joué par l'IA — sans sort ni soin, à l'arme seule — l'emporte sur les six bandits une fois sur deux, entre 45 et 60 fois (<span class="tt">LOT-139</span>, qui remplace le critère du <span class="tt">LOT-120</span> écrit pour un duel). </p>
+<p>Le joueur, qui lance les sorts et soigne, fait mieux : la rencontre est <b>difficile</b> au budget du <em>Guide du Maître</em>, pas mortelle. <b>Cas de test :</b> <b>Le groupe gagne le combat de l'arene entre 45 et 60 fois sur cent.</b><br  />
  <b>Categorie :</b> Integration · Quete de la demo · Equilibrage<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Le sable, la rencontre de l'arene, le heros de la demo joue par l'IA.<br  />
+ 1. Le sable, la rencontre des bandits, les quatre de la demo joues par l'IA.<br  />
 2. Cent combats, aux graines 1 a 100.<br  />
- <b>Resultat attendu :</b> Chaque combat se termine ; entre 60 et 70 victoires. </p>
+ <b>Resultat attendu :</b> Chaque combat se termine ; entre 45 et 60 victoires. </p>
 
 </div>
 </div>

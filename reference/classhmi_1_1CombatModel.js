@@ -29,6 +29,7 @@ var classhmi_1_1CombatModel =
     [ "gridRows", "classhmi_1_1CombatModel.html#a0b18309c2caeec817bd0d5bdbddb39ee", null ],
     [ "inCombat", "classhmi_1_1CombatModel.html#a91c4d08704abaea6fdb77746e684a7a0", null ],
     [ "journal", "classhmi_1_1CombatModel.html#a10f0e984bb25dbff698e7ebfe924992b", null ],
+    [ "loadHeroSource", "classhmi_1_1CombatModel.html#a41ebee4fa2080c5d1c787fdbf38606de", null ],
     [ "loadHeroSource", "classhmi_1_1CombatModel.html#a7ac0389079eca6646ead97c235560b92", null ],
     [ "moveCursor", "classhmi_1_1CombatModel.html#a234d461f5bc449647b3d504ace6f7748", null ],
     [ "moveTo", "classhmi_1_1CombatModel.html#a96e8a89ff900657a0eb2ac543979cd2f", null ],

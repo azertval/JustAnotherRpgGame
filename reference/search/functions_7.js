@@ -45,12 +45,13 @@ var searchData=
   ['hitpercent_42',['hitPercent',['../structcore_1_1AttackPreview.html#a430f22202d91668413229aeb4b661e77',1,'core::AttackPreview']]],
   ['hitpoints_43',['hitPoints',['../classhmi_1_1CharacterSheetModel.html#a6637b9c1173e329d4a019b0539021b2c',1,'hmi::CharacterSheetModel']]],
   ['hitpointsmax_44',['hitPointsMax',['../classhmi_1_1CharacterSheetModel.html#ae6effb695d2338de6d6cf1fb0837cff7',1,'hmi::CharacterSheetModel']]],
-  ['hmikeytoqtkey_45',['hmiKeyToQtKey',['../namespacehmi.html#a807ca4b0d189a41995531913a247a3c9',1,'hmi']]],
-  ['holds_46',['holds',['../structcore_1_1FlagCondition.html#a79b84d286e43fcd5a482e35bb4b30ac8',1,'core::FlagCondition']]],
-  ['hookcapacities_47',['hookCapacities',['../classcore_1_1ArenaSession.html#ae327de7aee4320e246557290c95eccb0',1,'core::ArenaSession']]],
-  ['hoveredcell_48',['hoveredCell',['../classhmi_1_1EditorViewport.html#a946f35b8cda276a2ae9aeec447d2edfb',1,'hmi::EditorViewport']]],
-  ['hoveredcellchanged_49',['hoveredCellChanged',['../classhmi_1_1EditorViewport.html#afec959b9a2fdf31d666775b83af252bd',1,'hmi::EditorViewport']]],
-  ['hoveredcellforced_50',['hoveredCellForced',['../classhmi_1_1EditorViewport.html#a9483dfdcea629d7f7f6879cc75b75cb1',1,'hmi::EditorViewport']]],
-  ['hoverednote_51',['hoveredNote',['../classhmi_1_1EditorViewport.html#adef0e96de6460676435f9e635f375d4d',1,'hmi::EditorViewport']]],
-  ['hoveredpieces_52',['hoveredPieces',['../classhmi_1_1EditorViewport.html#acea96d2cf94cd7780c655afb1ab5c9df',1,'hmi::EditorViewport']]]
+  ['hitpointsof_45',['hitPointsOf',['../classhmi_1_1PartyModel.html#a4d0b2027752c96c888543a4c7354e719',1,'hmi::PartyModel']]],
+  ['hmikeytoqtkey_46',['hmiKeyToQtKey',['../namespacehmi.html#a807ca4b0d189a41995531913a247a3c9',1,'hmi']]],
+  ['holds_47',['holds',['../structcore_1_1FlagCondition.html#a79b84d286e43fcd5a482e35bb4b30ac8',1,'core::FlagCondition']]],
+  ['hookcapacities_48',['hookCapacities',['../classcore_1_1ArenaSession.html#ae327de7aee4320e246557290c95eccb0',1,'core::ArenaSession']]],
+  ['hoveredcell_49',['hoveredCell',['../classhmi_1_1EditorViewport.html#a946f35b8cda276a2ae9aeec447d2edfb',1,'hmi::EditorViewport']]],
+  ['hoveredcellchanged_50',['hoveredCellChanged',['../classhmi_1_1EditorViewport.html#afec959b9a2fdf31d666775b83af252bd',1,'hmi::EditorViewport']]],
+  ['hoveredcellforced_51',['hoveredCellForced',['../classhmi_1_1EditorViewport.html#a9483dfdcea629d7f7f6879cc75b75cb1',1,'hmi::EditorViewport']]],
+  ['hoverednote_52',['hoveredNote',['../classhmi_1_1EditorViewport.html#adef0e96de6460676435f9e635f375d4d',1,'hmi::EditorViewport']]],
+  ['hoveredpieces_53',['hoveredPieces',['../classhmi_1_1EditorViewport.html#acea96d2cf94cd7780c655afb1ab5c9df',1,'hmi::EditorViewport']]]
 ];

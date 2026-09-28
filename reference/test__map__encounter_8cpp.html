@@ -146,6 +146,8 @@ $(function(){initNavTree('test__map__encounter_8cpp.html','',''); });
 <p>Tests d'une rencontre posée sur la carte (<span class="tt">LOT-118</span>) : la zone choisie, la grille découpée, les places ramenées dans la zone.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;span&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
@@ -160,6 +162,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:ae64f574148160082a7681eaddff3ec26"><td class="mdescLeft">&#160;</td><td class="mdescRight">La rencontre se monte sur la zone qui contient le déclencheur, en cases de la grille.  <br /></td></tr>
 <tr class="memitem:af58087ee4c633d13661b99d178a233fe" id="r_af58087ee4c633d13661b99d178a233fe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af58087ee4c633d13661b99d178a233fe">TEST</a> (MapEncounterTest, UnePlaceImpossibleSeRapprocheEtSeNote)</td></tr>
 <tr class="memdesc:af58087ee4c633d13661b99d178a233fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une place qui tombe dans un mur, hors de la zone ou sur une case prise se rapproche de ce qu'elle voulait, et la note le dit.  <br /></td></tr>
+<tr class="memitem:a053278ad6ab0a66d051d4e620215db9f" id="r_a053278ad6ab0a66d051d4e620215db9f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a053278ad6ab0a66d051d4e620215db9f">TEST</a> (MapEncounterTest, LeGroupeEntreLaOuIlMarche)</td></tr>
+<tr class="memdesc:a053278ad6ab0a66d051d4e620215db9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe entre en combat là où il marche (<span class="tt">LOT-139</span>) : chaque suiveur garde sa case, et celui qui déborde de la zone prend la case libre la plus proche de la sienne.  <br /></td></tr>
 <tr class="memitem:a1fb05d2fe040763d30524e9832748827" id="r_a1fb05d2fe040763d30524e9832748827"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1fb05d2fe040763d30524e9832748827">TEST</a> (MapEncounterTest, SansZoneLaRencontreEstRefusee)</td></tr>
 <tr class="memdesc:a1fb05d2fe040763d30524e9832748827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans zone de combat autour du déclencheur ni du héros, la rencontre est refusée, et la raison est écrite.  <br /></td></tr>
 </table>
@@ -167,7 +171,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests d'une rencontre posée sur la carte (<span class="tt">LOT-118</span>) : la zone choisie, la grille découpée, les places ramenées dans la zone. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ae64f574148160082a7681eaddff3ec26" name="ae64f574148160082a7681eaddff3ec26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae64f574148160082a7681eaddff3ec26">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae64f574148160082a7681eaddff3ec26">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,8 +199,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a053278ad6ab0a66d051d4e620215db9f" name="a053278ad6ab0a66d051d4e620215db9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a053278ad6ab0a66d051d4e620215db9f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapEncounterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeGroupeEntreLaOuIlMarche</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le groupe entre en combat là où il marche (<span class="tt">LOT-139</span>) : chaque suiveur garde sa case, et celui qui déborde de la zone prend la case libre la plus proche de la sienne. </p>
+<p><b>Cas de test :</b> <b>Les cases du groupe se posent dans l'ordre de marche, sans partage.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat sur la carte<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Preparer les loups, declenches en (14, 8), le groupe en (15, 10), (16, 10), (17, 10) et (22, 10) &ndash; la derniere hors de la zone « cour ».<br  />
+2. Preparer avec un groupe vide.<br  />
+ <b>Resultat attendu :</b> Quatre cases, le meneur en (5, 5) de la grille, les deux suiveurs sur leurs cases, le quatrieme sur une case libre de la zone la plus proche de (22, 10) ; aucune case partagee, y compris avec les loups ; une note dit le suiveur deplace ; le groupe vide est refuse. </p>
+
+</div>
+</div>
 <a id="a1fb05d2fe040763d30524e9832748827" name="a1fb05d2fe040763d30524e9832748827"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fb05d2fe040763d30524e9832748827">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fb05d2fe040763d30524e9832748827">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,7 +259,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af58087ee4c633d13661b99d178a233fe" name="af58087ee4c633d13661b99d178a233fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af58087ee4c633d13661b99d178a233fe">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af58087ee4c633d13661b99d178a233fe">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

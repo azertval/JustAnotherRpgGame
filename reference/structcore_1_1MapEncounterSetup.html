@@ -155,7 +155,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a614f3c87efc042b717b4802c0f16ad3f" id="r_a614f3c87efc042b717b4802c0f16ad3f"><td class="memItemLeft"><a class="el" href="classcore_1_1Level.html">Level</a>&#160;</td><td class="memItemRight"><a class="el" href="#a614f3c87efc042b717b4802c0f16ad3f">battlefield</a></td></tr>
 <tr class="memdesc:a614f3c87efc042b717b4802c0f16ad3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte réduite à la zone : la grille tactique.  <br /></td></tr>
 <tr class="memitem:ab4ca32b273e4664960e7ff689cb166a3" id="r_ab4ca32b273e4664960e7ff689cb166a3"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab4ca32b273e4664960e7ff689cb166a3">heroCell</a> {}</td></tr>
-<tr class="memdesc:ab4ca32b273e4664960e7ff689cb166a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où le héros se dresse, en cases de la grille.  <br /></td></tr>
+<tr class="memdesc:ab4ca32b273e4664960e7ff689cb166a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où le héros — le meneur du groupe — se dresse, en cases de la grille : <span class="tt">partyCells.front()</span>.  <br /></td></tr>
+<tr class="memitem:a45a7c4174641f6d7073732ef34c2d437" id="r_a45a7c4174641f6d7073732ef34c2d437"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a45a7c4174641f6d7073732ef34c2d437">partyCells</a></td></tr>
+<tr class="memdesc:a45a7c4174641f6d7073732ef34c2d437"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où chaque membre du groupe se dresse, dans l'ordre de marche (<span class="tt">LOT-139</span>) : le meneur d'abord, puis ses suiveurs.  <br /></td></tr>
 <tr class="memitem:a2a260ee37775c11ad49c185e03aa727a" id="r_a2a260ee37775c11ad49c185e03aa727a"><td class="memItemLeft"><a class="el" href="structcore_1_1EncounterRun.html">EncounterRun</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2a260ee37775c11ad49c185e03aa727a">run</a></td></tr>
 <tr class="memdesc:a2a260ee37775c11ad49c185e03aa727a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La rencontre engagée ; ses <span class="tt">placements</span> sont en cases de la grille.  <br /></td></tr>
 <tr class="memitem:aac811ae5d0f375e0d54af3864e2c7003" id="r_aac811ae5d0f375e0d54af3864e2c7003"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aac811ae5d0f375e0d54af3864e2c7003">notes</a></td></tr>
@@ -193,7 +195,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Où le héros se dresse, en cases de la grille. </p>
+<p>Où le héros — le meneur du groupe — se dresse, en cases de la grille : <span class="tt">partyCells.front()</span>. </p>
 
 </div>
 </div>
@@ -210,6 +212,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Ce qui a dû être déplacé pour tenir dans la zone, en clair : lu par le journal. </p>
+
+</div>
+</div>
+<a id="a45a7c4174641f6d7073732ef34c2d437" name="a45a7c4174641f6d7073732ef34c2d437"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45a7c4174641f6d7073732ef34c2d437">&#9670;&#160;</a></span>partyCells</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&gt; core::MapEncounterSetup::partyCells</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Où chaque membre du groupe se dresse, dans l'ordre de marche (<span class="tt">LOT-139</span>) : le meneur d'abord, puis ses suiveurs. </p>
+<p>Jamais vide. </p>
 
 </div>
 </div>

@@ -22,6 +22,8 @@ var dir_bc520fdc8f4eadff60f94f8b29441948 =
     [ "Damage.h", "Damage_8h.html", "Damage_8h" ],
     [ "Encounter.cpp", "Encounter_8cpp.html", "Encounter_8cpp" ],
     [ "Encounter.h", "Encounter_8h.html", "Encounter_8h" ],
+    [ "EncounterDifficulty.cpp", "EncounterDifficulty_8cpp.html", "EncounterDifficulty_8cpp" ],
+    [ "EncounterDifficulty.h", "EncounterDifficulty_8h.html", "EncounterDifficulty_8h" ],
     [ "EnemyAi.cpp", "EnemyAi_8cpp.html", "EnemyAi_8cpp" ],
     [ "EnemyAi.h", "EnemyAi_8h.html", "EnemyAi_8h" ],
     [ "Flanking.cpp", "Flanking_8cpp.html", "Flanking_8cpp" ],

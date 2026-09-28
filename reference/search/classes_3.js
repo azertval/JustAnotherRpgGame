@@ -36,9 +36,10 @@ var searchData=
   ['dice_33',['Dice',['../structcore_1_1Dice.html',1,'core']]],
   ['diceroll_34',['DiceRoll',['../structcore_1_1DiceRoll.html',1,'core']]],
   ['difficultyscale_35',['DifficultyScale',['../structcore_1_1DifficultyScale.html',1,'core']]],
-  ['difficultytier_36',['DifficultyTier',['../structcore_1_1DifficultyTier.html',1,'core']]],
-  ['draftentityoverlay_37',['DraftEntityOverlay',['../structhmi_1_1DraftEntityOverlay.html',1,'hmi']]],
-  ['draftmap_38',['DraftMap',['../structhmi_1_1DraftMap.html',1,'hmi']]],
-  ['draftrenderer_39',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]],
-  ['drafttextures_40',['DraftTextures',['../structhmi_1_1DraftTextures.html',1,'hmi']]]
+  ['difficultythresholds_36',['DifficultyThresholds',['../structcore_1_1DifficultyThresholds.html',1,'core']]],
+  ['difficultytier_37',['DifficultyTier',['../structcore_1_1DifficultyTier.html',1,'core']]],
+  ['draftentityoverlay_38',['DraftEntityOverlay',['../structhmi_1_1DraftEntityOverlay.html',1,'hmi']]],
+  ['draftmap_39',['DraftMap',['../structhmi_1_1DraftMap.html',1,'hmi']]],
+  ['draftrenderer_40',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]],
+  ['drafttextures_41',['DraftTextures',['../structhmi_1_1DraftTextures.html',1,'hmi']]]
 ];

@@ -161,6 +161,8 @@ Inheritance diagram for hmi::EncounterModel:</div>
 Classes</h2></td></tr>
 <tr class="memitem:Binding" id="r_Binding"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EncounterModel_1_1Binding.html">Binding</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un combattant dessine.  <a href="structhmi_1_1EncounterModel_1_1Binding.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Member" id="r_Member"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EncounterModel_1_1Member.html">Member</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un membre du groupe en combat.  <a href="structhmi_1_1EncounterModel_1_1Member.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Catalogs" id="r_Catalogs"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EncounterModel_1_1Catalogs.html">Catalogs</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
@@ -198,6 +200,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afd6006435967a4a769da36de35fa4ec0" id="r_afd6006435967a4a769da36de35fa4ec0"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#afd6006435967a4a769da36de35fa4ec0">heroName</a> () const</td></tr>
 <tr class="memitem:a6c89848a6440283ac5d1d123cc3dea17" id="r_a6c89848a6440283ac5d1d123cc3dea17"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a6c89848a6440283ac5d1d123cc3dea17">heroHitPoints</a> () const</td></tr>
 <tr class="memitem:a5827fdecffabae8e0f069664f815b6b1" id="r_a5827fdecffabae8e0f069664f815b6b1"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a5827fdecffabae8e0f069664f815b6b1">heroHitPointsRatio</a> () const</td></tr>
+<tr class="memitem:a852aedf60aa4bb40687bd2b14d4bcb2a" id="r_a852aedf60aa4bb40687bd2b14d4bcb2a"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a852aedf60aa4bb40687bd2b14d4bcb2a">partyMembers</a> () const</td></tr>
+<tr class="memitem:a5598aa2e4a55b003f2cc9bb40357f585" id="r_a5598aa2e4a55b003f2cc9bb40357f585"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5598aa2e4a55b003f2cc9bb40357f585">activeMember</a> () const</td></tr>
 <tr class="memitem:afba04cab6db960be3b3c1d7dd6efbec8" id="r_afba04cab6db960be3b3c1d7dd6efbec8"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#afba04cab6db960be3b3c1d7dd6efbec8">target</a> () const</td></tr>
 <tr class="memitem:a569f4f76b0d178214578652428302c25" id="r_a569f4f76b0d178214578652428302c25"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a569f4f76b0d178214578652428302c25">seed</a> () const noexcept</td></tr>
 <tr class="memitem:a0b244df24e923a94f15c5c29fc502d19" id="r_a0b244df24e923a94f15c5c29fc502d19"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0b244df24e923a94f15c5c29fc502d19">setSeed</a> (int <a class="el" href="#af97d96adfe5a43565bd6ebbfe7869b26">seed</a>)</td></tr>
@@ -293,9 +297,13 @@ Properties</h2></td></tr>
 <tr class="memdesc:a224e9b7877fdbf54ac90484328babfad"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'origine de la grille tactique sur la carte : ce que l'écran ajoute à chaque case.  <br /></td></tr>
 <tr class="memitem:a66cca80a4326c3154b66d1e8d4994de7" id="r_a66cca80a4326c3154b66d1e8d4994de7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a66cca80a4326c3154b66d1e8d4994de7">zoneRow</a></td></tr>
 <tr class="memitem:afc5af027fd999d54a698abc8fa84a134" id="r_afc5af027fd999d54a698abc8fa84a134"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#afc5af027fd999d54a698abc8fa84a134">heroName</a></td></tr>
-<tr class="memdesc:afc5af027fd999d54a698abc8fa84a134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros : ses points de vie en clair, et leur part.  <br /></td></tr>
+<tr class="memdesc:afc5af027fd999d54a698abc8fa84a134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros — le meneur du groupe — : ses points de vie en clair, et leur part.  <br /></td></tr>
 <tr class="memitem:ada4ccaf9260dd8c4d55efe5a5a733269" id="r_ada4ccaf9260dd8c4d55efe5a5a733269"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ada4ccaf9260dd8c4d55efe5a5a733269">heroHitPoints</a></td></tr>
 <tr class="memitem:ae63afe5fd29a9ff5d0ca5a1b3bbcaf4e" id="r_ae63afe5fd29a9ff5d0ca5a1b3bbcaf4e"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#ae63afe5fd29a9ff5d0ca5a1b3bbcaf4e">heroHitPointsRatio</a></td></tr>
+<tr class="memitem:ae518885a37b0e53c74b8c7ffc85e3e07" id="r_ae518885a37b0e53c74b8c7ffc85e3e07"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ae518885a37b0e53c74b8c7ffc85e3e07">partyMembers</a></td></tr>
+<tr class="memdesc:ae518885a37b0e53c74b8c7ffc85e3e07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les membres du groupe en combat, dans l'ordre de marche (<span class="tt">LOT-139</span>) : <span class="tt">id</span>, <span class="tt">label</span> (le nom), <span class="tt">value</span> (« 12 / 15 »), <span class="tt">ratio</span>, <span class="tt">portrait</span>, <span class="tt"><a class="el" href="#a5024f17840335af0b7df253c0357233d" title="Vrai d&#39;un begin réussi jusqu&#39;à leave.">active</a></span> (c'est son tour), <span class="tt">down</span>, <span class="tt">dead</span>.  <br /></td></tr>
+<tr class="memitem:a3142fb9495e669ee7bf465176d31b8e7" id="r_a3142fb9495e669ee7bf465176d31b8e7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3142fb9495e669ee7bf465176d31b8e7">activeMember</a></td></tr>
+<tr class="memdesc:a3142fb9495e669ee7bf465176d31b8e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le membre dont c'est le tour (indice dans <span class="tt"><a class="el" href="#ae518885a37b0e53c74b8c7ffc85e3e07" title="Les membres du groupe en combat, dans l&#39;ordre de marche (LOT-139) : id, label (le nom),...">partyMembers</a></span>), ou -1 : un ennemi joue.  <br /></td></tr>
 <tr class="memitem:a039813caec05398c354ffd7d20f3fb9e" id="r_a039813caec05398c354ffd7d20f3fb9e"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#a039813caec05398c354ffd7d20f3fb9e">target</a></td></tr>
 <tr class="memdesc:a039813caec05398c354ffd7d20f3fb9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le combattant sous le curseur : <span class="tt">name</span>, <span class="tt">side</span>, <span class="tt">hitPoints</span>, <span class="tt">hitPointsRatio</span>, <span class="tt">armorClass</span>, <span class="tt">speed</span>, <span class="tt">conditions</span> ; vide si la case est libre.  <br /></td></tr>
 <tr class="memitem:af97d96adfe5a43565bd6ebbfe7869b26" id="r_af97d96adfe5a43565bd6ebbfe7869b26"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#af97d96adfe5a43565bd6ebbfe7869b26">seed</a></td></tr>
@@ -328,12 +336,16 @@ Properties</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:aa0530a99f5d66508ad00dee4615700eb" id="r_aa0530a99f5d66508ad00dee4615700eb"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa0530a99f5d66508ad00dee4615700eb">ensureCatalogs</a> ()</td></tr>
 <tr class="memdesc:aa0530a99f5d66508ad00dee4615700eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les catalogues à la première rencontre ;.  <br /></td></tr>
-<tr class="memitem:a3281b166bca8fe7da2543e5662098658" id="r_a3281b166bca8fe7da2543e5662098658"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3281b166bca8fe7da2543e5662098658">mountBout</a> ()</td></tr>
-<tr class="memdesc:a3281b166bca8fe7da2543e5662098658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la session sur la grille de la zone, y monte le héros et les créatures de la rencontre.  <br /></td></tr>
+<tr class="memitem:a3eb95a5dbb00dea289f2e284e78e03f2" id="r_a3eb95a5dbb00dea289f2e284e78e03f2"><td class="memItemLeft">std::vector&lt; std::pair&lt; std::string, <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3eb95a5dbb00dea289f2e284e78e03f2">partySources</a> (const <a class="el" href="classhmi_1_1WorldModel.html">WorldModel</a> &amp;world)</td></tr>
+<tr class="memdesc:a3eb95a5dbb00dea289f2e284e78e03f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit les fiches du groupe de <code class="param">world</code> — les catalogues une fois, chaque fiche à sa première rencontre —, et ce que le registre en dit.  <br /></td></tr>
+<tr class="memitem:a82e76fd2e3e935e3596a039b343a23f4" id="r_a82e76fd2e3e935e3596a039b343a23f4"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a>&#160;</td><td class="memItemRight"><a class="el" href="#a82e76fd2e3e935e3596a039b343a23f4">mountBout</a> (const std::vector&lt; std::pair&lt; std::string, <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &gt; &gt; &amp;party)</td></tr>
+<tr class="memdesc:a82e76fd2e3e935e3596a039b343a23f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la session sur la grille de la zone, y monte le groupe et les créatures de la rencontre.  <br /></td></tr>
 <tr class="memitem:ac5d2d81fd5a46a1828095165c5b14834" id="r_ac5d2d81fd5a46a1828095165c5b14834"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac5d2d81fd5a46a1828095165c5b14834">bindFigures</a> (<a class="el" href="classhmi_1_1WorldModel.html">WorldModel</a> &amp;world, const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;mount)</td></tr>
 <tr class="memdesc:ac5d2d81fd5a46a1828095165c5b14834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associe à chaque combattant monté la figurine qu'il dessine.  <br /></td></tr>
-<tr class="memitem:a8810eb9ffc6038c1b9bb46b8102d3916" id="r_a8810eb9ffc6038c1b9bb46b8102d3916"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8810eb9ffc6038c1b9bb46b8102d3916">keepMount</a> (const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;mount)</td></tr>
-<tr class="memdesc:a8810eb9ffc6038c1b9bb46b8102d3916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retient le héros du montage, ou défait la session quand un camp est vide.  <br /></td></tr>
+<tr class="memitem:a7ac4863d59d54d34dc6071f021c521f2" id="r_a7ac4863d59d54d34dc6071f021c521f2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7ac4863d59d54d34dc6071f021c521f2">keepMount</a> (const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;mount, const std::vector&lt; std::pair&lt; std::string, <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &gt; &gt; &amp;party)</td></tr>
+<tr class="memdesc:a7ac4863d59d54d34dc6071f021c521f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retient les membres montés — le meneur en tête —, ou défait la session quand un camp est vide.  <br /></td></tr>
+<tr class="memitem:ac59037bf87c5e936f6e990c4307e232a" id="r_ac59037bf87c5e936f6e990c4307e232a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac59037bf87c5e936f6e990c4307e232a">settleParty</a> (<a class="el" href="classhmi_1_1WorldModel.html">WorldModel</a> &amp;world, <a class="el" href="namespacecore.html#a8825ea64ff05621b7c2c8a073d27577c">core::CombatOutcome</a> <a class="el" href="#a45300e7fbb84f2da858e82a977f5b1ef">outcome</a>) const</td></tr>
+<tr class="memdesc:ac59037bf87c5e936f6e990c4307e232a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le combat laisse aux fiches (<span class="tt">LOT-139</span>) : écrit dans le registre de la partie ; un mort quitte le groupe.  <br /></td></tr>
 <tr class="memitem:a149af1205eda85e59702a9664b18b921" id="r_a149af1205eda85e59702a9664b18b921"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a149af1205eda85e59702a9664b18b921">placeCues</a> ()</td></tr>
 <tr class="memdesc:a149af1205eda85e59702a9664b18b921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose la file des mouvements sur les cases de départ des combattants.  <br /></td></tr>
 <tr class="memitem:a342172e5ec90ee7200202d03f37b9ec3" id="r_a342172e5ec90ee7200202d03f37b9ec3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a342172e5ec90ee7200202d03f37b9ec3">subscribeCues</a> ()</td></tr>
@@ -354,6 +366,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a2cff69ff523a32462fc24ac7cf274257" id="r_a2cff69ff523a32462fc24ac7cf274257"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a2cff69ff523a32462fc24ac7cf274257">_encounterName</a></td></tr>
 <tr class="memitem:a2a1a188bcb5683b033f5e94314929757" id="r_a2a1a188bcb5683b033f5e94314929757"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a>, <a class="el" href="structhmi_1_1EncounterModel_1_1Binding.html">Binding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2a1a188bcb5683b033f5e94314929757">_bindings</a></td></tr>
 <tr class="memitem:ad262aa485f8a159edfe2837b67259675" id="r_ad262aa485f8a159edfe2837b67259675"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad262aa485f8a159edfe2837b67259675">_hero</a></td></tr>
+<tr class="memdesc:ad262aa485f8a159edfe2837b67259675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le meneur : ce que la caméra suit, et ce que <span class="tt"><a class="el" href="#afc5af027fd999d54a698abc8fa84a134" title="Le héros — le meneur du groupe — : ses points de vie en clair, et leur part.">heroName</a></span> lit.  <br /></td></tr>
+<tr class="memitem:a41cd490cedb4ac8fffa66592efbdcb4d" id="r_a41cd490cedb4ac8fffa66592efbdcb4d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EncounterModel_1_1Member.html">Member</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a41cd490cedb4ac8fffa66592efbdcb4d">_members</a></td></tr>
+<tr class="memdesc:a41cd490cedb4ac8fffa66592efbdcb4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les membres du groupe montés, dans l'ordre de marche.  <br /></td></tr>
 <tr class="memitem:a1a0334bf6b30b70f5a5b93ca32ae1041" id="r_a1a0334bf6b30b70f5a5b93ca32ae1041"><td class="memItemLeft"><a class="el" href="classhmi_1_1CombatCueTrack.html">CombatCueTrack</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1a0334bf6b30b70f5a5b93ca32ae1041">_cues</a></td></tr>
 <tr class="memitem:a7de691c1bfeb8cd701e7904cfa20ce47" id="r_a7de691c1bfeb8cd701e7904cfa20ce47"><td class="memItemLeft">QTimer&#160;</td><td class="memItemRight"><a class="el" href="#a7de691c1bfeb8cd701e7904cfa20ce47">_clock</a></td></tr>
 <tr class="memitem:a09d6e88bcc6e2525a346a473e8c5f0fc" id="r_a09d6e88bcc6e2525a346a473e8c5f0fc"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a09d6e88bcc6e2525a346a473e8c5f0fc">_outcome</a></td></tr>
@@ -363,7 +378,9 @@ Private Attributes</h2></td></tr>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_static_methods_classhmi_1_1CombatModel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_static_methods_classhmi_1_1CombatModel')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Protected Member Functions inherited from <a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td></tr>
 <tr class="memitem:a7ac0389079eca6646ead97c235560b92 inherit pro_static_methods_classhmi_1_1CombatModel" id="r_a7ac0389079eca6646ead97c235560b92"><td class="memItemLeft">static std::optional&lt; <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a7ac0389079eca6646ead97c235560b92">loadHeroSource</a> (std::vector&lt; std::string &gt; &amp;problems)</td></tr>
-<tr class="memdesc:a7ac0389079eca6646ead97c235560b92 inherit pro_static_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros de la démo comme source de combattant ; <span class="tt">std::nullopt</span> sans fiche, et <code class="param">problems</code> dit pourquoi.  <br /></td></tr>
+<tr class="memdesc:a7ac0389079eca6646ead97c235560b92 inherit pro_static_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros de la démo — le meneur — comme source de combattant ; <span class="tt">std::nullopt</span> sans fiche, et <code class="param">problems</code> dit pourquoi.  <br /></td></tr>
+<tr class="memitem:a41ebee4fa2080c5d1c787fdbf38606de inherit pro_static_methods_classhmi_1_1CombatModel" id="r_a41ebee4fa2080c5d1c787fdbf38606de"><td class="memItemLeft">static std::optional&lt; <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a41ebee4fa2080c5d1c787fdbf38606de">loadHeroSource</a> (const std::filesystem::path &amp;characterFile, std::vector&lt; std::string &gt; &amp;problems)</td></tr>
+<tr class="memdesc:a41ebee4fa2080c5d1c787fdbf38606de inherit pro_static_methods_classhmi_1_1CombatModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche <code class="param">characterFile</code> comme source de combattant (<span class="tt">LOT-139</span>, chaque membre du groupe) ; <span class="tt">std::nullopt</span> si elle est illisible, et <code class="param">problems</code> dit pourquoi.  <br /></td></tr>
 <tr class="inherit_header pro_attribs_classhmi_1_1CombatModel"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classhmi_1_1CombatModel')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Protected Attributes inherited from <a class="el" href="classhmi_1_1CombatModel.html">hmi::CombatModel</a></td></tr>
 <tr class="memitem:ad981fb154684c7b561b80750ffdb926b inherit pro_attribs_classhmi_1_1CombatModel" id="r_ad981fb154684c7b561b80750ffdb926b"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classcore_1_1ArenaSession.html">core::ArenaSession</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#ad981fb154684c7b561b80750ffdb926b">_session</a></td></tr>
 <tr class="memitem:a057cbbd202aa28d65f92b8dd47dad090 inherit pro_attribs_classhmi_1_1CombatModel" id="r_a057cbbd202aa28d65f92b8dd47dad090"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatModel.html#a057cbbd202aa28d65f92b8dd47dad090">_cursor</a> {}</td></tr>
@@ -379,14 +396,17 @@ Additional Inherited Members</h2></td></tr>
 Ce qu'elle tient</h2>
 <p>La partie commune du combat (<span class="tt"><a class="el" href="classhmi_1_1CombatModel.html" title="La vue-modèle d&#39;un combat monté : le curseur, les actions du tour, ce que la grille montre,...">hmi::CombatModel</a></span>), plus ce que la carte y ajoute :</p>
 <ul>
-<li>la <b>rencontre</b> montée sur la zone de combat de la carte courante (<span class="tt"><a class="el" href="namespacecore.html#acedbd9be2b83f7c6219a695e97819da5" title="Prépare encounter sur map, déclenchée en trigger, le héros en heroCell.">core::prepareMapEncounter</a></span>), dont les cases sont celles de la grille tactique ; l'écran les ramène sur la carte par <span class="tt"><a class="el" href="#a224e9b7877fdbf54ac90484328babfad" title="L&#39;origine de la grille tactique sur la carte : ce que l&#39;écran ajoute à chaque case.">zoneColumn</a></span> et <span class="tt"><a class="el" href="#a66cca80a4326c3154b66d1e8d4994de7">zoneRow</a></span> ;</li>
+<li>la <b>rencontre</b> montée sur la zone de combat de la carte courante (<span class="tt"><a class="el" href="namespacecore.html#acedbd9be2b83f7c6219a695e97819da5" title="Un héros seul en heroCell : prepareMapEncounter avec un groupe d&#39;un membre.">core::prepareMapEncounter</a></span>), dont les cases sont celles de la grille tactique ; l'écran les ramène sur la carte par <span class="tt"><a class="el" href="#a224e9b7877fdbf54ac90484328babfad" title="L&#39;origine de la grille tactique sur la carte : ce que l&#39;écran ajoute à chaque case.">zoneColumn</a></span> et <span class="tt"><a class="el" href="#a66cca80a4326c3154b66d1e8d4994de7">zoneRow</a></span> ;</li>
 <li>la <b>file des mouvements</b> (<span class="tt"><a class="el" href="classhmi_1_1CombatCueTrack.html" title="La file des faits du combat, rejoués dans le temps par les figurines.">hmi::CombatCueTrack</a></span>) : ce que la session décide se rejoue à la vitesse du monde — les pas, les coups, les chutes —, et tant qu'elle joue, <span class="tt"><a class="el" href="#adf4b903dd58407d9540dfa3cb91a6ac8" title="Vrai tant qu&#39;un mouvement se joue : les gestes attendent, l&#39;écran le montre.">busy</a></span> est vrai et les gestes attendent. Les tours de l'IA se jouent <b>un par un</b>, chacun après que le précédent s'est vu ;</li>
 <li>les <b>figurines</b> des combattants, publiées à chaque pas dans <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span> (<span class="tt">setCombatFigures</span>) : la surface de rendu de l'exploration les dessine sur la carte gelée, par le même pipeline. Un combattant sans figurine prend son mannequin (<span class="tt">LOT-145</span>).</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md106"></a>
+Le groupe (<span class="tt">LOT-139</span>)</h2>
+<p>Les <b>quatre</b> entrent en combat, là où l'exploration les a laissés — le meneur, puis ses suiveurs dans ses pas. Chaque membre est joué par le joueur à son tour d'initiative : les gestes du modèle (<span class="tt"><a class="el" href="classhmi_1_1CombatModel.html#a7c5723221a10269e6054138dd7582a62" title="Les actions du tour du joueur : attaques, puis celles du Manuel, puis la réaction.">turnActions</a></span>, <span class="tt"><a class="el" href="classhmi_1_1CombatModel.html#a1fe76f11f719e82a0dbec52ed632964f" title="Confirme l&#39;action choisie sur la case du curseur.">confirm</a></span>, <span class="tt"><a class="el" href="classhmi_1_1CombatModel.html#abbc848a493b901b8247047479adde65c" title="Termine le tour du joueur ; l&#39;IA joue ensuite les siens.">endTurn</a></span>…) s'adressent au combattant actif quand il est au joueur, et l'IA ne joue que les ennemis. À la sortie, le combat <b>laisse aux fiches</b> ce qu'il en reste (<span class="tt"><a class="el" href="classcore_1_1PartyLedger.html" title="Le registre : un enregistrement par membre qui a combattu.">core::PartyLedger</a></span>, <span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#a65f08bfa75b50fa3418b0b882ae665f1" title="Le combat laisse record au membre characterId ; l&#39;affichage du groupe suit.">WorldModel::recordMember</a></span>) : les points de vie, les lancers de sorts ; un membre mort quitte le groupe (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#a266e215336e2fd9194e63f1cc589531c" title="Le membre characterId est mort (LOT-137) : il quitte le groupe et ne suit plus ; s&#39;il menait,...">WorldModel::buryMember</a></span>). Une défaite ne laisse rien : la partie s'y termine (<span class="tt">LOT-119</span>).</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md107"></a>
 Un singleton, comme la partie</h2>
 <p>L'écran de combat (<span class="tt">CombatHud.qml</span>) se construit et se détruit avec la pile d'écrans ; la rencontre, elle, est un état de la <b>partie</b> (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span>), et survit à l'ouverture d'un autre écran par-dessus.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md107"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md108"></a>
 Les issues</h2>
 <p><span class="tt"><a class="el" href="#a45300e7fbb84f2da858e82a977f5b1ef" title="victory, defeat, flight ; vide tant que le combat dure ou que la file joue.">outcome</a></span> se publie quand le combat a une issue <b>et</b> que la file a fini de la montrer : <span class="tt">victory</span>, <span class="tt">defeat</span> ou <span class="tt">flight</span>. <span class="tt"><a class="el" href="#a1fe373e7ea8c8bc470d21e12816b1b3c" title="Le combat a une issue : rend l&#39;exploration, pose ce qu&#39;une victoire acquiert.">leave()</a></span> rend alors l'exploration : le drapeau d'une victoire est posé (<span class="tt"><a class="el" href="namespacecore.html#a468dc3da08cf6838100dc8e96eed0312" title="Termine run, et rend l&#39;état d&#39;exploration à restituer.">core::endEncounter</a></span>), le héros reste où le combat l'a laissé, la carte dégèle. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -488,6 +508,31 @@ Les issues</h2>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5598aa2e4a55b003f2cc9bb40357f585" name="a5598aa2e4a55b003f2cc9bb40357f585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5598aa2e4a55b003f2cc9bb40357f585">&#9670;&#160;</a></span>activeMember()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::EncounterModel::activeMember </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -812,8 +857,8 @@ Les issues</h2>
 
 </div>
 </div>
-<a id="a8810eb9ffc6038c1b9bb46b8102d3916" name="a8810eb9ffc6038c1b9bb46b8102d3916"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8810eb9ffc6038c1b9bb46b8102d3916">&#9670;&#160;</a></span>keepMount()</h2>
+<a id="a7ac4863d59d54d34dc6071f021c521f2" name="a7ac4863d59d54d34dc6071f021c521f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ac4863d59d54d34dc6071f021c521f2">&#9670;&#160;</a></span>keepMount()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -824,8 +869,12 @@ Les issues</h2>
         <tr>
           <td class="memname">bool hmi::EncounterModel::keepMount </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mount</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mount</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::vector&lt; std::pair&lt; std::string, <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>party</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -835,10 +884,11 @@ Les issues</h2>
 </table>
 </div><div class="memdoc">
 
-<p>Retient le héros du montage, ou défait la session quand un camp est vide. </p>
+<p>Retient les membres montés — le meneur en tête —, ou défait la session quand un camp est vide. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mount</td><td>Le montage de la session. </td></tr>
+    <tr><td class="paramname">party</td><td>Les membres présentés au montage, dans l'ordre. </td></tr>
   </table>
   </dd>
 </dl>
@@ -865,8 +915,8 @@ Les issues</h2>
 
 </div>
 </div>
-<a id="a3281b166bca8fe7da2543e5662098658" name="a3281b166bca8fe7da2543e5662098658"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3281b166bca8fe7da2543e5662098658">&#9670;&#160;</a></span>mountBout()</h2>
+<a id="a82e76fd2e3e935e3596a039b343a23f4" name="a82e76fd2e3e935e3596a039b343a23f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82e76fd2e3e935e3596a039b343a23f4">&#9670;&#160;</a></span>mountBout()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -877,7 +927,7 @@ Les issues</h2>
         <tr>
           <td class="memname"><a class="el" href="structcore_1_1ArenaMount.html">core::ArenaMount</a> hmi::EncounterModel::mountBout </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">const std::vector&lt; std::pair&lt; std::string, <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>party</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -888,7 +938,13 @@ Les issues</h2>
 </table>
 </div><div class="memdoc">
 
-<p>Ouvre la session sur la grille de la zone, y monte le héros et les créatures de la rencontre. </p>
+<p>Ouvre la session sur la grille de la zone, y monte le groupe et les créatures de la rencontre. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">party</td><td>Les membres du groupe, avec leur source, dans l'ordre de marche. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>Le montage : les camps tels que la session les a numérotés. </dd></dl>
 
 </div>
@@ -915,6 +971,59 @@ Les issues</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a852aedf60aa4bb40687bd2b14d4bcb2a" name="a852aedf60aa4bb40687bd2b14d4bcb2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a852aedf60aa4bb40687bd2b14d4bcb2a">&#9670;&#160;</a></span>partyMembers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::EncounterModel::partyMembers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3eb95a5dbb00dea289f2e284e78e03f2" name="a3eb95a5dbb00dea289f2e284e78e03f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eb95a5dbb00dea289f2e284e78e03f2">&#9670;&#160;</a></span>partySources()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::pair&lt; std::string, <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &gt; &gt; hmi::EncounterModel::partySources </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmi_1_1WorldModel.html">WorldModel</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>world</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit les fiches du groupe de <code class="param">world</code> — les catalogues une fois, chaque fiche à sa première rencontre —, et ce que le registre en dit. </p>
+<dl class="section return"><dt>Returns</dt><dd>Les sources, dans l'ordre de marche ; vide si aucune fiche n'est lisible. </dd></dl>
 
 </div>
 </div>
@@ -1087,6 +1196,44 @@ Les issues</h2>
 </div><div class="memdoc">
 
 <p>Publie l'issue quand le combat en a une et que la file l'a montrée. </p>
+
+</div>
+</div>
+<a id="ac59037bf87c5e936f6e990c4307e232a" name="ac59037bf87c5e936f6e990c4307e232a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac59037bf87c5e936f6e990c4307e232a">&#9670;&#160;</a></span>settleParty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EncounterModel::settleParty </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1WorldModel.html">WorldModel</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>world</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a8825ea64ff05621b7c2c8a073d27577c">core::CombatOutcome</a></td>          <td class="paramname"><span class="paramname"><em>outcome</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce que le combat laisse aux fiches (<span class="tt">LOT-139</span>) : écrit dans le registre de la partie ; un mort quitte le groupe. </p>
+<p>Rien sur une défaite. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>La partie. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#a45300e7fbb84f2da858e82a977f5b1ef" title="victory, defeat, flight ; vide tant que le combat dure ou que la file joue.">outcome</a></td><td>L'issue du combat. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1462,6 +1609,32 @@ Les issues</h2>
 </table>
 </div><div class="memdoc">
 
+<p>Le meneur : ce que la caméra suit, et ce que <span class="tt"><a class="el" href="#afc5af027fd999d54a698abc8fa84a134" title="Le héros — le meneur du groupe — : ses points de vie en clair, et leur part.">heroName</a></span> lit. </p>
+
+</div>
+</div>
+<a id="a41cd490cedb4ac8fffa66592efbdcb4d" name="a41cd490cedb4ac8fffa66592efbdcb4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41cd490cedb4ac8fffa66592efbdcb4d">&#9670;&#160;</a></span>_members</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1EncounterModel_1_1Member.html">Member</a>&gt; hmi::EncounterModel::_members</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les membres du groupe montés, dans l'ordre de marche. </p>
+
 </div>
 </div>
 <a id="a09d6e88bcc6e2525a346a473e8c5f0fc" name="a09d6e88bcc6e2525a346a473e8c5f0fc"></a>
@@ -1579,6 +1752,30 @@ Les issues</h2>
 
 </div>
 </div>
+<a id="a3142fb9495e669ee7bf465176d31b8e7" name="a3142fb9495e669ee7bf465176d31b8e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3142fb9495e669ee7bf465176d31b8e7">&#9670;&#160;</a></span>activeMember</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::EncounterModel::activeMember</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le membre dont c'est le tour (indice dans <span class="tt"><a class="el" href="#ae518885a37b0e53c74b8c7ffc85e3e07" title="Les membres du groupe en combat, dans l&#39;ordre de marche (LOT-139) : id, label (le nom),...">partyMembers</a></span>), ou -1 : un ennemi joue. </p>
+
+</div>
+</div>
 <a id="adf4b903dd58407d9540dfa3cb91a6ac8" name="adf4b903dd58407d9540dfa3cb91a6ac8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adf4b903dd58407d9540dfa3cb91a6ac8">&#9670;&#160;</a></span>busy</h2>
 
@@ -1689,7 +1886,7 @@ Les issues</h2>
 </table>
 </div><div class="memdoc">
 
-<p>Le héros : ses points de vie en clair, et leur part. </p>
+<p>Le héros — le meneur du groupe — : ses points de vie en clair, et leur part. </p>
 
 </div>
 </div>
@@ -1714,6 +1911,31 @@ Les issues</h2>
 </div><div class="memdoc">
 
 <p><span class="tt">victory</span>, <span class="tt">defeat</span>, <span class="tt">flight</span> ; vide tant que le combat dure ou que la file joue. </p>
+
+</div>
+</div>
+<a id="ae518885a37b0e53c74b8c7ffc85e3e07" name="ae518885a37b0e53c74b8c7ffc85e3e07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae518885a37b0e53c74b8c7ffc85e3e07">&#9670;&#160;</a></span>partyMembers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::EncounterModel::partyMembers</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les membres du groupe en combat, dans l'ordre de marche (<span class="tt">LOT-139</span>) : <span class="tt">id</span>, <span class="tt">label</span> (le nom), <span class="tt">value</span> (« 12 / 15 »), <span class="tt">ratio</span>, <span class="tt">portrait</span>, <span class="tt"><a class="el" href="#a5024f17840335af0b7df253c0357233d" title="Vrai d&#39;un begin réussi jusqu&#39;à leave.">active</a></span> (c'est son tour), <span class="tt">down</span>, <span class="tt">dead</span>. </p>
+<p>Vide hors combat. </p>
 
 </div>
 </div>

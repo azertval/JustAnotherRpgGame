@@ -3,6 +3,7 @@ var classhmi_1_1PartyModel =
     [ "PartyModel", "classhmi_1_1PartyModel.html#ac82036bb3279f461e562f365b99c1dc9", null ],
     [ "candidates", "classhmi_1_1PartyModel.html#a25299bc97a6b0bc75b22e293bc0ea6f5", null ],
     [ "changed", "classhmi_1_1PartyModel.html#ad8bdb0fa8611463c96b8e43e1258e0b0", null ],
+    [ "hitPointsOf", "classhmi_1_1PartyModel.html#a4d0b2027752c96c888543a4c7354e719", null ],
     [ "leaderHitPoints", "classhmi_1_1PartyModel.html#a5ed91c497a51bc76b0296b421bd8b34c", null ],
     [ "leaderLevel", "classhmi_1_1PartyModel.html#a6f16a0e3b9a523265ce68c4f4183ce19", null ],
     [ "leaderName", "classhmi_1_1PartyModel.html#a75e1d9933a5ebc1dd4512e39c21239c5", null ],

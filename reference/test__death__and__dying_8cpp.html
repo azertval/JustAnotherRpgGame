@@ -148,6 +148,7 @@ $(function(){initNavTree('test__death__and__dying_8cpp.html','',''); });
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -189,7 +190,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a25b2a912ad61479e154b6b4a23af605f" id="r_a25b2a912ad61479e154b6b4a23af605f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a25b2a912ad61479e154b6b4a23af605f">TEST</a> (DeathAndDyingTest, DesDegatsRompentLaConcentration)</td></tr>
 <tr class="memdesc:a25b2a912ad61479e154b6b4a23af605f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des degats rompent la concentration faute de sauvegarde ; les etats se lisent.  <br /></td></tr>
 <tr class="memitem:a8a3650fad204468c1b4ac195ac7933a8" id="r_a8a3650fad204468c1b4ac195ac7933a8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8a3650fad204468c1b4ac195ac7933a8">TEST</a> (DeathAndDyingTest, LIaAcheveOuEpargneSelonSonProfil)</td></tr>
-<tr class="memdesc:a8a3650fad204468c1b4ac195ac7933a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'IA acheve ou epargne selon son profil (LOT-23, EX-CBT-050).  <br /></td></tr>
+<tr class="memdesc:a8a3650fad204468c1b4ac195ac7933a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'IA acheve ou epargne selon son profil (LOT-23, EX-CBT-050) &ndash; et ne s'acharne pas sur un personnage a terre quand un autre la menace (LOT-139).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests des états, de l'agonie et de la mort (<span class="tt">LOT-137</span>, <span class="tt">EX-CBT-040</span>, <span class="tt">EX-CBT-041</span>) : les jets contre la mort de la machine à états, puis l'arène — soin, <em>épargner les mourants</em>, <em>revigorer</em>, concentration, critique au contact —, puis l'IA qui achève ou épargne. </p>
@@ -396,14 +397,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>L'IA acheve ou epargne selon son profil (LOT-23, EX-CBT-050). </p>
-<p><b>Cas de test :</b> <b>Critere du LOT-137 : un gobelin au contact de Bran, a terre, et d'Aldric, debout. Un profil qui n'acheve pas frappe Aldric ; un profil qui acheve frappe Bran. Les profils livres disent qui acheve.</b><br  />
+<p>L'IA acheve ou epargne selon son profil (LOT-23, EX-CBT-050) &ndash; et ne s'acharne pas sur un personnage a terre quand un autre la menace (LOT-139). </p>
+<p><b>Cas de test :</b> <b>Critere du LOT-137 et du LOT-139 : un gobelin au contact de Bran, a terre. Aldric, debout, est a trois cases : un profil qui n'acheve pas va frapper Aldric ; un profil qui acheve frappe Bran. Aldric revenu au contact, meme le profil qui acheve frappe Aldric. Les profils livres disent qui acheve.</b><br  />
  <b>Categorie :</b> Unitaire · Combat<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Planifier le tour du gobelin avec finishDowned 0, puis 1000.<br  />
-2. Lire behaviors.json.<br  />
- <b>Resultat attendu :</b> Aldric, puis Bran ; agressif 75, meute 100, prudent, soutien et archer 0. </p>
+ 1. Aldric a trois cases : planifier le tour du gobelin avec finishDowned 0, puis 1000.<br  />
+2. Aldric au contact : planifier avec finishDowned 1000.<br  />
+3. Lire behaviors.json.<br  />
+ <b>Resultat attendu :</b> Aldric, puis Bran ; puis Aldric ; agressif 75, meute 100, prudent, soutien et archer 0. </p>
 
 </div>
 </div>

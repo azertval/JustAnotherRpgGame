@@ -320,10 +320,10 @@ ArenaSession::ArenaSession(Level level)
                      deathSaveTally(combatant);
 <span style = "background-color:#dfd">            break;</span>
         case DeathSaveOutcome::Stabilized:
-<span style = "background-color:#fdd">            ligne += "troisieme reussite, stabilise";
+<span style = "background-color:#dfd">            ligne += "troisieme reussite, stabilise";
             break;</span>
         case DeathSaveOutcome::Died:
-<span style = "background-color:#fdd">            ligne += "troisieme echec";
+<span style = "background-color:#dfd">            ligne += "troisieme echec";
             break;</span>
         case DeathSaveOutcome::Revived:
 <span style = "background-color:#dfd">            ligne += "20 naturel, reprend 1 PV et se releve";
@@ -1447,7 +1447,7 @@ std::optional&lt;std::size_t&gt; ArenaSession::firstExitFromReach(
         if (cible == nullptr || cible-&gt;status != CombatantStatus::Standing ||
 <span style = "background-color:#dfd">            _combat-&gt;phase() == CombatPhase::Ended || c == nullptr ||</span>
             c-&gt;status != CombatantStatus::Standing) {
-<span style = "background-color:#fdd">            break;</span>
+<span style = "background-color:#dfd">            break;</span>
         }
 <span style = "background-color:#dfd">        const AttackProfile coup = *meleeAttack(opportuniste);
         static_cast&lt;void&gt;(_combat-&gt;economy(opportuniste)-&gt;spend(REACTION_RESOURCE));

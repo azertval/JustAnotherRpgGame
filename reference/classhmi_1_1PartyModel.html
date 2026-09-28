@@ -195,6 +195,7 @@ Properties</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a7677a8fb2cd2dc6525c329aaf38e8690" id="r_a7677a8fb2cd2dc6525c329aaf38e8690"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a7677a8fb2cd2dc6525c329aaf38e8690">sheetValue</a> (const QString &amp;characterId, const std::string &amp;key) const</td></tr>
+<tr class="memitem:a4d0b2027752c96c888543a4c7354e719" id="r_a4d0b2027752c96c888543a4c7354e719"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a4d0b2027752c96c888543a4c7354e719">hitPointsOf</a> (const QString &amp;characterId) const</td></tr>
 <tr class="memitem:af3bee0c0ccccb8c1c90514583b6e49d6" id="r_af3bee0c0ccccb8c1c90514583b6e49d6"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#af3bee0c0ccccb8c1c90514583b6e49d6">withSheet</a> (QVariantMap row) const</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -204,7 +205,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle du groupe : qui en est, qui mène, et ce que dit la fiche de chacun. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md115"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md116"></a>
 Ce qu'elle tient, et ce qu'elle ne tient pas</h2>
 <p>Le groupe <b>appartient à la partie</b> (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span>, un singleton) : ce modèle n'en garde aucune copie. Il lit, à sa construction, la fiche de chaque personnage qu'on peut prendre — les catalogues une fois, les fiches ensuite (<span class="tt"><a class="el" href="namespacehmi.html#a9003cdd50645942c3d35fd424f91d060" title="Les tables de valeurs de chaque fiche de characterFiles, dans cet ordre : les catalogues lus une fois...">hmi::loadCharacterValues</a></span>) — et relit la composition dans la partie à chaque changement. Ce que l'écran demande (prendre, retirer, mener, avancer dans l'ordre de marche) passe à la partie, qui décide et l'annonce (<span class="tt">partyChanged</span>).</p>
 <p>Sans partie (l'atelier), le groupe est vide et le modèle aussi. </p>
@@ -282,6 +283,32 @@ Ce qu'elle tient, et ce qu'elle ne tient pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4d0b2027752c96c888543a4c7354e719" name="a4d0b2027752c96c888543a4c7354e719"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d0b2027752c96c888543a4c7354e719">&#9670;&#160;</a></span>hitPointsOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::PartyModel::hitPointsOf </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les points de vie « courant / maximum » de <code class="param">characterId</code> : ceux de la fiche, ou ce que le dernier combat en a laissé (<span class="tt">LOT-139</span>). </dd></dl>
 
 </div>
 </div>

@@ -235,6 +235,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adc69a4b8f62eaa2b53a6fc40f9be55ee" id="r_adc69a4b8f62eaa2b53a6fc40f9be55ee"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#adc69a4b8f62eaa2b53a6fc40f9be55ee">leaderSheetFile</a> () const</td></tr>
 <tr class="memitem:aa45be739876d9bcc9f036eb9a1fb12a0" id="r_aa45be739876d9bcc9f036eb9a1fb12a0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa45be739876d9bcc9f036eb9a1fb12a0">setParty</a> (const <a class="el" href="classcore_1_1Party.html">core::Party</a> &amp;<a class="el" href="#a326f6e58ef31097654a987d65f457d39">party</a>)</td></tr>
 <tr class="memdesc:aa45be739876d9bcc9f036eb9a1fb12a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remplace le groupe — un test, ou la sauvegarde un jour.  <br /></td></tr>
+<tr class="memitem:ae2177fa3c49dfb58338f5bc8a4de20d7" id="r_ae2177fa3c49dfb58338f5bc8a4de20d7"><td class="memItemLeft">const <a class="el" href="classcore_1_1PartyLedger.html">core::PartyLedger</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae2177fa3c49dfb58338f5bc8a4de20d7">ledger</a> () const noexcept</td></tr>
+<tr class="memitem:a65f08bfa75b50fa3418b0b882ae665f1" id="r_a65f08bfa75b50fa3418b0b882ae665f1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a65f08bfa75b50fa3418b0b882ae665f1">recordMember</a> (const std::string &amp;characterId, <a class="el" href="structcore_1_1MemberRecord.html">core::MemberRecord</a> record)</td></tr>
+<tr class="memdesc:a65f08bfa75b50fa3418b0b882ae665f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le combat laisse <code class="param">record</code> au membre <code class="param">characterId</code> ; l'affichage du groupe suit.  <br /></td></tr>
+<tr class="memitem:a266e215336e2fd9194e63f1cc589531c" id="r_a266e215336e2fd9194e63f1cc589531c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a266e215336e2fd9194e63f1cc589531c">buryMember</a> (const std::string &amp;characterId)</td></tr>
+<tr class="memdesc:a266e215336e2fd9194e63f1cc589531c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le membre <code class="param">characterId</code> est <b>mort</b> (<span class="tt">LOT-137</span>) : il quitte le groupe et ne suit plus ; s'il menait, le suivant mène.  <br /></td></tr>
 <tr class="memitem:ad9421c6fb0964e93a8f9cce9bea25018" id="r_ad9421c6fb0964e93a8f9cce9bea25018"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad9421c6fb0964e93a8f9cce9bea25018">scene</a> () const</td></tr>
 <tr class="memitem:a014873bddbbead42b168a3084e0cf5ec" id="r_a014873bddbbead42b168a3084e0cf5ec"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a014873bddbbead42b168a3084e0cf5ec">figures</a> () const</td></tr>
 <tr class="memitem:a0b0a8899de46ea91bfea78d9795669ea" id="r_a0b0a8899de46ea91bfea78d9795669ea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0b0a8899de46ea91bfea78d9795669ea">setCombatFigures</a> (std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; <a class="el" href="#a014873bddbbead42b168a3084e0cf5ec">figures</a>, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> heroPoint)</td></tr>
@@ -349,6 +354,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a5df27225ac4e015c412c775937ce34cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les personnages qu'on peut prendre, lus une fois (<span class="tt">Rpg/characters/</span>, <span class="tt">LOT-138</span>).  <br /></td></tr>
 <tr class="memitem:a183c0a674260f7b16e971a6dbaf825fb" id="r_a183c0a674260f7b16e971a6dbaf825fb"><td class="memItemLeft"><a class="el" href="classcore_1_1Party.html">core::Party</a>&#160;</td><td class="memItemRight"><a class="el" href="#a183c0a674260f7b16e971a6dbaf825fb">_party</a></td></tr>
 <tr class="memdesc:a183c0a674260f7b16e971a6dbaf825fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe de la partie : les quatre fiches pré-tirées au départ.  <br /></td></tr>
+<tr class="memitem:a1bec3e9befd172168f6dbc97e780227e" id="r_a1bec3e9befd172168f6dbc97e780227e"><td class="memItemLeft"><a class="el" href="classcore_1_1PartyLedger.html">core::PartyLedger</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1bec3e9befd172168f6dbc97e780227e">_ledger</a></td></tr>
+<tr class="memdesc:a1bec3e9befd172168f6dbc97e780227e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que les combats ont laissé aux fiches (<span class="tt">LOT-139</span>) ; vidé avec la partie.  <br /></td></tr>
 <tr class="memitem:a697ffa3eba330a4bc41e8286b7028586" id="r_a697ffa3eba330a4bc41e8286b7028586"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a697ffa3eba330a4bc41e8286b7028586">_heroFigureOverride</a></td></tr>
 <tr class="memdesc:a697ffa3eba330a4bc41e8286b7028586"><td class="mdescLeft">&#160;</td><td class="mdescRight">La figurine imposée au meneur (<span class="tt">--hero-figure=</span>, la console de débogage) ; vide : celle de sa classe.  <br /></td></tr>
 <tr class="memitem:abebba2b18b07805157fe133092ef526b" id="r_abebba2b18b07805157fe133092ef526b"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#abebba2b18b07805157fe133092ef526b">_move</a> {}</td></tr>
@@ -364,7 +371,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'exploration — <b>la partie en cours</b> : entrer sur une carte, marcher, parler, franchir. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md122"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md123"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span> et fait tourner son <b>pas fixe</b> ; chaque geste de l'écran devient une intention passée à la session, et ce que l'écran montre est relu d'elle. Elle ne décide rien du monde : ni la collision, ni la traversée, ni ce qu'un PNJ répond.</p>
 <p>Même partage que le combat : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante, posée dans la vue de jeu.">hmi::WorldViewportItem</a></span>) prend un <b>instantané en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Une carte en valeurs, telle que la composition la lit : sa grille, ses pièces par case,...">hmi::WorldSceneSnapshot</a></span>) dans <span class="tt">synchronize()</span>, pendant que le fil graphique est bloqué. Le modèle ne lui passe jamais la session. </p>
@@ -471,6 +478,26 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Donne au monde les figurines du groupe — le meneur, puis ses suiveurs — et l'annonce. </p>
+
+</div>
+</div>
+<a id="a266e215336e2fd9194e63f1cc589531c" name="a266e215336e2fd9194e63f1cc589531c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a266e215336e2fd9194e63f1cc589531c">&#9670;&#160;</a></span>buryMember()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::buryMember </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le membre <code class="param">characterId</code> est <b>mort</b> (<span class="tt">LOT-137</span>) : il quitte le groupe et ne suit plus ; s'il menait, le suivant mène. </p>
+<p>Le dernier membre ne se retire pas — un groupe entièrement mort est une défaite, que l'écran de mort clôt (<span class="tt">LOT-119</span>). </p><dl class="section return"><dt>Returns</dt><dd>Vrai si le membre a quitté le groupe. </dd></dl>
 
 </div>
 </div>
@@ -1254,6 +1281,32 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="ae2177fa3c49dfb58338f5bc8a4de20d7" name="ae2177fa3c49dfb58338f5bc8a4de20d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2177fa3c49dfb58338f5bc8a4de20d7">&#9670;&#160;</a></span>ledger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1PartyLedger.html">core::PartyLedger</a> &amp; hmi::WorldModel::ledger </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Ce que les combats de la partie ont laissé aux fiches (<span class="tt">LOT-139</span>) : les points de vie et les lancers de chaque membre. Un membre absent du registre est plein. </dd></dl>
+
+</div>
+</div>
 <a id="a648dd501d5739db825155c82b1961194" name="a648dd501d5739db825155c82b1961194"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a648dd501d5739db825155c82b1961194">&#9670;&#160;</a></span>loaded()</h2>
 
@@ -1795,6 +1848,29 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Refait la session sur les cartes de <span class="tt"><a class="el" href="#a1e39e071f83fd8ce132426c2b29e434d" title="Les dossiers de --levels=, lus avant le Levels/ du contenu (LOT-EDITOR-10).">_levelDirectories</a></span>, puis le <span class="tt">Levels/</span> du contenu. </p>
+
+</div>
+</div>
+<a id="a65f08bfa75b50fa3418b0b882ae665f1" name="a65f08bfa75b50fa3418b0b882ae665f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65f08bfa75b50fa3418b0b882ae665f1">&#9670;&#160;</a></span>recordMember()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::recordMember </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1MemberRecord.html">core::MemberRecord</a></td>          <td class="paramname"><span class="paramname"><em>record</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le combat laisse <code class="param">record</code> au membre <code class="param">characterId</code> ; l'affichage du groupe suit. </p>
 
 </div>
 </div>
@@ -2501,6 +2577,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>La case de la dernière interaction : d'où une rencontre engagée par un dialogue part. </p>
+
+</div>
+</div>
+<a id="a1bec3e9befd172168f6dbc97e780227e" name="a1bec3e9befd172168f6dbc97e780227e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bec3e9befd172168f6dbc97e780227e">&#9670;&#160;</a></span>_ledger</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1PartyLedger.html">core::PartyLedger</a> hmi::WorldModel::_ledger</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce que les combats ont laissé aux fiches (<span class="tt">LOT-139</span>) ; vidé avec la partie. </p>
 
 </div>
 </div>

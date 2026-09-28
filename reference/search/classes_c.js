@@ -37,12 +37,14 @@ var searchData=
   ['markerimage_34',['MarkerImage',['../structcore_1_1MarkerImage.html',1,'core']]],
   ['maskedscenepiece_35',['MaskedScenePiece',['../structcore_1_1MaskedScenePiece.html',1,'core']]],
   ['measure_36',['Measure',['../structhmi_1_1Measure.html',1,'hmi']]],
-  ['memorylogsink_37',['MemoryLogSink',['../classcore_1_1MemoryLogSink.html',1,'core']]],
-  ['minimap_38',['MiniMap',['../classhmi_1_1MiniMap.html',1,'hmi']]],
-  ['mirroraxis_39',['MirrorAxis',['../structhmi_1_1MirrorAxis.html',1,'hmi']]],
-  ['modifier_40',['Modifier',['../structcore_1_1Modifier.html',1,'core']]],
-  ['mountrefusal_41',['MountRefusal',['../structcore_1_1MountRefusal.html',1,'core']]],
-  ['moveoutcome_42',['MoveOutcome',['../structcore_1_1MoveOutcome.html',1,'core']]],
-  ['movepreview_43',['MovePreview',['../structcore_1_1MovePreview.html',1,'core']]],
-  ['mover_44',['Mover',['../structcore_1_1Mover.html',1,'core']]]
+  ['member_37',['Member',['../structhmi_1_1EncounterModel_1_1Member.html',1,'hmi::EncounterModel']]],
+  ['memberrecord_38',['MemberRecord',['../structcore_1_1MemberRecord.html',1,'core']]],
+  ['memorylogsink_39',['MemoryLogSink',['../classcore_1_1MemoryLogSink.html',1,'core']]],
+  ['minimap_40',['MiniMap',['../classhmi_1_1MiniMap.html',1,'hmi']]],
+  ['mirroraxis_41',['MirrorAxis',['../structhmi_1_1MirrorAxis.html',1,'hmi']]],
+  ['modifier_42',['Modifier',['../structcore_1_1Modifier.html',1,'core']]],
+  ['mountrefusal_43',['MountRefusal',['../structcore_1_1MountRefusal.html',1,'core']]],
+  ['moveoutcome_44',['MoveOutcome',['../structcore_1_1MoveOutcome.html',1,'core']]],
+  ['movepreview_45',['MovePreview',['../structcore_1_1MovePreview.html',1,'core']]],
+  ['mover_46',['Mover',['../structcore_1_1Mover.html',1,'core']]]
 ];
