@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790563939492,
+  "lastUpdate": 1790563944563,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1578,6 +1578,40 @@ window.BENCHMARK_DATA = {
             "value": 5.222262499999927,
             "unit": "ms/iter",
             "extra": "iterations: 272\ncpu: 5.227481617647059 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "ef784e2478731a32b58b227f2f98ea40d3737bea",
+          "message": "Merge pull request #156 from azertval/lot-139-combat-de-groupe\n\nLOT-139 — Le combat de groupe",
+          "timestamp": "2026-09-28T00:16:30Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/ef784e2478731a32b58b227f2f98ea40d3737bea"
+        },
+        "date": 1790563942868,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 13.463140000000067,
+            "unit": "ms/iter",
+            "extra": "iterations: 100\ncpu: 13.125 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.3081087121211805,
+            "unit": "ms/iter",
+            "extra": "iterations: 264\ncpu: 5.2675189393939394 ms\nthreads: 1"
           }
         ]
       }
