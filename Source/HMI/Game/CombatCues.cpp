@@ -31,6 +31,18 @@ constexpr std::size_t MAX_FINISH_STEPS = 4096;
     return kind == CombatCueKind::Hit || kind == CombatCueKind::Death;
 }
 
+// Le temps de vol d'un projectile : il arrive quand le coup porte.
+constexpr float FLIGHT_SECONDS = CombatCueTrack::ACTION_SECONDS * CombatCueTrack::IMPACT_FRACTION;
+
+// Le suffixe d'un projectile qui vole vers la gauche de l'ecran : ses bandes sont peintes vers la
+// droite, et `build_fx.py` en pose le miroir (`<effet>-left`). En isometrique, l'ecran va vers la
+// droite quand la colonne croit plus que la rangee.
+[[nodiscard]] std::string projectileStrip(const std::string& effect, core::Vector2 from,
+                                          core::Vector2 to) {
+    const float versLaDroite = (to.x - from.x) - (to.y - from.y);
+    return versLaDroite < 0.0F ? effect + "-left" : effect;
+}
+
 }  // namespace
 
 void CombatCueTrack::place(core::CombatantId actor, core::GridPosition cell, FigureFacing facing) {
@@ -66,6 +78,29 @@ void CombatCueTrack::clear() noexcept {
     _running.clear();
 }
 
+std::vector<EffectMotion> CombatCueTrack::effects() const {
+    std::vector<EffectMotion> effets;
+    for (const Running& running : _running) {
+        if (running.cue.kind != CombatCueKind::Effect || running.elapsed < 0.0F ||
+            !running.cue.target.has_value()) {
+            continue;
+        }
+        const core::Vector2 cible = centerOf(*running.cue.target);
+        if (running.cue.travels) {
+            const float t = std::min(1.0F, running.elapsed / FLIGHT_SECONDS);
+            effets.push_back(EffectMotion{
+                .effect = projectileStrip(running.cue.effect, running.from, cible),
+                .point = core::Vector2{running.from.x + ((cible.x - running.from.x) * t),
+                                       running.from.y + ((cible.y - running.from.y) * t)},
+                .seconds = running.elapsed});
+        } else {
+            effets.push_back(EffectMotion{
+                .effect = running.cue.effect, .point = cible, .seconds = running.elapsed});
+        }
+    }
+    return effets;
+}
+
 const FigureMotion* CombatCueTrack::motionOf(core::CombatantId actor) const {
     const auto found = _figures.find(actor);
     return found != _figures.end() ? &found->second : nullptr;
@@ -89,12 +124,24 @@ void CombatCueTrack::startNext() {
         return;
     }
     // Le coup porte au milieu du geste : les touches et les chutes qui le suivent immediatement
-    // -- ceux d'AUTRES combattants -- demarrent a cet instant, pas apres le geste entier.
-    while (!_queue.empty() && isVictimCue(_queue.front().kind) &&
-           _queue.front().actor != attacker) {
-        _running.push_back(Running{.cue = std::move(_queue.front()),
-                                   .elapsed = -ACTION_SECONDS * IMPACT_FRACTION,
-                                   .from = {}});
+    // -- ceux d'AUTRES combattants -- demarrent a cet instant, pas apres le geste entier. Les
+    // effets l'accompagnent aussi : un projectile part avec le geste, le reste parait a l'impact.
+    while (!_queue.empty()) {
+        CombatCue& suivant = _queue.front();
+        if (suivant.kind == CombatCueKind::Effect) {
+            const float depart = suivant.travels ? 0.0F : -ACTION_SECONDS * IMPACT_FRACTION;
+            Running effet{.cue = std::move(suivant), .elapsed = depart, .from = {}};
+            if (const FigureMotion* figure = motionOf(effet.cue.actor)) {
+                effet.from = figure->point;
+            }
+            _running.push_back(std::move(effet));
+        } else if (isVictimCue(suivant.kind) && suivant.actor != attacker) {
+            _running.push_back(Running{.cue = std::move(suivant),
+                                       .elapsed = -ACTION_SECONDS * IMPACT_FRACTION,
+                                       .from = {}});
+        } else {
+            break;
+        }
         _queue.pop_front();
     }
 }
@@ -144,8 +191,11 @@ bool CombatCueTrack::apply(Running& running) {
                 figure.clipSeconds = 0.0F;
                 return true;
             }
-            figure.clip = running.cue.kind == CombatCueKind::Attack ? figure_clips::ATTACK
-                                                                    : figure_clips::CAST;
+            if (running.cue.kind == CombatCueKind::Cast) {
+                figure.clip = figure_clips::CAST;
+            } else {
+                figure.clip = running.cue.ranged ? figure_clips::RANGED : figure_clips::ATTACK;
+            }
             figure.clipSeconds = std::max(0.0F, elapsed);
             return false;
         }
@@ -165,6 +215,8 @@ bool CombatCueTrack::apply(Running& running) {
             figure.clipSeconds = elapsed;
             return false;
         }
+        case CombatCueKind::Effect:
+            return elapsed >= (running.cue.travels ? FLIGHT_SECONDS : EFFECT_SECONDS);
         case CombatCueKind::Death: {
             if (elapsed < 0.0F) {
                 return false;

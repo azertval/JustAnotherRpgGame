@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "frameWidth": 192,
+  "frameHeight": 256,
+  "clips": {
+    "arrow-left": {
+      "frames": [
+        0
+      ],
+      "frameDuration": 0.5,
+      "loop": false
+    }
+  }
+}

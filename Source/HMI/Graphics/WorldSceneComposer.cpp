@@ -503,8 +503,16 @@ struct FigurePlacement {
     if (figure.figure.empty()) {
         return std::nullopt;
     }
-    const SceneTexture& texture = textures.resolve(
-        figureStripPath(figureDirectoryIn(snapshot, figure.figure), figure.clip, figure.facing));
+    const std::string directory = figureDirectoryIn(snapshot, figure.figure);
+    const SceneTexture* strip =
+        &textures.resolve(figureStripPath(directory, figure.clip, figure.facing));
+    // Une figurine sans la bande demandee joue celle qui la remplace : un archer peint sans tir
+    // tire avec son attaque (`LOT-136`).
+    if (const std::string_view repli = figure_clips::fallbackOf(figure.clip);
+        strip->texture == nullptr && !repli.empty()) {
+        strip = &textures.resolve(figureStripPath(directory, repli, figure.facing));
+    }
+    const SceneTexture& texture = *strip;
     if (texture.texture == nullptr) {
         return std::nullopt;
     }
@@ -1063,7 +1071,7 @@ std::vector<std::string> worldFigureTexturePaths(const WorldSceneSnapshot& snaps
             continue;
         }
         // Les deux bandes d'une figurine : elle marche et elle attend, et le rendu ne doit pas
-        // charger une texture au milieu d'une image. Un combattant precharge ses six bandes : un
+        // charger une texture au milieu d'une image. Un combattant precharge toutes ses bandes : un
         // coup ne doit pas non plus attendre sa texture (LOT-118).
         const std::string directory = figureDirectoryIn(snapshot, figure.figure);
         uniques.insert(figureStripPath(directory, figure_clips::IDLE, figure.facing));
@@ -1075,6 +1083,9 @@ std::vector<std::string> worldFigureTexturePaths(const WorldSceneSnapshot& snaps
         }
         // La bande en cours, quelle qu'elle soit : elle se dessine a cette image.
         uniques.insert(figureStripPath(directory, figure.clip, figure.facing));
+        if (const std::string_view repli = figure_clips::fallbackOf(figure.clip); !repli.empty()) {
+            uniques.insert(figureStripPath(directory, repli, figure.facing));
+        }
     }
     return {uniques.begin(), uniques.end()};
 }

@@ -1,10 +1,228 @@
 {
   "version": 1,
   "disposition": "common-fx",
-  "comment": "Vide : les effets de combat et de sort du monde entier, a la premiere piece promue (LOT-102).",
+  "comment": "Les effets de sort et de combat (LOT-136) : une bande par effet et son .anim.json, cellules de 256 px de haut, sol à y = 252. Sources : Tools/AssetHd/NPC/Classes/LOT-136-v1/fx/, build_fx.py.",
   "tile": [
     256,
     159
   ],
-  "textures": {}
+  "textures": {
+    "arrow": {
+      "file": "arrow.png",
+      "size": [
+        192,
+        256
+      ],
+      "class": "fx",
+      "placement": "air"
+    },
+    "arrow-left": {
+      "file": "arrow-left.png",
+      "size": [
+        192,
+        256
+      ],
+      "class": "fx",
+      "placement": "air"
+    },
+    "bless": {
+      "file": "bless.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "cure-wounds": {
+      "file": "cure-wounds.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "daylight": {
+      "file": "daylight.png",
+      "size": [
+        4096,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "detect-magic": {
+      "file": "detect-magic.png",
+      "size": [
+        3072,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "fire-bolt": {
+      "file": "fire-bolt.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "air"
+    },
+    "fire-bolt-left": {
+      "file": "fire-bolt-left.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "air"
+    },
+    "fireball": {
+      "file": "fireball.png",
+      "size": [
+        4096,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "fly": {
+      "file": "fly.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "impact": {
+      "file": "impact.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "air"
+    },
+    "invisibility": {
+      "file": "invisibility.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "lesser-restoration": {
+      "file": "lesser-restoration.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "light": {
+      "file": "light.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "mage-hand": {
+      "file": "mage-hand.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "magic-missile": {
+      "file": "magic-missile.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "air"
+    },
+    "magic-missile-left": {
+      "file": "magic-missile-left.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "air"
+    },
+    "miss": {
+      "file": "miss.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "air"
+    },
+    "revivify": {
+      "file": "revivify.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "sacred-flame": {
+      "file": "sacred-flame.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "scorching-ray": {
+      "file": "scorching-ray.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "air"
+    },
+    "scorching-ray-left": {
+      "file": "scorching-ray-left.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "air"
+    },
+    "spare-the-dying": {
+      "file": "spare-the-dying.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    },
+    "spiritual-weapon": {
+      "file": "spiritual-weapon.png",
+      "size": [
+        2048,
+        256
+      ],
+      "class": "fx",
+      "placement": "ground"
+    }
+  },
+  "ground": 252
 }

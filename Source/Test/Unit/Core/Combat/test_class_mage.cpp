@@ -459,3 +459,40 @@ TEST(ClassMageTest, UnEffetInconnuEstRefuseEtUnConeNeSeJouePas) {
     ASSERT_EQ(catalogue.spells.size(), 1U);
     EXPECT_FALSE(core::spellMechanism(catalogue.spells.front()).has_value());
 }
+
+/**
+ * @brief La session annonce le debut et la fin d'un sort, avec son identifiant, pour que l'ecran
+ *        joue le geste et l'effet (`LOT-136`).
+ * \castest{<b>Trait de feu annonce son debut, puis son issue.</b><br/>
+ * \tcat Unitaire · Classes<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Mage N1 contre un mannequin en (7, 3), un observateur d'actions branche.<br/>2.
+ * Lancer trait de feu.<br/>
+ * \tattendu Deux annonces : `Begin` puis `End`, du Mage vers le mannequin, sort `fire-bolt`, pas un
+ * tir a l'arme ; `End` dit rate exactement quand le jet a manque.
+ * }
+ */
+TEST(ClassMageTest, UnSortSAnnonceAuDebutEtALaFin) {
+    const core::LoadedCharacterSheet charge = mage();
+    core::ArenaSession session(test_support::room());
+    ASSERT_TRUE(session.mount(combatDe(charge, {test_support::dummy("Mannequin", {7, 3}, 10, 0)}))
+                    .refusals.empty());
+    ASSERT_TRUE(session.start());
+    std::vector<core::ArenaActionNotice> annonces;
+    session.setActionObserver(
+        [&annonces](const core::ArenaActionNotice& annonce) { annonces.push_back(annonce); });
+    const core::ArenaAttack lancer =
+        session.castSpell(CombatantId{2}, sortDe(session, "fire-bolt"));
+    ASSERT_EQ(lancer.result, core::ArenaActionResult::Done);
+    ASSERT_EQ(annonces.size(), 2U);
+    EXPECT_EQ(annonces[0].phase, core::ArenaActionPhase::Begin);
+    EXPECT_EQ(annonces[1].phase, core::ArenaActionPhase::End);
+    for (const core::ArenaActionNotice& annonce : annonces) {
+        EXPECT_EQ(annonce.actor, CombatantId{1});
+        EXPECT_EQ(annonce.target, CombatantId{2});
+        EXPECT_EQ(annonce.spell, "fire-bolt");
+        EXPECT_FALSE(annonce.ranged);
+    }
+    ASSERT_TRUE(lancer.outcome.has_value());
+    EXPECT_EQ(annonces[1].missed, !lancer.outcome->roll.hit);
+}

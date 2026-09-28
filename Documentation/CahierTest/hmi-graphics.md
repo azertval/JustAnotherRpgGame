@@ -1,13 +1,13 @@
 # HMI · Graphics
 
-Tests unitaires — **150 cas** (27 bloquants, 48 critiques, 70 majeurs, 5 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **152 cas** (27 bloquants, 48 critiques, 72 majeurs, 5 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_animation_catalog.cpp`](#test-animation-catalogcpp) | 12 | - | 5 | 7 | - |
-| [`test_asset_gallery.cpp`](#test-asset-gallerycpp) | 10 | 4 | 1 | 5 | - |
+| [`test_asset_gallery.cpp`](#test-asset-gallerycpp) | 11 | 4 | 1 | 6 | - |
 | [`test_asset_gallery_renderer.cpp`](#test-asset-gallery-renderercpp) | 2 | 1 | - | 1 | - |
 | [`test_camera2d.cpp`](#test-camera2dcpp) | 10 | - | - | 9 | 1 |
 | [`test_capital_kit_render.cpp`](#test-capital-kit-rendercpp) | 1 | 1 | - | - | - |
@@ -26,7 +26,7 @@ Tests unitaires — **150 cas** (27 bloquants, 48 critiques, 70 majeurs, 5 mineu
 | [`test_scene_folders.cpp`](#test-scene-folderscpp) | 2 | 2 | - | - | - |
 | [`test_static_world_scene.cpp`](#test-static-world-scenecpp) | 3 | 2 | - | 1 | - |
 | [`test_texture_atlas.cpp`](#test-texture-atlascpp) | 1 | - | 1 | - | - |
-| [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 36 | 4 | 16 | 16 | - |
+| [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 37 | 4 | 16 | 17 | - |
 | [`test_world_scene_renderer.cpp`](#test-world-scene-renderercpp) | 6 | 3 | 3 | - | - |
 | [`test_world_storeys.cpp`](#test-world-storeyscpp) | 7 | 6 | - | 1 | - |
 
@@ -36,7 +36,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 | Exigence | Cas |
 |---|---|
-| `EX-CNT-042` | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosOrienteRangeParClasse`](#assetgallerytestunherosorienterangeparclasse) |
+| `EX-CNT-042` | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosOrienteRangeParClasse`](#assetgallerytestunherosorienterangeparclasse), [`AssetGalleryTest.UnEffetSeJoueDansLaGalerie`](#assetgallerytestuneffetsejouedanslagalerie) |
 | `EX-NFR-040` | [`ProceduralAtlasTest.ChaqueTypeDeTuileAUneCouleurDeRepliDistincte`](#proceduralatlastestchaquetypedetuileaunecouleurdereplidistincte) |
 | `EX-REN-005` | [`WorldSceneComposerTest.LaCadenceEstCelleQueDitLaBande`](#worldscenecomposertestlacadenceestcellequeditlabande) |
 | `EX-REN-014` | [`TriParProfondeurTest.LaProfondeurNeDebordePasDeSaBande`](#triparprofondeurtestlaprofondeurnedebordepasdesabande), [`QuadRecorderTest.OrdonnancementDeclare`](#quadrecordertestordonnancementdeclare) |
@@ -492,6 +492,32 @@ Les bandes orientees du heros et son jeton paraissent dans la galerie.
 - Vérifie que `entry.frameHeight` vaut `256`.
 - Vérifie que `entry.frameCount()` vaut `8`.
 - Vérifie que `formes` vaut `(std::vector<std::string>{"walk-se", "walk-sw", "portrait", "token"})`.
+- Vérifie que `unlisted.empty()` est vrai.
+
+### AssetGalleryTest.UnEffetSeJoueDansLaGalerie
+
+*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:447`
+
+Exigences : `EX-CNT-042`
+
+Un effet parait anime dans la galerie.
+
+**Étapes**
+
+1. Ecrire `Common/Fx/manifest.json` qui cite `fire-bolt.png` (2048 x 256), et son `.anim.json` a huit images de 256 x 256.
+2. Lire le catalogue.
+3. Chercher les images non listees.
+
+**Résultat attendu**
+
+- Vérifie que `catalog.errors.empty()` est vrai.
+- Vérifie que `effets` diffère de `nullptr`.
+- Vérifie que `effets->entries.size()` vaut `1U`.
+- Vérifie que `trait.form` vaut `"fire-bolt"`.
+- Vérifie que `trait.frameWidth` vaut `256`.
+- Vérifie que `trait.frameHeight` vaut `256`.
+- Vérifie que `trait.frameCount()` vaut `8`.
+- Vérifie que `trait.loop` est faux.
 - Vérifie que `unlisted.empty()` est vrai.
 
 ## test_asset_gallery_renderer.cpp
@@ -2595,11 +2621,11 @@ Une bande a un coup se fige sur sa derniere image.
 - Vérifie que `imageA(3.0F, false)` vaut `7`.
 - Vérifie que `imageA(3.0F, true)` vaut `6`.
 
-### WorldSceneComposerTest.UnCombattantPrechargeSesSixBandes
+### WorldSceneComposerTest.UnCombattantPrechargeSesSeptBandes
 
 *Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1255`
 
-Les chemins d'un combattant couvrent les six bandes.
+Les chemins d'un combattant couvrent les sept bandes.
 
 **Étapes**
 
@@ -2608,13 +2634,14 @@ Les chemins d'un combattant couvrent les six bandes.
 **Résultat attendu**
 
 - Vérifie que `hmi::worldFigureTexturePaths(instantane, instantane.figures).size()` vaut `2U`.
-- Vérifie que `chemins.size()` vaut `6U`.
+- Vérifie que `chemins.size()` vaut `7U`.
 - Vérifie que `std::ranges::find(chemins, heros + "/death-ne.png")` diffère de `chemins.end()`.
+- Vérifie que `std::ranges::find(chemins, heros + "/ranged-ne.png")` diffère de `chemins.end()`.
 - Vérifie que `std::ranges::find(chemins, heros + "/cast-ne.png")` diffère de `chemins.end()`.
 
 ### MaquetteRenderTest.LeMannequinRemplaceLeJetonDUnPnjSansFigurine
 
-*Critique · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1280`
+*Critique · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1281`
 
 Le mannequin remplace le jeton d'un PNJ sans figurine.
 
@@ -2633,6 +2660,24 @@ Le mannequin remplace le jeton d'un PNJ sans figurine.
 - Vérifie que `sansFigurine.tokens.size()` vaut `3U`.
 - Vérifie que `avec.tokens.size()` vaut `1U`.
 - Vérifie que `avec.tokens.front().kind` vaut `hmi::MaquetteTokenKind::Object`.
+
+### WorldSceneComposerTest.LeTirSansBandeJoueLAttaque
+
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1319`
+
+Le tir se replie sur l'attaque, et rien d'autre ne se replie.
+
+**Étapes**
+
+1. Lire le repli de `ranged` et de `cast`.
+2. Lister les chemins d'une figurine d'exploration qui joue `ranged`.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::figure_clips::fallbackOf(hmi::figure_clips::RANGED)` vaut `hmi::figure_clips::ATTACK`.
+- Vérifie que `hmi::figure_clips::fallbackOf(hmi::figure_clips::CAST).empty()` est vrai.
+- Vérifie que `std::ranges::find(chemins, archer + "/ranged-se.png")` diffère de `chemins.end()`.
+- Vérifie que `std::ranges::find(chemins, archer + "/attack-se.png")` diffère de `chemins.end()`.
 
 ## test_world_scene_renderer.cpp
 

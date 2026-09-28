@@ -94,7 +94,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-CNT-032` | [Contenu et données](../Specification/contenu.md) | [`CharacterOptionsTest.LesClassesProvisoiresNeSontReferenceesParRien`](core-rpg.md#characteroptionstestlesclassesprovisoiresnesontreferenceesparrien) |
 | `EX-CNT-040` | [Contenu et données](../Specification/contenu.md) | — |
 | `EX-CNT-041` | [Contenu et données](../Specification/contenu.md) | — |
-| `EX-CNT-042` | [Contenu et données](../Specification/contenu.md) | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](hmi-graphics.md#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosOrienteRangeParClasse`](hmi-graphics.md#assetgallerytestunherosorienterangeparclasse) |
+| `EX-CNT-042` | [Contenu et données](../Specification/contenu.md) | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](hmi-graphics.md#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosOrienteRangeParClasse`](hmi-graphics.md#assetgallerytestunherosorienterangeparclasse), [`AssetGalleryTest.UnEffetSeJoueDansLaGalerie`](hmi-graphics.md#assetgallerytestuneffetsejouedanslagalerie) |
 | `EX-CNT-050` | [Contenu et données](../Specification/contenu.md) | — |
 | `EX-CNT-060` | [Contenu et données](../Specification/contenu.md) | — |
 | `EX-CNT-061` | [Contenu et données](../Specification/contenu.md) | — |

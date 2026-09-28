@@ -223,6 +223,11 @@ void readSceneFamily(const std::filesystem::path& root, const std::string& direc
             .anchorX = piece.anchorX,
             .anchorY = piece.anchorY,
             .tilePixels = read.manifest.tileWidth()});
+        // Une pièce animée -- un effet de `Common/Fx` (`LOT-136`) -- a son `.anim.json` à côté :
+        // elle se joue dans la galerie au lieu de s'y étaler en bande.
+        std::filesystem::path animation = root / directory / piece.file;
+        animation.replace_extension(".anim.json");
+        static_cast<void>(readAnimatedEntry(family.entries.back(), animation, catalog.errors));
     }
     std::ranges::stable_sort(family.entries,
                              [](const AssetGalleryEntry& left, const AssetGalleryEntry& right) {

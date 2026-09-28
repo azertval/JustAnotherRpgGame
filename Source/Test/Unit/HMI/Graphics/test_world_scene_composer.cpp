@@ -1250,16 +1250,16 @@ TEST(WorldSceneComposerTest, UneBandeAUnCoupSeFigeSurSaDerniereImage) {
 }
 
 /**
- * @brief Un combattant précharge ses six bandes ; une figurine d'exploration, ses deux
- *        (`LOT-118`).
- * \castest{<b>Les chemins d'un combattant couvrent les six bandes.</b><br/>
+ * @brief Un combattant précharge ses sept bandes ; une figurine d'exploration, ses deux
+ *        (`LOT-118`, le tir du `LOT-136`).
+ * \castest{<b>Les chemins d'un combattant couvrent les sept bandes.</b><br/>
  * \tcat Unitaire · Rendu HD<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Lister les chemins d'un heros au repos, puis du meme marque combattant.<br/>
- * \tattendu Deux chemins, puis six : repos, marche, attaque, sort, touche, mort, orientes.
+ * \tattendu Deux chemins, puis sept : repos, marche, attaque, tir, sort, touche, mort, orientes.
  * }
  */
-TEST(WorldSceneComposerTest, UnCombattantPrechargeSesSixBandes) {
+TEST(WorldSceneComposerTest, UnCombattantPrechargeSesSeptBandes) {
     const std::string heros = "Common/Characters/Heroes/brawler";
     hmi::WorldFigureSnapshot figure{.figure = heros,
                                     .clip = "idle",
@@ -1269,8 +1269,9 @@ TEST(WorldSceneComposerTest, UnCombattantPrechargeSesSixBandes) {
     EXPECT_EQ(hmi::worldFigureTexturePaths(instantane, instantane.figures).size(), 2U);
     figure.combatant = true;
     const std::vector<std::string> chemins = hmi::worldFigureTexturePaths(instantane, {&figure, 1});
-    EXPECT_EQ(chemins.size(), 6U);
+    EXPECT_EQ(chemins.size(), 7U);
     EXPECT_NE(std::ranges::find(chemins, heros + "/death-ne.png"), chemins.end());
+    EXPECT_NE(std::ranges::find(chemins, heros + "/ranged-ne.png"), chemins.end());
     EXPECT_NE(std::ranges::find(chemins, heros + "/cast-ne.png"), chemins.end());
 }
 
@@ -1310,4 +1311,31 @@ TEST(MaquetteRenderTest, LeMannequinRemplaceLeJetonDUnPnjSansFigurine) {
     const hmi::MaquetteMarks avec = hmi::maquetteMarks(entites, true, figurines);
     ASSERT_EQ(avec.tokens.size(), 1U);
     EXPECT_EQ(avec.tokens.front().kind, hmi::MaquetteTokenKind::Object);
+}
+
+/**
+ * @brief Une figurine qui tire sans bande de tir joue son attaque : le repli se precharge avec la
+ *        bande demandee (`LOT-136`).
+ * \castest{<b>Le tir se replie sur l'attaque, et rien d'autre ne se replie.</b><br/>
+ * \tcat Unitaire · Rendu HD<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Lire le repli de `ranged` et de `cast`.<br/>2. Lister les chemins d'une figurine
+ * d'exploration qui joue `ranged`.<br/>
+ * \tattendu `ranged` se replie sur `attack`, `cast` sur rien ; les chemins comptent `ranged-se` et
+ * `attack-se`.
+ * }
+ */
+TEST(WorldSceneComposerTest, LeTirSansBandeJoueLAttaque) {
+    EXPECT_EQ(hmi::figure_clips::fallbackOf(hmi::figure_clips::RANGED), hmi::figure_clips::ATTACK);
+    EXPECT_TRUE(hmi::figure_clips::fallbackOf(hmi::figure_clips::CAST).empty());
+    const std::string archer = "Common/Characters/Placeholders/humanoid";
+    const hmi::WorldFigureSnapshot figure{.figure = archer,
+                                          .clip = "ranged",
+                                          .point = {1.5F, 1.5F},
+                                          .facing = hmi::FigureFacing::SouthEast};
+    const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(carte(), table(), {figure});
+    const std::vector<std::string> chemins =
+        hmi::worldFigureTexturePaths(instantane, instantane.figures);
+    EXPECT_NE(std::ranges::find(chemins, archer + "/ranged-se.png"), chemins.end());
+    EXPECT_NE(std::ranges::find(chemins, archer + "/attack-se.png"), chemins.end());
 }
