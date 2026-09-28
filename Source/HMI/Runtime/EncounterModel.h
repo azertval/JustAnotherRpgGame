@@ -13,10 +13,12 @@
 #include <memory>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "Core/Combat/BattleGrid.h"
 #include "Core/Combat/MapEncounter.h"
+#include "Core/Rpg/PartyLedger.h"
 #include "HMI/Game/CombatCues.h"
 #include "HMI/Game/FigureResolver.h"
 #include "HMI/Runtime/CombatModel.h"
@@ -50,6 +52,16 @@ class WorldModel;
  *   (`setCombatFigures`) : la surface de rendu de l'exploration les dessine sur la carte gelée,
  *   par le même pipeline. Un combattant sans figurine prend son mannequin (`LOT-145`).
  *
+ * ## Le groupe (`LOT-139`)
+ *
+ * Les **quatre** entrent en combat, là où l'exploration les a laissés — le meneur, puis ses
+ * suiveurs dans ses pas. Chaque membre est joué par le joueur à son tour d'initiative : les
+ * gestes du modèle (`turnActions`, `confirm`, `endTurn`…) s'adressent au combattant actif quand
+ * il est au joueur, et l'IA ne joue que les ennemis. À la sortie, le combat **laisse aux fiches**
+ * ce qu'il en reste (`core::PartyLedger`, `WorldModel::recordMember`) : les points de vie, les
+ * lancers de sorts ; un membre mort quitte le groupe (`WorldModel::buryMember`). Une défaite ne
+ * laisse rien : la partie s'y termine (`LOT-119`).
+ *
  * ## Un singleton, comme la partie
  *
  * L'écran de combat (`CombatHud.qml`) se construit et se détruit avec la pile d'écrans ; la
@@ -76,10 +88,18 @@ class EncounterModel : public CombatModel {
     /// L'origine de la grille tactique sur la carte : ce que l'écran ajoute à chaque case.
     Q_PROPERTY(int zoneColumn READ zoneColumn NOTIFY changed)
     Q_PROPERTY(int zoneRow READ zoneRow NOTIFY changed)
-    /// Le héros : ses points de vie en clair, et leur part.
+    /// Le héros — le meneur du groupe — : ses points de vie en clair, et leur part.
     Q_PROPERTY(QString heroName READ heroName NOTIFY changed)
     Q_PROPERTY(QString heroHitPoints READ heroHitPoints NOTIFY changed)
     Q_PROPERTY(qreal heroHitPointsRatio READ heroHitPointsRatio NOTIFY changed)
+    /**
+     * Les membres du groupe en combat, dans l'ordre de marche (`LOT-139`) : `id`, `label` (le
+     * nom), `value` (« 12 / 15 »), `ratio`, `portrait`, `active` (c'est son tour), `down`,
+     * `dead`. Vide hors combat.
+     */
+    Q_PROPERTY(QVariantList partyMembers READ partyMembers NOTIFY changed)
+    /// Le membre dont c'est le tour (indice dans `partyMembers`), ou -1 : un ennemi joue.
+    Q_PROPERTY(int activeMember READ activeMember NOTIFY changed)
     /// Le combattant sous le curseur : `name`, `side`, `hitPoints`, `hitPointsRatio`,
     /// `armorClass`, `speed`, `conditions` ; vide si la case est libre.
     Q_PROPERTY(QVariantMap target READ target NOTIFY cursorChanged)
@@ -136,6 +156,8 @@ public:
     [[nodiscard]] QString heroName() const;
     [[nodiscard]] QString heroHitPoints() const;
     [[nodiscard]] qreal heroHitPointsRatio() const;
+    [[nodiscard]] QVariantList partyMembers() const;
+    [[nodiscard]] int activeMember() const;
     [[nodiscard]] QVariantMap target() const;
     [[nodiscard]] int seed() const noexcept {
         return _seed;
@@ -174,18 +196,41 @@ private:
 
     /// Lit les catalogues à la première rencontre ; @return faux s'il manque l'essentiel.
     bool ensureCatalogs();
-    /// Ouvre la session sur la grille de la zone, y monte le héros et les créatures de la
+    /// Un membre du groupe en combat.
+    struct Member {
+        /// Sa fiche (`Rpg/characters/<id>.json`).
+        std::string characterId;
+        std::string classId;
+        /// Son combattant dans la session.
+        core::CombatantId combatant{};
+    };
+
+    /// Lit les fiches du groupe de @p world — les catalogues une fois, chaque fiche à sa
+    /// première rencontre —, et ce que le registre en dit.
+    /// @return Les sources, dans l'ordre de marche ; vide si aucune fiche n'est lisible.
+    std::vector<std::pair<std::string, HeroContestantSource>> partySources(const WorldModel& world);
+    /// Ouvre la session sur la grille de la zone, y monte le groupe et les créatures de la
     /// rencontre.
+    /// @param party Les membres du groupe, avec leur source, dans l'ordre de marche.
     /// @return Le montage : les camps tels que la session les a numérotés.
-    core::ArenaMount mountBout();
+    core::ArenaMount mountBout(
+        const std::vector<std::pair<std::string, HeroContestantSource>>& party);
     /// Associe à chaque combattant monté la figurine qu'il dessine.
     /// @param world Le modèle du monde, qui résout les figurines.
     /// @param mount Le montage de la session.
     void bindFigures(WorldModel& world, const core::ArenaMount& mount);
-    /// Retient le héros du montage, ou défait la session quand un camp est vide.
+    /// Retient les membres montés — le meneur en tête —, ou défait la session quand un camp est
+    /// vide.
     /// @param mount Le montage de la session.
+    /// @param party Les membres présentés au montage, dans l'ordre.
     /// @return Faux si un camp est vide : rien à engager.
-    bool keepMount(const core::ArenaMount& mount);
+    bool keepMount(const core::ArenaMount& mount,
+                   const std::vector<std::pair<std::string, HeroContestantSource>>& party);
+    /// Ce que le combat laisse aux fiches (`LOT-139`) : écrit dans le registre de la partie ;
+    /// un mort quitte le groupe. Rien sur une défaite.
+    /// @param world La partie.
+    /// @param outcome L'issue du combat.
+    void settleParty(WorldModel& world, core::CombatOutcome outcome) const;
     /// Pose la file des mouvements sur les cases de départ des combattants.
     void placeCues();
     /// Branche la file des mouvements sur la session montée.
@@ -203,7 +248,10 @@ private:
     std::optional<core::MapEncounterSetup> _setup;
     std::string _encounterName;
     std::map<core::CombatantId, Binding> _bindings;
+    /// Le meneur : ce que la caméra suit, et ce que `heroName` lit.
     std::optional<core::CombatantId> _hero;
+    /// Les membres du groupe montés, dans l'ordre de marche.
+    std::vector<Member> _members;
     CombatCueTrack _cues;
     QTimer _clock;
     QString _outcome;

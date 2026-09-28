@@ -25,6 +25,10 @@ import Jadg.Runtime
     | Fin du tour (aussi le bouton sous la fiche de la cible) | Espace | Y |
     | Fuir (si la rencontre le permet) | F | -- |
 
+    LE GROUPE (LOT-139). Les quatre entrent en combat ; chacun est joue par ces memes gestes a son
+    tour d'initiative. Le portrait en avant est celui du membre dont c'est le tour (sinon le
+    meneur), et la case du groupe du cadre marque le membre actif (`activeMember`).
+
     Tant qu'un mouvement se joue (`busy`), les gestes attendent : le modele les ignore, et
     `Entree` saute l'animation. Une fois l'issue publiee, `Entree` ou le bouton du panneau rendent
     l'exploration (`leave`). Une DEFAITE ouvre l'ecran de mort des qu'elle est publiee (LOT-119) :
@@ -39,15 +43,17 @@ CombatHudForm {
     focus: true
     pending: !EncounterModel.active
 
-    characterName: EncounterModel.active ? EncounterModel.heroName : PendingData.value("hud.character.name")
+    // Le personnage en avant : le membre du groupe dont c'est le tour, sinon le meneur (LOT-139).
+    readonly property var focusMember: root.memberInFront(EncounterModel.partyMembers, EncounterModel.activeMember)
+    characterName: EncounterModel.active ? (focusMember ? focusMember.label : EncounterModel.heroName) : PendingData.value("hud.character.name")
     level: PendingData.value("hud.character.level")
-    hitPointsText: EncounterModel.active ? EncounterModel.heroHitPoints : PendingData.value("hud.character.hit_points")
-    hitPointsRatio: EncounterModel.active ? EncounterModel.heroHitPointsRatio : 0
+    hitPointsText: EncounterModel.active ? (focusMember ? focusMember.value : EncounterModel.heroHitPoints) : PendingData.value("hud.character.hit_points")
+    hitPointsRatio: EncounterModel.active ? (focusMember ? focusMember.ratio : EncounterModel.heroHitPointsRatio) : 0
     experienceText: PendingData.value("hud.character.experience")
     experienceRatio: 0
-    portrait: PendingData.image("hud.character.portrait")
-    party: PendingData.rows("hud.party", 4)
-    activeMember: -1
+    portrait: EncounterModel.active && focusMember ? focusMember.portrait : PendingData.image("hud.character.portrait")
+    party: EncounterModel.active ? EncounterModel.partyMembers : PendingData.rows("hud.party", 4)
+    activeMember: EncounterModel.active ? EncounterModel.activeMember : -1
     quests: PendingData.rows("hud.quests", 2)
     clock: PendingData.value("hud.clock")
     location: WorldModel.loaded ? WorldModel.mapName : PendingData.value("hud.location")
@@ -200,6 +206,14 @@ CombatHudForm {
     }
 
     // --- Les listes du formulaire, tirees des listes du modele ---------------------------------
+    /// Le membre du groupe en avant : celui dont c'est le tour, sinon le meneur ; null hors combat.
+    function memberInFront(members, active) {
+        if (!members || members.length === 0) {
+            return null
+        }
+        return members[active >= 0 && active < members.length ? active : 0]
+    }
+
     function initiativeRows(order) {
         const rows = []
         for (let i = 0; i < order.length; ++i) {

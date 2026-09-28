@@ -20,6 +20,7 @@
 
 #include "Core/Math/Vector2.h"
 #include "Core/Rpg/Party.h"
+#include "Core/Rpg/PartyLedger.h"
 #include "Core/World/CityPlan.h"
 #include "Core/World/ExplorationSession.h"
 #include "HMI/Game/WorldPlay.h"
@@ -240,6 +241,21 @@ public:
     ///         (`Common/Characters/Heroes/<classe>`, `LOT-124`).
     [[nodiscard]] static std::string heroFigureOf(std::string_view classId);
 
+    /// @return Ce que les combats de la partie ont laissé aux fiches (`LOT-139`) : les points de
+    ///         vie et les lancers de chaque membre. Un membre absent du registre est plein.
+    [[nodiscard]] const core::PartyLedger& ledger() const noexcept {
+        return _ledger;
+    }
+    /// @brief Le combat laisse @p record au membre @p characterId ; l'affichage du groupe suit.
+    void recordMember(const std::string& characterId, core::MemberRecord record);
+    /**
+     * @brief Le membre @p characterId est **mort** (`LOT-137`) : il quitte le groupe et ne suit
+     *        plus ; s'il menait, le suivant mène. Le dernier membre ne se retire pas — un groupe
+     *        entièrement mort est une défaite, que l'écran de mort clôt (`LOT-119`).
+     * @return Vrai si le membre a quitté le groupe.
+     */
+    bool buryMember(const std::string& characterId);
+
     /// @return La carte que la surface de rendu dessine, partagée (`hmi::WorldPlay::scene`).
     [[nodiscard]] std::shared_ptr<const WorldSceneSnapshot> scene() const;
     /// @return Les figurines de l'image : les PNJ présents, puis le héros — ou, pendant un combat
@@ -368,6 +384,8 @@ private:
     std::vector<core::PartyCandidate> _candidates;
     /// Le groupe de la partie : les quatre fiches pré-tirées au départ.
     core::Party _party;
+    /// Ce que les combats ont laissé aux fiches (`LOT-139`) ; vidé avec la partie.
+    core::PartyLedger _ledger;
     /// La figurine imposée au meneur (`--hero-figure=`, la console de débogage) ; vide : celle
     /// de sa classe.
     std::string _heroFigureOverride;

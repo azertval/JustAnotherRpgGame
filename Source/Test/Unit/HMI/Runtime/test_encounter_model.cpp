@@ -20,11 +20,14 @@
 #include <filesystem>
 #include <set>
 #include <string>
+#include <utility>
 
 #include <gtest/gtest.h>
 
+#include "Core/Rpg/PartyLedger.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/Runtime/EncounterModel.h"
+#include "HMI/Runtime/PartyModel.h"
 #include "HMI/Runtime/WorldModel.h"
 
 namespace {
@@ -56,6 +59,19 @@ void jusquAuJoueur(hmi::EncounterModel& rencontre, const hmi::WorldModel& monde,
         }
     }
     FAIL() << "ni tour du joueur ni fin en 2000 pas";
+}
+
+/// Fuit : chaque membre du groupe se retire a son tour (`LOT-139`, la fuite est celle de tous),
+/// jusqu'a l'issue.
+void fuir(hmi::EncounterModel& rencontre, const hmi::WorldModel& monde,
+          std::set<std::string>& bandes) {
+    for (int tours = 0; tours < 8 && !rencontre.ended(); ++tours) {
+        jusquAuJoueur(rencontre, monde, bandes);
+        if (!rencontre.ended()) {
+            rencontre.withdraw();
+        }
+    }
+    jusquAuJoueur(rencontre, monde, bandes);
 }
 
 }  // namespace
@@ -93,7 +109,12 @@ TEST(EncounterModelTest, DuDeclenchementAuRetourALExploration) {
     EXPECT_EQ(rencontre.zoneRow(), 10);
     ASSERT_NE(rencontre.setup(), nullptr);
     EXPECT_EQ(rencontre.setup()->heroCell, (core::GridPosition{.column = 14, .row = 9}));
-    EXPECT_EQ(rencontre.fighters().size(), 4);
+    // Les quatre du groupe (LOT-139) et les trois rats.
+    EXPECT_EQ(rencontre.setup()->partyCells.size(), 4U);
+    EXPECT_EQ(rencontre.fighters().size(), 7);
+    EXPECT_EQ(rencontre.partyMembers().size(), 4);
+    EXPECT_EQ(rencontre.partyMembers().front().toMap().value("label").toString(),
+              QStringLiteral("Grom Tranche-Écaille"));
     EXPECT_EQ(rencontre.encounterName(), QStringLiteral("Les rats du donjon"));
     // Les combattants tiennent lieu de figurines, sur la carte : leurs points sont en cases de la
     // carte, et le heros y est.
@@ -125,8 +146,7 @@ TEST(EncounterModelTest, DuDeclenchementAuRetourALExploration) {
     EXPECT_TRUE(bandes.contains(std::string{hmi::figure_clips::DEATH})) << "une mort s'est vue";
 
     if (!rencontre.ended()) {
-        rencontre.withdraw();  // la rencontre est fuyable
-        jusquAuJoueur(rencontre, monde, bandes);
+        fuir(rencontre, monde, bandes);  // la rencontre est fuyable
     }
     ASSERT_TRUE(rencontre.ended());
     EXPECT_FALSE(rencontre.outcome().isEmpty());
@@ -217,14 +237,112 @@ TEST(EncounterModelTest, LesGestesAttendentLaFinDUnMouvement) {
     EXPECT_FALSE(rencontre.busy());
     rencontre.leave();  // pas d'issue : refuse, le combat continue
     EXPECT_TRUE(rencontre.active());
-    // La fuite est un geste du joueur : a son tour.
+    // La fuite est un geste du joueur : a son tour, membre par membre.
     std::set<std::string> bandes;
-    jusquAuJoueur(rencontre, monde, bandes);
-    if (!rencontre.ended()) {
-        rencontre.withdraw();
-        jusquAuJoueur(rencontre, monde, bandes);
-    }
+    fuir(rencontre, monde, bandes);
     ASSERT_TRUE(rencontre.ended()) << rencontre.journal().join(QStringLiteral("\n")).toStdString();
     rencontre.leave();
     EXPECT_FALSE(rencontre.active());
+}
+
+/**
+ * @brief Le rejeu à graine fixée donne le même combat (`LOT-139`) : deux rencontres montées à la
+ *        même graine, jouées par les mêmes gestes, écrivent le même journal — et chaque membre du
+ *        groupe y est joué par le joueur à son tour (`EX-CBT-061`).
+ * \castest{<b>Deux combats de groupe a la meme graine sont identiques.</b><br/>
+ * \tcat Unitaire · Combat sur la carte<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Engager les rats a la graine 41, jouer trois rounds (attaquer, finir le tour),
+ * relever le journal, fuir.<br/>2. Reposer le groupe, recommencer a la meme graine.<br/>
+ * \tattendu Les deux journaux sont identiques, et ont vu plus d'un membre du groupe jouer.
+ * }
+ */
+TEST(EncounterModelTest, LeRejeuAGraineFixeeDonneLeMemeCombat) {
+    hmi::WorldModel monde;
+    ouvrirLeDonjon(monde);
+    hmi::EncounterModel rencontre;
+    rencontre.setContentRoot(dataRoot());
+    std::set<std::string> bandes;
+    const auto jouer = [&]() {
+        monde.placeHero(core::cellCenter({.column = 24, .row = 19}));
+        rencontre.setSeed(41);
+        EXPECT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon")))
+            << rencontre.status().toStdString();
+        std::set<int> membresJoues;
+        for (int tour = 0; tour < 6 && !rencontre.ended(); ++tour) {
+            jusquAuJoueur(rencontre, monde, bandes);
+            if (rencontre.ended()) {
+                break;
+            }
+            membresJoues.insert(rencontre.activeMember());
+            rencontre.selectAction(0);
+            rencontre.cycleTarget(1);
+            rencontre.confirm();
+            rencontre.endTurn();
+        }
+        const QStringList journal = rencontre.journal();
+        if (!rencontre.ended()) {
+            fuir(rencontre, monde, bandes);
+        }
+        rencontre.leave();
+        return std::make_pair(journal, membresJoues);
+    };
+    const auto [premier, membres] = jouer();
+    const auto [second, encore] = jouer();
+    EXPECT_EQ(premier, second);
+    EXPECT_GT(membres.size(), 1U) << "plus d'un membre du groupe a joue";
+    EXPECT_FALSE(membres.contains(-1)) << "au tour du joueur, c'est un membre qui joue";
+}
+
+/**
+ * @brief Ce que le combat laisse aux fiches (`LOT-139`) : les points de vie qui restent sont
+ *        relus au combat suivant et montrés par l'écran de groupe ; un membre mort quitte le
+ *        groupe, et s'il menait, le suivant mène.
+ * \castest{<b>Le registre du groupe : points de vie relus, mort qui ne suit plus.</b><br/>
+ * \tcat Unitaire · Combat sur la carte<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Noter au registre 5 PV pour le Brawler ; engager les rats.<br/>2. Fuir ; lire le
+ * registre.<br/>3. Enterrer le Brawler, puis tenter d'enterrer tout le monde.<br/>
+ * \tattendu Le Brawler entre en combat a 5 / 15, l'ecran de groupe le dit ; apres la fuite,
+ * chaque membre a un enregistrement, au moins 1 PV ; enterre, le Brawler quitte le groupe, le
+ * Priest mene, deux suiveurs ; le dernier ne s'enterre pas.
+ * }
+ */
+TEST(EncounterModelTest, LeCombatLaisseAuxFichesCeQuIlEnReste) {
+    hmi::WorldModel monde;
+    ouvrirLeDonjon(monde);
+    core::MemberRecord blesse;
+    blesse.hitPoints = 5;
+    monde.recordMember("heros-brawler", blesse);
+    hmi::PartyModel groupe;
+    EXPECT_EQ(groupe.leaderHitPoints(), QStringLiteral("5 / 15"));
+
+    hmi::EncounterModel rencontre;
+    rencontre.setContentRoot(dataRoot());
+    rencontre.setSeed(2026);
+    ASSERT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon")))
+        << rencontre.status().toStdString();
+    EXPECT_EQ(rencontre.heroHitPoints(), QStringLiteral("5 / 15"));
+    EXPECT_EQ(rencontre.partyMembers().front().toMap().value("value").toString(),
+              QStringLiteral("5 / 15"));
+    std::set<std::string> bandes;
+    fuir(rencontre, monde, bandes);
+    ASSERT_TRUE(rencontre.ended());
+    rencontre.leave();
+    for (const std::string& membre : monde.party().members()) {
+        const core::MemberRecord* const record = monde.ledger().record(membre);
+        ASSERT_NE(record, nullptr) << membre;
+        ASSERT_TRUE(record->hitPoints.has_value()) << membre;
+        EXPECT_GE(*record->hitPoints, 1) << membre;
+    }
+
+    EXPECT_TRUE(monde.buryMember("heros-brawler"));
+    EXPECT_EQ(monde.leaderId(), QStringLiteral("heros-priest"));
+    EXPECT_EQ(monde.party().size(), 3U);
+    EXPECT_EQ(monde.play().session().followers(), 2U);
+    EXPECT_EQ(monde.ledger().record("heros-brawler"), nullptr);
+    EXPECT_TRUE(monde.buryMember("heros-priest"));
+    EXPECT_TRUE(monde.buryMember("heros-scoundrel"));
+    EXPECT_FALSE(monde.buryMember("heros-mage")) << "le dernier ne s'enterre pas";
+    EXPECT_EQ(monde.party().size(), 1U);
 }

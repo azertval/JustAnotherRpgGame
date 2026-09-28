@@ -48,6 +48,8 @@ add_library(Core STATIC
     Resources/ScenePlace.cpp
     Combat/CombatTransition.cpp
     Combat/MapEncounter.cpp
+    # Le budget d'une rencontre pour un groupe (LOT-139).
+    Combat/EncounterDifficulty.cpp
     Combat/BattleGrid.cpp
     Combat/Pathfinding.cpp
     Combat/TurnOrder.cpp
@@ -67,6 +69,8 @@ add_library(Core STATIC
     Rpg/RpgEnumNames.cpp
     Rpg/Multiclassing.cpp
     Rpg/Party.cpp
+    # Ce que le combat laisse aux fiches du groupe (LOT-139).
+    Rpg/PartyLedger.cpp
     Levels/TileMap.cpp
     Levels/TileLayer.cpp
     Levels/MapEntity.cpp

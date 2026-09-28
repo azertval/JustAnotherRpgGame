@@ -20,13 +20,18 @@
 #include <QObject>
 #include <QString>
 #include <QThread>
+#include <QVariant>
+#include <QVariantMap>
+#include <algorithm>
 #include <cstdint>
+#include <cstdlib>
 #include <filesystem>
 #include <functional>
 #include <memory>
 #include <optional>
 #include <string>
 #include <string_view>
+#include <utility>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -51,7 +56,7 @@ namespace {
 const std::filesystem::path ELEMENTS{JADG_ELEMENTS_DIR};
 
 constexpr std::string_view DRAPEAU = "quete.pommes";
-constexpr std::string_view RENCONTRE = "arene-combattant";
+constexpr std::string_view RENCONTRE = "arene-bandits";
 constexpr const char* MARTPART = "central-empire/capital/martpart";
 constexpr const char* ARENAREA = "central-empire/capital/arenarea";
 constexpr const char* SABLE = "central-empire/capital/arenarea/arena-of-fate";
@@ -204,17 +209,26 @@ public:
         fermerLeDialogue();
     }
 
-    /// Joue la rencontre engagée, comme `CombatHud` : attaquer la cible visée, finir le tour, et
-    /// laisser l'IA jouer ; jusqu'à l'issue. @return `victory`, `defeat` ou `flight`.
+    /// Joue la rencontre engagée, comme `CombatHud` : chaque membre du groupe à son tour
+    /// (`LOT-139`) attaque la cible visée — s'il ne la porte pas, il marche vers elle, puis
+    /// frappe —, finit le tour, et laisse l'IA jouer ; jusqu'à l'issue.
+    /// @return `victory`, `defeat` ou `flight`.
     std::string combattre() {
-        for (int tour = 0; tour < 60 && !rencontre.ended(); ++tour) {
+        for (int tour = 0; tour < 200 && !rencontre.ended(); ++tour) {
             jusquAuJoueur();
             if (rencontre.ended()) {
                 break;
             }
             rencontre.selectAction(0);
             rencontre.cycleTarget(1);
+            const int lignes = rencontre.journal().size();
             rencontre.confirm();
+            if (rencontre.journal().size() == lignes) {
+                // Hors de portee : la case atteignable la plus proche de la cible, puis frapper.
+                marcherVersLeCurseur();
+                rencontre.cycleTarget(1);
+                rencontre.confirm();
+            }
             rencontre.endTurn();
         }
         jusquAuJoueur();
@@ -222,6 +236,28 @@ public:
             rencontre.tick(1.0F / 60.0F);
         }
         return rencontre.outcome().toStdString();
+    }
+
+    /// Marche vers la case du curseur : la case atteignable la plus proche, comme un clic.
+    void marcherVersLeCurseur() {
+        const int colonne = rencontre.cursorColumn();
+        const int ligne = rencontre.cursorRow();
+        std::optional<std::pair<int, int>> meilleure;
+        int distance = 0;
+        for (const QVariant& cellule : rencontre.reachableCells()) {
+            const QVariantMap valeurs = cellule.toMap();
+            const int c = valeurs.value("column").toInt();
+            const int r = valeurs.value("row").toInt();
+            const int d = std::max(std::abs(c - colonne), std::abs(r - ligne));
+            if (!meilleure.has_value() || d < distance) {
+                meilleure = std::make_pair(c, r);
+                distance = d;
+            }
+        }
+        if (meilleure.has_value()) {
+            rencontre.tapCell(meilleure->first, meilleure->second);
+            jusquAuJoueur();
+        }
     }
 
     /// Engage la rencontre du maître d'arène à la graine @p graine, la joue, et rend son issue.
@@ -433,9 +469,16 @@ TEST(DemoDeBoutEnBout, LaFinParLArene) {
         ASSERT_FALSE(issue.empty()) << "graine " << graine << " : pas d'issue";
         if (issue == "victory") {
             gagnante = graine;
+            jeu.quitterLeCombat();
+            ASSERT_NE(jeu.router.currentScreen(), Screen::Death) << "graine " << graine;
+            break;
         }
-        jeu.quitterLeCombat();
-        ASSERT_NE(jeu.router.currentScreen(), Screen::Death) << "graine " << graine;
+        // Une graine perdante ouvrirait l'ecran de mort (LOT-119) ; on cherche la gagnante, et
+        // une defaite ne laisse rien aux fiches (LOT-139) : on quitte simplement la rencontre,
+        // le groupe entier, et l'on reessaie a la graine suivante.
+        jeu.rencontre.leave();
+        jeu.router.closeRpgScreen();
+        jeu.monde.setFrozen(false);
     }
     ASSERT_TRUE(gagnante.has_value()) << "aucune graine gagnante en trente";
     ::testing::Test::RecordProperty("graine_gagnante", *gagnante);

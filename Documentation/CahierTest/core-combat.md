@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **164 cas** (33 bloquants, 89 critiques, 41 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **168 cas** (33 bloquants, 93 critiques, 41 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -21,10 +21,11 @@ Tests unitaires — **164 cas** (33 bloquants, 89 critiques, 41 majeurs, 1 mineu
 | [`test_damage.cpp`](#test-damagecpp) | 7 | 3 | 3 | 1 | - |
 | [`test_death_and_dying.cpp`](#test-death-and-dyingcpp) | 13 | - | 9 | 4 | - |
 | [`test_encounter.cpp`](#test-encountercpp) | 12 | - | 7 | 5 | - |
+| [`test_encounter_difficulty.cpp`](#test-encounter-difficultycpp) | 3 | - | 3 | - | - |
 | [`test_enemy_ai.cpp`](#test-enemy-aicpp) | 12 | 5 | 7 | - | - |
 | [`test_iso_projection.cpp`](#test-iso-projectioncpp) | 9 | 5 | - | 3 | 1 |
 | [`test_line_of_sight.cpp`](#test-line-of-sightcpp) | 3 | 1 | 1 | 1 | - |
-| [`test_map_encounter.cpp`](#test-map-encountercpp) | 3 | - | 2 | 1 | - |
+| [`test_map_encounter.cpp`](#test-map-encountercpp) | 4 | - | 3 | 1 | - |
 | [`test_pathfinding.cpp`](#test-pathfindingcpp) | 13 | 4 | 6 | 3 | - |
 | [`test_tactical_terrain.cpp`](#test-tactical-terraincpp) | 10 | - | 4 | 6 | - |
 | [`test_turn_order.cpp`](#test-turn-ordercpp) | 3 | 1 | 1 | 1 | - |
@@ -2271,7 +2272,7 @@ Une structure de la grille traverse le pipeline avec ses resistances et quitte l
 
 ### DeathAndDyingTest.TroisEchecsTuent
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:147`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:148`
 
 Exigences : `EX-CBT-040`
 
@@ -2304,7 +2305,7 @@ Un allie tombe a 0 PV : il agonise ; deux echecs et un succes ne le tuent pas, l
 
 ### DeathAndDyingTest.UnVingtReleveUnUnCompteDouble
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:188`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:189`
 
 Exigences : `EX-CBT-040`, `EX-CBT-041`
 
@@ -2339,7 +2340,7 @@ Les d20 extremes du Manuel : 20 rend 1 PV, 1 compte deux echecs, meme quand la b
 
 ### DeathAndDyingTest.LesDegatsATerreEtLaMortInstantanee
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:232`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:233`
 
 Exigences : `EX-CBT-040`
 
@@ -2361,7 +2362,7 @@ Degats a 0 point de vie et mort instantanee, Manuel p. 199 : un coup a terre cou
 
 ### DeathAndDyingTest.UnMonstreMeurtEtLaMarqueProtege
 
-*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:270`
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:271`
 
 Les monstres et la mort (Manuel p. 199) ; et la Marque Heroique des Arenes : sans mort, on tombe sans agoniser, meme sous des degats massifs.
 
@@ -2381,7 +2382,7 @@ Les monstres et la mort (Manuel p. 199) ; et la Marque Heroique des Arenes : san
 
 ### DeathAndDyingTest.LeJetSeFaitASaPlaceEtUnVingtRejoue
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:303`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:304`
 
 Exigences : `EX-CBT-040`
 
@@ -2404,7 +2405,7 @@ Exigences : `EX-CBT-040`
 
 ### DeathAndDyingTest.ReviveNeRameneQueLesMorts
 
-*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:339`
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:340`
 
 Seul un mort revient : revive refuse un vivant, et le revenant se releve avec ses points de vie, compteur vide.
 
@@ -2427,7 +2428,7 @@ Seul un mort revient : revive refuse un vivant, et le revenant se releve avec se
 
 ### DeathAndDyingTest.UnAllieATerreSeReleveParSoinEtRejoue
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:366`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:367`
 
 Exigences : `EX-CBT-041`
 
@@ -2457,7 +2458,7 @@ Critere du LOT-137 : Bran tombe, inconscient et a terre ; la Priest le soigne au
 
 ### DeathAndDyingTest.LeJetContreLaMortSeJetteDansLArene
 
-*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:406`
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:407`
 
 Exigences : `EX-CBT-040`
 
@@ -2480,7 +2481,7 @@ Dans une session, qui tient les des jette le d20 de Bran a sa place et l'ecrit :
 
 ### DeathAndDyingTest.EpargnerLesMourantsStabilise
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:433`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:434`
 
 La Priest de niveau 5 lance epargner les mourants sur Bran a terre : il est stabilise, et son tour passe sans jet.
 
@@ -2505,7 +2506,7 @@ La Priest de niveau 5 lance epargner les mourants sur Bran a terre : il est stab
 
 ### DeathAndDyingTest.RevigorerRameneUnMortDeMoinsDUneMinute
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:463`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:464`
 
 Bran meurt sous des degats massifs ; soin des blessures ne le ramene pas, revigorer si : 1 PV. Mort de nouveau, onze rounds plus tard, revigorer refuse.
 
@@ -2534,7 +2535,7 @@ Bran meurt sous des degats massifs ; soin des blessures ne le ramene pas, revigo
 
 ### DeathAndDyingTest.FrapperUnInconscientAuContactEstCritique
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:507`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:508`
 
 Exigences : `EX-CBT-040`
 
@@ -2561,7 +2562,7 @@ Manuel, annexe A : Bran, stabilise a terre, est attaque par le gobelin a son con
 
 ### DeathAndDyingTest.DesDegatsRompentLaConcentration
 
-*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:540`
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:541`
 
 La Priest benie et concentree prend 100 degats : DD 50, la sauvegarde de Constitution echoue, la benediction prend fin.
 
@@ -2584,26 +2585,29 @@ La Priest benie et concentree prend 100 degats : DD 50, la sauvegarde de Constit
 
 ### DeathAndDyingTest.LIaAcheveOuEpargneSelonSonProfil
 
-*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:570`
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_death_and_dying.cpp:572`
 
 Exigences : `EX-CBT-050`
 
-Critere du LOT-137 : un gobelin au contact de Bran, a terre, et d'Aldric, debout. Un profil qui n'acheve pas frappe Aldric ; un profil qui acheve frappe Bran. Les profils livres disent qui acheve.
+Critere du LOT-137 et du LOT-139 : un gobelin au contact de Bran, a terre. Aldric, debout, est a trois cases : un profil qui n'acheve pas va frapper Aldric ; un profil qui acheve frappe Bran. Aldric revenu au contact, meme le profil qui acheve frappe Aldric. Les profils livres disent qui acheve.
 
 **Étapes**
 
-1. Planifier le tour du gobelin avec finishDowned 0, puis 1000.
-2. Lire behaviors.json.
+1. Aldric a trois cases : planifier le tour du gobelin avec finishDowned 0, puis 1000.
+2. Aldric au contact : planifier avec finishDowned 1000.
+3. Lire behaviors.json.
 
 **Résultat attendu**
 
-- Vérifie que `session.start()` est vrai.
-- Vérifie que `session.combat().activeCombatant()` vaut `CombatantId{1}`.
-- Vérifie que `session.combat().find(CombatantId{2})->status` vaut `CombatantStatus::Down`.
+- Vérifie que `session->start()` est vrai.
+- Vérifie que `session->combat().activeCombatant()` vaut `CombatantId{1}`.
+- Vérifie que `session->combat().find(CombatantId{2})->status` vaut `CombatantStatus::Down`.
 - Vérifie que `clement.action` vaut `core::TurnAction::Attack`.
 - Vérifie que `clement.target` vaut `CombatantId{3}`.
 - Vérifie que `cruel.action` vaut `core::TurnAction::Attack`.
 - Vérifie que `cruel.target` vaut `CombatantId{2}`.
+- Vérifie que `menace.action` vaut `core::TurnAction::Attack`.
+- Vérifie que `menace.target` vaut `CombatantId{3}`.
 - Vérifie que `profils.errors.empty()` est vrai.
 - Vérifie que `profils.find("aggressive")->finishDowned` vaut `75`.
 - Vérifie que `profils.find("pack")->finishDowned` vaut `100`.
@@ -2822,6 +2826,83 @@ Ce qui n'est pas un declencheur n'en devient pas un.
 
 - Vérifie que `core::encounterTriggerFor(coffre, "grotte").has_value()` est faux.
 - Vérifie que `core::encounterTriggerFor(sansRencontre, "grotte").has_value()` est faux.
+
+## test_encounter_difficulty.cpp
+
+### EncounterDifficultyTest.LesReglesSeChargent
+
+*Critique · Unitaire · Combat · Budget* — `Source/Test/Unit/Core/Combat/test_encounter_difficulty.cpp:35`
+
+Les regles du budget de rencontre se chargent.
+
+**Étapes**
+
+1. Charger `Rpg/rules/encounter-difficulty.json`.
+
+**Résultat attendu**
+
+- Vérifie que `rules.ok()` est vrai.
+- Vérifie que `rules.categories` vaut `(std::vector<std::string>{"facile", "moyenne", "difficile", "mortelle"})`.
+- Vérifie que `rules.thresholds.size()` vaut `20U`.
+- Vérifie que `rules.thresholds.front().experience.at("facile")` vaut `25`.
+- Vérifie que `rules.thresholds.back().experience.at("mortelle")` vaut `12700`.
+- Vérifie que `core::experienceForChallenge(rules, 0.125F)` vaut `25`.
+- Vérifie que `core::experienceForChallenge(rules, 5.0F)` vaut `1800`.
+- Vérifie que `core::experienceForChallenge(rules, 42.0F)` vaut `0`.
+
+### EncounterDifficultyTest.LExempleDuLivreTient
+
+*Critique · Unitaire · Combat · Budget* — `Source/Test/Unit/Core/Combat/test_encounter_difficulty.cpp:60`
+
+Les seuils du groupe et le multiplicateur suivent l'exemple du Guide du Maitre.
+
+**Étapes**
+
+1. Sommer les seuils de trois niveaux 3 et un niveau 2.
+2. Multiplier 500 PX de quatre monstres.
+3. Comparer le multiplicateur d'un groupe de deux et de six.
+
+**Résultat attendu**
+
+- Vérifie que `seuils.at("facile")` vaut `275`.
+- Vérifie que `seuils.at("moyenne")` vaut `550`.
+- Vérifie que `seuils.at("difficile")` vaut `825`.
+- Vérifie que `seuils.at("mortelle")` vaut `1400`.
+- Vérifie que `core::encounterMultiplierFor(rules, 4, 4)` vaut `2.0` (comparaison flottante).
+- Vérifie que `core::encounterMultiplierFor(rules, 1, 4)` vaut `1.0` (comparaison flottante).
+- Vérifie que `core::encounterMultiplierFor(rules, 2, 4)` vaut `1.5` (comparaison flottante).
+- Vérifie que `core::encounterMultiplierFor(rules, 15, 4)` vaut `4.0` (comparaison flottante).
+- Vérifie que `core::encounterMultiplierFor(rules, 1, 2)` vaut `1.5` (comparaison flottante).
+- Vérifie que `core::encounterMultiplierFor(rules, 15, 2)` vaut `5.0` (comparaison flottante).
+- Vérifie que `core::encounterMultiplierFor(rules, 1, 6)` vaut `0.5` (comparaison flottante).
+- Vérifie que `core::encounterMultiplierFor(rules, 4, 6)` vaut `1.5` (comparaison flottante).
+
+### EncounterDifficultyTest.LesBanditsDeLaDemoSontUneRencontreDifficile
+
+*Critique · Unitaire · Combat · Budget* — `Source/Test/Unit/Core/Combat/test_encounter_difficulty.cpp:93`
+
+Les bandits de l'Arena of Fate sont une rencontre difficile pour le groupe de depart.
+
+**Étapes**
+
+1. Juger `arene-bandits` pour quatre niveaux 1.
+2. Juger une rencontre d'une creature inconnue.
+
+**Résultat attendu**
+
+- Vérifie que `bandits` diffère de `nullptr`.
+- Vérifie que `budget.monsters` vaut `6`.
+- Vérifie que `budget.monsterExperience` vaut `150`.
+- Vérifie que `budget.multiplier` vaut `2.0` (comparaison flottante).
+- Vérifie que `budget.adjustedExperience` vaut `300`.
+- Vérifie que `budget.thresholds.at("difficile")` vaut `300`.
+- Vérifie que `budget.thresholds.at("mortelle")` vaut `400`.
+- Vérifie que `budget.category` vaut `"difficile"`.
+- Vérifie que `budget.unknownCreatures.empty()` est vrai.
+- Vérifie que `vide.monsters` vaut `0`.
+- Vérifie que `vide.category.empty()` est vrai.
+- Vérifie que `vide.unknownCreatures.size()` vaut `1U`.
+- Vérifie que `vide.unknownCreatures.front()` vaut `"dragon-de-papier"`.
 
 ## test_enemy_ai.cpp
 
@@ -3348,7 +3429,7 @@ Un muret et une créature interposée abritent partiellement, une herse de faço
 
 ### MapEncounterTest.LaZoneDuDeclencheurEstChoisieEtLesCasesTranslatees
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:63`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:65`
 
 Une rencontre se pose sur la zone de combat du declencheur, cases translatees.
 
@@ -3374,7 +3455,7 @@ Une rencontre se pose sur la zone de combat du declencheur, cases translatees.
 
 ### MapEncounterTest.UnePlaceImpossibleSeRapprocheEtSeNote
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:98`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:100`
 
 Une place impossible est rapprochee de la case voulue, et notee.
 
@@ -3395,9 +3476,36 @@ Une place impossible est rapprochee de la case voulue, et notee.
 - Vérifie que `std::ranges::find(cases, place.position)` vaut `cases.end()`.
 - Vérifie que `dehors.setup->zone.contains(core::zoneToMap(dehors.setup->zone, place.position))` est vrai.
 
+### MapEncounterTest.LeGroupeEntreLaOuIlMarche
+
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:141`
+
+Les cases du groupe se posent dans l'ordre de marche, sans partage.
+
+**Étapes**
+
+1. Preparer les loups, declenches en (14, 8), le groupe en (15, 10), (16, 10), (17, 10) et (22, 10) -- la derniere hors de la zone « cour ».
+2. Preparer avec un groupe vide.
+
+**Résultat attendu**
+
+- Vérifie que `resultat.ok()` est vrai.
+- Vérifie que `montage.partyCells.size()` vaut `4U`.
+- Vérifie que `montage.heroCell` vaut `montage.partyCells.front()`.
+- Vérifie que `montage.partyCells[0]` vaut `(core::GridPosition{.column = 5, .row = 5})`.
+- Vérifie que `montage.partyCells[1]` vaut `(core::GridPosition{.column = 6, .row = 5})`.
+- Vérifie que `montage.partyCells[2]` vaut `(core::GridPosition{.column = 7, .row = 5})`.
+- Vérifie que `montage.zone.contains(dernier)` est vrai.
+- Vérifie que `std::max(std::abs(dernier.column - 22), std::abs(dernier.row - 10))` vaut `3`.
+- Vérifie que `cases[i]` diffère de `cases[j]`.
+- Vérifie que `montage.notes.size()` vaut `1U`.
+- Vérifie que `montage.notes.front().find("suiveur 3")` diffère de `std::string::npos`.
+- Vérifie que `vide.ok()` est faux.
+- Vérifie que `vide.issue.find("groupe")` diffère de `std::string::npos`.
+
 ### MapEncounterTest.SansZoneLaRencontreEstRefusee
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:139`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/Core/Combat/test_map_encounter.cpp:191`
 
 Une rencontre hors de toute zone de combat est refusee.
 

@@ -37,6 +37,7 @@ add_executable(UnitTests
     Unit/Core/Combat/test_encounter.cpp
     # Une rencontre posee sur la carte (LOT-118) : la zone, la grille, les places.
     Unit/Core/Combat/test_map_encounter.cpp
+    Unit/Core/Combat/test_encounter_difficulty.cpp
     Unit/Core/Combat/test_battle_grid.cpp
     Unit/Core/Combat/test_pathfinding.cpp
     Unit/Core/Combat/test_turn_order.cpp
@@ -63,6 +64,7 @@ add_executable(UnitTests
     Unit/Core/Rpg/test_character_sheet.cpp
     Unit/Core/Rpg/test_premade_characters.cpp
     Unit/Core/Rpg/test_party.cpp
+    Unit/Core/Rpg/test_party_ledger.cpp
     # Le socle de classe (LOT-131) : capacites a effets nommes, incantation simplifiee, et la
     # classe d'essai qui agit en combat sans une ligne de C++ qui la nomme.
     Unit/Core/Rpg/test_class_capacities.cpp
@@ -498,6 +500,8 @@ gtest_discover_tests(UnitTests DISCOVERY_MODE PRE_TEST PROPERTIES LABELS unitair
 if(TARGET RuntimeTests)
     gtest_discover_tests(RuntimeTests DISCOVERY_MODE PRE_TEST PROPERTIES LABELS unitaire TIMEOUT 300)
 endif()
+# 900 et non 300 : l'equilibrage de la demo simule deux cents combats a dix (LOT-139), a deux
+# secondes le combat en Debug -- sept minutes sur un poste de la CI. Une borne de terminaison.
 gtest_discover_tests(IntegrationTests DISCOVERY_MODE PRE_TEST
-                     PROPERTIES LABELS integration TIMEOUT 300)
+                     PROPERTIES LABELS integration TIMEOUT 900)
 gtest_discover_tests(SystemTests DISCOVERY_MODE PRE_TEST PROPERTIES LABELS systeme TIMEOUT 900)

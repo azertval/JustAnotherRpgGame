@@ -126,3 +126,35 @@ et rejouable par un test.
   connaissance de ce que la ligne de vue lui refuse. Une IA qui triche est indétectable en
   développement et insupportable en jeu ; et surtout, chaque capacité ajoutée au joueur profite
   gratuitement à l'adversaire.
+
+- **EX-CBT-051** — L'adversaire **répartit ses coups** : il n'achève pas un personnage à terre tant
+  qu'un autre, debout, le menace au contact (`core::planTurn`, `LOT-139`). S'acharner sur un
+  blessé pendant qu'un allié frappe est ce qu'un joueur lit comme de l'acharnement, pas comme une
+  tactique ; le *Guide du Maître* ne dit rien d'achever, la règle est une décision nommée.
+
+## 7. Le combat de groupe
+
+Le moteur n'a jamais supposé un duel (`EX-CBT-010`) ; ce qui suit dit comment le **groupe** du
+joueur (`EX-EXP-013`) entre dans un combat, le joue, et en sort (`LOT-139`).
+
+- **EX-CBT-060** — Le groupe entre en combat **entier**, là où il marche : le meneur garde sa
+  case, chaque suiveur garde la sienne — dans les pas du meneur — ou prend la case libre de la zone
+  la plus proche (`core::prepareMapEncounter`). Pas de formation inventée : le joueur voit son
+  groupe se figer où il était, et une file qui dépassait de la zone se resserre derrière lui.
+
+- **EX-CBT-061** — Chaque membre est **joué par le joueur à son tour** d'initiative, par les mêmes
+  gestes ; l'IA ne joue que les ennemis. Un membre qui n'agit pas finit son tour comme un autre ;
+  la fuite est celle de **tous** : la rencontre n'est quittée que quand plus aucun membre ne tient
+  debout sur la grille (`EX-CBT-012`).
+
+- **EX-CBT-062** — Le combat **laisse aux fiches** ce qu'il en reste (`core::PartyLedger`) : les
+  points de vie courants, les lancers de sorts restants ; un membre à terre à la victoire se relève
+  à 1 point de vie ; un membre **mort** quitte le groupe et ne suit plus, et s'il menait, le
+  suivant mène. Une défaite ne laisse rien : la partie s'y termine. Relire des fiches pleines à
+  chaque rencontre ferait du groupe une ressource sans coût.
+
+- **EX-CBT-063** — Une rencontre à plusieurs adversaires se **juge** contre le groupe, par le
+  budget du *Guide du Maître* (`core::rateEncounter`, `Rpg/rules/encounter-difficulty.json`) :
+  les seuils de PX des membres sommés par catégorie, la somme des PX des monstres multipliée selon
+  leur nombre, le seuil inférieur le plus proche. Aucun seuil n'est écrit dans le code
+  (`EX-REG-021`) ; une créature que le bestiaire ne connaît pas compte pour rien et se dit.

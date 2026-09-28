@@ -1,6 +1,6 @@
 # Core · Rpg
 
-Tests unitaires — **101 cas** (3 bloquants, 59 critiques, 37 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **103 cas** (3 bloquants, 60 critiques, 38 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -17,6 +17,7 @@ Tests unitaires — **101 cas** (3 bloquants, 59 critiques, 37 majeurs, 2 mineur
 | [`test_inventory.cpp`](#test-inventorycpp) | 13 | - | 5 | 7 | 1 |
 | [`test_multiclassing.cpp`](#test-multiclassingcpp) | 6 | - | 4 | 2 | - |
 | [`test_party.cpp`](#test-partycpp) | 4 | - | 2 | 1 | 1 |
+| [`test_party_ledger.cpp`](#test-party-ledgercpp) | 2 | - | 1 | 1 | - |
 | [`test_premade_characters.cpp`](#test-premade-characterscpp) | 7 | - | 5 | 2 | - |
 | [`test_rpg_enums.cpp`](#test-rpg-enumscpp) | 5 | - | 3 | 2 | - |
 
@@ -1968,6 +1969,52 @@ Un dossier de personnages absent se signale.
 - Vérifie que `lus.candidates.empty()` est vrai.
 - Vérifie que `lus.errors.size()` vaut `1U`.
 - Vérifie que `lus.errors.front().find("dossier-qui-n-existe-pas")` diffère de `std::string::npos`.
+
+## test_party_ledger.cpp
+
+### PartyLedgerTest.UnEnregistrementSAppliqueBorne
+
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/Core/Rpg/test_party_ledger.cpp:33`
+
+Le registre applique ce qu'il retient, sans depasser la fiche.
+
+**Étapes**
+
+1. Ecrire 7 PV et un lancer restant de soin.
+2. Appliquer.
+3. Ecrire 40 PV et 9 lancers, appliquer.
+
+**Résultat attendu**
+
+- Vérifie que `registre.empty()` est vrai.
+- Vérifie que `registre.record("helga")` vaut `nullptr`.
+- Vérifie que `registre.record("helga")` diffère de `nullptr`.
+- Vérifie que `sheet.currentHitPoints` vaut `7`.
+- Vérifie que `sheet.knownSpells[0].remaining` vaut `1`.
+- Vérifie que `sheet.knownSpells[1].remaining` vaut `0`.
+- Vérifie que `sheet.knownSpells.size()` vaut `2U`.
+- Vérifie que `sheet.currentHitPoints` vaut `12`.
+- Vérifie que `sheet.knownSpells[0].remaining` vaut `2`.
+- Vérifie que `sheet.knownSpells[1].remaining` vaut `0`.
+
+### PartyLedgerTest.LeRegistreSOublie
+
+*Majeur · Unitaire · Groupe* — `Source/Test/Unit/Core/Rpg/test_party_ledger.cpp:73`
+
+Le registre s'oublie : un membre, ou tout.
+
+**Étapes**
+
+1. Ecrire deux membres, l'un sans points de vie.
+2. Effacer l'un, puis tout.
+
+**Résultat attendu**
+
+- Vérifie que `sheet.currentHitPoints` vaut `12`.
+- Vérifie que `sheet.knownSpells[0].remaining` vaut `0`.
+- Vérifie que `registre.record("helga")` vaut `nullptr`.
+- Vérifie que `registre.record("grom")` diffère de `nullptr`.
+- Vérifie que `registre.empty()` est vrai.
 
 ## test_premade_characters.cpp
 

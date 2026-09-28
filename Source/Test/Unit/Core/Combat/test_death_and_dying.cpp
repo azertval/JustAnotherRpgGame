@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <filesystem>
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -566,44 +567,58 @@ TEST(DeathAndDyingTest, DesDegatsRompentLaConcentration) {
 // --- L'IA ---------------------------------------------------------------------------------------
 
 /**
- * @brief L'IA acheve ou epargne selon son profil (LOT-23, EX-CBT-050).
- * \castest{<b>Critere du LOT-137 : un gobelin au contact de Bran, a terre, et d'Aldric, debout.
- * Un profil qui n'acheve pas frappe Aldric ; un profil qui acheve frappe Bran. Les profils livres
- * disent qui acheve.</b><br/>
+ * @brief L'IA acheve ou epargne selon son profil (LOT-23, EX-CBT-050) -- et ne s'acharne pas sur
+ *        un personnage a terre quand un autre la menace (LOT-139).
+ * \castest{<b>Critere du LOT-137 et du LOT-139 : un gobelin au contact de Bran, a terre. Aldric,
+ * debout, est a trois cases : un profil qui n'acheve pas va frapper Aldric ; un profil qui
+ * acheve frappe Bran. Aldric revenu au contact, meme le profil qui acheve frappe Aldric. Les
+ * profils livres disent qui acheve.</b><br/>
  * \tcat Unitaire · Combat<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Planifier le tour du gobelin avec finishDowned 0, puis 1000.<br/>2. Lire
+ * \tetapes 1. Aldric a trois cases : planifier le tour du gobelin avec finishDowned 0, puis
+ * 1000.<br/>2. Aldric au contact : planifier avec finishDowned 1000.<br/>3. Lire
  * behaviors.json.<br/>
- * \tattendu Aldric, puis Bran ; agressif 75, meute 100, prudent, soutien et archer 0.
+ * \tattendu Aldric, puis Bran ; puis Aldric ; agressif 75, meute 100, prudent, soutien et
+ * archer 0.
  * }
  */
 TEST(DeathAndDyingTest, LIaAcheveOuEpargneSelonSonProfil) {
-    core::ArenaBout bout{.seed = 5, .lethal = true, .heroicMark = false};
-    core::ArenaContestant gobelin = test_support::dummy("Gobelin", {5, 3}, 12, 4, 20);
-    gobelin.profile.initiativeModifier = PREMIER;
-    bout.contestants.push_back(gobelin);
-    core::ArenaContestant bran =
-        test_support::dummy(BRAN.c_str(), {4, 3}, 12, 4, 10, CombatSide::Allies);
-    bran.profile.currentHitPoints = 0;
-    bout.contestants.push_back(bran);
-    bout.contestants.push_back(
-        test_support::dummy("Aldric", {6, 3}, 12, 4, 10, CombatSide::Allies));
-    core::ArenaSession session(test_support::room());
-    session.mount(bout);
-    ASSERT_TRUE(session.start());
-    ASSERT_EQ(session.combat().activeCombatant(), CombatantId{1});
-    ASSERT_EQ(session.combat().find(CombatantId{2})->status, CombatantStatus::Down);
-
+    const auto monter = [](core::GridPosition aldric) {
+        core::ArenaBout bout{.seed = 5, .lethal = true, .heroicMark = false};
+        core::ArenaContestant gobelin = test_support::dummy("Gobelin", {5, 3}, 12, 4, 20);
+        gobelin.profile.initiativeModifier = PREMIER;
+        bout.contestants.push_back(gobelin);
+        core::ArenaContestant bran =
+            test_support::dummy(BRAN.c_str(), {4, 3}, 12, 4, 10, CombatSide::Allies);
+        bran.profile.currentHitPoints = 0;
+        bout.contestants.push_back(bran);
+        bout.contestants.push_back(
+            test_support::dummy("Aldric", aldric, 12, 4, 10, CombatSide::Allies));
+        auto session = std::make_unique<core::ArenaSession>(test_support::room());
+        session->mount(bout);
+        EXPECT_TRUE(session->start());
+        EXPECT_EQ(session->combat().activeCombatant(), CombatantId{1});
+        EXPECT_EQ(session->combat().find(CombatantId{2})->status, CombatantStatus::Down);
+        return session;
+    };
     core::BehaviorProfile epargne{.id = "epargne", .name = "Epargne"};
-    const core::TurnPlan clement = core::planTurn(session, CombatantId{1}, epargne);
-    EXPECT_EQ(clement.action, core::TurnAction::Attack);
-    EXPECT_EQ(clement.target, CombatantId{3});
-
     core::BehaviorProfile acheve{.id = "acheve", .name = "Acheve"};
     acheve.finishDowned = 1000;
-    const core::TurnPlan cruel = core::planTurn(session, CombatantId{1}, acheve);
+
+    // Aldric a trois cases : personne ne menace le gobelin au contact.
+    const std::unique_ptr<core::ArenaSession> loin = monter({8, 3});
+    const core::TurnPlan clement = core::planTurn(*loin, CombatantId{1}, epargne);
+    EXPECT_EQ(clement.action, core::TurnAction::Attack);
+    EXPECT_EQ(clement.target, CombatantId{3});
+    const core::TurnPlan cruel = core::planTurn(*loin, CombatantId{1}, acheve);
     EXPECT_EQ(cruel.action, core::TurnAction::Attack);
     EXPECT_EQ(cruel.target, CombatantId{2});
+
+    // Aldric au contact : l'IA repartit ses coups (LOT-139), le blesse attend.
+    const std::unique_ptr<core::ArenaSession> pres = monter({6, 3});
+    const core::TurnPlan menace = core::planTurn(*pres, CombatantId{1}, acheve);
+    EXPECT_EQ(menace.action, core::TurnAction::Attack);
+    EXPECT_EQ(menace.target, CombatantId{3});
 
     const core::BehaviorCatalog profils =
         core::loadBehaviors(std::filesystem::path(JADG_RPG_RULES_DIR) / "behaviors.json");

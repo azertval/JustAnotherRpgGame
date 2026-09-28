@@ -53,7 +53,7 @@ const std::filesystem::path ELEMENTS{JADG_ELEMENTS_DIR};
 
 constexpr std::string_view QUETE = "pommes";
 constexpr std::string_view DRAPEAU = "quete.pommes";
-constexpr std::string_view RENCONTRE = "arene-combattant";
+constexpr std::string_view RENCONTRE = "arene-bandits";
 constexpr std::string_view MARTPART = "central-empire/capital/martpart";
 constexpr std::string_view ARENAREA = "central-empire/capital/arenarea";
 constexpr std::string_view SABLE = "central-empire/capital/arenarea/arena-of-fate";
@@ -76,47 +76,76 @@ constexpr core::GridPosition PORTE_DE_L_ARENE{11, 3};       // close sous condam
 constexpr core::GridPosition PIED_DE_L_ESCALIER{7, 2};      // sous la porte du triomphe
 constexpr core::GridPosition MAITRE{8, 10};
 constexpr core::GridPosition DEVANT_LE_MAITRE{9, 10};
+/// Le marqueur `encounter` du sable : la ou les bandits paraissent, cote droit (LOT-139).
+constexpr core::GridPosition MARQUEUR_DES_BANDITS{25, 10};
 constexpr core::GridPosition PORTE_DU_TRIOMPHE{16, 4};  // devant le portail vers le -1
 
-/// Le heros de la demo, charge comme le jeu le charge (`hmi::loadDemonstrationState`), depuis le
-/// contenu livre.
+/// Le groupe de la demo, charge comme le jeu le charge (`hmi::loadDemonstrationState`), depuis le
+/// contenu livre : le meneur, puis ses suiveurs (`LOT-139`, l'ordre de « Nouvelle partie »).
 struct Heros {
     core::CharacterOptions options;
     core::SkillCatalog skills;
     core::ExperienceTable experience;
     core::CharacterCreationRules rules;
-    core::LoadedCharacterSheet loaded;
+    /// Les quatre fiches, le meneur en tete.
+    std::vector<core::LoadedCharacterSheet> members;
     core::ItemCatalog items;
     core::EquipmentCatalog equipment;
     core::EncumbranceRules encumbrance;
 
-    [[nodiscard]] hmi::HeroContestantSource source() const {
+    /// La fiche du meneur.
+    [[nodiscard]] const core::LoadedCharacterSheet& loaded() const {
+        return members.front();
+    }
+
+    /// La source de combattant de @p member : sa fiche, son arme, ses sorts.
+    [[nodiscard]] hmi::HeroContestantSource sourceOf(
+        const core::LoadedCharacterSheet& member) const {
         const core::ItemLookup lookup{.items = &items, .equipment = &equipment};
         hmi::HeroContestantSource hero{
-            .sheet = loaded.sheet,
-            .proficiency = core::proficiencyBonus(loaded.sheet, experience),
+            .sheet = member.sheet,
+            .proficiency = core::proficiencyBonus(member.sheet, experience),
             .armorClass =
-                core::derivedStatsFor(loaded.sheet, loaded.inventory, lookup, rules, encumbrance)
+                core::derivedStatsFor(member.sheet, member.inventory, lookup, rules, encumbrance)
                     .armorClass,
-            .weapon = std::nullopt};
+            .weapon = std::nullopt,
+            .spells = {}};
         if (const core::Weapon* weapon =
-                equipment.findWeapon(loaded.inventory.at(core::EquipmentSlot::MainHand))) {
+                equipment.findWeapon(member.inventory.at(core::EquipmentSlot::MainHand))) {
             hero.weapon = *weapon;
         }
+        if (const core::PlayableClass* playableClass = options.findClass(member.sheet.classId)) {
+            std::vector<std::string> skipped;
+            hero.spells = core::arenaSpellsFor(member.sheet, *playableClass, options.spells,
+                                               hero.proficiency, skipped);
+        }
         return hero;
+    }
+
+    /// Les sources des quatre, dans l'ordre de marche.
+    [[nodiscard]] std::vector<hmi::HeroContestantSource> sources() const {
+        std::vector<hmi::HeroContestantSource> result;
+        for (const core::LoadedCharacterSheet& member : members) {
+            result.push_back(sourceOf(member));
+        }
+        return result;
     }
 };
 
 [[nodiscard]] Heros chargerLeHeros() {
     const std::filesystem::path rpg = ELEMENTS / "Rpg";
     Heros heros;
-    heros.options =
-        core::loadCharacterOptions(rpg / "species", rpg / "backgrounds", rpg / "classes");
+    heros.options = core::loadCharacterOptions(rpg);
     heros.skills = core::loadSkills(rpg / "skills");
     heros.experience = core::loadExperienceTable(rpg / "rules" / "experience.json");
     heros.rules = core::loadCharacterCreationRules(rpg / "rules" / "character-creation.json");
-    heros.loaded = core::loadCharacterSheet(rpg / "characters" / "heros-brawler.json",
-                                            heros.options, heros.rules, heros.experience);
+    // Le groupe de « Nouvelle partie » (`hmi::WorldModel::STARTING_PARTY`), dans l'ordre de
+    // marche ; l'en-tete Qt du modele n'entre pas dans ce test sans fenetre.
+    for (const char* membre : {"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"}) {
+        heros.members.push_back(
+            core::loadCharacterSheet(rpg / "characters" / (std::string{membre} + ".json"),
+                                     heros.options, heros.rules, heros.experience));
+    }
     heros.items = core::loadItems(rpg / "items");
     heros.equipment = core::loadEquipment(rpg / "weapons", rpg / "armors");
     heros.encumbrance = core::loadEncumbranceRules(rpg / "rules" / "encumbrance.json");
@@ -135,18 +164,26 @@ struct Arene {
  * @brief Joue la rencontre de l'arene sur le sable, les deux camps par l'IA, a la graine donnee.
  *
  * Le montage est celui de `hmi::EncounterModel::begin` : la zone de combat qui contient le PNJ,
- * le heros sur sa case, les combattants a leurs places, un combat letal dont on ne s'echappe pas.
+ * le groupe en file derriere son meneur devant le maitre (`LOT-139`), les combattants a leurs
+ * places, un combat letal dont on ne s'echappe pas, la prise en tenaille en jeu.
  * @return L'issue, ou rien si le combat n'a pas pu se monter ou ne s'est pas termine.
  */
 [[nodiscard]] std::optional<core::CombatOutcome> jouerLeCombat(
-    const core::Level& sable, const Arene& arene, const hmi::HeroContestantSource& heros,
-    std::uint64_t graine, core::EncounterRun* engagee = nullptr) {
+    const core::Level& sable, const Arene& arene,
+    const std::vector<hmi::HeroContestantSource>& groupe, std::uint64_t graine,
+    core::EncounterRun* engagee = nullptr) {
     const core::Encounter* const rencontre = arene.encounters.find(RENCONTRE);
     if (rencontre == nullptr) {
         return std::nullopt;
     }
+    // Le meneur devant le maitre, ses suiveurs dans son dos, vers l'est.
+    std::vector<core::GridPosition> cases;
+    for (std::size_t rang = 0; rang < groupe.size(); ++rang) {
+        cases.push_back({.column = DEVANT_LE_MAITRE.column + static_cast<int>(rang),
+                         .row = DEVANT_LE_MAITRE.row});
+    }
     const core::MapEncounterResult prepared = core::prepareMapEncounter(
-        sable, SABLE, *rencontre, MAITRE, DEVANT_LE_MAITRE, core::ExplorationSnapshot{}, "");
+        sable, SABLE, *rencontre, MARQUEUR_DES_BANDITS, cases, core::ExplorationSnapshot{}, "");
     if (!prepared.ok()) {
         ADD_FAILURE() << prepared.issue;
         return std::nullopt;
@@ -161,13 +198,16 @@ struct Arene {
                          .seed = graine,
                          .lethal = true,
                          .heroicMark = false,
-                         .flanking = false,
+                         .flanking = true,
                          .escapable = setup.run.escapable};
-    core::ArenaContestant hero = hmi::heroContestant(heros, core::CombatSide::Allies);
-    hero.position = setup.heroCell;
-    // Le joueur ne joue pas : l'IA tient sa place, avec le profil qui va au-devant de l'ennemi.
-    hero.behavior = "aggressive";
-    bout.contestants.push_back(std::move(hero));
+    for (std::size_t rang = 0; rang < groupe.size() && rang < setup.partyCells.size(); ++rang) {
+        core::ArenaContestant membre = hmi::heroContestant(groupe[rang], core::CombatSide::Allies);
+        membre.position = setup.partyCells[rang];
+        // Le joueur ne joue pas : l'IA tient la place de chacun, avec le profil qui va au-devant
+        // de l'ennemi.
+        membre.behavior = "aggressive";
+        bout.contestants.push_back(std::move(membre));
+    }
     for (const core::CombatantPlacement& placement : setup.run.placements) {
         const core::Creature* const creature = arene.bestiary.find(placement.creatureId);
         if (creature == nullptr) {
@@ -462,15 +502,16 @@ TEST(QueteDesPommes, LaVoieDeLArene) {
 
     // Le combat, sur le sable, a la premiere graine qui le gagne : la victoire pose son fait.
     const Heros heros = chargerLeHeros();
-    ASSERT_TRUE(heros.loaded.errors.empty()) << heros.loaded.errors.front();
+    ASSERT_TRUE(heros.loaded().errors.empty()) << heros.loaded().errors.front();
     const Arene arene;
-    ASSERT_TRUE(arene.bestiary.find("combattant-de-l-arene") != nullptr);
+    ASSERT_TRUE(arene.bestiary.find("bandit") != nullptr);
+    ASSERT_TRUE(arene.bestiary.find("bandit-archer") != nullptr);
     const core::Level* const sable = partie.session().map();
     ASSERT_NE(sable, nullptr);
     std::optional<std::uint64_t> gagnante;
     core::EncounterRun engagee;
     for (std::uint64_t graine = 1; graine <= 40 && !gagnante; ++graine) {
-        if (jouerLeCombat(*sable, arene, heros.source(), graine, &engagee) ==
+        if (jouerLeCombat(*sable, arene, heros.sources(), graine, &engagee) ==
             core::CombatOutcome::Victory) {
             gagnante = graine;
         }
@@ -520,7 +561,7 @@ TEST(QueteDesPommes, LaDefaiteSurLeSable) {
     std::optional<std::uint64_t> perdante;
     core::EncounterRun engagee;
     for (std::uint64_t graine = 1; graine <= 40 && !perdante; ++graine) {
-        if (jouerLeCombat(*sable, arene, heros.source(), graine, &engagee) ==
+        if (jouerLeCombat(*sable, arene, heros.sources(), graine, &engagee) ==
             core::CombatOutcome::Defeat) {
             perdante = graine;
         }
@@ -534,14 +575,17 @@ TEST(QueteDesPommes, LaDefaiteSurLeSable) {
 }
 
 /**
- * @brief L'équilibrage : sur cent combats simulés avec le héros de la démo, il l'emporte entre 60
- *        et 70 fois (critère du `LOT-120`).
- * \castest{<b>Le heros gagne le combat de l'arene entre 60 et 70 fois sur cent.</b><br/>
+ * @brief L'équilibrage : sur cent combats simulés, le groupe de la démo joué par l'IA — sans
+ *        sort ni soin, à l'arme seule — l'emporte sur les six bandits une fois sur deux, entre 45
+ *        et 60 fois (`LOT-139`, qui remplace le critère du `LOT-120` écrit pour un duel). Le
+ * joueur, qui lance les sorts et soigne, fait mieux : la rencontre est **difficile** au budget du
+ *        *Guide du Maître*, pas mortelle.
+ * \castest{<b>Le groupe gagne le combat de l'arene entre 45 et 60 fois sur cent.</b><br/>
  * \tcat Integration · Quete de la demo · Equilibrage<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Le sable, la rencontre de l'arene, le heros de la demo joue par l'IA.<br/>2. Cent
+ * \tetapes 1. Le sable, la rencontre des bandits, les quatre de la demo joues par l'IA.<br/>2. Cent
  * combats, aux graines 1 a 100.<br/>
- * \tattendu Chaque combat se termine ; entre 60 et 70 victoires.
+ * \tattendu Chaque combat se termine ; entre 45 et 60 victoires.
  * }
  */
 TEST(QueteDesPommes, LeCombatSeGagneDeuxFoisSurTrois) {
@@ -549,8 +593,8 @@ TEST(QueteDesPommes, LeCombatSeGagneDeuxFoisSurTrois) {
         core::WorldTravel::directoriesLoader({ELEMENTS / "Levels"})(SABLE);
     ASSERT_TRUE(sable.ok()) << sable.error;
     const Heros heros = chargerLeHeros();
-    ASSERT_TRUE(heros.loaded.errors.empty()) << heros.loaded.errors.front();
-    const hmi::HeroContestantSource source = heros.source();
+    ASSERT_TRUE(heros.loaded().errors.empty()) << heros.loaded().errors.front();
+    const std::vector<hmi::HeroContestantSource> source = heros.sources();
     const Arene arene;
 
     int victoires = 0;
@@ -562,20 +606,22 @@ TEST(QueteDesPommes, LeCombatSeGagneDeuxFoisSurTrois) {
             ++victoires;
         }
     }
-    EXPECT_GE(victoires, 60) << victoires << " victoires sur cent";
-    EXPECT_LE(victoires, 70) << victoires << " victoires sur cent";
+    EXPECT_GE(victoires, 45) << victoires << " victoires sur cent";
+    EXPECT_LE(victoires, 60) << victoires << " victoires sur cent";
 }
 
 /**
- * @brief La probabilité de victoire tient sur mille graines tirées d'une graine maîtresse — un
- *        échantillon qu'on renouvelle en changeant la graine maîtresse, comme un fuzzer renouvelle
- *        ses entrées : deux tiers, à cinq points près.
- * \castest{<b>Sur mille combats a graines tirees, le heros gagne deux fois sur trois.</b><br/>
+ * @brief La probabilité de victoire tient sur deux cents graines tirées d'une graine maîtresse —
+ *        un échantillon qu'on renouvelle en changeant la graine maîtresse, comme un fuzzer
+ *        renouvelle ses entrées : une sur deux, à huit points près. Deux cents et non mille : un
+ *        combat à dix se joue en deux secondes en Debug, et la CI n'a pas une demi-heure à y
+ *        mettre (`LOT-139`).
+ * \castest{<b>Sur deux cents combats a graines tirees, le groupe gagne une fois sur deux.</b><br/>
  * \tcat Integration · Quete de la demo · Equilibrage<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Mille graines tirees de la graine maitresse 120.<br/>2. Un combat par graine, les
- * deux camps par l'IA.<br/>
- * \tattendu Chaque combat se termine ; entre 600 et 700 victoires.
+ * \tetapes 1. Deux cents graines tirees de la graine maitresse 120.<br/>2. Un combat par graine,
+ * les deux camps par l'IA.<br/>
+ * \tattendu Chaque combat se termine ; entre 85 et 115 victoires.
  * }
  */
 TEST(QueteDesPommes, LaProbabiliteDeVictoireTientSurMilleGraines) {
@@ -583,13 +629,13 @@ TEST(QueteDesPommes, LaProbabiliteDeVictoireTientSurMilleGraines) {
         core::WorldTravel::directoriesLoader({ELEMENTS / "Levels"})(SABLE);
     ASSERT_TRUE(sable.ok()) << sable.error;
     const Heros heros = chargerLeHeros();
-    ASSERT_TRUE(heros.loaded.errors.empty()) << heros.loaded.errors.front();
-    const hmi::HeroContestantSource source = heros.source();
+    ASSERT_TRUE(heros.loaded().errors.empty()) << heros.loaded().errors.front();
+    const std::vector<hmi::HeroContestantSource> source = heros.sources();
     const Arene arene;
 
     core::DeterministicRandom maitresse{GRAINE};
     int victoires = 0;
-    for (int i = 0; i < 1000; ++i) {
+    for (int i = 0; i < 200; ++i) {
         const auto graine = static_cast<std::uint64_t>(maitresse.nextInt(1, 1'000'000'000));
         const std::optional<core::CombatOutcome> issue =
             jouerLeCombat(*sable.level, arene, source, graine);
@@ -598,9 +644,9 @@ TEST(QueteDesPommes, LaProbabiliteDeVictoireTientSurMilleGraines) {
             ++victoires;
         }
     }
-    ::testing::Test::RecordProperty("victoires_sur_mille", victoires);
-    EXPECT_GE(victoires, 600) << victoires << " victoires sur mille";
-    EXPECT_LE(victoires, 700) << victoires << " victoires sur mille";
+    ::testing::Test::RecordProperty("victoires_sur_deux_cents", victoires);
+    EXPECT_GE(victoires, 85) << victoires << " victoires sur deux cents";
+    EXPECT_LE(victoires, 115) << victoires << " victoires sur deux cents";
 }
 
 /**
@@ -618,8 +664,9 @@ TEST(QueteDesPommes, LaProbabiliteDeVictoireTientSurMilleGraines) {
  */
 TEST(QueteDesPommes, LaPersuasionReussitUneFoisSurQuatre) {
     Heros heros = chargerLeHeros();
-    ASSERT_TRUE(heros.loaded.errors.empty()) << heros.loaded.errors.front();
-    core::CharacterListener auditeur(heros.loaded.sheet, heros.loaded.inventory, heros.experience,
+    ASSERT_TRUE(heros.loaded().errors.empty()) << heros.loaded().errors.front();
+    core::LoadedCharacterSheet& meneur = heros.members.front();
+    core::CharacterListener auditeur(meneur.sheet, meneur.inventory, heros.experience,
                                      heros.skills);
     const std::vector<core::Modifier> modificateurs = auditeur.skillModifiers("persuasion");
     const core::DifficultyScale echelle =

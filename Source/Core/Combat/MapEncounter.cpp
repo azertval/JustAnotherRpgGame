@@ -4,6 +4,7 @@
 #include "Core/Combat/MapEncounter.h"
 
 #include <algorithm>
+#include <array>
 #include <cstdlib>
 #include <utility>
 
@@ -59,7 +60,22 @@ MapEncounterResult prepareMapEncounter(const Level& map, std::string_view mapId,
                                        GridPosition heroCell,
                                        const ExplorationSnapshot& exploration,
                                        std::string defeatFlagKey) {
+    const std::array<GridPosition, 1> seul{heroCell};
+    return prepareMapEncounter(map, mapId, encounter, trigger, seul, exploration,
+                               std::move(defeatFlagKey));
+}
+
+MapEncounterResult prepareMapEncounter(const Level& map, std::string_view mapId,
+                                       const Encounter& encounter, GridPosition trigger,
+                                       std::span<const GridPosition> partyCells,
+                                       const ExplorationSnapshot& exploration,
+                                       std::string defeatFlagKey) {
     MapEncounterResult result;
+    if (partyCells.empty()) {
+        result.issue = std::string{mapId} + " : aucun membre du groupe a mettre en combat.";
+        return result;
+    }
+    const GridPosition heroCell = partyCells.front();
 
     // La zone : celle du declencheur, a defaut celle du heros. Le terrain deja analyse par
     // l'editeur (`analyzeCombatZones`) dit si elle est jouable et quelles cases y sont libres.
@@ -93,6 +109,7 @@ MapEncounterResult prepareMapEncounter(const Level& map, std::string_view mapId,
         .zone = zone,
         .battlefield = cropLevelToZone(map, zone),
         .heroCell = {},
+        .partyCells = {},
         .run = beginEncounter(encounter, exploration, trigger, std::move(defeatFlagKey)),
         .notes = {}};
 
@@ -121,8 +138,15 @@ MapEncounterResult prepareMapEncounter(const Level& map, std::string_view mapId,
         return *proche;
     };
 
-    // Le heros d'abord : c'est lui que la rencontre entoure.
+    // Le heros d'abord : c'est lui que la rencontre entoure. Puis ses suiveurs, dans l'ordre de
+    // marche, la ou l'exploration les a laisses (LOT-139) : un suiveur hors de la zone -- la file
+    // depasse du sable -- prend la case libre la plus proche de la sienne, donc du meneur.
     setup.heroCell = mapToZone(zone, placer(heroCell, "heros"));
+    setup.partyCells.push_back(setup.heroCell);
+    for (std::size_t rang = 1; rang < partyCells.size(); ++rang) {
+        setup.partyCells.push_back(
+            mapToZone(zone, placer(partyCells[rang], "suiveur " + std::to_string(rang))));
+    }
     for (CombatantPlacement& placement : setup.run.placements) {
         placement.position = mapToZone(zone, placer(placement.position, placement.creatureId));
     }

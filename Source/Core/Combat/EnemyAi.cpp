@@ -151,6 +151,13 @@ public:
         for (const Present& ennemi : _ennemis) {
             _mobilite.push_back(destinationsDe(ennemi));
         }
+        // L'IA repartit ses coups (LOT-139) : un ennemi a terre ne se finit que si aucun ennemi
+        // debout ne menace l'acteur au contact -- s'acharner sur un blesse pendant qu'un autre
+        // frappe, c'est ce que le critere du lot interdit. Decision nommee : le Guide du Maitre
+        // ne dit rien d'achever (LOT-137, D10).
+        if (!_aTerre.empty() && menacesImmediates(*ancre) > 0) {
+            _aTerre.clear();
+        }
     }
 
     [[nodiscard]] bool valide() const noexcept {

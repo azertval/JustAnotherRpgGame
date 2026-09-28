@@ -8,6 +8,7 @@
 #include <QStringList>
 #include <QVariantList>
 #include <cstddef>
+#include <filesystem>
 #include <memory>
 #include <optional>
 #include <string>
@@ -171,17 +172,22 @@ protected:
     void refreshMessage(const core::ArenaMount& mount);
     /// @brief Le curseur suit le combattant actif quand il change.
     void followActive();
-    /// @return Le combattant actif s'il est **au joueur** : debout, sans profil d'IA, en tour.
+    /// @return Le combattant actif s'il est **au joueur** : debout, sans profil d'IA, en tour —
+    ///         chaque membre du groupe à son tour (`EX-CBT-061`, `LOT-139`).
     [[nodiscard]] std::optional<core::CombatantId> playerTurn() const;
     void attackAt(core::CombatantId target, std::optional<std::size_t> index);
     /// @brief Lance le sort de rang @p index du joueur sur @p target (`LOT-131`) ; `status` dit le
     ///        jet, ou le refus — un sort épuisé, notamment.
     void castAt(core::CombatantId target, std::size_t index);
     void moveTo(core::GridPosition cell);
-    /// @brief Le héros de la démo comme source de combattant ; `std::nullopt` sans fiche, et
-    ///        @p problems dit pourquoi.
+    /// @brief Le héros de la démo — le meneur — comme source de combattant ; `std::nullopt` sans
+    ///        fiche, et @p problems dit pourquoi.
     [[nodiscard]] static std::optional<HeroContestantSource> loadHeroSource(
         std::vector<std::string>& problems);
+    /// @brief La fiche @p characterFile comme source de combattant (`LOT-139`, chaque membre du
+    ///        groupe) ; `std::nullopt` si elle est illisible, et @p problems dit pourquoi.
+    [[nodiscard]] static std::optional<HeroContestantSource> loadHeroSource(
+        const std::filesystem::path& characterFile, std::vector<std::string>& problems);
 
     std::unique_ptr<core::ArenaSession> _session;
     core::GridPosition _cursor{};

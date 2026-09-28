@@ -1,12 +1,12 @@
 # HMI · Runtime
 
-Tests unitaires — **7 cas** (2 bloquants, 3 critiques, 2 majeurs). [Retour à la synthèse](README.md).
+Tests unitaires — **9 cas** (2 bloquants, 5 critiques, 2 majeurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
-| [`test_encounter_model.cpp`](#test-encounter-modelcpp) | 3 | 1 | - | 2 | - |
+| [`test_encounter_model.cpp`](#test-encounter-modelcpp) | 5 | 1 | 2 | 2 | - |
 | [`test_party_model.cpp`](#test-party-modelcpp) | 4 | 1 | 3 | - | - |
 
 ## Exigences vérifiées par cette page
@@ -15,6 +15,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 | Exigence | Cas |
 |---|---|
+| `EX-CBT-061` | [`EncounterModelTest.LeRejeuAGraineFixeeDonneLeMemeCombat`](#encountermodeltestlerejeuagrainefixeedonnelememecombat) |
 | `EX-EXP-013` | [`PartyModelTest.LEcranDeGroupeCompose`](#partymodeltestlecrandegroupecompose) |
 | `EX-EXP-014` | [`PartyModelTest.ChangerDeMeneurChangeLaFigurineEtLePortrait`](#partymodeltestchangerdemeneurchangelafigurineetleportrait), [`PartyModelTest.LeMeneurEstCeluiQuiCombat`](#partymodeltestlemeneurestceluiquicombat) |
 | `EX-IHM-091` | [`EncounterModelTest.DuDeclenchementAuRetourALExploration`](#encountermodeltestdudeclenchementauretouralexploration) |
@@ -23,7 +24,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 ### EncounterModelTest.DuDeclenchementAuRetourALExploration
 
-*Bloquant · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:67`
+*Bloquant · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:83`
 
 Exigences : `EX-IHM-091`
 
@@ -46,7 +47,10 @@ Du declenchement sur la carte au retour a l'exploration, sans fenetre.
 - Vérifie que `rencontre.zoneRow()` vaut `10`.
 - Vérifie que `rencontre.setup()` diffère de `nullptr`.
 - Vérifie que `rencontre.setup()->heroCell` vaut `(core::GridPosition{.column = 14, .row = 9})`.
-- Vérifie que `rencontre.fighters().size()` vaut `4`.
+- Vérifie que `rencontre.setup()->partyCells.size()` vaut `4U`.
+- Vérifie que `rencontre.fighters().size()` vaut `7`.
+- Vérifie que `rencontre.partyMembers().size()` vaut `4`.
+- Vérifie que `rencontre.partyMembers().front().toMap().value("label").toString()` vaut `QStringLiteral("Grom Tranche-Écaille")`.
 - Vérifie que `rencontre.encounterName()` vaut `QStringLiteral("Les rats du donjon")`.
 - Vérifie que `figure.combatant` est vrai.
 - Vérifie que `figure.point.x` est supérieur ou égal à `10.0F`.
@@ -69,7 +73,7 @@ Du declenchement sur la carte au retour a l'exploration, sans fenetre.
 
 ### EncounterModelTest.UnRefusLaisseLExplorationIntacte
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:160`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:180`
 
 Un refus de montage laisse l'exploration intacte.
 
@@ -91,7 +95,7 @@ Un refus de montage laisse l'exploration intacte.
 
 ### EncounterModelTest.LesGestesAttendentLaFinDUnMouvement
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:188`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:208`
 
 Les gestes attendent la fin d'un mouvement.
 
@@ -110,11 +114,63 @@ Les gestes attendent la fin d'un mouvement.
 - Vérifie que `rencontre.ended()` est vrai.
 - Vérifie que `rencontre.active()` est faux.
 
+### EncounterModelTest.LeRejeuAGraineFixeeDonneLeMemeCombat
+
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:252`
+
+Exigences : `EX-CBT-061`
+
+Deux combats de groupe a la meme graine sont identiques.
+
+**Étapes**
+
+1. Engager les rats a la graine 41, jouer trois rounds (attaquer, finir le tour), relever le journal, fuir.
+2. Reposer le groupe, recommencer a la meme graine.
+
+**Résultat attendu**
+
+- Vérifie que `rencontre.begin(QStringLiteral("rats-du-donjon"))` est vrai.
+- Vérifie que `premier` vaut `second`.
+- Vérifie que `membres.size()` est strictement supérieur à `1U`.
+- Vérifie que `membres.contains(-1)` est faux.
+
+### EncounterModelTest.LeCombatLaisseAuxFichesCeQuIlEnReste
+
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:301`
+
+Le registre du groupe : points de vie relus, mort qui ne suit plus.
+
+**Étapes**
+
+1. Noter au registre 5 PV pour le Brawler ; engager les rats.
+2. Fuir ; lire le registre.
+3. Enterrer le Brawler, puis tenter d'enterrer tout le monde.
+
+**Résultat attendu**
+
+- Vérifie que `groupe.leaderHitPoints()` vaut `QStringLiteral("5 / 15")`.
+- Vérifie que `rencontre.begin(QStringLiteral("rats-du-donjon"))` est vrai.
+- Vérifie que `rencontre.heroHitPoints()` vaut `QStringLiteral("5 / 15")`.
+- Vérifie que `rencontre.partyMembers().front().toMap().value("value").toString()` vaut `QStringLiteral("5 / 15")`.
+- Vérifie que `rencontre.ended()` est vrai.
+- Vérifie que `record` diffère de `nullptr`.
+- Vérifie que `record->hitPoints.has_value()` est vrai.
+- Vérifie que `*record->hitPoints` est supérieur ou égal à `1`.
+- Vérifie que `monde.buryMember("heros-brawler")` est vrai.
+- Vérifie que `monde.leaderId()` vaut `QStringLiteral("heros-priest")`.
+- Vérifie que `monde.party().size()` vaut `3U`.
+- Vérifie que `monde.play().session().followers()` vaut `2U`.
+- Vérifie que `monde.ledger().record("heros-brawler")` vaut `nullptr`.
+- Vérifie que `monde.buryMember("heros-priest")` est vrai.
+- Vérifie que `monde.buryMember("heros-scoundrel")` est vrai.
+- Vérifie que `monde.buryMember("heros-mage")` est faux.
+- Vérifie que `monde.party().size()` vaut `1U`.
+
 ## test_party_model.cpp
 
 ### PartyModelTest.ChangerDeMeneurChangeLaFigurineEtLePortrait
 
-*Bloquant · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:80`
+*Bloquant · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:83`
 
 Exigences : `EX-EXP-014`
 
@@ -147,7 +203,7 @@ Le groupe de depart compte les quatre fiches pre-tirees ; passer la main change 
 
 ### PartyModelTest.LeJoueurChoisitQuiParle
 
-*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:137`
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:140`
 
 Dans le dialogue, le menu du bas donne la parole a un membre du groupe : le jet de Persuasion se fait avec ses modificateurs.
 
@@ -170,7 +226,7 @@ Dans le dialogue, le menu du bas donne la parole a un membre du groupe : le jet 
 
 ### PartyModelTest.LeMeneurEstCeluiQuiCombat
 
-*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:190`
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:193`
 
 Exigences : `EX-EXP-014`
 
@@ -192,7 +248,7 @@ Une rencontre engagee apres un changement de meneur met le nouveau meneur en jeu
 
 ### PartyModelTest.LEcranDeGroupeCompose
 
-*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:223`
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:226`
 
 Exigences : `EX-EXP-013`
 

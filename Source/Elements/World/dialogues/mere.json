@@ -62,7 +62,7 @@
     {
       "id": "voie",
       "type": "condition",
-      "flag": "encounter/arene-combattant/won",
+      "flag": "encounter/arene-bandits/won",
       "then": "fin-arene",
       "else": "fin-parole"
     },

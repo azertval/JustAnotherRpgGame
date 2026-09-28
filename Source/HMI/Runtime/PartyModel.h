@@ -82,6 +82,9 @@ private:
 
     /// @return La valeur @p key de la fiche de @p characterId, ou un tiret.
     [[nodiscard]] QString sheetValue(const QString& characterId, const std::string& key) const;
+    /// @return Les points de vie « courant / maximum » de @p characterId : ceux de la fiche, ou
+    ///         ce que le dernier combat en a laissé (`LOT-139`).
+    [[nodiscard]] QString hitPointsOf(const QString& characterId) const;
     /// @return La ligne @p row de la partie, complétée de la fiche.
     [[nodiscard]] QVariantMap withSheet(QVariantMap row) const;
 };

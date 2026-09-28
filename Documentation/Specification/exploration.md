@@ -105,8 +105,9 @@ partie neuve impose le groupe préformé : Brawler, Priest, Scoundrel, Mage. Con
 - **EX-EXP-014** — Le **meneur** est le premier de l'ordre de marche, et rien d'autre : pas de
   champ à part qui pourrait contredire le rang. **Changer de meneur** change, au même pas, la
   figurine menée (celle de sa classe, `Characters/Heroes/<classe>`), le portrait de l'affichage
-  tête haute, la fiche qui s'ouvre, celui qui parle à l'ouverture d'un dialogue et celui qui
-  combat. Dans le dialogue, un **menu en bas** aligne les membres dans l'ordre de marche : le
+  tête haute, la fiche qui s'ouvre et celui qui parle à l'ouverture d'un dialogue ; en combat, le
+  groupe **entier** entre sur la zone (`EX-CBT-060`), le meneur en tête de file. Dans le dialogue,
+  un **menu en bas** aligne les membres dans l'ordre de marche : le
   joueur y choisit qui parle (`Tab`, ou le clic), et c'est celui-là qui jette, avec ses
   modificateurs (D-28). `Tab` passe la main au suivant — le meneur va en queue, et quatre appuis font
   le tour ; l'écran **Groupe** (`G`) prend, laisse, fait mener et change l'ordre de marche, au

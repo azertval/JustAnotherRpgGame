@@ -84,6 +84,7 @@ void WorldModel::installQuests() {
 
 bool WorldModel::startNewGame() {
     _visitedDistricts.clear();
+    _ledger.clear();
     if (!_startMapOverride.isEmpty()) {
         const bool ouverte = enterMap(_startMapOverride, _startArrivalOverride);
         if (ouverte) {
@@ -153,8 +154,10 @@ void WorldModel::endGame() {
     _status.clear();
     _move = {};
     _interact = false;
-    // Le groupe aussi repart de zero : le groupe preforme, le Brawler en tete.
+    // Le groupe aussi repart de zero : le groupe preforme, le Brawler en tete, les fiches
+    // pleines (LOT-139).
     _party = core::defaultParty(_candidates, STARTING_PARTY);
+    _ledger.clear();
     rebuildSession();
     applyFlags(_startFlags);
     ++_sceneRevision;
@@ -424,6 +427,23 @@ void WorldModel::applyParty() {
     emit changed();
     emit figuresChanged();
     emit partyChanged();
+}
+
+void WorldModel::recordMember(const std::string& characterId, core::MemberRecord record) {
+    _ledger.write(characterId, std::move(record));
+    emit partyChanged();
+}
+
+bool WorldModel::buryMember(const std::string& characterId) {
+    // Le mort ne suit plus (LOT-139) ; s'il menait, le deuxieme mene -- `core::Party::remove`
+    // garde l'ordre des autres. Le dernier reste : la defaite se joue ailleurs.
+    if (_party.remove(characterId) != core::PartyChange::Done) {
+        return false;
+    }
+    _ledger.erase(characterId);
+    HMI_LOG_INFO("Groupe : " + characterId + " est mort et quitte le groupe.");
+    applyParty();
+    return true;
 }
 
 void WorldModel::setParty(const core::Party& party) {

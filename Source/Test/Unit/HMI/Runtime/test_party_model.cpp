@@ -57,11 +57,14 @@ void fuir(hmi::EncounterModel& rencontre) {
         }
         FAIL() << "ni tour du joueur ni fin en 2000 pas";
     };
-    avancer();
-    if (!rencontre.ended()) {
-        rencontre.withdraw();
+    // Chaque membre se retire a son tour (LOT-139) : la fuite est celle de tous.
+    for (int tours = 0; tours < 8 && !rencontre.ended(); ++tours) {
         avancer();
+        if (!rencontre.ended()) {
+            rencontre.withdraw();
+        }
     }
+    avancer();
     rencontre.leave();
 }
 

@@ -1,0 +1,38 @@
+{
+  "id": "arene-bandits",
+  "name": "Les bandits de l'arène",
+  "source": "original",
+  "escapable": false,
+  "combatants": [
+    {
+      "creatureId": "bandit",
+      "columnOffset": -1,
+      "rowOffset": -2
+    },
+    {
+      "creatureId": "bandit",
+      "columnOffset": -1,
+      "rowOffset": 0
+    },
+    {
+      "creatureId": "bandit",
+      "columnOffset": -1,
+      "rowOffset": 2
+    },
+    {
+      "creatureId": "bandit-archer",
+      "columnOffset": 1,
+      "rowOffset": -3
+    },
+    {
+      "creatureId": "bandit-archer",
+      "columnOffset": 1,
+      "rowOffset": 0
+    },
+    {
+      "creatureId": "bandit-archer",
+      "columnOffset": 1,
+      "rowOffset": 3
+    }
+  ]
+}
