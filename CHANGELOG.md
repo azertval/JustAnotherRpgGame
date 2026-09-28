@@ -21,8 +21,8 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   lit enfin la fiche : l'attaque de l'arme en main, les sorts mineurs, les sorts par école et le
   détail du sort désigné (portée, dés, incantation, composantes, durée, lancers) ; les descriptions
   affichées ne citent plus la page du livre. La barre d'actions du combat pose une icône sur
-  chaque attaque et chaque action du *Manuel* (pièce `ui/icon/action` du cahier, sept envois
-  préparés ; le nom reste dans la case tant qu'elles ne sont pas générées). Une **croix** referme
+  chaque attaque et chaque action du *Manuel* (pièce `ui/icon/action` du cahier, sept icônes
+  livrées, kit UI@6). Une **croix** referme
   tout écran du RPG pour revenir au jeu, et le bouton **Options** du HUD ouvre enfin les réglages
   (depuis le jeu comme depuis le combat, avec retour au même endroit).
 

@@ -658,8 +658,10 @@ HudFrame {
 
                     required property int index
                     required property string value
-                    required property string iconKey
+                    // `label` et `iconKey` sont des proprietes de la brique : on les exige, sans
+                    // les redeclarer -- une redeclaration en masquerait la valeur.
                     required label
+                    required iconKey
 
                     quantity: actionCell.value
                     shortcut: "" + (actionCell.index + 1)

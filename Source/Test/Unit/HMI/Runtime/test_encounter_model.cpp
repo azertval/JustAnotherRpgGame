@@ -422,6 +422,8 @@ TEST(EncounterModelTest, LInterfaceDeGroupeLitLaVueModele) {
     EXPECT_TRUE(actions.front().toMap().value("detail").toString().startsWith('+'))
         << actions.front().toMap().value("detail").toString().toStdString();
     EXPECT_EQ(actions.front().toMap().value("uses").toInt(), -1);
+    EXPECT_TRUE(actions.front().toMap().value("iconKey").toString().startsWith(
+        QStringLiteral("ui/icon/action/")));
 
     // La previsualisation : l'attaque sur le rat le plus proche, puis la case d'un allie, puis un
     // deplacement.

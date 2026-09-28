@@ -73,9 +73,8 @@ Livré le 28 septembre 2026 (exigence `EX-IHM-109`), **PR #160**, branche empil�
    attaques d'arme et les actions du *Manuel* n'en avaient pas, et la case écrivait leur nom.
    Nouvelle pièce du cahier `ui/icon/action` (sept membres : `melee`, `ranged`, `dodge`,
    `disengage`, `dash`, `wait`, `reaction`), clés posées par `CombatModel` (`iconKey`), envois
-   préparés dans `Tools/Envois/LOT-141/`, clés en attente au manifeste : l'auteur génère,
-   `receive_ui_assets.py` installe, `publish_asset_kit.py UI` publie — d'ici là, la case garde
-   le nom, comme avant.
+   préparés dans `Tools/Envois/LOT-141/`, générées par l'auteur le 28 septembre, recadrées à
+   128 px (marge 4), reçues par `receive_ui_assets.py` et publiées dans le kit **UI@6**.
 8. **Revenir au jeu.** Une **croix** referme tout écran du RPG (fiche, compétences, inventaire,
    journal, carte, groupe, compagnie, marchand), posée une fois au-dessus de la pile
    (`ScreenStack.qml`, `ScreenRouter.closeRpgScreen`) plutôt que dans chaque formulaire — le

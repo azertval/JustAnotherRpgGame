@@ -4053,20 +4053,105 @@
       ],
       "bytes": 26816,
       "sha256": "436cba002aa79f3a3cba09b6676041da1f4083f9eca3276c42069b81bce1aa90"
+    },
+    {
+      "id": "ui-icon-action-dash",
+      "file": "icon/action/dash.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/action/dash",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: a running figure with three speed lines. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-28",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 27329,
+      "sha256": "486f335caa2f0b321a8a8105788d30663a9cbcb94f95c852a7672d88569f2cad"
+    },
+    {
+      "id": "ui-icon-action-disengage",
+      "file": "icon/action/disengage.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/action/disengage",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: two footprints stepping back from a blade. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-28",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 25241,
+      "sha256": "b6070b731bd344557a13650dcd6fcd02035249e698acb2f9eede06413098bd58"
+    },
+    {
+      "id": "ui-icon-action-dodge",
+      "file": "icon/action/dodge.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/action/dodge",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: a leaning silhouette slipping aside from an arrow. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-28",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 26356,
+      "sha256": "8ae545e1147b5827b3fd21ad11c49a486c2f940b87ebf29a113c8d03fac10898"
+    },
+    {
+      "id": "ui-icon-action-melee",
+      "file": "icon/action/melee.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/action/melee",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: a sword blade in a short slashing arc. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-28",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 26409,
+      "sha256": "d43784d228ae50ee3baffdb019185bcc9612e61916dbeaad340b958d7cbd4184"
+    },
+    {
+      "id": "ui-icon-action-ranged",
+      "file": "icon/action/ranged.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/action/ranged",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: a nocked arrow on a drawn bow. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-28",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 26304,
+      "sha256": "fc18a3a9b143d82b9cc024675d9a0c0b79363c618ee3ac4466e28f16b62c99d7"
+    },
+    {
+      "id": "ui-icon-action-reaction",
+      "file": "icon/action/reaction.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/action/reaction",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: a raised round shield meeting a sword point. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-28",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 27314,
+      "sha256": "45b1f5c88fc9051c4954d1f171e33dcc2beca8eed7d11244c9795a956bc0f74b"
+    },
+    {
+      "id": "ui-icon-action-wait",
+      "file": "icon/action/wait.png",
+      "provenance": "produced",
+      "cahier": "ui/icon/action/wait",
+      "prompt": "Game UI asset for a painted dark-fantasy tactical RPG, in the style of a richly illustrated tabletop sourcebook: relief gold and brass filigree, worn enamel, soft light from the top left, fine painterly grain. Front orthographic view, perfectly centred and symmetrical unless stated, no perspective, no cast shadow outside the piece. Material: near-black lacquered surfaces (#0c0c0c, raised #141414) rimmed with bright gold (#e4a43c, highlights #fcd444); garnet enamel accents (#701010, lit #8c0404). Absolutely no lettering, letters, numbers, runes or glyphs anywhere: the game sets all text itself in Cinzel (titles) and IM Fell English (body). Engraved gold emblem icon on a small round garnet enamel disc, bold readable silhouette at 32 px, subtle relief, transparent background. Subject: a small hourglass. Canvas exactly 128 x 128 px, transparent background (alpha). Fixed-size piece, never stretched: keep a 4 px empty margin around it.",
+      "date": "2026-09-28",
+      "size": [
+        128,
+        128
+      ],
+      "bytes": 27854,
+      "sha256": "d708ac0d7d443411b140c46bddb17bf8918aa339c611533937ef0e241c88769e"
     }
   ],
-  "pending": [
-    {
-      "keys": [
-        "ui/icon/action/melee",
-        "ui/icon/action/ranged",
-        "ui/icon/action/dodge",
-        "ui/icon/action/disengage",
-        "ui/icon/action/dash",
-        "ui/icon/action/wait",
-        "ui/icon/action/reaction"
-      ],
-      "reason": "icônes du LOT-141 : entrées du cahier écrites, envois au générateur préparés ; l'auteur lance la génération, receive_ui_assets.py les installe"
-    }
-  ]
+  "pending": []
 }
