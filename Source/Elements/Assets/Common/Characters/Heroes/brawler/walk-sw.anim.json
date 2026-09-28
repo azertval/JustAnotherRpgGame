@@ -1,7 +1,7 @@
 {
   "version": 1,
   "frameWidth": 192,
-  "frameHeight": 256,
+  "frameHeight": 264,
   "clips": {
     "walk": {
       "frames": [

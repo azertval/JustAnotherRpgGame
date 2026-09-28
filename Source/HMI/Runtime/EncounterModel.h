@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+#include "Core/Combat/Arena.h"
 #include "Core/Combat/BattleGrid.h"
 #include "Core/Combat/MapEncounter.h"
 #include "Core/Rpg/PartyLedger.h"
@@ -235,6 +236,11 @@ private:
     void placeCues();
     /// Branche la file des mouvements sur la session montée.
     void subscribeCues();
+    /// Met dans la file le geste d'une attaque ou d'un sort, et son effet (`LOT-136`).
+    void showAction(const core::ArenaActionNotice& notice);
+    /// Met dans la file l'effet @p effect, de @p actor vers la case de @p target.
+    void pushEffect(core::CombatantId actor, core::CombatantId target, std::string effect,
+                    bool travels);
     /// Publie les figurines des combattants dans le monde.
     void publishFigures();
     /// Publie l'issue quand le combat en a une et que la file l'a montrée.
@@ -253,6 +259,9 @@ private:
     /// Les membres du groupe montés, dans l'ordre de marche.
     std::vector<Member> _members;
     CombatCueTrack _cues;
+    /// Le combattant dont la session joue une attaque ou un sort (`LOT-136`) : son geste est déjà
+    /// dans la file, l'attaque que le combat annonce ensuite n'en ajoute pas un second.
+    std::optional<core::CombatantId> _gesture;
     QTimer _clock;
     QString _outcome;
     int _seed = 0;

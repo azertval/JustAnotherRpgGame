@@ -260,6 +260,36 @@ using OpportunityPolicy =
  */
 using MoveObserver = std::function<void(CombatantId mover, const Path& path)>;
 
+/// @brief Le moment d'une action que l'écran suit : son départ, puis son issue.
+enum class ArenaActionPhase : std::uint8_t {
+    /// L'action est dépensée, rien n'est encore jeté : le geste commence.
+    Begin,
+    /// L'action est résolue : les coups, les chutes, déjà annoncés par le combat.
+    End,
+};
+
+/**
+ * @brief Ce que l'écran veut savoir d'une attaque ou d'un sort du combattant actif (`LOT-136`) :
+ *        le geste à jouer — à l'arme, à distance, un sort —, sa cible, et l'effet à montrer.
+ *
+ * Les crochets du combat (`CombatHook::AttackDeclared`) ne disent ni si l'arme tire, ni quel sort
+ * se lance, ni un sort sans jet d'attaque : c'est la session qui le sait.
+ */
+struct ArenaActionNotice {
+    ArenaActionPhase phase = ArenaActionPhase::Begin;
+    CombatantId actor{};
+    CombatantId target{};
+    /// L'identifiant du sort (`fire-bolt`), vide pour une attaque à l'arme.
+    std::string spell;
+    /// Une attaque à distance : l'arme a une portée (`AttackProfile::range`).
+    bool ranged = false;
+    /// `End` : un jet d'attaque a eu lieu et a manqué.
+    bool missed = false;
+};
+
+/// @brief Prévenu au début et à la fin de chaque attaque et de chaque sort (`LOT-136`).
+using ActionObserver = std::function<void(const ArenaActionNotice& notice)>;
+
 /// @brief Ce que le montage d'un affrontement a produit : les enrôlés par camp, et les refus.
 struct ArenaMount {
     std::vector<CombatantId> allies;
@@ -492,6 +522,12 @@ public:
         _moveObserver = std::move(observer);
     }
 
+    /// @brief Prévient @p observer au début et à la fin de chaque attaque et de chaque sort
+    ///        (`LOT-136`).
+    void setActionObserver(ActionObserver observer) {
+        _actionObserver = std::move(observer);
+    }
+
     /// @brief Ajoute une ligne au journal : la décision d'un comportement, pour qu'elle se relise.
     void note(std::string line) {
         record(std::move(line));
@@ -561,6 +597,9 @@ private:
         std::vector<CombatantId>& reactors) const;
     /// Branche sur @p hooks les effets des capacités de @p attacker : bonus au jet, dés en plus.
     void hookCapacities(AttackHooks& hooks, CombatantId attacker);
+    /// Le mécanisme d'un sort déjà payé (`castSpell`) : jet, salve, sauvegarde, effet, soin.
+    ArenaAttack resolveSpell(CombatantId lanceurId, CombatantId target, const ArenaSpell& lance,
+                             const std::string& prefixe, bool armeInvoquee);
     /// Un jet d'attaque par projectile, une fois la cible, la portée et l'action vérifiées.
     ArenaAttack castAttackRolls(CombatantId caster, CombatantId target, const ArenaSpell& spell,
                                 const std::string& prefix);
@@ -607,6 +646,7 @@ private:
     std::map<CombatantId, std::string> _behaviors;
     OpportunityPolicy _opportunityPolicy;
     MoveObserver _moveObserver;
+    ActionObserver _actionObserver;
     std::set<CombatantId> _declinesOpportunities;
     AttackHooks _attackHooks;
     DamagePipeline _damagePipeline;

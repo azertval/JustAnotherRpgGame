@@ -767,10 +767,24 @@ ArenaAttack ArenaSession::attack(CombatantId target, std::size_t attackIndex) {
             _combat->economy(*actif)->grant(EXTRA_ATTACK_RESOURCE, enPlus->count);
         }
     }
+    ArenaActionNotice annonce{.phase = ArenaActionPhase::Begin,
+                              .actor = *actif,
+                              .target = target,
+                              .spell = {},
+                              .ranged = profil.range.has_value(),
+                              .missed = false};
+    if (_actionObserver) {
+        _actionObserver(annonce);
+    }
     ArenaAttack attaque{.result = ArenaActionResult::Done, .outcome = std::nullopt};
     attaque.outcome = resolveAndRecord(*actif, target, profil, {});
     if (attaque.outcome.has_value()) {
         attaque.summary = attaque.outcome->describe();
+    }
+    if (_actionObserver) {
+        annonce.phase = ArenaActionPhase::End;
+        annonce.missed = attaque.outcome.has_value() && !attaque.outcome->roll.hit;
+        _actionObserver(annonce);
     }
     // L'invisibilite cesse pour qui attaque -- apres l'attaque, qui en a profite.
     const CombatantId attaquantId = *actif;
@@ -888,6 +902,27 @@ ArenaAttack ArenaSession::castSpell(CombatantId target, std::size_t spellIndex) 
             },
             "concentration sur " + lance.name);
     }
+    ArenaActionNotice annonce{.phase = ArenaActionPhase::Begin,
+                              .actor = lanceurId,
+                              .target = target,
+                              .spell = lance.id,
+                              .ranged = false,
+                              .missed = false};
+    if (_actionObserver) {
+        _actionObserver(annonce);
+    }
+    ArenaAttack issue = resolveSpell(lanceurId, target, lance, prefixe, armeInvoquee);
+    if (_actionObserver) {
+        annonce.phase = ArenaActionPhase::End;
+        annonce.missed = issue.outcome.has_value() && !issue.outcome->roll.hit;
+        _actionObserver(annonce);
+    }
+    return issue;
+}
+
+ArenaAttack ArenaSession::resolveSpell(CombatantId lanceurId, CombatantId target,
+                                       const ArenaSpell& lance, const std::string& prefixe,
+                                       bool armeInvoquee) {
     // L'invisibilite cesse pour qui lance un sort : avant l'effet qu'il pose, apres les degats qui
     // en ont profite.
     const auto finInvisibilite = [this, lanceurId] {

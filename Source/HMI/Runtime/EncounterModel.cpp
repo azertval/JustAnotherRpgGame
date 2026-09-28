@@ -412,15 +412,22 @@ void EncounterModel::placeCues() {
 void EncounterModel::subscribeCues() {
     // Les pas : leur chemin, pour que la figurine marche case par case.
     _session->setMoveObserver([this](core::CombatantId mover, const core::Path& path) {
+        _gesture.reset();
         _cues.push(CombatCue{.kind = CombatCueKind::Walk,
                              .actor = mover,
                              .path = path.steps,
                              .target = std::nullopt});
     });
+    // Les attaques et les sorts du combattant actif : le geste, le tir, le sort et son effet
+    // (`LOT-136`).
+    _session->setActionObserver(
+        [this](const core::ArenaActionNotice& notice) { showAction(notice); });
     core::CombatState& combat = _session->combat();
     combat.subscribe(core::CombatHook::AttackDeclared,
                      [this](core::CombatState& state, const core::CombatEvent& event) {
-                         if (!event.combatant.has_value()) {
+                         // Le geste d'une attaque que la session joue est deja dans la file ;
+                         // reste celui d'une attaque d'opportunite.
+                         if (!event.combatant.has_value() || _gesture == event.combatant) {
                              return;
                          }
                          _cues.push(CombatCue{.kind = CombatCueKind::Attack,
@@ -437,6 +444,7 @@ void EncounterModel::subscribeCues() {
                                                   .actor = *event.combatant,
                                                   .path = {},
                                                   .target = std::nullopt});
+                             pushEffect(*event.combatant, *event.combatant, "impact", false);
                          }
                      });
     combat.subscribe(core::CombatHook::CombatantDowned,
@@ -454,6 +462,61 @@ void EncounterModel::subscribeCues() {
                              _cues.remove(*event.combatant);
                          }
                      });
+}
+
+namespace {
+
+// Les sorts qui volent du lanceur a la cible : leur effet est un projectile (`LOT-136`).
+[[nodiscard]] bool isProjectileSpell(std::string_view spell) {
+    return spell == "fire-bolt" || spell == "magic-missile" || spell == "scorching-ray";
+}
+
+// L'effet d'un tir a l'arme : la fleche (`Common/Fx/arrow.png`).
+constexpr std::string_view ARROW_EFFECT = "arrow";
+// L'effet d'un jet d'attaque manque.
+constexpr std::string_view MISS_EFFECT = "miss";
+
+}  // namespace
+
+void EncounterModel::showAction(const core::ArenaActionNotice& notice) {
+    if (notice.phase == core::ArenaActionPhase::End) {
+        if (notice.missed) {
+            pushEffect(notice.actor, notice.target, std::string{MISS_EFFECT}, false);
+        }
+        _gesture.reset();
+        return;
+    }
+    _gesture = notice.actor;
+    const std::optional<core::GridPosition> cell =
+        _session->combat().grid().positionOf(notice.target);
+    const bool spell = !notice.spell.empty();
+    _cues.push(CombatCue{.kind = spell ? CombatCueKind::Cast : CombatCueKind::Attack,
+                         .actor = notice.actor,
+                         .path = {},
+                         .target = notice.target == notice.actor ? std::nullopt : cell,
+                         .ranged = notice.ranged,
+                         .effect = {},
+                         .travels = false});
+    if (spell) {
+        pushEffect(notice.actor, notice.target, notice.spell, isProjectileSpell(notice.spell));
+    } else if (notice.ranged) {
+        pushEffect(notice.actor, notice.target, std::string{ARROW_EFFECT}, true);
+    }
+}
+
+void EncounterModel::pushEffect(core::CombatantId actor, core::CombatantId target,
+                                std::string effect, bool travels) {
+    const std::optional<core::GridPosition> cell = _session->combat().grid().positionOf(target);
+    if (!cell.has_value()) {
+        return;  // une cible hors de la grille : rien a montrer
+    }
+    _cues.push(CombatCue{.kind = CombatCueKind::Effect,
+                         .actor = actor,
+                         .path = {},
+                         .target = cell,
+                         .ranged = false,
+                         .effect = std::move(effect),
+                         .travels = travels});
 }
 
 // --- Le temps ---------------------------------------------------------------------------------
@@ -539,6 +602,19 @@ void EncounterModel::publishFigures() {
             .seconds = motion->clipSeconds,
             .hero = binding->second.hero,
             .combatant = true});
+    }
+    // Les effets, apres les figurines : a profondeur egale, ils se dessinent devant (`LOT-136`).
+    for (const EffectMotion& effect : _cues.effects()) {
+        figures.push_back(WorldFigureSnapshot{
+            .figure = std::string{FX_DIRECTORY},
+            .clip = effect.effect,
+            .point = core::Vector2{effect.point.x + static_cast<float>(_setup->zone.origin.column),
+                                   effect.point.y + static_cast<float>(_setup->zone.origin.row)},
+            .frame = 0,
+            .facing = FigureFacing::None,
+            .seconds = effect.seconds,
+            .hero = false,
+            .combatant = false});
     }
     world->setCombatFigures(std::move(figures), heroPoint);
 }

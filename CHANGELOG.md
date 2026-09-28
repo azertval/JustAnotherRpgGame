@@ -6,6 +6,18 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-136 — Les figurines des quatre classes et leurs effets.** Le Brawler, le Mage, le Priest et
+  le Scoundrel ont leurs figurines HD : repos, marche, attaque, touché, mort, et selon la classe
+  l'incantation ou le **tir à l'arc**, huit images, quatre orientations — le Brawler du `LOT-112`
+  est remplacé. Les quatre se distinguent à la taille : demi-orc massif, elfe élancée, naine
+  trapue, humaine fine. Une nouvelle bande `ranged` se joue pour une attaque à distance ; une
+  figurine qui n'en a pas joue son attaque. L'écran joue désormais l'**incantation** d'un sort
+  (`core::ArenaSession::setActionObserver`), et vingt **effets** paraissent en combat
+  (`Common/Fx/`) : les sorts du Mage et du Priest jusqu'au niveau 5, la flèche, l'impact d'un coup,
+  le raté. Les projectiles volent du lanceur à la cible. La galerie des assets joue les effets. Le
+  mannequin humanoïde gagne les attaques par arme de l'atelier : l'arc (sa bande `ranged`), la
+  dague, l'arme à une main et à deux mains (`dagger`, `onehand`, `twohand`).
+
 - **LOT-139 — Le combat de groupe.** Les **quatre** entrent en combat, là où l'exploration les a
   laissés — le meneur garde sa case, chaque suiveur la sienne dans ses pas, ou la case libre la
   plus proche (`core::prepareMapEncounter` prend les cases du groupe) —, et chacun est **joué par

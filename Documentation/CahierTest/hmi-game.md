@@ -1,12 +1,12 @@
 # HMI · Game
 
-Tests unitaires — **19 cas** (7 critiques, 9 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **21 cas** (7 critiques, 10 majeurs, 4 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
-| [`test_combat_cues.cpp`](#test-combat-cuescpp) | 3 | - | 2 | 1 | - |
+| [`test_combat_cues.cpp`](#test-combat-cuescpp) | 5 | - | 2 | 2 | 1 |
 | [`test_debug_commands.cpp`](#test-debug-commandscpp) | 4 | - | 1 | 2 | 1 |
 | [`test_figure_resolver.cpp`](#test-figure-resolvercpp) | 2 | - | 1 | 1 | - |
 | [`test_launch_options.cpp`](#test-launch-optionscpp) | 6 | - | 1 | 3 | 2 |
@@ -24,7 +24,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 ### CombatCuesTest.UneMarcheSeRejoueCaseParCase
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:24`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:26`
 
 Une marche se rejoue a deux cases par seconde, puis revient au repos.
 
@@ -52,7 +52,7 @@ Une marche se rejoue a deux cases par seconde, puis revient au repos.
 
 ### CombatCuesTest.LeCoupPorteAMiGesteEtUnMortResteATerre
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:67`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:69`
 
 Attaque, touche et mort s'enchainent a l'instant de l'impact.
 
@@ -79,7 +79,7 @@ Attaque, touche et mort s'enchainent a l'instant de l'impact.
 
 ### CombatCuesTest.LInconnuEstIgnoreEtToutPeutFinirDUnCoup
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:119`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:121`
 
 La file ignore l'inconnu et sait tout finir d'un coup.
 
@@ -98,6 +98,54 @@ La file ignore l'inconnu et sait tout finir d'un coup.
 - Vérifie que `heros->clip` vaut `hmi::figure_clips::IDLE`.
 - Vérifie que `heros->point.y` vaut `2.5F`, à `1e-4F` près.
 - Vérifie que `file.motionOf(HEROS)` vaut `nullptr`.
+
+### CombatCuesTest.UnTirJoueSaBandeEtSaFlecheVole
+
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:157`
+
+Le tir, sa fleche et le rate s'enchainent sur le geste.
+
+**Étapes**
+
+1. Poser le heros en (0, 0) et le rat en (3, 0) ; pousser un tir du heros sur le rat, la fleche en vol, un rate a la case du rat.
+2. Avancer de 0,16 s, puis jusqu'a 0,4 s, puis d'une seconde et demie.
+
+**Résultat attendu**
+
+- Vérifie que `heros` diffère de `nullptr`.
+- Vérifie que `heros->clip` vaut `hmi::figure_clips::RANGED`.
+- Vérifie que `effets.size()` vaut `1U`.
+- Vérifie que `effets[0].effect` vaut `"arrow"`.
+- Vérifie que `effets[0].point.x` vaut `2.0F`, à `1e-3F` près.
+- Vérifie que `effets[0].point.y` vaut `0.5F`, à `1e-3F` près.
+- Vérifie que `effets.size()` vaut `1U`.
+- Vérifie que `effets[0].effect` vaut `"miss"`.
+- Vérifie que `effets[0].point.x` vaut `3.5F`, à `1e-4F` près.
+- Vérifie que `file.effects().empty()` est vrai.
+- Vérifie que `file.busy()` est faux.
+- Vérifie que `heros->clip` vaut `hmi::figure_clips::IDLE`.
+
+### CombatCuesTest.UnProjectileVersLaGaucheEstLeMiroir
+
+*Mineur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:218`
+
+Un trait de feu vers la gauche de l'ecran joue `fire-bolt-left`.
+
+**Étapes**
+
+1. Heros en (0, 0), rat en (0, 3) ; pousser un sort du heros sur le rat et son trait de feu en vol.
+2. Avancer de 0,1 s, puis tout finir.
+3. Pousser seul un impact sur le rat et avancer de 0,1 s.
+
+**Résultat attendu**
+
+- Vérifie que `file.motionOf(HEROS)->clip` vaut `hmi::figure_clips::CAST`.
+- Vérifie que `file.effects().size()` vaut `1U`.
+- Vérifie que `file.effects()[0].effect` vaut `"fire-bolt-left"`.
+- Vérifie que `file.effects().size()` vaut `1U`.
+- Vérifie que `file.effects()[0].effect` vaut `"impact"`.
+- Vérifie que `file.effects()[0].point.y` vaut `3.5F`, à `1e-4F` près.
+- Vérifie que `file.effects().empty()` est vrai.
 
 ## test_debug_commands.cpp
 

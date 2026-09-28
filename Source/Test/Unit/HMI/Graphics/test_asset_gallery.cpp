@@ -440,3 +440,47 @@ TEST(AssetGalleryTest, UnHerosOrienteRangeParClasse) {
     EXPECT_EQ(formes, (std::vector<std::string>{"walk-se", "walk-sw", "portrait", "token"}));
     EXPECT_TRUE(unlisted.empty()) << unlisted.front();
 }
+
+/**
+ * @brief Un effet de `Common/Fx` se joue dans la galerie : sa bande se decoupe par son
+ *        `.anim.json` (`LOT-136`, `EX-CNT-042`).
+ * \castest{<b>Un effet parait anime dans la galerie.</b><br/>
+ * \tcat Unitaire · Galerie des assets<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Ecrire `Common/Fx/manifest.json` qui cite `fire-bolt.png` (2048 x 256), et son
+ * `.anim.json` a huit images de 256 x 256.<br/>2. Lire le catalogue.<br/>3. Chercher les images
+ * non listees.<br/>
+ * \tattendu Une famille « Scene · Common/Fx » ; l'entree `fire-bolt` a des images de 256 x 256,
+ * huit, jouees une fois ; aucune erreur, aucune image non listee.
+ * }
+ */
+TEST(AssetGalleryTest, UnEffetSeJoueDansLaGalerie) {
+    const std::filesystem::path root =
+        std::filesystem::temp_directory_path() / "jadg_asset_gallery_fx";
+    std::filesystem::remove_all(root);
+    const std::filesystem::path fx = root / "Common" / "Fx";
+    std::filesystem::create_directories(fx);
+    std::ofstream(fx / "manifest.json")
+        << R"({"version": 1, "tile": [256, 159], "ground": 252, "textures": {"fire-bolt": )"
+           R"({"file": "fire-bolt.png", "size": [2048, 256], "class": "fx"}}})";
+    std::ofstream(fx / "fire-bolt.anim.json")
+        << R"({"version": 1, "frameWidth": 256, "frameHeight": 256, "clips": {"fire-bolt": )"
+           R"({"frames": [0, 1, 2, 3, 4, 5, 6, 7], "frameDuration": 0.06, "loop": false}}})";
+    std::ofstream(fx / "fire-bolt.png") << "png";
+
+    const hmi::AssetGalleryCatalog catalog = hmi::AssetGalleryCatalog::load(root);
+    const std::vector<std::string> unlisted = hmi::assetGalleryUnlisted(root, catalog);
+    std::filesystem::remove_all(root);
+
+    EXPECT_TRUE(catalog.errors.empty()) << (catalog.errors.empty() ? "" : catalog.errors.front());
+    const hmi::AssetGalleryFamily* const effets = familyNamed(catalog, "Scène · Common/Fx");
+    ASSERT_NE(effets, nullptr);
+    ASSERT_EQ(effets->entries.size(), 1U);
+    const hmi::AssetGalleryEntry& trait = effets->entries.front();
+    EXPECT_EQ(trait.form, "fire-bolt");
+    EXPECT_EQ(trait.frameWidth, 256);
+    EXPECT_EQ(trait.frameHeight, 256);
+    EXPECT_EQ(trait.frameCount(), 8);
+    EXPECT_FALSE(trait.loop);
+    EXPECT_TRUE(unlisted.empty()) << unlisted.front();
+}

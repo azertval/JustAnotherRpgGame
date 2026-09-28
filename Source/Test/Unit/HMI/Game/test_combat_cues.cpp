@@ -7,6 +7,8 @@
  *        à la vitesse du monde, un coup porte au milieu de son geste, un mort reste à terre.
  */
 
+#include <vector>
+
 #include <gtest/gtest.h>
 
 #include "HMI/Game/CombatCues.h"
@@ -147,4 +149,113 @@ TEST(CombatCuesTest, LInconnuEstIgnoreEtToutPeutFinirDUnCoup) {
     EXPECT_NEAR(heros->point.y, 2.5F, 1e-4F);
     file.remove(HEROS);
     EXPECT_EQ(file.motionOf(HEROS), nullptr);
+}
+
+/**
+ * @brief Un tir joue la bande `ranged` ; sa fleche vole de l'archer a la cible jusqu'a l'impact,
+ *        puis le rate parait a la cible (`LOT-136`).
+ * \castest{<b>Le tir, sa fleche et le rate s'enchainent sur le geste.</b><br/>
+ * \tcat Unitaire · Combat sur la carte<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Poser le heros en (0, 0) et le rat en (3, 0) ; pousser un tir du heros sur le rat,
+ * la fleche en vol, un rate a la case du rat.<br/>2. Avancer de 0,16 s, puis jusqu'a 0,4 s, puis
+ * d'une seconde et demie.<br/>
+ * \tattendu A 0,16 s : le heros joue `ranged`, un seul effet, `arrow` (la cible est a droite de
+ * l'ecran), a mi-chemin. A 0,4 s : la fleche est arrivee et partie, le rate est a la case du rat.
+ * A la fin : plus aucun effet, la file est vide, le heros est au repos.
+ * }
+ */
+TEST(CombatCuesTest, UnTirJoueSaBandeEtSaFlecheVole) {
+    hmi::CombatCueTrack file;
+    file.place(HEROS, {.column = 0, .row = 0});
+    file.place(RAT, {.column = 3, .row = 0});
+    const core::GridPosition rat{.column = 3, .row = 0};
+    file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Attack,
+                             .actor = HEROS,
+                             .path = {},
+                             .target = rat,
+                             .ranged = true});
+    file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Effect,
+                             .actor = HEROS,
+                             .path = {},
+                             .target = rat,
+                             .ranged = false,
+                             .effect = "arrow",
+                             .travels = true});
+    file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Effect,
+                             .actor = HEROS,
+                             .path = {},
+                             .target = rat,
+                             .ranged = false,
+                             .effect = "miss",
+                             .travels = false});
+
+    file.advance(0.16F);
+    const hmi::FigureMotion* heros = file.motionOf(HEROS);
+    ASSERT_NE(heros, nullptr);
+    EXPECT_EQ(heros->clip, hmi::figure_clips::RANGED);
+    std::vector<hmi::EffectMotion> effets = file.effects();
+    ASSERT_EQ(effets.size(), 1U) << "le rate attend l'impact";
+    EXPECT_EQ(effets[0].effect, "arrow");
+    EXPECT_NEAR(effets[0].point.x, 2.0F, 1e-3F) << "a mi-vol";
+    EXPECT_NEAR(effets[0].point.y, 0.5F, 1e-3F);
+
+    file.advance(0.24F);
+    effets = file.effects();
+    ASSERT_EQ(effets.size(), 1U);
+    EXPECT_EQ(effets[0].effect, "miss");
+    EXPECT_NEAR(effets[0].point.x, 3.5F, 1e-4F);
+
+    file.advance(1.5F);
+    EXPECT_TRUE(file.effects().empty());
+    EXPECT_FALSE(file.busy());
+    EXPECT_EQ(heros->clip, hmi::figure_clips::IDLE);
+}
+
+/**
+ * @brief Un projectile qui vole vers la gauche de l'ecran prend sa bande miroir, et un effet pose
+ *        sans geste se joue seul (`LOT-136`).
+ * \castest{<b>Un trait de feu vers la gauche de l'ecran joue `fire-bolt-left`.</b><br/>
+ * \tcat Unitaire · Combat sur la carte<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Heros en (0, 0), rat en (0, 3) ; pousser un sort du heros sur le rat et son trait de
+ * feu en vol.<br/>2. Avancer de 0,1 s, puis tout finir.<br/>3. Pousser seul un impact sur le rat
+ * et avancer de 0,1 s.<br/>
+ * \tattendu Le heros joue `cast` ; l'effet est `fire-bolt-left` ; seul, l'impact parait tout de
+ * suite a la case du rat, puis la file se vide.
+ * }
+ */
+TEST(CombatCuesTest, UnProjectileVersLaGaucheEstLeMiroir) {
+    hmi::CombatCueTrack file;
+    file.place(HEROS, {.column = 0, .row = 0});
+    file.place(RAT, {.column = 0, .row = 3});
+    const core::GridPosition rat{.column = 0, .row = 3};
+    file.push(hmi::CombatCue{
+        .kind = hmi::CombatCueKind::Cast, .actor = HEROS, .path = {}, .target = rat});
+    file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Effect,
+                             .actor = HEROS,
+                             .path = {},
+                             .target = rat,
+                             .ranged = false,
+                             .effect = "fire-bolt",
+                             .travels = true});
+    file.advance(0.1F);
+    EXPECT_EQ(file.motionOf(HEROS)->clip, hmi::figure_clips::CAST);
+    ASSERT_EQ(file.effects().size(), 1U);
+    EXPECT_EQ(file.effects()[0].effect, "fire-bolt-left");
+    file.finishAll();
+
+    file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Effect,
+                             .actor = RAT,
+                             .path = {},
+                             .target = rat,
+                             .ranged = false,
+                             .effect = "impact",
+                             .travels = false});
+    file.advance(0.1F);
+    ASSERT_EQ(file.effects().size(), 1U);
+    EXPECT_EQ(file.effects()[0].effect, "impact");
+    EXPECT_NEAR(file.effects()[0].point.y, 3.5F, 1e-4F);
+    file.finishAll();
+    EXPECT_TRUE(file.effects().empty());
 }

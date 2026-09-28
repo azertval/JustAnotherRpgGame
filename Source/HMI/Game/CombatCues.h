@@ -29,6 +29,7 @@
 #include <deque>
 #include <map>
 #include <optional>
+#include <string>
 #include <string_view>
 #include <vector>
 
@@ -45,12 +46,15 @@ enum class CombatCueKind {
     Walk,
     /// Il frappe `target`.
     Attack,
-    /// Il lance un sort vers `target` (personne ne le demande encore : la bande est prête).
+    /// Il lance un sort vers `target`.
     Cast,
     /// Il encaisse un coup.
     Hit,
     /// Il tombe, et reste à terre.
     Death,
+    /// Un effet paraît (`LOT-136`) : `effect`, à la case `target` — ou en vol de l'acteur vers elle
+    /// (`travels`). Il accompagne le geste qui le précède et ne bouge pas la figurine.
+    Effect,
 };
 
 /// @brief Un fait du combat à montrer.
@@ -59,8 +63,30 @@ struct CombatCue {
     core::CombatantId actor{};
     /// `Walk` : les cases traversées, départ **exclu**, arrivée incluse (`core::Path::steps`).
     std::vector<core::GridPosition> path;
-    /// `Attack`, `Cast` : la case visée, pour tourner la figurine vers elle.
+    /// `Attack`, `Cast` : la case visée, pour tourner la figurine vers elle. `Effect` : où il
+    /// paraît.
     std::optional<core::GridPosition> target;
+    /// `Attack` : un tir, joué par la bande `ranged` (`LOT-136`).
+    bool ranged = false;
+    /// `Effect` : la bande de l'effet (`fire-bolt`, `impact`), dans `Common/Fx/`.
+    std::string effect;
+    /// `Effect` : un projectile, qui vole de l'acteur à la cible jusqu'à l'impact.
+    bool travels = false;
+};
+
+/// @brief Le dossier des effets, depuis la racine des assets : une bande par effet (`LOT-136`).
+inline constexpr std::string_view FX_DIRECTORY = "Common/Fx";
+
+/// @brief Un effet à dessiner à cet instant (`LOT-136`).
+struct EffectMotion {
+    /// La bande, dans `Common/Fx/` (`fire-bolt`, `fire-bolt-left`).
+    std::string effect;
+    /// Position continue, en cases, comme une figurine.
+    core::Vector2 point{};
+    /// Temps écoulé depuis le début de la bande, en secondes.
+    float seconds = 0.0F;
+
+    [[nodiscard]] bool operator==(const EffectMotion&) const = default;
 };
 
 /// @brief Ce qu'une figurine montre à cet instant.
@@ -93,6 +119,8 @@ public:
     /// Le coup **porte** au milieu de la bande d'attaque : le touché et la chute de la cible
     /// commencent là, pas quand l'attaquant a fini son geste.
     static constexpr float IMPACT_FRACTION = 0.5F;
+    /// Un effet dure sa bande : huit images, une petite seconde (`LOT-136`).
+    static constexpr float EFFECT_SECONDS = 0.8F;
 
     /// @brief Pose @p actor au repos en @p cell, tout de suite (montage, rejeu, repli).
     void place(core::CombatantId actor, core::GridPosition cell,
@@ -114,6 +142,8 @@ public:
     }
     /// @return Ce que @p actor montre, ou `nullptr` s'il n'est pas posé.
     [[nodiscard]] const FigureMotion* motionOf(core::CombatantId actor) const;
+    /// @return Les effets en cours, dans l'ordre où ils ont paru (`LOT-136`).
+    [[nodiscard]] std::vector<EffectMotion> effects() const;
     /// @return Le nombre de faits encore à jouer, en cours compris.
     [[nodiscard]] std::size_t pending() const noexcept {
         return _running.size() + _queue.size();

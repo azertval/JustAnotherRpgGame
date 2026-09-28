@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **168 cas** (33 bloquants, 93 critiques, 41 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **169 cas** (33 bloquants, 93 critiques, 42 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -13,7 +13,7 @@ Tests unitaires — **168 cas** (33 bloquants, 93 critiques, 41 majeurs, 1 mineu
 | [`test_battle_grid.cpp`](#test-battle-gridcpp) | 7 | 1 | 2 | 4 | - |
 | [`test_class_brawler.cpp`](#test-class-brawlercpp) | 8 | - | 5 | 3 | - |
 | [`test_class_in_arena.cpp`](#test-class-in-arenacpp) | 4 | - | 4 | - | - |
-| [`test_class_mage.cpp`](#test-class-magecpp) | 10 | - | 9 | 1 | - |
+| [`test_class_mage.cpp`](#test-class-magecpp) | 11 | - | 9 | 2 | - |
 | [`test_class_priest.cpp`](#test-class-priestcpp) | 6 | - | 6 | - | - |
 | [`test_class_scoundrel.cpp`](#test-class-scoundrelcpp) | 7 | - | 5 | 2 | - |
 | [`test_combat_preview.cpp`](#test-combat-previewcpp) | 2 | 1 | 1 | - | - |
@@ -1352,6 +1352,32 @@ Un sort a l'effet « petrify » est refuse ; un sort en cone se charge, mais auc
 - Vérifie que `catalogue.errors.front().find("petrifie.json")` diffère de `std::string::npos`.
 - Vérifie que `catalogue.spells.size()` vaut `1U`.
 - Vérifie que `core::spellMechanism(catalogue.spells.front()).has_value()` est faux.
+
+### ClassMageTest.UnSortSAnnonceAuDebutEtALaFin
+
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_mage.cpp:466`
+
+Trait de feu annonce son debut, puis son issue.
+
+**Étapes**
+
+1. Mage N1 contre un mannequin en (7, 3), un observateur d'actions branche.
+2. Lancer trait de feu.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(combatDe(charge, {test_support::dummy("Mannequin", {7, 3}, 10, 0)})) .refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `lancer.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `annonces.size()` vaut `2U`.
+- Vérifie que `annonces[0].phase` vaut `core::ArenaActionPhase::Begin`.
+- Vérifie que `annonces[1].phase` vaut `core::ArenaActionPhase::End`.
+- Vérifie que `annonce.actor` vaut `CombatantId{1}`.
+- Vérifie que `annonce.target` vaut `CombatantId{2}`.
+- Vérifie que `annonce.spell` vaut `"fire-bolt"`.
+- Vérifie que `annonce.ranged` est faux.
+- Vérifie que `lancer.outcome.has_value()` est vrai.
+- Vérifie que `annonces[1].missed` vaut `!lancer.outcome->roll.hit`.
 
 ## test_class_priest.cpp
 
