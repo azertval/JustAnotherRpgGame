@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790477151113,
+  "lastUpdate": 1790563939492,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1312,6 +1312,100 @@ window.BENCHMARK_DATA = {
             "value": 3.603961074965347,
             "unit": "us/iter",
             "extra": "iterations: 373333\ncpu: 3.5993335708335454 us\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "ef784e2478731a32b58b227f2f98ea40d3737bea",
+          "message": "Merge pull request #156 from azertval/lot-139-combat-de-groupe\n\nLOT-139 — Le combat de groupe",
+          "timestamp": "2026-09-28T00:16:30Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/ef784e2478731a32b58b227f2f98ea40d3737bea"
+        },
+        "date": 1790563937166,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 156453.39285714447,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 156947.54464285713 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 213131.24999999822,
+            "unit": "ns/iter",
+            "extra": "iterations: 6400\ncpu: 212402.34375 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 57993.925503798244,
+            "unit": "ns/iter",
+            "extra": "iterations: 24216\ncpu: 58071.1100099108 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 161586.28348214497,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 162179.1294642857 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1165261.8750000342,
+            "unit": "ns/iter",
+            "extra": "iterations: 1280\ncpu: 1171875 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 2708514.406779655,
+            "unit": "ns/iter",
+            "extra": "iterations: 472\ncpu: 2714512.7118644067 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 639.5790846681848,
+            "unit": "us/iter",
+            "extra": "iterations: 2185\ncpu: 636.441647597254 us\nthreads: 1"
+          },
+          {
+            "name": "ArenareaSnapshot",
+            "value": 0.09622556047605872,
+            "unit": "ms/iter",
+            "extra": "iterations: 14452\ncpu: 0.09622370606144479 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaComposeWholeMap",
+            "value": 0.13752324107142858,
+            "unit": "ms/iter",
+            "extra": "iterations: 11200\ncpu: 0.13811383928571427 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaTexturePaths",
+            "value": 0.07034878707523137,
+            "unit": "ms/iter",
+            "extra": "iterations: 20364\ncpu: 0.07059025731683363 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaBuildStaticScene",
+            "value": 0.13700074107143326,
+            "unit": "ms/iter",
+            "extra": "iterations: 11200\ncpu: 0.13811383928571427 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaFrame1080p",
+            "value": 3.629231322115796,
+            "unit": "us/iter",
+            "extra": "iterations: 389565\ncpu: 3.649904380526998 us\nthreads: 1"
           }
         ]
       }
