@@ -98,6 +98,9 @@ class WorldModel : public QObject {
     Q_PROPERTY(QUrl leaderPortrait READ leaderPortrait NOTIFY partyChanged)
     /// Quatre (`core::Party::MAX_MEMBERS`).
     Q_PROPERTY(int maxPartySize READ maxPartySize CONSTANT)
+    /// Le personnage dont la fiche s'ouvre (`LOT-141`) : celui que l'écran de groupe a désigné,
+    /// sinon le meneur.
+    Q_PROPERTY(QString shownCharacterId READ shownCharacterId NOTIFY partyChanged)
 
 public:
     /// La ville où « Nouvelle partie » ouvre le jeu, sous `World/cities/` : la Capitale (`LOT-96`).
@@ -183,6 +186,18 @@ public:
      *        l'échangeant avec son voisin. Passer devant le meneur le fait meneur.
      */
     Q_INVOKABLE bool moveMember(const QString& characterId, int offset);
+    /**
+     * @brief Donne un niveau à @p characterId — `party` : à chaque membre du groupe (`LOT-141`).
+     *
+     * La montée est **donnée** (quête, débogage) tant que l'expérience n'arrive pas : la fiche
+     * monte au seuil du niveau suivant (`core::levelUpTo`), et le registre du groupe retient le
+     * niveau et les points de vie qui en résultent. Bornée au maximum de la table.
+     * @return Vrai si un personnage au moins a gagné un niveau.
+     */
+    Q_INVOKABLE bool levelUp(const QString& characterId);
+    /// @brief Désigne le personnage dont la fiche s'ouvre (`shownCharacterId`) ; vide : le meneur.
+    Q_INVOKABLE void showCharacter(const QString& characterId);
+    [[nodiscard]] QString shownCharacterId() const;
 
     [[nodiscard]] QString mapId() const;
     [[nodiscard]] QString mapName() const;
@@ -386,6 +401,8 @@ private:
     core::Party _party;
     /// Ce que les combats ont laissé aux fiches (`LOT-139`) ; vidé avec la partie.
     core::PartyLedger _ledger;
+    /// Le personnage désigné pour la fiche ; vide : le meneur.
+    std::string _shownCharacterId;
     /// La figurine imposée au meneur (`--hero-figure=`, la console de débogage) ; vide : celle
     /// de sa classe.
     std::string _heroFigureOverride;

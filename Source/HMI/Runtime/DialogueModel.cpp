@@ -120,6 +120,15 @@ public:
             _surFin(std::string{ending});
         }
     }
+    // La montee de niveau donnee par un PNJ (LOT-141) : elle n'ouvre rien, la partie l'applique.
+    void levelUp(std::string_view characterId) override {
+        if (WorldModel* const partie = WorldModel::current()) {
+            static_cast<void>(partie->levelUp(
+                QString::fromUtf8(characterId.data(), static_cast<qsizetype>(characterId.size()))));
+        } else {
+            HMI_LOG_WARNING("Dialogue : montee de niveau sans partie en cours.");
+        }
+    }
 
 private:
     const core::ExperienceTable& _experience;

@@ -476,6 +476,29 @@ LevelUpResult gainExperience(CharacterSheet& sheet, const ExperienceTable& table
     return resultat;
 }
 
+LevelUpResult levelUpTo(CharacterSheet& sheet, int level, const PlayableClass& playableClass,
+                        const CharacterOptions& options, const CharacterCreationRules& rules,
+                        const ExperienceTable& table, std::vector<std::string>& missing) {
+    LevelUpResult resultat;
+    resultat.previousLevel = sheet.level;
+    resultat.newLevel = sheet.level;
+    resultat.previousProficiencyBonus = table.proficiencyBonusAt(sheet.level);
+    resultat.newProficiencyBonus = resultat.previousProficiencyBonus;
+    const int cible = std::min(level, table.maximumLevel());
+    if (cible <= sheet.level) {
+        return resultat;
+    }
+    // Par l'experience du seuil, et non en posant le niveau : les memes points de vie et le meme
+    // bonus de maitrise qu'une partie jouee.
+    const int seuil = table.thresholdAt(cible);
+    if (seuil > sheet.experiencePoints) {
+        resultat =
+            gainExperience(sheet, table, playableClass.hitDie, seuil - sheet.experiencePoints);
+    }
+    applyClassFeatures(sheet, playableClass, options, rules, missing);
+    return resultat;
+}
+
 CharacterSheet buildCharacterSheet(std::string name, const std::array<int, 6>& baseAbilities,
                                    const Species* species, const PlayableClass* playableClass,
                                    const Background* background,

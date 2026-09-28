@@ -9,10 +9,10 @@ import QtQuick
 */
 QtObject {
     readonly property var members: [
-        { id: "heros-brawler", name: "Grom Tranche-Écaille", label: "Grom Tranche-Écaille", value: "15 / 15", ratio: 1, role: "Brawler", portrait: "", leader: true, rank: 0 },
-        { id: "heros-mage", name: "Faelar Trace-Carte", label: "Faelar Trace-Carte", value: "8 / 8", ratio: 1, role: "Mage", portrait: "", leader: false, rank: 1 },
-        { id: "heros-priest", name: "Helga Pierre-Sûre", label: "Helga Pierre-Sûre", value: "12 / 12", ratio: 1, role: "Priest", portrait: "", leader: false, rank: 2 },
-        { id: "heros-scoundrel", name: "Nessa Double-Vie", label: "Nessa Double-Vie", value: "10 / 10", ratio: 1, role: "Scoundrel", portrait: "", leader: false, rank: 3 }
+        { id: "heros-brawler", name: "Grom Tranche-Écaille", label: "Grom Tranche-Écaille", value: "15 / 15", ratio: 1, role: "Brawler", className: "Brawler", species: "Demi-orc", level: "1", armorClass: "14", speed: "9 m", portrait: "", leader: true, rank: 0 },
+        { id: "heros-mage", name: "Faelar Trace-Carte", label: "Faelar Trace-Carte", value: "8 / 8", ratio: 1, role: "Mage", className: "Mage", species: "Elfe d'automne", level: "1", armorClass: "12", speed: "9 m", portrait: "", leader: false, rank: 1 },
+        { id: "heros-priest", name: "Helga Pierre-Sûre", label: "Helga Pierre-Sûre", value: "12 / 12", ratio: 1, role: "Priest", className: "Priest", species: "Nain des collines", level: "1", armorClass: "17", speed: "7,5 m", portrait: "", leader: false, rank: 2 },
+        { id: "heros-scoundrel", name: "Nessa Double-Vie", label: "Nessa Double-Vie", value: "10 / 10", ratio: 1, role: "Scoundrel", className: "Scoundrel", species: "Humain", level: "1", armorClass: "14", speed: "12 m", portrait: "", leader: false, rank: 3 }
     ]
     readonly property var candidates: [
         { id: "heros-brawler", name: "Grom Tranche-Écaille", className: "Brawler", species: "Demi-orc", level: "1", value: "15 / 15", armorClass: "14", speed: "9 m", portrait: "", leader: true, rank: 0 },

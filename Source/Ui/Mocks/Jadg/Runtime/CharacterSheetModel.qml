@@ -1,11 +1,12 @@
 import QtQuick
 
 /*!
-    Doublure de `hmi::CharacterSheetModel` pour Qt Design Studio (LOT-87).
+    Doublure de `hmi::CharacterSheetModel` pour Qt Design Studio (LOT-87, LOT-141).
 
     Mêmes propriétés que le type C++ (`Source/HMI/Runtime/CharacterSheetModel.h`), avec les valeurs
     du personnage de démonstration ; les listes sont des `ListModel` aux rôles de `SheetRowModel`
-    (`rowId`, `label`, `value`), parce qu'un tableau n'exposerait que `modelData`.
+    (`rowId`, `label`, `value`), parce qu'un tableau n'exposerait que `modelData`. Les capacités
+    et les sorts (LOT-141) sont des tableaux d'objets, comme le type C++ les publie.
 */
 QtObject {
     readonly property string name: "Brenna Pierrefonte"
@@ -21,6 +22,8 @@ QtObject {
     readonly property string speed: "9 m"
     readonly property string proficiencyBonus: "+2"
     readonly property string passivePerception: "11"
+    readonly property string characterId: "heros-brawler"
+    readonly property string className: "Guerrière"
 
     readonly property var values: ({
         "sheet.name": "Brenna Pierrefonte", "sheet.class": "Guerrière", "sheet.level": "3",
@@ -50,7 +53,21 @@ QtObject {
         ListElement { rowId: "insight"; label: "Intuition"; value: "+1" }
     }
 
+    readonly property var capacities: [
+        { id: "tough-as-nails", name: "Tough as Nails", iconKey: "ui/icon/capacity/tough-as-nails", text: "Player's Guide to Tanares, p. 193.", level: 1, narrative: false }
+    ]
+    readonly property var upcomingCapacities: [
+        { id: "hit-the-mark", name: "Hit the Mark", iconKey: "ui/icon/capacity/hit-the-mark", text: "Player's Guide to Tanares, p. 193.", level: 3, narrative: false },
+        { id: "extra-attack", name: "Extra Attack", iconKey: "ui/icon/capacity/extra-attack", text: "Player's Guide to Tanares, p. 193.", level: 5, narrative: false }
+    ]
+    readonly property var spells: [
+        { id: "fire-bolt", name: "Trait de feu", iconKey: "ui/icon/spell/fire-bolt", level: 0, perDay: 0, remaining: 0, usesText: "à volonté", details: "Portée : 36 mètres\nDégâts : 1d10 feu", school: "evocation" },
+        { id: "magic-missile", name: "Projectile magique", iconKey: "ui/icon/spell/magic-missile", level: 1, perDay: 2, remaining: 1, usesText: "1 / 2", details: "Portée : 36 mètres\nDégâts : 1d4+1 force", school: "evocation" }
+    ]
+
     function loadDemonstrationCharacter() {}
+    function loadCharacter(characterId) {}
+    function loadShownCharacter() {}
 
     signal changed()
 }

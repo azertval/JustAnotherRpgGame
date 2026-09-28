@@ -6,6 +6,19 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-141 — La fiche et l'écran de groupe.** La fiche de personnage s'ouvre pour **chaque
+  membre** (`Tab` passe au suivant ; depuis l'écran Groupe, `F` ouvre la fiche du personnage
+  désigné) et gagne deux onglets (`Page suiv.` / `Page préc.`, `RB` / `LB`) : **Classe** — les
+  capacités acquises avec leur icône et le niveau qui les donne, celles à venir aux quatre
+  prochains niveaux — et **Sorts** — les sorts connus, portée, durée, dés, et leurs **lancers
+  restants**. L'écran **Groupe** montre les **quatre profils côte à côte**, meneur marqué, portrait,
+  niveau, points de vie, CA, vitesse. La **montée de niveau est donnée** (`WorldModel.levelUp`,
+  `core::levelUpTo`) : par une action de dialogue `levelUp` (un personnage ou `party`), par le
+  menu `F9` ; le registre du groupe retient le niveau et les points de vie gagnés — la montée
+  n'est pas un soin —, et la fiche, l'écran de groupe et le combat lisent la **même** fiche
+  (`loadDemonstrationState` applique le registre). Les quatre fiches pré-tirées s'affichent
+  comme leur page du livre, valeur pour valeur (`EX-IHM-109`).
+
 - **LOT-140 — L'interface de combat, à jour.** Le HUD de combat montre le **groupe** : l'ordre
   d'initiative **aux jetons** des personnages (le jeton de la figurine, deux lettres pour une
   créature, l'actif cerclé d'or) et le round ; sous le nom du personnage actif, le **panneau du

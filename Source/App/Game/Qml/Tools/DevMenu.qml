@@ -185,6 +185,17 @@ Item {
         }
     }
 
+    /// Donne un niveau a un membre du groupe, ou a tous (`party`), et le dit.
+    function levelUp(characterId) {
+        if (!WorldModel.loaded) {
+            root.feedback = "Niveau : aucune partie en cours.";
+            return;
+        }
+        root.feedback = WorldModel.levelUp(characterId)
+                        ? "Niveau donné à « " + characterId + " »."
+                        : "Niveau refusé pour « " + characterId + " » (maximum atteint, ou inconnu).";
+    }
+
     /// Engage la rencontre tapée sur la carte courante, et ouvre l'affichage de combat.
     function beginEncounter() {
         const encounterId = encounterField.text.trim();
@@ -406,6 +417,38 @@ Item {
                     Button {
                         text: "Engager"
                         onClicked: root.beginEncounter()
+                    }
+                }
+
+                // --- Groupe (LOT-141) : la montee de niveau donnee ---------------------------
+                Label {
+                    Layout.topMargin: 8
+                    text: "Groupe"
+                    font.bold: true
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+
+                    ComboBox {
+                        id: levelUpBox
+
+                        Layout.fillWidth: true
+                        textRole: "name"
+                        valueRole: "id"
+                        model: WorldModel.partyMembers
+                    }
+
+                    Button {
+                        text: "Niveau +1"
+                        enabled: WorldModel.loaded && levelUpBox.count > 0
+                        onClicked: root.levelUp(levelUpBox.currentValue)
+                    }
+
+                    Button {
+                        text: "Groupe +1"
+                        enabled: WorldModel.loaded
+                        onClicked: root.levelUp("party")
                     }
                 }
 

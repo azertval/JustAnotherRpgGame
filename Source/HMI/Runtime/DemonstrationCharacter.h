@@ -13,6 +13,7 @@
 #include "Core/Rpg/CharacterSheet.h"
 #include "Core/Rpg/Equipment.h"
 #include "Core/Rpg/Inventory.h"
+#include "Core/Rpg/PartyLedger.h"
 #include "Core/Rpg/Skill.h"
 
 /**
@@ -67,9 +68,23 @@ struct DemonstrationState {
 ///        chaque manque.
 [[nodiscard]] DemonstrationState loadDemonstrationState();
 
-/// @brief Charge la fiche @p characterFile et ses catalogues : un membre du groupe qui ne mène
-///        pas, que l'écran de groupe montre.
+/**
+ * @brief Charge la fiche @p characterFile et ses catalogues : un membre du groupe qui ne mène
+ *        pas, que l'écran de groupe montre.
+ *
+ * **Ce que la partie en a fait s'applique** (`LOT-141`) : si une partie est en cours et que la
+ * fiche est celle d'un de ses personnages, le registre du groupe (`core::PartyLedger`) est
+ * appliqué — le niveau donné (`core::levelUpTo`), puis les points de vie et les lancers qui
+ * restent. Fiche, inventaire, dialogue, groupe et combat lisent ainsi **la même** fiche.
+ */
 [[nodiscard]] DemonstrationState loadDemonstrationState(const std::filesystem::path& characterFile);
+/**
+ * @brief Applique à @p state ce que le registre dit de son personnage (`LOT-141`) : le niveau
+ *        donné, puis les points de vie et les lancers restants (`core::applyRecord`).
+ * @param state La fiche et ses catalogues.
+ * @param record L'enregistrement du membre.
+ */
+void applyMemberRecord(DemonstrationState& state, const core::MemberRecord& record);
 
 /**
  * @brief Les tables de valeurs de chaque fiche de @p characterFiles, dans cet ordre : les
