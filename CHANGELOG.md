@@ -14,7 +14,9 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   figurine qui n'en a pas joue son attaque. L'écran joue désormais l'**incantation** d'un sort
   (`core::ArenaSession::setActionObserver`), et vingt **effets** paraissent en combat
   (`Common/Fx/`) : les sorts du Mage et du Priest jusqu'au niveau 5, la flèche, l'impact d'un coup,
-  le raté. Les projectiles volent du lanceur à la cible. La galerie des assets joue les effets.
+  le raté. Les projectiles volent du lanceur à la cible. La galerie des assets joue les effets. Le
+  mannequin humanoïde gagne les attaques par arme de l'atelier : l'arc (sa bande `ranged`), la
+  dague, l'arme à une main et à deux mains (`dagger`, `onehand`, `twohand`).
 
 - **LOT-139 — Le combat de groupe.** Les **quatre** entrent en combat, là où l'exploration les a
   laissés — le meneur garde sa case, chaque suiveur la sienne dans ses pas, ou la case libre la

@@ -17,6 +17,9 @@
     "idle",
     "walk",
     "attack",
+    "dagger",
+    "onehand",
+    "twohand",
     "ranged",
     "hit",
     "death",
@@ -470,6 +473,22 @@
       "file": "Common/Characters/Placeholders/humanoid/cast-se.png",
       "sha256": "7cad81ff45962088b59818fdffe90fed384e3fd6daca9034c15802f98081d67b"
     },
+    "Placeholders/humanoid/dagger-ne.png": {
+      "file": "Common/Characters/Placeholders/humanoid/dagger-ne.png",
+      "sha256": "c44141f8fc5cbdb7d9e3a7c5e9442f4c192b47528579a9f1618e1ead4c4d1856"
+    },
+    "Placeholders/humanoid/dagger-nw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/dagger-nw.png",
+      "sha256": "116fe4e65700cf8dfe449e21e59ff9c76d850f36bb70811a83b4516ca2516987"
+    },
+    "Placeholders/humanoid/dagger-se.png": {
+      "file": "Common/Characters/Placeholders/humanoid/dagger-se.png",
+      "sha256": "69f8e6664e794a74bb498eec07fa6f40fb1d1176a7aa0077c670c9e742db1629"
+    },
+    "Placeholders/humanoid/dagger-sw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/dagger-sw.png",
+      "sha256": "ef4c23207253ccedd54e3c1aae8f3c3908d41e75b4484d079bfd7a04efc4c155"
+    },
     "Placeholders/humanoid/death-ne.png": {
       "file": "Common/Characters/Placeholders/humanoid/death-ne.png",
       "sha256": "d4adea753773847872cc0aa14355712ff145eef65bf7b2d838d5632d64761963"
@@ -529,6 +548,54 @@
     "Placeholders/humanoid/idle.png": {
       "file": "Common/Characters/Placeholders/humanoid/idle-se.png",
       "sha256": "af8910129258408be1f198fc8f46adf9abc7861b390bd2f422ba6dffd96abba4"
+    },
+    "Placeholders/humanoid/onehand-ne.png": {
+      "file": "Common/Characters/Placeholders/humanoid/onehand-ne.png",
+      "sha256": "acc68f7ed20738aaa3f911432df4f1ed9ffd5f7645ae3dad86c6a82f64aba045"
+    },
+    "Placeholders/humanoid/onehand-nw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/onehand-nw.png",
+      "sha256": "6927e89292b8883a703a5844ddfc79decc536b7a6d3a16b3931d5a0b202c6046"
+    },
+    "Placeholders/humanoid/onehand-se.png": {
+      "file": "Common/Characters/Placeholders/humanoid/onehand-se.png",
+      "sha256": "2b0dacb9ec9df7ab93d7c6c911b60a27dc2135d67dee938987ecac5373e482a3"
+    },
+    "Placeholders/humanoid/onehand-sw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/onehand-sw.png",
+      "sha256": "c2a1b159da9e2690d18d3b5aedd96e3696d6985ee8d8cada2cc2a3d2c51f2252"
+    },
+    "Placeholders/humanoid/ranged-ne.png": {
+      "file": "Common/Characters/Placeholders/humanoid/ranged-ne.png",
+      "sha256": "48aec262df757912ddb93b9515f3481081d1e49baf37674d6b56c0280d1390c4"
+    },
+    "Placeholders/humanoid/ranged-nw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/ranged-nw.png",
+      "sha256": "2154150bae7d854dac182527b4c7cde9b3c964bbdb3a181ff3288f3d6295074e"
+    },
+    "Placeholders/humanoid/ranged-se.png": {
+      "file": "Common/Characters/Placeholders/humanoid/ranged-se.png",
+      "sha256": "cc5aaa987f53bc8a9698e4ffdd284c9a6daa3582420ad9d97ff01d38218c269d"
+    },
+    "Placeholders/humanoid/ranged-sw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/ranged-sw.png",
+      "sha256": "1d25329a6ead330ecd7625382bba89d453703811356dc7fe83f454ccd31288c0"
+    },
+    "Placeholders/humanoid/twohand-ne.png": {
+      "file": "Common/Characters/Placeholders/humanoid/twohand-ne.png",
+      "sha256": "ace4b4c5f485f20a42f8781d6130efd830736b2be062cc0275c48917c31f24d2"
+    },
+    "Placeholders/humanoid/twohand-nw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/twohand-nw.png",
+      "sha256": "768001734fb96083895fb51ded7a075fe0a63ac8e2dec1437261cd76024c0158"
+    },
+    "Placeholders/humanoid/twohand-se.png": {
+      "file": "Common/Characters/Placeholders/humanoid/twohand-se.png",
+      "sha256": "879effb9b99a2da22f547e979690152ee0047af85e340c0760204da6f4e9cc10"
+    },
+    "Placeholders/humanoid/twohand-sw.png": {
+      "file": "Common/Characters/Placeholders/humanoid/twohand-sw.png",
+      "sha256": "6fb35185cf1df40afe3a26c4a8d9feb43d559ed1e5f0dadb5de482cab27bdd94"
     },
     "Placeholders/humanoid/walk-ne.png": {
       "file": "Common/Characters/Placeholders/humanoid/walk-ne.png",

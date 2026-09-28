@@ -3,7 +3,7 @@ id = "LOT-136"
 titre = "Assets des quatre classes"
 version = "0.0.2"
 filiere = "assets"
-statut = "en-cours"
+statut = "livre"
 taille = "L"
 resume = "Les quatre héros ont leur figurine HD, leur portrait, leurs effets de sort."
 prerequis = ["LOT-130"]
@@ -35,7 +35,8 @@ avec les trois autres, dans l'atelier commun (décision de l'auteur, 28 sept. 20
 
 ## Décisions de réalisation
 
-Réalisé le 28 septembre 2026, branche `lot-136-assets-des-quatre-classes`.
+Livré le 28 septembre 2026 après l'essai en jeu de l'auteur, branche
+`lot-136-assets-des-quatre-classes`, **PR #PRNUM**.
 
 - **Les images de l'atelier sont prises telles quelles.** Source :
   `Tools/AssetHd/NPC/Classes/LOT-136-v1/` (hors Git), une pose HD par image, habillée sur le
@@ -56,7 +57,13 @@ Réalisé le 28 septembre 2026, branche `lot-136-assets-des-quatre-classes`.
   Priest × 0,85.
 - **Nouvelle animation `ranged`** (tir) : `hmi::figure_clips::RANGED`, déclarée dans le manifeste
   `Characters/`. Une attaque dont l'arme a une portée la joue ; une figurine sans bande de tir (le
-  mannequin, les bandits à l'arbalète) joue son `attack` (`figure_clips::fallbackOf`).
+  mannequin d'une autre silhouette) joue son `attack` (`figure_clips::fallbackOf`).
+- **Le mannequin humanoïde prend les attaques par arme** de l'atelier
+  (`Tools/AssetHd/NPC/ManequinNpc/WeaponAttacks/<DIR>-v1/planches`, demande de l'auteur) : l'arc
+  devient sa bande `ranged` — les bandits à l'arbalète tirent —, la dague, l'arme à une main et
+  l'arme à deux mains entrent au kit sous `dagger`, `onehand` et `twohand`, quatre orientations,
+  huit images. Le moteur ne choisit pas encore la bande par l'arme tenue : ces trois-là ne se
+  voient que dans la galerie.
 - **L'écran joue enfin l'incantation.** `core::ArenaSession::setActionObserver` annonce le début et
   la fin de chaque attaque et de chaque sort (`ArenaActionNotice` : acteur, cible, identifiant du
   sort, tir, raté). `EncounterModel` en tire le geste (`attack`, `ranged` ou `cast`) — jusqu'ici
@@ -71,5 +78,4 @@ Réalisé le 28 septembre 2026, branche `lot-136-assets-des-quatre-classes`.
   pendant la moitié du geste ; le reste paraît à la cible à l'impact : l'effet du sort, l'impact de
   chaque coup encaissé, le raté d'un jet manqué. La galerie des assets joue les effets par leur
   `.anim.json`.
-- **Reste dû** : l'essai en jeu par l'auteur (les quatre héros en exploration et en combat, le tir,
-  les sorts), puis la publication du kit `Common` et la PR.
+- **Essai en jeu** : validé par l'auteur le 28 septembre 2026.
