@@ -18,7 +18,7 @@ var searchData=
   ['_5fassetsdirectory_15',['_assetsDirectory',['../classhmi_1_1FigureResolver.html#a1e559bab8a6f594f974a503cc84babd2',1,'hmi::FigureResolver::_assetsDirectory'],['../classhmi_1_1WorldPlay.html#a7a4e9c64171086a04e227fa385fd3242',1,'hmi::WorldPlay::_assetsDirectory']]],
   ['_5fatlas_16',['_atlas',['../classhmi_1_1SceneImages.html#a9e2151e51a46cc5c91935fede535bfd4',1,'hmi::SceneImages::_atlas'],['../classhmi_1_1SceneResources.html#ab817a9cf9f567e52587ff37c122ceeda',1,'hmi::SceneResources::_atlas']]],
   ['_5fattackhooks_17',['_attackHooks',['../classcore_1_1ArenaSession.html#affcf58712798b74df13c294096f6a692',1,'core::ArenaSession']]],
-  ['_5fattacks_18',['_attacks',['../classcore_1_1ArenaSession.html#a35cbb920f818826a6c52dc2d946d5700',1,'core::ArenaSession']]],
+  ['_5fattacks_18',['_attacks',['../classcore_1_1ArenaSession.html#a35cbb920f818826a6c52dc2d946d5700',1,'core::ArenaSession::_attacks'],['../classhmi_1_1CharacterSheetModel.html#aed7e1fe57ee50d9986dc016c21608918',1,'hmi::CharacterSheetModel::_attacks']]],
   ['_5fautomaticsteps_19',['_automaticSteps',['../classcore_1_1DialogueRunner.html#a780cb9c96112a78f272a68a235e8fb89',1,'core::DialogueRunner']]],
   ['_5fautosave_20',['_autosave',['../classhmi_1_1MainWindow.html#a9070cc10b7ea209e15e5c2ff9e623f50',1,'hmi::MainWindow']]],
   ['_5fautosavedmapids_21',['_autosavedMapIds',['../classhmi_1_1MainWindow.html#a0238ff13db5d523b1872d7a9797be0d6',1,'hmi::MainWindow']]],

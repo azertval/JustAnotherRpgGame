@@ -1,5 +1,13 @@
 var NAVTREEINDEX52 =
 {
+"test__credits__catalog_8cpp.html":[4,0,0,7,4,2,7,0],
+"test__credits__catalog_8cpp.html#a0b59737f81d8be657e1ebd6fcf6be881":[4,0,0,7,4,2,7,0,0],
+"test__credits__catalog_8cpp.html#a1d49b866dc7ffdc0724e1ea3a6c2d36f":[4,0,0,7,4,2,7,0,6],
+"test__credits__catalog_8cpp.html#a235633aed6866aa7865f04ba5e63ad39":[4,0,0,7,4,2,7,0,5],
+"test__credits__catalog_8cpp.html#a3a8cccf5f4f818e2e49e9d2791aa5c55":[4,0,0,7,4,2,7,0,1],
+"test__credits__catalog_8cpp.html#a9146a28c2d490c889830e908bed49b28":[4,0,0,7,4,2,7,0,2],
+"test__credits__catalog_8cpp.html#ae6859fe4232070f85cb2b340fd20c65f":[4,0,0,7,4,2,7,0,3],
+"test__credits__catalog_8cpp.html#af41bc1c1455cb24f878e2809cc0ebf27":[4,0,0,7,4,2,7,0,4],
 "test__damage_8cpp.html":[4,0,0,7,4,0,0,12],
 "test__damage_8cpp.html#a0a56fa8f5b2375225a953bc6109a3035":[4,0,0,7,4,0,0,12,2],
 "test__damage_8cpp.html#a59139616b7e0a9783030074e346b99ae":[4,0,0,7,4,0,0,12,3],
@@ -241,13 +249,5 @@ var NAVTREEINDEX52 =
 "test__format__v4_8cpp.html#ad8ba21b81e094f99170d4132bedd7385":[4,0,0,7,4,0,5,0,7],
 "test__format__v4_8cpp.html#aded0438af6b02882c6d174992a041927":[4,0,0,7,4,0,5,0,10],
 "test__format__v4_8cpp.html#ae07aa38258b47793921e5c0366ab27fc":[4,0,0,7,4,0,5,0,6],
-"test__format__v4_8cpp.html#aefe28b2a0c860ac1b8db643883462e6a":[4,0,0,7,4,0,5,0,1],
-"test__format__v4_8cpp.html#af316b6af62cee896c721f28e08eed16d":[4,0,0,7,4,0,5,0,17],
-"test__format__v4_8cpp.html#af5853f62ac5858ca11eb710e96b2a6c3":[4,0,0,7,4,0,5,0,16],
-"test__format__v4_8cpp.html#af77bd2d78a707abc1483d05a11a543df":[4,0,0,7,4,0,5,0,15],
-"test__game__launch_8cpp.html":[4,0,0,7,4,1,12],
-"test__gamepad__probe_8cpp.html":[4,0,0,7,4,2,3,1],
-"test__gamepad__probe_8cpp.html#a8791ddd7f6f622a0abafe9885e38f550":[4,0,0,7,4,2,3,1,2],
-"test__gamepad__probe_8cpp.html#ae16382a36aef62e2d7cbbf70375a5eba":[4,0,0,7,4,2,3,1,1],
-"test__gamepad__probe_8cpp.html#af70b2c51bf69a9677846c59134cf2e26":[4,0,0,7,4,2,3,1,0]
+"test__format__v4_8cpp.html#aefe28b2a0c860ac1b8db643883462e6a":[4,0,0,7,4,0,5,0,1]
 };

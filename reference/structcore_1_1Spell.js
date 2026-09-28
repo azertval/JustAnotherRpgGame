@@ -8,6 +8,7 @@ var structcore_1_1Spell =
     [ "bonusAction", "structcore_1_1Spell.html#a9047893bb6649fb1ff013cae04f19e81", null ],
     [ "cantripScaling", "structcore_1_1Spell.html#a71e940e1fb387e671ec0b0f55d675fe4", null ],
     [ "castingTime", "structcore_1_1Spell.html#accb5a9e4d026c5dfe029fdeb0c6e953c", null ],
+    [ "components", "structcore_1_1Spell.html#a9a6ce6158822cb674ea4b12ba91104af", null ],
     [ "concentration", "structcore_1_1Spell.html#aecd3c5fc345925c9ecd86ad5b65a6b31", null ],
     [ "damage", "structcore_1_1Spell.html#aef19780c81f39eaceba166b293aa34db", null ],
     [ "damageType", "structcore_1_1Spell.html#a0020691c9ee8a8f71deaf9fe6b63900f", null ],

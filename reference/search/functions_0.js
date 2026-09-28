@@ -146,7 +146,7 @@ var searchData=
   ['attackbonusof_143',['attackBonusOf',['../namespacecore.html#a1e9bfbd96616376fcd64474e6a97e576',1,'core']]],
   ['attackcircumstances_144',['attackCircumstances',['../namespacecore.html#adb9ad640862c6901d33d96c181f4c9e0',1,'core']]],
   ['attackmodifiersfrom_145',['attackModifiersFrom',['../namespacecore.html#ac259fe700c12fc636273eb6187929bb8',1,'core']]],
-  ['attacks_146',['attacks',['../classcore_1_1ArenaSession.html#a3dc6b71791568af78f3f66d6987df23c',1,'core::ArenaSession']]],
+  ['attacks_146',['attacks',['../classcore_1_1ArenaSession.html#a3dc6b71791568af78f3f66d6987df23c',1,'core::ArenaSession::attacks()'],['../classhmi_1_1CharacterSheetModel.html#a89e9f9ff6e1399663ddccbbb84a86eb7',1,'hmi::CharacterSheetModel::attacks()']]],
   ['attacksfor_147',['attacksFor',['../namespacecore.html#a9f790045523fda834167bed21d202dd3',1,'core']]],
   ['attitude_148',['attitude',['../classcore_1_1DialogueRunner.html#a1f20afac112a8840b41b1d5bda1b1e44',1,'core::DialogueRunner::attitude()'],['../classhmi_1_1DialogueModel.html#a3cb792a72e33b34e9d8f3271d83f8f62',1,'hmi::DialogueModel::attitude()']]],
   ['audioengine_149',['AudioEngine',['../classhmi_1_1AudioEngine.html#a741ad4c0ebb1550b254f7b396a9c9555',1,'hmi::AudioEngine::AudioEngine()'],['../classhmi_1_1AudioEngine.html#a88f8afe1e1c18e9f6ac669b24f31aeeb',1,'hmi::AudioEngine::AudioEngine(ForceMuted)'],['../classhmi_1_1AudioEngine.html#a0adb63a4c0fdc59165bcb6ff891c5787',1,'hmi::AudioEngine::AudioEngine(const AudioEngine &amp;)=delete'],['../classhmi_1_1AudioEngine.html#a28f25a37730ce0b183b792b081e51ce8',1,'hmi::AudioEngine::AudioEngine(AudioEngine &amp;&amp;)=delete']]],

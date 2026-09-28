@@ -189,6 +189,17 @@ constexpr std::array&lt;NomDEffet, 4&gt; EFFETS{{
     sort.duration = lireTexte(racine, "duration");
     sort.text = lireTexte(racine, "text");
     sort.appliesCondition = lireTexte(racine, "appliesCondition");
+    if (const auto composantes = racine.find("components");
+        composantes != racine.end() &amp;&amp; composantes-&gt;is_object()) {
+        std::string lettres;
+        for (const auto&amp; [cle, lettre] :
+             {std::pair{"verbal", "V"}, std::pair{"somatic", "S"}, std::pair{"material", "M"}}) {
+            if (lireBooleen(*composantes, cle)) {
+                lettres += (lettres.empty() ? "" : ", ") + std::string{lettre};</span>
+            }
+<span style = "background-color:#dfd">        }
+        sort.components = lettres;
+    }
     sort.concentration = lireBooleen(racine, "concentration");
     sort.ritual = lireBooleen(racine, "ritual");
     sort.attackRoll = lireBooleen(racine, "attackRoll");

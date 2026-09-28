@@ -5224,12 +5224,16 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>CharacterSheetModel_8cpp.html</filename>
     <includes id="CharacterSheetModel_8h" name="CharacterSheetModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/CharacterSheetModel.h</includes>
+    <includes id="Attack_8h" name="Attack.h" local="yes" import="no" module="no" objc="no">Core/Combat/Attack.h</includes>
     <includes id="Damage_8h" name="Damage.h" local="yes" import="no" module="no" objc="no">Core/Combat/Damage.h</includes>
+    <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
     <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
     <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
     <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
     <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
     <includes id="Dice_8h" name="Dice.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dice.h</includes>
+    <includes id="Equipment_8h" name="Equipment.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Equipment.h</includes>
+    <includes id="Inventory_8h" name="Inventory.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Inventory.h</includes>
     <includes id="Party_8h" name="Party.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Party.h</includes>
     <includes id="Spell_8h" name="Spell.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Spell.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
@@ -14250,6 +14254,13 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__screen__flow_8cpp.html</anchorfile>
+      <anchor>a72906986d8c7af63499ea9edee1db859</anchor>
+      <arglist>(ScreenFlowTest, OptionsSOuvrentDepuisLeJeuEtLeCombat)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__screen__flow_8cpp.html</anchorfile>
       <anchor>afd13917847198910e165696de035e043</anchor>
       <arglist>(ScreenFlowTest, EcranDuRpgRevientVersSonEcranDOrigine)</arglist>
     </member>
@@ -20020,6 +20031,13 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>QVariantList</type>
+      <name>attacks</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a89e9f9ff6e1399663ddccbbb84a86eb7</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
       <type>QString</type>
       <name>name</name>
       <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
@@ -20271,6 +20289,13 @@
       <anchor>aa1ec62023a3129fd6e33bc258b2528e7</anchor>
       <arglist></arglist>
     </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>attacks</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a3d4b7f23166373fcacd598648ca8cc29</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function" protection="private">
       <type>QString</type>
       <name>value</name>
@@ -20325,6 +20350,13 @@
       <name>_spells</name>
       <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
       <anchor>a447db49fdb86d1eb6e0e251164406967</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QVariantList</type>
+      <name>_attacks</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>aed7e1fe57ee50d9986dc016c21608918</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -43276,6 +43308,13 @@
       <name>appliesCondition</name>
       <anchorfile>structcore_1_1Spell.html</anchorfile>
       <anchor>ad55875726fd50b55f539ed252c50845e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>components</name>
+      <anchorfile>structcore_1_1Spell.html</anchorfile>
+      <anchor>a9a6ce6158822cb674ea4b12ba91104af</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">

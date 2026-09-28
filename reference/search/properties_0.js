@@ -7,5 +7,6 @@ var searchData=
   ['activeprofile_4',['activeProfile',['../classhmi_1_1CombatModel.html#a1df1449ae698d49692e227b2ccd41ba5',1,'hmi::CombatModel']]],
   ['activeresources_5',['activeResources',['../classhmi_1_1CombatModel.html#a88718c021f2e8c16693dd9b2b2bc4cba',1,'hmi::CombatModel']]],
   ['armorclass_6',['armorClass',['../classhmi_1_1CharacterSheetModel.html#aef1462f1780f2fe512c821a89caf9b2d',1,'hmi::CharacterSheetModel::armorClass'],['../classhmi_1_1InventoryModel.html#a4cacfd023745688b23985288a0183e95',1,'hmi::InventoryModel::armorClass']]],
-  ['attitude_7',['attitude',['../classhmi_1_1DialogueModel.html#a78b3e3e0b7b59100c7f821085555c6a7',1,'hmi::DialogueModel']]]
+  ['attacks_7',['attacks',['../classhmi_1_1CharacterSheetModel.html#a3d4b7f23166373fcacd598648ca8cc29',1,'hmi::CharacterSheetModel']]],
+  ['attitude_8',['attitude',['../classhmi_1_1DialogueModel.html#a78b3e3e0b7b59100c7f821085555c6a7',1,'hmi::DialogueModel']]]
 ];

@@ -1,5 +1,11 @@
 var NAVTREEINDEX20 =
 {
+"classhmi_1_1ProblemsPanel.html#a8671752890e9e1474b36003432089014":[3,0,1,89,4],
+"classhmi_1_1ProblemsPanel.html#a91349b026578af41ccce29c43fb14cac":[2,0,2,90,1],
+"classhmi_1_1ProblemsPanel.html#a91349b026578af41ccce29c43fb14cac":[3,0,1,89,1],
+"classhmi_1_1ProblemsPanel.html#ac3d4268dc84dcf892e1e14768da3588c":[2,0,2,90,6],
+"classhmi_1_1ProblemsPanel.html#ac3d4268dc84dcf892e1e14768da3588c":[3,0,1,89,6],
+"classhmi_1_1ProblemsPanel.html#ae8ee38d49810c110c42ab04713553dc3":[2,0,2,90,5],
 "classhmi_1_1ProblemsPanel.html#ae8ee38d49810c110c42ab04713553dc3":[3,0,1,89,5],
 "classhmi_1_1QuadRecorder.html":[2,0,2,142],
 "classhmi_1_1QuadRecorder.html":[3,0,1,141],
@@ -243,11 +249,5 @@ var NAVTREEINDEX20 =
 "classhmi_1_1ScreenRouter.html#a5efecee08cf5d4212b5c68431b1d2ed9":[3,0,1,215,7],
 "classhmi_1_1ScreenRouter.html#a6723c5bdb4ac5876eae37b87f3918fd2":[2,0,2,216,9],
 "classhmi_1_1ScreenRouter.html#a6723c5bdb4ac5876eae37b87f3918fd2":[3,0,1,215,9],
-"classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730":[2,0,2,216,30],
-"classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730":[3,0,1,215,30],
-"classhmi_1_1ScreenRouter.html#a69bed6c6f979c2d2ea1880c320aab1f8":[2,0,2,216,22],
-"classhmi_1_1ScreenRouter.html#a69bed6c6f979c2d2ea1880c320aab1f8":[3,0,1,215,22],
-"classhmi_1_1ScreenRouter.html#a6f0915e029b9531574965cd7f24f9b5c":[2,0,2,216,18],
-"classhmi_1_1ScreenRouter.html#a6f0915e029b9531574965cd7f24f9b5c":[3,0,1,215,18],
-"classhmi_1_1ScreenRouter.html#a715c3898e04c067e4fb45b1cedb6d8f8":[2,0,2,216,6]
+"classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730":[2,0,2,216,30]
 };

@@ -1,5 +1,11 @@
 var NAVTREEINDEX39 =
 {
+"structcore_1_1MarkerColor.html#a57c1d1c2ffb0fe738b1dcc2d374e85b1":[3,0,0,141,2],
+"structcore_1_1MarkerColor.html#a6e2bd024476a49aca87aeebe4f31c46b":[2,0,1,141,0],
+"structcore_1_1MarkerColor.html#a6e2bd024476a49aca87aeebe4f31c46b":[3,0,0,141,0],
+"structcore_1_1MarkerColor.html#ac6ad759eae5fa8017c6760b2fcf041c2":[2,0,1,141,1],
+"structcore_1_1MarkerColor.html#ac6ad759eae5fa8017c6760b2fcf041c2":[3,0,0,141,1],
+"structcore_1_1MarkerColor.html#ae4e749d64a1b1b414e8089833fff34e4":[2,0,1,141,4],
 "structcore_1_1MarkerColor.html#ae4e749d64a1b1b414e8089833fff34e4":[3,0,0,141,4],
 "structcore_1_1MarkerImage.html":[2,0,1,142],
 "structcore_1_1MarkerImage.html":[3,0,0,142],
@@ -243,11 +249,5 @@ var NAVTREEINDEX39 =
 "structcore_1_1QuestEvent.html#a6781fa8d20841f5136faa12e84567de1":[3,0,0,117,2],
 "structcore_1_1QuestEvent.html#a801da858676f5a275bbeca9123426ca3":[2,0,1,117,0],
 "structcore_1_1QuestEvent.html#a801da858676f5a275bbeca9123426ca3":[3,0,0,117,0],
-"structcore_1_1QuestEvent.html#aad4e77e1c83d66ae6f5132b7869ff6e2":[2,0,1,117,3],
-"structcore_1_1QuestEvent.html#aad4e77e1c83d66ae6f5132b7869ff6e2":[3,0,0,117,3],
-"structcore_1_1QuestFlag.html":[2,0,1,111],
-"structcore_1_1QuestFlag.html":[3,0,0,111],
-"structcore_1_1QuestFlag.html#a352e1a9f774cdd680d327763c92f9ca0":[2,0,1,111,2],
-"structcore_1_1QuestFlag.html#a352e1a9f774cdd680d327763c92f9ca0":[3,0,0,111,2],
-"structcore_1_1QuestFlag.html#a5885fac564fdbe5bcc88c31373cadff9":[2,0,1,111,0]
+"structcore_1_1QuestEvent.html#aad4e77e1c83d66ae6f5132b7869ff6e2":[2,0,1,117,3]
 };

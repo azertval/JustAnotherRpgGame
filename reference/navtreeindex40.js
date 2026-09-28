@@ -1,5 +1,11 @@
 var NAVTREEINDEX40 =
 {
+"structcore_1_1QuestEvent.html#aad4e77e1c83d66ae6f5132b7869ff6e2":[3,0,0,117,3],
+"structcore_1_1QuestFlag.html":[2,0,1,111],
+"structcore_1_1QuestFlag.html":[3,0,0,111],
+"structcore_1_1QuestFlag.html#a352e1a9f774cdd680d327763c92f9ca0":[2,0,1,111,2],
+"structcore_1_1QuestFlag.html#a352e1a9f774cdd680d327763c92f9ca0":[3,0,0,111,2],
+"structcore_1_1QuestFlag.html#a5885fac564fdbe5bcc88c31373cadff9":[2,0,1,111,0],
 "structcore_1_1QuestFlag.html#a5885fac564fdbe5bcc88c31373cadff9":[3,0,0,111,0],
 "structcore_1_1QuestFlag.html#a635065ac3342b945e0bac03f4eac7b13":[2,0,1,111,1],
 "structcore_1_1QuestFlag.html#a635065ac3342b945e0bac03f4eac7b13":[3,0,0,111,1],
@@ -239,15 +245,9 @@ var NAVTREEINDEX40 =
 "structcore_1_1Species.html#afd48c8cd4a1ee3cdbb385d5f24e425df":[3,0,0,155,6],
 "structcore_1_1Spell.html":[2,0,1,216],
 "structcore_1_1Spell.html":[3,0,0,216],
-"structcore_1_1Spell.html#a0020691c9ee8a8f71deaf9fe6b63900f":[2,0,1,216,10],
-"structcore_1_1Spell.html#a0020691c9ee8a8f71deaf9fe6b63900f":[3,0,0,216,10],
+"structcore_1_1Spell.html#a0020691c9ee8a8f71deaf9fe6b63900f":[2,0,1,216,11],
+"structcore_1_1Spell.html#a0020691c9ee8a8f71deaf9fe6b63900f":[3,0,0,216,11],
 "structcore_1_1Spell.html#a0ce39b883f1a89efd5d5fbfae2f78133":[2,0,1,216,3],
 "structcore_1_1Spell.html#a0ce39b883f1a89efd5d5fbfae2f78133":[3,0,0,216,3],
-"structcore_1_1Spell.html#a10fb3d3a50f43b92d15b6b48b99e8d46":[2,0,1,216,21],
-"structcore_1_1Spell.html#a10fb3d3a50f43b92d15b6b48b99e8d46":[3,0,0,216,21],
-"structcore_1_1Spell.html#a13a40e4ebf6de96e790c55cebfd00088":[2,0,1,216,22],
-"structcore_1_1Spell.html#a13a40e4ebf6de96e790c55cebfd00088":[3,0,0,216,22],
-"structcore_1_1Spell.html#a1458886ef3e77c68405df00dce8f73ca":[2,0,1,216,29],
-"structcore_1_1Spell.html#a1458886ef3e77c68405df00dce8f73ca":[3,0,0,216,29],
-"structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8":[2,0,1,216,11]
+"structcore_1_1Spell.html#a10fb3d3a50f43b92d15b6b48b99e8d46":[2,0,1,216,22]
 };

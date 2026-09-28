@@ -1,5 +1,13 @@
 var NAVTREEINDEX42 =
 {
+"structcore_1_1Weapon.html#aef8513fda1d2ec89e5aa319cd10269a5":[3,0,0,197,12],
+"structcore_1_1WorldFlags_1_1Declaration.html":[2,0,1,120,0],
+"structcore_1_1WorldFlags_1_1Declaration.html":[3,0,0,120,0],
+"structcore_1_1WorldFlags_1_1Declaration.html#a5e29e9de0174320c3b97fdf482e086b3":[2,0,1,120,0,0],
+"structcore_1_1WorldFlags_1_1Declaration.html#a5e29e9de0174320c3b97fdf482e086b3":[3,0,0,120,0,0],
+"structcore_1_1WorldFlags_1_1Declaration.html#a61a16c9d73576d8d99528cd379589f25":[2,0,1,120,0,1],
+"structcore_1_1WorldFlags_1_1Declaration.html#a61a16c9d73576d8d99528cd379589f25":[3,0,0,120,0,1],
+"structcore_1_1WorldGraph.html":[2,0,1,246],
 "structcore_1_1WorldGraph.html":[3,0,0,246],
 "structcore_1_1WorldGraph.html#a299ad0aebb181bcaa87db72a0c257e6b":[2,0,1,246,5],
 "structcore_1_1WorldGraph.html#a299ad0aebb181bcaa87db72a0c257e6b":[3,0,0,246,5],
@@ -241,13 +249,5 @@ var NAVTREEINDEX42 =
 "structhmi_1_1AudioEngine_1_1Sample.html":[3,0,1,98,0],
 "structhmi_1_1AudioEngine_1_1Sample.html#ab37159d7a242ef750ae7d8a8c07d9bab":[2,0,2,99,0,0],
 "structhmi_1_1AudioEngine_1_1Sample.html#ab37159d7a242ef750ae7d8a8c07d9bab":[3,0,1,98,0,0],
-"structhmi_1_1AudioEngine_1_1Sample.html#ad84aae5e0baeb4763c0fd52d43f119f6":[2,0,2,99,0,1],
-"structhmi_1_1AudioEngine_1_1Sample.html#ad84aae5e0baeb4763c0fd52d43f119f6":[3,0,1,98,0,1],
-"structhmi_1_1AuthorNote.html":[2,0,2,14],
-"structhmi_1_1AuthorNote.html":[3,0,1,13],
-"structhmi_1_1AuthorNote.html#a0611118fa8b6128104e78d7c54d4c586":[2,0,2,14,2],
-"structhmi_1_1AuthorNote.html#a0611118fa8b6128104e78d7c54d4c586":[3,0,1,13,2],
-"structhmi_1_1AuthorNote.html#ab46e61c9782d7a94146c008747c90c4e":[2,0,2,14,1],
-"structhmi_1_1AuthorNote.html#ab46e61c9782d7a94146c008747c90c4e":[3,0,1,13,1],
-"structhmi_1_1AuthorNote.html#abca756fdf141967967004aa082ca45c6":[2,0,2,14,0]
+"structhmi_1_1AudioEngine_1_1Sample.html#ad84aae5e0baeb4763c0fd52d43f119f6":[2,0,2,99,0,1]
 };

@@ -1,11 +1,11 @@
 {
-  "generated": "2026-09-28 12:36 UTC",
-  "commit": "567d70623",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36419419388",
+  "generated": "2026-09-28 14:00 UTC",
+  "commit": "748b19c0c",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36429703457",
   "coverage": {
-    "percent": 91.43,
-    "covered": 38969,
-    "valid": 42621,
+    "percent": 91.44,
+    "covered": 39001,
+    "valid": 42653,
     "files": 273,
     "areas": [
       {
@@ -64,9 +64,9 @@
       },
       {
         "name": "Core/Rpg",
-        "covered": 2783,
-        "valid": 3109,
-        "percent": 89.51
+        "covered": 2793,
+        "valid": 3119,
+        "percent": 89.55
       },
       {
         "name": "Core/Time",
@@ -130,9 +130,9 @@
       },
       {
         "name": "HMI/Presentation",
-        "covered": 676,
-        "valid": 743,
-        "percent": 90.98
+        "covered": 678,
+        "valid": 745,
+        "percent": 91.01
       }
     ]
   },

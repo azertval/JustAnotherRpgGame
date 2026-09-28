@@ -156,6 +156,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5e96e99192c8a210e3dae14966e99548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options revient vers l'écran d'où il a été ouvert : Menu si ouvert depuis Menu, Pause si ouvert depuis Pause &ndash; porté par l'état, pas par une variable à part.  <br /></td></tr>
 <tr class="memitem:a82e6c5b8936c42e92fc5e5922497fcde" id="r_a82e6c5b8936c42e92fc5e5922497fcde"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a82e6c5b8936c42e92fc5e5922497fcde">TEST</a> (ScreenFlowTest, TransitionInterditeEstRefusee)</td></tr>
 <tr class="memdesc:a82e6c5b8936c42e92fc5e5922497fcde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une transition interdite est refusée (std::nullopt), notamment Menu -&gt; Pause et Game -&gt; Crédits.  <br /></td></tr>
+<tr class="memitem:a72906986d8c7af63499ea9edee1db859" id="r_a72906986d8c7af63499ea9edee1db859"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a72906986d8c7af63499ea9edee1db859">TEST</a> (ScreenFlowTest, OptionsSOuvrentDepuisLeJeuEtLeCombat)</td></tr>
+<tr class="memdesc:a72906986d8c7af63499ea9edee1db859"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bouton Options du HUD ouvre les réglages depuis le jeu et depuis un écran du RPG (le HUD de combat), et les réglages reviennent d'où ils viennent, provenance du RPG comprise (<span class="tt">LOT-141</span>).  <br /></td></tr>
 <tr class="memitem:afd13917847198910e165696de035e043" id="r_afd13917847198910e165696de035e043"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afd13917847198910e165696de035e043">TEST</a> (ScreenFlowTest, EcranDuRpgRevientVersSonEcranDOrigine)</td></tr>
 <tr class="memdesc:afd13917847198910e165696de035e043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un écran du RPG revient vers l'écran d'où il a été ouvert &ndash; menu, jeu ou pause &ndash; porté par l'état, comme la provenance d'Options (<span class="tt">LOT-68</span>, <span class="tt">EX-IHM-090</span>).  <br /></td></tr>
 <tr class="memitem:ab3f9f4b636a3d1bafe57472ae68a922c" id="r_ab3f9f4b636a3d1bafe57472ae68a922c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab3f9f4b636a3d1bafe57472ae68a922c">TEST</a> (ScreenFlowTest, LesEcransDeFinFermentLaPartie)</td></tr>
@@ -166,7 +168,7 @@ Functions</h2></td></tr>
 <p>Logique pure, sans Qt. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="afd13917847198910e165696de035e043" name="afd13917847198910e165696de035e043"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd13917847198910e165696de035e043">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afd13917847198910e165696de035e043">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,7 +198,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab3f9f4b636a3d1bafe57472ae68a922c" name="ab3f9f4b636a3d1bafe57472ae68a922c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3f9f4b636a3d1bafe57472ae68a922c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3f9f4b636a3d1bafe57472ae68a922c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,7 +233,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5e96e99192c8a210e3dae14966e99548" name="a5e96e99192c8a210e3dae14966e99548"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e96e99192c8a210e3dae14966e99548">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e96e99192c8a210e3dae14966e99548">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -260,8 +262,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a72906986d8c7af63499ea9edee1db859" name="a72906986d8c7af63499ea9edee1db859"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72906986d8c7af63499ea9edee1db859">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScreenFlowTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">OptionsSOuvrentDepuisLeJeuEtLeCombat</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le bouton Options du HUD ouvre les réglages depuis le jeu et depuis un écran du RPG (le HUD de combat), et les réglages reviennent d'où ils viennent, provenance du RPG comprise (<span class="tt">LOT-141</span>). </p>
+<p><b>Cas de test :</b> <b>Options depuis le jeu et depuis le HUD de combat, et retour.</b><br  />
+ cat Unitaire · Machine à états des écrans<br  />
+ crit Critique<br  />
+ etapes 1. Depuis le jeu, ouvrir Options puis les fermer.<br  />
+2. Depuis un ecran du RPG ouvert sur le jeu, ouvrir Options, les fermer, puis fermer l'ecran du RPG.<br  />
+ attendu Retour au jeu ; retour a l'ecran du RPG, puis au jeu &ndash; pas au menu. </p>
+
+</div>
+</div>
 <a id="a82e6c5b8936c42e92fc5e5922497fcde" name="a82e6c5b8936c42e92fc5e5922497fcde"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82e6c5b8936c42e92fc5e5922497fcde">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a82e6c5b8936c42e92fc5e5922497fcde">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -292,7 +323,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a8ad7b24104228d05765fe56eebb26e76" name="a8ad7b24104228d05765fe56eebb26e76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ad7b24104228d05765fe56eebb26e76">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ad7b24104228d05765fe56eebb26e76">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

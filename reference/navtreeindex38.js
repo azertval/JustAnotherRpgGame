@@ -1,5 +1,11 @@
 var NAVTREEINDEX38 =
 {
+"structcore_1_1InteractableKind.html#a169f5e1b9094735eaacb21b953cdc7fc":[3,0,0,110,2],
+"structcore_1_1InteractableKind.html#a559845071c0c02560f227150bf389f8a":[2,0,1,110,1],
+"structcore_1_1InteractableKind.html#a559845071c0c02560f227150bf389f8a":[3,0,0,110,1],
+"structcore_1_1InteractionCandidate.html":[2,0,1,107],
+"structcore_1_1InteractionCandidate.html":[3,0,0,107],
+"structcore_1_1InteractionCandidate.html#a6b3d7938d126a72a01e01f0b4e3e563c":[2,0,1,107,1],
 "structcore_1_1InteractionCandidate.html#a6b3d7938d126a72a01e01f0b4e3e563c":[3,0,0,107,1],
 "structcore_1_1InteractionCandidate.html#ab0cd3aa3afa1dd7d0301a98b62b5cba1":[2,0,1,107,0],
 "structcore_1_1InteractionCandidate.html#ab0cd3aa3afa1dd7d0301a98b62b5cba1":[3,0,0,107,0],
@@ -243,11 +249,5 @@ var NAVTREEINDEX38 =
 "structcore_1_1MarkerColor.html":[3,0,0,141],
 "structcore_1_1MarkerColor.html#a30cd1228d2002689cd99aabbcda60160":[2,0,1,141,3],
 "structcore_1_1MarkerColor.html#a30cd1228d2002689cd99aabbcda60160":[3,0,0,141,3],
-"structcore_1_1MarkerColor.html#a57c1d1c2ffb0fe738b1dcc2d374e85b1":[2,0,1,141,2],
-"structcore_1_1MarkerColor.html#a57c1d1c2ffb0fe738b1dcc2d374e85b1":[3,0,0,141,2],
-"structcore_1_1MarkerColor.html#a6e2bd024476a49aca87aeebe4f31c46b":[2,0,1,141,0],
-"structcore_1_1MarkerColor.html#a6e2bd024476a49aca87aeebe4f31c46b":[3,0,0,141,0],
-"structcore_1_1MarkerColor.html#ac6ad759eae5fa8017c6760b2fcf041c2":[2,0,1,141,1],
-"structcore_1_1MarkerColor.html#ac6ad759eae5fa8017c6760b2fcf041c2":[3,0,0,141,1],
-"structcore_1_1MarkerColor.html#ae4e749d64a1b1b414e8089833fff34e4":[2,0,1,141,4]
+"structcore_1_1MarkerColor.html#a57c1d1c2ffb0fe738b1dcc2d374e85b1":[2,0,1,141,2]
 };
