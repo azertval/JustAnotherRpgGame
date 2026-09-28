@@ -1,6 +1,7 @@
 var structcore_1_1Capacity =
 [
     [ "effects", "structcore_1_1Capacity.html#a1db91d448b2ca4c07d73c5fbc6a7ab78", null ],
+    [ "iconId", "structcore_1_1Capacity.html#ace13e077226db3dc7d78077dc12cd630", null ],
     [ "id", "structcore_1_1Capacity.html#ab45d3d6a3d6d143ecd7581debfaae008", null ],
     [ "name", "structcore_1_1Capacity.html#a4bbbaad1058d58c27415723a7d8afd6d", null ],
     [ "narrative", "structcore_1_1Capacity.html#a4c2a24cece7c2ae3aa3941608762ba83", null ],

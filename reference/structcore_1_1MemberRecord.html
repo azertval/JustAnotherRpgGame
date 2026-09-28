@@ -150,6 +150,8 @@ $(function(){initNavTree('structcore_1_1MemberRecord.html','','structcore_1_1Mem
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:ab520d325aa1ae73bb11e8551c36b2c2a" id="r_ab520d325aa1ae73bb11e8551c36b2c2a"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab520d325aa1ae73bb11e8551c36b2c2a">level</a></td></tr>
+<tr class="memdesc:ab520d325aa1ae73bb11e8551c36b2c2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau atteint (<span class="tt">LOT-141</span>, montée <b>donnée</b> par une quête ou le débogage) ; absent : celui de la fiche écrite.  <br /></td></tr>
 <tr class="memitem:a9528144c728aeeda237f2283fac6880e" id="r_a9528144c728aeeda237f2283fac6880e"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9528144c728aeeda237f2283fac6880e">hitPoints</a></td></tr>
 <tr class="memdesc:a9528144c728aeeda237f2283fac6880e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points de vie courants ; absent : ceux de la fiche.  <br /></td></tr>
 <tr class="memitem:a465fe6b4e75ecc4f7db3c7fd75a6533d" id="r_a465fe6b4e75ecc4f7db3c7fd75a6533d"><td class="memItemLeft">std::map&lt; std::string, int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a465fe6b4e75ecc4f7db3c7fd75a6533d">spellUses</a></td></tr>
@@ -171,6 +173,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les points de vie courants ; absent : ceux de la fiche. </p>
+
+</div>
+</div>
+<a id="ab520d325aa1ae73bb11e8551c36b2c2a" name="ab520d325aa1ae73bb11e8551c36b2c2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab520d325aa1ae73bb11e8551c36b2c2a">&#9670;&#160;</a></span>level</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;int&gt; core::MemberRecord::level</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau atteint (<span class="tt">LOT-141</span>, montée <b>donnée</b> par une quête ou le débogage) ; absent : celui de la fiche écrite. </p>
+<p>Il ne s'applique pas par <span class="tt"><a class="el" href="namespacecore.html#a855344de0ea0275ba049eb73f8eaab4e" title="Applique record à sheet : ses points de vie courants, bornés à [0, maximum], et les lancers restants ...">applyRecord</a></span> — monter demande la classe et ses catalogues (<span class="tt"><a class="el" href="namespacecore.html#a0a201eb28d48b7c290055b13fb49fab4" title="Monte sheet jusqu&#39;au niveau level, par le chemin d&#39;une partie (LOT-141) : l&#39;expérience du seuil (gain...">core::levelUpTo</a></span>) —, mais par qui lit la fiche avec eux. </p>
 
 </div>
 </div>

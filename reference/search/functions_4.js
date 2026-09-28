@@ -88,11 +88,12 @@ var searchData=
   ['executabledirectory_85',['executableDirectory',['../namespacehmi.html#a18648161d8a6c752202b6034613a947b',1,'hmi']]],
   ['expectedassetkeys_86',['expectedAssetKeys',['../namespacecore.html#aab57711f82ec7e7ced5a2c8d90d8abe1',1,'core']]],
   ['expecteddamage_87',['expectedDamage',['../namespacecore.html#acbf44083989292fcedfb7dfaad861317',1,'core']]],
-  ['experience_88',['experience',['../classhmi_1_1CharacterSheetModel.html#ae5f45d402e6d8a3013560a0130cd3e30',1,'hmi::CharacterSheetModel']]],
-  ['experienceforchallenge_89',['experienceForChallenge',['../namespacecore.html#a8e61520c89b91031d6880e3f0049bb41',1,'core']]],
-  ['expire_90',['expire',['../classcore_1_1ImmunityLedger.html#a68c8f142c23f19a002dca193a5e2154c',1,'core::ImmunityLedger']]],
-  ['explorationreach_91',['ExplorationReach',['../classcore_1_1ExplorationReach.html#a8f6297abe82afb0fa3a73e7db824197c',1,'core::ExplorationReach']]],
-  ['explorationsession_92',['ExplorationSession',['../classcore_1_1ExplorationSession.html#a9bed0fda73221f828073712709a93691',1,'core::ExplorationSession']]],
-  ['extraattacksfrom_93',['extraAttacksFrom',['../namespacecore.html#a1a557b01a82486a5916806e2a276bb57',1,'core']]],
-  ['extradamagefrom_94',['extraDamageFrom',['../namespacecore.html#a7e2bf23d4453ec8ed43d4830a4416827',1,'core']]]
+  ['expectedtenths_88',['expectedTenths',['../structcore_1_1AttackPreview.html#ad3369b9b55e06ad35d520ddee20ff622',1,'core::AttackPreview']]],
+  ['experience_89',['experience',['../classhmi_1_1CharacterSheetModel.html#ae5f45d402e6d8a3013560a0130cd3e30',1,'hmi::CharacterSheetModel']]],
+  ['experienceforchallenge_90',['experienceForChallenge',['../namespacecore.html#a8e61520c89b91031d6880e3f0049bb41',1,'core']]],
+  ['expire_91',['expire',['../classcore_1_1ImmunityLedger.html#a68c8f142c23f19a002dca193a5e2154c',1,'core::ImmunityLedger']]],
+  ['explorationreach_92',['ExplorationReach',['../classcore_1_1ExplorationReach.html#a8f6297abe82afb0fa3a73e7db824197c',1,'core::ExplorationReach']]],
+  ['explorationsession_93',['ExplorationSession',['../classcore_1_1ExplorationSession.html#a9bed0fda73221f828073712709a93691',1,'core::ExplorationSession']]],
+  ['extraattacksfrom_94',['extraAttacksFrom',['../namespacecore.html#a1a557b01a82486a5916806e2a276bb57',1,'core']]],
+  ['extradamagefrom_95',['extraDamageFrom',['../namespacecore.html#a7e2bf23d4453ec8ed43d4830a4416827',1,'core']]]
 ];

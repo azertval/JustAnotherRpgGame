@@ -20,6 +20,7 @@ var classhmi_1_1EncounterModel =
     [ "heroHitPoints", "classhmi_1_1EncounterModel.html#a6c89848a6440283ac5d1d123cc3dea17", null ],
     [ "heroHitPointsRatio", "classhmi_1_1EncounterModel.html#a5827fdecffabae8e0f069664f815b6b1", null ],
     [ "heroName", "classhmi_1_1EncounterModel.html#afd6006435967a4a769da36de35fa4ec0", null ],
+    [ "identityOf", "classhmi_1_1EncounterModel.html#a8b0a9fb8642a27af62817181da89f9c9", null ],
     [ "keepMount", "classhmi_1_1EncounterModel.html#a7ac4863d59d54d34dc6071f021c521f2", null ],
     [ "leave", "classhmi_1_1EncounterModel.html#a1fe373e7ea8c8bc470d21e12816b1b3c", null ],
     [ "mountBout", "classhmi_1_1EncounterModel.html#a82e76fd2e3e935e3596a039b343a23f4", null ],

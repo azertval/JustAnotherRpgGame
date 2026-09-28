@@ -198,6 +198,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des compteurs nommés, par porteur et par portée.  <a href="classcore_1_1ScopedCounters.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ImmunityLedger" id="r_ImmunityLedger"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcore_1_1ImmunityLedger.html">ImmunityLedger</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La mémoire des immunités temporaires, par couple (créature, source).  <a href="classcore_1_1ImmunityLedger.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ExtraDamagePreview" id="r_ExtraDamagePreview"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ExtraDamagePreview.html">ExtraDamagePreview</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des dés qu'une capacité ajouterait à la touche (<span class="tt">LOT-140</span>), et s'ils joueront.  <a href="structcore_1_1ExtraDamagePreview.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AttackPreview" id="r_AttackPreview"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1AttackPreview.html">AttackPreview</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une attaque telle qu'elle serait jetée.  <a href="structcore_1_1AttackPreview.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MovePreview" id="r_MovePreview"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MovePreview.html">MovePreview</a></td></tr>
@@ -1054,6 +1056,7 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5">StartEncounter</a>
 , <a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3">EndDemo</a>
+, <a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7">LevelUp</a>
 <br />
  }</td></tr>
 <tr class="memdesc:aae1dbf957fd7a423de4c11a60fc2d680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un nœud d'action fait au monde.  <a href="#aae1dbf957fd7a423de4c11a60fc2d680">More...</a><br /></td></tr>
@@ -1727,6 +1730,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a3e6874c7479b2ef8413b71f72b216e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points de vie d'un niveau, selon la règle du livre.  <br /></td></tr>
 <tr class="memitem:a7cfff9a8cfc89ebc9d4074d1db13eacd" id="r_a7cfff9a8cfc89ebc9d4074d1db13eacd"><td class="memItemLeft"><a class="el" href="structcore_1_1LevelUpResult.html">LevelUpResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7cfff9a8cfc89ebc9d4074d1db13eacd">gainExperience</a> (<a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table, int hitDie, int amount)</td></tr>
 <tr class="memdesc:a7cfff9a8cfc89ebc9d4074d1db13eacd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute des points d'expérience et applique la montée de niveau qui en découle.  <br /></td></tr>
+<tr class="memitem:a0a201eb28d48b7c290055b13fb49fab4" id="r_a0a201eb28d48b7c290055b13fb49fab4"><td class="memItemLeft"><a class="el" href="structcore_1_1LevelUpResult.html">LevelUpResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0a201eb28d48b7c290055b13fb49fab4">levelUpTo</a> (<a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, int level, const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> &amp;playableClass, const <a class="el" href="structcore_1_1CharacterOptions.html">CharacterOptions</a> &amp;options, const <a class="el" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a> &amp;rules, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table, std::vector&lt; std::string &gt; &amp;missing)</td></tr>
+<tr class="memdesc:a0a201eb28d48b7c290055b13fb49fab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Monte <code class="param">sheet</code> <b>jusqu'au</b> niveau <code class="param">level</code>, par le chemin d'une partie (<span class="tt">LOT-141</span>) : l'expérience du seuil (<span class="tt"><a class="el" href="#a7cfff9a8cfc89ebc9d4074d1db13eacd" title="Ajoute des points d&#39;expérience et applique la montée de niveau qui en découle.">gainExperience</a></span>), puis ce que la classe donne à ce niveau (<span class="tt"><a class="el" href="#a4c49590a655f74dbc20468dbee0fa733" title="Pose sur la fiche ce que sa classe lui donne à son niveau : capacités actives et sorts connus,...">applyClassFeatures</a></span>) — capacités, sorts, classe d'armure sans armure.  <br /></td></tr>
 <tr class="memitem:aeac7b2445b4d3a800b98a777f72461ae" id="r_aeac7b2445b4d3a800b98a777f72461ae"><td class="memItemLeft"><a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeac7b2445b4d3a800b98a777f72461ae">buildCharacterSheet</a> (std::string name, const std::array&lt; int, 6 &gt; &amp;baseAbilities, const <a class="el" href="structcore_1_1Species.html">Species</a> *species, const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> *playableClass, const <a class="el" href="structcore_1_1Background.html">Background</a> *background, const <a class="el" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a> &amp;rules, const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;table, const std::array&lt; int, 6 &gt; &amp;chosenIncreases={})</td></tr>
 <tr class="memdesc:aeac7b2445b4d3a800b98a777f72461ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit une fiche depuis une espèce, une classe et un historique.  <br /></td></tr>
 <tr class="memitem:a0cca681f3d6c00074710ceecdddab6f7" id="r_a0cca681f3d6c00074710ceecdddab6f7"><td class="memItemLeft"><a class="el" href="structcore_1_1CheckResult.html">CheckResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0cca681f3d6c00074710ceecdddab6f7">rollCheck</a> (int target, std::span&lt; const <a class="el" href="structcore_1_1Modifier.html">Modifier</a> &gt; modifiers, <a class="el" href="#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a> stance, <a class="el" href="classcore_1_1DeterministicRandom.html">DeterministicRandom</a> &amp;random)</td></tr>
@@ -2018,6 +2023,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a006cfa27ffaf19379846a0d2c1963c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifiant de la réponse implicite d'une réplique sans choix : « Continuer ».  <br /></td></tr>
 <tr class="memitem:af7ee0f1291696687c17746182965ce8a" id="r_af7ee0f1291696687c17746182965ce8a"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#af7ee0f1291696687c17746182965ce8a">DIALOGUE_CONTINUE_KEY</a> = &quot;dialogue.continue&quot;</td></tr>
 <tr class="memdesc:af7ee0f1291696687c17746182965ce8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de traduction de la réponse implicite.  <br /></td></tr>
+<tr class="memitem:a4c88939a90ca012e149489fabd19c441" id="r_a4c88939a90ca012e149489fabd19c441"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a4c88939a90ca012e149489fabd19c441">LEVEL_UP_PARTY</a> = &quot;party&quot;</td></tr>
+<tr class="memdesc:a4c88939a90ca012e149489fabd19c441"><td class="mdescLeft">&#160;</td><td class="mdescRight">La cible d'un <span class="tt">levelUp</span> qui vise tout le groupe.  <br /></td></tr>
 <tr class="memitem:a9d88411f2638378a427c3aeb435d7590" id="r_a9d88411f2638378a427c3aeb435d7590"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a9d88411f2638378a427c3aeb435d7590">NPC_ENTITY_TYPE</a> = &quot;npc&quot;</td></tr>
 <tr class="memdesc:a9d88411f2638378a427c3aeb435d7590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'entité de carte d'un PNJ.  <br /></td></tr>
 <tr class="memitem:ae2e3fb1ff10ddbebb4cdf1b1636afb25" id="r_ae2e3fb1ff10ddbebb4cdf1b1636afb25"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ae2e3fb1ff10ddbebb4cdf1b1636afb25">NPC_DIALOGUE_PROPERTY</a> = &quot;dialogue&quot;</td></tr>
@@ -3363,6 +3370,8 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3" name="aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3"></a>EndDemo&#160;</td><td class="fielddoc"><p><b>Termine la démo</b> (<span class="tt">LOT-119</span>) : l'écran « Fin de la démo » s'ouvre, et dit la voie nommée par <span class="tt">target</span> (<span class="tt"><a class="el" href="#acd687b89399df2a9dcc1bde15b5e46f7" title="La clé de traduction d&#39;une voie de fin de la démo (LOT-119) : « ending.">core::demoEndingKey</a></span>). </p>
 <p>Le dialogue ne connaît pas l'écran ; il le demande (<span class="tt"><a class="el" href="classcore_1_1DialogueListener.html#a3de75ad9eaf865ce5d687b19ab8d08e0" title="Le PNJ clôt la démo par la voie ending (LOT-119).">core::DialogueListener::endDemo</a></span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7" name="aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7"></a>LevelUp&#160;</td><td class="fielddoc"><p><b>Donne un niveau</b> (<span class="tt">LOT-141</span>) au personnage nommé par <span class="tt">target</span>, ou à tout le groupe (<span class="tt">party</span>) : la montée de niveau est donnée par la quête tant que l'expérience n'arrive pas (<span class="tt"><a class="el" href="classcore_1_1DialogueListener.html#a696c5bd3651cbf93036eb319b9cc1f82" title="Le PNJ donne un niveau à characterId — party : à tout le groupe (LOT-141).">core::DialogueListener::levelUp</a></span>). </p>
 </td></tr>
 </table>
 
@@ -10068,6 +10077,68 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a0a201eb28d48b7c290055b13fb49fab4" name="a0a201eb28d48b7c290055b13fb49fab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a201eb28d48b7c290055b13fb49fab4">&#9670;&#160;</a></span>levelUpTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1LevelUpResult.html">LevelUpResult</a> core::levelUpTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>playableClass</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CharacterOptions.html">CharacterOptions</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>options</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1CharacterCreationRules.html">CharacterCreationRules</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rules</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1ExperienceTable.html">ExperienceTable</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>table</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>missing</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Monte <code class="param">sheet</code> <b>jusqu'au</b> niveau <code class="param">level</code>, par le chemin d'une partie (<span class="tt">LOT-141</span>) : l'expérience du seuil (<span class="tt"><a class="el" href="#a7cfff9a8cfc89ebc9d4074d1db13eacd" title="Ajoute des points d&#39;expérience et applique la montée de niveau qui en découle.">gainExperience</a></span>), puis ce que la classe donne à ce niveau (<span class="tt"><a class="el" href="#a4c49590a655f74dbc20468dbee0fa733" title="Pose sur la fiche ce que sa classe lui donne à son niveau : capacités actives et sorts connus,...">applyClassFeatures</a></span>) — capacités, sorts, classe d'armure sans armure. </p>
+<p>Un niveau déjà atteint ou dépassé ne change rien ; la table borne le niveau à son maximum. La montée est <b>donnée</b> — par une quête, par un bouton de débogage — tant que l'expérience et sa courbe n'arrivent pas (<span class="tt">0.2.0</span>) : c'est la même fonction qui servira alors, avec le montant gagné au lieu du seuil.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sheet</td><td>La fiche, modifiée sur place. </td></tr>
+    <tr><td class="paramname">level</td><td>Le niveau visé. </td></tr>
+    <tr><td class="paramname">playableClass</td><td>La classe de la fiche. </td></tr>
+    <tr><td class="paramname">options</td><td>Les catalogues que la classe désigne (capacités, sorts). </td></tr>
+    <tr><td class="paramname">rules</td><td>Les constantes de création (la classe d'armure sans armure). </td></tr>
+    <tr><td class="paramname">table</td><td>La table d'expérience. </td></tr>
+    <tr><td class="paramname">missing</td><td>Ce que la table nomme et qu'aucun catalogue ne porte (<span class="tt">EX-CNT-031</span>). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Ce que la montée a produit. </dd></dl>
+
+</div>
+</div>
 <a id="a572e98b67a306b182732d2396b1478fb" name="a572e98b67a306b182732d2396b1478fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a572e98b67a306b182732d2396b1478fb">&#9670;&#160;</a></span>loadAssetFamilies()</h2>
 
@@ -15906,6 +15977,30 @@ Les places</h2>
 <li>Version 4 (<span class="tt">LOT-EDITOR-12</span>, la seule révision du module éditeur) : chaque case de couche porte son <span class="tt">type</span> et une <span class="tt">piece</span> facultative — l'assignation <span class="tt">"texture"</span> de la grille racine est lue dans une carte v3 et rangée comme pièce de la couche de décor, refusée dans une v4 ; la grille racine est la collision <b>écrite</b>, avec ses cases forcées (<span class="tt">"forced"</span>) ; chaque entité a un <span class="tt">id</span> unique, et la carte un compteur (<span class="tt">"nextEntityId"</span>) ; une zone peut être peinte (<span class="tt">"cells"</span>) ; une carte peut être la <b>variante</b> d'une autre (<span class="tt">"base"</span>, <span class="tt">"scene"</span>) ; la hauteur est réservée (<span class="tt">"floor"</span> par couche, <span class="tt">"elevation"</span> par case et par entité).</li>
 </ul>
 <p>Toute clé non reconnue dans une couche ou une entité est rangée dans ses propriétés libres (<span class="tt"><a class="el" href="#ac3cd7f319efbfd33f183ca31782d1731" title="Propriétés libres, indexées par nom.">core::PropertyMap</a></span>) et <b>réémise</b> à l'écriture : un fichier produit par une version ultérieure de l'éditeur traverse une version antérieure sans rien perdre. </p>
+
+</div>
+</div>
+<a id="a4c88939a90ca012e149489fabd19c441" name="a4c88939a90ca012e149489fabd19c441"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c88939a90ca012e149489fabd19c441">&#9670;&#160;</a></span>LEVEL_UP_PARTY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::LEVEL_UP_PARTY = &quot;party&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La cible d'un <span class="tt">levelUp</span> qui vise tout le groupe. </p>
 
 </div>
 </div>

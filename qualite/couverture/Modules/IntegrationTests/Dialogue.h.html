@@ -103,6 +103,10 @@ enum class DialogueActionKind {
     /// nommÃ©e par `target` (`core::demoEndingKey`). Le dialogue ne connaÃ®t pas l'Ã©cran ; il le
     /// demande (`core::DialogueListener::endDemo`).
     EndDemo,
+    /// **Donne un niveau** (`LOT-141`) au personnage nommÃ© par `target`, ou Ã  tout le groupe
+    /// (`party`) : la montÃ©e de niveau est donnÃ©e par la quÃªte tant que l'expÃ©rience n'arrive pas
+    /// (`core::DialogueListener::levelUp`).
+    LevelUp,
 };
 
 /// @brief Un effet d'un nÅud d'action.
@@ -347,7 +351,15 @@ public:
 <span style = "background-color:#fdd">    virtual void endDemo(std::string_view ending) {</span>
         static_cast&lt;void&gt;(ending);
 <span style = "background-color:#fdd">    }</span>
+    /// Le PNJ donne un niveau Ã  @p characterId â `party` : Ã  tout le groupe (`LOT-141`). Sans
+    /// effet par dÃ©faut, pour la mÃªme raison que `startEncounter`.
+<span style = "background-color:#fdd">    virtual void levelUp(std::string_view characterId) {</span>
+        static_cast&lt;void&gt;(characterId);
+<span style = "background-color:#fdd">    }</span>
 };
+
+/// @brief La cible d'un `levelUp` qui vise tout le groupe.
+inline constexpr std::string_view LEVEL_UP_PARTY = "party";
 
 /**
  * @brief Un personnage, sa fiche et son sac, comme interlocuteur d'un PNJ.

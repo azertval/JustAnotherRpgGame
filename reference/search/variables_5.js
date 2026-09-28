@@ -56,5 +56,6 @@ var searchData=
   ['experiencepoints_53',['experiencePoints',['../structcore_1_1CharacterSheet.html#aa1c2dffd68f832ebdfdfb79428399c70',1,'core::CharacterSheet']]],
   ['explicitkey_54',['explicitKey',['../structcore_1_1ExpectedAssetKey.html#af4c061be4e72494398eef6e44787977a',1,'core::ExpectedAssetKey']]],
   ['exploration_55',['exploration',['../structcore_1_1EncounterRun.html#aa18a27458ab47992bc990d3ba9d02142',1,'core::EncounterRun']]],
-  ['extra_5fattack_5fresource_56',['EXTRA_ATTACK_RESOURCE',['../namespacecore.html#ad91bd699bf17897bb00fa9a3aff948bd',1,'core']]]
+  ['extra_5fattack_5fresource_56',['EXTRA_ATTACK_RESOURCE',['../namespacecore.html#ad91bd699bf17897bb00fa9a3aff948bd',1,'core']]],
+  ['extradamage_57',['extraDamage',['../structcore_1_1AttackPreview.html#ae34794f402838f822141482bb2a105cd',1,'core::AttackPreview']]]
 ];

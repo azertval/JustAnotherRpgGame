@@ -1,5 +1,6 @@
 var CombatPreview_8h =
 [
+    [ "core::ExtraDamagePreview", "structcore_1_1ExtraDamagePreview.html", "structcore_1_1ExtraDamagePreview" ],
     [ "core::AttackPreview", "structcore_1_1AttackPreview.html", "structcore_1_1AttackPreview" ],
     [ "core::MovePreview", "structcore_1_1MovePreview.html", "structcore_1_1MovePreview" ],
     [ "core::firstValidAttack", "namespacecore.html#aa16398d9f2424d88762163aa2bfe850e", null ],

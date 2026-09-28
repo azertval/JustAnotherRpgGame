@@ -197,6 +197,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:afc7082aa97336d45c5d4e8a186fdb38a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La grille, pour ce qui la change en combat : terrain difficile créé, objet détruit.  <br /></td></tr>
 <tr class="memitem:a0befac60163ae5122aff87f0db9ae9ac" id="r_a0befac60163ae5122aff87f0db9ae9ac"><td class="memItemLeft"><a class="el" href="classcore_1_1ScopedCounters.html">ScopedCounters</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0befac60163ae5122aff87f0db9ae9ac">counters</a> () noexcept</td></tr>
 <tr class="memdesc:a0befac60163ae5122aff87f0db9ae9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les compteurs à portée du combat.  <br /></td></tr>
+<tr class="memitem:a81948cca974760ecb1d5204a0f557d70" id="r_a81948cca974760ecb1d5204a0f557d70"><td class="memItemLeft">const <a class="el" href="classcore_1_1ScopedCounters.html">ScopedCounters</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a81948cca974760ecb1d5204a0f557d70">counters</a> () const noexcept</td></tr>
+<tr class="memdesc:a81948cca974760ecb1d5204a0f557d70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les mêmes compteurs, en lecture : ce que la prévisualisation consulte.  <br /></td></tr>
 <tr class="memitem:a0cfb2a7f9109ffbb3e46bbc9a089dd39" id="r_a0cfb2a7f9109ffbb3e46bbc9a089dd39"><td class="memItemLeft"><a class="el" href="classcore_1_1ActionEconomy.html">ActionEconomy</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0cfb2a7f9109ffbb3e46bbc9a089dd39">economy</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> combatant)</td></tr>
 <tr class="memdesc:a0cfb2a7f9109ffbb3e46bbc9a089dd39"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'économie d'action d'un combattant — pour dépenser une réaction hors de son tour, ou octroyer une ressource.  <br /></td></tr>
 <tr class="memitem:a5b6c2527f4086d3e128ecccf78889768" id="r_a5b6c2527f4086d3e128ecccf78889768"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5b6c2527f4086d3e128ecccf78889768">spend</a> (std::string_view resource, int amount=1)</td></tr>
@@ -598,8 +600,35 @@ Sans héros unique</h2>
 
 </div>
 </div>
+<a id="a81948cca974760ecb1d5204a0f557d70" name="a81948cca974760ecb1d5204a0f557d70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81948cca974760ecb1d5204a0f557d70">&#9670;&#160;</a></span>counters() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1ScopedCounters.html">ScopedCounters</a> &amp; core::CombatState::counters </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les mêmes compteurs, en lecture : ce que la prévisualisation consulte. </p>
+
+</div>
+</div>
 <a id="a0befac60163ae5122aff87f0db9ae9ac" name="a0befac60163ae5122aff87f0db9ae9ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0befac60163ae5122aff87f0db9ae9ac">&#9670;&#160;</a></span>counters()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0befac60163ae5122aff87f0db9ae9ac">&#9670;&#160;</a></span>counters() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

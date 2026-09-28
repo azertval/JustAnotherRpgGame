@@ -533,6 +533,7 @@ var namespacehmi =
     [ "applyEntityDrag", "namespacehmi.html#a7e90154e3a07fe248feeaf76304a3ef4", null ],
     [ "applyGestureFile", "namespacehmi.html#ab1145769bfcc581f39091b42c792705c", null ],
     [ "applyGestureScript", "namespacehmi.html#ac51afb66cf0175a7664c655c56674293", null ],
+    [ "applyMemberRecord", "namespacehmi.html#a03203163b7658f6a1f52857b8bf597d2", null ],
     [ "applyRectangleStroke", "namespacehmi.html#a1a59e0da62704797c214af4c224f7e57", null ],
     [ "applyRefactorPlan", "namespacehmi.html#a883391e9cf300c6d9ac2eeb7e694f54e", null ],
     [ "applySceneTextureTraits", "namespacehmi.html#a6a1fc28e49220af6145d632ed9fe40bf", null ],

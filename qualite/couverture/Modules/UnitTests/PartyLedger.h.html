@@ -41,6 +41,10 @@ namespace core {
 
 /// @brief L'Ã©tat d'un membre aprÃ¨s un combat, par rapport Ã  sa fiche Ã©crite.
 struct MemberRecord {
+    /// Le niveau atteint (`LOT-141`, montÃ©e **donnÃ©e** par une quÃªte ou le dÃ©bogage) ; absent :
+    /// celui de la fiche Ã©crite. Il ne s'applique pas par `applyRecord` â monter demande la classe
+    /// et ses catalogues (`core::levelUpTo`) â, mais par qui lit la fiche avec eux.
+    std::optional&lt;int&gt; level;
     /// Les points de vie courants ; absent : ceux de la fiche.
     std::optional&lt;int&gt; hitPoints;
     /// Les lancers restants de chaque sort connu (identifiant du sort â lancers) ; un sort absent

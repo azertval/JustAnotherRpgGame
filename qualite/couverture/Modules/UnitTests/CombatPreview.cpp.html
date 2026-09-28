@@ -14,10 +14,45 @@
 
 #include "Core/Combat/CombatPreview.h"
 
+#include &lt;cstdint&gt;
+#include &lt;string&gt;
+
+#include "Core/Combat/CombatCounters.h"
 #include "Core/Combat/EnemyAi.h"
+#include "Core/Combat/Flanking.h"
 #include "Core/Combat/LineOfSight.h"
+#include "Core/Rpg/ClassCapacities.h"
 
 namespace core {
+
+namespace {
+
+/// Les dÃ©s que les capacitÃ©s de @p actif ajouteraient a la touche, et s'ils joueraient : les memes
+/// conditions que le crochet `Hit` de la session (`ArenaSession::hookCapacities`), lues sans rien
+/// compter.
+[[nodiscard]] std::vector&lt;ExtraDamagePreview&gt; extraDamagePreview(const ArenaSession&amp; session,
+                                                                 CombatantId actif,
+<span style = "background-color:#dfd">                                                                 CombatantId target) {
+    std::vector&lt;ExtraDamagePreview&gt; apercus;
+    const std::string proprietaire = std::to_string(static_cast&lt;std::uint32_t&gt;(actif));
+    for (const NamedExtraDamage&amp; supplement : extraDamageFrom(session.capacitiesOf(actif))) {
+        ExtraDamagePreview apercu{.source = supplement.source, .dice = supplement.dice};
+        if (supplement.allyAdjacentToTarget &amp;&amp;</span>
+            !isAdjacentToAllyOf(session.combat(), actif, target)) {
+<span style = "background-color:#dfd">            apercu.applies = false;
+            apercu.reason = "un allie au contact de la cible est requis";
+        } else if (supplement.oncePerTurn &amp;&amp;</span>
+                   session.combat().counters().value(CounterScope::Turn, proprietaire,
+                                                     supplement.capacityId) &gt; 0) {
+<span style = "background-color:#dfd">            apercu.applies = false;
+            apercu.reason = "deja jouee ce tour";</span>
+        }
+<span style = "background-color:#dfd">        apercus.push_back(std::move(apercu));
+    }
+    return apercus;
+}</span>
+
+}  // namespace
 
 std::optional&lt;AttackPreview&gt; previewAttack(const ArenaSession&amp; session, CombatantId target,
 <span style = "background-color:#dfd">                                           std::size_t attackIndex) {
@@ -48,11 +83,28 @@ std::optional&lt;AttackPreview&gt; previewAttack(const ArenaSession&amp; session
     apercu.stance = rollStance(static_cast&lt;int&gt;(apercu.advantages.size()),</span>
                                static_cast&lt;int&gt;(apercu.disadvantages.size()));
 <span style = "background-color:#dfd">    apercu.cover = coverBetween(combat, *actif, target);
-    apercu.armorClass = cible-&gt;profile.armorClass + coverBonus(apercu.cover);
-    apercu.requiredRoll = requiredRoll(apercu.armorClass, attackBonusOf(profil));
-    if (apercu.check == TargetCheck::Valid) {
+    apercu.armorClass = cible-&gt;profile.armorClass + coverBonus(apercu.cover);</span>
+    // Les capacites entrent comme dans le jet (LOT-131) : le bonus au jet avant le de, les des
+    // en plus a la touche. Le profil Â« tel qu'il sera jete Â» les porte, et l'esperance se calcule
+    // sur lui : une seule formule, celle de l'IA.
+<span style = "background-color:#dfd">    AttackProfile jete = profil;
+    apercu.capacityModifiers = attackModifiersFrom(session.capacitiesOf(*actif));
+    jete.modifiers.insert(jete.modifiers.end(), apercu.capacityModifiers.begin(),</span>
+                          apercu.capacityModifiers.end());
+<span style = "background-color:#dfd">    apercu.attackBonus = attackBonusOf(jete);
+    apercu.requiredRoll = requiredRoll(apercu.armorClass, apercu.attackBonus);
+    if (!profil.damage.empty()) {
+        apercu.extraDamage = extraDamagePreview(session, *actif, target);
+        for (const ExtraDamagePreview&amp; supplement : apercu.extraDamage) {
+            if (supplement.applies) {
+                jete.damage.push_back(</span>
+                    {.dice = supplement.dice, .type = profil.damage.front().type, .flags = 0});
+            }
+<span style = "background-color:#dfd">        }</span>
+    }
+<span style = "background-color:#dfd">    if (apercu.check == TargetCheck::Valid) {
         apercu.hitChance = hitChance(apercu.requiredRoll, apercu.stance, profil.criticalThreshold);
-        apercu.expectedDamage = expectedDamage(profil, apercu.armorClass, apercu.stance);</span>
+        apercu.expectedDamage = expectedDamage(jete, apercu.armorClass, apercu.stance);</span>
     }
 <span style = "background-color:#dfd">    return apercu;
 }</span>

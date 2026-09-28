@@ -12,6 +12,7 @@ var classcore_1_1CombatState =
     [ "applyDamage", "classcore_1_1CombatState.html#a42ce988bb498483d064a799c2a8ae62c", null ],
     [ "canPassThrough", "classcore_1_1CombatState.html#aa93b046d87f05f9ebcbdb01f497d9078", null ],
     [ "combatants", "classcore_1_1CombatState.html#a5c0db7c9ec1ab1853757e9f047a968cc", null ],
+    [ "counters", "classcore_1_1CombatState.html#a81948cca974760ecb1d5204a0f557d70", null ],
     [ "counters", "classcore_1_1CombatState.html#a0befac60163ae5122aff87f0db9ae9ac", null ],
     [ "damage", "classcore_1_1CombatState.html#afafb334909b80667445bd12b5e8a8e4b", null ],
     [ "declareAttack", "classcore_1_1CombatState.html#a08363ac86c0e3564713219854249037d", null ],

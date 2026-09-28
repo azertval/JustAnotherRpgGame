@@ -29,8 +29,12 @@
  * vient du jet requis du *Guide du MaÃ®tre*, comme pour l'IA (`core::hitChance`). Un test compare la
  * prÃ©visualisation au jet que la session jette ensuite : mÃªme CA, mÃªme posture, mÃªmes sources.
  *
- * Ce qu'elle ne peut pas savoir : ce qu'un greffon `BeforeRoll` changera au jet (une capacitÃ© de
- * classe), et les dÃ©s. Le premier n'existe encore pour personne ; les seconds sont le jeu.
+ * Les capacitÃ©s de classe (`LOT-131`) y entrent comme dans le jet : le bonus au jet d'une
+ * capacitÃ© (*Hit the Mark*) s'ajoute au bonus d'attaque, les dÃ©s qu'une capacitÃ© ajoute Ã  la touche
+ * (*Sneak Attack*) entrent dans l'espÃ©rance **quand leur condition tient** â l'alliÃ© au contact,
+ * la cadence Â« une fois par tour Â» lue dans les compteurs du combat â et la prÃ©visualisation nomme
+ * la capacitÃ© qui jouera, ou pourquoi elle ne jouera pas (`LOT-140`). Ce qu'elle ne peut pas
+ * savoir : les dÃ©s.
  *
  * ## Le dÃ©placement
  *
@@ -46,8 +50,22 @@
 
 #include "Core/Combat/Arena.h"
 #include "Core/Combat/Attack.h"
+#include "Core/Rpg/Check.h"
+#include "Core/Rpg/Dice.h"
 
 namespace core {
+
+/// @brief Des dÃ©s qu'une capacitÃ© ajouterait Ã  la touche (`LOT-140`), et s'ils joueront.
+struct ExtraDamagePreview {
+    /// Le nom de la capacitÃ©, tel que le journal l'Ã©crit.
+    std::string source;
+    Dice dice{};
+    /// Vrai si les dÃ©s entrent dans l'espÃ©rance : leur condition tient maintenant.
+<span style = "background-color:#dfd">    bool applies = true;</span>
+    /// Pourquoi ils ne joueraient pas : Â« alliÃ© au contact requis Â», Â« dÃ©jÃ  jouÃ©e ce tour Â» ; vide
+    /// s'ils jouent.
+    std::string reason;
+};
 
 /// @brief Une attaque telle qu'elle serait jetÃ©e.
 struct AttackPreview {
@@ -58,6 +76,12 @@ struct AttackPreview {
     /// La CA visÃ©e, abri compris.
 <span style = "background-color:#dfd">    int armorClass = 0;
     Cover cover = Cover::None;</span>
+    /// Le bonus d'attaque : celui du profil, plus ce que les capacitÃ©s y ajoutent.
+<span style = "background-color:#dfd">    int attackBonus = 0;</span>
+    /// Le bonus au jet que les capacitÃ©s de classe donnent, Ã  leur nom (`LOT-131`).
+    std::vector&lt;Modifier&gt; capacityModifiers;
+    /// Les dÃ©s que les capacitÃ©s ajouteraient Ã  la touche, et s'ils joueront (`LOT-140`).
+    std::vector&lt;ExtraDamagePreview&gt; extraDamage;
     /// Le jet requis du *Guide du MaÃ®tre* : la CA visÃ©e moins le bonus d'attaque.
 <span style = "background-color:#dfd">    int requiredRoll = 0;
     RollStance stance = RollStance::Normal;</span>
@@ -65,8 +89,13 @@ struct AttackPreview {
     std::vector&lt;std::string&gt; disadvantages;
     /// La chance de toucher, en quatre-centiÃ¨mes (`core::CHANCE_SCALE`).
 <span style = "background-color:#dfd">    int hitChance = 0;</span>
-    /// L'espÃ©rance de dÃ©gÃ¢ts, en huit-centiÃ¨mes de point (`core::expectedDamage`).
+    /// L'espÃ©rance de dÃ©gÃ¢ts, en huit-centiÃ¨mes de point (`core::expectedDamage`), les dÃ©s des
+    /// capacitÃ©s qui jouent compris.
 <span style = "background-color:#dfd">    long long expectedDamage = 0;</span>
+    /// @brief L'espÃ©rance en dixiÃ¨mes de point, arrondie au plus proche (Â« 6,1 Â»).
+    [[nodiscard]] long long expectedTenths() const noexcept {
+        return (expectedDamage * 10 + 400) / 800;
+    }
 
     /// @brief La chance en pour cent, arrondie au plus proche.
 <span style = "background-color:#dfd">    [[nodiscard]] int hitPercent() const noexcept {

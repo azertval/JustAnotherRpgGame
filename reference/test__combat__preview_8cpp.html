@@ -155,6 +155,7 @@ $(function(){initNavTree('test__combat__preview_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="EnemyAi_8h_source.html">Core/Combat/EnemyAi.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ClassCapacities_8h_source.html">Core/Rpg/ClassCapacities.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Dice_8h_source.html">Core/Rpg/Dice.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
@@ -163,12 +164,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a31b85c2bca897fd6eadf85743402a35d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La prévisualisation d'une attaque est le jet que la session jette ensuite.  <br /></td></tr>
 <tr class="memitem:ab3d8a05c677a82daebc2a38c6e01e7ea" id="r_ab3d8a05c677a82daebc2a38c6e01e7ea"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab3d8a05c677a82daebc2a38c6e01e7ea">TEST</a> (CombatPreviewTest, LeDeplacementSePrevisualiseEtLOpportuniteSeDecline)</td></tr>
 <tr class="memdesc:ab3d8a05c677a82daebc2a38c6e01e7ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le déplacement se prévisualise, et le joueur décline ses attaques d'opportunité.  <br /></td></tr>
+<tr class="memitem:a55adc5af2913d97f33b2b6fbb39bc72d" id="r_a55adc5af2913d97f33b2b6fbb39bc72d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a55adc5af2913d97f33b2b6fbb39bc72d">TEST</a> (CombatPreviewTest, LesCapacitesEntrentDansLaPrevisualisation)</td></tr>
+<tr class="memdesc:a55adc5af2913d97f33b2b6fbb39bc72d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les capacités de classe entrent dans la prévisualisation comme dans le jet (<span class="tt">LOT-140</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires de la prévisualisation de combat (<span class="tt">LOT-24</span>) : ce que l'écran montre avant l'engagement est ce que le jet jette, et le joueur décline ses attaques d'opportunité. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a31b85c2bca897fd6eadf85743402a35d" name="a31b85c2bca897fd6eadf85743402a35d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31b85c2bca897fd6eadf85743402a35d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a31b85c2bca897fd6eadf85743402a35d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +202,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ab3d8a05c677a82daebc2a38c6e01e7ea" name="ab3d8a05c677a82daebc2a38c6e01e7ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3d8a05c677a82daebc2a38c6e01e7ea">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3d8a05c677a82daebc2a38c6e01e7ea">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,6 +228,37 @@ Functions</h2></td></tr>
  1. Une heroine au contact d'un ogre ; previsualiser un pas qui sort de son allonge.<br  />
 2. Le joueur dit que l'ogre laisse passer ; previsualiser, puis jouer le pas.<br  />
  <b>Resultat attendu :</b> Un chemin, le budget restant, l'ogre annonce ; puis personne, et aucune attaque d'opportunite au journal, la reaction de l'ogre intacte. </p>
+
+</div>
+</div>
+<a id="a55adc5af2913d97f33b2b6fbb39bc72d" name="a55adc5af2913d97f33b2b6fbb39bc72d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55adc5af2913d97f33b2b6fbb39bc72d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatPreviewTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesCapacitesEntrentDansLaPrevisualisation</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les capacités de classe entrent dans la prévisualisation comme dans le jet (<span class="tt">LOT-140</span>). </p>
+<p><b>Cas de test :</b> <b>Le bonus au jet d'une capacite s'ajoute au jet requis ; les des d'une capacite a condition entrent dans l'esperance quand la condition tient, et la previsualisation nomme la capacite et la raison quand elle ne joue pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Une heroine a « +2 au jet » et « 1d6 en plus, une fois par tour, si un allie est au contact de la cible » ; un allie au contact d'une cible, une autre cible seule.<br  />
+2. Previsualiser sur chaque cible.<br  />
+3. Frapper la premiere, previsualiser encore.<br  />
+ <b>Resultat attendu :</b> Jet requis avec le +2 ; sur la cible flanquee, l'esperance porte le 1d6 et la capacite est nommee ; sur la cible seule, la capacite est nommee sans jouer, avec la raison ; apres une touche, la raison est « deja jouee ce tour ». </p>
 
 </div>
 </div>

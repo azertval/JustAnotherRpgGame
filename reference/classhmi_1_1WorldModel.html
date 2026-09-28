@@ -210,6 +210,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab2b7aff2f77331373a9464befcf30172"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prend <code class="param">characterId</code> dans le groupe, ou l'en retire.  <br /></td></tr>
 <tr class="memitem:a665d2023cf5a86194ac2b47341873202" id="r_a665d2023cf5a86194ac2b47341873202"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#a665d2023cf5a86194ac2b47341873202">moveMember</a> (const QString &amp;characterId, int offset)</td></tr>
 <tr class="memdesc:a665d2023cf5a86194ac2b47341873202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance (<code class="param">offset</code> négatif) ou recule <code class="param">characterId</code> dans l'ordre de marche, en l'échangeant avec son voisin.  <br /></td></tr>
+<tr class="memitem:a524b67a8ad4f0174c40384c00c6a34a3" id="r_a524b67a8ad4f0174c40384c00c6a34a3"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#a524b67a8ad4f0174c40384c00c6a34a3">levelUp</a> (const QString &amp;characterId)</td></tr>
+<tr class="memdesc:a524b67a8ad4f0174c40384c00c6a34a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne un niveau à <code class="param">characterId</code> — <span class="tt"><a class="el" href="#a326f6e58ef31097654a987d65f457d39">party</a></span> : à chaque membre du groupe (<span class="tt">LOT-141</span>).  <br /></td></tr>
+<tr class="memitem:a79449ed4e4b5d4cc3bb5da40b59e54c3" id="r_a79449ed4e4b5d4cc3bb5da40b59e54c3"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a79449ed4e4b5d4cc3bb5da40b59e54c3">showCharacter</a> (const QString &amp;characterId)</td></tr>
+<tr class="memdesc:a79449ed4e4b5d4cc3bb5da40b59e54c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le personnage dont la fiche s'ouvre (<span class="tt"><a class="el" href="#a0ad4e28927f20dae954a340e4cb06f1e" title="Le personnage dont la fiche s&#39;ouvre (LOT-141) : celui que l&#39;écran de groupe a désigné,...">shownCharacterId</a></span>) ; vide : le meneur.  <br /></td></tr>
+<tr class="memitem:ae9e71d1b7f29064c22dc63db94c023b1" id="r_ae9e71d1b7f29064c22dc63db94c023b1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae9e71d1b7f29064c22dc63db94c023b1">shownCharacterId</a> () const</td></tr>
 <tr class="memitem:a95fe288ccddfe13ab1b82d943ee1ace6" id="r_a95fe288ccddfe13ab1b82d943ee1ace6"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a95fe288ccddfe13ab1b82d943ee1ace6">mapId</a> () const</td></tr>
 <tr class="memitem:aba8ad669c4a643fac23f3f040dc4454a" id="r_aba8ad669c4a643fac23f3f040dc4454a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aba8ad669c4a643fac23f3f040dc4454a">mapName</a> () const</td></tr>
 <tr class="memitem:ac551bc77339c94cb470f2e2bf5131c9a" id="r_ac551bc77339c94cb470f2e2bf5131c9a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ac551bc77339c94cb470f2e2bf5131c9a">status</a> () const</td></tr>
@@ -310,6 +315,8 @@ Properties</h2></td></tr>
 <tr class="memdesc:ab554820863d52d56a39600b67d2843b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le portrait du meneur, vide si sa figurine n'en a pas encore (<span class="tt">LOT-136</span>).  <br /></td></tr>
 <tr class="memitem:a0b7a79905fb3e44bb622c2a950933ef7" id="r_a0b7a79905fb3e44bb622c2a950933ef7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0b7a79905fb3e44bb622c2a950933ef7">maxPartySize</a></td></tr>
 <tr class="memdesc:a0b7a79905fb3e44bb622c2a950933ef7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quatre (<span class="tt"><a class="el" href="classcore_1_1Party.html#a54738c009dfbacd448f0f0ff5a70112f" title="Quatre, le groupe de la table de jeu (Player&#39;s Guide to Tanares, les quatre fiches pré-tirées) ; l&#39;Em...">core::Party::MAX_MEMBERS</a></span>).  <br /></td></tr>
+<tr class="memitem:a0ad4e28927f20dae954a340e4cb06f1e" id="r_a0ad4e28927f20dae954a340e4cb06f1e"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a0ad4e28927f20dae954a340e4cb06f1e">shownCharacterId</a></td></tr>
+<tr class="memdesc:a0ad4e28927f20dae954a340e4cb06f1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage dont la fiche s'ouvre (<span class="tt">LOT-141</span>) : celui que l'écran de groupe a désigné, sinon le meneur.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -356,6 +363,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a183c0a674260f7b16e971a6dbaf825fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe de la partie : les quatre fiches pré-tirées au départ.  <br /></td></tr>
 <tr class="memitem:a1bec3e9befd172168f6dbc97e780227e" id="r_a1bec3e9befd172168f6dbc97e780227e"><td class="memItemLeft"><a class="el" href="classcore_1_1PartyLedger.html">core::PartyLedger</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1bec3e9befd172168f6dbc97e780227e">_ledger</a></td></tr>
 <tr class="memdesc:a1bec3e9befd172168f6dbc97e780227e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que les combats ont laissé aux fiches (<span class="tt">LOT-139</span>) ; vidé avec la partie.  <br /></td></tr>
+<tr class="memitem:a5bdd1d3a56e40b64592c4972c79100d6" id="r_a5bdd1d3a56e40b64592c4972c79100d6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5bdd1d3a56e40b64592c4972c79100d6">_shownCharacterId</a></td></tr>
+<tr class="memdesc:a5bdd1d3a56e40b64592c4972c79100d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage désigné pour la fiche ; vide : le meneur.  <br /></td></tr>
 <tr class="memitem:a697ffa3eba330a4bc41e8286b7028586" id="r_a697ffa3eba330a4bc41e8286b7028586"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a697ffa3eba330a4bc41e8286b7028586">_heroFigureOverride</a></td></tr>
 <tr class="memdesc:a697ffa3eba330a4bc41e8286b7028586"><td class="mdescLeft">&#160;</td><td class="mdescRight">La figurine imposée au meneur (<span class="tt">--hero-figure=</span>, la console de débogage) ; vide : celle de sa classe.  <br /></td></tr>
 <tr class="memitem:abebba2b18b07805157fe133092ef526b" id="r_abebba2b18b07805157fe133092ef526b"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#abebba2b18b07805157fe133092ef526b">_move</a> {}</td></tr>
@@ -1307,6 +1316,26 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a524b67a8ad4f0174c40384c00c6a34a3" name="a524b67a8ad4f0174c40384c00c6a34a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a524b67a8ad4f0174c40384c00c6a34a3">&#9670;&#160;</a></span>levelUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::levelUp </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Donne un niveau à <code class="param">characterId</code> — <span class="tt"><a class="el" href="#a326f6e58ef31097654a987d65f457d39">party</a></span> : à chaque membre du groupe (<span class="tt">LOT-141</span>). </p>
+<p>La montée est <b>donnée</b> (quête, débogage) tant que l'expérience n'arrive pas : la fiche monte au seuil du niveau suivant (<span class="tt"><a class="el" href="namespacecore.html#a0a201eb28d48b7c290055b13fb49fab4" title="Monte sheet jusqu&#39;au niveau level, par le chemin d&#39;une partie (LOT-141) : l&#39;expérience du seuil (gain...">core::levelUpTo</a></span>), et le registre du groupe retient le niveau et les points de vie qui en résultent. Bornée au maximum de la table. </p><dl class="section return"><dt>Returns</dt><dd>Vrai si un personnage au moins a gagné un niveau. </dd></dl>
+
+</div>
+</div>
 <a id="a648dd501d5739db825155c82b1961194" name="a648dd501d5739db825155c82b1961194"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a648dd501d5739db825155c82b1961194">&#9670;&#160;</a></span>loaded()</h2>
 
@@ -2200,6 +2229,50 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a79449ed4e4b5d4cc3bb5da40b59e54c3" name="a79449ed4e4b5d4cc3bb5da40b59e54c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79449ed4e4b5d4cc3bb5da40b59e54c3">&#9670;&#160;</a></span>showCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::showCharacter </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Désigne le personnage dont la fiche s'ouvre (<span class="tt"><a class="el" href="#a0ad4e28927f20dae954a340e4cb06f1e" title="Le personnage dont la fiche s&#39;ouvre (LOT-141) : celui que l&#39;écran de groupe a désigné,...">shownCharacterId</a></span>) ; vide : le meneur. </p>
+
+</div>
+</div>
+<a id="ae9e71d1b7f29064c22dc63db94c023b1" name="ae9e71d1b7f29064c22dc63db94c023b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9e71d1b7f29064c22dc63db94c023b1">&#9670;&#160;</a></span>shownCharacterId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldModel::shownCharacterId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1a6b7f38925d05ecafe2c1ad9771871d" name="a1a6b7f38925d05ecafe2c1ad9771871d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1a6b7f38925d05ecafe2c1ad9771871d">&#9670;&#160;</a></span>showsCombat()</h2>
 
@@ -2717,6 +2790,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5bdd1d3a56e40b64592c4972c79100d6" name="a5bdd1d3a56e40b64592c4972c79100d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bdd1d3a56e40b64592c4972c79100d6">&#9670;&#160;</a></span>_shownCharacterId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::WorldModel::_shownCharacterId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le personnage désigné pour la fiche ; vide : le meneur. </p>
 
 </div>
 </div>
@@ -3332,6 +3429,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ad4e28927f20dae954a340e4cb06f1e" name="a0ad4e28927f20dae954a340e4cb06f1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ad4e28927f20dae954a340e4cb06f1e">&#9670;&#160;</a></span>shownCharacterId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldModel::shownCharacterId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le personnage dont la fiche s'ouvre (<span class="tt">LOT-141</span>) : celui que l'écran de groupe a désigné, sinon le meneur. </p>
 
 </div>
 </div>

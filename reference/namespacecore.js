@@ -25,6 +25,7 @@ var namespacecore =
     [ "BattleGrid", "classcore_1_1BattleGrid.html", "classcore_1_1BattleGrid" ],
     [ "ScopedCounters", "classcore_1_1ScopedCounters.html", "classcore_1_1ScopedCounters" ],
     [ "ImmunityLedger", "classcore_1_1ImmunityLedger.html", "classcore_1_1ImmunityLedger" ],
+    [ "ExtraDamagePreview", "structcore_1_1ExtraDamagePreview.html", "structcore_1_1ExtraDamagePreview" ],
     [ "AttackPreview", "structcore_1_1AttackPreview.html", "structcore_1_1AttackPreview" ],
     [ "MovePreview", "structcore_1_1MovePreview.html", "structcore_1_1MovePreview" ],
     [ "CombatEvent", "structcore_1_1CombatEvent.html", "structcore_1_1CombatEvent" ],
@@ -472,7 +473,8 @@ var namespacecore =
       [ "GiveItem", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680aeaa3a4cb48824c4da06052ae4b8822ee", null ],
       [ "StartQuest", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2", null ],
       [ "StartEncounter", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5", null ],
-      [ "EndDemo", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3", null ]
+      [ "EndDemo", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3", null ],
+      [ "LevelUp", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7", null ]
     ] ],
     [ "DialogueAttitude", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7", [
       [ "Friendly", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7a03fdbf12e03a4cd1409b84abe2b631df", null ],
@@ -973,6 +975,7 @@ var namespacecore =
     [ "knownEntityKinds", "namespacecore.html#a3c877363f8258fc1ba137c48aa283397", null ],
     [ "knownInteractableKinds", "namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea", null ],
     [ "layerKindName", "namespacecore.html#a9a1bd2ed20a557ddf1033a2c264c9bdd", null ],
+    [ "levelUpTo", "namespacecore.html#a0a201eb28d48b7c290055b13fb49fab4", null ],
     [ "loadAssetFamilies", "namespacecore.html#a572e98b67a306b182732d2396b1478fb", null ],
     [ "loadAtlas", "namespacecore.html#a4a28b9f58a274691d57f2f961c7909e7", null ],
     [ "loadBehaviors", "namespacecore.html#a71acb15a48b4ccfba9c5fb43dcd8fee2", null ],
@@ -1161,6 +1164,7 @@ var namespacecore =
     [ "kRegionGradeCount", "namespacecore.html#a29a08c23095e20f5b90a5799fb05f24a", null ],
     [ "LAYER_KIND_COUNT", "namespacecore.html#a1639bde29cbf10d2ed8629a0fe495374", null ],
     [ "LEVEL_FORMAT_VERSION", "namespacecore.html#a29f56cd5e629fb74668126bbf151066e", null ],
+    [ "LEVEL_UP_PARTY", "namespacecore.html#a4c88939a90ca012e149489fabd19c441", null ],
     [ "MAP_AMBIENCE_PROPERTY", "namespacecore.html#afa94966b4ac589f39c5ce6240f9bf3c2", null ],
     [ "MAP_REGION_PROPERTY", "namespacecore.html#a47f6e001dc10a742e05ed01de586335f", null ],
     [ "MAX_LEVEL_SIDE", "namespacecore.html#aff7cabd42eecb0a07082477ad07869ff", null ],

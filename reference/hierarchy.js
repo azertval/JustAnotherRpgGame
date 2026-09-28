@@ -195,6 +195,7 @@ var hierarchy =
     [ "core::ExplorationReach", "classcore_1_1ExplorationReach.html", null ],
     [ "core::ExplorationSession", "classcore_1_1ExplorationSession.html", null ],
     [ "core::ExplorationSnapshot", "structcore_1_1ExplorationSnapshot.html", null ],
+    [ "core::ExtraDamagePreview", "structcore_1_1ExtraDamagePreview.html", null ],
     [ "hmi::FigureMotion", "structhmi_1_1FigureMotion.html", null ],
     [ "hmi::FigureResolver", "classhmi_1_1FigureResolver.html", null ],
     [ "hmi::FileFingerprint", "structhmi_1_1FileFingerprint.html", null ],
@@ -223,6 +224,7 @@ var hierarchy =
     [ "core::IComponentPool", "classcore_1_1IComponentPool.html", [
       [ "core::ComponentPool< T >", "classcore_1_1ComponentPool.html", null ]
     ] ],
+    [ "hmi::CombatModel::Identity", "structhmi_1_1CombatModel_1_1Identity.html", null ],
     [ "core::ILogSink", "classcore_1_1ILogSink.html", [
       [ "core::ConsoleLogSink", "classcore_1_1ConsoleLogSink.html", null ],
       [ "core::FileLogSink", "classcore_1_1FileLogSink.html", null ],

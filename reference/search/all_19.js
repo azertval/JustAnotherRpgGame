@@ -103,11 +103,12 @@ var searchData=
   ['unsupportedversion_100',['UnsupportedVersion',['../namespacecore.html#a3fca58c67ec139153d0204122e9c32e0a0f89bc98e9b12bdeda0604e57bdc0518',1,'core::UnsupportedVersion'],['../namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcca0f89bc98e9b12bdeda0604e57bdc0518',1,'core::UnsupportedVersion'],['../namespacehmi.html#afee4dd05bda0b2293c4a99a73cb7eb8fa0f89bc98e9b12bdeda0604e57bdc0518',1,'hmi::UnsupportedVersion'],['../namespacehmi.html#a8d47401595625329c52d918c550d2957a0f89bc98e9b12bdeda0604e57bdc0518',1,'hmi::UnsupportedVersion']]],
   ['unwantedseconds_101',['unwantedSeconds',['../structhmi_1_1AssetGalleryRenderer_1_1CachedTexture.html#ac9de4b5d5cb774e82273e00277e5b83a',1,'hmi::AssetGalleryRenderer::CachedTexture']]],
   ['up_102',['Up',['../namespacehmi.html#a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa',1,'hmi::Up'],['../namespacehmi.html#a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa',1,'hmi::Up']]],
-  ['update_103',['update',['../classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4',1,'core::ISystem::update()'],['../classcore_1_1World.html#a8f9461b813faa6de969b2b6ed4b76251',1,'core::World::update()'],['../classcore_1_1ExplorationSession.html#af22834cdd0f0305a39eea299e837fcc3',1,'core::ExplorationSession::update()'],['../classhmi_1_1ButtonRepeat.html#a10b368f76e0ed47a7898ca02045b1494',1,'hmi::ButtonRepeat::update()']]],
-  ['updatebuttons_104',['updateButtons',['../classhmi_1_1LayersPanel.html#a555ff5da7117c10cbdf0995a750704f2',1,'hmi::LayersPanel']]],
-  ['updatecache_105',['updateCache',['../classhmi_1_1AssetGalleryRenderer.html#a33a718a60f65a5d76283359eb5f49c61',1,'hmi::AssetGalleryRenderer']]],
-  ['updateforcing_106',['updateForcing',['../classcore_1_1LevelDraft.html#a3e55f4d8472f9acd1588b1851cad9c40',1,'core::LevelDraft']]],
-  ['updates_107',['updates',['../structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d',1,'hmi::RhiContext']]],
-  ['uploads_5fper_5fframe_108',['UPLOADS_PER_FRAME',['../classhmi_1_1AssetGalleryRenderer.html#a278c3a154a2a3f62a34aeb9e57ad7cdd',1,'hmi::AssetGalleryRenderer']]],
-  ['uses_109',['uses',['../structcore_1_1ArenaSpell.html#a3effaed2ef2321524ee482bbc74aa4bc',1,'core::ArenaSpell']]]
+  ['upcomingcapacities_103',['upcomingCapacities',['../classhmi_1_1CharacterSheetModel.html#a488de9fd45b248d302d4dcebc5fdd697',1,'hmi::CharacterSheetModel::upcomingCapacities'],['../classhmi_1_1CharacterSheetModel.html#ad36b5778578251cf28df0a4146b15a78',1,'hmi::CharacterSheetModel::upcomingCapacities() const']]],
+  ['update_104',['update',['../classcore_1_1ISystem.html#af7fdaf0677189972cab73e27030306a4',1,'core::ISystem::update()'],['../classcore_1_1World.html#a8f9461b813faa6de969b2b6ed4b76251',1,'core::World::update()'],['../classcore_1_1ExplorationSession.html#af22834cdd0f0305a39eea299e837fcc3',1,'core::ExplorationSession::update()'],['../classhmi_1_1ButtonRepeat.html#a10b368f76e0ed47a7898ca02045b1494',1,'hmi::ButtonRepeat::update()']]],
+  ['updatebuttons_105',['updateButtons',['../classhmi_1_1LayersPanel.html#a555ff5da7117c10cbdf0995a750704f2',1,'hmi::LayersPanel']]],
+  ['updatecache_106',['updateCache',['../classhmi_1_1AssetGalleryRenderer.html#a33a718a60f65a5d76283359eb5f49c61',1,'hmi::AssetGalleryRenderer']]],
+  ['updateforcing_107',['updateForcing',['../classcore_1_1LevelDraft.html#a3e55f4d8472f9acd1588b1851cad9c40',1,'core::LevelDraft']]],
+  ['updates_108',['updates',['../structhmi_1_1RhiContext.html#aedd4bf86b0e7902f1bc20e9da43bb93d',1,'hmi::RhiContext']]],
+  ['uploads_5fper_5fframe_109',['UPLOADS_PER_FRAME',['../classhmi_1_1AssetGalleryRenderer.html#a278c3a154a2a3f62a34aeb9e57ad7cdd',1,'hmi::AssetGalleryRenderer']]],
+  ['uses_110',['uses',['../structcore_1_1ArenaSpell.html#a3effaed2ef2321524ee482bbc74aa4bc',1,'core::ArenaSpell']]]
 ];

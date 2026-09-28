@@ -26,6 +26,7 @@ var annotated_dup =
       [ "BattleGrid", "classcore_1_1BattleGrid.html", "classcore_1_1BattleGrid" ],
       [ "ScopedCounters", "classcore_1_1ScopedCounters.html", "classcore_1_1ScopedCounters" ],
       [ "ImmunityLedger", "classcore_1_1ImmunityLedger.html", "classcore_1_1ImmunityLedger" ],
+      [ "ExtraDamagePreview", "structcore_1_1ExtraDamagePreview.html", "structcore_1_1ExtraDamagePreview" ],
       [ "AttackPreview", "structcore_1_1AttackPreview.html", "structcore_1_1AttackPreview" ],
       [ "MovePreview", "structcore_1_1MovePreview.html", "structcore_1_1MovePreview" ],
       [ "CombatEvent", "structcore_1_1CombatEvent.html", "structcore_1_1CombatEvent" ],

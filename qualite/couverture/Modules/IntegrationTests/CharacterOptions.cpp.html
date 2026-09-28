@@ -201,11 +201,18 @@ std::vector&lt;Capacity&gt; resolveCapacities(const PlayableClass&amp; playableC
         }
         // Une capacite qui en REMPLACE une autre la retire : Hit the Mark Improvement ne
         // s'additionne pas a Hit the Mark.
-<span style = "background-color:#dfd">        if (!capacite-&gt;replaces.empty()) {
-            std::erase_if(actives,
-                          [&amp;](const Capacity&amp; active) { return active.id == capacite-&gt;replaces; });</span>
+<span style = "background-color:#dfd">        Capacity active = *capacite;
+        if (!capacite-&gt;replaces.empty()) {</span>
+            // Le palier garde l'icone de sa base (Rpg/capacities/README.md) : celle de la capacite
+            // remplacee, qui tenait deja celle de la sienne.
+<span style = "background-color:#dfd">            const auto remplacee = std::ranges::find(actives, capacite-&gt;replaces, &amp;Capacity::id);
+            if (remplacee != actives.end()) {
+                active.iconId = remplacee-&gt;iconId.empty() ? remplacee-&gt;id : remplacee-&gt;iconId;</span>
+            }
+<span style = "background-color:#dfd">            std::erase_if(actives,
+                          [&amp;](const Capacity&amp; active) { return active.id == capacite-&gt;replaces; });
         }
-<span style = "background-color:#dfd">        actives.push_back(*capacite);
+        actives.push_back(std::move(active));
     }
     return actives;
 }</span>

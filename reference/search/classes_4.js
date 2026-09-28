@@ -47,5 +47,6 @@ var searchData=
   ['explorationintent_44',['ExplorationIntent',['../structcore_1_1ExplorationIntent.html',1,'core']]],
   ['explorationreach_45',['ExplorationReach',['../classcore_1_1ExplorationReach.html',1,'core']]],
   ['explorationsession_46',['ExplorationSession',['../classcore_1_1ExplorationSession.html',1,'core']]],
-  ['explorationsnapshot_47',['ExplorationSnapshot',['../structcore_1_1ExplorationSnapshot.html',1,'core']]]
+  ['explorationsnapshot_47',['ExplorationSnapshot',['../structcore_1_1ExplorationSnapshot.html',1,'core']]],
+  ['extradamagepreview_48',['ExtraDamagePreview',['../structcore_1_1ExtraDamagePreview.html',1,'core']]]
 ];

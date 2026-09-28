@@ -10,6 +10,7 @@ var classhmi_1_1PartyModel =
     [ "maxSize", "classhmi_1_1PartyModel.html#aba94f68ac09e3c04f0f251a4f9a66d67", null ],
     [ "members", "classhmi_1_1PartyModel.html#a0fbebebf39976d267ff422515d00fa9a", null ],
     [ "moveMember", "classhmi_1_1PartyModel.html#a03faf214cf5adbe72c8cd67af2d58caa", null ],
+    [ "reloadSheets", "classhmi_1_1PartyModel.html#a67e036e3fa6b9c76ee76707c4195800e", null ],
     [ "setLeader", "classhmi_1_1PartyModel.html#a8193de2b664998579800edf65ea2831b", null ],
     [ "sheetValue", "classhmi_1_1PartyModel.html#a7677a8fb2cd2dc6525c329aaf38e8690", null ],
     [ "size", "classhmi_1_1PartyModel.html#a8613163eb94700750986b5738ba02acc", null ],

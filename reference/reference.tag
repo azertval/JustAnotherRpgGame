@@ -64,6 +64,7 @@
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
     <includes id="CityBlockImageProvider_8h" name="CityBlockImageProvider.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/CityBlockImageProvider.h</includes>
+    <includes id="EncounterModel_8h" name="EncounterModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/EncounterModel.h</includes>
     <includes id="OptionsModel_8h" name="OptionsModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/OptionsModel.h</includes>
     <includes id="ScreenRouter_8h" name="ScreenRouter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/ScreenRouter.h</includes>
     <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
@@ -488,8 +489,11 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
     <filename>CombatPreview_8cpp.html</filename>
     <includes id="CombatPreview_8h" name="CombatPreview.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatPreview.h</includes>
+    <includes id="CombatCounters_8h" name="CombatCounters.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatCounters.h</includes>
     <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
+    <includes id="Flanking_8h" name="Flanking.h" local="yes" import="no" module="no" objc="no">Core/Combat/Flanking.h</includes>
     <includes id="LineOfSight_8h" name="LineOfSight.h" local="yes" import="no" module="no" objc="no">Core/Combat/LineOfSight.h</includes>
+    <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -498,6 +502,9 @@
     <filename>CombatPreview_8h.html</filename>
     <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
     <includes id="Attack_8h" name="Attack.h" local="yes" import="no" module="no" objc="no">Core/Combat/Attack.h</includes>
+    <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
+    <includes id="Dice_8h" name="Dice.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dice.h</includes>
+    <class kind="struct">core::ExtraDamagePreview</class>
     <class kind="struct">core::AttackPreview</class>
     <class kind="struct">core::MovePreview</class>
     <namespace>core</namespace>
@@ -5217,11 +5224,19 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>CharacterSheetModel_8cpp.html</filename>
     <includes id="CharacterSheetModel_8h" name="CharacterSheetModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/CharacterSheetModel.h</includes>
+    <includes id="Damage_8h" name="Damage.h" local="yes" import="no" module="no" objc="no">Core/Combat/Damage.h</includes>
     <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
+    <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
+    <includes id="Dice_8h" name="Dice.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dice.h</includes>
+    <includes id="Party_8h" name="Party.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Party.h</includes>
+    <includes id="Spell_8h" name="Spell.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Spell.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
     <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
     <includes id="RuleLabels_8h" name="RuleLabels.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/RuleLabels.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5280,7 +5295,14 @@
     <includes id="CombatModel_8h" name="CombatModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/CombatModel.h</includes>
     <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
     <includes id="CombatPreview_8h" name="CombatPreview.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatPreview.h</includes>
+    <includes id="Damage_8h" name="Damage.h" local="yes" import="no" module="no" objc="no">Core/Combat/Damage.h</includes>
+    <includes id="LineOfSight_8h" name="LineOfSight.h" local="yes" import="no" module="no" objc="no">Core/Combat/LineOfSight.h</includes>
     <includes id="Pathfinding_8h" name="Pathfinding.h" local="yes" import="no" module="no" objc="no">Core/Combat/Pathfinding.h</includes>
+    <includes id="Ability_8h" name="Ability.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Ability.h</includes>
+    <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
+    <includes id="Dice_8h" name="Dice.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dice.h</includes>
+    <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
+    <includes id="Spell_8h" name="Spell.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Spell.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
     <namespace>hmi</namespace>
@@ -5293,6 +5315,7 @@
     <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
     <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
     <class kind="class">hmi::CombatModel</class>
+    <class kind="struct">hmi::CombatModel::Identity</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5359,6 +5382,7 @@
     <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
     <includes id="Equipment_8h" name="Equipment.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Equipment.h</includes>
     <includes id="Inventory_8h" name="Inventory.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Inventory.h</includes>
+    <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
     <includes id="Skill_8h" name="Skill.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Skill.h</includes>
     <class kind="struct">hmi::DemonstrationCharacter</class>
     <class kind="struct">hmi::DemonstrationState</class>
@@ -5650,6 +5674,7 @@
     <includes id="GameQuests_8h" name="GameQuests.h" local="yes" import="no" module="no" objc="no">HMI/Game/GameQuests.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
+    <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
     <includes id="RuleLabels_8h" name="RuleLabels.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/RuleLabels.h</includes>
     <namespace>hmi</namespace>
   </compound>
@@ -6505,6 +6530,7 @@
     <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
     <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
     <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
     <includes id="Dice_8h" name="Dice.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dice.h</includes>
     <member kind="function">
       <type></type>
@@ -6519,6 +6545,13 @@
       <anchorfile>test__combat__preview_8cpp.html</anchorfile>
       <anchor>ab3d8a05c677a82daebc2a38c6e01e7ea</anchor>
       <arglist>(CombatPreviewTest, LeDeplacementSePrevisualiseEtLOpportuniteSeDecline)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__combat__preview_8cpp.html</anchorfile>
+      <anchor>a55adc5af2913d97f33b2b6fbb39bc72d</anchor>
+      <arglist>(CombatPreviewTest, LesCapacitesEntrentDansLaPrevisualisation)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -9770,6 +9803,13 @@
       <anchorfile>test__dialogue_8cpp.html</anchorfile>
       <anchor>adacff3ed11d3a0dbf4c3b59ffab7dcd8</anchor>
       <arglist>(DialogueTest, UnDialoguePeutTerminerLaDemo)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__dialogue_8cpp.html</anchorfile>
+      <anchor>a9a016ec7ce82d0a1647713e6613eb8f9</anchor>
+      <arglist>(DialogueTest, UnDialoguePeutDonnerUnNiveau)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14494,11 +14534,36 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_character_sheet_model.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
+    <filename>test__character__sheet__model_8cpp.html</filename>
+    <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
+    <includes id="CharacterSheetModel_8h" name="CharacterSheetModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/CharacterSheetModel.h</includes>
+    <includes id="EncounterModel_8h" name="EncounterModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/EncounterModel.h</includes>
+    <includes id="PartyModel_8h" name="PartyModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/PartyModel.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__character__sheet__model_8cpp.html</anchorfile>
+      <anchor>a665d9be7eb742a65280cff7ffa4add60</anchor>
+      <arglist>(CharacterSheetModelTest, LesQuatreFichesSontLeursPagesDuLivre)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__character__sheet__model_8cpp.html</anchorfile>
+      <anchor>ab074db126c63f3e2069cda74cd2287f8</anchor>
+      <arglist>(CharacterSheetModelTest, LaMonteeDeNiveauDonneeSeVoitPartout)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_encounter_model.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
     <filename>test__encounter__model_8cpp.html</filename>
     <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
     <includes id="EncounterModel_8h" name="EncounterModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/EncounterModel.h</includes>
     <includes id="PartyModel_8h" name="PartyModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/PartyModel.h</includes>
     <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
@@ -14536,6 +14601,13 @@
       <anchorfile>test__encounter__model_8cpp.html</anchorfile>
       <anchor>a9b3fbfe0690679c0d4ff4f9c143abfaa</anchor>
       <arglist>(EncounterModelTest, LeCombatLaisseAuxFichesCeQuIlEnReste)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__model_8cpp.html</anchorfile>
+      <anchor>ae144770b940ca702cd108d5ac05e3467</anchor>
+      <arglist>(EncounterModelTest, LInterfaceDeGroupeLitLaVueModele)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -17636,6 +17708,13 @@
     <name>core::AttackPreview</name>
     <filename>structcore_1_1AttackPreview.html</filename>
     <member kind="function">
+      <type>long long</type>
+      <name>expectedTenths</name>
+      <anchorfile>structcore_1_1AttackPreview.html</anchorfile>
+      <anchor>ad3369b9b55e06ad35d520ddee20ff622</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>int</type>
       <name>hitPercent</name>
       <anchorfile>structcore_1_1AttackPreview.html</anchorfile>
@@ -17675,6 +17754,27 @@
       <name>cover</name>
       <anchorfile>structcore_1_1AttackPreview.html</anchorfile>
       <anchor>a95e4e708dfa8d9be4a5ace384f842c25</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>attackBonus</name>
+      <anchorfile>structcore_1_1AttackPreview.html</anchorfile>
+      <anchor>a3c225958e11fea40309d968a7fd74626</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; Modifier &gt;</type>
+      <name>capacityModifiers</name>
+      <anchorfile>structcore_1_1AttackPreview.html</anchorfile>
+      <anchor>ae5eafdff849318d96c984c9bca6ffd9f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; ExtraDamagePreview &gt;</type>
+      <name>extraDamage</name>
+      <anchorfile>structcore_1_1AttackPreview.html</anchorfile>
+      <anchor>ae34794f402838f822141482bb2a105cd</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -19139,6 +19239,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::string</type>
+      <name>iconId</name>
+      <anchorfile>structcore_1_1Capacity.html</anchorfile>
+      <anchor>ace13e077226db3dc7d78077dc12cd630</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::vector&lt; CapacityEffect &gt;</type>
       <name>effects</name>
       <anchorfile>structcore_1_1Capacity.html</anchorfile>
@@ -19857,10 +19964,59 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>loadCharacter</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a4aff0f9534911ff47b80c41a366203a1</anchor>
+      <arglist>(const QString &amp;characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>loadShownCharacter</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a7e92fc832fc3d1d4404ad2c9370ff56c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
       <type>QVariantMap</type>
       <name>values</name>
       <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
       <anchor>aefebf156fee6aefb7500d82fb7ce23a6</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>characterId</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a5f4548ae32ccc879cbd3eb4b905f1812</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>className</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a33e97b48ca6f7740d02dc785ed5d6e19</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>capacities</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a9ea46fe2c3ae69ac1f60f2fcee359406</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>upcomingCapacities</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>ad36b5778578251cf28df0a4146b15a78</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantList</type>
+      <name>spells</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>aa72f14dd796c417c2d6f702fb5f55aaa</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -20080,6 +20236,41 @@
       <anchor>ab4343c40ed226a3a19259cc8564b6d91</anchor>
       <arglist></arglist>
     </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>characterId</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>af49cc2a6ccf2ae0cc8623999e651293e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>className</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a778a4c2ac352f15933a6c3d8334472b6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>capacities</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a8d77945aa4fd82673a7d64e8378283ed</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>upcomingCapacities</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a488de9fd45b248d302d4dcebc5fdd697</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantList</type>
+      <name>spells</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>aa1ec62023a3129fd6e33bc258b2528e7</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function" protection="private">
       <type>QString</type>
       <name>value</name>
@@ -20106,6 +20297,34 @@
       <name>_skills</name>
       <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
       <anchor>ac0354a3af50d52b4c918bd90fba10147</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QString</type>
+      <name>_characterId</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a494eacfda12d7e3f6d280e12ee8ae8d6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QVariantList</type>
+      <name>_capacities</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a8db9aaaf00b244ebf360d3a5bf9de651</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QVariantList</type>
+      <name>_upcoming</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a63b6e0148aed32494a9f100116ed22e7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QVariantList</type>
+      <name>_spells</name>
+      <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
+      <anchor>a447db49fdb86d1eb6e0e251164406967</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -21374,6 +21593,7 @@
   <compound kind="class">
     <name>hmi::CombatModel</name>
     <filename>classhmi_1_1CombatModel.html</filename>
+    <class kind="struct">hmi::CombatModel::Identity</class>
     <member kind="signal">
       <type>void</type>
       <name>changed</name>
@@ -21491,6 +21711,27 @@
       <name>turnOrder</name>
       <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
       <anchor>a4cdf87c995d1fb5be7fbfd2a1e8e8691</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>round</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a66859731ab4426be5965fbba41f4fa21</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantMap</type>
+      <name>activeProfile</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a23e1a6041524d445b55e25f7d60dd170</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantMap</type>
+      <name>preview</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a0b64d2293c5208aa3082ddd7ccf35902</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -21620,6 +21861,13 @@
       <arglist>() const =0</arglist>
     </member>
     <member kind="function" protection="protected" virtualness="virtual">
+      <type>virtual Identity</type>
+      <name>identityOf</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a7b84b37eb1ca73bba8a1c2ed2dfbd194</anchor>
+      <arglist>(core::CombatantId combatant) const</arglist>
+    </member>
+    <member kind="function" protection="protected" virtualness="virtual">
       <type>virtual void</type>
       <name>playAiTurns</name>
       <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
@@ -21688,6 +21936,27 @@
       <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
       <anchor>a96e8a89ff900657a0eb2ac543979cd2f</anchor>
       <arglist>(core::GridPosition cell)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>previewAttack</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>afb2bbaf184ea1fc2e566b5c5339c2c1b</anchor>
+      <arglist>(QVariantMap &amp;map, QVariantList &amp;lines, QVariantList &amp;capacities, core::CombatantId target, std::size_t attackIndex) const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>previewSpell</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a69624fb872fac593172ad0effadddffe</anchor>
+      <arglist>(QVariantMap &amp;map, QVariantList &amp;lines, std::size_t spellIndex, const core::Combatant *target) const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>previewMove</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a274604dd9053502c05be96529edeb1a2</anchor>
+      <arglist>(QVariantMap &amp;map, QVariantList &amp;lines) const</arglist>
     </member>
     <member kind="function" protection="protected" static="yes">
       <type>static std::optional&lt; HeroContestantSource &gt;</type>
@@ -21827,6 +22096,27 @@
       <name>turnOrder</name>
       <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
       <anchor>a1e1740ea193d9f6ff2a5ff6f8e03be79</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>round</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>adb87cad1616e235f9c2d939c71c0d0e4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantMap</type>
+      <name>activeProfile</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>a1df1449ae698d49692e227b2ccd41ba5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantMap</type>
+      <name>preview</name>
+      <anchorfile>classhmi_1_1CombatModel.html</anchorfile>
+      <anchor>aa1cd3ef74b12fd41501c452bfd54a6bb</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -22029,6 +22319,13 @@
       <anchorfile>classcore_1_1CombatState.html</anchorfile>
       <anchor>a0befac60163ae5122aff87f0db9ae9ac</anchor>
       <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const ScopedCounters &amp;</type>
+      <name>counters</name>
+      <anchorfile>classcore_1_1CombatState.html</anchorfile>
+      <anchor>a81948cca974760ecb1d5204a0f557d70</anchor>
+      <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
       <type>ActionEconomy *</type>
@@ -24465,6 +24762,13 @@
       <anchorfile>classcore_1_1DialogueListener.html</anchorfile>
       <anchor>a3de75ad9eaf865ce5d687b19ab8d08e0</anchor>
       <arglist>(std::string_view ending)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>levelUp</name>
+      <anchorfile>classcore_1_1DialogueListener.html</anchorfile>
+      <anchor>a696c5bd3651cbf93036eb319b9cc1f82</anchor>
+      <arglist>(std::string_view characterId)</arglist>
     </member>
   </compound>
   <compound kind="struct">
@@ -28136,6 +28440,13 @@
       <arglist>() const override</arglist>
     </member>
     <member kind="function" protection="protected">
+      <type>Identity</type>
+      <name>identityOf</name>
+      <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
+      <anchor>a8b0a9fb8642a27af62817181da89f9c9</anchor>
+      <arglist>(core::CombatantId combatant) const override</arglist>
+    </member>
+    <member kind="function" protection="protected">
       <type>void</type>
       <name>playAiTurns</name>
       <anchorfile>classhmi_1_1EncounterModel.html</anchorfile>
@@ -30089,6 +30400,38 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::ExtraDamagePreview</name>
+    <filename>structcore_1_1ExtraDamagePreview.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1ExtraDamagePreview.html</anchorfile>
+      <anchor>a00349ed04672e824d4f76ae57528b4d3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Dice</type>
+      <name>dice</name>
+      <anchorfile>structcore_1_1ExtraDamagePreview.html</anchorfile>
+      <anchor>ad49c2812ecbf746a2bda9ccccc48b27d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>applies</name>
+      <anchorfile>structcore_1_1ExtraDamagePreview.html</anchorfile>
+      <anchor>ab44f4442eda8c4610e749cbf6f9d14f9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>reason</name>
+      <anchorfile>structcore_1_1ExtraDamagePreview.html</anchorfile>
+      <anchor>aeeb9c6f565069ee962b6e45ff5bec250</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::FigureMotion</name>
     <filename>structhmi_1_1FigureMotion.html</filename>
     <member kind="variable">
@@ -31211,6 +31554,38 @@
       <anchorfile>classcore_1_1IComponentPool.html</anchorfile>
       <anchor>ab0b1a9b6d1ab67638c268e1dd678a90b</anchor>
       <arglist>(Entity entity)=0</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::CombatModel::Identity</name>
+    <filename>structhmi_1_1CombatModel_1_1Identity.html</filename>
+    <member kind="variable">
+      <type>QString</type>
+      <name>classId</name>
+      <anchorfile>structhmi_1_1CombatModel_1_1Identity.html</anchorfile>
+      <anchor>a20c6196c364cf5dfc7fe17cdb32e82a9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>level</name>
+      <anchorfile>structhmi_1_1CombatModel_1_1Identity.html</anchorfile>
+      <anchor>aaf949e11b8258062323c4d55f1ea08fa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QUrl</type>
+      <name>portrait</name>
+      <anchorfile>structhmi_1_1CombatModel_1_1Identity.html</anchorfile>
+      <anchor>a7ed464eb16aed8e48cc568d9397357d4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QUrl</type>
+      <name>token</name>
+      <anchorfile>structhmi_1_1CombatModel_1_1Identity.html</anchorfile>
+      <anchor>a194eb664d08598d678544c69dfd2af78</anchor>
+      <arglist></arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -37198,6 +37573,13 @@
     <filename>structcore_1_1MemberRecord.html</filename>
     <member kind="variable">
       <type>std::optional&lt; int &gt;</type>
+      <name>level</name>
+      <anchorfile>structcore_1_1MemberRecord.html</anchorfile>
+      <anchor>ab520d325aa1ae73bb11e8551c36b2c2a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; int &gt;</type>
       <name>hitPoints</name>
       <anchorfile>structcore_1_1MemberRecord.html</anchorfile>
       <anchor>a9528144c728aeeda237f2283fac6880e</anchor>
@@ -38522,6 +38904,13 @@
       <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
       <anchor>a8dccbd43958de6fd12d7447dd7558481</anchor>
       <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>reloadSheets</name>
+      <anchorfile>classhmi_1_1PartyModel.html</anchorfile>
+      <anchor>a67e036e3fa6b9c76ee76707c4195800e</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="function" protection="private">
       <type>QString</type>
@@ -46240,6 +46629,27 @@
       <arglist>(const QString &amp;characterId, int offset)</arglist>
     </member>
     <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>levelUp</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a524b67a8ad4f0174c40384c00c6a34a3</anchor>
+      <arglist>(const QString &amp;characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>showCharacter</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a79449ed4e4b5d4cc3bb5da40b59e54c3</anchor>
+      <arglist>(const QString &amp;characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>shownCharacterId</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ae9e71d1b7f29064c22dc63db94c023b1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
       <type>QString</type>
       <name>mapId</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -46701,6 +47111,13 @@
       <anchor>a0b7a79905fb3e44bb622c2a950933ef7</anchor>
       <arglist></arglist>
     </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>shownCharacterId</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a0ad4e28927f20dae954a340e4cb06f1e</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function" protection="private">
       <type>void</type>
       <name>step</name>
@@ -46860,6 +47277,13 @@
       <name>_ledger</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a1bec3e9befd172168f6dbc97e780227e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::string</type>
+      <name>_shownCharacterId</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a5bdd1d3a56e40b64592c4972c79100d6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -48271,6 +48695,7 @@
     <class kind="class">core::BattleGrid</class>
     <class kind="class">core::ScopedCounters</class>
     <class kind="class">core::ImmunityLedger</class>
+    <class kind="struct">core::ExtraDamagePreview</class>
     <class kind="struct">core::AttackPreview</class>
     <class kind="struct">core::MovePreview</class>
     <class kind="struct">core::CombatEvent</class>
@@ -49120,6 +49545,7 @@
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2">StartQuest</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5">StartEncounter</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3">EndDemo</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7">LevelUp</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -50878,6 +51304,13 @@
       <arglist>(CharacterSheet &amp;sheet, const ExperienceTable &amp;table, int hitDie, int amount)</arglist>
     </member>
     <member kind="function">
+      <type>LevelUpResult</type>
+      <name>levelUpTo</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a0a201eb28d48b7c290055b13fb49fab4</anchor>
+      <arglist>(CharacterSheet &amp;sheet, int level, const PlayableClass &amp;playableClass, const CharacterOptions &amp;options, const CharacterCreationRules &amp;rules, const ExperienceTable &amp;table, std::vector&lt; std::string &gt; &amp;missing)</arglist>
+    </member>
+    <member kind="function">
       <type>CharacterSheet</type>
       <name>buildCharacterSheet</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -51925,6 +52358,13 @@
       <name>DIALOGUE_CONTINUE_KEY</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>af7ee0f1291696687c17746182965ce8a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>LEVEL_UP_PARTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a4c88939a90ca012e149489fabd19c441</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -55178,6 +55618,13 @@
       <arglist>(const core::Atlas &amp;atlas, const WorldMaps &amp;maps, std::vector&lt; std::string &gt; &amp;mismatches)</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>applyMemberRecord</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a03203163b7658f6a1f52857b8bf597d2</anchor>
+      <arglist>(DemonstrationState &amp;state, const core::MemberRecord &amp;record)</arglist>
+    </member>
+    <member kind="function">
       <type>std::filesystem::path</type>
       <name>playedCharacterFile</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -56878,6 +57325,7 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
     <filename>dir_c911b180da51e85765e60707d4387a94.html</filename>
+    <file>test_character_sheet_model.cpp</file>
     <file>test_encounter_model.cpp</file>
     <file>test_party_model.cpp</file>
   </compound>

@@ -157,6 +157,7 @@ $(function(){initNavTree('test__encounter__model_8cpp.html','',''); });
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="PartyLedger_8h_source.html">Core/Rpg/PartyLedger.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ExecutableDirectory_8h_source.html">HMI/Platform/ExecutableDirectory.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="EncounterModel_8h_source.html">HMI/Runtime/EncounterModel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PartyModel_8h_source.html">HMI/Runtime/PartyModel.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldModel_8h_source.html">HMI/Runtime/WorldModel.h</a>&quot;</code><br />
@@ -173,13 +174,15 @@ Functions</h2></td></tr>
 <tr class="memdesc:a682c768c589460bb6e5f8cfaf32afb20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rejeu à graine fixée donne le même combat (<span class="tt">LOT-139</span>) : deux rencontres montées à la même graine, jouées par les mêmes gestes, écrivent le même journal — et chaque membre du groupe y est joué par le joueur à son tour (<span class="tt">EX-CBT-061</span>).  <br /></td></tr>
 <tr class="memitem:a9b3fbfe0690679c0d4ff4f9c143abfaa" id="r_a9b3fbfe0690679c0d4ff4f9c143abfaa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9b3fbfe0690679c0d4ff4f9c143abfaa">TEST</a> (EncounterModelTest, LeCombatLaisseAuxFichesCeQuIlEnReste)</td></tr>
 <tr class="memdesc:a9b3fbfe0690679c0d4ff4f9c143abfaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le combat laisse aux fiches (<span class="tt">LOT-139</span>) : les points de vie qui restent sont relus au combat suivant et montrés par l'écran de groupe ; un membre mort quitte le groupe, et s'il menait, le suivant mène.  <br /></td></tr>
+<tr class="memitem:ae144770b940ca702cd108d5ac05e3467" id="r_ae144770b940ca702cd108d5ac05e3467"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae144770b940ca702cd108d5ac05e3467">TEST</a> (EncounterModelTest, LInterfaceDeGroupeLitLaVueModele)</td></tr>
+<tr class="memdesc:ae144770b940ca702cd108d5ac05e3467"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'interface de combat de groupe (<span class="tt">LOT-140</span>, <span class="tt">EX-IHM-108</span>) lit ce que la vue-modèle publie : le round, les jetons de l'ordre d'initiative, le panneau du combattant actif, le détail des actions et la prévisualisation de l'action choisie sur la case du curseur.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests du combat sur la carte (<span class="tt">LOT-118</span>) : une rencontre engagée pendant l'exploration se monte sur la zone de combat de la carte, se joue par les gestes du Colisée, se montre par les figurines de la carte gelée, et rend l'exploration. </p>
 <p>La vue-modèle lit ses règles à côté de l'exécutable, comme le jeu ; la <b>carte</b> et le <b>contenu</b> — la rencontre, le rat d'essai, le maître d'arène d'essai — viennent de la racine d'essai (<span class="tt">Source/Test/Fixtures/GameData</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ad8de3b269713065ab5b65be5a738b15a" name="ad8de3b269713065ab5b65be5a738b15a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8de3b269713065ab5b65be5a738b15a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8de3b269713065ab5b65be5a738b15a">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +214,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a9b3fbfe0690679c0d4ff4f9c143abfaa" name="a9b3fbfe0690679c0d4ff4f9c143abfaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b3fbfe0690679c0d4ff4f9c143abfaa">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b3fbfe0690679c0d4ff4f9c143abfaa">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,7 +245,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a682c768c589460bb6e5f8cfaf32afb20" name="a682c768c589460bb6e5f8cfaf32afb20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a682c768c589460bb6e5f8cfaf32afb20">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a682c768c589460bb6e5f8cfaf32afb20">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,7 +275,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a57f03272f57b5bf248b353b852f68331" name="a57f03272f57b5bf248b353b852f68331"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57f03272f57b5bf248b353b852f68331">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a57f03272f57b5bf248b353b852f68331">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -303,8 +306,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae144770b940ca702cd108d5ac05e3467" name="ae144770b940ca702cd108d5ac05e3467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae144770b940ca702cd108d5ac05e3467">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EncounterModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LInterfaceDeGroupeLitLaVueModele</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'interface de combat de groupe (<span class="tt">LOT-140</span>, <span class="tt">EX-IHM-108</span>) lit ce que la vue-modèle publie : le round, les jetons de l'ordre d'initiative, le panneau du combattant actif, le détail des actions et la prévisualisation de l'action choisie sur la case du curseur. </p>
+<p><b>Cas de test :</b> <b>Round, jetons, panneau de l'actif, actions detaillees, previsualisation.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat sur la carte<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Engager les rats a la graine 2026, jusqu'au tour du joueur.<br  />
+2. Lire <span class="tt">round</span>, <span class="tt">turnOrder</span>, <span class="tt">activeProfile</span>, <span class="tt">turnActions</span>.<br  />
+3. Viser le rat le plus proche avec la premiere attaque ; puis ramener le curseur sur soi ; puis viser une case libre atteignable.<br  />
+ <b>Resultat attendu :</b> Round 1 ; chaque ligne de l'ordre a ses initiales, les membres du groupe leur jeton s'il est installe ; le panneau porte la classe, le niveau 1, une action et un deplacement a depenser, les capacites de la fiche ; la premiere action ecrit son jet et ses des ; la previsualisation est une attaque titree « arme → cible » avec la ligne « Toucher », puis refuse la case d'un allie, puis decrit un deplacement. </p>
+
+</div>
+</div>
 <a id="a13091cdd041fbd14624e766f78024ab7" name="a13091cdd041fbd14624e766f78024ab7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13091cdd041fbd14624e766f78024ab7">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a13091cdd041fbd14624e766f78024ab7">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

@@ -2,6 +2,7 @@ var DemonstrationCharacter_8h =
 [
     [ "hmi::DemonstrationCharacter", "structhmi_1_1DemonstrationCharacter.html", "structhmi_1_1DemonstrationCharacter" ],
     [ "hmi::DemonstrationState", "structhmi_1_1DemonstrationState.html", "structhmi_1_1DemonstrationState" ],
+    [ "hmi::applyMemberRecord", "namespacehmi.html#a03203163b7658f6a1f52857b8bf597d2", null ],
     [ "hmi::demonstrationValues", "namespacehmi.html#a1f08c6b798997faab9cda3d79eebe751", null ],
     [ "hmi::loadCharacterValues", "namespacehmi.html#a9003cdd50645942c3d35fd424f91d060", null ],
     [ "hmi::loadDemonstrationState", "namespacehmi.html#aaf18529e7061f72c5c481ea2f30b6909", null ],

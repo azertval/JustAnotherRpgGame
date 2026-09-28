@@ -164,7 +164,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0d053b078f640fa4fa8c144f98abf2ac" id="r_a0d053b078f640fa4fa8c144f98abf2ac"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0d053b078f640fa4fa8c144f98abf2ac">CharacterSheetModel</a> (QObject *parent=nullptr)</td></tr>
 <tr class="memitem:a99112a943925ad31447c8ac791110d91" id="r_a99112a943925ad31447c8ac791110d91"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a99112a943925ad31447c8ac791110d91">loadDemonstrationCharacter</a> ()</td></tr>
 <tr class="memdesc:a99112a943925ad31447c8ac791110d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage de <b>démonstration</b> livré en donnée.  <br /></td></tr>
+<tr class="memitem:a4aff0f9534911ff47b80c41a366203a1" id="r_a4aff0f9534911ff47b80c41a366203a1"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a4aff0f9534911ff47b80c41a366203a1">loadCharacter</a> (const QString &amp;<a class="el" href="#af49cc2a6ccf2ae0cc8623999e651293e">characterId</a>)</td></tr>
+<tr class="memdesc:a4aff0f9534911ff47b80c41a366203a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge la fiche du personnage <code class="param">characterId</code> (<span class="tt">LOT-141</span>) : un membre du groupe de la partie, ou une fiche pré-tirée de <span class="tt">Rpg/characters/</span> ; vide, le personnage joué.  <br /></td></tr>
+<tr class="memitem:a7e92fc832fc3d1d4404ad2c9370ff56c" id="r_a7e92fc832fc3d1d4404ad2c9370ff56c"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a7e92fc832fc3d1d4404ad2c9370ff56c">loadShownCharacter</a> ()</td></tr>
+<tr class="memdesc:a7e92fc832fc3d1d4404ad2c9370ff56c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage que la partie désigne pour la fiche (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#a0ad4e28927f20dae954a340e4cb06f1e" title="Le personnage dont la fiche s&#39;ouvre (LOT-141) : celui que l&#39;écran de groupe a désigné,...">WorldModel::shownCharacterId</a></span>), sinon le personnage joué.  <br /></td></tr>
 <tr class="memitem:aefebf156fee6aefb7500d82fb7ce23a6" id="r_aefebf156fee6aefb7500d82fb7ce23a6"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#aefebf156fee6aefb7500d82fb7ce23a6">values</a> () const</td></tr>
+<tr class="memitem:a5f4548ae32ccc879cbd3eb4b905f1812" id="r_a5f4548ae32ccc879cbd3eb4b905f1812"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5f4548ae32ccc879cbd3eb4b905f1812">characterId</a> () const</td></tr>
+<tr class="memitem:a33e97b48ca6f7740d02dc785ed5d6e19" id="r_a33e97b48ca6f7740d02dc785ed5d6e19"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a33e97b48ca6f7740d02dc785ed5d6e19">className</a> () const</td></tr>
+<tr class="memitem:a9ea46fe2c3ae69ac1f60f2fcee359406" id="r_a9ea46fe2c3ae69ac1f60f2fcee359406"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a9ea46fe2c3ae69ac1f60f2fcee359406">capacities</a> () const</td></tr>
+<tr class="memitem:ad36b5778578251cf28df0a4146b15a78" id="r_ad36b5778578251cf28df0a4146b15a78"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#ad36b5778578251cf28df0a4146b15a78">upcomingCapacities</a> () const</td></tr>
+<tr class="memitem:aa72f14dd796c417c2d6f702fb5f55aaa" id="r_aa72f14dd796c417c2d6f702fb5f55aaa"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#aa72f14dd796c417c2d6f702fb5f55aaa">spells</a> () const</td></tr>
 <tr class="memitem:ae9272437bad8041b677f4c7ad81a38d8" id="r_ae9272437bad8041b677f4c7ad81a38d8"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae9272437bad8041b677f4c7ad81a38d8">name</a> () const</td></tr>
 <tr class="memitem:aa3dba1adba2892df6db90a5a8a3be0a8" id="r_aa3dba1adba2892df6db90a5a8a3be0a8"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa3dba1adba2892df6db90a5a8a3be0a8">species</a> () const</td></tr>
 <tr class="memitem:a548046d5506b7a6e8591ec15059a6dc9" id="r_a548046d5506b7a6e8591ec15059a6dc9"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a548046d5506b7a6e8591ec15059a6dc9">background</a> () const</td></tr>
@@ -203,6 +212,16 @@ Properties</h2></td></tr>
 <tr class="memitem:a86fa2e2be3af38f8095194bd257c95d2" id="r_a86fa2e2be3af38f8095194bd257c95d2"><td class="memItemLeft">QAbstractItemModel *&#160;</td><td class="memItemRight"><a class="el" href="#a86fa2e2be3af38f8095194bd257c95d2">skills</a></td></tr>
 <tr class="memitem:ab4343c40ed226a3a19259cc8564b6d91" id="r_ab4343c40ed226a3a19259cc8564b6d91"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#ab4343c40ed226a3a19259cc8564b6d91">values</a></td></tr>
 <tr class="memdesc:ab4343c40ed226a3a19259cc8564b6d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes les valeurs formatées de la fiche, par clé (<span class="tt">sheet.ability.strength.score</span>, <span class="tt">sheet.ability.strength.modifier</span>…) : ce que la fiche de la charte v2 (<span class="tt">LOT-87</span>, T3.4) pose hors des listes, comme le score et le modificateur SÉPARÉS de chaque médaillon.  <br /></td></tr>
+<tr class="memitem:af49cc2a6ccf2ae0cc8623999e651293e" id="r_af49cc2a6ccf2ae0cc8623999e651293e"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#af49cc2a6ccf2ae0cc8623999e651293e">characterId</a></td></tr>
+<tr class="memdesc:af49cc2a6ccf2ae0cc8623999e651293e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage chargé (<span class="tt">heros-brawler</span>…), vide tant que rien ne l'est (<span class="tt">LOT-141</span>).  <br /></td></tr>
+<tr class="memitem:a778a4c2ac352f15933a6c3d8334472b6" id="r_a778a4c2ac352f15933a6c3d8334472b6"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a778a4c2ac352f15933a6c3d8334472b6">className</a></td></tr>
+<tr class="memdesc:a778a4c2ac352f15933a6c3d8334472b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La classe, déjà mise en forme (<span class="tt">sheet.class</span>).  <br /></td></tr>
+<tr class="memitem:a8d77945aa4fd82673a7d64e8378283ed" id="r_a8d77945aa4fd82673a7d64e8378283ed"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a8d77945aa4fd82673a7d64e8378283ed">capacities</a></td></tr>
+<tr class="memdesc:a8d77945aa4fd82673a7d64e8378283ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les capacités de classe <b>acquises</b> (<span class="tt">LOT-141</span>, onglet Classe) : <span class="tt">id</span>, <span class="tt"><a class="el" href="#a0d8ace9a0253c87877068faa54f5ccae" title="L&#39;identité de la fiche (sheet.name, sheet.species…), déjà mise en forme ; un tiret cadratin tant que ...">name</a></span>, <span class="tt">iconKey</span> (<span class="tt">ui/icon/capacity/&lt;base&gt;</span>), <span class="tt">text</span> (la page du livre et sa règle), <span class="tt"><a class="el" href="#a00211f22b831a62542f5df2a8baf68e3">level</a></span> (le niveau où la table la donne), <span class="tt">narrative</span> (déclarée sans mécanisme joué).  <br /></td></tr>
+<tr class="memitem:a488de9fd45b248d302d4dcebc5fdd697" id="r_a488de9fd45b248d302d4dcebc5fdd697"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a488de9fd45b248d302d4dcebc5fdd697">upcomingCapacities</a></td></tr>
+<tr class="memdesc:a488de9fd45b248d302d4dcebc5fdd697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les capacités <b>à venir</b>, mêmes rôles, pour les quatre prochains niveaux de la table.  <br /></td></tr>
+<tr class="memitem:aa1ec62023a3129fd6e33bc258b2528e7" id="r_aa1ec62023a3129fd6e33bc258b2528e7"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#aa1ec62023a3129fd6e33bc258b2528e7">spells</a></td></tr>
+<tr class="memdesc:aa1ec62023a3129fd6e33bc258b2528e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts connus (<span class="tt">LOT-141</span>, onglet Sorts) : <span class="tt">id</span>, <span class="tt"><a class="el" href="#a0d8ace9a0253c87877068faa54f5ccae" title="L&#39;identité de la fiche (sheet.name, sheet.species…), déjà mise en forme ; un tiret cadratin tant que ...">name</a></span>, <span class="tt">iconKey</span> (<span class="tt">ui/icon/spell/&lt;id&gt;</span>), <span class="tt"><a class="el" href="#a00211f22b831a62542f5df2a8baf68e3">level</a></span> (0 : mineur), <span class="tt">perDay</span>, <span class="tt">remaining</span>, <span class="tt">usesText</span> (« 1 / 2 », « à volonté »), <span class="tt">details</span> (portée, durée, dés, une caractéristique par ligne), <span class="tt">school</span>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -213,6 +232,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a305fa0e2c9baa216e8548ab1a42b4177" id="r_a305fa0e2c9baa216e8548ab1a42b4177"><td class="memItemLeft">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a305fa0e2c9baa216e8548ab1a42b4177">_values</a></td></tr>
 <tr class="memitem:abc773dd51b7c03eede33b83070da048e" id="r_abc773dd51b7c03eede33b83070da048e"><td class="memItemLeft"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc773dd51b7c03eede33b83070da048e">_abilities</a></td></tr>
 <tr class="memitem:ac0354a3af50d52b4c918bd90fba10147" id="r_ac0354a3af50d52b4c918bd90fba10147"><td class="memItemLeft"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac0354a3af50d52b4c918bd90fba10147">_skills</a></td></tr>
+<tr class="memitem:a494eacfda12d7e3f6d280e12ee8ae8d6" id="r_a494eacfda12d7e3f6d280e12ee8ae8d6"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a494eacfda12d7e3f6d280e12ee8ae8d6">_characterId</a></td></tr>
+<tr class="memitem:a8db9aaaf00b244ebf360d3a5bf9de651" id="r_a8db9aaaf00b244ebf360d3a5bf9de651"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a8db9aaaf00b244ebf360d3a5bf9de651">_capacities</a></td></tr>
+<tr class="memitem:a63b6e0148aed32494a9f100116ed22e7" id="r_a63b6e0148aed32494a9f100116ed22e7"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a63b6e0148aed32494a9f100116ed22e7">_upcoming</a></td></tr>
+<tr class="memitem:a447db49fdb86d1eb6e0e251164406967" id="r_a447db49fdb86d1eb6e0e251164406967"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#a447db49fdb86d1eb6e0e251164406967">_spells</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Vue-modèle de la fiche : ce que le jeu <b>sait dire</b> d'un personnage. </p>
@@ -328,6 +351,31 @@ Pourquoi des propriétés nommées plutôt que la table brute</h2>
 
 </div>
 </div>
+<a id="a9ea46fe2c3ae69ac1f60f2fcee359406" name="a9ea46fe2c3ae69ac1f60f2fcee359406"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ea46fe2c3ae69ac1f60f2fcee359406">&#9670;&#160;</a></span>capacities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::CharacterSheetModel::capacities </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="abed3a07894598477ddb3fed877b058a9" name="abed3a07894598477ddb3fed877b058a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abed3a07894598477ddb3fed877b058a9">&#9670;&#160;</a></span>changed</h2>
 
@@ -353,6 +401,56 @@ Pourquoi des propriétés nommées plutôt que la table brute</h2>
 
 <p>Émis quand la fiche change en bloc. </p>
 <p>Un signal unique et non un par propriété : la fiche est recalculée d'un coup à chaque changement de source, et prétendre le contraire obligerait à comparer quatorze champs pour n'en notifier que ceux qui bougent — un coût réel pour une économie que personne ne mesurerait. </p>
+
+</div>
+</div>
+<a id="a5f4548ae32ccc879cbd3eb4b905f1812" name="a5f4548ae32ccc879cbd3eb4b905f1812"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f4548ae32ccc879cbd3eb4b905f1812">&#9670;&#160;</a></span>characterId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::characterId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a33e97b48ca6f7740d02dc785ed5d6e19" name="a33e97b48ca6f7740d02dc785ed5d6e19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33e97b48ca6f7740d02dc785ed5d6e19">&#9670;&#160;</a></span>className()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::className </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -506,6 +604,26 @@ Pourquoi des propriétés nommées plutôt que la table brute</h2>
 
 </div>
 </div>
+<a id="a4aff0f9534911ff47b80c41a366203a1" name="a4aff0f9534911ff47b80c41a366203a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aff0f9534911ff47b80c41a366203a1">&#9670;&#160;</a></span>loadCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CharacterSheetModel::loadCharacter </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charge la fiche du personnage <code class="param">characterId</code> (<span class="tt">LOT-141</span>) : un membre du groupe de la partie, ou une fiche pré-tirée de <span class="tt">Rpg/characters/</span> ; vide, le personnage joué. </p>
+<p>Ce que la partie en a fait s'applique (<span class="tt"><a class="el" href="namespacehmi.html#aaf18529e7061f72c5c481ea2f30b6909" title="Charge le personnage joué (playedCharacterFile) et ses catalogues, en journalisant chaque manque.">loadDemonstrationState</a></span>) : niveau donné, points de vie et lancers restants. Un identifiant inconnu charge le personnage joué, et le journal le dit. </p>
+
+</div>
+</div>
 <a id="a99112a943925ad31447c8ac791110d91" name="a99112a943925ad31447c8ac791110d91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a99112a943925ad31447c8ac791110d91">&#9670;&#160;</a></span>loadDemonstrationCharacter()</h2>
 
@@ -524,6 +642,25 @@ Pourquoi des propriétés nommées plutôt que la table brute</h2>
 <p>Charge le personnage de <b>démonstration</b> livré en donnée. </p>
 <p>ÉCHAFAUDAGE, et il est écrit comme tel : il n'existe encore ni groupe ni sauvegarde d'où tirer un personnage réel, et un écran de fiche qui n'affiche aucune fiche ne se relit pas. Le jour où une partie en fournira un, c'est <b>la source</b> qui change ici — pas l'écran, qui ne consomme que des valeurs nommées, d'où qu'elles viennent.</p>
 <p>Une donnée manquante n'interrompt rien : l'erreur est journalisée en nommant son fichier (<span class="tt">EX-CNT-010</span>) et la fiche s'affiche partielle, avec ses tirets. Une fiche partielle vaut mieux qu'un écran vide. </p>
+
+</div>
+</div>
+<a id="a7e92fc832fc3d1d4404ad2c9370ff56c" name="a7e92fc832fc3d1d4404ad2c9370ff56c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e92fc832fc3d1d4404ad2c9370ff56c">&#9670;&#160;</a></span>loadShownCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CharacterSheetModel::loadShownCharacter </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charge le personnage que la partie désigne pour la fiche (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#a0ad4e28927f20dae954a340e4cb06f1e" title="Le personnage dont la fiche s&#39;ouvre (LOT-141) : celui que l&#39;écran de groupe a désigné,...">WorldModel::shownCharacterId</a></span>), sinon le personnage joué. </p>
 
 </div>
 </div>
@@ -677,6 +814,56 @@ Pourquoi des propriétés nommées plutôt que la table brute</h2>
 
 </div>
 </div>
+<a id="aa72f14dd796c417c2d6f702fb5f55aaa" name="aa72f14dd796c417c2d6f702fb5f55aaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa72f14dd796c417c2d6f702fb5f55aaa">&#9670;&#160;</a></span>spells()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::CharacterSheetModel::spells </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad36b5778578251cf28df0a4146b15a78" name="ad36b5778578251cf28df0a4146b15a78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad36b5778578251cf28df0a4146b15a78">&#9670;&#160;</a></span>upcomingCapacities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::CharacterSheetModel::upcomingCapacities </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aae2fcfc96e7821e1817383670102717d" name="aae2fcfc96e7821e1817383670102717d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aae2fcfc96e7821e1817383670102717d">&#9670;&#160;</a></span>value()</h2>
 
@@ -751,6 +938,50 @@ Pourquoi des propriétés nommées plutôt que la table brute</h2>
 
 </div>
 </div>
+<a id="a8db9aaaf00b244ebf360d3a5bf9de651" name="a8db9aaaf00b244ebf360d3a5bf9de651"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8db9aaaf00b244ebf360d3a5bf9de651">&#9670;&#160;</a></span>_capacities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::CharacterSheetModel::_capacities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a494eacfda12d7e3f6d280e12ee8ae8d6" name="a494eacfda12d7e3f6d280e12ee8ae8d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a494eacfda12d7e3f6d280e12ee8ae8d6">&#9670;&#160;</a></span>_characterId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::_characterId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac0354a3af50d52b4c918bd90fba10147" name="ac0354a3af50d52b4c918bd90fba10147"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac0354a3af50d52b4c918bd90fba10147">&#9670;&#160;</a></span>_skills</h2>
 
@@ -762,6 +993,50 @@ Pourquoi des propriétés nommées plutôt que la table brute</h2>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classhmi_1_1SheetRowModel.html">SheetRowModel</a> hmi::CharacterSheetModel::_skills</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a447db49fdb86d1eb6e0e251164406967" name="a447db49fdb86d1eb6e0e251164406967"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a447db49fdb86d1eb6e0e251164406967">&#9670;&#160;</a></span>_spells</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::CharacterSheetModel::_spells</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a63b6e0148aed32494a9f100116ed22e7" name="a63b6e0148aed32494a9f100116ed22e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63b6e0148aed32494a9f100116ed22e7">&#9670;&#160;</a></span>_upcoming</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::CharacterSheetModel::_upcoming</td>
         </tr>
       </table>
   </td>
@@ -861,6 +1136,78 @@ Pourquoi des propriétés nommées plutôt que la table brute</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d77945aa4fd82673a7d64e8378283ed" name="a8d77945aa4fd82673a7d64e8378283ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d77945aa4fd82673a7d64e8378283ed">&#9670;&#160;</a></span>capacities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::CharacterSheetModel::capacities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les capacités de classe <b>acquises</b> (<span class="tt">LOT-141</span>, onglet Classe) : <span class="tt">id</span>, <span class="tt"><a class="el" href="#a0d8ace9a0253c87877068faa54f5ccae" title="L&#39;identité de la fiche (sheet.name, sheet.species…), déjà mise en forme ; un tiret cadratin tant que ...">name</a></span>, <span class="tt">iconKey</span> (<span class="tt">ui/icon/capacity/&lt;base&gt;</span>), <span class="tt">text</span> (la page du livre et sa règle), <span class="tt"><a class="el" href="#a00211f22b831a62542f5df2a8baf68e3">level</a></span> (le niveau où la table la donne), <span class="tt">narrative</span> (déclarée sans mécanisme joué). </p>
+
+</div>
+</div>
+<a id="af49cc2a6ccf2ae0cc8623999e651293e" name="af49cc2a6ccf2ae0cc8623999e651293e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af49cc2a6ccf2ae0cc8623999e651293e">&#9670;&#160;</a></span>characterId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::characterId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le personnage chargé (<span class="tt">heros-brawler</span>…), vide tant que rien ne l'est (<span class="tt">LOT-141</span>). </p>
+
+</div>
+</div>
+<a id="a778a4c2ac352f15933a6c3d8334472b6" name="a778a4c2ac352f15933a6c3d8334472b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a778a4c2ac352f15933a6c3d8334472b6">&#9670;&#160;</a></span>className</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::CharacterSheetModel::className</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La classe, déjà mise en forme (<span class="tt">sheet.class</span>). </p>
 
 </div>
 </div>
@@ -1129,6 +1476,54 @@ Pourquoi des propriétés nommées plutôt que la table brute</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa1ec62023a3129fd6e33bc258b2528e7" name="aa1ec62023a3129fd6e33bc258b2528e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1ec62023a3129fd6e33bc258b2528e7">&#9670;&#160;</a></span>spells</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::CharacterSheetModel::spells</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les sorts connus (<span class="tt">LOT-141</span>, onglet Sorts) : <span class="tt">id</span>, <span class="tt"><a class="el" href="#a0d8ace9a0253c87877068faa54f5ccae" title="L&#39;identité de la fiche (sheet.name, sheet.species…), déjà mise en forme ; un tiret cadratin tant que ...">name</a></span>, <span class="tt">iconKey</span> (<span class="tt">ui/icon/spell/&lt;id&gt;</span>), <span class="tt"><a class="el" href="#a00211f22b831a62542f5df2a8baf68e3">level</a></span> (0 : mineur), <span class="tt">perDay</span>, <span class="tt">remaining</span>, <span class="tt">usesText</span> (« 1 / 2 », « à volonté »), <span class="tt">details</span> (portée, durée, dés, une caractéristique par ligne), <span class="tt">school</span>. </p>
+
+</div>
+</div>
+<a id="a488de9fd45b248d302d4dcebc5fdd697" name="a488de9fd45b248d302d4dcebc5fdd697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a488de9fd45b248d302d4dcebc5fdd697">&#9670;&#160;</a></span>upcomingCapacities</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantList hmi::CharacterSheetModel::upcomingCapacities</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les capacités <b>à venir</b>, mêmes rôles, pour les quatre prochains niveaux de la table. </p>
 
 </div>
 </div>

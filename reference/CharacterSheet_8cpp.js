@@ -4,6 +4,7 @@ var CharacterSheet_8cpp =
     [ "core::buildCharacterSheet", "namespacecore.html#aeac7b2445b4d3a800b98a777f72461ae", null ],
     [ "core::gainExperience", "namespacecore.html#a7cfff9a8cfc89ebc9d4074d1db13eacd", null ],
     [ "core::isProficientWith", "namespacecore.html#a0ae5e9d1a2103328d580bdb08b2f2910", null ],
+    [ "core::levelUpTo", "namespacecore.html#a0a201eb28d48b7c290055b13fb49fab4", null ],
     [ "core::loadCharacterCreationRules", "namespacecore.html#aed30bfa90cc61678be84164457f76dab", null ],
     [ "core::loadCharacterSheet", "namespacecore.html#a79d320ec991d82d7cb18080669d551a5", null ],
     [ "core::loadExperienceTable", "namespacecore.html#a00be15bd9376cf46d81dedf0bc0f7d54", null ],

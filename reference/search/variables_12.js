@@ -13,7 +13,7 @@ var searchData=
   ['reach_10',['reach',['../structcore_1_1AttackProfile.html#ab7f66c284180a6ae9cce77e10129a643',1,'core::AttackProfile::reach'],['../structcore_1_1CreatureAction.html#a5af039def3d9ab141b9314d23697a52b',1,'core::CreatureAction::reach']]],
   ['reachedsteps_11',['reachedSteps',['../structcore_1_1QuestProgress.html#a0e35013a68e4c09b0c765c89f355fd14',1,'core::QuestProgress']]],
   ['reaction_5fresource_12',['REACTION_RESOURCE',['../namespacecore.html#a7397c26065a22000f4167d104a2dc69c',1,'core']]],
-  ['reason_13',['reason',['../structcore_1_1ProvisionalStatus.html#a6b9070ea167983ea809524612ce68d0e',1,'core::ProvisionalStatus']]],
+  ['reason_13',['reason',['../structcore_1_1ExtraDamagePreview.html#aeeb9c6f565069ee962b6e45ff5bec250',1,'core::ExtraDamagePreview::reason'],['../structcore_1_1ProvisionalStatus.html#a6b9070ea167983ea809524612ce68d0e',1,'core::ProvisionalStatus::reason']]],
   ['references_14',['references',['../structhmi_1_1ContentContext.html#acc23dbc064c07ab347a3d88de82ca8a6',1,'hmi::ContentContext']]],
   ['refusal_15',['refusal',['../structhmi_1_1BrushResult.html#a60727a5e305558b0e26a4ce8409c4f1a',1,'hmi::BrushResult::refusal'],['../structhmi_1_1StampPasteResult.html#a4fbabd0dcd5f8b021b8cb01c25a2b516',1,'hmi::StampPasteResult::refusal']]],
   ['refusals_16',['refusals',['../structcore_1_1ArenaMount.html#a37880f1b5e5d0689f5b60511b490ed93',1,'core::ArenaMount::refusals'],['../structcore_1_1EncounterMount.html#af4bc940f51a11ebfe1639e40af665997',1,'core::EncounterMount::refusals']]],

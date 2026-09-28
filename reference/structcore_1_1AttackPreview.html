@@ -150,6 +150,8 @@ $(function(){initNavTree('structcore_1_1AttackPreview.html','','structcore_1_1At
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ad3369b9b55e06ad35d520ddee20ff622" id="r_ad3369b9b55e06ad35d520ddee20ff622"><td class="memItemLeft">long long&#160;</td><td class="memItemRight"><a class="el" href="#ad3369b9b55e06ad35d520ddee20ff622">expectedTenths</a> () const noexcept</td></tr>
+<tr class="memdesc:ad3369b9b55e06ad35d520ddee20ff622"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'espérance en dixièmes de point, arrondie au plus proche (« 6,1 »).  <br /></td></tr>
 <tr class="memitem:a430f22202d91668413229aeb4b661e77" id="r_a430f22202d91668413229aeb4b661e77"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a430f22202d91668413229aeb4b661e77">hitPercent</a> () const noexcept</td></tr>
 <tr class="memdesc:a430f22202d91668413229aeb4b661e77"><td class="mdescLeft">&#160;</td><td class="mdescRight">La chance en pour cent, arrondie au plus proche.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -162,6 +164,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a5c8415dcdbe3157e20b11a3aaaabe2e7" id="r_a5c8415dcdbe3157e20b11a3aaaabe2e7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5c8415dcdbe3157e20b11a3aaaabe2e7">armorClass</a> = 0</td></tr>
 <tr class="memdesc:a5c8415dcdbe3157e20b11a3aaaabe2e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">La CA visée, abri compris.  <br /></td></tr>
 <tr class="memitem:a95e4e708dfa8d9be4a5ace384f842c25" id="r_a95e4e708dfa8d9be4a5ace384f842c25"><td class="memItemLeft"><a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999">Cover</a>&#160;</td><td class="memItemRight"><a class="el" href="#a95e4e708dfa8d9be4a5ace384f842c25">cover</a> = <a class="el" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">Cover::None</a></td></tr>
+<tr class="memitem:a3c225958e11fea40309d968a7fd74626" id="r_a3c225958e11fea40309d968a7fd74626"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3c225958e11fea40309d968a7fd74626">attackBonus</a> = 0</td></tr>
+<tr class="memdesc:a3c225958e11fea40309d968a7fd74626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bonus d'attaque : celui du profil, plus ce que les capacités y ajoutent.  <br /></td></tr>
+<tr class="memitem:ae5eafdff849318d96c984c9bca6ffd9f" id="r_ae5eafdff849318d96c984c9bca6ffd9f"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1Modifier.html">Modifier</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae5eafdff849318d96c984c9bca6ffd9f">capacityModifiers</a></td></tr>
+<tr class="memdesc:ae5eafdff849318d96c984c9bca6ffd9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bonus au jet que les capacités de classe donnent, à leur nom (<span class="tt">LOT-131</span>).  <br /></td></tr>
+<tr class="memitem:ae34794f402838f822141482bb2a105cd" id="r_ae34794f402838f822141482bb2a105cd"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ExtraDamagePreview.html">ExtraDamagePreview</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae34794f402838f822141482bb2a105cd">extraDamage</a></td></tr>
+<tr class="memdesc:ae34794f402838f822141482bb2a105cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dés que les capacités ajouteraient à la touche, et s'ils joueront (<span class="tt">LOT-140</span>).  <br /></td></tr>
 <tr class="memitem:a51ffd26eb40dee217746d53bbf8d01ef" id="r_a51ffd26eb40dee217746d53bbf8d01ef"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a51ffd26eb40dee217746d53bbf8d01ef">requiredRoll</a> = 0</td></tr>
 <tr class="memdesc:a51ffd26eb40dee217746d53bbf8d01ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le jet requis du <em>Guide du Maître</em> : la CA visée moins le bonus d'attaque.  <br /></td></tr>
 <tr class="memitem:a06a9af404fb5a101cab8548476a13033" id="r_a06a9af404fb5a101cab8548476a13033"><td class="memItemLeft"><a class="el" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9">RollStance</a>&#160;</td><td class="memItemRight"><a class="el" href="#a06a9af404fb5a101cab8548476a13033">stance</a> = <a class="el" href="namespacecore.html#aff494cc4070ea4489c3d5ee57178f7c9a960b44c579bc2f6818d2daaf9e4c16f0">RollStance::Normal</a></td></tr>
@@ -170,11 +178,38 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a391016c0310e8098c51376985908eb78" id="r_a391016c0310e8098c51376985908eb78"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a391016c0310e8098c51376985908eb78">hitChance</a> = 0</td></tr>
 <tr class="memdesc:a391016c0310e8098c51376985908eb78"><td class="mdescLeft">&#160;</td><td class="mdescRight">La chance de toucher, en quatre-centièmes (<span class="tt"><a class="el" href="namespacecore.html#afcdc54b3ea46877a04d40a7840bffe57" title="Une chance, en quatre-centièmes : 400 est la certitude.">core::CHANCE_SCALE</a></span>).  <br /></td></tr>
 <tr class="memitem:add5a42d183ddc7d4ae467c83f4c0867f" id="r_add5a42d183ddc7d4ae467c83f4c0867f"><td class="memItemLeft">long long&#160;</td><td class="memItemRight"><a class="el" href="#add5a42d183ddc7d4ae467c83f4c0867f">expectedDamage</a> = 0</td></tr>
-<tr class="memdesc:add5a42d183ddc7d4ae467c83f4c0867f"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'espérance de dégâts, en huit-centièmes de point (<span class="tt"><a class="el" href="namespacecore.html#acbf44083989292fcedfb7dfaad861317" title="L&#39;espérance de dégâts d&#39;une attaque, en huit-centièmes de point de dégât.">core::expectedDamage</a></span>).  <br /></td></tr>
+<tr class="memdesc:add5a42d183ddc7d4ae467c83f4c0867f"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'espérance de dégâts, en huit-centièmes de point (<span class="tt"><a class="el" href="namespacecore.html#acbf44083989292fcedfb7dfaad861317" title="L&#39;espérance de dégâts d&#39;une attaque, en huit-centièmes de point de dégât.">core::expectedDamage</a></span>), les dés des capacités qui jouent compris.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une attaque telle qu'elle serait jetée. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="ad3369b9b55e06ad35d520ddee20ff622" name="ad3369b9b55e06ad35d520ddee20ff622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3369b9b55e06ad35d520ddee20ff622">&#9670;&#160;</a></span>expectedTenths()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">long long core::AttackPreview::expectedTenths </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'espérance en dixièmes de point, arrondie au plus proche (« 6,1 »). </p>
+
+</div>
+</div>
 <a id="a430f22202d91668413229aeb4b661e77" name="a430f22202d91668413229aeb4b661e77"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a430f22202d91668413229aeb4b661e77">&#9670;&#160;</a></span>hitPercent()</h2>
 
@@ -233,6 +268,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3c225958e11fea40309d968a7fd74626" name="a3c225958e11fea40309d968a7fd74626"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c225958e11fea40309d968a7fd74626">&#9670;&#160;</a></span>attackBonus</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::AttackPreview::attackBonus = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le bonus d'attaque : celui du profil, plus ce que les capacités y ajoutent. </p>
+
+</div>
+</div>
 <a id="a89babab33e2105dbccd95643f861be8f" name="a89babab33e2105dbccd95643f861be8f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89babab33e2105dbccd95643f861be8f">&#9670;&#160;</a></span>attackIndex</h2>
 
@@ -244,6 +295,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae5eafdff849318d96c984c9bca6ffd9f" name="ae5eafdff849318d96c984c9bca6ffd9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5eafdff849318d96c984c9bca6ffd9f">&#9670;&#160;</a></span>capacityModifiers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1Modifier.html">Modifier</a>&gt; core::AttackPreview::capacityModifiers</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le bonus au jet que les capacités de classe donnent, à leur nom (<span class="tt">LOT-131</span>). </p>
 
 </div>
 </div>
@@ -303,7 +370,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>L'espérance de dégâts, en huit-centièmes de point (<span class="tt"><a class="el" href="namespacecore.html#acbf44083989292fcedfb7dfaad861317" title="L&#39;espérance de dégâts d&#39;une attaque, en huit-centièmes de point de dégât.">core::expectedDamage</a></span>). </p>
+<p>L'espérance de dégâts, en huit-centièmes de point (<span class="tt"><a class="el" href="namespacecore.html#acbf44083989292fcedfb7dfaad861317" title="L&#39;espérance de dégâts d&#39;une attaque, en huit-centièmes de point de dégât.">core::expectedDamage</a></span>), les dés des capacités qui jouent compris. </p>
+
+</div>
+</div>
+<a id="ae34794f402838f822141482bb2a105cd" name="ae34794f402838f822141482bb2a105cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae34794f402838f822141482bb2a105cd">&#9670;&#160;</a></span>extraDamage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1ExtraDamagePreview.html">ExtraDamagePreview</a>&gt; core::AttackPreview::extraDamage</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les dés que les capacités ajouteraient à la touche, et s'ils joueront (<span class="tt">LOT-140</span>). </p>
 
 </div>
 </div>

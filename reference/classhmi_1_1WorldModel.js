@@ -37,6 +37,7 @@ var classhmi_1_1WorldModel =
     [ "leaderPortrait", "classhmi_1_1WorldModel.html#aec6a2c1fa8b5e943b682950df7ff87c8", null ],
     [ "leaderSheetFile", "classhmi_1_1WorldModel.html#adc69a4b8f62eaa2b53a6fc40f9be55ee", null ],
     [ "ledger", "classhmi_1_1WorldModel.html#ae2177fa3c49dfb58338f5bc8a4de20d7", null ],
+    [ "levelUp", "classhmi_1_1WorldModel.html#a524b67a8ad4f0174c40384c00c6a34a3", null ],
     [ "loaded", "classhmi_1_1WorldModel.html#a648dd501d5739db825155c82b1961194", null ],
     [ "mapEntered", "classhmi_1_1WorldModel.html#add0ae7c6e65b31e7fd64dd11321c73a9", null ],
     [ "mapId", "classhmi_1_1WorldModel.html#a95fe288ccddfe13ab1b82d943ee1ace6", null ],
@@ -74,6 +75,8 @@ var classhmi_1_1WorldModel =
     [ "setStartCell", "classhmi_1_1WorldModel.html#ae546c1db5e612db7df1816cfbffbe7fb", null ],
     [ "setStartFlags", "classhmi_1_1WorldModel.html#aa6c9dd581496acd75d2c0ecb94b5aa44", null ],
     [ "setStartOverride", "classhmi_1_1WorldModel.html#a003fba20061dd2037731373390a8962d", null ],
+    [ "showCharacter", "classhmi_1_1WorldModel.html#a79449ed4e4b5d4cc3bb5da40b59e54c3", null ],
+    [ "shownCharacterId", "classhmi_1_1WorldModel.html#ae9e71d1b7f29064c22dc63db94c023b1", null ],
     [ "showsCombat", "classhmi_1_1WorldModel.html#a1a6b7f38925d05ecafe2c1ad9771871d", null ],
     [ "snapshot", "classhmi_1_1WorldModel.html#accf15fd100d418948ceff091692180f0", null ],
     [ "startNewGame", "classhmi_1_1WorldModel.html#a2ed37cbcb0f13d16f308389049fe97d7", null ],
@@ -96,6 +99,7 @@ var classhmi_1_1WorldModel =
     [ "_party", "classhmi_1_1WorldModel.html#a183c0a674260f7b16e971a6dbaf825fb", null ],
     [ "_play", "classhmi_1_1WorldModel.html#a4de8904df65649a8d0b20e2c44304a1a", null ],
     [ "_sceneRevision", "classhmi_1_1WorldModel.html#aa9a833a6634a208feed602de1352ea34", null ],
+    [ "_shownCharacterId", "classhmi_1_1WorldModel.html#a5bdd1d3a56e40b64592c4972c79100d6", null ],
     [ "_startArrivalOverride", "classhmi_1_1WorldModel.html#aa23f8ac54fa6c1029f8ba9fd4e3def64", null ],
     [ "_startCell", "classhmi_1_1WorldModel.html#a3b20618e566086e6244452a635e050db", null ],
     [ "_startFlags", "classhmi_1_1WorldModel.html#a4ef356b5ee7c5b34080f460a048b7fa4", null ],
@@ -122,6 +126,7 @@ var classhmi_1_1WorldModel =
     [ "partyCandidates", "classhmi_1_1WorldModel.html#a660029f33ac497bf4841f58788b8d1dd", null ],
     [ "partyMembers", "classhmi_1_1WorldModel.html#a0ed9e9775cda8e947b02bad5fc9bf4b8", null ],
     [ "rows", "classhmi_1_1WorldModel.html#aee59c6bd784f182d94ce8750ebe003c4", null ],
+    [ "shownCharacterId", "classhmi_1_1WorldModel.html#a0ad4e28927f20dae954a340e4cb06f1e", null ],
     [ "status", "classhmi_1_1WorldModel.html#ad35b39b91404a26834204600e488b698", null ],
     [ "visitedDistricts", "classhmi_1_1WorldModel.html#abbd27d6c2cb84fd8d7f57fd6f4c0b145", null ]
 ];

@@ -512,6 +512,10 @@ public:
 <span style = "background-color:#dfd">    [[nodiscard]] ScopedCounters&amp; counters() noexcept {
         return _counters;
     }</span>
+    /// @brief Les mÃªmes compteurs, en lecture : ce que la prÃ©visualisation consulte.
+<span style = "background-color:#dfd">    [[nodiscard]] const ScopedCounters&amp; counters() const noexcept {
+        return _counters;
+    }</span>
 
     // --- Le tour -------------------------------------------------------------------------------
 

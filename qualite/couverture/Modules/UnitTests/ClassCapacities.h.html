@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>ClassCapacities.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Rpg/ClassCapacities.h
+ * @brief Les capacitÃ©s de classe comme **effets nommÃ©s** (`LOT-131`, `EX-RPG-024`).
+ *
+ * Une capacitÃ© n'est pas une fonction : c'est une liste d'effets que le moteur sait brancher sur
+ * les crochets du combat (`LOT-20`, `LOT-21`) â un bonus au jet d'attaque, une formule de classe
+ * d'armure sans armure, une rÃ©sistance, une vitesse, des dÃ©s de dÃ©gÃ¢ts en plus, l'immunitÃ© aux
+ * attaques d'opportunitÃ©. La table de progression d'une classe (`core::PlayableClass`) les dÃ©signe
+ * par identifiant ; ce fichier les charge (`core::loadCapacities`) et les **lit** : chaque fonction
+ * `â¦From` rÃ©pond Ã  une question du moteur â Â« quel bonus au jet ? Â», Â« quelle vitesse ? Â» â en
+ * nommant la capacitÃ© qui rÃ©pond, pour que le journal la cite (`EX-REG-003`).
+ *
+ * Aucun nom de capacitÃ© ni de classe n'est Ã©crit ici : une classe de test Ã  trois capacitÃ©s se
+ * charge et agit en combat sans une ligne de C++ qui la nomme â c'est le critÃ¨re du lot.
+ */
+
+#include &lt;cstdint&gt;
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;span&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Rpg/Ability.h"
+#include "Core/Rpg/Check.h"
+#include "Core/Rpg/Dice.h"
+#include "Core/Rpg/RpgEnums.h"
+
+namespace core {
+
+/// @brief Les genres d'effet que le moteur sait jouer. Un genre inconnu de la donnÃ©e est refusÃ©.
+enum class CapacityEffectKind : std::uint8_t {
+    /// Un bonus fixe aux jets d'attaque (*Hit the Mark*).
+    AttackBonus,
+    /// Un bonus fixe Ã  la classe d'armure, quelle que soit l'armure (*Holy Shield*).
+    ArmorClassBonus,
+    /// Sans armure, la CA se calcule autrement : une base et des modificateurs (*Tough as Nails*,
+    /// *Arcane Protection*).
+    UnarmoredArmorClass,
+    /// RÃ©sistance Ã  des types de dÃ©gÃ¢ts, ou Ã  tous.
+    DamageResistance,
+    /// Vitesse ajoutÃ©e, en mÃ¨tres (*Scoundrel's Agility*, *Powerful Legs*).
+    SpeedBonus,
+    /// Les dÃ©placements ne provoquent pas d'attaque d'opportunitÃ©.
+    NoOpportunityAttacks,
+    /// Des dÃ©s ajoutÃ©s aux dÃ©gÃ¢ts d'une attaque qui touche, du type de l'arme (*Sneak Attack*,
+    /// *Deadly*).
+    ExtraDamage,
+    /// Des attaques en plus quand le personnage prend l'action *Attaquer* (*Extra Attack*,
+    /// `LOT-132`).
+    ExtraAttack,
+    /// Un bonus fixe aux tests de caractÃ©ristique maÃ®trisÃ©s (*Adventurer's Aptitude*, `LOT-135`).
+    ProficientCheckBonus,
+};
+
+/// @brief Nom de donnÃ©e d'un genre d'effet (`attack-bonus`â¦), celui du schÃ©ma.
+[[nodiscard]] std::string_view capacityEffectKindName(CapacityEffectKind kind) noexcept;
+/// @brief Inverse de `capacityEffectKindName`. `std::nullopt` si le nom est inconnu â jamais
+/// devinÃ©.
+[[nodiscard]] std::optional&lt;CapacityEffectKind&gt; parseCapacityEffectKind(
+    std::string_view name) noexcept;
+
+/**
+ * @brief Un effet, tel que `capacity.schema.json` l'Ã©crit.
+ *
+ * Une seule structure pour tous les genres : chaque genre ne lit que ses champs, les autres
+ * restent Ã  leur valeur neutre. Un `std::variant` aurait Ã©tÃ© plus strict et bien plus verbeux pour
+ * sept genres Ã  deux champs.
+ */
+struct CapacityEffect {
+    CapacityEffectKind kind = CapacityEffectKind::AttackBonus;
+    /// `AttackBonus`, `ArmorClassBonus` : le bonus. `ExtraAttack` : les attaques ajoutÃ©es.
+    int value = 0;
+    /// `UnarmoredArmorClass` : la base de la formule.
+    int base = 0;
+    /// `UnarmoredArmorClass` : les modificateurs qui s'ajoutent Ã  la base.
+    std::vector&lt;Ability&gt; abilities;
+    /// `UnarmoredArmorClass` : le bouclier s'ajoute encore.
+    bool shieldAllowed = true;
+    /// `DamageResistance` : rÃ©sistance Ã  **tous** les types.
+    bool allDamageTypes = false;
+    /// `DamageResistance` : les types rÃ©sistÃ©s, si ce n'est pas tous.
+    std::vector&lt;DamageType&gt; damageTypes;
+    /// `SpeedBonus` : les mÃ¨tres ajoutÃ©s.
+    float meters = 0.0F;
+    /// `ExtraDamage` : les dÃ©s ajoutÃ©s.
+    Dice dice{};
+    /// `ExtraDamage` : une seule fois par tour.
+    bool oncePerTurn = false;
+    /// `ExtraDamage` : seulement contre une cible adjacente Ã  un alliÃ© de l'attaquant.
+    bool allyAdjacentToTarget = false;
+};
+
+/// @brief Une capacitÃ© de classe : ce que le livre nomme, et les effets qui le jouent.
+struct Capacity {
+    std::string id;
+    std::string name;
+    std::string source;
+    std::string text;
+    /// La capacitÃ© que celle-ci remplace Ã  un niveau supÃ©rieur, ou vide.
+    std::string replaces;
+    /// L'identifiant de la capacitÃ© dont l'icÃ´ne est reprise (`ui/icon/capacity/&lt;iconId&gt;`) : la
+    /// base d'une chaÃ®ne de `replaces`, posÃ©e par `resolveCapacities` ; vide, l'icÃ´ne est la
+    /// sienne.
+    std::string iconId;
+    std::vector&lt;CapacityEffect&gt; effects;
+    /// DÃ©clarÃ©e sans mÃ©canisme jouÃ© (`EX-RPG-051`, transposÃ© aux capacitÃ©s).
+<span style = "background-color:#dfd">    bool narrative = false;</span>
+    /// Les mÃ©canismes que la capacitÃ© exige et que le moteur n'honore pas encore (`EX-CNT-031`).
+    std::vector&lt;std::string&gt; requiredMechanisms;
+};
+
+/// @brief Le catalogue des capacitÃ©s, et ce qui n'a pas pu l'Ãªtre.
+struct CapacityCatalog {
+    std::vector&lt;Capacity&gt; capacities;
+    std::vector&lt;std::string&gt; errors;
+
+    /// @brief La capacitÃ© d'identifiant @p id, ou `nullptr` si elle est inconnue.
+    [[nodiscard]] const Capacity* find(std::string_view id) const;
+};
+
+/**
+ * @brief Charge les capacitÃ©s depuis leur dossier (`Source/Elements/Rpg/capacities`).
+ *
+ * Balaye le dossier, jamais une liste de noms. Un effet dont le genre est inconnu, ou auquel
+ * manque un champ que son genre exige (les dÃ©s d'un `extra-damage`, la base d'une formule de CA),
+ * est **refusÃ© avec la capacitÃ©** : une capacitÃ© jouÃ©e Ã  moitiÃ© tromperait plus qu'une capacitÃ©
+ * absente et nommÃ©e dans les erreurs (`EX-CNT-010`). Ne lÃ¨ve jamais (`EX-NFR-040`).
+ */
+[[nodiscard]] CapacityCatalog loadCapacities(const std::filesystem::path&amp; capacitiesDir);
+
+// --- Ce que des capacitÃ©s actives disent au moteur -------------------------------------------
+
+/// @brief Les modificateurs de jet d'attaque, un par capacitÃ© qui en donne, Ã  son nom.
+[[nodiscard]] std::vector&lt;Modifier&gt; attackModifiersFrom(std::span&lt;const Capacity&gt; capacities);
+
+/// @brief La somme des bonus fixes Ã  la classe d'armure.
+[[nodiscard]] int armorClassBonusFrom(std::span&lt;const Capacity&gt; capacities);
+
+/// @brief Une classe d'armure sans armure calculÃ©e par une capacitÃ©.
+struct UnarmoredArmorClass {
+    /// La base plus les modificateurs, **sans** le bouclier.
+    int armorClass = 0;
+    bool shieldAllowed = true;
+    /// La capacitÃ© qui la donne.
+    std::string source;
+};
+
+/**
+ * @brief La formule de CA sans armure des capacitÃ©s, si l'une en porte une.
+ *
+ * @param capacities Les capacitÃ©s actives de la fiche.
+ * @param abilityScores Les six valeurs de caractÃ©ristique, dans l'ordre de `core::Ability`.
+ * @return La meilleure formule si plusieurs capacitÃ©s en donnent (elles ne s'additionnent pas),
+ *         `std::nullopt` si aucune.
+ */
+[[nodiscard]] std::optional&lt;UnarmoredArmorClass&gt; unarmoredArmorClassFrom(
+    std::span&lt;const Capacity&gt; capacities, std::span&lt;const int, 6&gt; abilityScores);
+
+/// @brief La vitesse que les capacitÃ©s ajoutent, en mÃ¨tres.
+[[nodiscard]] float speedBonusFrom(std::span&lt;const Capacity&gt; capacities);
+
+/// @brief Le nom de la capacitÃ© qui soustrait aux attaques d'opportunitÃ©, ou vide.
+[[nodiscard]] std::optional&lt;std::string&gt; opportunityImmunityFrom(
+    std::span&lt;const Capacity&gt; capacities);
+
+/// @brief Une rÃ©sistance nommÃ©e : le type, et la capacitÃ© qui la donne.
+struct NamedResistance {
+    /// `std::nullopt` : tous les types.
+    std::optional&lt;DamageType&gt; type;
+    std::string source;
+};
+
+/// @brief Les rÃ©sistances que les capacitÃ©s donnent, chacune Ã  son nom.
+[[nodiscard]] std::vector&lt;NamedResistance&gt; resistancesFrom(std::span&lt;const Capacity&gt; capacities);
+
+/// @brief Des dÃ©s de dÃ©gÃ¢ts en plus, nommÃ©s, et leur cadence.
+struct NamedExtraDamage {
+    Dice dice;
+    bool oncePerTurn = false;
+    /// L'identifiant de la capacitÃ© : la clÃ© du compteur Â« une fois par tour Â».
+    std::string capacityId;
+    /// Son nom, pour le journal.
+    std::string source;
+    /// Seulement contre une cible adjacente Ã  un alliÃ© de l'attaquant (*Sneak Attack*).
+    bool allyAdjacentToTarget = false;
+};
+
+/// @brief Les dÃ©s que les capacitÃ©s ajoutent Ã  une attaque qui touche.
+[[nodiscard]] std::vector&lt;NamedExtraDamage&gt; extraDamageFrom(std::span&lt;const Capacity&gt; capacities);
+
+/// @brief Des attaques en plus Ã  l'action *Attaquer*, et la capacitÃ© qui les donne.
+struct NamedExtraAttacks {
+    /// Les attaques **ajoutÃ©es** Ã  la premiÃ¨re : 1 pour deux attaques par action.
+    int count = 0;
+    std::string source;
+};
+
+/// @brief La somme des bonus aux tests de caractÃ©ristique maÃ®trisÃ©s (`LOT-135`).
+[[nodiscard]] int proficientCheckBonusFrom(std::span&lt;const Capacity&gt; capacities);
+
+/**
+ * @brief Les attaques que les capacitÃ©s ajoutent Ã  l'action *Attaquer* (`LOT-132`).
+ *
+ * Deux capacitÃ©s qui en donnent ne s'additionnent pas : la plus gÃ©nÃ©reuse seule compte, comme le
+ * Manuel le dit des attaques supplÃ©mentaires de deux classes. `std::nullopt` si aucune n'en donne.
+ */
+[[nodiscard]] std::optional&lt;NamedExtraAttacks&gt; extraAttacksFrom(
+    std::span&lt;const Capacity&gt; capacities);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>
