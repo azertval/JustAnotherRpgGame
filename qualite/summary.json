@@ -1,7 +1,7 @@
 {
-  "generated": "2026-09-28 00:57 UTC",
+  "generated": "2026-09-28 05:33 UTC",
   "commit": "ef784e247",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36361614231",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36382346299",
   "coverage": {
     "percent": 91.53,
     "covered": 38794,
@@ -138,81 +138,81 @@
   },
   "benchmarks": {
     "suite": "Combat et niveaux (Release, windows-2022)",
-    "runs": 19,
-    "date": "2026-09-27 02:45 UTC",
-    "commit": "629144b7e",
+    "runs": 20,
+    "date": "2026-09-28 02:52 UTC",
+    "commit": "ef784e247",
     "benches": [
       {
         "name": "ReachableAreaDashing",
-        "value": 155210.7550644572,
+        "value": 156453.39285714447,
         "unit": "ns/iter",
-        "change_percent": -6.2
+        "change_percent": 0.8
       },
       {
         "name": "FindPathAcrossGrid",
-        "value": 210772.031249995,
+        "value": 213131.24999999822,
         "unit": "ns/iter",
-        "change_percent": -2.3
+        "change_percent": 1.1
       },
       {
         "name": "LineOfSightAcrossGrid",
-        "value": 57613.61909481491,
+        "value": 57993.925503798244,
         "unit": "ns/iter",
-        "change_percent": 0.2
+        "change_percent": 0.7
       },
       {
         "name": "CoverFromWithInterposed",
-        "value": 165945.10742786928,
+        "value": 161586.28348214497,
         "unit": "ns/iter",
-        "change_percent": -0.5
+        "change_percent": -2.6
       },
       {
         "name": "PlanTurnFourVersusFour",
-        "value": 1095483.6718750193,
+        "value": 1165261.8750000342,
         "unit": "ns/iter",
-        "change_percent": -1.8
+        "change_percent": 6.4
       },
       {
         "name": "LoadTestLevel",
-        "value": 2672354.4176706537,
+        "value": 2708514.406779655,
         "unit": "ns/iter",
-        "change_percent": 1.5
+        "change_percent": 1.4
       },
       {
         "name": "ComposeTestMap",
-        "value": 643.6427917620173,
+        "value": 639.5790846681848,
         "unit": "us/iter",
-        "change_percent": -6.2
+        "change_percent": -0.6
       },
       {
         "name": "ArenareaSnapshot",
-        "value": 0.0932980312060528,
-        "unit": "ms/iter",
-        "change_percent": -0.4
-      },
-      {
-        "name": "ArenareaComposeWholeMap",
-        "value": 0.13798175974287022,
-        "unit": "ms/iter",
-        "change_percent": 1.2
-      },
-      {
-        "name": "ArenareaTexturePaths",
-        "value": 0.07155049799774271,
+        "value": 0.09622556047605872,
         "unit": "ms/iter",
         "change_percent": 3.1
       },
       {
-        "name": "ArenareaBuildStaticScene",
-        "value": 0.13662224789072067,
+        "name": "ArenareaComposeWholeMap",
+        "value": 0.13752324107142858,
         "unit": "ms/iter",
-        "change_percent": -0.1
+        "change_percent": -0.3
+      },
+      {
+        "name": "ArenareaTexturePaths",
+        "value": 0.07034878707523137,
+        "unit": "ms/iter",
+        "change_percent": -1.7
+      },
+      {
+        "name": "ArenareaBuildStaticScene",
+        "value": 0.13700074107143326,
+        "unit": "ms/iter",
+        "change_percent": 0.3
       },
       {
         "name": "ArenareaFrame1080p",
-        "value": 3.603961074965347,
+        "value": 3.629231322115796,
         "unit": "us/iter",
-        "change_percent": 0.8
+        "change_percent": 0.7
       }
     ]
   },
