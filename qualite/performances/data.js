@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790563944563,
+  "lastUpdate": 1790649867218,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1408,6 +1408,100 @@ window.BENCHMARK_DATA = {
             "extra": "iterations: 389565\ncpu: 3.649904380526998 us\nthreads: 1"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "748b19c0c92dd41191e7ffed7aaa869a3f2da16c",
+          "message": "Merge pull request #161 from azertval/lot-141-fiche-et-ecran-de-groupe\n\nLOT-141 — Compétences et sorts alimentés, croix de retour, Options depuis le HUD, icônes d'action",
+          "timestamp": "2026-09-28T13:35:33Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/748b19c0c92dd41191e7ffed7aaa869a3f2da16c"
+        },
+        "date": 1790649859290,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 157233.59375000105,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 156947.54464285713 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 211275.50783517602,
+            "unit": "ns/iter",
+            "extra": "iterations: 6892\ncpu: 213109.4022054556 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 57176.371087626896,
+            "unit": "ns/iter",
+            "extra": "iterations: 24889\ncpu: 57756.438587327735 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 162401.5960711971,
+            "unit": "ns/iter",
+            "extra": "iterations: 8145\ncpu: 161141.80478821363 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1139653.9285714522,
+            "unit": "ns/iter",
+            "extra": "iterations: 1120\ncpu: 1130022.3214285714 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 2691119.0677965176,
+            "unit": "ns/iter",
+            "extra": "iterations: 472\ncpu: 2681408.8983050846 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 636.0051716247285,
+            "unit": "us/iter",
+            "extra": "iterations: 2185\ncpu: 636.441647597254 us\nthreads: 1"
+          },
+          {
+            "name": "ArenareaSnapshot",
+            "value": 0.09389882809883797,
+            "unit": "ms/iter",
+            "extra": "iterations: 14933\ncpu: 0.09417062880867877 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaComposeWholeMap",
+            "value": 0.1349865089285629,
+            "unit": "ms/iter",
+            "extra": "iterations: 11200\ncpu: 0.13532366071428573 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaTexturePaths",
+            "value": 0.06817517678255357,
+            "unit": "ms/iter",
+            "extra": "iterations: 20364\ncpu: 0.06828840109998036 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaBuildStaticScene",
+            "value": 0.13604189285714036,
+            "unit": "ms/iter",
+            "extra": "iterations: 11200\ncpu: 0.13671875 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaFrame1080p",
+            "value": 3.562178583804913,
+            "unit": "us/iter",
+            "extra": "iterations: 389565\ncpu: 3.569686701834097 us\nthreads: 1"
+          }
+        ]
       }
     ],
     "Peinture du canevas de l'editeur (Release, windows-2022)": [
@@ -1612,6 +1706,40 @@ window.BENCHMARK_DATA = {
             "value": 5.3081087121211805,
             "unit": "ms/iter",
             "extra": "iterations: 264\ncpu: 5.2675189393939394 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "748b19c0c92dd41191e7ffed7aaa869a3f2da16c",
+          "message": "Merge pull request #161 from azertval/lot-141-fiche-et-ecran-de-groupe\n\nLOT-141 — Compétences et sorts alimentés, croix de retour, Options depuis le HUD, icônes d'action",
+          "timestamp": "2026-09-28T13:35:33Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/748b19c0c92dd41191e7ffed7aaa869a3f2da16c"
+        },
+        "date": 1790649865205,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 13.158399999999801,
+            "unit": "ms/iter",
+            "extra": "iterations: 100\ncpu: 12.65625 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.163554044117672,
+            "unit": "ms/iter",
+            "extra": "iterations: 272\ncpu: 5.112591911764706 ms\nthreads: 1"
           }
         ]
       }
