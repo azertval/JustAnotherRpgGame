@@ -102,8 +102,8 @@ struct VerdictContext {
  *        (leur terrain, et chaque rencontre qui s'y joue face au groupe), les rencontres (leur
  *        budget, et leur déploiement).
  */
-[[nodiscard]] std::vector<EntityVerdict> entityVerdicts(const core::TileMap& collision,
-                                                        const std::vector<core::MapEntity>& entities,
-                                                        const VerdictContext& context);
+[[nodiscard]] std::vector<EntityVerdict> entityVerdicts(
+    const core::TileMap& collision, const std::vector<core::MapEntity>& entities,
+    const VerdictContext& context);
 
 }  // namespace hmi

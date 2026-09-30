@@ -57,10 +57,11 @@ using core::GridPosition;
     return core::MapEntity{
         .type = std::string{core::COMBAT_ZONE_ENTITY_TYPE},
         .position = origine,
-        .properties = {
-            {std::string{core::COMBAT_ZONE_NAME_PROPERTY}, std::string{"sable"}},
-            {std::string{core::COMBAT_ZONE_WIDTH_PROPERTY}, static_cast<std::int64_t>(largeur)},
-            {std::string{core::COMBAT_ZONE_HEIGHT_PROPERTY}, static_cast<std::int64_t>(hauteur)}},
+        .properties = {{std::string{core::COMBAT_ZONE_NAME_PROPERTY}, std::string{"sable"}},
+                       {std::string{core::COMBAT_ZONE_WIDTH_PROPERTY},
+                        static_cast<std::int64_t>(largeur)},
+                       {std::string{core::COMBAT_ZONE_HEIGHT_PROPERTY},
+                        static_cast<std::int64_t>(hauteur)}},
         .id = "e1"};
 }
 
@@ -74,9 +75,8 @@ using core::GridPosition;
 }
 
 [[nodiscard]] bool releve(const core::PartyDeployment& verdict, DeploymentIssueCode code) {
-    return std::ranges::any_of(verdict.issues, [code](const core::DeploymentIssue& issue) {
-        return issue.code == code;
-    });
+    return std::ranges::any_of(
+        verdict.issues, [code](const core::DeploymentIssue& issue) { return issue.code == code; });
 }
 
 }  // namespace

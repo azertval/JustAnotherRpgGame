@@ -207,8 +207,8 @@ void deployer(const TileMap& collision, const std::vector<MapEntity>& entities,
     }
     // Le front oppose au marqueur, puis ses plus proches voisines.
     if (verdict.partyPlaces.empty() && !candidates.empty()) {
-        const GridPosition front = *std::ranges::max_element(
-            candidates, [&verdict](GridPosition a, GridPosition b) {
+        const GridPosition front =
+            *std::ranges::max_element(candidates, [&verdict](GridPosition a, GridPosition b) {
                 const int da = distance(a, verdict.trigger);
                 const int db = distance(b, verdict.trigger);
                 return da != db ? da < db : avant(b, a);
@@ -231,8 +231,9 @@ void deployer(const TileMap& collision, const std::vector<MapEntity>& entities,
                                   .cell = rectangle.origin});
     }
     if (verdict.reachableCells < verdict.requiredCells) {
-        verdict.issues.push_back(
-            {.code = DeploymentIssueCode::ZoneTooNarrow, .creatureId = {}, .cell = rectangle.origin});
+        verdict.issues.push_back({.code = DeploymentIssueCode::ZoneTooNarrow,
+                                  .creatureId = {},
+                                  .cell = rectangle.origin});
     }
 }
 
