@@ -54,6 +54,11 @@
           "id": {
             "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
           },
+          "at": {
+            "type": "string",
+            "pattern": "^[^#]+#[^#]+$",
+            "description": "Ou l'etape se joue, une entite carte#id (LOT-144) : le mode Quetes de l'editeur y mene, LevelEditor --check refuse une entite absente. Le jeu ne le lit pas."
+          },
           "when": {
             "type": "array",
             "minItems": 1,

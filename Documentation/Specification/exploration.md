@@ -135,7 +135,8 @@ La sauvegarde n'aura que lui à écrire.
   les drapeaux qu'elle déclare, et des étapes dans l'ordre du récit, chacune atteinte dès que
   toutes ses conditions tiennent, une seule fois, et pouvant poser des drapeaux et clore la quête
   (réussite, échec). Elle ne porte aucun texte : titre et étapes ont des clés fabriquées, présentes
-  en français et en anglais.
+  en français et en anglais. Une étape peut nommer **où elle se joue** (`at`, une entité
+  `carte#id`), que le jeu ne lit pas et que l'éditeur suit (`EX-EDIT-100`).
 - **EX-EXP-008** — Les quêtes sont lues et validées **au démarrage**. Un
   fichier mal formé est refusé, toutes ses erreurs listées d'un coup, chacune nommant **le fichier
   et la ligne** ; une valeur de drapeau qu'aucune déclaration ne permet, dans une quête ou un

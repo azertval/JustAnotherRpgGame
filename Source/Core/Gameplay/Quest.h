@@ -68,6 +68,9 @@ enum class QuestOutcome {
  */
 struct QuestStep {
     std::string id;
+    /// Où elle se joue, s'il y a un lieu : une entité `carte#id` (`LOT-144`). Le jeu ne le lit
+    /// pas ; l'éditeur y mène, et `LevelEditor --check` refuse une entité qui n'existe pas.
+    std::string at;
     /// Toutes doivent tenir. Jamais vide.
     std::vector<FlagCondition> when;
     std::vector<QuestEffect> effects;
@@ -77,6 +80,12 @@ struct QuestStep {
 /// @brief Une quête : ses drapeaux et ses étapes, dans l'ordre du récit.
 struct Quest {
     std::string id;
+    /// Le nom de travail de l'auteur ; le joueur lit le titre du journal (`questTitleKey`).
+    std::string name;
+    /// D'où vient la quête (`original`, un livre…), comme pour un dialogue.
+    std::string source;
+    /// L'état de l'entrée (`common.schema.json`), s'il est dit : gardé tel quel à la réécriture.
+    std::string status;
     std::vector<QuestFlag> flags;
     std::vector<QuestStep> steps;
 
@@ -116,6 +125,18 @@ struct QuestLoad {
 
 /// @brief `readQuest` depuis un fichier.
 [[nodiscard]] QuestLoad loadQuest(const std::filesystem::path& path);
+
+/**
+ * @brief Le texte **canonique** d'une quête : ce que le mode Quêtes de l'éditeur écrit (`LOT-144`).
+ *
+ * Indenté de deux espaces, un objet par drapeau et par étape, et sur une ligne ce qui se lit d'un
+ * coup d'œil : les valeurs d'un drapeau, les conditions, les effets. Les champs vides ne s'écrivent
+ * pas (`name`, `source`, `status`, `at`, `effects`, `outcome`, `flags`), l'initiale d'un drapeau
+ * toujours.
+ * `readQuest` relit ce texte en la même quête ; une quête lue puis réécrite rend son fichier, octet
+ * pour octet, quand il était déjà sous cette forme.
+ */
+[[nodiscard]] std::string writeQuest(const Quest& quest);
 
 /// @brief Toutes les quêtes d'un dossier, et ce qui a été refusé.
 struct QuestCatalog {

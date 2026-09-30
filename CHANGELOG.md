@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-144 — Éditeur : le mode Quêtes.** Une quête s'écrit dans l'éditeur, à côté des cartes
+  qu'elle traverse : le panneau **Quests** liste les quêtes, en crée, en renomme, en retire, et
+  édite sans JSON les drapeaux déclarés, les étapes dans l'ordre du récit (conditions choisies
+  parmi les drapeaux et valeurs connus, effets, issue, lieu `carte#id`) et les textes du journal
+  dans chaque langue. **Save** écrit la forme canonique (`core::writeQuest`) relue par le jeu : ce
+  qu'il refuserait ne s'enregistre pas, l'erreur nommant l'étape. **Uses** montre qui déclare, lit
+  ou pose un drapeau et ses valeurs — entités, dialogues, quêtes — et y mène ; renommer un
+  drapeau, une valeur ou une quête est un plan montré puis écrit, les dialogues retouchés chaîne
+  par chaîne ; **Play this step** règle l'état de partie du canevas, de `P` et de `F5`. La quête
+  des pommes, saisie champ par champ, rend son fichier octet pour octet. Sans fenêtre :
+  `--who-cites flag`, `--rename-flag`, `--rename-flag-value`, `--rename-quest`, `--save-quest`,
+  `--quest-state`. Le champ facultatif `at` d'une étape est contrôlé par `--check`
+  (`EX-EDIT-100`). Les tests de renommage de cartes prennent un dossier temporaire propre à
+  chaque processus : sous `ctest -j`, ils se le partageaient.
+
 - **Planification — la version 0.0.2.5, passage à la 3D.** Le jeu garde sa vue isométrique et
   passe en 3D, entre la recette de la `0.0.2` et la `0.0.3` (décisions D-29 à D-35) : décor
   d'architecture en maillages, personnages **composés** — un corps parmi huit, une texture, des

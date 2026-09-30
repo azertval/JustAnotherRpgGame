@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <random>
 #include <sstream>
 #include <string>
 #include <string_view>
@@ -78,7 +79,7 @@ protected:
 
     static void SetUpTestSuite() {
         racine = std::filesystem::temp_directory_path() /
-                 ("jadg-map-refactor-" + std::to_string(std::rand()));
+                 ("jadg-map-refactor-" + std::to_string(std::random_device{}()));
         for (const char* dossier : DOSSIERS_LUS) {
             copier(racine, dossier);
         }

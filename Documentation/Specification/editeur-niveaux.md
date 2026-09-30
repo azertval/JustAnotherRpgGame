@@ -1,10 +1,10 @@
 # Éditeur de cartes
 
-> Statut : **livré**, un mode à venir. `LevelEditor` peint les couches d'une carte et ses étages,
-> pose et renseigne ses entités — jusqu'à ce qu'une quête y change (§21) —, puise ses pièces dans
-> l'arborescence des lieux (§22), montre le graphe du monde, avertit d'un terrain tactique
-> invalide, et joue la carte en cours avec le moteur du jeu, dans l'état de partie choisi. Le mode
-> Quêtes (§23, `LOT-144`) reste à faire. Dépend de [`niveaux.md`](niveaux.md).
+> Statut : **livré**. `LevelEditor` peint les couches d'une carte et ses étages, pose et renseigne
+> ses entités — jusqu'à ce qu'une quête y change (§21) —, puise ses pièces dans l'arborescence des
+> lieux (§22), écrit les quêtes à côté des cartes qu'elles traversent (§23), montre le graphe du
+> monde, avertit d'un terrain tactique invalide, et joue la carte en cours avec le moteur du jeu,
+> dans l'état de partie choisi. Dépend de [`niveaux.md`](niveaux.md).
 
 > **Refonte décidée le 18 septembre 2026.** L'éditeur est devenu un module à part, refait lot par
 > lot. Sa feuille de route propre a été **close le 21 septembre 2026** : ses quatorze lots
@@ -516,17 +516,24 @@ même.
   réécrit que les cartes qui changent vraiment. Renommer une pièce dans le manifeste de la ville
   sans ce suivi réécrirait chaque carte de chaque quartier, y compris celles qui la masquent.
 
-## 23. Le mode Quêtes (`LOT-144`, à venir)
+## 23. Le mode Quêtes (`LOT-144`)
 
 Décision D-24 : une quête ne se relit pas sans les cartes qu'elle traverse, et ses valeurs se
-tapaient à trois endroits. Les quêtes s'écriront donc **dans l'éditeur** ; les dialogues restent
+tapaient à trois endroits. Les quêtes s'écrivent donc **dans l'éditeur** ; les dialogues restent
 des données écrites à la main.
 
-- **EX-EDIT-100** — Un mode **Quêtes** de l'éditeur écrit `World/quests/<id>.json`
-  (`EX-EXP-007`) : les drapeaux déclarés et leurs valeurs, les étapes et leurs conditions, les
-  effets, l'issue, et les textes du journal dans les deux langues ; il montre, pour chaque drapeau,
-  **qui le pose et qui le lit** sur les cartes ouvertes. Une quête écrite là est **la même donnée**
-  que celle que le jeu lit : le mode n'a pas de format à lui. Porté par le `LOT-144`.
+- **EX-EDIT-100** — Un mode **Quêtes** de l'éditeur (le panneau *Quests*) écrit
+  `World/quests/<id>.json` (`EX-EXP-007`) : les drapeaux déclarés et leurs valeurs, les étapes et
+  leurs conditions, les effets, l'issue, le lieu d'une étape (`at`, une entité `carte#id`), et les
+  textes du journal dans chaque langue. Une quête écrite là est **la même donnée** que celle que le
+  jeu lit : le texte est canonique (`core::writeQuest`) et relu par `core::readQuest` avant d'être
+  écrit ; une quête que le jeu refuserait — une étape sans condition, une valeur non déclarée —
+  ne s'écrit pas, et l'erreur nomme l'étape. Le mode montre, pour chaque drapeau et chaque valeur,
+  **qui le déclare, le lit ou le pose** — entités des cartes, dialogues, quêtes — et y mène ;
+  renommer un drapeau déclaré, une valeur ou une quête est un **plan** montré puis écrit, les
+  dialogues récrits chaîne par chaîne ; **jouer une étape** règle l'état de partie (`EX-EDIT-096`)
+  sur des valeurs qui l'atteignent. `--check` refuse un lieu d'étape qui ne nomme aucune entité, et
+  renommer l'entité ou sa carte le récrit.
 
 ## 24. Des zones de combat pour un groupe (`LOT-143`)
 

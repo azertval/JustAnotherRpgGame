@@ -369,8 +369,21 @@ std::vector<MapCheckFinding> checkStoryContent(const std::filesystem::path& data
     }
     std::set<std::string, std::less<>> written = core::flagsWrittenBy(quests, dialogues);
     // Les zones des cartes posent aussi des drapeaux (LOT-126).
+    std::set<std::string, std::less<>> entities;
     for (const core::WorldMapNode& map : core::loadWorldGraph(dataRoot / "Levels").maps) {
         written.insert(map.triggerFlags.begin(), map.triggerFlags.end());
+        for (const std::string& id : map.entityIds) {
+            entities.insert(entityRef(map.mapId, id));
+        }
+    }
+    // Le lieu d'une étape (`at`, LOT-144) cite une entité comme une propriété `EntityRefs`.
+    for (const core::Quest& quest : quests.quests) {
+        for (const core::QuestStep& step : quest.steps) {
+            if (!step.at.empty() && !entities.contains(step.at)) {
+                error("quest '" + quest.id + "': step '" + step.id + "': at \"" + step.at +
+                      "\" names no entity");
+            }
+        }
     }
     for (const core::FlagRead& read : core::flagsReadBy(quests, dialogues)) {
         if (!written.contains(read.flag)) {

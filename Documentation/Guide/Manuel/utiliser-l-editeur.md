@@ -238,6 +238,40 @@ sans fenêtre : `--rename-map`, `--rename-arrival`, `--rename-id`, `--who-cites`
   déroulant filtre par état, et **Thumbnails** montre chaque carte en vignette — le même rendu que
   `--render`.
 
+## Écrire une quête : le panneau *Quests* (`LOT-144`)
+
+Une quête s'écrit à côté des cartes qu'elle traverse, sans ouvrir son JSON. Le panneau **Quests**
+est un onglet à côté de *Maps* et *Entities* ; on l'élargit ou on le détache à loisir.
+
+- **Choisir, créer, renommer, retirer.** La liste en tête nomme les quêtes de `World/quests`.
+  **New…** demande un identifiant (minuscules, chiffres, `-`, `_`) ; **Rename…** et **Delete…**
+  montrent d'abord tout ce qu'ils récrivent — le fichier, les clés du journal, le dialogue qui la
+  démarre — comme un renommage de carte.
+- **Onglet Quest.** Le nom de travail, la source, le **titre du journal** dans chaque langue, et
+  les **drapeaux déclarés** : un identifiant (`quete.pommes`), ses valeurs `a|b|c`, l'initiale.
+  Un drapeau déjà enregistré ne se renomme pas dans la case : **Rename flag…** et **Rename
+  value…** le suivent dans les cartes, les dialogues et les autres quêtes. **Uses** montre qui
+  s'en sert.
+- **Onglet Steps.** Les étapes dans l'ordre du récit (**Up**, **Down**). Pour l'étape choisie :
+  son identifiant, **où elle se joue** (une entité `carte#id`, facultatif ; **Go** y mène), ses
+  **conditions** — un drapeau, un test (`is set`, `is not set`, `equals`, `not equals`), des
+  valeurs `a|b` prises parmi celles que le drapeau déclare —, ses **effets** (`setFlag`,
+  `clearFlag`), l'**issue** qui clôt la quête et le **texte du journal** dans chaque langue.
+- **Play this step** règle l'état de partie de tous les onglets sur des valeurs qui atteignent
+  l'étape : sous « acceptee », le garde et l'enfant paraissent au parvis d'Arenarea. `P` et `F5`
+  partent de là, comme de *Map* › *World state…*.
+- **Onglet Uses.** Pour un drapeau, et au besoin une valeur : chaque entité, dialogue ou quête qui
+  le déclare, le lit ou le pose. Un double-clic ouvre la carte sur l'entité.
+- **Save** écrit la quête sous sa forme canonique et ses textes dans chaque catalogue. Ce que le
+  jeu refuserait — une étape sans condition, une valeur que le drapeau ne déclare pas, un drapeau
+  déjà déclaré ailleurs — ne s'enregistre pas, et le message nomme l'étape. **Revert** relit le
+  fichier.
+
+Sans fenêtre : `--who-cites flag`, `--rename-flag`, `--rename-flag-value`, `--rename-quest`,
+`--save-quest`, `--quest-state` (voir `Source/Editor/README.md`). Les dialogues, eux, restent
+écrits à la main (décision D-24) : le panneau montre ceux qui lisent ou posent un drapeau, il ne les
+édite pas.
+
 ## Ce qui ne se fait pas encore dans l'éditeur
 
 - Semer une forêt ou une prairie sans perdre les retouches : `LOT-168` du planning (`LOT-EDITOR-11`, qui pilotait un générateur, est abandonné).

@@ -120,12 +120,13 @@ void lireDrapeaux(const Json& racine, Quest& quete, Rapport& rapport) {
 }
 
 // Une valeur comparée ou posée doit être l'une de celles que la quête déclare pour ce drapeau.
-void verifierValeur(const Quest& quete, std::string_view drapeau, std::string_view valeur,
-                    const Pointeur& ou, Rapport& rapport) {
+// L'erreur nomme l'étape : c'est elle que l'auteur corrige (LOT-144).
+void verifierValeur(const Quest& quete, const QuestStep& etape, std::string_view drapeau,
+                    std::string_view valeur, const Pointeur& ou, Rapport& rapport) {
     const auto declaration = std::ranges::find(quete.flags, drapeau, &QuestFlag::id);
     if (declaration != quete.flags.end() && !contient(declaration->values, valeur)) {
-        rapport.signaler(ou, "valeur '" + std::string(valeur) + "' que le drapeau '" +
-                                 std::string(drapeau) + "' ne declare pas.");
+        rapport.signaler(ou, "etape '" + etape.id + "' : valeur '" + std::string(valeur) +
+                                 "' que le drapeau '" + std::string(drapeau) + "' ne declare pas.");
     }
 }
 
@@ -144,7 +145,7 @@ void lireConditions(const Json& brut, const Pointeur& ou, const Quest& quete, Qu
             continue;
         }
         for (const std::string& valeur : lue.condition->values) {
-            verifierValeur(quete, lue.condition->flag, valeur, ici, rapport);
+            verifierValeur(quete, etape, lue.condition->flag, valeur, ici, rapport);
         }
         etape.when.push_back(std::move(*lue.condition));
     }
@@ -186,7 +187,7 @@ void lireEffets(const Json& brut, const Pointeur& ou, const Quest& quete, QuestS
                 continue;
             }
             lu.value = valeur->get<std::string>();
-            verifierValeur(quete, lu.flag, lu.value, ici / "value", rapport);
+            verifierValeur(quete, etape, lu.flag, lu.value, ici / "value", rapport);
         } else if (lu.kind == QuestEffect::Kind::SetFlag &&
                    std::ranges::find(quete.flags, lu.flag, &QuestFlag::id) != quete.flags.end()) {
             rapport.signaler(ici, "etape '" + etape.id + "' : le drapeau '" + lu.flag +
@@ -216,6 +217,17 @@ void lireEtapes(const Json& racine, Quest& quete, Rapport& rapport) {
         if (!vus.insert(etape.id).second) {
             rapport.signaler(ou, "etape '" + etape.id + "' en double.");
         }
+        if (brut.contains("at")) {
+            // `carte#id` : une carte, puis une entité ; l'existence se contrôle au `--check`.
+            const auto lieu = texte(brut, "at");
+            const std::size_t diese = lieu ? lieu->find('#') : std::string::npos;
+            if (diese == std::string::npos || diese == 0 || diese + 1 == lieu->size()) {
+                rapport.signaler(ou / "at",
+                                 "etape '" + etape.id + "' : 'at' s'ecrit carte#entite.");
+            } else {
+                etape.at = *lieu;
+            }
+        }
         lireConditions(brut, ou, quete, etape, rapport);
         lireEffets(brut, ou, quete, etape, rapport);
         if (const auto issue = brut.find("outcome"); issue != brut.end()) {
@@ -241,6 +253,131 @@ void lireEtapes(const Json& racine, Quest& quete, Rapport& rapport) {
 }
 
 }  // namespace
+
+namespace {
+
+// Une chaîne JSON entre guillemets, UTF-8 gardé tel quel : `"l'arène"`, pas `"l'arène"`.
+[[nodiscard]] std::string chaine(std::string_view texte) {
+    return Json(std::string(texte)).dump();
+}
+
+// `["a", "b"]` : une liste de textes sur une ligne.
+[[nodiscard]] std::string listeEnLigne(const std::vector<std::string>& valeurs) {
+    std::string ligne = "[";
+    for (std::size_t i = 0; i < valeurs.size(); ++i) {
+        ligne += (i == 0 ? "" : ", ") + chaine(valeurs[i]);
+    }
+    return ligne + "]";
+}
+
+// `{ "flag": "f", "equals": "v" }` : la forme la plus courte que `readFlagCondition` relit.
+[[nodiscard]] std::string conditionEnLigne(const FlagCondition& condition) {
+    std::string ligne = "{ \"flag\": " + chaine(condition.flag);
+    const auto valeurs = [&condition] {
+        return condition.values.size() == 1 ? chaine(condition.values.front())
+                                            : listeEnLigne(condition.values);
+    };
+    switch (condition.test) {
+        case FlagTest::IsSet:
+            break;
+        case FlagTest::IsUnset:
+            ligne += ", \"isSet\": false";
+            break;
+        case FlagTest::Equals:
+            ligne += ", \"equals\": " + valeurs();
+            break;
+        case FlagTest::NotEquals:
+            ligne += ", \"notEquals\": " + valeurs();
+            break;
+    }
+    return ligne + " }";
+}
+
+[[nodiscard]] std::string effetEnLigne(const QuestEffect& effet) {
+    std::string ligne = "{ \"type\": ";
+    ligne += effet.kind == QuestEffect::Kind::SetFlag ? "\"setFlag\"" : "\"clearFlag\"";
+    ligne += ", \"flag\": " + chaine(effet.flag);
+    if (!effet.value.empty()) {
+        ligne += ", \"value\": " + chaine(effet.value);
+    }
+    return ligne + " }";
+}
+
+// `[{ … }, { … }]` : des objets en ligne.
+template <typename T, typename Ecrire>
+[[nodiscard]] std::string objetsEnLigne(const std::vector<T>& objets, Ecrire ecrire) {
+    std::string ligne = "[";
+    for (std::size_t i = 0; i < objets.size(); ++i) {
+        ligne += (i == 0 ? "" : ", ") + ecrire(objets[i]);
+    }
+    return ligne + "]";
+}
+
+// Les lignes `"clé": valeur` d'un objet, séparées par des virgules, à l'indentation donnée.
+[[nodiscard]] std::string champs(const std::vector<std::pair<std::string, std::string>>& lignes,
+                                 std::string_view marge) {
+    std::string texte;
+    for (std::size_t i = 0; i < lignes.size(); ++i) {
+        texte.append(marge).append(chaine(lignes[i].first)).append(": ").append(lignes[i].second);
+        texte += i + 1 < lignes.size() ? ",\n" : "\n";
+    }
+    return texte;
+}
+
+// `[` puis un objet multiligne par élément, puis `]` à la marge de la clé.
+template <typename T, typename Champs>
+[[nodiscard]] std::string objetsEnBloc(const std::vector<T>& objets, Champs champsDe) {
+    if (objets.empty()) {
+        return "[]";
+    }
+    std::string texte = "[\n";
+    for (std::size_t i = 0; i < objets.size(); ++i) {
+        texte += "    {\n" + champs(champsDe(objets[i]), "      ") + "    }";
+        texte += i + 1 < objets.size() ? ",\n" : "\n";
+    }
+    return texte + "  ]";
+}
+
+}  // namespace
+
+std::string writeQuest(const Quest& quest) {
+    std::vector<std::pair<std::string, std::string>> racine{{"id", chaine(quest.id)}};
+    if (!quest.name.empty()) {
+        racine.emplace_back("name", chaine(quest.name));
+    }
+    if (!quest.source.empty()) {
+        racine.emplace_back("source", chaine(quest.source));
+    }
+    if (!quest.status.empty()) {
+        racine.emplace_back("status", chaine(quest.status));
+    }
+    if (!quest.flags.empty()) {
+        racine.emplace_back("flags", objetsEnBloc(quest.flags, [](const QuestFlag& drapeau) {
+                                return std::vector<std::pair<std::string, std::string>>{
+                                    {"id", chaine(drapeau.id)},
+                                    {"values", listeEnLigne(drapeau.values)},
+                                    {"initial", chaine(drapeau.initial)}};
+                            }));
+    }
+    racine.emplace_back(
+        "steps", objetsEnBloc(quest.steps, [](const QuestStep& etape) {
+            std::vector<std::pair<std::string, std::string>> lignes{{"id", chaine(etape.id)}};
+            if (!etape.at.empty()) {
+                lignes.emplace_back("at", chaine(etape.at));
+            }
+            lignes.emplace_back("when", objetsEnLigne(etape.when, conditionEnLigne));
+            if (!etape.effects.empty()) {
+                lignes.emplace_back("effects", objetsEnLigne(etape.effects, effetEnLigne));
+            }
+            if (etape.outcome != QuestOutcome::None) {
+                lignes.emplace_back("outcome", etape.outcome == QuestOutcome::Success
+                                                   ? "\"success\""
+                                                   : "\"failure\"");
+            }
+            return lignes;
+        }));
+    return "{\n" + champs(racine, "  ") + "}\n";
+}
 
 const QuestStep* Quest::find(std::string_view stepId) const {
     const auto trouve = std::ranges::find(steps, stepId, &QuestStep::id);
@@ -283,6 +420,17 @@ QuestLoad readQuest(std::string_view json, std::string_view origin) {
         quete.id = *id;
     } else {
         rapport.signaler(Pointeur(), "champ 'id' absent ou vide.");
+    }
+    for (const auto& [champ, cible] :
+         {std::pair{"name", &quete.name}, {"source", &quete.source}, {"status", &quete.status}}) {
+        if (const auto trouve = racine.find(champ); trouve != racine.end()) {
+            if (trouve->is_string()) {
+                *cible = trouve->get<std::string>();
+            } else {
+                rapport.signaler(Pointeur(std::string("/") + champ),
+                                 std::string("'") + champ + "' doit etre un texte.");
+            }
+        }
     }
     lireDrapeaux(racine, quete, rapport);
     lireEtapes(racine, quete, rapport);
