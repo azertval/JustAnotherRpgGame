@@ -17,6 +17,8 @@ var NAVTREEINDEX0 =
 "AreaOfEffect_8cpp.html":[4,0,0,2,0,2],
 "AreaOfEffect_8h.html":[4,0,0,2,0,3],
 "AreaOfEffect_8h_source.html":[4,0,0,2,0,3],
+"ArenaSimulation_8h.html":[4,0,0,7,2,0],
+"ArenaSimulation_8h_source.html":[4,0,0,7,2,0],
 "Arena_8cpp.html":[4,0,0,2,0,4],
 "Arena_8h.html":[4,0,0,2,0,5],
 "Arena_8h_source.html":[4,0,0,2,0,5],
@@ -120,8 +122,8 @@ var NAVTREEINDEX0 =
 "CityView_8cpp.html":[4,0,0,3,0,8],
 "CityView_8h.html":[4,0,0,3,0,9],
 "CityView_8h_source.html":[4,0,0,3,0,9],
-"ClassArena_8h.html":[4,0,0,7,2,0],
-"ClassArena_8h_source.html":[4,0,0,7,2,0],
+"ClassArena_8h.html":[4,0,0,7,2,1],
+"ClassArena_8h_source.html":[4,0,0,7,2,1],
 "ClassCapacities_8cpp.html":[4,0,0,2,8,10],
 "ClassCapacities_8h.html":[4,0,0,2,8,11],
 "ClassCapacities_8h_source.html":[4,0,0,2,8,11],
@@ -181,7 +183,7 @@ var NAVTREEINDEX0 =
 "CreditsModel_8cpp.html":[4,0,0,6,7,10],
 "CreditsModel_8h.html":[4,0,0,6,7,11],
 "CreditsModel_8h_source.html":[4,0,0,6,7,11],
-"CrtReports_8cpp.html":[4,0,0,7,2,1],
+"CrtReports_8cpp.html":[4,0,0,7,2,2],
 "Damage_8cpp.html":[4,0,0,2,0,18],
 "Damage_8h.html":[4,0,0,2,0,19],
 "Damage_8h_source.html":[4,0,0,2,0,19],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "EditorViewport_8h_source.html":[4,0,0,3,1,7],
 "Editor_2Main_8cpp.html":[4,0,0,0,1,0],
 "Editor_2Main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627":[4,0,0,0,1,0,0],
-"EncounterDifficulty_8cpp.html":[4,0,0,2,0,22],
-"EncounterDifficulty_8h.html":[4,0,0,2,0,23],
-"EncounterDifficulty_8h_source.html":[4,0,0,2,0,23]
+"EncounterDifficulty_8cpp.html":[4,0,0,2,0,22]
 };

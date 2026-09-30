@@ -646,12 +646,15 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
     <filename>EnemyAi_8cpp.html</filename>
     <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
+    <includes id="AreaOfEffect_8h" name="AreaOfEffect.h" local="yes" import="no" module="no" objc="no">Core/Combat/AreaOfEffect.h</includes>
     <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
+    <includes id="CombatCounters_8h" name="CombatCounters.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatCounters.h</includes>
     <includes id="Flanking_8h" name="Flanking.h" local="yes" import="no" module="no" objc="no">Core/Combat/Flanking.h</includes>
     <includes id="LineOfSight_8h" name="LineOfSight.h" local="yes" import="no" module="no" objc="no">Core/Combat/LineOfSight.h</includes>
     <includes id="Pathfinding_8h" name="Pathfinding.h" local="yes" import="no" module="no" objc="no">Core/Combat/Pathfinding.h</includes>
     <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
     <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
+    <includes id="ClassCapacities_8h" name="ClassCapacities.h" local="yes" import="no" module="no" objc="no">Core/Rpg/ClassCapacities.h</includes>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -5922,6 +5925,7 @@
     <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
     <includes id="GameQuests_8h" name="GameQuests.h" local="yes" import="no" module="no" objc="no">HMI/Game/GameQuests.h</includes>
     <includes id="WorldPlay_8h" name="WorldPlay.h" local="yes" import="no" module="no" objc="no">HMI/Game/WorldPlay.h</includes>
+    <includes id="ArenaSimulation_8h" name="ArenaSimulation.h" local="yes" import="no" module="no" objc="no">Test/Support/ArenaSimulation.h</includes>
     <member kind="function">
       <type></type>
       <name>TEST</name>
@@ -5991,9 +5995,60 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_serie_de_l_arene.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/</path>
+    <filename>test__serie__de__l__arene_8cpp.html</filename>
+    <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
+    <includes id="EncounterDifficulty_8h" name="EncounterDifficulty.h" local="yes" import="no" module="no" objc="no">Core/Combat/EncounterDifficulty.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
+    <includes id="ArenaSimulation_8h" name="ArenaSimulation.h" local="yes" import="no" module="no" objc="no">Test/Support/ArenaSimulation.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__serie__de__l__arene_8cpp.html</anchorfile>
+      <anchor>adde0493fa22d036c2bac68a60bff74ad</anchor>
+      <arglist>(SerieDeLArene, LaSerieMonteEnDifficulte)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__serie__de__l__arene_8cpp.html</anchorfile>
+      <anchor>a31eabaa5597839826bd98fc5b89d8da1</anchor>
+      <arglist>(SerieDeLArene, ChaqueRencontreSeGagneDansSaBande)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__serie__de__l__arene_8cpp.html</anchorfile>
+      <anchor>ae852f09205bb74392c382c96342a0db6</anchor>
+      <arglist>(SerieDeLArene, MesureCompleteParComposition)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>QmlTestSetup.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Qml/</path>
     <filename>QmlTestSetup_8cpp.html</filename>
+  </compound>
+  <compound kind="file">
+    <name>ArenaSimulation.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Support/</path>
+    <filename>ArenaSimulation_8h.html</filename>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
+    <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
+    <includes id="MapEncounter_8h" name="MapEncounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/MapEncounter.h</includes>
+    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
+    <includes id="CharacterOptions_8h" name="CharacterOptions.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterOptions.h</includes>
+    <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="Inventory_8h" name="Inventory.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Inventory.h</includes>
+    <includes id="Skill_8h" name="Skill.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Skill.h</includes>
+    <includes id="CombatContestants_8h" name="CombatContestants.h" local="yes" import="no" module="no" objc="no">HMI/Game/CombatContestants.h</includes>
+    <class kind="struct">test_support::Heros</class>
+    <class kind="struct">test_support::ArenaContent</class>
+    <namespace>test_support</namespace>
   </compound>
   <compound kind="file">
     <name>ClassArena.h</name>
@@ -6050,6 +6105,7 @@
     <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
     <includes id="Check_8h" name="Check.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Check.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
     <includes id="Skill_8h" name="Skill.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Skill.h</includes>
     <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
@@ -6063,6 +6119,13 @@
       <anchorfile>test__demo__de__bout__en__bout_8cpp.html</anchorfile>
       <anchor>a6ffca2c5b86d11a2a18706311c718147</anchor>
       <arglist>(DemoDeBoutEnBout, LaFinParLaParole)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__demo__de__bout__en__bout_8cpp.html</anchorfile>
+      <anchor>a03478e3af24d2ece6bb1f045e2e61b36</anchor>
+      <arglist>(DemoDeBoutEnBout, LaDemoSeRejoueAvecLeMeneurChoisi)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -6130,6 +6193,57 @@
       <anchorfile>test__action__economy_8cpp.html</anchorfile>
       <anchor>aace7d695d15930f6e694ce4f8d41204f</anchor>
       <arglist>(CombatCountersTest, LesPorteesSontSeparees)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_ai_spells.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
+    <filename>test__ai__spells_8cpp.html</filename>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="EnemyAi_8h" name="EnemyAi.h" local="yes" import="no" module="no" objc="no">Core/Combat/EnemyAi.h</includes>
+    <includes id="Spell_8h" name="Spell.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Spell.h</includes>
+    <includes id="ClassArena_8h" name="ClassArena.h" local="yes" import="no" module="no" objc="no">Test/Support/ClassArena.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ai__spells_8cpp.html</anchorfile>
+      <anchor>ab86febbefacb9d89097c95668919886d</anchor>
+      <arglist>(AiSpellsTest, LePriestReleveUnAllieATerre)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ai__spells_8cpp.html</anchorfile>
+      <anchor>aa6ff706ecea3004e931b2cd5fc66ebc5</anchor>
+      <arglist>(AiSpellsTest, LePriestBenitUneFois)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ai__spells_8cpp.html</anchorfile>
+      <anchor>a8e8e0a9473bbefc13170adeb2cd2db9a</anchor>
+      <arglist>(AiSpellsTest, LeMageLanceUnSortQuiBlesse)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ai__spells_8cpp.html</anchorfile>
+      <anchor>a01fcb891f8b6c9c536dff0c90d3a899e</anchor>
+      <arglist>(AiSpellsTest, LaBouleDeFeuEpargneLesAllies)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ai__spells_8cpp.html</anchorfile>
+      <anchor>ab975ee6357db23d2d8168446431241f4</anchor>
+      <arglist>(AiSpellsTest, LeBrawlerFrappeDeuxFois)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ai__spells_8cpp.html</anchorfile>
+      <anchor>a8ba8ba4b789bf3e6446356bd19474c3d</anchor>
+      <arglist>(AiSpellsTest, LArmeSpirituelleFrappeParLActionBonus)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -10008,6 +10122,13 @@
       <anchor>a9a016ec7ce82d0a1647713e6613eb8f9</anchor>
       <arglist>(DialogueTest, UnDialoguePeutDonnerUnNiveau)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__dialogue_8cpp.html</anchorfile>
+      <anchor>ad0c0cde82e20eed494fc73a9ee4984cf</anchor>
+      <arglist>(DialogueTest, UnDialoguePeutDonnerUnRepos)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_dice.cpp</name>
@@ -10337,6 +10458,13 @@
       <anchorfile>test__party__ledger_8cpp.html</anchorfile>
       <anchor>a3d11bcb2865a7f89b5c89123d929590f</anchor>
       <arglist>(PartyLedgerTest, LeRegistreSOublie)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__ledger_8cpp.html</anchorfile>
+      <anchor>a06a7a6a82397b8425fa39b8382f1fccc</anchor>
+      <arglist>(PartyLedgerTest, LeReposGardeLeNiveau)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14921,6 +15049,13 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__encounter__model_8cpp.html</anchorfile>
+      <anchor>a076eac5cc8932540ed089627ed2b9348</anchor>
+      <arglist>(EncounterModelTest, LeNiveauDonneSurvitAuCombatEtLeReposSoigne)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__model_8cpp.html</anchorfile>
       <anchor>ae144770b940ca702cd108d5ac05e3467</anchor>
       <arglist>(EncounterModelTest, LInterfaceDeGroupeLitLaVueModele)</arglist>
     </member>
@@ -14962,6 +15097,13 @@
       <anchorfile>test__party__model_8cpp.html</anchorfile>
       <anchor>a95505170e470e8009523dccc589b3c46</anchor>
       <arglist>(PartyModelTest, LEcranDeGroupeCompose)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__model_8cpp.html</anchorfile>
+      <anchor>a00c8b2d07d1fdc0c2642b581b5840d24</anchor>
+      <arglist>(PartyModelTest, UneCarteImposeeNeDemandePasDeMeneur)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -15411,6 +15553,38 @@
       <name>escapable</name>
       <anchorfile>structcore_1_1ArenaBout.html</anchorfile>
       <anchor>a4fc74d270fb452f5fd0c579a9d781e35</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>test_support::ArenaContent</name>
+    <filename>structtest__support_1_1ArenaContent.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>ArenaContent</name>
+      <anchorfile>structtest__support_1_1ArenaContent.html</anchorfile>
+      <anchor>a24c534e3ecd6943789d3020be437cd77</anchor>
+      <arglist>(const std::filesystem::path &amp;elements)</arglist>
+    </member>
+    <member kind="variable">
+      <type>core::EncounterCatalog</type>
+      <name>encounters</name>
+      <anchorfile>structtest__support_1_1ArenaContent.html</anchorfile>
+      <anchor>a32990a40a15abfce0af2f0c03511790b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::Bestiary</type>
+      <name>bestiary</name>
+      <anchorfile>structtest__support_1_1ArenaContent.html</anchorfile>
+      <anchor>afe86b260970b0622d369030a4a6b8be4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::BehaviorCatalog</type>
+      <name>behaviors</name>
+      <anchorfile>structtest__support_1_1ArenaContent.html</anchorfile>
+      <anchor>aedd2e4051676c9ea2c21e877ef8464b8</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -19660,6 +19834,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>bool</type>
+      <name>graduated</name>
+      <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
+      <anchor>a1ff239b01b2d8fe4efe805318834e1d9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>float</type>
       <name>meters</name>
       <anchorfile>structcore_1_1CapacityEffect.html</anchorfile>
@@ -23727,6 +23908,13 @@
       <anchor>a42d5a5101530fe93a230106e16f9a583</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>multiattack</name>
+      <anchorfile>structcore_1_1Creature.html</anchorfile>
+      <anchor>a6e4210fae54aeb54de53bbdd5577c365</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::CreatureAction</name>
@@ -24078,6 +24266,13 @@
       <anchor>a72aa14dac2b28fc04267bf40f7d2b527</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>graduated</name>
+      <anchorfile>structcore_1_1DamageAffinity.html</anchorfile>
+      <anchor>a14ae0226f3435c699c45522b19f003b8</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::DamageClause</name>
@@ -24139,8 +24334,8 @@
       <type>static void</type>
       <name>applyAffinities</name>
       <anchorfile>classcore_1_1DamagePipeline.html</anchorfile>
-      <anchor>aa51159eaf66dfbb540f516446600a571</anchor>
-      <arglist>(DamageWork &amp;work, const DamageTraits &amp;traits)</arglist>
+      <anchor>accf65ac8761a714ed8a1fe8587713e24</anchor>
+      <arglist>(DamageWork &amp;work, const DamageTraits &amp;traits, int hitPoints, int maximumHitPoints)</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>std::vector&lt; std::pair&lt; DamageStage, DamageListener &gt; &gt;</type>
@@ -25136,6 +25331,13 @@
       <name>levelUp</name>
       <anchorfile>classcore_1_1DialogueListener.html</anchorfile>
       <anchor>a696c5bd3651cbf93036eb319b9cc1f82</anchor>
+      <arglist>(std::string_view characterId)</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual void</type>
+      <name>rest</name>
+      <anchorfile>classcore_1_1DialogueListener.html</anchorfile>
+      <anchor>a36942eb0e06b223a67dc394e9d4fc222</anchor>
       <arglist>(std::string_view characterId)</arglist>
     </member>
   </compound>
@@ -31963,6 +32165,87 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>test_support::Heros</name>
+    <filename>structtest__support_1_1Heros.html</filename>
+    <member kind="function">
+      <type>const core::LoadedCharacterSheet &amp;</type>
+      <name>loaded</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>a3f64ac18b220fe2b0fd751c8e97006ec</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>hmi::HeroContestantSource</type>
+      <name>sourceOf</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>abec91237bae8c10326bf070ac8bd0038</anchor>
+      <arglist>(const core::LoadedCharacterSheet &amp;member) const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; hmi::HeroContestantSource &gt;</type>
+      <name>sources</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>a37319325fb50e032b4bc8cf10a3fb4e7</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="variable">
+      <type>core::CharacterOptions</type>
+      <name>options</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>a630f0ab4bdc5d2a744a335cfea42ab3e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::SkillCatalog</type>
+      <name>skills</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>a055d9f6c419e0fd54367e367ebfc496d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::ExperienceTable</type>
+      <name>experience</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>a972cdbaefa6d3e1fe54803101eaae559</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::CharacterCreationRules</type>
+      <name>rules</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>a9c8197fb9750778fe07238f5e65e6979</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; core::LoadedCharacterSheet &gt;</type>
+      <name>members</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>ac149756571da0eb4c0de53b20005c040</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::ItemCatalog</type>
+      <name>items</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>a07ffcf2771bdaf032aa117bade4d3c72</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::EquipmentCatalog</type>
+      <name>equipment</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>adefcf13429f307ab2167120a63838684</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::EncumbranceRules</type>
+      <name>encumbrance</name>
+      <anchorfile>structtest__support_1_1Heros.html</anchorfile>
+      <anchor>add000d2065cdb77f5d9d3f1856990959</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::HitPointChange</name>
     <filename>structcore_1_1HitPointChange.html</filename>
     <member kind="variable">
@@ -38441,6 +38724,13 @@
       <anchor>acbc4ddf2ab50daed750c4aca7ff30d59</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>graduated</name>
+      <anchorfile>structcore_1_1NamedResistance.html</anchorfile>
+      <anchor>abb549acf1e3b230cb8cc56d10b62646b</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::NamedTrait</name>
@@ -39317,6 +39607,13 @@
       <name>erase</name>
       <anchorfile>classcore_1_1PartyLedger.html</anchorfile>
       <anchor>a1b2229b53122af7e4bd48490724acd5a</anchor>
+      <arglist>(std::string_view characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>rest</name>
+      <anchorfile>classcore_1_1PartyLedger.html</anchorfile>
+      <anchor>ab3f639150cfef8508d81e57f36eb0f8b</anchor>
       <arglist>(std::string_view characterId)</arglist>
     </member>
     <member kind="function">
@@ -45912,6 +46209,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::size_t</type>
+      <name>spellIndex</name>
+      <anchorfile>structcore_1_1TurnPlan.html</anchorfile>
+      <anchor>a8e8f09dce434b684da3d89b3d224ead1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::optional&lt; GridPosition &gt;</type>
       <name>dashTo</name>
       <anchorfile>structcore_1_1TurnPlan.html</anchorfile>
@@ -47897,6 +48201,27 @@
       <arglist>(const QString &amp;characterId)</arglist>
     </member>
     <member kind="function">
+      <type>Q_INVOKABLE bool</type>
+      <name>rest</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>aa80286470257e709727d4d8d12a28692</anchor>
+      <arglist>(const QString &amp;characterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>choosingLeader</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>adaed1b94d77e04f9488c8ead2636ea52</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>endLeaderChoice</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a07900076fe593efa7a666f44d37fd11c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
       <type>Q_INVOKABLE void</type>
       <name>showCharacter</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -48352,6 +48677,13 @@
       <arglist></arglist>
     </member>
     <member kind="property">
+      <type>bool</type>
+      <name>choosingLeader</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a776df0f6ed3874dc835c42919816b3ca</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
       <type>QString</type>
       <name>leaderName</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -48538,6 +48870,13 @@
       <name>_ledger</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a1bec3e9befd172168f6dbc97e780227e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_choosingLeader</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>acc006848665c1d203688a8aabf0f6719</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -50544,6 +50883,7 @@
       <anchor>a004daf868d7dad4026ff9b7d3d75a11d</anchor>
       <arglist></arglist>
       <enumvalue file="namespacecore.html" anchor="a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a">Attack</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a004daf868d7dad4026ff9b7d3d75a11da4cd9f3996d60790cd11c04f842ebc43c">Cast</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a004daf868d7dad4026ff9b7d3d75a11da3663598d5c5858b5a6040b1bbed4f187">Dash</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a004daf868d7dad4026ff9b7d3d75a11dab01b83048682460e96eb4bd2482b8c32">Dodge</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f">Disengage</enumvalue>
@@ -50821,6 +51161,7 @@
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5">StartEncounter</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3">EndDemo</enumvalue>
       <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7">LevelUp</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="aae1dbf957fd7a423de4c11a60fc2d680a55276c10d84e1df7713b441e76e141f9">Rest</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -57869,7 +58210,44 @@
   <compound kind="namespace">
     <name>test_support</name>
     <filename>namespacetest__support.html</filename>
+    <class kind="struct">test_support::Heros</class>
+    <class kind="struct">test_support::ArenaContent</class>
     <class kind="struct">test_support::RpgCatalogs</class>
+    <member kind="function">
+      <type>const char *</type>
+      <name>profileOfClass</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a4b8a7993ced805843e017cb38f4c60ff</anchor>
+      <arglist>(std::string_view classId)</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; std::string &gt; &amp;</type>
+      <name>startingParty</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>ad1bacea76aba2aacc46605472ed67687</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>Heros</type>
+      <name>loadHeroes</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a863b5456955ab7ef7c4029ff10165d62</anchor>
+      <arglist>(const std::filesystem::path &amp;elements, const std::vector&lt; std::string &gt; &amp;members, int level=1)</arglist>
+    </member>
+    <member kind="function">
+      <type>core::GridPosition</type>
+      <name>triggerOf</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>afdfc7a226dc5356a65d4c69251bfb7fa</anchor>
+      <arglist>(const core::Level &amp;map, std::string_view encounterId)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; core::CombatOutcome &gt;</type>
+      <name>playEncounter</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a23d63a318c266564beb750a5ea5fd2f6</anchor>
+      <arglist>(const core::Level &amp;map, const ArenaContent &amp;arena, std::string_view encounterId, const std::vector&lt; hmi::HeroContestantSource &gt; &amp;party, std::uint64_t seed, core::EncounterRun *engaged=nullptr)</arglist>
+    </member>
     <member kind="function">
       <type>const RpgCatalogs &amp;</type>
       <name>rpgCatalogs</name>
@@ -57975,6 +58353,27 @@
       <anchor>a48a656f190a8d0b31c9e337b2c0437c1</anchor>
       <arglist>(const nlohmann::json &amp;scene)</arglist>
     </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>SABLE</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a6d5a255f2644a06fc4ea08e6a7010355</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr core::GridPosition</type>
+      <name>MAITRE</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a9f045c842754977826b877ae60aba1e4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr core::GridPosition</type>
+      <name>DEVANT_LE_MAITRE</name>
+      <anchorfile>namespacetest__support.html</anchorfile>
+      <anchor>a828db7698884504d14d47e194501fb27</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="page">
     <name>md__2home_2runner_2work_2JustAnotherRpgGame_2JustAnotherRpgGame_2Source_2Elements_2Assets_2CREDITS</name>
@@ -58070,6 +58469,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
     <filename>dir_e4f77e6506ec5ae5855f8bd23358af3b.html</filename>
     <file>test_action_economy.cpp</file>
+    <file>test_ai_spells.cpp</file>
     <file>test_area_of_effect.cpp</file>
     <file>test_arena.cpp</file>
     <file>test_attack.cpp</file>
@@ -58494,6 +58894,7 @@
     <file>test_mode_quetes.cpp</file>
     <file>test_quete_des_pommes.cpp</file>
     <file>test_quete_trois_etapes.cpp</file>
+    <file>test_serie_de_l_arene.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Interface</name>
@@ -58872,6 +59273,7 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Support</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Support/</path>
     <filename>dir_78aafe4118443ed4a6fae9c8d163dfdb.html</filename>
+    <file>ArenaSimulation.h</file>
     <file>ClassArena.h</file>
     <file>CrtReports.cpp</file>
     <file>HdMockupScene.h</file>

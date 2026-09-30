@@ -51,8 +51,17 @@ namespace hmi {
 <span style = "background-color:#dfd">}</span>
 
 core::ArenaContestant creatureContestant(const core::Creature&amp; creature, core::CombatSide side,
-<span style = "background-color:#dfd">                                         const core::BehaviorCatalog* behaviors) {
-    return core::ArenaContestant{</span>
+<span style = "background-color:#dfd">                                         const core::BehaviorCatalog* behaviors) {</span>
+    // Les attaques multiples du bloc (LOT-142) : le meme mecanisme que l'Extra Attack d'un heros,
+    // une capacite qui ajoute des attaques a l'action Attaquer.
+<span style = "background-color:#dfd">    std::vector&lt;core::Capacity&gt; capacites;
+    if (creature.multiattack &gt; 1) {</span>
+<span style = "background-color:#fdd">        core::Capacity attaques{.id = "multiattack", .name = "Attaques multiples"};
+        attaques.effects.push_back(</span>
+            {.kind = core::CapacityEffectKind::ExtraAttack, .value = creature.multiattack - 1});
+<span style = "background-color:#fdd">        capacites.push_back(std::move(attaques));
+    }</span>
+<span style = "background-color:#dfd">    return core::ArenaContestant{</span>
         .profile = core::profileFor(creature, side),
         .attacks = core::attacksFor(creature).attacks,
         .position = std::nullopt,
@@ -61,7 +70,7 @@ core::ArenaContestant creatureContestant(const core::Creature&amp; creature, cor
         .behavior = behaviors != nullptr &amp;&amp; !behaviors-&gt;profiles.empty()
                         ? core::behaviorFor(creature, *behaviors)
                         : std::string{},
-        .capacities = {},
+        .capacities = std::move(capacites),
         .spells = {}};
 <span style = "background-color:#dfd">}</span>
 

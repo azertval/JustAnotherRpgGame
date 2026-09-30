@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -163,6 +163,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a0f4c05c1bbac3da0ad77d5503ffc7d16"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">DamageResistance</span> : résistance à <b>tous</b> les types.  <br /></td></tr>
 <tr class="memitem:af2309b538297ddd709da20b0f9b2ec6d" id="r_af2309b538297ddd709da20b0f9b2ec6d"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacecore.html#aae5ed49bedbf68049f008e4efac2edfd">DamageType</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af2309b538297ddd709da20b0f9b2ec6d">damageTypes</a></td></tr>
 <tr class="memdesc:af2309b538297ddd709da20b0f9b2ec6d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">DamageResistance</span> : les types résistés, si ce n'est pas tous.  <br /></td></tr>
+<tr class="memitem:a1ff239b01b2d8fe4efe805318834e1d9" id="r_a1ff239b01b2d8fe4efe805318834e1d9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1ff239b01b2d8fe4efe805318834e1d9">graduated</a> = false</td></tr>
+<tr class="memdesc:a1ff239b01b2d8fe4efe805318834e1d9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">DamageResistance</span> : graduée, elle croît avec les points de vie perdus, la moitié des dégâts au plus (<span class="tt">LOT-142</span>, <span class="tt"><a class="el" href="structcore_1_1DamageAffinity.html#a14ae0226f3435c699c45522b19f003b8" title="Une résistance graduée (LOT-142, décision nommée) : elle retire aux dégâts la part des points de vie ...">core::DamageAffinity::graduated</a></span>).  <br /></td></tr>
 <tr class="memitem:a6e770fcfc6bce46f4c92a41f1664ccd5" id="r_a6e770fcfc6bce46f4c92a41f1664ccd5"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a6e770fcfc6bce46f4c92a41f1664ccd5">meters</a> = 0.0F</td></tr>
 <tr class="memdesc:a6e770fcfc6bce46f4c92a41f1664ccd5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">SpeedBonus</span> : les mètres ajoutés.  <br /></td></tr>
 <tr class="memitem:a1d73c5b874eb1da0270b056bf12728c7" id="r_a1d73c5b874eb1da0270b056bf12728c7"><td class="memItemLeft"><a class="el" href="structcore_1_1Dice.html">Dice</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1d73c5b874eb1da0270b056bf12728c7">dice</a> {}</td></tr>
@@ -269,6 +271,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p><span class="tt">ExtraDamage</span> : les dés ajoutés. </p>
+
+</div>
+</div>
+<a id="a1ff239b01b2d8fe4efe805318834e1d9" name="a1ff239b01b2d8fe4efe805318834e1d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ff239b01b2d8fe4efe805318834e1d9">&#9670;&#160;</a></span>graduated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::CapacityEffect::graduated = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">DamageResistance</span> : graduée, elle croît avec les points de vie perdus, la moitié des dégâts au plus (<span class="tt">LOT-142</span>, <span class="tt"><a class="el" href="structcore_1_1DamageAffinity.html#a14ae0226f3435c699c45522b19f003b8" title="Une résistance graduée (LOT-142, décision nommée) : elle retire aux dégâts la part des points de vie ...">core::DamageAffinity::graduated</a></span>). </p>
 
 </div>
 </div>

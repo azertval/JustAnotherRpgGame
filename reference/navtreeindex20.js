@@ -1,5 +1,11 @@
 var NAVTREEINDEX20 =
 {
+"classhmi_1_1PlaceAppearance.html#acb55682395eeeb9e1872161fffb95445":[3,0,1,142,30],
+"classhmi_1_1PlaceAppearance.html#acbb59fa899535efdd3dfaae9e54caed7":[2,0,2,143,2],
+"classhmi_1_1PlaceAppearance.html#acbb59fa899535efdd3dfaae9e54caed7":[3,0,1,142,2],
+"classhmi_1_1PlaceAppearance.html#acc91a094a349d947bd427f942a2b797c":[2,0,2,143,12],
+"classhmi_1_1PlaceAppearance.html#acc91a094a349d947bd427f942a2b797c":[3,0,1,142,12],
+"classhmi_1_1PlaceAppearance.html#ad1c91d434a1680b8129ec6aca5246cab":[2,0,2,143,20],
 "classhmi_1_1PlaceAppearance.html#ad1c91d434a1680b8129ec6aca5246cab":[3,0,1,142,20],
 "classhmi_1_1PlaceAppearance.html#ad226619598bfbc5692d7b6b80a6bb367":[2,0,2,143,29],
 "classhmi_1_1PlaceAppearance.html#ad226619598bfbc5692d7b6b80a6bb367":[3,0,1,142,29],
@@ -243,11 +249,5 @@ var NAVTREEINDEX20 =
 "classhmi_1_1QuestsPanel.html#add3636661aecbfdfddc8368babfb5b31":[3,0,1,96,64],
 "classhmi_1_1QuestsPanel.html#ade99d9c83fed43b47ea2793d293e1914":[2,0,2,97,0],
 "classhmi_1_1QuestsPanel.html#ade99d9c83fed43b47ea2793d293e1914":[3,0,1,96,0],
-"classhmi_1_1QuestsPanel.html#ae01e7335e1174532aa719dea057384ab":[2,0,2,97,23],
-"classhmi_1_1QuestsPanel.html#ae01e7335e1174532aa719dea057384ab":[3,0,1,96,23],
-"classhmi_1_1QuestsPanel.html#ae34a3b1d155a7385056faa036f987d30":[2,0,2,97,22],
-"classhmi_1_1QuestsPanel.html#ae34a3b1d155a7385056faa036f987d30":[3,0,1,96,22],
-"classhmi_1_1QuestsPanel.html#ae4dc650d1deb5952670b9d3f14fa67ba":[2,0,2,97,73],
-"classhmi_1_1QuestsPanel.html#ae4dc650d1deb5952670b9d3f14fa67ba":[3,0,1,96,73],
-"classhmi_1_1QuestsPanel.html#af0e7893e84a22c427a85867b79b625da":[2,0,2,97,32]
+"classhmi_1_1QuestsPanel.html#ae01e7335e1174532aa719dea057384ab":[2,0,2,97,23]
 };

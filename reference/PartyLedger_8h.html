@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -173,7 +173,7 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce que le combat <b>laisse aux fiches</b> du groupe (<span class="tt">LOT-139</span>) : les points de vie qui restent, les lancers de sorts dépensés, un membre mort. </p>
 <p>Les fiches pré-tirées (<span class="tt">Rpg/characters/</span>) sont des <b>fichiers</b>, relus à chaque rencontre, et il n'existe pas encore de sauvegarde. Entre deux combats d'une même partie, quelque chose doit pourtant retenir qu'Helga a perdu six points de vie et que Faelar a lancé son <em>projectile magique</em> : c'est ce registre, une valeur par membre, que la partie tient (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span>) et que le combat lit à l'entrée (<span class="tt">applyRecord</span>) et écrit à la sortie. Un membre sans enregistrement est <b>plein</b> : la fiche telle qu'elle est écrite.</p>
-<p>Pas de règle de repos ici : un repos long (<span class="tt"><a class="el" href="namespacecore.html#acc56dba7c8697d70382843a7c746d64c" title="Le repos long : les points de vie au maximum, chaque sort à ses lancers du jour (EX-REG-031).">core::longRest</a></span>) viendra avec l'auberge, et effacera le registre. </p>
+<p>Le repos long (<span class="tt">rest</span>, <span class="tt">LOT-142</span>) rend à chacun sa fiche pleine : il oublie les blessures et les lancers, pas le niveau. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

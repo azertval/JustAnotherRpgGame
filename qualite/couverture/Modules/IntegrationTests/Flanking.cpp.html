@@ -102,7 +102,7 @@ bool isFlankedFrom(const CombatState&amp; combat, CombatantId attacker, GridPosi
     const Footprint moi{.anchor = attackerAnchor, .side = footprintSide(assaillant-&gt;profile.size)};
     if (ecart(moi.anchor, moi.side, emplacement) != 1 ||</span>
         !hasLineOfSight(grille, moi, emplacement)) {
-<span style = "background-color:#dfd">        return false;</span>
+<span style = "background-color:#fdd">        return false;</span>
     }
 <span style = "background-color:#dfd">    const auto prendEnTenaille = [&amp;](const CombatantId autre) {
         const Combatant* allie = combat.find(autre);

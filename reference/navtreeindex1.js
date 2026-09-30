@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"EncounterDifficulty_8h.html":[4,0,0,2,0,23],
+"EncounterDifficulty_8h_source.html":[4,0,0,2,0,23],
 "EncounterModel_8cpp.html":[4,0,0,6,7,18],
 "EncounterModel_8h.html":[4,0,0,6,7,19],
 "EncounterModel_8h_source.html":[4,0,0,6,7,19],
@@ -100,8 +102,8 @@ var NAVTREEINDEX1 =
 "GraphicsLog_8h_source.html":[4,0,0,6,2,15],
 "GridPosition_8h.html":[4,0,0,2,5,2],
 "GridPosition_8h_source.html":[4,0,0,2,5,2],
-"HdMockupScene_8h.html":[4,0,0,7,2,2],
-"HdMockupScene_8h_source.html":[4,0,0,7,2,2],
+"HdMockupScene_8h.html":[4,0,0,7,2,3],
+"HdMockupScene_8h_source.html":[4,0,0,7,2,3],
 "HmiLog_8h.html":[4,0,0,6,8],
 "HmiLog_8h.html#a08356273985cc5f411fffe27a351a6d4":[4,0,0,6,8,0],
 "HmiLog_8h.html#a718507194f37a375550875cc970775c8":[4,0,0,6,8,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "MaquetteTokens_8h_source.html":[4,0,0,6,2,18],
 "MathUtils_8h.html":[4,0,0,2,6,1],
 "MathUtils_8h_source.html":[4,0,0,2,6,1],
-"MemoryLogSink_8h.html":[4,0,0,2,2,14],
-"MemoryLogSink_8h_source.html":[4,0,0,2,2,14],
-"MiniMap_8cpp.html":[4,0,0,3,1,20]
+"MemoryLogSink_8h.html":[4,0,0,2,2,14]
 };

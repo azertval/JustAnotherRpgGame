@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -172,13 +172,15 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad04d191dbe7811a93e00d039cdb8376e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le meneur est celui qui combat sur la carte (EX-EXP-014).  <br /></td></tr>
 <tr class="memitem:a95505170e470e8009523dccc589b3c46" id="r_a95505170e470e8009523dccc589b3c46"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a95505170e470e8009523dccc589b3c46">TEST</a> (PartyModelTest, LEcranDeGroupeCompose)</td></tr>
 <tr class="memdesc:a95505170e470e8009523dccc589b3c46"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'ecran de groupe compose : prendre, laisser, mener, avancer (EX-EXP-013).  <br /></td></tr>
+<tr class="memitem:a00c8b2d07d1fdc0c2642b581b5840d24" id="r_a00c8b2d07d1fdc0c2642b581b5840d24"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a00c8b2d07d1fdc0c2642b581b5840d24">TEST</a> (PartyModelTest, UneCarteImposeeNeDemandePasDeMeneur)</td></tr>
+<tr class="memdesc:a00c8b2d07d1fdc0c2642b581b5840d24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une partie ouverte sur une carte imposée — <span class="tt">--map=</span>, le lanceur de cartes, les tests — ne demande pas de meneur (<span class="tt">LOT-142</span>) : seule « Nouvelle partie » ouvre ce choix, que le test système du parcours de la démo éprouve.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests du groupe dans la partie (<span class="tt">LOT-138</span>) : le meneur change la figurine menée, le portrait et la voix du dialogue, et celui qui combat ; les suiveurs se dessinent derrière lui ; l'écran de groupe lit les fiches des quatre. </p>
 <p>Comme les autres tests des vues-modèles, les règles et les fiches se lisent à côté de l'exécutable ; la carte et la rencontre viennent de la racine d'essai. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a83dc231722296f1c4b07c931cb4d64fa" name="a83dc231722296f1c4b07c931cb4d64fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83dc231722296f1c4b07c931cb4d64fa">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a83dc231722296f1c4b07c931cb4d64fa">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -212,7 +214,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a95505170e470e8009523dccc589b3c46" name="a95505170e470e8009523dccc589b3c46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95505170e470e8009523dccc589b3c46">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a95505170e470e8009523dccc589b3c46">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,7 +248,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a25b735da6e03443a3b061907bf71ec7b" name="a25b735da6e03443a3b061907bf71ec7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25b735da6e03443a3b061907bf71ec7b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a25b735da6e03443a3b061907bf71ec7b">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,7 +280,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad04d191dbe7811a93e00d039cdb8376e" name="ad04d191dbe7811a93e00d039cdb8376e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad04d191dbe7811a93e00d039cdb8376e">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad04d191dbe7811a93e00d039cdb8376e">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,6 +308,36 @@ Functions</h2></td></tr>
 <li>Faire mener la Scoundrel, engager de nouveau.<br  />
  <b>Resultat attendu :</b> Le premier combat met Grom Tranche-Ecaille en jeu, le second Nessa Double-Vie : le heros de combat se relit quand le meneur change. </li>
 </ol>
+
+</div>
+</div>
+<a id="a00c8b2d07d1fdc0c2642b581b5840d24" name="a00c8b2d07d1fdc0c2642b581b5840d24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00c8b2d07d1fdc0c2642b581b5840d24">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCarteImposeeNeDemandePasDeMeneur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une partie ouverte sur une carte imposée — <span class="tt">--map=</span>, le lanceur de cartes, les tests — ne demande pas de meneur (<span class="tt">LOT-142</span>) : seule « Nouvelle partie » ouvre ce choix, que le test système du parcours de la démo éprouve. </p>
+<p><b>Cas de test :</b> <b>Une carte imposee ne demande pas de meneur.</b><br  />
+ <b>Categorie :</b> Unitaire · Groupe<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Ouvrir le donjon d'essai par une carte imposee.<br  />
+2. Clore un choix qui n'est pas en cours.<br  />
+ <b>Resultat attendu :</b> <span class="tt">choosingLeader</span> est faux, et le reste. </p>
 
 </div>
 </div>

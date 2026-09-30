@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -145,11 +145,25 @@ $(function(){initNavTree('namespacetest__support.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:Heros" id="r_Heros"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structtest__support_1_1Heros.html">Heros</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les fiches d'un groupe et les catalogues qui les montent en combat.  <a href="structtest__support_1_1Heros.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ArenaContent" id="r_ArenaContent"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structtest__support_1_1ArenaContent.html">ArenaContent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le combat de l'arène demande au contenu livré.  <a href="structtest__support_1_1ArenaContent.html#details">More...</a><br /></td></tr>
 <tr class="memitem:RpgCatalogs" id="r_RpgCatalogs"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les catalogues de <span class="tt">Source/Elements/Rpg</span> qu'une fiche jouée lit.  <a href="structtest__support_1_1RpgCatalogs.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a4b8a7993ced805843e017cb38f4c60ff" id="r_a4b8a7993ced805843e017cb38f4c60ff"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a4b8a7993ced805843e017cb38f4c60ff">profileOfClass</a> (std::string_view classId)</td></tr>
+<tr class="memdesc:a4b8a7993ced805843e017cb38f4c60ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le profil de comportement qui joue un héros de la classe <code class="param">classId</code> dans les simulations (<span class="tt">LOT-142</span>, décision nommée) : son rôle, comme un joueur le tiendrait.  <br /></td></tr>
+<tr class="memitem:ad1bacea76aba2aacc46605472ed67687" id="r_ad1bacea76aba2aacc46605472ed67687"><td class="memItemLeft">const std::vector&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad1bacea76aba2aacc46605472ed67687">startingParty</a> ()</td></tr>
+<tr class="memdesc:ad1bacea76aba2aacc46605472ed67687"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe de « Nouvelle partie », dans l'ordre de marche (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#ac1c562398f6eec8d6cd894f99082dbe6" title="Le groupe qu&#39;impose « Nouvelle partie », dans l&#39;ordre de marche (LOT-138, décision de l&#39;auteur) : les...">hmi::WorldModel::STARTING_PARTY</a></span>).  <br /></td></tr>
+<tr class="memitem:a863b5456955ab7ef7c4029ff10165d62" id="r_a863b5456955ab7ef7c4029ff10165d62"><td class="memItemLeft"><a class="el" href="structtest__support_1_1Heros.html">Heros</a>&#160;</td><td class="memItemRight"><a class="el" href="#a863b5456955ab7ef7c4029ff10165d62">loadHeroes</a> (const std::filesystem::path &amp;elements, const std::vector&lt; std::string &gt; &amp;members, int level=1)</td></tr>
+<tr class="memdesc:a863b5456955ab7ef7c4029ff10165d62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge <code class="param">members</code> depuis le contenu livré (<code class="param">elements</code>), montés au niveau <code class="param">level</code> comme la partie les monte (<span class="tt"><a class="el" href="namespacecore.html#a0a201eb28d48b7c290055b13fb49fab4" title="Monte sheet jusqu&#39;au niveau level, par le chemin d&#39;une partie (LOT-141) : l&#39;expérience du seuil (gain...">core::levelUpTo</a></span>, <span class="tt">LOT-141</span>).  <br /></td></tr>
+<tr class="memitem:afdfc7a226dc5356a65d4c69251bfb7fa" id="r_afdfc7a226dc5356a65d4c69251bfb7fa"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#afdfc7a226dc5356a65d4c69251bfb7fa">triggerOf</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;map, std::string_view encounterId)</td></tr>
+<tr class="memdesc:afdfc7a226dc5356a65d4c69251bfb7fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le déclencheur de <code class="param">encounterId</code> sur <code class="param">map</code> : son marqueur <span class="tt">encounter</span>, sinon le maître d'arène — c'est ce que fait <span class="tt"><a class="el" href="classhmi_1_1EncounterModel.html#aaa1f1bc74675003fec4258f8a3dd0706" title="Engage la rencontre encounterId sur la carte courante de la partie (hmi::WorldModel::current),...">hmi::EncounterModel::begin</a></span>.  <br /></td></tr>
+<tr class="memitem:a23d63a318c266564beb750a5ea5fd2f6" id="r_a23d63a318c266564beb750a5ea5fd2f6"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a8825ea64ff05621b7c2c8a073d27577c">core::CombatOutcome</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a23d63a318c266564beb750a5ea5fd2f6">playEncounter</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;map, const <a class="el" href="structtest__support_1_1ArenaContent.html">ArenaContent</a> &amp;arena, std::string_view encounterId, const std::vector&lt; <a class="el" href="structhmi_1_1HeroContestantSource.html">hmi::HeroContestantSource</a> &gt; &amp;party, std::uint64_t seed, <a class="el" href="structcore_1_1EncounterRun.html">core::EncounterRun</a> *engaged=nullptr)</td></tr>
+<tr class="memdesc:a23d63a318c266564beb750a5ea5fd2f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue <code class="param">encounterId</code> sur <code class="param">map</code>, les deux camps par l'IA, à la graine <code class="param">seed</code>.  <br /></td></tr>
 <tr class="memitem:a4b8fddb258ef46b1d2072abc96a4546f" id="r_a4b8fddb258ef46b1d2072abc96a4546f"><td class="memItemLeft">const <a class="el" href="structtest__support_1_1RpgCatalogs.html">RpgCatalogs</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4b8fddb258ef46b1d2072abc96a4546f">rpgCatalogs</a> ()</td></tr>
 <tr class="memitem:af8f92215cc650440558303e170fc166c" id="r_af8f92215cc650440558303e170fc166c"><td class="memItemLeft"><a class="el" href="structcore_1_1LoadedCharacterSheet.html">core::LoadedCharacterSheet</a>&#160;</td><td class="memItemRight"><a class="el" href="#af8f92215cc650440558303e170fc166c">loadPremade</a> (const char *file)</td></tr>
 <tr class="memitem:ad151ee551dbd223f479dea930b0d74d8" id="r_ad151ee551dbd223f479dea930b0d74d8"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad151ee551dbd223f479dea930b0d74d8">levelUpTo</a> (<a class="el" href="structcore_1_1CharacterSheet.html">core::CharacterSheet</a> &amp;sheet, int level)</td></tr>
@@ -169,6 +183,14 @@ Functions</h2></td></tr>
 <tr class="memitem:ae0504ed11cf8afe35cfc6a85ba8cd353" id="r_ae0504ed11cf8afe35cfc6a85ba8cd353"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">hmi::WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae0504ed11cf8afe35cfc6a85ba8cd353">hdMockupSnapshot</a> (const nlohmann::json &amp;scene, const std::filesystem::path &amp;directory)</td></tr>
 <tr class="memdesc:ae0504ed11cf8afe35cfc6a85ba8cd353"><td class="mdescLeft">&#160;</td><td class="mdescRight">La scène de <span class="tt">scene.json</span>, en instantané : les sols par la légende, les pièces à leur case.  <br /></td></tr>
 <tr class="memitem:a48a656f190a8d0b31c9e337b2c0437c1" id="r_a48a656f190a8d0b31c9e337b2c0437c1"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a48a656f190a8d0b31c9e337b2c0437c1">hdMockupFocus</a> (const nlohmann::json &amp;scene)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6d5a255f2644a06fc4ea08e6a7010355" id="r_a6d5a255f2644a06fc4ea08e6a7010355"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a6d5a255f2644a06fc4ea08e6a7010355">SABLE</a> = &quot;central-empire/capital/arenarea/arena-of-fate&quot;</td></tr>
+<tr class="memdesc:a6d5a255f2644a06fc4ea08e6a7010355"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte du sable, telle que le jeu la nomme.  <br /></td></tr>
+<tr class="memitem:a9f045c842754977826b877ae60aba1e4" id="r_a9f045c842754977826b877ae60aba1e4"><td class="memItemLeft">constexpr <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9f045c842754977826b877ae60aba1e4">MAITRE</a> {8, 10}</td></tr>
+<tr class="memdesc:a9f045c842754977826b877ae60aba1e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le maître d'arène sur le sable, et la case d'où on lui parle.  <br /></td></tr>
+<tr class="memitem:a828db7698884504d14d47e194501fb27" id="r_a828db7698884504d14d47e194501fb27"><td class="memItemLeft">constexpr <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a828db7698884504d14d47e194501fb27">DEVANT_LE_MAITRE</a> {9, 10}</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a2e49c80f502f2d3da085b84a343b0628" name="a2e49c80f502f2d3da085b84a343b0628"></a>
@@ -516,6 +538,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a863b5456955ab7ef7c4029ff10165d62" name="a863b5456955ab7ef7c4029ff10165d62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a863b5456955ab7ef7c4029ff10165d62">&#9670;&#160;</a></span>loadHeroes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structtest__support_1_1Heros.html">Heros</a> test_support::loadHeroes </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>elements</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>members</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge <code class="param">members</code> depuis le contenu livré (<code class="param">elements</code>), montés au niveau <code class="param">level</code> comme la partie les monte (<span class="tt"><a class="el" href="namespacecore.html#a0a201eb28d48b7c290055b13fb49fab4" title="Monte sheet jusqu&#39;au niveau level, par le chemin d&#39;une partie (LOT-141) : l&#39;expérience du seuil (gain...">core::levelUpTo</a></span>, <span class="tt">LOT-141</span>). </p>
+
+</div>
+</div>
 <a id="af8f92215cc650440558303e170fc166c" name="af8f92215cc650440558303e170fc166c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af8f92215cc650440558303e170fc166c">&#9670;&#160;</a></span>loadPremade()</h2>
 
@@ -539,6 +597,86 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La fiche pré-tirée <code class="param">file</code> de <span class="tt">Rpg/characters/</span>, erreurs et avertissements compris. </dd></dl>
+
+</div>
+</div>
+<a id="a23d63a318c266564beb750a5ea5fd2f6" name="a23d63a318c266564beb750a5ea5fd2f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23d63a318c266564beb750a5ea5fd2f6">&#9670;&#160;</a></span>playEncounter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="namespacecore.html#a8825ea64ff05621b7c2c8a073d27577c">core::CombatOutcome</a> &gt; test_support::playEncounter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>map</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structtest__support_1_1ArenaContent.html">ArenaContent</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>arena</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>encounterId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structhmi_1_1HeroContestantSource.html">hmi::HeroContestantSource</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>party</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint64_t</td>          <td class="paramname"><span class="paramname"><em>seed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcore_1_1EncounterRun.html">core::EncounterRun</a> *</td>          <td class="paramname"><span class="paramname"><em>engaged</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Joue <code class="param">encounterId</code> sur <code class="param">map</code>, les deux camps par l'IA, à la graine <code class="param">seed</code>. </p>
+<dl class="section return"><dt>Returns</dt><dd>L'issue, ou rien si le combat n'a pas pu se monter ou ne s'est pas terminé. </dd></dl>
+
+</div>
+</div>
+<a id="a4b8a7993ced805843e017cb38f4c60ff" name="a4b8a7993ced805843e017cb38f4c60ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b8a7993ced805843e017cb38f4c60ff">&#9670;&#160;</a></span>profileOfClass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * test_support::profileOfClass </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>classId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le profil de comportement qui joue un héros de la classe <code class="param">classId</code> dans les simulations (<span class="tt">LOT-142</span>, décision nommée) : son rôle, comme un joueur le tiendrait. </p>
+<p>Le Brawler va au contact (<span class="tt">aggressive</span>), le Scoundrel frappe là où un allié tient déjà la cible (<span class="tt">pack</span>, l'attaque sournoise), le Priest reste près des blessés (<span class="tt">support</span>), le Mage tire et recule (<span class="tt">archer</span>). </p>
 
 </div>
 </div>
@@ -624,6 +762,64 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad1bacea76aba2aacc46605472ed67687" name="ad1bacea76aba2aacc46605472ed67687"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1bacea76aba2aacc46605472ed67687">&#9670;&#160;</a></span>startingParty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; std::string &gt; &amp; test_support::startingParty </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le groupe de « Nouvelle partie », dans l'ordre de marche (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html#ac1c562398f6eec8d6cd894f99082dbe6" title="Le groupe qu&#39;impose « Nouvelle partie », dans l&#39;ordre de marche (LOT-138, décision de l&#39;auteur) : les...">hmi::WorldModel::STARTING_PARTY</a></span>). </p>
+
+</div>
+</div>
+<a id="afdfc7a226dc5356a65d4c69251bfb7fa" name="afdfc7a226dc5356a65d4c69251bfb7fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdfc7a226dc5356a65d4c69251bfb7fa">&#9670;&#160;</a></span>triggerOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> test_support::triggerOf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>map</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>encounterId</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le déclencheur de <code class="param">encounterId</code> sur <code class="param">map</code> : son marqueur <span class="tt">encounter</span>, sinon le maître d'arène — c'est ce que fait <span class="tt"><a class="el" href="classhmi_1_1EncounterModel.html#aaa1f1bc74675003fec4258f8a3dd0706" title="Engage la rencontre encounterId sur la carte courante de la partie (hmi::WorldModel::current),...">hmi::EncounterModel::begin</a></span>. </p>
+
+</div>
+</div>
 <a id="abd238978ce6bf3d3cf55fc6ec6014cf7" name="abd238978ce6bf3d3cf55fc6ec6014cf7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abd238978ce6bf3d3cf55fc6ec6014cf7">&#9670;&#160;</a></span>weaponAttack()</h2>
 
@@ -651,6 +847,77 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>L'attaque de l'arme <code class="param">weaponId</code> du catalogue, maîtrise lue dans la fiche. </dd></dl>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a828db7698884504d14d47e194501fb27" name="a828db7698884504d14d47e194501fb27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a828db7698884504d14d47e194501fb27">&#9670;&#160;</a></span>DEVANT_LE_MAITRE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> test_support::DEVANT_LE_MAITRE {9, 10}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9f045c842754977826b877ae60aba1e4" name="a9f045c842754977826b877ae60aba1e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f045c842754977826b877ae60aba1e4">&#9670;&#160;</a></span>MAITRE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> test_support::MAITRE {8, 10}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le maître d'arène sur le sable, et la case d'où on lui parle. </p>
+
+</div>
+</div>
+<a id="a6d5a255f2644a06fc4ea08e6a7010355" name="a6d5a255f2644a06fc4ea08e6a7010355"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d5a255f2644a06fc4ea08e6a7010355">&#9670;&#160;</a></span>SABLE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view test_support::SABLE = &quot;central-empire/capital/arenarea/arena-of-fate&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La carte du sable, telle que le jeu la nomme. </p>
 
 </div>
 </div>

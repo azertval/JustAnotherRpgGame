@@ -1,5 +1,7 @@
 var namespacetest__support =
 [
+    [ "Heros", "structtest__support_1_1Heros.html", "structtest__support_1_1Heros" ],
+    [ "ArenaContent", "structtest__support_1_1ArenaContent.html", "structtest__support_1_1ArenaContent" ],
     [ "RpgCatalogs", "structtest__support_1_1RpgCatalogs.html", "structtest__support_1_1RpgCatalogs" ],
     [ "armorClassOf", "namespacetest__support.html#a2e49c80f502f2d3da085b84a343b0628", null ],
     [ "capacityIds", "namespacetest__support.html#a7db1b77e8c9387a205240e0452092ca9", null ],
@@ -11,9 +13,17 @@ var namespacetest__support =
     [ "journalHas", "namespacetest__support.html#aa48229aba7330ce33396668934fd08ed", null ],
     [ "journalLine", "namespacetest__support.html#a596e2b3706d58e46a4db1d02bb00d248", null ],
     [ "levelUpTo", "namespacetest__support.html#ad151ee551dbd223f479dea930b0d74d8", null ],
+    [ "loadHeroes", "namespacetest__support.html#a863b5456955ab7ef7c4029ff10165d62", null ],
     [ "loadPremade", "namespacetest__support.html#af8f92215cc650440558303e170fc166c", null ],
+    [ "playEncounter", "namespacetest__support.html#a23d63a318c266564beb750a5ea5fd2f6", null ],
+    [ "profileOfClass", "namespacetest__support.html#a4b8a7993ced805843e017cb38f4c60ff", null ],
     [ "readHdMockupJson", "namespacetest__support.html#ad7bf252b739580065525433e1ec5266d", null ],
     [ "room", "namespacetest__support.html#a0ae161a0aacb9ce0e34833e3a2979f8e", null ],
     [ "rpgCatalogs", "namespacetest__support.html#a4b8fddb258ef46b1d2072abc96a4546f", null ],
-    [ "weaponAttack", "namespacetest__support.html#abd238978ce6bf3d3cf55fc6ec6014cf7", null ]
+    [ "startingParty", "namespacetest__support.html#ad1bacea76aba2aacc46605472ed67687", null ],
+    [ "triggerOf", "namespacetest__support.html#afdfc7a226dc5356a65d4c69251bfb7fa", null ],
+    [ "weaponAttack", "namespacetest__support.html#abd238978ce6bf3d3cf55fc6ec6014cf7", null ],
+    [ "DEVANT_LE_MAITRE", "namespacetest__support.html#a828db7698884504d14d47e194501fb27", null ],
+    [ "MAITRE", "namespacetest__support.html#a9f045c842754977826b877ae60aba1e4", null ],
+    [ "SABLE", "namespacetest__support.html#a6d5a255f2644a06fc4ea08e6a7010355", null ]
 ];

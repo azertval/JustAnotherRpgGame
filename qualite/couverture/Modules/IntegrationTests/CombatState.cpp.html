@@ -56,14 +56,16 @@ private:
 <span style = "background-color:#fdd">            traits.affinities.push_back({.type = *resistance.type,</span>
                                          .kind = DamageAffinityKind::Resistance,
                                          .bypassedBy = 0,
-                                         .source = resistance.source});
+                                         .source = resistance.source,
+                                         .graduated = resistance.graduated});
 <span style = "background-color:#fdd">            continue;</span>
         }
 <span style = "background-color:#dfd">        for (const DamageType type : allDamageTypes()) {
             traits.affinities.push_back({.type = type,</span>
                                          .kind = DamageAffinityKind::Resistance,
                                          .bypassedBy = 0,
-                                         .source = resistance.source});
+                                         .source = resistance.source,
+                                         .graduated = resistance.graduated});
 <span style = "background-color:#dfd">        }
     }
     std::array&lt;int, 6&gt; sauvegardes{};

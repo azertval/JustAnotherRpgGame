@@ -8,6 +8,7 @@ var test__dialogue_8cpp =
     [ "TEST", "test__dialogue_8cpp.html#a48dfa87ba490e62622ee9e6362762234", null ],
     [ "TEST", "test__dialogue_8cpp.html#a0ccc2833bba975fc9d4d7cb1f1a8e468", null ],
     [ "TEST", "test__dialogue_8cpp.html#a9a016ec7ce82d0a1647713e6613eb8f9", null ],
+    [ "TEST", "test__dialogue_8cpp.html#ad0c0cde82e20eed494fc73a9ee4984cf", null ],
     [ "TEST", "test__dialogue_8cpp.html#afadf39a2f58d45c80d30c022b80b87db", null ],
     [ "TEST", "test__dialogue_8cpp.html#adacff3ed11d3a0dbf4c3b59ffab7dcd8", null ],
     [ "TEST", "test__dialogue_8cpp.html#a56387a3d7c07cb6cd85c43ac0000a4c0", null ],

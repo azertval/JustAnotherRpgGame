@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"MemoryLogSink_8h_source.html":[4,0,0,2,2,14],
+"MiniMap_8cpp.html":[4,0,0,3,1,20],
 "MiniMap_8h.html":[4,0,0,3,1,21],
 "MiniMap_8h_source.html":[4,0,0,3,1,21],
 "MissingTexture_8cpp.html":[4,0,0,6,2,19],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "annotated.html":[3,0],
 "bench__canvas_8cpp.html":[4,0,0,1,0],
 "bench__canvas_8cpp.html#a71e35184d69f1962ea2493862669b7cb":[4,0,0,1,0,1],
-"bench__canvas_8cpp.html#adc9cdd7c8fe337abd6226ff4a0b79a23":[4,0,0,1,0,0],
-"bench__canvas__paint_8cpp.html":[4,0,0,1,1],
-"bench__canvas__paint_8cpp.html#a0f69f4a8e5059df4902c9adf5b885088":[4,0,0,1,1,2]
+"bench__canvas_8cpp.html#adc9cdd7c8fe337abd6226ff4a0b79a23":[4,0,0,1,0,0]
 };

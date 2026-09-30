@@ -1,5 +1,11 @@
 var NAVTREEINDEX9 =
 {
+"classcore_1_1WorldFlags.html#ae2ec8ea0bd594024949a120cbb2eba0e":[2,0,1,122,8],
+"classcore_1_1WorldFlags.html#ae2ec8ea0bd594024949a120cbb2eba0e":[3,0,0,122,8],
+"classcore_1_1WorldTravel.html":[2,0,1,251],
+"classcore_1_1WorldTravel.html":[3,0,0,251],
+"classcore_1_1WorldTravel.html#a0088132438f7a0b93d5cb2490bb839d5":[2,0,1,251,7],
+"classcore_1_1WorldTravel.html#a0088132438f7a0b93d5cb2490bb839d5":[3,0,0,251,7],
 "classcore_1_1WorldTravel.html#a148fb42cb18a951577a149c9cdc1caf6":[2,0,1,251,13],
 "classcore_1_1WorldTravel.html#a148fb42cb18a951577a149c9cdc1caf6":[3,0,0,251,13],
 "classcore_1_1WorldTravel.html#a3cb015fe13e6071f96b03ba0e819362e":[2,0,1,251,0],
@@ -243,11 +249,5 @@ var NAVTREEINDEX9 =
 "classhmi_1_1AssetGalleryItem.html#adf1502ba2230ad5be1f9fe7ed59cf805":[3,0,1,202,65],
 "classhmi_1_1AssetGalleryItem.html#ae0cde76613c192c547ba409422398ada":[2,0,2,203,26],
 "classhmi_1_1AssetGalleryItem.html#ae0cde76613c192c547ba409422398ada":[3,0,1,202,26],
-"classhmi_1_1AssetGalleryItem.html#ae2ee52946fc84b999fc4eff368a700e8":[2,0,2,203,20],
-"classhmi_1_1AssetGalleryItem.html#ae2ee52946fc84b999fc4eff368a700e8":[3,0,1,202,20],
-"classhmi_1_1AssetGalleryItem.html#ae66d8566fd1cb185c4b499095952d9f4":[2,0,2,203,56],
-"classhmi_1_1AssetGalleryItem.html#ae66d8566fd1cb185c4b499095952d9f4":[3,0,1,202,56],
-"classhmi_1_1AssetGalleryItem.html#aeedd794c88bac6ababcdc08ee700300f":[2,0,2,203,93],
-"classhmi_1_1AssetGalleryItem.html#aeedd794c88bac6ababcdc08ee700300f":[3,0,1,202,93],
-"classhmi_1_1AssetGalleryItem.html#aef4f8b10553ba3677461074fbd7e6196":[2,0,2,203,46]
+"classhmi_1_1AssetGalleryItem.html#ae2ee52946fc84b999fc4eff368a700e8":[2,0,2,203,20]
 };

@@ -26,8 +26,8 @@
  * et que le combat lit Ã  l'entrÃ©e (`applyRecord`) et Ã©crit Ã  la sortie. Un membre sans
  * enregistrement est **plein** : la fiche telle qu'elle est Ã©crite.
  *
- * Pas de rÃ¨gle de repos ici : un repos long (`core::longRest`) viendra avec l'auberge, et
- * effacera le registre.
+ * Le repos long (`rest`, `LOT-142`) rend Ã  chacun sa fiche pleine : il oublie les blessures et
+ * les lancers, pas le niveau.
  */
 
 #include &lt;map&gt;
@@ -66,7 +66,17 @@ public:
     /// @brief Oublie @p characterId : un membre mort, ou reposÃ©.
     void erase(std::string_view characterId);
 
-    /// @brief Oublie tout : une partie neuve, un repos long.
+    /**
+     * @brief Le repos long de @p characterId (`LOT-142`) : ses points de vie et ses lancers
+     *        reviennent Ã  ceux de la fiche, son niveau reste. Sans niveau retenu, il n'a plus
+     *        d'enregistrement â il est plein.
+     *
+     * C'est `core::longRest` dit en registre : la fiche relue au combat suivant est pleine
+     * (`applyRecord` n'a plus rien Ã  y retirer), au niveau que la partie lui a donnÃ©.
+     */
+    void rest(std::string_view characterId);
+
+    /// @brief Oublie tout : une partie neuve.
 <span style = "background-color:#dfd">    void clear() noexcept {
         _records.clear();
     }</span>

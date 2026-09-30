@@ -135,11 +135,11 @@ namespace {
 // tranchent autrement que le total.
 <span style = "background-color:#dfd">[[nodiscard]] std::string decrireLeD20(const CheckResult&amp; jet) {
     std::string texte = "d20 = " + std::to_string(jet.keptDie);
-    for (const Modifier&amp; modificateur : jet.modifiers) {</span>
-<span style = "background-color:#fdd">        texte += modificateur.value &gt;= 0 ? " + " : " - ";
+    for (const Modifier&amp; modificateur : jet.modifiers) {
+        texte += modificateur.value &gt;= 0 ? " + " : " - ";
         texte += std::to_string(std::abs(modificateur.value)) + " (" + modificateur.source + ')';
-    }</span>
-<span style = "background-color:#dfd">    return texte + " = " + std::to_string(jet.total);
+    }
+    return texte + " = " + std::to_string(jet.total);
 }</span>
 
 // Â« Nom #3 Â» : un combattant tel que le journal le nomme ; Â« - Â» sans combattant.
@@ -471,10 +471,10 @@ ArenaSession::ArenaSession(Level level)
 <span style = "background-color:#dfd">            if (e.hook == CombatHook::CombatantDowned &amp;&amp; e.combatant.has_value()) {</span>
                 // Un lanceur qui tombe perd sa concentration.
 <span style = "background-color:#dfd">                const CombatantId tombe = *e.combatant;
-                endEffects(</span>
-<span style = "background-color:#fdd">                    [tombe](const ArenaEffect&amp; effet) {
-                        return effet.concentration &amp;&amp; effet.caster == tombe;</span>
-<span style = "background-color:#dfd">                    },</span>
+                endEffects(
+                    [tombe](const ArenaEffect&amp; effet) {
+                        return effet.concentration &amp;&amp; effet.caster == tombe;
+                    },</span>
                     "lanceur a terre");
             }
 <span style = "background-color:#dfd">            if (e.hook == CombatHook::CombatEnded) {
@@ -506,9 +506,9 @@ ArenaSession::ArenaSession(Level level)
     // Manuel, Â« Jets de sauvegarde contre la mort Â» : un d20 que rien ne modifie, sinon les sorts
     // qui aident une sauvegarde -- la benediction.
 <span style = "background-color:#dfd">    std::vector&lt;Modifier&gt; modificateurs;
-    if (std::optional&lt;Modifier&gt; de = blessingFor(combatant)) {</span>
-<span style = "background-color:#fdd">        modificateurs.push_back(std::move(*de));</span>
-<span style = "background-color:#dfd">    }
+    if (std::optional&lt;Modifier&gt; de = blessingFor(combatant)) {
+        modificateurs.push_back(std::move(*de));
+    }
     const CheckResult jet = rollCheck(10, modificateurs, RollStance::Normal, _random);</span>
     // La ligne se reserve : la mort que le jet declenche s'ecrit apres lui.
 <span style = "background-color:#dfd">    const std::size_t place = _journal.size();
@@ -524,7 +524,7 @@ ArenaSession::ArenaSession(Level level)
                      deathSaveTally(combatant);
 <span style = "background-color:#dfd">            break;</span>
         case DeathSaveOutcome::Stabilized:
-<span style = "background-color:#dfd">            ligne += "troisieme reussite, stabilise";
+<span style = "background-color:#fdd">            ligne += "troisieme reussite, stabilise";
             break;</span>
         case DeathSaveOutcome::Died:
 <span style = "background-color:#dfd">            ligne += "troisieme echec";
@@ -1554,15 +1554,15 @@ std::optional&lt;std::size_t&gt; ArenaSession::firstExitFromReach(
         if (cible == nullptr || cible-&gt;status != CombatantStatus::Standing ||
 <span style = "background-color:#dfd">            _combat-&gt;phase() == CombatPhase::Ended || c == nullptr ||</span>
             c-&gt;status != CombatantStatus::Standing) {
-<span style = "background-color:#dfd">            break;</span>
+<span style = "background-color:#fdd">            break;</span>
         }
 <span style = "background-color:#dfd">        const AttackProfile coup = *meleeAttack(opportuniste);
         static_cast&lt;void&gt;(_combat-&gt;economy(opportuniste)-&gt;spend(REACTION_RESOURCE));
         static_cast&lt;void&gt;(resolveAndRecord(opportuniste, mover, coup, "opportunite : "));
         endEffects(
-            [opportuniste](const ArenaEffect&amp; effet) {</span>
-<span style = "background-color:#fdd">                return effet.bearer == opportuniste &amp;&amp; effet.kind == SpellEffectKind::Invisible;</span>
-<span style = "background-color:#dfd">            },</span>
+            [opportuniste](const ArenaEffect&amp; effet) {
+                return effet.bearer == opportuniste &amp;&amp; effet.kind == SpellEffectKind::Invisible;
+            },</span>
             "il attaque");
 <span style = "background-color:#dfd">    }
 }</span>

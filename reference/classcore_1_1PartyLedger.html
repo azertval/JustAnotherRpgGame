@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -155,8 +155,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a94f270f45b2a85b282bbcc66d80820de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retient <code class="param">record</code> pour <code class="param">characterId</code>, à la place du précédent.  <br /></td></tr>
 <tr class="memitem:a1b2229b53122af7e4bd48490724acd5a" id="r_a1b2229b53122af7e4bd48490724acd5a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1b2229b53122af7e4bd48490724acd5a">erase</a> (std::string_view characterId)</td></tr>
 <tr class="memdesc:a1b2229b53122af7e4bd48490724acd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie <code class="param">characterId</code> : un membre mort, ou reposé.  <br /></td></tr>
+<tr class="memitem:ab3f639150cfef8508d81e57f36eb0f8b" id="r_ab3f639150cfef8508d81e57f36eb0f8b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab3f639150cfef8508d81e57f36eb0f8b">rest</a> (std::string_view characterId)</td></tr>
+<tr class="memdesc:ab3f639150cfef8508d81e57f36eb0f8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le repos long de <code class="param">characterId</code> (<span class="tt">LOT-142</span>) : ses points de vie et ses lancers reviennent à ceux de la fiche, son niveau reste.  <br /></td></tr>
 <tr class="memitem:abbe5d4e5aaa031d20684528d535bc69b" id="r_abbe5d4e5aaa031d20684528d535bc69b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abbe5d4e5aaa031d20684528d535bc69b">clear</a> () noexcept</td></tr>
-<tr class="memdesc:abbe5d4e5aaa031d20684528d535bc69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie tout : une partie neuve, un repos long.  <br /></td></tr>
+<tr class="memdesc:abbe5d4e5aaa031d20684528d535bc69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie tout : une partie neuve.  <br /></td></tr>
 <tr class="memitem:a517cb2b9683ba012c896dd45b769cce2" id="r_a517cb2b9683ba012c896dd45b769cce2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a517cb2b9683ba012c896dd45b769cce2">empty</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -189,7 +191,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Oublie tout : une partie neuve, un repos long. </p>
+<p>Oublie tout : une partie neuve. </p>
 
 </div>
 </div>
@@ -260,6 +262,27 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>L'enregistrement de <code class="param">characterId</code>, ou rien s'il n'a pas combattu. </dd></dl>
+
+</div>
+</div>
+<a id="ab3f639150cfef8508d81e57f36eb0f8b" name="ab3f639150cfef8508d81e57f36eb0f8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3f639150cfef8508d81e57f36eb0f8b">&#9670;&#160;</a></span>rest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::PartyLedger::rest </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le repos long de <code class="param">characterId</code> (<span class="tt">LOT-142</span>) : ses points de vie et ses lancers reviennent à ceux de la fiche, son niveau reste. </p>
+<p>Sans niveau retenu, il n'a plus d'enregistrement — il est plein.</p>
+<p>C'est <span class="tt"><a class="el" href="namespacecore.html#acc56dba7c8697d70382843a7c746d64c" title="Le repos long : les points de vie au maximum, chaque sort à ses lancers du jour (EX-REG-031).">core::longRest</a></span> dit en registre : la fiche relue au combat suivant est pleine (<span class="tt"><a class="el" href="namespacecore.html#a855344de0ea0275ba049eb73f8eaab4e" title="Applique record à sheet : ses points de vie courants, bornés à [0, maximum], et les lancers restants ...">applyRecord</a></span> n'a plus rien à y retirer), au niveau que la partie lui a donné. </p>
 
 </div>
 </div>

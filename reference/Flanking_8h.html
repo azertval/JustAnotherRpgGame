@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -168,11 +168,11 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La prise en tenaille, règle optionnelle du <em>Guide du Maître</em> (<span class="tt">LOT-23</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md32"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md33"></a>
 Ce que dit le Guide</h2>
 <p>Chapitre 8, « Règle optionnelle : la prise en tenaille » (PDF p. 251) : « Quand une créature et au moins un de ses alliés sont adjacents à un ennemi et placés sur des côtés ou des angles opposés de son emplacement, ils le prennent en tenaille et ils bénéficient tous deux d'un avantage lors de leurs jets d'attaque au corps à corps contre cet ennemi. » Pour trancher un doute, « tracez une ligne imaginaire entre les centres des emplacements de chacune de ces deux créatures. Si la ligne passe par des côtés ou des angles opposés de l'emplacement de l'adversaire, alors ce dernier est bien pris en tenaille. »</p>
 <p>Deux restrictions : on ne prend pas en tenaille un ennemi <b>qu'on ne voit pas</b>, ni quand on est <b>neutralisé</b> ; et une créature de Grande taille ou plus prend en tenaille « tant que l'une des cases qu'elle occupe remplit les conditions ».</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md33"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md34"></a>
 Comment la grille le mesure</h2>
 <p>Le doute est tranché <b>toujours</b> par la ligne des centres : c'est la seule des deux formulations qui se calcule sans interprétation. Les centres sont des points de grille en demi-cases (<span class="tt"><a class="el" href="namespacecore.html#aad39b76c276fcbb0b8c5244b4ce4b3cf" title="Le centre de la case.">core::centerOf</a></span>), les bords de l'emplacement des coordonnées paires ; la ligne « passe par deux côtés opposés » si elle touche le bord gauche <b>et</b> le bord droit, ou le haut <b>et</b> le bas, coins compris — ce qui couvre les angles opposés. Tout est entier et exact.</p>
 <p>La règle est <b>optionnelle</b> : c'est la donnée de l'arène qui l'active (<span class="tt"><a class="el" href="structcore_1_1ArenaBout.html#a39a9050fe070f2ce98af070e7eb9fed4" title="La prise en tenaille, règle optionnelle du Guide du Maître (core::isFlanked).">core::ArenaBout::flanking</a></span>), pas le moteur. </p>

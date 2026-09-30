@@ -17,6 +17,7 @@ var structcore_1_1Creature =
     [ "hitPoints", "structcore_1_1Creature.html#a7a0d61688b76d8555a09defbf43a13d9", null ],
     [ "id", "structcore_1_1Creature.html#ac02c4b54b93237c6cdf6176fec061e2c", null ],
     [ "languages", "structcore_1_1Creature.html#a6297613a530c3798ee46006e8107fa8f", null ],
+    [ "multiattack", "structcore_1_1Creature.html#a6e4210fae54aeb54de53bbdd5577c365", null ],
     [ "name", "structcore_1_1Creature.html#ae5bc2270dad918f11a40bd2e4148ccf1", null ],
     [ "requiredMechanisms", "structcore_1_1Creature.html#ace09660f1aa10b5cbdb5e3fa5ea3f5aa", null ],
     [ "senses", "structcore_1_1Creature.html#a725c53cfefd07ad0e63f34bd4834f7f3", null ],

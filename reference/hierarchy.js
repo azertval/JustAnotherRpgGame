@@ -11,6 +11,7 @@ var hierarchy =
     [ "core::ArenaActionNotice", "structcore_1_1ArenaActionNotice.html", null ],
     [ "core::ArenaAttack", "structcore_1_1ArenaAttack.html", null ],
     [ "core::ArenaBout", "structcore_1_1ArenaBout.html", null ],
+    [ "test_support::ArenaContent", "structtest__support_1_1ArenaContent.html", null ],
     [ "core::ArenaContestant", "structcore_1_1ArenaContestant.html", null ],
     [ "core::ArenaEffect", "structcore_1_1ArenaEffect.html", null ],
     [ "core::ArenaEntryPoint", "structcore_1_1ArenaEntryPoint.html", null ],
@@ -222,6 +223,7 @@ var hierarchy =
     [ "core::GridPoint", "structcore_1_1GridPoint.html", null ],
     [ "core::GridPosition", "structcore_1_1GridPosition.html", null ],
     [ "hmi::HeroContestantSource", "structhmi_1_1HeroContestantSource.html", null ],
+    [ "test_support::Heros", "structtest__support_1_1Heros.html", null ],
     [ "core::HitPointChange", "structcore_1_1HitPointChange.html", null ],
     [ "core::HitPointReserve", "structcore_1_1HitPointReserve.html", null ],
     [ "core::IComponentPool", "classcore_1_1IComponentPool.html", [

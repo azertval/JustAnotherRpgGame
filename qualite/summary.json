@@ -1,11 +1,11 @@
 {
-  "generated": "2026-09-30 13:24 UTC",
-  "commit": "fa4805354",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36716672627",
+  "generated": "2026-09-30 19:25 UTC",
+  "commit": "7c419c351",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36761872113",
   "coverage": {
-    "percent": 91.42,
-    "covered": 47103,
-    "valid": 51524,
+    "percent": 91.45,
+    "covered": 47650,
+    "valid": 52104,
     "files": 278,
     "areas": [
       {
@@ -16,9 +16,9 @@
       },
       {
         "name": "Core/Combat",
-        "covered": 4454,
-        "valid": 4707,
-        "percent": 94.63
+        "covered": 4691,
+        "valid": 4964,
+        "percent": 94.5
       },
       {
         "name": "Core/Data",
@@ -64,9 +64,9 @@
       },
       {
         "name": "Core/Rpg",
-        "covered": 2850,
-        "valid": 3178,
-        "percent": 89.68
+        "covered": 2875,
+        "valid": 3201,
+        "percent": 89.82
       },
       {
         "name": "Core/Time",
@@ -76,15 +76,15 @@
       },
       {
         "name": "Core/World",
-        "covered": 1331,
+        "covered": 1332,
         "valid": 1453,
-        "percent": 91.6
+        "percent": 91.67
       },
       {
         "name": "Editor/Logic",
-        "covered": 5495,
-        "valid": 6241,
-        "percent": 88.05
+        "covered": 5501,
+        "valid": 6246,
+        "percent": 88.07
       },
       {
         "name": "Editor/Ui",
@@ -100,9 +100,9 @@
       },
       {
         "name": "HMI/Game",
-        "covered": 520,
-        "valid": 576,
-        "percent": 90.28
+        "covered": 522,
+        "valid": 582,
+        "percent": 89.69
       },
       {
         "name": "HMI/Graphics",
@@ -138,81 +138,81 @@
   },
   "benchmarks": {
     "suite": "Combat et niveaux (Release, windows-2022)",
-    "runs": 22,
-    "date": "2026-09-30 02:48 UTC",
-    "commit": "748b19c0c",
+    "runs": 23,
+    "date": "2026-09-30 13:25 UTC",
+    "commit": "fa4805354",
     "benches": [
       {
         "name": "ReachableAreaDashing",
-        "value": 157027.85714285358,
+        "value": 157223.52678571662,
         "unit": "ns/iter",
-        "change_percent": -0.1
+        "change_percent": 0.1
       },
       {
         "name": "FindPathAcrossGrid",
-        "value": 214216.95312500157,
+        "value": 217150.24999999776,
         "unit": "ns/iter",
         "change_percent": 1.4
       },
       {
         "name": "LineOfSightAcrossGrid",
-        "value": 57189.059423842366,
+        "value": 57605.59134456488,
         "unit": "ns/iter",
-        "change_percent": 0.0
+        "change_percent": 0.7
       },
       {
         "name": "CoverFromWithInterposed",
-        "value": 161575.25669643187,
+        "value": 160805.56919643003,
         "unit": "ns/iter",
         "change_percent": -0.5
       },
       {
         "name": "PlanTurnFourVersusFour",
-        "value": 1144430.2678571357,
+        "value": 1129722.968750002,
         "unit": "ns/iter",
-        "change_percent": 0.4
+        "change_percent": -1.3
       },
       {
         "name": "LoadTestLevel",
-        "value": 2705298.6607143073,
+        "value": 2681790.889830411,
         "unit": "ns/iter",
-        "change_percent": 0.5
+        "change_percent": -0.9
       },
       {
         "name": "ComposeTestMap",
-        "value": 687.3054919908653,
+        "value": 635.6052173912984,
         "unit": "us/iter",
-        "change_percent": 8.1
+        "change_percent": -7.5
       },
       {
         "name": "ArenareaSnapshot",
-        "value": 0.09592495745115316,
+        "value": 0.09468007352440447,
         "unit": "ms/iter",
-        "change_percent": 2.2
+        "change_percent": -1.3
       },
       {
         "name": "ArenareaComposeWholeMap",
-        "value": 0.1391093210124586,
+        "value": 0.1342859732142898,
         "unit": "ms/iter",
-        "change_percent": 3.1
+        "change_percent": -3.5
       },
       {
         "name": "ArenareaTexturePaths",
-        "value": 0.07114607503390018,
+        "value": 0.07041633124550652,
         "unit": "ms/iter",
-        "change_percent": 4.4
+        "change_percent": -1.0
       },
       {
         "name": "ArenareaBuildStaticScene",
-        "value": 0.13715907366071026,
+        "value": 0.13628314584170245,
         "unit": "ms/iter",
-        "change_percent": 0.8
+        "change_percent": -0.6
       },
       {
         "name": "ArenareaFrame1080p",
-        "value": 3.5597086493908776,
+        "value": 3.6264625928921026,
         "unit": "us/iter",
-        "change_percent": -0.1
+        "change_percent": 1.9
       }
     ]
   },

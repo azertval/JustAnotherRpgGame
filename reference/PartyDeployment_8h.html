@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -189,13 +189,13 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une rencontre et le <b>groupe de quatre</b> sur leur zone de combat (<span class="tt">LOT-143</span>) : la formation adverse y tient-elle, le groupe y trouve-t-il ses places, et reste-t-il de quoi manœuvrer ? </p>
 <p>Le verdict de la zone (<span class="tt"><a class="el" href="namespacecore.html#a2202cb32725409d8b48364db226a6fde" title="Le verdict de chaque zone de combat de entities sur la collision collision, dans l&#39;ordre des entités.">core::analyzeCombatZones</a></span>, <span class="tt">LOT-EDITOR-05</span>) a été écrit pour un duel ; celui du terrain (<span class="tt"><a class="el" href="namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d" title="Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide.">core::analyzeEncounterTerrain</a></span>) regarde la formation sur la <b>carte</b>, sans la borner à la zone que le combat découpe (<span class="tt"><a class="el" href="namespacecore.html#ac1b405c2547d9e6b84d7575449cf36d7" title="La carte réduite à zone : la grille tactique que core::ArenaSession prend pour terrain.">core::cropLevelToZone</a></span>). Depuis le <span class="tt">LOT-139</span>, le combat se joue à quatre contre plusieurs, <b>sur la zone seule</b> : c'est là qu'il faut compter tout le monde.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
 La zone d'une rencontre</h2>
 <p>Celle qui contient son marqueur, comme au jeu (<span class="tt"><a class="el" href="namespacecore.html#acedbd9be2b83f7c6219a695e97819da5" title="Un héros seul en heroCell : prepareMapEncounter avec un groupe d&#39;un membre.">core::prepareMapEncounter</a></span>) ; à défaut, la plus proche du marqueur — celle où se tiendra le groupe qui l'engage —, et le marqueur hors zone est un défaut : sa formation, écrite autour de lui, tomberait hors du terrain.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
 Les places du groupe</h2>
 <p>Au jeu, le groupe entre là où il marche (<span class="tt">LOT-139</span>) : l'éditeur ne peut pas le savoir. Le verdict lui cherche donc <b>quatre places</b> sur la zone, hors de la formation et atteignables depuis elle : les entrées d'arène alliées de la zone d'abord (<span class="tt"><a class="el" href="namespacecore.html#a93cf3e3bbcfd17745d5f4084773b1a4a" title="Type d&#39;entité de carte qui marque un point d&#39;entrée de l&#39;arène (Source/Elements/Levels/).">core::ARENA_ENTRY_ENTITY_TYPE</a></span>), puis, décision nommée, <b>le front opposé</b> au marqueur — la case libre la plus éloignée de lui, et ses plus proches voisines. Un groupe qui y tient tient ailleurs sur la zone ; un groupe qui n'y tient pas ne tient nulle part.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
 Ce qu'elle ne redit pas</h2>
 <p>Une zone dégénérée, débordante ou pleine est dite par <span class="tt"><a class="el" href="namespacecore.html#a2f8f6aa025b66709486f9e1e585ac334" title="Relève ce qui empêche une zone d&#39;être une grille tactique (EX-NFR-040).">core::validateCombatZones</a></span> ; un combattant dans un mur ou sur un autre, par <span class="tt"><a class="el" href="namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d" title="Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide.">core::analyzeEncounterTerrain</a></span> ; une rencontre inconnue, par la validation des entités. Le verdict ne le répète pas. </p>
 </div></div><!-- contents -->

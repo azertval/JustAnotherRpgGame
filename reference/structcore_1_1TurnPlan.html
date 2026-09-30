@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -156,6 +156,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a3acaac061b0d3e99d60c0fdff5e8d7ee" id="r_a3acaac061b0d3e99d60c0fdff5e8d7ee"><td class="memItemLeft"><a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11d">TurnAction</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3acaac061b0d3e99d60c0fdff5e8d7ee">action</a> = <a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da0f68101772bd5397ef8eb1b632798652">TurnAction::Wait</a></td></tr>
 <tr class="memitem:ad0b9c6000643683bb1b23456e9def138" id="r_ad0b9c6000643683bb1b23456e9def138"><td class="memItemLeft">std::optional&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">CombatantId</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad0b9c6000643683bb1b23456e9def138">target</a></td></tr>
 <tr class="memitem:ac4c1f69895df4bb15900e7fd555ade52" id="r_ac4c1f69895df4bb15900e7fd555ade52"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ac4c1f69895df4bb15900e7fd555ade52">attackIndex</a> = 0</td></tr>
+<tr class="memitem:a8e8f09dce434b684da3d89b3d224ead1" id="r_a8e8f09dce434b684da3d89b3d224ead1"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8e8f09dce434b684da3d89b3d224ead1">spellIndex</a> = 0</td></tr>
+<tr class="memdesc:a8e8f09dce434b684da3d89b3d224ead1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour <span class="tt">Cast</span> : l'indice du sort dans ceux du combattant (<span class="tt"><a class="el" href="classcore_1_1ArenaSession.html#a37fe5fc7f309b7fcbb4b396ab876a273">ArenaSession::spells</a></span>).  <br /></td></tr>
 <tr class="memitem:a4e57977162d5f75bd04e1f046f2d06ea" id="r_a4e57977162d5f75bd04e1f046f2d06ea"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4e57977162d5f75bd04e1f046f2d06ea">dashTo</a></td></tr>
 <tr class="memdesc:a4e57977162d5f75bd04e1f046f2d06ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour une approche : où aller <b>après</b> s'être précipité, le long du chemin.  <br /></td></tr>
 <tr class="memitem:ac393c9a154c07900b7db6594d3eafa5b" id="r_ac393c9a154c07900b7db6594d3eafa5b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac393c9a154c07900b7db6594d3eafa5b">requiredRoll</a> = 0</td></tr>
@@ -287,6 +289,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8e8f09dce434b684da3d89b3d224ead1" name="a8e8f09dce434b684da3d89b3d224ead1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e8f09dce434b684da3d89b3d224ead1">&#9670;&#160;</a></span>spellIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t core::TurnPlan::spellIndex = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pour <span class="tt">Cast</span> : l'indice du sort dans ceux du combattant (<span class="tt"><a class="el" href="classcore_1_1ArenaSession.html#a37fe5fc7f309b7fcbb4b396ab876a273">ArenaSession::spells</a></span>). </p>
 
 </div>
 </div>

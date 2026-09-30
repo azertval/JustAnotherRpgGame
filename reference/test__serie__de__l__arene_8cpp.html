@@ -1,0 +1,289 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/test_serie_de_l_arene.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__serie__de__l__arene_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_serie_de_l_arene.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La série de l'arène (<span class="tt">LOT-142</span>) : six rencontres de difficulté croissante, que le maître d'arène propose l'une après l'autre, un niveau et un repos entre deux ; et leur équilibrage par simulation, par rencontre et par composition du groupe.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;iomanip&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="Encounter_8h_source.html">Core/Combat/Encounter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EncounterDifficulty_8h_source.html">Core/Combat/EncounterDifficulty.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldTravel_8h_source.html">Core/World/WorldTravel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ArenaSimulation_8h_source.html">Test/Support/ArenaSimulation.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:adde0493fa22d036c2bac68a60bff74ad" id="r_adde0493fa22d036c2bac68a60bff74ad"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adde0493fa22d036c2bac68a60bff74ad">TEST</a> (SerieDeLArene, LaSerieMonteEnDifficulte)</td></tr>
+<tr class="memdesc:adde0493fa22d036c2bac68a60bff74ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">La série monte en difficulté au budget du <em>Guide du Maître</em> (p.  <br /></td></tr>
+<tr class="memitem:a31eabaa5597839826bd98fc5b89d8da1" id="r_a31eabaa5597839826bd98fc5b89d8da1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a31eabaa5597839826bd98fc5b89d8da1">TEST</a> (SerieDeLArene, ChaqueRencontreSeGagneDansSaBande)</td></tr>
+<tr class="memdesc:a31eabaa5597839826bd98fc5b89d8da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le test de garde de l'équilibrage : chaque rencontre de la série, jouée par le groupe entier à son niveau, se termine ; en Release, sur trente graines, le groupe en gagne dans la bande que la mesure complète a fixée.  <br /></td></tr>
+<tr class="memitem:ae852f09205bb74392c382c96342a0db6" id="r_ae852f09205bb74392c382c96342a0db6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae852f09205bb74392c382c96342a0db6">TEST</a> (SerieDeLArene, MesureCompleteParComposition)</td></tr>
+<tr class="memdesc:ae852f09205bb74392c382c96342a0db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La mesure complète de l'équilibrage (<span class="tt">LOT-142</span>) : chaque rencontre de la série, par le groupe entier et par les quatre trios, sur <span class="tt">JADG_SIMULATION_SEEDS</span> graines ; la table va dans <span class="tt">JADG_SIMULATION_OUT</span>.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La série de l'arène (<span class="tt">LOT-142</span>) : six rencontres de difficulté croissante, que le maître d'arène propose l'une après l'autre, un niveau et un repos entre deux ; et leur équilibrage par simulation, par rencontre et par composition du groupe. </p>
+<p>Les compositions sont le groupe entier et les quatre <b>trios</b> qu'on obtient en retirant une classe : l'écart de taux de victoire entre les trios dit si une classe est indispensable ou inutile. La mesure complète est longue — six rencontres, cinq compositions, cent graines — : elle ne tourne que si <span class="tt">JADG_SIMULATION_SEEDS</span> est posée, et écrit sa table dans le fichier que nomme <span class="tt">JADG_SIMULATION_OUT</span>. La CI joue le test de garde, plus court. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a31eabaa5597839826bd98fc5b89d8da1" name="a31eabaa5597839826bd98fc5b89d8da1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31eabaa5597839826bd98fc5b89d8da1">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SerieDeLArene</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaqueRencontreSeGagneDansSaBande</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le test de garde de l'équilibrage : chaque rencontre de la série, jouée par le groupe entier à son niveau, se termine ; en Release, sur trente graines, le groupe en gagne dans la bande que la mesure complète a fixée. </p>
+<p><b>Cas de test :</b> <b>Chaque rencontre de la serie se gagne dans sa bande de victoires.</b><br  />
+ <b>Categorie :</b> Integration · Serie de l'arene · Equilibrage<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Le sable ; le groupe de « Nouvelle partie » monte au niveau de chaque rencontre.<br  />
+2. Trente combats par rencontre en Release (six en Debug), les deux camps par l'IA.<br  />
+ <b>Resultat attendu :</b> Chaque combat se termine ; en Release, les victoires sont dans la bande de la rencontre. </p>
+
+</div>
+</div>
+<a id="adde0493fa22d036c2bac68a60bff74ad" name="adde0493fa22d036c2bac68a60bff74ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adde0493fa22d036c2bac68a60bff74ad">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SerieDeLArene</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaSerieMonteEnDifficulte</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La série monte en difficulté au budget du <em>Guide du Maître</em> (p. </p>
+<p>82-83) : chaque rencontre, jugée pour quatre héros à son niveau, est au moins « difficile », et les deux du niveau 5 sont « mortelles » ; le budget ajusté croît jusqu'au niveau 5. Entre les deux dernières, c'est la simulation qui ordonne : le budget, qui ne voit pas les attaques multiples du gladiateur, les juge voisines. <b>Cas de test :</b> <b>Les six rencontres de la serie sont difficiles, les deux dernieres mortelles, et leur budget croit jusqu'au niveau 5.</b><br  />
+ <b>Categorie :</b> Integration · Serie de l'arene · Equilibrage<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Charger les rencontres, le bestiaire et les regles de difficulte livres.<br  />
+2. Juger chaque rencontre de la serie pour quatre heros de son niveau.<br  />
+ <b>Resultat attendu :</b> Aucune creature inconnue ; « difficile » ou « mortelle », les deux dernieres « mortelle » ; un budget ajuste strictement croissant sur les cinq premieres. </p>
+
+</div>
+</div>
+<a id="ae852f09205bb74392c382c96342a0db6" name="ae852f09205bb74392c382c96342a0db6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae852f09205bb74392c382c96342a0db6">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SerieDeLArene</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MesureCompleteParComposition</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La mesure complète de l'équilibrage (<span class="tt">LOT-142</span>) : chaque rencontre de la série, par le groupe entier et par les quatre trios, sur <span class="tt">JADG_SIMULATION_SEEDS</span> graines ; la table va dans <span class="tt">JADG_SIMULATION_OUT</span>. </p>
+<p>Aucune classe n'est indispensable ni inutile : sur la série, l'écart de taux de victoire entre les trios reste sous vingt points. <b>Cas de test :</b> <b>Sur la serie, l'ecart de victoires entre les quatre trios reste sous vingt points.</b><br  />
+ <b>Categorie :</b> Integration · Serie de l'arene · Equilibrage<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser <span class="tt">JADG_SIMULATION_SEEDS</span> (cent) et <span class="tt">JADG_SIMULATION_OUT</span>.<br  />
+2. Jouer chaque rencontre par le groupe et par chaque trio.<br  />
+ <b>Resultat attendu :</b> La table est ecrite ; l'ecart entre le meilleur et le pire trio, en taux sur la serie, est sous vingt points. Sans la variable, le test est saute. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_470d866d2aee15f42c1af4c2491482fa.html">Integration</a></li><li class="navelem"><a href="test__serie__de__l__arene_8cpp.html">test_serie_de_l_arene.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

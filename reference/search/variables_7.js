@@ -11,9 +11,10 @@ var searchData=
   ['government_8',['government',['../structcore_1_1Region.html#ab2fcfb2827210b97d085a810023d1196',1,'core::Region::government'],['../structhmi_1_1MapRegionView.html#a6f5d6b1a1e94283593b4a4e75f02d7a2',1,'hmi::MapRegionView::government']]],
   ['grade_9',['grade',['../structcore_1_1RegionAppraisal.html#a9cea16e7edc28da4c20902d603d19cf6',1,'core::RegionAppraisal']]],
   ['grades_10',['grades',['../structhmi_1_1MapRegionView.html#a100fef56ec6baba5b096607def9533e5',1,'hmi::MapRegionView']]],
-  ['graph_11',['graph',['../structcore_1_1DialogueLoad.html#a2d0bdba2a17ecccc54ad3d9dcfb20a36',1,'core::DialogueLoad::graph'],['../structhmi_1_1DialogueModel_1_1Session.html#a06d4e0952d1b0a59c408725a795b88e2',1,'hmi::DialogueModel::Session::graph']]],
-  ['grid_12',['grid',['../structhmi_1_1MapZone.html#a49e79703895477ae60635d24cb8b3bba',1,'hmi::MapZone::grid'],['../structhmi_1_1MapDistrict.html#a30f61e653751d9b41a8b6a07430a6f07',1,'hmi::MapDistrict::grid']]],
-  ['groundline_13',['groundLine',['../structhmi_1_1SceneTexture.html#af856af7e668f6e54537bc5b99b527919',1,'hmi::SceneTexture::groundLine'],['../structhmi_1_1SceneTextureTraits.html#a3c7f13b1aca0e224dacbfb2cb253e999',1,'hmi::SceneTextureTraits::groundLine']]],
-  ['guardmap_14',['guardMap',['../structcore_1_1CityDistrict.html#a9923745226857a2e0df0cfc283a67548',1,'core::CityDistrict']]],
-  ['guardmapid_15',['guardMapId',['../structhmi_1_1CityDistrictView.html#ac2f2cdd09e4ea0fdf37c492d5d3036a2',1,'hmi::CityDistrictView']]]
+  ['graduated_11',['graduated',['../structcore_1_1DamageAffinity.html#a14ae0226f3435c699c45522b19f003b8',1,'core::DamageAffinity::graduated'],['../structcore_1_1CapacityEffect.html#a1ff239b01b2d8fe4efe805318834e1d9',1,'core::CapacityEffect::graduated'],['../structcore_1_1NamedResistance.html#abb549acf1e3b230cb8cc56d10b62646b',1,'core::NamedResistance::graduated']]],
+  ['graph_12',['graph',['../structcore_1_1DialogueLoad.html#a2d0bdba2a17ecccc54ad3d9dcfb20a36',1,'core::DialogueLoad::graph'],['../structhmi_1_1DialogueModel_1_1Session.html#a06d4e0952d1b0a59c408725a795b88e2',1,'hmi::DialogueModel::Session::graph']]],
+  ['grid_13',['grid',['../structhmi_1_1MapZone.html#a49e79703895477ae60635d24cb8b3bba',1,'hmi::MapZone::grid'],['../structhmi_1_1MapDistrict.html#a30f61e653751d9b41a8b6a07430a6f07',1,'hmi::MapDistrict::grid']]],
+  ['groundline_14',['groundLine',['../structhmi_1_1SceneTexture.html#af856af7e668f6e54537bc5b99b527919',1,'hmi::SceneTexture::groundLine'],['../structhmi_1_1SceneTextureTraits.html#a3c7f13b1aca0e224dacbfb2cb253e999',1,'hmi::SceneTextureTraits::groundLine']]],
+  ['guardmap_15',['guardMap',['../structcore_1_1CityDistrict.html#a9923745226857a2e0df0cfc283a67548',1,'core::CityDistrict']]],
+  ['guardmapid_16',['guardMapId',['../structhmi_1_1CityDistrictView.html#ac2f2cdd09e4ea0fdf37c492d5d3036a2',1,'hmi::CityDistrictView']]]
 ];

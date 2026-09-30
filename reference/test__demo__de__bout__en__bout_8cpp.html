@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -172,6 +172,7 @@ $(function(){initNavTree('test__demo__de__bout__en__bout_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="CharacterSheet_8h_source.html">Core/Rpg/CharacterSheet.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Check_8h_source.html">Core/Rpg/Check.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Dialogue_8h_source.html">Core/Rpg/Dialogue.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PartyLedger_8h_source.html">Core/Rpg/PartyLedger.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Skill_8h_source.html">Core/Rpg/Skill.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ExplorationSession_8h_source.html">Core/World/ExplorationSession.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ExecutableDirectory_8h_source.html">HMI/Platform/ExecutableDirectory.h</a>&quot;</code><br />
@@ -184,6 +185,8 @@ $(function(){initNavTree('test__demo__de__bout__en__bout_8cpp.html','',''); });
 Functions</h2></td></tr>
 <tr class="memitem:a6ffca2c5b86d11a2a18706311c718147" id="r_a6ffca2c5b86d11a2a18706311c718147"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6ffca2c5b86d11a2a18706311c718147">TEST</a> (DemoDeBoutEnBout, LaFinParLaParole)</td></tr>
 <tr class="memdesc:a6ffca2c5b86d11a2a18706311c718147"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fin par la parole : la Persuasion réussit, à la graine qui la fait réussir.  <br /></td></tr>
+<tr class="memitem:a03478e3af24d2ece6bb1f045e2e61b36" id="r_a03478e3af24d2ece6bb1f045e2e61b36"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a03478e3af24d2ece6bb1f045e2e61b36">TEST</a> (DemoDeBoutEnBout, LaDemoSeRejoueAvecLeMeneurChoisi)</td></tr>
+<tr class="memdesc:a03478e3af24d2ece6bb1f045e2e61b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">La démo se rejoue avec le meneur qu'on choisit (<span class="tt">LOT-142</span>) : le Scoundrel mène, parle au garde et fait le jet de Persuasion ; la voie de la parole mène à l'étal.  <br /></td></tr>
 <tr class="memitem:a45229aa02adccbec8c42b33fccff5215" id="r_a45229aa02adccbec8c42b33fccff5215"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a45229aa02adccbec8c42b33fccff5215">TEST</a> (DemoDeBoutEnBout, LaFinParLArene)</td></tr>
 <tr class="memdesc:a45229aa02adccbec8c42b33fccff5215"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fin par l'arène : la Persuasion échoue, le joueur endosse le crime, gagne sur le sable.  <br /></td></tr>
 <tr class="memitem:a206e558a66c3ae38ef84fb7382279044" id="r_a206e558a66c3ae38ef84fb7382279044"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a206e558a66c3ae38ef84fb7382279044">TEST</a> (DemoDeBoutEnBout, LaMortSurLeSable)</td></tr>
@@ -193,8 +196,39 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Tests système : la démo jouée de bout en bout <b>par les modèles du jeu</b>, sans fenêtre, depuis « Nouvelle partie » jusqu'à chacune de ses trois fins (<span class="tt">LOT-120</span>, <span class="tt">LOT-146</span>). </p>
 <p>Ce qui est rejoué ici est ce que les écrans QML font : <span class="tt">GameView</span> ouvre le dialogue qu'un PNJ demande et gèle la carte, <span class="tt">Dialogue</span> engage la rencontre ou ouvre l'écran de fin, <span class="tt">CombatHud</span> ouvre l'écran de mort à la défaite, <span class="tt">Death</span> et <span class="tt">DemoEnd</span> finissent la partie. Les modèles sont ceux du jeu, le contenu est celui qui est livré, le hasard est <b>fixé</b> : la graine du dialogue force l'issue du jet de Persuasion, celle du combat force son issue. Un test par fin : la parole, l'arène gagnée, la mort sur le sable. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a03478e3af24d2ece6bb1f045e2e61b36" name="a03478e3af24d2ece6bb1f045e2e61b36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03478e3af24d2ece6bb1f045e2e61b36">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DemoDeBoutEnBout</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaDemoSeRejoueAvecLeMeneurChoisi</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La démo se rejoue avec le meneur qu'on choisit (<span class="tt">LOT-142</span>) : le Scoundrel mène, parle au garde et fait le jet de Persuasion ; la voie de la parole mène à l'étal. </p>
+<p><b>Cas de test :</b> <b>Nouvelle partie avec le Scoundrel pour meneur, puis la demo jusqu'a sa fin par la parole.</b><br  />
+ <b>Categorie :</b> Systeme · Demo<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Nouvelle partie ; choisir le Scoundrel pour meneur.<br  />
+2. Accepter la quete, au parvis convaincre le garde a une graine qui reussit le jet du Scoundrel.<br  />
+3. Rendre l'enfant.<br  />
+ <b>Resultat attendu :</b> Le meneur est le Scoundrel du debut a la fin ; la Persuasion reussit ; l'ecran de fin dit la voie de la parole. </p>
+
+</div>
+</div>
 <a id="a6ffca2c5b86d11a2a18706311c718147" name="a6ffca2c5b86d11a2a18706311c718147"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ffca2c5b86d11a2a18706311c718147">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ffca2c5b86d11a2a18706311c718147">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,7 +260,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a45229aa02adccbec8c42b33fccff5215" name="a45229aa02adccbec8c42b33fccff5215"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45229aa02adccbec8c42b33fccff5215">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a45229aa02adccbec8c42b33fccff5215">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +292,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a206e558a66c3ae38ef84fb7382279044" name="a206e558a66c3ae38ef84fb7382279044"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a206e558a66c3ae38ef84fb7382279044">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a206e558a66c3ae38ef84fb7382279044">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

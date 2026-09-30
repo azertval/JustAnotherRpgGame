@@ -9,6 +9,7 @@ var classcore_1_1DialogueListener =
     [ "operator=", "classcore_1_1DialogueListener.html#a2830c7147907a5e1a2067437cacbe616", null ],
     [ "operator=", "classcore_1_1DialogueListener.html#a28fedcdbcc81942da0c7b60aad80ec54", null ],
     [ "receiveItem", "classcore_1_1DialogueListener.html#ab913b0303d4a9067ea84fcca7b082c9f", null ],
+    [ "rest", "classcore_1_1DialogueListener.html#a36942eb0e06b223a67dc394e9d4fc222", null ],
     [ "skillModifiers", "classcore_1_1DialogueListener.html#a1fc1a28c794da999536f32d771399596", null ],
     [ "speaks", "classcore_1_1DialogueListener.html#a14938c444afc9d0337a62b4a96d13d82", null ],
     [ "startEncounter", "classcore_1_1DialogueListener.html#af3fc38d5eeefa7f78c3abd838f43728f", null ]

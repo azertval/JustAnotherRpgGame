@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -168,7 +168,7 @@ Typedefs</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La trace du meneur, que les suiveurs du groupe parcourent à distance (<span class="tt">LOT-138</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md69"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md70"></a>
 Pourquoi une trace, et pas une poursuite</h2>
 <p>Un suiveur qui marcherait <b>vers</b> le meneur, en ligne droite, buterait sur le premier coin de mur que le meneur a contourné — et y resterait. Un suiveur qui chercherait son chemin à chaque pas coûterait une recherche par membre et par image, et couperait les angles autrement que le meneur. Le suiveur <b>met ses pas dans ceux du meneur</b> : il se tient sur la ligne que le meneur a parcourue, à une distance fixe derrière lui. Tout point de cette ligne a été occupé par le gabarit du meneur, qui tenait : un suiveur ne peut donc jamais se trouver dans du plein, ni rester coincé — c'est le critère du lot, et il tient par construction.</p>
 <p>La trace ne connaît pas la carte : elle retient des points, en cases, et mesure des longueurs. Ce que la carte permet se décide avant d'y poser un point (<span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span>). </p>

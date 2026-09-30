@@ -483,7 +483,8 @@ var namespacecore =
       [ "StartQuest", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2", null ],
       [ "StartEncounter", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5", null ],
       [ "EndDemo", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3", null ],
-      [ "LevelUp", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7", null ]
+      [ "LevelUp", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7", null ],
+      [ "Rest", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a55276c10d84e1df7713b441e76e141f9", null ]
     ] ],
     [ "DialogueAttitude", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7", [
       [ "Friendly", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7a03fdbf12e03a4cd1409b84abe2b631df", null ],
@@ -803,6 +804,7 @@ var namespacecore =
     ] ],
     [ "TurnAction", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11d", [
       [ "Attack", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a", null ],
+      [ "Cast", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da4cd9f3996d60790cd11c04f842ebc43c", null ],
       [ "Dash", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da3663598d5c5858b5a6040b1bbed4f187", null ],
       [ "Dodge", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dab01b83048682460e96eb4bd2482b8c32", null ],
       [ "Disengage", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f", null ],

@@ -25,7 +25,8 @@ var Dialogue_8h =
       [ "core::DialogueActionKind::StartQuest", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ab4acbcc4471115237765689879d1aeb2", null ],
       [ "core::DialogueActionKind::StartEncounter", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5", null ],
       [ "core::DialogueActionKind::EndDemo", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3", null ],
-      [ "core::DialogueActionKind::LevelUp", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7", null ]
+      [ "core::DialogueActionKind::LevelUp", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7", null ],
+      [ "core::DialogueActionKind::Rest", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680a55276c10d84e1df7713b441e76e141f9", null ]
     ] ],
     [ "core::DialogueAttitude", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7", [
       [ "core::DialogueAttitude::Friendly", "namespacecore.html#ade7d6c98b6c0942fee991823b7e237a7a03fdbf12e03a4cd1409b84abe2b631df", null ],

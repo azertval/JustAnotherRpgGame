@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -175,6 +175,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a3de75ad9eaf865ce5d687b19ab8d08e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ clôt la démo par la voie <code class="param">ending</code> (<span class="tt">LOT-119</span>).  <br /></td></tr>
 <tr class="memitem:a696c5bd3651cbf93036eb319b9cc1f82" id="r_a696c5bd3651cbf93036eb319b9cc1f82"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a696c5bd3651cbf93036eb319b9cc1f82">levelUp</a> (std::string_view characterId)</td></tr>
 <tr class="memdesc:a696c5bd3651cbf93036eb319b9cc1f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ donne un niveau à <code class="param">characterId</code> — <span class="tt">party</span> : à tout le groupe (<span class="tt">LOT-141</span>).  <br /></td></tr>
+<tr class="memitem:a36942eb0e06b223a67dc394e9d4fc222" id="r_a36942eb0e06b223a67dc394e9d4fc222"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a36942eb0e06b223a67dc394e9d4fc222">rest</a> (std::string_view characterId)</td></tr>
+<tr class="memdesc:a36942eb0e06b223a67dc394e9d4fc222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le PNJ donne un repos long à <code class="param">characterId</code> — <span class="tt">party</span> : à tout le groupe (<span class="tt">LOT-142</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Celui qui parle <b>au</b> PNJ, tel que le runner a besoin de le connaître. </p>
@@ -417,6 +419,34 @@ Public Member Functions</h2></td></tr>
 <p>Reçoit un objet que le PNJ lui donne. </p>
 
 <p>Implemented in <a class="el" href="classcore_1_1CharacterListener.html#a795691de4dfbe5559ff4c67bcb89c0a8">core::CharacterListener</a>.</p>
+
+</div>
+</div>
+<a id="a36942eb0e06b223a67dc394e9d4fc222" name="a36942eb0e06b223a67dc394e9d4fc222"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36942eb0e06b223a67dc394e9d4fc222">&#9670;&#160;</a></span>rest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void core::DialogueListener::rest </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le PNJ donne un repos long à <code class="param">characterId</code> — <span class="tt">party</span> : à tout le groupe (<span class="tt">LOT-142</span>). </p>
+<p>Sans effet par défaut, pour la même raison que <span class="tt"><a class="el" href="#af3fc38d5eeefa7f78c3abd838f43728f" title="Le PNJ engage la rencontre encounterId sur la carte (LOT-118).">startEncounter</a></span>. </p>
 
 </div>
 </div>

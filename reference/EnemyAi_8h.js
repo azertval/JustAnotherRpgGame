@@ -6,6 +6,7 @@ var EnemyAi_8h =
     [ "core::TurnPlan", "structcore_1_1TurnPlan.html", "structcore_1_1TurnPlan" ],
     [ "core::TurnAction", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11d", [
       [ "core::TurnAction::Attack", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a", null ],
+      [ "core::TurnAction::Cast", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da4cd9f3996d60790cd11c04f842ebc43c", null ],
       [ "core::TurnAction::Dash", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da3663598d5c5858b5a6040b1bbed4f187", null ],
       [ "core::TurnAction::Dodge", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dab01b83048682460e96eb4bd2482b8c32", null ],
       [ "core::TurnAction::Disengage", "namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f", null ],

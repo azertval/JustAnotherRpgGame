@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -181,7 +181,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une rencontre <b>posée sur la carte</b> (<span class="tt">LOT-118</span>) : la zone de combat qui l'accueille, la carte réduite à cette zone, et où chacun se dresse dedans. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md39"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
 Ce que ce fichier décide</h2>
 <p><span class="tt"><a class="el" href="namespacecore.html#a8ae810130a331e928f30b4c78f4c5768" title="Engage encounter au point trigger, en mettant exploration de côté.">core::beginEncounter</a></span> (<span class="tt"><a class="el" href="CombatTransition_8h.html" title="L&#39;aller-retour exploration ↔ combat : ce qu&#39;on met de côté, et ce qu&#39;on retrouve (LOT-18,...">CombatTransition.h</a></span>) dit <b>qui</b> se bat et met l'exploration de côté ; <span class="tt"><a class="el" href="namespacecore.html#ac1b405c2547d9e6b84d7575449cf36d7" title="La carte réduite à zone : la grille tactique que core::ArenaSession prend pour terrain.">core::cropLevelToZone</a></span> (<span class="tt"><a class="el" href="CombatZone_8h.html" title="La zone de combat d&#39;une carte : le rectangle nommé où l&#39;on se bat, et lui seul (EX-LVL-018,...">World/CombatZone.h</a></span>) découpe la carte. Entre les deux manque la question du <b>lieu</b> : sur quelle zone de combat de la carte ce combat se joue, et comment les cases voulues par la rencontre — écrites en cases de la carte — deviennent des cases de la grille tactique, sans tomber dans un mur ni hors de la zone.</p>
 <p>La réponse est pure : une carte, une rencontre, deux cases (le déclencheur, le héros), et l'on obtient une grille et des places. Aucune session n'est montée ici — c'est <span class="tt"><a class="el" href="classhmi_1_1EncounterModel.html" title="La vue-modèle du combat sur la carte.">hmi::EncounterModel</a></span> qui le fait —, si bien que la règle se vérifie sans fenêtre (<span class="tt">EX-NFR-010</span>). </p>

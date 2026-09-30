@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -860,11 +860,12 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:aabf3d04e881096180d288d8c6ad9fcf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les étapes du pipeline, <b>dans l'ordre</b> où elles s'exécutent.  <a href="#aabf3d04e881096180d288d8c6ad9fcf6">More...</a><br /></td></tr>
 <tr class="memitem:a004daf868d7dad4026ff9b7d3d75a11d" id="r_a004daf868d7dad4026ff9b7d3d75a11d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a004daf868d7dad4026ff9b7d3d75a11d">TurnAction</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="#a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a">Attack</a>
+, <a class="el" href="#a004daf868d7dad4026ff9b7d3d75a11da4cd9f3996d60790cd11c04f842ebc43c">Cast</a>
 , <a class="el" href="#a004daf868d7dad4026ff9b7d3d75a11da3663598d5c5858b5a6040b1bbed4f187">Dash</a>
 , <a class="el" href="#a004daf868d7dad4026ff9b7d3d75a11dab01b83048682460e96eb4bd2482b8c32">Dodge</a>
-, <a class="el" href="#a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f">Disengage</a>
 , <br />
-&#160;&#160;<a class="el" href="#a004daf868d7dad4026ff9b7d3d75a11da0f68101772bd5397ef8eb1b632798652">Wait</a>
+&#160;&#160;<a class="el" href="#a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f">Disengage</a>
+, <a class="el" href="#a004daf868d7dad4026ff9b7d3d75a11da0f68101772bd5397ef8eb1b632798652">Wait</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a004daf868d7dad4026ff9b7d3d75a11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'IA fait de son action.  <a href="#a004daf868d7dad4026ff9b7d3d75a11d">More...</a><br /></td></tr>
@@ -1071,6 +1072,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680a0b1cae6b8d28b5bace9ee3b4167c3ea5">StartEncounter</a>
 , <a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680ac11782546f2e4c38fcc45ef10bbda5c3">EndDemo</a>
 , <a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7">LevelUp</a>
+, <a class="el" href="#aae1dbf957fd7a423de4c11a60fc2d680a55276c10d84e1df7713b441e76e141f9">Rest</a>
 <br />
  }</td></tr>
 <tr class="memdesc:aae1dbf957fd7a423de4c11a60fc2d680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un nœud d'action fait au monde.  <a href="#aae1dbf957fd7a423de4c11a60fc2d680">More...</a><br /></td></tr>
@@ -2042,7 +2044,7 @@ Variables</h2></td></tr>
 <tr class="memitem:af7ee0f1291696687c17746182965ce8a" id="r_af7ee0f1291696687c17746182965ce8a"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#af7ee0f1291696687c17746182965ce8a">DIALOGUE_CONTINUE_KEY</a> = &quot;dialogue.continue&quot;</td></tr>
 <tr class="memdesc:af7ee0f1291696687c17746182965ce8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de traduction de la réponse implicite.  <br /></td></tr>
 <tr class="memitem:a4c88939a90ca012e149489fabd19c441" id="r_a4c88939a90ca012e149489fabd19c441"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a4c88939a90ca012e149489fabd19c441">LEVEL_UP_PARTY</a> = &quot;party&quot;</td></tr>
-<tr class="memdesc:a4c88939a90ca012e149489fabd19c441"><td class="mdescLeft">&#160;</td><td class="mdescRight">La cible d'un <span class="tt">levelUp</span> qui vise tout le groupe.  <br /></td></tr>
+<tr class="memdesc:a4c88939a90ca012e149489fabd19c441"><td class="mdescLeft">&#160;</td><td class="mdescRight">La cible d'un <span class="tt">levelUp</span> ou d'un <span class="tt">rest</span> qui vise tout le groupe.  <br /></td></tr>
 <tr class="memitem:a9d88411f2638378a427c3aeb435d7590" id="r_a9d88411f2638378a427c3aeb435d7590"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a9d88411f2638378a427c3aeb435d7590">NPC_ENTITY_TYPE</a> = &quot;npc&quot;</td></tr>
 <tr class="memdesc:a9d88411f2638378a427c3aeb435d7590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'entité de carte d'un PNJ.  <br /></td></tr>
 <tr class="memitem:ae2e3fb1ff10ddbebb4cdf1b1636afb25" id="r_ae2e3fb1ff10ddbebb4cdf1b1636afb25"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ae2e3fb1ff10ddbebb4cdf1b1636afb25">NPC_DIALOGUE_PROPERTY</a> = &quot;dialogue&quot;</td></tr>
@@ -3427,6 +3429,8 @@ Variables</h2></td></tr>
 <p>Le dialogue ne connaît pas l'écran ; il le demande (<span class="tt"><a class="el" href="classcore_1_1DialogueListener.html#a3de75ad9eaf865ce5d687b19ab8d08e0" title="Le PNJ clôt la démo par la voie ending (LOT-119).">core::DialogueListener::endDemo</a></span>). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7" name="aae1dbf957fd7a423de4c11a60fc2d680ae7c8e9e1f90eadea8b03762d9e9215c7"></a>LevelUp&#160;</td><td class="fielddoc"><p><b>Donne un niveau</b> (<span class="tt">LOT-141</span>) au personnage nommé par <span class="tt">target</span>, ou à tout le groupe (<span class="tt">party</span>) : la montée de niveau est donnée par la quête tant que l'expérience n'arrive pas (<span class="tt"><a class="el" href="classcore_1_1DialogueListener.html#a696c5bd3651cbf93036eb319b9cc1f82" title="Le PNJ donne un niveau à characterId — party : à tout le groupe (LOT-141).">core::DialogueListener::levelUp</a></span>). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aae1dbf957fd7a423de4c11a60fc2d680a55276c10d84e1df7713b441e76e141f9" name="aae1dbf957fd7a423de4c11a60fc2d680a55276c10d84e1df7713b441e76e141f9"></a>Rest&#160;</td><td class="fielddoc"><p><b>Donne un repos long</b> (<span class="tt">LOT-142</span>) au personnage nommé par <span class="tt">target</span>, ou à tout le groupe (<span class="tt">party</span>) : points de vie et lancers rendus, niveau gardé (<span class="tt"><a class="el" href="classcore_1_1DialogueListener.html#a36942eb0e06b223a67dc394e9d4fc222" title="Le PNJ donne un repos long à characterId — party : à tout le groupe (LOT-142).">core::DialogueListener::rest</a></span>). </p>
 </td></tr>
 </table>
 
@@ -4897,6 +4901,8 @@ L'altitude est un attribut, jamais une géométrie</h2>
 <p>Ce que l'IA fait de son action. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a" name="a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a"></a>Attack&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a004daf868d7dad4026ff9b7d3d75a11da4cd9f3996d60790cd11c04f842ebc43c" name="a004daf868d7dad4026ff9b7d3d75a11da4cd9f3996d60790cd11c04f842ebc43c"></a>Cast&#160;</td><td class="fielddoc"><p>Lancer un sort de l'action (<span class="tt">LOT-142</span>) : <span class="tt">spellIndex</span> sur <span class="tt">target</span>. </p>
+</td></tr>
 <tr><td class="fieldname"><a id="a004daf868d7dad4026ff9b7d3d75a11da3663598d5c5858b5a6040b1bbed4f187" name="a004daf868d7dad4026ff9b7d3d75a11da3663598d5c5858b5a6040b1bbed4f187"></a>Dash&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a004daf868d7dad4026ff9b7d3d75a11dab01b83048682460e96eb4bd2482b8c32" name="a004daf868d7dad4026ff9b7d3d75a11dab01b83048682460e96eb4bd2482b8c32"></a>Dodge&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f" name="a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f"></a>Disengage&#160;</td><td class="fielddoc"></td></tr>
@@ -5176,7 +5182,7 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </div><div class="memdoc">
 
 <p>Vrai si <code class="param">first</code> joue avant <code class="param">second</code>. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md50"></a>
 La règle de départage</h2>
 <p>Manuel des Joueurs, « Initiative » (PDF p. 191) : les combattants se classent du plus haut résultat au plus bas, et « en cas d'égalité », c'est le MD qui tranche entre ses créatures, les joueurs entre leurs personnages, et le MD encore entre un monstre et un personnage. Le jeu n'a pas de MD : la règle doit être <b>écrite</b>, et elle ne peut pas dépendre de l'ordre dans lequel les combattants ont été rangés en mémoire (<span class="tt">EX-CBT-010</span>). Dans l'ordre :</p>
 <ol type="1">
@@ -5533,10 +5539,10 @@ La règle de départage</h2>
 
 <p>Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide. </p>
 <p>Le combat se joue <b>sur la carte d'exploration</b> : une rencontre posée dans un couloir d'une case, ou dont la formation entre dans un mur, ne se découvrirait sinon qu'en jeu. Cette fonction le dit à l'auteur au moment où il pose.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
 Une seule règle pour « se tenir ici »</h2>
 <p>Les combattants sont posés sur une <span class="tt"><a class="el" href="classcore_1_1BattleGrid.html" title="La grille tactique d&#39;une rencontre.">core::BattleGrid</a></span> construite depuis <code class="param">collision</code>, par <span class="tt"><a class="el" href="classcore_1_1BattleGrid.html#ae717e61951843569c4bed5e1b9adba67" title="Place combatant, d&#39;emprise side × side, avec anchor pour coin haut-gauche.">core::BattleGrid::place</a></span>, dans l'ordre de la formation — ce que fait le montage (<span class="tt"><a class="el" href="#a5921fce291ef1e0650a91c91bc158a3e" title="Monte la rencontre run sur combat : le groupe, puis les créatures, dans cet ordre.">core::mountEncounter</a></span>). Un avertissement de l'éditeur et un refus au montage ne peuvent donc pas diverger. La zone est une <span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span> : diagonales, coins de mur et terrain difficile y suivent la règle du <span class="tt">LOT-19</span>, sans seconde implémentation.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
 Ce qu'elle ne vérifie pas</h2>
 <p>Une rencontre absente de <code class="param">encounters</code> est <b>ignorée</b> : un autre validateur la signale, et la signaler deux fois n'apprendrait rien. Une créature absente du bestiaire — ou un bestiaire absent — compte pour une emprise de taille M. Le groupe du joueur n'est pas posé : ses cases ne sont pas connues avant le jeu, et c'est la taille de la zone qui en répond.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -6111,10 +6117,10 @@ Ce qu'elle ne vérifie pas</h2>
 </div><div class="memdoc">
 
 <p>Peint le marqueur d'une clé d'asset. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md57"></a>
 Pourquoi un marqueur plutôt qu'une image manquante</h2>
 <p><span class="tt">EX-CNT-041</span> : le jeu doit tourner <b>complet</b> avant qu'aucune illustration ne soit produite. Sans marqueur, trois cents entrées s'afficheraient comme des trous, la production graphique deviendrait un préalable bloquant, et rien ne pourrait être joué ni relu avant elle. Avec, elle devient un <b>remplacement progressif</b> : on remplace un marqueur par une image, une à la fois, et le jeu ne cesse jamais d'être jouable.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md57"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md58"></a>
 Déterministe, et c'est le point</h2>
 <p>La même clé donne <b>toujours</b> le même marqueur — même teinte, même figure. Un marqueur tiré au hasard changerait à chaque lancement : le loup ne serait plus reconnaissable d'une partie à l'autre, deux captures d'écran du même combat différeraient, et un test ne pourrait rien en dire. La teinte est donc dérivée de la clé elle-même, par un hachage stable écrit ici plutôt qu'emprunté à <span class="tt">std::hash</span>, dont la valeur n'est <b>pas</b> garantie d'une plateforme ou d'une version de bibliothèque à l'autre.</p>
 <p>Le marqueur reste <b>manifestement</b> un marqueur : deux diagonales barrent la vignette, de sorte qu'on ne le prenne jamais pour une illustration définitive livrée un peu vite.</p>
@@ -12609,10 +12615,10 @@ Déterministe, et c'est le point</h2>
 </div><div class="memdoc">
 
 <p>Prépare <code class="param">encounter</code> sur <code class="param">map</code>, déclenchée en <code class="param">trigger</code>, le héros en <code class="param">heroCell</code>. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
 La zone</h2>
 <p>La zone de combat qui <b>contient le déclencheur</b> ; à défaut, celle qui contient le héros ; à défaut, refus — un combat sur la carte se joue sur une zone que l'éditeur a posée et contrôlée (<span class="tt"><a class="el" href="#a2f8f6aa025b66709486f9e1e585ac334" title="Relève ce qui empêche une zone d&#39;être une grille tactique (EX-NFR-040).">core::validateCombatZones</a></span>), jamais sur une fenêtre inventée autour du héros, qui mettrait la moitié d'une maison dans la grille.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
 Les places</h2>
 <p>Le héros garde sa case si elle est dans la zone et libre ; sinon la case libre de la zone la plus proche de lui. Chaque <b>suiveur</b> du groupe (<span class="tt">LOT-139</span>) garde de même la case où l'exploration l'a laissé — dans les pas du meneur —, ou la case libre la plus proche : le groupe entre en combat <b>là où il marche</b>, en file derrière son meneur, et non dans une formation inventée. Chaque combattant de la rencontre garde la case que sa formation lui donne autour du déclencheur (<span class="tt"><a class="el" href="#a63e47d6c989b07bf0c2c7e0a568d1e02" title="Place les combattants d&#39;une rencontre autour de trigger.">core::placeCombatants</a></span>) si elle est dans la zone, libre et inoccupée ; sinon la case libre la plus proche de celle qu'il voulait. Une place déplacée se note : le journal du combat le dira, plutôt que de laisser croire que la formation a été respectée.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -16134,7 +16140,7 @@ Les places</h2>
 </table>
 </div><div class="memdoc">
 
-<p>La cible d'un <span class="tt">levelUp</span> qui vise tout le groupe. </p>
+<p>La cible d'un <span class="tt">levelUp</span> ou d'un <span class="tt">rest</span> qui vise tout le groupe. </p>
 
 </div>
 </div>

@@ -260,7 +260,11 @@ void lireActions(const nlohmann::json&amp; objet, Creature&amp; creature, const 
     creature.senses = lireTextes(racine, "senses");
     creature.languages = lireTextes(racine, "languages");
     creature.requiredMechanisms = lireTextes(racine, "mecanismesRequis");
-    creature.silhouette = lireTexteFacultatif(racine, "silhouette");</span>
+    creature.silhouette = lireTexteFacultatif(racine, "silhouette");
+    if (const auto attaques = racine.find("multiattack");
+        attaques != racine.end() &amp;&amp; attaques-&gt;is_number_integer()) {
+        creature.multiattack = std::max(1, attaques-&gt;get&lt;int&gt;());
+    }</span>
 
 <span style = "background-color:#dfd">    if (const auto competences = racine.find("skills");
         competences != racine.end() &amp;&amp; competences-&gt;is_object()) {

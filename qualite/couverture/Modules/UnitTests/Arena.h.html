@@ -401,9 +401,9 @@ public:
     [[nodiscard]] std::span&lt;const Capacity&gt; capacitiesOf(CombatantId combatant) const;
 
     /// @return Les effets de sort qui durent, dans l'ordre oÃ¹ ils ont Ã©tÃ© posÃ©s.
-    [[nodiscard]] const std::vector&lt;ArenaEffect&gt;&amp; effects() const noexcept {
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;ArenaEffect&gt;&amp; effects() const noexcept {
         return _effects;
-    }
+    }</span>
 
     /// @brief Vrai si @p combatant porte un effet de sort de ce genre.
     [[nodiscard]] bool hasEffect(CombatantId combatant, SpellEffectKind kind) const;

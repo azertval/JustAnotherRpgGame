@@ -35,6 +35,19 @@ namespace core {
     }
 <span style = "background-color:#dfd">}</span>
 
+<span style = "background-color:#dfd">void PartyLedger::rest(std::string_view characterId) {
+    const auto trouve = _records.find(characterId);
+    if (trouve == _records.end()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    MemberRecord&amp; record = trouve-&gt;second;
+    record.hitPoints.reset();
+    record.spellUses.clear();
+    if (!record.level.has_value()) {
+        _records.erase(trouve);</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
 <span style = "background-color:#dfd">void applyRecord(CharacterSheet&amp; sheet, const MemberRecord&amp; record) {
     if (record.hitPoints.has_value()) {
         sheet.currentHitPoints = std::clamp(*record.hitPoints, 0, sheet.maximumHitPoints);</span>

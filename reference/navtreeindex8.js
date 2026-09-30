@@ -1,13 +1,19 @@
 var NAVTREEINDEX8 =
 {
+"classcore_1_1PartyLedger.html#a1b2229b53122af7e4bd48490724acd5a":[2,0,1,213,2],
+"classcore_1_1PartyLedger.html#a1b2229b53122af7e4bd48490724acd5a":[3,0,0,213,2],
+"classcore_1_1PartyLedger.html#a291aafc913cbe6f54412858ce5ca5a85":[2,0,1,213,3],
+"classcore_1_1PartyLedger.html#a291aafc913cbe6f54412858ce5ca5a85":[3,0,0,213,3],
 "classcore_1_1PartyLedger.html#a517cb2b9683ba012c896dd45b769cce2":[2,0,1,213,1],
 "classcore_1_1PartyLedger.html#a517cb2b9683ba012c896dd45b769cce2":[3,0,0,213,1],
-"classcore_1_1PartyLedger.html#a94f270f45b2a85b282bbcc66d80820de":[2,0,1,213,4],
-"classcore_1_1PartyLedger.html#a94f270f45b2a85b282bbcc66d80820de":[3,0,0,213,4],
+"classcore_1_1PartyLedger.html#a94f270f45b2a85b282bbcc66d80820de":[2,0,1,213,5],
+"classcore_1_1PartyLedger.html#a94f270f45b2a85b282bbcc66d80820de":[3,0,0,213,5],
+"classcore_1_1PartyLedger.html#ab3f639150cfef8508d81e57f36eb0f8b":[2,0,1,213,4],
+"classcore_1_1PartyLedger.html#ab3f639150cfef8508d81e57f36eb0f8b":[3,0,0,213,4],
 "classcore_1_1PartyLedger.html#abbe5d4e5aaa031d20684528d535bc69b":[2,0,1,213,0],
 "classcore_1_1PartyLedger.html#abbe5d4e5aaa031d20684528d535bc69b":[3,0,0,213,0],
-"classcore_1_1PartyLedger.html#ae04f4a2781e0d515788ed3b1e60ea89b":[2,0,1,213,5],
-"classcore_1_1PartyLedger.html#ae04f4a2781e0d515788ed3b1e60ea89b":[3,0,0,213,5],
+"classcore_1_1PartyLedger.html#ae04f4a2781e0d515788ed3b1e60ea89b":[2,0,1,213,6],
+"classcore_1_1PartyLedger.html#ae04f4a2781e0d515788ed3b1e60ea89b":[3,0,0,213,6],
 "classcore_1_1ReachableArea.html":[2,0,1,75],
 "classcore_1_1ReachableArea.html":[3,0,0,75],
 "classcore_1_1ReachableArea.html#a2d820d86892363951dfcd7b14dbd71e5":[2,0,1,75,0],
@@ -243,11 +249,5 @@ var NAVTREEINDEX8 =
 "classcore_1_1WorldFlags.html#ac7a76457650768293a3527dcacf9b03a":[2,0,1,122,13],
 "classcore_1_1WorldFlags.html#ac7a76457650768293a3527dcacf9b03a":[3,0,0,122,13],
 "classcore_1_1WorldFlags.html#ada3af1270ee61d22889203ed8def3df5":[2,0,1,122,7],
-"classcore_1_1WorldFlags.html#ada3af1270ee61d22889203ed8def3df5":[3,0,0,122,7],
-"classcore_1_1WorldFlags.html#ae2ec8ea0bd594024949a120cbb2eba0e":[2,0,1,122,8],
-"classcore_1_1WorldFlags.html#ae2ec8ea0bd594024949a120cbb2eba0e":[3,0,0,122,8],
-"classcore_1_1WorldTravel.html":[2,0,1,251],
-"classcore_1_1WorldTravel.html":[3,0,0,251],
-"classcore_1_1WorldTravel.html#a0088132438f7a0b93d5cb2490bb839d5":[2,0,1,251,7],
-"classcore_1_1WorldTravel.html#a0088132438f7a0b93d5cb2490bb839d5":[3,0,0,251,7]
+"classcore_1_1WorldFlags.html#ada3af1270ee61d22889203ed8def3df5":[3,0,0,122,7]
 };

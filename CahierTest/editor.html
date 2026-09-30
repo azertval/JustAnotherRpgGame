@@ -623,16 +623,16 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Rejouer <code>Fixtures/Gestures/combat-zone.json</code> sur la carte livrée : inspecter le sable, puis la rencontre au niveau 1, tirer la poignée sud-est du sable de 22 à 11 colonnes, inspecter le sable.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>rendu.script.ok()</code> est vrai.</li><li>Vérifie que <code>rendu.script.gestures</code> vaut <code>4U</code>.</li><li>Vérifie que <code>rendu.script.steps</code> vaut <code>1U</code>.</li><li>Vérifie que <code>rendu.script.log.size()</code> vaut <code>attendu.size() + 6U</code>.</li><li>Vérifie que <code>rendu.script.log[ligne]</code> vaut <code>attendu[ligne]</code>.</li><li>Vérifie que <code>rendu.script.log[ligne].find(&quot;would stand outside combat zone \&quot;sable\&quot;&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+<ul><li>Vérifie que <code>rendu.script.ok()</code> est vrai.</li><li>Vérifie que <code>rendu.script.gestures</code> vaut <code>4U</code>.</li><li>Vérifie que <code>rendu.script.steps</code> vaut <code>1U</code>.</li><li>Vérifie que <code>rendu.script.log.size()</code> vaut <code>62U</code>.</li><li>Vérifie que <code>rendu.script.log[ligne]</code> vaut <code>attendu[ligne]</code>.</li><li>Vérifie que <code>texte.find(&quot;inspect e4 [refused]: &quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>horsZone || marqueur || verdict</code> est vrai.</li><li>Vérifie que <code>marqueurs</code> vaut <code>6U</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="gesturescripttestungesterefuserenduneerreurlisible">GestureScriptTest.UnGesteRefuseRendUneErreurLisible</h3>
-<p><em>Majeur · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_gesture_script.cpp:255</code></p>
+<p><em>Majeur · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_gesture_script.cpp:281</code></p>
 <p>Un geste refusé rend une erreur lisible.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Rejouer un geste sur une couche verrouillée, hors de la carte, avec une pièce inconnue, sur un identifiant absent, un déplacement qui sort une entité, un outil inconnu, un fichier d'un autre format.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>message.find(attendu)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>hmi::applyGestureScript(json{{&quot;format&quot;, &quot;autre&quot;}}, carte.draft, carte.annexe, carte.lieu) .error.find(&quot;not a gesture file&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="gesturescripttestungesterefusenetouchepasaufichier">GestureScriptTest.UnGesteRefuseNeTouchePasAuFichier</h3>
-<p><em>Critique · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_gesture_script.cpp:293</code></p>
+<p><em>Critique · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_gesture_script.cpp:319</code></p>
 <p>Un geste refusé ne touche pas au fichier.</p>
 <p><strong>Étapes</strong></p>
 <ol><li><code>LevelEditor --apply</code> d'un fichier dont le deuxième geste est refusé, avec <code>--output</code>.</li><li>Le même, avec des notes seulement.</li></ol>
@@ -1646,7 +1646,7 @@
 <ul><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {})</code> vaut <code>&quot;from-place&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {&quot;from-place&quot;})</code> vaut <code>&quot;from-place-2&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;donjon&quot;, {&quot;from-donjon&quot;, &quot;from-donjon-2&quot;})</code> vaut <code>&quot;from-donjon-3&quot;</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-world.html"><span>Précédent</span>Core · World</a><a class="next" href="hmi-audio.html"><span>Suivant</span>HMI · Audio</a></nav><p class="source">Source : <code>Documentation/CahierTest/editor.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-09-30 · <code>fa4805354</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-09-30 · <code>7c419c351</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

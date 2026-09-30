@@ -134,6 +134,7 @@ constexpr std::array&lt;NomDeGenre, 9&gt; GENRES{{
                                   const std::string&amp; genre, CapacityEffect&amp; effet,
 <span style = "background-color:#dfd">                                  std::vector&lt;std::string&gt;&amp; erreurs) {
     effet.allDamageTypes = lireBooleen(objet, "allTypes", false);
+    effet.graduated = lireBooleen(objet, "graduated", false);
     for (const std::string&amp; nom : lireTextes(objet, "types")) {</span>
 <span style = "background-color:#fdd">        const std::optional&lt;DamageType&gt; type = parseDamageType(nom);
         if (!type.has_value()) {
@@ -393,12 +394,14 @@ std::optional&lt;UnarmoredArmorClass&gt; unarmoredArmorClassFrom(std::span&lt;co
                 continue;</span>
             }
 <span style = "background-color:#dfd">            if (effet.allDamageTypes) {
-                resistances.push_back({.type = std::nullopt, .source = capacite.name});
-                continue;</span>
+                resistances.push_back(</span>
+                    {.type = std::nullopt, .source = capacite.name, .graduated = effet.graduated});
+<span style = "background-color:#dfd">                continue;</span>
             }
 <span style = "background-color:#fdd">            for (const DamageType type : effet.damageTypes) {
-                resistances.push_back({.type = type, .source = capacite.name});
-            }
+                resistances.push_back(</span>
+                    {.type = type, .source = capacite.name, .graduated = effet.graduated});
+<span style = "background-color:#fdd">            }
         }</span>
 <span style = "background-color:#dfd">    }
     return resistances;

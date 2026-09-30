@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -178,11 +178,12 @@ Namespaces</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:a004daf868d7dad4026ff9b7d3d75a11d" id="r_a004daf868d7dad4026ff9b7d3d75a11d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11d">core::TurnAction</a> : std::uint8_t { <br />
 &#160;&#160;<a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dadcfafcb4323b102c7e204555d313ba0a">core::Attack</a>
+, <a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da4cd9f3996d60790cd11c04f842ebc43c">core::Cast</a>
 , <a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da3663598d5c5858b5a6040b1bbed4f187">core::Dash</a>
 , <a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11dab01b83048682460e96eb4bd2482b8c32">core::Dodge</a>
-, <a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f">core::Disengage</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da0f68101772bd5397ef8eb1b632798652">core::Wait</a>
+&#160;&#160;<a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f">core::Disengage</a>
+, <a class="el" href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11da0f68101772bd5397ef8eb1b632798652">core::Wait</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a004daf868d7dad4026ff9b7d3d75a11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'IA fait de son action.  <a href="namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11d">More...</a><br /></td></tr>
@@ -239,6 +240,15 @@ Ce que ce fichier décide, et que le Guide ne dit pas</h2>
 <li><b>Le blocage.</b> Une IA qui peut attaquer attaque ; une IA qui ne le peut pas <b>avance</b> vers sa cible — c'est une clé de la comparaison, avant le score, sans quoi la menace d'un round entier la tiendrait hors de portée à jamais —, en se précipitant si le chemin est long. Le prudent choisit <b>d'où</b> frapper, et <b>recule</b> après, à menace égale le moins loin possible : il ne se cache pas indéfiniment.</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
+Les sorts (<span class="tt">LOT-142</span>)</h2>
+<p>Un combattant qui sait des sorts les pèse dans la <b>même monnaie</b> que ses attaques — les points de dégâts attendus —, depuis chaque case où finir son déplacement :</p>
+<ul>
+<li>un sort à <b>jet d'attaque</b> vaut l'espérance de chacun de ses projectiles, comme une arme ; un sort qui <b>touche sans jet</b> vaut ses dés ; un sort à <b>sauvegarde</b> vaut, par créature prise, la chance qu'elle rate (le d20 contre le DD moins sa sauvegarde) fois les dégâts, la moitié au succès s'il le dit — et un <b>allié</b> pris dans la sphère compte <b>double, en moins</b> (décision nommée : la table ne lance pas une boule de feu sur les siens pour un point) ;</li>
+<li>un <b>soin</b> vaut les points qu'il rend, bornés à ce qui manque, et seulement sur un allié ensanglanté ; <b>relever</b> un allié à terre vaut en plus <span class="tt">RELEVER</span> points, le <b>stabiliser</b> <span class="tt">STABILISER</span>, <b>ramener</b> un mort <span class="tt">RAMENER</span> (décisions nommées : le Guide ne chiffre pas un compagnon rendu au combat) ;</li>
+<li><em>bénédiction</em> vaut <span class="tt">BENIR</span> points par allié béni, quand le lanceur ne se concentre sur rien.</li>
+</ul>
+<p>Un sort à lancers comptés n'est pas <b>économisé</b> : le repos de la série les rend (<span class="tt">LOT-142</span>), et un sort mieux payé qu'une attaque se lance. Les autres effets (<em>vol</em>, <em>invisibilité</em>) ne sont pas joués par l'IA. Après l'action, deux gestes gratuits : les <b>attaques supplémentaires</b> de l'action <em>Attaquer</em> (<em>Extra Attack</em>) sur la meilleure cible à portée, et le sort d'<b>action bonus</b> (<em>arme spirituelle</em>) sur l'ennemi qu'il blesse le plus.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md32"></a>
 Déterministe, en entiers</h2>
 <p>Aucun flottant : une chance de toucher est un nombre de quatre-centièmes (le carré d'un vingtième, pour l'avantage), des dégâts moyens un nombre de demi-points, un poids un pourcentage. Les cases se parcourent par indice croissant, les cibles par identifiant croissant, et une égalité garde le premier candidat. Deux exécutions, deux compilateurs, deux modes de construction donnent le même tour. </p>
 </div></div><!-- contents -->

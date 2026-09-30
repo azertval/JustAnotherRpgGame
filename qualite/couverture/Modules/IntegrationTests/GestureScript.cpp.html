@@ -274,7 +274,11 @@ private:
             return;</span>
         }
 <span style = "background-color:#dfd">        for (const std::string&amp; line : found-&gt;lines) {
-            _result.log.push_back("inspect " + id + (found-&gt;ok ? ": " : " [refused]: ") + line);
+            std::string entry = "inspect ";
+            entry += id;
+            entry += found-&gt;ok ? ": " : " [refused]: ";
+            entry += line;
+            _result.log.push_back(std::move(entry));
         }
     }</span>
 

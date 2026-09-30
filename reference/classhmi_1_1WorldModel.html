@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -212,6 +212,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a665d2023cf5a86194ac2b47341873202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Avance (<code class="param">offset</code> négatif) ou recule <code class="param">characterId</code> dans l'ordre de marche, en l'échangeant avec son voisin.  <br /></td></tr>
 <tr class="memitem:a524b67a8ad4f0174c40384c00c6a34a3" id="r_a524b67a8ad4f0174c40384c00c6a34a3"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#a524b67a8ad4f0174c40384c00c6a34a3">levelUp</a> (const QString &amp;characterId)</td></tr>
 <tr class="memdesc:a524b67a8ad4f0174c40384c00c6a34a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne un niveau à <code class="param">characterId</code> — <span class="tt"><a class="el" href="#a326f6e58ef31097654a987d65f457d39">party</a></span> : à chaque membre du groupe (<span class="tt">LOT-141</span>).  <br /></td></tr>
+<tr class="memitem:aa80286470257e709727d4d8d12a28692" id="r_aa80286470257e709727d4d8d12a28692"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#aa80286470257e709727d4d8d12a28692">rest</a> (const QString &amp;characterId)</td></tr>
+<tr class="memdesc:aa80286470257e709727d4d8d12a28692"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le repos long de <code class="param">characterId</code> — <span class="tt"><a class="el" href="#a326f6e58ef31097654a987d65f457d39">party</a></span> : de chaque membre du groupe (<span class="tt">LOT-142</span>).  <br /></td></tr>
+<tr class="memitem:adaed1b94d77e04f9488c8ead2636ea52" id="r_adaed1b94d77e04f9488c8ead2636ea52"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#adaed1b94d77e04f9488c8ead2636ea52">choosingLeader</a> () const noexcept</td></tr>
+<tr class="memdesc:adaed1b94d77e04f9488c8ead2636ea52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai de « Nouvelle partie » jusqu'à ce que le joueur ait choisi son meneur (<span class="tt">LOT-142</span>) : la vue de jeu ouvre alors l'écran Groupe, titré pour ce choix.  <br /></td></tr>
+<tr class="memitem:a07900076fe593efa7a666f44d37fd11c" id="r_a07900076fe593efa7a666f44d37fd11c"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a07900076fe593efa7a666f44d37fd11c">endLeaderChoice</a> ()</td></tr>
+<tr class="memdesc:a07900076fe593efa7a666f44d37fd11c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le meneur est choisi : l'écran Groupe se referme.  <br /></td></tr>
 <tr class="memitem:a79449ed4e4b5d4cc3bb5da40b59e54c3" id="r_a79449ed4e4b5d4cc3bb5da40b59e54c3"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a79449ed4e4b5d4cc3bb5da40b59e54c3">showCharacter</a> (const QString &amp;characterId)</td></tr>
 <tr class="memdesc:a79449ed4e4b5d4cc3bb5da40b59e54c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désigne le personnage dont la fiche s'ouvre (<span class="tt"><a class="el" href="#a0ad4e28927f20dae954a340e4cb06f1e" title="Le personnage dont la fiche s&#39;ouvre (LOT-141) : celui que l&#39;écran de groupe a désigné,...">shownCharacterId</a></span>) ; vide : le meneur.  <br /></td></tr>
 <tr class="memitem:ae9e71d1b7f29064c22dc63db94c023b1" id="r_ae9e71d1b7f29064c22dc63db94c023b1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae9e71d1b7f29064c22dc63db94c023b1">shownCharacterId</a> () const</td></tr>
@@ -310,6 +316,8 @@ Properties</h2></td></tr>
 <tr class="memdesc:a660029f33ac497bf4841f58788b8d1dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les personnages qu'on peut prendre dans le groupe (<span class="tt">Rpg/characters/</span>), dans l'ordre de leurs identifiants : les mêmes clés, plus <span class="tt">rank</span> (rang dans l'ordre de marche, -1 hors du groupe).  <br /></td></tr>
 <tr class="memitem:a941cc5cf201e272ccb8fe8c822c7e5c1" id="r_a941cc5cf201e272ccb8fe8c822c7e5c1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a941cc5cf201e272ccb8fe8c822c7e5c1">leaderId</a></td></tr>
 <tr class="memdesc:a941cc5cf201e272ccb8fe8c822c7e5c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le meneur : celui qu'on déplace, qui parle le premier dans un dialogue et qui combat.  <br /></td></tr>
+<tr class="memitem:a776df0f6ed3874dc835c42919816b3ca" id="r_a776df0f6ed3874dc835c42919816b3ca"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a776df0f6ed3874dc835c42919816b3ca">choosingLeader</a></td></tr>
+<tr class="memdesc:a776df0f6ed3874dc835c42919816b3ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai de « Nouvelle partie » jusqu'à ce que le joueur ait choisi son meneur (<span class="tt">LOT-142</span>).  <br /></td></tr>
 <tr class="memitem:ab7641239bdf79da62bef595f406b2157" id="r_ab7641239bdf79da62bef595f406b2157"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ab7641239bdf79da62bef595f406b2157">leaderName</a></td></tr>
 <tr class="memitem:ab554820863d52d56a39600b67d2843b7" id="r_ab554820863d52d56a39600b67d2843b7"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#ab554820863d52d56a39600b67d2843b7">leaderPortrait</a></td></tr>
 <tr class="memdesc:ab554820863d52d56a39600b67d2843b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le portrait du meneur, vide si sa figurine n'en a pas encore (<span class="tt">LOT-136</span>).  <br /></td></tr>
@@ -363,6 +371,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a183c0a674260f7b16e971a6dbaf825fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe de la partie : les quatre fiches pré-tirées au départ.  <br /></td></tr>
 <tr class="memitem:a1bec3e9befd172168f6dbc97e780227e" id="r_a1bec3e9befd172168f6dbc97e780227e"><td class="memItemLeft"><a class="el" href="classcore_1_1PartyLedger.html">core::PartyLedger</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1bec3e9befd172168f6dbc97e780227e">_ledger</a></td></tr>
 <tr class="memdesc:a1bec3e9befd172168f6dbc97e780227e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que les combats ont laissé aux fiches (<span class="tt">LOT-139</span>) ; vidé avec la partie.  <br /></td></tr>
+<tr class="memitem:acc006848665c1d203688a8aabf0f6719" id="r_acc006848665c1d203688a8aabf0f6719"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acc006848665c1d203688a8aabf0f6719">_choosingLeader</a> = false</td></tr>
+<tr class="memdesc:acc006848665c1d203688a8aabf0f6719"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le choix du meneur de « Nouvelle partie » est en cours (<span class="tt">LOT-142</span>).  <br /></td></tr>
 <tr class="memitem:a5bdd1d3a56e40b64592c4972c79100d6" id="r_a5bdd1d3a56e40b64592c4972c79100d6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5bdd1d3a56e40b64592c4972c79100d6">_shownCharacterId</a></td></tr>
 <tr class="memdesc:a5bdd1d3a56e40b64592c4972c79100d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le personnage désigné pour la fiche ; vide : le meneur.  <br /></td></tr>
 <tr class="memitem:a697ffa3eba330a4bc41e8286b7028586" id="r_a697ffa3eba330a4bc41e8286b7028586"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a697ffa3eba330a4bc41e8286b7028586">_heroFigureOverride</a></td></tr>
@@ -380,7 +390,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'exploration — <b>la partie en cours</b> : entrer sur une carte, marcher, parler, franchir. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md126"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md127"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span> et fait tourner son <b>pas fixe</b> ; chaque geste de l'écran devient une intention passée à la session, et ce que l'écran montre est relu d'elle. Elle ne décide rien du monde : ni la collision, ni la traversée, ni ce qu'un PNJ répond.</p>
 <p>Même partage que le combat : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante, posée dans la vue de jeu.">hmi::WorldViewportItem</a></span>) prend un <b>instantané en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Une carte en valeurs, telle que la composition la lit : sa grille, ses pièces par case,...">hmi::WorldSceneSnapshot</a></span>) dans <span class="tt">synchronize()</span>, pendant que le fil graphique est bloqué. Le modèle ne lui passe jamais la session. </p>
@@ -615,6 +625,34 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="adaed1b94d77e04f9488c8ead2636ea52" name="adaed1b94d77e04f9488c8ead2636ea52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adaed1b94d77e04f9488c8ead2636ea52">&#9670;&#160;</a></span>choosingLeader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::choosingLeader </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai de « Nouvelle partie » jusqu'à ce que le joueur ait choisi son meneur (<span class="tt">LOT-142</span>) : la vue de jeu ouvre alors l'écran Groupe, titré pour ce choix. </p>
+<p>Une partie ouverte sur une carte imposée (<span class="tt">--map=</span>, le lanceur de cartes) n'en demande pas. </p>
+
+</div>
+</div>
 <a id="a2a2d717ca339db7543fdc8c567838175" name="a2a2d717ca339db7543fdc8c567838175"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a2d717ca339db7543fdc8c567838175">&#9670;&#160;</a></span>cityLocation()</h2>
 
@@ -833,6 +871,25 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 <p>La partie est finie (<span class="tt">LOT-119</span>) : mort, ou retour au menu depuis l'écran de fin. </p>
 <p>La session repart de zéro — aucune carte ouverte, drapeaux et quêtes oubliés, sauf ceux que le lancement a posés (<span class="tt">--<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>=</span>) — si bien que le prochain « Nouvelle partie », ou le « Recommencer » de l'écran de mort, ouvre une partie <b>neuve</b> et non celle où l'on vient de mourir. Les réglages du lancement (<span class="tt">--map=</span>, <span class="tt">--at=</span>, <span class="tt">--levels=</span>) demeurent. </p>
+
+</div>
+</div>
+<a id="a07900076fe593efa7a666f44d37fd11c" name="a07900076fe593efa7a666f44d37fd11c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07900076fe593efa7a666f44d37fd11c">&#9670;&#160;</a></span>endLeaderChoice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::endLeaderChoice </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le meneur est choisi : l'écran Groupe se referme. </p>
 
 </div>
 </div>
@@ -1930,6 +1987,26 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="aa80286470257e709727d4d8d12a28692" name="aa80286470257e709727d4d8d12a28692"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa80286470257e709727d4d8d12a28692">&#9670;&#160;</a></span>rest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::rest </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>characterId</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le repos long de <code class="param">characterId</code> — <span class="tt"><a class="el" href="#a326f6e58ef31097654a987d65f457d39">party</a></span> : de chaque membre du groupe (<span class="tt">LOT-142</span>). </p>
+<p>Les points de vie et les lancers reviennent à ceux de la fiche, au niveau que la partie a donné (<span class="tt"><a class="el" href="classcore_1_1PartyLedger.html#ab3f639150cfef8508d81e57f36eb0f8b" title="Le repos long de characterId (LOT-142) : ses points de vie et ses lancers reviennent à ceux de la fic...">core::PartyLedger::rest</a></span>). Le maître d'arène le donne entre deux combats de la série. </p><dl class="section return"><dt>Returns</dt><dd>Vrai si un membre au moins portait une blessure ou un lancer dépensé. </dd></dl>
+
+</div>
+</div>
 <a id="a61bb51e13ab76e4b47b1abfdb2462509" name="a61bb51e13ab76e4b47b1abfdb2462509"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a61bb51e13ab76e4b47b1abfdb2462509">&#9670;&#160;</a></span>rotateLeader()</h2>
 
@@ -2464,6 +2541,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Les personnages qu'on peut prendre, lus une fois (<span class="tt">Rpg/characters/</span>, <span class="tt">LOT-138</span>). </p>
+
+</div>
+</div>
+<a id="acc006848665c1d203688a8aabf0f6719" name="acc006848665c1d203688a8aabf0f6719"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc006848665c1d203688a8aabf0f6719">&#9670;&#160;</a></span>_choosingLeader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::_choosingLeader = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le choix du meneur de « Nouvelle partie » est en cours (<span class="tt">LOT-142</span>). </p>
 
 </div>
 </div>
@@ -3030,6 +3131,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div>
 </div>
 <a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
+<a id="a776df0f6ed3874dc835c42919816b3ca" name="a776df0f6ed3874dc835c42919816b3ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a776df0f6ed3874dc835c42919816b3ca">&#9670;&#160;</a></span>choosingLeader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldModel::choosingLeader</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vrai de « Nouvelle partie » jusqu'à ce que le joueur ait choisi son meneur (<span class="tt">LOT-142</span>). </p>
+
+</div>
+</div>
 <a id="acf424613f83cbc23a161f7e8d960d33c" name="acf424613f83cbc23a161f7e8d960d33c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf424613f83cbc23a161f7e8d960d33c">&#9670;&#160;</a></span>cityLocation</h2>
 

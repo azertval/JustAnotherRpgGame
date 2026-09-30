@@ -107,6 +107,10 @@ enum class DialogueActionKind {
     /// (`party`) : la montÃ©e de niveau est donnÃ©e par la quÃªte tant que l'expÃ©rience n'arrive pas
     /// (`core::DialogueListener::levelUp`).
     LevelUp,
+    /// **Donne un repos long** (`LOT-142`) au personnage nommÃ© par `target`, ou Ã  tout le groupe
+    /// (`party`) : points de vie et lancers rendus, niveau gardÃ©
+    /// (`core::DialogueListener::rest`).
+    Rest,
 };
 
 /// @brief Un effet d'un nÅud d'action.
@@ -353,12 +357,17 @@ public:
 <span style = "background-color:#fdd">    }</span>
     /// Le PNJ donne un niveau Ã  @p characterId â `party` : Ã  tout le groupe (`LOT-141`). Sans
     /// effet par dÃ©faut, pour la mÃªme raison que `startEncounter`.
-<span style = "background-color:#fdd">    virtual void levelUp(std::string_view characterId) {</span>
+<span style = "background-color:#dfd">    virtual void levelUp(std::string_view characterId) {</span>
         static_cast&lt;void&gt;(characterId);
-<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    }</span>
+    /// Le PNJ donne un repos long Ã  @p characterId â `party` : Ã  tout le groupe (`LOT-142`). Sans
+    /// effet par dÃ©faut, pour la mÃªme raison que `startEncounter`.
+<span style = "background-color:#dfd">    virtual void rest(std::string_view characterId) {</span>
+        static_cast&lt;void&gt;(characterId);
+<span style = "background-color:#dfd">    }</span>
 };
 
-/// @brief La cible d'un `levelUp` qui vise tout le groupe.
+/// @brief La cible d'un `levelUp` ou d'un `rest` qui vise tout le groupe.
 inline constexpr std::string_view LEVEL_UP_PARTY = "party";
 
 /**

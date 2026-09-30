@@ -1,6 +1,7 @@
 var dir_e4f77e6506ec5ae5855f8bd23358af3b =
 [
     [ "test_action_economy.cpp", "test__action__economy_8cpp.html", "test__action__economy_8cpp" ],
+    [ "test_ai_spells.cpp", "test__ai__spells_8cpp.html", "test__ai__spells_8cpp" ],
     [ "test_area_of_effect.cpp", "test__area__of__effect_8cpp.html", "test__area__of__effect_8cpp" ],
     [ "test_arena.cpp", "test__arena_8cpp.html", "test__arena_8cpp" ],
     [ "test_attack.cpp", "test__attack_8cpp.html", "test__attack_8cpp" ],

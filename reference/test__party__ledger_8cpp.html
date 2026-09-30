@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -155,12 +155,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:afaa35d9e802d44d4654e20c2c475919d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un enregistrement s'applique à la fiche, borné : les points de vie dans <span class="tt">[0, maximum]</span>, les lancers dans <span class="tt">[0, perDay]</span> ; un sort à volonté et un sort inconnu ne bougent pas.  <br /></td></tr>
 <tr class="memitem:a3d11bcb2865a7f89b5c89123d929590f" id="r_a3d11bcb2865a7f89b5c89123d929590f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3d11bcb2865a7f89b5c89123d929590f">TEST</a> (PartyLedgerTest, LeRegistreSOublie)</td></tr>
 <tr class="memdesc:a3d11bcb2865a7f89b5c89123d929590f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un enregistrement sans points de vie laisse ceux de la fiche ; oublier un membre ou tout le registre rend les fiches pleines.  <br /></td></tr>
+<tr class="memitem:a06a7a6a82397b8425fa39b8382f1fccc" id="r_a06a7a6a82397b8425fa39b8382f1fccc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a06a7a6a82397b8425fa39b8382f1fccc">TEST</a> (PartyLedgerTest, LeReposGardeLeNiveau)</td></tr>
+<tr class="memdesc:a06a7a6a82397b8425fa39b8382f1fccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le repos long rend la fiche pleine et garde le niveau donné (<span class="tt">LOT-142</span>) : un membre monté garde son enregistrement, réduit au niveau ; un membre sans niveau n'en a plus.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests du registre du groupe (<span class="tt">LOT-139</span>, <span class="tt">EX-CBT-062</span>) : ce que le combat laisse aux fiches se retient, s'applique borné, et s'oublie. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a3d11bcb2865a7f89b5c89123d929590f" name="a3d11bcb2865a7f89b5c89123d929590f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d11bcb2865a7f89b5c89123d929590f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d11bcb2865a7f89b5c89123d929590f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,8 +191,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a06a7a6a82397b8425fa39b8382f1fccc" name="a06a7a6a82397b8425fa39b8382f1fccc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06a7a6a82397b8425fa39b8382f1fccc">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyLedgerTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeReposGardeLeNiveau</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le repos long rend la fiche pleine et garde le niveau donné (<span class="tt">LOT-142</span>) : un membre monté garde son enregistrement, réduit au niveau ; un membre sans niveau n'en a plus. </p>
+<p><b>Cas de test :</b> <b>Le repos long oublie les blessures, pas le niveau.</b><br  />
+ <b>Categorie :</b> Unitaire · Groupe<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire Helga niveau 3, 4 PV, aucun lancer ; Grom 3 PV sans niveau.<br  />
+2. Reposer les deux, et un inconnu.<br  />
+ <b>Resultat attendu :</b> Helga garde le niveau 3, sans points de vie ni lancers retenus ; Grom n'a plus d'enregistrement ; l'inconnu ne change rien. </p>
+
+</div>
+</div>
 <a id="afaa35d9e802d44d4654e20c2c475919d" name="afaa35d9e802d44d4654e20c2c475919d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afaa35d9e802d44d4654e20c2c475919d">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afaa35d9e802d44d4654e20c2c475919d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

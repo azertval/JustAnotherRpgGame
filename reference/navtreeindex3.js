@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"bench__canvas__paint_8cpp.html":[4,0,0,1,1],
+"bench__canvas__paint_8cpp.html#a0f69f4a8e5059df4902c9adf5b885088":[4,0,0,1,1,2],
 "bench__canvas__paint_8cpp.html#a5c6d4fed3c97a45fd8d8456707b06298":[4,0,0,1,1,0],
 "bench__canvas__paint_8cpp.html#aa2f675c864715815c3ff4995e247ec94":[4,0,0,1,1,1],
 "bench__canvas__paint_8cpp.html#aec15734f600eae8baffc76461d095dca":[4,0,0,1,1,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "classcore_1_1BattleGrid.html#a6d8f9cbc88d49e6b202f35ea58ae8985":[2,0,1,22,26],
 "classcore_1_1BattleGrid.html#a6d8f9cbc88d49e6b202f35ea58ae8985":[3,0,0,22,26],
 "classcore_1_1BattleGrid.html#a6feccb632a0934cee70683671a6afade":[2,0,1,22,34],
-"classcore_1_1BattleGrid.html#a6feccb632a0934cee70683671a6afade":[3,0,0,22,34],
-"classcore_1_1BattleGrid.html#a7facc72fad59238cc1f48bfb8ec7aa68":[2,0,1,22,38],
-"classcore_1_1BattleGrid.html#a7facc72fad59238cc1f48bfb8ec7aa68":[3,0,0,22,38]
+"classcore_1_1BattleGrid.html#a6feccb632a0934cee70683671a6afade":[3,0,0,22,34]
 };

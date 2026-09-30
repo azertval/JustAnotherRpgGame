@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -145,7 +145,8 @@ $(function(){initNavTree('test__class__brawler_8cpp.html','',''); });
 
 <p>Le Brawler du <em>Player's Guide to Tanares</em> (p.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
@@ -164,7 +165,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a68e29cdd9dce407d009fa7e141b6929f" id="r_a68e29cdd9dce407d009fa7e141b6929f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a68e29cdd9dce407d009fa7e141b6929f">TEST</a> (ClassBrawlerTest, ToughAsNailsDonneSaCaSansArmure)</td></tr>
 <tr class="memdesc:a68e29cdd9dce407d009fa7e141b6929f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tough as Nails : la CA sans armure lit Dex et Con, garde le bouclier, cede a l'armure.  <br /></td></tr>
 <tr class="memitem:adafd75ab8b0dbbbbc736bc8563d1b645" id="r_adafd75ab8b0dbbbbc736bc8563d1b645"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adafd75ab8b0dbbbbc736bc8563d1b645">TEST</a> (ClassBrawlerTest, ToughAsNailsDiviseLesDegatsEtSeNomme)</td></tr>
-<tr class="memdesc:adafd75ab8b0dbbbbc736bc8563d1b645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tough as Nails en combat : les degats sont divises, et la capacite se nomme.  <br /></td></tr>
+<tr class="memdesc:adafd75ab8b0dbbbbc736bc8563d1b645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tough as Nails en combat : la resistance est <b>graduee</b> (<span class="tt">LOT-142</span>, D-36) — plein de vie, le Brawler perd tout ; blesse, il retire aux degats la part des PV perdus, la moitie au plus ; la capacite se nomme.  <br /></td></tr>
 <tr class="memitem:a5155dd535b0d02257b052972b2be89b9" id="r_a5155dd535b0d02257b052972b2be89b9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5155dd535b0d02257b052972b2be89b9">TEST</a> (ClassBrawlerTest, HitTheMarkAjouteDeuxAuJet)</td></tr>
 <tr class="memdesc:a5155dd535b0d02257b052972b2be89b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hit the Mark (N3) : +2 aux jets d'attaque, au nom de la capacite.  <br /></td></tr>
 <tr class="memitem:a99d8029e496cb0490f3eb58b1db6dd14" id="r_a99d8029e496cb0490f3eb58b1db6dd14"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a99d8029e496cb0490f3eb58b1db6dd14">TEST</a> (ClassBrawlerTest, ExtraAttackDonneDeuxAttaquesParAction)</td></tr>
@@ -352,14 +353,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Tough as Nails en combat : les degats sont divises, et la capacite se nomme. </p>
-<p><b>Cas de test :</b> <b>Le mannequin touche le Brawler : il ne perd que la moitie des degats, et le journal ecrit « resistance (tranchant ; Tough as Nails) ».</b><br  />
+<p>Tough as Nails en combat : la resistance est <b>graduee</b> (<span class="tt">LOT-142</span>, D-36) — plein de vie, le Brawler perd tout ; blesse, il retire aux degats la part des PV perdus, la moitie au plus ; la capacite se nomme. </p>
+<p><b>Cas de test :</b> <b>Le mannequin touche le Brawler a 5 PV sur 15 : il retire le tiers des degats, et le journal ecrit « resistance graduee (tranchant ; Tough as Nails) » ; plein de vie, il perd tout.</b><br  />
  <b>Categorie :</b> Unitaire · Classes<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Monter le Brawler N1 contre un mannequin a +20 au toucher.<br  />
+ 1. Monter le Brawler N1 a 5 PV contre un mannequin a +20 au toucher.<br  />
 2. Passer au tour du mannequin et attaquer ; graine choisie pour toucher.<br  />
- <b>Resultat attendu :</b> Le montage ecrit « capacites Grom Tranche-Écaille : Tough as Nails » ; la ligne de l'attaque nomme la resistance ; PV perdus = degats lances / 2, arrondi a l'inferieur. </p>
+3. Recommencer a 15 PV.<br  />
+ <b>Resultat attendu :</b> Le montage ecrit « capacites Grom Tranche-Écaille : Tough as Nails » ; a 5 PV, la ligne nomme la resistance graduee et PV perdus = degats − ⌊degats × 10 ÷ 30⌋ ; a 15 PV, PV perdus = degats. </p>
 
 </div>
 </div>

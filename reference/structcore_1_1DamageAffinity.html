@@ -73,7 +73,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
    </div>
    <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
   </td>
@@ -159,6 +159,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aee4369403d75f62d22159671ceb8a216" id="r_aee4369403d75f62d22159671ceb8a216"><td class="memItemLeft"><a class="el" href="namespacecore.html#a3acedcaf6cf80cdf2bc278d2bb7a4159">DamageFlags</a>&#160;</td><td class="memItemRight"><a class="el" href="#aee4369403d75f62d22159671ceb8a216">bypassedBy</a> = 0</td></tr>
 <tr class="memitem:a72aa14dac2b28fc04267bf40f7d2b527" id="r_a72aa14dac2b28fc04267bf40f7d2b527"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a72aa14dac2b28fc04267bf40f7d2b527">source</a></td></tr>
 <tr class="memdesc:a72aa14dac2b28fc04267bf40f7d2b527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui la donne, si quelque chose la nomme (<span class="tt">LOT-131</span>) : la capacité de classe, pour que le journal l'écrive.  <br /></td></tr>
+<tr class="memitem:a14ae0226f3435c699c45522b19f003b8" id="r_a14ae0226f3435c699c45522b19f003b8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a14ae0226f3435c699c45522b19f003b8">graduated</a> = false</td></tr>
+<tr class="memdesc:a14ae0226f3435c699c45522b19f003b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une résistance <b>graduée</b> (<span class="tt">LOT-142</span>, décision nommée) : elle retire aux dégâts la part des points de vie perdus, la moitié au plus — rien plein de vie, la résistance entière à 0 PV.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une affinité de la cible à un type de dégâts, et ce qui la <b>contourne</b>. </p>
@@ -201,6 +203,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14ae0226f3435c699c45522b19f003b8" name="a14ae0226f3435c699c45522b19f003b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14ae0226f3435c699c45522b19f003b8">&#9670;&#160;</a></span>graduated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::DamageAffinity::graduated = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une résistance <b>graduée</b> (<span class="tt">LOT-142</span>, décision nommée) : elle retire aux dégâts la part des points de vie perdus, la moitié au plus — rien plein de vie, la résistance entière à 0 PV. </p>
+<p><span class="tt">dégâts − ⌊dégâts × PV perdus ÷ (2 × PV max)⌋</span>. </p>
 
 </div>
 </div>

@@ -8,6 +8,7 @@ var structcore_1_1TurnPlan =
     [ "moveTo", "structcore_1_1TurnPlan.html#aed79b0f34ec2c99d4dab0cce97ab1a36", null ],
     [ "requiredRoll", "structcore_1_1TurnPlan.html#ac393c9a154c07900b7db6594d3eafa5b", null ],
     [ "score", "structcore_1_1TurnPlan.html#ae0ba2936962f9ddf370e35074bbe682c", null ],
+    [ "spellIndex", "structcore_1_1TurnPlan.html#a8e8f09dce434b684da3d89b3d224ead1", null ],
     [ "stance", "structcore_1_1TurnPlan.html#a7d63368b90a14776be9f2f34c08ce07d", null ],
     [ "summary", "structcore_1_1TurnPlan.html#ae2fd49824fc6d12e3bff78c31e5db009", null ],
     [ "target", "structcore_1_1TurnPlan.html#ad0b9c6000643683bb1b23456e9def138", null ]

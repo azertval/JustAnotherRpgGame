@@ -485,6 +485,8 @@ var annotated_dup =
       [ "WorldViewportItem", "classhmi_1_1WorldViewportItem.html", "classhmi_1_1WorldViewportItem" ]
     ] ],
     [ "test_support", "namespacetest__support.html", [
+      [ "Heros", "structtest__support_1_1Heros.html", "structtest__support_1_1Heros" ],
+      [ "ArenaContent", "structtest__support_1_1ArenaContent.html", "structtest__support_1_1ArenaContent" ],
       [ "RpgCatalogs", "structtest__support_1_1RpgCatalogs.html", "structtest__support_1_1RpgCatalogs" ]
     ] ]
 ];

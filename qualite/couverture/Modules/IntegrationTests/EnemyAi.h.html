@@ -56,6 +56,28 @@
  *   choisit **d'oÃ¹** frapper, et **recule** aprÃ¨s, Ã  menace Ã©gale le moins loin possible : il ne
  *   se cache pas indÃ©finiment.
  *
+ * ## Les sorts (`LOT-142`)
+ *
+ * Un combattant qui sait des sorts les pÃ¨se dans la **mÃªme monnaie** que ses attaques â les points
+ * de dÃ©gÃ¢ts attendus â, depuis chaque case oÃ¹ finir son dÃ©placement :
+ *
+ * - un sort Ã  **jet d'attaque** vaut l'espÃ©rance de chacun de ses projectiles, comme une arme ; un
+ *   sort qui **touche sans jet** vaut ses dÃ©s ; un sort Ã  **sauvegarde** vaut, par crÃ©ature prise,
+ *   la chance qu'elle rate (le d20 contre le DD moins sa sauvegarde) fois les dÃ©gÃ¢ts, la moitiÃ©
+ *   au succÃ¨s s'il le dit â et un **alliÃ©** pris dans la sphÃ¨re compte **double, en moins**
+ *   (dÃ©cision nommÃ©e : la table ne lance pas une boule de feu sur les siens pour un point) ;
+ * - un **soin** vaut les points qu'il rend, bornÃ©s Ã  ce qui manque, et seulement sur un alliÃ©
+ *   ensanglantÃ© ; **relever** un alliÃ© Ã  terre vaut en plus `RELEVER` points, le **stabiliser**
+ *   `STABILISER`, **ramener** un mort `RAMENER` (dÃ©cisions nommÃ©es : le Guide ne chiffre pas un
+ *   compagnon rendu au combat) ;
+ * - *bÃ©nÃ©diction* vaut `BENIR` points par alliÃ© bÃ©ni, quand le lanceur ne se concentre sur rien.
+ *
+ * Un sort Ã  lancers comptÃ©s n'est pas **Ã©conomisÃ©** : le repos de la sÃ©rie les rend (`LOT-142`),
+ * et un sort mieux payÃ© qu'une attaque se lance. Les autres effets (*vol*, *invisibilitÃ©*) ne sont
+ * pas jouÃ©s par l'IA. AprÃ¨s l'action, deux gestes gratuits : les **attaques supplÃ©mentaires** de
+ * l'action *Attaquer* (*Extra Attack*) sur la meilleure cible Ã  portÃ©e, et le sort d'**action
+ * bonus** (*arme spirituelle*) sur l'ennemi qu'il blesse le plus.
+ *
  * ## DÃ©terministe, en entiers
  *
  * Aucun flottant : une chance de toucher est un nombre de quatre-centiÃ¨mes (le carrÃ© d'un
@@ -207,6 +229,8 @@ struct BehaviorCatalog {
 /// @brief Ce que l'IA fait de son action.
 enum class TurnAction : std::uint8_t {
     Attack,
+    /// Lancer un sort de l'action (`LOT-142`) : `spellIndex` sur `target`.
+    Cast,
     Dash,
     Dodge,
     Disengage,
@@ -222,6 +246,8 @@ struct TurnPlan {
 <span style = "background-color:#dfd">    TurnAction action = TurnAction::Wait;</span>
     std::optional&lt;CombatantId&gt; target;
 <span style = "background-color:#dfd">    std::size_t attackIndex = 0;</span>
+    /// Pour `Cast` : l'indice du sort dans ceux du combattant (`ArenaSession::spells`).
+<span style = "background-color:#dfd">    std::size_t spellIndex = 0;</span>
     /// Pour une approche : oÃ¹ aller **aprÃ¨s** s'Ãªtre prÃ©cipitÃ©, le long du chemin.
     std::optional&lt;GridPosition&gt; dashTo;
     /// Le jet requis de l'attaque, et sa posture.

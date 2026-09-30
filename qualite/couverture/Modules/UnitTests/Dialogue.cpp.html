@@ -241,10 +241,13 @@ private:
     } else if (type == "levelUp") {
         action.kind = DialogueActionKind::LevelUp;
         champ = "character";
+    } else if (type == "rest") {
+        action.kind = DialogueActionKind::Rest;
+        champ = "character";
     } else {</span>
 <span style = "background-color:#fdd">        rapport.noeud(noeudId,</span>
                       "action de type inconnu (setFlag, clearFlag, giveItem, "
-                      "startQuest, startEncounter, endDemo, levelUp).");
+                      "startQuest, startEncounter, endDemo, levelUp, rest).");
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }
 <span style = "background-color:#dfd">    action.target = exiger(effet, champ, noeudId, rapport);
@@ -1023,7 +1026,11 @@ DialogueRunner::DialogueRunner(const DialogueGraph&amp; graph, WorldFlags&amp; f
             break;</span>
         case DialogueActionKind::LevelUp:
 <span style = "background-color:#dfd">            _listener.levelUp(action.target);
-            _journal.push_back("niveau donne : " + action.target);</span>
+            _journal.push_back("niveau donne : " + action.target);
+            break;</span>
+        case DialogueActionKind::Rest:
+<span style = "background-color:#dfd">            _listener.rest(action.target);
+            _journal.push_back("repos donne : " + action.target);</span>
             break;
     }
 <span style = "background-color:#dfd">}</span>

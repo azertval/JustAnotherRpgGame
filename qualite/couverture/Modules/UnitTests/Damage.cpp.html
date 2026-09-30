@@ -138,7 +138,8 @@ std::vector&lt;RolledDamage&gt; rollDamage(std::span&lt;const DamageClause&gt; c
 <span style = "background-color:#dfd">    }
 }</span>
 
-<span style = "background-color:#dfd">void DamagePipeline::applyAffinities(DamageWork&amp; work, const DamageTraits&amp; traits) {
+void DamagePipeline::applyAffinities(DamageWork&amp; work, const DamageTraits&amp; traits, int hitPoints,
+<span style = "background-color:#dfd">                                     int maximumHitPoints) {
     for (std::size_t indice = 0; indice &lt; work.portions.size(); ++indice) {
         const DamagePortion portion = work.portions[indice];
         if (portion.amount &lt;= 0 || hasFlag(portion.flags, DamageFlag::IgnoresResistance)) {
@@ -165,8 +166,20 @@ std::vector&lt;RolledDamage&gt; rollDamage(std::span&lt;const DamageClause&gt; c
         // Moitie arrondie a l'inferieur : 25 resiste et vulnerable donne 12 puis 24, pas 25.
 <span style = "background-color:#dfd">        if (const DamageAffinity* resistance =</span>
                 traits.matching(DamageAffinityKind::Resistance, portion.type, portion.flags)) {
-<span style = "background-color:#dfd">            work.adjust(indice, work.portions[indice].amount / 2, DamageStage::Resistances,</span>
-                        etiquette("resistance", *resistance));
+<span style = "background-color:#dfd">            const int montant = work.portions[indice].amount;
+            if (!resistance-&gt;graduated) {
+                work.adjust(indice, montant / 2, DamageStage::Resistances,</span>
+                            etiquette("resistance", *resistance));
+<span style = "background-color:#dfd">            } else if (maximumHitPoints &gt; 0) {</span>
+                // La resistance graduee (LOT-142) : la part des PV perdus, la moitie au plus. Plein
+                // de vie, elle ne retire rien et le journal ne l'ecrit pas.
+<span style = "background-color:#dfd">                const int perdus = std::clamp(maximumHitPoints - hitPoints, 0, maximumHitPoints);
+                const int retire = (montant * perdus) / (2 * maximumHitPoints);
+                if (retire &gt; 0) {
+                    work.adjust(indice, montant - retire, DamageStage::Resistances,</span>
+                                etiquette("resistance graduee", *resistance));
+                }
+            }
         }
 <span style = "background-color:#dfd">        if (const DamageAffinity* vulnerabilite =</span>
                 traits.matching(DamageAffinityKind::Vulnerability, portion.type, portion.flags)) {
@@ -234,7 +247,7 @@ std::vector&lt;DamageReport&gt; DamagePipeline::apply(CombatState&amp; combat,
 <span style = "background-color:#dfd">        runStage(DamageStage::Source, rapport.work, &amp;combat);
         runStage(DamageStage::Conversion, rapport.work, &amp;combat);
         runStage(DamageStage::Resistances, rapport.work, &amp;combat);
-        applyAffinities(rapport.work, traits);
+        applyAffinities(rapport.work, traits, position-&gt;second, cible-&gt;profile.maximumHitPoints);
         runStage(DamageStage::Reserves, rapport.work, &amp;combat);</span>
 
 <span style = "background-color:#dfd">        int reste = 0;
@@ -279,7 +292,7 @@ DamageReport DamagePipeline::applyToStructure(BattleGrid&amp; grid, GridPosition
     runStage(DamageStage::Source, rapport.work, nullptr);
     runStage(DamageStage::Conversion, rapport.work, nullptr);
     runStage(DamageStage::Resistances, rapport.work, nullptr);
-    applyAffinities(rapport.work, traits);
+    applyAffinities(rapport.work, traits, objet-&gt;hitPoints, objet-&gt;hitPoints);
     rapport.work.hitPointLoss = rapport.work.total();
     runStage(DamageStage::HitPoints, rapport.work, nullptr);
     rapport.hitPointsAfter = std::max(0, rapport.hitPointsBefore - rapport.work.hitPointLoss);

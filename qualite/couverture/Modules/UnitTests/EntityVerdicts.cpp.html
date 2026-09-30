@@ -29,8 +29,8 @@ namespace {
 <span style = "background-color:#dfd">[[nodiscard]] std::string multiplierText(double multiplier) {
     const long tenths = std::lround(multiplier * 10.0);
     std::string text = std::to_string(tenths / 10);
-    if (tenths % 10 != 0) {</span>
-<span style = "background-color:#fdd">        text += "." + std::to_string(tenths % 10);</span>
+    if (tenths % 10 != 0) {
+        text += "." + std::to_string(tenths % 10);</span>
     }
 <span style = "background-color:#dfd">    return text;
 }</span>
@@ -182,6 +182,7 @@ std::vector&lt;EntityVerdict&gt; entityVerdicts(const core::TileMap&amp; collisi
         context.bestiary);
 
 <span style = "background-color:#dfd">    std::vector&lt;EntityVerdict&gt; verdicts;
+    verdicts.reserve(zones.size() + deployments.size());
     for (const core::CombatZoneTerrain&amp; zone : zones) {
         verdicts.push_back(zoneVerdict(zone, deployments, entities));
     }
