@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790774745184,
+  "lastUpdate": 1790774751132,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1962,6 +1962,40 @@ window.BENCHMARK_DATA = {
             "value": 5.25385000000005,
             "unit": "ms/iter",
             "extra": "iterations: 272\ncpu: 5.2849264705882355 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "fa48053542bd3bc5deaf233e98dc4ce97a0f3d0c",
+          "message": "Merge pull request #164 from azertval/lot-144-mode-quetes\n\nLOT-144 — Éditeur : le mode Quêtes ; alertes de la nightly",
+          "timestamp": "2026-09-30T12:43:53Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/fa48053542bd3bc5deaf233e98dc4ce97a0f3d0c"
+        },
+        "date": 1790774748900,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 13.47051607142851,
+            "unit": "ms/iter",
+            "extra": "iterations: 112\ncpu: 12.974330357142858 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.17321727941176,
+            "unit": "ms/iter",
+            "extra": "iterations: 272\ncpu: 5.170036764705882 ms\nthreads: 1"
           }
         ]
       }
