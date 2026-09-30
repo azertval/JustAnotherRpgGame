@@ -1,0 +1,64 @@
+{
+  "id": "thug",
+  "name": "Malfrat",
+  "source": "srd",
+  "size": "medium",
+  "creatureType": "humanoïde",
+  "alignment": "n'importe quel alignement autre que Bon",
+  "silhouette": "humanoid",
+  "description": "Les malfrats sont d'impitoyables hommes de main doués en matière d'intimidation et de violence. Ils travaillent pour l'argent et n'éprouvent guère de scrupules.",
+  "abilities": {
+    "strength": 15,
+    "dexterity": 11,
+    "constitution": 14,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 11
+  },
+  "armorClass": 11,
+  "hitPoints": 32,
+  "hitDice": "5d8+10",
+  "speed": {
+    "walk": 9
+  },
+  "challengeRating": 0.5,
+  "skills": {
+    "intimidation": 2
+  },
+  "senses": [
+    "Perception passive 10"
+  ],
+  "languages": [
+    "commun"
+  ],
+  "multiattack": 2,
+  "traits": [
+    {
+      "name": "Tactique de groupe",
+      "text": "Le malfrat est avantagé lors d'un jet d'attaque effectué contre une créature si au moins un des alliés du malfrat se trouve à 1,50 mètre ou moins de la créature qu'il attaque et n'est pas neutralisé."
+    },
+    {
+      "name": "Attaques multiples",
+      "text": "Le malfrat effectue deux attaques au corps à corps."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Masse d'armes",
+      "text": "Attaque au corps à corps avec une arme : +4 au toucher, allonge 1,50 m, une cible. Touché : 5 (1d6 + 2) dégâts contondants.",
+      "attackBonus": 4,
+      "reach": 1.5,
+      "damage": "1d6+2",
+      "damageType": "bludgeoning"
+    },
+    {
+      "name": "Arbalète lourde",
+      "text": "Attaque à distance avec une arme : +2 au toucher, portée 30/120 m, une cible. Touché : 5 (1d10) dégâts perforants.",
+      "attackBonus": 2,
+      "rangeNormal": 30,
+      "rangeLong": 120,
+      "damage": "1d10",
+      "damageType": "piercing"
+    }
+  ]
+}

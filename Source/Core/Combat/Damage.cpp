@@ -127,7 +127,8 @@ void DamagePipeline::runStage(DamageStage stage, DamageWork& work, CombatState* 
     }
 }
 
-void DamagePipeline::applyAffinities(DamageWork& work, const DamageTraits& traits) {
+void DamagePipeline::applyAffinities(DamageWork& work, const DamageTraits& traits, int hitPoints,
+                                     int maximumHitPoints) {
     for (std::size_t indice = 0; indice < work.portions.size(); ++indice) {
         const DamagePortion portion = work.portions[indice];
         if (portion.amount <= 0 || hasFlag(portion.flags, DamageFlag::IgnoresResistance)) {
@@ -154,8 +155,20 @@ void DamagePipeline::applyAffinities(DamageWork& work, const DamageTraits& trait
         // Moitie arrondie a l'inferieur : 25 resiste et vulnerable donne 12 puis 24, pas 25.
         if (const DamageAffinity* resistance =
                 traits.matching(DamageAffinityKind::Resistance, portion.type, portion.flags)) {
-            work.adjust(indice, work.portions[indice].amount / 2, DamageStage::Resistances,
-                        etiquette("resistance", *resistance));
+            const int montant = work.portions[indice].amount;
+            if (!resistance->graduated) {
+                work.adjust(indice, montant / 2, DamageStage::Resistances,
+                            etiquette("resistance", *resistance));
+            } else if (maximumHitPoints > 0) {
+                // La resistance graduee (LOT-142) : la part des PV perdus, la moitie au plus. Plein
+                // de vie, elle ne retire rien et le journal ne l'ecrit pas.
+                const int perdus = std::clamp(maximumHitPoints - hitPoints, 0, maximumHitPoints);
+                const int retire = (montant * perdus) / (2 * maximumHitPoints);
+                if (retire > 0) {
+                    work.adjust(indice, montant - retire, DamageStage::Resistances,
+                                etiquette("resistance graduee", *resistance));
+                }
+            }
         }
         if (const DamageAffinity* vulnerabilite =
                 traits.matching(DamageAffinityKind::Vulnerability, portion.type, portion.flags)) {
@@ -223,7 +236,7 @@ std::vector<DamageReport> DamagePipeline::apply(CombatState& combat,
         runStage(DamageStage::Source, rapport.work, &combat);
         runStage(DamageStage::Conversion, rapport.work, &combat);
         runStage(DamageStage::Resistances, rapport.work, &combat);
-        applyAffinities(rapport.work, traits);
+        applyAffinities(rapport.work, traits, position->second, cible->profile.maximumHitPoints);
         runStage(DamageStage::Reserves, rapport.work, &combat);
 
         int reste = 0;
@@ -268,7 +281,7 @@ DamageReport DamagePipeline::applyToStructure(BattleGrid& grid, GridPosition cel
     runStage(DamageStage::Source, rapport.work, nullptr);
     runStage(DamageStage::Conversion, rapport.work, nullptr);
     runStage(DamageStage::Resistances, rapport.work, nullptr);
-    applyAffinities(rapport.work, traits);
+    applyAffinities(rapport.work, traits, objet->hitPoints, objet->hitPoints);
     rapport.work.hitPointLoss = rapport.work.total();
     runStage(DamageStage::HitPoints, rapport.work, nullptr);
     rapport.hitPointsAfter = std::max(0, rapport.hitPointsBefore - rapport.work.hitPointLoss);

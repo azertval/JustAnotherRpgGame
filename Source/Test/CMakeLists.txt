@@ -74,6 +74,8 @@ add_executable(UnitTests
     Unit/Core/Combat/test_class_mage.cpp
     Unit/Core/Combat/test_class_priest.cpp
     Unit/Core/Combat/test_class_scoundrel.cpp
+    # L'IA joue les sorts et les gestes gratuits des quatre classes (LOT-142).
+    Unit/Core/Combat/test_ai_spells.cpp
     # Les etats, l'agonie et la mort (LOT-137).
     Unit/Core/Combat/test_death_and_dying.cpp
     Unit/Core/Levels/test_rpg_terrain.cpp
@@ -437,6 +439,8 @@ add_executable(IntegrationTests
     Integration/test_exploration_carte.cpp
     Integration/test_quete_trois_etapes.cpp
     Integration/test_quete_des_pommes.cpp
+    # La serie de l'arene et son equilibrage par simulation (LOT-142).
+    Integration/test_serie_de_l_arene.cpp
     # Le mode Quêtes de l'éditeur sur la quête livrée (LOT-144).
     Integration/test_mode_quetes.cpp
 )
@@ -444,6 +448,8 @@ add_executable(IntegrationTests
 target_link_libraries(IntegrationTests PRIVATE
     EditorLogic
     HmiLib
+    # qEnvironmentVariable : la mesure complete de la serie de l'arene (LOT-142).
+    Qt6::Core
     GTest::gtest_main
     project_warnings
     project_options

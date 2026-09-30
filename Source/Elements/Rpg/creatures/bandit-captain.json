@@ -1,0 +1,73 @@
+{
+  "id": "bandit-captain",
+  "name": "Capitaine bandit",
+  "source": "srd",
+  "size": "medium",
+  "creatureType": "humanoïde",
+  "alignment": "n'importe quel alignement autre que Loyal",
+  "silhouette": "humanoid",
+  "description": "Il faut une personnalité affirmée, une fourberie à toute épreuve et une langue bien pendue pour se faire obéir d'une bande de bandits. Le capitaine bandit possède ces qualités au centuple.",
+  "abilities": {
+    "strength": 15,
+    "dexterity": 16,
+    "constitution": 14,
+    "intelligence": 14,
+    "wisdom": 11,
+    "charisma": 14
+  },
+  "armorClass": 15,
+  "hitPoints": 65,
+  "hitDice": "10d8+20",
+  "speed": {
+    "walk": 9
+  },
+  "challengeRating": 2,
+  "skills": {
+    "athletics": 4,
+    "deception": 4
+  },
+  "senses": [
+    "Perception passive 10"
+  ],
+  "languages": [
+    "commun"
+  ],
+  "multiattack": 3,
+  "traits": [
+    {
+      "name": "Attaques multiples",
+      "text": "Le capitaine effectue trois attaques au corps à corps : deux avec son cimeterre et une avec sa dague ou il effectue deux attaques à distance avec ses dagues."
+    },
+    {
+      "name": "Parade (réaction)",
+      "text": "Le capitaine ajoute 2 à sa CA contre une attaque au corps à corps qui devrait le toucher. Il doit voir son agresseur et manier une arme de corps à corps. Réaction que le moteur ne joue pas encore."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Cimeterre",
+      "text": "Attaque au corps à corps avec une arme : +5 au toucher, allonge 1,50 m, une cible. Touché : 6 (1d6 + 3) dégâts tranchants.",
+      "attackBonus": 5,
+      "reach": 1.5,
+      "damage": "1d6+3",
+      "damageType": "slashing"
+    },
+    {
+      "name": "Dague",
+      "text": "Attaque au corps à corps avec une arme : +5 au toucher, allonge 1,50 m, une cible. Touché : 5 (1d4 + 3) dégâts perforants.",
+      "attackBonus": 5,
+      "reach": 1.5,
+      "damage": "1d4+3",
+      "damageType": "piercing"
+    },
+    {
+      "name": "Dague (lancer)",
+      "text": "Attaque à distance avec une arme : +5 au toucher, portée 6/18 m, une cible. Touché : 5 (1d4 + 3) dégâts perforants.",
+      "attackBonus": 5,
+      "rangeNormal": 6,
+      "rangeLong": 18,
+      "damage": "1d4+3",
+      "damageType": "piercing"
+    }
+  ]
+}

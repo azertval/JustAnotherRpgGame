@@ -1,0 +1,38 @@
+{
+  "id": "arene-champion",
+  "name": "Le champion de l'arène",
+  "source": "original",
+  "escapable": false,
+  "combatants": [
+    {
+      "creatureId": "gladiator",
+      "columnOffset": 2,
+      "rowOffset": 0
+    },
+    {
+      "creatureId": "bandit-captain",
+      "columnOffset": 2,
+      "rowOffset": -2
+    },
+    {
+      "creatureId": "thug",
+      "columnOffset": 0,
+      "rowOffset": -3
+    },
+    {
+      "creatureId": "thug",
+      "columnOffset": 0,
+      "rowOffset": 3
+    },
+    {
+      "creatureId": "bandit-archer",
+      "columnOffset": 1,
+      "rowOffset": -4
+    },
+    {
+      "creatureId": "bandit-archer",
+      "columnOffset": 2,
+      "rowOffset": 4
+    }
+  ]
+}

@@ -14,6 +14,10 @@
       "type": "string", "minLength": 2
     },
     "alignment": { "type": "string" },
+    "multiattack": {
+      "description": "Attaques multiples (LOT-142) : le nombre d'attaques de l'action Attaquer, chacune choisie parmi les actions du bloc. Absent : une seule.",
+      "type": "integer", "minimum": 2, "maximum": 6
+    },
     "silhouette": {
       "description": "Le mannequin de remplacement de la creature tant qu'elle n'a pas de figurine (LOT-145).",
       "type": "string", "enum": ["humanoid", "quadruped", "flying"]

@@ -5,15 +5,19 @@
 
 #include <algorithm>
 #include <set>
+#include <span>
 #include <string>
 #include <utility>
 
+#include "Core/Combat/AreaOfEffect.h"
 #include "Core/Combat/BattleGrid.h"
+#include "Core/Combat/CombatCounters.h"
 #include "Core/Combat/Flanking.h"
 #include "Core/Combat/LineOfSight.h"
 #include "Core/Combat/Pathfinding.h"
 #include "Core/Data/JsonDocument.h"
 #include "Core/Rpg/Bestiary.h"
+#include "Core/Rpg/ClassCapacities.h"
 
 namespace core {
 namespace {
@@ -21,6 +25,23 @@ namespace {
 constexpr int SANS_GARDE_DE_VERSION = 0;
 // Une case vaut, au taux `approachPerTile`, un point de degat : 800 unites d'esperance.
 constexpr long long UNITES_PAR_POINT = 800;
+// Un pourcentage de profil plein : la valeur d'une frappe est une esperance fois un pourcentage.
+constexpr long long POURCENT_PLEIN = 100;
+
+// Ce que valent, en points de degats, les gestes d'un sort qui ne blessent pas (LOT-142). Le
+// Guide du Maitre ne chiffre pas un compagnon rendu au combat : ce sont des decisions nommees,
+// calees pour qu'un allie a terre passe avant une attaque moyenne, et un allie debout apres.
+constexpr long long RELEVER = 10;
+constexpr long long STABILISER = 3;
+constexpr long long RAMENER = 20;
+constexpr long long BENIR = 3;
+// Un allie pris dans la sphere d'un sort compte double, en moins.
+constexpr long long ALLIE_TOUCHE = 2;
+
+// @p points points de degats, dans l'unite des valeurs de frappe.
+[[nodiscard]] constexpr long long enValeur(long long points) noexcept {
+    return points * UNITES_PAR_POINT * POURCENT_PLEIN;
+}
 
 // --- Donnee -----------------------------------------------------------------------------------
 
@@ -123,6 +144,11 @@ public:
         }
         _moi.emprise = {.anchor = *ancre, .side = footprintSide(_moi.combattant->profile.size)};
         _moi.attaques = session.attacks(acteur);
+        // Ce que les capacites de classe ajoutent aux attaques (LOT-142) : l'IA les compte comme
+        // le jet les jouera.
+        const std::span<const Capacity> capacites = session.capacitiesOf(acteur);
+        _bonusDeCapacites = attackModifiersFrom(capacites);
+        _desDeCapacites = extraDamageFrom(capacites);
         _valide = true;
         for (const CombatantId id : _combat.combatants()) {
             const Combatant* c = _combat.find(id);
@@ -141,6 +167,14 @@ public:
             if (id != acteur && c->status == CombatantStatus::Down && _combat.lethal() &&
                 c->profile.side != _moi.combattant->profile.side && profil.finishDowned > 0) {
                 _aTerre.push_back(present);
+            }
+            // Les allies hors de combat : qu'un soin releve, qu'un sort ramene (LOT-142).
+            if (id != acteur && c->profile.side == _moi.combattant->profile.side) {
+                if (c->status == CombatantStatus::Down) {
+                    _alliesATerre.push_back(present);
+                } else if (c->status == CombatantStatus::Dead) {
+                    _alliesMorts.push_back(present);
+                }
             }
             if (id == acteur || c->status != CombatantStatus::Standing) {
                 continue;
@@ -332,10 +366,14 @@ public:
                                            : pourcentContre(cible);
 
             for (std::size_t i = 0; i < _moi.attaques->size(); ++i) {
-                const AttackProfile& attaque = (*_moi.attaques)[i];
-                if (!porte(attaque, distance)) {
+                if (!porte((*_moi.attaques)[i], distance)) {
                     continue;
                 }
+                // L'attaque telle que la session la jettera : le bonus au jet des capacites de
+                // classe (Hit the Mark) s'y ajoute (LOT-142).
+                AttackProfile attaque = (*_moi.attaques)[i];
+                attaque.modifiers.insert(attaque.modifiers.end(), _bonusDeCapacites.begin(),
+                                         _bonusDeCapacites.end());
                 Frappe frappe{.cible = cible.id, .indice = i, .circonstances = {}};
                 const RollStance posture =
                     postureDe(attaque, cible, ancre, distance, auContact, frappe);
@@ -344,11 +382,123 @@ public:
                 }
                 frappe.posture = posture;
                 frappe.requis = requiredRoll(ca, attackBonusOf(attaque));
-                frappe.valeur = expectedDamage(attaque, ca, frappe.posture) * pourcent;
+                frappe.valeur =
+                    (expectedDamage(attaque, ca, frappe.posture) +
+                     desDeCapacites(attaque, cible, ca, frappe.posture, frappe.circonstances)) *
+                    pourcent;
                 liste.push_back(std::move(frappe));
             }
         }
         return liste;
+    }
+
+    // Un sort evalue depuis une ancre (LOT-142).
+    struct Lancer {
+        CombatantId cible{};
+        std::size_t indice = 0;
+        // Deja ponderee, dans l'unite des frappes.
+        long long valeur = 0;
+        // Ce que le journal dit du geste : « soigne X », « blesse X ».
+        std::string raison;
+    };
+
+    /**
+     * Tous les sorts de l'action qui valent quelque chose depuis l'ancre : ceux qui blessent un
+     * ennemi debout, soignent ou relevent un allie, ramenent un mort, benissent le groupe. Les
+     * sorts d'action bonus se jouent apres l'action (`lancerBonus`).
+     */
+    [[nodiscard]] std::vector<Lancer> lancers(GridPosition ancre) const {
+        std::vector<Lancer> liste;
+        const std::vector<ArenaSpell>* const sorts = _session.spells(_moi.id);
+        if (sorts == nullptr) {
+            return liste;
+        }
+        std::optional<bool> auContact;
+        for (std::size_t i = 0; i < sorts->size(); ++i) {
+            const ArenaSpell& sort = (*sorts)[i];
+            if (!sort.available() || sort.bonusAction) {
+                continue;
+            }
+            switch (sort.mechanism) {
+                case SpellMechanism::AttackRoll:
+                case SpellMechanism::AutoHit:
+                case SpellMechanism::SavingThrow:
+                    for (const Present& cible : _ennemis) {
+                        const long long valeur = blessure(sort, ancre, cible, auContact);
+                        if (valeur > 0) {
+                            liste.push_back({.cible = cible.id,
+                                             .indice = i,
+                                             .valeur = valeur,
+                                             .raison = "blesse " + nom(cible.id)});
+                        }
+                    }
+                    break;
+                case SpellMechanism::Healing:
+                    soins(sort, i, ancre, liste);
+                    break;
+                case SpellMechanism::Stabilize:
+                    for (const Present& allie : _alliesATerre) {
+                        if (!stable(allie.id) && aPortee(sort, ancre, allie)) {
+                            liste.push_back({.cible = allie.id,
+                                             .indice = i,
+                                             .valeur = enValeur(STABILISER),
+                                             .raison = "stabilise " + nom(allie.id)});
+                        }
+                    }
+                    break;
+                case SpellMechanism::Revive:
+                    for (const Present& mort : _alliesMorts) {
+                        if (ramenable(sort, mort) && aPortee(sort, ancre, mort)) {
+                            liste.push_back({.cible = mort.id,
+                                             .indice = i,
+                                             .valeur = enValeur(RAMENER),
+                                             .raison = "ramene " + nom(mort.id)});
+                        }
+                    }
+                    break;
+                case SpellMechanism::Effect:
+                    benir(sort, i, ancre, liste);
+                    break;
+            }
+        }
+        return liste;
+    }
+
+    /**
+     * Le sort d'action bonus a lancer depuis la case ou l'on est : celui qui blesse le plus un
+     * ennemi debout (*arme spirituelle*), ou rien. L'arme deja invoquee frappe sans lancer : on
+     * la propose meme sans lancer restant, la session tranche.
+     */
+    [[nodiscard]] std::optional<Lancer> lancerBonus() const {
+        const std::vector<ArenaSpell>* const sorts = _session.spells(_moi.id);
+        if (sorts == nullptr || _moi.combattant->economy.remaining(BONUS_ACTION_RESOURCE) <= 0) {
+            return std::nullopt;
+        }
+        std::optional<Lancer> meilleur;
+        std::optional<bool> auContact;
+        for (std::size_t i = 0; i < sorts->size(); ++i) {
+            const ArenaSpell& sort = (*sorts)[i];
+            const bool armeInvoquee =
+                std::ranges::any_of(_session.effects(), [&](const ArenaEffect& effet) {
+                    return effet.bearer == _moi.id &&
+                           effet.kind == SpellEffectKind::SpiritualWeapon &&
+                           effet.source == sort.name;
+                });
+            if (!sort.bonusAction || sort.target != SpellTarget::Enemy ||
+                (!sort.available() && !armeInvoquee)) {
+                continue;
+            }
+            for (const Present& cible : _ennemis) {
+                const long long valeur = blessure(sort, _moi.emprise.anchor, cible, auContact);
+                if (valeur > 0 && (!meilleur.has_value() || valeur > meilleur->valeur)) {
+                    meilleur = Lancer{.cible = cible.id,
+                                      .indice = i,
+                                      .valeur = valeur,
+                                      .raison = "blesse " + nom(cible.id)};
+                }
+            }
+        }
+        return meilleur;
     }
 
     // Le poids de la menace pour l'acteur : plus lourd s'il est ensanglante.
@@ -358,6 +508,207 @@ public:
     }
 
 private:
+    /**
+     * L'esperance des des qu'une capacite ajoute a la touche (*Sneak Attack*), en
+     * huit-centiemes, aux conditions du jet reel (`ArenaSession::hookCapacities`) : un allie
+     * debout au contact de la cible, et pas deja jouee ce tour. Le critique double les des.
+     */
+    [[nodiscard]] long long desDeCapacites(const AttackProfile& attaque, const Present& cible,
+                                           int ca, RollStance posture,
+                                           std::vector<std::string>& circonstances) const {
+        if (_desDeCapacites.empty() || attaque.damage.empty()) {
+            return 0;
+        }
+        const std::string proprietaire = std::to_string(static_cast<std::uint32_t>(_moi.id));
+        const long long touche =
+            hitChance(requiredRoll(ca, attackBonusOf(attaque)), posture, attaque.criticalThreshold);
+        const long long critique = criticalChance(attaque.criticalThreshold, posture);
+        long long total = 0;
+        for (const NamedExtraDamage& supplement : _desDeCapacites) {
+            if (supplement.allyAdjacentToTarget &&
+                std::ranges::none_of(_allies, [&](const Present& allie) {
+                    return ecart(allie.emprise.anchor, allie.emprise.side, cible.emprise.anchor,
+                                 cible.emprise.side) == 1;
+                })) {
+                continue;
+            }
+            if (supplement.oncePerTurn && _combat.counters().value(CounterScope::Turn, proprietaire,
+                                                                   supplement.capacityId) > 0) {
+                continue;
+            }
+            const long long des =
+                static_cast<long long>(supplement.dice.count) * (supplement.dice.faces + 1);
+            total += (touche + critique) * des;
+            circonstances.push_back(supplement.source);
+        }
+        return total;
+    }
+
+    [[nodiscard]] std::string nom(CombatantId id) const {
+        const Combatant* c = _combat.find(id);
+        return (c == nullptr ? std::string("?") : c->profile.name) + " #" +
+               std::to_string(static_cast<std::uint32_t>(id));
+    }
+
+    // Vrai si le sort atteint @p cible depuis l'ancre : a portee, en vue.
+    [[nodiscard]] bool aPortee(const ArenaSpell& sort, GridPosition ancre,
+                               const Present& cible) const {
+        const Footprint ici = empriseEn(ancre);
+        const int distance = ecart(ancre, ici.side, cible.emprise.anchor, cible.emprise.side);
+        return porte(sort.attack, distance) && hasLineOfSight(_grille, ici, cible.emprise);
+    }
+
+    // L'esperance d'un sort a sauvegarde sur @p creature, en huit-centiemes : la chance qu'elle
+    // rate fois les degats, et la moitie a la reussite si le sort le dit.
+    [[nodiscard]] static long long sauvegardeAttendue(const ArenaSpell& sort,
+                                                      const Combatant& creature) {
+        const Ability caracteristique = sort.save.value_or(Ability::Dexterity);
+        const int bonus = creature.profile.savingThrows[static_cast<std::size_t>(caracteristique)];
+        const long long reussite =
+            static_cast<long long>(std::clamp(21 - (sort.saveDc - bonus), 0, 20)) * 20;
+        const long long ratee = CHANCE_SCALE - reussite;
+        const long long moyens = degatsMoyens(sort.attack).first;
+        const long long moitie = sort.saveEffect == SaveEffect::Half ? reussite * moyens / 2 : 0;
+        return (ratee * moyens) + moitie;
+    }
+
+    // Ce que vaut un sort qui blesse, lance depuis l'ancre sur @p cible ; 0 s'il ne l'atteint
+    // pas. Une sphere pese chaque creature qu'elle prend, les allies en moins.
+    [[nodiscard]] long long blessure(const ArenaSpell& sort, GridPosition ancre,
+                                     const Present& cible, std::optional<bool>& auContact) const {
+        if (!aPortee(sort, ancre, cible)) {
+            return 0;
+        }
+        const long long pourcent = pourcentContre(cible);
+        const Footprint ici = empriseEn(ancre);
+        const int distance = ecart(ancre, ici.side, cible.emprise.anchor, cible.emprise.side);
+        switch (sort.mechanism) {
+            case SpellMechanism::AttackRoll: {
+                const std::vector<Footprint> abris = corps(_moi.id, cible.id, ancre);
+                const Cover abri = coverFrom(_grille, ici, cible.emprise, abris);
+                const int ca = cible.combattant->profile.armorClass + coverBonus(abri);
+                Frappe trace{.cible = cible.id, .circonstances = {}};
+                const RollStance posture =
+                    postureDe(sort.attack, cible, ancre, distance, auContact, trace);
+                return expectedDamage(sort.attack, ca, posture) * sort.projectiles * pourcent;
+            }
+            case SpellMechanism::AutoHit:
+                return CHANCE_SCALE * degatsMoyens(sort.attack).first * sort.projectiles * pourcent;
+            case SpellMechanism::SavingThrow:
+                break;
+            case SpellMechanism::Effect:
+            case SpellMechanism::Healing:
+            case SpellMechanism::Stabilize:
+            case SpellMechanism::Revive:
+                return 0;
+        }
+        if (sort.areaRadius <= 0) {
+            return sauvegardeAttendue(sort, *cible.combattant) * pourcent;
+        }
+        // La sphere se centre sur la cible (ArenaSession::castSavingThrow) : tout ce qu'elle
+        // prend compte, le lanceur a sa case supposee.
+        const GridPoint centre{.x = (2 * cible.emprise.anchor.column) + cible.emprise.side,
+                               .y = (2 * cible.emprise.anchor.row) + cible.emprise.side};
+        const std::vector<CombatantId> pris = combatantsInArea(_combat, {.shape = AreaShape::Sphere,
+                                                                         .origin = centre,
+                                                                         .toward = centre,
+                                                                         .size = sort.areaRadius,
+                                                                         .width = 1});
+        long long total = 0;
+        for (const CombatantId id : pris) {
+            const Combatant* creature = _combat.find(id);
+            if (id == _moi.id || creature == nullptr ||
+                (creature->status != CombatantStatus::Standing &&
+                 creature->status != CombatantStatus::Down)) {
+                continue;
+            }
+            const long long attendu = sauvegardeAttendue(sort, *creature);
+            if (creature->profile.side == _moi.combattant->profile.side) {
+                total -= ALLIE_TOUCHE * POURCENT_PLEIN * attendu;
+            } else if (creature->status == CombatantStatus::Standing) {
+                total += _profil.damageDealt * attendu;
+            }
+        }
+        if (ecart(ancre, ici.side, cible.emprise.anchor, cible.emprise.side) <= sort.areaRadius) {
+            total -= ALLIE_TOUCHE * POURCENT_PLEIN * sauvegardeAttendue(sort, *_moi.combattant);
+        }
+        return total;
+    }
+
+    // Les soins d'un sort : un allie ensanglante (soi compris), borne a ce qui lui manque ; un
+    // allie a terre, releve.
+    void soins(const ArenaSpell& sort, std::size_t indice, GridPosition ancre,
+               std::vector<Lancer>& liste) const {
+        if (!sort.healing.has_value() || sort.target == SpellTarget::Enemy) {
+            return;
+        }
+        const Dice& des = *sort.healing;
+        const long long moyenne = std::max(
+            0LL, (static_cast<long long>(des.count) * (des.faces + 1)) + (2LL * des.modifier));
+        const auto soigner = [&](const Present& allie, bool soiMeme) {
+            const CombatantProfile& profil = allie.combattant->profile;
+            if (!isBloodied(profil) || (!soiMeme && !aPortee(sort, ancre, allie))) {
+                return;
+            }
+            const long long manque = 2LL * (profil.maximumHitPoints - profil.currentHitPoints);
+            liste.push_back({.cible = allie.id,
+                             .indice = indice,
+                             .valeur = CHANCE_SCALE * std::min(moyenne, manque) * POURCENT_PLEIN,
+                             .raison = "soigne " + nom(allie.id)});
+        };
+        if (sort.target != SpellTarget::Self) {
+            for (const Present& allie : _allies) {
+                soigner(allie, false);
+            }
+            for (const Present& allie : _alliesATerre) {
+                if (aPortee(sort, ancre, allie)) {
+                    liste.push_back(
+                        {.cible = allie.id,
+                         .indice = indice,
+                         .valeur = (CHANCE_SCALE * moyenne * POURCENT_PLEIN) + enValeur(RELEVER),
+                         .raison = "releve " + nom(allie.id)});
+                }
+            }
+        }
+        soigner(_moi, true);
+    }
+
+    // *Benediction* : l'acteur et les allies debout a portee, jusqu'au nombre de cibles du sort,
+    // quand il ne se concentre sur rien.
+    void benir(const ArenaSpell& sort, std::size_t indice, GridPosition ancre,
+               std::vector<Lancer>& liste) const {
+        if (!sort.effect.has_value() || sort.effect->kind != SpellEffectKind::Bless) {
+            return;
+        }
+        const bool concentre =
+            std::ranges::any_of(_session.effects(), [&](const ArenaEffect& effet) {
+                return effet.caster == _moi.id && effet.concentration;
+            });
+        if (concentre) {
+            return;
+        }
+        long long benis = 1;
+        for (const Present& allie : _allies) {
+            if (benis < sort.maxTargets && aPortee(sort, ancre, allie)) {
+                ++benis;
+            }
+        }
+        liste.push_back({.cible = _moi.id,
+                         .indice = indice,
+                         .valeur = enValeur(BENIR) * benis,
+                         .raison = "benit " + std::to_string(benis) + " allie(s)"});
+    }
+
+    [[nodiscard]] bool stable(CombatantId id) const {
+        const std::vector<CombatCondition> etats = _session.conditionsOf(id);
+        return std::ranges::find(etats, CombatCondition::Stable) != etats.end();
+    }
+
+    [[nodiscard]] bool ramenable(const ArenaSpell& sort, const Present& mort) const {
+        return sort.revival.has_value() && mort.combattant->diedAtRound.has_value() &&
+               _combat.round() - *mort.combattant->diedAtRound <= sort.revival->withinRounds;
+    }
+
     // Le pourcentage du profil contre @p cible : les degats, plus une cible ensanglantee, les
     // allies a son contact, et un allie ensanglante a proteger.
     [[nodiscard]] long long pourcentContre(const Present& cible) const {
@@ -459,6 +810,12 @@ private:
     std::vector<Present> _ennemis;
     /// Les ennemis a terre que le profil acheve (LOT-137) : des cibles, jamais des menaces.
     std::vector<Present> _aTerre;
+    /// Le bonus au jet et les des a la touche que les capacites de l'acteur donnent (LOT-142).
+    std::vector<Modifier> _bonusDeCapacites;
+    std::vector<NamedExtraDamage> _desDeCapacites;
+    /// Les allies a terre et les allies morts : ce que soignent et ramenent les sorts (LOT-142).
+    std::vector<Present> _alliesATerre;
+    std::vector<Present> _alliesMorts;
     std::vector<std::vector<GridPosition>> _mobilite;
 };
 
@@ -856,6 +1213,51 @@ void reculerApresAttaque(ArenaSession& session, CombatantId actif, const Behavio
     }
 }
 
+// Les attaques que l'action *Attaquer* a laissees (Extra Attack, LOT-132) : chacune sur la
+// meilleure frappe depuis la case ou l'on est, sans bouger (LOT-142). S'arrete quand il n'en reste
+// plus, ou qu'aucune cible n'est a portee.
+void attaquesSupplementaires(ArenaSession& session, CombatantId actif,
+                             const BehaviorProfile& profil) {
+    const CombatState& combat = session.combat();
+    for (int garde = 0; garde < 4; ++garde) {
+        const Combatant* moi = combat.find(actif);
+        if (combat.phase() != CombatPhase::TurnActive || combat.activeCombatant() != actif ||
+            moi == nullptr || moi->economy.remaining(EXTRA_ATTACK_RESOURCE) <= 0) {
+            return;
+        }
+        const Evaluateur eval(session, actif, profil);
+        const std::optional<GridPosition> ici = combat.grid().positionOf(actif);
+        if (!eval.valide() || !ici.has_value()) {
+            return;
+        }
+        const std::vector<Evaluateur::Frappe> frappes = eval.frappes(*ici);
+        const auto meilleure = std::ranges::max_element(
+            frappes, {}, [](const Evaluateur::Frappe& frappe) { return frappe.valeur; });
+        if (meilleure == frappes.end()) {
+            return;
+        }
+        if (session.attack(meilleure->cible, meilleure->indice).result != ArenaActionResult::Done) {
+            return;
+        }
+    }
+}
+
+// Le sort d'action bonus, apres l'action (LOT-142) : l'arme spirituelle sur l'ennemi qu'elle
+// blesse le plus.
+void lancerLeSortBonus(ArenaSession& session, CombatantId actif, const BehaviorProfile& profil) {
+    const Evaluateur eval(session, actif, profil);
+    if (!eval.valide()) {
+        return;
+    }
+    const std::optional<Evaluateur::Lancer> lancer = eval.lancerBonus();
+    if (!lancer.has_value()) {
+        return;
+    }
+    session.note("ia " + profil.id + " " + nomDe(session.combat(), actif) + " : action bonus, " +
+                 (*session.spells(actif))[lancer->indice].name + ", " + lancer->raison);
+    static_cast<void>(session.castSpell(lancer->cible, lancer->indice));
+}
+
 }  // namespace
 
 TurnPlan planTurn(const ArenaSession& session, CombatantId actor, const BehaviorProfile& profile) {
@@ -919,6 +1321,40 @@ TurnPlan planTurn(const ArenaSession& session, CombatantId actor, const Behavior
         for (const Evaluateur::Frappe& frappe : frappes) {
             TurnPlan candidat =
                 planAttaque(combat, profile, moi, zone->origin(), ancre, frappe, menaces, cout);
+            const long long scoreCandidat = candidat.score;
+            proposer({.exces = exces(menaces),
+                      .attaque = true,
+                      .progresse = true,
+                      .score = scoreCandidat,
+                      .deplacement = deplacementVers(ancre)},
+                     std::move(candidat));
+        }
+    }
+
+    // Lancer un sort : chaque case, chaque sort, chaque cible (LOT-142). C'est agir, comme
+    // attaquer : la cle « attaque » le range avec les frappes, et le score les departage.
+    for (std::size_t indice = 0; action && indice < ancres.size(); ++indice) {
+        const GridPosition ancre = ancres[indice];
+        const std::vector<Evaluateur::Lancer> lancers = eval.lancers(ancre);
+        if (lancers.empty()) {
+            continue;
+        }
+        const int menaces = cases[indice].menaces;
+        const long long cout = cases[indice].menace + cases[indice].opportunites;
+        for (const Evaluateur::Lancer& lancer : lancers) {
+            TurnPlan candidat{
+                .actor = actor,
+                .moveTo = ancre == zone->origin() ? std::nullopt : std::optional(ancre),
+                .action = TurnAction::Cast,
+                .target = lancer.cible,
+                .spellIndex = lancer.indice,
+                .dashTo = std::nullopt,
+                .immediateThreats = menaces,
+                .score = lancer.valeur - cout,
+                .summary = {}};
+            candidat.summary = "ia " + profile.id + " " + nomDe(combat, actor) + " : lance " +
+                               (*session.spells(actor))[lancer.indice].name + ", " + lancer.raison +
+                               ", depuis " + caseTexte(ancre);
             const long long scoreCandidat = candidat.score;
             proposer({.exces = exces(menaces),
                       .attaque = true,
@@ -1044,6 +1480,12 @@ bool playTurn(ArenaSession& session, const BehaviorCatalog& catalog) {
             if (toujoursLui() && plan.target.has_value()) {
                 static_cast<void>(session.attack(*plan.target, plan.attackIndex));
             }
+            attaquesSupplementaires(session, *actif, *profil);
+            break;
+        case TurnAction::Cast:
+            if (toujoursLui() && plan.target.has_value()) {
+                static_cast<void>(session.castSpell(*plan.target, plan.spellIndex));
+            }
             break;
         case TurnAction::Dash:
             if (toujoursLui() && session.dash() && plan.dashTo.has_value()) {
@@ -1060,6 +1502,9 @@ bool playTurn(ArenaSession& session, const BehaviorCatalog& catalog) {
             break;
     }
 
+    if (toujoursLui()) {
+        lancerLeSortBonus(session, *actif, *profil);
+    }
     if (plan.action == TurnAction::Attack && profil->retreatAfterAttack && toujoursLui()) {
         reculerApresAttaque(session, *actif, *profil);
     }

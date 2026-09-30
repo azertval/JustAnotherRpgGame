@@ -1,0 +1,33 @@
+{
+  "id": "arene-veteran",
+  "name": "Le vétéran et ses hommes",
+  "source": "original",
+  "escapable": false,
+  "combatants": [
+    {
+      "creatureId": "veteran",
+      "columnOffset": 0,
+      "rowOffset": -2
+    },
+    {
+      "creatureId": "thug",
+      "columnOffset": 0,
+      "rowOffset": -5
+    },
+    {
+      "creatureId": "thug",
+      "columnOffset": 0,
+      "rowOffset": 1
+    },
+    {
+      "creatureId": "bandit-archer",
+      "columnOffset": 1,
+      "rowOffset": -5
+    },
+    {
+      "creatureId": "bandit-archer",
+      "columnOffset": 2,
+      "rowOffset": 2
+    }
+  ]
+}

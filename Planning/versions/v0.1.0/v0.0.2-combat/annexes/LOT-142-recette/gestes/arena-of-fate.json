@@ -1,0 +1,118 @@
+{
+ "format": "jadg-editor-gestures",
+ "version": 1,
+ "map": "central-empire/capital/arenarea/arena-of-fate",
+ "note": "LOT-142 : la serie de l'arene. Cinq marqueurs de rencontre sur le sable, un par rencontre de la serie apres les bandits (e7 a e11), presents une fois les bandits vaincus ; le maitre d'arene reste sur le sable apres la victoire.",
+ "gestures": [
+  {
+   "kind": "encounter",
+   "tool": "entity",
+   "at": [
+    24,
+    6
+   ]
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e7"
+   ],
+   "set": {
+    "encounterId": "arene-gladiateurs",
+    "presenceFlag": "encounter/arene-bandits/won",
+    "presenceTest": "set"
+   }
+  },
+  {
+   "kind": "encounter",
+   "tool": "entity",
+   "at": [
+    24,
+    8
+   ]
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e8"
+   ],
+   "set": {
+    "encounterId": "arene-morts",
+    "presenceFlag": "encounter/arene-bandits/won",
+    "presenceTest": "set"
+   }
+  },
+  {
+   "kind": "encounter",
+   "tool": "entity",
+   "at": [
+    24,
+    12
+   ]
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e9"
+   ],
+   "set": {
+    "encounterId": "arene-veteran",
+    "presenceFlag": "encounter/arene-bandits/won",
+    "presenceTest": "set"
+   }
+  },
+  {
+   "kind": "encounter",
+   "tool": "entity",
+   "at": [
+    24,
+    14
+   ]
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e10"
+   ],
+   "set": {
+    "encounterId": "arene-capitaine",
+    "presenceFlag": "encounter/arene-bandits/won",
+    "presenceTest": "set"
+   }
+  },
+  {
+   "kind": "encounter",
+   "tool": "entity",
+   "at": [
+    23,
+    10
+   ]
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e11"
+   ],
+   "set": {
+    "encounterId": "arene-champion",
+    "presenceFlag": "encounter/arene-bandits/won",
+    "presenceTest": "set"
+   }
+  },
+  {
+   "kind": "",
+   "tool": "entity",
+   "select": [
+    "e5"
+   ],
+   "set": {
+    "presenceValue": "condamne|enfant-libere"
+   }
+  }
+ ]
+}

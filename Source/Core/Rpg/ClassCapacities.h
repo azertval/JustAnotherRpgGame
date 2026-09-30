@@ -87,6 +87,9 @@ struct CapacityEffect {
     bool allDamageTypes = false;
     /// `DamageResistance` : les types résistés, si ce n'est pas tous.
     std::vector<DamageType> damageTypes;
+    /// `DamageResistance` : graduée, elle croît avec les points de vie perdus, la moitié des
+    /// dégâts au plus (`LOT-142`, `core::DamageAffinity::graduated`).
+    bool graduated = false;
     /// `SpeedBonus` : les mètres ajoutés.
     float meters = 0.0F;
     /// `ExtraDamage` : les dés ajoutés.
@@ -175,6 +178,8 @@ struct NamedResistance {
     /// `std::nullopt` : tous les types.
     std::optional<DamageType> type;
     std::string source;
+    /// Graduée : elle croît avec les points de vie perdus (`core::DamageAffinity::graduated`).
+    bool graduated = false;
 };
 
 /// @brief Les résistances que les capacités donnent, chacune à son nom.

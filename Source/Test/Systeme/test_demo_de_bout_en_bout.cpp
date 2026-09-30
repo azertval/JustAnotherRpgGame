@@ -43,6 +43,7 @@
 #include "Core/Rpg/CharacterSheet.h"
 #include "Core/Rpg/Check.h"
 #include "Core/Rpg/Dialogue.h"
+#include "Core/Rpg/PartyLedger.h"
 #include "Core/Rpg/Skill.h"
 #include "Core/World/ExplorationSession.h"
 #include "HMI/Platform/ExecutableDirectory.h"
@@ -486,7 +487,16 @@ TEST(DemoDeBoutEnBout, LaFinParLArene) {
     ASSERT_TRUE(pomper([&jeu] { return jeu.etapes.size() >= 5; }, 1000));
     EXPECT_EQ(jeu.etapes.back(), "pommes/enfant-libere");
     EXPECT_EQ(jeu.valeur(), "enfant-libere");
-    EXPECT_EQ(jeu.parler(DEVANT_LE_MAITRE), std::nullopt) << "le maitre s'en est alle";
+    // Le maitre reste sur le sable (LOT-142) : il donne au groupe un niveau et un repos, puis
+    // propose les gladiateurs ; on les remet a plus tard.
+    ASSERT_EQ(jeu.parler(DEVANT_LE_MAITRE), "maitre-arene") << "le maitre reste";
+    ASSERT_NO_FATAL_FAILURE(jeu.repondre({"continue", "attendre"}));
+    for (const std::string& membre : jeu.monde.party().members()) {
+        const core::MemberRecord* const record = jeu.monde.ledger().record(membre);
+        ASSERT_NE(record, nullptr) << membre;
+        EXPECT_EQ(record->level, 2) << membre << " : le niveau de la victoire";
+        EXPECT_FALSE(record->hitPoints.has_value()) << membre << " : le repos";
+    }
 
     // Le retour : l'escalier, la porte ouverte, le parvis, l'avenue, l'etal.
     ASSERT_TRUE(jeu.passerLePortail(PORTE_DU_TRIOMPHE, {0.0F, -1.0F}, VESTIAIRES));

@@ -1,0 +1,43 @@
+{
+  "id": "arene-capitaine",
+  "name": "La bande du capitaine",
+  "source": "original",
+  "escapable": false,
+  "combatants": [
+    {
+      "creatureId": "bandit-captain",
+      "columnOffset": 2,
+      "rowOffset": -4
+    },
+    {
+      "creatureId": "berserker",
+      "columnOffset": 0,
+      "rowOffset": -8
+    },
+    {
+      "creatureId": "berserker",
+      "columnOffset": 0,
+      "rowOffset": -4
+    },
+    {
+      "creatureId": "berserker",
+      "columnOffset": 0,
+      "rowOffset": 0
+    },
+    {
+      "creatureId": "thug",
+      "columnOffset": 0,
+      "rowOffset": -7
+    },
+    {
+      "creatureId": "thug",
+      "columnOffset": 1,
+      "rowOffset": 0
+    },
+    {
+      "creatureId": "thug",
+      "columnOffset": 2,
+      "rowOffset": -6
+    }
+  ]
+}

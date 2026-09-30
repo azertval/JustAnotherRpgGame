@@ -1,25 +1,361 @@
 {
   "id": "maitre-arene",
-  "name": "Le maître d'arène, sur le sable de l'Arena of Fate (il lance le combat)",
+  "name": "Le maitre d'arene, sur le sable de l'Arena of Fate (il lance les combats de la serie)",
   "source": "original",
   "speaker": {
-    "languages": ["common"],
+    "languages": [
+      "common"
+    ],
     "attitude": "indifferent"
   },
-  "start": "defi",
+  "start": "ouverture",
   "nodes": [
+    {
+      "id": "ouverture",
+      "type": "condition",
+      "flag": "encounter/arene-bandits/won",
+      "then": "vu-2",
+      "else": "defi"
+    },
     {
       "id": "defi",
       "type": "line",
       "choices": [
-        { "id": "combattre", "next": "engage" },
-        { "id": "attendre", "next": "fin" }
+        {
+          "id": "combattre",
+          "next": "engage"
+        },
+        {
+          "id": "attendre",
+          "next": "fin"
+        }
       ]
     },
     {
       "id": "engage",
       "type": "action",
-      "actions": [{ "type": "startEncounter", "encounter": "arene-bandits" }],
+      "actions": [
+        {
+          "type": "startEncounter",
+          "encounter": "arene-bandits"
+        }
+      ],
+      "next": "fin"
+    },
+    {
+      "id": "vu-2",
+      "type": "condition",
+      "flag": "encounter/arene-gladiateurs/won",
+      "then": "vu-3",
+      "else": "prime-1"
+    },
+    {
+      "id": "prime-1",
+      "type": "condition",
+      "flag": "arene/recompense-1",
+      "then": "defi-2",
+      "else": "recompense-1"
+    },
+    {
+      "id": "recompense-1",
+      "type": "action",
+      "actions": [
+        {
+          "type": "levelUp",
+          "character": "party"
+        },
+        {
+          "type": "rest",
+          "character": "party"
+        },
+        {
+          "type": "setFlag",
+          "flag": "arene/recompense-1"
+        }
+      ],
+      "next": "annonce-1"
+    },
+    {
+      "id": "annonce-1",
+      "type": "line",
+      "next": "defi-2"
+    },
+    {
+      "id": "defi-2",
+      "type": "line",
+      "choices": [
+        {
+          "id": "combattre",
+          "next": "engage-2"
+        },
+        {
+          "id": "attendre",
+          "next": "fin"
+        }
+      ]
+    },
+    {
+      "id": "engage-2",
+      "type": "action",
+      "actions": [
+        {
+          "type": "startEncounter",
+          "encounter": "arene-gladiateurs"
+        }
+      ],
+      "next": "fin"
+    },
+    {
+      "id": "vu-3",
+      "type": "condition",
+      "flag": "encounter/arene-morts/won",
+      "then": "vu-4",
+      "else": "prime-2"
+    },
+    {
+      "id": "prime-2",
+      "type": "condition",
+      "flag": "arene/recompense-2",
+      "then": "defi-3",
+      "else": "recompense-2"
+    },
+    {
+      "id": "recompense-2",
+      "type": "action",
+      "actions": [
+        {
+          "type": "levelUp",
+          "character": "party"
+        },
+        {
+          "type": "rest",
+          "character": "party"
+        },
+        {
+          "type": "setFlag",
+          "flag": "arene/recompense-2"
+        }
+      ],
+      "next": "annonce-2"
+    },
+    {
+      "id": "annonce-2",
+      "type": "line",
+      "next": "defi-3"
+    },
+    {
+      "id": "defi-3",
+      "type": "line",
+      "choices": [
+        {
+          "id": "combattre",
+          "next": "engage-3"
+        },
+        {
+          "id": "attendre",
+          "next": "fin"
+        }
+      ]
+    },
+    {
+      "id": "engage-3",
+      "type": "action",
+      "actions": [
+        {
+          "type": "startEncounter",
+          "encounter": "arene-morts"
+        }
+      ],
+      "next": "fin"
+    },
+    {
+      "id": "vu-4",
+      "type": "condition",
+      "flag": "encounter/arene-veteran/won",
+      "then": "vu-5",
+      "else": "prime-3"
+    },
+    {
+      "id": "prime-3",
+      "type": "condition",
+      "flag": "arene/recompense-3",
+      "then": "defi-4",
+      "else": "recompense-3"
+    },
+    {
+      "id": "recompense-3",
+      "type": "action",
+      "actions": [
+        {
+          "type": "levelUp",
+          "character": "party"
+        },
+        {
+          "type": "rest",
+          "character": "party"
+        },
+        {
+          "type": "setFlag",
+          "flag": "arene/recompense-3"
+        }
+      ],
+      "next": "annonce-3"
+    },
+    {
+      "id": "annonce-3",
+      "type": "line",
+      "next": "defi-4"
+    },
+    {
+      "id": "defi-4",
+      "type": "line",
+      "choices": [
+        {
+          "id": "combattre",
+          "next": "engage-4"
+        },
+        {
+          "id": "attendre",
+          "next": "fin"
+        }
+      ]
+    },
+    {
+      "id": "engage-4",
+      "type": "action",
+      "actions": [
+        {
+          "type": "startEncounter",
+          "encounter": "arene-veteran"
+        }
+      ],
+      "next": "fin"
+    },
+    {
+      "id": "vu-5",
+      "type": "condition",
+      "flag": "encounter/arene-capitaine/won",
+      "then": "vu-6",
+      "else": "prime-4"
+    },
+    {
+      "id": "prime-4",
+      "type": "condition",
+      "flag": "arene/recompense-4",
+      "then": "defi-5",
+      "else": "recompense-4"
+    },
+    {
+      "id": "recompense-4",
+      "type": "action",
+      "actions": [
+        {
+          "type": "levelUp",
+          "character": "party"
+        },
+        {
+          "type": "rest",
+          "character": "party"
+        },
+        {
+          "type": "setFlag",
+          "flag": "arene/recompense-4"
+        }
+      ],
+      "next": "annonce-4"
+    },
+    {
+      "id": "annonce-4",
+      "type": "line",
+      "next": "defi-5"
+    },
+    {
+      "id": "defi-5",
+      "type": "line",
+      "choices": [
+        {
+          "id": "combattre",
+          "next": "engage-5"
+        },
+        {
+          "id": "attendre",
+          "next": "fin"
+        }
+      ]
+    },
+    {
+      "id": "engage-5",
+      "type": "action",
+      "actions": [
+        {
+          "type": "startEncounter",
+          "encounter": "arene-capitaine"
+        }
+      ],
+      "next": "fin"
+    },
+    {
+      "id": "vu-6",
+      "type": "condition",
+      "flag": "encounter/arene-champion/won",
+      "then": "gloire",
+      "else": "prime-5"
+    },
+    {
+      "id": "prime-5",
+      "type": "condition",
+      "flag": "arene/recompense-5",
+      "then": "defi-6",
+      "else": "recompense-5"
+    },
+    {
+      "id": "recompense-5",
+      "type": "action",
+      "actions": [
+        {
+          "type": "rest",
+          "character": "party"
+        },
+        {
+          "type": "setFlag",
+          "flag": "arene/recompense-5"
+        }
+      ],
+      "next": "annonce-5"
+    },
+    {
+      "id": "annonce-5",
+      "type": "line",
+      "next": "defi-6"
+    },
+    {
+      "id": "defi-6",
+      "type": "line",
+      "choices": [
+        {
+          "id": "combattre",
+          "next": "engage-6"
+        },
+        {
+          "id": "attendre",
+          "next": "fin"
+        }
+      ]
+    },
+    {
+      "id": "engage-6",
+      "type": "action",
+      "actions": [
+        {
+          "type": "startEncounter",
+          "encounter": "arene-champion"
+        }
+      ],
+      "next": "fin"
+    },
+    {
+      "id": "gloire",
+      "type": "line",
       "next": "fin"
     },
     {
