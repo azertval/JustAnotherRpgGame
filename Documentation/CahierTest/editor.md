@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **213 cas** (26 bloquants, 48 critiques, 111 majeurs, 28 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **225 cas** (31 bloquants, 48 critiques, 117 majeurs, 29 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -30,6 +30,7 @@ Tests unitaires — **213 cas** (26 bloquants, 48 critiques, 111 majeurs, 28 min
 | [`test_paint_tools.cpp`](#test-paint-toolscpp) | 8 | - | 5 | 2 | 1 |
 | [`test_panel_focus.cpp`](#test-panel-focuscpp) | 3 | - | - | 3 | - |
 | [`test_piece_catalog.cpp`](#test-piece-catalogcpp) | 7 | - | 1 | 5 | 1 |
+| [`test_quest_editing.cpp`](#test-quest-editingcpp) | 12 | 5 | - | 6 | 1 |
 | [`test_quest_map_editor.cpp`](#test-quest-map-editorcpp) | 6 | 1 | 1 | 3 | 1 |
 | [`test_scene_images.cpp`](#test-scene-imagescpp) | 4 | 1 | - | 3 | - |
 | [`test_scene_painter.cpp`](#test-scene-paintercpp) | 4 | 3 | - | 1 | - |
@@ -51,6 +52,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 | `EX-EDIT-077` | [`ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue`](#contentchecktestunecarteneuveasonnomdanschaquecatalogue) |
 | `EX-EDIT-083` | [`Donnees.RemplacerUnePieceSurToutesLesCartes`](#donneesremplacerunepiecesurtouteslescartes) |
 | `EX-EDIT-084` | [`Donnees.UneCarteChangeDePlancheSansEtreRepeinte`](#donneesunecartechangedeplanchesansetrerepeinte) |
+| `EX-EDIT-100` | [`QuestWriting.UneQueteSeReecritOctetPourOctet`](#questwritingunequetesereecritoctetpouroctet), [`QuestWriting.UnLieuDEtapeSEcritCarteDiezeEntite`](#questwritingunlieudetapesecritcartediezeentite), [`ModeQuetesProjet.EnregistrerEcritLaQueteEtSesTextes`](#modequetesprojetenregistrerecritlaqueteetsestextes), [`ModeQuetesProjet.CeQueLeJeuRefuseraitNeSEnregistrePas`](#modequetesprojetcequelejeurefuseraitnesenregistrepas), [`ModeQuetesProjet.QuiSeSertDUneValeurDeDrapeau`](#modequetesprojetquisesertdunevaleurdedrapeau), [`ModeQuetesProjet.RenommerUneValeurLaSuitPartoutEtSeulementElle`](#modequetesprojetrenommerunevaleurlasuitpartoutetseulementelle), [`ModeQuetesProjet.RenommerUnDrapeauDeclare`](#modequetesprojetrenommerundrapeaudeclare), [`ModeQuetesProjet.RenommerPuisRetirerUneQuete`](#modequetesprojetrenommerpuisretirerunequete), [`ModeQuetesProjet.LEtatDePartieQuiAtteintUneEtape`](#modequetesprojetletatdepartiequiatteintuneetape), [`ModeQuetesProjet.LeLieuDUneEtapeSuitLEntite`](#modequetesprojetlelieuduneetapesuitlentite), [`ModeQuetesProjet.LeModeQuetesSansFenetre`](#modequetesprojetlemodequetessansfenetre), [`CatalogEntry.UneCleChangeASaPlace`](#catalogentryuneclechangeasaplace) |
 | `EX-EDIT-101` | [`ContentCheckTest.UnGroupeQuiNeSeDeploiePasFaitEchouerLaCi`](#contentchecktestungroupequinesedeploiepasfaitechouerlaci), [`GestureScriptTest.LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit`](#gesturescripttestlesabledelarenaoffateportelegroupeetrougitreduit) |
 | `EX-EXP-005` | [`ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus`](#scenepaintertestunecartesansaucuneimagesevoitdanslesdeuxrendus) |
 
@@ -2476,7 +2478,7 @@ Chaque carte migrée se joue à l'identique.
 
 ### Donnees.RenommerUneCarteLaisseLeControleVert
 
-*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:130`
+*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:131`
 
 Renommer une carte laisse le contrôle vert.
 
@@ -2501,7 +2503,7 @@ Renommer une carte laisse le contrôle vert.
 
 ### Donnees.UneCarteChangeDeDossierSonAnnexeLaSuit
 
-*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:164`
+*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:165`
 
 Une carte change de dossier, son annexe la suit.
 
@@ -2522,7 +2524,7 @@ Une carte change de dossier, son annexe la suit.
 
 ### Donnees.UnRenommageImpossibleNEcritRien
 
-*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:192`
+*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:193`
 
 Un renommage impossible n'écrit rien.
 
@@ -2542,7 +2544,7 @@ Un renommage impossible n'écrit rien.
 
 ### Donnees.RenommerUnPointDArriveeSuitPortailsEtVille
 
-*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:216`
+*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:217`
 
 Renommer un point d'arrivée suit portails et ville.
 
@@ -2562,7 +2564,7 @@ Renommer un point d'arrivée suit portails et ville.
 
 ### Donnees.RenommerUnIdentifiantDEntite
 
-*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:245`
+*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:246`
 
 Renommer un identifiant d'entité, et ses refus.
 
@@ -2582,7 +2584,7 @@ Renommer un identifiant d'entité, et ses refus.
 
 ### Donnees.QuiCiteUneCarteQuiPoseUnePiece
 
-*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:269`
+*Majeur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:270`
 
 Qui cite une carte, qui pose une pièce.
 
@@ -2602,7 +2604,7 @@ Qui cite une carte, qui pose une pièce.
 
 ### Donnees.RemplacerUnePieceSurToutesLesCartes
 
-*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:296`
+*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:297`
 
 Exigences : `EX-EDIT-083`
 
@@ -2623,7 +2625,7 @@ Remplacer une pièce sur toutes les cartes.
 
 ### Donnees.UneCarteChangeDePlancheSansEtreRepeinte
 
-*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:321`
+*Critique · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:322`
 
 Exigences : `EX-EDIT-084`
 
@@ -2653,7 +2655,7 @@ Une carte change de planche sans être repeinte.
 
 ### Donnees.UneTableMalFormeeEstRefusee
 
-*Mineur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:378`
+*Mineur · Unitaire · Renommer et remplacer* — `Source/Test/Unit/Editor/test_map_refactor.cpp:379`
 
 Une table de correspondance mal formée est refusée.
 
@@ -3154,6 +3156,274 @@ La palette se groupe par dossier du kit.
 - Vérifie que `labels` vaut `(std::vector<std::string>{"Standing", "floors", "roofs/l/d3", "roofs/t/d2"})`.
 - Vérifie que `catalog[2].pieces.size()` vaut `2U`.
 - Vérifie que `catalog[1].pieces.front().floor` est vrai.
+
+## test_quest_editing.cpp
+
+### QuestWriting.UneQueteSeReecritOctetPourOctet
+
+*Bloquant · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:179`
+
+Exigences : `EX-EDIT-100`
+
+Une quête se réécrit octet pour octet.
+
+**Étapes**
+
+1. Lire la quête d'essai, écrite sous forme canonique.
+2. La réécrire par `core::writeQuest`.
+3. Faire de même avec la quête de la racine d'essai.
+
+**Résultat attendu**
+
+- Vérifie que `lue.quest` est vrai.
+- Vérifie que `lue.quest->name` vaut `"Quete d'essai"`.
+- Vérifie que `lue.quest->steps.front().at` vaut `"place#e1"`.
+- Vérifie que `core::writeQuest(*lue.quest)` vaut `ESSAI`.
+- Vérifie que `essai.quest` est vrai.
+- Vérifie que `core::writeQuest(*essai.quest)` vaut `lire(fixture)`.
+
+### QuestWriting.UnLieuDEtapeSEcritCarteDiezeEntite
+
+*Majeur · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:203`
+
+Exigences : `EX-EDIT-100`
+
+Un lieu d'étape s'écrit carte#entité.
+
+**Étapes**
+
+1. Lire une quête dont une étape a `"at": "place"`.
+
+**Résultat attendu**
+
+- Vérifie que `lue.quest` est faux.
+- Vérifie que `lue.errors.front().find("etape 's' : 'at'")` diffère de `std::string::npos`.
+
+### ModeQuetesProjet.EnregistrerEcritLaQueteEtSesTextes
+
+*Bloquant · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:221`
+
+Exigences : `EX-EDIT-100`
+
+Enregistrer écrit la quête et ses textes de journal.
+
+**Étapes**
+
+1. Retirer l'étape « acceptee », donner le texte de « rendue » en français et en anglais, changer le titre anglais.
+2. Enregistrer.
+3. Enregistrer de nouveau.
+
+**Résultat attendu**
+
+- Vérifie que `lire(racine / "World" / "quests" / "essai.json")` vaut `core::writeQuest(draft.quest)`.
+- Vérifie que `lire(racine / "Localization" / "fr.lang")` vaut `"# Essai\nmap.place.name = La place\nquest.essai.title = Essai\n" "quest.essai.rendue = C'est rendu.\nautre.cle = Autre\n"`.
+- Vérifie que `lire(racine / "Localization" / "en.lang")` vaut `"map.place.name = The square\nquest.essai.title = Trial\n" "quest.essai.rendue = Given back.\n"`.
+- Vérifie que `encore.ok()` est vrai.
+- Vérifie que `encore.edits.size()` vaut `1U`.
+
+### ModeQuetesProjet.CeQueLeJeuRefuseraitNeSEnregistrePas
+
+*Bloquant · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:254`
+
+Exigences : `EX-EDIT-100`
+
+Ce que le jeu refuserait ne s'enregistre pas.
+
+**Étapes**
+
+1. Ajouter une étape « vide » sans condition.
+2. Comparer `quete.essai` à `perdue`, qu'il ne déclare pas.
+3. Déclarer un drapeau qu'une autre quête déclare.
+4. Créer une quête « essai ».
+
+**Résultat attendu**
+
+- Vérifie que `sansCondition.ok()` est faux.
+- Vérifie que `sansCondition.error.find("etape 'vide'")` diffère de `std::string::npos`.
+- Vérifie que `nonDeclaree.ok()` est faux.
+- Vérifie que `nonDeclaree.error.find("etape 'acceptee'")` diffère de `std::string::npos`.
+- Vérifie que `nonDeclaree.error.find("'perdue'")` diffère de `std::string::npos`.
+- Vérifie que `ailleurs.ok()` est faux.
+- Vérifie que `ailleurs.error.find("'oubliee'")` diffère de `std::string::npos`.
+- Vérifie que `hmi::planSaveQuest(racine, doublon, true).ok()` est faux.
+- Vérifie que `hmi::planSaveQuest(racine, brouillon(quete()), /*isNew=*/true).ok()` est faux.
+- Vérifie que `lire(racine / "World" / "quests" / "essai.json")` vaut `ESSAI`.
+
+### ModeQuetesProjet.QuiSeSertDUneValeurDeDrapeau
+
+*Majeur · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:301`
+
+Exigences : `EX-EDIT-100`
+
+Qui se sert d'une valeur de drapeau.
+
+**Étapes**
+
+1. Lire les usages du projet.
+2. Garder ceux de `quete.essai = garde-vu`.
+
+**Résultat attendu**
+
+- Vérifie que `lignes` vaut `(std::vector<std::string>{ "place (3, 0): npc e1: presenceFlag (reads acceptee|garde-vu)", "place (4, 1): zone e2: triggerFlag (writes garde-vu)", "World/quests/essai.json: quest essai: flags (declares " "inconnue|acceptee|garde-vu|rendue)", "World/dialogues/mere.json: dialogue mere: node aiguillage (reads " "acceptee|garde-vu)", "World/dialogues/mere.json: dialogue mere: node garde-vu: setFlag (writes " "garde-vu)", })`.
+- Vérifie que `hmi::usesOfFlag(hmi::flagUses(racine), "quest/essai/started").empty()` est faux.
+
+### ModeQuetesProjet.RenommerUneValeurLaSuitPartoutEtSeulementElle
+
+*Bloquant · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:335`
+
+Exigences : `EX-EDIT-100`
+
+Renommer une valeur la suit partout, et seulement elle.
+
+**Étapes**
+
+1. Renommer `garde-vu` en `vu`.
+2. Renommer `inconnue` (l'initiale) en `neuve`.
+
+**Résultat attendu**
+
+- Vérifie que `lire(racine / "World" / "dialogues" / "mere.json")` vaut `attendu`.
+- Vérifie que `renommee.flags.front().values` vaut `(std::vector<std::string>{"neuve", "acceptee", "vu", "rendue"})`.
+- Vérifie que `renommee.flags.front().initial` vaut `"neuve"`.
+- Vérifie que `renommee.steps[1].id` vaut `"garde-vu"`.
+- Vérifie que `renommee.steps[1].when.front().values` vaut `(std::vector<std::string>{"neuve", "acceptee"})`.
+- Vérifie que `place.find(R"("presenceValue": "acceptee|vu")")` diffère de `std::string::npos`.
+- Vérifie que `place.find(R"("triggerValue": "vu")")` diffère de `std::string::npos`.
+- Vérifie que `erreursDuRecit()` vaut `""`.
+- Vérifie que `hmi::planRenameFlagValue(racine, "quete.essai", "vu", "acceptee").ok()` est faux.
+- Vérifie que `hmi::planRenameFlagValue(racine, "essai/porte", "a", "b").ok()` est faux.
+
+### ModeQuetesProjet.RenommerUnDrapeauDeclare
+
+*Majeur · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:372`
+
+Exigences : `EX-EDIT-100`
+
+Renommer un drapeau déclaré.
+
+**Étapes**
+
+1. Renommer `quete.essai` en `quete.trial`.
+2. Tenter de renommer un fait non déclaré.
+
+**Résultat attendu**
+
+- Vérifie que `lire(racine / fichier).find("quete.essai")` vaut `std::string::npos`.
+- Vérifie que `erreursDuRecit()` vaut `""`.
+- Vérifie que `hmi::planRenameFlag(racine, "essai/porte", "essai/grille").ok()` est faux.
+
+### ModeQuetesProjet.RenommerPuisRetirerUneQuete
+
+*Majeur · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:394`
+
+Exigences : `EX-EDIT-100`
+
+Renommer puis retirer une quête.
+
+**Étapes**
+
+1. Renommer `essai` en `trial`.
+2. Retirer `trial`.
+
+**Résultat attendu**
+
+- Vérifie que `std::filesystem::exists(racine / "World" / "quests" / "essai.json")` est faux.
+- Vérifie que `trial.quest` est vrai.
+- Vérifie que `trial.quest->id` vaut `"trial"`.
+- Vérifie que `lire(racine / "Localization" / "fr.lang").find("quest.trial.title = Essai\n")` diffère de `std::string::npos`.
+- Vérifie que `lire(racine / "World" / "dialogues" / "mere.json").find(R"("quest": "trial")")` diffère de `std::string::npos`.
+- Vérifie que `std::filesystem::exists(racine / "World" / "quests" / "trial.json")` est faux.
+- Vérifie que `lire(racine / "Localization" / "fr.lang")` vaut `"# Essai\nmap.place.name = La place\nautre.cle = Autre\n"`.
+
+### ModeQuetesProjet.LEtatDePartieQuiAtteintUneEtape
+
+*Bloquant · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:421`
+
+Exigences : `EX-EDIT-100`
+
+L'état de partie qui atteint une étape.
+
+**Étapes**
+
+1. Demander l'état de « acceptee », « garde-vu », « rendue » et d'une étape inconnue.
+2. Faire avancer la quête depuis l'état de « garde-vu ».
+
+**Résultat attendu**
+
+- Vérifie que `hmi::worldStateReaching(quest, "acceptee", quest.flags)` vaut `(std::vector<std::string>{"quete.essai=acceptee"})`.
+- Vérifie que `hmi::worldStateReaching(quest, "garde-vu", quest.flags)` vaut `(std::vector<std::string>{"quete.essai=garde-vu"})`.
+- Vérifie que `hmi::worldStateReaching(quest, "rendue", quest.flags)` vaut `(std::vector<std::string>{"quete.essai=rendue"})`.
+- Vérifie que `hmi::worldStateReaching(quest, "absente", quest.flags).empty()` est vrai.
+- Vérifie que `hmi::worldStateReaching(fait, "acceptee", fait.flags)` vaut `(std::vector<std::string>{"encounter/bandits/won"})`.
+- Vérifie que `hmi::runQuestCommand({"--quest-state", "essai", "garde-vu"}, racine, sortie)` vaut `0`.
+- Vérifie que `sortie` vaut `"--flags=quete.essai=garde-vu\n"`.
+
+### ModeQuetesProjet.LeLieuDUneEtapeSuitLEntite
+
+*Majeur · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:454`
+
+Exigences : `EX-EDIT-100`
+
+Le lieu d'une étape suit l'entité.
+
+**Étapes**
+
+1. Contrôler le récit.
+2. Renommer `place#e1` en `place#garde`, puis la carte en `parvis`.
+3. Faire pointer l'étape sur `parvis#e9`.
+
+**Résultat attendu**
+
+- Vérifie que `erreursDuRecit()` vaut `""`.
+- Vérifie que `quete().steps.front().at` vaut `"place#garde"`.
+- Vérifie que `quete().steps.front().at` vaut `"parvis#garde"`.
+- Vérifie que `erreursDuRecit()` vaut `""`.
+- Vérifie que `std::ranges::any_of(cites, [](const hmi::Citation& citation) { return citation.what == "quest essai: step acceptee: at"; })` est vrai.
+- Vérifie que `erreursDuRecit().find("quest 'essai': step 'acceptee': at \"parvis#e9\" names no " "entity")` diffère de `std::string::npos`.
+
+### ModeQuetesProjet.LeModeQuetesSansFenetre
+
+*Majeur · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:487`
+
+Exigences : `EX-EDIT-100`
+
+Le mode Quêtes sans fenêtre.
+
+**Étapes**
+
+1. Écrire un brouillon de quête neuve avec son journal.
+2. `--save-quest`.
+3. `--who-cites flag quete.essai rendue`.
+4. `--rename-flag-value quete.essai rendue acceptee`.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::runQuestCommand({"--save-quest", fichier.string()}, racine, sortie)` vaut `0`.
+- Vérifie que `lire(racine / "World" / "quests" / "courrier.json")` vaut `"{\n \"id\": \"courrier\",\n \"steps\": [\n {\n \"id\": \"remis\",\n" " \"when\": [{ \"flag\": \"essai/porte\" }]\n }\n ]\n}\n"`.
+- Vérifie que `lire(racine / "Localization" / "fr.lang") .find("quest.courrier.title = Le courrier\nquest.courrier.remis = Remis.\n")` diffère de `std::string::npos`.
+- Vérifie que `hmi::runRefactorCommand({"--who-cites", "flag", "quete.essai", "rendue"}, racine, sortie)` vaut `0`.
+- Vérifie que `sortie.find("3 citations")` diffère de `std::string::npos`.
+- Vérifie que `hmi::runRefactorCommand({"--rename-flag-value", "quete.essai", "rendue", "acceptee"}, racine, sortie)` vaut `1`.
+- Vérifie que `sortie.find("nothing written")` diffère de `std::string::npos`.
+
+### CatalogEntry.UneCleChangeASaPlace
+
+*Mineur · Unitaire · Mode Quêtes* — `Source/Test/Unit/Editor/test_quest_editing.cpp:528`
+
+Exigences : `EX-EDIT-100`
+
+Une clé de catalogue change à sa place.
+
+**Étapes**
+
+1. Donner un texte à une clé présente, à une nouvelle clé du groupe, à une clé hors groupe, et le même texte à une clé présente.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::withCatalogEntry(texte, "q.p.un", "Un")` vaut `"a.x = 1\nq.p.title = T\nq.p.un = Un\nb.y = 2"`.
+- Vérifie que `hmi::withCatalogEntry(texte, "q.p.deux", "Deux\nlignes", "q.p.")` vaut `"a.x = 1\nq.p.title = T\nq.p.un = U\nq.p.deux = Deux lignes\nb.y = 2"`.
+- Vérifie que `hmi::withCatalogEntry(texte, "c.z", "3")` vaut `texte + "\nc.z = 3\n"`.
+- Vérifie que `hmi::withCatalogEntry(texte, "q.p.title", "T")` vaut `texte`.
 
 ## test_quest_map_editor.cpp
 

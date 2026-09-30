@@ -61,6 +61,8 @@ add_library(EditorLogic STATIC
     Logic/CityView.cpp
     # Ce que la quête demande aux cartes (LOT-126) : l'état de partie du canevas et de l'essai.
     Logic/WorldState.cpp
+    # Le mode Quêtes (LOT-144) : enregistrer, qui s'en sert, renommer, jouer une étape.
+    Logic/QuestEditing.cpp
     # L'essai complet dans le jeu (LOT-EDITOR-10) : le dossier des brouillons joués, et le jeu.
     Logic/GameLaunch.cpp
 )
@@ -121,6 +123,8 @@ add_executable(LevelEditor
     Ui/RunInGameDialog.cpp
     # L'état de partie sous lequel le canevas montre la carte (LOT-126).
     Ui/WorldStateEditor.cpp
+    # Le mode Quêtes (LOT-144) : écrire une quête à côté des cartes qu'elle traverse.
+    Ui/QuestsPanel.cpp
 )
 
 target_link_libraries(LevelEditor PRIVATE

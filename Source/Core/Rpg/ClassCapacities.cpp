@@ -26,15 +26,15 @@ struct NomDeGenre {
 
 // Les noms sont ceux de `capacity.schema.json` : le schema et le moteur doivent dire la meme liste.
 constexpr std::array<NomDeGenre, 9> GENRES{{
-    {CapacityEffectKind::AttackBonus, "attack-bonus"},
-    {CapacityEffectKind::ArmorClassBonus, "armor-class-bonus"},
-    {CapacityEffectKind::UnarmoredArmorClass, "unarmored-armor-class"},
-    {CapacityEffectKind::DamageResistance, "damage-resistance"},
-    {CapacityEffectKind::SpeedBonus, "speed-bonus"},
-    {CapacityEffectKind::NoOpportunityAttacks, "no-opportunity-attacks"},
-    {CapacityEffectKind::ExtraDamage, "extra-damage"},
-    {CapacityEffectKind::ExtraAttack, "extra-attack"},
-    {CapacityEffectKind::ProficientCheckBonus, "proficient-check-bonus"},
+    {.genre = CapacityEffectKind::AttackBonus, .nom = "attack-bonus"},
+    {.genre = CapacityEffectKind::ArmorClassBonus, .nom = "armor-class-bonus"},
+    {.genre = CapacityEffectKind::UnarmoredArmorClass, .nom = "unarmored-armor-class"},
+    {.genre = CapacityEffectKind::DamageResistance, .nom = "damage-resistance"},
+    {.genre = CapacityEffectKind::SpeedBonus, .nom = "speed-bonus"},
+    {.genre = CapacityEffectKind::NoOpportunityAttacks, .nom = "no-opportunity-attacks"},
+    {.genre = CapacityEffectKind::ExtraDamage, .nom = "extra-damage"},
+    {.genre = CapacityEffectKind::ExtraAttack, .nom = "extra-attack"},
+    {.genre = CapacityEffectKind::ProficientCheckBonus, .nom = "proficient-check-bonus"},
 }};
 
 [[nodiscard]] std::string lireTexte(const nlohmann::json& objet, const char* champ) {
@@ -70,6 +70,107 @@ constexpr std::array<NomDeGenre, 9> GENRES{{
     return valeurs;
 }
 
+// Les genres a une valeur entiere : bonus d'attaque, de CA, attaques en plus, bonus de maitrise.
+[[nodiscard]] bool lireValeur(const nlohmann::json& objet, const std::string& fichier,
+                              const std::string& genre, CapacityEffect& effet,
+                              std::vector<std::string>& erreurs) {
+    const std::optional<int> valeur = lireEntier(objet, "value");
+    if (!valeur.has_value()) {
+        erreurs.push_back(fichier + " : effet '" + genre + "' sans 'value'.");
+        return false;
+    }
+    if (effet.kind == CapacityEffectKind::ExtraAttack && *valeur <= 0) {
+        // Zero attaque en plus serait une capacite nommee au journal qui ne fait rien.
+        erreurs.push_back(fichier + " : effet '" + genre +
+                          "' dont 'value' n'est pas "
+                          "positive.");
+        return false;
+    }
+    effet.value = *valeur;
+    return true;
+}
+
+// La CA sans armure : une base, et les caracteristiques dont le modificateur s'y ajoute.
+[[nodiscard]] bool lireCaSansArmure(const nlohmann::json& objet, const std::string& fichier,
+                                    const std::string& genre, CapacityEffect& effet,
+                                    std::vector<std::string>& erreurs) {
+    const std::optional<int> base = lireEntier(objet, "base");
+    if (!base.has_value()) {
+        erreurs.push_back(fichier + " : effet '" + genre + "' sans 'base'.");
+        return false;
+    }
+    effet.base = *base;
+    effet.shieldAllowed = lireBooleen(objet, "shieldAllowed", true);
+    for (const std::string& nom : lireTextes(objet, "abilities")) {
+        const std::optional<Ability> caracteristique = parseAbility(nom);
+        if (!caracteristique.has_value()) {
+            std::string message = fichier;
+            message.append(" : caracteristique '")
+                .append(nom)
+                .append("' inconnue du moteur dans un effet '")
+                .append(genre)
+                .append("'.");
+            erreurs.push_back(std::move(message));
+            return false;
+        }
+        effet.abilities.push_back(*caracteristique);
+    }
+    return true;
+}
+
+// La resistance : a tous les types, ou a ceux qu'elle nomme -- jamais a aucun.
+[[nodiscard]] bool lireResistance(const nlohmann::json& objet, const std::string& fichier,
+                                  const std::string& genre, CapacityEffect& effet,
+                                  std::vector<std::string>& erreurs) {
+    effet.allDamageTypes = lireBooleen(objet, "allTypes", false);
+    for (const std::string& nom : lireTextes(objet, "types")) {
+        const std::optional<DamageType> type = parseDamageType(nom);
+        if (!type.has_value()) {
+            std::string message = fichier;
+            message.append(" : type de degats '")
+                .append(nom)
+                .append("' inconnu du moteur (EX-CBT-032).");
+            erreurs.push_back(std::move(message));
+            return false;
+        }
+        effet.damageTypes.push_back(*type);
+    }
+    if (!effet.allDamageTypes && effet.damageTypes.empty()) {
+        erreurs.push_back(fichier + " : effet '" + genre +
+                          "' sans type : ni 'allTypes' ni 'types'.");
+        return false;
+    }
+    return true;
+}
+
+// Le bonus de vitesse, en metres.
+[[nodiscard]] bool lireVitesse(const nlohmann::json& objet, const std::string& fichier,
+                               const std::string& genre, CapacityEffect& effet,
+                               std::vector<std::string>& erreurs) {
+    const auto metres = objet.find("meters");
+    if (metres == objet.end() || !metres->is_number()) {
+        erreurs.push_back(fichier + " : effet '" + genre + "' sans 'meters'.");
+        return false;
+    }
+    effet.meters = metres->get<float>();
+    return true;
+}
+
+// Les degats en plus : des lisibles, et les conditions qui les limitent.
+[[nodiscard]] bool lireDegatsEnPlus(const nlohmann::json& objet, const std::string& fichier,
+                                    const std::string& genre, CapacityEffect& effet,
+                                    std::vector<std::string>& erreurs) {
+    const std::optional<Dice> des = parseDice(lireTexte(objet, "dice"));
+    if (!des.has_value()) {
+        erreurs.push_back(fichier + " : effet '" + genre + "' sans 'dice' lisibles.");
+        return false;
+    }
+    effet.dice = *des;
+    effet.oncePerTurn = lireBooleen(objet, "oncePerTurn", false);
+    effet.allyAdjacentToTarget = lireBooleen(objet, "allyAdjacentToTarget", false);
+    return true;
+}
+
 // Un effet : son genre, puis les champs que ce genre EXIGE. Un champ manquant est une erreur,
 // jamais une valeur devinee -- un `extra-damage` sans des jouerait zero de en silence.
 [[nodiscard]] std::optional<CapacityEffect> lireEffet(const nlohmann::json& objet,
@@ -85,85 +186,31 @@ constexpr std::array<NomDeGenre, 9> GENRES{{
         return std::nullopt;
     }
     effet.kind = *lu;
+    bool lisible = true;
     switch (effet.kind) {
         case CapacityEffectKind::AttackBonus:
         case CapacityEffectKind::ArmorClassBonus:
         case CapacityEffectKind::ExtraAttack:
-        case CapacityEffectKind::ProficientCheckBonus: {
-            const std::optional<int> valeur = lireEntier(objet, "value");
-            if (!valeur.has_value()) {
-                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'value'.");
-                return std::nullopt;
-            }
-            if (effet.kind == CapacityEffectKind::ExtraAttack && *valeur <= 0) {
-                // Zero attaque en plus serait une capacite nommee au journal qui ne fait rien.
-                erreurs.push_back(fichier + " : effet '" + genre +
-                                  "' dont 'value' n'est pas "
-                                  "positive.");
-                return std::nullopt;
-            }
-            effet.value = *valeur;
+        case CapacityEffectKind::ProficientCheckBonus:
+            lisible = lireValeur(objet, fichier, genre, effet, erreurs);
             break;
-        }
-        case CapacityEffectKind::UnarmoredArmorClass: {
-            const std::optional<int> base = lireEntier(objet, "base");
-            if (!base.has_value()) {
-                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'base'.");
-                return std::nullopt;
-            }
-            effet.base = *base;
-            effet.shieldAllowed = lireBooleen(objet, "shieldAllowed", true);
-            for (const std::string& nom : lireTextes(objet, "abilities")) {
-                const std::optional<Ability> caracteristique = parseAbility(nom);
-                if (!caracteristique.has_value()) {
-                    erreurs.push_back(fichier + " : caracteristique '" + nom +
-                                      "' inconnue du moteur dans un effet '" + genre + "'.");
-                    return std::nullopt;
-                }
-                effet.abilities.push_back(*caracteristique);
-            }
+        case CapacityEffectKind::UnarmoredArmorClass:
+            lisible = lireCaSansArmure(objet, fichier, genre, effet, erreurs);
             break;
-        }
-        case CapacityEffectKind::DamageResistance: {
-            effet.allDamageTypes = lireBooleen(objet, "allTypes", false);
-            for (const std::string& nom : lireTextes(objet, "types")) {
-                const std::optional<DamageType> type = parseDamageType(nom);
-                if (!type.has_value()) {
-                    erreurs.push_back(fichier + " : type de degats '" + nom +
-                                      "' inconnu du moteur (EX-CBT-032).");
-                    return std::nullopt;
-                }
-                effet.damageTypes.push_back(*type);
-            }
-            if (!effet.allDamageTypes && effet.damageTypes.empty()) {
-                erreurs.push_back(fichier + " : effet '" + genre +
-                                  "' sans type : ni 'allTypes' ni 'types'.");
-                return std::nullopt;
-            }
+        case CapacityEffectKind::DamageResistance:
+            lisible = lireResistance(objet, fichier, genre, effet, erreurs);
             break;
-        }
-        case CapacityEffectKind::SpeedBonus: {
-            const auto metres = objet.find("meters");
-            if (metres == objet.end() || !metres->is_number()) {
-                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'meters'.");
-                return std::nullopt;
-            }
-            effet.meters = metres->get<float>();
+        case CapacityEffectKind::SpeedBonus:
+            lisible = lireVitesse(objet, fichier, genre, effet, erreurs);
             break;
-        }
         case CapacityEffectKind::NoOpportunityAttacks:
             break;
-        case CapacityEffectKind::ExtraDamage: {
-            const std::optional<Dice> des = parseDice(lireTexte(objet, "dice"));
-            if (!des.has_value()) {
-                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'dice' lisibles.");
-                return std::nullopt;
-            }
-            effet.dice = *des;
-            effet.oncePerTurn = lireBooleen(objet, "oncePerTurn", false);
-            effet.allyAdjacentToTarget = lireBooleen(objet, "allyAdjacentToTarget", false);
+        case CapacityEffectKind::ExtraDamage:
+            lisible = lireDegatsEnPlus(objet, fichier, genre, effet, erreurs);
             break;
-        }
+    }
+    if (!lisible) {
+        return std::nullopt;
     }
     return effet;
 }

@@ -1,6 +1,6 @@
 # Cahier de test
 
-**1098 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
+**1113 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
 
 ## Lire une fiche
 
@@ -29,7 +29,7 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [Core · Rpg](core-rpg.md) | Tests unitaires | 104 | 3 | 61 | 38 | 2 |
 | [Core · Time](core-time.md) | Tests unitaires | 7 | — | 1 | 6 | — |
 | [Core · World](core-world.md) | Tests unitaires | 67 | 1 | 33 | 30 | 3 |
-| [Editor](editor.md) | Tests unitaires | 213 | 26 | 48 | 111 | 28 |
+| [Editor](editor.md) | Tests unitaires | 225 | 31 | 48 | 117 | 29 |
 | [HMI · Audio](hmi-audio.md) | Tests unitaires | 3 | — | 1 | 1 | 1 |
 | [HMI · Game](hmi-game.md) | Tests unitaires | 21 | — | 7 | 10 | 4 |
 | [HMI · Graphics](hmi-graphics.md) | Tests unitaires | 152 | 27 | 48 | 72 | 5 |
@@ -39,9 +39,9 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [HMI · Platform](hmi-platform.md) | Tests unitaires | 5 | — | 2 | 3 | — |
 | [HMI · Presentation](hmi-presentation.md) | Tests unitaires | 19 | — | 5 | 11 | 3 |
 | [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 12 | 3 | 7 | 2 | — |
-| [Tests d'intégration](integration.md) | Tests d'intégration | 11 | — | 6 | 5 | — |
+| [Tests d'intégration](integration.md) | Tests d'intégration | 14 | 3 | 6 | 5 | — |
 | [Tests système](systeme.md) | Tests système | 4 | — | 4 | — | — |
-| **Total** | | **1098** | **106** | **384** | **531** | **77** |
+| **Total** | | **1113** | **114** | **384** | **537** | **78** |
 
 ## Trois étages de vérification
 

@@ -28,6 +28,7 @@
 #include "Editor/Logic/LevelNameValidation.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/MapTexts.h"
+#include "Editor/Logic/QuestEditing.h"
 #include "Editor/Logic/WorldLinks.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
@@ -682,6 +683,17 @@ RefactorPlan planRenameMap(const std::filesystem::path& dataRoot, std::string_vi
     std::set<std::string> changed;
     renameMapInMaps(project, oldId, newId, plan, changed);
     renameMapInCities(dataRoot, oldId, newId, plan);
+    // Les étapes de quête qui se jouent sur la carte (`at`, LOT-144).
+    const std::string entityPrefix = std::string{oldId} + "#";
+    citeStepPlaces(
+        dataRoot,
+        [&entityPrefix, newId](std::string_view at) -> std::optional<std::string> {
+            if (!at.starts_with(entityPrefix)) {
+                return std::nullopt;
+            }
+            return std::string{newId} + std::string{at.substr(entityPrefix.size() - 1)};
+        },
+        renaming, plan);
     if (const std::optional<std::string> refusal = renameMapNameKey(dataRoot, oldId, newId, plan)) {
         return refused(*refusal);
     }
@@ -821,6 +833,14 @@ RefactorPlan planRenameEntityId(const std::filesystem::path& dataRoot, std::stri
                              }
                          });
     }
+    // Une étape de quête qui se joue là (`at`, LOT-144).
+    const std::string newRef = entityRef(mapId, renaming ? newId : oldId);
+    citeStepPlaces(
+        dataRoot,
+        [&oldRef, &newRef](std::string_view at) {
+            return at == oldRef ? std::optional<std::string>{newRef} : std::nullopt;
+        },
+        renaming, plan);
     if (!renaming) {
         return plan;
     }
@@ -1158,6 +1178,10 @@ std::optional<int> runRefactorCommand(const std::vector<std::string>& arguments,
         output += "usage: " + std::string{text} + "\n";
         return 2;
     };
+    // Les commandes du mode Quêtes (LOT-144), `--who-cites flag` compris.
+    if (const std::optional<int> quest = runQuestCommand(arguments, dataRoot, output)) {
+        return quest;
+    }
     if (const auto values = valuesOf(arguments, "--who-cites")) {
         return whoCites(*values, dataRoot, output);
     }

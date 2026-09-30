@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <fstream>
+#include <optional>
 #include <sstream>
 #include <system_error>
 
@@ -96,6 +97,74 @@ std::string nameMapInCatalogs(const std::filesystem::path& dataRoot, std::string
     std::string key = mapNameKey(mapId);
     return addTranslation(localizationDirectory(dataRoot), key, text, copyFrom) ? key
                                                                                 : std::string{};
+}
+
+std::vector<std::filesystem::path> catalogFilesIn(const std::filesystem::path& directory) {
+    return catalogFiles(directory);
+}
+
+std::string catalogLineKey(std::string_view line) {
+    const auto trim = [](std::string_view text) {
+        const std::size_t first = text.find_first_not_of(" \t\r");
+        if (first == std::string_view::npos) {
+            return std::string_view{};
+        }
+        return text.substr(first, text.find_last_not_of(" \t\r\n") - first + 1);
+    };
+    const std::string_view content = trim(line);
+    if (content.empty() || content.front() == '#') {
+        return {};
+    }
+    const std::size_t equal = content.find('=');
+    return equal == std::string_view::npos ? std::string{}
+                                           : std::string{trim(content.substr(0, equal))};
+}
+
+std::string withCatalogEntry(std::string_view catalog, std::string_view key, std::string_view text,
+                             std::string_view groupPrefix) {
+    std::string value{text};
+    std::ranges::replace(value, '\n', ' ');
+    std::ranges::replace(value, '\r', ' ');
+    const std::string entry = std::string{key} + " = " + value + "\n";
+
+    std::string result;
+    bool found = false;
+    // Où ranger une clé neuve : après la dernière ligne du groupe, s'il y en a une.
+    std::optional<std::size_t> afterGroup;
+    std::size_t start = 0;
+    while (start < catalog.size()) {
+        std::size_t end = catalog.find('\n', start);
+        end = end == std::string_view::npos ? catalog.size() : end + 1;
+        std::string line{catalog.substr(start, end - start)};
+        const std::string lineKey = catalogLineKey(line);
+        if (lineKey == key) {
+            found = true;
+            // Le même texte : la ligne ne bouge pas d'un octet.
+            const std::size_t equal = line.find('=');
+            const std::string_view current = std::string_view{line}.substr(equal + 1);
+            const std::size_t first = current.find_first_not_of(" \t");
+            const std::size_t last = current.find_last_not_of(" \t\r\n");
+            const std::string_view kept = first == std::string_view::npos
+                                              ? std::string_view{}
+                                              : current.substr(first, last - first + 1);
+            if (kept != value) {
+                line = entry;
+            }
+        }
+        result += line;
+        if (!groupPrefix.empty() && lineKey.starts_with(groupPrefix)) {
+            afterGroup = result.size();
+        }
+        start = end;
+    }
+    if (found) {
+        return result;
+    }
+    const std::size_t at = afterGroup.value_or(result.size());
+    // Une dernière ligne sans fin de ligne en reçoit une : la clé neuve ne s'y colle pas.
+    const std::string separator = at > 0 && result[at - 1] != '\n' ? "\n" : "";
+    result.insert(at, separator + entry);
+    return result;
 }
 
 }  // namespace hmi

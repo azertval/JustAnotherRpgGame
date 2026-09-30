@@ -82,7 +82,7 @@ QString PartyModel::sheetValue(const QString& characterId, const std::string& ke
 QString PartyModel::hitPointsOf(const QString& characterId) const {
     // Les points de vie de la fiche, ou ce que le dernier combat en a laisse (LOT-139) : le
     // registre de la partie ne dit que le courant, le maximum reste celui de la fiche.
-    const QString ecrit = sheetValue(characterId, "sheet.hit_points");
+    QString ecrit = sheetValue(characterId, "sheet.hit_points");
     const WorldModel* const world = WorldModel::current();
     if (world == nullptr) {
         return ecrit;
@@ -133,6 +133,7 @@ QVariantList PartyModel::candidates() const {
     return rows;
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static) : lue par QML (Q_PROPERTY).
 QString PartyModel::leaderName() const {
     const WorldModel* const world = WorldModel::current();
     return world != nullptr ? world->leaderName() : QString{};
@@ -148,6 +149,7 @@ QString PartyModel::leaderHitPoints() const {
     return world != nullptr ? hitPointsOf(world->leaderId()) : QString{};
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static) : lue par QML (Q_PROPERTY).
 int PartyModel::size() const {
     const WorldModel* const world = WorldModel::current();
     return world != nullptr ? static_cast<int>(world->party().size()) : 0;
@@ -157,16 +159,19 @@ int PartyModel::maxSize() noexcept {
     return static_cast<int>(core::Party::MAX_MEMBERS);
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static) : Q_INVOKABLE, appelée par QML.
 bool PartyModel::toggleMember(const QString& characterId) {
     WorldModel* const world = WorldModel::current();
     return world != nullptr && world->toggleMember(characterId);
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static) : Q_INVOKABLE, appelée par QML.
 bool PartyModel::setLeader(const QString& characterId) {
     WorldModel* const world = WorldModel::current();
     return world != nullptr && world->setLeader(characterId);
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static) : Q_INVOKABLE, appelée par QML.
 bool PartyModel::moveMember(const QString& characterId, int offset) {
     WorldModel* const world = WorldModel::current();
     return world != nullptr && world->moveMember(characterId, offset);

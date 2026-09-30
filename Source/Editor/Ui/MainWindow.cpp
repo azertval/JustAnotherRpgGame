@@ -69,6 +69,7 @@
 #include "Editor/Ui/MiniMap.h"
 #include "Editor/Ui/PalettePanel.h"
 #include "Editor/Ui/ProblemsPanel.h"
+#include "Editor/Ui/QuestsPanel.h"
 #include "Editor/Ui/RefactorDialogs.h"
 #include "Editor/Ui/RunInGameDialog.h"
 #include "Editor/Ui/WorldStateEditor.h"
@@ -84,7 +85,7 @@ namespace {
 
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
-constexpr int LAYOUT_VERSION = 13;  // 13 : le panneau « Problems » (LOT-EDITOR-07)
+constexpr int LAYOUT_VERSION = 14;  // 14 : le panneau « Quests » (LOT-144)
 
 // Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main`).
 constexpr const char* GEOMETRY_KEY = "mainWindow/geometry";
@@ -178,6 +179,7 @@ MainWindow::MainWindow(bool crashAfterAutosave)
     // Les constats : un nouveau contrôle à la demande, et le chemin vers chacun.
     connect(_problems, &ProblemsPanel::checkRequested, this, &MainWindow::runContentCheck);
     connect(_problems, &ProblemsPanel::findingActivated, this, &MainWindow::goToFinding);
+    connectQuestsPanel();
 
     connectMapPanels();
     reloadEditorReferences();
@@ -493,6 +495,12 @@ void MainWindow::buildUi() {
     QDockWidget* const levelsDock = dockFor(PanelId::Levels);
     QDockWidget* const entitiesDock = dockFor(PanelId::Entities);
     tabifyDockWidget(levelsDock, entitiesDock);
+    // Le mode Quêtes (LOT-144) : un onglet à côté des cartes, qu'on élargit ou détache à loisir.
+    _quests = new QuestsPanel(editorDataRoot());
+    _questsDock = addPanel(QStringLiteral("QuestsPanel"), QStringLiteral("Quests"), _quests,
+                           Qt::RightDockWidgetArea);
+    tabifyDockWidget(entitiesDock, _questsDock);
+    levelsDock->raise();
     // Un changement de visibilité non provoqué par notre propre code ne peut venir que d'un choix
     // explicite de l'utilisateur : cliquer un onglet, fermer ou détacher le panneau.
     for (QDockWidget* const dock : {levelsDock, entitiesDock}) {
@@ -578,6 +586,7 @@ void MainWindow::buildMenus() {
     }
     panelsMenu->addAction(_miniMapDock->toggleViewAction());
     panelsMenu->addAction(_problemsDock->toggleViewAction());
+    panelsMenu->addAction(_questsDock->toggleViewAction());
     panelsMenu->addSeparator();
     // Mise en avant automatique du panneau de l'outil actif : persistée, active par défaut.
     _actFollowActiveTool = panelsMenu->addAction(QStringLiteral("Follow active tool"));
@@ -976,7 +985,37 @@ void MainWindow::carryOutPlan(const RefactorPlan& plan, const QString& title,
     refreshDocumentLabels();
     _levels->refresh();
     reloadEditorReferences();
+    // Une quête a pu être récrite, renommée ou retirée (LOT-144).
+    _quests->reload();
     runContentCheck();
+}
+
+void MainWindow::connectQuestsPanel() {
+    // Un renommage de drapeau récrit des cartes : les onglets s'enregistrent d'abord, puis le plan
+    // se calcule sur les fichiers, se montre et s'écrit, comme `--rename-map`.
+    connect(_quests, &QuestsPanel::planRequested, this,
+            [this](const PlanFactory& makePlan, const QString& title) {
+                if (saveBeforeRefactor()) {
+                    carryOutPlan(makePlan(), title);
+                } else {
+                    _quests->reload();
+                }
+            });
+    connect(_quests, &QuestsPanel::questSaved, this, [this] {
+        reloadEditorReferences();
+        runContentCheck();
+    });
+    // « Play this step » : l'état de partie de tous les onglets, et des essais P et F5.
+    connect(_quests, &QuestsPanel::playStepRequested, this,
+            [this](const std::vector<std::string>& entries) {
+                _runChoice.flags = entries;
+                _statePreview = true;
+                applyWorldState();
+                showTransientStatusMessage(
+                    QStringLiteral("World state set by the quest step; P and F5 start from it."),
+                    REFACTOR_STATUS_TIMEOUT_MS);
+            });
+    connect(_quests, &QuestsPanel::citationActivated, this, &MainWindow::goToCitation);
 }
 
 void MainWindow::goToCitation(const Citation& citation) {
@@ -1288,6 +1327,9 @@ void MainWindow::reloadEditorReferences() {
             view->setEditorReferences(_references.get());
         }
     }
+    if (_quests != nullptr) {
+        _quests->setReferences(_references.get());
+    }
 }
 
 void MainWindow::connectToolActions() {
@@ -1500,6 +1542,11 @@ void MainWindow::closeEvent(QCloseEvent* event) {
             event->ignore();
             return;
         }
+    }
+    // La quête ouverte dans le mode Quêtes (LOT-144), de même.
+    if (!_quests->askAboutChanges()) {
+        event->ignore();
+        return;
     }
     // Fermeture voulue : les brouillons sont enregistrés ou abandonnés, leur reprise n'a plus
     // d'objet.

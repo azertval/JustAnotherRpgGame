@@ -71,13 +71,17 @@ void ExplorationSession::lineUpFollowers() {
         const float longueur = static_cast<float>(_followers) * FollowTrail::SPACING_CELLS;
         const Vector2 dos =
             (_facing.x == 0.0F && _facing.y == 0.0F) ? Vector2{0.0F, -1.0F} : -_facing.normalized();
-        for (float parcouru = PAS; parcouru <= longueur + (PAS / 2.0F); parcouru += PAS) {
+        // La distance s'accumule pas a pas, en flottant : c'est elle qui situe chaque point.
+        const float limite = longueur + (PAS / 2.0F);
+        float parcouru = PAS;
+        while (parcouru <= limite) {
             const CellPoint essai{.column = _hero.column + (dos.x * parcouru),
                                   .row = _hero.row + (dos.y * parcouru)};
             if (!fits(essai)) {
                 break;
             }
             points.emplace_back(essai.column, essai.row);
+            parcouru += PAS;
         }
     }
     _trail.reset(points);

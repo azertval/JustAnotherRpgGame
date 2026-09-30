@@ -104,6 +104,32 @@ bool readAnimatedEntry(AssetGalleryEntry& entry, const std::filesystem::path& de
     return document;
 }
 
+// Les modèles d'un atelier de figurines, triés et sans doublon. Tous les dossiers, pas seulement
+// ceux que le manifeste retient pour le jeu : la galerie sert justement à voir les autres.
+[[nodiscard]] std::vector<std::string> figureModels(const std::filesystem::path& folder,
+                                                    const json& manifest) {
+    std::vector<std::string> models;
+    std::error_code error;
+    for (const auto& item : std::filesystem::directory_iterator(folder, error)) {
+        if (item.is_directory()) {
+            models.push_back(item.path().filename().string());
+        }
+    }
+    // Les PNJ rangés plus bas, et les portraits d'attente (`LOT-145`) : un héros qui a son visage
+    // avant sa figurine.
+    for (const char* list : {"npcs", "portraits"}) {
+        for (const std::string& npc : stringList(manifest, list)) {
+            if (npc.find('/') != std::string::npos) {
+                models.push_back(npc);
+            }
+        }
+    }
+    std::ranges::sort(models);
+    const auto duplicates = std::ranges::unique(models);
+    models.erase(duplicates.begin(), duplicates.end());
+    return models;
+}
+
 // Les figurines d'un atelier : un dossier par modèle, ses bandes animées et son portrait.
 //
 // Sert aux PNJ (`Npc/`, LOT-91) et aux monstres (`Monsters/`, LOT-93), qui partagent la forme :
@@ -123,27 +149,7 @@ void readFigures(const std::filesystem::path& root, const std::string& directory
         return;
     }
     AssetGalleryFamily family{.title = title, .directory = directory, .entries = {}};
-    // Tous les dossiers, pas seulement ceux que le manifeste retient pour le jeu : la galerie sert
-    // justement à voir les autres.
-    std::vector<std::string> models;
-    std::error_code error;
-    for (const auto& item : std::filesystem::directory_iterator(root / directory, error)) {
-        if (item.is_directory()) {
-            models.push_back(item.path().filename().string());
-        }
-    }
-    // Les PNJ rangés plus bas, et les portraits d'attente (`LOT-145`) : un héros qui a son visage
-    // avant sa figurine.
-    for (const char* list : {"npcs", "portraits"}) {
-        for (const std::string& npc : stringList(document.root, list)) {
-            if (npc.find('/') != std::string::npos) {
-                models.push_back(npc);
-            }
-        }
-    }
-    std::ranges::sort(models);
-    const auto duplicates = std::ranges::unique(models);
-    models.erase(duplicates.begin(), duplicates.end());
+    const std::vector<std::string> models = figureModels(root / directory, document.root);
     const std::vector<std::string> animations = stringList(document.root, "animations");
     const auto tile = static_cast<int>(manifestArtTile(document.root).x);
     for (const std::string& model : models) {

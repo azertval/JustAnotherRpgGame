@@ -72,4 +72,41 @@ using TranslationCatalogs =
                                             std::string_view mapId, std::string_view text,
                                             std::string_view copyFrom = {});
 
+/// @return Les fichiers `<langue>.lang` de @p directory, triés.
+[[nodiscard]] std::vector<std::filesystem::path> catalogFilesIn(
+    const std::filesystem::path& directory);
+
+/// @return La clé d'une ligne de catalogue, vide pour un commentaire ou une ligne sans `=`.
+[[nodiscard]] std::string catalogLineKey(std::string_view line);
+
+/**
+ * @brief Le texte d'un catalogue où @p key vaut @p text (`LOT-144`).
+ *
+ * Une clé présente change de texte **à sa place**, la ligne gardée si le texte est le même ; une
+ * clé absente s'ajoute après la dernière ligne dont la clé commence par @p groupPrefix — les
+ * textes d'une quête restent ensemble —, à la fin à défaut. Un saut de ligne dans @p text devient
+ * une espace : le format n'a qu'une ligne par clé.
+ */
+[[nodiscard]] std::string withCatalogEntry(std::string_view catalog, std::string_view key,
+                                           std::string_view text,
+                                           std::string_view groupPrefix = {});
+
+/// @return Le texte d'un catalogue sans les lignes dont la clé satisfait @p drop.
+template <typename Drop>
+[[nodiscard]] std::string withoutCatalogEntries(std::string_view catalog, Drop drop) {
+    std::string result;
+    std::size_t start = 0;
+    while (start < catalog.size()) {
+        std::size_t end = catalog.find('\n', start);
+        end = end == std::string_view::npos ? catalog.size() : end + 1;
+        const std::string_view line = catalog.substr(start, end - start);
+        const std::string key = catalogLineKey(line);
+        if (key.empty() || !drop(std::string_view{key})) {
+            result += line;
+        }
+        start = end;
+    }
+    return result;
+}
+
 }  // namespace hmi

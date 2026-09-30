@@ -33,9 +33,9 @@ void markDeployment(const core::PartyDeployment& deployment,
             : std::nullopt;
     for (const core::CombatantPlacement& foe : deployment.formation) {
         const bool inside = zone && zone->contains(foe.position);
-        cells.push_back(VerdictCell{.cell = foe.position,
-                                    .role = inside ? VerdictCellRole::Foe
-                                                   : VerdictCellRole::FoeOutside});
+        cells.push_back(
+            VerdictCell{.cell = foe.position,
+                        .role = inside ? VerdictCellRole::Foe : VerdictCellRole::FoeOutside});
     }
     for (const core::GridPosition place : deployment.partyPlaces) {
         cells.push_back(VerdictCell{.cell = place, .role = VerdictCellRole::Party});
@@ -65,7 +65,8 @@ void addIssueLines(const core::PartyDeployment& deployment,
     const auto entries = [&](const std::vector<std::size_t>& indices, VerdictCellRole role) {
         for (const std::size_t entry : indices) {
             if (entry < entities.size()) {
-                verdict.cells.push_back(VerdictCell{.cell = entities[entry].position, .role = role});
+                verdict.cells.push_back(
+                    VerdictCell{.cell = entities[entry].position, .role = role});
             }
         }
     };
@@ -86,8 +87,10 @@ void addIssueLines(const core::PartyDeployment& deployment,
 [[nodiscard]] EntityVerdict encounterVerdict(const core::PartyDeployment& deployment,
                                              const std::vector<core::MapEntity>& entities,
                                              const VerdictContext& context) {
-    EntityVerdict verdict{
-        .entityIndex = deployment.encounterIndex, .lines = {}, .ok = deployment.valid(), .cells = {}};
+    EntityVerdict verdict{.entityIndex = deployment.encounterIndex,
+                          .lines = {},
+                          .ok = deployment.valid(),
+                          .cells = {}};
     const core::Encounter* const encounter =
         context.encounters != nullptr ? context.encounters->find(deployment.encounterId) : nullptr;
     if (encounter != nullptr && context.difficulty != nullptr && context.bestiary != nullptr &&
@@ -120,9 +123,8 @@ std::string encounterBudgetSummary(std::string_view encounterId,
                                    const core::EncounterBudget& budget,
                                    const core::EncounterDifficultyRules& rules, int partySize,
                                    int partyLevel) {
-    std::string text = std::string{encounterId} + ": " +
-                       std::to_string(budget.adjustedExperience) + " XP adjusted (" +
-                       std::to_string(budget.monsters) + " foes, " +
+    std::string text = std::string{encounterId} + ": " + std::to_string(budget.adjustedExperience) +
+                       " XP adjusted (" + std::to_string(budget.monsters) + " foes, " +
                        std::to_string(budget.monsterExperience) + " XP x " +
                        multiplierText(budget.multiplier) + "), " +
                        (budget.category.empty()
@@ -154,9 +156,8 @@ std::string deploymentSummary(const core::PartyDeployment& deployment) {
     return deployment.encounterId + ": " + std::to_string(deployment.partySize) + " vs " +
            std::to_string(deployment.formation.size()) + ", party places " +
            std::to_string(deployment.partyPlaces.size()) + "/" +
-           std::to_string(deployment.partySize) + ", " +
-           std::to_string(deployment.reachableCells) + " free cells reached (" +
-           std::to_string(deployment.requiredCells) + " required).";
+           std::to_string(deployment.partySize) + ", " + std::to_string(deployment.reachableCells) +
+           " free cells reached (" + std::to_string(deployment.requiredCells) + " required).";
 }
 
 std::vector<EntityVerdict> entityVerdicts(const core::TileMap& collision,

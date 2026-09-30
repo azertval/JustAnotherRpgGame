@@ -356,10 +356,9 @@ void applyClassFeatures(CharacterSheet& sheet, const PlayableClass& playableClas
             missing.push_back(identifiant);
             return;
         }
-        const int parJour = mineur ? 0
-                                   : (playableClass.spellcasting.has_value()
-                                          ? playableClass.spellcasting->castsPerDay
-                                          : 0);
+        const int parJour = (!mineur && playableClass.spellcasting.has_value())
+                                ? playableClass.spellcasting->castsPerDay
+                                : 0;
         KnownSpell connu{
             .spellId = identifiant, .level = sort->level, .perDay = parJour, .remaining = parJour};
         if (const auto ancien = std::ranges::find(anciens, identifiant, &KnownSpell::spellId);

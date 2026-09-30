@@ -1,14 +1,23 @@
 # Tests d'intégration
 
-Tests d'intégration — **11 cas** (6 critiques, 5 majeurs). [Retour à la synthèse](README.md).
+Tests d'intégration — **14 cas** (3 bloquants, 6 critiques, 5 majeurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_exploration_carte.cpp`](#test-exploration-cartecpp) | 4 | - | 2 | 2 | - |
+| [`test_mode_quetes.cpp`](#test-mode-quetescpp) | 3 | 3 | - | - | - |
 | [`test_quete_des_pommes.cpp`](#test-quete-des-pommescpp) | 6 | - | 3 | 3 | - |
 | [`test_quete_trois_etapes.cpp`](#test-quete-trois-etapescpp) | 1 | - | 1 | - | - |
+
+## Exigences vérifiées par cette page
+
+Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la [matrice de traçabilité](couverture-exigences.md) les rassemble toutes.
+
+| Exigence | Cas |
+|---|---|
+| `EX-EDIT-100` | [`ModeQuetes.LaQueteDeLaDemoSeReecritOctetPourOctet`](#modequeteslaquetedelademosereecritoctetpouroctet), [`ModeQuetes.JouerAccepteeFaitParaitreLeGardeEtLEnfant`](#modequetesjoueraccepteefaitparaitrelegardeetlenfant), [`ContenuLivre.RenommerCondamneLaisseLeControleVert`](#contenulivrerenommercondamnelaisselecontrolevert) |
 
 ## test_exploration_carte.cpp
 
@@ -101,6 +110,79 @@ Une carte qui puise dans quatre niveaux se joue.
 - Vérifie que `snapshot.figures.empty()` est faux.
 - Vérifie que `snapshot.figures.back().hero` est vrai.
 - Vérifie que `snapshot.figures.back().figure` vaut `play.heroResolved().directory`.
+
+## test_mode_quetes.cpp
+
+### ModeQuetes.LaQueteDeLaDemoSeReecritOctetPourOctet
+
+*Bloquant · Intégration · Mode Quêtes* — `Source/Test/Integration/test_mode_quetes.cpp:142`
+
+Exigences : `EX-EDIT-100`
+
+La quête de la démo se réécrit octet pour octet.
+
+**Étapes**
+
+1. Saisir la quête champ par champ, ses textes pris aux catalogues.
+2. Calculer l'enregistrement sur le contenu livré.
+
+**Résultat attendu**
+
+- Vérifie que `plan.ok()` est vrai.
+- Vérifie que `plan.edits.size()` vaut `1U`.
+- Vérifie que `plan.edits.front().text.has_value()` est vrai.
+- Vérifie que `*plan.edits.front().text` vaut `lire(ELEMENTS / "World" / "quests" / "pommes.json")`.
+
+### ModeQuetes.JouerAccepteeFaitParaitreLeGardeEtLEnfant
+
+*Bloquant · Intégration · Mode Quêtes* — `Source/Test/Integration/test_mode_quetes.cpp:171`
+
+Exigences : `EX-EDIT-100`
+
+Jouer « acceptee » fait paraître le garde et l'enfant.
+
+**Étapes**
+
+1. Lire la présence des PNJ d'Arenarea sous l'état initial.
+2. Jouer l'étape « acceptee » (`hmi::worldStateReaching`).
+
+**Résultat attendu**
+
+- Vérifie que `std::ranges::count(avant, "garde")` vaut `0`.
+- Vérifie que `std::ranges::count(avant, "enfant")` vaut `0`.
+- Vérifie que `etat` vaut `(std::vector<std::string>{"quete.pommes=acceptee"})`.
+- Vérifie que `std::ranges::count(apres, "garde")` vaut `1`.
+- Vérifie que `std::ranges::count(apres, "enfant")` vaut `1`.
+
+### ContenuLivre.RenommerCondamneLaisseLeControleVert
+
+*Bloquant · Intégration · Mode Quêtes* — `Source/Test/Integration/test_mode_quetes.cpp:195`
+
+Exigences : `EX-EDIT-100`
+
+Renommer `condamne` laisse le contrôle vert.
+
+**Étapes**
+
+1. Contrôler la copie du contenu livré.
+2. Renommer la valeur `condamne` de `quete.pommes` en `sacrifie`.
+3. Contrôler de nouveau.
+
+**Résultat attendu**
+
+- Vérifie que `avant.ok()` est vrai.
+- Vérifie que `plan.ok()` est vrai.
+- Vérifie que `hmi::applyRefactorPlan(plan, erreur)` est vrai.
+- Vérifie que `garde.find(R"("flag": "quete.pommes", "value": "sacrifie")")` diffère de `std::string::npos`.
+- Vérifie que `garde.find(R"("id": "condamne")")` diffère de `std::string::npos`.
+- Vérifie que `garde.find(R"("value": "condamne")")` vaut `std::string::npos`.
+- Vérifie que `pommes.quest` est vrai.
+- Vérifie que `std::ranges::find(pommes.quest->flags.front().values, "sacrifie") != pommes.quest->flags.front().values.end()` est vrai.
+- Vérifie que `pommes.quest->find("condamne")` diffère de `nullptr`.
+- Vérifie que `pommes.quest->find("condamne")->when.front().values` vaut `(std::vector<std::string>{"sacrifie"})`.
+- Vérifie que `vestiaires.find(R"("presenceValue": "sacrifie")")` diffère de `std::string::npos`.
+- Vérifie que `apres.ok()` est vrai.
+- Vérifie que `apres.count(hmi::MapCheckSeverity::Warning)` vaut `avant.count(hmi::MapCheckSeverity::Warning)`.
 
 ## test_quete_des_pommes.cpp
 

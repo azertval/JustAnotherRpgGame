@@ -155,6 +155,7 @@ add_executable(UnitTests
     Unit/Editor/test_map_format.cpp
     Unit/Editor/test_content_check.cpp
     Unit/Editor/test_quest_map_editor.cpp
+    Unit/Editor/test_quest_editing.cpp
     Unit/Editor/test_map_refactor.cpp
     Unit/Editor/test_stamps.cpp
     # Les etages dans l'editeur (LOT-129) : pinceau, visibilite, prefabriques.
@@ -436,9 +437,12 @@ add_executable(IntegrationTests
     Integration/test_exploration_carte.cpp
     Integration/test_quete_trois_etapes.cpp
     Integration/test_quete_des_pommes.cpp
+    # Le mode Quêtes de l'éditeur sur la quête livrée (LOT-144).
+    Integration/test_mode_quetes.cpp
 )
 
 target_link_libraries(IntegrationTests PRIVATE
+    EditorLogic
     HmiLib
     GTest::gtest_main
     project_warnings

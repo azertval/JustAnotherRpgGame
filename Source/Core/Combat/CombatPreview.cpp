@@ -25,7 +25,8 @@ namespace {
     std::vector<ExtraDamagePreview> apercus;
     const std::string proprietaire = std::to_string(static_cast<std::uint32_t>(actif));
     for (const NamedExtraDamage& supplement : extraDamageFrom(session.capacitiesOf(actif))) {
-        ExtraDamagePreview apercu{.source = supplement.source, .dice = supplement.dice};
+        ExtraDamagePreview apercu{
+            .source = supplement.source, .dice = supplement.dice, .reason = {}};
         if (supplement.allyAdjacentToTarget &&
             !isAdjacentToAllyOf(session.combat(), actif, target)) {
             apercu.applies = false;
@@ -58,6 +59,8 @@ std::optional<AttackPreview> previewAttack(const ArenaSession& session, Combatan
     AttackPreview apercu{.check = checkTarget(combat, *actif, target, profil),
                          .attackIndex = attackIndex,
                          .label = profil.label,
+                         .capacityModifiers = {},
+                         .extraDamage = {},
                          .advantages = {},
                          .disadvantages = {}};
     // Les memes sources que resolveAttack, dans le meme ordre : la grille, puis la session.

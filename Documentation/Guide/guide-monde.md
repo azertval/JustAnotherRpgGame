@@ -868,7 +868,15 @@ embranchements viennent sans graphe : « persuadé » et « condamné » sont de
 valeurs du même drapeau atteignent, et le journal ne montre que celle qui l'a été. **Aucun
 texte** : le titre et chaque étape ont une clé fabriquée, `core::questTitleKey`
 (`quest.<id>.title`) et `core::questStepKey` (`quest.<id>.<étape>`) ; `core::questTextKeys` les
-liste toutes, pour qu'un test les cherche dans les deux langues, comme pour un dialogue.
+liste toutes, pour qu'un test les cherche dans les deux langues, comme pour un dialogue. Une étape
+peut aussi nommer **où elle se joue** (`at`, une entité `carte#id`, `LOT-144`) : le jeu ne le lit
+pas, l'éditeur y mène et `LevelEditor --check` refuse une entité qui n'existe pas.
+
+Les quêtes s'écrivent dans le **mode Quêtes** de l'éditeur (`LOT-144`, décision D-24), par
+`core::writeQuest` : la **forme canonique** — indentée de deux espaces, un objet par drapeau et
+par étape, sur une ligne les valeurs, les conditions et les effets, les champs vides omis — que
+`core::readQuest` relit en la même quête. La quête des pommes est déjà sous cette forme : lue puis
+réécrite, elle rend son fichier octet pour octet.
 
 La déclaration est ce qui **type** un drapeau : `core::declareQuestFlags(catalog, flags)` porte
 chaque `QuestFlag` du catalogue à `core::WorldFlags::declare`, qui en retient les valeurs permises

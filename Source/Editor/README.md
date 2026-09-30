@@ -113,6 +113,13 @@ Faire une carte de bout en bout : le
   face au groupe de quatre (`core::analyzePartyDeployment`), le budget d'une rencontre pour le
   niveau de groupe choisi (`core::rateEncounter`) ; des lignes et des cases à rôle, sans que le
   canevas, l'inspecteur ni `--apply` ne regardent le type (`EX-EDIT-101`, `LOT-143`).
+- `QuestEditing` — le mode Quêtes (`EX-EDIT-100`, `LOT-144`) : l'enregistrement d'une quête
+  (`core::writeQuest`, relu par `core::readQuest` et confronté aux autres quêtes et aux dialogues
+  avant d'écrire), ses textes de journal dans chaque catalogue, qui lit ou pose un drapeau et ses
+  valeurs (cartes, dialogues, quêtes — une propriété d'entité compte par sa source), les
+  renommages de drapeau, de valeur et de quête par un plan — les dialogues récrits chaîne par
+  chaîne —, et l'état de partie qui atteint une étape. Le panneau `Ui/QuestsPanel` n'en est que la
+  vue.
 - `LayerView` — les couches telles que l'éditeur les montre : visibles, opacité, grisées,
   verrouillées (`EX-EDIT-061`), et l'étage d'une couche de décor (`EX-LVL-025`, `LOT-129`) : le
   panneau des couches le règle (« Floor »), le pinceau à pièces peint la couche d'étage active, et
@@ -149,6 +156,10 @@ de l'arbre qui l'a construit, et à défaut le dossier de l'exécutable (`hmi::r
 | `LevelEditor --rename-arrival <carte> <ancien> <nouveau>`, `--rename-id <carte> <ancien> <nouveau>` | Renomme un point d'arrivée, un identifiant d'entité, et ce qui les cite (`EX-EDIT-082`). |
 | `LevelEditor --replace-piece <ancienne> <nouvelle> [carte…]` | Remplace une pièce sur les cartes nommées, toutes celles qui la posent à défaut (`EX-EDIT-083`). |
 | `LevelEditor --change-scene <carte> <lieu> [--table table.json]` | Fait passer une carte à une autre planche ; la table (`jadg-piece-table`, version 1, `"pieces": {"ancienne": "nouvelle"}`) donne les pièces sans homonyme (`EX-EDIT-084`). |
+| `LevelEditor --who-cites flag <drapeau> [<valeur>]` | Liste qui déclare, lit ou pose le drapeau — et cette valeur —, dans les cartes, les dialogues et les quêtes (`EX-EDIT-100`). |
+| `LevelEditor --rename-flag <ancien> <nouveau>`, `--rename-flag-value <drapeau> <ancienne> <nouvelle>`, `--rename-quest <ancienne> <nouvelle>` | Renomme un drapeau déclaré, une de ses valeurs, une quête, et tout ce qui les cite ; refusé, n'écrit rien (`EX-EDIT-100`). |
+| `LevelEditor --save-quest brouillon.json` | Enregistre une quête comme le mode Quêtes : forme canonique, refus de ce que le jeu refuserait, textes du journal pris sous `"journal": {"fr": {"title": …, "<étape>": …}}` (`EX-EDIT-100`). |
+| `LevelEditor --quest-state <quête> <étape>` | Écrit l'état de partie qui atteint l'étape, sous la forme `--flags=` du jeu (`EX-EDIT-100`). |
 
 Suivie de `--check`, une commande de renommage ou de remplacement contrôle ensuite toutes les
 cartes.

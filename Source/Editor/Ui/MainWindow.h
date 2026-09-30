@@ -53,6 +53,7 @@ class LayersPanel;
 class EntityPanel;
 class MiniMap;
 class ProblemsPanel;
+class QuestsPanel;
 struct OpenDocument;
 struct EditorReferences;
 struct MapCheckFinding;
@@ -229,6 +230,10 @@ private:
     /// Ouvre la carte de la citation et y va, comme pour un constat du contrôle.
     void goToCitation(const Citation& citation);
 
+    // --- Le mode Quêtes (LOT-144) ---
+    /// Les plans du panneau, l'enregistrement d'une quête, l'étape jouée, le chemin vers un usage.
+    void connectQuestsPanel();
+
     // --- Sauvegarde automatique, reprise, garde du fichier (LOT-EDITOR-01) ---
     void setUpSafetyNet();
     /// Relance le délai de sauvegarde automatique : une rafale de gestes n'écrit qu'une fois.
@@ -268,6 +273,9 @@ private:
     /// Les constats du contrôle, sur toutes les cartes (LOT-EDITOR-07) : hors de la mise en avant.
     ProblemsPanel* _problems = nullptr;
     QDockWidget* _problemsDock = nullptr;
+    /// Le mode Quêtes (LOT-144) : un onglet à côté des cartes.
+    QuestsPanel* _quests = nullptr;
+    QDockWidget* _questsDock = nullptr;
     std::unique_ptr<EditorReferences> _references;
     EditorActions* _actions = nullptr;
     QToolBar* _toolBar = nullptr;

@@ -66,7 +66,7 @@ PartyChange Party::rotateLeader() {
     if (_members.empty()) {
         return PartyChange::NotMember;
     }
-    std::rotate(_members.begin(), std::next(_members.begin()), _members.end());
+    std::ranges::rotate(_members, std::next(_members.begin()));
     return PartyChange::Done;
 }
 

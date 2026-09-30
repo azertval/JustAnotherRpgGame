@@ -121,6 +121,85 @@ constexpr int UPCOMING_LEVELS = 4;
     return std::filesystem::is_regular_file(fichier, erreur) ? fichier : std::filesystem::path{};
 }
 
+// La ligne de l'attaque d'arme : l'arme en main directrice, sinon les mains nues (EX-CBT-030 :
+// le jet vient de ce qui est porte).
+[[nodiscard]] QVariantMap weaponAttackRow(const DemonstrationState& state) {
+    const core::Weapon* const arme =
+        state.equipment.findWeapon(state.inventory.at(core::EquipmentSlot::MainHand));
+    const int maitrise = core::proficiencyBonus(state.sheet, state.experience);
+    const core::AttackProfile attaque = core::weaponAttackFor(
+        state.sheet, arme, maitrise, arme == nullptr || core::isProficientWith(state.sheet, *arme));
+    return QVariantMap{{"rowId", toQt(attaque.label)},
+                       {"label", toQt(attaque.label)},
+                       {"value", attackLine(attaque)}};
+}
+
+// Les capacites que la table de la classe donnera aux prochains niveaux, chacune au niveau ou la
+// table la nomme.
+void appendUpcomingRows(QVariantList& rows, const DemonstrationState& state,
+                        const core::PlayableClass& classe) {
+    for (const core::ClassLevel& ligne : classe.progression) {
+        if (ligne.level <= state.sheet.level || ligne.level > state.sheet.level + UPCOMING_LEVELS ||
+            ligne.level > state.experience.maximumLevel()) {
+            continue;
+        }
+        for (const std::string& id : ligne.features) {
+            if (const core::Capacity* const capacity = state.options.capacities.find(id)) {
+                rows << capacityRow(*capacity, ligne.level);
+            }
+        }
+    }
+}
+
+// La ligne d'un sort connu de l'onglet Sorts, decrit par le catalogue.
+[[nodiscard]] QVariantMap spellRow(const core::KnownSpell& known, const core::Spell& spell) {
+    QStringList details;
+    if (!spell.castingTime.empty()) {
+        details << CharacterSheetModel::tr("Incantation : %1").arg(toQt(spell.castingTime));
+    }
+    if (!spell.range.empty()) {
+        details << CharacterSheetModel::tr("Portée : %1").arg(toQt(spell.range));
+    }
+    if (!spell.duration.empty()) {
+        details << CharacterSheetModel::tr("Durée : %1").arg(toQt(spell.duration)) +
+                       (spell.concentration ? CharacterSheetModel::tr(" (concentration)")
+                                            : QString());
+    }
+    if (spell.damage.has_value()) {
+        details << CharacterSheetModel::tr("Dégâts : %1%2")
+                       .arg(toQt(core::formatDice(*spell.damage)))
+                       .arg(spell.damageType.has_value()
+                                ? " " + toQt(std::string(core::damageTypeLabel(*spell.damageType)))
+                                : QString());
+    }
+    if (spell.healing.has_value()) {
+        details << CharacterSheetModel::tr("Soin : %1").arg(toQt(core::formatDice(*spell.healing)));
+    }
+    return QVariantMap{
+        {"id", toQt(spell.id)},
+        {"name", toQt(spell.name)},
+        {"iconKey", QStringLiteral("ui/icon/spell/") + toQt(spell.id)},
+        {"level", known.level},
+        {"perDay", known.perDay},
+        {"remaining", known.remaining},
+        {"usesText", known.perDay == 0
+                         ? CharacterSheetModel::tr("à volonté")
+                         : QStringLiteral("%1 / %2").arg(known.remaining).arg(known.perDay)},
+        {"details", details.join(QLatin1Char('\n'))},
+        {"school", toQt(spell.school)},
+        {"text", playerText(spell.text)},
+        {"castingTime", toQt(spell.castingTime)},
+        {"range", toQt(spell.range)},
+        {"duration",
+         toQt(spell.duration) +
+             (spell.concentration ? CharacterSheetModel::tr(" (concentration)") : QString())},
+        {"components", toQt(spell.components)},
+        {"damage", spell.damage.has_value() ? toQt(core::formatDice(*spell.damage)) : QString()},
+        {"damageType", spell.damageType.has_value()
+                           ? toQt(std::string(core::damageTypeLabel(*spell.damageType)))
+                           : QString()}};
+}
+
 }  // namespace
 
 CharacterSheetModel::CharacterSheetModel(QObject* parent)
@@ -179,34 +258,13 @@ void CharacterSheetModel::loadCharacter(const QString& characterId) {
     _attacks.clear();
     // Les attaques d'arme : l'arme en main directrice, sinon les mains nues (EX-CBT-030 : le jet
     // vient de ce qui est porte).
-    {
-        const core::Weapon* const arme =
-            state.equipment.findWeapon(state.inventory.at(core::EquipmentSlot::MainHand));
-        const int maitrise = core::proficiencyBonus(state.sheet, state.experience);
-        const core::AttackProfile attaque =
-            core::weaponAttackFor(state.sheet, arme, maitrise,
-                                  arme == nullptr || core::isProficientWith(state.sheet, *arme));
-        _attacks << QVariantMap{{"rowId", toQt(attaque.label)},
-                                {"label", toQt(attaque.label)},
-                                {"value", attackLine(attaque)}};
-    }
+    _attacks << weaponAttackRow(state);
     const core::PlayableClass* const classe = state.options.findClass(state.sheet.classId);
     for (const core::Capacity& capacity : state.sheet.capacities) {
         _capacities << capacityRow(capacity, classe != nullptr ? levelOf(*classe, capacity.id) : 0);
     }
     if (classe != nullptr) {
-        for (const core::ClassLevel& ligne : classe->progression) {
-            if (ligne.level <= state.sheet.level ||
-                ligne.level > state.sheet.level + UPCOMING_LEVELS ||
-                ligne.level > state.experience.maximumLevel()) {
-                continue;
-            }
-            for (const std::string& id : ligne.features) {
-                if (const core::Capacity* const capacity = state.options.capacities.find(id)) {
-                    _upcoming << capacityRow(*capacity, ligne.level);
-                }
-            }
-        }
+        appendUpcomingRows(_upcoming, state, *classe);
     }
     // L'onglet Sorts : les sorts connus, lancers restants compris (le registre de la partie est
     // deja applique), decrits par le catalogue.
@@ -215,51 +273,7 @@ void CharacterSheetModel::loadCharacter(const QString& characterId) {
         if (spell == nullptr) {
             continue;
         }
-        QStringList details;
-        if (!spell->castingTime.empty()) {
-            details << tr("Incantation : %1").arg(toQt(spell->castingTime));
-        }
-        if (!spell->range.empty()) {
-            details << tr("Portée : %1").arg(toQt(spell->range));
-        }
-        if (!spell->duration.empty()) {
-            details << tr("Durée : %1").arg(toQt(spell->duration)) +
-                           (spell->concentration ? tr(" (concentration)") : QString());
-        }
-        if (spell->damage.has_value()) {
-            details << tr("Dégâts : %1%2")
-                           .arg(toQt(core::formatDice(*spell->damage)))
-                           .arg(spell->damageType.has_value()
-                                    ? " " + toQt(std::string(
-                                                core::damageTypeLabel(*spell->damageType)))
-                                    : QString());
-        }
-        if (spell->healing.has_value()) {
-            details << tr("Soin : %1").arg(toQt(core::formatDice(*spell->healing)));
-        }
-        _spells << QVariantMap{
-            {"id", toQt(spell->id)},
-            {"name", toQt(spell->name)},
-            {"iconKey", QStringLiteral("ui/icon/spell/") + toQt(spell->id)},
-            {"level", known.level},
-            {"perDay", known.perDay},
-            {"remaining", known.remaining},
-            {"usesText", known.perDay == 0
-                             ? tr("à volonté")
-                             : QStringLiteral("%1 / %2").arg(known.remaining).arg(known.perDay)},
-            {"details", details.join(QLatin1Char('\n'))},
-            {"school", toQt(spell->school)},
-            {"text", playerText(spell->text)},
-            {"castingTime", toQt(spell->castingTime)},
-            {"range", toQt(spell->range)},
-            {"duration",
-             toQt(spell->duration) + (spell->concentration ? tr(" (concentration)") : QString())},
-            {"components", toQt(spell->components)},
-            {"damage",
-             spell->damage.has_value() ? toQt(core::formatDice(*spell->damage)) : QString()},
-            {"damageType", spell->damageType.has_value()
-                               ? toQt(std::string(core::damageTypeLabel(*spell->damageType)))
-                               : QString()}};
+        _spells << spellRow(known, *spell);
     }
 
     // Les noms francais des six caracteristiques sont une DONNEE, pas une constante de code : ils

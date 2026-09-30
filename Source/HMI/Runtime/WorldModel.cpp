@@ -8,6 +8,7 @@
 #include <cstddef>
 #include <filesystem>
 #include <iterator>
+#include <optional>
 #include <string>
 #include <system_error>
 #include <utility>
@@ -29,6 +30,39 @@ namespace {
 WorldModel*& partieCourante() noexcept {
     static WorldModel* partie = nullptr;
     return partie;
+}
+
+// Monte d'un niveau la fiche de @p id telle que la partie l'a laissee (registre applique) : le
+// registre retient le niveau et les points de vie qui en resultent -- la montee n'est pas un soin,
+// les blessures restent (core::gainExperience). Rien si la classe est inconnue ou le niveau
+// maximal atteint.
+[[nodiscard]] std::optional<core::MemberRecord> levelUpRecord(
+    const std::string& id, const core::PartyCandidate& candidat,
+    const core::MemberRecord* const ancien) {
+    DemonstrationState etat = loadDemonstrationState(candidat.file);
+    const core::PlayableClass* const classe = etat.options.findClass(etat.sheet.classId);
+    if (classe == nullptr) {
+        HMI_LOG_WARNING("Montee de niveau : classe inconnue pour " + id);
+        return std::nullopt;
+    }
+    std::vector<std::string> manquants;
+    const core::LevelUpResult resultat =
+        core::levelUpTo(etat.sheet, etat.sheet.level + 1, *classe, etat.options, etat.rules,
+                        etat.experience, manquants);
+    if (!resultat.gainedLevel()) {
+        HMI_LOG_INFO("Montee de niveau : " + id + " est deja au niveau maximal.");
+        return std::nullopt;
+    }
+    core::MemberRecord record;
+    if (ancien != nullptr) {
+        record = *ancien;
+    }
+    record.level = resultat.newLevel;
+    record.hitPoints = etat.sheet.currentHitPoints;
+    HMI_LOG_INFO("Montee de niveau : " + id + " passe au niveau " +
+                 std::to_string(resultat.newLevel) + " (+" +
+                 std::to_string(resultat.hitPointsGained) + " PV).");
+    return record;
 }
 
 }  // namespace
@@ -445,33 +479,11 @@ bool WorldModel::levelUp(const QString& characterId) {
             HMI_LOG_WARNING("Montee de niveau : personnage inconnu, " + id);
             continue;
         }
-        // La fiche telle que la partie l'a laissee (registre applique), montee d'un niveau ; le
-        // registre retient le niveau et les points de vie qui en resultent -- la montee n'est pas
-        // un soin, les blessures restent (core::gainExperience).
-        DemonstrationState etat = loadDemonstrationState(candidat->file);
-        const core::PlayableClass* const classe = etat.options.findClass(etat.sheet.classId);
-        if (classe == nullptr) {
-            HMI_LOG_WARNING("Montee de niveau : classe inconnue pour " + id);
+        std::optional<core::MemberRecord> record = levelUpRecord(id, *candidat, _ledger.record(id));
+        if (!record.has_value()) {
             continue;
         }
-        std::vector<std::string> manquants;
-        const core::LevelUpResult resultat =
-            core::levelUpTo(etat.sheet, etat.sheet.level + 1, *classe, etat.options, etat.rules,
-                            etat.experience, manquants);
-        if (!resultat.gainedLevel()) {
-            HMI_LOG_INFO("Montee de niveau : " + id + " est deja au niveau maximal.");
-            continue;
-        }
-        core::MemberRecord record;
-        if (const core::MemberRecord* const ancien = _ledger.record(id)) {
-            record = *ancien;
-        }
-        record.level = resultat.newLevel;
-        record.hitPoints = etat.sheet.currentHitPoints;
-        _ledger.write(id, std::move(record));
-        HMI_LOG_INFO("Montee de niveau : " + id + " passe au niveau " +
-                     std::to_string(resultat.newLevel) + " (+" +
-                     std::to_string(resultat.hitPointsGained) + " PV).");
+        _ledger.write(id, std::move(*record));
         monte = true;
     }
     if (monte) {
@@ -568,7 +580,7 @@ bool WorldModel::moveMember(const QString& characterId, int offset) {
     }
     const auto rang = static_cast<std::ptrdiff_t>(std::distance(membres.begin(), trouve));
     const std::ptrdiff_t cible = rang + (offset < 0 ? -1 : 1);
-    if (cible < 0 || cible >= static_cast<std::ptrdiff_t>(membres.size())) {
+    if (cible < 0 || std::cmp_greater_equal(cible, membres.size())) {
         return false;
     }
     static_cast<void>(_party.swap(static_cast<std::size_t>(rang), static_cast<std::size_t>(cible)));

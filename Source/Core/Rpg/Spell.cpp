@@ -35,10 +35,10 @@ struct NomDEffet {
 
 // Les noms sont ceux de `spell.schema.json` : le schema et le moteur disent la meme liste.
 constexpr std::array<NomDEffet, 4> EFFETS{{
-    {SpellEffectKind::Fly, "fly"},
-    {SpellEffectKind::Invisible, "invisible"},
-    {SpellEffectKind::Bless, "bless"},
-    {SpellEffectKind::SpiritualWeapon, "spiritual-weapon"},
+    {.genre = SpellEffectKind::Fly, .nom = "fly"},
+    {.genre = SpellEffectKind::Invisible, .nom = "invisible"},
+    {.genre = SpellEffectKind::Bless, .nom = "bless"},
+    {.genre = SpellEffectKind::SpiritualWeapon, .nom = "spiritual-weapon"},
 }};
 
 [[nodiscard]] std::optional<SpellEffectKind> lireGenreDEffet(std::string_view nom) {
@@ -50,15 +50,9 @@ constexpr std::array<NomDEffet, 4> EFFETS{{
     return std::nullopt;
 }
 
-// Les champs du LOT-133 : projectiles, sans jet, sauvegarde, zone, cible, effet qui dure. Une
-// valeur que le moteur ne sait pas lire refuse le sort : joue a moitie, il tromperait plus
-// qu'absent et nomme dans les erreurs.
-[[nodiscard]] bool lireMecanismes(const nlohmann::json& racine, const std::string& fichier,
-                                  Spell& sort, std::vector<std::string>& erreurs) {
-    sort.autoHit = lireBooleen(racine, "autoHit");
-    sort.cantripScaling = lireBooleen(racine, "cantripScaling");
-    sort.addsAbilityModifier = lireBooleen(racine, "addsAbilityModifier");
-    sort.bonusAction = lireBooleen(racine, "bonusAction");
+// Le genre d'attaque : au contact, ou a distance par defaut.
+[[nodiscard]] bool lireGenreDAttaque(const nlohmann::json& racine, const std::string& fichier,
+                                     Spell& sort, std::vector<std::string>& erreurs) {
     const std::string genreDAttaque = lireTexte(racine, "attackKind");
     if (genreDAttaque == "melee") {
         sort.meleeAttack = true;
@@ -66,6 +60,12 @@ constexpr std::array<NomDEffet, 4> EFFETS{{
         erreurs.push_back(fichier + " : 'attackKind' '" + genreDAttaque + "' inconnu du moteur.");
         return false;
     }
+    return true;
+}
+
+// Les des de soin, s'il y en a : presents, ils doivent se lire.
+[[nodiscard]] bool lireSoin(const nlohmann::json& racine, const std::string& fichier, Spell& sort,
+                            std::vector<std::string>& erreurs) {
     if (const auto soin = racine.find("healing"); soin != racine.end()) {
         sort.healing = soin->is_string() ? parseDice(soin->get<std::string>()) : std::nullopt;
         if (!sort.healing.has_value()) {
@@ -73,35 +73,47 @@ constexpr std::array<NomDEffet, 4> EFFETS{{
             return false;
         }
     }
-    sort.stabilizes = lireBooleen(racine, "stabilizes");
-    if (const auto retour = racine.find("revives"); retour != racine.end()) {
-        SpellRevival revenant;
-        const auto pv = retour->is_object() ? retour->find("hitPoints") : retour->end();
-        const auto rounds = retour->is_object() ? retour->find("withinRounds") : retour->end();
-        if (pv == retour->end() || !pv->is_number_integer() || pv->get<int>() < 1 ||
-            rounds == retour->end() || !rounds->is_number_integer() || rounds->get<int>() < 1) {
-            erreurs.push_back(fichier +
-                              " : 'revives' demande 'hitPoints' et 'withinRounds' positifs.");
+    return true;
+}
+
+// Le retour a la vie : des points de vie et un delai, tous deux positifs.
+[[nodiscard]] bool lireRevenant(const nlohmann::json& racine, const std::string& fichier,
+                                Spell& sort, std::vector<std::string>& erreurs) {
+    const auto retour = racine.find("revives");
+    if (retour == racine.end()) {
+        return true;
+    }
+    SpellRevival revenant;
+    const auto pv = retour->is_object() ? retour->find("hitPoints") : retour->end();
+    const auto rounds = retour->is_object() ? retour->find("withinRounds") : retour->end();
+    if (pv == retour->end() || !pv->is_number_integer() || pv->get<int>() < 1 ||
+        rounds == retour->end() || !rounds->is_number_integer() || rounds->get<int>() < 1) {
+        erreurs.push_back(fichier + " : 'revives' demande 'hitPoints' et 'withinRounds' positifs.");
+        return false;
+    }
+    revenant.hitPoints = pv->get<int>();
+    revenant.withinRounds = rounds->get<int>();
+    sort.revives = revenant;
+    return true;
+}
+
+// Un champ entier facultatif qui, present, doit etre positif.
+[[nodiscard]] bool lireEntierPositif(const nlohmann::json& racine, const char* champ,
+                                     const std::string& fichier, int& valeur,
+                                     std::vector<std::string>& erreurs) {
+    if (const auto trouve = racine.find(champ); trouve != racine.end()) {
+        if (!trouve->is_number_integer() || trouve->get<int>() < 1) {
+            erreurs.push_back(fichier + " : '" + champ + "' doit etre un entier positif.");
             return false;
         }
-        revenant.hitPoints = pv->get<int>();
-        revenant.withinRounds = rounds->get<int>();
-        sort.revives = revenant;
+        valeur = trouve->get<int>();
     }
-    if (const auto cibles = racine.find("maxTargets"); cibles != racine.end()) {
-        if (!cibles->is_number_integer() || cibles->get<int>() < 1) {
-            erreurs.push_back(fichier + " : 'maxTargets' doit etre un entier positif.");
-            return false;
-        }
-        sort.maxTargets = cibles->get<int>();
-    }
-    if (const auto projectiles = racine.find("projectiles"); projectiles != racine.end()) {
-        if (!projectiles->is_number_integer() || projectiles->get<int>() < 1) {
-            erreurs.push_back(fichier + " : 'projectiles' doit etre un entier positif.");
-            return false;
-        }
-        sort.projectiles = projectiles->get<int>();
-    }
+    return true;
+}
+
+// L'effet d'une sauvegarde reussie : moitie des degats, ou aucun par defaut.
+[[nodiscard]] bool lireEffetDeSauvegarde(const nlohmann::json& racine, const std::string& fichier,
+                                         Spell& sort, std::vector<std::string>& erreurs) {
     const std::string sauvegarde = lireTexte(racine, "saveEffect");
     if (sauvegarde == "half") {
         sort.saveEffect = SaveEffect::Half;
@@ -109,6 +121,12 @@ constexpr std::array<NomDEffet, 4> EFFETS{{
         erreurs.push_back(fichier + " : 'saveEffect' '" + sauvegarde + "' inconnu du moteur.");
         return false;
     }
+    return true;
+}
+
+// La cible : un allie, soi-meme, ou un ennemi par defaut.
+[[nodiscard]] bool lireCible(const nlohmann::json& racine, const std::string& fichier, Spell& sort,
+                             std::vector<std::string>& erreurs) {
     const std::string cible = lireTexte(racine, "target");
     if (cible == "ally") {
         sort.target = SpellTarget::Ally;
@@ -118,51 +136,146 @@ constexpr std::array<NomDEffet, 4> EFFETS{{
         erreurs.push_back(fichier + " : cible '" + cible + "' inconnue du moteur.");
         return false;
     }
-    if (const auto zone = racine.find("area"); zone != racine.end() && zone->is_object()) {
-        const std::string forme = lireTexte(*zone, "shape");
-        const auto metres = zone->find("meters");
-        if (metres == zone->end() || !metres->is_number() || metres->get<float>() <= 0.0F) {
-            erreurs.push_back(fichier + " : zone sans 'meters' positifs.");
-            return false;
-        }
-        if (forme == "sphere") {
-            sort.areaRadiusMeters = metres->get<float>();
-        } else {
-            // Une forme connue du Manuel mais que le moteur ne pose pas encore : le sort se
-            // charge, et `spellMechanism` dit qu'il ne se joue pas.
-            sort.unsupportedArea = forme;
-        }
+    return true;
+}
+
+// La zone : un rayon positif, et une forme que le moteur pose ou non.
+[[nodiscard]] bool lireZone(const nlohmann::json& racine, const std::string& fichier, Spell& sort,
+                            std::vector<std::string>& erreurs) {
+    const auto zone = racine.find("area");
+    if (zone == racine.end() || !zone->is_object()) {
+        return true;
     }
-    if (const auto effet = racine.find("effect"); effet != racine.end() && effet->is_object()) {
-        const std::string genre = lireTexte(*effet, "kind");
-        const std::optional<SpellEffectKind> lu = lireGenreDEffet(genre);
-        if (!lu.has_value()) {
-            erreurs.push_back(fichier + " : effet de sort '" + genre + "' inconnu du moteur.");
-            return false;
-        }
-        SpellEffect pose{.kind = *lu, .meters = 0.0F, .dice = std::nullopt, .durationRounds = 0};
-        if (const auto metres = effet->find("meters");
-            metres != effet->end() && metres->is_number()) {
-            pose.meters = metres->get<float>();
-        }
-        if (pose.kind == SpellEffectKind::Fly && pose.meters <= 0.0F) {
-            erreurs.push_back(fichier + " : effet 'fly' sans vitesse ('meters').");
-            return false;
-        }
-        if (const auto des = effet->find("dice"); des != effet->end() && des->is_string()) {
-            pose.dice = parseDice(des->get<std::string>());
-        }
-        if (pose.kind == SpellEffectKind::Bless && !pose.dice.has_value()) {
-            erreurs.push_back(fichier + " : effet 'bless' sans des lisibles ('dice').");
-            return false;
-        }
-        if (const auto duree = effet->find("durationRounds");
-            duree != effet->end() && duree->is_number_integer()) {
-            pose.durationRounds = std::max(0, duree->get<int>());
-        }
-        sort.effect = pose;
+    const std::string forme = lireTexte(*zone, "shape");
+    const auto metres = zone->find("meters");
+    if (metres == zone->end() || !metres->is_number() || metres->get<float>() <= 0.0F) {
+        erreurs.push_back(fichier + " : zone sans 'meters' positifs.");
+        return false;
+    }
+    if (forme == "sphere") {
+        sort.areaRadiusMeters = metres->get<float>();
+    } else {
+        // Une forme connue du Manuel mais que le moteur ne pose pas encore : le sort se
+        // charge, et `spellMechanism` dit qu'il ne se joue pas.
+        sort.unsupportedArea = forme;
     }
     return true;
+}
+
+// L'effet qui dure : son genre, et les champs que ce genre exige.
+[[nodiscard]] bool lireEffetPose(const nlohmann::json& racine, const std::string& fichier,
+                                 Spell& sort, std::vector<std::string>& erreurs) {
+    const auto effet = racine.find("effect");
+    if (effet == racine.end() || !effet->is_object()) {
+        return true;
+    }
+    const std::string genre = lireTexte(*effet, "kind");
+    const std::optional<SpellEffectKind> lu = lireGenreDEffet(genre);
+    if (!lu.has_value()) {
+        erreurs.push_back(fichier + " : effet de sort '" + genre + "' inconnu du moteur.");
+        return false;
+    }
+    SpellEffect pose{.kind = *lu, .meters = 0.0F, .dice = std::nullopt, .durationRounds = 0};
+    if (const auto metres = effet->find("meters"); metres != effet->end() && metres->is_number()) {
+        pose.meters = metres->get<float>();
+    }
+    if (pose.kind == SpellEffectKind::Fly && pose.meters <= 0.0F) {
+        erreurs.push_back(fichier + " : effet 'fly' sans vitesse ('meters').");
+        return false;
+    }
+    if (const auto des = effet->find("dice"); des != effet->end() && des->is_string()) {
+        pose.dice = parseDice(des->get<std::string>());
+    }
+    if (pose.kind == SpellEffectKind::Bless && !pose.dice.has_value()) {
+        erreurs.push_back(fichier + " : effet 'bless' sans des lisibles ('dice').");
+        return false;
+    }
+    if (const auto duree = effet->find("durationRounds");
+        duree != effet->end() && duree->is_number_integer()) {
+        pose.durationRounds = std::max(0, duree->get<int>());
+    }
+    sort.effect = pose;
+    return true;
+}
+
+// Les champs du LOT-133 : projectiles, sans jet, sauvegarde, zone, cible, effet qui dure. Une
+// valeur que le moteur ne sait pas lire refuse le sort : joue a moitie, il tromperait plus
+// qu'absent et nomme dans les erreurs.
+[[nodiscard]] bool lireMecanismes(const nlohmann::json& racine, const std::string& fichier,
+                                  Spell& sort, std::vector<std::string>& erreurs) {
+    sort.autoHit = lireBooleen(racine, "autoHit");
+    sort.cantripScaling = lireBooleen(racine, "cantripScaling");
+    sort.addsAbilityModifier = lireBooleen(racine, "addsAbilityModifier");
+    sort.bonusAction = lireBooleen(racine, "bonusAction");
+    if (!lireGenreDAttaque(racine, fichier, sort, erreurs) ||
+        !lireSoin(racine, fichier, sort, erreurs)) {
+        return false;
+    }
+    sort.stabilizes = lireBooleen(racine, "stabilizes");
+    return lireRevenant(racine, fichier, sort, erreurs) &&
+           lireEntierPositif(racine, "maxTargets", fichier, sort.maxTargets, erreurs) &&
+           lireEntierPositif(racine, "projectiles", fichier, sort.projectiles, erreurs) &&
+           lireEffetDeSauvegarde(racine, fichier, sort, erreurs) &&
+           lireCible(racine, fichier, sort, erreurs) && lireZone(racine, fichier, sort, erreurs) &&
+           lireEffetPose(racine, fichier, sort, erreurs);
+}
+
+// Les composantes, en lettres separees par des virgules : « V, S, M ».
+[[nodiscard]] std::string lireComposantes(const nlohmann::json& composantes) {
+    std::string lettres;
+    for (const auto& [cle, lettre] :
+         {std::pair{"verbal", "V"}, std::pair{"somatic", "S"}, std::pair{"material", "M"}}) {
+        if (lireBooleen(composantes, cle)) {
+            lettres += (lettres.empty() ? "" : ", ") + std::string{lettre};
+        }
+    }
+    return lettres;
+}
+
+// Les degats, leur type et le jet de sauvegarde : presents, ils doivent se lire.
+[[nodiscard]] bool lireDegats(const nlohmann::json& racine, const std::string& fichier, Spell& sort,
+                              std::vector<std::string>& erreurs) {
+    if (const auto des = racine.find("damage"); des != racine.end() && des->is_string()) {
+        sort.damage = parseDice(des->get<std::string>());
+        if (!sort.damage.has_value()) {
+            erreurs.push_back(fichier + " : des de degats '" + des->get<std::string>() +
+                              "' illisibles.");
+            return false;
+        }
+    }
+    if (const auto type = racine.find("damageType"); type != racine.end() && type->is_string()) {
+        sort.damageType = parseDamageType(type->get<std::string>());
+        if (!sort.damageType.has_value()) {
+            // Un type inconnu ne recoit pas un type par defaut (EX-CBT-032).
+            erreurs.push_back(fichier + " : type de degats '" + type->get<std::string>() +
+                              "' inconnu du moteur.");
+            return false;
+        }
+    }
+    if (const auto sauvegarde = racine.find("savingThrow");
+        sauvegarde != racine.end() && sauvegarde->is_string()) {
+        sort.savingThrow = parseAbility(sauvegarde->get<std::string>());
+        if (!sort.savingThrow.has_value()) {
+            erreurs.push_back(fichier + " : jet de sauvegarde '" + sauvegarde->get<std::string>() +
+                              "' inconnu du moteur.");
+            return false;
+        }
+    }
+    return true;
+}
+
+// Les mecanismes que le sort attend du moteur, par leur nom.
+[[nodiscard]] std::vector<std::string> lireMecanismesRequis(const nlohmann::json& racine) {
+    std::vector<std::string> noms;
+    if (const auto mecanismes = racine.find("mecanismesRequis");
+        mecanismes != racine.end() && mecanismes->is_array()) {
+        for (const auto& element : *mecanismes) {
+            if (element.is_string()) {
+                noms.push_back(element.get<std::string>());
+            }
+        }
+    }
+    return noms;
 }
 
 [[nodiscard]] std::optional<Spell> lireSort(const nlohmann::json& racine,
@@ -180,14 +293,7 @@ constexpr std::array<NomDEffet, 4> EFFETS{{
     sort.appliesCondition = lireTexte(racine, "appliesCondition");
     if (const auto composantes = racine.find("components");
         composantes != racine.end() && composantes->is_object()) {
-        std::string lettres;
-        for (const auto& [cle, lettre] :
-             {std::pair{"verbal", "V"}, std::pair{"somatic", "S"}, std::pair{"material", "M"}}) {
-            if (lireBooleen(*composantes, cle)) {
-                lettres += (lettres.empty() ? "" : ", ") + std::string{lettre};
-            }
-        }
-        sort.components = lettres;
+        sort.components = lireComposantes(*composantes);
     }
     sort.concentration = lireBooleen(racine, "concentration");
     sort.ritual = lireBooleen(racine, "ritual");
@@ -207,43 +313,11 @@ constexpr std::array<NomDEffet, 4> EFFETS{{
         portee != racine.end() && portee->is_number()) {
         sort.rangeMeters = portee->get<float>();
     }
-    if (const auto des = racine.find("damage"); des != racine.end() && des->is_string()) {
-        sort.damage = parseDice(des->get<std::string>());
-        if (!sort.damage.has_value()) {
-            erreurs.push_back(fichier + " : des de degats '" + des->get<std::string>() +
-                              "' illisibles.");
-            return std::nullopt;
-        }
-    }
-    if (const auto type = racine.find("damageType"); type != racine.end() && type->is_string()) {
-        sort.damageType = parseDamageType(type->get<std::string>());
-        if (!sort.damageType.has_value()) {
-            // Un type inconnu ne recoit pas un type par defaut (EX-CBT-032).
-            erreurs.push_back(fichier + " : type de degats '" + type->get<std::string>() +
-                              "' inconnu du moteur.");
-            return std::nullopt;
-        }
-    }
-    if (const auto sauvegarde = racine.find("savingThrow");
-        sauvegarde != racine.end() && sauvegarde->is_string()) {
-        sort.savingThrow = parseAbility(sauvegarde->get<std::string>());
-        if (!sort.savingThrow.has_value()) {
-            erreurs.push_back(fichier + " : jet de sauvegarde '" + sauvegarde->get<std::string>() +
-                              "' inconnu du moteur.");
-            return std::nullopt;
-        }
-    }
-    if (!lireMecanismes(racine, fichier, sort, erreurs)) {
+    if (!lireDegats(racine, fichier, sort, erreurs) ||
+        !lireMecanismes(racine, fichier, sort, erreurs)) {
         return std::nullopt;
     }
-    if (const auto mecanismes = racine.find("mecanismesRequis");
-        mecanismes != racine.end() && mecanismes->is_array()) {
-        for (const auto& element : *mecanismes) {
-            if (element.is_string()) {
-                sort.requiredMechanisms.push_back(element.get<std::string>());
-            }
-        }
-    }
+    sort.requiredMechanisms = lireMecanismesRequis(racine);
     return sort;
 }
 

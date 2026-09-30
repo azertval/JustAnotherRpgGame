@@ -109,6 +109,18 @@ void logCatalogErrors(const std::string& prefix, const std::vector<std::string>&
     return std::nullopt;
 }
 
+// Le registre de la partie sur la fiche lue : ce que les combats precedents en ont laisse, les
+// lancers restants de chaque sort compris.
+void applyMemberRecord(HeroContestantSource& source, const core::MemberRecord& record) {
+    core::applyRecord(source.sheet, record);
+    for (core::ArenaSpell& sort : source.spells) {
+        const auto restant = record.spellUses.find(sort.id);
+        if (restant != record.spellUses.end() && sort.uses >= 0) {
+            sort.uses = std::max(0, restant->second);
+        }
+    }
+}
+
 }  // namespace
 
 EncounterModel* EncounterModel::current() noexcept {
@@ -223,13 +235,7 @@ std::vector<std::pair<std::string, HeroContestantSource>> EncounterModel::partyS
         }
         HeroContestantSource source = lue->second;
         if (record != nullptr) {
-            core::applyRecord(source.sheet, *record);
-            for (core::ArenaSpell& sort : source.spells) {
-                const auto restant = record->spellUses.find(sort.id);
-                if (restant != record->spellUses.end() && sort.uses >= 0) {
-                    sort.uses = std::max(0, restant->second);
-                }
-            }
+            applyMemberRecord(source, *record);
         }
         sources.emplace_back(membre, std::move(source));
     }
@@ -458,7 +464,8 @@ void EncounterModel::subscribeCues() {
         _cues.push(CombatCue{.kind = CombatCueKind::Walk,
                              .actor = mover,
                              .path = path.steps,
-                             .target = std::nullopt});
+                             .target = std::nullopt,
+                             .effect = {}});
     });
     // Les attaques et les sorts du combattant actif : le geste, le tir, le sort et son effet
     // (`LOT-136`).
@@ -477,7 +484,8 @@ void EncounterModel::subscribeCues() {
                                               .path = {},
                                               .target = event.target.has_value()
                                                             ? state.grid().positionOf(*event.target)
-                                                            : std::nullopt});
+                                                            : std::nullopt,
+                                              .effect = {}});
                      });
     combat.subscribe(core::CombatHook::DamageTaken,
                      [this](core::CombatState&, const core::CombatEvent& event) {
@@ -485,7 +493,8 @@ void EncounterModel::subscribeCues() {
                              _cues.push(CombatCue{.kind = CombatCueKind::Hit,
                                                   .actor = *event.combatant,
                                                   .path = {},
-                                                  .target = std::nullopt});
+                                                  .target = std::nullopt,
+                                                  .effect = {}});
                              pushEffect(*event.combatant, *event.combatant, "impact", false);
                          }
                      });
@@ -495,7 +504,8 @@ void EncounterModel::subscribeCues() {
                              _cues.push(CombatCue{.kind = CombatCueKind::Death,
                                                   .actor = *event.combatant,
                                                   .path = {},
-                                                  .target = std::nullopt});
+                                                  .target = std::nullopt,
+                                                  .effect = {}});
                          }
                      });
     combat.subscribe(core::CombatHook::CombatantLeft,
