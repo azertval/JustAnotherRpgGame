@@ -26,7 +26,7 @@ Pas de nouvelle zone : la `0.0.2` se joue sur les trois cartes de la démo.
 ## Décisions de réalisation
 
 Livré le 30 septembre 2026 (exigences `EX-CBT-052`, `EX-CBT-064`, `EX-CBT-065`), branche
-`lot-142-recette-0-0-2`, PR de recette de la version. Le [bilan](../bilan.md) dit ce que la
+`lot-142-recette-0-0-2`, **PR #165**, la PR de publication de la version. Le [bilan](../bilan.md) dit ce que la
 version a coûté et ce que la suivante en retient.
 
 1. **Quatre choix de l'auteur, le 30 septembre.** La série se joue **au maître d'arène**, un
