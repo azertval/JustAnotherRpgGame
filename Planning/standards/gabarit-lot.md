@@ -30,7 +30,7 @@ maquettes = ["../maquettes/arena-of-fate-plan.svg"]
 
 | Champ | Obligatoire | Valeurs |
 |---|---|---|
-| `id` | oui | `LOT-NNN`, trois chiffres, jamais réattribué |
+| `id` | oui | `LOT-NNN`, trois chiffres — quatre quand la centaine du référentiel est pleine (`LOT-1000` et suivants) —, jamais réattribué |
 | `titre` | oui | l'objet du lot, en une ligne |
 | `version` | oui | un identifiant de [`versions.toml`](../versions/versions.toml) |
 | `filiere` | oui | `standard`, `assets`, `cartes`, `pnj`, `quete`, `moteur`, `regles`, `donnees`, `interface`, `editeur`, `version` |

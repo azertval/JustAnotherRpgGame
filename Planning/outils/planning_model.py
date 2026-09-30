@@ -23,8 +23,8 @@ FRONT_MATTER_RE = re.compile(r'\A\+\+\+\r?\n(.*?)\r?\n\+\+\+\r?\n?(.*)\Z', re.DO
 # Trois générations d'identifiants, toutes gardées : un numéro ne se réattribue ni ne se renomme.
 # `LOT-NN` et `LOT-EDITOR-NN` sont ceux de la version 0.0.0 (l'ancienne feuille de route et celle de
 # l'éditeur) ; tout lot né depuis porte trois chiffres.
-LOT_ID_RE = re.compile(r'^LOT-(?:EDITOR-\d{2}|\d{2,3})$')
-LOT_FILE_RE = re.compile(r'^(LOT-(?:EDITOR-\d{2}|\d{2,3}))-[a-z0-9]+(?:-[a-z0-9]+)*\.md$')
+LOT_ID_RE = re.compile(r'^LOT-(?:EDITOR-\d{2}|\d{2,4})$')
+LOT_FILE_RE = re.compile(r'^(LOT-(?:EDITOR-\d{2}|\d{2,4}))-[a-z0-9]+(?:-[a-z0-9]+)*\.md$')
 
 
 def lot_sort_key(lot_id):
