@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790649867218,
+  "lastUpdate": 1790736486315,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1498,6 +1498,100 @@ window.BENCHMARK_DATA = {
           {
             "name": "ArenareaFrame1080p",
             "value": 3.562178583804913,
+            "unit": "us/iter",
+            "extra": "iterations: 389565\ncpu: 3.569686701834097 us\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "748b19c0c92dd41191e7ffed7aaa869a3f2da16c",
+          "message": "Merge pull request #161 from azertval/lot-141-fiche-et-ecran-de-groupe\n\nLOT-141 — Compétences et sorts alimentés, croix de retour, Options depuis le HUD, icônes d'action",
+          "timestamp": "2026-09-28T13:35:33Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/748b19c0c92dd41191e7ffed7aaa869a3f2da16c"
+        },
+        "date": 1790736482937,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 157027.85714285358,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 156947.54464285713 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 214216.95312500157,
+            "unit": "ns/iter",
+            "extra": "iterations: 6400\ncpu: 214843.75 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 57189.059423842366,
+            "unit": "ns/iter",
+            "extra": "iterations: 24889\ncpu: 57128.65121137852 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 161575.25669643187,
+            "unit": "ns/iter",
+            "extra": "iterations: 8960\ncpu: 162179.1294642857 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1144430.2678571357,
+            "unit": "ns/iter",
+            "extra": "iterations: 1120\ncpu: 1143973.2142857143 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 2705298.6607143073,
+            "unit": "ns/iter",
+            "extra": "iterations: 448\ncpu: 2685546.875 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 687.3054919908653,
+            "unit": "us/iter",
+            "extra": "iterations: 2185\ncpu: 686.4988558352403 us\nthreads: 1"
+          },
+          {
+            "name": "ArenareaSnapshot",
+            "value": 0.09592495745115316,
+            "unit": "ms/iter",
+            "extra": "iterations: 14689\ncpu: 0.09573490366941248 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaComposeWholeMap",
+            "value": 0.1391093210124586,
+            "unit": "ms/iter",
+            "extra": "iterations: 9956\ncpu: 0.1381076737645641 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaTexturePaths",
+            "value": 0.07114607503390018,
+            "unit": "ms/iter",
+            "extra": "iterations: 19911\ncpu: 0.07141153131434885 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaBuildStaticScene",
+            "value": 0.13715907366071026,
+            "unit": "ms/iter",
+            "extra": "iterations: 8960\ncpu: 0.13776506696428573 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaFrame1080p",
+            "value": 3.5597086493908776,
             "unit": "us/iter",
             "extra": "iterations: 389565\ncpu: 3.569686701834097 us\nthreads: 1"
           }
