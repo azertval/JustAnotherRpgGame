@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790736486315,
+  "lastUpdate": 1790736492222,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1834,6 +1834,40 @@ window.BENCHMARK_DATA = {
             "value": 5.163554044117672,
             "unit": "ms/iter",
             "extra": "iterations: 272\ncpu: 5.112591911764706 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "748b19c0c92dd41191e7ffed7aaa869a3f2da16c",
+          "message": "Merge pull request #161 from azertval/lot-141-fiche-et-ecran-de-groupe\n\nLOT-141 — Compétences et sorts alimentés, croix de retour, Options depuis le HUD, icônes d'action",
+          "timestamp": "2026-09-28T13:35:33Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/748b19c0c92dd41191e7ffed7aaa869a3f2da16c"
+        },
+        "date": 1790736490129,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 14.404549107142982,
+            "unit": "ms/iter",
+            "extra": "iterations: 112\ncpu: 14.229910714285714 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 5.25385000000005,
+            "unit": "ms/iter",
+            "extra": "iterations: 272\ncpu: 5.2849264705882355 ms\nthreads: 1"
           }
         ]
       }
