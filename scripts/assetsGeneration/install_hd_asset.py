@@ -72,6 +72,12 @@ transparent (la variante « planche d'animation » de la consigne).
    jeton (128 × 128, détouré en rond) si une source de portrait est donnée ; le nom dans `npcs` du
    manifeste, les sources et leur empreinte dans son objet `sources`.
 
+Une bande **rendue** (`"placed": true`, LOT-1000) arrive déjà au format du moteur : la caméra du
+rendu a posé les pieds sur le sol et le personnage au milieu de sa cellule. Rien ne se détoure, ne
+se découpe ni ne se réduit ; la largeur doit valoir N cellules, la hauteur la cellule (ou plus, par
+pas de 8 px, pour ce qui passe sous le sol), et la marge de 4 px tenir. Recentrer sur la boîte
+déplacerait le personnage dès qu'il porte une hache.
+
 Une figurine **sans bande** mais avec un portrait (`"strips": []`) est un **portrait d'attente**
 (`LOT-145`) : le personnage a son visage avant sa figurine — les héros du groupe dont l'atelier
 produit encore les bandes. Seuls son portrait et son jeton s'installent, et son nom va dans la
@@ -172,7 +178,7 @@ JETON = 128
 ORIENTATIONS = {"se", "sw", "ne", "nw"}
 CHAMPS_FIGURE = {"name", "strips", "portrait", "token"}
 CHAMPS_BANDE = {"source", "clip", "facing", "frames", "frameDuration", "loop", "wide", "standingFrame", "scale",
-                "recentre"}
+                "recentre", "placed"}
 # La bande du bassin, en hauteurs de figurine au-dessus du sol : ce qu'une image recentrée pose au
 # milieu de sa cellule. Les bras et la hache bougent, les pieds font un pas ; le bassin reste.
 BASSIN = (0.30, 0.55)
@@ -223,6 +229,8 @@ class StripSpec:
     # dérive du générateur d'une image à l'autre.
     recentre: bool = False
     scale: float | None = None
+    # Une bande rendue, déjà au format du moteur : copiée telle quelle après contrôle.
+    placed: bool = False
 
     @property
     def stem(self) -> str:
@@ -391,7 +399,7 @@ def read_strip(raw, where: str) -> StripSpec:
         if isinstance(duration, bool) or not isinstance(duration, (int, float)) or duration <= 0:
             raise DescriptorError(f"{where} : `frameDuration` en secondes, positive")
         spec.frame_duration = float(duration)
-    for key, attribute in (("loop", "loop"), ("wide", "wide")):
+    for key, attribute in (("loop", "loop"), ("wide", "wide"), ("placed", "placed")):
         if key in raw:
             if not isinstance(raw[key], bool):
                 raise DescriptorError(f"{where} : `{key}` vaut true ou false")
@@ -410,6 +418,8 @@ def read_strip(raw, where: str) -> StripSpec:
         if not isinstance(raw["recentre"], bool):
             raise DescriptorError(f"{where} : `recentre` est un booléen")
         spec.recentre = raw["recentre"]
+    if spec.placed and (spec.scale is not None or spec.recentre):
+        raise DescriptorError(f"{where} : une bande `placed` ne se réduit ni ne se recentre")
     return spec
 
 
@@ -1001,6 +1011,37 @@ def install_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], grou
                           split=split)
 
 
+def place_strip(spec: StripSpec, rgba: np.ndarray, cell: tuple[int, int], where: str) -> InstalledStrip:
+    """Une bande rendue, déjà au format du moteur : contrôlée, puis copiée telle quelle."""
+    cell_w, cell_h = cell
+    height, width = rgba.shape[:2]
+    if width != cell_w * spec.frames:
+        raise DescriptorError(f"{where} : {width} px de large ; une bande placée fait {spec.frames} "
+                              f"cellules de {cell_w} px, soit {cell_w * spec.frames}")
+    if height < cell_h or (height != cell_h and height % 8):
+        raise DescriptorError(f"{where} : {height} px de haut ; une bande placée fait {cell_h} px, "
+                              "ou plus par pas de 8 px")
+    measures: list[FrameMeasure] = []
+    for i in range(spec.frames):
+        frame = rgba[:, i * cell_w:(i + 1) * cell_w]
+        xs = np.nonzero(frame[..., 3].any(axis=0))[0]
+        if len(xs) == 0:
+            raise DescriptorError(f"{where} : l'image {i + 1} est vide")
+        if xs.min() < MARGE_CELLULE or xs.max() + 1 > cell_w - MARGE_CELLULE:
+            raise DescriptorError(f"{where} : l'image {i + 1} occupe x {xs.min()}-{xs.max() + 1} ; il faut "
+                                  f"{MARGE_CELLULE} px transparents à gauche et à droite de sa cellule")
+        measures.append(measure_frame(frame))
+    anim = {
+        "version": 1,
+        "frameWidth": cell_w,
+        "frameHeight": height,
+        "clips": {spec.clip: {"frames": list(range(spec.frames)), "frameDuration": spec.frame_duration,
+                              "loop": spec.loop}},
+    }
+    return InstalledStrip(spec=spec, image=rgba, anim=anim, scale=1.0, cell=(cell_w, height), frames=measures,
+                          split="placée")
+
+
 def square(rgba: np.ndarray, side: int, where: str) -> np.ndarray:
     """Le carré central d'une image, réduit à `side` : jamais agrandi."""
     height, width = rgba.shape[:2]
@@ -1060,8 +1101,9 @@ def build_figures(descriptor: Descriptor, only: str | None = None) -> list[Insta
         for spec in figure.strips:
             source, entry = source_entry(descriptor, spec.source)
             where = f"{figure.name}/{spec.stem}"
-            installed.strips.append(install_strip(spec, load_rgba(source), wide if spec.wide else frame,
-                                                  ground, where))
+            cell = wide if spec.wide else frame
+            installed.strips.append(place_strip(spec, load_rgba(source), cell, where) if spec.placed
+                                    else install_strip(spec, load_rgba(source), cell, ground, where))
             installed.sources[f"{figure.name}/{spec.stem}.png"] = entry
         if figure.portrait is not None:
             source, entry = source_entry(descriptor, figure.portrait)

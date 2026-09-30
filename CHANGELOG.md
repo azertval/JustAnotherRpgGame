@@ -6,6 +6,12 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1000 — La preuve de la chaîne de personnages (en cours).** Un personnage se construit d'un
+  corps commun (MPFB, squelette `game_engine`), d'une texture peinte projetée par script et de
+  pièces accrochées à un os, animé par des poses en cibles (la marche garde les pieds au sol à la
+  vitesse du moteur). `render_character_strips.py` le rend sous la caméra du jeu en bandes au format
+  du moteur ; `install_hd_asset.py` installe ces bandes `placed`, telles quelles.
+
 ## [0.0.2] - 2026-09-30
 
 **Le système de combat.** Les quatre classes de base du *Player's Guide to Tanares* — Brawler,
