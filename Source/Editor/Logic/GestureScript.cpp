@@ -263,7 +263,11 @@ private:
             return;
         }
         for (const std::string& line : found->lines) {
-            _result.log.push_back("inspect " + id + (found->ok ? ": " : " [refused]: ") + line);
+            std::string entry = "inspect ";
+            entry += id;
+            entry += found->ok ? ": " : " [refused]: ";
+            entry += line;
+            _result.log.push_back(std::move(entry));
         }
     }
 

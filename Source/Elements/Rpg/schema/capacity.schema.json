@@ -69,6 +69,10 @@
             "type": "boolean",
             "description": "damage-resistance : resistance a TOUS les types de degats."
           },
+          "graduated": {
+            "type": "boolean",
+            "description": "damage-resistance : graduee (LOT-142) ; elle retire aux degats la part des points de vie perdus, la moitie au plus -- rien plein de vie, la resistance entiere a 0 PV."
+          },
           "types": {
             "type": "array",
             "items": {

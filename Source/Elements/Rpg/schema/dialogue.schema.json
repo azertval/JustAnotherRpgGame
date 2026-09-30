@@ -340,6 +340,23 @@
                       "character"
                     ],
                     "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "description": "Donne un repos long (LOT-142) au personnage nomme (identifiant de fiche), ou a tout le groupe (party) : points de vie et lancers rendus, niveau garde.",
+                    "properties": {
+                      "type": {
+                        "const": "rest"
+                      },
+                      "character": {
+                        "$ref": "https://justanotherrpggame.local/rpg/common.schema.json#/$defs/id"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "character"
+                    ],
+                    "additionalProperties": false
                   }
                 ]
               }

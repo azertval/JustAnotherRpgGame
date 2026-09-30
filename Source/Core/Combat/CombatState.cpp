@@ -45,14 +45,16 @@ CombatantProfile profileFor(const CharacterSheet& sheet, CombatSide side, int pr
             traits.affinities.push_back({.type = *resistance.type,
                                          .kind = DamageAffinityKind::Resistance,
                                          .bypassedBy = 0,
-                                         .source = resistance.source});
+                                         .source = resistance.source,
+                                         .graduated = resistance.graduated});
             continue;
         }
         for (const DamageType type : allDamageTypes()) {
             traits.affinities.push_back({.type = type,
                                          .kind = DamageAffinityKind::Resistance,
                                          .bypassedBy = 0,
-                                         .source = resistance.source});
+                                         .source = resistance.source,
+                                         .graduated = resistance.graduated});
         }
     }
     std::array<int, 6> sauvegardes{};

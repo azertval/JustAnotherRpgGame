@@ -24,6 +24,19 @@ void PartyLedger::erase(std::string_view characterId) {
     }
 }
 
+void PartyLedger::rest(std::string_view characterId) {
+    const auto trouve = _records.find(characterId);
+    if (trouve == _records.end()) {
+        return;
+    }
+    MemberRecord& record = trouve->second;
+    record.hitPoints.reset();
+    record.spellUses.clear();
+    if (!record.level.has_value()) {
+        _records.erase(trouve);
+    }
+}
+
 void applyRecord(CharacterSheet& sheet, const MemberRecord& record) {
     if (record.hitPoints.has_value()) {
         sheet.currentHitPoints = std::clamp(*record.hitPoints, 0, sheet.maximumHitPoints);

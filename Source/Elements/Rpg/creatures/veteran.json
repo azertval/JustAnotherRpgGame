@@ -1,0 +1,69 @@
+{
+  "id": "veteran",
+  "name": "Vétéran",
+  "source": "srd",
+  "size": "medium",
+  "creatureType": "humanoïde",
+  "alignment": "n'importe quel alignement",
+  "silhouette": "humanoid",
+  "description": "Les vétérans sont des guerriers professionnels qui prennent les armes en échange d'une rémunération ou pour protéger ce qu'ils estiment ou ce en quoi ils croient.",
+  "abilities": {
+    "strength": 16,
+    "dexterity": 13,
+    "constitution": 14,
+    "intelligence": 10,
+    "wisdom": 11,
+    "charisma": 10
+  },
+  "armorClass": 17,
+  "hitPoints": 58,
+  "hitDice": "9d8+18",
+  "speed": {
+    "walk": 9
+  },
+  "challengeRating": 3,
+  "skills": {
+    "athletics": 5,
+    "perception": 2
+  },
+  "senses": [
+    "Perception passive 12"
+  ],
+  "languages": [
+    "commun"
+  ],
+  "multiattack": 3,
+  "traits": [
+    {
+      "name": "Attaques multiples",
+      "text": "Le vétéran effectue deux attaques à l'épée longue. S'il a une épée courte en main, il peut également effectuer une attaque avec cette arme."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Épée longue",
+      "text": "Attaque au corps à corps avec une arme : +5 au toucher, allonge 1,50 m, une cible. Touché : 7 (1d8 + 3) dégâts tranchants.",
+      "attackBonus": 5,
+      "reach": 1.5,
+      "damage": "1d8+3",
+      "damageType": "slashing"
+    },
+    {
+      "name": "Épée courte",
+      "text": "Attaque au corps à corps avec une arme : +5 au toucher, allonge 1,50 m, une cible. Touché : 6 (1d6 + 3) dégâts perforants.",
+      "attackBonus": 5,
+      "reach": 1.5,
+      "damage": "1d6+3",
+      "damageType": "piercing"
+    },
+    {
+      "name": "Arbalète lourde",
+      "text": "Attaque à distance avec une arme : +3 au toucher, portée 30/120 m, une cible. Touché : 6 (1d10 + 1) dégâts perforants.",
+      "attackBonus": 3,
+      "rangeNormal": 30,
+      "rangeLong": 120,
+      "damage": "1d10+1",
+      "damageType": "piercing"
+    }
+  ]
+}

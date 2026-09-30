@@ -46,6 +46,7 @@
 #include "HMI/Game/CombatContestants.h"
 #include "HMI/Game/GameQuests.h"
 #include "HMI/Game/WorldPlay.h"
+#include "Test/Support/ArenaSimulation.h"
 
 namespace {
 
@@ -74,165 +75,32 @@ constexpr core::GridPosition DEVANT_L_ESCALIER{22, 6};      // devant le portail
 constexpr core::GridPosition ARRIVEE_AUX_VESTIAIRES{9, 3};  // le condamne arrive ici
 constexpr core::GridPosition PORTE_DE_L_ARENE{11, 3};       // close sous condamne
 constexpr core::GridPosition PIED_DE_L_ESCALIER{7, 2};      // sous la porte du triomphe
-constexpr core::GridPosition MAITRE{8, 10};
 constexpr core::GridPosition DEVANT_LE_MAITRE{9, 10};
-/// Le marqueur `encounter` du sable : la ou les bandits paraissent, cote droit (LOT-139).
-constexpr core::GridPosition MARQUEUR_DES_BANDITS{25, 10};
 constexpr core::GridPosition PORTE_DU_TRIOMPHE{16, 4};  // devant le portail vers le -1
 
 /// Le groupe de la demo, charge comme le jeu le charge (`hmi::loadDemonstrationState`), depuis le
 /// contenu livre : le meneur, puis ses suiveurs (`LOT-139`, l'ordre de « Nouvelle partie »).
-struct Heros {
-    core::CharacterOptions options;
-    core::SkillCatalog skills;
-    core::ExperienceTable experience;
-    core::CharacterCreationRules rules;
-    /// Les quatre fiches, le meneur en tete.
-    std::vector<core::LoadedCharacterSheet> members;
-    core::ItemCatalog items;
-    core::EquipmentCatalog equipment;
-    core::EncumbranceRules encumbrance;
-
-    /// La fiche du meneur.
-    [[nodiscard]] const core::LoadedCharacterSheet& loaded() const {
-        return members.front();
-    }
-
-    /// La source de combattant de @p member : sa fiche, son arme, ses sorts.
-    [[nodiscard]] hmi::HeroContestantSource sourceOf(
-        const core::LoadedCharacterSheet& member) const {
-        const core::ItemLookup lookup{.items = &items, .equipment = &equipment};
-        hmi::HeroContestantSource hero{
-            .sheet = member.sheet,
-            .proficiency = core::proficiencyBonus(member.sheet, experience),
-            .armorClass =
-                core::derivedStatsFor(member.sheet, member.inventory, lookup, rules, encumbrance)
-                    .armorClass,
-            .weapon = std::nullopt,
-            .spells = {}};
-        if (const core::Weapon* weapon =
-                equipment.findWeapon(member.inventory.at(core::EquipmentSlot::MainHand))) {
-            hero.weapon = *weapon;
-        }
-        if (const core::PlayableClass* playableClass = options.findClass(member.sheet.classId)) {
-            std::vector<std::string> skipped;
-            hero.spells = core::arenaSpellsFor(member.sheet, *playableClass, options.spells,
-                                               hero.proficiency, skipped);
-        }
-        return hero;
-    }
-
-    /// Les sources des quatre, dans l'ordre de marche.
-    [[nodiscard]] std::vector<hmi::HeroContestantSource> sources() const {
-        std::vector<hmi::HeroContestantSource> result;
-        for (const core::LoadedCharacterSheet& member : members) {
-            result.push_back(sourceOf(member));
-        }
-        return result;
-    }
-};
+using test_support::Heros;
 
 [[nodiscard]] Heros chargerLeHeros() {
-    const std::filesystem::path rpg = ELEMENTS / "Rpg";
-    Heros heros;
-    heros.options = core::loadCharacterOptions(rpg);
-    heros.skills = core::loadSkills(rpg / "skills");
-    heros.experience = core::loadExperienceTable(rpg / "rules" / "experience.json");
-    heros.rules = core::loadCharacterCreationRules(rpg / "rules" / "character-creation.json");
-    // Le groupe de « Nouvelle partie » (`hmi::WorldModel::STARTING_PARTY`), dans l'ordre de
-    // marche ; l'en-tete Qt du modele n'entre pas dans ce test sans fenetre.
-    for (const char* membre : {"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"}) {
-        heros.members.push_back(
-            core::loadCharacterSheet(rpg / "characters" / (std::string{membre} + ".json"),
-                                     heros.options, heros.rules, heros.experience));
-    }
-    heros.items = core::loadItems(rpg / "items");
-    heros.equipment = core::loadEquipment(rpg / "weapons", rpg / "armors");
-    heros.encumbrance = core::loadEncumbranceRules(rpg / "rules" / "encumbrance.json");
-    return heros;
+    return test_support::loadHeroes(ELEMENTS, test_support::startingParty());
 }
 
 /// Ce que le combat de l'arene demande au contenu livre.
-struct Arene {
-    core::EncounterCatalog encounters = core::loadEncounters(ELEMENTS / "Rpg" / "encounters");
-    core::Bestiary bestiary = core::loadBestiary(ELEMENTS / "Rpg" / "creatures");
-    core::BehaviorCatalog behaviors =
-        core::loadBehaviors(ELEMENTS / "Rpg" / "rules" / "behaviors.json");
+struct Arene : test_support::ArenaContent {
+    Arene() : test_support::ArenaContent(ELEMENTS) {}
 };
 
 /**
- * @brief Joue la rencontre de l'arene sur le sable, les deux camps par l'IA, a la graine donnee.
- *
- * Le montage est celui de `hmi::EncounterModel::begin` : la zone de combat qui contient le PNJ,
- * le groupe en file derriere son meneur devant le maitre (`LOT-139`), les combattants a leurs
- * places, un combat letal dont on ne s'echappe pas, la prise en tenaille en jeu.
+ * @brief Joue la rencontre des bandits sur le sable, les deux camps par l'IA, a la graine donnee
+ *        (`test_support::playEncounter`, le montage de `hmi::EncounterModel::begin`).
  * @return L'issue, ou rien si le combat n'a pas pu se monter ou ne s'est pas termine.
  */
 [[nodiscard]] std::optional<core::CombatOutcome> jouerLeCombat(
     const core::Level& sable, const Arene& arene,
     const std::vector<hmi::HeroContestantSource>& groupe, std::uint64_t graine,
     core::EncounterRun* engagee = nullptr) {
-    const core::Encounter* const rencontre = arene.encounters.find(RENCONTRE);
-    if (rencontre == nullptr) {
-        return std::nullopt;
-    }
-    // Le meneur devant le maitre, ses suiveurs dans son dos, vers l'est.
-    std::vector<core::GridPosition> cases;
-    for (std::size_t rang = 0; rang < groupe.size(); ++rang) {
-        cases.push_back({.column = DEVANT_LE_MAITRE.column + static_cast<int>(rang),
-                         .row = DEVANT_LE_MAITRE.row});
-    }
-    const core::MapEncounterResult prepared = core::prepareMapEncounter(
-        sable, SABLE, *rencontre, MARQUEUR_DES_BANDITS, cases, core::ExplorationSnapshot{}, "");
-    if (!prepared.ok()) {
-        ADD_FAILURE() << prepared.issue;
-        return std::nullopt;
-    }
-    const core::MapEncounterSetup& setup = *prepared.setup;
-    if (engagee != nullptr) {
-        *engagee = setup.run;
-    }
-    core::ArenaSession session(setup.battlefield);
-    session.setOpportunityPolicy(core::aiOpportunityPolicy(arene.behaviors));
-    core::ArenaBout bout{.contestants = {},
-                         .seed = graine,
-                         .lethal = true,
-                         .heroicMark = false,
-                         .flanking = true,
-                         .escapable = setup.run.escapable};
-    for (std::size_t rang = 0; rang < groupe.size() && rang < setup.partyCells.size(); ++rang) {
-        core::ArenaContestant membre = hmi::heroContestant(groupe[rang], core::CombatSide::Allies);
-        membre.position = setup.partyCells[rang];
-        // Le joueur ne joue pas : l'IA tient la place de chacun, avec le profil qui va au-devant
-        // de l'ennemi.
-        membre.behavior = "aggressive";
-        bout.contestants.push_back(std::move(membre));
-    }
-    for (const core::CombatantPlacement& placement : setup.run.placements) {
-        const core::Creature* const creature = arene.bestiary.find(placement.creatureId);
-        if (creature == nullptr) {
-            ADD_FAILURE() << "creature inconnue : " << placement.creatureId;
-            return std::nullopt;
-        }
-        core::ArenaContestant enemy =
-            hmi::creatureContestant(*creature, core::CombatSide::Enemies, &arene.behaviors);
-        enemy.position = placement.position;
-        bout.contestants.push_back(std::move(enemy));
-    }
-    const core::ArenaMount mount = session.mount(bout);
-    if (mount.allies.empty() || mount.enemies.empty() || !session.start()) {
-        ADD_FAILURE() << "montage refuse a la graine " << graine;
-        return std::nullopt;
-    }
-    for (int tours = 0; tours < 600; ++tours) {
-        if (session.combat().phase() == core::CombatPhase::Ended) {
-            return session.outcome();
-        }
-        if (!core::playTurn(session, arene.behaviors)) {
-            return std::nullopt;
-        }
-    }
-    return std::nullopt;
+    return test_support::playEncounter(sable, arene, RENCONTRE, groupe, graine, engagee);
 }
 
 /// Un interlocuteur qui parle le commun, dont on decide le jet, et qui note ce que le PNJ demande.
@@ -523,7 +391,12 @@ TEST(QueteDesPommes, LaVoieDeLArene) {
     EXPECT_EQ(partie.etapesAtteintes(),
               (std::vector<std::string>{"pommes/victoire", "pommes/enfant-libere"}));
     EXPECT_EQ(partie.valeur(), "enfant-libere");
-    EXPECT_EQ(partie.parlerDepuis(DEVANT_LE_MAITRE), std::nullopt) << "le maitre s'en est alle";
+    // Le maitre reste sur le sable (LOT-142) : il donne un niveau et un repos, et propose la
+    // suite de la serie. Le combat suivant se remet a plus tard.
+    ASSERT_EQ(partie.parlerDepuis(DEVANT_LE_MAITRE), "maitre-arene") << "le maitre reste";
+    const Demandes suite = partie.converser("maitre-arene", {"combattre"});
+    EXPECT_EQ(suite.rencontres, (std::vector<std::string>{"arene-gladiateurs"}));
+    EXPECT_TRUE(partie.drapeaux().isSet("arene/recompense-1"));
 
     // Le retour : l'escalier, la porte ouverte, le parvis, l'avenue, l'etal.
     ASSERT_EQ(partie.marcherJusquA(PORTE_DU_TRIOMPHE, {0.0F, -1.0F},
@@ -575,17 +448,16 @@ TEST(QueteDesPommes, LaDefaiteSurLeSable) {
 }
 
 /**
- * @brief L'équilibrage : sur cent combats simulés, le groupe de la démo joué par l'IA — sans
- *        sort ni soin, à l'arme seule — l'emporte sur les six bandits une fois sur deux, entre 45
- *        et 60 fois (`LOT-139`, qui remplace le critère du `LOT-120` écrit pour un duel). Le
- * joueur, qui lance les sorts et soigne, fait mieux : la rencontre est **difficile** au budget du
- *        *Guide du Maître*, pas mortelle.
- * \castest{<b>Le groupe gagne le combat de l'arene entre 45 et 60 fois sur cent.</b><br/>
+ * @brief L'équilibrage : sur cent combats simulés, le groupe de la démo joué par l'IA — sorts,
+ *        soins et profil de son rôle compris (`LOT-142`) — l'emporte sur les six bandits sept
+ *        fois sur dix, entre 62 et 78 fois. La rencontre est **difficile** au budget du *Guide du
+ *        Maître*, pas mortelle ; c'est la première de la série de l'arène.
+ * \castest{<b>Le groupe gagne le combat de l'arene entre 62 et 78 fois sur cent.</b><br/>
  * \tcat Integration · Quete de la demo · Equilibrage<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Le sable, la rencontre des bandits, les quatre de la demo joues par l'IA.<br/>2. Cent
  * combats, aux graines 1 a 100.<br/>
- * \tattendu Chaque combat se termine ; entre 45 et 60 victoires.
+ * \tattendu Chaque combat se termine ; entre 62 et 78 victoires.
  * }
  */
 TEST(QueteDesPommes, LeCombatSeGagneDeuxFoisSurTrois) {
@@ -606,22 +478,22 @@ TEST(QueteDesPommes, LeCombatSeGagneDeuxFoisSurTrois) {
             ++victoires;
         }
     }
-    EXPECT_GE(victoires, 45) << victoires << " victoires sur cent";
-    EXPECT_LE(victoires, 60) << victoires << " victoires sur cent";
+    EXPECT_GE(victoires, 62) << victoires << " victoires sur cent";
+    EXPECT_LE(victoires, 78) << victoires << " victoires sur cent";
 }
 
 /**
- * @brief La probabilité de victoire tient sur deux cents graines tirées d'une graine maîtresse —
- *        un échantillon qu'on renouvelle en changeant la graine maîtresse, comme un fuzzer
- *        renouvelle ses entrées : une sur deux, à huit points près. Deux cents et non mille : un
- *        combat à dix se joue en deux secondes en Debug, et la CI n'a pas une demi-heure à y
- *        mettre (`LOT-139`).
- * \castest{<b>Sur deux cents combats a graines tirees, le groupe gagne une fois sur deux.</b><br/>
+ * @brief La probabilité de victoire tient sur cent graines tirées d'une graine maîtresse — un
+ *        échantillon qu'on renouvelle en changeant la graine maîtresse, comme un fuzzer renouvelle
+ *        ses entrées : sept sur dix, à dix points près. Cent et non mille : un combat à dix se
+ *        joue en trois secondes en Debug, sorts compris, et la CI n'a pas une demi-heure à y
+ *        mettre (`LOT-139`, `LOT-142`).
+ * \castest{<b>Sur cent combats a graines tirees, le groupe gagne sept fois sur dix.</b><br/>
  * \tcat Integration · Quete de la demo · Equilibrage<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Deux cents graines tirees de la graine maitresse 120.<br/>2. Un combat par graine,
+ * \tetapes 1. Cent graines tirees de la graine maitresse 120.<br/>2. Un combat par graine,
  * les deux camps par l'IA.<br/>
- * \tattendu Chaque combat se termine ; entre 85 et 115 victoires.
+ * \tattendu Chaque combat se termine ; entre 60 et 80 victoires.
  * }
  */
 TEST(QueteDesPommes, LaProbabiliteDeVictoireTientSurMilleGraines) {
@@ -635,7 +507,7 @@ TEST(QueteDesPommes, LaProbabiliteDeVictoireTientSurMilleGraines) {
 
     core::DeterministicRandom maitresse{GRAINE};
     int victoires = 0;
-    for (int i = 0; i < 200; ++i) {
+    for (int i = 0; i < 100; ++i) {
         const auto graine = static_cast<std::uint64_t>(maitresse.nextInt(1, 1'000'000'000));
         const std::optional<core::CombatOutcome> issue =
             jouerLeCombat(*sable.level, arene, source, graine);
@@ -644,9 +516,9 @@ TEST(QueteDesPommes, LaProbabiliteDeVictoireTientSurMilleGraines) {
             ++victoires;
         }
     }
-    ::testing::Test::RecordProperty("victoires_sur_deux_cents", victoires);
-    EXPECT_GE(victoires, 85) << victoires << " victoires sur deux cents";
-    EXPECT_LE(victoires, 115) << victoires << " victoires sur deux cents";
+    ::testing::Test::RecordProperty("victoires_sur_cent", victoires);
+    EXPECT_GE(victoires, 60) << victoires << " victoires sur cent";
+    EXPECT_LE(victoires, 80) << victoires << " victoires sur cent";
 }
 
 /**

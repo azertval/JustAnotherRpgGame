@@ -11,6 +11,7 @@
  * s'écrit au journal est le nom que la donnée porte.
  */
 
+#include <algorithm>
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
@@ -105,21 +106,27 @@ TEST(ClassBrawlerTest, ToughAsNailsDonneSaCaSansArmure) {
 }
 
 /**
- * @brief Tough as Nails en combat : les degats sont divises, et la capacite se nomme.
- * \castest{<b>Le mannequin touche le Brawler : il ne perd que la moitie des degats, et le journal
- * ecrit « resistance (tranchant ; Tough as Nails) ».</b><br/>
+ * @brief Tough as Nails en combat : la resistance est **graduee** (`LOT-142`, D-36) — plein de vie,
+ *        le Brawler perd tout ; blesse, il retire aux degats la part des PV perdus, la moitie au
+ *        plus ; la capacite se nomme.
+ * \castest{<b>Le mannequin touche le Brawler a 5 PV sur 15 : il retire le tiers des degats, et le
+ * journal ecrit « resistance graduee (tranchant ; Tough as Nails) » ; plein de vie, il perd
+ * tout.</b><br/>
  * \tcat Unitaire · Classes<br/>
  * \tcrit Critique<br/>
- * \tetapes 1. Monter le Brawler N1 contre un mannequin a +20 au toucher.<br/>2. Passer au tour
- * du mannequin et attaquer ; graine choisie pour toucher.<br/>
- * \tattendu Le montage ecrit « capacites Grom Tranche-Écaille : Tough as Nails » ; la ligne de
- * l'attaque nomme la resistance ; PV perdus = degats lances / 2, arrondi a l'inferieur.
+ * \tetapes 1. Monter le Brawler N1 a 5 PV contre un mannequin a +20 au toucher.<br/>2. Passer au
+ * tour du mannequin et attaquer ; graine choisie pour toucher.<br/>3. Recommencer a 15 PV.<br/>
+ * \tattendu Le montage ecrit « capacites Grom Tranche-Écaille : Tough as Nails » ; a 5 PV, la ligne
+ * nomme la resistance graduee et PV perdus = degats − ⌊degats × 10 ÷ 30⌋ ; a 15 PV, PV perdus =
+ * degats.
  * }
  */
 TEST(ClassBrawlerTest, ToughAsNailsDiviseLesDegatsEtSeNomme) {
     const core::LoadedCharacterSheet charge = brawler();
     core::ArenaSession session(test_support::room());
     core::ArenaBout bout = combatDe(charge, 10, 20);
+    // Blesse : 5 PV sur 15, dix perdus.
+    bout.contestants.front().profile.currentHitPoints = 5;
     std::optional<core::AttackOutcome> coup;
     for (std::uint64_t graine = 1; graine < 40 && !coup.has_value(); ++graine) {
         bout.seed = graine;
@@ -135,10 +142,33 @@ TEST(ClassBrawlerTest, ToughAsNailsDiviseLesDegatsEtSeNomme) {
     ASSERT_TRUE(coup.has_value());
     EXPECT_TRUE(journalHas(session.journal(), "capacites Grom Tranche-Écaille : Tough as Nails"));
     const std::string ligne = journalLine(session.journal(), "attaque Mannequin -> Grom");
-    EXPECT_NE(ligne.find("resistance (tranchant ; Tough as Nails)"), std::string::npos) << ligne;
     ASSERT_TRUE(coup->report.has_value());
     const int lances = coup->damage.front().amount;
-    EXPECT_EQ(coup->report->hitPointsBefore - coup->report->hitPointsAfter, lances / 2);
+    const int retire = (lances * 10) / 30;
+    if (retire > 0) {
+        EXPECT_NE(ligne.find("resistance graduee (tranchant ; Tough as Nails)"), std::string::npos)
+            << ligne;
+    }
+    EXPECT_EQ(coup->report->hitPointsBefore - coup->report->hitPointsAfter,
+              std::min(5, lances - retire));
+
+    // Plein de vie, la resistance ne retire rien.
+    bout.contestants.front().profile.currentHitPoints = 15;
+    std::optional<core::AttackOutcome> plein;
+    for (std::uint64_t graine = 1; graine < 40 && !plein.has_value(); ++graine) {
+        bout.seed = graine;
+        ASSERT_TRUE(session.mount(bout).refusals.empty());
+        ASSERT_TRUE(session.start());
+        ASSERT_TRUE(session.endTurn());
+        const core::ArenaAttack attaque = session.attack(CombatantId{1});
+        ASSERT_EQ(attaque.result, core::ArenaActionResult::Done);
+        if (attaque.outcome->roll.hit) {
+            plein = attaque.outcome;
+        }
+    }
+    ASSERT_TRUE(plein.has_value() && plein->report.has_value());
+    EXPECT_EQ(plein->report->hitPointsBefore - plein->report->hitPointsAfter,
+              std::min(15, plein->damage.front().amount));
 }
 
 /**

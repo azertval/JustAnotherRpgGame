@@ -95,6 +95,12 @@ struct DamageAffinity {
     /// Ce qui la donne, si quelque chose la nomme (`LOT-131`) : la capacité de classe, pour que
     /// le journal l'écrive. Vide pour une affinité de bloc de bestiaire.
     std::string source;
+    /**
+     * @brief Une résistance **graduée** (`LOT-142`, décision nommée) : elle retire aux dégâts la
+     *        part des points de vie perdus, la moitié au plus — rien plein de vie, la résistance
+     *        entière à 0 PV. `dégâts − ⌊dégâts × PV perdus ÷ (2 × PV max)⌋`.
+     */
+    bool graduated = false;
 
     [[nodiscard]] bool operator==(const DamageAffinity&) const = default;
 };
@@ -301,7 +307,10 @@ public:
 
 private:
     void runStage(DamageStage stage, DamageWork& work, CombatState* combat) const;
-    static void applyAffinities(DamageWork& work, const DamageTraits& traits);
+    /// @p hitPoints et @p maximumHitPoints : ceux de la cible avant ces dégâts, que lit une
+    /// résistance graduée.
+    static void applyAffinities(DamageWork& work, const DamageTraits& traits, int hitPoints,
+                                int maximumHitPoints);
 
     std::vector<std::pair<DamageStage, DamageListener>> _listeners;
 };

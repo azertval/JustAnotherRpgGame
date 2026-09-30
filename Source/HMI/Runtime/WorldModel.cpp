@@ -133,7 +133,22 @@ bool WorldModel::startNewGame() {
         emit changed();
         return false;
     }
-    return enterMap(QString::fromStdString(depart), QString::fromStdString(_city.startArrival));
+    const bool ouverte =
+        enterMap(QString::fromStdString(depart), QString::fromStdString(_city.startArrival));
+    // La demo se rejoue avec le meneur qu'on choisit (LOT-142) : c'est lui qui parle et fait les
+    // jets, les quatre restent du groupe.
+    if (ouverte && !_choosingLeader) {
+        _choosingLeader = true;
+        emit partyChanged();
+    }
+    return ouverte;
+}
+
+void WorldModel::endLeaderChoice() {
+    if (_choosingLeader) {
+        _choosingLeader = false;
+        emit partyChanged();
+    }
 }
 
 void WorldModel::placeHeroAtStartCell() {
@@ -490,6 +505,30 @@ bool WorldModel::levelUp(const QString& characterId) {
         emit partyChanged();
     }
     return monte;
+}
+
+bool WorldModel::rest(const QString& characterId) {
+    std::vector<std::string> cibles;
+    if (characterId == QString::fromUtf8(core::LEVEL_UP_PARTY.data(),
+                                         static_cast<qsizetype>(core::LEVEL_UP_PARTY.size()))) {
+        cibles = _party.members();
+    } else {
+        cibles.push_back(characterId.toStdString());
+    }
+    bool repose = false;
+    for (const std::string& id : cibles) {
+        const core::MemberRecord* const record = _ledger.record(id);
+        if (record == nullptr || (!record->hitPoints.has_value() && record->spellUses.empty())) {
+            continue;
+        }
+        _ledger.rest(id);
+        repose = true;
+    }
+    if (repose) {
+        HMI_LOG_INFO("Repos long : le groupe retrouve ses points de vie et ses sorts.");
+        emit partyChanged();
+    }
+    return repose;
 }
 
 void WorldModel::showCharacter(const QString& characterId) {

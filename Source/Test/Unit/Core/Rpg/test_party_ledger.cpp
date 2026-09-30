@@ -100,3 +100,43 @@ TEST(PartyLedgerTest, LeRegistreSOublie) {
     registre.clear();
     EXPECT_TRUE(registre.empty());
 }
+
+/**
+ * @brief Le repos long rend la fiche pleine et garde le niveau donné (`LOT-142`) : un membre
+ *        monté garde son enregistrement, réduit au niveau ; un membre sans niveau n'en a plus.
+ * \castest{<b>Le repos long oublie les blessures, pas le niveau.</b><br/>
+ * \tcat Unitaire · Groupe<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Ecrire Helga niveau 3, 4 PV, aucun lancer ; Grom 3 PV sans niveau.<br/>2. Reposer
+ * les deux, et un inconnu.<br/>
+ * \tattendu Helga garde le niveau 3, sans points de vie ni lancers retenus ; Grom n'a plus
+ * d'enregistrement ; l'inconnu ne change rien.
+ * }
+ */
+TEST(PartyLedgerTest, LeReposGardeLeNiveau) {
+    core::PartyLedger registre;
+    core::MemberRecord helga;
+    helga.level = 3;
+    helga.hitPoints = 4;
+    helga.spellUses = {{"soin-des-blessures", 0}};
+    registre.write("helga", helga);
+    core::MemberRecord grom;
+    grom.hitPoints = 3;
+    registre.write("grom", grom);
+
+    registre.rest("helga");
+    registre.rest("grom");
+    registre.rest("personne");
+
+    const core::MemberRecord* const reposee = registre.record("helga");
+    ASSERT_NE(reposee, nullptr);
+    EXPECT_EQ(reposee->level, 3);
+    EXPECT_FALSE(reposee->hitPoints.has_value());
+    EXPECT_TRUE(reposee->spellUses.empty());
+    EXPECT_EQ(registre.record("grom"), nullptr);
+
+    core::CharacterSheet sheet = fiche();
+    sheet.currentHitPoints = 2;
+    core::applyRecord(sheet, *reposee);
+    EXPECT_EQ(sheet.currentHitPoints, 2) << "le registre repose ne retire rien a la fiche lue";
+}

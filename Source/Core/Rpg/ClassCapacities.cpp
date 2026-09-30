@@ -123,6 +123,7 @@ constexpr std::array<NomDeGenre, 9> GENRES{{
                                   const std::string& genre, CapacityEffect& effet,
                                   std::vector<std::string>& erreurs) {
     effet.allDamageTypes = lireBooleen(objet, "allTypes", false);
+    effet.graduated = lireBooleen(objet, "graduated", false);
     for (const std::string& nom : lireTextes(objet, "types")) {
         const std::optional<DamageType> type = parseDamageType(nom);
         if (!type.has_value()) {
@@ -382,11 +383,13 @@ std::vector<NamedResistance> resistancesFrom(std::span<const Capacity> capacitie
                 continue;
             }
             if (effet.allDamageTypes) {
-                resistances.push_back({.type = std::nullopt, .source = capacite.name});
+                resistances.push_back(
+                    {.type = std::nullopt, .source = capacite.name, .graduated = effet.graduated});
                 continue;
             }
             for (const DamageType type : effet.damageTypes) {
-                resistances.push_back({.type = type, .source = capacite.name});
+                resistances.push_back(
+                    {.type = type, .source = capacite.name, .graduated = effet.graduated});
             }
         }
     }

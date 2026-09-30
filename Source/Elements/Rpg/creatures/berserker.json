@@ -1,0 +1,47 @@
+{
+  "id": "berserker",
+  "name": "Berserker",
+  "source": "srd",
+  "size": "medium",
+  "creatureType": "humanoïde",
+  "alignment": "n'importe quel alignement Chaotique",
+  "silhouette": "humanoid",
+  "description": "Originaires de régions barbares, les imprévisibles berserkers forment des groupes de bataille et cherchent le conflit dès que l'occasion se présente.",
+  "abilities": {
+    "strength": 16,
+    "dexterity": 12,
+    "constitution": 17,
+    "intelligence": 9,
+    "wisdom": 11,
+    "charisma": 9
+  },
+  "armorClass": 13,
+  "hitPoints": 67,
+  "hitDice": "9d8+27",
+  "speed": {
+    "walk": 9
+  },
+  "challengeRating": 2,
+  "senses": [
+    "Perception passive 10"
+  ],
+  "languages": [
+    "commun"
+  ],
+  "traits": [
+    {
+      "name": "Téméraire",
+      "text": "Au début de son tour, le berserker peut bénéficier d'un avantage lors de tous ses jets d'attaque d'arme au corps à corps pendant ce tour, mais les jets d'attaque effectués contre lui sont alors avantagés jusqu'au début de son prochain tour. Choix que le moteur ne joue pas encore."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Hache à deux mains",
+      "text": "Attaque au corps à corps avec une arme : +5 au toucher, allonge 1,50 m, une cible. Touché : 9 (1d12 + 3) dégâts tranchants.",
+      "attackBonus": 5,
+      "reach": 1.5,
+      "damage": "1d12+3",
+      "damageType": "slashing"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "gladiator",
+  "name": "Gladiateur",
+  "source": "srd",
+  "size": "medium",
+  "creatureType": "humanoïde",
+  "alignment": "n'importe quel alignement",
+  "silhouette": "humanoid",
+  "description": "Les gladiateurs s'affrontent pour amuser les foules tapageuses. Certains mènent des combats violents dans les arènes lors desquels ils risquent leur vie, tandis que d'autres sont des duellistes professionnels.",
+  "abilities": {
+    "strength": 18,
+    "dexterity": 15,
+    "constitution": 16,
+    "intelligence": 10,
+    "wisdom": 12,
+    "charisma": 15
+  },
+  "armorClass": 16,
+  "hitPoints": 112,
+  "hitDice": "15d8+45",
+  "speed": {
+    "walk": 9
+  },
+  "challengeRating": 5,
+  "skills": {
+    "athletics": 10,
+    "intimidation": 5
+  },
+  "senses": [
+    "Perception passive 11"
+  ],
+  "languages": [
+    "commun"
+  ],
+  "multiattack": 3,
+  "traits": [
+    {
+      "name": "Brave",
+      "text": "Le gladiateur est avantagé lors des jets de sauvegarde effectués pour ne pas être terrorisé."
+    },
+    {
+      "name": "Brutal",
+      "text": "Une arme de corps à corps inflige un dé supplémentaire de ses dégâts quand le gladiateur réussit une attaque en la maniant (inclus dans l'attaque)."
+    },
+    {
+      "name": "Attaques multiples",
+      "text": "Le gladiateur effectue trois attaques au corps à corps ou deux attaques à distance."
+    },
+    {
+      "name": "Parade (réaction)",
+      "text": "Le gladiateur ajoute 3 à sa CA contre une attaque au corps à corps qui devrait le toucher. Il doit voir son agresseur et manier une arme de corps à corps. Réaction que le moteur ne joue pas encore."
+    }
+  ],
+  "actions": [
+    {
+      "name": "Lance",
+      "text": "Attaque au corps à corps avec une arme : +7 au toucher, allonge 1,50 m, une cible. Touché : 11 (2d6 + 4) dégâts perforants.",
+      "attackBonus": 7,
+      "reach": 1.5,
+      "damage": "2d6+4",
+      "damageType": "piercing"
+    },
+    {
+      "name": "Coup de bouclier",
+      "text": "Attaque au corps à corps avec une arme : +7 au toucher, allonge 1,50 m, une cible. Touché : 9 (2d4 + 4) dégâts contondants.",
+      "attackBonus": 7,
+      "reach": 1.5,
+      "damage": "2d4+4",
+      "damageType": "bludgeoning"
+    },
+    {
+      "name": "Lance (lancer)",
+      "text": "Attaque à distance avec une arme : +7 au toucher, portée 6/18 m, une cible. Touché : 11 (2d6 + 4) dégâts perforants.",
+      "attackBonus": 7,
+      "rangeNormal": 6,
+      "rangeLong": 18,
+      "damage": "2d6+4",
+      "damageType": "piercing"
+    }
+  ]
+}

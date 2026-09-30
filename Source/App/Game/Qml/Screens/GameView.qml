@@ -89,8 +89,10 @@ GameViewForm {
     // La partie ne recommence pas parce que l'ecran reparait : on revient du dialogue, du combat
     // ou de l'inventaire sur la carte qu'on a quittee.
     Component.onCompleted: {
-        if (!WorldModel.loaded)
-            WorldModel.startNewGame();
+        // « Nouvelle partie » : le joueur choisit d'abord son meneur, sur l'ecran Groupe
+        // (LOT-142).
+        if (!WorldModel.loaded && WorldModel.startNewGame() && WorldModel.choosingLeader)
+            ScreenRouter.openRpgScreen(ScreenRouter.Party);
         // Et l'on revient de l'obscurite : au premier pas sur la carte comme au retour d'un
         // ecran, la carte se leve d'un fondu plutot que de paraitre d'un coup.
         fondu.restart();

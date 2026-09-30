@@ -1,6 +1,6 @@
 # Core · Rpg
 
-Tests unitaires — **104 cas** (3 bloquants, 61 critiques, 38 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **106 cas** (3 bloquants, 62 critiques, 39 majeurs, 2 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -11,13 +11,13 @@ Tests unitaires — **104 cas** (3 bloquants, 61 critiques, 38 majeurs, 2 mineur
 | [`test_character_sheet.cpp`](#test-character-sheetcpp) | 10 | - | 6 | 4 | - |
 | [`test_check.cpp`](#test-checkcpp) | 5 | - | 4 | 1 | - |
 | [`test_class_capacities.cpp`](#test-class-capacitiescpp) | 5 | - | 4 | 1 | - |
-| [`test_dialogue.cpp`](#test-dialoguecpp) | 16 | 3 | 8 | 5 | - |
+| [`test_dialogue.cpp`](#test-dialoguecpp) | 17 | 3 | 8 | 6 | - |
 | [`test_dice.cpp`](#test-dicecpp) | 9 | - | 5 | 4 | - |
 | [`test_equipment.cpp`](#test-equipmentcpp) | 7 | - | 6 | 1 | - |
 | [`test_inventory.cpp`](#test-inventorycpp) | 13 | - | 5 | 7 | 1 |
 | [`test_multiclassing.cpp`](#test-multiclassingcpp) | 6 | - | 4 | 2 | - |
 | [`test_party.cpp`](#test-partycpp) | 4 | - | 2 | 1 | 1 |
-| [`test_party_ledger.cpp`](#test-party-ledgercpp) | 2 | - | 1 | 1 | - |
+| [`test_party_ledger.cpp`](#test-party-ledgercpp) | 3 | - | 2 | 1 | - |
 | [`test_premade_characters.cpp`](#test-premade-characterscpp) | 7 | - | 5 | 2 | - |
 | [`test_rpg_enums.cpp`](#test-rpg-enumscpp) | 5 | - | 3 | 2 | - |
 
@@ -41,7 +41,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 ### BestiaryTest.LesQuatreVingtQuatorzeProfilsChargent
 
-*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:96`
+*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:99`
 
 Les 94 creatures du bestiaire de base se chargent toutes.
 
@@ -55,11 +55,11 @@ Les 94 creatures du bestiaire de base se chargent toutes.
 - Vérifie que `identifiants.insert(creature.id).second` est vrai.
 - Vérifie que `creature.name.empty()` est faux.
 - Vérifie que `creature.source` vaut `"original"`.
-- Vérifie que `srd` vaut `BETES_DU_SRD`.
+- Vérifie que `srd` vaut `BETES_DU_SRD + PNJ_DU_MANUEL`.
 
 ### BestiaryTest.DixProfilsConcordentAvecLeLivre
 
-*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:129`
+*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:134`
 
 Dix blocs de statistiques du bestiaire concordent avec le livre.
 
@@ -83,7 +83,7 @@ Dix blocs de statistiques du bestiaire concordent avec le livre.
 
 ### BestiaryTest.ChaqueProfilEstComplet
 
-*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:169`
+*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:174`
 
 Aucun profil du bestiaire n'a de caracteristique ni de vitesse manquante.
 
@@ -102,7 +102,7 @@ Aucun profil du bestiaire n'a de caracteristique ni de vitesse manquante.
 
 ### BestiaryTest.UneVitesseNulleSignifieUnAutreDeplacement
 
-*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:193`
+*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:198`
 
 Une creature sans vitesse de marche possede un autre mode de deplacement.
 
@@ -117,7 +117,7 @@ Une creature sans vitesse de marche possede un autre mode de deplacement.
 
 ### BestiaryTest.LesMecanismesExigesSontAnnonces
 
-*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:221`
+*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:226`
 
 Exigences : `EX-CNT-031`
 
@@ -134,7 +134,7 @@ Le bestiaire annonce les mecanismes que les creatures exigent du moteur.
 
 ### BestiaryTest.UnDossierAbsentEstSignale
 
-*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:242`
+*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:247`
 
 Charger un dossier de creatures inexistant produit une erreur nommee.
 
@@ -849,7 +849,7 @@ Brawler, Mage, Priest et Scoundrel portent les maitrises d'armes et d'armures, l
 
 ### DialogueTest.LesDialoguesDeLaDemoSeChargentEtLeursReferencesExistent
 
-*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:157`
+*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:161`
 
 Les dialogues de la demo se chargent et leurs references existent.
 
@@ -871,7 +871,7 @@ Les dialogues de la demo se chargent et leurs references existent.
 
 ### DialogueTest.LeDialogueDuHerautDEssaiSeParcourtEnHeadless
 
-*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:200`
+*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:204`
 
 Le dialogue du heraut d'essai se parcourt sans fenetre.
 
@@ -925,7 +925,7 @@ Le dialogue du heraut d'essai se parcourt sans fenetre.
 
 ### DialogueTest.UnEchecMeneALAutreSuiteEtFermeLaReponseConditionnelle
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:273`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:277`
 
 Un echec de Persuasion ferme la reponse de retentative.
 
@@ -956,7 +956,7 @@ Un echec de Persuasion ferme la reponse de retentative.
 
 ### DialogueTest.UnDialogueEstRefuseFauteDeLangueCommune
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:309`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:313`
 
 Exigences : `EX-RPG-042`
 
@@ -979,7 +979,7 @@ Un dialogue est refuse faute de langue commune.
 
 ### DialogueTest.UnGrapheMalFormeEstRejeteAuChargement
 
-*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:338`
+*Bloquant · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:342`
 
 Les graphes mal formes sont refuses au chargement.
 
@@ -995,7 +995,7 @@ Les graphes mal formes sont refuses au chargement.
 
 ### DialogueTest.UneReponseAJetRateeNeSeProposePlus
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:427`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:431`
 
 Une reponse a jet ratee ne se propose plus.
 
@@ -1036,7 +1036,7 @@ Une reponse a jet ratee ne se propose plus.
 
 ### DialogueTest.UneBouclePasseeParUnChoixEstUnHubVoulu
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:493`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:497`
 
 Une boucle par une replique a reponses est acceptee.
 
@@ -1058,7 +1058,7 @@ Une boucle par une replique a reponses est acceptee.
 
 ### DialogueTest.LesActionsTouchentLeMonde
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:530`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:534`
 
 Les quatre actions d'un dialogue s'appliquent.
 
@@ -1080,7 +1080,7 @@ Les quatre actions d'un dialogue s'appliquent.
 
 ### DialogueTest.UnDialogueSeRejoueAGraineFixee
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:568`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:572`
 
 Un dialogue se rejoue a l'identique a graine fixee.
 
@@ -1097,7 +1097,7 @@ Un dialogue se rejoue a l'identique a graine fixee.
 
 ### DialogueTest.LesDialoguesSontTraduitsEnFrancaisEtEnAnglais
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:605`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:609`
 
 Les dialogues sont traduits en francais et en anglais.
 
@@ -1114,7 +1114,7 @@ Les dialogues sont traduits en francais et en anglais.
 
 ### DialogueTest.LesDegresDeDifficulteSeChargent
 
-*Majeur · Unitaire · Jet de d20* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:641`
+*Majeur · Unitaire · Jet de d20* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:645`
 
 Les degres de difficulte se chargent.
 
@@ -1137,7 +1137,7 @@ Les degres de difficulte se chargent.
 
 ### DialogueTest.LaFicheEcouteUnPnjAvecSesLanguesEtSesModificateurs
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:666`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:670`
 
 La fiche ecoute un PNJ : langues et modificateurs.
 
@@ -1166,7 +1166,7 @@ La fiche ecoute un PNJ : langues et modificateurs.
 
 ### DialogueTest.UnPnjDeCarteOuvreSonDialogue
 
-*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:715`
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:719`
 
 Un PNJ de carte ouvre son dialogue.
 
@@ -1187,7 +1187,7 @@ Un PNJ de carte ouvre son dialogue.
 
 ### DialogueTest.UnDialoguePeutEngagerUneRencontreSurLaCarte
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:752`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:756`
 
 Un dialogue peut engager une rencontre sur la carte.
 
@@ -1208,7 +1208,7 @@ Un dialogue peut engager une rencontre sur la carte.
 
 ### DialogueTest.UnDialoguePeutTerminerLaDemo
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:789`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:793`
 
 Un dialogue peut terminer la demo.
 
@@ -1231,7 +1231,7 @@ Un dialogue peut terminer la demo.
 
 ### DialogueTest.UnDialoguePeutDonnerUnNiveau
 
-*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:827`
+*Critique · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:831`
 
 Un dialogue peut donner un niveau.
 
@@ -1247,6 +1247,27 @@ Un dialogue peut donner un niveau.
 - Vérifie que `runner.start()` vaut `core::DialogueState::Ended`.
 - Vérifie que `receveur.niveaux` vaut `(std::vector<std::string>{"party", "heros-mage"})`.
 - Vérifie que `contient(runner.journal(), "niveau donne : party")` est vrai.
+- Vérifie que `refuse.graph.has_value()` est faux.
+
+### DialogueTest.UnDialoguePeutDonnerUnRepos
+
+*Majeur · Unitaire · Dialogue* — `Source/Test/Unit/Core/Rpg/test_dialogue.cpp:867`
+
+Un dialogue peut donner un repos.
+
+**Étapes**
+
+1. Lire un graphe dont le noeud d'action porte `levelUp` puis `rest` vers « party ».
+2. Le jouer avec un auditeur d'essai.
+3. Lire un graphe dont l'action `rest` n'a pas de champ `character`.
+
+**Résultat attendu**
+
+- Vérifie que `lu.graph.has_value()` est vrai.
+- Vérifie que `runner.start()` vaut `core::DialogueState::Ended`.
+- Vérifie que `receveur.niveaux` vaut `(std::vector<std::string>{"party"})`.
+- Vérifie que `receveur.repos` vaut `(std::vector<std::string>{"party"})`.
+- Vérifie que `contient(runner.journal(), "repos donne : party")` est vrai.
 - Vérifie que `refuse.graph.has_value()` est faux.
 
 ## test_dice.cpp
@@ -2038,6 +2059,26 @@ Le registre s'oublie : un membre, ou tout.
 - Vérifie que `registre.record("helga")` vaut `nullptr`.
 - Vérifie que `registre.record("grom")` diffère de `nullptr`.
 - Vérifie que `registre.empty()` est vrai.
+
+### PartyLedgerTest.LeReposGardeLeNiveau
+
+*Critique · Unitaire · Groupe* — `Source/Test/Unit/Core/Rpg/test_party_ledger.cpp:107`
+
+Le repos long oublie les blessures, pas le niveau.
+
+**Étapes**
+
+1. Ecrire Helga niveau 3, 4 PV, aucun lancer ; Grom 3 PV sans niveau.
+2. Reposer les deux, et un inconnu.
+
+**Résultat attendu**
+
+- Vérifie que `reposee` diffère de `nullptr`.
+- Vérifie que `reposee->level` vaut `3`.
+- Vérifie que `reposee->hitPoints.has_value()` est faux.
+- Vérifie que `reposee->spellUses.empty()` est vrai.
+- Vérifie que `registre.record("grom")` vaut `nullptr`.
+- Vérifie que `sheet.currentHitPoints` vaut `2`.
 
 ## test_premade_characters.cpp
 

@@ -3,7 +3,7 @@
   "name": "map.central-empire.capital.arenarea.arena-of-fate.name",
   "width": 34,
   "height": 24,
-  "nextEntityId": 7,
+  "nextEntityId": 12,
   "tiles": [
     {"x": 0, "y": 0, "type": "wall"},
     {"x": 1, "y": 0, "type": "wall"},
@@ -1234,7 +1234,7 @@
       "guards": "",
       "presenceFlag": "quete.pommes",
       "presenceTest": "equals",
-      "presenceValue": "condamne"
+      "presenceValue": "condamne|enfant-libere"
     },
     {
       "id": "e6",
@@ -1245,6 +1245,56 @@
       "presenceFlag": "quete.pommes",
       "presenceTest": "equals",
       "presenceValue": "condamne",
+      "respawns": false
+    },
+    {
+      "id": "e7",
+      "type": "encounter",
+      "x": 24,
+      "y": 6,
+      "encounterId": "arene-gladiateurs",
+      "presenceFlag": "encounter/arene-bandits/won",
+      "presenceTest": "set",
+      "respawns": false
+    },
+    {
+      "id": "e8",
+      "type": "encounter",
+      "x": 24,
+      "y": 8,
+      "encounterId": "arene-morts",
+      "presenceFlag": "encounter/arene-bandits/won",
+      "presenceTest": "set",
+      "respawns": false
+    },
+    {
+      "id": "e9",
+      "type": "encounter",
+      "x": 24,
+      "y": 12,
+      "encounterId": "arene-veteran",
+      "presenceFlag": "encounter/arene-bandits/won",
+      "presenceTest": "set",
+      "respawns": false
+    },
+    {
+      "id": "e10",
+      "type": "encounter",
+      "x": 24,
+      "y": 14,
+      "encounterId": "arene-capitaine",
+      "presenceFlag": "encounter/arene-bandits/won",
+      "presenceTest": "set",
+      "respawns": false
+    },
+    {
+      "id": "e11",
+      "type": "encounter",
+      "x": 23,
+      "y": 10,
+      "encounterId": "arene-champion",
+      "presenceFlag": "encounter/arene-bandits/won",
+      "presenceTest": "set",
       "respawns": false
     }
   ]

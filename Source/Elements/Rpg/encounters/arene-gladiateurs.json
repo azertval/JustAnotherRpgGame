@@ -1,0 +1,43 @@
+{
+  "id": "arene-gladiateurs",
+  "name": "Les gladiateurs de l'arène",
+  "source": "original",
+  "escapable": false,
+  "combatants": [
+    {
+      "creatureId": "combattant-de-l-arene",
+      "columnOffset": 0,
+      "rowOffset": 1
+    },
+    {
+      "creatureId": "combattant-de-l-arene",
+      "columnOffset": 0,
+      "rowOffset": 3
+    },
+    {
+      "creatureId": "combattant-de-l-arene",
+      "columnOffset": 0,
+      "rowOffset": 5
+    },
+    {
+      "creatureId": "combattant-de-l-arene",
+      "columnOffset": 0,
+      "rowOffset": 7
+    },
+    {
+      "creatureId": "bandit",
+      "columnOffset": 0,
+      "rowOffset": 9
+    },
+    {
+      "creatureId": "bandit-archer",
+      "columnOffset": 2,
+      "rowOffset": 1
+    },
+    {
+      "creatureId": "bandit-archer",
+      "columnOffset": 2,
+      "rowOffset": 7
+    }
+  ]
+}

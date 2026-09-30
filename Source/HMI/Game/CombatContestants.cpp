@@ -41,6 +41,15 @@ core::ArenaContestant heroContestant(const HeroContestantSource& hero, core::Com
 
 core::ArenaContestant creatureContestant(const core::Creature& creature, core::CombatSide side,
                                          const core::BehaviorCatalog* behaviors) {
+    // Les attaques multiples du bloc (LOT-142) : le meme mecanisme que l'Extra Attack d'un heros,
+    // une capacite qui ajoute des attaques a l'action Attaquer.
+    std::vector<core::Capacity> capacites;
+    if (creature.multiattack > 1) {
+        core::Capacity attaques{.id = "multiattack", .name = "Attaques multiples"};
+        attaques.effects.push_back(
+            {.kind = core::CapacityEffectKind::ExtraAttack, .value = creature.multiattack - 1});
+        capacites.push_back(std::move(attaques));
+    }
     return core::ArenaContestant{
         .profile = core::profileFor(creature, side),
         .attacks = core::attacksFor(creature).attacks,
@@ -50,7 +59,7 @@ core::ArenaContestant creatureContestant(const core::Creature& creature, core::C
         .behavior = behaviors != nullptr && !behaviors->profiles.empty()
                         ? core::behaviorFor(creature, *behaviors)
                         : std::string{},
-        .capacities = {},
+        .capacities = std::move(capacites),
         .spells = {}};
 }
 

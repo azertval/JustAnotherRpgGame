@@ -1,19 +1,19 @@
 # Tests système
 
-Tests système — **4 cas** (4 critiques). [Retour à la synthèse](README.md).
+Tests système — **5 cas** (5 critiques). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
-| [`test_demo_de_bout_en_bout.cpp`](#test-demo-de-bout-en-boutcpp) | 3 | - | 3 | - | - |
+| [`test_demo_de_bout_en_bout.cpp`](#test-demo-de-bout-en-boutcpp) | 4 | - | 4 | - | - |
 | [`test_parcours_edition_rpg.cpp`](#test-parcours-edition-rpgcpp) | 1 | - | 1 | - | - |
 
 ## test_demo_de_bout_en_bout.cpp
 
 ### DemoDeBoutEnBout.LaFinParLaParole
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:398`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:410`
 
 Nouvelle partie, puis la demo jusqu'a sa fin par la parole.
 
@@ -37,9 +37,32 @@ Nouvelle partie, puis la demo jusqu'a sa fin par la parole.
 - Vérifie que `jeu.parler(DEVANT_LE_GARDE)` vaut `std::nullopt`.
 - `ASSERT_NO_FATAL_FAILURE(finirChezLaMere(jeu, "parole"))`
 
+### DemoDeBoutEnBout.LaDemoSeRejoueAvecLeMeneurChoisi
+
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:442`
+
+Nouvelle partie avec le Scoundrel pour meneur, puis la demo jusqu'a sa fin par la parole.
+
+**Étapes**
+
+1. Nouvelle partie ; choisir le Scoundrel pour meneur.
+2. Accepter la quete, au parvis convaincre le garde a une graine qui reussit le jet du Scoundrel.
+3. Rendre l'enfant.
+
+**Résultat attendu**
+
+- `ASSERT_NO_FATAL_FAILURE(jusquAuParvis(jeu))`
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"partir"}))`
+- Vérifie que `jeu.graineDuDialogue` diffère de `0`.
+- Vérifie que `jeu.parler(DEVANT_LE_GARDE)` vaut `"garde"`.
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"convaincre", "continue"}))`
+- Vérifie que `jeu.valeur()` vaut `"enfant-libere"`.
+- Vérifie que `jeu.monde.leaderId().toStdString()` vaut `"heros-scoundrel"`.
+- `ASSERT_NO_FATAL_FAILURE(finirChezLaMere(jeu, "parole"))`
+
 ### DemoDeBoutEnBout.LaFinParLArene
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:429`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:469`
 
 Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.
 
@@ -75,14 +98,18 @@ Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.
 - Vérifie que `pomper([&jeu] { return jeu.etapes.size() >= 5; }, 1000)` est vrai.
 - Vérifie que `jeu.etapes.back()` vaut `"pommes/enfant-libere"`.
 - Vérifie que `jeu.valeur()` vaut `"enfant-libere"`.
-- Vérifie que `jeu.parler(DEVANT_LE_MAITRE)` vaut `std::nullopt`.
+- Vérifie que `jeu.parler(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"continue", "attendre"}))`
+- Vérifie que `record` diffère de `nullptr`.
+- Vérifie que `record->level` vaut `2`.
+- Vérifie que `record->hitPoints.has_value()` est faux.
 - Vérifie que `jeu.passerLePortail(PORTE_DU_TRIOMPHE, {0.0F, -1.0F}, VESTIAIRES)` est vrai.
 - Vérifie que `jeu.passerLePortail(ARRIVEE_AUX_VESTIAIRES, {1.0F, 0.0F}, ARENAREA)` est vrai.
 - `ASSERT_NO_FATAL_FAILURE(finirChezLaMere(jeu, "arene"))`
 
 ### DemoDeBoutEnBout.LaMortSurLeSable
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:501`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:550`
 
 Nouvelle partie, puis la demo jusqu'a la mort sur le sable.
 

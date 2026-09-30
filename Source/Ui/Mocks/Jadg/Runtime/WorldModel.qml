@@ -26,6 +26,7 @@ QtObject {
     readonly property var partyMembers: []
     readonly property var partyCandidates: []
     readonly property string leaderId: "heros-brawler"
+    readonly property bool choosingLeader: false
     readonly property string leaderName: "Grom Tranche-Écaille"
     readonly property url leaderPortrait: ""
     readonly property int maxPartySize: 4
@@ -47,5 +48,7 @@ QtObject {
     function toggleMember(characterId) { return true }
     function moveMember(characterId, offset) { return true }
     function levelUp(characterId) { return true }
+    function rest(characterId) { return true }
+    function endLeaderChoice() {}
     function showCharacter(characterId) {}
 }

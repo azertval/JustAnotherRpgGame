@@ -6,6 +6,31 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+## [0.0.2] - 2026-09-30
+
+**Le système de combat.** Les quatre classes de base du *Player's Guide to Tanares* — Brawler,
+Mage, Priest, Scoundrel —, fidèles à leurs fiches pré-tirées, montent du niveau 1 au niveau 5 ; le
+groupe de quatre se joue sur la carte, contre plusieurs adversaires, au clavier comme à la
+manette, avec sa fiche, son écran de groupe et son interface de combat. La démo se rejoue avec le
+meneur qu'on choisit, et le maître d'arène propose après elle une **série de six combats** de
+difficulté croissante, équilibrée par simulation. Les lieux restent des cartes de principe : leur
+production est à la `0.0.3`, après le passage à la 3D (`0.0.2.5`).
+
+- **LOT-142 — Recette et version 0.0.2.** La série de l'arène : après les bandits, le maître
+  d'arène reste sur le sable et propose cinq combats — gladiateurs, morts du sable, vétéran, bande
+  du capitaine, champion —, un niveau (jusqu'au 5) et un repos entre deux ; cinq PNJ du *Manuel
+  des Monstres* (malfrat, berserker, capitaine bandit, vétéran, gladiateur) et les **attaques
+  multiples** des créatures. L'IA joue les **sorts** (jet d'attaque, sauvegarde, sphère qui
+  épargne les alliés), les **soins** et la *bénédiction*, l'arme spirituelle en action bonus, les
+  attaques supplémentaires, et compte les capacités de l'acteur (`EX-CBT-052`). L'équilibrage se
+  mesure par simulation, groupe entier et quatre trios sans une classe, sur cent graines
+  (`EX-CBT-065`) : la résistance du Brawler (*Tough as Nails*) devient **graduée** (décision de
+  l'auteur, écart au livre écrit), et l'écart entre trios passe de 35 à 16 points. Le registre du
+  groupe garde le niveau donné d'un combat à l'autre et connaît le **repos long** (action de
+  dialogue `rest`, `EX-CBT-064`). « Nouvelle partie » ouvre l'écran Groupe pour **choisir le
+  meneur**. Version `0.0.2` ; les deux dernières alertes clang-tidy de Code scanning (concaténation
+  du journal de `--apply`, réservation des verdicts d'entité) sont corrigées.
+
 - **LOT-144 — Éditeur : le mode Quêtes.** Une quête s'écrit dans l'éditeur, à côté des cartes
   qu'elle traverse : le panneau **Quests** liste les quêtes, en crée, en renomme, en retire, et
   édite sans JSON les drapeaux déclarés, les étapes dans l'ordre du récit (conditions choisies

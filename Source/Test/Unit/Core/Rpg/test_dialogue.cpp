@@ -96,11 +96,15 @@ public:
     void levelUp(std::string_view personnage) override {
         niveaux.emplace_back(personnage);
     }
+    void rest(std::string_view personnage) override {
+        repos.emplace_back(personnage);
+    }
 
     std::vector<std::pair<std::string, int>> recus;
     std::vector<std::string> rencontres;
     std::vector<std::string> fins;
     std::vector<std::string> niveaux;
+    std::vector<std::string> repos;
 
 private:
     std::set<std::string> _langues;
@@ -852,6 +856,43 @@ TEST(DialogueTest, UnDialoguePeutDonnerUnNiveau) {
 
     const core::DialogueLoad refuse = core::readDialogue(
         graphe(R"({"id":"a","type":"action","actions":[{"type":"levelUp"}],"next":"fin"},)"
+               R"({"id":"fin","type":"end"})"),
+        "sans-personnage.json");
+    EXPECT_FALSE(refuse.graph.has_value());
+}
+
+/**
+ * @brief L'action `rest` donne un repos long à l'interlocuteur nommé, ou à tout le groupe
+ *        (`party`) : le maître d'arène le donne entre deux combats de la série (`LOT-142`).
+ * \castest{<b>Un dialogue peut donner un repos.</b><br/>
+ * \tcat Unitaire · Dialogue<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Lire un graphe dont le noeud d'action porte `levelUp` puis `rest` vers
+ * « party ».<br/>2. Le jouer avec un auditeur d'essai.<br/>3. Lire un graphe dont l'action `rest`
+ * n'a pas de champ `character`.<br/>
+ * \tattendu L'auditeur a recu le niveau puis le repos, le journal dit « repos donne : party » ;
+ * le second graphe est refuse.
+ * }
+ */
+TEST(DialogueTest, UnDialoguePeutDonnerUnRepos) {
+    const core::DialogueLoad lu =
+        core::readDialogue(graphe(R"({"id":"a","type":"action","actions":[)"
+                                  R"({"type":"levelUp","character":"party"},)"
+                                  R"({"type":"rest","character":"party"}],"next":"fin"},)"
+                                  R"({"id":"fin","type":"end"})"),
+                           "repos.json");
+    ASSERT_TRUE(lu.graph.has_value()) << lu.errors.front();
+    core::WorldFlags drapeaux;
+    Auditeur receveur({"common"}, 0);
+    core::DeterministicRandom hasard(3);
+    core::DialogueRunner runner(*lu.graph, drapeaux, receveur, echelle(), hasard);
+    EXPECT_EQ(runner.start(), core::DialogueState::Ended);
+    EXPECT_EQ(receveur.niveaux, (std::vector<std::string>{"party"}));
+    EXPECT_EQ(receveur.repos, (std::vector<std::string>{"party"}));
+    EXPECT_TRUE(contient(runner.journal(), "repos donne : party"));
+
+    const core::DialogueLoad refuse = core::readDialogue(
+        graphe(R"({"id":"a","type":"action","actions":[{"type":"rest"}],"next":"fin"},)"
                R"({"id":"fin","type":"end"})"),
         "sans-personnage.json");
     EXPECT_FALSE(refuse.graph.has_value());

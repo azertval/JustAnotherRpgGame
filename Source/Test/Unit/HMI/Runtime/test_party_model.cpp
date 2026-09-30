@@ -274,3 +274,23 @@ TEST(PartyModelTest, LEcranDeGroupeCompose) {
     EXPECT_EQ(identifiants(monde.partyMembers()),
               (QStringList{"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"}));
 }
+
+/**
+ * @brief Une partie ouverte sur une carte imposée — `--map=`, le lanceur de cartes, les tests —
+ *        ne demande pas de meneur (`LOT-142`) : seule « Nouvelle partie » ouvre ce choix, que le
+ *        test système du parcours de la démo éprouve.
+ * \castest{<b>Une carte imposee ne demande pas de meneur.</b><br/>
+ * \tcat Unitaire · Groupe<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Ouvrir le donjon d'essai par une carte imposee.<br/>2. Clore un choix qui n'est
+ * pas en cours.<br/>
+ * \tattendu `choosingLeader` est faux, et le reste.
+ * }
+ */
+TEST(PartyModelTest, UneCarteImposeeNeDemandePasDeMeneur) {
+    hmi::WorldModel monde;
+    ouvrirLeDonjon(monde);
+    EXPECT_FALSE(monde.choosingLeader());
+    monde.endLeaderChoice();
+    EXPECT_FALSE(monde.choosingLeader());
+}

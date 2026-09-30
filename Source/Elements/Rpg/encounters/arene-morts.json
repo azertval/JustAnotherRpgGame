@@ -1,0 +1,53 @@
+{
+  "id": "arene-morts",
+  "name": "Les morts du sable",
+  "source": "original",
+  "escapable": false,
+  "combatants": [
+    {
+      "creatureId": "zombie",
+      "columnOffset": 0,
+      "rowOffset": -2
+    },
+    {
+      "creatureId": "zombie",
+      "columnOffset": 0,
+      "rowOffset": 0
+    },
+    {
+      "creatureId": "zombie",
+      "columnOffset": 0,
+      "rowOffset": 2
+    },
+    {
+      "creatureId": "zombie",
+      "columnOffset": 0,
+      "rowOffset": 4
+    },
+    {
+      "creatureId": "zombie",
+      "columnOffset": 0,
+      "rowOffset": 6
+    },
+    {
+      "creatureId": "skeleton",
+      "columnOffset": 0,
+      "rowOffset": -1
+    },
+    {
+      "creatureId": "skeleton",
+      "columnOffset": 2,
+      "rowOffset": 0
+    },
+    {
+      "creatureId": "skeleton",
+      "columnOffset": 2,
+      "rowOffset": 3
+    },
+    {
+      "creatureId": "skeleton",
+      "columnOffset": 2,
+      "rowOffset": 6
+    }
+  ]
+}

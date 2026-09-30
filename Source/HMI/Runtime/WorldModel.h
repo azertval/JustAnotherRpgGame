@@ -93,6 +93,8 @@ class WorldModel : public QObject {
     Q_PROPERTY(QVariantList partyCandidates READ partyCandidates NOTIFY partyChanged)
     /// Le meneur : celui qu'on déplace, qui parle le premier dans un dialogue et qui combat.
     Q_PROPERTY(QString leaderId READ leaderId NOTIFY partyChanged)
+    /// Vrai de « Nouvelle partie » jusqu'à ce que le joueur ait choisi son meneur (`LOT-142`).
+    Q_PROPERTY(bool choosingLeader READ choosingLeader NOTIFY partyChanged)
     Q_PROPERTY(QString leaderName READ leaderName NOTIFY partyChanged)
     /// Le portrait du meneur, vide si sa figurine n'en a pas encore (`LOT-136`).
     Q_PROPERTY(QUrl leaderPortrait READ leaderPortrait NOTIFY partyChanged)
@@ -195,6 +197,25 @@ public:
      * @return Vrai si un personnage au moins a gagné un niveau.
      */
     Q_INVOKABLE bool levelUp(const QString& characterId);
+    /**
+     * @brief Le repos long de @p characterId — `party` : de chaque membre du groupe (`LOT-142`).
+     *
+     * Les points de vie et les lancers reviennent à ceux de la fiche, au niveau que la partie a
+     * donné (`core::PartyLedger::rest`). Le maître d'arène le donne entre deux combats de la
+     * série. @return Vrai si un membre au moins portait une blessure ou un lancer dépensé.
+     */
+    Q_INVOKABLE bool rest(const QString& characterId);
+    /**
+     * @brief Vrai de « Nouvelle partie » jusqu'à ce que le joueur ait choisi son meneur
+     *        (`LOT-142`) : la vue de jeu ouvre alors l'écran Groupe, titré pour ce choix. Une
+     *        partie ouverte sur une carte imposée (`--map=`, le lanceur de cartes) n'en demande
+     *        pas.
+     */
+    [[nodiscard]] bool choosingLeader() const noexcept {
+        return _choosingLeader;
+    }
+    /// @brief Le meneur est choisi : l'écran Groupe se referme.
+    Q_INVOKABLE void endLeaderChoice();
     /// @brief Désigne le personnage dont la fiche s'ouvre (`shownCharacterId`) ; vide : le meneur.
     Q_INVOKABLE void showCharacter(const QString& characterId);
     [[nodiscard]] QString shownCharacterId() const;
@@ -401,6 +422,8 @@ private:
     core::Party _party;
     /// Ce que les combats ont laissé aux fiches (`LOT-139`) ; vidé avec la partie.
     core::PartyLedger _ledger;
+    /// Le choix du meneur de « Nouvelle partie » est en cours (`LOT-142`).
+    bool _choosingLeader = false;
     /// Le personnage désigné pour la fiche ; vide : le meneur.
     std::string _shownCharacterId;
     /// La figurine imposée au meneur (`--hero-figure=`, la console de débogage) ; vide : celle

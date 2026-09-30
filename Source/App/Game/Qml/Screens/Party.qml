@@ -9,6 +9,9 @@ import Jadg.Runtime
     groupe est a la partie (`WorldModel`), et chaque geste lui passe. Le personnage designe l'est au
     clavier ou a la manette, et reste le meme personnage quand l'ordre de marche change.
 
+    A « Nouvelle partie », l'ecran s'ouvre pour choisir le meneur (LOT-142) : son titre le dit, et
+    le refermer clot le choix (`WorldModel.endLeaderChoice`).
+
     Au clavier : `Haut` et `Bas` designent, `Entree` prend ou laisse, `M` fait mener, `Page
     precedente` et `Page suivante` avancent et reculent dans l'ordre de marche, `F` ouvre la
     fiche du designe (LOT-141 : `WorldModel.showCharacter`, puis l'ecran Fiche), `Echap` referme.
@@ -24,6 +27,7 @@ PartyForm {
     readonly property var current: root.candidates.length > 0 ? root.candidates[root.currentIndex] : null
     readonly property bool currentIsMember: root.current !== null && root.current.rank >= 0
 
+    title: WorldModel.choosingLeader ? qsTr("Choisissez votre meneur") : qsTr("Groupe")
     members: party.members
     candidates: party.candidates
     currentId: root.current !== null ? root.current.id : ""
@@ -60,6 +64,13 @@ PartyForm {
         }
     }
 
+    function close() {
+        WorldModel.endLeaderChoice()
+        ScreenRouter.closeRpgScreen()
+    }
+    // La croix de fermeture de la pile referme sans passer par `close`.
+    Component.onDestruction: WorldModel.endLeaderChoice()
+
     onCandidateClicked: (index) => { root.currentIndex = index }
     onToggleClicked: root.toggle()
     onLeadClicked: root.lead()
@@ -77,7 +88,7 @@ PartyForm {
         case Qt.Key_PageUp: root.move(-1); break
         case Qt.Key_PageDown: root.move(1); break
         case Qt.Key_F: root.openSheet(); break
-        case Qt.Key_Escape: ScreenRouter.closeRpgScreen(); break
+        case Qt.Key_Escape: root.close(); break
         default: return
         }
         event.accepted = true
@@ -94,7 +105,7 @@ PartyForm {
             case "lb": root.move(-1); break
             case "rb": root.move(1); break
             case "y": root.openSheet(); break
-            case "b": ScreenRouter.closeRpgScreen(); break
+            case "b": root.close(); break
             }
         }
     }

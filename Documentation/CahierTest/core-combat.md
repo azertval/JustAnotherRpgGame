@@ -1,12 +1,13 @@
 # Core · Combat
 
-Tests unitaires — **176 cas** (33 bloquants, 98 critiques, 44 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **182 cas** (33 bloquants, 102 critiques, 46 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_action_economy.cpp`](#test-action-economycpp) | 3 | - | 1 | 2 | - |
+| [`test_ai_spells.cpp`](#test-ai-spellscpp) | 6 | - | 4 | 2 | - |
 | [`test_area_of_effect.cpp`](#test-area-of-effectcpp) | 3 | 1 | 1 | 1 | - |
 | [`test_arena.cpp`](#test-arenacpp) | 7 | 2 | 5 | - | - |
 | [`test_attack.cpp`](#test-attackcpp) | 9 | 3 | 4 | 2 | - |
@@ -123,6 +124,132 @@ Une ressource nouvelle se declare sans rien casser, et un octroi ne dure que jus
 - Vérifie que `immunites.isImmune("ogre", "dragon-rouge", maintenant)` est faux.
 - Vérifie que `immunites.isImmune("gobelin", "dragon-rouge", maintenant + core::IMMUNITY_DAY_SECONDS - 1)` est vrai.
 - Vérifie que `immunites.isImmune("gobelin", "dragon-rouge", maintenant + core::IMMUNITY_DAY_SECONDS - 1)` est faux.
+
+## test_ai_spells.cpp
+
+### AiSpellsTest.LePriestReleveUnAllieATerre
+
+*Critique · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:83`
+
+L'IA du Priest releve un allie tombe.
+
+**Étapes**
+
+1. Priest N1 en (1, 3), un allie en (3, 3) porte a 0 PV, un mannequin ennemi en (9, 6).
+2. Jouer le tour du Priest par l'IA.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().find(CombatantId{2})->status` vaut `core::CombatantStatus::Down`.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `journalHas(session.journal(), "releve Allie")` est vrai.
+- Vérifie que `session.combat().find(CombatantId{2})->status` vaut `core::CombatantStatus::Standing`.
+- Vérifie que `lancersDe(session, "cure-wounds")` vaut `1`.
+
+### AiSpellsTest.LePriestBenitUneFois
+
+*Majeur · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:115`
+
+L'IA du Priest benit le groupe, une seule fois.
+
+**Étapes**
+
+1. Priest N1 en (1, 3), deux allies en (2, 3) et (1, 4), un mannequin ennemi en (11, 7).
+2. Jouer le tour du Priest, finir les tours des autres, rejouer le Priest.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `journalHas(session.journal(), "benit 3 allie(s)")` est vrai.
+- Vérifie que `std::ranges::find(etats, core::CombatCondition::Blessed)` diffère de `etats.end()`.
+- Vérifie que `std::ranges::find(etats, core::CombatCondition::Concentrating)` diffère de `etats.end()`.
+- Vérifie que `lancersDe(session, "bless")` vaut `1`.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `lancersDe(session, "bless")` vaut `1`.
+
+### AiSpellsTest.LeMageLanceUnSortQuiBlesse
+
+*Critique · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:154`
+
+L'IA du Mage lance un sort qui blesse.
+
+**Étapes**
+
+1. Mage N1 en (1, 3), un mannequin ennemi en (7, 3).
+2. Jouer le tour du Mage.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `journalHas(session.journal(), " : lance ")` est vrai.
+- Vérifie que `journalHas(session.journal(), "blesse Mannequin")` est vrai.
+- Vérifie que `session.combat().find(CombatantId{2})->profile.currentHitPoints` est strictement inférieur à `60`.
+
+### AiSpellsTest.LaBouleDeFeuEpargneLesAllies
+
+*Critique · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:180`
+
+L'IA du Mage epargne ses allies, et groupe ses cibles.
+
+**Étapes**
+
+1. Mage N5 en (1, 3) ; un ennemi en (7, 3) au contact d'un allie en (7, 4) ; jouer le tour.
+2. Mage N5 en (1, 3) ; trois ennemis en (8, 3), (9, 3), (8, 4) ; jouer le tour.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `lancersDe(session, "fireball")` vaut `avant`.
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `lancersDe(session, "fireball")` vaut `avant - 1`.
+
+### AiSpellsTest.LeBrawlerFrappeDeuxFois
+
+*Critique · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:219`
+
+L'IA du Brawler frappe deux fois au niveau 5.
+
+**Étapes**
+
+1. Brawler N5 en (1, 3), un mannequin de 200 PV au contact en (2, 3).
+2. Jouer le tour du Brawler.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `journalHas(session.journal(), "attaque supplementaire")` est vrai.
+
+### AiSpellsTest.LArmeSpirituelleFrappeParLActionBonus
+
+*Majeur · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:244`
+
+L'IA du Priest frappe de l'arme spirituelle par l'action bonus.
+
+**Étapes**
+
+1. Priest N3 en (1, 3), un mannequin de 200 PV en (5, 3).
+2. Jouer le tour du Priest.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `journalHas(session.journal(), "action bonus")` est vrai.
+- Vérifie que `lancersDe(session, "spiritual-weapon")` vaut `avant - 1`.
 
 ## test_area_of_effect.cpp
 
@@ -797,7 +924,7 @@ Un objet de grille bloque tant qu'il tient, puis se detruit.
 
 ### ClassBrawlerTest.LaFichePreTireePorteToughAsNails
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:60`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:61`
 
 La fiche de la page 195 se charge avec Tough as Nails et sa CA de 14.
 
@@ -817,7 +944,7 @@ La fiche de la page 195 se charge avec Tough as Nails et sa CA de 14.
 
 ### ClassBrawlerTest.ToughAsNailsDonneSaCaSansArmure
 
-*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:83`
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:84`
 
 La formule de Tough as Nails se recalcule avec ce que le Brawler porte.
 
@@ -836,14 +963,15 @@ La formule de Tough as Nails se recalcule avec ce que le Brawler porte.
 
 ### ClassBrawlerTest.ToughAsNailsDiviseLesDegatsEtSeNomme
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:109`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:112`
 
-Le mannequin touche le Brawler : il ne perd que la moitie des degats, et le journal ecrit « resistance (tranchant ; Tough as Nails) ».
+Le mannequin touche le Brawler a 5 PV sur 15 : il retire le tiers des degats, et le journal ecrit « resistance graduee (tranchant ; Tough as Nails) » ; plein de vie, il perd tout.
 
 **Étapes**
 
-1. Monter le Brawler N1 contre un mannequin a +20 au toucher.
+1. Monter le Brawler N1 a 5 PV contre un mannequin a +20 au toucher.
 2. Passer au tour du mannequin et attaquer ; graine choisie pour toucher.
+3. Recommencer a 15 PV.
 
 **Résultat attendu**
 
@@ -853,13 +981,19 @@ Le mannequin touche le Brawler : il ne perd que la moitie des degats, et le jour
 - Vérifie que `attaque.result` vaut `core::ArenaActionResult::Done`.
 - Vérifie que `coup.has_value()` est vrai.
 - Vérifie que `journalHas(session.journal(), "capacites Grom Tranche-Écaille : Tough as Nails")` est vrai.
-- Vérifie que `ligne.find("resistance (tranchant ; Tough as Nails)")` diffère de `std::string::npos`.
 - Vérifie que `coup->report.has_value()` est vrai.
-- Vérifie que `coup->report->hitPointsBefore - coup->report->hitPointsAfter` vaut `lances / 2`.
+- Vérifie que `ligne.find("resistance graduee (tranchant ; Tough as Nails)")` diffère de `std::string::npos`.
+- Vérifie que `coup->report->hitPointsBefore - coup->report->hitPointsAfter` vaut `std::min(5, lances - retire)`.
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `attaque.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `plein.has_value() && plein->report.has_value()` est vrai.
+- Vérifie que `plein->report->hitPointsBefore - plein->report->hitPointsAfter` vaut `std::min(15, plein->damage.front().amount)`.
 
 ### ClassBrawlerTest.HitTheMarkAjouteDeuxAuJet
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:146`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:176`
 
 Au niveau 3, le jet de la hache porte « + 2 (Hit the Mark) » ; au niveau 2, non.
 
@@ -880,7 +1014,7 @@ Au niveau 3, le jet de la hache porte « + 2 (Hit the Mark) » ; au niveau 2, no
 
 ### ClassBrawlerTest.ExtraAttackDonneDeuxAttaquesParAction
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:177`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:207`
 
 Au niveau 5, le Brawler attaque deux fois dans le tour ; la seconde est nommee au journal ; une troisieme est refusee, et l'action n'est plus la pour esquiver.
 
@@ -913,7 +1047,7 @@ Au niveau 5, le Brawler attaque deux fois dans le tour ; la seconde est nommee a
 
 ### ClassBrawlerTest.ExtraAttackNeSuitQueLActionAttaquer
 
-*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:217`
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:247`
 
 Apres une esquive, le Brawler N5 n'attaque pas.
 
@@ -932,7 +1066,7 @@ Apres une esquive, le Brawler N5 n'attaque pas.
 
 ### ClassBrawlerTest.DuNiveau1AuNiveau5LaTableSeLit
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:237`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:267`
 
 Monter le Brawler de la page 195 niveau par niveau donne les capacites de la table, sans capacite manquante.
 
@@ -954,7 +1088,7 @@ Monter le Brawler de la page 195 niveau par niveau donne les capacites de la tab
 
 ### ClassBrawlerTest.UneAttaqueEnPlusNulleEstRefusee
 
-*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:277`
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:307`
 
 Une capacite qui declare « extra-attack » a 0 est refusee et nommee.
 

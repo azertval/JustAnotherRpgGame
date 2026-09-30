@@ -106,6 +106,13 @@ struct Creature {
     /// La silhouette de son mannequin de remplacement (`LOT-145`) : `humanoid`, `quadruped`,
     /// `flying`. Vide : humanoïde. L'extraction ne la devine pas ; elle se pose à la main.
     std::string silhouette;
+    /**
+     * @brief Les attaques de son action *Attaquer* (`LOT-142`) : « Attaques multiples. Le
+     *        gladiateur effectue trois attaques au corps à corps » s'écrit 3. 1 : une seule. Le
+     *        moteur les joue comme l'*Extra Attack* d'un héros, chacune avec l'attaque de son
+     *        choix parmi celles du bloc.
+     */
+    int multiattack = 1;
 
     /// @brief La valeur d'une caractéristique.
     [[nodiscard]] int ability(Ability which) const {
