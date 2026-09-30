@@ -52,6 +52,13 @@ void applyPartyRecordFor(DemonstrationState& state, const std::filesystem::path&
     }
 }
 
+// Chaque message au journal, en avertissement, precede de `prefix`.
+void logWarnings(const std::string& prefix, const std::vector<std::string>& messages) {
+    for (const std::string& message : messages) {
+        HMI_LOG_WARNING(prefix + message);
+    }
+}
+
 }  // namespace
 
 void applyMemberRecord(DemonstrationState& state, const core::MemberRecord& record) {
@@ -93,25 +100,19 @@ DemonstrationState loadDemonstrationState(const std::filesystem::path& character
     // Especes, historiques, classes, et ce que les tables de classe designent : capacites et
     // sorts (LOT-131).
     state.options = core::loadCharacterOptions(rpg);
-    for (const std::string& error : state.options.errors) {
-        HMI_LOG_WARNING("Options de personnage : " + error);
-    }
+    logWarnings("Options de personnage : ", state.options.errors);
     state.skills = core::loadSkills(rpg / "skills");
     state.experience = core::loadExperienceTable(rpg / "rules" / "experience.json");
     state.rules = core::loadCharacterCreationRules(rpg / "rules" / "character-creation.json");
 
     core::LoadedCharacterSheet loaded =
         core::loadCharacterSheet(characterFile, state.options, state.rules, state.experience);
-    for (const std::string& error : loaded.errors) {
-        // Journalise et poursuit : une fiche partielle vaut mieux qu'un écran vide, et l'erreur
-        // nomme son fichier (EX-CNT-010).
-        HMI_LOG_WARNING("Personnage de demonstration : " + error);
-    }
-    for (const std::string& warning : loaded.warnings) {
-        // Une capacite ou un sort que la classe nomme et que le moteur ne joue pas encore
-        // (EX-CNT-031) : dit au journal, jamais joue en silence.
-        HMI_LOG_WARNING("Personnage de demonstration : " + warning);
-    }
+    // Journalise et poursuit : une fiche partielle vaut mieux qu'un écran vide, et l'erreur
+    // nomme son fichier (EX-CNT-010).
+    logWarnings("Personnage de demonstration : ", loaded.errors);
+    // Une capacite ou un sort que la classe nomme et que le moteur ne joue pas encore
+    // (EX-CNT-031) : dit au journal, jamais joue en silence.
+    logWarnings("Personnage de demonstration : ", loaded.warnings);
     state.sheet = std::move(loaded.sheet);
     state.inventory = std::move(loaded.inventory);
     applyPartyRecordFor(state, characterFile);
@@ -119,9 +120,7 @@ DemonstrationState loadDemonstrationState(const std::filesystem::path& character
     state.items = core::loadItems(rpg / "items");
     state.equipment = core::loadEquipment(rpg / "weapons", rpg / "armors");
     state.encumbrance = core::loadEncumbranceRules(rpg / "rules" / "encumbrance.json");
-    for (const std::string& error : state.items.errors) {
-        HMI_LOG_WARNING("Catalogue d'objets : " + error);
-    }
+    logWarnings("Catalogue d'objets : ", state.items.errors);
     for (const std::string& unknown : core::unknownIds(state.inventory, state.lookup())) {
         // Un identifiant que rien ne porte ne pèse rien et s'affiche tel quel : le dire vaut mieux
         // que de peser faux en silence (EX-CNT-010).

@@ -21,6 +21,7 @@ class QPushButton;
 class QTabWidget;
 class QTableWidget;
 class QTreeWidget;
+class QVBoxLayout;
 
 /**
  * @file Editor/Ui/QuestsPanel.h
@@ -84,6 +85,14 @@ signals:
 private:
     [[nodiscard]] QWidget* buildQuestTab();
     [[nodiscard]] QWidget* buildStepsTab();
+    /// @return L'éditeur de l'étape choisie : identifiant, lieu, conditions, effets, issue, textes.
+    [[nodiscard]] QWidget* buildStepEditor();
+    /// @brief Les tables des conditions et des effets, et leurs boutons.
+    /// @param editor La colonne de l'éditeur d'étape.
+    void buildStepRules(QVBoxLayout* editor);
+    /// @brief L'issue, les textes du journal et « Play this step ».
+    /// @param editor La colonne de l'éditeur d'étape.
+    void buildStepEnd(QVBoxLayout* editor);
     [[nodiscard]] QWidget* buildUsesTab();
 
     void openQuest(const std::string& questId);
@@ -91,6 +100,18 @@ private:
     void fillFlags();
     void fillSteps();
     void fillStep();
+    /// @brief Les lignes de la table des conditions.
+    /// @param step  L'étape choisie, ou `nullptr`.
+    /// @param flags Les drapeaux que la colonne « Flag » propose.
+    void fillConditionRows(const core::QuestStep* step, const QStringList& flags);
+    /// @brief Les lignes de la table des effets.
+    /// @param step  L'étape choisie, ou `nullptr`.
+    /// @param flags Les drapeaux que la colonne « Flag » propose.
+    void fillEffectRows(const core::QuestStep* step, const QStringList& flags);
+    /// @return Le texte du journal de @p step dans @p language, vide s'il n'y en a pas.
+    /// @param language La langue (`fr`, `en`).
+    /// @param step     L'étape.
+    [[nodiscard]] QString stepText(const std::string& language, const core::QuestStep& step) const;
     void fillUseChoices();
     void showUses();
     void markDirty();

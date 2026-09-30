@@ -36,7 +36,8 @@ std::vector<RolledDamage> rollDamage(std::span<const DamageClause> clauses, bool
         if (critical) {
             des.count *= 2;
         }
-        RolledDamage lance{.clause = clause, .roll = rollDice(des, random), .critical = critical};
+        RolledDamage lance{
+            .clause = clause, .roll = rollDice(des, random), .critical = critical, .source = {}};
         // « Vous pouvez infliger un nombre de degats egal a 0, mais jamais une quantite negative. »
         lance.amount = std::max(0, lance.roll.total);
         lances.push_back(std::move(lance));
@@ -280,7 +281,8 @@ DamageTraits damageTraitsFor(const Creature& creature) {
     DamageTraits traits;
     const auto ajouter = [&](const std::vector<DamageType>& types, DamageAffinityKind genre) {
         for (const DamageType type : types) {
-            traits.affinities.push_back({.type = type, .kind = genre, .bypassedBy = 0});
+            traits.affinities.push_back(
+                {.type = type, .kind = genre, .bypassedBy = 0, .source = {}});
         }
     };
     ajouter(creature.damageImmunities, DamageAffinityKind::Immunity);

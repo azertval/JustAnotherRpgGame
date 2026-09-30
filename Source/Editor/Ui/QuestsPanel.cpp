@@ -32,6 +32,11 @@ namespace hmi {
 
 namespace {
 
+// Vrai si @p index désigne un élément d'une liste de @p size éléments.
+[[nodiscard]] bool inRange(int index, std::size_t size) {
+    return index >= 0 && std::cmp_less(index, size);
+}
+
 [[nodiscard]] QString qs(const std::string& text) {
     return QString::fromStdString(text);
 }
@@ -48,6 +53,31 @@ constexpr std::array<std::pair<const char*, core::FlagTest>, 4> TESTS{{
 constexpr int STEP_LIST_HEIGHT = 120;
 /// Hauteur d'une table de conditions ou d'effets.
 constexpr int RULE_TABLE_HEIGHT = 110;
+
+// L'issue au rang @p index de la liste « Closes the quest » : aucune, réussite, échec.
+[[nodiscard]] core::QuestOutcome outcomeAt(int index) {
+    switch (index) {
+        case 1:
+            return core::QuestOutcome::Success;
+        case 2:
+            return core::QuestOutcome::Failure;
+        default:
+            return core::QuestOutcome::None;
+    }
+}
+
+// Le rang de @p outcome dans la liste « Closes the quest ».
+[[nodiscard]] int outcomeIndex(core::QuestOutcome outcome) {
+    switch (outcome) {
+        case core::QuestOutcome::Success:
+            return 1;
+        case core::QuestOutcome::Failure:
+            return 2;
+        case core::QuestOutcome::None:
+            break;
+    }
+    return 0;
+}
 
 [[nodiscard]] int testIndex(core::FlagTest test) {
     for (std::size_t i = 0; i < TESTS.size(); ++i) {
@@ -112,14 +142,17 @@ constexpr int RULE_TABLE_HEIGHT = 110;
 }  // namespace
 
 QuestsPanel::QuestsPanel(std::filesystem::path dataRoot, QWidget* parent)
-    : QWidget(parent), _root(std::move(dataRoot)) {
+    : QWidget(parent),
+      _root(std::move(dataRoot)),
+      _questList(new QComboBox),
+      _status(new QLabel),
+      _pages(new QTabWidget) {
     for (const std::filesystem::path& catalog : catalogFilesIn(localizationDirectory(_root))) {
         _languages.push_back(catalog.stem().string());
     }
     auto* const layout = new QVBoxLayout(this);
 
     auto* const choice = new QHBoxLayout;
-    _questList = new QComboBox;
     choice->addWidget(new QLabel(QStringLiteral("Quest:")));
     choice->addWidget(_questList, 1);
     layout->addLayout(choice);
@@ -144,12 +177,10 @@ QuestsPanel::QuestsPanel(std::filesystem::path dataRoot, QWidget* parent)
     });
     layout->addLayout(commands);
 
-    _status = new QLabel;
     _status->setWordWrap(true);
     _status->setTextInteractionFlags(Qt::TextSelectableByMouse);
     layout->addWidget(_status);
 
-    _pages = new QTabWidget;
     _pages->addTab(buildQuestTab(), QStringLiteral("Quest"));
     _pages->addTab(buildStepsTab(), QStringLiteral("Steps"));
     _pages->addTab(buildUsesTab(), QStringLiteral("Uses"));
@@ -227,7 +258,7 @@ QWidget* QuestsPanel::buildQuestTab() {
     });
     connect(remove, &QPushButton::clicked, this, [this] {
         const int row = _flags->currentRow();
-        if (row >= 0 && row < static_cast<int>(_draft.quest.flags.size())) {
+        if (inRange(row, _draft.quest.flags.size())) {
             _draft.quest.flags.erase(_draft.quest.flags.begin() + row);
             fillFlags();
             markDirty();
@@ -237,7 +268,7 @@ QWidget* QuestsPanel::buildQuestTab() {
     connect(renameValue, &QPushButton::clicked, this, &QuestsPanel::renameFlagValue);
     connect(uses, &QPushButton::clicked, this, [this] {
         const int row = _flags->currentRow();
-        if (row >= 0 && row < static_cast<int>(_draft.quest.flags.size())) {
+        if (inRange(row, _draft.quest.flags.size())) {
             _useFlag->setCurrentText(qs(_draft.quest.flags[static_cast<std::size_t>(row)].id));
         }
         _pages->setCurrentIndex(2);
@@ -292,6 +323,14 @@ QWidget* QuestsPanel::buildStepsTab() {
     connect(up, &QPushButton::clicked, this, [this] { moveStep(-1); });
     connect(down, &QPushButton::clicked, this, [this] { moveStep(1); });
 
+    auto* const scroll = new QScrollArea;
+    scroll->setWidgetResizable(true);
+    scroll->setWidget(buildStepEditor());
+    layout->addWidget(scroll, 1);
+    return page;
+}
+
+QWidget* QuestsPanel::buildStepEditor() {
     _stepEditor = new QWidget;
     auto* const editor = new QVBoxLayout(_stepEditor);
     editor->setContentsMargins(0, 0, 0, 0);
@@ -315,7 +354,12 @@ QWidget* QuestsPanel::buildStepsTab() {
     });
     connect(go, &QPushButton::clicked, this, &QuestsPanel::goToStepPlace);
     editor->addLayout(form);
+    buildStepRules(editor);
+    buildStepEnd(editor);
+    return _stepEditor;
+}
 
+void QuestsPanel::buildStepRules(QVBoxLayout* editor) {
     editor->addWidget(new QLabel(QStringLiteral("When (all must hold):")));
     _conditions =
         ruleTable({QStringLiteral("Flag"), QStringLiteral("Test"), QStringLiteral("Values (a|b)")});
@@ -341,7 +385,7 @@ QWidget* QuestsPanel::buildStepsTab() {
     connect(removeCondition, &QPushButton::clicked, this, [this] {
         core::QuestStep* step = currentStep();
         const int row = _conditions->currentRow();
-        if (step != nullptr && row >= 0 && row < static_cast<int>(step->when.size())) {
+        if (step != nullptr && inRange(row, step->when.size())) {
             step->when.erase(step->when.begin() + row);
             fillStep();
             markDirty();
@@ -368,13 +412,15 @@ QWidget* QuestsPanel::buildStepsTab() {
     connect(removeEffect, &QPushButton::clicked, this, [this] {
         core::QuestStep* step = currentStep();
         const int row = _effects->currentRow();
-        if (step != nullptr && row >= 0 && row < static_cast<int>(step->effects.size())) {
+        if (step != nullptr && inRange(row, step->effects.size())) {
             step->effects.erase(step->effects.begin() + row);
             fillStep();
             markDirty();
         }
     });
+}
 
+void QuestsPanel::buildStepEnd(QVBoxLayout* editor) {
     auto* const end = new QFormLayout;
     _outcome = new QComboBox;
     _outcome->addItems(
@@ -382,9 +428,7 @@ QWidget* QuestsPanel::buildStepsTab() {
     end->addRow(QStringLiteral("Closes the quest:"), _outcome);
     connect(_outcome, &QComboBox::currentIndexChanged, this, [this](int index) {
         if (core::QuestStep* step = currentStep(); step != nullptr && !_filling) {
-            step->outcome = index == 1   ? core::QuestOutcome::Success
-                            : index == 2 ? core::QuestOutcome::Failure
-                                         : core::QuestOutcome::None;
+            step->outcome = outcomeAt(index);
             markDirty();
         }
     });
@@ -407,12 +451,6 @@ QWidget* QuestsPanel::buildStepsTab() {
         "from it."));
     connect(play, &QPushButton::clicked, this, &QuestsPanel::playStep);
     editor->addWidget(play);
-
-    auto* const scroll = new QScrollArea;
-    scroll->setWidgetResizable(true);
-    scroll->setWidget(_stepEditor);
-    layout->addWidget(scroll, 1);
-    return page;
 }
 
 QWidget* QuestsPanel::buildUsesTab() {
@@ -442,7 +480,7 @@ QWidget* QuestsPanel::buildUsesTab() {
     connect(_useValue, &QComboBox::activated, this, [this](int) { showUses(); });
     connect(_useTree, &QTreeWidget::itemActivated, this, [this](QTreeWidgetItem* item, int) {
         const int index = item->data(0, Qt::UserRole).toInt();
-        if (_uses && index >= 0 && index < static_cast<int>(_uses->size())) {
+        if (_uses && inRange(index, _uses->size())) {
             emit citationActivated((*_uses)[static_cast<std::size_t>(index)].where);
         }
     });
@@ -561,7 +599,7 @@ void QuestsPanel::fillFlags() {
 }
 
 void QuestsPanel::readFlagRow(int row) {
-    if (_filling || row < 0 || row >= static_cast<int>(_draft.quest.flags.size())) {
+    if (_filling || !inRange(row, _draft.quest.flags.size())) {
         return;
     }
     core::QuestFlag& flag = _draft.quest.flags[static_cast<std::size_t>(row)];
@@ -619,23 +657,26 @@ void QuestsPanel::fillStep() {
         _stepAt->addItems(places);
     }
     _stepAt->setCurrentText(step != nullptr ? qs(step->at) : QString{});
-    _outcome->setCurrentIndex(step == nullptr                                ? 0
-                              : step->outcome == core::QuestOutcome::Success ? 1
-                              : step->outcome == core::QuestOutcome::Failure ? 2
-                                                                             : 0);
+    _outcome->setCurrentIndex(step != nullptr ? outcomeIndex(step->outcome) : 0);
     for (const auto& [language, text] : _stepTexts) {
-        QString value;
-        if (step != nullptr) {
-            const auto texts = _draft.texts.find(language);
-            const std::string key = core::questStepKey(_draft.quest.id, step->id);
-            if (texts != _draft.texts.end() && texts->second.contains(key)) {
-                value = qs(texts->second.find(key)->second);
-            }
-        }
-        text->setText(value);
+        text->setText(step != nullptr ? stepText(language, *step) : QString{});
     }
-
     const QStringList flags = knownFlags();
+    fillConditionRows(step, flags);
+    fillEffectRows(step, flags);
+    _filling = false;
+}
+
+QString QuestsPanel::stepText(const std::string& language, const core::QuestStep& step) const {
+    const auto texts = _draft.texts.find(language);
+    const std::string key = core::questStepKey(_draft.quest.id, step.id);
+    if (texts == _draft.texts.end() || !texts->second.contains(key)) {
+        return {};
+    }
+    return qs(texts->second.find(key)->second);
+}
+
+void QuestsPanel::fillConditionRows(const core::QuestStep* step, const QStringList& flags) {
     _conditions->setRowCount(step != nullptr ? static_cast<int>(step->when.size()) : 0);
     for (int row = 0; row < _conditions->rowCount(); ++row) {
         const core::FlagCondition& condition = step->when[static_cast<std::size_t>(row)];
@@ -647,6 +688,8 @@ void QuestsPanel::fillStep() {
         test->setCurrentIndex(testIndex(condition.test));
         auto* const values =
             editableCombo(declaredValues(condition.flag), joinedValues(condition.values));
+        values->setEnabled(condition.test == core::FlagTest::Equals ||
+                           condition.test == core::FlagTest::NotEquals);
         _conditions->setCellWidget(row, 0, flag);
         _conditions->setCellWidget(row, 1, test);
         _conditions->setCellWidget(row, 2, values);
@@ -656,7 +699,9 @@ void QuestsPanel::fillStep() {
         connect(values, &QComboBox::currentTextChanged, this,
                 [this, row] { readConditionRow(row); });
     }
+}
 
+void QuestsPanel::fillEffectRows(const core::QuestStep* step, const QStringList& flags) {
     _effects->setRowCount(step != nullptr ? static_cast<int>(step->effects.size()) : 0);
     for (int row = 0; row < _effects->rowCount(); ++row) {
         const core::QuestEffect& effect = step->effects[static_cast<std::size_t>(row)];
@@ -665,6 +710,7 @@ void QuestsPanel::fillStep() {
         kind->setCurrentIndex(effect.kind == core::QuestEffect::Kind::SetFlag ? 0 : 1);
         auto* const flag = editableCombo(flags, qs(effect.flag));
         auto* const value = editableCombo(declaredValues(effect.flag), qs(effect.value));
+        value->setEnabled(effect.kind == core::QuestEffect::Kind::SetFlag);
         _effects->setCellWidget(row, 0, kind);
         _effects->setCellWidget(row, 1, flag);
         _effects->setCellWidget(row, 2, value);
@@ -672,12 +718,11 @@ void QuestsPanel::fillStep() {
         connect(flag, &QComboBox::currentTextChanged, this, [this, row] { readEffectRow(row); });
         connect(value, &QComboBox::currentTextChanged, this, [this, row] { readEffectRow(row); });
     }
-    _filling = false;
 }
 
 void QuestsPanel::readConditionRow(int row) {
     core::QuestStep* step = currentStep();
-    if (_filling || step == nullptr || row < 0 || row >= static_cast<int>(step->when.size())) {
+    if (_filling || step == nullptr || !inRange(row, step->when.size())) {
         return;
     }
     const auto* const flag = qobject_cast<QComboBox*>(_conditions->cellWidget(row, 0));
@@ -705,7 +750,7 @@ void QuestsPanel::readConditionRow(int row) {
 
 void QuestsPanel::readEffectRow(int row) {
     core::QuestStep* step = currentStep();
-    if (_filling || step == nullptr || row < 0 || row >= static_cast<int>(step->effects.size())) {
+    if (_filling || step == nullptr || !inRange(row, step->effects.size())) {
         return;
     }
     const auto* const kind = qobject_cast<QComboBox*>(_effects->cellWidget(row, 0));
@@ -762,8 +807,7 @@ void QuestsPanel::renameStep(const std::string& newId) {
 
 void QuestsPanel::moveStep(int delta) {
     const int target = _step + delta;
-    if (currentStep() == nullptr || target < 0 ||
-        target >= static_cast<int>(_draft.quest.steps.size())) {
+    if (currentStep() == nullptr || !inRange(target, _draft.quest.steps.size())) {
         return;
     }
     std::swap(_draft.quest.steps[static_cast<std::size_t>(_step)],
@@ -969,7 +1013,7 @@ void QuestsPanel::deleteQuest() {
 
 void QuestsPanel::renameFlag() {
     const int row = _flags->currentRow();
-    if (row < 0 || row >= static_cast<int>(_draft.quest.flags.size())) {
+    if (!inRange(row, _draft.quest.flags.size())) {
         showStatus(QStringLiteral("Select a flag first."), true);
         return;
     }
@@ -997,7 +1041,7 @@ void QuestsPanel::renameFlag() {
 
 void QuestsPanel::renameFlagValue() {
     const int row = _flags->currentRow();
-    if (row < 0 || row >= static_cast<int>(_draft.quest.flags.size())) {
+    if (!inRange(row, _draft.quest.flags.size())) {
         showStatus(QStringLiteral("Select a flag first."), true);
         return;
     }
@@ -1121,7 +1165,7 @@ std::vector<core::QuestFlag> QuestsPanel::allDeclarations() const {
 }
 
 core::QuestStep* QuestsPanel::currentStep() {
-    if (!_hasQuest || _step < 0 || _step >= static_cast<int>(_draft.quest.steps.size())) {
+    if (!_hasQuest || !inRange(_step, _draft.quest.steps.size())) {
         return nullptr;
     }
     return &_draft.quest.steps[static_cast<std::size_t>(_step)];

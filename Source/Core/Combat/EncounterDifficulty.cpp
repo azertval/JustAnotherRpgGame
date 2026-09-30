@@ -22,6 +22,98 @@ constexpr int GRAND_GROUPE = 6;
     return (trouve != objet.end() && trouve->is_number()) ? trouve->get<double>() : defaut;
 }
 
+// Les noms de categorie, dans l'ordre du fichier.
+void lireCategories(const nlohmann::json& racine, const std::string& fichier,
+                    EncounterDifficultyRules& rules) {
+    const auto categories = racine.find("categories");
+    if (categories == racine.end() || !categories->is_array()) {
+        rules.errors.push_back(fichier + " : champ 'categories' absent ou non tableau.");
+        return;
+    }
+    for (const nlohmann::json& categorie : *categories) {
+        if (categorie.is_string()) {
+            rules.categories.push_back(categorie.get<std::string>());
+        }
+    }
+}
+
+// Une ligne de seuils : son niveau, puis un seuil par categorie deja lue.
+void lireSeuil(const nlohmann::json& ligne, const std::string& fichier,
+               EncounterDifficultyRules& rules) {
+    const auto niveau = ligne.is_object() ? ligne.find("level") : ligne.end();
+    if (niveau == ligne.end() || !niveau->is_number_integer()) {
+        rules.errors.push_back(fichier + " : seuil sans niveau.");
+        return;
+    }
+    DifficultyThresholds seuil{.level = niveau->get<int>(), .experience = {}};
+    for (const std::string& categorie : rules.categories) {
+        const auto valeur = ligne.find(categorie);
+        if (valeur == ligne.end() || !valeur->is_number_integer()) {
+            std::string erreur = fichier;
+            erreur += " : niveau ";
+            erreur += std::to_string(seuil.level);
+            erreur += " sans seuil « ";
+            erreur += categorie;
+            erreur += " ».";
+            rules.errors.push_back(std::move(erreur));
+            continue;
+        }
+        seuil.experience.emplace(categorie, valeur->get<int>());
+    }
+    rules.thresholds.push_back(std::move(seuil));
+}
+
+// Les seuils par niveau, tries par niveau.
+void lireSeuils(const nlohmann::json& racine, const std::string& fichier,
+                EncounterDifficultyRules& rules) {
+    const auto seuils = racine.find("thresholds");
+    if (seuils == racine.end() || !seuils->is_array()) {
+        rules.errors.push_back(fichier + " : champ 'thresholds' absent ou non tableau.");
+        return;
+    }
+    for (const nlohmann::json& ligne : *seuils) {
+        lireSeuil(ligne, fichier, rules);
+    }
+    std::ranges::sort(rules.thresholds, {}, &DifficultyThresholds::level);
+}
+
+// Les multiplicateurs selon le nombre de monstres, tries par plancher.
+void lireMultiplicateurs(const nlohmann::json& racine, const std::string& fichier,
+                         EncounterDifficultyRules& rules) {
+    const auto multiplicateurs = racine.find("multipliers");
+    if (multiplicateurs == racine.end() || !multiplicateurs->is_array()) {
+        rules.errors.push_back(fichier + " : champ 'multipliers' absent ou non tableau.");
+        return;
+    }
+    for (const nlohmann::json& ligne : *multiplicateurs) {
+        if (!ligne.is_object()) {
+            continue;
+        }
+        rules.multipliers.push_back(EncounterMultiplier{
+            .minMonsters = static_cast<int>(lireReel(ligne, "minMonsters", 1.0)),
+            .multiplier = lireReel(ligne, "multiplier", 1.0)});
+    }
+    std::ranges::sort(rules.multipliers, {}, &EncounterMultiplier::minMonsters);
+}
+
+// Les PX par indice de dangerosite.
+void lireExperience(const nlohmann::json& racine, const std::string& fichier,
+                    EncounterDifficultyRules& rules) {
+    const auto px = racine.find("experienceByChallenge");
+    if (px == racine.end() || !px->is_array()) {
+        rules.errors.push_back(fichier + " : champ 'experienceByChallenge' absent ou non tableau.");
+        return;
+    }
+    for (const nlohmann::json& ligne : *px) {
+        if (!ligne.is_object()) {
+            continue;
+        }
+        rules.experienceByChallenge.push_back(ChallengeExperience{
+            .challengeRating = static_cast<float>(lireReel(ligne, "challengeRating", 0.0)),
+            .experience = static_cast<int>(lireReel(ligne, "experience", 0.0))});
+    }
+}
+
 }  // namespace
 
 EncounterDifficultyRules loadEncounterDifficultyRules(const std::filesystem::path& path) {
@@ -34,72 +126,12 @@ EncounterDifficultyRules loadEncounterDifficultyRules(const std::filesystem::pat
     const nlohmann::json& racine = document.root;
     const std::string fichier = path.string();
 
-    const auto categories = racine.find("categories");
-    if (categories == racine.end() || !categories->is_array()) {
-        rules.errors.push_back(fichier + " : champ 'categories' absent ou non tableau.");
-    } else {
-        for (const nlohmann::json& categorie : *categories) {
-            if (categorie.is_string()) {
-                rules.categories.push_back(categorie.get<std::string>());
-            }
-        }
-    }
-
-    const auto seuils = racine.find("thresholds");
-    if (seuils == racine.end() || !seuils->is_array()) {
-        rules.errors.push_back(fichier + " : champ 'thresholds' absent ou non tableau.");
-    } else {
-        for (const nlohmann::json& ligne : *seuils) {
-            const auto niveau = ligne.is_object() ? ligne.find("level") : ligne.end();
-            if (niveau == ligne.end() || !niveau->is_number_integer()) {
-                rules.errors.push_back(fichier + " : seuil sans niveau.");
-                continue;
-            }
-            DifficultyThresholds seuil{.level = niveau->get<int>(), .experience = {}};
-            for (const std::string& categorie : rules.categories) {
-                const auto valeur = ligne.find(categorie);
-                if (valeur == ligne.end() || !valeur->is_number_integer()) {
-                    rules.errors.push_back(fichier + " : niveau " + std::to_string(seuil.level) +
-                                           " sans seuil « " + categorie + " ».");
-                    continue;
-                }
-                seuil.experience.emplace(categorie, valeur->get<int>());
-            }
-            rules.thresholds.push_back(std::move(seuil));
-        }
-        std::ranges::sort(rules.thresholds, {}, &DifficultyThresholds::level);
-    }
-
-    const auto multiplicateurs = racine.find("multipliers");
-    if (multiplicateurs == racine.end() || !multiplicateurs->is_array()) {
-        rules.errors.push_back(fichier + " : champ 'multipliers' absent ou non tableau.");
-    } else {
-        for (const nlohmann::json& ligne : *multiplicateurs) {
-            if (!ligne.is_object()) {
-                continue;
-            }
-            rules.multipliers.push_back(EncounterMultiplier{
-                .minMonsters = static_cast<int>(lireReel(ligne, "minMonsters", 1.0)),
-                .multiplier = lireReel(ligne, "multiplier", 1.0)});
-        }
-        std::ranges::sort(rules.multipliers, {}, &EncounterMultiplier::minMonsters);
-    }
+    lireCategories(racine, fichier, rules);
+    lireSeuils(racine, fichier, rules);
+    lireMultiplicateurs(racine, fichier, rules);
     rules.smallPartyMultiplier = lireReel(racine, "smallPartyMultiplier", 1.0);
     rules.largePartyMultiplier = lireReel(racine, "largePartyMultiplier", 1.0);
-
-    const auto px = racine.find("experienceByChallenge");
-    if (px == racine.end() || !px->is_array()) {
-        rules.errors.push_back(fichier + " : champ 'experienceByChallenge' absent ou non tableau.");
-    } else {
-        for (const nlohmann::json& ligne : *px) {
-            if (!ligne.is_object()) {
-                continue;
-            }
-            rules.experienceByChallenge.push_back(ChallengeExperience{
-                .challengeRating = static_cast<float>(lireReel(ligne, "challengeRating", 0.0)),
-                .experience = static_cast<int>(lireReel(ligne, "experience", 0.0))});
-        }
-    }
+    lireExperience(racine, fichier, rules);
     return rules;
 }
 

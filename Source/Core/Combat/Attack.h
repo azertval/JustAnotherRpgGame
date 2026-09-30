@@ -151,7 +151,7 @@ struct CreatureAttacks {
 struct Spell;
 
 /// @brief Le nom français d'une caractéristique, tel que le journal l'écrit : « Dexterite ».
-[[nodiscard]] std::string_view abilityLabel(Ability ability) noexcept;
+[[nodiscard]] std::string_view abilityLabel(Ability caracteristique) noexcept;
 
 /**
  * @brief L'attaque d'un **sort à jet d'attaque** (`LOT-131`, `EX-RPG-025`) : *fire bolt*.

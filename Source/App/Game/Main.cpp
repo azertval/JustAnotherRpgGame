@@ -290,6 +290,57 @@ void applyStartState(int argc, char** argv, hmi::WorldModel& world) {
     }
 }
 
+// La rencontre que --encounter= engage sur la carte imposee.
+void engageStartEncounter(int argc, char** argv, QQmlApplicationEngine& engine,
+                          hmi::WorldModel* world, hmi::ScreenRouter* router) {
+    // Une rencontre engagee des l'arrivee (--encounter=<id>, LOT-140) : le HUD de combat se
+    // capture sans un clic, comme l'ecran de la carte. Elle se monte sur la zone de combat de
+    // la carte, la ou --at= a pose le groupe, des que la carte est chargee.
+    if (const std::optional<std::string_view> encounter =
+            app::commandLineOption(argc, argv, "--encounter=");
+        encounter.has_value() && router != nullptr) {
+        auto* const rencontre =
+            engine.singletonInstance<hmi::EncounterModel*>("Jadg.Runtime", "EncounterModel");
+        const QString id = toQString(*encounter);
+        const auto engager = [world, router, rencontre, id]() {
+            if (!world->loaded() || rencontre == nullptr || rencontre->active()) {
+                return;
+            }
+            if (rencontre->begin(id)) {
+                router->openRpgScreen(hmi::ScreenRouter::RpgScreen::CombatHud);
+            } else {
+                HMI_LOG_WARNING("--encounter= : rencontre refusee, " + id.toStdString());
+            }
+        };
+        QObject::connect(world, &hmi::WorldModel::changed, world, engager);
+        engager();
+    }
+}
+
+// La carte imposee par --map=<carte>[@<arrivée>] (`option`), ouverte dans `world`.
+void openStartMap(int argc, char** argv, QQmlApplicationEngine& engine, std::string_view option,
+                  hmi::WorldModel* world) {
+    // AVANT toute autre chose : le chargeur des cartes refait la session, et emporterait les
+    // drapeaux poses ou la figurine choisie.
+    if (const std::optional<std::string_view> levels =
+            app::commandLineOption(argc, argv, "--levels=")) {
+        world->setLevelDirectories(hmi::parseLevelDirectories(*levels));
+    }
+    const QStringList parts = toQString(option).split(QLatin1Char('@'));
+    world->setStartOverride(parts.value(0), parts.value(1));
+    applyStartState(argc, argv, *world);
+    if (const auto figure = app::commandLineOption(argc, argv, "--hero-figure=")) {
+        world->setHeroFigure(toQString(*figure));
+    }
+    auto* const router =
+        engine.singletonInstance<hmi::ScreenRouter*>("Jadg.Runtime", "ScreenRouter");
+    if (router != nullptr) {
+        router->openGame();
+    }
+    HMI_LOG_INFO("Carte d'ouverture imposee : " + parts.value(0).toStdString());
+    engageStartEncounter(argc, argv, engine, world, router);
+}
+
 // Carte d'ouverture imposée (--map=<carte>[@<arrivée>]), dans un build de développement.
 //
 // Pour voir ou capturer une carte sans y marcher depuis la porte de départ (`LOT-96`), et pour
@@ -315,46 +366,7 @@ void applyStartMap(int argc, char** argv, QQmlApplicationEngine& engine) {
             HMI_LOG_WARNING("--map= : le modele du monde est introuvable.");
             return;
         }
-        // AVANT toute autre chose : le chargeur des cartes refait la session, et emporterait les
-        // drapeaux poses ou la figurine choisie.
-        if (const std::optional<std::string_view> levels =
-                app::commandLineOption(argc, argv, "--levels=")) {
-            world->setLevelDirectories(hmi::parseLevelDirectories(*levels));
-        }
-        const QStringList parts = toQString(*option).split(QLatin1Char('@'));
-        world->setStartOverride(parts.value(0), parts.value(1));
-        applyStartState(argc, argv, *world);
-        if (const auto figure = app::commandLineOption(argc, argv, "--hero-figure=")) {
-            world->setHeroFigure(toQString(*figure));
-        }
-        auto* const router =
-            engine.singletonInstance<hmi::ScreenRouter*>("Jadg.Runtime", "ScreenRouter");
-        if (router != nullptr) {
-            router->openGame();
-        }
-        HMI_LOG_INFO("Carte d'ouverture imposee : " + parts.value(0).toStdString());
-        // Une rencontre engagee des l'arrivee (--encounter=<id>, LOT-140) : le HUD de combat se
-        // capture sans un clic, comme l'ecran de la carte. Elle se monte sur la zone de combat de
-        // la carte, la ou --at= a pose le groupe, des que la carte est chargee.
-        if (const std::optional<std::string_view> encounter =
-                app::commandLineOption(argc, argv, "--encounter=");
-            encounter.has_value() && router != nullptr) {
-            auto* const rencontre =
-                engine.singletonInstance<hmi::EncounterModel*>("Jadg.Runtime", "EncounterModel");
-            const QString id = toQString(*encounter);
-            const auto engager = [world, router, rencontre, id]() {
-                if (!world->loaded() || rencontre == nullptr || rencontre->active()) {
-                    return;
-                }
-                if (rencontre->begin(id)) {
-                    router->openRpgScreen(hmi::ScreenRouter::RpgScreen::CombatHud);
-                } else {
-                    HMI_LOG_WARNING("--encounter= : rencontre refusee, " + id.toStdString());
-                }
-            };
-            QObject::connect(world, &hmi::WorldModel::changed, world, engager);
-            engager();
-        }
+        openStartMap(argc, argv, engine, *option, world);
     } else {
         static_cast<void>(argc);
         static_cast<void>(argv);

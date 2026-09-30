@@ -115,7 +115,13 @@ private:
     [[nodiscard]] static std::string escaped(const std::string& key) {
         std::string result;
         for (const char c : key) {
-            result += c == '~' ? "~0" : c == '/' ? "~1" : std::string(1, c);
+            if (c == '~') {
+                result += "~0";
+            } else if (c == '/') {
+                result += "~1";
+            } else {
+                result += c;
+            }
         }
         return result;
     }
@@ -231,6 +237,103 @@ void visitDerived(const UseVisitor& visit, std::string flag, Citation where) {
     static_cast<void>(visit(use));
 }
 
+// Une quête, parcourue usage par usage et, au besoin, récrite.
+class QuestVisit {
+public:
+    QuestVisit(std::filesystem::path file, std::string id, const UseVisitor& visit,
+               RefactorPlan* plan)
+        : _file(std::move(file)), _id(std::move(id)), _visit(visit), _plan(plan) {}
+
+    [[nodiscard]] Citation cite(const std::string& what) const {
+        std::string text = "quest ";
+        text.append(_id).append(": ").append(what);
+        return Citation{.file = _file, .what = std::move(text)};
+    }
+
+    // Les déclarations : l'initiale suit la valeur renommée.
+    void declarations(std::vector<core::QuestFlag>& flags) {
+        for (core::QuestFlag& declared : flags) {
+            FlagUse use{.flag = declared.id,
+                        .values = declared.values,
+                        .role = FlagUseRole::Declares,
+                        .where = cite("flags")};
+            if (!visitUse(_visit, use)) {
+                continue;
+            }
+            const auto initial = std::ranges::find(declared.values, declared.initial);
+            if (initial != declared.values.end() && use.values.size() == declared.values.size()) {
+                declared.initial =
+                    use.values[static_cast<std::size_t>(initial - declared.values.begin())];
+            }
+            declared.id = use.flag;
+            declared.values = use.values;
+            changedAt(use.where);
+        }
+    }
+
+    // Une étape : ses conditions, ses effets, et le fait qu'elle pose d'elle-même.
+    void step(core::QuestStep& step) {
+        for (core::FlagCondition& condition : step.when) {
+            FlagUse use{.flag = condition.flag,
+                        .values = condition.values,
+                        .role = FlagUseRole::Reads,
+                        .where = cite("step " + step.id + ": when")};
+            if (visitUse(_visit, use)) {
+                condition.flag = use.flag;
+                condition.values = use.values;
+                changedAt(use.where);
+            }
+        }
+        for (core::QuestEffect& effect : step.effects) {
+            FlagUse use{.flag = effect.flag,
+                        .values = effect.value.empty() ? std::vector<std::string>{}
+                                                       : std::vector<std::string>{effect.value},
+                        .role = FlagUseRole::Writes,
+                        .where = cite("step " + step.id + ": effects")};
+            if (visitUse(_visit, use)) {
+                effect.flag = use.flag;
+                effect.value = use.values.empty() ? std::string{} : use.values.front();
+                changedAt(use.where);
+            }
+        }
+        visitDerived(_visit, core::questStepFlag(_id, step.id), cite("step " + step.id));
+    }
+
+    [[nodiscard]] bool changed() const noexcept {
+        return _changed;
+    }
+
+private:
+    void changedAt(const Citation& where) {
+        _changed = true;
+        if (_plan != nullptr) {
+            _plan->changes.push_back(where);
+        }
+    }
+
+    std::filesystem::path _file;
+    std::string _id;
+    const UseVisitor& _visit;
+    RefactorPlan* _plan;
+    bool _changed = false;
+};
+
+// Écrit dans @p plan la quête @p quest de @p file, changée par le parcours, ou déplacée par
+// @p renaming.
+void writeVisitedQuest(const std::filesystem::path& dataRoot, const std::filesystem::path& file,
+                       core::Quest& quest, const QuestVisit& visit, RefactorPlan& plan,
+                       const QuestIdRenaming* renaming) {
+    if (renaming != nullptr && quest.id == renaming->from) {
+        quest.id = renaming->to;
+        plan.changes.push_back(visit.cite("id"));
+        plan.edits.push_back(ProjectEdit{.file = questsDirectory(dataRoot) / (quest.id + ".json"),
+                                         .text = core::writeQuest(quest)});
+        plan.edits.push_back(ProjectEdit{.file = file, .text = std::nullopt});
+    } else if (visit.changed()) {
+        plan.edits.push_back(ProjectEdit{.file = file, .text = core::writeQuest(quest)});
+    }
+}
+
 // Les quêtes. @return Le refus, si @p plan est donné et qu'une quête ne se lit pas.
 std::string visitQuests(const std::filesystem::path& dataRoot, const UseVisitor& visit,
                         RefactorPlan* plan, const QuestIdRenaming* renaming = nullptr) {
@@ -244,72 +347,13 @@ std::string visitQuests(const std::filesystem::path& dataRoot, const UseVisitor&
             continue;
         }
         core::Quest& quest = *loaded.quest;
-        const std::string questId = quest.id;
-        const auto cite = [&file, &questId](const std::string& what) {
-            return Citation{.file = file, .what = "quest " + questId + ": " + what};
-        };
-        bool changed = false;
-        const auto changedAt = [&changed, plan](const Citation& where) {
-            changed = true;
-            if (plan != nullptr) {
-                plan->changes.push_back(where);
-            }
-        };
-        for (core::QuestFlag& declared : quest.flags) {
-            FlagUse use{.flag = declared.id,
-                        .values = declared.values,
-                        .role = FlagUseRole::Declares,
-                        .where = cite("flags")};
-            if (visitUse(visit, use)) {
-                const auto initial = std::ranges::find(declared.values, declared.initial);
-                if (initial != declared.values.end() &&
-                    use.values.size() == declared.values.size()) {
-                    declared.initial =
-                        use.values[static_cast<std::size_t>(initial - declared.values.begin())];
-                }
-                declared.id = use.flag;
-                declared.values = use.values;
-                changedAt(use.where);
-            }
-        }
+        QuestVisit questVisit(file, quest.id, visit, plan);
+        questVisit.declarations(quest.flags);
         for (core::QuestStep& step : quest.steps) {
-            for (core::FlagCondition& condition : step.when) {
-                FlagUse use{.flag = condition.flag,
-                            .values = condition.values,
-                            .role = FlagUseRole::Reads,
-                            .where = cite("step " + step.id + ": when")};
-                if (visitUse(visit, use)) {
-                    condition.flag = use.flag;
-                    condition.values = use.values;
-                    changedAt(use.where);
-                }
-            }
-            for (core::QuestEffect& effect : step.effects) {
-                FlagUse use{.flag = effect.flag,
-                            .values = effect.value.empty() ? std::vector<std::string>{}
-                                                           : std::vector<std::string>{effect.value},
-                            .role = FlagUseRole::Writes,
-                            .where = cite("step " + step.id + ": effects")};
-                if (visitUse(visit, use)) {
-                    effect.flag = use.flag;
-                    effect.value = use.values.empty() ? std::string{} : use.values.front();
-                    changedAt(use.where);
-                }
-            }
-            visitDerived(visit, core::questStepFlag(questId, step.id), cite("step " + step.id));
+            questVisit.step(step);
         }
-        if (plan == nullptr) {
-            continue;
-        }
-        if (renaming != nullptr && questId == renaming->from) {
-            quest.id = renaming->to;
-            plan->changes.push_back(cite("id"));
-            plan->edits.push_back(
-                ProjectEdit{.file = questsDirectory(dataRoot) / (quest.id + ".json"),
-                            .text = core::writeQuest(quest)});
-            plan->edits.push_back(ProjectEdit{.file = file, .text = std::nullopt});
-        } else if (changed) {
-            plan->edits.push_back(ProjectEdit{.file = file, .text = core::writeQuest(quest)});
+        if (plan != nullptr) {
+            writeVisitedQuest(dataRoot, file, quest, questVisit, *plan, renaming);
         }
     }
     return {};
@@ -383,7 +427,9 @@ public:
     }
 
     [[nodiscard]] Citation cite(const std::string& what) const {
-        return Citation{.file = _file, .what = "dialogue " + _id + ": " + what};
+        std::string text = "dialogue ";
+        text.append(_id).append(": ").append(what);
+        return Citation{.file = _file, .what = std::move(text)};
     }
 
     // Écrit ce qui a changé dans le plan.
@@ -454,7 +500,9 @@ void visitDialogueNode(DialogueVisit& dialogue, const std::string& dialogueId,
         const std::string kind = action.value("type", std::string{});
         const std::string pointer = base + "/actions/" + std::to_string(k);
         if (kind == "setFlag" || kind == "clearFlag") {
-            dialogue.action(action, pointer, what + ": " + kind);
+            std::string where = what;
+            where.append(": ").append(kind);
+            dialogue.action(action, pointer, where);
         } else if (kind == "startQuest") {
             const std::string quest = action.value("quest", std::string{});
             dialogue.derived(core::questStartedFlag(quest), what + ": startQuest");
@@ -671,18 +719,90 @@ bool isValidQuestName(std::string_view id, bool allowSlash) {
     });
 }
 
-RefactorPlan planSaveQuest(const std::filesystem::path& dataRoot, const QuestDraft& draft,
-                           bool isNew) {
-    const core::Quest& quest = draft.quest;
+namespace {
+
+// Pourquoi les identifiants de @p quest ne se prêtent pas aux clés du journal ; vide sinon.
+[[nodiscard]] std::string nameRefusal(const core::Quest& quest) {
     if (!isValidQuestName(quest.id)) {
-        return refused("\"" + quest.id +
-                       "\" is not a valid quest id (lowercase letters, digits, - and _)");
+        return "\"" + quest.id + "\" is not a valid quest id (lowercase letters, digits, - and _)";
     }
     for (const core::QuestStep& step : quest.steps) {
         if (!isValidQuestName(step.id)) {
-            return refused("step \"" + step.id +
-                           "\": not a valid step id (lowercase letters, digits, - and _)");
+            return "step \"" + step.id +
+                   "\": not a valid step id (lowercase letters, digits, - and _)";
         }
+    }
+    return {};
+}
+
+// Ce que la quête relue @p quest fait refuser, confrontée aux autres quêtes et aux dialogues de
+// @p dataRoot : un drapeau déjà déclaré ailleurs, un usage que `validateFlagUses` ne refusait pas
+// avant elle. Vide si rien.
+[[nodiscard]] std::string catalogRefusal(const std::filesystem::path& dataRoot,
+                                         const core::Quest& quest) {
+    const core::QuestCatalog before = core::loadQuests(questsDirectory(dataRoot));
+    core::QuestCatalog after;
+    for (const core::Quest& other : before.quests) {
+        if (other.id == quest.id) {
+            continue;
+        }
+        for (const core::QuestFlag& flag : quest.flags) {
+            if (std::ranges::find(other.flags, flag.id, &core::QuestFlag::id) !=
+                other.flags.end()) {
+                return "flag \"" + flag.id + "\" is already declared by quest \"" + other.id + "\"";
+            }
+        }
+        after.quests.push_back(other);
+    }
+    after.quests.push_back(quest);
+    const core::DialogueCatalog dialogues = core::loadDialogues(dialoguesDirectory(dataRoot));
+    const std::vector<std::string> previous = core::validateFlagUses(before, dialogues);
+    std::vector<std::string> introduced;
+    for (const std::string& misuse : core::validateFlagUses(after, dialogues)) {
+        if (!contains(previous, misuse)) {
+            introduced.push_back(misuse);
+        }
+    }
+    return joined(introduced, "\n");
+}
+
+// Le texte d'un catalogue qui porte les textes de journal de @p draft : les clés d'une étape
+// retirée, ou vidées dans cette langue, s'en vont ; les autres prennent leur texte.
+[[nodiscard]] std::string withJournal(const std::string& content, const QuestDraft& draft,
+                                      std::string_view language) {
+    const std::vector<std::string> keys = core::questTextKeys(draft.quest);
+    const std::string prefix = questKeyPrefix(draft.quest.id);
+    const auto given = draft.texts.find(language);
+    // Une langue que le brouillon ne donne pas garde ses textes.
+    const bool hasLanguage = given != draft.texts.end();
+    const auto textOf = [&](std::string_view key) -> std::string {
+        if (!hasLanguage) {
+            return {};
+        }
+        const auto found = given->second.find(key);
+        return found != given->second.end() ? found->second : std::string{};
+    };
+    std::string updated = withoutCatalogEntries(content, [&](std::string_view key) {
+        if (!key.starts_with(prefix)) {
+            return false;
+        }
+        return !contains(keys, key) || (hasLanguage && textOf(key).empty());
+    });
+    for (const std::string& key : keys) {
+        if (const std::string text = textOf(key); !text.empty()) {
+            updated = withCatalogEntry(updated, key, text, prefix);
+        }
+    }
+    return updated;
+}
+
+}  // namespace
+
+RefactorPlan planSaveQuest(const std::filesystem::path& dataRoot, const QuestDraft& draft,
+                           bool isNew) {
+    const core::Quest& quest = draft.quest;
+    if (std::string refusal = nameRefusal(quest); !refusal.empty()) {
+        return refused(std::move(refusal));
     }
     const std::filesystem::path file = questFile(dataRoot, quest.id);
     std::error_code absent;
@@ -696,69 +816,20 @@ RefactorPlan planSaveQuest(const std::filesystem::path& dataRoot, const QuestDra
     if (!reread.quest) {
         return refused(joined(reread.errors, "\n"));
     }
-    const core::QuestCatalog before = core::loadQuests(questsDirectory(dataRoot));
-    core::QuestCatalog after;
-    for (const core::Quest& other : before.quests) {
-        if (other.id == quest.id) {
-            continue;
-        }
-        for (const core::QuestFlag& flag : reread.quest->flags) {
-            if (std::ranges::find(other.flags, flag.id, &core::QuestFlag::id) !=
-                other.flags.end()) {
-                return refused("flag \"" + flag.id + "\" is already declared by quest \"" +
-                               other.id + "\"");
-            }
-        }
-        after.quests.push_back(other);
-    }
-    after.quests.push_back(*reread.quest);
-    const core::DialogueCatalog dialogues = core::loadDialogues(dialoguesDirectory(dataRoot));
-    const std::vector<std::string> previous = core::validateFlagUses(before, dialogues);
-    std::vector<std::string> introduced;
-    for (const std::string& misuse : core::validateFlagUses(after, dialogues)) {
-        if (!contains(previous, misuse)) {
-            introduced.push_back(misuse);
-        }
-    }
-    if (!introduced.empty()) {
-        return refused(joined(introduced, "\n"));
+    if (std::string refusal = catalogRefusal(dataRoot, *reread.quest); !refusal.empty()) {
+        return refused(std::move(refusal));
     }
 
     RefactorPlan plan;
     plan.changes.push_back(Citation{.file = file, .what = "quest " + quest.id});
     plan.edits.push_back(ProjectEdit{.file = file, .text = text});
-
     // Les textes du journal, langue par langue.
-    const std::vector<std::string> keys = core::questTextKeys(quest);
-    const std::string prefix = questKeyPrefix(quest.id);
     for (const std::filesystem::path& catalog : catalogFilesIn(localizationDirectory(dataRoot))) {
-        const std::string language = catalog.stem().string();
-        const auto given = draft.texts.find(language);
         const std::string content = readText(catalog);
-        std::string updated = withoutCatalogEntries(content, [&](std::string_view key) {
-            if (!key.starts_with(prefix)) {
-                return false;
-            }
-            if (!contains(keys, key)) {
-                return true;  // une étape retirée
-            }
-            // Vidé dans cette langue : retiré. Une langue que le brouillon ne donne pas reste.
-            if (given == draft.texts.end()) {
-                return false;
-            }
-            const auto text = given->second.find(key);
-            return text == given->second.end() || text->second.empty();
-        });
-        if (given != draft.texts.end()) {
-            for (const std::string& key : keys) {
-                const auto found = given->second.find(key);
-                if (found != given->second.end() && !found->second.empty()) {
-                    updated = withCatalogEntry(updated, key, found->second, prefix);
-                }
-            }
-        }
+        std::string updated = withJournal(content, draft, catalog.stem().string());
         if (updated != content) {
-            plan.changes.push_back(Citation{.file = catalog, .what = prefix + "*"});
+            plan.changes.push_back(
+                Citation{.file = catalog, .what = questKeyPrefix(quest.id) + "*"});
             plan.edits.push_back(ProjectEdit{.file = catalog, .text = std::move(updated)});
         }
     }
@@ -810,14 +881,32 @@ std::vector<FlagUse> usesOfFlag(const std::vector<FlagUse>& uses, std::string_vi
     return found;
 }
 
+namespace {
+
+// Le rôle d'un usage, tel que `--who-cites flag` l'écrit.
+[[nodiscard]] std::string_view roleName(FlagUseRole role) {
+    switch (role) {
+        case FlagUseRole::Declares:
+            return "declares";
+        case FlagUseRole::Reads:
+            return "reads";
+        case FlagUseRole::Writes:
+            break;
+    }
+    return "writes";
+}
+
+}  // namespace
+
 std::vector<Citation> flagUseCitations(const std::vector<FlagUse>& uses) {
     std::vector<Citation> citations;
     for (const FlagUse& use : uses) {
         Citation citation = use.where;
-        citation.what += use.role == FlagUseRole::Declares ? " (declares"
-                         : use.role == FlagUseRole::Reads  ? " (reads"
-                                                           : " (writes";
-        citation.what += use.values.empty() ? ")" : " " + joined(use.values, "|") + ")";
+        citation.what.append(" (").append(roleName(use.role));
+        if (!use.values.empty()) {
+            citation.what.append(" ").append(joined(use.values, "|"));
+        }
+        citation.what += ")";
         citations.push_back(std::move(citation));
     }
     return citations;
@@ -1093,6 +1182,19 @@ namespace {
     return carryOutQuestPlan(planSaveQuest(dataRoot, draft, isNew), dataRoot, output);
 }
 
+// `--who-cites flag <drapeau> [<valeur>]` : les usages, une citation par ligne.
+[[nodiscard]] int printFlagUses(const std::vector<std::string>& values,
+                                const std::filesystem::path& dataRoot, std::string& output) {
+    const std::vector<Citation> citations = flagUseCitations(
+        usesOfFlag(flagUses(dataRoot), values[1], values.size() == 3 ? values[2] : std::string{}));
+    for (const Citation& citation : citations) {
+        output += formatCitation(citation, dataRoot) + "\n";
+    }
+    output +=
+        std::to_string(citations.size()) + (citations.size() == 1 ? " citation\n" : " citations\n");
+    return 0;
+}
+
 // `--quest-state <quête> <étape>` : l'état de partie, tel que `--flags=` le lit.
 [[nodiscard]] int printQuestState(const std::vector<std::string>& values,
                                   const std::filesystem::path& dataRoot, std::string& output) {
@@ -1123,14 +1225,7 @@ std::optional<int> runQuestCommand(const std::vector<std::string>& arguments,
         if (cites->size() != 2 && cites->size() != 3) {
             return usage("--who-cites flag <flag> [<value>]");
         }
-        const std::vector<Citation> citations = flagUseCitations(usesOfFlag(
-            flagUses(dataRoot), (*cites)[1], cites->size() == 3 ? (*cites)[2] : std::string{}));
-        for (const Citation& citation : citations) {
-            output += formatCitation(citation, dataRoot) + "\n";
-        }
-        output += std::to_string(citations.size()) +
-                  (citations.size() == 1 ? " citation\n" : " citations\n");
-        return 0;
+        return printFlagUses(*cites, dataRoot, output);
     }
     if (const auto flag = argumentsOf(arguments, "--rename-flag")) {
         if (flag->size() != 2) {

@@ -43,6 +43,33 @@ constexpr float FLIGHT_SECONDS = CombatCueTrack::ACTION_SECONDS * CombatCueTrack
     return versLaDroite < 0.0F ? effect + "-left" : effect;
 }
 
+// Un pas le long de `path`, parti de `start` depuis `elapsed` secondes ; vrai a l'arrivee.
+bool applyWalk(FigureMotion& figure, const std::vector<core::GridPosition>& path,
+               core::Vector2 start, float elapsed) {
+    const float total = static_cast<float>(path.size()) / CombatCueTrack::WALK_CELLS_PER_SECOND;
+    if (elapsed >= total) {
+        // Arrive : tourne dans le sens du dernier pas, meme si l'image precedente n'a pas
+        // eu le temps de le montrer.
+        const core::Vector2 avant = path.size() >= 2 ? centerOf(path[path.size() - 2]) : start;
+        figure.point = centerOf(path.back());
+        figure.facing = facingTowards(avant, figure.point, figure.facing);
+        figure.clip = figure_clips::IDLE;
+        figure.clipSeconds = 0.0F;
+        return true;
+    }
+    const float progress = std::max(0.0F, elapsed) * CombatCueTrack::WALK_CELLS_PER_SECOND;
+    const auto segment = static_cast<std::size_t>(std::floor(progress));
+    const float fraction = progress - static_cast<float>(segment);
+    const core::Vector2 from = segment == 0 ? start : centerOf(path[segment - 1]);
+    const core::Vector2 to = centerOf(path[std::min(segment, path.size() - 1)]);
+    figure.point =
+        core::Vector2{from.x + ((to.x - from.x) * fraction), from.y + ((to.y - from.y) * fraction)};
+    figure.facing = facingTowards(from, to, figure.facing);
+    figure.clip = figure_clips::WALK;
+    figure.clipSeconds = std::max(0.0F, elapsed);
+    return false;
+}
+
 }  // namespace
 
 void CombatCueTrack::place(core::CombatantId actor, core::GridPosition cell, FigureFacing facing) {
@@ -154,32 +181,8 @@ bool CombatCueTrack::apply(Running& running) {
     FigureMotion& figure = found->second;
     const float elapsed = running.elapsed;
     switch (running.cue.kind) {
-        case CombatCueKind::Walk: {
-            const std::vector<core::GridPosition>& path = running.cue.path;
-            const float total = static_cast<float>(path.size()) / WALK_CELLS_PER_SECOND;
-            if (elapsed >= total) {
-                // Arrive : tourne dans le sens du dernier pas, meme si l'image precedente n'a pas
-                // eu le temps de le montrer.
-                const core::Vector2 avant =
-                    path.size() >= 2 ? centerOf(path[path.size() - 2]) : running.from;
-                figure.point = centerOf(path.back());
-                figure.facing = facingTowards(avant, figure.point, figure.facing);
-                figure.clip = figure_clips::IDLE;
-                figure.clipSeconds = 0.0F;
-                return true;
-            }
-            const float progress = std::max(0.0F, elapsed) * WALK_CELLS_PER_SECOND;
-            const auto segment = static_cast<std::size_t>(std::floor(progress));
-            const float fraction = progress - static_cast<float>(segment);
-            const core::Vector2 from = segment == 0 ? running.from : centerOf(path[segment - 1]);
-            const core::Vector2 to = centerOf(path[std::min(segment, path.size() - 1)]);
-            figure.point = core::Vector2{from.x + ((to.x - from.x) * fraction),
-                                         from.y + ((to.y - from.y) * fraction)};
-            figure.facing = facingTowards(from, to, figure.facing);
-            figure.clip = figure_clips::WALK;
-            figure.clipSeconds = std::max(0.0F, elapsed);
-            return false;
-        }
+        case CombatCueKind::Walk:
+            return applyWalk(figure, running.cue.path, running.from, elapsed);
         case CombatCueKind::Attack:
         case CombatCueKind::Cast: {
             if (running.cue.target.has_value()) {

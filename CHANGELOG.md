@@ -21,6 +21,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   (`EX-EDIT-100`). Les tests de renommage de cartes prennent un dossier temporaire propre à
   chaque processus : sous `ctest -j`, ils se le partageaient.
 
+- **Qualité — les alertes clang-tidy de la nightly.** Les 85 alertes ouvertes sur `main`
+  (analyse complète de la nuit) sont corrigées, sans changer ce que fait le code : champs
+  d'initialiseurs désignés complétés (l'arène, les dégâts, l'aperçu de combat, les modèles de
+  combat et de rencontre), fonctions trop complexes découpées en aides nommées (sorts, capacités de
+  classe, arène, budget des rencontres, montée de niveau, fiche, galerie, démarrage), et quelques
+  corrections locales — boucle sans compteur flottant dans la session d'exploration, `ranges`,
+  réservation, concaténations. Les accesseurs du modèle de groupe lus par QML gardent leur forme
+  d'instance, l'exception dite en commentaire.
+
 - **Planification — la version 0.0.2.5, passage à la 3D.** Le jeu garde sa vue isométrique et
   passe en 3D, entre la recette de la `0.0.2` et la `0.0.3` (décisions D-29 à D-35) : décor
   d'architecture en maillages, personnages **composés** — un corps parmi huit, une texture, des

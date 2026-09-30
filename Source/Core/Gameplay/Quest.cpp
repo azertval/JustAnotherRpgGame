@@ -197,6 +197,37 @@ void lireEffets(const Json& brut, const Pointeur& ou, const Quest& quete, QuestS
     }
 }
 
+// Le lieu d'une étape, `carte#id` : une carte, puis une entité ; l'existence se contrôle au
+// `--check` de l'éditeur (LOT-144).
+void lireLieu(const Json& brut, const Pointeur& ou, QuestStep& etape, Rapport& rapport) {
+    if (!brut.contains("at")) {
+        return;
+    }
+    const auto lieu = texte(brut, "at");
+    const std::size_t diese = lieu ? lieu->find('#') : std::string::npos;
+    if (diese == std::string::npos || diese == 0 || diese + 1 == lieu->size()) {
+        rapport.signaler(ou / "at", "etape '" + etape.id + "' : 'at' s'ecrit carte#entite.");
+        return;
+    }
+    etape.at = *lieu;
+}
+
+// L'issue d'une étape, si elle en a une : `success` ou `failure`.
+void lireIssue(const Json& brut, const Pointeur& ou, QuestStep& etape, Rapport& rapport) {
+    const auto issue = brut.find("outcome");
+    if (issue == brut.end()) {
+        return;
+    }
+    if (*issue == "success") {
+        etape.outcome = QuestOutcome::Success;
+    } else if (*issue == "failure") {
+        etape.outcome = QuestOutcome::Failure;
+    } else {
+        rapport.signaler(ou / "outcome",
+                         "etape '" + etape.id + "' : issue inconnue (success, failure).");
+    }
+}
+
 void lireEtapes(const Json& racine, Quest& quete, Rapport& rapport) {
     const auto etapes = racine.find("steps");
     if (etapes == racine.end() || !etapes->is_array() || etapes->empty()) {
@@ -217,29 +248,10 @@ void lireEtapes(const Json& racine, Quest& quete, Rapport& rapport) {
         if (!vus.insert(etape.id).second) {
             rapport.signaler(ou, "etape '" + etape.id + "' en double.");
         }
-        if (brut.contains("at")) {
-            // `carte#id` : une carte, puis une entité ; l'existence se contrôle au `--check`.
-            const auto lieu = texte(brut, "at");
-            const std::size_t diese = lieu ? lieu->find('#') : std::string::npos;
-            if (diese == std::string::npos || diese == 0 || diese + 1 == lieu->size()) {
-                rapport.signaler(ou / "at",
-                                 "etape '" + etape.id + "' : 'at' s'ecrit carte#entite.");
-            } else {
-                etape.at = *lieu;
-            }
-        }
+        lireLieu(brut, ou, etape, rapport);
         lireConditions(brut, ou, quete, etape, rapport);
         lireEffets(brut, ou, quete, etape, rapport);
-        if (const auto issue = brut.find("outcome"); issue != brut.end()) {
-            if (*issue == "success") {
-                etape.outcome = QuestOutcome::Success;
-            } else if (*issue == "failure") {
-                etape.outcome = QuestOutcome::Failure;
-            } else {
-                rapport.signaler(ou / "outcome",
-                                 "etape '" + etape.id + "' : issue inconnue (success, failure).");
-            }
-        }
+        lireIssue(brut, ou, etape, rapport);
         quete.steps.push_back(std::move(etape));
     }
 }

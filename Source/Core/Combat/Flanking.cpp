@@ -118,18 +118,15 @@ bool isAdjacentToAllyOf(const CombatState& combat, CombatantId attacker, Combata
     if (attaquant == nullptr) {
         return false;
     }
-    for (const CombatantId autre : combat.combatants()) {
+    return std::ranges::any_of(combat.combatants(), [&](const CombatantId autre) {
         const Combatant* allie = combat.find(autre);
         if (autre == attacker || autre == target || allie == nullptr ||
             allie->status != CombatantStatus::Standing ||
             allie->profile.side != attaquant->profile.side) {
-            continue;
+            return false;
         }
-        if (gridDistance(combat, autre, target) == 1) {
-            return true;
-        }
-    }
-    return false;
+        return gridDistance(combat, autre, target) == 1;
+    });
 }
 
 }  // namespace core

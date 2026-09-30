@@ -220,26 +220,31 @@ struct TurnActionEntry {
     entries.push_back({.kind = TurnActionKind::DODGE,
                        .attack = 0,
                        .label = CombatModel::tr("Esquiver"),
+                       .detail = {},
                        .iconKey = actionIconKey("dodge")});
     entries.push_back({.kind = TurnActionKind::DISENGAGE,
                        .attack = 0,
                        .label = CombatModel::tr("Se desengager"),
+                       .detail = {},
                        .iconKey = actionIconKey("disengage")});
     entries.push_back({.kind = TurnActionKind::DASH,
                        .attack = 0,
                        .label = CombatModel::tr("Se precipiter"),
+                       .detail = {},
                        .iconKey = actionIconKey("dash")});
     // Attendre : rendre la main sans rien depenser (LOT-140) -- la fin du tour a sa case dans la
     // barre, pour la souris comme pour les touches numerotees.
     entries.push_back({.kind = TurnActionKind::WAIT,
                        .attack = 0,
                        .label = CombatModel::tr("Attendre"),
+                       .detail = {},
                        .iconKey = actionIconKey("wait")});
     entries.push_back({.kind = TurnActionKind::REACTION,
                        .attack = 0,
                        .label = session.takesOpportunities(active)
                                     ? CombatModel::tr("Reaction : saisir les opportunites")
                                     : CombatModel::tr("Reaction : laisser passer"),
+                       .detail = {},
                        .iconKey = actionIconKey("reaction")});
     return entries;
 }
@@ -294,6 +299,62 @@ struct HealthDisplay {
         display.ratio = 0.5;
     }
     return display;
+}
+
+// La ligne du jet, ou de l'effet, selon le mecanisme du sort.
+void appendMechanismLine(QVariantList& lines, const core::ArenaSpell& spell) {
+    switch (spell.mechanism) {
+        case core::SpellMechanism::AttackRoll:
+            lines << previewLine(
+                CombatModel::tr("Jet"),
+                CombatModel::tr("d20 %1 contre la CA%2")
+                    .arg(signedNumber(core::attackBonusOf(spell.attack)))
+                    .arg(spell.projectiles > 1
+                             ? CombatModel::tr(", %1 projectile(s)").arg(spell.projectiles)
+                             : QString()));
+            break;
+        case core::SpellMechanism::SavingThrow:
+            lines << previewLine(
+                CombatModel::tr("Jet"),
+                CombatModel::tr("sauvegarde de %1 contre DD %2%3")
+                    .arg(spell.save.has_value() ? toQt(std::string(core::abilityName(*spell.save)))
+                                                : QString())
+                    .arg(spell.saveDc)
+                    .arg(spell.saveEffect == core::SaveEffect::Half
+                             ? CombatModel::tr(", degats de moitie")
+                             : CombatModel::tr(", annule")));
+            break;
+        case core::SpellMechanism::AutoHit:
+            lines << previewLine(
+                CombatModel::tr("Jet"),
+                spell.projectiles > 1
+                    ? CombatModel::tr("touche, %1 projectile(s)").arg(spell.projectiles)
+                    : CombatModel::tr("touche"));
+            break;
+        case core::SpellMechanism::Effect:
+            lines << previewLine(
+                CombatModel::tr("Effet"),
+                spell.effect.has_value()
+                    ? toQt(std::string(core::spellEffectKindName(spell.effect->kind)))
+                    : QString());
+            break;
+        case core::SpellMechanism::Healing:
+            if (spell.healing.has_value()) {
+                lines << previewLine(CombatModel::tr("Soin"),
+                                     toQt(core::formatDice(*spell.healing)));
+            }
+            break;
+        case core::SpellMechanism::Stabilize:
+            lines << previewLine(CombatModel::tr("Effet"), CombatModel::tr("stabilise un mourant"));
+            break;
+        case core::SpellMechanism::Revive:
+            if (spell.revival.has_value()) {
+                lines << previewLine(CombatModel::tr("Effet"),
+                                     CombatModel::tr("rend %1 point(s) de vie a un mort recent")
+                                         .arg(spell.revival->hitPoints));
+            }
+            break;
+    }
 }
 
 }  // namespace
@@ -867,53 +928,7 @@ void CombatModel::previewSpell(QVariantMap& map, QVariantList& lines, std::size_
     } else if (spell.maxTargets > 1) {
         lines << previewLine(tr("Cibles"), tr("jusqu'a %1").arg(spell.maxTargets));
     }
-    switch (spell.mechanism) {
-        case core::SpellMechanism::AttackRoll:
-            lines << previewLine(
-                tr("Jet"),
-                tr("d20 %1 contre la CA%2")
-                    .arg(signedNumber(core::attackBonusOf(spell.attack)))
-                    .arg(spell.projectiles > 1 ? tr(", %1 projectile(s)").arg(spell.projectiles)
-                                               : QString()));
-            break;
-        case core::SpellMechanism::SavingThrow:
-            lines << previewLine(
-                tr("Jet"),
-                tr("sauvegarde de %1 contre DD %2%3")
-                    .arg(spell.save.has_value() ? toQt(std::string(core::abilityName(*spell.save)))
-                                                : QString())
-                    .arg(spell.saveDc)
-                    .arg(spell.saveEffect == core::SaveEffect::Half ? tr(", degats de moitie")
-                                                                    : tr(", annule")));
-            break;
-        case core::SpellMechanism::AutoHit:
-            lines << previewLine(tr("Jet"),
-                                 spell.projectiles > 1
-                                     ? tr("touche, %1 projectile(s)").arg(spell.projectiles)
-                                     : tr("touche"));
-            break;
-        case core::SpellMechanism::Effect:
-            lines << previewLine(
-                tr("Effet"), spell.effect.has_value()
-                                 ? toQt(std::string(core::spellEffectKindName(spell.effect->kind)))
-                                 : QString());
-            break;
-        case core::SpellMechanism::Healing:
-            if (spell.healing.has_value()) {
-                lines << previewLine(tr("Soin"), toQt(core::formatDice(*spell.healing)));
-            }
-            break;
-        case core::SpellMechanism::Stabilize:
-            lines << previewLine(tr("Effet"), tr("stabilise un mourant"));
-            break;
-        case core::SpellMechanism::Revive:
-            if (spell.revival.has_value()) {
-                lines << previewLine(
-                    tr("Effet"),
-                    tr("rend %1 point(s) de vie a un mort recent").arg(spell.revival->hitPoints));
-            }
-            break;
-    }
+    appendMechanismLine(lines, spell);
     if (!spell.attack.damage.empty()) {
         lines << previewLine(tr("Degats"), damageText(spell.attack.damage));
     }
