@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EditorDiagnostics.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/EditorDiagnostics.h"
+
+#include &lt;algorithm&gt;
+
+namespace hmi {
+
+namespace {
+
+// Remplace `%1`, `%2`, `%3` de @p pattern par les arguments, dans l'ordre.
+<span style = "background-color:#dfd">[[nodiscard]] std::string format(std::string pattern, const std::vector&lt;std::string&gt;&amp; args) {
+    for (std::size_t index = 0; index &lt; args.size(); ++index) {
+        const std::string marker = "%" + std::to_string(index + 1);
+        for (std::size_t at = pattern.find(marker); at != std::string::npos;
+             at = pattern.find(marker, at + args[index].size())) {
+            pattern.replace(at, marker.size(), args[index]);
+        }
+    }
+    return pattern;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">const char* entityIssueTemplate(core::EntityIssueCode code) noexcept {
+    switch (code) {</span>
+        case core::EntityIssueCode::UnknownType:
+<span style = "background-color:#dfd">            return R"(Entity kind "%1" is unknown to the editor.)";</span>
+        case core::EntityIssueCode::MissingProperty:
+<span style = "background-color:#dfd">            return R"(%1: property "%2" must be filled in.)";</span>
+        case core::EntityIssueCode::WrongValueType:
+<span style = "background-color:#fdd">            return R"(%1: property "%2" has the wrong value type.)";</span>
+        case core::EntityIssueCode::InvalidChoice:
+<span style = "background-color:#fdd">            return R"(%1: "%3" is not an allowed value for "%2".)";</span>
+        case core::EntityIssueCode::UnknownDialogue:
+<span style = "background-color:#dfd">            return R"(%1: dialogue "%3" does not exist, or was rejected when loading.)";</span>
+        case core::EntityIssueCode::UnknownEncounter:
+<span style = "background-color:#fdd">            return R"(%1: encounter "%3" does not exist.)";</span>
+        case core::EntityIssueCode::UnknownTargetMap:
+<span style = "background-color:#fdd">            return R"(%1: map "%3" does not exist.)";</span>
+        case core::EntityIssueCode::UnknownArrivalPoint:
+<span style = "background-color:#fdd">            return R"(%1: the target map has no arrival point "%3".)";</span>
+        case core::EntityIssueCode::DuplicateArrivalPoint:
+<span style = "background-color:#fdd">            return R"(Two arrival points are named "%3".)";</span>
+        case core::EntityIssueCode::OutOfRange:
+<span style = "background-color:#fdd">            return R"(%1: %3 is out of range for "%2".)";</span>
+        case core::EntityIssueCode::UnknownFigure:
+<span style = "background-color:#fdd">            return R"(%1: figure "%3" is in no workshop.)";</span>
+        case core::EntityIssueCode::UnsetFlag:
+<span style = "background-color:#dfd">            return R"(%1: no dialogue or quest sets flag "%3" (read by "%2").)";</span>
+        case core::EntityIssueCode::UnknownLocation:
+<span style = "background-color:#fdd">            return R"(%1: location "%3" is not in the atlas.)";</span>
+        case core::EntityIssueCode::UnknownItem:
+<span style = "background-color:#fdd">            return R"(%1: item "%3" does not exist.)";</span>
+        case core::EntityIssueCode::UnknownEntityRef:
+<span style = "background-color:#fdd">            return R"(%1: no map has an entity "%3".)";</span>
+        case core::EntityIssueCode::InvalidPresence:
+<span style = "background-color:#fdd">            return R"(%1: presence condition is malformed at "%2" (flag, set|unset|equals|notEquals, values).)";</span>
+        case core::EntityIssueCode::UndeclaredFlagValue:
+<span style = "background-color:#fdd">            return R"(%1: no quest declares value "%3" for the flag that "%2" names.)";</span>
+        case core::EntityIssueCode::UnknownPiece:
+<span style = "background-color:#fdd">            return R"(%1: piece "%3" is not in the catalog of the map's place.)";</span>
+    }
+<span style = "background-color:#fdd">    return R"(Entity kind "%1" is unknown to the editor.)";</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">const char* tacticalIssueTemplate(core::TacticalIssueCode code) noexcept {
+    switch (code) {</span>
+        case core::TacticalIssueCode::CombatantOutOfBounds:
+<span style = "background-color:#dfd">            return R"(Encounter "%1": "%2" would stand off the map.)";</span>
+        case core::TacticalIssueCode::CombatantObstructed:
+<span style = "background-color:#dfd">            return R"(Encounter "%1": "%2" would stand on an obstacle.)";</span>
+        case core::TacticalIssueCode::CombatantsOverlap:
+<span style = "background-color:#fdd">            return R"(Encounter "%1": "%2" would overlap another combatant.)";</span>
+        case core::TacticalIssueCode::AreaTooNarrow:
+<span style = "background-color:#dfd">            return R"(Encounter "%1": area too narrow to fight in (%2 free cells, %3 required).)";</span>
+    }
+<span style = "background-color:#fdd">    return R"(Encounter "%1": area too narrow to fight in (%2 free cells, %3 required).)";</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">const char* deploymentIssueTemplate(core::DeploymentIssueCode code) noexcept {
+    switch (code) {</span>
+        case core::DeploymentIssueCode::NoCombatZone:
+<span style = "background-color:#dfd">            return R"(Encounter "%1": the map has no combat zone to fight it in.)";</span>
+        case core::DeploymentIssueCode::TriggerOutsideZone:
+<span style = "background-color:#dfd">            return R"(Encounter "%1": its marker stands outside combat zone "%3".)";</span>
+        case core::DeploymentIssueCode::CombatantOutsideZone:
+<span style = "background-color:#dfd">            return R"(Encounter "%1": "%2" would stand outside combat zone "%3".)";</span>
+        case core::DeploymentIssueCode::PartyCannotDeploy:
+<span style = "background-color:#dfd">            return R"(Encounter "%1": a party of %2 cannot deploy in combat zone "%3" (%4 places).)";</span>
+        case core::DeploymentIssueCode::ZoneTooNarrow:
+<span style = "background-color:#dfd">            return R"(Encounter "%1": combat zone "%3" too narrow for %2 combatants (%4 free cells, %5 required).)";</span>
+    }
+<span style = "background-color:#fdd">    return R"(Encounter "%1": the map has no combat zone to fight it in.)";</span>
+<span style = "background-color:#dfd">}</span>
+
+std::string deploymentIssueText(const core::PartyDeployment&amp; deployment,
+                                const core::DeploymentIssue&amp; issue,
+<span style = "background-color:#dfd">                                const std::vector&lt;core::MapEntity&gt;&amp; entities) {
+    const std::string zone = deployment.zoneIndex &amp;&amp; *deployment.zoneIndex &lt; entities.size()</span>
+                                 ? core::combatZoneOf(entities[*deployment.zoneIndex]).name
+                                 : std::string{};
+<span style = "background-color:#dfd">    const int combatants = static_cast&lt;int&gt;(deployment.formation.size()) + deployment.partySize;
+    std::vector&lt;std::string&gt; args{deployment.encounterId, issue.creatureId, zone};
+    switch (issue.code) {</span>
+        case core::DeploymentIssueCode::PartyCannotDeploy:
+<span style = "background-color:#dfd">            args[1] = std::to_string(deployment.partySize);
+            args.push_back(std::to_string(deployment.partyPlaces.size()));
+            break;</span>
+        case core::DeploymentIssueCode::ZoneTooNarrow:
+<span style = "background-color:#dfd">            args[1] = std::to_string(combatants);
+            args.push_back(std::to_string(deployment.reachableCells));
+            args.push_back(std::to_string(deployment.requiredCells));</span>
+            break;
+        case core::DeploymentIssueCode::NoCombatZone:
+        case core::DeploymentIssueCode::TriggerOutsideZone:
+        case core::DeploymentIssueCode::CombatantOutsideZone:
+            break;
+    }
+<span style = "background-color:#dfd">    return hmi::format(deploymentIssueTemplate(issue.code), args);
+}</span>
+
+namespace {
+
+<span style = "background-color:#fdd">[[nodiscard]] const char* combatZoneTemplate(core::WorldIssueCode code) noexcept {
+    switch (code) {</span>
+        case core::WorldIssueCode::CombatZoneDegenerate:
+<span style = "background-color:#fdd">            return R"(Combat zone "%1" has no width or no height.)";</span>
+        case core::WorldIssueCode::CombatZoneOutOfBounds:
+<span style = "background-color:#fdd">            return R"(Combat zone "%1" overflows the map.)";</span>
+        case core::WorldIssueCode::CombatZoneBlocked:
+<span style = "background-color:#fdd">            return R"(Combat zone "%1" has no free cell: nobody can stand in it.)";</span>
+        case core::WorldIssueCode::UnreadableMap:
+        case core::WorldIssueCode::MissingTargetMap:
+        case core::WorldIssueCode::UnknownTargetMap:
+        case core::WorldIssueCode::UnreadableTargetMap:
+        case core::WorldIssueCode::MissingArrivalPoint:
+        case core::WorldIssueCode::UnknownArrivalPoint:
+        case core::WorldIssueCode::DuplicateArrivalPoint:
+            break;
+    }
+<span style = "background-color:#fdd">    return R"(Combat zone "%1" cannot be played.)";
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::string combatZoneSummary(const core::CombatZoneTerrain&amp; zone) {
+    if (zone.issue) {</span>
+<span style = "background-color:#fdd">        return format(combatZoneTemplate(*zone.issue), {zone.zone.name});</span>
+    }
+<span style = "background-color:#dfd">    return format(</span>
+        "%1: %2 x %3, %4 free cells of %5, %6 arena entries inside, %7 outside.",
+        {zone.zone.name, std::to_string(zone.zone.columns), std::to_string(zone.zone.rows),
+         std::to_string(zone.freeCells.size()),
+         std::to_string(zone.freeCells.size() + zone.blockedCells.size()),
+         std::to_string(zone.entriesInside.size()), std::to_string(zone.entriesOutside.size())});
+<span style = "background-color:#dfd">}</span>
+
+std::vector&lt;EditorDiagnostic&gt; editorDiagnostics(
+    const std::vector&lt;core::MapEntity&gt;&amp; entities, const std::vector&lt;core::EntityIssue&gt;&amp; issues,
+    const std::vector&lt;core::EncounterTerrain&gt;&amp; terrains,
+    const std::vector&lt;core::CombatZoneTerrain&gt;&amp; zones,
+<span style = "background-color:#dfd">    const std::vector&lt;core::PartyDeployment&gt;&amp; deployments) {
+    std::vector&lt;EditorDiagnostic&gt; lines;
+    for (const core::EntityIssue&amp; issue : issues) {
+        if (issue.entityIndex &gt;= entities.size()) {</span>
+<span style = "background-color:#fdd">            continue;  // rapport perime : l'entite a disparu entre la validation et l'affichage.</span>
+        }
+<span style = "background-color:#dfd">        const core::MapEntity&amp; entity = entities[issue.entityIndex];
+        lines.push_back(EditorDiagnostic{.kind = EditorDiagnosticKind::Reference,</span>
+                                         .entityIndex = issue.entityIndex,
+                                         .cell = entity.position,
+                                         .message = format(entityIssueTemplate(issue.code),
+                                                           {entity.type, issue.key, issue.value})});
+<span style = "background-color:#dfd">    }
+    for (const core::EncounterTerrain&amp; terrain : terrains) {
+        for (const core::TacticalIssue&amp; issue : terrain.issues) {
+            const std::vector&lt;std::string&gt; args =</span>
+                issue.code == core::TacticalIssueCode::AreaTooNarrow
+                    ? std::vector&lt;std::string&gt;{terrain.encounterId,
+                                               std::to_string(terrain.area.size()),
+                                               std::to_string(terrain.requiredCells)}
+                    : std::vector&lt;std::string&gt;{terrain.encounterId, issue.creatureId};
+<span style = "background-color:#dfd">            lines.push_back(</span>
+                EditorDiagnostic{.kind = EditorDiagnosticKind::Terrain,
+                                 .entityIndex = terrain.entityIndex,
+                                 .cell = issue.cell,
+                                 .message = format(tacticalIssueTemplate(issue.code), args)});
+<span style = "background-color:#dfd">        }
+    }
+    for (const core::CombatZoneTerrain&amp; zone : zones) {
+        if (zone.issue) {</span>
+<span style = "background-color:#fdd">            lines.push_back(EditorDiagnostic{.kind = EditorDiagnosticKind::Terrain,</span>
+                                             .entityIndex = zone.entityIndex,
+                                             .cell = zone.zone.origin,
+                                             .message = combatZoneSummary(zone)});
+        }
+<span style = "background-color:#dfd">    }
+    for (const core::PartyDeployment&amp; deployment : deployments) {
+        for (const core::DeploymentIssue&amp; issue : deployment.issues) {
+            lines.push_back(</span>
+                EditorDiagnostic{.kind = EditorDiagnosticKind::Terrain,
+                                 .entityIndex = deployment.encounterIndex,
+                                 .cell = issue.cell,
+                                 .message = deploymentIssueText(deployment, issue, entities)});
+<span style = "background-color:#dfd">        }
+    }</span>
+    // Une entree d'arene hors de TOUTE zone : aucun combat de cette carte ne la verra.
+<span style = "background-color:#dfd">    if (!zones.empty()) {
+        for (const std::size_t entry : zones.front().entriesOutside) {
+            const bool outsideAll = std::ranges::all_of(zones, [entry](const auto&amp; zone) {
+                return std::ranges::find(zone.entriesOutside, entry) != zone.entriesOutside.end();
+            });
+            if (outsideAll &amp;&amp; entry &lt; entities.size()) {
+                lines.push_back(EditorDiagnostic{</span>
+                    .kind = EditorDiagnosticKind::Terrain,
+                    .entityIndex = entry,
+                    .cell = entities[entry].position,
+                    .message = "Arena entry stands outside every combat zone: the fight will not "
+                               "see it."});
+            }
+<span style = "background-color:#dfd">        }</span>
+    }
+<span style = "background-color:#dfd">    return lines;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

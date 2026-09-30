@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CollisionDerivation.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Levels/CollisionDerivation.h"
+
+#include &lt;cstddef&gt;
+#include &lt;optional&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Levels/PieceFootprint.h"
+
+namespace core {
+
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] PieceTactical strongest(PieceTactical left, PieceTactical right) noexcept {
+    return static_cast&lt;int&gt;(left) &gt;= static_cast&lt;int&gt;(right) ? left : right;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">TileType collisionTileOf(PieceTactical tactical) noexcept {
+    switch (tactical) {</span>
+        case PieceTactical::Solid:
+<span style = "background-color:#dfd">            return TileType::Wall;</span>
+        case PieceTactical::Obstacle:
+<span style = "background-color:#dfd">            return TileType::Cliff;</span>
+        case PieceTactical::Open:
+        case PieceTactical::Difficult:
+        case PieceTactical::Cover:
+<span style = "background-color:#dfd">            return TileType::Empty;</span>
+    }
+<span style = "background-color:#fdd">    return TileType::Empty;</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">PieceTactical tacticalOfTileType(TileType type) noexcept {
+    switch (type) {</span>
+        case TileType::Solid:
+        case TileType::Wall:
+        case TileType::Tree:
+        case TileType::Column:
+        case TileType::Roof:
+        case TileType::Tiers:
+<span style = "background-color:#dfd">            return PieceTactical::Solid;</span>
+        case TileType::DeepWater:
+        case TileType::Cliff:
+        case TileType::Rock:
+        case TileType::Fence:
+        case TileType::Stall:
+        case TileType::Crate:
+        case TileType::Pit:
+        case TileType::Lava:
+<span style = "background-color:#dfd">            return PieceTactical::Obstacle;</span>
+        case TileType::Mud:
+        case TileType::Rubble:
+        case TileType::Bush:
+<span style = "background-color:#dfd">            return PieceTactical::Difficult;</span>
+        case TileType::LowWall:
+<span style = "background-color:#dfd">            return PieceTactical::Cover;</span>
+        case TileType::Empty:
+        case TileType::Entry:
+        case TileType::Grass:
+        case TileType::Dirt:
+        case TileType::Sand:
+        case TileType::Water:
+        case TileType::Bridge:
+        case TileType::Stairs:
+        case TileType::Pavement:
+        case TileType::Alley:
+        case TileType::Planks:
+        case TileType::Flagstone:
+        case TileType::Snow:
+        case TileType::Door:
+<span style = "background-color:#dfd">            return PieceTactical::Open;</span>
+    }
+<span style = "background-color:#fdd">    return PieceTactical::Open;</span>
+<span style = "background-color:#dfd">}</span>
+
+namespace {
+
+// Ce que les couches apportent, case par case : la contribution la plus forte, et les cases dont
+// la piÃ¨ce est inconnue.
+class Contributions {
+public:
+    Contributions(int width, int height, const ScenePieceManifest* manifest)
+<span style = "background-color:#dfd">        : _width(width),
+          _height(height),
+          _manifest(manifest),
+          _cells(static_cast&lt;std::size_t&gt;(width) * static_cast&lt;std::size_t&gt;(height)),
+          _unknown(_cells.size(), false),
+          _bounds(width, height) {}</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t indexOf(int column, int row) const {
+        return (static_cast&lt;std::size_t&gt;(row) * static_cast&lt;std::size_t&gt;(_width)) +</span>
+               static_cast&lt;std::size_t&gt;(column);
+<span style = "background-color:#dfd">    }</span>
+
+    // Ajoute ce que la couche @p layer apporte, si elle est visuelle et de la taille de la carte.
+<span style = "background-color:#dfd">    void addLayer(const TileLayer&amp; layer) {</span>
+        // Un Ã©tage ne dit rien du sol : la collision est celle du rez (`LOT-129`).
+<span style = "background-color:#dfd">        if (!isVisualLayerKind(layer.kind) || layer.floor != 0 || layer.tiles.width() != _width ||</span>
+            layer.tiles.height() != _height) {
+<span style = "background-color:#dfd">            return;</span>
+        }
+<span style = "background-color:#dfd">        for (int row = 0; row &lt; _height; ++row) {
+            for (int column = 0; column &lt; _width; ++column) {
+                addCell(layer, column, row);
+            }
+        }
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] PieceTactical tacticalAt(std::size_t index) const {
+        return _cells[index].value_or(PieceTactical::Solid);
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool isUnknown(std::size_t index) const {
+        return _unknown[index];
+    }</span>
+
+private:
+<span style = "background-color:#dfd">    void contribute(int column, int row, PieceTactical tactical) {
+        if (!_bounds.inBounds(column, row)) {</span>
+<span style = "background-color:#fdd">            return;  // une emprise qui dÃ©borde de la carte n'y occupe que ce qui y tient</span>
+        }
+<span style = "background-color:#dfd">        std::optional&lt;PieceTactical&gt;&amp; cell = _cells[indexOf(column, row)];
+        cell = cell ? strongest(*cell, tactical) : tactical;
+    }</span>
+
+    // Ce que la case (column, row) apporte : l'emprise de sa piÃ¨ce si elle est connue, sinon son
+    // type ; une piÃ¨ce inconnue est relevÃ©e et couvre au moins Â« ouvert Â».
+<span style = "background-color:#dfd">    void addCell(const TileLayer&amp; layer, int column, int row) {
+        const std::string_view name = layer.pieceAt(column, row);
+        const ScenePiece* piece =</span>
+            name.empty() || _manifest == nullptr ? nullptr : _manifest-&gt;find(name);
+<span style = "background-color:#dfd">        if (piece != nullptr) {</span>
+            for (const GridPosition cell :
+<span style = "background-color:#dfd">                 footprintCells(GridPosition{.column = column, .row = row}, piece-&gt;footprint())) {
+                contribute(cell.column, cell.row, piece-&gt;tactical);
+            }
+            return;</span>
+        }
+<span style = "background-color:#dfd">        if (!name.empty()) {
+            _unknown[indexOf(column, row)] = true;</span>
+        }
+<span style = "background-color:#dfd">        const TileType type = layer.tiles.tile(column, row);
+        if (type != TileType::Empty) {
+            contribute(column, row, tacticalOfTileType(type));
+        } else if (!name.empty()) {</span>
+<span style = "background-color:#fdd">            contribute(column, row, PieceTactical::Open);  // une piÃ¨ce inconnue couvre</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    int _width;
+    int _height;
+    const ScenePieceManifest* _manifest;
+    // std::nullopt tant que rien ne couvre la case (vide).
+    std::vector&lt;std::optional&lt;PieceTactical&gt;&gt; _cells;
+    std::vector&lt;bool&gt; _unknown;
+    TileMap _bounds;
+};
+
+}  // namespace
+
+CollisionDerivation deriveCollision(const std::vector&lt;TileLayer&gt;&amp; layers, int width, int height,
+<span style = "background-color:#dfd">                                    const ScenePieceManifest* manifest) {
+    Contributions contributions(width, height, manifest);
+    for (const TileLayer&amp; layer : layers) {
+        contributions.addLayer(layer);
+    }</span>
+
+<span style = "background-color:#dfd">    CollisionDerivation derivation{.collision = TileMap(width, height)};
+    for (int row = 0; row &lt; height; ++row) {
+        for (int column = 0; column &lt; width; ++column) {
+            const std::size_t index = contributions.indexOf(column, row);
+            const PieceTactical tactical = contributions.tacticalAt(index);
+            derivation.collision.setTile(column, row, collisionTileOf(tactical));
+            const GridPosition cell{.column = column, .row = row};
+            if (tactical == PieceTactical::Difficult || tactical == PieceTactical::Cover) {
+                derivation.unplayed.push_back(cell);</span>
+            }
+<span style = "background-color:#dfd">            if (contributions.isUnknown(index)) {
+                derivation.unknownPieces.push_back(cell);</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    return derivation;
+}</span>
+
+<span style = "background-color:#dfd">TileType canonicalCollisionTile(TileType type) noexcept {
+    return collisionTileOf(tacticalOfTileType(type));
+}</span>
+
+<span style = "background-color:#dfd">bool collisionAgrees(const TileMap&amp; written, const TileMap&amp; derived, int column, int row) {
+    return canonicalCollisionTile(written.tile(column, row)) ==</span>
+           canonicalCollisionTile(derived.tile(column, row));
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

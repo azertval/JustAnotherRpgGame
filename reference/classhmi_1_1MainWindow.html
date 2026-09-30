@@ -256,6 +256,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a30d196b73adb355d9d18c93951831e3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre ce que <code class="param">plan</code> récrit, l'écrit si l'auteur accepte, puis relit chaque onglet.  <br /></td></tr>
 <tr class="memitem:aa6c58df46de1f9b8770f7c6e9962d5d5" id="r_aa6c58df46de1f9b8770f7c6e9962d5d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6c58df46de1f9b8770f7c6e9962d5d5">goToCitation</a> (const <a class="el" href="structhmi_1_1Citation.html">Citation</a> &amp;citation)</td></tr>
 <tr class="memdesc:aa6c58df46de1f9b8770f7c6e9962d5d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la carte de la citation et y va, comme pour un constat du contrôle.  <br /></td></tr>
+<tr class="memitem:a1b84502bc18c088562c78747f71c851c" id="r_a1b84502bc18c088562c78747f71c851c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1b84502bc18c088562c78747f71c851c">connectQuestsPanel</a> ()</td></tr>
+<tr class="memdesc:a1b84502bc18c088562c78747f71c851c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les plans du panneau, l'enregistrement d'une quête, l'étape jouée, le chemin vers un usage.  <br /></td></tr>
 <tr class="memitem:aabc40d107e8dd41fdb72302e572ee8fd" id="r_aabc40d107e8dd41fdb72302e572ee8fd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aabc40d107e8dd41fdb72302e572ee8fd">setUpSafetyNet</a> ()</td></tr>
 <tr class="memitem:a97a8207d2eb4159bbee889424348eed9" id="r_a97a8207d2eb4159bbee889424348eed9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a97a8207d2eb4159bbee889424348eed9">scheduleAutosave</a> ()</td></tr>
 <tr class="memdesc:a97a8207d2eb4159bbee889424348eed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relance le délai de sauvegarde automatique : une rafale de gestes n'écrit qu'une fois.  <br /></td></tr>
@@ -297,6 +299,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ac168947bff7ada078291cf00431e2afe" id="r_ac168947bff7ada078291cf00431e2afe"><td class="memItemLeft"><a class="el" href="classhmi_1_1ProblemsPanel.html">ProblemsPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac168947bff7ada078291cf00431e2afe">_problems</a> = nullptr</td></tr>
 <tr class="memdesc:ac168947bff7ada078291cf00431e2afe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les constats du contrôle, sur toutes les cartes (LOT-EDITOR-07) : hors de la mise en avant.  <br /></td></tr>
 <tr class="memitem:aa6858ebf7e3b92fd1500bf0a92bcd9d4" id="r_aa6858ebf7e3b92fd1500bf0a92bcd9d4"><td class="memItemLeft">QDockWidget *&#160;</td><td class="memItemRight"><a class="el" href="#aa6858ebf7e3b92fd1500bf0a92bcd9d4">_problemsDock</a> = nullptr</td></tr>
+<tr class="memitem:ac0d567ff405a642028370981fbd4bc77" id="r_ac0d567ff405a642028370981fbd4bc77"><td class="memItemLeft"><a class="el" href="classhmi_1_1QuestsPanel.html">QuestsPanel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac0d567ff405a642028370981fbd4bc77">_quests</a> = nullptr</td></tr>
+<tr class="memdesc:ac0d567ff405a642028370981fbd4bc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mode Quêtes (LOT-144) : un onglet à côté des cartes.  <br /></td></tr>
+<tr class="memitem:a59801893a5d925c3152f3f47ef1407ab" id="r_a59801893a5d925c3152f3f47ef1407ab"><td class="memItemLeft">QDockWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a59801893a5d925c3152f3f47ef1407ab">_questsDock</a> = nullptr</td></tr>
 <tr class="memitem:a1740570708e810c8d14a9f85988296fb" id="r_a1740570708e810c8d14a9f85988296fb"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1740570708e810c8d14a9f85988296fb">_references</a></td></tr>
 <tr class="memitem:aa11ea4bf8bdc5815fc36bee49cd1c0ed" id="r_aa11ea4bf8bdc5815fc36bee49cd1c0ed"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorActions.html">EditorActions</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa11ea4bf8bdc5815fc36bee49cd1c0ed">_actions</a> = nullptr</td></tr>
 <tr class="memitem:ab33c6cdb6968b9fb8550383780597a57" id="r_ab33c6cdb6968b9fb8550383780597a57"><td class="memItemLeft">QToolBar *&#160;</td><td class="memItemRight"><a class="el" href="#ab33c6cdb6968b9fb8550383780597a57">_toolBar</a> = nullptr</td></tr>
@@ -954,6 +959,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1b84502bc18c088562c78747f71c851c" name="a1b84502bc18c088562c78747f71c851c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b84502bc18c088562c78747f71c851c">&#9670;&#160;</a></span>connectQuestsPanel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::connectQuestsPanel </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les plans du panneau, l'enregistrement d'une quête, l'étape jouée, le chemin vers un usage. </p>
 
 </div>
 </div>
@@ -2692,6 +2724,52 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">QDockWidget* hmi::MainWindow::_problemsDock = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0d567ff405a642028370981fbd4bc77" name="ac0d567ff405a642028370981fbd4bc77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0d567ff405a642028370981fbd4bc77">&#9670;&#160;</a></span>_quests</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1QuestsPanel.html">QuestsPanel</a>* hmi::MainWindow::_quests = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le mode Quêtes (LOT-144) : un onglet à côté des cartes. </p>
+
+</div>
+</div>
+<a id="a59801893a5d925c3152f3f47ef1407ab" name="a59801893a5d925c3152f3f47ef1407ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59801893a5d925c3152f3f47ef1407ab">&#9670;&#160;</a></span>_questsDock</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDockWidget* hmi::MainWindow::_questsDock = nullptr</td>
         </tr>
       </table>
   </td>

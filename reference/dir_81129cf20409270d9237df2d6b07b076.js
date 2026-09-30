@@ -26,6 +26,8 @@ var dir_81129cf20409270d9237df2d6b07b076 =
     [ "PalettePanel.h", "PalettePanel_8h.html", "PalettePanel_8h" ],
     [ "ProblemsPanel.cpp", "ProblemsPanel_8cpp.html", null ],
     [ "ProblemsPanel.h", "ProblemsPanel_8h.html", "ProblemsPanel_8h" ],
+    [ "QuestsPanel.cpp", "QuestsPanel_8cpp.html", null ],
+    [ "QuestsPanel.h", "QuestsPanel_8h.html", "QuestsPanel_8h" ],
     [ "RefactorDialogs.cpp", "RefactorDialogs_8cpp.html", "RefactorDialogs_8cpp" ],
     [ "RefactorDialogs.h", "RefactorDialogs_8h.html", "RefactorDialogs_8h" ],
     [ "RunInGameDialog.cpp", "RunInGameDialog_8cpp.html", "RunInGameDialog_8cpp" ],

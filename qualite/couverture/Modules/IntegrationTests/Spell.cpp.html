@@ -46,10 +46,10 @@ struct NomDEffet {
 
 // Les noms sont ceux de `spell.schema.json` : le schema et le moteur disent la meme liste.
 constexpr std::array&lt;NomDEffet, 4&gt; EFFETS{{
-    {SpellEffectKind::Fly, "fly"},
-    {SpellEffectKind::Invisible, "invisible"},
-    {SpellEffectKind::Bless, "bless"},
-    {SpellEffectKind::SpiritualWeapon, "spiritual-weapon"},
+    {.genre = SpellEffectKind::Fly, .nom = "fly"},
+    {.genre = SpellEffectKind::Invisible, .nom = "invisible"},
+    {.genre = SpellEffectKind::Bless, .nom = "bless"},
+    {.genre = SpellEffectKind::SpiritualWeapon, .nom = "spiritual-weapon"},
 }};
 
 <span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;SpellEffectKind&gt; lireGenreDEffet(std::string_view nom) {
@@ -61,6 +61,154 @@ constexpr std::array&lt;NomDEffet, 4&gt; EFFETS{{
     return std::nullopt;
 }</span>
 
+// Le genre d'attaque : au contact, ou a distance par defaut.
+[[nodiscard]] bool lireGenreDAttaque(const nlohmann::json&amp; racine, const std::string&amp; fichier,
+<span style = "background-color:#dfd">                                     Spell&amp; sort, std::vector&lt;std::string&gt;&amp; erreurs) {
+    const std::string genreDAttaque = lireTexte(racine, "attackKind");
+    if (genreDAttaque == "melee") {
+        sort.meleeAttack = true;
+    } else if (!genreDAttaque.empty() &amp;&amp; genreDAttaque != "ranged") {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : 'attackKind' '" + genreDAttaque + "' inconnu du moteur.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    return true;
+}</span>
+
+// Les des de soin, s'il y en a : presents, ils doivent se lire.
+[[nodiscard]] bool lireSoin(const nlohmann::json&amp; racine, const std::string&amp; fichier, Spell&amp; sort,
+<span style = "background-color:#dfd">                            std::vector&lt;std::string&gt;&amp; erreurs) {
+    if (const auto soin = racine.find("healing"); soin != racine.end()) {
+        sort.healing = soin-&gt;is_string() ? parseDice(soin-&gt;get&lt;std::string&gt;()) : std::nullopt;
+        if (!sort.healing.has_value()) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : des de soin illisibles.");
+            return false;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return true;
+}</span>
+
+// Le retour a la vie : des points de vie et un delai, tous deux positifs.
+[[nodiscard]] bool lireRevenant(const nlohmann::json&amp; racine, const std::string&amp; fichier,
+<span style = "background-color:#dfd">                                Spell&amp; sort, std::vector&lt;std::string&gt;&amp; erreurs) {
+    const auto retour = racine.find("revives");
+    if (retour == racine.end()) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    SpellRevival revenant;
+    const auto pv = retour-&gt;is_object() ? retour-&gt;find("hitPoints") : retour-&gt;end();
+    const auto rounds = retour-&gt;is_object() ? retour-&gt;find("withinRounds") : retour-&gt;end();</span>
+    if (pv == retour-&gt;end() || !pv-&gt;is_number_integer() || pv-&gt;get&lt;int&gt;() &lt; 1 ||
+<span style = "background-color:#dfd">        rounds == retour-&gt;end() || !rounds-&gt;is_number_integer() || rounds-&gt;get&lt;int&gt;() &lt; 1) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : 'revives' demande 'hitPoints' et 'withinRounds' positifs.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    revenant.hitPoints = pv-&gt;get&lt;int&gt;();
+    revenant.withinRounds = rounds-&gt;get&lt;int&gt;();
+    sort.revives = revenant;
+    return true;
+}</span>
+
+// Un champ entier facultatif qui, present, doit etre positif.
+[[nodiscard]] bool lireEntierPositif(const nlohmann::json&amp; racine, const char* champ,
+                                     const std::string&amp; fichier, int&amp; valeur,
+<span style = "background-color:#dfd">                                     std::vector&lt;std::string&gt;&amp; erreurs) {
+    if (const auto trouve = racine.find(champ); trouve != racine.end()) {
+        if (!trouve-&gt;is_number_integer() || trouve-&gt;get&lt;int&gt;() &lt; 1) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : '" + champ + "' doit etre un entier positif.");
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        valeur = trouve-&gt;get&lt;int&gt;();
+    }
+    return true;
+}</span>
+
+// L'effet d'une sauvegarde reussie : moitie des degats, ou aucun par defaut.
+[[nodiscard]] bool lireEffetDeSauvegarde(const nlohmann::json&amp; racine, const std::string&amp; fichier,
+<span style = "background-color:#dfd">                                         Spell&amp; sort, std::vector&lt;std::string&gt;&amp; erreurs) {
+    const std::string sauvegarde = lireTexte(racine, "saveEffect");
+    if (sauvegarde == "half") {
+        sort.saveEffect = SaveEffect::Half;
+    } else if (!sauvegarde.empty() &amp;&amp; sauvegarde != "negates") {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : 'saveEffect' '" + sauvegarde + "' inconnu du moteur.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    return true;
+}</span>
+
+// La cible : un allie, soi-meme, ou un ennemi par defaut.
+[[nodiscard]] bool lireCible(const nlohmann::json&amp; racine, const std::string&amp; fichier, Spell&amp; sort,
+<span style = "background-color:#dfd">                             std::vector&lt;std::string&gt;&amp; erreurs) {
+    const std::string cible = lireTexte(racine, "target");
+    if (cible == "ally") {
+        sort.target = SpellTarget::Ally;
+    } else if (cible == "self") {</span>
+<span style = "background-color:#fdd">        sort.target = SpellTarget::Self;</span>
+<span style = "background-color:#dfd">    } else if (!cible.empty() &amp;&amp; cible != "enemy") {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : cible '" + cible + "' inconnue du moteur.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    return true;
+}</span>
+
+// La zone : un rayon positif, et une forme que le moteur pose ou non.
+[[nodiscard]] bool lireZone(const nlohmann::json&amp; racine, const std::string&amp; fichier, Spell&amp; sort,
+<span style = "background-color:#dfd">                            std::vector&lt;std::string&gt;&amp; erreurs) {
+    const auto zone = racine.find("area");
+    if (zone == racine.end() || !zone-&gt;is_object()) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    const std::string forme = lireTexte(*zone, "shape");
+    const auto metres = zone-&gt;find("meters");
+    if (metres == zone-&gt;end() || !metres-&gt;is_number() || metres-&gt;get&lt;float&gt;() &lt;= 0.0F) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : zone sans 'meters' positifs.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (forme == "sphere") {
+        sort.areaRadiusMeters = metres-&gt;get&lt;float&gt;();
+    } else {</span>
+        // Une forme connue du Manuel mais que le moteur ne pose pas encore : le sort se
+        // charge, et `spellMechanism` dit qu'il ne se joue pas.
+<span style = "background-color:#dfd">        sort.unsupportedArea = forme;</span>
+    }
+<span style = "background-color:#dfd">    return true;
+}</span>
+
+// L'effet qui dure : son genre, et les champs que ce genre exige.
+[[nodiscard]] bool lireEffetPose(const nlohmann::json&amp; racine, const std::string&amp; fichier,
+<span style = "background-color:#dfd">                                 Spell&amp; sort, std::vector&lt;std::string&gt;&amp; erreurs) {
+    const auto effet = racine.find("effect");
+    if (effet == racine.end() || !effet-&gt;is_object()) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    const std::string genre = lireTexte(*effet, "kind");
+    const std::optional&lt;SpellEffectKind&gt; lu = lireGenreDEffet(genre);
+    if (!lu.has_value()) {
+        erreurs.push_back(fichier + " : effet de sort '" + genre + "' inconnu du moteur.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    SpellEffect pose{.kind = *lu, .meters = 0.0F, .dice = std::nullopt, .durationRounds = 0};
+    if (const auto metres = effet-&gt;find("meters"); metres != effet-&gt;end() &amp;&amp; metres-&gt;is_number()) {
+        pose.meters = metres-&gt;get&lt;float&gt;();
+    }
+    if (pose.kind == SpellEffectKind::Fly &amp;&amp; pose.meters &lt;= 0.0F) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : effet 'fly' sans vitesse ('meters').");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (const auto des = effet-&gt;find("dice"); des != effet-&gt;end() &amp;&amp; des-&gt;is_string()) {
+        pose.dice = parseDice(des-&gt;get&lt;std::string&gt;());
+    }
+    if (pose.kind == SpellEffectKind::Bless &amp;&amp; !pose.dice.has_value()) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : effet 'bless' sans des lisibles ('dice').");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (const auto duree = effet-&gt;find("durationRounds");
+        duree != effet-&gt;end() &amp;&amp; duree-&gt;is_number_integer()) {
+        pose.durationRounds = std::max(0, duree-&gt;get&lt;int&gt;());
+    }
+    sort.effect = pose;
+    return true;
+}</span>
+
 // Les champs du LOT-133 : projectiles, sans jet, sauvegarde, zone, cible, effet qui dure. Une
 // valeur que le moteur ne sait pas lire refuse le sort : joue a moitie, il tromperait plus
 // qu'absent et nomme dans les erreurs.
@@ -70,110 +218,75 @@ constexpr std::array&lt;NomDEffet, 4&gt; EFFETS{{
     sort.cantripScaling = lireBooleen(racine, "cantripScaling");
     sort.addsAbilityModifier = lireBooleen(racine, "addsAbilityModifier");
     sort.bonusAction = lireBooleen(racine, "bonusAction");
-    const std::string genreDAttaque = lireTexte(racine, "attackKind");
-    if (genreDAttaque == "melee") {
-        sort.meleeAttack = true;
-    } else if (!genreDAttaque.empty() &amp;&amp; genreDAttaque != "ranged") {</span>
-<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : 'attackKind' '" + genreDAttaque + "' inconnu du moteur.");
-        return false;</span>
+    if (!lireGenreDAttaque(racine, fichier, sort, erreurs) ||</span>
+        !lireSoin(racine, fichier, sort, erreurs)) {
+<span style = "background-color:#fdd">        return false;</span>
     }
-<span style = "background-color:#dfd">    if (const auto soin = racine.find("healing"); soin != racine.end()) {
-        sort.healing = soin-&gt;is_string() ? parseDice(soin-&gt;get&lt;std::string&gt;()) : std::nullopt;
-        if (!sort.healing.has_value()) {</span>
-<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : des de soin illisibles.");
-            return false;</span>
+<span style = "background-color:#dfd">    sort.stabilizes = lireBooleen(racine, "stabilizes");
+    return lireRevenant(racine, fichier, sort, erreurs) &amp;&amp;</span>
+           lireEntierPositif(racine, "maxTargets", fichier, sort.maxTargets, erreurs) &amp;&amp;
+           lireEntierPositif(racine, "projectiles", fichier, sort.projectiles, erreurs) &amp;&amp;
+           lireEffetDeSauvegarde(racine, fichier, sort, erreurs) &amp;&amp;
+           lireCible(racine, fichier, sort, erreurs) &amp;&amp; lireZone(racine, fichier, sort, erreurs) &amp;&amp;
+           lireEffetPose(racine, fichier, sort, erreurs);
+<span style = "background-color:#dfd">}</span>
+
+// Les composantes, en lettres separees par des virgules : Â« V, S, M Â».
+<span style = "background-color:#dfd">[[nodiscard]] std::string lireComposantes(const nlohmann::json&amp; composantes) {
+    std::string lettres;
+    for (const auto&amp; [cle, lettre] :
+         {std::pair{"verbal", "V"}, std::pair{"somatic", "S"}, std::pair{"material", "M"}}) {
+        if (lireBooleen(composantes, cle)) {
+            lettres += (lettres.empty() ? "" : ", ") + std::string{lettre};</span>
         }
 <span style = "background-color:#dfd">    }
-    sort.stabilizes = lireBooleen(racine, "stabilizes");
-    if (const auto retour = racine.find("revives"); retour != racine.end()) {
-        SpellRevival revenant;
-        const auto pv = retour-&gt;is_object() ? retour-&gt;find("hitPoints") : retour-&gt;end();
-        const auto rounds = retour-&gt;is_object() ? retour-&gt;find("withinRounds") : retour-&gt;end();</span>
-        if (pv == retour-&gt;end() || !pv-&gt;is_number_integer() || pv-&gt;get&lt;int&gt;() &lt; 1 ||
-<span style = "background-color:#dfd">            rounds == retour-&gt;end() || !rounds-&gt;is_number_integer() || rounds-&gt;get&lt;int&gt;() &lt; 1) {</span>
-<span style = "background-color:#fdd">            erreurs.push_back(fichier +</span>
-                              " : 'revives' demande 'hitPoints' et 'withinRounds' positifs.");
+    return lettres;
+}</span>
+
+// Les degats, leur type et le jet de sauvegarde : presents, ils doivent se lire.
+[[nodiscard]] bool lireDegats(const nlohmann::json&amp; racine, const std::string&amp; fichier, Spell&amp; sort,
+<span style = "background-color:#dfd">                              std::vector&lt;std::string&gt;&amp; erreurs) {
+    if (const auto des = racine.find("damage"); des != racine.end() &amp;&amp; des-&gt;is_string()) {
+        sort.damage = parseDice(des-&gt;get&lt;std::string&gt;());
+        if (!sort.damage.has_value()) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : des de degats '" + des-&gt;get&lt;std::string&gt;() +</span>
+                              "' illisibles.");
 <span style = "background-color:#fdd">            return false;</span>
         }
-<span style = "background-color:#dfd">        revenant.hitPoints = pv-&gt;get&lt;int&gt;();
-        revenant.withinRounds = rounds-&gt;get&lt;int&gt;();
-        sort.revives = revenant;
-    }
-    if (const auto cibles = racine.find("maxTargets"); cibles != racine.end()) {
-        if (!cibles-&gt;is_number_integer() || cibles-&gt;get&lt;int&gt;() &lt; 1) {</span>
-<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : 'maxTargets' doit etre un entier positif.");
-            return false;</span>
-        }
-<span style = "background-color:#dfd">        sort.maxTargets = cibles-&gt;get&lt;int&gt;();
-    }
-    if (const auto projectiles = racine.find("projectiles"); projectiles != racine.end()) {
-        if (!projectiles-&gt;is_number_integer() || projectiles-&gt;get&lt;int&gt;() &lt; 1) {</span>
-<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : 'projectiles' doit etre un entier positif.");
-            return false;</span>
-        }
-<span style = "background-color:#dfd">        sort.projectiles = projectiles-&gt;get&lt;int&gt;();
-    }
-    const std::string sauvegarde = lireTexte(racine, "saveEffect");
-    if (sauvegarde == "half") {
-        sort.saveEffect = SaveEffect::Half;
-    } else if (!sauvegarde.empty() &amp;&amp; sauvegarde != "negates") {</span>
-<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : 'saveEffect' '" + sauvegarde + "' inconnu du moteur.");
-        return false;</span>
-    }
-<span style = "background-color:#dfd">    const std::string cible = lireTexte(racine, "target");
-    if (cible == "ally") {
-        sort.target = SpellTarget::Ally;
-    } else if (cible == "self") {</span>
-<span style = "background-color:#fdd">        sort.target = SpellTarget::Self;</span>
-<span style = "background-color:#dfd">    } else if (!cible.empty() &amp;&amp; cible != "enemy") {</span>
-<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : cible '" + cible + "' inconnue du moteur.");
-        return false;</span>
-    }
-<span style = "background-color:#dfd">    if (const auto zone = racine.find("area"); zone != racine.end() &amp;&amp; zone-&gt;is_object()) {
-        const std::string forme = lireTexte(*zone, "shape");
-        const auto metres = zone-&gt;find("meters");
-        if (metres == zone-&gt;end() || !metres-&gt;is_number() || metres-&gt;get&lt;float&gt;() &lt;= 0.0F) {</span>
-<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : zone sans 'meters' positifs.");
-            return false;</span>
-        }
-<span style = "background-color:#dfd">        if (forme == "sphere") {
-            sort.areaRadiusMeters = metres-&gt;get&lt;float&gt;();
-        } else {</span>
-            // Une forme connue du Manuel mais que le moteur ne pose pas encore : le sort se
-            // charge, et `spellMechanism` dit qu'il ne se joue pas.
-<span style = "background-color:#dfd">            sort.unsupportedArea = forme;</span>
+<span style = "background-color:#dfd">    }
+    if (const auto type = racine.find("damageType"); type != racine.end() &amp;&amp; type-&gt;is_string()) {
+        sort.damageType = parseDamageType(type-&gt;get&lt;std::string&gt;());
+        if (!sort.damageType.has_value()) {</span>
+            // Un type inconnu ne recoit pas un type par defaut (EX-CBT-032).
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : type de degats '" + type-&gt;get&lt;std::string&gt;() +</span>
+                              "' inconnu du moteur.");
+<span style = "background-color:#fdd">            return false;</span>
         }
 <span style = "background-color:#dfd">    }
-    if (const auto effet = racine.find("effect"); effet != racine.end() &amp;&amp; effet-&gt;is_object()) {
-        const std::string genre = lireTexte(*effet, "kind");
-        const std::optional&lt;SpellEffectKind&gt; lu = lireGenreDEffet(genre);
-        if (!lu.has_value()) {
-            erreurs.push_back(fichier + " : effet de sort '" + genre + "' inconnu du moteur.");
-            return false;</span>
+    if (const auto sauvegarde = racine.find("savingThrow");
+        sauvegarde != racine.end() &amp;&amp; sauvegarde-&gt;is_string()) {
+        sort.savingThrow = parseAbility(sauvegarde-&gt;get&lt;std::string&gt;());
+        if (!sort.savingThrow.has_value()) {</span>
+<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : jet de sauvegarde '" + sauvegarde-&gt;get&lt;std::string&gt;() +</span>
+                              "' inconnu du moteur.");
+<span style = "background-color:#fdd">            return false;</span>
         }
-<span style = "background-color:#dfd">        SpellEffect pose{.kind = *lu, .meters = 0.0F, .dice = std::nullopt, .durationRounds = 0};
-        if (const auto metres = effet-&gt;find("meters");
-            metres != effet-&gt;end() &amp;&amp; metres-&gt;is_number()) {
-            pose.meters = metres-&gt;get&lt;float&gt;();
-        }
-        if (pose.kind == SpellEffectKind::Fly &amp;&amp; pose.meters &lt;= 0.0F) {</span>
-<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : effet 'fly' sans vitesse ('meters').");
-            return false;</span>
-        }
-<span style = "background-color:#dfd">        if (const auto des = effet-&gt;find("dice"); des != effet-&gt;end() &amp;&amp; des-&gt;is_string()) {
-            pose.dice = parseDice(des-&gt;get&lt;std::string&gt;());
-        }
-        if (pose.kind == SpellEffectKind::Bless &amp;&amp; !pose.dice.has_value()) {</span>
-<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : effet 'bless' sans des lisibles ('dice').");
-            return false;</span>
-        }
-<span style = "background-color:#dfd">        if (const auto duree = effet-&gt;find("durationRounds");
-            duree != effet-&gt;end() &amp;&amp; duree-&gt;is_number_integer()) {
-            pose.durationRounds = std::max(0, duree-&gt;get&lt;int&gt;());
-        }
-        sort.effect = pose;
-    }
+<span style = "background-color:#dfd">    }
     return true;
+}</span>
+
+// Les mecanismes que le sort attend du moteur, par leur nom.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; lireMecanismesRequis(const nlohmann::json&amp; racine) {
+    std::vector&lt;std::string&gt; noms;
+    if (const auto mecanismes = racine.find("mecanismesRequis");
+        mecanismes != racine.end() &amp;&amp; mecanismes-&gt;is_array()) {
+        for (const auto&amp; element : *mecanismes) {
+            if (element.is_string()) {
+                noms.push_back(element.get&lt;std::string&gt;());
+            }
+        }
+    }
+    return noms;
 }</span>
 
 [[nodiscard]] std::optional&lt;Spell&gt; lireSort(const nlohmann::json&amp; racine,
@@ -191,14 +304,7 @@ constexpr std::array&lt;NomDEffet, 4&gt; EFFETS{{
     sort.appliesCondition = lireTexte(racine, "appliesCondition");
     if (const auto composantes = racine.find("components");
         composantes != racine.end() &amp;&amp; composantes-&gt;is_object()) {
-        std::string lettres;
-        for (const auto&amp; [cle, lettre] :
-             {std::pair{"verbal", "V"}, std::pair{"somatic", "S"}, std::pair{"material", "M"}}) {
-            if (lireBooleen(*composantes, cle)) {
-                lettres += (lettres.empty() ? "" : ", ") + std::string{lettre};</span>
-            }
-<span style = "background-color:#dfd">        }
-        sort.components = lettres;
+        sort.components = lireComposantes(*composantes);
     }
     sort.concentration = lireBooleen(racine, "concentration");
     sort.ritual = lireBooleen(racine, "ritual");
@@ -218,43 +324,11 @@ constexpr std::array&lt;NomDEffet, 4&gt; EFFETS{{
         portee != racine.end() &amp;&amp; portee-&gt;is_number()) {
         sort.rangeMeters = portee-&gt;get&lt;float&gt;();
     }
-    if (const auto des = racine.find("damage"); des != racine.end() &amp;&amp; des-&gt;is_string()) {
-        sort.damage = parseDice(des-&gt;get&lt;std::string&gt;());
-        if (!sort.damage.has_value()) {</span>
-<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : des de degats '" + des-&gt;get&lt;std::string&gt;() +</span>
-                              "' illisibles.");
-<span style = "background-color:#fdd">            return std::nullopt;</span>
-        }
-<span style = "background-color:#dfd">    }
-    if (const auto type = racine.find("damageType"); type != racine.end() &amp;&amp; type-&gt;is_string()) {
-        sort.damageType = parseDamageType(type-&gt;get&lt;std::string&gt;());
-        if (!sort.damageType.has_value()) {</span>
-            // Un type inconnu ne recoit pas un type par defaut (EX-CBT-032).
-<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : type de degats '" + type-&gt;get&lt;std::string&gt;() +</span>
-                              "' inconnu du moteur.");
-<span style = "background-color:#fdd">            return std::nullopt;</span>
-        }
-<span style = "background-color:#dfd">    }
-    if (const auto sauvegarde = racine.find("savingThrow");
-        sauvegarde != racine.end() &amp;&amp; sauvegarde-&gt;is_string()) {
-        sort.savingThrow = parseAbility(sauvegarde-&gt;get&lt;std::string&gt;());
-        if (!sort.savingThrow.has_value()) {</span>
-<span style = "background-color:#fdd">            erreurs.push_back(fichier + " : jet de sauvegarde '" + sauvegarde-&gt;get&lt;std::string&gt;() +</span>
-                              "' inconnu du moteur.");
-<span style = "background-color:#fdd">            return std::nullopt;</span>
-        }
-<span style = "background-color:#dfd">    }
-    if (!lireMecanismes(racine, fichier, sort, erreurs)) {
-        return std::nullopt;</span>
+    if (!lireDegats(racine, fichier, sort, erreurs) ||</span>
+        !lireMecanismes(racine, fichier, sort, erreurs)) {
+<span style = "background-color:#dfd">        return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    if (const auto mecanismes = racine.find("mecanismesRequis");
-        mecanismes != racine.end() &amp;&amp; mecanismes-&gt;is_array()) {
-        for (const auto&amp; element : *mecanismes) {
-            if (element.is_string()) {
-                sort.requiredMechanisms.push_back(element.get&lt;std::string&gt;());
-            }
-        }
-    }
+<span style = "background-color:#dfd">    sort.requiredMechanisms = lireMecanismesRequis(racine);
     return sort;
 }</span>
 

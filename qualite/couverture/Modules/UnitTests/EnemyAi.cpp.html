@@ -320,6 +320,7 @@ public:
         // Un ennemi qui voit l'acteur a une case gene le tir : une fois par ancre, pas par cible.
 <span style = "background-color:#dfd">        std::optional&lt;bool&gt; auContact;
         std::vector&lt;const Present*&gt; visees;
+        visees.reserve(_ennemis.size() + _aTerre.size());
         for (const Present&amp; cible : _ennemis) {
             visees.push_back(&amp;cible);
         }

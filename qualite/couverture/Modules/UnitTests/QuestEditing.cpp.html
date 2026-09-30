@@ -1,0 +1,1292 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>QuestEditing.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/QuestEditing.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cctype&gt;
+#include &lt;fstream&gt;
+#include &lt;functional&gt;
+#include &lt;iterator&gt;
+#include &lt;set&gt;
+#include &lt;sstream&gt;
+#include &lt;system_error&gt;
+#include &lt;unordered_map&gt;
+#include &lt;utility&gt;
+#include &lt;variant&gt;
+
+#include &lt;nlohmann/json.hpp&gt;
+
+#include "Core/Gameplay/WorldFlags.h"
+#include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/LevelWriter.h"
+#include "Core/Levels/MapEntity.h"
+#include "Core/Rpg/Dialogue.h"
+#include "Core/World/EntityKinds.h"
+#include "Core/World/WorldGraph.h"
+#include "Editor/Logic/MapFormat.h"
+#include "Editor/Logic/MapTexts.h"
+
+namespace hmi {
+
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string readText(const std::filesystem::path&amp; path) {
+    std::ifstream file(path, std::ios::binary);
+    std::ostringstream buffer;
+    buffer &lt;&lt; file.rdbuf();
+    return buffer.str();
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::filesystem::path questsDirectory(const std::filesystem::path&amp; dataRoot) {
+    return dataRoot / "World" / "quests";
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::filesystem::path dialoguesDirectory(const std::filesystem::path&amp; dataRoot) {
+    return dataRoot / "World" / "dialogues";
+}</span>
+
+// Les fichiers `*.json` d'un dossier, triÃ©s ; aucun si le dossier manque.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::filesystem::path&gt; jsonFiles(const std::filesystem::path&amp; directory) {
+    std::vector&lt;std::filesystem::path&gt; files;
+    std::error_code error;
+    for (auto entry = std::filesystem::directory_iterator(directory, error);
+         !error &amp;&amp; entry != std::filesystem::directory_iterator(); entry.increment(error)) {
+        if (entry-&gt;is_regular_file() &amp;&amp; entry-&gt;path().extension() == ".json") {
+            files.push_back(entry-&gt;path());
+        }
+    }
+    std::ranges::sort(files);
+    return files;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] RefactorPlan refused(std::string error) {
+    RefactorPlan plan;
+    plan.error = std::move(error);
+    return plan;
+}</span>
+
+[[nodiscard]] std::string joined(const std::vector&lt;std::string&gt;&amp; parts,
+<span style = "background-color:#dfd">                                 std::string_view separator) {
+    std::string text;
+    for (std::size_t i = 0; i &lt; parts.size(); ++i) {
+        text += (i == 0 ? "" : std::string{separator}) + parts[i];
+    }
+    return text;
+}</span>
+
+// --- Les chaÃ®nes d'un document JSON, par leur pointeur -------------------------------------------
+
+// OÃ¹ se tient une chaÃ®ne dans le texte : ses guillemets compris.
+struct StringSpan {
+    std::size_t begin = 0;
+    std::size_t end = 0;
+};
+
+// Parcourt un texte JSON **dÃ©jÃ  reconnu valide** et note la place de chaque chaÃ®ne qui est une
+// valeur, par son pointeur (`/nodes/3/actions/0/value`). C'est ce qui permet de changer une valeur
+// d'un dialogue Ã©crit Ã  la main sans toucher Ã  un autre octet.
+class StringSpanScanner {
+public:
+<span style = "background-color:#dfd">    explicit StringSpanScanner(std::string_view text) : _text(text) {}</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] std::map&lt;std::string, StringSpan, std::less&lt;&gt;&gt; scan() {
+        value({});
+        return std::move(_spans);
+    }</span>
+
+private:
+<span style = "background-color:#dfd">    void skipSpaces() {
+        while (_at &lt; _text.size() &amp;&amp; std::isspace(static_cast&lt;unsigned char&gt;(_text[_at])) != 0) {
+            ++_at;
+        }
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] StringSpan string() {
+        const std::size_t begin = _at++;
+        while (_at &lt; _text.size() &amp;&amp; _text[_at] != '"') {
+            _at += _text[_at] == '\\' ? 2 : 1;
+        }
+        ++_at;
+        return {.begin = begin, .end = std::min(_at, _text.size())};
+    }</span>
+
+    // Le pointeur d'une clÃ© : `~` et `/` Ã©chappÃ©s (RFC 6901).
+<span style = "background-color:#dfd">    [[nodiscard]] static std::string escaped(const std::string&amp; key) {
+        std::string result;
+        for (const char c : key) {
+            if (c == '~') {</span>
+<span style = "background-color:#fdd">                result += "~0";</span>
+<span style = "background-color:#dfd">            } else if (c == '/') {</span>
+<span style = "background-color:#fdd">                result += "~1";
+            } else {</span>
+<span style = "background-color:#dfd">                result += c;</span>
+            }
+<span style = "background-color:#dfd">        }
+        return result;
+    }</span>
+
+<span style = "background-color:#dfd">    void value(const std::string&amp; pointer) {
+        skipSpaces();
+        if (_at &gt;= _text.size()) {</span>
+<span style = "background-color:#fdd">            return;</span>
+        }
+<span style = "background-color:#dfd">        const char c = _text[_at];
+        if (c == '{') {
+            members(pointer);
+        } else if (c == '[') {
+            elements(pointer);
+        } else if (c == '"') {
+            _spans[pointer] = string();
+        } else {</span>
+<span style = "background-color:#fdd">            while (_at &lt; _text.size() &amp;&amp;</span>
+                   std::string_view{",]} \t\r\n"}.find(_text[_at]) == std::string_view::npos) {
+<span style = "background-color:#fdd">                ++_at;
+            }</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    void members(const std::string&amp; pointer) {
+        ++_at;</span>
+        for (;;) {
+<span style = "background-color:#dfd">            skipSpaces();
+            if (_at &gt;= _text.size() || _text[_at] == '}') {
+                ++_at;
+                return;</span>
+            }
+<span style = "background-color:#dfd">            const StringSpan key = string();
+            const nlohmann::json name =</span>
+                nlohmann::json::parse(_text.substr(key.begin, key.end - key.begin), nullptr, false);
+<span style = "background-color:#dfd">            skipSpaces();
+            ++_at;  // ':'
+            value(pointer + "/" + escaped(name.is_string() ? name.get&lt;std::string&gt;() : ""));
+            skipSpaces();
+            if (_at &lt; _text.size() &amp;&amp; _text[_at] == ',') {
+                ++_at;</span>
+            }
+<span style = "background-color:#dfd">        }
+    }</span>
+
+<span style = "background-color:#dfd">    void elements(const std::string&amp; pointer) {
+        ++_at;
+        for (std::size_t index = 0;; ++index) {
+            skipSpaces();
+            if (_at &gt;= _text.size() || _text[_at] == ']') {
+                ++_at;
+                return;</span>
+            }
+<span style = "background-color:#dfd">            value(pointer + "/" + std::to_string(index));
+            skipSpaces();
+            if (_at &lt; _text.size() &amp;&amp; _text[_at] == ',') {
+                ++_at;</span>
+            }
+<span style = "background-color:#dfd">        }
+    }</span>
+
+    std::string_view _text;
+<span style = "background-color:#dfd">    std::size_t _at = 0;</span>
+    std::map&lt;std::string, StringSpan, std::less&lt;&gt;&gt; _spans;
+};
+
+// @p text oÃ¹ chaque chaÃ®ne nommÃ©e par son pointeur prend sa nouvelle valeur ; rien d'autre ne
+// bouge.
+[[nodiscard]] std::string withStrings(
+<span style = "background-color:#dfd">    const std::string&amp; text, const std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&amp; edits) {
+    const std::map&lt;std::string, StringSpan, std::less&lt;&gt;&gt; spans = StringSpanScanner(text).scan();
+    std::vector&lt;std::pair&lt;StringSpan, std::string&gt;&gt; placed;
+    for (const auto&amp; [pointer, value] : edits) {
+        if (const auto found = spans.find(pointer); found != spans.end()) {
+            placed.emplace_back(found-&gt;second, nlohmann::json(value).dump());
+        }
+    }</span>
+    // De la fin vers le dÃ©but : une chaÃ®ne remplacÃ©e ne dÃ©cale pas les suivantes.
+<span style = "background-color:#dfd">    std::ranges::sort(placed,
+                      [](const auto&amp; a, const auto&amp; b) { return a.first.begin &gt; b.first.begin; });
+    std::string result = text;
+    for (const auto&amp; [span, replacement] : placed) {
+        result.replace(span.begin, span.end - span.begin, replacement);
+    }
+    return result;
+}</span>
+
+// --- Les endroits qui se servent d'un drapeau
+// -----------------------------------------------------
+
+// ReÃ§oit chaque usage ; rend vrai s'il l'a changÃ© (drapeau ou valeurs), et le parcours l'Ã©crit.
+using UseVisitor = std::function&lt;bool(FlagUse&amp;)&gt;;
+
+// Une quÃªte renommÃ©e : son fichier, et les dialogues qui la dÃ©marrent.
+struct QuestIdRenaming {
+    std::string from;
+    std::string to;
+};
+
+// Ce que @p visit a changÃ© d'un usage, comparÃ© Ã  ce qu'il Ã©tait.
+<span style = "background-color:#dfd">[[nodiscard]] bool visitUse(const UseVisitor&amp; visit, FlagUse&amp; use) {
+    const FlagUse before = use;
+    return visit(use) &amp;&amp; (use.flag != before.flag || use.values != before.values);
+}</span>
+
+// Un usage qui ne se rÃ©crit pas : le fait qu'un jet ratÃ©, une victoire ou une Ã©tape pose
+// d'eux-mÃªmes.
+<span style = "background-color:#dfd">void visitDerived(const UseVisitor&amp; visit, std::string flag, Citation where) {
+    FlagUse use{.flag = std::move(flag),
+                .values = {},
+                .role = FlagUseRole::Writes,
+                .where = std::move(where)};
+    static_cast&lt;void&gt;(visit(use));
+}</span>
+
+// Une quÃªte, parcourue usage par usage et, au besoin, rÃ©crite.
+class QuestVisit {
+public:
+<span style = "background-color:#dfd">    QuestVisit(std::filesystem::path file, std::string id, const UseVisitor&amp; visit,</span>
+               RefactorPlan* plan)
+<span style = "background-color:#dfd">        : _file(std::move(file)), _id(std::move(id)), _visit(visit), _plan(plan) {}</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] Citation cite(const std::string&amp; what) const {
+        std::string text = "quest ";
+        text.append(_id).append(": ").append(what);
+        return Citation{.file = _file, .what = std::move(text)};
+    }</span>
+
+    // Les dÃ©clarations : l'initiale suit la valeur renommÃ©e.
+<span style = "background-color:#dfd">    void declarations(std::vector&lt;core::QuestFlag&gt;&amp; flags) {
+        for (core::QuestFlag&amp; declared : flags) {
+            FlagUse use{.flag = declared.id,
+                        .values = declared.values,
+                        .role = FlagUseRole::Declares,
+                        .where = cite("flags")};
+            if (!visitUse(_visit, use)) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            const auto initial = std::ranges::find(declared.values, declared.initial);
+            if (initial != declared.values.end() &amp;&amp; use.values.size() == declared.values.size()) {
+                declared.initial =</span>
+                    use.values[static_cast&lt;std::size_t&gt;(initial - declared.values.begin())];
+            }
+<span style = "background-color:#dfd">            declared.id = use.flag;
+            declared.values = use.values;
+            changedAt(use.where);
+        }
+    }</span>
+
+    // Une Ã©tape : ses conditions, ses effets, et le fait qu'elle pose d'elle-mÃªme.
+<span style = "background-color:#dfd">    void step(core::QuestStep&amp; step) {
+        for (core::FlagCondition&amp; condition : step.when) {
+            FlagUse use{.flag = condition.flag,
+                        .values = condition.values,
+                        .role = FlagUseRole::Reads,
+                        .where = cite("step " + step.id + ": when")};
+            if (visitUse(_visit, use)) {
+                condition.flag = use.flag;
+                condition.values = use.values;
+                changedAt(use.where);</span>
+            }
+<span style = "background-color:#dfd">        }
+        for (core::QuestEffect&amp; effect : step.effects) {
+            FlagUse use{.flag = effect.flag,
+                        .values = effect.value.empty() ? std::vector&lt;std::string&gt;{}</span>
+                                                       : std::vector&lt;std::string&gt;{effect.value},
+<span style = "background-color:#dfd">                        .role = FlagUseRole::Writes,
+                        .where = cite("step " + step.id + ": effects")};
+            if (visitUse(_visit, use)) {
+                effect.flag = use.flag;
+                effect.value = use.values.empty() ? std::string{} : use.values.front();
+                changedAt(use.where);</span>
+            }
+<span style = "background-color:#dfd">        }
+        visitDerived(_visit, core::questStepFlag(_id, step.id), cite("step " + step.id));
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool changed() const noexcept {
+        return _changed;
+    }</span>
+
+private:
+<span style = "background-color:#dfd">    void changedAt(const Citation&amp; where) {
+        _changed = true;
+        if (_plan != nullptr) {
+            _plan-&gt;changes.push_back(where);</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    std::filesystem::path _file;
+    std::string _id;
+    const UseVisitor&amp; _visit;
+    RefactorPlan* _plan;
+<span style = "background-color:#dfd">    bool _changed = false;</span>
+};
+
+// Ãcrit dans @p plan la quÃªte @p quest de @p file, changÃ©e par le parcours, ou dÃ©placÃ©e par
+// @p renaming.
+void writeVisitedQuest(const std::filesystem::path&amp; dataRoot, const std::filesystem::path&amp; file,
+                       core::Quest&amp; quest, const QuestVisit&amp; visit, RefactorPlan&amp; plan,
+<span style = "background-color:#dfd">                       const QuestIdRenaming* renaming) {
+    if (renaming != nullptr &amp;&amp; quest.id == renaming-&gt;from) {
+        quest.id = renaming-&gt;to;
+        plan.changes.push_back(visit.cite("id"));
+        plan.edits.push_back(ProjectEdit{.file = questsDirectory(dataRoot) / (quest.id + ".json"),</span>
+                                         .text = core::writeQuest(quest)});
+<span style = "background-color:#dfd">        plan.edits.push_back(ProjectEdit{.file = file, .text = std::nullopt});
+    } else if (visit.changed()) {
+        plan.edits.push_back(ProjectEdit{.file = file, .text = core::writeQuest(quest)});</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+// Les quÃªtes. @return Le refus, si @p plan est donnÃ© et qu'une quÃªte ne se lit pas.
+std::string visitQuests(const std::filesystem::path&amp; dataRoot, const UseVisitor&amp; visit,
+<span style = "background-color:#dfd">                        RefactorPlan* plan, const QuestIdRenaming* renaming = nullptr) {
+    for (const std::filesystem::path&amp; file : jsonFiles(questsDirectory(dataRoot))) {
+        core::QuestLoad loaded = core::loadQuest(file);
+        if (!loaded.quest) {</span>
+<span style = "background-color:#fdd">            if (plan != nullptr) {
+                return "quest " + file.stem().string() +</span>
+                       " cannot be read: " + joined(loaded.errors, "; ");
+            }
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        core::Quest&amp; quest = *loaded.quest;
+        QuestVisit questVisit(file, quest.id, visit, plan);
+        questVisit.declarations(quest.flags);
+        for (core::QuestStep&amp; step : quest.steps) {
+            questVisit.step(step);
+        }
+        if (plan != nullptr) {
+            writeVisitedQuest(dataRoot, file, quest, questVisit, *plan, renaming);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return {};
+}</span>
+
+// Un dialogue, lu pour Ãªtre parcouru et, au besoin, rÃ©crit chaÃ®ne par chaÃ®ne.
+class DialogueVisit {
+public:
+<span style = "background-color:#dfd">    DialogueVisit(std::filesystem::path file, std::string id, const UseVisitor&amp; visit,</span>
+                  RefactorPlan* plan)
+<span style = "background-color:#dfd">        : _file(std::move(file)), _id(std::move(id)), _visit(visit), _plan(plan) {}</span>
+
+    // Une condition `{flag, equals|notEquals}` Ã  @p pointer.
+    void condition(const nlohmann::json&amp; object, const std::string&amp; pointer,
+<span style = "background-color:#dfd">                   const std::string&amp; what) {
+        if (!object.is_object() || !object.contains("flag") || !object["flag"].is_string()) {</span>
+<span style = "background-color:#fdd">            return;</span>
+        }
+<span style = "background-color:#dfd">        FlagUse use{.flag = object["flag"].get&lt;std::string&gt;(),
+                    .values = {},
+                    .role = FlagUseRole::Reads,
+                    .where = cite(what)};
+        std::vector&lt;std::string&gt; pointers;
+        for (const char* key : {"equals", "notEquals"}) {
+            if (!object.contains(key)) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            const nlohmann::json&amp; values = object[key];
+            if (values.is_string()) {
+                use.values.push_back(values.get&lt;std::string&gt;());
+                pointers.push_back(pointer + "/" + key);
+            } else if (values.is_array()) {
+                for (std::size_t k = 0; k &lt; values.size(); ++k) {
+                    if (values[k].is_string()) {
+                        use.values.push_back(values[k].get&lt;std::string&gt;());
+                        pointers.push_back(pointer + "/" + key + "/" + std::to_string(k));</span>
+                    }
+<span style = "background-color:#dfd">                }</span>
+            }
+<span style = "background-color:#dfd">        }
+        rewrite(use, pointer + "/flag", pointers);
+    }</span>
+
+    // Une action `setFlag` / `clearFlag` Ã  @p pointer.
+<span style = "background-color:#dfd">    void action(const nlohmann::json&amp; object, const std::string&amp; pointer, const std::string&amp; what) {
+        if (!object.contains("flag") || !object["flag"].is_string()) {</span>
+<span style = "background-color:#fdd">            return;</span>
+        }
+<span style = "background-color:#dfd">        FlagUse use{.flag = object["flag"].get&lt;std::string&gt;(),
+                    .values = {},
+                    .role = FlagUseRole::Writes,
+                    .where = cite(what)};
+        std::vector&lt;std::string&gt; pointers;
+        if (object.contains("value") &amp;&amp; object["value"].is_string()) {
+            use.values.push_back(object["value"].get&lt;std::string&gt;());
+            pointers.push_back(pointer + "/value");</span>
+        }
+<span style = "background-color:#dfd">        rewrite(use, pointer + "/flag", pointers);
+    }</span>
+
+<span style = "background-color:#dfd">    void derived(std::string flag, const std::string&amp; what) {
+        visitDerived(_visit, std::move(flag), cite(what));
+    }</span>
+
+    // Une chaÃ®ne changÃ©e hors de tout drapeau : la quÃªte qu'une action dÃ©marre.
+<span style = "background-color:#dfd">    void replace(const std::string&amp; pointer, std::string value, const std::string&amp; what) {
+        _edits.emplace_back(pointer, std::move(value));
+        if (_plan != nullptr) {
+            _plan-&gt;changes.push_back(cite(what));</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] Citation cite(const std::string&amp; what) const {
+        std::string text = "dialogue ";
+        text.append(_id).append(": ").append(what);
+        return Citation{.file = _file, .what = std::move(text)};
+    }</span>
+
+    // Ãcrit ce qui a changÃ© dans le plan.
+<span style = "background-color:#dfd">    void finish(const std::string&amp; text) {
+        if (_plan != nullptr &amp;&amp; !_edits.empty()) {
+            _plan-&gt;edits.push_back(ProjectEdit{.file = _file, .text = withStrings(text, _edits)});</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+private:
+    void rewrite(FlagUse&amp; use, const std::string&amp; flagPointer,
+<span style = "background-color:#dfd">                 const std::vector&lt;std::string&gt;&amp; valuePointers) {
+        const FlagUse before = use;
+        if (!visitUse(_visit, use)) {
+            return;</span>
+        }
+<span style = "background-color:#dfd">        if (use.flag != before.flag) {
+            _edits.emplace_back(flagPointer, use.flag);</span>
+        }
+<span style = "background-color:#dfd">        for (std::size_t k = 0; k &lt; valuePointers.size() &amp;&amp; k &lt; use.values.size(); ++k) {
+            if (use.values[k] != before.values[k]) {
+                _edits.emplace_back(valuePointers[k], use.values[k]);</span>
+            }
+<span style = "background-color:#dfd">        }
+        if (_plan != nullptr) {
+            _plan-&gt;changes.push_back(use.where);</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    std::filesystem::path _file;
+    std::string _id;
+    const UseVisitor&amp; _visit;
+    RefactorPlan* _plan;
+    std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; _edits;
+};
+
+void visitDialogueNode(DialogueVisit&amp; dialogue, const std::string&amp; dialogueId,
+                       const nlohmann::json&amp; node, const std::string&amp; base,
+<span style = "background-color:#dfd">                       const QuestIdRenaming* renaming) {
+    const std::string nodeId = node.value("id", std::string{});
+    const std::string what = "node " + nodeId;
+    const std::string type = node.value("type", std::string{});
+    if (type == "condition") {
+        dialogue.condition(node, base, what);
+    } else if (type == "check") {</span>
+        // Un jet ratÃ© pose son fait de lui-mÃªme (LOT-117) : une quÃªte le lit.
+<span style = "background-color:#dfd">        dialogue.derived(core::dialogueCheckFailedFlag(dialogueId, nodeId), what);</span>
+    }
+<span style = "background-color:#dfd">    if (const auto choices = node.find("choices"); choices != node.end() &amp;&amp; choices-&gt;is_array()) {
+        for (std::size_t j = 0; j &lt; choices-&gt;size(); ++j) {
+            const nlohmann::json&amp; choice = (*choices)[j];
+            if (choice.is_object() &amp;&amp; choice.contains("condition")) {</span>
+<span style = "background-color:#fdd">                dialogue.condition(choice["condition"],</span>
+                                   base + "/choices/" + std::to_string(j) + "/condition",
+                                   what + ": choice " + choice.value("id", std::string{}));
+            }
+<span style = "background-color:#dfd">        }
+    }
+    const auto actions = node.find("actions");
+    if (actions == node.end() || !actions-&gt;is_array()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    for (std::size_t k = 0; k &lt; actions-&gt;size(); ++k) {
+        const nlohmann::json&amp; action = (*actions)[k];
+        if (!action.is_object()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::string kind = action.value("type", std::string{});
+        const std::string pointer = base + "/actions/" + std::to_string(k);
+        if (kind == "setFlag" || kind == "clearFlag") {
+            std::string where = what;
+            where.append(": ").append(kind);
+            dialogue.action(action, pointer, where);
+        } else if (kind == "startQuest") {
+            const std::string quest = action.value("quest", std::string{});
+            dialogue.derived(core::questStartedFlag(quest), what + ": startQuest");
+            if (renaming != nullptr &amp;&amp; quest == renaming-&gt;from) {
+                dialogue.replace(pointer + "/quest", renaming-&gt;to, what + ": startQuest");</span>
+            }
+<span style = "background-color:#dfd">        } else if (kind == "startEncounter") {
+            dialogue.derived(core::encounterWonFlag(action.value("encounter", std::string{})),</span>
+                             what + ": startEncounter");
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+// Les dialogues : leurs conditions, leurs actions, et les faits qu'ils posent d'eux-mÃªmes.
+void visitDialogues(const std::filesystem::path&amp; dataRoot, const UseVisitor&amp; visit,
+<span style = "background-color:#dfd">                    RefactorPlan* plan, const QuestIdRenaming* renaming = nullptr) {
+    for (const std::filesystem::path&amp; file : jsonFiles(dialoguesDirectory(dataRoot))) {
+        const std::string text = readText(file);
+        const nlohmann::json json =</span>
+            nlohmann::json::parse(text, nullptr, /*allow_exceptions=*/false);
+<span style = "background-color:#dfd">        if (!json.is_object()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::string id = json.value("id", file.stem().string());
+        DialogueVisit dialogue(file, id, visit, plan);
+        if (const auto nodes = json.find("nodes"); nodes != json.end() &amp;&amp; nodes-&gt;is_array()) {
+            for (std::size_t i = 0; i &lt; nodes-&gt;size(); ++i) {
+                if ((*nodes)[i].is_object()) {
+                    visitDialogueNode(dialogue, id, (*nodes)[i], "/nodes/" + std::to_string(i),</span>
+                                      renaming);
+                }
+<span style = "background-color:#dfd">            }
+        }
+        dialogue.finish(text);
+    }
+}</span>
+
+// Les propriÃ©tÃ©s que l'inspecteur montre pour l'entitÃ© : celles de sa famille, puis les communes ;
+// les communes seules pour une famille inconnue (la prÃ©sence vaut pour toute entitÃ©).
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;const core::EntityPropertySpec*&gt; specsOf(const core::MapEntity&amp; entity) {
+    if (const core::EntityKind* kind = core::findEntityKind(entity.type)) {
+        return core::inspectedProperties(*kind);</span>
+    }
+<span style = "background-color:#fdd">    std::vector&lt;const core::EntityPropertySpec*&gt; specs;
+    for (const core::EntityPropertySpec&amp; spec : core::commonEntityProperties()) {
+        specs.push_back(&amp;spec);
+    }
+    return specs;</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string* textProperty(core::MapEntity&amp; entity, std::string_view key) {
+    const auto found = entity.properties.find(std::string{key});
+    return found != entity.properties.end() ? std::get_if&lt;std::string&gt;(&amp;found-&gt;second) : nullptr;
+}</span>
+
+// Les drapeaux d'une entitÃ©, par la source de ses propriÃ©tÃ©s (rÃ¨gle 2). @return Vrai si changÃ©e.
+[[nodiscard]] bool visitEntity(core::MapEntity&amp; entity, const std::string&amp; mapId,
+                               const std::filesystem::path&amp; file, const UseVisitor&amp; visit,
+<span style = "background-color:#dfd">                               RefactorPlan* plan) {
+    bool changed = false;
+    const std::vector&lt;const core::EntityPropertySpec*&gt; specs = specsOf(entity);
+    for (const core::EntityPropertySpec* spec : specs) {
+        if (spec-&gt;source != core::EntityChoiceSource::Flags &amp;&amp;</span>
+            spec-&gt;source != core::EntityChoiceSource::WrittenFlags) {
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        std::string* flag = textProperty(entity, spec-&gt;key);
+        if (flag == nullptr || flag-&gt;empty()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const auto valueSpec = std::ranges::find_if(specs, [spec](const auto* candidate) {
+            return candidate-&gt;source == core::EntityChoiceSource::FlagValues &amp;&amp;</span>
+                   candidate-&gt;relatedKey == spec-&gt;key;
+<span style = "background-color:#dfd">        });
+        std::string* values =</span>
+            valueSpec != specs.end() ? textProperty(entity, (*valueSpec)-&gt;key) : nullptr;
+<span style = "background-color:#dfd">        FlagUse use{
+            .flag = *flag,</span>
+            .values =
+<span style = "background-color:#dfd">                values != nullptr ? core::splitFlagValues(*values) : std::vector&lt;std::string&gt;{},
+            .role = spec-&gt;source == core::EntityChoiceSource::WrittenFlags ? FlagUseRole::Writes</span>
+                                                                           : FlagUseRole::Reads,
+            .where =
+                Citation{.file = file,
+                         .mapId = mapId,
+                         .entityId = entity.id,
+                         .cell = entity.position,
+                         .what = entity.type + " " + entity.id + ": " + std::string{spec-&gt;key}}};
+<span style = "background-color:#dfd">        const std::vector&lt;std::string&gt; before = use.values;
+        if (!visitUse(visit, use)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        *flag = use.flag;
+        if (values != nullptr &amp;&amp; use.values != before) {
+            *values = joined(use.values, "|");</span>
+        }
+<span style = "background-color:#dfd">        changed = true;
+        if (plan != nullptr) {
+            plan-&gt;changes.push_back(use.where);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return changed;
+}</span>
+
+// Les cartes. @return Le refus, si @p plan est donnÃ© et qu'une carte ne se lit pas : ses usages ne
+// se verraient pas.
+std::string visitMaps(const std::filesystem::path&amp; dataRoot, const UseVisitor&amp; visit,
+<span style = "background-color:#dfd">                      RefactorPlan* plan) {
+    const std::filesystem::path levels = dataRoot / "Levels";
+    for (const std::filesystem::path&amp; file : mapFiles(dataRoot)) {
+        const std::string mapId = core::mapIdOf(levels, file);
+        const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(file);
+        if (!loaded.ok()) {</span>
+<span style = "background-color:#fdd">            if (plan != nullptr) {
+                return mapId + " cannot be read: " + loaded.error;</span>
+            }
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        core::LevelData data = loaded.level-&gt;data();
+        bool changed = false;
+        for (core::MapEntity&amp; entity : data.entities) {
+            changed = visitEntity(entity, mapId, file, visit, plan) || changed;
+        }
+        if (changed &amp;&amp; plan != nullptr) {
+            plan-&gt;edits.push_back(</span>
+                ProjectEdit{.file = file, .text = core::LevelWriter::buildJson(data)});
+        }
+<span style = "background-color:#dfd">    }
+    return {};
+}</span>
+
+// RÃ©crit tout le projet par @p visit : quÃªtes, dialogues, cartes.
+[[nodiscard]] RefactorPlan rewriteProject(const std::filesystem::path&amp; dataRoot,
+                                          const UseVisitor&amp; visit,
+<span style = "background-color:#dfd">                                          const QuestIdRenaming* renaming = nullptr) {
+    RefactorPlan plan;
+    if (std::string error = visitMaps(dataRoot, visit, &amp;plan); !error.empty()) {</span>
+<span style = "background-color:#fdd">        return refused(std::move(error));</span>
+<span style = "background-color:#dfd">    }
+    if (std::string error = visitQuests(dataRoot, visit, &amp;plan, renaming); !error.empty()) {</span>
+<span style = "background-color:#fdd">        return refused(std::move(error));</span>
+<span style = "background-color:#dfd">    }
+    visitDialogues(dataRoot, visit, &amp;plan, renaming);
+    return plan;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool contains(const std::vector&lt;std::string&gt;&amp; values, std::string_view value) {
+    return std::ranges::find(values, value) != values.end();
+}</span>
+
+// Le drapeau dÃ©clarÃ© @p flag, dans les quÃªtes de @p dataRoot ; `std::nullopt` sinon.
+[[nodiscard]] std::optional&lt;core::QuestFlag&gt; declaredFlag(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                                          std::string_view flag) {
+    const core::QuestCatalog quests = core::loadQuests(questsDirectory(dataRoot));
+    const core::QuestFlag* found = quests.findFlag(flag);
+    return found != nullptr ? std::optional&lt;core::QuestFlag&gt;{*found} : std::nullopt;
+}</span>
+
+// Les textes d'une quÃªte, clÃ© par clÃ©, tirÃ©s d'un catalogue.
+[[nodiscard]] QuestLanguageTexts textsFrom(
+<span style = "background-color:#fdd">    const std::unordered_map&lt;std::string, std::string&gt;&amp; catalog, const core::Quest&amp; quest) {
+    QuestLanguageTexts texts;
+    for (const std::string&amp; key : core::questTextKeys(quest)) {
+        if (const auto found = catalog.find(key); found != catalog.end()) {
+            texts.emplace(key, found-&gt;second);
+        }
+    }
+    return texts;
+}</span>
+
+// Le prÃ©fixe des clÃ©s de journal d'une quÃªte : `quest.pommes.`.
+<span style = "background-color:#dfd">[[nodiscard]] std::string questKeyPrefix(std::string_view questId) {
+    return "quest." + std::string{questId} + ".";
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::filesystem::path questFile(const std::filesystem::path&amp; dataRoot, std::string_view questId) {
+    return questsDirectory(dataRoot) / (std::string{questId} + ".json");
+}</span>
+
+<span style = "background-color:#fdd">std::vector&lt;std::string&gt; questIds(const std::filesystem::path&amp; dataRoot) {
+    std::vector&lt;std::string&gt; ids;
+    for (const std::filesystem::path&amp; file : jsonFiles(questsDirectory(dataRoot))) {
+        ids.push_back(file.stem().string());
+    }
+    return ids;
+}</span>
+
+<span style = "background-color:#fdd">QuestDraftLoad loadQuestDraft(const std::filesystem::path&amp; dataRoot, std::string_view questId) {
+    QuestDraftLoad result;
+    core::QuestLoad loaded = core::loadQuest(questFile(dataRoot, questId));
+    if (!loaded.quest) {
+        result.errors = std::move(loaded.errors);
+        return result;</span>
+    }
+<span style = "background-color:#fdd">    QuestDraft draft{.quest = std::move(*loaded.quest), .texts = {}};
+    for (const auto&amp; [language, catalog] :
+         loadTranslationCatalogs(localizationDirectory(dataRoot))) {
+        draft.texts.emplace(language, textsFrom(catalog, draft.quest));
+    }
+    result.draft = std::move(draft);
+    return result;
+}</span>
+
+<span style = "background-color:#dfd">bool isValidQuestName(std::string_view id, bool allowSlash) {
+    if (id.empty() || id.front() == '/' || id.back() == '/') {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    return std::ranges::all_of(id, [allowSlash](const char c) {
+        const auto u = static_cast&lt;unsigned char&gt;(c);
+        return (std::islower(u) != 0) || (std::isdigit(u) != 0) || c == '-' || c == '_' ||</span>
+               (allowSlash &amp;&amp; (c == '/' || c == '.'));
+<span style = "background-color:#dfd">    });
+}</span>
+
+namespace {
+
+// Pourquoi les identifiants de @p quest ne se prÃªtent pas aux clÃ©s du journal ; vide sinon.
+<span style = "background-color:#dfd">[[nodiscard]] std::string nameRefusal(const core::Quest&amp; quest) {
+    if (!isValidQuestName(quest.id)) {</span>
+<span style = "background-color:#fdd">        return "\"" + quest.id + "\" is not a valid quest id (lowercase letters, digits, - and _)";</span>
+    }
+<span style = "background-color:#dfd">    for (const core::QuestStep&amp; step : quest.steps) {
+        if (!isValidQuestName(step.id)) {</span>
+<span style = "background-color:#fdd">            return "step \"" + step.id +</span>
+                   "\": not a valid step id (lowercase letters, digits, - and _)";
+        }
+<span style = "background-color:#dfd">    }
+    return {};
+}</span>
+
+// Ce que la quÃªte relue @p quest fait refuser, confrontÃ©e aux autres quÃªtes et aux dialogues de
+// @p dataRoot : un drapeau dÃ©jÃ  dÃ©clarÃ© ailleurs, un usage que `validateFlagUses` ne refusait pas
+// avant elle. Vide si rien.
+[[nodiscard]] std::string catalogRefusal(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                         const core::Quest&amp; quest) {
+    const core::QuestCatalog before = core::loadQuests(questsDirectory(dataRoot));
+    core::QuestCatalog after;
+    for (const core::Quest&amp; other : before.quests) {
+        if (other.id == quest.id) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const core::QuestFlag&amp; flag : quest.flags) {
+            if (std::ranges::find(other.flags, flag.id, &amp;core::QuestFlag::id) !=</span>
+                other.flags.end()) {
+<span style = "background-color:#dfd">                return "flag \"" + flag.id + "\" is already declared by quest \"" + other.id + "\"";</span>
+            }
+<span style = "background-color:#fdd">        }</span>
+<span style = "background-color:#dfd">        after.quests.push_back(other);
+    }
+    after.quests.push_back(quest);
+    const core::DialogueCatalog dialogues = core::loadDialogues(dialoguesDirectory(dataRoot));
+    const std::vector&lt;std::string&gt; previous = core::validateFlagUses(before, dialogues);
+    std::vector&lt;std::string&gt; introduced;
+    for (const std::string&amp; misuse : core::validateFlagUses(after, dialogues)) {
+        if (!contains(previous, misuse)) {
+            introduced.push_back(misuse);
+        }
+    }
+    return joined(introduced, "\n");
+}</span>
+
+// Le texte d'un catalogue qui porte les textes de journal de @p draft : les clÃ©s d'une Ã©tape
+// retirÃ©e, ou vidÃ©es dans cette langue, s'en vont ; les autres prennent leur texte.
+[[nodiscard]] std::string withJournal(const std::string&amp; content, const QuestDraft&amp; draft,
+<span style = "background-color:#dfd">                                      std::string_view language) {
+    const std::vector&lt;std::string&gt; keys = core::questTextKeys(draft.quest);
+    const std::string prefix = questKeyPrefix(draft.quest.id);
+    const auto given = draft.texts.find(language);</span>
+    // Une langue que le brouillon ne donne pas garde ses textes.
+<span style = "background-color:#dfd">    const bool hasLanguage = given != draft.texts.end();
+    const auto textOf = [&amp;](std::string_view key) -&gt; std::string {
+        if (!hasLanguage) {
+            return {};</span>
+        }
+<span style = "background-color:#dfd">        const auto found = given-&gt;second.find(key);
+        return found != given-&gt;second.end() ? found-&gt;second : std::string{};
+    };
+    std::string updated = withoutCatalogEntries(content, [&amp;](std::string_view key) {
+        if (!key.starts_with(prefix)) {
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        return !contains(keys, key) || (hasLanguage &amp;&amp; textOf(key).empty());
+    });
+    for (const std::string&amp; key : keys) {
+        if (const std::string text = textOf(key); !text.empty()) {
+            updated = withCatalogEntry(updated, key, text, prefix);
+        }
+    }
+    return updated;
+}</span>
+
+}  // namespace
+
+RefactorPlan planSaveQuest(const std::filesystem::path&amp; dataRoot, const QuestDraft&amp; draft,
+<span style = "background-color:#dfd">                           bool isNew) {
+    const core::Quest&amp; quest = draft.quest;
+    if (std::string refusal = nameRefusal(quest); !refusal.empty()) {</span>
+<span style = "background-color:#fdd">        return refused(std::move(refusal));</span>
+<span style = "background-color:#dfd">    }
+    const std::filesystem::path file = questFile(dataRoot, quest.id);
+    std::error_code absent;
+    if (isNew &amp;&amp; std::filesystem::exists(file, absent)) {
+        return refused("a quest \"" + quest.id + "\" already exists");</span>
+    }
+
+    // Le texte que le jeu lira, relu par le jeu : le mode n'a pas sa propre idÃ©e d'une quÃªte.
+<span style = "background-color:#dfd">    const std::string text = core::writeQuest(quest);
+    core::QuestLoad reread = core::readQuest(text, "World/quests/" + quest.id + ".json");
+    if (!reread.quest) {
+        return refused(joined(reread.errors, "\n"));</span>
+    }
+<span style = "background-color:#dfd">    if (std::string refusal = catalogRefusal(dataRoot, *reread.quest); !refusal.empty()) {
+        return refused(std::move(refusal));
+    }</span>
+
+<span style = "background-color:#dfd">    RefactorPlan plan;
+    plan.changes.push_back(Citation{.file = file, .what = "quest " + quest.id});
+    plan.edits.push_back(ProjectEdit{.file = file, .text = text});</span>
+    // Les textes du journal, langue par langue.
+<span style = "background-color:#dfd">    for (const std::filesystem::path&amp; catalog : catalogFilesIn(localizationDirectory(dataRoot))) {
+        const std::string content = readText(catalog);
+        std::string updated = withJournal(content, draft, catalog.stem().string());
+        if (updated != content) {
+            plan.changes.push_back(</span>
+                Citation{.file = catalog, .what = questKeyPrefix(quest.id) + "*"});
+<span style = "background-color:#dfd">            plan.edits.push_back(ProjectEdit{.file = catalog, .text = std::move(updated)});</span>
+        }
+<span style = "background-color:#dfd">    }
+    return plan;
+}</span>
+
+<span style = "background-color:#dfd">RefactorPlan planDeleteQuest(const std::filesystem::path&amp; dataRoot, std::string_view questId) {
+    const std::filesystem::path file = questFile(dataRoot, questId);
+    std::error_code absent;
+    if (!std::filesystem::exists(file, absent)) {</span>
+<span style = "background-color:#fdd">        return refused("no quest \"" + std::string{questId} + "\"");</span>
+    }
+<span style = "background-color:#dfd">    RefactorPlan plan;
+    plan.changes.push_back(Citation{.file = file, .what = "quest " + std::string{questId}});
+    plan.edits.push_back(ProjectEdit{.file = file, .text = std::nullopt});
+    const std::string prefix = questKeyPrefix(questId);
+    for (const std::filesystem::path&amp; catalog : catalogFilesIn(localizationDirectory(dataRoot))) {
+        const std::string content = readText(catalog);
+        std::string updated = withoutCatalogEntries(
+            content, [&amp;prefix](std::string_view key) { return key.starts_with(prefix); });
+        if (updated != content) {
+            plan.changes.push_back(Citation{.file = catalog, .what = prefix + "*"});
+            plan.edits.push_back(ProjectEdit{.file = catalog, .text = std::move(updated)});</span>
+        }
+<span style = "background-color:#dfd">    }
+    return plan;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;FlagUse&gt; flagUses(const std::filesystem::path&amp; dataRoot) {
+    std::vector&lt;FlagUse&gt; uses;
+    const UseVisitor collect = [&amp;uses](FlagUse&amp; use) {
+        uses.push_back(use);
+        return false;
+    };
+    static_cast&lt;void&gt;(visitMaps(dataRoot, collect, nullptr));
+    static_cast&lt;void&gt;(visitQuests(dataRoot, collect, nullptr));
+    visitDialogues(dataRoot, collect, nullptr);
+    return uses;
+}</span>
+
+std::vector&lt;FlagUse&gt; usesOfFlag(const std::vector&lt;FlagUse&gt;&amp; uses, std::string_view flag,
+<span style = "background-color:#dfd">                                std::string_view value) {
+    std::vector&lt;FlagUse&gt; found;
+    for (const FlagUse&amp; use : uses) {
+        if (use.flag == flag &amp;&amp; (value.empty() || contains(use.values, value))) {
+            found.push_back(use);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return found;
+}</span>
+
+namespace {
+
+// Le rÃ´le d'un usage, tel que `--who-cites flag` l'Ã©crit.
+<span style = "background-color:#dfd">[[nodiscard]] std::string_view roleName(FlagUseRole role) {
+    switch (role) {</span>
+        case FlagUseRole::Declares:
+<span style = "background-color:#dfd">            return "declares";</span>
+        case FlagUseRole::Reads:
+<span style = "background-color:#dfd">            return "reads";</span>
+        case FlagUseRole::Writes:
+            break;
+    }
+<span style = "background-color:#dfd">    return "writes";
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::vector&lt;Citation&gt; flagUseCitations(const std::vector&lt;FlagUse&gt;&amp; uses) {
+    std::vector&lt;Citation&gt; citations;
+    for (const FlagUse&amp; use : uses) {
+        Citation citation = use.where;
+        citation.what.append(" (").append(roleName(use.role));
+        if (!use.values.empty()) {
+            citation.what.append(" ").append(joined(use.values, "|"));</span>
+        }
+<span style = "background-color:#dfd">        citation.what += ")";
+        citations.push_back(std::move(citation));
+    }
+    return citations;
+}</span>
+
+RefactorPlan planRenameFlag(const std::filesystem::path&amp; dataRoot, std::string_view oldFlag,
+<span style = "background-color:#dfd">                            std::string_view newFlag) {
+    if (oldFlag == newFlag) {</span>
+<span style = "background-color:#fdd">        return refused("the flag is already named \"" + std::string{newFlag} + "\"");</span>
+    }
+<span style = "background-color:#dfd">    if (!isValidQuestName(newFlag, /*allowSlash=*/true)) {</span>
+<span style = "background-color:#fdd">        return refused("\"" + std::string{newFlag} + "\" is not a valid flag name");</span>
+    }
+<span style = "background-color:#dfd">    if (!declaredFlag(dataRoot, oldFlag)) {
+        return refused("no quest declares the flag \"" + std::string{oldFlag} + "\"");</span>
+    }
+<span style = "background-color:#dfd">    if (!usesOfFlag(flagUses(dataRoot), newFlag).empty()) {</span>
+<span style = "background-color:#fdd">        return refused("the flag \"" + std::string{newFlag} + "\" is already used");</span>
+    }
+<span style = "background-color:#dfd">    const std::string from{oldFlag};
+    const std::string to{newFlag};
+    return rewriteProject(dataRoot, [&amp;from, &amp;to](FlagUse&amp; use) {
+        if (use.flag != from) {
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        use.flag = to;
+        return true;
+    });
+}</span>
+
+RefactorPlan planRenameFlagValue(const std::filesystem::path&amp; dataRoot, std::string_view flag,
+<span style = "background-color:#dfd">                                 std::string_view oldValue, std::string_view newValue) {
+    if (oldValue == newValue) {</span>
+<span style = "background-color:#fdd">        return refused("the value is already named \"" + std::string{newValue} + "\"");</span>
+    }
+<span style = "background-color:#dfd">    if (!isValidQuestName(newValue)) {</span>
+<span style = "background-color:#fdd">        return refused("\"" + std::string{newValue} +</span>
+                       "\" is not a valid value (lowercase letters, digits, - and _)");
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;core::QuestFlag&gt; declared = declaredFlag(dataRoot, flag);
+    if (!declared) {
+        return refused("no quest declares the flag \"" + std::string{flag} + "\"");</span>
+    }
+<span style = "background-color:#dfd">    if (!contains(declared-&gt;values, oldValue)) {</span>
+<span style = "background-color:#fdd">        return refused("the flag \"" + std::string{flag} + "\" has no value \"" +</span>
+                       std::string{oldValue} + "\"");
+    }
+<span style = "background-color:#dfd">    if (contains(declared-&gt;values, newValue)) {
+        return refused("the flag \"" + std::string{flag} + "\" already has a value \"" +</span>
+                       std::string{newValue} + "\"");
+    }
+<span style = "background-color:#dfd">    const std::string target{flag};
+    const std::string from{oldValue};
+    const std::string to{newValue};
+    return rewriteProject(dataRoot, [&amp;](FlagUse&amp; use) {
+        if (use.flag != target) {
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        bool changed = false;
+        for (std::string&amp; value : use.values) {
+            if (value == from) {
+                value = to;
+                changed = true;</span>
+            }
+        }
+<span style = "background-color:#dfd">        return changed;
+    });
+}</span>
+
+RefactorPlan planRenameQuest(const std::filesystem::path&amp; dataRoot, std::string_view oldId,
+<span style = "background-color:#dfd">                             std::string_view newId) {
+    if (oldId == newId) {</span>
+<span style = "background-color:#fdd">        return refused("the quest is already named \"" + std::string{newId} + "\"");</span>
+    }
+<span style = "background-color:#dfd">    if (!isValidQuestName(newId)) {</span>
+<span style = "background-color:#fdd">        return refused("\"" + std::string{newId} +</span>
+                       "\" is not a valid quest id (lowercase letters, digits, - and _)");
+    }
+<span style = "background-color:#dfd">    std::error_code absent;
+    if (!std::filesystem::exists(questFile(dataRoot, oldId), absent)) {</span>
+<span style = "background-color:#fdd">        return refused("no quest \"" + std::string{oldId} + "\"");</span>
+    }
+<span style = "background-color:#dfd">    if (std::filesystem::exists(questFile(dataRoot, newId), absent)) {</span>
+<span style = "background-color:#fdd">        return refused("a quest \"" + std::string{newId} + "\" already exists");</span>
+    }
+    // Les faits que la quÃªte pose (`quest/&lt;id&gt;/â¦`) suivent son nom lÃ  oÃ¹ on les lit.
+<span style = "background-color:#dfd">    const std::string fromFacts = "quest/" + std::string{oldId} + "/";
+    const std::string toFacts = "quest/" + std::string{newId} + "/";
+    const QuestIdRenaming renaming{.from = std::string{oldId}, .to = std::string{newId}};
+    RefactorPlan plan = rewriteProject(</span>
+        dataRoot,
+<span style = "background-color:#dfd">        [&amp;](FlagUse&amp; use) {
+            if (!use.flag.starts_with(fromFacts)) {
+                return false;</span>
+            }
+<span style = "background-color:#dfd">            use.flag = toFacts + use.flag.substr(fromFacts.size());
+            return true;
+        },</span>
+        &amp;renaming);
+<span style = "background-color:#dfd">    if (!plan.ok()) {</span>
+<span style = "background-color:#fdd">        return plan;</span>
+    }
+    // Les clÃ©s du journal changent de nom Ã  leur place, texte gardÃ©.
+<span style = "background-color:#dfd">    const std::string fromKeys = questKeyPrefix(oldId);
+    const std::string toKeys = questKeyPrefix(newId);
+    for (const std::filesystem::path&amp; catalog : catalogFilesIn(localizationDirectory(dataRoot))) {
+        const std::string content = readText(catalog);
+        std::string updated;
+        std::size_t start = 0;
+        while (start &lt; content.size()) {
+            std::size_t end = content.find('\n', start);
+            end = end == std::string::npos ? content.size() : end + 1;
+            std::string line = content.substr(start, end - start);
+            const std::string key = catalogLineKey(line);
+            if (key.starts_with(toKeys)) {</span>
+<span style = "background-color:#fdd">                return refused(catalog.filename().string() + " already has \"" + key + "\"");</span>
+            }
+<span style = "background-color:#dfd">            if (key.starts_with(fromKeys)) {
+                const std::size_t at = line.find(fromKeys);
+                line.replace(at, fromKeys.size(), toKeys);</span>
+            }
+<span style = "background-color:#dfd">            updated += line;
+            start = end;
+        }
+        if (updated != content) {
+            plan.changes.push_back(Citation{.file = catalog, .what = fromKeys + "*"});
+            plan.edits.push_back(ProjectEdit{.file = catalog, .text = std::move(updated)});</span>
+        }
+<span style = "background-color:#dfd">    }
+    return plan;
+}</span>
+
+std::vector&lt;std::string&gt; worldStateReaching(const core::Quest&amp; quest, std::string_view stepId,
+<span style = "background-color:#dfd">                                            const std::vector&lt;core::QuestFlag&gt;&amp; declared) {
+    std::vector&lt;std::string&gt; entries;
+    const core::QuestStep* step = quest.find(stepId);
+    if (step == nullptr) {
+        return entries;</span>
+    }
+<span style = "background-color:#dfd">    std::set&lt;std::string, std::less&lt;&gt;&gt; given;
+    const auto add = [&amp;entries, &amp;given](const std::string&amp; flag, std::string entry) {
+        if (given.insert(flag).second) {
+            entries.push_back(std::move(entry));</span>
+        }
+<span style = "background-color:#dfd">    };
+    for (const core::FlagCondition&amp; condition : step-&gt;when) {
+        const auto declaration = std::ranges::find(declared, condition.flag, &amp;core::QuestFlag::id);
+        const bool typed = declaration != declared.end();
+        switch (condition.test) {</span>
+            case core::FlagTest::IsSet:
+                // Un drapeau dÃ©clarÃ© a toujours une valeur, l'initiale : rien Ã  poser.
+<span style = "background-color:#dfd">                if (!typed) {
+                    add(condition.flag, condition.flag);</span>
+                }
+<span style = "background-color:#dfd">                break;</span>
+            case core::FlagTest::IsUnset:
+<span style = "background-color:#fdd">                break;</span>
+            case core::FlagTest::Equals:
+<span style = "background-color:#dfd">                if (typed &amp;&amp; !condition.values.empty()) {
+                    add(condition.flag, condition.flag + "=" + condition.values.front());</span>
+                }
+<span style = "background-color:#dfd">                break;</span>
+            case core::FlagTest::NotEquals:
+<span style = "background-color:#dfd">                if (typed) {
+                    std::vector&lt;std::string&gt; candidates{declaration-&gt;initial};
+                    candidates.insert(candidates.end(), declaration-&gt;values.begin(),</span>
+                                      declaration-&gt;values.end());
+<span style = "background-color:#dfd">                    const auto allowed =
+                        std::ranges::find_if(candidates, [&amp;condition](const std::string&amp; value) {
+                            return !contains(condition.values, value);
+                        });
+                    if (allowed != candidates.end()) {
+                        add(condition.flag, condition.flag + "=" + *allowed);</span>
+                    }
+<span style = "background-color:#dfd">                }</span>
+                break;
+        }
+<span style = "background-color:#dfd">    }
+    return entries;
+}</span>
+
+void citeStepPlaces(const std::filesystem::path&amp; dataRoot,
+                    const std::function&lt;std::optional&lt;std::string&gt;(std::string_view)&gt;&amp; rename,
+<span style = "background-color:#dfd">                    bool write, RefactorPlan&amp; plan) {
+    for (const std::filesystem::path&amp; file : jsonFiles(questsDirectory(dataRoot))) {
+        core::QuestLoad loaded = core::loadQuest(file);
+        if (!loaded.quest) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        bool changed = false;
+        for (core::QuestStep&amp; step : loaded.quest-&gt;steps) {
+            if (step.at.empty()) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            const std::optional&lt;std::string&gt; renamed = rename(step.at);
+            if (!renamed) {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            plan.changes.push_back(Citation{</span>
+                .file = file, .what = "quest " + loaded.quest-&gt;id + ": step " + step.id + ": at"});
+<span style = "background-color:#dfd">            changed = changed || *renamed != step.at;
+            step.at = *renamed;
+        }
+        if (write &amp;&amp; changed) {
+            plan.edits.push_back(</span>
+                ProjectEdit{.file = file, .text = core::writeQuest(*loaded.quest)});
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+namespace {
+
+// Le plan Ã©crit, ce qu'il change listÃ© ; rien s'il est refusÃ© (sortie 1).
+[[nodiscard]] int carryOutQuestPlan(const RefactorPlan&amp; plan, const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                    std::string&amp; output) {
+    if (!plan.ok()) {
+        output += "error: " + plan.error + "\nnothing written\n";
+        return 1;</span>
+    }
+<span style = "background-color:#dfd">    for (const Citation&amp; change : plan.changes) {
+        output += formatCitation(change, dataRoot) + "\n";
+    }
+    std::string error;
+    if (!applyRefactorPlan(plan, error)) {</span>
+<span style = "background-color:#fdd">        output += "error: " + error + "\n";
+        return 1;</span>
+    }
+<span style = "background-color:#dfd">    output += std::to_string(plan.edits.size()) + " files written or removed\n";
+    return 0;
+}</span>
+
+// Les arguments qui suivent @p option, jusqu'Ã  la prochaine option.
+[[nodiscard]] std::optional&lt;std::vector&lt;std::string&gt;&gt; argumentsOf(
+<span style = "background-color:#dfd">    const std::vector&lt;std::string&gt;&amp; arguments, std::string_view option) {
+    const auto found = std::ranges::find(arguments, option);
+    if (found == arguments.end()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;std::string&gt; values;
+    for (auto value = std::next(found); value != arguments.end() &amp;&amp; !value-&gt;starts_with("--");
+         ++value) {
+        values.push_back(*value);
+    }
+    return values;
+}</span>
+
+// `--save-quest &lt;brouillon.json&gt;` : la quÃªte du fichier, ses textes sous `journal`.
+[[nodiscard]] int saveQuestFrom(const std::filesystem::path&amp; draftFile,
+<span style = "background-color:#dfd">                                const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+    const std::string text = readText(draftFile);
+    core::QuestLoad loaded = core::readQuest(text, draftFile.string());
+    if (!loaded.quest) {</span>
+<span style = "background-color:#fdd">        output += "error: " + joined(loaded.errors, "\n") + "\nnothing written\n";
+        return 1;</span>
+    }
+<span style = "background-color:#dfd">    QuestDraft draft{.quest = std::move(*loaded.quest), .texts = {}};
+    const nlohmann::json json = nlohmann::json::parse(text, nullptr, false);
+    if (const auto journal = json.find("journal"); journal != json.end() &amp;&amp; journal-&gt;is_object()) {
+        for (const auto&amp; [language, entries] : journal-&gt;items()) {
+            QuestLanguageTexts&amp; texts = draft.texts[language];
+            for (const auto&amp; [entry, value] : entries.items()) {
+                if (!value.is_string()) {</span>
+<span style = "background-color:#fdd">                    continue;</span>
+                }
+<span style = "background-color:#dfd">                texts[entry == "title" ? core::questTitleKey(draft.quest.id)</span>
+                                       : core::questStepKey(draft.quest.id, entry)] =
+                    value.get&lt;std::string&gt;();
+<span style = "background-color:#dfd">            }
+        }
+    }
+    std::error_code absent;
+    const bool isNew = !std::filesystem::exists(questFile(dataRoot, draft.quest.id), absent);
+    return carryOutQuestPlan(planSaveQuest(dataRoot, draft, isNew), dataRoot, output);
+}</span>
+
+// `--who-cites flag &lt;drapeau&gt; [&lt;valeur&gt;]` : les usages, une citation par ligne.
+[[nodiscard]] int printFlagUses(const std::vector&lt;std::string&gt;&amp; values,
+<span style = "background-color:#dfd">                                const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+    const std::vector&lt;Citation&gt; citations = flagUseCitations(</span>
+        usesOfFlag(flagUses(dataRoot), values[1], values.size() == 3 ? values[2] : std::string{}));
+<span style = "background-color:#dfd">    for (const Citation&amp; citation : citations) {
+        output += formatCitation(citation, dataRoot) + "\n";
+    }
+    output +=</span>
+        std::to_string(citations.size()) + (citations.size() == 1 ? " citation\n" : " citations\n");
+<span style = "background-color:#dfd">    return 0;
+}</span>
+
+// `--quest-state &lt;quÃªte&gt; &lt;Ã©tape&gt;` : l'Ã©tat de partie, tel que `--flags=` le lit.
+[[nodiscard]] int printQuestState(const std::vector&lt;std::string&gt;&amp; values,
+<span style = "background-color:#dfd">                                  const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+    const core::QuestCatalog quests = core::loadQuests(questsDirectory(dataRoot));
+    const core::Quest* quest = quests.find(values[0]);
+    if (quest == nullptr || quest-&gt;find(values[1]) == nullptr) {</span>
+<span style = "background-color:#fdd">        output += "error: no step \"" + values[1] + "\" in quest \"" + values[0] + "\"\n";
+        return 1;</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;core::QuestFlag&gt; declared;
+    for (const core::Quest&amp; each : quests.quests) {
+        declared.insert(declared.end(), each.flags.begin(), each.flags.end());
+    }
+    output += "--flags=" + joined(worldStateReaching(*quest, values[1], declared), ",") + "\n";
+    return 0;
+}</span>
+
+}  // namespace
+
+std::optional&lt;int&gt; runQuestCommand(const std::vector&lt;std::string&gt;&amp; arguments,
+<span style = "background-color:#dfd">                                   const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+    const auto usage = [&amp;output](std::string_view text) {</span>
+<span style = "background-color:#fdd">        output += "usage: " + std::string{text} + "\n";
+        return 2;</span>
+<span style = "background-color:#dfd">    };
+    if (const auto cites = argumentsOf(arguments, "--who-cites");
+        cites &amp;&amp; !cites-&gt;empty() &amp;&amp; cites-&gt;front() == "flag") {
+        if (cites-&gt;size() != 2 &amp;&amp; cites-&gt;size() != 3) {</span>
+<span style = "background-color:#fdd">            return usage("--who-cites flag &lt;flag&gt; [&lt;value&gt;]");</span>
+        }
+<span style = "background-color:#dfd">        return printFlagUses(*cites, dataRoot, output);
+    }
+    if (const auto flag = argumentsOf(arguments, "--rename-flag")) {</span>
+<span style = "background-color:#fdd">        if (flag-&gt;size() != 2) {
+            return usage("--rename-flag &lt;old&gt; &lt;new&gt;");</span>
+        }
+<span style = "background-color:#fdd">        return carryOutQuestPlan(planRenameFlag(dataRoot, (*flag)[0], (*flag)[1]), dataRoot,</span>
+                                 output);
+<span style = "background-color:#dfd">    }
+    if (const auto value = argumentsOf(arguments, "--rename-flag-value")) {
+        if (value-&gt;size() != 3) {</span>
+<span style = "background-color:#fdd">            return usage("--rename-flag-value &lt;flag&gt; &lt;old&gt; &lt;new&gt;");</span>
+        }
+<span style = "background-color:#dfd">        return carryOutQuestPlan(</span>
+            planRenameFlagValue(dataRoot, (*value)[0], (*value)[1], (*value)[2]), dataRoot, output);
+<span style = "background-color:#dfd">    }
+    if (const auto quest = argumentsOf(arguments, "--rename-quest")) {</span>
+<span style = "background-color:#fdd">        if (quest-&gt;size() != 2) {
+            return usage("--rename-quest &lt;old&gt; &lt;new&gt;");</span>
+        }
+<span style = "background-color:#fdd">        return carryOutQuestPlan(planRenameQuest(dataRoot, (*quest)[0], (*quest)[1]), dataRoot,</span>
+                                 output);
+<span style = "background-color:#dfd">    }
+    if (const auto draft = argumentsOf(arguments, "--save-quest")) {
+        if (draft-&gt;size() != 1) {</span>
+<span style = "background-color:#fdd">            return usage("--save-quest &lt;draft.json&gt;");</span>
+        }
+<span style = "background-color:#dfd">        return saveQuestFrom(draft-&gt;front(), dataRoot, output);
+    }
+    if (const auto state = argumentsOf(arguments, "--quest-state")) {
+        if (state-&gt;size() != 2) {</span>
+<span style = "background-color:#fdd">            return usage("--quest-state &lt;quest&gt; &lt;step&gt;");</span>
+        }
+<span style = "background-color:#dfd">        return printQuestState(*state, dataRoot, output);
+    }
+    return std::nullopt;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

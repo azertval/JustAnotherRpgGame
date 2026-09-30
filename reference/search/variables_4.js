@@ -53,9 +53,10 @@ var searchData=
   ['district_50',['district',['../structhmi_1_1MapCityPointView.html#aed5bb7e2a56442b2385ff7791d6d4852',1,'hmi::MapCityPointView']]],
   ['districts_51',['districts',['../structcore_1_1CityPlan.html#aabd74854b3292a625c7977b70f8bfbd0',1,'core::CityPlan::districts'],['../structhmi_1_1CityView.html#aa174537bd4f1baf7bea18b22fa4512af',1,'hmi::CityView::districts'],['../structhmi_1_1CityMap.html#a643857b704bef4e7f384989e871d8b92',1,'hmi::CityMap::districts']]],
   ['dodgewhenthreatened_52',['dodgeWhenThreatened',['../structcore_1_1BehaviorProfile.html#a73d047ae8a5ef120e86867fa6ac2f3f8',1,'core::BehaviorProfile']]],
-  ['draftjson_53',['draftJson',['../structhmi_1_1AutosaveRecord.html#ab293f6a9a9244e43467fd7469995d142',1,'hmi::AutosaveRecord']]],
-  ['drawn_54',['drawn',['../structhmi_1_1AssetGalleryFrame.html#a89b2649772ed2a910f02f660f097736c',1,'hmi::AssetGalleryFrame']]],
-  ['duplicatebutton_55',['duplicateButton',['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aeb72381be7ebb77de59d4f5dcbc414b8',1,'hmi::LevelBrowserPanel::Widgets']]],
-  ['duration_56',['duration',['../structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8',1,'core::Spell']]],
-  ['durationrounds_57',['durationRounds',['../structcore_1_1SpellEffect.html#a5511a1f161a1717773939865066fe025',1,'core::SpellEffect']]]
+  ['draft_53',['draft',['../structhmi_1_1QuestDraftLoad.html#aa5c6f678bfa4e886d5053a4e838e4163',1,'hmi::QuestDraftLoad']]],
+  ['draftjson_54',['draftJson',['../structhmi_1_1AutosaveRecord.html#ab293f6a9a9244e43467fd7469995d142',1,'hmi::AutosaveRecord']]],
+  ['drawn_55',['drawn',['../structhmi_1_1AssetGalleryFrame.html#a89b2649772ed2a910f02f660f097736c',1,'hmi::AssetGalleryFrame']]],
+  ['duplicatebutton_56',['duplicateButton',['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aeb72381be7ebb77de59d4f5dcbc414b8',1,'hmi::LevelBrowserPanel::Widgets']]],
+  ['duration_57',['duration',['../structcore_1_1Spell.html#a1c143734f093e83c92c175690139f0e8',1,'core::Spell']]],
+  ['durationrounds_58',['durationRounds',['../structcore_1_1SpellEffect.html#a5511a1f161a1717773939865066fe025',1,'core::SpellEffect']]]
 ];

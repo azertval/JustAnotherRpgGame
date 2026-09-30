@@ -18,11 +18,12 @@ var searchData=
   ['kindtoplacechanged_15',['kindToPlaceChanged',['../classhmi_1_1EntityPanel.html#a7e69f5cb14a7e3e569ea913dfdebb6b1',1,'hmi::EntityPanel']]],
   ['kminidumpattemptcount_16',['kMiniDumpAttemptCount',['../namespacehmi.html#a9df788d7b4dc601bd5e26a42a1517666',1,'hmi']]],
   ['knownentitykinds_17',['knownEntityKinds',['../namespacecore.html#a3c877363f8258fc1ba137c48aa283397',1,'core']]],
-  ['knowninteractablekinds_18',['knownInteractableKinds',['../namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea',1,'core']]],
-  ['knownmapstates_19',['knownMapStates',['../namespacehmi.html#ae57583841fc02117460e1187182aefd0',1,'hmi']]],
-  ['knownspell_20',['KnownSpell',['../structcore_1_1KnownSpell.html',1,'core']]],
-  ['knownspell_21',['knownSpell',['../structcore_1_1CharacterSheet.html#a07e1da48497cc95a542a29c546329ab5',1,'core::CharacterSheet']]],
-  ['knownspells_22',['knownSpells',['../structcore_1_1CharacterSheet.html#aa50a06bbc0a1771f5931244a0b9e583c',1,'core::CharacterSheet']]],
-  ['kregionaxiscount_23',['kRegionAxisCount',['../namespacecore.html#abc767d4db86670c1b2d325f75023ca6c',1,'core']]],
-  ['kregiongradecount_24',['kRegionGradeCount',['../namespacecore.html#a29a08c23095e20f5b90a5799fb05f24a',1,'core']]]
+  ['knownflags_18',['knownFlags',['../classhmi_1_1QuestsPanel.html#ae34a3b1d155a7385056faa036f987d30',1,'hmi::QuestsPanel']]],
+  ['knowninteractablekinds_19',['knownInteractableKinds',['../namespacecore.html#a07f40df9fbe2a910d1e99b9756220fea',1,'core']]],
+  ['knownmapstates_20',['knownMapStates',['../namespacehmi.html#ae57583841fc02117460e1187182aefd0',1,'hmi']]],
+  ['knownspell_21',['KnownSpell',['../structcore_1_1KnownSpell.html',1,'core']]],
+  ['knownspell_22',['knownSpell',['../structcore_1_1CharacterSheet.html#a07e1da48497cc95a542a29c546329ab5',1,'core::CharacterSheet']]],
+  ['knownspells_23',['knownSpells',['../structcore_1_1CharacterSheet.html#aa50a06bbc0a1771f5931244a0b9e583c',1,'core::CharacterSheet']]],
+  ['kregionaxiscount_24',['kRegionAxisCount',['../namespacecore.html#abc767d4db86670c1b2d325f75023ca6c',1,'core']]],
+  ['kregiongradecount_25',['kRegionGradeCount',['../namespacecore.html#a29a08c23095e20f5b90a5799fb05f24a',1,'core']]]
 ];

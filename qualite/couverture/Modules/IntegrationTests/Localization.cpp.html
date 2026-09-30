@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Localization.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Localization/Localization.h"
+
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;utility&gt;
+
+namespace hmi {
+
+namespace {
+// text sans les espaces et tabulations de dÃ©but et de fin.
+<span style = "background-color:#dfd">[[nodiscard]] std::string_view trim(std::string_view text) noexcept {
+    const auto isSpace = [](char character) {
+        return character == ' ' || character == '\t' || character == '\r' || character == '\n';
+    };
+    std::size_t begin = 0;
+    std::size_t end = text.size();
+    while (begin &lt; end &amp;&amp; isSpace(text[begin])) {
+        ++begin;
+    }
+    while (end &gt; begin &amp;&amp; isSpace(text[end - 1])) {
+        --end;
+    }
+    return text.substr(begin, end - begin);
+}</span>
+}  // namespace
+
+// Construit un catalogue vide.
+<span style = "background-color:#dfd">Localization::Localization(std::filesystem::path directory) : _directory(std::move(directory)) {}</span>
+
+// Analyse un contenu `clÃ© = valeur` en table de traductions.
+//
+// Chaque ligne est traitÃ©e indÃ©pendamment : une ligne vide ou commenÃ§ant (aprÃ¨s espaces) par
+// `#` est ignorÃ©e ; sinon, le **premier** `=` sÃ©pare la clÃ© de la valeur, toutes deux
+// dÃ©barrassÃ©es de leurs espaces de bordure. Un `=` ultÃ©rieur appartient donc Ã  la valeur.
+<span style = "background-color:#dfd">std::unordered_map&lt;std::string, std::string&gt; Localization::parseCatalog(std::string_view content) {
+    std::unordered_map&lt;std::string, std::string&gt; strings;
+    std::size_t position = 0;</span>
+
+<span style = "background-color:#dfd">    while (position &lt;= content.size()) {
+        const std::size_t newline = content.find('\n', position);
+        const std::size_t lineEnd = newline == std::string_view::npos ? content.size() : newline;
+        const std::string_view line = content.substr(position, lineEnd - position);
+        position = lineEnd + 1;</span>
+
+<span style = "background-color:#dfd">        const std::string_view trimmed = trim(line);
+        if (trimmed.empty() || trimmed.front() == '#') {
+            if (newline == std::string_view::npos) {
+                break;</span>
+            }
+<span style = "background-color:#dfd">            continue;  // ligne vide ou commentaire</span>
+        }
+
+<span style = "background-color:#dfd">        const std::size_t separator = trimmed.find('=');
+        if (separator != std::string_view::npos) {
+            const std::string_view key = trim(trimmed.substr(0, separator));
+            const std::string_view value = trim(trimmed.substr(separator + 1));
+            if (!key.empty()) {
+                strings.insert_or_assign(std::string(key), std::string(value));</span>
+            }
+        }
+
+<span style = "background-color:#dfd">        if (newline == std::string_view::npos) {
+            break;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return strings;
+}</span>
+
+// DÃ©finit la langue par dÃ©faut (source de repli) et l'active dessus.
+void Localization::setDefaultCatalog(std::string language,
+<span style = "background-color:#dfd">                                     std::unordered_map&lt;std::string, std::string&gt; strings) {
+    _defaultLanguage = language;
+    _defaultStrings = std::move(strings);</span>
+    // La langue active dÃ©marre sur la langue par dÃ©faut tant qu'aucune autre n'est chargÃ©e.
+<span style = "background-color:#dfd">    _activeLanguage = std::move(language);
+    _activeStrings = _defaultStrings;
+}</span>
+
+// DÃ©finit la langue active Ã  partir d'une table dÃ©jÃ  analysÃ©e.
+void Localization::setActiveCatalog(std::string language,
+<span style = "background-color:#dfd">                                    std::unordered_map&lt;std::string, std::string&gt; strings) {
+    _activeLanguage = std::move(language);
+    _activeStrings = std::move(strings);
+}</span>
+
+// Charge la langue par dÃ©faut depuis `&lt;directory&gt;/&lt;language&gt;.lang` et l'active.
+<span style = "background-color:#dfd">bool Localization::loadDefaultLanguage(const std::string&amp; language) {
+    std::string content;
+    if (!readFile(_directory / (language + ".lang"), content)) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    setDefaultCatalog(language, parseCatalog(content));
+    return true;
+}</span>
+
+// Charge la langue active depuis `&lt;directory&gt;/&lt;language&gt;.lang`.
+<span style = "background-color:#dfd">bool Localization::loadLanguage(const std::string&amp; language) {
+    std::string content;
+    if (!readFile(_directory / (language + ".lang"), content)) {
+        return false;  // langue absente : on garde la langue active en cours</span>
+    }
+<span style = "background-color:#fdd">    setActiveCatalog(language, parseCatalog(content));
+    return true;</span>
+<span style = "background-color:#dfd">}</span>
+
+// RÃ©sout le texte associÃ© Ã  une clÃ©.
+//
+// Le repli garantit un affichage toujours dÃ©fini : une clÃ© oubliÃ©e dans une traduction
+// rÃ©apparaÃ®t dans la langue par dÃ©faut, et une clÃ© inconnue s'affiche telle quelle (utile
+// pour repÃ©rer un oubli sans planter).
+<span style = "background-color:#dfd">std::string Localization::text(std::string_view key) const {
+    std::string lookup(key);  // non const : rendu par dÃ©placement quand la clÃ© est inconnue
+    if (const auto active = _activeStrings.find(lookup); active != _activeStrings.end()) {
+        return active-&gt;second;
+    }
+    if (const auto fallback = _defaultStrings.find(lookup); fallback != _defaultStrings.end()) {
+        return fallback-&gt;second;
+    }
+    return lookup;
+}</span>
+
+// Lit tout le contenu d'un fichier texte (true et remplit out en cas de succÃ¨s).
+<span style = "background-color:#dfd">bool Localization::readFile(const std::filesystem::path&amp; path, std::string&amp; out) {
+    std::ifstream file(path, std::ios::binary);
+    if (!file) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    std::ostringstream buffer;
+    buffer &lt;&lt; file.rdbuf();
+    out = buffer.str();
+    return true;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

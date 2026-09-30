@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EditorSidecar.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include &lt;nlohmann/json.hpp&gt;
+
+#include "Core/Levels/GridPosition.h"
+
+/**
+ * @file Editor/Logic/EditorSidecar.h
+ * @brief Le fichier annexe d'une carte, `&lt;carte&gt;.editor.json` : ce que l'Ã©diteur garde pour
+ *        l'auteur et que le jeu ne lit jamais (`LOT-EDITOR-04`, `EX-EDIT-068`).
+ *
+ * Il vit Ã  cÃ´tÃ© de la carte (`capital/martpart.json` â `capital/martpart.editor.json`). Ce lot y
+ * range les **notes d'auteur**, Ã©pinglÃ©es Ã  une case ; la feuille de route y prÃ©voit ensuite les
+ * rÃ©gions verrouillÃ©es et la derniÃ¨re vue. Une clÃ© que ce lecteur ne connaÃ®t pas est gardÃ©e telle
+ * quelle et rÃ©Ã©crite : un Ã©diteur plus ancien ne perd pas ce qu'un plus rÃ©cent a Ã©crit.
+ *
+ * Les notes ne font pas partie de la carte : elles n'entrent ni dans l'historique d'annulation ni
+ * dans l'indicateur de modification, et s'Ã©crivent dÃ¨s qu'on les change. Logique pure, sans Qt.
+ */
+
+namespace hmi {
+
+/**
+ * @brief OÃ¹ en est une carte (`LOT-EDITOR-09`, `EX-EDIT-092`) : ce que le navigateur montre, et le
+ *        tableau de bord du monde le jour oÃ¹ il y aura cent cartes.
+ *
+ * L'Ã©tat est une note d'auteur, pas une donnÃ©e de jeu : il vit dans l'annexe, jamais dans la carte.
+ */
+enum class MapState {
+    /// Rien n'est dit : une carte qu'on vient de crÃ©er.
+    Unset,
+    /// Sortie du gÃ©nÃ©rateur, ou posÃ©e par un modÃ¨le : personne ne l'a encore regardÃ©e.
+    Generated,
+    /// **MaquettÃ©e** (`LOT-128`) : sa physique est tracÃ©e â oÃ¹ l'on marche, ce qui bloque, qui est
+    /// oÃ¹, par oÃ¹ l'on sort â et elle se joue telle quelle, sans une seule piÃ¨ce. L'Ã©tat de dÃ©part
+    /// normal d'une carte, avant qu'un lieu ne l'habille.
+    Blockout,
+    /// RetouchÃ©e Ã  la main, mais pas terminÃ©e.
+    Retouched,
+    /// Finie : elle se joue telle quelle.
+    Finished,
+};
+
+/// @return Le mot que l'annexe Ã©crit pour @p state (`generated`) ; vide pour `Unset`.
+[[nodiscard]] std::string_view mapStateKey(MapState state) noexcept;
+
+/// @return L'Ã©tat que nomme @p key ; `MapState::Unset` pour un mot inconnu.
+[[nodiscard]] MapState mapStateFromKey(std::string_view key) noexcept;
+
+/// @return Le libellÃ© anglais de @p state, tel que la fenÃªtre l'affiche (`Generated`) ;
+///         `not stated` pour `Unset`.
+[[nodiscard]] std::string_view mapStateLabel(MapState state) noexcept;
+
+/// Les Ã©tats, dans l'ordre d'avancement : ce que les menus et les filtres listent.
+[[nodiscard]] const std::vector&lt;MapState&gt;&amp; knownMapStates();
+
+/// @brief Une note d'auteur, Ã©pinglÃ©e Ã  une case.
+struct AuthorNote {
+    core::GridPosition cell;
+    std::string text;
+
+    [[nodiscard]] bool operator==(const AuthorNote&amp;) const = default;
+};
+
+/// @brief Le contenu d'un fichier annexe.
+struct EditorSidecar {
+    /// Version du format de l'annexe.
+    static constexpr int FORMAT_VERSION = 1;
+
+    /// Les notes, une au plus par case, triÃ©es ligne par ligne.
+    std::vector&lt;AuthorNote&gt; notes;
+    /// OÃ¹ en est la carte (`LOT-EDITOR-09`) : `MapState::Unset` tant que l'auteur ne l'a pas dit.
+<span style = "background-color:#dfd">    MapState state = MapState::Unset;</span>
+    /// Les clÃ©s que ce lecteur ne connaÃ®t pas, gardÃ©es pour la rÃ©Ã©criture.
+<span style = "background-color:#dfd">    nlohmann::json unknown = nlohmann::json::object();</span>
+
+    [[nodiscard]] bool operator==(const EditorSidecar&amp;) const = default;
+
+    /// @return Vrai si l'annexe n'a rien Ã  garder : son fichier n'a pas lieu d'Ãªtre.
+<span style = "background-color:#dfd">    [[nodiscard]] bool empty() const noexcept {
+        return notes.empty() &amp;&amp; unknown.empty() &amp;&amp; state == MapState::Unset;
+    }</span>
+};
+
+/// @return Le fichier annexe de la carte @p levelPath (`martpart.json` â `martpart.editor.json`).
+[[nodiscard]] std::filesystem::path sidecarPath(const std::filesystem::path&amp; levelPath);
+
+/// @return Vrai si @p path est un fichier annexe d'Ã©diteur, pas une carte.
+[[nodiscard]] bool isSidecarFile(const std::filesystem::path&amp; path);
+
+/// @brief Ce que rend une lecture : l'annexe, et un avertissement si le fichier est illisible.
+struct SidecarReadResult {
+    EditorSidecar sidecar;
+    /// Vide si le fichier se lit ou n'existe pas ; sinon, pourquoi il a Ã©tÃ© ignorÃ© (en anglais).
+    std::string warning;
+};
+
+/**
+ * @brief Lit l'annexe depuis son texte JSON.
+ *
+ * TolÃ©rant : une note mal formÃ©e est ignorÃ©e, les autres restent ; un texte qui n'est pas un objet
+ * JSON rend une annexe vide et un avertissement. Jamais d'exception (`EX-NFR-040`).
+ */
+[[nodiscard]] SidecarReadResult parseSidecar(std::string_view json);
+
+/// @brief Lit l'annexe de @p path ; un fichier absent rend une annexe vide, sans avertissement.
+[[nodiscard]] SidecarReadResult readSidecar(const std::filesystem::path&amp; path);
+
+/// @return Le texte canonique de l'annexe : clÃ©s triÃ©es, deux espaces, fin de ligne finale.
+[[nodiscard]] std::string sidecarJson(const EditorSidecar&amp; sidecar);
+
+/**
+ * @brief Ãcrit l'annexe dans @p path, ou retire le fichier si elle est vide.
+ * @return Faux si l'Ã©criture ou le retrait a Ã©chouÃ©.
+ */
+bool writeSidecar(const std::filesystem::path&amp; path, const EditorSidecar&amp; sidecar);
+
+/// @return La note de @p cell, s'il y en a une.
+[[nodiscard]] const AuthorNote* noteAt(const EditorSidecar&amp; sidecar, core::GridPosition cell);
+
+/**
+ * @brief Ãcrit la note de @p cell ; un texte vide (ou fait d'espaces) la retire.
+ * @return Vrai si l'annexe a changÃ©.
+ */
+bool setNote(EditorSidecar&amp; sidecar, core::GridPosition cell, std::string text);
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

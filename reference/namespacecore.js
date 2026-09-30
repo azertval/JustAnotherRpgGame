@@ -829,7 +829,7 @@ var namespacecore =
       [ "Portal", "namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44a3e9b3ac6f082ec46a2d1d3f1f1647456", null ],
       [ "Transfer", "namespacecore.html#a053082c8cc529c0ae180f6cf7a7f0e44a6950810f0d2bba97a6f710c7b965b84e", null ]
     ] ],
-    [ "abilityLabel", "namespacecore.html#a6492cf00497924279c0f171546cbed96", null ],
+    [ "abilityLabel", "namespacecore.html#a8d858ac8be11dbddc54bcbface031cf8", null ],
     [ "abilityModifier", "namespacecore.html#ab1f3cc471902daa6c652cd68eee0bcef", null ],
     [ "abilityName", "namespacecore.html#ad539e41d55b3f90675658586d0d0b77e", null ],
     [ "abilityScoreWith", "namespacecore.html#a94f7b2f3a63555d1eb113d01619edf1a", null ],
@@ -1138,6 +1138,7 @@ var namespacecore =
     [ "validateWorldMap", "namespacecore.html#aff87ea49873961eace1706efc69c8a49", null ],
     [ "weaponAttackAbility", "namespacecore.html#a322a4b7a467d4c7168e4173641b88459", null ],
     [ "weaponAttackFor", "namespacecore.html#a1881c42c8483587a6baa65c336a230c2", null ],
+    [ "writeQuest", "namespacecore.html#ab581b492ed14e4921fa29277f4529fbc", null ],
     [ "zoneCells", "namespacecore.html#acdcfbe0879d84908d423e478039532c3", null ],
     [ "zoneToMap", "namespacecore.html#ac14ba4055ac79b8a654e3cae12fb5cd8", null ],
     [ "ACTION_RESOURCE", "namespacecore.html#a7593d494012f47485e1173a68a1209c1", null ],

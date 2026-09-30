@@ -1,0 +1,297 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/QuestEditing.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('QuestEditing_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">QuestEditing.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="QuestEditing_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="Quest_8h.html">Core/Gameplay/Quest.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="MapRefactor_8h.html">Editor/Logic/MapRefactor.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="namespacehmi.html#adc20e663523a72711ba4f03baa0b8233">   42</a></span><span class="keyword">using </span><a class="code hl_typedef" href="namespacehmi.html#adc20e663523a72711ba4f03baa0b8233">QuestLanguageTexts</a> = std::map&lt;std::string, std::string, std::less&lt;&gt;&gt;;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespacehmi.html#a188ad6e0ec9559c8a52bb7984d3229ee">   45</a></span><span class="keyword">using </span><a class="code hl_typedef" href="namespacehmi.html#a188ad6e0ec9559c8a52bb7984d3229ee">QuestTexts</a> = std::map&lt;std::string, QuestLanguageTexts, std::less&lt;&gt;&gt;;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
+<div class="foldopen" id="foldopen00048" data-start="{" data-end="};">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="structhmi_1_1QuestDraft.html">   48</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1QuestDraft.html">QuestDraft</a> {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structhmi_1_1QuestDraft.html#aa9717126f68b3cd4fef56e42aade6d57">   49</a></span>    <a class="code hl_struct" href="structcore_1_1Quest.html">core::Quest</a> <a class="code hl_variable" href="structhmi_1_1QuestDraft.html#aa9717126f68b3cd4fef56e42aade6d57">quest</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structhmi_1_1QuestDraft.html#a8b18e677f7c8369e1ee35dc73b93f87d">   50</a></span>    <a class="code hl_typedef" href="namespacehmi.html#a188ad6e0ec9559c8a52bb7984d3229ee">QuestTexts</a> <a class="code hl_variable" href="structhmi_1_1QuestDraft.html#a8b18e677f7c8369e1ee35dc73b93f87d">texts</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>[[nodiscard]] std::filesystem::path <a class="code hl_function" href="namespacehmi.html#a279ba03aaaa6f3b39cc3de7054b0f41a">questFile</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                                              std::string_view questId);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>[[nodiscard]] std::vector&lt;std::string&gt; <a class="code hl_function" href="namespacehmi.html#a909b8620c8cc2487bc282ead3ed8c38f">questIds</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span></div>
+<div class="foldopen" id="foldopen00061" data-start="{" data-end="};">
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="structhmi_1_1QuestDraftLoad.html">   61</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1QuestDraftLoad.html">QuestDraftLoad</a> {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structhmi_1_1QuestDraftLoad.html#aa5c6f678bfa4e886d5053a4e838e4163">   62</a></span>    std::optional&lt;QuestDraft&gt; <a class="code hl_variable" href="structhmi_1_1QuestDraftLoad.html#aa5c6f678bfa4e886d5053a4e838e4163">draft</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structhmi_1_1QuestDraftLoad.html#a4ba31496e197ef683dcd3dffcc9fdee7">   63</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structhmi_1_1QuestDraftLoad.html#a4ba31496e197ef683dcd3dffcc9fdee7">errors</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1QuestDraftLoad.html">QuestDraftLoad</a> <a class="code hl_function" href="namespacehmi.html#ae01edad0342c65f839557fabb7c320eb">loadQuestDraft</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                                            std::string_view questId);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacehmi.html#a7d5f46577be0bc25c18d420ec2f7e997">isValidQuestName</a>(std::string_view <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> allowSlash = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> <a class="code hl_function" href="namespacehmi.html#ac8db881672c91c6004525bf93568ff0f">planSaveQuest</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                                         <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1QuestDraft.html">QuestDraft</a>&amp; draft, <span class="keywordtype">bool</span> isNew);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> <a class="code hl_function" href="namespacehmi.html#ad84c006ee3d8fd23d8bf797eed839542">planDeleteQuest</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                                           std::string_view questId);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="};">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6">  106</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6">FlagUseRole</a> {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6aed0b8f3d82b0dbc35d6b41b7b3675def">  108</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6aed0b8f3d82b0dbc35d6b41b7b3675def">Declares</a>,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6a840c2c3c79be698753668016f58f87b6">  110</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6a840c2c3c79be698753668016f58f87b6">Reads</a>,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6a7bfbb99d58d228eb5654119e75060999">  112</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6a7bfbb99d58d228eb5654119e75060999">Writes</a>,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>};</div>
+</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span></div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="};">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structhmi_1_1FlagUse.html">  116</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1FlagUse.html">FlagUse</a> {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="structhmi_1_1FlagUse.html#aafdb5cb2165bb27e656741674999eecc">  117</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1FlagUse.html#aafdb5cb2165bb27e656741674999eecc">flag</a>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="structhmi_1_1FlagUse.html#aa42d4bddcb2d3a22da254fef623b0065">  119</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structhmi_1_1FlagUse.html#aa42d4bddcb2d3a22da254fef623b0065">values</a>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="structhmi_1_1FlagUse.html#aab54368f86ccc141323ad2a2e0952ef8">  120</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6">FlagUseRole</a> <a class="code hl_variable" href="structhmi_1_1FlagUse.html#aab54368f86ccc141323ad2a2e0952ef8">role</a> = <a class="code hl_enumvalue" href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6a840c2c3c79be698753668016f58f87b6">FlagUseRole::Reads</a>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="structhmi_1_1FlagUse.html#a39e182cb104af6668cb4b32ae971915b">  122</a></span>    <a class="code hl_struct" href="structhmi_1_1Citation.html">Citation</a> <a class="code hl_variable" href="structhmi_1_1FlagUse.html#a39e182cb104af6668cb4b32ae971915b">where</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="structhmi_1_1FlagUse.html#a8fb3750ea269d32aaeaa1104f326bea3">  124</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1FlagUse.html#a8fb3750ea269d32aaeaa1104f326bea3">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1FlagUse.html">FlagUse</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>};</div>
+</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>[[nodiscard]] std::vector&lt;FlagUse&gt; <a class="code hl_function" href="namespacehmi.html#aabc38e9af6f4011233868b7750ff40a5">flagUses</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>[[nodiscard]] std::vector&lt;FlagUse&gt; <a class="code hl_function" href="namespacehmi.html#a3f5afbdfd77207411ca96884ac0309c5">usesOfFlag</a>(<span class="keyword">const</span> std::vector&lt;FlagUse&gt;&amp; uses,</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                                              std::string_view flag, std::string_view value = {});</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>[[nodiscard]] std::vector&lt;Citation&gt; <a class="code hl_function" href="namespacehmi.html#ad3a1895c0b309de05e4cf04fc1b6a3aa">flagUseCitations</a>(<span class="keyword">const</span> std::vector&lt;FlagUse&gt;&amp; uses);</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>[[nodiscard]] RefactorPlan <a class="code hl_function" href="namespacehmi.html#acd7ec63f42a325b6a4c6246db5c1f265">planRenameFlag</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                                          std::string_view oldFlag, std::string_view newFlag);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>[[nodiscard]] RefactorPlan <a class="code hl_function" href="namespacehmi.html#aa5938fdffcbfadea318b130b76e860de">planRenameFlagValue</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                                               std::string_view flag, std::string_view oldValue,</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                                               std::string_view newValue);</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>[[nodiscard]] RefactorPlan <a class="code hl_function" href="namespacehmi.html#ac10adecfe235480e1c3e5bfadf1bf9b9">planRenameQuest</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                                           std::string_view oldId, std::string_view newId);</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>[[nodiscard]] std::vector&lt;std::string&gt; <a class="code hl_function" href="namespacehmi.html#a4d1955fd51056d32a19bdc5ff7b17c8f">worldStateReaching</a>(</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Quest.html">core::Quest</a>&amp; quest, std::string_view stepId,</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keyword">const</span> std::vector&lt;core::QuestFlag&gt;&amp; declared);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span></div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespacehmi.html#ab774f4d0883cf6c42054057be4a4b76a">citeStepPlaces</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                    <span class="keyword">const</span> std::function&lt;std::optional&lt;std::string&gt;(std::string_view)&gt;&amp; rename,</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>                    <span class="keywordtype">bool</span> write, RefactorPlan&amp; plan);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>[[nodiscard]] std::optional&lt;int&gt; <a class="code hl_function" href="namespacehmi.html#a6d7164fde1156b810c531edb2cf18f86">runQuestCommand</a>(<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; arguments,</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                                                 <span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                                                 std::string&amp; output);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aMapRefactor_8h_html"><div class="ttname"><a href="MapRefactor_8h.html">MapRefactor.h</a></div><div class="ttdoc">Renommer et remplacer d&#39;un bout à l&#39;autre du projet (LOT-EDITOR-14, constat A7, règle 3 de la feuille...</div></div>
+<div class="ttc" id="aQuest_8h_html"><div class="ttname"><a href="Quest_8h.html">Quest.h</a></div><div class="ttdoc">Les quêtes : décrites en données (drapeaux déclarés, étapes, conditions, effets), lues et validées au...</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a188ad6e0ec9559c8a52bb7984d3229ee"><div class="ttname"><a href="namespacehmi.html#a188ad6e0ec9559c8a52bb7984d3229ee">hmi::QuestTexts</a></div><div class="ttdeci">std::map&lt; std::string, QuestLanguageTexts, std::less&lt;&gt; &gt; QuestTexts</div><div class="ttdoc">Les textes du journal d&#39;une quête : langue (fr, en) → clé → texte.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:45</div></div>
+<div class="ttc" id="anamespacehmi_html_a279ba03aaaa6f3b39cc3de7054b0f41a"><div class="ttname"><a href="namespacehmi.html#a279ba03aaaa6f3b39cc3de7054b0f41a">hmi::questFile</a></div><div class="ttdeci">std::filesystem::path questFile(const std::filesystem::path &amp;dataRoot, std::string_view questId)</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:683</div></div>
+<div class="ttc" id="anamespacehmi_html_a3f5afbdfd77207411ca96884ac0309c5"><div class="ttname"><a href="namespacehmi.html#a3f5afbdfd77207411ca96884ac0309c5">hmi::usesOfFlag</a></div><div class="ttdeci">std::vector&lt; FlagUse &gt; usesOfFlag(const std::vector&lt; FlagUse &gt; &amp;uses, std::string_view flag, std::string_view value)</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:873</div></div>
+<div class="ttc" id="anamespacehmi_html_a4350019842cd36fa23fbb37b22b8d4a6"><div class="ttname"><a href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6">hmi::FlagUseRole</a></div><div class="ttdeci">FlagUseRole</div><div class="ttdoc">Ce qu&#39;un usage fait du drapeau.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:106</div></div>
+<div class="ttc" id="anamespacehmi_html_a4350019842cd36fa23fbb37b22b8d4a6a7bfbb99d58d228eb5654119e75060999"><div class="ttname"><a href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6a7bfbb99d58d228eb5654119e75060999">hmi::FlagUseRole::Writes</a></div><div class="ttdeci">@ Writes</div><div class="ttdoc">Un effet, une action, un déclencheur le pose.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:112</div></div>
+<div class="ttc" id="anamespacehmi_html_a4350019842cd36fa23fbb37b22b8d4a6a840c2c3c79be698753668016f58f87b6"><div class="ttname"><a href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6a840c2c3c79be698753668016f58f87b6">hmi::FlagUseRole::Reads</a></div><div class="ttdeci">@ Reads</div><div class="ttdoc">Une condition le lit : une étape, une réponse, la présence d&#39;une entité, un portail.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:110</div></div>
+<div class="ttc" id="anamespacehmi_html_a4350019842cd36fa23fbb37b22b8d4a6aed0b8f3d82b0dbc35d6b41b7b3675def"><div class="ttname"><a href="namespacehmi.html#a4350019842cd36fa23fbb37b22b8d4a6aed0b8f3d82b0dbc35d6b41b7b3675def">hmi::FlagUseRole::Declares</a></div><div class="ttdeci">@ Declares</div><div class="ttdoc">Une quête le déclare, avec ses valeurs.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:108</div></div>
+<div class="ttc" id="anamespacehmi_html_a4d1955fd51056d32a19bdc5ff7b17c8f"><div class="ttname"><a href="namespacehmi.html#a4d1955fd51056d32a19bdc5ff7b17c8f">hmi::worldStateReaching</a></div><div class="ttdeci">std::vector&lt; std::string &gt; worldStateReaching(const core::Quest &amp;quest, std::string_view stepId, const std::vector&lt; core::QuestFlag &gt; &amp;declared)</div><div class="ttdoc">L&#39;état de partie qui atteint l&#39;étape stepId de quest : pour chaque condition, une entrée (fait,...</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:1042</div></div>
+<div class="ttc" id="anamespacehmi_html_a6d7164fde1156b810c531edb2cf18f86"><div class="ttname"><a href="namespacehmi.html#a6d7164fde1156b810c531edb2cf18f86">hmi::runQuestCommand</a></div><div class="ttdeci">std::optional&lt; int &gt; runQuestCommand(const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;dataRoot, std::string &amp;output)</div><div class="ttdoc">L&#39;entrée sans fenêtre du mode Quêtes :</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:1217</div></div>
+<div class="ttc" id="anamespacehmi_html_a7d5f46577be0bc25c18d420ec2f7e997"><div class="ttname"><a href="namespacehmi.html#a7d5f46577be0bc25c18d420ec2f7e997">hmi::isValidQuestName</a></div><div class="ttdeci">bool isValidQuestName(std::string_view id, bool allowSlash)</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:711</div></div>
+<div class="ttc" id="anamespacehmi_html_a909b8620c8cc2487bc282ead3ed8c38f"><div class="ttname"><a href="namespacehmi.html#a909b8620c8cc2487bc282ead3ed8c38f">hmi::questIds</a></div><div class="ttdeci">std::vector&lt; std::string &gt; questIds(const std::filesystem::path &amp;dataRoot)</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:687</div></div>
+<div class="ttc" id="anamespacehmi_html_aa5938fdffcbfadea318b130b76e860de"><div class="ttname"><a href="namespacehmi.html#aa5938fdffcbfadea318b130b76e860de">hmi::planRenameFlagValue</a></div><div class="ttdeci">RefactorPlan planRenameFlagValue(const std::filesystem::path &amp;dataRoot, std::string_view flag, std::string_view oldValue, std::string_view newValue)</div><div class="ttdoc">Renomme la valeur oldValue du drapeau déclaré flag en newValue : la déclaration et son initiale,...</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:940</div></div>
+<div class="ttc" id="anamespacehmi_html_aabc38e9af6f4011233868b7750ff40a5"><div class="ttname"><a href="namespacehmi.html#aabc38e9af6f4011233868b7750ff40a5">hmi::flagUses</a></div><div class="ttdeci">std::vector&lt; FlagUse &gt; flagUses(const std::filesystem::path &amp;dataRoot)</div><div class="ttdoc">Tout ce qui se sert d&#39;un drapeau, dans les cartes, les dialogues et les quêtes de dataRoot.</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:861</div></div>
+<div class="ttc" id="anamespacehmi_html_ab774f4d0883cf6c42054057be4a4b76a"><div class="ttname"><a href="namespacehmi.html#ab774f4d0883cf6c42054057be4a4b76a">hmi::citeStepPlaces</a></div><div class="ttdeci">void citeStepPlaces(const std::filesystem::path &amp;dataRoot, const std::function&lt; std::optional&lt; std::string &gt;(std::string_view)&gt; &amp;rename, bool write, RefactorPlan &amp;plan)</div><div class="ttdoc">Le lieu des étapes (at, carte#id) suit une entité ou une carte renommée (LOT-EDITOR-14) : chaque étap...</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:1091</div></div>
+<div class="ttc" id="anamespacehmi_html_ac10adecfe235480e1c3e5bfadf1bf9b9"><div class="ttname"><a href="namespacehmi.html#ac10adecfe235480e1c3e5bfadf1bf9b9">hmi::planRenameQuest</a></div><div class="ttdeci">RefactorPlan planRenameQuest(const std::filesystem::path &amp;dataRoot, std::string_view oldId, std::string_view newId)</div><div class="ttdoc">Renomme la quête oldId en newId : son fichier, ses clés de journal (textes gardés),...</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:979</div></div>
+<div class="ttc" id="anamespacehmi_html_ac8db881672c91c6004525bf93568ff0f"><div class="ttname"><a href="namespacehmi.html#ac8db881672c91c6004525bf93568ff0f">hmi::planSaveQuest</a></div><div class="ttdeci">RefactorPlan planSaveQuest(const std::filesystem::path &amp;dataRoot, const QuestDraft &amp;draft, bool isNew)</div><div class="ttdoc">Le plan d&#39;enregistrement de draft : son fichier canonique et ses textes.</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:801</div></div>
+<div class="ttc" id="anamespacehmi_html_acd7ec63f42a325b6a4c6246db5c1f265"><div class="ttname"><a href="namespacehmi.html#acd7ec63f42a325b6a4c6246db5c1f265">hmi::planRenameFlag</a></div><div class="ttdeci">RefactorPlan planRenameFlag(const std::filesystem::path &amp;dataRoot, std::string_view oldFlag, std::string_view newFlag)</div><div class="ttdoc">Renomme le drapeau déclaré oldFlag en newFlag partout où il est lu ou posé.</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:915</div></div>
+<div class="ttc" id="anamespacehmi_html_ad3a1895c0b309de05e4cf04fc1b6a3aa"><div class="ttname"><a href="namespacehmi.html#ad3a1895c0b309de05e4cf04fc1b6a3aa">hmi::flagUseCitations</a></div><div class="ttdeci">std::vector&lt; Citation &gt; flagUseCitations(const std::vector&lt; FlagUse &gt; &amp;uses)</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:901</div></div>
+<div class="ttc" id="anamespacehmi_html_ad84c006ee3d8fd23d8bf797eed839542"><div class="ttname"><a href="namespacehmi.html#ad84c006ee3d8fd23d8bf797eed839542">hmi::planDeleteQuest</a></div><div class="ttdeci">RefactorPlan planDeleteQuest(const std::filesystem::path &amp;dataRoot, std::string_view questId)</div><div class="ttdoc">Retire la quête questId : son fichier et ses clés de journal.</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:839</div></div>
+<div class="ttc" id="anamespacehmi_html_adc20e663523a72711ba4f03baa0b8233"><div class="ttname"><a href="namespacehmi.html#adc20e663523a72711ba4f03baa0b8233">hmi::QuestLanguageTexts</a></div><div class="ttdeci">std::map&lt; std::string, std::string, std::less&lt;&gt; &gt; QuestLanguageTexts</div><div class="ttdoc">Les textes d&#39;une quête dans une langue : clé (quest.pommes.title) → texte.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:42</div></div>
+<div class="ttc" id="anamespacehmi_html_ae01edad0342c65f839557fabb7c320eb"><div class="ttname"><a href="namespacehmi.html#ae01edad0342c65f839557fabb7c320eb">hmi::loadQuestDraft</a></div><div class="ttdeci">QuestDraftLoad loadQuestDraft(const std::filesystem::path &amp;dataRoot, std::string_view questId)</div><div class="ttdef"><b>Definition</b> QuestEditing.cpp:695</div></div>
+<div class="ttc" id="astructcore_1_1Quest_html"><div class="ttname"><a href="structcore_1_1Quest.html">core::Quest</a></div><div class="ttdoc">Une quête : ses drapeaux et ses étapes, dans l&#39;ordre du récit.</div><div class="ttdef"><b>Definition</b> Quest.h:81</div></div>
+<div class="ttc" id="astructhmi_1_1Citation_html"><div class="ttname"><a href="structhmi_1_1Citation.html">hmi::Citation</a></div><div class="ttdoc">Un endroit où une chose est nommée : « qui cite ceci ? ».</div><div class="ttdef"><b>Definition</b> MapRefactor.h:49</div></div>
+<div class="ttc" id="astructhmi_1_1FlagUse_html"><div class="ttname"><a href="structhmi_1_1FlagUse.html">hmi::FlagUse</a></div><div class="ttdoc">Un endroit qui se sert d&#39;un drapeau.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:116</div></div>
+<div class="ttc" id="astructhmi_1_1FlagUse_html_a39e182cb104af6668cb4b32ae971915b"><div class="ttname"><a href="structhmi_1_1FlagUse.html#a39e182cb104af6668cb4b32ae971915b">hmi::FlagUse::where</a></div><div class="ttdeci">Citation where</div><div class="ttdoc">Où : une entité de carte (mapId, entityId, case), un dialogue, une quête.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:122</div></div>
+<div class="ttc" id="astructhmi_1_1FlagUse_html_a8fb3750ea269d32aaeaa1104f326bea3"><div class="ttname"><a href="structhmi_1_1FlagUse.html#a8fb3750ea269d32aaeaa1104f326bea3">hmi::FlagUse::operator==</a></div><div class="ttdeci">bool operator==(const FlagUse &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1FlagUse_html_aa42d4bddcb2d3a22da254fef623b0065"><div class="ttname"><a href="structhmi_1_1FlagUse.html#aa42d4bddcb2d3a22da254fef623b0065">hmi::FlagUse::values</a></div><div class="ttdeci">std::vector&lt; std::string &gt; values</div><div class="ttdoc">Les valeurs comparées, posées ou déclarées ; vide : le drapeau seul.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:119</div></div>
+<div class="ttc" id="astructhmi_1_1FlagUse_html_aab54368f86ccc141323ad2a2e0952ef8"><div class="ttname"><a href="structhmi_1_1FlagUse.html#aab54368f86ccc141323ad2a2e0952ef8">hmi::FlagUse::role</a></div><div class="ttdeci">FlagUseRole role</div><div class="ttdef"><b>Definition</b> QuestEditing.h:120</div></div>
+<div class="ttc" id="astructhmi_1_1FlagUse_html_aafdb5cb2165bb27e656741674999eecc"><div class="ttname"><a href="structhmi_1_1FlagUse.html#aafdb5cb2165bb27e656741674999eecc">hmi::FlagUse::flag</a></div><div class="ttdeci">std::string flag</div><div class="ttdef"><b>Definition</b> QuestEditing.h:117</div></div>
+<div class="ttc" id="astructhmi_1_1QuestDraftLoad_html"><div class="ttname"><a href="structhmi_1_1QuestDraftLoad.html">hmi::QuestDraftLoad</a></div><div class="ttdoc">Une quête lue pour l&#39;édition, ou pourquoi elle ne l&#39;est pas.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:61</div></div>
+<div class="ttc" id="astructhmi_1_1QuestDraftLoad_html_a4ba31496e197ef683dcd3dffcc9fdee7"><div class="ttname"><a href="structhmi_1_1QuestDraftLoad.html#a4ba31496e197ef683dcd3dffcc9fdee7">hmi::QuestDraftLoad::errors</a></div><div class="ttdeci">std::vector&lt; std::string &gt; errors</div><div class="ttdef"><b>Definition</b> QuestEditing.h:63</div></div>
+<div class="ttc" id="astructhmi_1_1QuestDraftLoad_html_aa5c6f678bfa4e886d5053a4e838e4163"><div class="ttname"><a href="structhmi_1_1QuestDraftLoad.html#aa5c6f678bfa4e886d5053a4e838e4163">hmi::QuestDraftLoad::draft</a></div><div class="ttdeci">std::optional&lt; QuestDraft &gt; draft</div><div class="ttdef"><b>Definition</b> QuestEditing.h:62</div></div>
+<div class="ttc" id="astructhmi_1_1QuestDraft_html"><div class="ttname"><a href="structhmi_1_1QuestDraft.html">hmi::QuestDraft</a></div><div class="ttdoc">Ce que le mode Quêtes édite : la quête, et ses textes de journal.</div><div class="ttdef"><b>Definition</b> QuestEditing.h:48</div></div>
+<div class="ttc" id="astructhmi_1_1QuestDraft_html_a8b18e677f7c8369e1ee35dc73b93f87d"><div class="ttname"><a href="structhmi_1_1QuestDraft.html#a8b18e677f7c8369e1ee35dc73b93f87d">hmi::QuestDraft::texts</a></div><div class="ttdeci">QuestTexts texts</div><div class="ttdef"><b>Definition</b> QuestEditing.h:50</div></div>
+<div class="ttc" id="astructhmi_1_1QuestDraft_html_aa9717126f68b3cd4fef56e42aade6d57"><div class="ttname"><a href="structhmi_1_1QuestDraft.html#aa9717126f68b3cd4fef56e42aade6d57">hmi::QuestDraft::quest</a></div><div class="ttdeci">core::Quest quest</div><div class="ttdef"><b>Definition</b> QuestEditing.h:49</div></div>
+<div class="ttc" id="astructhmi_1_1RefactorPlan_html"><div class="ttname"><a href="structhmi_1_1RefactorPlan.html">hmi::RefactorPlan</a></div><div class="ttdoc">Ce qu&#39;une opération récrira, calculé sans rien écrire.</div><div class="ttdef"><b>Definition</b> MapRefactor.h:69</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="QuestEditing_8h.html">QuestEditing.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

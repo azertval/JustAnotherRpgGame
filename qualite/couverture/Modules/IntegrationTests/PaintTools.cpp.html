@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>PaintTools.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/PaintTools.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cstdlib&gt;
+#include &lt;tuple&gt;
+#include &lt;utility&gt;
+
+#include "Core/Levels/LevelDraft.h"
+#include "Core/Levels/PieceFootprint.h"
+#include "Core/Levels/TileLayer.h"
+#include "Core/Resources/ScenePieceManifest.h"
+#include "Editor/Logic/PieceCatalog.h"
+
+namespace hmi {
+
+namespace {
+
+/// @brief Un rectangle de cases, bornes incluses.
+struct CellBox {
+    int minColumn = 0;
+    int minRow = 0;
+    int maxColumn = 0;
+    int maxRow = 0;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool intersects(const CellBox&amp; other) const noexcept {
+        return minColumn &lt;= other.maxColumn &amp;&amp; other.minColumn &lt;= maxColumn &amp;&amp;</span>
+               minRow &lt;= other.maxRow &amp;&amp; other.minRow &lt;= maxRow;
+<span style = "background-color:#dfd">    }</span>
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] CellBox boxOf(core::GridPosition first, core::GridPosition last) noexcept {
+    return CellBox{.minColumn = std::min(first.column, last.column),</span>
+                   .minRow = std::min(first.row, last.row),
+                   .maxColumn = std::max(first.column, last.column),
+                   .maxRow = std::max(first.row, last.row)};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] CellBox footprintBox(core::GridPosition anchor, core::PieceFootprint footprint) {
+    return CellBox{.minColumn = anchor.column,</span>
+                   .minRow = anchor.row,
+                   .maxColumn = anchor.column + footprint.columns - 1,
+                   .maxRow = anchor.row + footprint.rows - 1};
+<span style = "background-color:#dfd">}</span>
+
+/// @return L'emprise que @p brush occupe ancrÃ© en @p cell : celle de sa piÃ¨ce, une case sinon.
+[[nodiscard]] CellBox brushBox(const core::LevelDraft&amp; draft, const CanvasBrush&amp; brush,
+<span style = "background-color:#dfd">                               core::GridPosition cell) {
+    if (brush.kind == BrushKind::Piece) {
+        return footprintBox(cell, draft.pieceFootprint(brush.piece));</span>
+    }
+<span style = "background-color:#fdd">    return footprintBox(cell, core::PieceFootprint{});</span>
+<span style = "background-color:#dfd">}</span>
+
+/// @return @p brush vu dans le miroir : la jumelle d'une piÃ¨ce, et le type de sa case d'ancrage.
+[[nodiscard]] CanvasBrush mirroredBrush(const core::LevelDraft&amp; draft, const CanvasBrush&amp; brush,
+<span style = "background-color:#dfd">                                        const StrokeContext&amp; context) {
+    if (brush.kind != BrushKind::Piece) {
+        return brush;</span>
+    }
+<span style = "background-color:#dfd">    CanvasBrush twin = brush;
+    twin.piece = mirrorPieceName(draft.pieceManifest(), brush.piece);
+    if (twin.piece != brush.piece) {
+        twin.type = pieceCellType(context.appearance, twin.piece, brush.floor);</span>
+    }
+<span style = "background-color:#dfd">    return twin;
+}</span>
+
+/// Ajoute le rÃ©sultat d'un pas au rÃ©sultat du geste : changÃ© si un pas a changÃ©, premier refus.
+<span style = "background-color:#dfd">void merge(BrushResult&amp; total, const BrushResult&amp; step) {
+    total.changed = total.changed || step.changed;
+    if (total.refusal.empty() &amp;&amp; !step.refusal.empty()) {
+        total.refusal = step.refusal;</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] BrushResult finish(BrushResult total) {
+    if (total.changed) {
+        total.refusal.clear();  // un refus partiel (une case au bord) ne se dit pas.</span>
+    }
+<span style = "background-color:#dfd">    return total;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool hasVisualLayers(const core::LevelDraft&amp; draft) {
+    return std::ranges::any_of(draft.layers(), [](const core::TileLayer&amp; layer) {
+        return core::isVisualLayerKind(layer.kind);
+    });
+}</span>
+
+/// @brief Le contenu d'une case pour le seau (voir `floodRegion`).
+struct CellContent {
+    core::TileType type = core::TileType::Empty;
+    std::string_view piece;
+    /// L'ancre de la piÃ¨ce large qui couvre la case, s'il y en a une.
+    std::optional&lt;core::GridPosition&gt; wideAnchor;
+
+    [[nodiscard]] bool operator==(const CellContent&amp;) const = default;
+};
+
+[[nodiscard]] CellContent contentAt(const core::LevelDraft&amp; draft, LayerSlot slot,
+<span style = "background-color:#dfd">                                    core::GridPosition cell) {
+    if (!slot) {</span>
+<span style = "background-color:#fdd">        return CellContent{.type = draft.tileMap().tile(cell.column, cell.row),</span>
+                           .piece = {},
+                           .wideAnchor = std::nullopt};
+    }
+<span style = "background-color:#dfd">    const core::TileLayer&amp; layer = draft.layers()[*slot];
+    CellContent content{.type = layer.tiles.tile(cell.column, cell.row),
+                        .piece = layer.pieceAt(cell.column, cell.row),
+                        .wideAnchor = std::nullopt};
+    if (const std::optional&lt;core::GridPosition&gt; anchor = draft.pieceAnchorAt(*slot, cell)) {</span>
+        const core::PieceFootprint footprint =
+<span style = "background-color:#dfd">            draft.pieceFootprint(layer.pieceAt(anchor-&gt;column, anchor-&gt;row));
+        if (footprint.columns &gt; 1 || footprint.rows &gt; 1) {</span>
+            // Toutes les cases d'une piÃ¨ce large se valent : elles ne portent que cette piÃ¨ce.
+<span style = "background-color:#dfd">            return CellContent{.type = core::TileType::Empty, .piece = {}, .wideAnchor = anchor};</span>
+        }
+    }
+<span style = "background-color:#dfd">    return content;
+}</span>
+
+/// @return Le pinceau qui repeint ce que la couche visuelle @p index montre en @p cell.
+[[nodiscard]] std::optional&lt;CanvasBrush&gt; brushFromLayer(const core::LevelDraft&amp; draft,
+                                                        std::size_t index, core::GridPosition cell,
+<span style = "background-color:#dfd">                                                        const PlaceAppearance* appearance) {
+    const core::TileLayer&amp; layer = draft.layers()[index];
+    if (const std::optional&lt;core::GridPosition&gt; anchor = draft.pieceAnchorAt(index, cell)) {
+        const std::string piece{layer.pieceAt(anchor-&gt;column, anchor-&gt;row)};
+        const core::ScenePieceManifest* const manifest = draft.pieceManifest();
+        const core::ScenePiece* const known = manifest != nullptr ? manifest-&gt;find(piece) : nullptr;</span>
+        // Une piÃ¨ce que le manifeste ignore est un sol si elle est sur une couche de sol.
+<span style = "background-color:#dfd">        const bool floor = known != nullptr ? known-&gt;pieceClass == core::ScenePieceClass::Floor</span>
+                                            : layer.kind == core::LayerKind::Ground;
+<span style = "background-color:#dfd">        return CanvasBrush{.kind = BrushKind::Piece,</span>
+                           .type = pieceCellType(appearance, piece, floor),
+                           .piece = piece,
+                           .floor = floor};
+    }
+<span style = "background-color:#dfd">    const core::TileType type = layer.tiles.tile(cell.column, cell.row);
+    if (type == core::TileType::Empty) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#fdd">    return CanvasBrush{.kind = BrushKind::Type, .type = type, .piece = {}, .floor = false};</span>
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">MirrorAxis mirrorAxisThrough(core::GridPosition cell) noexcept {
+    return MirrorAxis{.offset = cell.column - cell.row};
+}</span>
+
+<span style = "background-color:#dfd">core::GridPosition mirrorCell(const MirrorAxis&amp; axis, core::GridPosition cell) noexcept {
+    return core::GridPosition{.column = cell.row + axis.offset, .row = cell.column - axis.offset};
+}</span>
+
+<span style = "background-color:#dfd">std::string mirrorPieceName(const core::ScenePieceManifest* manifest, std::string_view piece) {
+    if (manifest == nullptr) {
+        return std::string{piece};</span>
+    }
+<span style = "background-color:#dfd">    const core::ScenePiece* const known = manifest-&gt;find(piece);
+    if (known == nullptr) {</span>
+<span style = "background-color:#fdd">        return std::string{piece};</span>
+    }
+<span style = "background-color:#dfd">    if (!known-&gt;mirrorOf.empty()) {
+        return known-&gt;mirrorOf;</span>
+    }
+<span style = "background-color:#dfd">    for (const core::ScenePiece&amp; other : manifest-&gt;pieces()) {
+        if (other.mirrorOf == known-&gt;name) {
+            return other.name;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return std::string{piece};
+}</span>
+
+BrushResult applyStroke(core::LevelDraft&amp; draft, const CanvasBrush&amp; brush, LayerSlot active,
+                        const LayerViewState&amp; view, const std::vector&lt;core::GridPosition&gt;&amp; cells,
+<span style = "background-color:#dfd">                        bool continuing, const StrokeContext&amp; context) {
+    const core::GestureScope gesture(draft);
+    const CanvasBrush twin = mirroredBrush(draft, brush, context);
+    BrushResult total;
+    bool first = true;
+    for (const core::GridPosition cell : cells) {
+        const bool prolongs = continuing || !first;
+        first = false;
+        merge(total, applyBrush(draft, brush, active, view, cell, cell, prolongs));
+        if (!context.mirror) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const core::GridPosition reflected = mirrorCell(*context.mirror, cell);
+        if (!draft.tileMap().inBounds(reflected.column, reflected.row) ||</span>
+            brushBox(draft, brush, cell).intersects(brushBox(draft, twin, reflected))) {
+<span style = "background-color:#dfd">            continue;  // hors de la carte, ou le reflet chevaucherait le geste.</span>
+        }
+<span style = "background-color:#dfd">        merge(total, applyBrush(draft, twin, active, view, reflected, reflected, prolongs));
+    }
+    return finish(std::move(total));
+}</span>
+
+BrushResult applyRectangleStroke(core::LevelDraft&amp; draft, const CanvasBrush&amp; brush,
+                                 LayerSlot active, const LayerViewState&amp; view,
+                                 core::GridPosition first, core::GridPosition last,
+<span style = "background-color:#dfd">                                 const StrokeContext&amp; context) {
+    const core::GestureScope gesture(draft);
+    BrushResult total = applyBrush(draft, brush, active, view, first, last);
+    if (context.mirror) {
+        const core::GridPosition reflectedFirst = mirrorCell(*context.mirror, first);
+        const core::GridPosition reflectedLast = mirrorCell(*context.mirror, last);
+        if (!boxOf(first, last).intersects(boxOf(reflectedFirst, reflectedLast))) {</span>
+<span style = "background-color:#fdd">            merge(total, applyBrush(draft, mirroredBrush(draft, brush, context), active, view,</span>
+                                    reflectedFirst, reflectedLast));
+        }
+    }
+<span style = "background-color:#dfd">    return finish(std::move(total));
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;core::GridPosition&gt; lineCells(core::GridPosition from, core::GridPosition to) {
+    std::vector&lt;core::GridPosition&gt; cells;
+    const int deltaColumns = std::abs(to.column - from.column);
+    const int deltaRows = -std::abs(to.row - from.row);
+    const int stepColumn = from.column &lt; to.column ? 1 : -1;
+    const int stepRow = from.row &lt; to.row ? 1 : -1;
+    int error = deltaColumns + deltaRows;
+    core::GridPosition cell = from;
+    while (true) {
+        cells.push_back(cell);
+        if (cell == to) {
+            break;</span>
+        }
+<span style = "background-color:#dfd">        const int doubled = 2 * error;
+        if (doubled &gt;= deltaRows) {
+            error += deltaRows;
+            cell.column += stepColumn;</span>
+        }
+<span style = "background-color:#dfd">        if (doubled &lt;= deltaColumns) {
+            error += deltaColumns;
+            cell.row += stepRow;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return cells;
+}</span>
+
+std::vector&lt;core::GridPosition&gt; floodRegion(const core::LevelDraft&amp; draft, LayerSlot slot,
+<span style = "background-color:#dfd">                                            core::GridPosition seed) {
+    const core::TileMap&amp; map = draft.tileMap();
+    if (!map.inBounds(seed.column, seed.row) || (slot &amp;&amp; *slot &gt;= draft.layers().size())) {</span>
+<span style = "background-color:#fdd">        return {};</span>
+    }
+<span style = "background-color:#dfd">    const CellContent wanted = contentAt(draft, slot, seed);
+    const auto width = static_cast&lt;std::size_t&gt;(map.width());
+    std::vector&lt;bool&gt; seen(width * static_cast&lt;std::size_t&gt;(map.height()), false);
+    const auto indexOf = [width](core::GridPosition cell) {
+        return (static_cast&lt;std::size_t&gt;(cell.row) * width) + static_cast&lt;std::size_t&gt;(cell.column);
+    };
+    std::vector&lt;core::GridPosition&gt; region;
+    std::vector&lt;core::GridPosition&gt; pending{seed};
+    seen[indexOf(seed)] = true;
+    while (!pending.empty()) {
+        const core::GridPosition cell = pending.back();
+        pending.pop_back();
+        region.push_back(cell);</span>
+        const std::array&lt;core::GridPosition, 4&gt; neighbours{{
+<span style = "background-color:#dfd">            {.column = cell.column + 1, .row = cell.row},
+            {.column = cell.column - 1, .row = cell.row},
+            {.column = cell.column, .row = cell.row + 1},
+            {.column = cell.column, .row = cell.row - 1},</span>
+        }};
+<span style = "background-color:#dfd">        for (const core::GridPosition next : neighbours) {
+            if (!map.inBounds(next.column, next.row) || seen[indexOf(next)]) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            seen[indexOf(next)] = true;
+            if (contentAt(draft, slot, next) == wanted) {
+                pending.push_back(next);</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    std::ranges::sort(region, [](core::GridPosition left, core::GridPosition right) {
+        return std::tie(left.row, left.column) &lt; std::tie(right.row, right.column);
+    });
+    return region;
+}</span>
+
+LayerSlot brushTargetLayer(const core::LevelDraft&amp; draft, const CanvasBrush&amp; brush,
+<span style = "background-color:#dfd">                           LayerSlot active) {
+    if (brush.kind == BrushKind::Piece) {
+        return pieceTargetLayer(draft.layers(), brush.floor, active);</span>
+    }
+<span style = "background-color:#fdd">    return active;</span>
+<span style = "background-color:#dfd">}</span>
+
+BrushResult applyBucket(core::LevelDraft&amp; draft, const CanvasBrush&amp; brush, LayerSlot active,
+                        const LayerViewState&amp; view, core::GridPosition seed,
+<span style = "background-color:#dfd">                        const StrokeContext&amp; context) {
+    if (brush.kind == BrushKind::Piece) {
+        const core::PieceFootprint footprint = draft.pieceFootprint(brush.piece);
+        if (footprint.columns &gt; 1 || footprint.rows &gt; 1) {
+            return BrushResult{.changed = false,</span>
+                               .refusal =
+                                   "The bucket fills with single-cell pieces; use the "
+                                   "rectangle for \"" +
+                                   brush.piece + "\"."};
+        }
+    }
+<span style = "background-color:#dfd">    const LayerSlot target = brushTargetLayer(draft, brush, active);
+    if (brush.kind == BrushKind::Piece &amp;&amp; !target) {</span>
+        // Le pinceau dit pourquoi : pas de couche oÃ¹ la piÃ¨ce irait.
+<span style = "background-color:#fdd">        return applyBrush(draft, brush, active, view, seed, seed);</span>
+    }
+<span style = "background-color:#dfd">    if (view.display(target, hasVisualLayers(draft)).locked) {</span>
+<span style = "background-color:#fdd">        return BrushResult{.changed = false, .refusal = "The target layer is locked."};</span>
+    }
+<span style = "background-color:#dfd">    return applyStroke(draft, brush, active, view, floodRegion(draft, target, seed), false,</span>
+                       context);
+<span style = "background-color:#dfd">}</span>
+
+std::optional&lt;PickedBrush&gt; pickBrush(const core::LevelDraft&amp; draft, LayerSlot active,
+<span style = "background-color:#dfd">                                     core::GridPosition cell, const PlaceAppearance* appearance) {
+    if (!draft.tileMap().inBounds(cell.column, cell.row)) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const std::vector&lt;core::TileLayer&gt;&amp; layers = draft.layers();
+    const bool visual = hasVisualLayers(draft);
+    if (!active || !visual) {
+        return PickedBrush{.brush = CanvasBrush{.kind = BrushKind::Type,</span>
+                                                .type = draft.tileMap().tile(cell.column, cell.row),
+                                                .piece = {},
+                                                .floor = false},
+                           .layer = std::nullopt};
+    }
+<span style = "background-color:#dfd">    std::vector&lt;std::size_t&gt; order;
+    if (*active &lt; layers.size() &amp;&amp; core::isVisualLayerKind(layers[*active].kind)) {
+        order.push_back(*active);</span>
+    }
+<span style = "background-color:#dfd">    for (std::size_t index = layers.size(); index-- &gt; 0;) {
+        if (core::isVisualLayerKind(layers[index].kind) &amp;&amp; index != *active) {
+            order.push_back(index);</span>
+        }
+<span style = "background-color:#dfd">    }
+    for (const std::size_t index : order) {
+        if (const std::optional&lt;CanvasBrush&gt; brush =</span>
+                brushFromLayer(draft, index, cell, appearance)) {
+<span style = "background-color:#dfd">            return PickedBrush{.brush = *brush, .layer = index};
+        }
+    }
+    return std::nullopt;
+}</span>
+
+<span style = "background-color:#dfd">CanvasBrush pieceBrush(const PlaceAppearance* appearance, std::string piece, bool floor) {
+    const core::TileType type = pieceCellType(appearance, piece, floor);
+    return CanvasBrush{</span>
+        .kind = BrushKind::Piece, .type = type, .piece = std::move(piece), .floor = floor};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">Measure measureBetween(core::GridPosition from, core::GridPosition to) noexcept {
+    const int columns = std::abs(to.column - from.column);
+    const int rows = std::abs(to.row - from.row);
+    const int cells = std::max(columns, rows);
+    return Measure{.columns = columns, .rows = rows, .cells = cells, .feet = cells * FEET_PER_CELL};
+}</span>
+
+<span style = "background-color:#dfd">std::string measureLabel(const Measure&amp; measure) {
+    return std::to_string(measure.columns + 1) + " Ã " + std::to_string(measure.rows + 1) + " Â· " +</span>
+           std::to_string(measure.cells) + (measure.cells == 1 ? " cell = " : " cells = ") +
+           std::to_string(measure.feet) + " ft";
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

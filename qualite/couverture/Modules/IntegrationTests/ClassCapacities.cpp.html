@@ -37,15 +37,15 @@ struct NomDeGenre {
 
 // Les noms sont ceux de `capacity.schema.json` : le schema et le moteur doivent dire la meme liste.
 constexpr std::array&lt;NomDeGenre, 9&gt; GENRES{{
-    {CapacityEffectKind::AttackBonus, "attack-bonus"},
-    {CapacityEffectKind::ArmorClassBonus, "armor-class-bonus"},
-    {CapacityEffectKind::UnarmoredArmorClass, "unarmored-armor-class"},
-    {CapacityEffectKind::DamageResistance, "damage-resistance"},
-    {CapacityEffectKind::SpeedBonus, "speed-bonus"},
-    {CapacityEffectKind::NoOpportunityAttacks, "no-opportunity-attacks"},
-    {CapacityEffectKind::ExtraDamage, "extra-damage"},
-    {CapacityEffectKind::ExtraAttack, "extra-attack"},
-    {CapacityEffectKind::ProficientCheckBonus, "proficient-check-bonus"},
+    {.genre = CapacityEffectKind::AttackBonus, .nom = "attack-bonus"},
+    {.genre = CapacityEffectKind::ArmorClassBonus, .nom = "armor-class-bonus"},
+    {.genre = CapacityEffectKind::UnarmoredArmorClass, .nom = "unarmored-armor-class"},
+    {.genre = CapacityEffectKind::DamageResistance, .nom = "damage-resistance"},
+    {.genre = CapacityEffectKind::SpeedBonus, .nom = "speed-bonus"},
+    {.genre = CapacityEffectKind::NoOpportunityAttacks, .nom = "no-opportunity-attacks"},
+    {.genre = CapacityEffectKind::ExtraDamage, .nom = "extra-damage"},
+    {.genre = CapacityEffectKind::ExtraAttack, .nom = "extra-attack"},
+    {.genre = CapacityEffectKind::ProficientCheckBonus, .nom = "proficient-check-bonus"},
 }};
 
 <span style = "background-color:#dfd">[[nodiscard]] std::string lireTexte(const nlohmann::json&amp; objet, const char* champ) {
@@ -81,6 +81,107 @@ constexpr std::array&lt;NomDeGenre, 9&gt; GENRES{{
     return valeurs;
 }</span>
 
+// Les genres a une valeur entiere : bonus d'attaque, de CA, attaques en plus, bonus de maitrise.
+[[nodiscard]] bool lireValeur(const nlohmann::json&amp; objet, const std::string&amp; fichier,
+                              const std::string&amp; genre, CapacityEffect&amp; effet,
+<span style = "background-color:#dfd">                              std::vector&lt;std::string&gt;&amp; erreurs) {
+    const std::optional&lt;int&gt; valeur = lireEntier(objet, "value");
+    if (!valeur.has_value()) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : effet '" + genre + "' sans 'value'.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (effet.kind == CapacityEffectKind::ExtraAttack &amp;&amp; *valeur &lt;= 0) {</span>
+        // Zero attaque en plus serait une capacite nommee au journal qui ne fait rien.
+<span style = "background-color:#dfd">        erreurs.push_back(fichier + " : effet '" + genre +</span>
+                          "' dont 'value' n'est pas "
+                          "positive.");
+<span style = "background-color:#dfd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    effet.value = *valeur;
+    return true;
+}</span>
+
+// La CA sans armure : une base, et les caracteristiques dont le modificateur s'y ajoute.
+[[nodiscard]] bool lireCaSansArmure(const nlohmann::json&amp; objet, const std::string&amp; fichier,
+                                    const std::string&amp; genre, CapacityEffect&amp; effet,
+<span style = "background-color:#dfd">                                    std::vector&lt;std::string&gt;&amp; erreurs) {
+    const std::optional&lt;int&gt; base = lireEntier(objet, "base");
+    if (!base.has_value()) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : effet '" + genre + "' sans 'base'.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    effet.base = *base;
+    effet.shieldAllowed = lireBooleen(objet, "shieldAllowed", true);
+    for (const std::string&amp; nom : lireTextes(objet, "abilities")) {
+        const std::optional&lt;Ability&gt; caracteristique = parseAbility(nom);
+        if (!caracteristique.has_value()) {</span>
+<span style = "background-color:#fdd">            std::string message = fichier;
+            message.append(" : caracteristique '")</span>
+                .append(nom)
+                .append("' inconnue du moteur dans un effet '")
+                .append(genre)
+                .append("'.");
+<span style = "background-color:#fdd">            erreurs.push_back(std::move(message));
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        effet.abilities.push_back(*caracteristique);
+    }
+    return true;
+}</span>
+
+// La resistance : a tous les types, ou a ceux qu'elle nomme -- jamais a aucun.
+[[nodiscard]] bool lireResistance(const nlohmann::json&amp; objet, const std::string&amp; fichier,
+                                  const std::string&amp; genre, CapacityEffect&amp; effet,
+<span style = "background-color:#dfd">                                  std::vector&lt;std::string&gt;&amp; erreurs) {
+    effet.allDamageTypes = lireBooleen(objet, "allTypes", false);
+    for (const std::string&amp; nom : lireTextes(objet, "types")) {</span>
+<span style = "background-color:#fdd">        const std::optional&lt;DamageType&gt; type = parseDamageType(nom);
+        if (!type.has_value()) {
+            std::string message = fichier;
+            message.append(" : type de degats '")</span>
+                .append(nom)
+                .append("' inconnu du moteur (EX-CBT-032).");
+<span style = "background-color:#fdd">            erreurs.push_back(std::move(message));
+            return false;</span>
+        }
+<span style = "background-color:#fdd">        effet.damageTypes.push_back(*type);</span>
+<span style = "background-color:#dfd">    }
+    if (!effet.allDamageTypes &amp;&amp; effet.damageTypes.empty()) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : effet '" + genre +</span>
+                          "' sans type : ni 'allTypes' ni 'types'.");
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    return true;
+}</span>
+
+// Le bonus de vitesse, en metres.
+[[nodiscard]] bool lireVitesse(const nlohmann::json&amp; objet, const std::string&amp; fichier,
+                               const std::string&amp; genre, CapacityEffect&amp; effet,
+<span style = "background-color:#dfd">                               std::vector&lt;std::string&gt;&amp; erreurs) {
+    const auto metres = objet.find("meters");
+    if (metres == objet.end() || !metres-&gt;is_number()) {</span>
+<span style = "background-color:#fdd">        erreurs.push_back(fichier + " : effet '" + genre + "' sans 'meters'.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    effet.meters = metres-&gt;get&lt;float&gt;();
+    return true;
+}</span>
+
+// Les degats en plus : des lisibles, et les conditions qui les limitent.
+[[nodiscard]] bool lireDegatsEnPlus(const nlohmann::json&amp; objet, const std::string&amp; fichier,
+                                    const std::string&amp; genre, CapacityEffect&amp; effet,
+<span style = "background-color:#dfd">                                    std::vector&lt;std::string&gt;&amp; erreurs) {
+    const std::optional&lt;Dice&gt; des = parseDice(lireTexte(objet, "dice"));
+    if (!des.has_value()) {
+        erreurs.push_back(fichier + " : effet '" + genre + "' sans 'dice' lisibles.");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    effet.dice = *des;
+    effet.oncePerTurn = lireBooleen(objet, "oncePerTurn", false);
+    effet.allyAdjacentToTarget = lireBooleen(objet, "allyAdjacentToTarget", false);
+    return true;
+}</span>
+
 // Un effet : son genre, puis les champs que ce genre EXIGE. Un champ manquant est une erreur,
 // jamais une valeur devinee -- un `extra-damage` sans des jouerait zero de en silence.
 [[nodiscard]] std::optional&lt;CapacityEffect&gt; lireEffet(const nlohmann::json&amp; objet,
@@ -96,85 +197,31 @@ constexpr std::array&lt;NomDeGenre, 9&gt; GENRES{{
 <span style = "background-color:#dfd">        return std::nullopt;</span>
     }
 <span style = "background-color:#dfd">    effet.kind = *lu;
+    bool lisible = true;
     switch (effet.kind) {</span>
         case CapacityEffectKind::AttackBonus:
         case CapacityEffectKind::ArmorClassBonus:
         case CapacityEffectKind::ExtraAttack:
-        case CapacityEffectKind::ProficientCheckBonus: {
-<span style = "background-color:#dfd">            const std::optional&lt;int&gt; valeur = lireEntier(objet, "value");
-            if (!valeur.has_value()) {</span>
-<span style = "background-color:#fdd">                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'value'.");
-                return std::nullopt;</span>
-            }
-<span style = "background-color:#dfd">            if (effet.kind == CapacityEffectKind::ExtraAttack &amp;&amp; *valeur &lt;= 0) {</span>
-                // Zero attaque en plus serait une capacite nommee au journal qui ne fait rien.
-<span style = "background-color:#dfd">                erreurs.push_back(fichier + " : effet '" + genre +</span>
-                                  "' dont 'value' n'est pas "
-                                  "positive.");
-<span style = "background-color:#dfd">                return std::nullopt;</span>
-            }
-<span style = "background-color:#dfd">            effet.value = *valeur;
+        case CapacityEffectKind::ProficientCheckBonus:
+<span style = "background-color:#dfd">            lisible = lireValeur(objet, fichier, genre, effet, erreurs);
             break;</span>
-        }
-        case CapacityEffectKind::UnarmoredArmorClass: {
-<span style = "background-color:#dfd">            const std::optional&lt;int&gt; base = lireEntier(objet, "base");
-            if (!base.has_value()) {</span>
-<span style = "background-color:#fdd">                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'base'.");
-                return std::nullopt;</span>
-            }
-<span style = "background-color:#dfd">            effet.base = *base;
-            effet.shieldAllowed = lireBooleen(objet, "shieldAllowed", true);
-            for (const std::string&amp; nom : lireTextes(objet, "abilities")) {
-                const std::optional&lt;Ability&gt; caracteristique = parseAbility(nom);
-                if (!caracteristique.has_value()) {</span>
-<span style = "background-color:#fdd">                    erreurs.push_back(fichier + " : caracteristique '" + nom +</span>
-                                      "' inconnue du moteur dans un effet '" + genre + "'.");
-<span style = "background-color:#fdd">                    return std::nullopt;</span>
-                }
-<span style = "background-color:#dfd">                effet.abilities.push_back(*caracteristique);
-            }
+        case CapacityEffectKind::UnarmoredArmorClass:
+<span style = "background-color:#dfd">            lisible = lireCaSansArmure(objet, fichier, genre, effet, erreurs);
             break;</span>
-        }
-        case CapacityEffectKind::DamageResistance: {
-<span style = "background-color:#dfd">            effet.allDamageTypes = lireBooleen(objet, "allTypes", false);
-            for (const std::string&amp; nom : lireTextes(objet, "types")) {</span>
-<span style = "background-color:#fdd">                const std::optional&lt;DamageType&gt; type = parseDamageType(nom);
-                if (!type.has_value()) {
-                    erreurs.push_back(fichier + " : type de degats '" + nom +</span>
-                                      "' inconnu du moteur (EX-CBT-032).");
-<span style = "background-color:#fdd">                    return std::nullopt;</span>
-                }
-<span style = "background-color:#fdd">                effet.damageTypes.push_back(*type);</span>
-<span style = "background-color:#dfd">            }
-            if (!effet.allDamageTypes &amp;&amp; effet.damageTypes.empty()) {</span>
-<span style = "background-color:#fdd">                erreurs.push_back(fichier + " : effet '" + genre +</span>
-                                  "' sans type : ni 'allTypes' ni 'types'.");
-<span style = "background-color:#fdd">                return std::nullopt;</span>
-            }
-<span style = "background-color:#dfd">            break;</span>
-        }
-        case CapacityEffectKind::SpeedBonus: {
-<span style = "background-color:#dfd">            const auto metres = objet.find("meters");
-            if (metres == objet.end() || !metres-&gt;is_number()) {</span>
-<span style = "background-color:#fdd">                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'meters'.");
-                return std::nullopt;</span>
-            }
-<span style = "background-color:#dfd">            effet.meters = metres-&gt;get&lt;float&gt;();
+        case CapacityEffectKind::DamageResistance:
+<span style = "background-color:#dfd">            lisible = lireResistance(objet, fichier, genre, effet, erreurs);
             break;</span>
-<span style = "background-color:#fdd">        }</span>
+        case CapacityEffectKind::SpeedBonus:
+<span style = "background-color:#dfd">            lisible = lireVitesse(objet, fichier, genre, effet, erreurs);
+            break;</span>
         case CapacityEffectKind::NoOpportunityAttacks:
 <span style = "background-color:#fdd">            break;</span>
-        case CapacityEffectKind::ExtraDamage: {
-<span style = "background-color:#dfd">            const std::optional&lt;Dice&gt; des = parseDice(lireTexte(objet, "dice"));
-            if (!des.has_value()) {
-                erreurs.push_back(fichier + " : effet '" + genre + "' sans 'dice' lisibles.");
-                return std::nullopt;</span>
-            }
-<span style = "background-color:#dfd">            effet.dice = *des;
-            effet.oncePerTurn = lireBooleen(objet, "oncePerTurn", false);
-            effet.allyAdjacentToTarget = lireBooleen(objet, "allyAdjacentToTarget", false);</span>
+        case CapacityEffectKind::ExtraDamage:
+<span style = "background-color:#dfd">            lisible = lireDegatsEnPlus(objet, fichier, genre, effet, erreurs);</span>
             break;
-        }
+    }
+<span style = "background-color:#dfd">    if (!lisible) {
+        return std::nullopt;</span>
     }
 <span style = "background-color:#dfd">    return effet;
 }</span>

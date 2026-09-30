@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>LevelWriter.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Levels/LevelWriter.h"
+
+#include &lt;cstdint&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+#include &lt;variant&gt;
+
+#include &lt;nlohmann/json.hpp&gt;
+
+#include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/LevelProperties.h"
+#include "Core/Levels/MapEntity.h"
+#include "Core/Levels/TileLayer.h"
+#include "Core/Levels/TileMap.h"
+#include "Core/Levels/TileType.h"
+#include "Core/Levels/TileTypeName.h"
+
+namespace core {
+
+namespace {
+
+// Objet JSON a cles ORDONNEES par insertion : l'ordre des champs est celui du format, pas l'ordre
+// alphabetique -- "version" en tete, les tuiles en dernier.
+using Json = nlohmann::ordered_json;
+
+// Tableaux dont les objets s'ecrivent sur UNE ligne chacun : une case = une ligne de diff.
+<span style = "background-color:#dfd">[[nodiscard]] bool isCellArray(const std::string&amp; key) {
+    return key == "tiles" || key == "forced" || key == "cells";
+}</span>
+
+// Reemet les proprietes libres d'une couche ou d'une entite A PLAT dans son objet JSON, a cote de
+// ses champs connus (EX-LVL-018). Le chargeur range dans cette table toute cle qu'il ne reconnait
+// pas, et on la lui rend telle quelle ; core::PropertyMap est ordonnee, l'ecriture deterministe.
+<span style = "background-color:#dfd">void writeProperties(const PropertyMap&amp; properties, Json&amp; object) {
+    for (const auto&amp; [key, value] : properties) {</span>
+        // Alternative par alternative plutot que std::visit : l'analyseur statique ne suit pas la
+        // table de saut de visit et croit la valeur non initialisee.
+<span style = "background-color:#dfd">        if (const auto* const flag = std::get_if&lt;bool&gt;(&amp;value)) {
+            object[key] = *flag;
+        } else if (const auto* const integer = std::get_if&lt;std::int64_t&gt;(&amp;value)) {
+            object[key] = *integer;
+        } else if (const auto* const real = std::get_if&lt;double&gt;(&amp;value)) {
+            object[key] = *real;
+        } else if (const auto* const text = std::get_if&lt;std::string&gt;(&amp;value)) {
+            object[key] = *text;</span>
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] Json cellJson(GridPosition cell) {
+    Json object;
+    object["x"] = cell.column;
+    object["y"] = cell.row;
+    return object;
+}</span>
+
+// Cases d'une couche visuelle, au format {x, y, type, piece?, elevation?}. Une case est omise
+// quand elle ne porte rien : ni type, ni piece, ni hauteur (EX-LVL-003).
+<span style = "background-color:#dfd">[[nodiscard]] Json layerTilesJson(const TileLayer&amp; layer) {
+    Json array = Json::array();
+    for (int row = 0; row &lt; layer.tiles.height(); ++row) {
+        for (int column = 0; column &lt; layer.tiles.width(); ++column) {
+            const TileType type = layer.tiles.tile(column, row);
+            const std::string_view piece = layer.pieceAt(column, row);
+            const int elevation = layer.elevationAt(column, row);
+            if (type == TileType::Empty &amp;&amp; piece.empty() &amp;&amp; elevation == 0) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            Json tile;
+            tile["x"] = column;
+            tile["y"] = row;
+            tile["type"] = tileTypeName(type);
+            if (!piece.empty()) {
+                tile["piece"] = std::string{piece};</span>
+            }
+<span style = "background-color:#dfd">            if (elevation != 0) {
+                tile["elevation"] = elevation;</span>
+            }
+<span style = "background-color:#dfd">            array.push_back(std::move(tile));
+        }
+    }
+    return array;
+}</span>
+
+// Vrai pour la couche que le chargeur PROMEUT depuis la grille racine (Collision, ou Legacy pour
+// une carte sans couche declaree). Elle n'est jamais reecrite dans "layers" : elle est deja le
+// tableau racine "tiles".
+<span style = "background-color:#dfd">[[nodiscard]] bool isPromotedRootLayer(const TileLayer&amp; layer) {
+    return layer.kind == LayerKind::Collision || layer.kind == LayerKind::Legacy;
+}</span>
+
+// Tableau racine "tiles" : la grille de collision, entree comprise.
+<span style = "background-color:#dfd">[[nodiscard]] Json rootTilesJson(const TileMap&amp; tileMap) {
+    Json tiles = Json::array();
+    for (int row = 0; row &lt; tileMap.height(); ++row) {
+        for (int column = 0; column &lt; tileMap.width(); ++column) {
+            const TileType type = tileMap.tile(column, row);
+            if (type == TileType::Empty) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            Json tile;
+            tile["x"] = column;
+            tile["y"] = row;
+            tile["type"] = tileTypeName(type);
+            tiles.push_back(std::move(tile));
+        }
+    }
+    return tiles;
+}</span>
+
+// Tableau racine optionnel "layers" : les couches VISIBLES uniquement, dans leur ordre de
+// superposition. Champs connus d'abord, proprietes ensuite, cases en dernier : ce qui dit ce qu'est
+// la couche se lit en tete, sans descendre sous des centaines de cases.
+<span style = "background-color:#dfd">[[nodiscard]] Json visibleLayersJson(const std::vector&lt;TileLayer&gt;&amp; layers) {
+    Json layersJson = Json::array();
+    for (const TileLayer&amp; layer : layers) {
+        if (isPromotedRootLayer(layer)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        Json layerJson;</span>
+        // Le nom est libre et facultatif : omis quand il est vide, comme tout champ a sa valeur
+        // par defaut. Le role, lui, est toujours ecrit.
+<span style = "background-color:#dfd">        if (!layer.name.empty()) {
+            layerJson["name"] = layer.name;</span>
+        }
+<span style = "background-color:#dfd">        layerJson["kind"] = layerKindName(layer.kind);
+        if (layer.floor != 0) {
+            layerJson["floor"] = layer.floor;</span>
+        }
+<span style = "background-color:#dfd">        writeProperties(layer.properties, layerJson);
+        layerJson["tiles"] = layerTilesJson(layer);
+        layersJson.push_back(std::move(layerJson));
+    }
+    return layersJson;
+}</span>
+
+// Tableau racine "entities" (EX-LVL-017). Le type est ecrit meme vide : une entite sans type est
+// une donnee fautive qu'il vaut mieux voir dans le fichier que faire disparaitre a
+// l'enregistrement.
+<span style = "background-color:#dfd">[[nodiscard]] Json entitiesJson(const std::vector&lt;MapEntity&gt;&amp; entities) {
+    Json array = Json::array();
+    for (const MapEntity&amp; entity : entities) {
+        Json entityJson;
+        if (!entity.id.empty()) {
+            entityJson["id"] = entity.id;</span>
+        }
+<span style = "background-color:#dfd">        entityJson["type"] = entity.type;
+        entityJson["x"] = entity.position.column;
+        entityJson["y"] = entity.position.row;
+        if (entity.elevation != 0) {
+            entityJson["elevation"] = entity.elevation;</span>
+        }
+<span style = "background-color:#dfd">        if (!entity.cells.empty()) {
+            Json cells = Json::array();
+            for (const GridPosition cell : entity.cells) {
+                cells.push_back(cellJson(cell));
+            }
+            entityJson["cells"] = std::move(cells);
+        }
+        writeProperties(entity.properties, entityJson);
+        array.push_back(std::move(entityJson));
+    }
+    return array;
+}</span>
+
+// --- Ecriture canonique ---------------------------------------------------------------------
+//
+// Deux espaces d'indentation, comme tout ecrivain JSON du projet ; mais les objets d'une liste de
+// cases ("tiles", "forced", "cells") tiennent sur UNE ligne. Une carte est un fichier versionne :
+// poser une piece doit changer une ligne du diff, pas cinq : Martpart passe de 190 a 126 Ko, ses
+// 1 172 pieces nommees comprises.
+
+<span style = "background-color:#dfd">void appendScalar(std::string&amp; out, const Json&amp; value) {
+    out += value.dump(-1, ' ', false, Json::error_handler_t::replace);
+}</span>
+
+<span style = "background-color:#dfd">void appendInline(std::string&amp; out, const Json&amp; object) {
+    out += '{';
+    bool first = true;
+    for (const auto&amp; [key, value] : object.items()) {
+        if (!first) {
+            out += ", ";</span>
+        }
+<span style = "background-color:#dfd">        first = false;
+        appendScalar(out, Json(key));
+        out += ": ";
+        appendScalar(out, value);
+    }
+    out += '}';
+}</span>
+
+<span style = "background-color:#dfd">void appendIndent(std::string&amp; out, int depth) {
+    out.append(static_cast&lt;std::size_t&gt;(depth) * 2U, ' ');
+}</span>
+
+<span style = "background-color:#dfd">void appendValue(std::string&amp; out, const Json&amp; value, int depth, bool cellsInline) {
+    if (value.is_object()) {
+        if (value.empty()) {</span>
+<span style = "background-color:#fdd">            out += "{}";
+            return;</span>
+        }
+<span style = "background-color:#dfd">        out += "{\n";
+        bool first = true;
+        for (const auto&amp; [key, member] : value.items()) {
+            if (!first) {
+                out += ",\n";</span>
+            }
+<span style = "background-color:#dfd">            first = false;
+            appendIndent(out, depth + 1);
+            appendScalar(out, Json(key));
+            out += ": ";
+            appendValue(out, member, depth + 1, isCellArray(key));
+        }
+        out += '\n';
+        appendIndent(out, depth);
+        out += '}';
+        return;</span>
+    }
+<span style = "background-color:#dfd">    if (value.is_array()) {
+        if (value.empty()) {
+            out += "[]";
+            return;</span>
+        }
+<span style = "background-color:#dfd">        out += "[\n";
+        bool first = true;
+        for (const Json&amp; element : value) {
+            if (!first) {
+                out += ",\n";</span>
+            }
+<span style = "background-color:#dfd">            first = false;
+            appendIndent(out, depth + 1);
+            if (cellsInline &amp;&amp; element.is_object()) {
+                appendInline(out, element);
+            } else {
+                appendValue(out, element, depth + 1, false);
+            }
+        }
+        out += '\n';
+        appendIndent(out, depth);
+        out += ']';
+        return;</span>
+    }
+<span style = "background-color:#dfd">    appendScalar(out, value);
+}</span>
+
+// Les proprietes de la CARTE (LOT-EDITOR-09), a plat a la racine comme celles d'une couche. Une
+// propriete qui porte le nom d'un champ deja ecrit est ignoree : le format fait foi, et le
+// chargeur n'en range jamais de telle.
+<span style = "background-color:#dfd">void writeRootProperties(const PropertyMap&amp; properties, Json&amp; root) {
+    PropertyMap free;
+    for (const auto&amp; [key, value] : properties) {
+        if (!root.contains(key)) {
+            free.emplace(key, value);</span>
+        }
+<span style = "background-color:#dfd">    }
+    writeProperties(free, root);
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string canonicalText(const Json&amp; root) {
+    std::string out;
+    appendValue(out, root, 0, false);
+    out += '\n';
+    return out;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::string LevelWriter::toJsonString(const Level&amp; level) {
+    return buildJson(level.data());
+}</span>
+
+<span style = "background-color:#dfd">bool LevelWriter::saveToFile(const Level&amp; level, const std::filesystem::path&amp; path) {
+    std::ofstream file(path, std::ios::binary);
+    if (!file) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const std::string json = toJsonString(level);
+    file.write(json.data(), static_cast&lt;std::streamsize&gt;(json.size()));
+    return file.good();
+}</span>
+
+<span style = "background-color:#dfd">std::string LevelWriter::buildJson(const LevelData&amp; data) {
+    Json root;
+    root["version"] = LEVEL_FORMAT_VERSION;
+    root["name"] = data.name;</span>
+
+    // Une variante (decision D12) ne s'ecrit que par ce qu'elle declare : ses cases sont celles de
+    // sa base, et les recopier en ferait une seconde carte a tenir d'accord.
+<span style = "background-color:#dfd">    if (!data.base.empty()) {
+        root["base"] = data.base;
+        if (!data.scene.empty()) {
+            root["scene"] = data.scene;</span>
+        }
+<span style = "background-color:#dfd">        if (data.nextEntityId != 1) {
+            root["nextEntityId"] = data.nextEntityId;</span>
+        }
+<span style = "background-color:#dfd">        if (!data.entities.empty()) {
+            root["entities"] = entitiesJson(data.entities);</span>
+        }
+<span style = "background-color:#dfd">        writeRootProperties(data.properties, root);
+        return canonicalText(root);</span>
+    }
+
+<span style = "background-color:#dfd">    const TileMap&amp; tileMap = data.tileMap;
+    root["width"] = tileMap.width();
+    root["height"] = tileMap.height();
+    if (data.nextEntityId != 1) {
+        root["nextEntityId"] = data.nextEntityId;</span>
+    }
+<span style = "background-color:#dfd">    root["tiles"] = rootTilesJson(tileMap);
+    if (!data.forcedCollision.empty()) {
+        Json forced = Json::array();
+        for (const GridPosition cell : data.forcedCollision) {
+            forced.push_back(cellJson(cell));
+        }
+        root["forced"] = std::move(forced);
+    }</span>
+
+<span style = "background-color:#dfd">    Json layersJson = visibleLayersJson(data.layers);
+    if (!layersJson.empty()) {
+        root["layers"] = std::move(layersJson);</span>
+    }
+<span style = "background-color:#dfd">    if (!data.entities.empty()) {
+        root["entities"] = entitiesJson(data.entities);</span>
+    }
+<span style = "background-color:#dfd">    writeRootProperties(data.properties, root);
+    return canonicalText(root);
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

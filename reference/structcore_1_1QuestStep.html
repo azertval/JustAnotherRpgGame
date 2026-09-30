@@ -151,6 +151,8 @@ $(function(){initNavTree('structcore_1_1QuestStep.html','','structcore_1_1QuestS
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:af284790b920f654276ecb4ff753ccff2" id="r_af284790b920f654276ecb4ff753ccff2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#af284790b920f654276ecb4ff753ccff2">id</a></td></tr>
+<tr class="memitem:a8a407697120484cba072e477ab34c3d5" id="r_a8a407697120484cba072e477ab34c3d5"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a8a407697120484cba072e477ab34c3d5">at</a></td></tr>
+<tr class="memdesc:a8a407697120484cba072e477ab34c3d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où elle se joue, s'il y a un lieu : une entité <span class="tt">carte#<a class="el" href="#af284790b920f654276ecb4ff753ccff2">id</a></span> (<span class="tt">LOT-144</span>).  <br /></td></tr>
 <tr class="memitem:ab9c42c5ea29124e81e37647dfe6bb61a" id="r_ab9c42c5ea29124e81e37647dfe6bb61a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1FlagCondition.html">FlagCondition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab9c42c5ea29124e81e37647dfe6bb61a">when</a></td></tr>
 <tr class="memdesc:ab9c42c5ea29124e81e37647dfe6bb61a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes doivent tenir. Jamais vide.  <br /></td></tr>
 <tr class="memitem:ac352665a2f6652663c025271114fa9d0" id="r_ac352665a2f6652663c025271114fa9d0"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1QuestEffect.html">QuestEffect</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac352665a2f6652663c025271114fa9d0">effects</a></td></tr>
@@ -160,6 +162,23 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Une étape : l'entrée du journal qu'elle ouvre, ce qui l'atteint, ce qu'elle déclenche. </p>
 <p><b>Une étape se lit dans le monde, elle ne s'ordonne pas.</b> Elle est atteinte dès que <b>toutes</b> ses conditions tiennent, et le reste — la quête ne revient pas en arrière. C'est ce qui permet les embranchements sans graphe : « persuadé » et « condamné » sont deux étapes que des valeurs différentes du même drapeau atteignent, et le journal ne montre que celle qui l'a été. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a8a407697120484cba072e477ab34c3d5" name="a8a407697120484cba072e477ab34c3d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a407697120484cba072e477ab34c3d5">&#9670;&#160;</a></span>at</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::QuestStep::at</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Où elle se joue, s'il y a un lieu : une entité <span class="tt">carte#<a class="el" href="#af284790b920f654276ecb4ff753ccff2">id</a></span> (<span class="tt">LOT-144</span>). </p>
+<p>Le jeu ne le lit pas ; l'éditeur y mène, et <span class="tt">LevelEditor --check</span> refuse une entité qui n'existe pas. </p>
+
+</div>
+</div>
 <a id="ac352665a2f6652663c025271114fa9d0" name="ac352665a2f6652663c025271114fa9d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac352665a2f6652663c025271114fa9d0">&#9670;&#160;</a></span>effects</h2>
 

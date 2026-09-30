@@ -1,0 +1,416 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EntityShapes.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/EntityShapes.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cctype&gt;
+#include &lt;cstdint&gt;
+#include &lt;cstdlib&gt;
+#include &lt;limits&gt;
+#include &lt;utility&gt;
+#include &lt;variant&gt;
+
+namespace hmi {
+
+namespace {
+
+// Un entier positif de propriete, ou 1 : une taille manquante ou fautive se dessine sur une case,
+// et l'avertissement de la propriete dit le reste.
+<span style = "background-color:#dfd">[[nodiscard]] int sizeOf(const core::MapEntity&amp; entity, std::string_view key) {
+    const auto found = entity.properties.find(std::string{key});
+    if (found == entity.properties.end()) {</span>
+<span style = "background-color:#fdd">        return 1;</span>
+    }
+<span style = "background-color:#dfd">    const auto* const value = std::get_if&lt;std::int64_t&gt;(&amp;found-&gt;second);
+    if (value == nullptr || *value &lt; 1) {</span>
+<span style = "background-color:#fdd">        return 1;</span>
+    }
+<span style = "background-color:#dfd">    return static_cast&lt;int&gt;((std::min)(*value, std::int64_t{std::numeric_limits&lt;int&gt;::max()}));
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string textOf(const core::MapEntity&amp; entity, std::string_view key) {
+    if (key.empty()) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    const auto found = entity.properties.find(std::string{key});
+    if (found == entity.properties.end()) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    const auto* const text = std::get_if&lt;std::string&gt;(&amp;found-&gt;second);
+    return text != nullptr ? *text : std::string{};
+}</span>
+
+// L'ordre de lecture d'une zone : ligne, puis colonne.
+<span style = "background-color:#dfd">[[nodiscard]] bool readingOrder(core::GridPosition a, core::GridPosition b) noexcept {
+    return a.row != b.row ? a.row &lt; b.row : a.column &lt; b.column;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string lowered(std::string_view text) {
+    std::string result(text);
+    std::ranges::transform(result, result.begin(), [](unsigned char character) {
+        return static_cast&lt;char&gt;(std::tolower(character));
+    });
+    return result;
+}</span>
+
+// Les cases d'un trajet : ses points, ou sa seule case tant qu'il n'en a pas.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;core::GridPosition&gt; waypointsOf(const core::MapEntity&amp; entity) {
+    return entity.cells.empty() ? std::vector&lt;core::GridPosition&gt;{entity.position} : entity.cells;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] long long areaOf(const core::MapEntity&amp; entity) {
+    if (const std::optional&lt;CellRect&gt; rect = entityRectangle(entity)) {
+        return static_cast&lt;long long&gt;(rect-&gt;columns) * rect-&gt;rows;</span>
+    }
+<span style = "background-color:#fdd">    return static_cast&lt;long long&gt;(entity.cells.size());</span>
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">core::EntityShape entityShape(const core::MapEntity&amp; entity) {
+    const core::EntityKind* const kind = core::findEntityKind(entity.type);
+    return kind != nullptr ? kind-&gt;shape : core::EntityShape::Point;
+}</span>
+
+<span style = "background-color:#dfd">bool CellRect::contains(core::GridPosition cell) const noexcept {
+    return cell.column &gt;= origin.column &amp;&amp; cell.row &gt;= origin.row &amp;&amp;</span>
+           cell.column &lt; origin.column + columns &amp;&amp; cell.row &lt; origin.row + rows;
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">CellRect rectangleBetween(core::GridPosition a, core::GridPosition b) noexcept {
+    return CellRect{</span>
+        .origin = {.column = (std::min)(a.column, b.column), .row = (std::min)(a.row, b.row)},
+        .columns = std::abs(a.column - b.column) + 1,
+        .rows = std::abs(a.row - b.row) + 1};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;CellRect&gt; entityRectangle(const core::MapEntity&amp; entity) {
+    const core::EntityShape shape = entityShape(entity);
+    if (shape != core::EntityShape::Rectangle &amp;&amp;</span>
+        (shape != core::EntityShape::Area || !entity.cells.empty())) {
+<span style = "background-color:#dfd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return CellRect{.origin = entity.position,</span>
+                    .columns = sizeOf(entity, core::SHAPE_WIDTH_PROPERTY),
+                    .rows = sizeOf(entity, core::SHAPE_HEIGHT_PROPERTY)};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">core::MapEntity withRectangle(core::MapEntity entity, const CellRect&amp; rect) {
+    entity.position = rect.origin;
+    entity.properties[std::string{core::SHAPE_WIDTH_PROPERTY}] = std::int64_t{rect.columns};
+    entity.properties[std::string{core::SHAPE_HEIGHT_PROPERTY}] = std::int64_t{rect.rows};
+    return entity;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;core::GridPosition&gt; entityCells(const core::MapEntity&amp; entity) {
+    switch (entityShape(entity)) {</span>
+        case core::EntityShape::Point:
+<span style = "background-color:#dfd">            return {entity.position};</span>
+        case core::EntityShape::Path:
+<span style = "background-color:#dfd">            return waypointsOf(entity);</span>
+        case core::EntityShape::Rectangle:
+        case core::EntityShape::Area:
+            break;
+    }
+<span style = "background-color:#dfd">    if (const std::optional&lt;CellRect&gt; rect = entityRectangle(entity)) {
+        std::vector&lt;core::GridPosition&gt; cells;
+        cells.reserve(static_cast&lt;std::size_t&gt;(rect-&gt;columns) *</span>
+                      static_cast&lt;std::size_t&gt;(rect-&gt;rows));
+<span style = "background-color:#dfd">        for (int row = 0; row &lt; rect-&gt;rows; ++row) {
+            for (int column = 0; column &lt; rect-&gt;columns; ++column) {
+                cells.push_back(</span>
+                    {.column = rect-&gt;origin.column + column, .row = rect-&gt;origin.row + row});
+<span style = "background-color:#dfd">            }
+        }
+        return cells;</span>
+    }
+<span style = "background-color:#dfd">    return entity.cells;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;EntityHandle&gt; entityHandles(const core::MapEntity&amp; entity) {
+    std::vector&lt;EntityHandle&gt; handles;
+    if (entityShape(entity) == core::EntityShape::Path) {
+        const std::vector&lt;core::GridPosition&gt; points = waypointsOf(entity);
+        for (std::size_t index = 0; index &lt; points.size(); ++index) {
+            handles.push_back(EntityHandle{</span>
+                .kind = HandleKind::Waypoint, .cell = points[index], .waypoint = index});
+<span style = "background-color:#dfd">        }
+        return handles;</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;CellRect&gt; rect = entityRectangle(entity);
+    if (!rect) {
+        return handles;</span>
+    }
+<span style = "background-color:#dfd">    const core::GridPosition first = rect-&gt;origin;
+    const core::GridPosition last = rect-&gt;last();
+    const int middleColumn = first.column + ((rect-&gt;columns - 1) / 2);
+    const int middleRow = first.row + ((rect-&gt;rows - 1) / 2);
+    const auto add = [&amp;handles](HandleKind kind, int column, int row) {
+        handles.push_back(</span>
+            EntityHandle{.kind = kind, .cell = {.column = column, .row = row}, .waypoint = 0});
+<span style = "background-color:#dfd">    };</span>
+    // Les coins d'abord : sur un rectangle d'une case de large, ils se superposent, et c'est le
+    // coin qu'on veut prendre.
+<span style = "background-color:#dfd">    add(HandleKind::NorthWest, first.column, first.row);
+    add(HandleKind::NorthEast, last.column, first.row);
+    add(HandleKind::SouthEast, last.column, last.row);
+    add(HandleKind::SouthWest, first.column, last.row);
+    if (rect-&gt;columns &gt;= 3) {
+        add(HandleKind::North, middleColumn, first.row);
+        add(HandleKind::South, middleColumn, last.row);</span>
+    }
+<span style = "background-color:#dfd">    if (rect-&gt;rows &gt;= 3) {
+        add(HandleKind::East, last.column, middleRow);
+        add(HandleKind::West, first.column, middleRow);</span>
+    }
+<span style = "background-color:#dfd">    return handles;
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;EntityHandle&gt; handleAt(const core::MapEntity&amp; entity, core::GridPosition cell) {
+    for (const EntityHandle&amp; handle : entityHandles(entity)) {
+        if (handle.cell == cell) {
+            return handle;
+        }
+    }
+    return std::nullopt;
+}</span>
+
+CellRect resizeRectangle(const CellRect&amp; rect, HandleKind handle,
+<span style = "background-color:#dfd">                         core::GridPosition cell) noexcept {
+    int left = rect.origin.column;
+    int top = rect.origin.row;
+    int right = rect.last().column;
+    int bottom = rect.last().row;
+    switch (handle) {</span>
+        case HandleKind::NorthWest:
+<span style = "background-color:#fdd">            left = cell.column;
+            top = cell.row;
+            break;</span>
+        case HandleKind::North:
+<span style = "background-color:#dfd">            top = cell.row;
+            break;</span>
+        case HandleKind::NorthEast:
+<span style = "background-color:#fdd">            right = cell.column;
+            top = cell.row;
+            break;</span>
+        case HandleKind::East:
+<span style = "background-color:#dfd">            right = cell.column;
+            break;</span>
+        case HandleKind::SouthEast:
+<span style = "background-color:#dfd">            right = cell.column;
+            bottom = cell.row;
+            break;</span>
+        case HandleKind::South:
+<span style = "background-color:#fdd">            bottom = cell.row;
+            break;</span>
+        case HandleKind::SouthWest:
+<span style = "background-color:#fdd">            left = cell.column;
+            bottom = cell.row;
+            break;</span>
+        case HandleKind::West:
+<span style = "background-color:#dfd">            left = cell.column;
+            break;</span>
+        case HandleKind::Waypoint:
+<span style = "background-color:#fdd">            return rect;</span>
+    }
+    // Au-dela du cote oppose, le rectangle se retourne : les deux bords echangent leurs roles.
+<span style = "background-color:#dfd">    return rectangleBetween({.column = left, .row = top}, {.column = right, .row = bottom});
+}</span>
+
+core::MapEntity paintArea(core::MapEntity entity, const std::vector&lt;core::GridPosition&gt;&amp; cells,
+<span style = "background-color:#dfd">                          bool add) {
+    std::vector&lt;core::GridPosition&gt; painted = entityCells(entity);
+    if (add) {
+        painted.insert(painted.end(), cells.begin(), cells.end());
+    } else {
+        std::erase_if(painted, [&amp;cells](core::GridPosition cell) {
+            return std::ranges::find(cells, cell) != cells.end();
+        });</span>
+    }
+<span style = "background-color:#dfd">    std::ranges::sort(painted, readingOrder);
+    const auto [first, last] = std::ranges::unique(painted);
+    painted.erase(first, last);
+    if (painted.empty()) {
+        return entity;  // une zone sans case n'est plus une zone : la gomme ne va pas jusque-la.</span>
+    }
+<span style = "background-color:#dfd">    entity.properties.erase(std::string{core::SHAPE_WIDTH_PROPERTY});
+    entity.properties.erase(std::string{core::SHAPE_HEIGHT_PROPERTY});
+    if (std::ranges::find(painted, entity.position) == painted.end()) {
+        entity.position = painted.front();</span>
+    }
+<span style = "background-color:#dfd">    entity.cells = std::move(painted);
+    return entity;
+}</span>
+
+<span style = "background-color:#dfd">core::MapEntity withWaypointAdded(core::MapEntity entity, core::GridPosition cell) {
+    std::vector&lt;core::GridPosition&gt; points = waypointsOf(entity);
+    if (points.back() == cell) {
+        return entity;</span>
+    }
+<span style = "background-color:#dfd">    points.push_back(cell);
+    entity.cells = std::move(points);
+    return entity;
+}</span>
+
+core::MapEntity withWaypointMoved(core::MapEntity entity, std::size_t index,
+<span style = "background-color:#dfd">                                  core::GridPosition cell) {
+    std::vector&lt;core::GridPosition&gt; points = waypointsOf(entity);
+    if (index &gt;= points.size()) {</span>
+<span style = "background-color:#fdd">        return entity;</span>
+    }
+<span style = "background-color:#dfd">    points[index] = cell;
+    entity.position = points.front();
+    entity.cells = std::move(points);
+    return entity;
+}</span>
+
+<span style = "background-color:#dfd">core::MapEntity withWaypointRemoved(core::MapEntity entity, std::size_t index) {
+    std::vector&lt;core::GridPosition&gt; points = waypointsOf(entity);
+    if (index &gt;= points.size() || points.size() &lt;= 1) {
+        return entity;</span>
+    }
+<span style = "background-color:#dfd">    points.erase(points.begin() + static_cast&lt;std::ptrdiff_t&gt;(index));
+    entity.position = points.front();
+    entity.cells = std::move(points);
+    return entity;
+}</span>
+
+std::optional&lt;core::MapEntity&gt; translatedEntity(const core::MapEntity&amp; entity, int columns,
+<span style = "background-color:#dfd">                                                int rows, int width, int height) {
+    const auto moved = [columns, rows](core::GridPosition cell) {
+        return core::GridPosition{.column = cell.column + columns, .row = cell.row + rows};
+    };
+    const auto inside = [width, height](core::GridPosition cell) {
+        return cell.column &gt;= 0 &amp;&amp; cell.row &gt;= 0 &amp;&amp; cell.column &lt; width &amp;&amp; cell.row &lt; height;
+    };
+    core::MapEntity result = entity;
+    result.position = moved(entity.position);
+    for (core::GridPosition&amp; cell : result.cells) {
+        cell = moved(cell);
+    }</span>
+    // Un rectangle entier doit rester sur la carte, pas seulement son coin.
+<span style = "background-color:#dfd">    const std::vector&lt;core::GridPosition&gt; covered = entityCells(result);
+    if (!inside(result.position) || !std::ranges::all_of(covered, inside)) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return result;
+}</span>
+
+std::optional&lt;EntityPick&gt; pickEntity(const std::vector&lt;core::MapEntity&gt;&amp; entities,
+                                     core::GridPosition cell,
+<span style = "background-color:#dfd">                                     const std::vector&lt;std::size_t&gt;&amp; selection) {</span>
+    // 1. Une poignee d'une entite selectionnee, la derniere selectionnee d'abord.
+<span style = "background-color:#dfd">    for (auto selected = selection.rbegin(); selected != selection.rend(); ++selected) {
+        if (*selected &gt;= entities.size()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (const std::optional&lt;EntityHandle&gt; handle = handleAt(entities[*selected], cell)) {
+            return EntityPick{.index = *selected, .handle = handle, .body = false};
+        }
+    }</span>
+    // 2. Une entite dont c'est la case, ou un point de passage : la derniere posee d'abord.
+<span style = "background-color:#dfd">    for (std::size_t index = entities.size(); index-- &gt; 0;) {
+        const core::MapEntity&amp; entity = entities[index];
+        const bool onPath = entityShape(entity) == core::EntityShape::Path &amp;&amp;</span>
+                            std::ranges::find(entity.cells, cell) != entity.cells.end();
+<span style = "background-color:#dfd">        if (entity.position == cell || onPath) {
+            return EntityPick{.index = index, .handle = std::nullopt, .body = false};</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+    // 3. Le corps d'une forme, la plus petite d'abord ; a egalite, la derniere posee.
+<span style = "background-color:#dfd">    std::optional&lt;EntityPick&gt; best;
+    long long bestArea = 0;
+    for (std::size_t index = 0; index &lt; entities.size(); ++index) {
+        const core::MapEntity&amp; entity = entities[index];
+        const core::EntityShape shape = entityShape(entity);
+        if (shape != core::EntityShape::Rectangle &amp;&amp; shape != core::EntityShape::Area) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::optional&lt;CellRect&gt; rect = entityRectangle(entity);
+        const bool covers = rect ? rect-&gt;contains(cell)</span>
+                                 : std::ranges::find(entity.cells, cell) != entity.cells.end();
+<span style = "background-color:#dfd">        if (!covers) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const long long area = areaOf(entity);
+        if (!best || area &lt;= bestArea) {
+            best = EntityPick{.index = index, .handle = std::nullopt, .body = true};
+            bestArea = area;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return best;
+}</span>
+
+<span style = "background-color:#dfd">std::string entityLabel(const core::MapEntity&amp; entity) {
+    const core::EntityKind* const kind = core::findEntityKind(entity.type);
+    return kind != nullptr ? textOf(entity, kind-&gt;labelProperty) : std::string{};
+}</span>
+
+<span style = "background-color:#fdd">std::string entityFigure(const core::MapEntity&amp; entity) {
+    const core::EntityKind* const kind = core::findEntityKind(entity.type);
+    return kind != nullptr ? textOf(entity, kind-&gt;figureProperty) : std::string{};
+}</span>
+
+std::vector&lt;std::size_t&gt; filterEntities(const std::vector&lt;core::MapEntity&gt;&amp; entities,
+<span style = "background-color:#dfd">                                        std::string_view filter) {
+    const std::string wanted = lowered(filter);
+    const auto matches = [&amp;wanted](std::string_view text) {
+        return lowered(text).find(wanted) != std::string::npos;
+    };
+    std::vector&lt;std::size_t&gt; kept;
+    for (std::size_t index = 0; index &lt; entities.size(); ++index) {
+        const core::MapEntity&amp; entity = entities[index];
+        bool found = wanted.empty() || matches(entity.type) || matches(entity.id);
+        for (const auto&amp; property : entity.properties) {
+            if (found) {
+                break;</span>
+            }
+<span style = "background-color:#dfd">            if (const auto* const text = std::get_if&lt;std::string&gt;(&amp;property.second)) {
+                found = matches(*text);</span>
+            }
+<span style = "background-color:#dfd">        }
+        if (found) {
+            kept.push_back(index);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return kept;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::size_t&gt; toggledSelection(std::vector&lt;std::size_t&gt; selection, std::size_t index) {
+    if (const auto found = std::ranges::find(selection, index); found != selection.end()) {
+        selection.erase(found);
+    } else {
+        selection.push_back(index);
+    }
+    std::ranges::sort(selection);
+    return selection;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

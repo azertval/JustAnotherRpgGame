@@ -1,0 +1,776 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MapFormat.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/MapFormat.h"
+
+#include &lt;algorithm&gt;
+#include &lt;fstream&gt;
+#include &lt;iterator&gt;
+#include &lt;map&gt;
+#include &lt;set&gt;
+#include &lt;sstream&gt;
+#include &lt;system_error&gt;
+#include &lt;utility&gt;
+
+#include "Core/Levels/CollisionDerivation.h"
+#include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/LevelWriter.h"
+#include "Core/Levels/MapEntity.h"
+#include "Core/Levels/PieceFootprint.h"
+#include "Core/Levels/TileLayer.h"
+#include "Core/Levels/TileTypeName.h"
+#include "Core/Resources/ScenePlace.h"
+#include "Core/World/WorldGraph.h"
+#include "Core/World/WorldTravel.h"
+#include "Editor/Logic/ContentCheck.h"
+#include "Editor/Logic/EditorSidecar.h"
+#include "Editor/Logic/GestureScript.h"
+#include "Editor/Logic/Stamps.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
+
+namespace hmi {
+
+namespace {
+
+/// Au-delÃ , les cases fautives d'une mÃªme sorte se rÃ©sument : trois cents lignes n'apprennent rien
+/// de plus que vingt et un compte.
+constexpr std::size_t CELLS_LISTED_PER_KIND = 20;
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string readText(const std::filesystem::path&amp; path) {
+    std::ifstream file(path, std::ios::binary);
+    std::ostringstream buffer;
+    buffer &lt;&lt; file.rdbuf();
+    return buffer.str();
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool hasVisualLayer(const std::vector&lt;core::TileLayer&gt;&amp; layers) {
+    return std::ranges::any_of(
+        layers, [](const core::TileLayer&amp; layer) { return core::isVisualLayerKind(layer.kind); });
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string cellText(core::GridPosition cell) {
+    return "(" + std::to_string(cell.column) + ", " + std::to_string(cell.row) + ")";
+}</span>
+
+// Accumule les constats d'une carte, en rÃ©sumant les longues sÃ©ries de cases.
+class Findings {
+public:
+<span style = "background-color:#dfd">    explicit Findings(std::string_view mapId) : _mapId(mapId) {}</span>
+
+    void add(MapCheckSeverity severity, std::string message,
+<span style = "background-color:#dfd">             std::optional&lt;core::GridPosition&gt; cell = std::nullopt) {
+        _findings.push_back(MapCheckFinding{</span>
+            .severity = severity, .mapId = _mapId, .cell = cell, .message = std::move(message)});
+<span style = "background-color:#dfd">    }</span>
+
+    // Un constat par case, les CELLS_LISTED_PER_KIND premiÃ¨res, puis un rÃ©sumÃ©.
+    void addCells(MapCheckSeverity severity, const std::vector&lt;core::GridPosition&gt;&amp; cells,
+<span style = "background-color:#dfd">                  const std::string&amp; message) {
+        for (std::size_t index = 0; index &lt; cells.size() &amp;&amp; index &lt; CELLS_LISTED_PER_KIND;
+             ++index) {
+            add(severity, message, cells[index]);
+        }
+        if (cells.size() &gt; CELLS_LISTED_PER_KIND) {</span>
+<span style = "background-color:#fdd">            add(severity, message + " (" + std::to_string(cells.size()) + " cells in all)");</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] std::vector&lt;MapCheckFinding&gt; take() {
+        return std::move(_findings);
+    }</span>
+
+private:
+    std::string _mapId;
+    std::vector&lt;MapCheckFinding&gt; _findings;
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] const char* worldIssueText(core::WorldIssueCode code) {
+    switch (code) {</span>
+        case core::WorldIssueCode::UnreadableMap:
+<span style = "background-color:#fdd">            return "the map cannot be read";</span>
+        case core::WorldIssueCode::MissingTargetMap:
+<span style = "background-color:#dfd">            return "a portal names no target map";</span>
+        case core::WorldIssueCode::UnknownTargetMap:
+<span style = "background-color:#dfd">            return "a portal leads to a map that does not exist";</span>
+        case core::WorldIssueCode::UnreadableTargetMap:
+<span style = "background-color:#fdd">            return "a portal leads to a map that cannot be read";</span>
+        case core::WorldIssueCode::MissingArrivalPoint:
+<span style = "background-color:#fdd">            return "a portal names no arrival point";</span>
+        case core::WorldIssueCode::UnknownArrivalPoint:
+<span style = "background-color:#fdd">            return "the target map has no such arrival point";</span>
+        case core::WorldIssueCode::DuplicateArrivalPoint:
+<span style = "background-color:#fdd">            return "two arrival points share a name";</span>
+        case core::WorldIssueCode::CombatZoneDegenerate:
+<span style = "background-color:#fdd">            return "a combat zone has no width or no height";</span>
+        case core::WorldIssueCode::CombatZoneOutOfBounds:
+<span style = "background-color:#fdd">            return "a combat zone overflows the map";</span>
+        case core::WorldIssueCode::CombatZoneBlocked:
+<span style = "background-color:#fdd">            return "a combat zone has no free cell";</span>
+    }
+<span style = "background-color:#fdd">    return "world issue";</span>
+<span style = "background-color:#dfd">}</span>
+
+// --- PiÃ¨ces ----------------------------------------------------------------------------------
+
+// Ce que le parcours des piÃ¨ces d'une carte relÃ¨ve.
+struct PieceScan {
+    std::vector&lt;core::GridPosition&gt; missing;
+    std::map&lt;std::string, std::vector&lt;core::GridPosition&gt;&gt; aliased;
+    std::vector&lt;core::GridPosition&gt; overlapping;
+};
+
+// Range la piÃ¨ce nommÃ©e en @p cell : absente du manifeste, citÃ©e par un alias, et son emprise dans
+// @p occupants (qui occupe chaque case de la couche).
+void scanPieceCell(const core::TileLayer&amp; layer, const PlaceAssets&amp; assets,
+                   const core::GridPosition cell, const std::string_view name,
+<span style = "background-color:#dfd">                   std::vector&lt;int&gt;&amp; occupants, PieceScan&amp; scan) {
+    const core::ScenePiece* piece = assets.manifest ? assets.manifest-&gt;find(name) : nullptr;
+    if (piece == nullptr) {
+        scan.missing.push_back(cell);
+        return;</span>
+    }
+<span style = "background-color:#dfd">    if (piece-&gt;name != name) {</span>
+<span style = "background-color:#fdd">        scan.aliased[std::string{name}].push_back(cell);</span>
+    }
+<span style = "background-color:#dfd">    for (const core::GridPosition covered : core::footprintCells(cell, piece-&gt;footprint())) {
+        if (!layer.tiles.inBounds(covered.column, covered.row)) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::size_t index = (static_cast&lt;std::size_t&gt;(covered.row) *</span>
+                                   static_cast&lt;std::size_t&gt;(layer.tiles.width())) +
+                                  static_cast&lt;std::size_t&gt;(covered.column);
+<span style = "background-color:#dfd">        if (++occupants[index] == 2) {</span>
+<span style = "background-color:#fdd">            scan.overlapping.push_back(covered);</span>
+<span style = "background-color:#dfd">        }
+    }
+}</span>
+
+// Les cases dont le LIEU ne dit rien : celles qui ne nomment aucune piece et dont la table ne
+// couvre pas le type (LOT-128). Elles ne sont plus invisibles -- elles prennent le rendu de
+// maquette --, mais sur une carte qu'on veut habillee, c'est un trou d'habillage, pas un choix.
+void checkUncoveredTypes(const core::Level&amp; level, const PlaceAssets&amp; assets,
+<span style = "background-color:#dfd">                         const std::string&amp; place, Findings&amp; findings) {
+    if (place.empty() || !assets.appearance) {
+        return;  // une carte sans lieu EST une maquette : il n'y a rien a signaler.</span>
+    }
+<span style = "background-color:#dfd">    std::map&lt;core::TileType, std::vector&lt;core::GridPosition&gt;&gt; uncovered;
+    for (const core::TileLayer&amp; layer : level.layers()) {
+        if (!core::isVisualLayerKind(layer.kind)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const bool floor = layer.kind == core::LayerKind::Ground;
+        for (int row = 0; row &lt; layer.tiles.height(); ++row) {
+            for (int column = 0; column &lt; layer.tiles.width(); ++column) {
+                const core::GridPosition cell{.column = column, .row = row};
+                const core::TileType type = layer.tiles.tile(column, row);
+                if (type == core::TileType::Empty || !layer.pieceAt(column, row).empty()) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                const std::string_view piece = floor ? assets.appearance-&gt;floorPiece(type, cell)</span>
+                                                     : assets.appearance-&gt;reliefPiece(type, cell);
+<span style = "background-color:#dfd">                if (piece.empty() &amp;&amp; floor) {
+                    uncovered[type].push_back(cell);</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+    }
+    for (const auto&amp; [type, cells] : uncovered) {
+        findings.addCells(MapCheckSeverity::Warning, cells,</span>
+                          "tile type \"" + core::tileTypeName(type) +
+                              "\" is not covered by the appearance tables of \"" + place +
+                              "\" (shown as a mock-up)");
+<span style = "background-color:#dfd">    }
+}</span>
+
+void checkPieces(const core::Level&amp; level, const PlaceAssets&amp; assets, const std::string&amp; place,
+<span style = "background-color:#dfd">                 Findings&amp; findings) {
+    PieceScan scan;
+    for (const core::TileLayer&amp; layer : level.layers()) {
+        if (!core::isVisualLayerKind(layer.kind) || !layer.hasPieces()) {
+            continue;</span>
+        }
+        // Qui occupe chaque case : une piÃ¨ce large en couvre plusieurs, et deux emprises qui se
+        // recouvrent dessinent deux piÃ¨ces au mÃªme endroit.
+<span style = "background-color:#dfd">        std::vector&lt;int&gt; occupants(layer.pieces.size(), 0);
+        for (int row = 0; row &lt; layer.tiles.height(); ++row) {
+            for (int column = 0; column &lt; layer.tiles.width(); ++column) {
+                const std::string_view name = layer.pieceAt(column, row);
+                if (!name.empty()) {
+                    scanPieceCell(layer, assets, {.column = column, .row = row}, name, occupants,</span>
+                                  scan);
+                }
+<span style = "background-color:#dfd">            }
+        }
+    }
+    const auto&amp; [missing, aliased, overlapping] = scan;
+    const std::string sheet = place.empty()</span>
+                                  ? std::string{"(no scene declared)"}
+                                  : "the pieces of \"" + place + "\" and its common levels";
+<span style = "background-color:#dfd">    findings.addCells(MapCheckSeverity::Error, missing,</span>
+                      "piece missing from " + sheet + " (shown as a checkerboard)");
+<span style = "background-color:#dfd">    for (const auto&amp; [name, cells] : aliased) {</span>
+<span style = "background-color:#fdd">        findings.addCells(MapCheckSeverity::Warning, cells,</span>
+                          "piece \"" + name + "\" is cited by an old name (alias of \"" +
+                              std::string{assets.manifest-&gt;find(name)-&gt;name} + "\")");
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    findings.addCells(MapCheckSeverity::Warning, overlapping,</span>
+                      "two piece footprints cover the same cell");
+<span style = "background-color:#dfd">    checkUncoveredTypes(level, assets, place, findings);
+}</span>
+
+// --- Collision -------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">void checkCollision(const core::Level&amp; level, const PlaceAssets&amp; assets, Findings&amp; findings) {
+    if (!hasVisualLayer(level.layers())) {
+        return;  // une grille unique (v2) vaut image et collision : rien Ã  dÃ©duire.</span>
+    }
+<span style = "background-color:#dfd">    const core::TileMap&amp; written = level.tileMap();
+    const core::CollisionDerivation derived =</span>
+        core::deriveCollision(level.layers(), written.width(), written.height(),
+                              assets.manifest ? &amp;*assets.manifest : nullptr);
+<span style = "background-color:#dfd">    const std::set&lt;std::pair&lt;int, int&gt;&gt; forced = [&amp;level] {
+        std::set&lt;std::pair&lt;int, int&gt;&gt; cells;
+        for (const core::GridPosition cell : level.forcedCollision()) {
+            cells.emplace(cell.column, cell.row);</span>
+        }
+<span style = "background-color:#dfd">        return cells;
+    }();</span>
+
+<span style = "background-color:#dfd">    std::vector&lt;core::GridPosition&gt; differing;
+    std::vector&lt;core::GridPosition&gt; uselessForced;
+    for (int row = 0; row &lt; written.height(); ++row) {
+        for (int column = 0; column &lt; written.width(); ++column) {
+            const core::GridPosition cell{.column = column, .row = row};
+            const bool agrees = core::collisionAgrees(written, derived.collision, column, row);
+            if (forced.contains({column, row})) {
+                if (agrees) {</span>
+<span style = "background-color:#fdd">                    uselessForced.push_back(cell);</span>
+<span style = "background-color:#dfd">                }
+            } else if (!agrees) {
+                differing.push_back(cell);</span>
+            }
+<span style = "background-color:#dfd">        }
+    }</span>
+    if (written.tile(level.entry().column, level.entry().row) == core::TileType::Entry &amp;&amp;
+<span style = "background-color:#dfd">        derived.collision.tile(level.entry().column, level.entry().row) != core::TileType::Empty &amp;&amp;</span>
+        !forced.contains({level.entry().column, level.entry().row})) {
+<span style = "background-color:#fdd">        findings.add(MapCheckSeverity::Error, "the entry stands on a blocked cell", level.entry());</span>
+    }
+<span style = "background-color:#dfd">    findings.addCells(MapCheckSeverity::Error, differing,</span>
+                      "collision differs from what the pieces give, and the cell is not forced");
+<span style = "background-color:#dfd">    findings.addCells(MapCheckSeverity::Warning, uselessForced,</span>
+                      "forced cell agrees with the derivation: it no longer needs forcing");
+<span style = "background-color:#dfd">    findings.addCells(MapCheckSeverity::Warning, derived.unplayed,</span>
+                      "difficult or cover piece or tile: not played yet, derived as open");
+<span style = "background-color:#dfd">}</span>
+
+// --- EntitÃ©s, rÃ©serve de hauteur -------------------------------------------------------------
+
+<span style = "background-color:#dfd">void checkEntities(const core::Level&amp; level, Findings&amp; findings) {
+    for (const core::MapEntity&amp; entity : level.entities()) {
+        if (entity.id.empty()) {
+            findings.add(MapCheckSeverity::Error,</span>
+                         "entity \"" + entity.type + "\" has no id (run --migrate)",
+                         entity.position);
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::optional&lt;int&gt; number = core::entityIdNumber(entity.id);
+        if (number &amp;&amp; *number &gt;= level.nextEntityId()) {</span>
+<span style = "background-color:#fdd">            findings.add(MapCheckSeverity::Error,</span>
+                         "entity id \"" + entity.id + "\" is not below nextEntityId (" +
+                             std::to_string(level.nextEntityId()) + "): it could be given again",
+                         entity.position);
+        }
+<span style = "background-color:#dfd">        if (entity.elevation != 0) {</span>
+<span style = "background-color:#fdd">            findings.add(MapCheckSeverity::Warning,</span>
+                         "entity \"" + entity.id + "\" has an elevation: reserved, not played yet",
+                         entity.position);
+        }
+<span style = "background-color:#dfd">    }
+}</span>
+
+<span style = "background-color:#dfd">void checkHeightReserve(const core::Level&amp; level, Findings&amp; findings) {
+    for (const core::TileLayer&amp; layer : level.layers()) {</span>
+        // Un Ã©tage se joue sur une couche de dÃ©cor, de 1 Ã  MAX_STOREY_FLOOR (LOT-129) ; ailleurs,
+        // il est gardÃ© mais ignorÃ©.
+<span style = "background-color:#dfd">        const bool playedFloor = layer.kind == core::LayerKind::Decor &amp;&amp; layer.floor &gt;= 0 &amp;&amp;</span>
+                                 layer.floor &lt;= core::MAX_STOREY_FLOOR;
+<span style = "background-color:#dfd">        if (layer.floor != 0 &amp;&amp; !playedFloor) {</span>
+<span style = "background-color:#fdd">            findings.add(MapCheckSeverity::Warning,</span>
+                         "layer \"" + layer.name + "\" is on floor " + std::to_string(layer.floor) +
+                             ": only a decor layer rises, from floor 1 to " +
+                             std::to_string(core::MAX_STOREY_FLOOR) + "; ignored");
+        }
+<span style = "background-color:#dfd">        std::vector&lt;core::GridPosition&gt; raised;
+        for (int row = 0; row &lt; layer.tiles.height(); ++row) {
+            for (int column = 0; column &lt; layer.tiles.width(); ++column) {
+                if (layer.elevationAt(column, row) != 0) {
+                    raised.push_back({.column = column, .row = row});</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+        findings.addCells(</span>
+            MapCheckSeverity::Warning, raised,
+            "cell of layer \"" + layer.name + "\" has an elevation: reserved, not played yet");
+<span style = "background-color:#dfd">    }
+}</span>
+
+// --- Migration -------------------------------------------------------------------------------
+
+// Ãtape 2 : chaque case de couche d'un type non vide nomme la piÃ¨ce que la table lui donnait.
+<span style = "background-color:#dfd">std::size_t namePieces(std::vector&lt;core::TileLayer&gt;&amp; layers, const PlaceAppearance&amp; appearance) {
+    std::size_t named = 0;
+    for (core::TileLayer&amp; layer : layers) {
+        if (!core::isVisualLayerKind(layer.kind)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const bool floor = layer.kind == core::LayerKind::Ground;
+        for (int row = 0; row &lt; layer.tiles.height(); ++row) {
+            for (int column = 0; column &lt; layer.tiles.width(); ++column) {
+                const core::TileType type = layer.tiles.tile(column, row);
+                if (type == core::TileType::Empty || !layer.pieceAt(column, row).empty()) {
+                    continue;</span>
+                }
+<span style = "background-color:#dfd">                const core::GridPosition cell{.column = column, .row = row};
+                const std::string_view piece =</span>
+                    floor ? appearance.floorPiece(type, cell) : appearance.reliefPiece(type, cell);
+<span style = "background-color:#dfd">                if (!piece.empty()) {
+                    layer.setPiece(column, row, std::string{piece});
+                    ++named;</span>
+                }
+<span style = "background-color:#dfd">            }
+        }
+    }
+    return named;
+}</span>
+
+// Ãtape 3 : un identifiant pour chaque entitÃ© qui n'en a pas.
+<span style = "background-color:#dfd">std::size_t giveIds(core::LevelData&amp; data) {
+    int next = data.nextEntityId;
+    for (const core::MapEntity&amp; entity : data.entities) {
+        if (const std::optional&lt;int&gt; number = core::entityIdNumber(entity.id)) {
+            next = std::max(next, *number + 1);</span>
+        }
+<span style = "background-color:#dfd">    }
+    std::size_t given = 0;
+    for (core::MapEntity&amp; entity : data.entities) {
+        if (entity.id.empty()) {
+            entity.id = core::entityIdFor(next++);
+            ++given;</span>
+        }
+<span style = "background-color:#dfd">    }
+    data.nextEntityId = next;
+    return given;
+}</span>
+
+// Ãtape 4 : la grille Ã©crite prend la dÃ©duction partout oÃ¹ elle s'y accorde ; ailleurs, elle garde
+// sa valeur et la case devient forcÃ©e.
+<span style = "background-color:#dfd">std::size_t alignCollision(core::LevelData&amp; data, const PlaceAssets&amp; assets) {
+    core::TileMap&amp; written = data.tileMap;
+    const core::CollisionDerivation derived =</span>
+        core::deriveCollision(data.layers, written.width(), written.height(),
+                              assets.manifest ? &amp;*assets.manifest : nullptr);
+<span style = "background-color:#dfd">    std::set&lt;std::pair&lt;int, int&gt;&gt; forced;
+    for (const core::GridPosition cell : data.forcedCollision) {
+        forced.emplace(cell.row, cell.column);
+    }
+    std::size_t added = 0;
+    for (int row = 0; row &lt; written.height(); ++row) {
+        for (int column = 0; column &lt; written.width(); ++column) {
+            if (forced.contains({row, column})) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            if (!core::collisionAgrees(written, derived.collision, column, row)) {
+                forced.emplace(row, column);
+                ++added;
+            } else if (written.tile(column, row) != core::TileType::Entry) {
+                written.setTile(column, row, derived.collision.tile(column, row));</span>
+            }
+<span style = "background-color:#dfd">        }
+    }
+    data.forcedCollision.clear();
+    for (const auto&amp; [row, column] : forced) {
+        data.forcedCollision.push_back({.column = column, .row = row});
+    }</span>
+    // L'entrÃ©e promue en tÃªte des couches reflÃ¨te la grille racine : elle la suit.
+<span style = "background-color:#dfd">    for (core::TileLayer&amp; layer : data.layers) {
+        if (layer.kind == core::LayerKind::Collision || layer.kind == core::LayerKind::Legacy) {
+            layer.tiles = written;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return added;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::filesystem::path levelsOf(const std::filesystem::path&amp; dataRoot) {
+    return dataRoot / "Levels";
+}</span>
+
+// Les fichiers de carte d'un dossier de niveaux, triÃ©s : pas les sÃ©quences, pas les annexes de
+// l'Ã©diteur.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::filesystem::path&gt; listMapFiles(const std::filesystem::path&amp; levels) {
+    std::vector&lt;std::filesystem::path&gt; files;
+    std::error_code error;
+    for (auto entry = std::filesystem::recursive_directory_iterator(levels, error);
+         !error &amp;&amp; entry != std::filesystem::recursive_directory_iterator();
+         entry.increment(error)) {
+        const std::filesystem::path&amp; path = entry-&gt;path();
+        const std::string name = path.filename().string();</span>
+        if (!entry-&gt;is_regular_file() || path.extension() != ".json" ||
+<span style = "background-color:#dfd">            name.starts_with("sequence-") || name.ends_with(".editor.json")) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        files.push_back(path);
+    }
+    std::ranges::sort(files);
+    return files;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::vector&lt;std::filesystem::path&gt; mapFiles(const std::filesystem::path&amp; dataRoot) {
+    return listMapFiles(levelsOf(dataRoot));
+}</span>
+
+<span style = "background-color:#dfd">PlaceAssets loadPlaceAssets(const std::filesystem::path&amp; dataRoot, std::string_view place) {
+    PlaceAssets assets;
+    if (place.empty()) {</span>
+        // Une maquette n'a ni piÃ¨ce ni table ; ses PNJ prennent les figurines du monde (LOT-124).
+<span style = "background-color:#dfd">        PlaceAppearanceResult world = PlaceAppearance::loadForPlace(dataRoot / "Assets", {});
+        if (world.ok()) {
+            assets.appearance = std::move(world.appearance);</span>
+        }
+<span style = "background-color:#dfd">        return assets;</span>
+    }
+    // Le catalogue RESOLU : le lieu et ses niveaux communs, du plus propre au monde (LOT-124).
+<span style = "background-color:#dfd">    const std::filesystem::path directory = dataRoot / "Assets";
+    core::ScenePieceManifestResult manifest = core::ScenePieceManifest::resolve(directory, place);
+    if (manifest.ok()) {
+        assets.manifest = std::move(manifest.manifest);
+    } else {</span>
+<span style = "background-color:#fdd">        assets.manifestError = std::move(manifest.message);</span>
+    }
+<span style = "background-color:#dfd">    PlaceAppearanceResult appearance = PlaceAppearance::loadForPlace(directory, place);
+    if (appearance.ok()) {
+        assets.appearance = std::move(appearance.appearance);</span>
+    }
+<span style = "background-color:#dfd">    return assets;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; scenePlaces(const std::filesystem::path&amp; dataRoot) {
+    return core::scenePlaces(dataRoot / "Assets");
+}</span>
+
+<span style = "background-color:#dfd">std::string formatFinding(const MapCheckFinding&amp; finding) {
+    std::string line = finding.mapId;
+    if (finding.cell) {
+        line += " " + cellText(*finding.cell);</span>
+    }
+<span style = "background-color:#dfd">    line += finding.severity == MapCheckSeverity::Error ? ": error: " : ": warning: ";
+    line += finding.message;
+    return line;
+}</span>
+
+std::vector&lt;MapCheckFinding&gt; checkMapFile(std::string_view mapId, const std::filesystem::path&amp; file,
+<span style = "background-color:#dfd">                                          const std::filesystem::path&amp; dataRoot) {
+    return checkMapFile(mapId, file, dataRoot, loadContentContext(dataRoot));
+}</span>
+
+std::vector&lt;MapCheckFinding&gt; checkMapFile(std::string_view mapId, const std::filesystem::path&amp; file,
+                                          const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                          const ContentContext&amp; context) {
+    Findings findings(mapId);
+    const std::string text = readText(file);
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(file);
+    if (!loaded.ok()) {</span>
+<span style = "background-color:#fdd">        findings.add(MapCheckSeverity::Error, "cannot be read: " + loaded.error);
+        return findings.take();</span>
+    }
+<span style = "background-color:#dfd">    const core::Level&amp; level = *loaded.level;</span>
+
+    // Une carte d'une version passÃ©e se lit, mais le dÃ©pÃ´t n'en garde pas : elle se migre.
+<span style = "background-color:#dfd">    if (text.find("\"version\": " + std::to_string(core::LEVEL_FORMAT_VERSION)) ==</span>
+        std::string::npos) {
+<span style = "background-color:#fdd">        findings.add(MapCheckSeverity::Error, "not in format version " +</span>
+                                                  std::to_string(core::LEVEL_FORMAT_VERSION) +
+                                                  " (run LevelEditor --migrate)");
+<span style = "background-color:#dfd">    } else if (core::LevelWriter::toJsonString(level) != text) {
+        findings.add(MapCheckSeverity::Error,</span>
+                     "not canonical: loading then saving it changes the file (run --migrate)");
+    }
+
+<span style = "background-color:#dfd">    checkEntities(level, findings);
+    checkHeightReserve(level, findings);
+    for (const core::WorldIssue&amp; issue : core::validateWorldMap(mapId, level)) {</span>
+<span style = "background-color:#fdd">        findings.add(MapCheckSeverity::Error,</span>
+                     std::string{worldIssueText(issue.code)} +
+                         (issue.value.empty() ? std::string{} : " (\"" + issue.value + "\")"),
+                     issue.position);
+<span style = "background-color:#fdd">    }</span>
+    // Une variante reprend les cases de sa base : elles se contrÃ´lent sur la base.
+<span style = "background-color:#dfd">    if (level.base().empty()) {
+        const std::string place = scenePlaceOf(level.layers());
+        const PlaceAssets assets = loadPlaceAssets(dataRoot, place);
+        if (!place.empty() &amp;&amp; !assets.manifest) {</span>
+<span style = "background-color:#fdd">            findings.add(MapCheckSeverity::Error,</span>
+                         "scene \"" + place + "\": " + assets.manifestError);
+        }
+<span style = "background-color:#dfd">        checkPieces(level, assets, place, findings);
+        checkCollision(level, assets, findings);
+    }
+    std::vector&lt;MapCheckFinding&gt; found = findings.take();
+    std::vector&lt;MapCheckFinding&gt; content = checkMapContent(mapId, level, context);
+    found.insert(found.end(), std::make_move_iterator(content.begin()),</span>
+                 std::make_move_iterator(content.end()));
+<span style = "background-color:#dfd">    return found;
+}</span>
+
+<span style = "background-color:#dfd">std::size_t MapCheckReport::count(MapCheckSeverity severity) const {
+    return static_cast&lt;std::size_t&gt;(</span>
+        std::ranges::count(findings, severity, &amp;MapCheckFinding::severity));
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">MapCheckReport checkAllMaps(const std::filesystem::path&amp; dataRoot) {
+    MapCheckReport report;
+    const std::filesystem::path levels = levelsOf(dataRoot);
+    const ContentContext context = loadContentContext(dataRoot);
+    for (const std::filesystem::path&amp; file : listMapFiles(levels)) {
+        ++report.maps;
+        std::vector&lt;MapCheckFinding&gt; found =</span>
+            checkMapFile(core::mapIdOf(levels, file), file, dataRoot, context);
+<span style = "background-color:#dfd">        report.findings.insert(report.findings.end(), found.begin(), found.end());
+    }</span>
+    // Le rÃ©cit, hors de toute carte (LOT-116) : un drapeau lu que rien ne pose.
+<span style = "background-color:#dfd">    std::vector&lt;MapCheckFinding&gt; story = checkStoryContent(dataRoot);
+    report.findings.insert(report.findings.end(), story.begin(), story.end());</span>
+    // Les portails, d'une carte Ã  l'autre : ce qu'aucune carte seule ne voit.
+<span style = "background-color:#dfd">    for (const core::WorldIssue&amp; issue : core::validateWorldGraph(core::loadWorldGraph(levels))) {
+        if (issue.code == core::WorldIssueCode::UnreadableMap) {</span>
+<span style = "background-color:#fdd">            continue;  // dÃ©jÃ  dit, carte par carte</span>
+        }
+<span style = "background-color:#dfd">        report.findings.push_back(MapCheckFinding{</span>
+            .severity = MapCheckSeverity::Error,
+            .mapId = issue.mapId,
+            .cell = issue.position,
+            .message = std::string{worldIssueText(issue.code)} +
+                       (issue.value.empty() ? std::string{} : " (\"" + issue.value + "\")")});
+<span style = "background-color:#dfd">    }
+    return report;
+}</span>
+
+<span style = "background-color:#dfd">MapMigration migrateLevel(const core::Level&amp; level, const PlaceAssets&amp; assets) {
+    MapMigration migration;
+    core::LevelData data = level.data();</span>
+    // Une variante n'Ã©crit que ses entitÃ©s : ses cases sont celles de sa base, migrÃ©e Ã  part.
+<span style = "background-color:#dfd">    if (data.base.empty()) {
+        if (assets.appearance) {
+            migration.namedPieces = namePieces(data.layers, *assets.appearance);</span>
+        }
+<span style = "background-color:#dfd">        if (hasVisualLayer(data.layers)) {
+            migration.newForcedCells = alignCollision(data, assets);</span>
+        }
+    }
+<span style = "background-color:#dfd">    migration.newIds = giveIds(data);
+    migration.text = core::LevelWriter::buildJson(data);
+    return migration;
+}</span>
+
+MapMigration migrateMapFile(const std::filesystem::path&amp; file,
+<span style = "background-color:#dfd">                            const std::filesystem::path&amp; dataRoot) {
+    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(file);
+    if (!loaded.ok()) {</span>
+<span style = "background-color:#fdd">        MapMigration failed;
+        failed.error = file.string() + ": " + loaded.error;
+        return failed;</span>
+    }
+<span style = "background-color:#dfd">    return migrateLevel(*loaded.level,</span>
+                        loadPlaceAssets(dataRoot, scenePlaceOf(loaded.level-&gt;layers())));
+<span style = "background-color:#dfd">}</span>
+
+namespace {
+
+// La ligne de commande des commandes sans fenÃªtre.
+struct MapCommandLine {
+    bool check = false;
+    bool migrate = false;
+    std::optional&lt;std::filesystem::path&gt; gestures;
+    std::filesystem::path dataRoot;
+    std::optional&lt;std::filesystem::path&gt; outputFile;
+    std::vector&lt;std::string&gt; targets;
+};
+
+[[nodiscard]] MapCommandLine parseMapCommand(const std::vector&lt;std::string&gt;&amp; arguments,
+<span style = "background-color:#dfd">                                             const std::filesystem::path&amp; defaultDataRoot) {
+    MapCommandLine line;
+    line.dataRoot = defaultDataRoot;
+    for (std::size_t index = 0; index &lt; arguments.size(); ++index) {
+        const std::string&amp; argument = arguments[index];
+        const bool hasValue = index + 1 &lt; arguments.size();
+        if (argument == "--check") {
+            line.check = true;
+        } else if (argument == "--migrate") {
+            line.migrate = true;
+        } else if (argument == "--apply" &amp;&amp; hasValue) {
+            line.gestures = arguments[++index];
+        } else if (argument == "--data" &amp;&amp; hasValue) {
+            line.dataRoot = arguments[++index];
+        } else if (argument == "--output" &amp;&amp; hasValue) {
+            line.outputFile = arguments[++index];
+        } else if ((line.migrate || line.gestures) &amp;&amp; !argument.starts_with("--")) {
+            line.targets.push_back(argument);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return line;
+}</span>
+
+// --apply : rejoue les gestes, puis Ã©crit la carte et son annexe â rien si un geste est refusÃ©.
+<span style = "background-color:#dfd">int applyGestureCommand(const MapCommandLine&amp; line, std::string&amp; output) {
+    if (line.migrate || line.targets.size() &gt; 1) {</span>
+<span style = "background-color:#fdd">        output += "--apply edits one map, alone\n";
+        return 2;</span>
+    }
+<span style = "background-color:#dfd">    const std::string map = line.targets.empty() ? std::string{} : line.targets.front();
+    std::filesystem::path mapFile;
+    const GestureFileResult applied = applyGestureFile(*line.gestures, map, line.dataRoot, mapFile);
+    for (const std::string&amp; logged : applied.script.log) {</span>
+<span style = "background-color:#fdd">        output += logged + "\n";
+    }</span>
+<span style = "background-color:#dfd">    if (!applied.script.ok()) {
+        output += "error: " + applied.script.error + "\n";
+        output += "nothing written\n";
+        return 1;</span>
+    }
+<span style = "background-color:#dfd">    const std::filesystem::path destination = line.outputFile.value_or(mapFile);
+    std::ofstream stream(destination, std::ios::binary);
+    stream.write(applied.mapText.data(), static_cast&lt;std::streamsize&gt;(applied.mapText.size()));
+    stream.close();
+    if (!stream.good()) {</span>
+<span style = "background-color:#fdd">        output += "error: cannot write " + destination.string() + "\n";
+        return 1;</span>
+    }
+<span style = "background-color:#dfd">    if (applied.sidecar &amp;&amp; !writeSidecar(sidecarPath(destination), *applied.sidecar)) {</span>
+<span style = "background-color:#fdd">        output += "error: cannot write " + sidecarPath(destination).string() + "\n";
+        return 1;</span>
+    }
+<span style = "background-color:#dfd">    output += "applied " + line.gestures-&gt;string() + " to " + applied.mapId + ": " +</span>
+              std::to_string(applied.script.gestures) + " gestures, " +
+              std::to_string(applied.script.steps) + " undo steps, written to " +
+              destination.string() + "\n";
+<span style = "background-color:#dfd">    return 0;
+}</span>
+
+// --migrate : les cartes nommÃ©es, toutes Ã  dÃ©faut, en place ou dans --output.
+<span style = "background-color:#dfd">int migrateCommand(const MapCommandLine&amp; line, std::string&amp; output) {
+    const std::filesystem::path levels = levelsOf(line.dataRoot);
+    std::vector&lt;std::filesystem::path&gt; files;
+    for (const std::string&amp; target : line.targets) {
+        const std::filesystem::path asPath{target};
+        files.push_back(std::filesystem::is_regular_file(asPath) ? asPath</span>
+                                                                 : levels / (target + ".json"));
+<span style = "background-color:#dfd">    }
+    if (line.targets.empty()) {</span>
+<span style = "background-color:#fdd">        files = listMapFiles(levels);</span>
+    }
+<span style = "background-color:#dfd">    if (line.outputFile &amp;&amp; files.size() != 1) {</span>
+<span style = "background-color:#fdd">        output += "--output needs exactly one map to migrate\n";
+        return 2;</span>
+    }
+<span style = "background-color:#dfd">    for (const std::filesystem::path&amp; file : files) {
+        const MapMigration migration = migrateMapFile(file, line.dataRoot);
+        if (!migration.ok()) {</span>
+<span style = "background-color:#fdd">            output += "error: " + migration.error + "\n";
+            return 1;</span>
+        }
+<span style = "background-color:#dfd">        const std::filesystem::path destination = line.outputFile.value_or(file);
+        std::ofstream stream(destination, std::ios::binary);
+        stream.write(migration.text.data(), static_cast&lt;std::streamsize&gt;(migration.text.size()));
+        if (!stream.good()) {</span>
+<span style = "background-color:#fdd">            output += "error: cannot write " + destination.string() + "\n";
+            return 1;</span>
+        }
+<span style = "background-color:#dfd">        output += "migrated " + file.string() + ": " + std::to_string(migration.namedPieces) +</span>
+                  " pieces named, " + std::to_string(migration.newIds) + " ids given, " +
+                  std::to_string(migration.newForcedCells) + " cells forced\n";
+<span style = "background-color:#dfd">    }
+    return 0;
+}</span>
+
+// --check : toutes les cartes ; 1 Ã  la premiÃ¨re erreur.
+<span style = "background-color:#dfd">int checkCommand(const std::filesystem::path&amp; dataRoot, std::string&amp; output) {
+    const MapCheckReport report = checkAllMaps(dataRoot);
+    for (const MapCheckFinding&amp; finding : report.findings) {
+        output += formatFinding(finding) + "\n";
+    }</span>
+    // La bibliotheque de l'editeur (LOT-EDITOR-08) : un prefabrique ou un modele illisible est
+    // une erreur, comme une carte illisible.
+<span style = "background-color:#dfd">    const std::vector&lt;LibraryFinding&gt; library = checkEditorLibrary(dataRoot);
+    for (const LibraryFinding&amp; finding : library) {</span>
+<span style = "background-color:#fdd">        output += finding.file.string() + ": error: " + finding.message + "\n";
+    }</span>
+    // LOT-123 : une base SANS AUCUNE CARTE n'est pas une erreur. La table rase (LOT-102) vide
+    // `Levels/`, et l'etape CI du controle doit rester verte ce jour-la : l'absence de carte se
+    // DIT -- ou le controle a cherche, et Â« 0 map Â» --, elle ne fait plus echouer. Ce qui garde
+    // contre un dossier mal designe, c'est `--data`, qui nomme la racine.
+<span style = "background-color:#dfd">    if (report.maps == 0) {
+        output += "no map under " + levelsOf(dataRoot).string() + "\n";</span>
+    }
+<span style = "background-color:#dfd">    output += "checked " + std::to_string(report.maps) +</span>
+              " maps: " + std::to_string(report.count(MapCheckSeverity::Error)) + " errors, " +
+              std::to_string(report.count(MapCheckSeverity::Warning)) + " warnings\n";
+<span style = "background-color:#dfd">    if (!library.empty()) {</span>
+<span style = "background-color:#fdd">        output += std::to_string(library.size()) + " unreadable editor library files\n";
+        return 1;</span>
+    }
+<span style = "background-color:#dfd">    return report.ok() ? 0 : 1;
+}</span>
+
+}  // namespace
+
+std::optional&lt;int&gt; runMapCommand(const std::vector&lt;std::string&gt;&amp; arguments,
+                                 const std::filesystem::path&amp; defaultDataRoot,
+<span style = "background-color:#dfd">                                 std::string&amp; output) {
+    const MapCommandLine line = parseMapCommand(arguments, defaultDataRoot);
+    if (!line.check &amp;&amp; !line.migrate &amp;&amp; !line.gestures) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    if (line.gestures) {
+        const int code = applyGestureCommand(line, output);
+        if (code != 0 || !line.check) {
+            return code;</span>
+        }
+    }
+<span style = "background-color:#dfd">    if (line.migrate) {
+        const int code = migrateCommand(line, output);
+        if (code != 0) {</span>
+<span style = "background-color:#fdd">            return code;</span>
+        }
+    }
+<span style = "background-color:#dfd">    return line.check ? checkCommand(line.dataRoot, output) : 0;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

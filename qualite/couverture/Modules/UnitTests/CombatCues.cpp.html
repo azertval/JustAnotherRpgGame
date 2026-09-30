@@ -54,6 +54,33 @@ constexpr float FLIGHT_SECONDS = CombatCueTrack::ACTION_SECONDS * CombatCueTrack
     return versLaDroite &lt; 0.0F ? effect + "-left" : effect;
 }</span>
 
+// Un pas le long de `path`, parti de `start` depuis `elapsed` secondes ; vrai a l'arrivee.
+bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition&gt;&amp; path,
+<span style = "background-color:#dfd">               core::Vector2 start, float elapsed) {
+    const float total = static_cast&lt;float&gt;(path.size()) / CombatCueTrack::WALK_CELLS_PER_SECOND;
+    if (elapsed &gt;= total) {</span>
+        // Arrive : tourne dans le sens du dernier pas, meme si l'image precedente n'a pas
+        // eu le temps de le montrer.
+<span style = "background-color:#dfd">        const core::Vector2 avant = path.size() &gt;= 2 ? centerOf(path[path.size() - 2]) : start;
+        figure.point = centerOf(path.back());
+        figure.facing = facingTowards(avant, figure.point, figure.facing);
+        figure.clip = figure_clips::IDLE;
+        figure.clipSeconds = 0.0F;
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    const float progress = std::max(0.0F, elapsed) * CombatCueTrack::WALK_CELLS_PER_SECOND;
+    const auto segment = static_cast&lt;std::size_t&gt;(std::floor(progress));
+    const float fraction = progress - static_cast&lt;float&gt;(segment);
+    const core::Vector2 from = segment == 0 ? start : centerOf(path[segment - 1]);
+    const core::Vector2 to = centerOf(path[std::min(segment, path.size() - 1)]);
+    figure.point =</span>
+        core::Vector2{from.x + ((to.x - from.x) * fraction), from.y + ((to.y - from.y) * fraction)};
+<span style = "background-color:#dfd">    figure.facing = facingTowards(from, to, figure.facing);
+    figure.clip = figure_clips::WALK;
+    figure.clipSeconds = std::max(0.0F, elapsed);
+    return false;
+}</span>
+
 }  // namespace
 
 <span style = "background-color:#dfd">void CombatCueTrack::place(core::CombatantId actor, core::GridPosition cell, FigureFacing facing) {
@@ -165,32 +192,8 @@ constexpr float FLIGHT_SECONDS = CombatCueTrack::ACTION_SECONDS * CombatCueTrack
 <span style = "background-color:#dfd">    FigureMotion&amp; figure = found-&gt;second;
     const float elapsed = running.elapsed;
     switch (running.cue.kind) {</span>
-        case CombatCueKind::Walk: {
-<span style = "background-color:#dfd">            const std::vector&lt;core::GridPosition&gt;&amp; path = running.cue.path;
-            const float total = static_cast&lt;float&gt;(path.size()) / WALK_CELLS_PER_SECOND;
-            if (elapsed &gt;= total) {</span>
-                // Arrive : tourne dans le sens du dernier pas, meme si l'image precedente n'a pas
-                // eu le temps de le montrer.
-<span style = "background-color:#dfd">                const core::Vector2 avant =</span>
-                    path.size() &gt;= 2 ? centerOf(path[path.size() - 2]) : running.from;
-<span style = "background-color:#dfd">                figure.point = centerOf(path.back());
-                figure.facing = facingTowards(avant, figure.point, figure.facing);
-                figure.clip = figure_clips::IDLE;
-                figure.clipSeconds = 0.0F;
-                return true;</span>
-            }
-<span style = "background-color:#dfd">            const float progress = std::max(0.0F, elapsed) * WALK_CELLS_PER_SECOND;
-            const auto segment = static_cast&lt;std::size_t&gt;(std::floor(progress));
-            const float fraction = progress - static_cast&lt;float&gt;(segment);
-            const core::Vector2 from = segment == 0 ? running.from : centerOf(path[segment - 1]);
-            const core::Vector2 to = centerOf(path[std::min(segment, path.size() - 1)]);
-            figure.point = core::Vector2{from.x + ((to.x - from.x) * fraction),</span>
-                                         from.y + ((to.y - from.y) * fraction)};
-<span style = "background-color:#dfd">            figure.facing = facingTowards(from, to, figure.facing);
-            figure.clip = figure_clips::WALK;
-            figure.clipSeconds = std::max(0.0F, elapsed);
-            return false;</span>
-        }
+        case CombatCueKind::Walk:
+<span style = "background-color:#dfd">            return applyWalk(figure, running.cue.path, running.from, elapsed);</span>
         case CombatCueKind::Attack:
         case CombatCueKind::Cast: {
 <span style = "background-color:#dfd">            if (running.cue.target.has_value()) {

@@ -1,5 +1,11 @@
 var NAVTREEINDEX8 =
 {
+"classcore_1_1PartyLedger.html#a517cb2b9683ba012c896dd45b769cce2":[2,0,1,213,1],
+"classcore_1_1PartyLedger.html#a517cb2b9683ba012c896dd45b769cce2":[3,0,0,213,1],
+"classcore_1_1PartyLedger.html#a94f270f45b2a85b282bbcc66d80820de":[2,0,1,213,4],
+"classcore_1_1PartyLedger.html#a94f270f45b2a85b282bbcc66d80820de":[3,0,0,213,4],
+"classcore_1_1PartyLedger.html#abbe5d4e5aaa031d20684528d535bc69b":[2,0,1,213,0],
+"classcore_1_1PartyLedger.html#abbe5d4e5aaa031d20684528d535bc69b":[3,0,0,213,0],
 "classcore_1_1PartyLedger.html#ae04f4a2781e0d515788ed3b1e60ea89b":[2,0,1,213,5],
 "classcore_1_1PartyLedger.html#ae04f4a2781e0d515788ed3b1e60ea89b":[3,0,0,213,5],
 "classcore_1_1ReachableArea.html":[2,0,1,75],
@@ -243,11 +249,5 @@ var NAVTREEINDEX8 =
 "classcore_1_1WorldTravel.html":[2,0,1,251],
 "classcore_1_1WorldTravel.html":[3,0,0,251],
 "classcore_1_1WorldTravel.html#a0088132438f7a0b93d5cb2490bb839d5":[2,0,1,251,7],
-"classcore_1_1WorldTravel.html#a0088132438f7a0b93d5cb2490bb839d5":[3,0,0,251,7],
-"classcore_1_1WorldTravel.html#a148fb42cb18a951577a149c9cdc1caf6":[2,0,1,251,13],
-"classcore_1_1WorldTravel.html#a148fb42cb18a951577a149c9cdc1caf6":[3,0,0,251,13],
-"classcore_1_1WorldTravel.html#a3cb015fe13e6071f96b03ba0e819362e":[2,0,1,251,0],
-"classcore_1_1WorldTravel.html#a3cb015fe13e6071f96b03ba0e819362e":[3,0,0,251,0],
-"classcore_1_1WorldTravel.html#a3dd09766a2a3891aab8a3db1dd7f9e7d":[2,0,1,251,12],
-"classcore_1_1WorldTravel.html#a3dd09766a2a3891aab8a3db1dd7f9e7d":[3,0,0,251,12]
+"classcore_1_1WorldTravel.html#a0088132438f7a0b93d5cb2490bb839d5":[3,0,0,251,7]
 };

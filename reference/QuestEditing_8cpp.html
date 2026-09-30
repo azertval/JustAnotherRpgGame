@@ -1,0 +1,217 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/QuestEditing.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('QuestEditing_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">QuestEditing.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="QuestEditing_8h_source.html">Editor/Logic/QuestEditing.h</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cctype&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;iterator&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;system_error&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;variant&gt;</code><br />
+<code>#include &lt;nlohmann/json.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="WorldFlags_8h_source.html">Core/Gameplay/WorldFlags.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelWriter_8h_source.html">Core/Levels/LevelWriter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Dialogue_8h_source.html">Core/Rpg/Dialogue.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EntityKinds_8h_source.html">Core/World/EntityKinds.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldGraph_8h_source.html">Core/World/WorldGraph.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapFormat_8h_source.html">Editor/Logic/MapFormat.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapTexts_8h_source.html">Editor/Logic/MapTexts.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a279ba03aaaa6f3b39cc3de7054b0f41a" id="r_a279ba03aaaa6f3b39cc3de7054b0f41a"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a279ba03aaaa6f3b39cc3de7054b0f41a">hmi::questFile</a> (const std::filesystem::path &amp;dataRoot, std::string_view questId)</td></tr>
+<tr class="memitem:a909b8620c8cc2487bc282ead3ed8c38f" id="r_a909b8620c8cc2487bc282ead3ed8c38f"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a909b8620c8cc2487bc282ead3ed8c38f">hmi::questIds</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memitem:ae01edad0342c65f839557fabb7c320eb" id="r_ae01edad0342c65f839557fabb7c320eb"><td class="memItemLeft"><a class="el" href="structhmi_1_1QuestDraftLoad.html">QuestDraftLoad</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ae01edad0342c65f839557fabb7c320eb">hmi::loadQuestDraft</a> (const std::filesystem::path &amp;dataRoot, std::string_view questId)</td></tr>
+<tr class="memitem:a7d5f46577be0bc25c18d420ec2f7e997" id="r_a7d5f46577be0bc25c18d420ec2f7e997"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a7d5f46577be0bc25c18d420ec2f7e997">hmi::isValidQuestName</a> (std::string_view id, bool allowSlash)</td></tr>
+<tr class="memitem:ac8db881672c91c6004525bf93568ff0f" id="r_ac8db881672c91c6004525bf93568ff0f"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac8db881672c91c6004525bf93568ff0f">hmi::planSaveQuest</a> (const std::filesystem::path &amp;dataRoot, const <a class="el" href="structhmi_1_1QuestDraft.html">QuestDraft</a> &amp;draft, bool isNew)</td></tr>
+<tr class="memdesc:ac8db881672c91c6004525bf93568ff0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plan d'enregistrement de <code class="param">draft</code> : son fichier canonique et ses textes.  <br /></td></tr>
+<tr class="memitem:ad84c006ee3d8fd23d8bf797eed839542" id="r_ad84c006ee3d8fd23d8bf797eed839542"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad84c006ee3d8fd23d8bf797eed839542">hmi::planDeleteQuest</a> (const std::filesystem::path &amp;dataRoot, std::string_view questId)</td></tr>
+<tr class="memdesc:ad84c006ee3d8fd23d8bf797eed839542"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire la quête <code class="param">questId</code> : son fichier et ses clés de journal.  <br /></td></tr>
+<tr class="memitem:aabc38e9af6f4011233868b7750ff40a5" id="r_aabc38e9af6f4011233868b7750ff40a5"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1FlagUse.html">FlagUse</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aabc38e9af6f4011233868b7750ff40a5">hmi::flagUses</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memdesc:aabc38e9af6f4011233868b7750ff40a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tout ce qui se sert d'un drapeau, dans les cartes, les dialogues et les quêtes de <code class="param">dataRoot</code>.  <br /></td></tr>
+<tr class="memitem:a3f5afbdfd77207411ca96884ac0309c5" id="r_a3f5afbdfd77207411ca96884ac0309c5"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1FlagUse.html">FlagUse</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a3f5afbdfd77207411ca96884ac0309c5">hmi::usesOfFlag</a> (const std::vector&lt; <a class="el" href="structhmi_1_1FlagUse.html">FlagUse</a> &gt; &amp;uses, std::string_view flag, std::string_view value)</td></tr>
+<tr class="memitem:ad3a1895c0b309de05e4cf04fc1b6a3aa" id="r_ad3a1895c0b309de05e4cf04fc1b6a3aa"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1Citation.html">Citation</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad3a1895c0b309de05e4cf04fc1b6a3aa">hmi::flagUseCitations</a> (const std::vector&lt; <a class="el" href="structhmi_1_1FlagUse.html">FlagUse</a> &gt; &amp;uses)</td></tr>
+<tr class="memitem:acd7ec63f42a325b6a4c6246db5c1f265" id="r_acd7ec63f42a325b6a4c6246db5c1f265"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#acd7ec63f42a325b6a4c6246db5c1f265">hmi::planRenameFlag</a> (const std::filesystem::path &amp;dataRoot, std::string_view oldFlag, std::string_view newFlag)</td></tr>
+<tr class="memdesc:acd7ec63f42a325b6a4c6246db5c1f265"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme le drapeau déclaré <code class="param">oldFlag</code> en <code class="param">newFlag</code> partout où il est lu ou posé.  <br /></td></tr>
+<tr class="memitem:aa5938fdffcbfadea318b130b76e860de" id="r_aa5938fdffcbfadea318b130b76e860de"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aa5938fdffcbfadea318b130b76e860de">hmi::planRenameFlagValue</a> (const std::filesystem::path &amp;dataRoot, std::string_view flag, std::string_view oldValue, std::string_view newValue)</td></tr>
+<tr class="memdesc:aa5938fdffcbfadea318b130b76e860de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme la valeur <code class="param">oldValue</code> du drapeau déclaré <code class="param">flag</code> en <code class="param">newValue</code> : la déclaration et son initiale, les conditions et les effets des quêtes, les dialogues, les entités des cartes (<span class="tt">a|b</span> compris).  <br /></td></tr>
+<tr class="memitem:ac10adecfe235480e1c3e5bfadf1bf9b9" id="r_ac10adecfe235480e1c3e5bfadf1bf9b9"><td class="memItemLeft"><a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ac10adecfe235480e1c3e5bfadf1bf9b9">hmi::planRenameQuest</a> (const std::filesystem::path &amp;dataRoot, std::string_view oldId, std::string_view newId)</td></tr>
+<tr class="memdesc:ac10adecfe235480e1c3e5bfadf1bf9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renomme la quête <code class="param">oldId</code> en <code class="param">newId</code> : son fichier, ses clés de journal (textes gardés), les dialogues qui la démarrent (<span class="tt">startQuest</span>), et les faits qu'elle pose (<span class="tt">quest/&lt;id&gt;/started</span>, <span class="tt">quest/&lt;id&gt;/step/&lt;étape&gt;</span>) là où ils sont lus.  <br /></td></tr>
+<tr class="memitem:a4d1955fd51056d32a19bdc5ff7b17c8f" id="r_a4d1955fd51056d32a19bdc5ff7b17c8f"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a4d1955fd51056d32a19bdc5ff7b17c8f">hmi::worldStateReaching</a> (const <a class="el" href="structcore_1_1Quest.html">core::Quest</a> &amp;quest, std::string_view stepId, const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;declared)</td></tr>
+<tr class="memdesc:a4d1955fd51056d32a19bdc5ff7b17c8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'état de partie qui <b>atteint</b> l'étape <code class="param">stepId</code> de <code class="param">quest</code> : pour chaque condition, une entrée (<span class="tt">fait</span>, <span class="tt">drapeau=valeur</span>) qui la fait tenir.  <br /></td></tr>
+<tr class="memitem:ab774f4d0883cf6c42054057be4a4b76a" id="r_ab774f4d0883cf6c42054057be4a4b76a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab774f4d0883cf6c42054057be4a4b76a">hmi::citeStepPlaces</a> (const std::filesystem::path &amp;dataRoot, const std::function&lt; std::optional&lt; std::string &gt;(std::string_view)&gt; &amp;rename, bool write, <a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a> &amp;plan)</td></tr>
+<tr class="memdesc:ab774f4d0883cf6c42054057be4a4b76a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu des étapes (<span class="tt">at</span>, <span class="tt">carte#id</span>) suit une entité ou une carte renommée (<span class="tt">LOT-EDITOR-14</span>) : chaque étape dont <code class="param">rename</code> rend une valeur est citée dans <code class="param">plan</code>, et, si <code class="param">write</code>, sa quête récrite.  <br /></td></tr>
+<tr class="memitem:a6d7164fde1156b810c531edb2cf18f86" id="r_a6d7164fde1156b810c531edb2cf18f86"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a6d7164fde1156b810c531edb2cf18f86">hmi::runQuestCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;dataRoot, std::string &amp;output)</td></tr>
+<tr class="memdesc:a6d7164fde1156b810c531edb2cf18f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'entrée sans fenêtre du mode Quêtes :  <br /></td></tr>
+</table>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="QuestEditing_8cpp.html">QuestEditing.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

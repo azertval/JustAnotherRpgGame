@@ -131,12 +131,13 @@ void lireValeursDrapeau(const Json&amp; valeurs, const Pointeur&amp; ou, QuestFl
 }</span>
 
 // Une valeur comparÃ©e ou posÃ©e doit Ãªtre l'une de celles que la quÃªte dÃ©clare pour ce drapeau.
-void verifierValeur(const Quest&amp; quete, std::string_view drapeau, std::string_view valeur,
-<span style = "background-color:#dfd">                    const Pointeur&amp; ou, Rapport&amp; rapport) {
+// L'erreur nomme l'Ã©tape : c'est elle que l'auteur corrige (LOT-144).
+void verifierValeur(const Quest&amp; quete, const QuestStep&amp; etape, std::string_view drapeau,
+<span style = "background-color:#dfd">                    std::string_view valeur, const Pointeur&amp; ou, Rapport&amp; rapport) {
     const auto declaration = std::ranges::find(quete.flags, drapeau, &amp;QuestFlag::id);
     if (declaration != quete.flags.end() &amp;&amp; !contient(declaration-&gt;values, valeur)) {
-        rapport.signaler(ou, "valeur '" + std::string(valeur) + "' que le drapeau '" +</span>
-                                 std::string(drapeau) + "' ne declare pas.");
+        rapport.signaler(ou, "etape '" + etape.id + "' : valeur '" + std::string(valeur) +</span>
+                                 "' que le drapeau '" + std::string(drapeau) + "' ne declare pas.");
     }
 <span style = "background-color:#dfd">}</span>
 
@@ -155,7 +156,7 @@ void lireConditions(const Json&amp; brut, const Pointeur&amp; ou, const Quest&am
             continue;</span>
         }
 <span style = "background-color:#dfd">        for (const std::string&amp; valeur : lue.condition-&gt;values) {
-            verifierValeur(quete, lue.condition-&gt;flag, valeur, ici, rapport);
+            verifierValeur(quete, etape, lue.condition-&gt;flag, valeur, ici, rapport);
         }
         etape.when.push_back(std::move(*lue.condition));
     }
@@ -197,7 +198,7 @@ void lireEffets(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; q
 <span style = "background-color:#fdd">                continue;</span>
             }
 <span style = "background-color:#dfd">            lu.value = valeur-&gt;get&lt;std::string&gt;();
-            verifierValeur(quete, lu.flag, lu.value, ici / "value", rapport);
+            verifierValeur(quete, etape, lu.flag, lu.value, ici / "value", rapport);
         } else if (lu.kind == QuestEffect::Kind::SetFlag &amp;&amp;</span>
                    std::ranges::find(quete.flags, lu.flag, &amp;QuestFlag::id) != quete.flags.end()) {
 <span style = "background-color:#fdd">            rapport.signaler(ici, "etape '" + etape.id + "' : le drapeau '" + lu.flag +</span>
@@ -206,6 +207,37 @@ void lireEffets(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; q
         etape.effects.push_back(std::move(lu));
     }
 }</span>
+
+// Le lieu d'une Ã©tape, `carte#id` : une carte, puis une entitÃ© ; l'existence se contrÃ´le au
+// `--check` de l'Ã©diteur (LOT-144).
+<span style = "background-color:#dfd">void lireLieu(const Json&amp; brut, const Pointeur&amp; ou, QuestStep&amp; etape, Rapport&amp; rapport) {
+    if (!brut.contains("at")) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const auto lieu = texte(brut, "at");
+    const std::size_t diese = lieu ? lieu-&gt;find('#') : std::string::npos;
+    if (diese == std::string::npos || diese == 0 || diese + 1 == lieu-&gt;size()) {
+        rapport.signaler(ou / "at", "etape '" + etape.id + "' : 'at' s'ecrit carte#entite.");
+        return;</span>
+    }
+<span style = "background-color:#dfd">    etape.at = *lieu;
+}</span>
+
+// L'issue d'une Ã©tape, si elle en a une : `success` ou `failure`.
+<span style = "background-color:#dfd">void lireIssue(const Json&amp; brut, const Pointeur&amp; ou, QuestStep&amp; etape, Rapport&amp; rapport) {
+    const auto issue = brut.find("outcome");
+    if (issue == brut.end()) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    if (*issue == "success") {
+        etape.outcome = QuestOutcome::Success;</span>
+<span style = "background-color:#fdd">    } else if (*issue == "failure") {
+        etape.outcome = QuestOutcome::Failure;
+    } else {
+        rapport.signaler(ou / "outcome",</span>
+                         "etape '" + etape.id + "' : issue inconnue (success, failure).");
+    }
+<span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">void lireEtapes(const Json&amp; racine, Quest&amp; quete, Rapport&amp; rapport) {
     const auto etapes = racine.find("steps");
@@ -227,18 +259,10 @@ void lireEffets(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; q
         if (!vus.insert(etape.id).second) {</span>
 <span style = "background-color:#fdd">            rapport.signaler(ou, "etape '" + etape.id + "' en double.");</span>
         }
-<span style = "background-color:#dfd">        lireConditions(brut, ou, quete, etape, rapport);
+<span style = "background-color:#dfd">        lireLieu(brut, ou, etape, rapport);
+        lireConditions(brut, ou, quete, etape, rapport);
         lireEffets(brut, ou, quete, etape, rapport);
-        if (const auto issue = brut.find("outcome"); issue != brut.end()) {
-            if (*issue == "success") {
-                etape.outcome = QuestOutcome::Success;</span>
-<span style = "background-color:#fdd">            } else if (*issue == "failure") {
-                etape.outcome = QuestOutcome::Failure;
-            } else {
-                rapport.signaler(ou / "outcome",</span>
-                                 "etape '" + etape.id + "' : issue inconnue (success, failure).");
-            }
-<span style = "background-color:#dfd">        }
+        lireIssue(brut, ou, etape, rapport);
         quete.steps.push_back(std::move(etape));
     }
 }</span>
@@ -253,7 +277,132 @@ void lireEffets(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; q
 
 }  // namespace
 
-<span style = "background-color:#fdd">const QuestStep* Quest::find(std::string_view stepId) const {
+namespace {
+
+// Une chaÃ®ne JSON entre guillemets, UTF-8 gardÃ© tel quel : `"l'arÃ¨ne"`, pas `"l'arÃ¨ne"`.
+<span style = "background-color:#dfd">[[nodiscard]] std::string chaine(std::string_view texte) {
+    return Json(std::string(texte)).dump();
+}</span>
+
+// `["a", "b"]` : une liste de textes sur une ligne.
+<span style = "background-color:#dfd">[[nodiscard]] std::string listeEnLigne(const std::vector&lt;std::string&gt;&amp; valeurs) {
+    std::string ligne = "[";
+    for (std::size_t i = 0; i &lt; valeurs.size(); ++i) {
+        ligne += (i == 0 ? "" : ", ") + chaine(valeurs[i]);
+    }
+    return ligne + "]";
+}</span>
+
+// `{ "flag": "f", "equals": "v" }` : la forme la plus courte que `readFlagCondition` relit.
+<span style = "background-color:#dfd">[[nodiscard]] std::string conditionEnLigne(const FlagCondition&amp; condition) {
+    std::string ligne = "{ \"flag\": " + chaine(condition.flag);
+    const auto valeurs = [&amp;condition] {
+        return condition.values.size() == 1 ? chaine(condition.values.front())</span>
+                                            : listeEnLigne(condition.values);
+<span style = "background-color:#dfd">    };
+    switch (condition.test) {</span>
+        case FlagTest::IsSet:
+<span style = "background-color:#fdd">            break;</span>
+        case FlagTest::IsUnset:
+<span style = "background-color:#dfd">            ligne += ", \"isSet\": false";
+            break;</span>
+        case FlagTest::Equals:
+<span style = "background-color:#dfd">            ligne += ", \"equals\": " + valeurs();
+            break;</span>
+        case FlagTest::NotEquals:
+<span style = "background-color:#dfd">            ligne += ", \"notEquals\": " + valeurs();</span>
+            break;
+    }
+<span style = "background-color:#dfd">    return ligne + " }";
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string effetEnLigne(const QuestEffect&amp; effet) {
+    std::string ligne = "{ \"type\": ";
+    ligne += effet.kind == QuestEffect::Kind::SetFlag ? "\"setFlag\"" : "\"clearFlag\"";
+    ligne += ", \"flag\": " + chaine(effet.flag);
+    if (!effet.value.empty()) {
+        ligne += ", \"value\": " + chaine(effet.value);</span>
+    }
+<span style = "background-color:#dfd">    return ligne + " }";
+}</span>
+
+// `[{ â¦ }, { â¦ }]` : des objets en ligne.
+template &lt;typename T, typename Ecrire&gt;
+<span style = "background-color:#dfd">[[nodiscard]] std::string objetsEnLigne(const std::vector&lt;T&gt;&amp; objets, Ecrire ecrire) {
+    std::string ligne = "[";
+    for (std::size_t i = 0; i &lt; objets.size(); ++i) {
+        ligne += (i == 0 ? "" : ", ") + ecrire(objets[i]);
+    }
+    return ligne + "]";
+}</span>
+
+// Les lignes `"clÃ©": valeur` d'un objet, sÃ©parÃ©es par des virgules, Ã  l'indentation donnÃ©e.
+[[nodiscard]] std::string champs(const std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;&amp; lignes,
+<span style = "background-color:#dfd">                                 std::string_view marge) {
+    std::string texte;
+    for (std::size_t i = 0; i &lt; lignes.size(); ++i) {
+        texte.append(marge).append(chaine(lignes[i].first)).append(": ").append(lignes[i].second);
+        texte += i + 1 &lt; lignes.size() ? ",\n" : "\n";
+    }
+    return texte;
+}</span>
+
+// `[` puis un objet multiligne par Ã©lÃ©ment, puis `]` Ã  la marge de la clÃ©.
+template &lt;typename T, typename Champs&gt;
+<span style = "background-color:#dfd">[[nodiscard]] std::string objetsEnBloc(const std::vector&lt;T&gt;&amp; objets, Champs champsDe) {
+    if (objets.empty()) {</span>
+<span style = "background-color:#fdd">        return "[]";</span>
+    }
+<span style = "background-color:#dfd">    std::string texte = "[\n";
+    for (std::size_t i = 0; i &lt; objets.size(); ++i) {
+        texte += "    {\n" + champs(champsDe(objets[i]), "      ") + "    }";
+        texte += i + 1 &lt; objets.size() ? ",\n" : "\n";
+    }
+    return texte + "  ]";
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::string writeQuest(const Quest&amp; quest) {
+    std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; racine{{"id", chaine(quest.id)}};
+    if (!quest.name.empty()) {
+        racine.emplace_back("name", chaine(quest.name));</span>
+    }
+<span style = "background-color:#dfd">    if (!quest.source.empty()) {
+        racine.emplace_back("source", chaine(quest.source));</span>
+    }
+<span style = "background-color:#dfd">    if (!quest.status.empty()) {</span>
+<span style = "background-color:#fdd">        racine.emplace_back("status", chaine(quest.status));</span>
+    }
+<span style = "background-color:#dfd">    if (!quest.flags.empty()) {
+        racine.emplace_back("flags", objetsEnBloc(quest.flags, [](const QuestFlag&amp; drapeau) {
+                                return std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt;{</span>
+                                    {"id", chaine(drapeau.id)},
+                                    {"values", listeEnLigne(drapeau.values)},
+                                    {"initial", chaine(drapeau.initial)}};
+<span style = "background-color:#dfd">                            }));</span>
+    }
+<span style = "background-color:#dfd">    racine.emplace_back(
+        "steps", objetsEnBloc(quest.steps, [](const QuestStep&amp; etape) {
+            std::vector&lt;std::pair&lt;std::string, std::string&gt;&gt; lignes{{"id", chaine(etape.id)}};
+            if (!etape.at.empty()) {
+                lignes.emplace_back("at", chaine(etape.at));</span>
+            }
+<span style = "background-color:#dfd">            lignes.emplace_back("when", objetsEnLigne(etape.when, conditionEnLigne));
+            if (!etape.effects.empty()) {
+                lignes.emplace_back("effects", objetsEnLigne(etape.effects, effetEnLigne));</span>
+            }
+<span style = "background-color:#dfd">            if (etape.outcome != QuestOutcome::None) {
+                lignes.emplace_back("outcome", etape.outcome == QuestOutcome::Success</span>
+                                                   ? "\"success\""
+                                                   : "\"failure\"");
+            }
+<span style = "background-color:#dfd">            return lignes;
+        }));
+    return "{\n" + champs(racine, "  ") + "}\n";
+}</span>
+
+<span style = "background-color:#dfd">const QuestStep* Quest::find(std::string_view stepId) const {
     const auto trouve = std::ranges::find(steps, stepId, &amp;QuestStep::id);
     return trouve == steps.end() ? nullptr : &amp;*trouve;
 }</span>
@@ -295,6 +444,17 @@ void lireEffets(const Json&amp; brut, const Pointeur&amp; ou, const Quest&amp; q
     } else {</span>
 <span style = "background-color:#fdd">        rapport.signaler(Pointeur(), "champ 'id' absent ou vide.");</span>
 <span style = "background-color:#dfd">    }
+    for (const auto&amp; [champ, cible] :
+         {std::pair{"name", &amp;quete.name}, {"source", &amp;quete.source}, {"status", &amp;quete.status}}) {
+        if (const auto trouve = racine.find(champ); trouve != racine.end()) {
+            if (trouve-&gt;is_string()) {
+                *cible = trouve-&gt;get&lt;std::string&gt;();
+            } else {</span>
+<span style = "background-color:#fdd">                rapport.signaler(Pointeur(std::string("/") + champ),</span>
+                                 std::string("'") + champ + "' doit etre un texte.");
+            }
+<span style = "background-color:#dfd">        }
+    }
     lireDrapeaux(racine, quete, rapport);
     lireEtapes(racine, quete, rapport);</span>
 

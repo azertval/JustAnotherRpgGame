@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>LayerView.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/LayerView.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;utility&gt;
+
+namespace hmi {
+
+<span style = "background-color:#dfd">std::vector&lt;LayerRow&gt; layerRows(const std::vector&lt;core::TileLayer&gt;&amp; layers) {
+    const bool hasVisual = std::ranges::any_of(
+        layers, [](const core::TileLayer&amp; layer) { return core::isVisualLayerKind(layer.kind); });
+    std::vector&lt;LayerRow&gt; rows;
+    rows.push_back(</span>
+        LayerRow{.slot = std::nullopt,
+                 .kind = hasVisual ? core::LayerKind::Collision : core::LayerKind::Legacy,
+                 .name = {},
+                 .floor = 0});
+<span style = "background-color:#dfd">    for (std::size_t index = 0; index &lt; layers.size(); ++index) {
+        if (core::isVisualLayerKind(layers[index].kind)) {
+            rows.push_back(LayerRow{.slot = index,</span>
+                                    .kind = layers[index].kind,
+                                    .name = layers[index].name,
+                                    .floor = layers[index].floor});
+        }
+<span style = "background-color:#dfd">    }
+    return rows;
+}</span>
+
+<span style = "background-color:#dfd">LayerSlot validActiveLayer(const std::vector&lt;core::TileLayer&gt;&amp; layers, LayerSlot active) {
+    if (active &amp;&amp; *active &lt; layers.size() &amp;&amp; core::isVisualLayerKind(layers[*active].kind)) {
+        return active;</span>
+    }
+<span style = "background-color:#dfd">    return std::nullopt;
+}</span>
+
+<span style = "background-color:#dfd">void LayerViewState::reset() noexcept {
+    _layers.clear();
+    _rootVisible = true;
+    _rootDimmed = false;
+    _rootLocked = false;
+    _rootOpacity.reset();
+}</span>
+
+<span style = "background-color:#dfd">void LayerViewState::sync(std::size_t layerCount) {
+    _layers.resize(layerCount);
+}</span>
+
+<span style = "background-color:#dfd">LayerDisplay LayerViewState::display(LayerSlot slot, bool hasVisualLayers) const {
+    if (!slot) {
+        const float fallback = hasVisualLayers ? DEFAULT_COLLISION_OVERLAY_OPACITY : 1.0F;
+        return LayerDisplay{.visible = _rootVisible,</span>
+                            .opacity = _rootOpacity.value_or(fallback),
+                            .dimmed = _rootDimmed,
+                            .locked = _rootLocked};
+    }
+<span style = "background-color:#dfd">    return *slot &lt; _layers.size() ? _layers[*slot] : LayerDisplay{};
+}</span>
+
+<span style = "background-color:#dfd">void LayerViewState::setVisible(LayerSlot slot, bool visible) {
+    if (!slot) {
+        _rootVisible = visible;
+        return;</span>
+    }
+<span style = "background-color:#dfd">    at(*slot).visible = visible;
+}</span>
+
+<span style = "background-color:#dfd">void LayerViewState::setOpacity(LayerSlot slot, float opacity) {
+    if (!std::isfinite(opacity)) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const float bounded = std::clamp(opacity, 0.0F, 1.0F);
+    if (!slot) {</span>
+<span style = "background-color:#fdd">        _rootOpacity = bounded;
+        return;</span>
+    }
+<span style = "background-color:#dfd">    at(*slot).opacity = bounded;
+}</span>
+
+<span style = "background-color:#dfd">void LayerViewState::setDimmed(LayerSlot slot, bool dimmed) {
+    if (!slot) {</span>
+<span style = "background-color:#fdd">        _rootDimmed = dimmed;
+        return;</span>
+    }
+<span style = "background-color:#dfd">    at(*slot).dimmed = dimmed;
+}</span>
+
+<span style = "background-color:#dfd">void LayerViewState::setLocked(LayerSlot slot, bool locked) {
+    if (!slot) {
+        _rootLocked = locked;
+        return;</span>
+    }
+<span style = "background-color:#dfd">    at(*slot).locked = locked;
+}</span>
+
+<span style = "background-color:#dfd">void LayerViewState::swap(std::size_t a, std::size_t b) {
+    std::swap(at(a), at(b));
+}</span>
+
+<span style = "background-color:#dfd">LayerDisplay&amp; LayerViewState::at(std::size_t index) {
+    if (index &gt;= _layers.size()) {
+        _layers.resize(index + 1);</span>
+    }
+<span style = "background-color:#dfd">    return _layers[index];
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

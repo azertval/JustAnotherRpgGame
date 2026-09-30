@@ -145,6 +145,7 @@ $(function(){initNavTree('MapTexts_8cpp.html','',''); });
 <div class="textblock"><code>#include &quot;<a class="el" href="MapTexts_8h_source.html">Editor/Logic/MapTexts.h</a>&quot;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;system_error&gt;</code><br />
 <code>#include &quot;<a class="el" href="Localization_8h_source.html">HMI/Localization/Localization.h</a>&quot;</code><br />
@@ -163,6 +164,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a074c259298bf074bde017244902797da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute <span class="tt">key = …</span> à la fin de chaque catalogue de <code class="param">directory</code> qui n'a pas <code class="param">key</code>.  <br /></td></tr>
 <tr class="memitem:a2035652c191518aad1101b4f75f9bda1" id="r_a2035652c191518aad1101b4f75f9bda1"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a2035652c191518aad1101b4f75f9bda1">hmi::nameMapInCatalogs</a> (const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view text, std::string_view copyFrom={})</td></tr>
 <tr class="memdesc:a2035652c191518aad1101b4f75f9bda1"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé du nom de la carte <code class="param">mapId</code>, ajoutée aux catalogues de <code class="param">dataRoot</code>.  <br /></td></tr>
+<tr class="memitem:af6170cbf3d9f42a9087d697ae35cea18" id="r_af6170cbf3d9f42a9087d697ae35cea18"><td class="memItemLeft">std::vector&lt; std::filesystem::path &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af6170cbf3d9f42a9087d697ae35cea18">hmi::catalogFilesIn</a> (const std::filesystem::path &amp;directory)</td></tr>
+<tr class="memitem:a53e020814fb081f1182cd20351678bcc" id="r_a53e020814fb081f1182cd20351678bcc"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a53e020814fb081f1182cd20351678bcc">hmi::catalogLineKey</a> (std::string_view line)</td></tr>
+<tr class="memitem:a9ca9c63ae43aa2933f9edf18e0c4df89" id="r_a9ca9c63ae43aa2933f9edf18e0c4df89"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a9ca9c63ae43aa2933f9edf18e0c4df89">hmi::withCatalogEntry</a> (std::string_view catalog, std::string_view key, std::string_view text, std::string_view groupPrefix={})</td></tr>
+<tr class="memdesc:a9ca9c63ae43aa2933f9edf18e0c4df89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le texte d'un catalogue où <code class="param">key</code> vaut <code class="param">text</code> (<span class="tt">LOT-144</span>).  <br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

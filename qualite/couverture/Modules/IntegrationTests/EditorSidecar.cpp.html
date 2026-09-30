@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EditorSidecar.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/EditorSidecar.h"
+
+#include &lt;algorithm&gt;
+#include &lt;fstream&gt;
+#include &lt;iterator&gt;
+#include &lt;system_error&gt;
+#include &lt;tuple&gt;
+#include &lt;utility&gt;
+
+namespace hmi {
+
+namespace {
+
+constexpr std::string_view SIDECAR_SUFFIX = ".editor.json";
+
+<span style = "background-color:#dfd">[[nodiscard]] bool byRow(const AuthorNote&amp; left, const AuthorNote&amp; right) {
+    return std::tie(left.cell.row, left.cell.column) &lt; std::tie(right.cell.row, right.cell.column);
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool isBlank(std::string_view text) {
+    return std::ranges::all_of(text, [](char character) {
+        return character == ' ' || character == '\t' || character == '\n' || character == '\r';
+    });
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::string_view mapStateKey(MapState state) noexcept {
+    switch (state) {</span>
+        case MapState::Generated:
+<span style = "background-color:#dfd">            return "generated";</span>
+        case MapState::Blockout:
+<span style = "background-color:#dfd">            return "blockout";</span>
+        case MapState::Retouched:
+<span style = "background-color:#dfd">            return "retouched";</span>
+        case MapState::Finished:
+<span style = "background-color:#dfd">            return "finished";</span>
+        case MapState::Unset:
+            break;
+    }
+<span style = "background-color:#fdd">    return {};</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">MapState mapStateFromKey(std::string_view key) noexcept {
+    for (const MapState state : knownMapStates()) {
+        if (mapStateKey(state) == key) {
+            return state;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return MapState::Unset;
+}</span>
+
+<span style = "background-color:#dfd">std::string_view mapStateLabel(MapState state) noexcept {
+    switch (state) {</span>
+        case MapState::Generated:
+<span style = "background-color:#fdd">            return "Generated";</span>
+        case MapState::Blockout:
+<span style = "background-color:#dfd">            return "Blockout";</span>
+        case MapState::Retouched:
+<span style = "background-color:#fdd">            return "Retouched";</span>
+        case MapState::Finished:
+<span style = "background-color:#fdd">            return "Finished";</span>
+        case MapState::Unset:
+            break;
+    }
+<span style = "background-color:#dfd">    return "not stated";
+}</span>
+
+<span style = "background-color:#dfd">const std::vector&lt;MapState&gt;&amp; knownMapStates() {
+    static const std::vector&lt;MapState&gt; states{MapState::Generated, MapState::Blockout,</span>
+                                              MapState::Retouched, MapState::Finished};
+<span style = "background-color:#dfd">    return states;
+}</span>
+
+<span style = "background-color:#dfd">std::filesystem::path sidecarPath(const std::filesystem::path&amp; levelPath) {
+    std::filesystem::path path = levelPath;
+    path.replace_extension();
+    path += std::string{SIDECAR_SUFFIX};
+    return path;
+}</span>
+
+<span style = "background-color:#dfd">bool isSidecarFile(const std::filesystem::path&amp; path) {
+    return path.filename().string().ends_with(SIDECAR_SUFFIX);
+}</span>
+
+<span style = "background-color:#dfd">SidecarReadResult parseSidecar(std::string_view json) {
+    SidecarReadResult result;
+    const nlohmann::json root = nlohmann::json::parse(json, nullptr, false);
+    if (root.is_discarded() || !root.is_object()) {
+        result.warning = "The editor file is not a JSON object; it was ignored.";
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    for (const auto&amp; [key, value] : root.items()) {
+        if (key == "version") {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (key == "state") {</span>
+            // Un mot inconnu vaut Â« rien dit Â» : l'annexe d'un editeur plus recent ne fait pas
+            // echouer celui-ci, mais son mot n'est pas garde -- l'etat est une valeur, pas un
+            // texte libre.
+<span style = "background-color:#dfd">            result.sidecar.state =</span>
+                value.is_string() ? mapStateFromKey(value.get&lt;std::string&gt;()) : MapState::Unset;
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (key != "notes") {
+            result.sidecar.unknown[key] = value;
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (!value.is_array()) {</span>
+<span style = "background-color:#fdd">            result.warning = "\"notes\" is not a list; the notes were ignored.";
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const nlohmann::json&amp; note : value) {
+            const bool wellFormed = note.is_object() &amp;&amp; note.contains("column") &amp;&amp;</span>
+                                    note["column"].is_number_integer() &amp;&amp; note.contains("row") &amp;&amp;
+                                    note["row"].is_number_integer() &amp;&amp; note.contains("text") &amp;&amp;
+                                    note["text"].is_string();
+<span style = "background-color:#dfd">            if (!wellFormed) {
+                result.warning = "A malformed note was ignored.";
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            setNote(result.sidecar,</span>
+                    core::GridPosition{.column = note["column"].get&lt;int&gt;(),
+                                       .row = note["row"].get&lt;int&gt;()},
+                    note["text"].get&lt;std::string&gt;());
+<span style = "background-color:#dfd">        }
+    }
+    return result;
+}</span>
+
+<span style = "background-color:#dfd">SidecarReadResult readSidecar(const std::filesystem::path&amp; path) {
+    std::ifstream file(path, std::ios::binary);
+    if (!file) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    const std::string text{std::istreambuf_iterator&lt;char&gt;(file), std::istreambuf_iterator&lt;char&gt;()};
+    return parseSidecar(text);
+}</span>
+
+<span style = "background-color:#dfd">std::string sidecarJson(const EditorSidecar&amp; sidecar) {</span>
+    // nlohmann::json trie les clÃ©s d'un objet : l'Ã©criture est canonique, un diff git reste
+    // lisible.
+<span style = "background-color:#dfd">    nlohmann::json root = sidecar.unknown.is_object() ? sidecar.unknown : nlohmann::json::object();
+    root["version"] = EditorSidecar::FORMAT_VERSION;
+    nlohmann::json notes = nlohmann::json::array();
+    for (const AuthorNote&amp; note : sidecar.notes) {
+        notes.push_back(</span>
+            {{"column", note.cell.column}, {"row", note.cell.row}, {"text", note.text}});
+<span style = "background-color:#dfd">    }
+    root["notes"] = std::move(notes);
+    if (sidecar.state != MapState::Unset) {
+        root["state"] = std::string{mapStateKey(sidecar.state)};
+    } else {
+        root.erase("state");</span>
+    }
+<span style = "background-color:#dfd">    return root.dump(2) + "\n";
+}</span>
+
+<span style = "background-color:#dfd">bool writeSidecar(const std::filesystem::path&amp; path, const EditorSidecar&amp; sidecar) {
+    std::error_code error;
+    if (sidecar.empty()) {
+        std::filesystem::remove(path, error);
+        return !error;</span>
+    }
+<span style = "background-color:#dfd">    std::filesystem::create_directories(path.parent_path(), error);
+    std::ofstream file(path, std::ios::binary | std::ios::trunc);
+    if (!file) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const std::string text = sidecarJson(sidecar);
+    file.write(text.data(), static_cast&lt;std::streamsize&gt;(text.size()));
+    return file.good();
+}</span>
+
+<span style = "background-color:#dfd">const AuthorNote* noteAt(const EditorSidecar&amp; sidecar, core::GridPosition cell) {
+    const auto found = std::ranges::find(sidecar.notes, cell, &amp;AuthorNote::cell);
+    return found != sidecar.notes.end() ? &amp;*found : nullptr;
+}</span>
+
+<span style = "background-color:#dfd">bool setNote(EditorSidecar&amp; sidecar, core::GridPosition cell, std::string text) {
+    const auto found = std::ranges::find(sidecar.notes, cell, &amp;AuthorNote::cell);
+    if (isBlank(text)) {
+        if (found == sidecar.notes.end()) {
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        sidecar.notes.erase(found);
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    if (found != sidecar.notes.end()) {
+        if (found-&gt;text == text) {
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        found-&gt;text = std::move(text);
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    sidecar.notes.push_back(AuthorNote{.cell = cell, .text = std::move(text)});
+    std::ranges::sort(sidecar.notes, byRow);
+    return true;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

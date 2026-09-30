@@ -3122,6 +3122,7 @@
     <includes id="LevelNameValidation_8h" name="LevelNameValidation.h" local="yes" import="no" module="no" objc="no">Editor/Logic/LevelNameValidation.h</includes>
     <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
     <includes id="MapTexts_8h" name="MapTexts.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapTexts.h</includes>
+    <includes id="QuestEditing_8h" name="QuestEditing.h" local="yes" import="no" module="no" objc="no">Editor/Logic/QuestEditing.h</includes>
     <includes id="WorldLinks_8h" name="WorldLinks.h" local="yes" import="no" module="no" objc="no">Editor/Logic/WorldLinks.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <namespace>hmi</namespace>
@@ -3555,6 +3556,33 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>QuestEditing.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>QuestEditing_8cpp.html</filename>
+    <includes id="QuestEditing_8h" name="QuestEditing.h" local="yes" import="no" module="no" objc="no">Editor/Logic/QuestEditing.h</includes>
+    <includes id="WorldFlags_8h" name="WorldFlags.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/WorldFlags.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="LevelWriter_8h" name="LevelWriter.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelWriter.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
+    <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
+    <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
+    <includes id="MapTexts_8h" name="MapTexts.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapTexts.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>QuestEditing.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>QuestEditing_8h.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="MapRefactor_8h" name="MapRefactor.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapRefactor.h</includes>
+    <class kind="struct">hmi::QuestDraft</class>
+    <class kind="struct">hmi::QuestDraftLoad</class>
+    <class kind="struct">hmi::FlagUse</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>Stamps.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
     <filename>Stamps_8cpp.html</filename>
@@ -3913,6 +3941,7 @@
     <includes id="MiniMap_8h" name="MiniMap.h" local="yes" import="no" module="no" objc="no">Editor/Ui/MiniMap.h</includes>
     <includes id="PalettePanel_8h" name="PalettePanel.h" local="yes" import="no" module="no" objc="no">Editor/Ui/PalettePanel.h</includes>
     <includes id="ProblemsPanel_8h" name="ProblemsPanel.h" local="yes" import="no" module="no" objc="no">Editor/Ui/ProblemsPanel.h</includes>
+    <includes id="QuestsPanel_8h" name="QuestsPanel.h" local="yes" import="no" module="no" objc="no">Editor/Ui/QuestsPanel.h</includes>
     <includes id="RefactorDialogs_8h" name="RefactorDialogs.h" local="yes" import="no" module="no" objc="no">Editor/Ui/RefactorDialogs.h</includes>
     <includes id="RunInGameDialog_8h" name="RunInGameDialog.h" local="yes" import="no" module="no" objc="no">Editor/Ui/RunInGameDialog.h</includes>
     <includes id="WorldStateEditor_8h" name="WorldStateEditor.h" local="yes" import="no" module="no" objc="no">Editor/Ui/WorldStateEditor.h</includes>
@@ -4042,6 +4071,23 @@
     <filename>ProblemsPanel_8h.html</filename>
     <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
     <class kind="class">hmi::ProblemsPanel</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>QuestsPanel.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
+    <filename>QuestsPanel_8cpp.html</filename>
+    <includes id="QuestsPanel_8h" name="QuestsPanel.h" local="yes" import="no" module="no" objc="no">Editor/Ui/QuestsPanel.h</includes>
+    <includes id="EntityReferences_8h" name="EntityReferences.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityReferences.h</includes>
+    <includes id="MapTexts_8h" name="MapTexts.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapTexts.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>QuestsPanel.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
+    <filename>QuestsPanel_8h.html</filename>
+    <includes id="QuestEditing_8h" name="QuestEditing.h" local="yes" import="no" module="no" objc="no">Editor/Logic/QuestEditing.h</includes>
+    <class kind="class">hmi::QuestsPanel</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5812,6 +5858,42 @@
       <anchorfile>test__exploration__carte_8cpp.html</anchorfile>
       <anchor>a796cf3dc980c4f4b1751510cb6a6a962</anchor>
       <arglist>(ExplorationCarteIntegration, UneCarteQuiPuiseDansQuatreNiveauxSeJoue)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_mode_quetes.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/</path>
+    <filename>test__mode__quetes_8cpp.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
+    <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
+    <includes id="MapTexts_8h" name="MapTexts.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapTexts.h</includes>
+    <includes id="QuestEditing_8h" name="QuestEditing.h" local="yes" import="no" module="no" objc="no">Editor/Logic/QuestEditing.h</includes>
+    <includes id="WorldState_8h" name="WorldState.h" local="yes" import="no" module="no" objc="no">Editor/Logic/WorldState.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mode__quetes_8cpp.html</anchorfile>
+      <anchor>ab713c0b207e5e7a8a5a7d8649c51b606</anchor>
+      <arglist>(ModeQuetes, LaQueteDeLaDemoSeReecritOctetPourOctet)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mode__quetes_8cpp.html</anchorfile>
+      <anchor>a797b1c231a82ed6edd0a84fa80db0121</anchor>
+      <arglist>(ModeQuetes, JouerAccepteeFaitParaitreLeGardeEtLEnfant)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__mode__quetes_8cpp.html</anchorfile>
+      <anchor>add38f43ab5fd322650e2b1d70dc61ebe</anchor>
+      <arglist>(ContenuLivre, RenommerCondamneLaisseLeControleVert)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -12235,6 +12317,103 @@
       <anchorfile>test__piece__catalog_8cpp.html</anchorfile>
       <anchor>a47350c42ba23fb2a5de5ab50679b9da4</anchor>
       <arglist>(PieceCatalogTest, UnKitRangeSeGroupeParDossier)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_quest_editing.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
+    <filename>test__quest__editing_8cpp.html</filename>
+    <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="LevelWriter_8h" name="LevelWriter.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelWriter.h</includes>
+    <includes id="ContentCheck_8h" name="ContentCheck.h" local="yes" import="no" module="no" objc="no">Editor/Logic/ContentCheck.h</includes>
+    <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
+    <includes id="MapRefactor_8h" name="MapRefactor.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapRefactor.h</includes>
+    <includes id="MapTexts_8h" name="MapTexts.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapTexts.h</includes>
+    <includes id="QuestEditing_8h" name="QuestEditing.h" local="yes" import="no" module="no" objc="no">Editor/Logic/QuestEditing.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>ad99f635f36d72dcd58889e3e50723888</anchor>
+      <arglist>(QuestWriting, UneQueteSeReecritOctetPourOctet)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>ac5b3f25e110eaad85e5c948f4c2cf7be</anchor>
+      <arglist>(QuestWriting, UnLieuDEtapeSEcritCarteDiezeEntite)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>a0368f748b48c6afaead870eecc23d651</anchor>
+      <arglist>(ModeQuetesProjet, EnregistrerEcritLaQueteEtSesTextes)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>a5f7c5f8d1452aef66f04c08aabe5728d</anchor>
+      <arglist>(ModeQuetesProjet, CeQueLeJeuRefuseraitNeSEnregistrePas)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>a6ce10d15d1a4614c2caea927f0215e7f</anchor>
+      <arglist>(ModeQuetesProjet, QuiSeSertDUneValeurDeDrapeau)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>a159e05d895f6d4c5723de8be776158b2</anchor>
+      <arglist>(ModeQuetesProjet, RenommerUneValeurLaSuitPartoutEtSeulementElle)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>a7514030fc4536e56aad22e8f23e615c3</anchor>
+      <arglist>(ModeQuetesProjet, RenommerUnDrapeauDeclare)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>a5c178e28acc13deb6f91254bf179e720</anchor>
+      <arglist>(ModeQuetesProjet, RenommerPuisRetirerUneQuete)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>a9caae7fe32b5255a4a03e9a1f9144375</anchor>
+      <arglist>(ModeQuetesProjet, LEtatDePartieQuiAtteintUneEtape)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>a6a38128eae9d7744765202d7dde9c6ec</anchor>
+      <arglist>(ModeQuetesProjet, LeLieuDUneEtapeSuitLEntite)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>af8753c3f207982f94b406a8514d7ded8</anchor>
+      <arglist>(ModeQuetesProjet, LeModeQuetesSansFenetre)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__quest__editing_8cpp.html</anchorfile>
+      <anchor>a085a30f27d842c3faa42bb3a74c6abec</anchor>
+      <arglist>(CatalogEntry, UneCleChangeASaPlace)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -31026,6 +31205,45 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::FlagUse</name>
+    <filename>structhmi_1_1FlagUse.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1FlagUse.html</anchorfile>
+      <anchor>a8fb3750ea269d32aaeaa1104f326bea3</anchor>
+      <arglist>(const FlagUse &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>flag</name>
+      <anchorfile>structhmi_1_1FlagUse.html</anchorfile>
+      <anchor>aafdb5cb2165bb27e656741674999eecc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>values</name>
+      <anchorfile>structhmi_1_1FlagUse.html</anchorfile>
+      <anchor>aa42d4bddcb2d3a22da254fef623b0065</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>FlagUseRole</type>
+      <name>role</name>
+      <anchorfile>structhmi_1_1FlagUse.html</anchorfile>
+      <anchor>aab54368f86ccc141323ad2a2e0952ef8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>Citation</type>
+      <name>where</name>
+      <anchorfile>structhmi_1_1FlagUse.html</anchorfile>
+      <anchor>a39e182cb104af6668cb4b32ae971915b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::WorldPlay::Follower</name>
     <filename>structhmi_1_1WorldPlay_1_1Follower.html</filename>
     <member kind="variable">
@@ -36060,6 +36278,13 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>connectQuestsPanel</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a1b84502bc18c088562c78747f71c851c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>setUpSafetyNet</name>
       <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
       <anchor>aabc40d107e8dd41fdb72302e572ee8fd</anchor>
@@ -36210,6 +36435,20 @@
       <name>_problemsDock</name>
       <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
       <anchor>aa6858ebf7e3b92fd1500bf0a92bcd9d4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QuestsPanel *</type>
+      <name>_quests</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>ac0d567ff405a642028370981fbd4bc77</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QDockWidget *</type>
+      <name>_questsDock</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a59801893a5d925c3152f3f47ef1407ab</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -40484,6 +40723,27 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structcore_1_1Quest.html</anchorfile>
+      <anchor>a88993f5aaee5f85fbc903ca91a45fac5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>source</name>
+      <anchorfile>structcore_1_1Quest.html</anchorfile>
+      <anchor>a0e574caf15ac4eaabd4004f1500bfb91</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>status</name>
+      <anchorfile>structcore_1_1Quest.html</anchorfile>
+      <anchor>a7960b67ad9d4e7a1ee2ee42b6a2f27bd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>std::vector&lt; QuestFlag &gt;</type>
       <name>flags</name>
       <anchorfile>structcore_1_1Quest.html</anchorfile>
@@ -40527,6 +40787,42 @@
       <name>errors</name>
       <anchorfile>structcore_1_1QuestCatalog.html</anchorfile>
       <anchor>a5be8ebfd989f3618d2fcd47cf4bdb5a5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::QuestDraft</name>
+    <filename>structhmi_1_1QuestDraft.html</filename>
+    <member kind="variable">
+      <type>core::Quest</type>
+      <name>quest</name>
+      <anchorfile>structhmi_1_1QuestDraft.html</anchorfile>
+      <anchor>aa9717126f68b3cd4fef56e42aade6d57</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QuestTexts</type>
+      <name>texts</name>
+      <anchorfile>structhmi_1_1QuestDraft.html</anchorfile>
+      <anchor>a8b18e677f7c8369e1ee35dc73b93f87d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::QuestDraftLoad</name>
+    <filename>structhmi_1_1QuestDraftLoad.html</filename>
+    <member kind="variable">
+      <type>std::optional&lt; QuestDraft &gt;</type>
+      <name>draft</name>
+      <anchorfile>structhmi_1_1QuestDraftLoad.html</anchorfile>
+      <anchor>aa5c6f678bfa4e886d5053a4e838e4163</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>errors</name>
+      <anchorfile>structhmi_1_1QuestDraftLoad.html</anchorfile>
+      <anchor>a4ba31496e197ef683dcd3dffcc9fdee7</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -40837,6 +41133,542 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="class">
+    <name>hmi::QuestsPanel</name>
+    <filename>classhmi_1_1QuestsPanel.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>planRequested</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a36803f9e455d9cf4860d0bf43c7450c5</anchor>
+      <arglist>(const hmi::PlanFactory &amp;makePlan, const QString &amp;title)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>questSaved</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ad3b2f6a50ac5dc8b4da85452674881f0</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>playStepRequested</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a6d70a51126621e0651b793664bce7c9b</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;entries)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>citationActivated</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>abe498608a3e8cc995b0f512c46597de8</anchor>
+      <arglist>(const hmi::Citation &amp;citation)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>QuestsPanel</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ade99d9c83fed43b47ea2793d293e1914</anchor>
+      <arglist>(std::filesystem::path dataRoot, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setReferences</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a7f330a6d03c5eae8498f4942c921d9d0</anchor>
+      <arglist>(const EditorReferences *references)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>reload</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a39be93e9af5864a816f74e3f019b4ee8</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isDirty</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a7d8957ceaaec0710b6df1eea335c18a5</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>askAboutChanges</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a79083ec03185ca8d6cb7458eb2710a5b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QWidget *</type>
+      <name>buildQuestTab</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a14d38931e55891b99732263a3edab96b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QWidget *</type>
+      <name>buildStepsTab</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ac06b737f6406ff8f6b95ca397ed49436</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QWidget *</type>
+      <name>buildStepEditor</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a025b6d206830d222ca4b063fbca69903</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>buildStepRules</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a06b342dd99c968bf3a2883a100154ebd</anchor>
+      <arglist>(QVBoxLayout *editor)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>buildStepEnd</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>aa93b10adf7c217bcc2b1fb997f74285b</anchor>
+      <arglist>(QVBoxLayout *editor)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QWidget *</type>
+      <name>buildUsesTab</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a20f25455f8ca6e9b77bb760203864ab4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>openQuest</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a04edc639b9e284c526b6e172c55a9e50</anchor>
+      <arglist>(const std::string &amp;questId)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>fillAll</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>afb2cffdb68965dbdc914417fb2eff2a1</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>fillFlags</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a84cfd3b6c454aa7d323703659d851daa</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>fillSteps</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a8d6cac77c056a49b0359e3af5759ae73</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>fillStep</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a9faf77aeda0fd3de0fca2354bb6bb693</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>fillConditionRows</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>aafd3dc28b67e2d35a4e66e32683ec539</anchor>
+      <arglist>(const core::QuestStep *step, const QStringList &amp;flags)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>fillEffectRows</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a1392e46b2d7f6ef685592b8ceca0f140</anchor>
+      <arglist>(const core::QuestStep *step, const QStringList &amp;flags)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QString</type>
+      <name>stepText</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a984a2294d40a3d5ce71ba91af1ac78fe</anchor>
+      <arglist>(const std::string &amp;language, const core::QuestStep &amp;step) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>fillUseChoices</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ac34fc43b9390aef9b8656c96c3498f04</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>showUses</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a585f01356dcde167c677df1259c0d421</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>markDirty</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ae01e7335e1174532aa719dea057384ab</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>showStatus</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a970be543337edc8646186a668fb8e18b</anchor>
+      <arglist>(const QString &amp;text, bool error=false)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>setEditable</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ac22a2d732389d802d6926a5c8a227acf</anchor>
+      <arglist>(bool editable)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>readFlagRow</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ab1cb31ddc486725f6a46ad22a9eff1f4</anchor>
+      <arglist>(int row)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>readConditionRow</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ab8f308a12c0325c0faf7f320c80599ff</anchor>
+      <arglist>(int row)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>readEffectRow</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>af0e7893e84a22c427a85867b79b625da</anchor>
+      <arglist>(int row)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>renameStep</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ad7e68665d8723d1b08548ff620ddcdf6</anchor>
+      <arglist>(const std::string &amp;newId)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>moveStep</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a7b55799ede60037c37a2e96334cafa7e</anchor>
+      <arglist>(int delta)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>newQuest</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a7e4c2b7134df38083701652363e50bb6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>saveQuest</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a99fceb6f082d3e711089d7b723ffef14</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>renameQuest</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a85ab1d5221a442a801f7f711264abbfb</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>deleteQuest</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a39b766edc4d61ba286a0c29fffc6e8b1</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>renameFlag</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a9d7eedd672c7e9dc9ca110e84a3771ba</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>renameFlagValue</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a8d5aae7c9e394def0a0c5bcfb37fee57</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>playStep</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>abd7bdbc9d4935a23c8906d0f7bad9003</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>goToStepPlace</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a12ac1ea6dd2726f5bf991b3501dc4d94</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QStringList</type>
+      <name>knownFlags</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ae34a3b1d155a7385056faa036f987d30</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QStringList</type>
+      <name>declaredValues</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>aac4b7fd62a72c9b21ee8c67959267fd5</anchor>
+      <arglist>(const std::string &amp;flag) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>std::vector&lt; core::QuestFlag &gt;</type>
+      <name>allDeclarations</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a56062091384fb01cb53e76955ea8aa44</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>core::QuestStep *</type>
+      <name>currentStep</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a02028bed33dfa501317e9f7727f377e5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::filesystem::path</type>
+      <name>_root</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a488781f91c87ec1deb594fc74f0e32b1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>const EditorReferences *</type>
+      <name>_references</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a05b2d899f80f7217e96bf90f4ab1d4ff</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>_languages</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>af8e5a5ca58759ed21c8a96784d3a6c18</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QuestDraft</type>
+      <name>_draft</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ac2beb71a3804739f21ed3a8df5c0f691</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>_savedFlags</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a43b045b90755965f871e477ec0afcb0f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_hasQuest</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a6284b1e83f459895c6e80feb45720f9c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_isNew</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a8fa58831c8ad362d28187bb78dc86260</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_dirty</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>acfd3208005f041ff07124d7b70adbc1a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_filling</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>aa6d56ef79bbcc9030f7e7885fc28461f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_step</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a3d6d7dd4dccf7fe7f9e6f83c7f6646ff</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::string</type>
+      <name>_selectAfterReload</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a0c8617b310c76fb523cbfb41ca8d2c64</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::optional&lt; std::vector&lt; FlagUse &gt; &gt;</type>
+      <name>_uses</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ae4dc650d1deb5952670b9d3f14fa67ba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QComboBox *</type>
+      <name>_questList</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a7e51fe7d6bbe8d17d2cdba357bdb2f0c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QLabel *</type>
+      <name>_status</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>add3636661aecbfdfddc8368babfb5b31</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QTabWidget *</type>
+      <name>_pages</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a6b145e70cd626f910135383d56c3df54</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QLineEdit *</type>
+      <name>_name</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ad338ee01f1668b62f6a43fb9e3a33d5a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QLineEdit *</type>
+      <name>_source</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a208e4411ee19b33bd9630ec66784e7d4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, QLineEdit * &gt;</type>
+      <name>_titles</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>aafdc756f58c826076bdd2702bc06cfe7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QTableWidget *</type>
+      <name>_flags</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ab56a6bde05dc933594cefd074fe760fb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QListWidget *</type>
+      <name>_steps</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a6ea9389a1823ac2db26147667a7627f3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QWidget *</type>
+      <name>_stepEditor</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>ad6335b62c7bf33114ca55b85b21479c7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QLineEdit *</type>
+      <name>_stepId</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>acc4547e954c7e1ffbb026802ebe63210</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QComboBox *</type>
+      <name>_stepAt</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a251a698a1269df7a1d2f2e549f18b61f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QTableWidget *</type>
+      <name>_conditions</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a4c80c619fd4c60baf5ac2b2318a4344f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QTableWidget *</type>
+      <name>_effects</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a4760b6835d48b556b088704390c43782</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QComboBox *</type>
+      <name>_outcome</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>afe050838d62e37e179d561b9a8945654</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, QLineEdit * &gt;</type>
+      <name>_stepTexts</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a77bd47862c11ea23fafc82c949ae1ec4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QComboBox *</type>
+      <name>_useFlag</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a6508e6fc45943209a91625af5d839179</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QComboBox *</type>
+      <name>_useValue</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a4e998e9bd6e159585dcfbdace5676ded</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QTreeWidget *</type>
+      <name>_useTree</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>a428519b12d0ff77b618bffcab24f0913</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; QWidget * &gt;</type>
+      <name>_editors</name>
+      <anchorfile>classhmi_1_1QuestsPanel.html</anchorfile>
+      <anchor>aa5661d0dac5358695fbb78e70fe32319</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="struct">
     <name>core::QuestStep</name>
     <filename>structcore_1_1QuestStep.html</filename>
@@ -40845,6 +41677,13 @@
       <name>id</name>
       <anchorfile>structcore_1_1QuestStep.html</anchorfile>
       <anchor>af284790b920f654276ecb4ff753ccff2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>at</name>
+      <anchorfile>structcore_1_1QuestStep.html</anchorfile>
+      <anchor>a8a407697120484cba072e477ab34c3d5</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -50413,8 +51252,8 @@
       <type>std::string_view</type>
       <name>abilityLabel</name>
       <anchorfile>namespacecore.html</anchorfile>
-      <anchor>a6492cf00497924279c0f171546cbed96</anchor>
-      <arglist>(Ability ability) noexcept</arglist>
+      <anchor>a8d858ac8be11dbddc54bcbface031cf8</anchor>
+      <arglist>(Ability caracteristique) noexcept</arglist>
     </member>
     <member kind="function">
       <type>CreatureAttacks</type>
@@ -51101,6 +51940,13 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>adb2706947c6f0111c0cdd008fde5779e</anchor>
       <arglist>(World &amp;world, const Level &amp;level, std::string_view mapName, const std::function&lt; void(Entity, const MapEntity &amp;)&gt; &amp;onEntity={})</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>writeQuest</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ab581b492ed14e4921fa29277f4529fbc</anchor>
+      <arglist>(const Quest &amp;quest)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
@@ -53243,6 +54089,9 @@
     <class kind="struct">hmi::PanelFocusEntry</class>
     <class kind="struct">hmi::PieceCatalogEntry</class>
     <class kind="struct">hmi::PieceCatalogGroup</class>
+    <class kind="struct">hmi::QuestDraft</class>
+    <class kind="struct">hmi::QuestDraftLoad</class>
+    <class kind="struct">hmi::FlagUse</class>
     <class kind="struct">hmi::StampPiece</class>
     <class kind="struct">hmi::StampLayer</class>
     <class kind="struct">hmi::StampForcedCell</class>
@@ -53279,6 +54128,7 @@
     <class kind="class">hmi::MiniMap</class>
     <class kind="class">hmi::PalettePanel</class>
     <class kind="class">hmi::ProblemsPanel</class>
+    <class kind="class">hmi::QuestsPanel</class>
     <class kind="struct">hmi::PieceReplacementChoice</class>
     <class kind="struct">hmi::SceneChangeChoice</class>
     <class kind="struct">hmi::RunInGameChoice</class>
@@ -53422,6 +54272,27 @@
       <name>TranslationCatalogs</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a0769b06e818f591ce4d215f139e55d0b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;</type>
+      <name>QuestLanguageTexts</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>adc20e663523a72711ba4f03baa0b8233</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::map&lt; std::string, QuestLanguageTexts, std::less&lt;&gt; &gt;</type>
+      <name>QuestTexts</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a188ad6e0ec9559c8a52bb7984d3229ee</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::function&lt; RefactorPlan()&gt;</type>
+      <name>PlanFactory</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ab0b07cd6db9125460c29672e951b9229</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -53615,6 +54486,16 @@
       <enumvalue file="namespacehmi.html" anchor="aaa32928dac1bf321cd65435b9a0b0726a91aedca00492a5fba2c282abec5626f3">Levels</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="aaa32928dac1bf321cd65435b9a0b0726a87bfda183c4f851a101e97bbb1bbace7">Layers</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="aaa32928dac1bf321cd65435b9a0b0726aea995898864fb0ea509106539758c905">Entities</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>FlagUseRole</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a4350019842cd36fa23fbb37b22b8d4a6</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacehmi.html" anchor="a4350019842cd36fa23fbb37b22b8d4a6aed0b8f3d82b0dbc35d6b41b7b3675def">Declares</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a4350019842cd36fa23fbb37b22b8d4a6a840c2c3c79be698753668016f58f87b6">Reads</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a4350019842cd36fa23fbb37b22b8d4a6a7bfbb99d58d228eb5654119e75060999">Writes</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -54755,6 +55636,34 @@
       <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view mapId, std::string_view text, std::string_view copyFrom={})</arglist>
     </member>
     <member kind="function">
+      <type>std::vector&lt; std::filesystem::path &gt;</type>
+      <name>catalogFilesIn</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>af6170cbf3d9f42a9087d697ae35cea18</anchor>
+      <arglist>(const std::filesystem::path &amp;directory)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>catalogLineKey</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a53e020814fb081f1182cd20351678bcc</anchor>
+      <arglist>(std::string_view line)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>withCatalogEntry</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a9ca9c63ae43aa2933f9edf18e0c4df89</anchor>
+      <arglist>(std::string_view catalog, std::string_view key, std::string_view text, std::string_view groupPrefix={})</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>withoutCatalogEntries</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>abb4474b358145e0bf21cf438ff97c29d</anchor>
+      <arglist>(std::string_view catalog, Drop drop)</arglist>
+    </member>
+    <member kind="function">
       <type>MirrorAxis</type>
       <name>mirrorAxisThrough</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -54893,6 +55802,111 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a2959b61f0394085789d35563568aac2d</anchor>
       <arglist>(const PlaceAppearance *appearance, std::string_view piece, bool floor)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::filesystem::path</type>
+      <name>questFile</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a279ba03aaaa6f3b39cc3de7054b0f41a</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view questId)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>questIds</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a909b8620c8cc2487bc282ead3ed8c38f</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot)</arglist>
+    </member>
+    <member kind="function">
+      <type>QuestDraftLoad</type>
+      <name>loadQuestDraft</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ae01edad0342c65f839557fabb7c320eb</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view questId)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isValidQuestName</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a7d5f46577be0bc25c18d420ec2f7e997</anchor>
+      <arglist>(std::string_view id, bool allowSlash)</arglist>
+    </member>
+    <member kind="function">
+      <type>RefactorPlan</type>
+      <name>planSaveQuest</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac8db881672c91c6004525bf93568ff0f</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, const QuestDraft &amp;draft, bool isNew)</arglist>
+    </member>
+    <member kind="function">
+      <type>RefactorPlan</type>
+      <name>planDeleteQuest</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ad84c006ee3d8fd23d8bf797eed839542</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view questId)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; FlagUse &gt;</type>
+      <name>flagUses</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>aabc38e9af6f4011233868b7750ff40a5</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; FlagUse &gt;</type>
+      <name>usesOfFlag</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a3f5afbdfd77207411ca96884ac0309c5</anchor>
+      <arglist>(const std::vector&lt; FlagUse &gt; &amp;uses, std::string_view flag, std::string_view value)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; Citation &gt;</type>
+      <name>flagUseCitations</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ad3a1895c0b309de05e4cf04fc1b6a3aa</anchor>
+      <arglist>(const std::vector&lt; FlagUse &gt; &amp;uses)</arglist>
+    </member>
+    <member kind="function">
+      <type>RefactorPlan</type>
+      <name>planRenameFlag</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>acd7ec63f42a325b6a4c6246db5c1f265</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view oldFlag, std::string_view newFlag)</arglist>
+    </member>
+    <member kind="function">
+      <type>RefactorPlan</type>
+      <name>planRenameFlagValue</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>aa5938fdffcbfadea318b130b76e860de</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view flag, std::string_view oldValue, std::string_view newValue)</arglist>
+    </member>
+    <member kind="function">
+      <type>RefactorPlan</type>
+      <name>planRenameQuest</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac10adecfe235480e1c3e5bfadf1bf9b9</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, std::string_view oldId, std::string_view newId)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>worldStateReaching</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a4d1955fd51056d32a19bdc5ff7b17c8f</anchor>
+      <arglist>(const core::Quest &amp;quest, std::string_view stepId, const std::vector&lt; core::QuestFlag &gt; &amp;declared)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>citeStepPlaces</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ab774f4d0883cf6c42054057be4a4b76a</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, const std::function&lt; std::optional&lt; std::string &gt;(std::string_view)&gt; &amp;rename, bool write, RefactorPlan &amp;plan)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; int &gt;</type>
+      <name>runQuestCommand</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a6d7164fde1156b810c531edb2cf18f86</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;dataRoot, std::string &amp;output)</arglist>
     </member>
     <member kind="function">
       <type>Stamp</type>
@@ -57249,6 +58263,7 @@
     <file>test_paint_tools.cpp</file>
     <file>test_panel_focus.cpp</file>
     <file>test_piece_catalog.cpp</file>
+    <file>test_quest_editing.cpp</file>
     <file>test_quest_map_editor.cpp</file>
     <file>test_scene_images.cpp</file>
     <file>test_scene_painter.cpp</file>
@@ -57476,6 +58491,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Integration/</path>
     <filename>dir_470d866d2aee15f42c1af4c2491482fa.html</filename>
     <file>test_exploration_carte.cpp</file>
+    <file>test_mode_quetes.cpp</file>
     <file>test_quete_des_pommes.cpp</file>
     <file>test_quete_trois_etapes.cpp</file>
   </compound>
@@ -57609,6 +58625,8 @@
     <file>PanelFocus.h</file>
     <file>PieceCatalog.cpp</file>
     <file>PieceCatalog.h</file>
+    <file>QuestEditing.cpp</file>
+    <file>QuestEditing.h</file>
     <file>Stamps.cpp</file>
     <file>Stamps.h</file>
     <file>ThumbnailGeometry.cpp</file>
@@ -57919,6 +58937,8 @@
     <file>PalettePanel.h</file>
     <file>ProblemsPanel.cpp</file>
     <file>ProblemsPanel.h</file>
+    <file>QuestsPanel.cpp</file>
+    <file>QuestsPanel.h</file>
     <file>RefactorDialogs.cpp</file>
     <file>RefactorDialogs.h</file>
     <file>RunInGameDialog.cpp</file>

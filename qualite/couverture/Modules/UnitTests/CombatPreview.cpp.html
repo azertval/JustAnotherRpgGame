@@ -35,8 +35,9 @@ namespace {
 <span style = "background-color:#dfd">                                                                 CombatantId target) {
     std::vector&lt;ExtraDamagePreview&gt; apercus;
     const std::string proprietaire = std::to_string(static_cast&lt;std::uint32_t&gt;(actif));
-    for (const NamedExtraDamage&amp; supplement : extraDamageFrom(session.capacitiesOf(actif))) {
-        ExtraDamagePreview apercu{.source = supplement.source, .dice = supplement.dice};
+    for (const NamedExtraDamage&amp; supplement : extraDamageFrom(session.capacitiesOf(actif))) {</span>
+        ExtraDamagePreview apercu{
+<span style = "background-color:#dfd">            .source = supplement.source, .dice = supplement.dice, .reason = {}};
         if (supplement.allyAdjacentToTarget &amp;&amp;</span>
             !isAdjacentToAllyOf(session.combat(), actif, target)) {
 <span style = "background-color:#dfd">            apercu.applies = false;
@@ -69,6 +70,8 @@ std::optional&lt;AttackPreview&gt; previewAttack(const ArenaSession&amp; session
     AttackPreview apercu{.check = checkTarget(combat, *actif, target, profil),
                          .attackIndex = attackIndex,
                          .label = profil.label,
+                         .capacityModifiers = {},
+                         .extraDamage = {},
                          .advantages = {},
                          .disadvantages = {}};</span>
     // Les memes sources que resolveAttack, dans le meme ordre : la grille, puis la session.

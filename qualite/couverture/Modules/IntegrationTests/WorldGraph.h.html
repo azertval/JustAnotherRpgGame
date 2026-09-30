@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>WorldGraph.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;filesystem&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/MapEntity.h"
+
+/**
+ * @file Core/World/WorldGraph.h
+ * @brief Le graphe **statique** du monde : les cartes du dossier des niveaux, et les portails qui
+ *        les relient (`LOT-11`, Ã©tendu par `LOT-09`).
+ *
+ * Ce fichier ne porte que la **lecture** du graphe â ce que montre la vue Â« graphe du monde Â» du
+ * navigateur de cartes. Le `LOT-09` y ajoutera le chargement de carte Ã  chaud et la traversÃ©e d'un
+ * portail : il partira de `WorldGraph` tel qu'il est ici, sans en changer le contrat. Un portail
+ * dont le statut n'est pas `PortalLinkStatus::Resolved` est prÃ©cisÃ©ment l'erreur de chargement
+ * explicite que le `LOT-09` exige (`EX-NFR-040`).
+ */
+
+namespace core {
+
+/// @brief Une carte telle que `buildWorldGraph` la reÃ§oit : dÃ©jÃ  lue, ou en Ã©chec de lecture.
+struct WorldMapInput {
+    /// Identifiant : le nom du fichier de la carte, sans extension.
+    std::string mapId;
+    /// Nom de la carte (`core::Level::name`). Vide si la carte est illisible.
+    std::string name;
+    std::vector&lt;MapEntity&gt; entities;
+    /// Message technique du chargeur, vide si la carte a Ã©tÃ© lue.
+    std::string loadError;
+};
+
+/// @brief Un nÅud du graphe : une carte, et les points d'arrivÃ©e qu'elle offre.
+struct WorldMapNode {
+    std::string mapId;
+    std::string name;
+    /// Noms des points d'arrivÃ©e de la carte, triÃ©s, sans doublon.
+    std::vector&lt;std::string&gt; arrivalPoints;
+    /// Message technique du chargeur, vide si la carte a Ã©tÃ© lue. Une carte illisible reste un
+    /// nÅud : la retirer ferait passer ses portails entrants pour des cibles inconnues.
+    std::string loadError;
+    /// Identifiants des entitÃ©s de la carte (dÃ©cision D8), triÃ©s : ce qu'un `carte#id` peut citer.
+    std::vector&lt;std::string&gt; entityIds;
+    /// Les drapeaux que les zones de la carte posent Ã  l'entrÃ©e (`LOT-126`), triÃ©s : ils comptent
+    /// parmi ce qu'un PNJ, un portail ou un dialogue peut attendre.
+    std::vector&lt;std::string&gt; triggerFlags{};
+};
+
+/// @brief Ce que vaut un portail. `Core` n'Ã©crit pas de texte (`EX-NFR-011`) : l'Ã©diteur traduit.
+enum class PortalLinkStatus {
+    /// La carte cible et son point d'arrivÃ©e existent.
+    Resolved,
+    /// Le portail ne nomme aucune carte cible.
+    MissingTarget,
+    /// La carte cible n'est pas dans le dossier.
+    UnknownMap,
+    /// Le portail ne nomme aucun point d'arrivÃ©e.
+    MissingArrival,
+    /// La carte cible n'offre pas ce point d'arrivÃ©e.
+    UnknownArrival,
+    /// La carte cible existe mais n'a pas pu Ãªtre lue : ses points d'arrivÃ©e sont inconnaissables.
+    TargetUnreadable,
+    /// Le portail est **condamnÃ©** (`core::PORTAL_SEALED_PROPERTY`, `LOT-126`) : voulu, il ne mÃ¨ne
+    /// nulle part â ni une erreur, ni un chemin.
+    Sealed,
+};
+
+/// @brief Ce qui fait passer d'une carte Ã  l'autre.
+enum class WorldLinkKind {
+    /// Un portail : on marche dessus.
+    Portal,
+    /// Le transfert d'une zone (`core::ZONE_TRIGGER_MAP_PROPERTY`, `LOT-126`) : on y entre, et
+    /// l'on est ailleurs. Un chemin comme un autre pour l'atteignabilitÃ©.
+    Transfer,
+};
+
+/// @brief Une arÃªte du graphe : un portail d'une carte, et ce qu'il atteint.
+struct WorldPortalLink {
+    std::string fromMap;
+    /// Case du portail sur sa carte source.
+    GridPosition position;
+    /// Carte cible, telle que le portail la nomme (Ã©ventuellement vide ou inconnue).
+    std::string toMap;
+    /// Point d'arrivÃ©e, tel que le portail le nomme.
+    std::string arrival;
+<span style = "background-color:#dfd">    PortalLinkStatus status = PortalLinkStatus::Resolved;
+    WorldLinkKind kind = WorldLinkKind::Portal;</span>
+
+    [[nodiscard]] bool operator==(const WorldPortalLink&amp;) const = default;
+};
+
+/**
+ * @brief Les cartes et leurs portails.
+ *
+ * L'ordre est **dÃ©terministe** â cartes par identifiant, portails par carte source puis dans
+ * l'ordre des entitÃ©s â pour que deux lectures du mÃªme dossier donnent le mÃªme graphe, et la mÃªme
+ * vue.
+ */
+struct WorldGraph {
+    /// Les cartes, triÃ©es par identifiant.
+    std::vector&lt;WorldMapNode&gt; maps;
+    /// Les portails, par carte source, puis dans l'ordre des entitÃ©s de cette carte.
+    std::vector&lt;WorldPortalLink&gt; portals;
+
+    /// @return La carte portant cet identifiant, ou `nullptr`.
+    [[nodiscard]] const WorldMapNode* find(std::string_view mapId) const;
+
+    /// @return Les portails posÃ©s sur @p mapId, dans l'ordre de `portals`.
+    [[nodiscard]] std::vector&lt;const WorldPortalLink*&gt; portalsFrom(std::string_view mapId) const;
+
+    /// @return Les portails qui nomment @p mapId comme cible, quel que soit leur statut, dans
+    ///         l'ordre de `portals`.
+    [[nodiscard]] std::vector&lt;const WorldPortalLink*&gt; portalsTo(std::string_view mapId) const;
+
+    /**
+     * @brief Cartes qu'aucun chemin de portails rÃ©solus ne relie Ã  @p fromMapId (hors elle-mÃªme),
+     *        triÃ©es.
+     *
+     * Les portails se suivent dans leur **sens** : une carte d'oÃ¹ l'on peut partir mais oÃ¹ rien ne
+     * mÃ¨ne est injoignable. Si @p fromMapId n'est pas une carte du graphe, toutes le sont.
+     */
+    [[nodiscard]] std::vector&lt;std::string&gt; unreachableFrom(std::string_view fromMapId) const;
+};
+
+/**
+ * @brief Construit le graphe Ã  partir de cartes dÃ©jÃ  lues.
+ *
+ * Un portail est une entitÃ© de type `core::PORTAL_ENTITY_TYPE` ; ses propriÃ©tÃ©s ne comptent que
+ * si elles sont du texte (toute autre valeur vaut Â« vide Â»). Un point d'arrivÃ©e est une entitÃ© de
+ * type `core::SPAWN_POINT_ENTITY_TYPE` au nom texte non vide. Un portail vers sa propre carte est
+ * lÃ©gal.
+ *
+ * Le statut se dÃ©cide dans cet ordre : portail condamnÃ©, cible vide, carte inconnue, carte
+ * illisible, arrivÃ©e vide, arrivÃ©e inconnue â le premier qui s'applique l'emporte.
+ *
+ * Une zone qui nomme une carte de transfert (`core::ZONE_TRIGGER_MAP_PROPERTY`) donne une arÃªte
+ * `WorldLinkKind::Transfer`, jugÃ©e comme un portail (`LOT-126`).
+ */
+[[nodiscard]] WorldGraph buildWorldGraph(std::vector&lt;WorldMapInput&gt; maps);
+
+/**
+ * @brief L'identifiant de carte d'un fichier de niveau : son chemin relatif Ã  @p levelsDir, sans
+ *        extension, en barres obliques (`capital/martpart`, `LOT-96`).
+ */
+[[nodiscard]] std::string mapIdOf(const std::filesystem::path&amp; levelsDir,
+                                  const std::filesystem::path&amp; file);
+
+/**
+ * @brief Lit chaque `*.json` de @p levelsDir **et de ses sous-dossiers** (identifiant :
+ *        `core::mapIdOf`) ; une carte illisible reste un nÅud, avec son erreur.
+ *
+ * Les fichiers `sequence-*.json` sont Ã©cartÃ©s, comme le fait le navigateur de cartes : ce ne sont
+ * pas des cartes. Un dossier absent donne un graphe vide, sans lever (`EX-NFR-040`).
+ */
+[[nodiscard]] WorldGraph loadWorldGraph(const std::filesystem::path&amp; levelsDir);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

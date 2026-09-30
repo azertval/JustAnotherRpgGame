@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EntityGesture.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/EntityGesture.h"
+
+#include &lt;algorithm&gt;
+#include &lt;utility&gt;
+
+#include "Core/Levels/LevelDraft.h"
+#include "Core/World/EntityKinds.h"
+
+namespace hmi {
+
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] core::EntityShape shapeOfKind(const std::string&amp; type) {
+    const core::EntityKind* const kind = core::findEntityKind(type);
+    return kind != nullptr ? kind-&gt;shape : core::EntityShape::Point;
+}</span>
+
+// L'entite neuve de la famille @p type en @p cell : ses proprietes a leur defaut, ou aucune pour
+// une famille inconnue (elle se pose tout de meme, EX-NFR-040).
+<span style = "background-color:#dfd">[[nodiscard]] core::MapEntity newEntity(const std::string&amp; type, core::GridPosition cell) {
+    const core::EntityKind* const kind = core::findEntityKind(type);
+    return kind != nullptr ? core::makeEntity(*kind, cell)</span>
+                           : core::MapEntity{.type = type, .position = cell, .properties = {}};
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+EntityGestureDecision resolveEntityPress(const core::LevelDraft&amp; draft, core::GridPosition cell,
+                                         const std::vector&lt;std::size_t&gt;&amp; selection,
+                                         const std::string&amp; kindToPlace,
+<span style = "background-color:#dfd">                                         EntityPressModifiers modifiers) {
+    if (!draft.tileMap().inBounds(cell.column, cell.row)) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    const std::optional&lt;EntityPick&gt; pick = pickEntity(draft.entities(), cell, selection);
+    if (modifiers.toggle) {
+        if (!pick) {</span>
+<span style = "background-color:#fdd">            return {};</span>
+        }
+<span style = "background-color:#dfd">        return EntityGestureDecision{.action = EntityGestureAction::Toggle,</span>
+                                     .entityIndex = pick-&gt;index,
+                                     .cell = cell,
+                                     .handle = std::nullopt};
+    }
+<span style = "background-color:#dfd">    const bool canPlace = !kindToPlace.empty();</span>
+    // Une poignee, ou une entite designee par sa case : on la prend, sauf a forcer la pose.
+<span style = "background-color:#dfd">    if (pick &amp;&amp; !pick-&gt;body &amp;&amp; !(canPlace &amp;&amp; modifiers.force)) {
+        return EntityGestureDecision{.action = EntityGestureAction::Grab,</span>
+                                     .entityIndex = pick-&gt;index,
+                                     .cell = cell,
+                                     .handle = pick-&gt;handle};
+    }
+<span style = "background-color:#dfd">    if (canPlace) {
+        const EntityGestureAction action = shapeOfKind(kindToPlace) == core::EntityShape::Point</span>
+                                               ? EntityGestureAction::Place
+                                               : EntityGestureAction::Draw;
+<span style = "background-color:#dfd">        return EntityGestureDecision{</span>
+            .action = action, .entityIndex = 0, .cell = cell, .handle = std::nullopt};
+    }
+<span style = "background-color:#dfd">    if (pick) {</span>
+<span style = "background-color:#fdd">        return EntityGestureDecision{.action = EntityGestureAction::Grab,</span>
+                                     .entityIndex = pick-&gt;index,
+                                     .cell = cell,
+                                     .handle = std::nullopt};
+    }
+<span style = "background-color:#dfd">    return EntityGestureDecision{</span>
+        .action = EntityGestureAction::Deselect, .entityIndex = 0, .cell = cell, .handle = {}};
+<span style = "background-color:#dfd">}</span>
+
+EntityDragResult dragEntities(const EntityDrag&amp; drag, const std::vector&lt;core::MapEntity&gt;&amp; entities,
+<span style = "background-color:#dfd">                              core::GridPosition to, int width, int height) {
+    EntityDragResult result;
+    switch (drag.mode) {</span>
+        case EntityDrag::Mode::Draw: {
+<span style = "background-color:#dfd">            core::MapEntity entity = newEntity(drag.kind, drag.from);
+            switch (shapeOfKind(drag.kind)) {</span>
+                case core::EntityShape::Rectangle:
+                case core::EntityShape::Area:
+<span style = "background-color:#dfd">                    entity = withRectangle(std::move(entity), rectangleBetween(drag.from, to));
+                    break;</span>
+                case core::EntityShape::Path:
+<span style = "background-color:#dfd">                    entity = withWaypointAdded(std::move(entity), to);</span>
+                    break;
+                case core::EntityShape::Point:
+                    break;
+            }
+<span style = "background-color:#dfd">            result.placed = std::move(entity);
+            return result;</span>
+        }
+        case EntityDrag::Mode::Reshape: {
+<span style = "background-color:#dfd">            if (drag.indices.empty() || drag.indices.front() &gt;= entities.size() || !drag.handle ||</span>
+                to == drag.from) {
+<span style = "background-color:#fdd">                return result;</span>
+            }
+<span style = "background-color:#dfd">            const std::size_t index = drag.indices.front();
+            const core::MapEntity&amp; entity = entities[index];
+            if (drag.handle-&gt;kind == HandleKind::Waypoint) {
+                result.replaced.emplace_back(index,</span>
+                                             withWaypointMoved(entity, drag.handle-&gt;waypoint, to));
+<span style = "background-color:#dfd">            } else if (const std::optional&lt;CellRect&gt; rect = entityRectangle(entity)) {
+                result.replaced.emplace_back(</span>
+                    index, withRectangle(entity, resizeRectangle(*rect, drag.handle-&gt;kind, to)));
+            }
+<span style = "background-color:#dfd">            return result;</span>
+        }
+        case EntityDrag::Mode::Move:
+            break;
+    }
+<span style = "background-color:#dfd">    const int columns = to.column - drag.from.column;
+    const int rows = to.row - drag.from.row;
+    if (columns == 0 &amp;&amp; rows == 0) {
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    for (const std::size_t index : drag.indices) {
+        if (index &gt;= entities.size()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        std::optional&lt;core::MapEntity&gt; moved =</span>
+            translatedEntity(entities[index], columns, rows, width, height);
+<span style = "background-color:#dfd">        if (!moved) {</span>
+            // Le groupe bouge entier ou pas du tout : un groupe ecartele ne se remet pas en place.
+<span style = "background-color:#dfd">            return EntityDragResult{.replaced = {}, .placed = std::nullopt, .refused = true};</span>
+        }
+<span style = "background-color:#dfd">        result.replaced.emplace_back(index, std::move(*moved));
+    }
+    return result;
+}</span>
+
+ShapeGestureDecision resolveShapePress(const core::MapEntity&amp; entity, core::GridPosition cell,
+<span style = "background-color:#dfd">                                       bool remove) {
+    switch (entityShape(entity)) {</span>
+        case core::EntityShape::Area:
+<span style = "background-color:#dfd">            return ShapeGestureDecision{</span>
+                .action = remove ? ShapeGestureAction::EraseCells : ShapeGestureAction::PaintCells,
+                .waypoint = 0};
+        case core::EntityShape::Path: {
+<span style = "background-color:#dfd">            if (const std::optional&lt;EntityHandle&gt; handle = handleAt(entity, cell)) {
+                return ShapeGestureDecision{.action = remove ? ShapeGestureAction::RemoveWaypoint</span>
+                                                             : ShapeGestureAction::GrabWaypoint,
+                                            .waypoint = handle-&gt;waypoint};
+            }
+<span style = "background-color:#dfd">            if (remove) {</span>
+<span style = "background-color:#fdd">                return {};</span>
+            }
+<span style = "background-color:#dfd">            return ShapeGestureDecision{.action = ShapeGestureAction::AppendWaypoint,</span>
+                                        .waypoint = 0};
+        }
+        case core::EntityShape::Point:
+        case core::EntityShape::Rectangle:
+            break;
+    }
+<span style = "background-color:#dfd">    return {};
+}</span>
+
+<span style = "background-color:#dfd">EntityDragApplied applyEntityDrag(core::LevelDraft&amp; draft, const EntityDragResult&amp; result) {
+    EntityDragApplied applied;
+    if (result.refused || result.empty()) {</span>
+<span style = "background-color:#fdd">        return applied;</span>
+    }
+<span style = "background-color:#dfd">    const core::GestureScope gesture(draft);
+    for (const auto&amp; [index, entity] : result.replaced) {
+        applied.changed = draft.replaceEntity(index, entity) || applied.changed;
+    }
+    if (result.placed) {
+        applied.placed = draft.placeEntity(*result.placed);
+        applied.changed = applied.placed.has_value() || applied.changed;</span>
+    }
+<span style = "background-color:#dfd">    return applied;
+}</span>
+
+std::optional&lt;std::size_t&gt; placeEntityOfKind(core::LevelDraft&amp; draft, const std::string&amp; kind,
+<span style = "background-color:#dfd">                                             core::GridPosition cell) {
+    return draft.placeEntity(newEntity(kind, cell));
+}</span>
+
+<span style = "background-color:#dfd">std::size_t removeEntities(core::LevelDraft&amp; draft, std::vector&lt;std::size_t&gt; indices) {
+    std::ranges::sort(indices);
+    const auto [first, last] = std::ranges::unique(indices);
+    indices.erase(first, last);
+    std::size_t removed = 0;
+    const core::GestureScope gesture(draft);
+    for (auto index = indices.rbegin(); index != indices.rend(); ++index) {
+        if (draft.removeEntity(*index)) {
+            ++removed;
+        }
+    }
+    return removed;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

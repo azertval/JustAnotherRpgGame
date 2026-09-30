@@ -45,10 +45,16 @@ var searchData=
   ['buildmodel_42',['buildModel',['../classhmi_1_1PalettePanel.html#af1898fdecf86e9004f65845f4f96f364',1,'hmi::PalettePanel']]],
   ['buildpiecemodel_43',['buildPieceModel',['../classhmi_1_1PalettePanel.html#a7fdb92fcf95438fa75044ab0363e8d92',1,'hmi::PalettePanel']]],
   ['buildproceduralatlasimage_44',['buildProceduralAtlasImage',['../namespacehmi.html#a0fa1fc503abd25e16f2e3d52f6c8d540',1,'hmi']]],
-  ['buildrefactormenu_45',['buildRefactorMenu',['../classhmi_1_1MainWindow.html#a55eeec10938e3d14aa60d0af1e6ccbc6',1,'hmi::MainWindow']]],
-  ['buildstatusbar_46',['buildStatusBar',['../classhmi_1_1MainWindow.html#a871837448750fb40e380fe52af2f666f',1,'hmi::MainWindow']]],
-  ['buildui_47',['buildUi',['../classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666',1,'hmi::MainWindow']]],
-  ['buildworldgraph_48',['buildWorldGraph',['../namespacecore.html#a613ed3cc48dbcdf1ed1533b2bb6c9f9c',1,'core']]],
-  ['burymember_49',['buryMember',['../classhmi_1_1WorldModel.html#a266e215336e2fd9194e63f1cc589531c',1,'hmi::WorldModel']]],
-  ['busy_50',['busy',['../classhmi_1_1CombatCueTrack.html#a40e87f2f4dc51a0410eb2c5cf9e9c67a',1,'hmi::CombatCueTrack::busy()'],['../classhmi_1_1EncounterModel.html#a2b96bcaea5f01905cb698b443535c333',1,'hmi::EncounterModel::busy()']]]
+  ['buildquesttab_45',['buildQuestTab',['../classhmi_1_1QuestsPanel.html#a14d38931e55891b99732263a3edab96b',1,'hmi::QuestsPanel']]],
+  ['buildrefactormenu_46',['buildRefactorMenu',['../classhmi_1_1MainWindow.html#a55eeec10938e3d14aa60d0af1e6ccbc6',1,'hmi::MainWindow']]],
+  ['buildstatusbar_47',['buildStatusBar',['../classhmi_1_1MainWindow.html#a871837448750fb40e380fe52af2f666f',1,'hmi::MainWindow']]],
+  ['buildstepeditor_48',['buildStepEditor',['../classhmi_1_1QuestsPanel.html#a025b6d206830d222ca4b063fbca69903',1,'hmi::QuestsPanel']]],
+  ['buildstepend_49',['buildStepEnd',['../classhmi_1_1QuestsPanel.html#aa93b10adf7c217bcc2b1fb997f74285b',1,'hmi::QuestsPanel']]],
+  ['buildsteprules_50',['buildStepRules',['../classhmi_1_1QuestsPanel.html#a06b342dd99c968bf3a2883a100154ebd',1,'hmi::QuestsPanel']]],
+  ['buildstepstab_51',['buildStepsTab',['../classhmi_1_1QuestsPanel.html#ac06b737f6406ff8f6b95ca397ed49436',1,'hmi::QuestsPanel']]],
+  ['buildui_52',['buildUi',['../classhmi_1_1MainWindow.html#a2be2a6b71ee9770ab402e16bf8d61666',1,'hmi::MainWindow']]],
+  ['buildusestab_53',['buildUsesTab',['../classhmi_1_1QuestsPanel.html#a20f25455f8ca6e9b77bb760203864ab4',1,'hmi::QuestsPanel']]],
+  ['buildworldgraph_54',['buildWorldGraph',['../namespacecore.html#a613ed3cc48dbcdf1ed1533b2bb6c9f9c',1,'core']]],
+  ['burymember_55',['buryMember',['../classhmi_1_1WorldModel.html#a266e215336e2fd9194e63f1cc589531c',1,'hmi::WorldModel']]],
+  ['busy_56',['busy',['../classhmi_1_1CombatCueTrack.html#a40e87f2f4dc51a0410eb2c5cf9e9c67a',1,'hmi::CombatCueTrack::busy()'],['../classhmi_1_1EncounterModel.html#a2b96bcaea5f01905cb698b443535c333',1,'hmi::EncounterModel::busy()']]]
 ];

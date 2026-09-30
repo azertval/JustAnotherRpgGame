@@ -38,7 +38,7 @@ var searchData=
   ['isconsumable_35',['isConsumable',['../structcore_1_1Interactable.html#a4dacc208724da53bb1f81620aeb7501e',1,'core::Interactable']]],
   ['iscullingenabled_36',['isCullingEnabled',['../classhmi_1_1ComposedScene.html#a62f6cc07caaeef96393c6c8e2de233b9',1,'hmi::ComposedScene']]],
   ['isdifficult_37',['isDifficult',['../classcore_1_1BattleGrid.html#a240ddd200a9497878959f5db6bc73caa',1,'core::BattleGrid']]],
-  ['isdirty_38',['isDirty',['../classhmi_1_1EditorViewport.html#ac74e119e93cc45dc4bf95ffc87f20873',1,'hmi::EditorViewport']]],
+  ['isdirty_38',['isDirty',['../classhmi_1_1EditorViewport.html#ac74e119e93cc45dc4bf95ffc87f20873',1,'hmi::EditorViewport::isDirty()'],['../classhmi_1_1QuestsPanel.html#a7d8957ceaaec0710b6df1eea335c18a5',1,'hmi::QuestsPanel::isDirty()']]],
   ['isdodging_39',['isDodging',['../classcore_1_1ArenaSession.html#a346bba8c696fc4a49de4f6fbc4d17813',1,'core::ArenaSession']]],
   ['isdying_40',['isDying',['../classcore_1_1CombatState.html#a877b39f49e9703b491a5daa438c9f507',1,'core::CombatState']]],
   ['isempty_41',['isEmpty',['../structcore_1_1MarkerImage.html#ac7ef693a631388aa497877803e58ac81',1,'core::MarkerImage']]],
@@ -74,11 +74,12 @@ var searchData=
   ['isvalidassetkey_71',['isValidAssetKey',['../namespacecore.html#af313492482f82ad2391f0da874bfe2a7',1,'core']]],
   ['isvalidlevelname_72',['isValidLevelName',['../namespacehmi.html#abf93f3d263fe7268a624a8a96566a89e',1,'hmi']]],
   ['isvalidprefabname_73',['isValidPrefabName',['../namespacehmi.html#ada4c5f2f4d7544a3bb0598071fc35af2',1,'hmi']]],
-  ['isvalidsceneplace_74',['isValidScenePlace',['../namespacecore.html#aef1bcbf15a56b7e7d7fdbcb1653c9eec',1,'core']]],
-  ['isvisible_75',['isVisible',['../classhmi_1_1ComposedScene.html#ad544319d48036199694098d8c61dfd05',1,'hmi::ComposedScene']]],
-  ['isvisuallayerindex_76',['isVisualLayerIndex',['../classcore_1_1LevelDraft.html#a00ca9003b47f9e9aa47adb784018ce61',1,'core::LevelDraft']]],
-  ['isvisuallayerkind_77',['isVisualLayerKind',['../namespacecore.html#aaf5abd7971c954a0b6b1f917658f4d38',1,'core']]],
-  ['isvisuallayertiletype_78',['isVisualLayerTileType',['../namespacecore.html#a96f9c5663954e6157f2593864bad5840',1,'core']]],
-  ['itemsheet_79',['itemSheet',['../namespacehmi.html#aa11e1e0720b6d68b5362d8062922cf64',1,'hmi']]],
-  ['iterator_80',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
+  ['isvalidquestname_74',['isValidQuestName',['../namespacehmi.html#a7d5f46577be0bc25c18d420ec2f7e997',1,'hmi']]],
+  ['isvalidsceneplace_75',['isValidScenePlace',['../namespacecore.html#aef1bcbf15a56b7e7d7fdbcb1653c9eec',1,'core']]],
+  ['isvisible_76',['isVisible',['../classhmi_1_1ComposedScene.html#ad544319d48036199694098d8c61dfd05',1,'hmi::ComposedScene']]],
+  ['isvisuallayerindex_77',['isVisualLayerIndex',['../classcore_1_1LevelDraft.html#a00ca9003b47f9e9aa47adb784018ce61',1,'core::LevelDraft']]],
+  ['isvisuallayerkind_78',['isVisualLayerKind',['../namespacecore.html#aaf5abd7971c954a0b6b1f917658f4d38',1,'core']]],
+  ['isvisuallayertiletype_79',['isVisualLayerTileType',['../namespacecore.html#a96f9c5663954e6157f2593864bad5840',1,'core']]],
+  ['itemsheet_80',['itemSheet',['../namespacehmi.html#aa11e1e0720b6d68b5362d8062922cf64',1,'hmi']]],
+  ['iterator_81',['Iterator',['../classcore_1_1View_1_1Iterator.html#a2ff93b328284c1d0facc842494e8514e',1,'core::View::Iterator']]]
 ];

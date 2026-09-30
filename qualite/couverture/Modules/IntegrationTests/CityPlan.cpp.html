@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CityPlan.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/World/CityPlan.h"
+
+#include &lt;algorithm&gt;
+#include &lt;utility&gt;
+
+#include "Core/Data/JsonDocument.h"
+
+namespace core {
+
+namespace {
+
+// Les donnees de monde ne portent pas de champ `version` : meme convention que les arenes et les
+// rencontres.
+constexpr int SANS_GARDE_DE_VERSION = 0;
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string lireTexte(const nlohmann::json&amp; objet, const char* champ) {
+    const auto trouve = objet.find(champ);
+    return (trouve != objet.end() &amp;&amp; trouve-&gt;is_string()) ? trouve-&gt;get&lt;std::string&gt;()</span>
+                                                          : std::string{};
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">const CityDistrict* CityPlan::find(std::string_view districtId) const {
+    const auto trouve = std::ranges::find(districts, districtId, &amp;CityDistrict::id);
+    return trouve != districts.end() ? &amp;*trouve : nullptr;
+}</span>
+
+<span style = "background-color:#dfd">const CityDistrict* CityPlan::districtOfMap(std::string_view mapId) const {
+    if (mapId.empty()) {</span>
+<span style = "background-color:#fdd">        return nullptr;</span>
+    }
+    // La carte du quartier, ou une carte rangee sous la sienne : une sous-zone (D-16).
+<span style = "background-color:#dfd">    const auto trouve = std::ranges::find_if(districts, [mapId](const CityDistrict&amp; quartier) {
+        return !quartier.map.empty() &amp;&amp;</span>
+               (mapId == quartier.map ||
+                (mapId.size() &gt; quartier.map.size() &amp;&amp; mapId.starts_with(quartier.map) &amp;&amp;
+                 mapId[quartier.map.size()] == '/'));
+<span style = "background-color:#dfd">    });
+    return trouve != districts.end() ? &amp;*trouve : nullptr;
+}</span>
+
+<span style = "background-color:#dfd">std::string CityPlan::startMap() const {
+    const CityDistrict* const depart = find(startDistrict);
+    return depart != nullptr ? depart-&gt;map : std::string{};
+}</span>
+
+<span style = "background-color:#dfd">CityPlanResult loadCityPlan(const std::filesystem::path&amp; file) {
+    CityPlanResult resultat;
+    const JsonDocument document = readJsonObjectFromFile(file, SANS_GARDE_DE_VERSION);
+    if (!document.ok()) {
+        resultat.error = document.message;
+        return resultat;</span>
+    }
+<span style = "background-color:#dfd">    const nlohmann::json&amp; racine = document.root;
+    CityPlan&amp; plan = resultat.plan;
+    plan.id = lireTexte(racine, "id");
+    plan.name = lireTexte(racine, "name");
+    plan.location = lireTexte(racine, "location");
+    if (const auto depart = racine.find("start"); depart != racine.end() &amp;&amp; depart-&gt;is_object()) {
+        plan.startDistrict = lireTexte(*depart, "district");
+        plan.startArrival = lireTexte(*depart, "arrival");
+    }</span>
+
+<span style = "background-color:#dfd">    const auto quartiers = racine.find("districts");
+    if (quartiers == racine.end() || !quartiers-&gt;is_array() || quartiers-&gt;empty()) {</span>
+<span style = "background-color:#fdd">        resultat.error = file.string() + " : une ville sans quartier.";
+        return resultat;</span>
+    }
+<span style = "background-color:#dfd">    for (const nlohmann::json&amp; entree : *quartiers) {
+        if (!entree.is_object()) {</span>
+<span style = "background-color:#fdd">            resultat.error = file.string() + " : un quartier n'est pas un objet.";
+            return resultat;</span>
+        }
+        CityDistrict quartier{
+<span style = "background-color:#dfd">            .id = lireTexte(entree, "id"), .map = lireTexte(entree, "map"), .guardMap = {}};
+        if (const auto garde = entree.find("guard"); garde != entree.end() &amp;&amp; garde-&gt;is_object()) {
+            quartier.guardMap = lireTexte(*garde, "map");
+        }</span>
+        // Un quartier SOIT se parcourt, SOIT est ferme : les deux, ou aucun, sont une saisie
+        // fautive, pas un cas a interpreter.
+<span style = "background-color:#dfd">        if (quartier.id.empty() || quartier.map.empty() == quartier.guardMap.empty()) {
+            resultat.error = file.string() + " : le quartier Â« " + quartier.id +</span>
+                             " Â» doit avoir soit une carte, soit une porte gardee.";
+<span style = "background-color:#dfd">            return resultat;</span>
+        }
+<span style = "background-color:#dfd">        plan.districts.push_back(std::move(quartier));
+    }</span>
+
+<span style = "background-color:#dfd">    if (plan.startMap().empty() || plan.startArrival.empty()) {
+        resultat.error = file.string() + " : le depart Â« " + plan.startDistrict +</span>
+                         " Â» n'est pas un quartier qui a sa carte.";
+    }
+<span style = "background-color:#dfd">    return resultat;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -47,7 +47,7 @@ var searchData=
   ['revives_44',['revives',['../structcore_1_1Spell.html#adcc69cf1b8ffda86270e0cf6e636303f',1,'core::Spell']]],
   ['rhi_45',['rhi',['../structhmi_1_1RhiContext.html#a07d6fe0b31c50e6573bb261c369120ab',1,'hmi::RhiContext']]],
   ['ritual_46',['ritual',['../structcore_1_1Spell.html#a72fc45028d262c6abacce401e30ff917',1,'core::Spell']]],
-  ['role_47',['role',['../structhmi_1_1VerdictCell.html#a38e195bddfa1fa45b71ec27affef3734',1,'hmi::VerdictCell::role'],['../structhmi_1_1CreditLine.html#abbb1c94f4b710ebaa7d4d62488afe38f',1,'hmi::CreditLine::role']]],
+  ['role_47',['role',['../structhmi_1_1VerdictCell.html#a38e195bddfa1fa45b71ec27affef3734',1,'hmi::VerdictCell::role'],['../structhmi_1_1FlagUse.html#aab54368f86ccc141323ad2a2e0952ef8',1,'hmi::FlagUse::role'],['../structhmi_1_1CreditLine.html#abbb1c94f4b710ebaa7d4d62488afe38f',1,'hmi::CreditLine::role']]],
   ['roll_48',['roll',['../structcore_1_1AttackOutcome.html#a38eb2e2b01611323b4992c268bd9ea8b',1,'core::AttackOutcome::roll'],['../structcore_1_1RolledDamage.html#a14b9fd265913f0697a03c2cc4f2df8fd',1,'core::RolledDamage::roll']]],
   ['root_49',['root',['../structcore_1_1JsonDocument.html#aee2b7ee0780fca9c92445b2778a7baa1',1,'core::JsonDocument::root'],['../structhmi_1_1IndexedManifest.html#a2267bc4ccfd16232abe03a077a52c57d',1,'hmi::IndexedManifest::root'],['../structhmi_1_1WorldSceneSource.html#a100f5fe49a0395756d617cc5ba270944',1,'hmi::WorldSceneSource::root']]],
   ['rotation_50',['rotation',['../structcore_1_1Transform.html#a445458d76abe4de694e70ad88441d93f',1,'core::Transform::rotation'],['../structhmi_1_1SpriteQuad.html#a6d77667b205966d8edb35e16aa6f8b3a',1,'hmi::SpriteQuad::rotation']]],

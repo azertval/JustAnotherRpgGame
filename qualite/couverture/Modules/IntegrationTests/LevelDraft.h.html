@@ -1,0 +1,647 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>LevelDraft.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;functional&gt;
+#include &lt;map&gt;
+#include &lt;memory&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/Level.h"
+#include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/MapEntity.h"
+#include "Core/Levels/PieceFootprint.h"
+#include "Core/Levels/TileLayer.h"
+#include "Core/Levels/TileMap.h"
+#include "Core/Levels/TileType.h"
+#include "Core/Resources/ScenePieceManifest.h"
+
+/**
+ * @file Core/Levels/LevelDraft.h
+ * @brief ReprÃ©sentation mutable d'un niveau en cours d'Ã©dition.
+ */
+
+namespace core {
+
+/// @brief Ancien nom de piÃ¨ce â nouveau : un remplacement, ou la table de correspondance d'un
+///        changement de planche (`LOT-EDITOR-14`).
+using PieceRenaming = std::map&lt;std::string, std::string, std::less&lt;&gt;&gt;;
+
+/**
+ * @brief Carte **mutable** en cours d'Ã©dition, distincte de `Level` (immuable).
+ *
+ * `LevelDraft` porte toute la mutabilitÃ© nÃ©cessaire Ã  l'Ã©diteur (`EX-EDIT-002` Ã  `EX-EDIT-005`) :
+ * peindre une tuile, dÃ©placer l'entrÃ©e, Ã©diter les couches et les entitÃ©s, redimensionner la
+ * grille. Il ne duplique **aucune rÃ¨gle de validation** : `toLevel()` reconstruit le niveau en
+ * repassant par `LevelLoader::loadFromString` (mÃªme chemin que le chargement d'un fichier),
+ * garantissant que le niveau produit satisfait exactement les mÃªmes rÃ¨gles (`EX-LVL-004`,
+ * `EX-EDIT-010`).
+ *
+ * Invariant maintenu par tous les mutateurs : la grille de tuiles reste la **source de vÃ©ritÃ©**
+ * de la position d'entrÃ©e (comme pour `Level`) ; `entry()` n'est qu'un accÃ¨s en cache, toujours
+ * synchronisÃ© avec le contenu de `tileMap()`.
+ *
+ * ## La collision suit les gestes (`LOT-EDITOR-03`, `EX-EDIT-064`, `EX-EDIT-065`)
+ *
+ * DÃ¨s qu'une carte a une couche visuelle, sa collision se **dÃ©duit** de ce qu'elle montre
+ * (`core::deriveCollision`, dÃ©cision D10) et s'Ã©crit, hors des cases **forcÃ©es** Ã  la main. Le
+ * brouillon tient cet accord geste par geste, sans rien toucher d'autre :
+ *
+ * - un geste sur une couche visuelle (type, piÃ¨ce, gomme) redÃ©duit la collision des **seules**
+ *   cases qu'il a touchÃ©es â emprises comprises â, hors cases forcÃ©es et hors entrÃ©e ;
+ * - peindre la grille de collision elle-mÃªme **force** la case si la valeur peinte s'Ã©carte de la
+ *   dÃ©duction, et la **libÃ¨re** si elle s'y accorde ;
+ * - `unforceCollision` rend des cases forcÃ©es Ã  la dÃ©duction.
+ *
+ * La dÃ©duction lit le manifeste des piÃ¨ces du lieu (`setPieceManifest`) â son **catalogue rÃ©solu**,
+ * qui compte aussi les piÃ¨ces de ses niveaux communs (`core::ScenePieceManifest::resolve`,
+ * `LOT-124`) ; sans manifeste, toute piÃ¨ce compte pour inconnue et la case suit la rÃ¨gle de son
+ * type, comme au contrÃ´le.
+ *
+ * Logique **pure**, sans dÃ©pendance rendu ni fenÃªtre â testable sans GPU (`EX-NFR-010`).
+ */
+class LevelDraft {
+public:
+    /**
+     * @brief Nombre maximal de pas d'annulation gardÃ©s (`EX-EDIT-058`).
+     *
+     * Chaque pas est un instantanÃ© complet du brouillon : sans plafond, une longue sÃ©ance sur
+     * Martpart (48 Ã 40, trois couches) accumulait des centaines d'instantanÃ©s jamais rendus.
+     * Au-delÃ , le pas le plus ancien est oubliÃ©.
+     */
+    static constexpr std::size_t UNDO_HISTORY_LIMIT = 200;
+
+    /**
+     * @brief CrÃ©e un brouillon vierge (grille entiÃ¨rement `Empty`), sans entrÃ©e.
+     * @param name   Nom du niveau.
+     * @param width  Largeur de la grille, en cases (&gt; 0).
+     * @param height Hauteur de la grille, en cases (&gt; 0).
+     */
+    [[nodiscard]] static LevelDraft empty(std::string name, int width, int height);
+
+    /**
+     * @brief CrÃ©e un brouillon Ã  partir d'un niveau dÃ©jÃ  chargÃ© (Ã©dition d'un fichier existant).
+     * @param level Niveau source.
+     */
+    [[nodiscard]] static LevelDraft fromLevel(const Level&amp; level);
+
+    /**
+     * @brief Peint le type de tuile @p type en (column, row).
+     *
+     * Cas particulier : peindre `Entry` dÃ©lÃ¨gue Ã  `setEntry` (unicitÃ©). Peindre un autre type sur
+     * la case de l'entrÃ©e l'invalide, et peindre un type diffÃ©rent retire la piÃ¨ce assignÃ©e Ã  la
+     * case, pour ne jamais laisser d'incohÃ©rence entre la grille et ces caches. Sur une carte Ã 
+     * couches visuelles, la case est forcÃ©e si la valeur peinte s'Ã©carte de la dÃ©duction, libÃ©rÃ©e
+     * sinon (voir l'en-tÃªte).
+     * @param column Colonne visÃ©e (doit Ãªtre dans les bornes).
+     * @param row    Ligne visÃ©e (doit Ãªtre dans les bornes).
+     * @param type   Type de tuile Ã  poser.
+     */
+    void paintTile(int column, int row, TileType type);
+
+    /**
+     * @brief Applique un bloc rectangulaire de types de tuiles Ã  partir de (@p originColumn,
+     *        @p originRow).
+     *
+     * Repasse par la mÃªme sÃ©mantique cellule-par-cellule que `paintTile` (dÃ©placement de
+     * l'entrÃ©e, retrait des piÃ¨ces assignÃ©es) pour chaque case du bloc, mais ne pousse **qu'un
+     * seul** snapshot undo pour toute l'opÃ©ration â sert au remplissage rectangulaire et au
+     * collage (`EX-EDIT-014`), sans dupliquer de rÃ¨gle de niveau (`EX-EDIT-010`). Les cases du
+     * bloc hors des bornes de la grille sont silencieusement ignorÃ©es (dÃ©coupe aux bords, mÃªme
+     * principe que `resize`).
+     * @param originColumn Colonne de la case (0,0) du bloc.
+     * @param originRow    Ligne de la case (0,0) du bloc.
+     * @param block        Bloc de types, indexÃ© `[ligne][colonne]` ; sans effet si vide.
+     */
+    void paintRegion(int originColumn, int originRow,
+                     const std::vector&lt;std::vector&lt;TileType&gt;&gt;&amp; block);
+
+    /**
+     * @brief Place l'entrÃ©e en (column, row) ; dÃ©place l'occurrence existante s'il y en avait
+     *        une (unicitÃ©, `EX-EDIT-004`).
+     */
+    void setEntry(int column, int row);
+
+    /**
+     * @name Couches de tuiles (`LOT-04`, `LOT-11`)
+     *
+     * Un rang dÃ©signe une entrÃ©e de `layers()`. Seules les couches **visuelles** â sol et dÃ©cor
+     * (`core::isVisualLayerKind`) â se crÃ©ent, se retirent, se renomment, se dÃ©placent et se
+     * peignent ici : la grille de collision est `tileMap()`, que peignent `paintTile` et
+     * `paintRegion`, et l'entrÃ©e `Collision` ou `Legacy` de `layers()` n'en est que le reflet.
+     *
+     * Un rang hors bornes, une couche non visuelle ou un type de tuile refusÃ©
+     * (`core::isVisualLayerTileType`) ne fait **rien** et n'empile **rien**.
+     * @{
+     */
+
+    /**
+     * @brief Ajoute une couche visuelle en fin de liste (la plus en avant).
+     *
+     * **Promotion d'une carte Ã  grille unique.** Tant qu'une carte n'a aucune couche visuelle, sa
+     * grille racine vaut Ã  la fois image et collision (`LayerKind::Legacy`) ; dÃ¨s qu'elle en a une,
+     * la grille racine n'est plus dessinÃ©e. Ajouter la **premiÃ¨re**
+     * couche visuelle y recopie donc la grille racine, types refusÃ©s mis Ã  part : ce qu'on voyait
+     * reste ce qu'on voit, et l'auteur retire ensuite ce qui ne relÃ¨ve que de la collision. Une
+     * couche ajoutÃ©e Ã  une carte qui en a dÃ©jÃ  naÃ®t vide.
+     *
+     * @param kind `Ground` ou `Decor`.
+     * @param name Nom affichÃ© par l'Ã©diteur.
+     * @return Le rang de la couche crÃ©Ã©e, ou `std::nullopt` si @p kind n'est pas visuel.
+     */
+    std::optional&lt;std::size_t&gt; addLayer(LayerKind kind, std::string name);
+
+    /// Retire la couche visuelle au rang @p index.
+    /// @return `false` si @p index est hors bornes ou dÃ©signe une couche non visuelle.
+    bool removeLayer(std::size_t index);
+
+    /// Renomme la couche visuelle au rang @p index. Un nom identique n'empile rien.
+    bool renameLayer(std::size_t index, std::string name);
+
+    /// Change le rÃ´le (sol â dÃ©cor) de la couche visuelle au rang @p index.
+    bool setLayerKind(std::size_t index, LayerKind kind);
+
+    /**
+     * @brief Met la couche de dÃ©cor au rang @p index Ã  l'Ã©tage @p floor (0 : le rez ; 1 Ã 
+     *        `MAX_STOREY_FLOOR` : un Ã©tage, `LOT-129`). La collision de toute la carte suit : un
+     *        Ã©tage n'y compte pas.
+     * @return `false` (rien d'empilÃ©) pour une couche qui n'est pas de dÃ©cor, un Ã©tage hors bornes
+     *         ou inchangÃ©.
+     */
+    bool setLayerFloor(std::size_t index, int floor);
+
+    /// Assigne la propriÃ©tÃ© @p key de la couche visuelle au rang @p index â par exemple le lieu
+    /// dont elle prend les piÃ¨ces (`scene`, `LOT-EDITOR-06`). Une valeur identique n'empile rien.
+    bool setLayerProperty(std::size_t index, const std::string&amp; key, PropertyValue value);
+
+    /**
+     * @brief Ãchange la couche visuelle au rang @p index avec sa voisine visuelle, en avant
+     *        (@p forward) ou en arriÃ¨re. L'entrÃ©e de collision ne se franchit pas : elle n'a pas
+     *        de rang de dessin.
+     * @return Le nouveau rang ; @p index inchangÃ© si la couche est dÃ©jÃ  au bout ;
+     *         `std::nullopt` si @p index est hors bornes ou non visuel.
+     */
+    std::optional&lt;std::size_t&gt; moveLayer(std::size_t index, bool forward);
+
+    /// Peint @p type en (@p column, @p row) de la couche visuelle @p index ; la collision de la
+    /// case suit.
+    /// @return `false` (rien d'empilÃ©) si le rang, la case ou le type est refusÃ©, ou si la case
+    ///         porte dÃ©jÃ  ce type.
+    bool paintLayerTile(std::size_t index, int column, int row, TileType type);
+
+    /// Applique @p block (indexÃ© `[ligne][colonne]`) sur la couche visuelle @p index, dÃ©coupÃ© aux
+    /// bords, en **un** pas d'annulation. Un bloc contenant un type refusÃ© est refusÃ© en entier.
+    bool paintLayerRegion(std::size_t index, int originColumn, int originRow,
+                          const std::vector&lt;std::vector&lt;TileType&gt;&gt;&amp; block);
+
+    /** @} */
+
+    /**
+     * @name PiÃ¨ces de couche (`LOT-EDITOR-03`)
+     *
+     * Poser une piÃ¨ce Ã©crit, **en un pas d'annulation**, sa couche, sa piÃ¨ce et la collision
+     * qu'elle donne (`EX-EDIT-064`). Une piÃ¨ce est **ancrÃ©e** sur une case et occupe son emprise
+     * (`core::footprintCells`) ; l'emprise d'une piÃ¨ce que le manifeste ne connaÃ®t pas vaut 1 Ã 1.
+     * Sur une mÃªme couche, deux emprises ne se recouvrent pas : poser une piÃ¨ce retire celles
+     * qu'elle couvrirait.
+     * @{
+     */
+
+    /// @brief Le manifeste des piÃ¨ces du lieu : emprises et types tactiques. Ni peint ni dÃ©fait.
+<span style = "background-color:#dfd">    void setPieceManifest(std::shared_ptr&lt;const ScenePieceManifest&gt; manifest) noexcept {
+        _manifest = std::move(manifest);
+    }</span>
+
+    /// @return Le manifeste des piÃ¨ces du lieu, `nullptr` sans lieu.
+<span style = "background-color:#dfd">    [[nodiscard]] const ScenePieceManifest* pieceManifest() const noexcept {
+        return _manifest.get();
+    }</span>
+
+    /// @return L'emprise de @p piece selon le manifeste, 1 Ã 1 si elle y est inconnue.
+    [[nodiscard]] PieceFootprint pieceFootprint(std::string_view piece) const noexcept;
+
+    /**
+     * @return La case d'ancrage de la piÃ¨ce de la couche @p index dont l'emprise couvre @p cell
+     *         (elle-mÃªme si la case nomme sa piÃ¨ce), ou `std::nullopt` si aucune ne la couvre.
+     */
+    [[nodiscard]] std::optional&lt;GridPosition&gt; pieceAnchorAt(std::size_t index,
+                                                            GridPosition cell) const;
+
+    /**
+     * @brief Pose @p piece ancrÃ©e en @p anchor sur la couche visuelle @p index, la case d'ancrage
+     *        prenant le type @p type ; les piÃ¨ces que son emprise couvrirait sont retirÃ©es, type
+     *        compris. La collision des cases touchÃ©es suit.
+     * @return `false` (rien d'empilÃ©) si le rang, la case ou le nom est refusÃ©, si l'emprise
+     *         dÃ©borde de la carte, ou si la case porte dÃ©jÃ  cette piÃ¨ce et ce type.
+     */
+    bool placePiece(std::size_t index, GridPosition anchor, const std::string&amp; piece,
+                    TileType type);
+
+    /**
+     * @brief Pave de @p piece le rectangle [@p first, @p last] (bornes incluses) de la couche
+     *        @p index, au pas de son emprise, en **un** pas d'annulation. Une piÃ¨ce dont
+     *        l'emprise dÃ©borderait du rectangle n'est pas posÃ©e.
+     * @return `false` si rien n'a changÃ©.
+     */
+    bool placePieceRegion(std::size_t index, GridPosition first, GridPosition last,
+                          const std::string&amp; piece, TileType type);
+
+    /**
+     * @brief Gomme les cases du rectangle [@p first, @p last] de la couche visuelle @p index : une
+     *        case couverte par une piÃ¨ce retire la piÃ¨ce **entiÃ¨re** (type de sa case d'ancrage
+     *        compris), une case sans piÃ¨ce perd son type. La collision suit, en un pas.
+     * @return `false` si rien n'a changÃ©.
+     */
+    bool eraseLayerRegion(std::size_t index, GridPosition first, GridPosition last);
+
+    /**
+     * @brief Rend les cases forcÃ©es de @p cells Ã  la dÃ©duction (`EX-EDIT-065`), en un pas.
+     * @return `false` si aucune n'Ã©tait forcÃ©e.
+     */
+    bool unforceCollision(const std::vector&lt;GridPosition&gt;&amp; cells);
+
+    /// @return Vrai si la collision de @p cell est forcÃ©e Ã  la main.
+    [[nodiscard]] bool isCollisionForced(GridPosition cell) const noexcept;
+
+    /**
+     * @brief Renomme, sur toutes les couches visuelles, chaque piÃ¨ce que @p renaming nomme
+     *        (`LOT-EDITOR-14`, `EX-EDIT-083`), en **un** pas d'annulation.
+     *
+     * La piÃ¨ce garde sa case d'ancrage et son type (dÃ©cision D3) ; la collision des cases que
+     * couvrent l'ancienne et la nouvelle emprise suit.
+     * @return `false` (rien d'empilÃ©) si rien ne change, ou si une nouvelle emprise dÃ©borderait de
+     *         la carte.
+     */
+    bool replacePieces(const PieceRenaming&amp; renaming);
+
+    /**
+     * @brief Fait passer la carte Ã  la planche du lieu @p place (`LOT-EDITOR-14`), en **un** pas :
+     *        la propriÃ©tÃ© `scene` des couches qui la portent (la premiÃ¨re couche de sol, si aucune
+     *        ne la porte), le manifeste @p manifest, et les piÃ¨ces renommÃ©es par @p renaming.
+     *
+     * Une piÃ¨ce que @p renaming ne nomme pas garde son nom. Toute la collision est redÃ©duite par
+     * le nouveau manifeste, hors cases forcÃ©es et hors entrÃ©e.
+     * @return `false` si rien ne change, si la carte n'a pas de couche visuelle, ou si une emprise
+     *         dÃ©borderait de la carte.
+     */
+    bool changeScene(const std::string&amp; place, std::shared_ptr&lt;const ScenePieceManifest&gt; manifest,
+                     const PieceRenaming&amp; renaming);
+
+    /** @} */
+
+    /**
+     * @name EntitÃ©s de carte (`LOT-04`, `LOT-11`)
+     *
+     * Un rang dÃ©signe une entrÃ©e de `entities()`. Plusieurs entitÃ©s peuvent partager une case ;
+     * `entityAt` rend la **derniÃ¨re** posÃ©e, celle qu'on voit au-dessus. Chaque mutateur empile un
+     * pas d'annulation, sauf s'il est refusÃ© ou sans effet.
+     * @{
+     */
+
+    /// Pose @p entity en fin de liste. Une entitÃ© sans identifiant en reÃ§oit un neuf
+    /// (`core::entityIdFor`), jamais donnÃ© auparavant dans cette carte (dÃ©cision D8).
+    /// @return Son rang, ou `std::nullopt` si sa case est hors de la grille (`EX-LVL-017`).
+    std::optional&lt;std::size_t&gt; placeEntity(MapEntity entity);
+
+    /// DÃ©place l'entitÃ© @p index en @p position. RefusÃ© hors bornes ; sans effet sur place.
+    bool moveEntity(std::size_t index, GridPosition position);
+
+    /**
+     * @brief Remplace l'entitÃ© @p index par @p entity : sa case, sa forme (`cells`), ses
+     *        propriÃ©tÃ©s, en un pas (`LOT-EDITOR-05`).
+     *
+     * Le type et l'identifiant restent ceux de l'entitÃ© en place : ceux de @p entity sont ignorÃ©s.
+     * Un identifiant ne change jamais (dÃ©cision D8), et changer de famille n'est pas un geste de
+     * l'Ã©diteur. RefusÃ© si la case ou une case de `cells` sort de la grille ; sans effet si rien ne
+     * change.
+     */
+    bool replaceEntity(std::size_t index, MapEntity entity);
+
+    /// Retire l'entitÃ© @p index.
+    bool removeEntity(std::size_t index);
+
+    /// Assigne la propriÃ©tÃ© @p key de l'entitÃ© @p index. Une valeur identique n'empile rien.
+    bool setEntityProperty(std::size_t index, const std::string&amp; key, PropertyValue value);
+
+    /// Retire la propriÃ©tÃ© @p key de l'entitÃ© @p index, si elle l'a.
+    bool removeEntityProperty(std::size_t index, const std::string&amp; key);
+
+    /// @return Le rang de la derniÃ¨re entitÃ© posÃ©e en @p position, s'il y en a une.
+    [[nodiscard]] std::optional&lt;std::size_t&gt; entityAt(GridPosition position) const;
+
+    /** @} */
+
+    /**
+     * @brief Redimensionne la grille (`EX-EDIT-005`).
+     *
+     * Agrandir complÃ¨te les nouvelles cases en `Empty` ; rÃ©duire **tronque** silencieusement le
+     * contenu hors des nouvelles bornes (entrÃ©e, entitÃ©s ou piÃ¨ces assignÃ©es perdues sont
+     * invalidÃ©es en consÃ©quence). L'avertissement de perte revient Ã  l'appelant `HMI`, avant
+     * d'invoquer `resize`.
+     * @param width  Nouvelle largeur, en cases (&gt; 0).
+     * @param height Nouvelle hauteur, en cases (&gt; 0).
+     */
+    void resize(int width, int height);
+
+    /**
+     * @brief Indique si redimensionner Ã  (@p width, @p height) supprimerait du contenu dÃ©jÃ  posÃ©.
+     *
+     * RequÃªte **pure** (n'altÃ¨re rien) : vraie si les nouvelles bornes excluraient l'entrÃ©e, une
+     * entitÃ© ou une piÃ¨ce assignÃ©e actuellement posÃ©es. Permet Ã 
+     * `HMI` d'avertir avant d'appeler `resize` (`EX-EDIT-012`), sans dupliquer la logique de
+     * troncature dÃ©jÃ  portÃ©e par `resize`.
+     * @param width  Largeur envisagÃ©e, en cases (&gt; 0).
+     * @param height Hauteur envisagÃ©e, en cases (&gt; 0).
+     * @return `true` si l'entrÃ©e, une entitÃ© ou une piÃ¨ce assignÃ©e serait perdue.
+     */
+    [[nodiscard]] bool wouldResizeDropContent(int width, int height) const noexcept;
+
+    /**
+     * @name Gestes (`LOT-EDITOR-04`)
+     *
+     * Un geste de l'auteur â un glisser du pinceau, une ligne, un seau, un trait et son reflet â
+     * enchaÃ®ne plusieurs mutations ; il se dÃ©fait pourtant **en un pas**. Entre `beginGesture` et
+     * `endGesture`, seule la premiÃ¨re mutation qui change la carte empile un pas d'annulation ; un
+     * geste sans effet n'en empile aucun. Les appels s'imbriquent : seul le plus extÃ©rieur ferme le
+     * geste. La rÃ©vision change Ã  chaque mutation, comme hors geste.
+     * @{
+     */
+
+    /// Ouvre un geste.
+    void beginGesture() noexcept;
+
+    /// Ferme le geste ouvert ; sans effet s'il n'y en a pas.
+    void endGesture() noexcept;
+
+    /// @return Vrai si un geste est ouvert.
+<span style = "background-color:#dfd">    [[nodiscard]] bool inGesture() const noexcept {
+        return _gestureDepth &gt; 0;
+    }</span>
+
+    /** @} */
+
+    /**
+     * @brief Annule la derniÃ¨re mutation (`EX-EDIT-005`).
+     * @return `true` si une mutation a Ã©tÃ© annulÃ©e, `false` si l'historique Ã©tait vide.
+     */
+    bool undo();
+
+    /**
+     * @brief Refait la derniÃ¨re mutation annulÃ©e.
+     *
+     * Toute nouvelle mutation aprÃ¨s un `undo()` invalide la branche de refaire (historique
+     * linÃ©aire classique) : `redo()` redevient sans effet tant qu'aucun nouvel `undo()` n'a eu
+     * lieu depuis.
+     * @return `true` si une mutation a Ã©tÃ© refaite, `false` si rien n'Ã©tait Ã  refaire.
+     */
+    bool redo();
+
+    /// @return Le nombre de pas que `undo()` peut dÃ©faire (au plus `UNDO_HISTORY_LIMIT`).
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t undoDepth() const noexcept {
+        return _undoHistory.size();
+    }</span>
+
+    /**
+     * @brief Identifie l'Ã©tat du contenu : change Ã  chaque mutation, et revient Ã  sa valeur
+     *        d'avant quand `undo()` dÃ©fait la mutation (et inversement pour `redo()`,
+     * `EX-EDIT-058`).
+     *
+     * L'Ã©diteur compare cette rÃ©vision Ã  celle de la derniÃ¨re ouverture ou du dernier
+     * enregistrement pour dire si le brouillon porte des modifications : dÃ©faire jusqu'Ã  l'Ã©tat
+     * enregistrÃ© rend un brouillon propre, et rien ne le marque modifiÃ© sans mutation rÃ©elle.
+     */
+<span style = "background-color:#dfd">    [[nodiscard]] std::uint64_t revision() const noexcept {
+        return _revision;
+    }</span>
+
+    /// @return `true` si `undo()` aurait un effet.
+<span style = "background-color:#dfd">    [[nodiscard]] bool canUndo() const noexcept {
+        return !_undoHistory.empty();
+    }</span>
+
+    /// @return `true` si `redo()` aurait un effet.
+<span style = "background-color:#dfd">    [[nodiscard]] bool canRedo() const noexcept {
+        return !_redoHistory.empty();
+    }</span>
+
+    /**
+     * @brief Assigne la propriÃ©tÃ© de **carte** @p key (`LOT-EDITOR-09`) â sa rÃ©gion
+     *        (`core::MAP_REGION_PROPERTY`), son ambiance (`core::MAP_AMBIENCE_PROPERTY`), ou toute
+     *        clÃ© racine gardÃ©e du fichier.
+     *
+     * Une chaÃ®ne vide **retire** la propriÃ©tÃ© : une carte sans rÃ©gion n'en porte pas la clÃ©.
+     * @return `false` (rien d'empilÃ©) si la clÃ© est vide, ou si la valeur est dÃ©jÃ  celle-lÃ .
+     */
+    bool setProperty(const std::string&amp; key, PropertyValue value);
+
+    /// @return Les propriÃ©tÃ©s de la carte (`core::LevelData::properties`).
+<span style = "background-color:#dfd">    [[nodiscard]] const PropertyMap&amp; properties() const noexcept {
+        return _properties;
+    }</span>
+
+    /// Renomme le niveau.
+<span style = "background-color:#dfd">    void setName(std::string name) {
+        _name = std::move(name);
+    }</span>
+
+    /// @return Le nom courant du niveau.
+<span style = "background-color:#dfd">    [[nodiscard]] const std::string&amp; name() const noexcept {
+        return _name;
+    }</span>
+
+    /// @return La grille de tuiles courante.
+<span style = "background-color:#dfd">    [[nodiscard]] const TileMap&amp; tileMap() const noexcept {
+        return _tileMap;
+    }</span>
+
+    /// @return La position d'entrÃ©e, si elle est posÃ©e.
+<span style = "background-color:#dfd">    [[nodiscard]] std::optional&lt;GridPosition&gt; entry() const noexcept {
+        return _entry;
+    }</span>
+
+    /// @return Les cases de collision forcÃ©es Ã  la main (`core::LevelData::forcedCollision`).
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;GridPosition&gt;&amp; forcedCollision() const noexcept {
+        return _forcedCollision;
+    }</span>
+
+    /// @return Le prochain identifiant d'entitÃ© que `placeEntity` donnera.
+<span style = "background-color:#dfd">    [[nodiscard]] int nextEntityId() const noexcept {
+        return _nextEntityId;
+    }</span>
+
+    /// @return Les couches de tuiles du niveau (`LOT-04`), dans leur ordre de superposition.
+    ///
+    /// Une entrÃ©e `Collision` ou `Legacy` y reflÃ¨te la grille racine telle que le fichier l'a
+    /// promue ; c'est `tileMap()` qui fait foi, et `toLevel()` l'y recopie. Les couches visuelles
+    /// s'Ã©ditent par les mutateurs de couches (`LOT-11`).
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;TileLayer&gt;&amp; layers() const noexcept {
+        return _layers;
+    }</span>
+
+    /// @return Les entitÃ©s placÃ©es sur la carte (`LOT-04`), Ã©ditÃ©es par les mutateurs d'entitÃ©s.
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;MapEntity&gt;&amp; entities() const noexcept {
+        return _entities;
+    }</span>
+
+    /**
+     * @brief Convertit le brouillon en `Level` **validÃ©** (`EX-EDIT-007`), en repassant par la
+     *        mÃªme validation que `LevelLoader` (sÃ©rialise puis recharge : aucune rÃ¨gle
+     *        dupliquÃ©e, `EX-EDIT-010`).
+     * @return Un rÃ©sultat rÃ©cupÃ©rable : niveau valide, ou message d'erreur exploitable si le
+     *         brouillon est incomplet (pas d'entrÃ©e, â¦).
+     */
+    [[nodiscard]] LevelLoadResult toLevel() const;
+
+    /**
+     * @brief Le brouillon en JSON, **sans validation** : ce que `toLevel()` relit.
+     *
+     * Sert Ã  la sauvegarde automatique (`LOT-EDITOR-01`), qui doit garder un brouillon mÃªme
+     * incomplet (sans entrÃ©e, par exemple).
+     */
+    [[nodiscard]] std::string toJson() const;
+
+private:
+    LevelDraft(std::string name, TileMap tileMap);
+
+    /// Logique de `paintTile`, sans `pushUndo()` : rÃ©utilisÃ©e cellule par cellule par
+    /// `paintRegion` pour n'empiler qu'un seul snapshot par opÃ©ration de bloc.
+    void paintTileInternal(int column, int row, TileType type);
+
+    /// Vrai si @p index dÃ©signe une couche visuelle de `_layers`.
+    [[nodiscard]] bool isVisualLayerIndex(std::size_t index) const noexcept;
+
+    /// Vrai si @p index dÃ©signe une entitÃ© de `_entities`.
+<span style = "background-color:#dfd">    [[nodiscard]] bool isEntityIndex(std::size_t index) const noexcept {
+        return index &lt; _entities.size();
+    }</span>
+
+    /// Logique de `setEntry`, sans `pushUndo()`.
+    void setEntryInternal(int column, int row);
+
+    /// Ãtat complet du brouillon, hors historique (utilisÃ© pour les snapshots undo/redo).
+    struct State {
+        std::string name;
+        TileMap tileMap;
+        std::optional&lt;GridPosition&gt; entry;
+        std::vector&lt;TileLayer&gt; layers;
+        std::vector&lt;MapEntity&gt; entities;
+        std::vector&lt;GridPosition&gt; forcedCollision;
+        PropertyMap properties;
+        std::uint64_t revision = 0;
+    };
+
+    /// Capture l'Ã©tat courant (pour empiler dans l'historique undo/redo).
+    [[nodiscard]] State snapshot() const;
+
+    /// Restitue un Ã©tat capturÃ© prÃ©cÃ©demment.
+    void restore(State state);
+
+    /// Empile l'Ã©tat courant sur la pile d'annulation ; Ã  appeler avant toute mutation
+    /// undoable. Une nouvelle mutation invalide toujours la branche de refaire, oublie le pas le
+    /// plus ancien au-delÃ  de `UNDO_HISTORY_LIMIT` et donne au contenu une rÃ©vision neuve.
+    void pushUndo();
+
+    /// Vrai si peindre @p type en (@p column, @p row) changerait la carte.
+    [[nodiscard]] bool paintChanges(int column, int row, TileType type) const;
+
+    /// Vrai si la carte a une couche visuelle : sa collision se dÃ©duit alors de ses couches.
+    [[nodiscard]] bool derivesCollision() const noexcept;
+
+    /// RedÃ©duit la collision de @p cells, hors cases forcÃ©es et hors entrÃ©e (voir l'en-tÃªte).
+    void followCollision(const std::vector&lt;GridPosition&gt;&amp; cells);
+
+    /// AprÃ¨s une peinture de la grille de collision : force chaque case de @p cells qui s'Ã©carte
+    /// de la dÃ©duction, libÃ¨re celle qui s'y accorde.
+    void updateForcing(const std::vector&lt;GridPosition&gt;&amp; cells);
+
+    /// Retire de la couche @p index la piÃ¨ce ancrÃ©e en @p anchor, type de l'ancre compris ; ajoute
+    /// ses cases Ã  @p touched.
+    void removePieceInternal(std::size_t index, GridPosition anchor,
+                             std::vector&lt;GridPosition&gt;&amp; touched);
+
+    /// Logique de `placePiece`, sans `pushUndo()` ; ajoute les cases touchÃ©es Ã  @p touched.
+    void placePieceInternal(std::size_t index, GridPosition anchor, const std::string&amp; piece,
+                            TileType type, std::vector&lt;GridPosition&gt;&amp; touched);
+
+    /// Vrai si l'emprise de @p piece ancrÃ©e en @p anchor tient dans la carte.
+    [[nodiscard]] bool pieceFits(GridPosition anchor, std::string_view piece) const noexcept;
+
+    std::string _name;
+    TileMap _tileMap;
+    std::optional&lt;GridPosition&gt; _entry;
+    std::vector&lt;TileLayer&gt; _layers;
+    std::vector&lt;MapEntity&gt; _entities;
+    std::vector&lt;GridPosition&gt; _forcedCollision;
+    /// Compteur d'identifiants : hors des instantanÃ©s, il ne recule jamais (dÃ©cision D8).
+<span style = "background-color:#dfd">    int _nextEntityId = 1;</span>
+    /// Base et planche d'une variante (dÃ©cision D12) : ni peintes ni dÃ©faites, recopiÃ©es.
+    std::string _base;
+    std::string _scene;
+    /// PropriÃ©tÃ©s de la carte (`LOT-EDITOR-09`) : rÃ©gion, ambiance, clÃ©s gardÃ©es. DÃ©faites avec
+    /// le reste â les changer est un pas d'annulation.
+    PropertyMap _properties;
+    /// Manifeste des piÃ¨ces du lieu, partagÃ© : copier un brouillon ne le recopie pas.
+    std::shared_ptr&lt;const ScenePieceManifest&gt; _manifest;
+    std::vector&lt;State&gt; _undoHistory;
+    std::vector&lt;State&gt; _redoHistory;
+<span style = "background-color:#dfd">    std::uint64_t _revision = 0;</span>
+    /// DerniÃ¨re rÃ©vision donnÃ©e : jamais rÃ©employÃ©e, mÃªme aprÃ¨s un `undo()`.
+<span style = "background-color:#dfd">    std::uint64_t _lastRevision = 0;</span>
+    /// Profondeur des gestes ouverts (`beginGesture`).
+<span style = "background-color:#dfd">    int _gestureDepth = 0;</span>
+    /// Le geste ouvert a dÃ©jÃ  empilÃ© son pas d'annulation.
+<span style = "background-color:#dfd">    bool _gesturePushed = false;</span>
+};
+
+/// @brief Un geste ouvert le temps d'une portÃ©e (`LevelDraft::beginGesture`).
+class GestureScope {
+public:
+<span style = "background-color:#dfd">    explicit GestureScope(LevelDraft&amp; draft) noexcept : _draft(draft) {
+        _draft.beginGesture();
+    }
+    ~GestureScope() {
+        _draft.endGesture();
+    }</span>
+    GestureScope(const GestureScope&amp;) = delete;
+    GestureScope&amp; operator=(const GestureScope&amp;) = delete;
+    GestureScope(GestureScope&amp;&amp;) = delete;
+    GestureScope&amp; operator=(GestureScope&amp;&amp;) = delete;
+
+private:
+    LevelDraft&amp; _draft;
+};
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

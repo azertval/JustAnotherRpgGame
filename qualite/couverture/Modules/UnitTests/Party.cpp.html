@@ -77,7 +77,7 @@ constexpr int SANS_GARDE_DE_VERSION = 0;
     if (_members.empty()) {</span>
 <span style = "background-color:#fdd">        return PartyChange::NotMember;</span>
     }
-<span style = "background-color:#dfd">    std::rotate(_members.begin(), std::next(_members.begin()), _members.end());
+<span style = "background-color:#dfd">    std::ranges::rotate(_members, std::next(_members.begin()));
     return PartyChange::Done;
 }</span>
 

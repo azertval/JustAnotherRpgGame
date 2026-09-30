@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MapFormat.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;cstddef&gt;
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/Level.h"
+#include "Core/Resources/ScenePieceManifest.h"
+#include "HMI/Graphics/PlaceAppearance.h"
+
+/**
+ * @file Editor/Logic/MapFormat.h
+ * @brief La garde du format de carte v4 : la **migration** d'une carte et le **contrÃ´le** de toutes
+ *        (`LOT-EDITOR-12`, constat A12, `EX-EDIT-062`). Logique pure, sans fenÃªtre.
+ *
+ * Ce que `LevelEditor --migrate` et `LevelEditor --check` appellent (`runMapCommand`), et ce que
+ * les tests appellent directement. Les messages sont en anglais, comme toute l'IHM de l'Ã©diteur.
+ *
+ * ## La migration
+ *
+ * Une carte se convertit par un acte explicite, jamais par l'effet de bord d'un enregistrement
+ * (rÃ¨gle 1 de la feuille de route). Migrer une carte, c'est :
+ *
+ * 1. la lire â le chargeur range dÃ©jÃ  les assignations `"texture"` d'une v3 comme piÃ¨ces du dÃ©cor ;
+ * 2. **nommer la piÃ¨ce** de chaque case de couche qui n'en nomme pas, par la table d'apparence du
+ *    lieu : ce qu'on voyait est dÃ©sormais Ã©crit, et le type ne garde que son sens de rÃ¨gle (D3) ;
+ * 3. donner un **identifiant** Ã  chaque entitÃ© qui n'en a pas (D8) ;
+ * 4. **dÃ©duire la collision** (`core::deriveCollision`) : partout oÃ¹ la grille Ã©crite s'accorde
+ *    avec la dÃ©duction, elle en prend la valeur ; ailleurs, elle garde la sienne et la case devient
+ *    **forcÃ©e** (D10). Le jeu ne voit donc aucune diffÃ©rence ;
+ * 5. l'Ã©crire en v4 canonique.
+ *
+ * ## Le contrÃ´le
+ *
+ * Pour chaque carte de `Levels/` : version courante, Ã©criture canonique (charger puis Ã©crire rend
+ * le mÃªme fichier), rÃ©fÃ©rences (portails, points d'arrivÃ©e, zones de combat), piÃ¨ces prÃ©sentes au
+ * manifeste, collision Ã©gale Ã  la dÃ©duction hors des cases forcÃ©es, identifiants d'entitÃ©. Les
+ * avertissements ne font pas Ã©chouer : rÃ©serve de hauteur non nulle, piÃ¨ce citÃ©e par un ancien nom,
+ * gÃªne et abri pas encore jouÃ©s, case forcÃ©e inutile, piÃ¨ces larges qui se recouvrent.
+ *
+ * Puis le **contenu** (`LOT-EDITOR-07`, `ContentCheck.h`) : rÃ©fÃ©rences des entitÃ©s, terrain des
+ * rencontres, atteignabilitÃ©, portails sans retour, points d'arrivÃ©e orphelins, clÃ©s de traduction.
+ */
+
+namespace hmi {
+
+/// @brief Ce que le lieu d'une carte apporte : son catalogue rÃ©solu et sa table, s'ils existent.
+struct PlaceAssets {
+    /// Le catalogue rÃ©solu du lieu : ses piÃ¨ces et celles de ses niveaux communs (`LOT-124`).
+    std::optional&lt;core::ScenePieceManifest&gt; manifest;
+    std::optional&lt;PlaceAppearance&gt; appearance;
+    /// Pourquoi le catalogue manque, vide s'il est lÃ .
+    std::string manifestError;
+};
+
+/// @return Le catalogue rÃ©solu et la table du lieu @p place, lus sous `&lt;dataRoot&gt;/Assets/`
+///         (`core::ScenePieceManifest::resolve`, `hmi::PlaceAppearance::loadForPlace`).
+[[nodiscard]] PlaceAssets loadPlaceAssets(const std::filesystem::path&amp; dataRoot,
+                                          std::string_view place);
+
+/// @return Les lieux qu'une carte peut prendre, triÃ©s : l'arbre des lieux (`core::scenePlaces`,
+///         `LOT-124`).
+[[nodiscard]] std::vector&lt;std::string&gt; scenePlaces(const std::filesystem::path&amp; dataRoot);
+
+/// @return Les fichiers de carte de `&lt;dataRoot&gt;/Levels`, sous-dossiers compris, triÃ©s â sans les
+///         sÃ©quences ni les annexes de l'Ã©diteur.
+[[nodiscard]] std::vector&lt;std::filesystem::path&gt; mapFiles(const std::filesystem::path&amp; dataRoot);
+
+/// @brief GravitÃ© d'un constat du contrÃ´le.
+enum class MapCheckSeverity {
+    Error,
+    Warning,
+};
+
+/// @brief Un constat du contrÃ´le, sur une carte, et parfois sur une case.
+struct MapCheckFinding {
+    MapCheckSeverity severity = MapCheckSeverity::Error;
+    std::string mapId{};
+    std::optional&lt;core::GridPosition&gt; cell{};
+    std::string message{};
+    /// L'entitÃ© en cause, par son `id`, vide si le constat n'en vise aucune : le panneau
+    /// Â« Problems Â» la sÃ©lectionne (`LOT-EDITOR-07`).
+    std::string entityId{};
+
+    [[nodiscard]] bool operator==(const MapCheckFinding&amp;) const = default;
+};
+
+/// @return Le constat en une ligne : `capital/martpart (12, 3): error: â¦`.
+[[nodiscard]] std::string formatFinding(const MapCheckFinding&amp; finding);
+
+struct ContentContext;
+
+/**
+ * @brief ContrÃ´le une carte, lue depuis son fichier : son format, puis son contenu.
+ * @param mapId    Son identifiant (`capital/martpart`), pour les messages.
+ * @param file     Son fichier.
+ * @param dataRoot La racine des donnÃ©es (`Source/Elements`), oÃ¹ vivent les planches.
+ * @param context  Ce contre quoi le contenu se contrÃ´le (`hmi::loadContentContext`).
+ */
+[[nodiscard]] std::vector&lt;MapCheckFinding&gt; checkMapFile(std::string_view mapId,
+                                                        const std::filesystem::path&amp; file,
+                                                        const std::filesystem::path&amp; dataRoot,
+                                                        const ContentContext&amp; context);
+
+/// @brief Comme ci-dessus, le contexte Ã©tant lu sous @p dataRoot pour cette seule carte.
+[[nodiscard]] std::vector&lt;MapCheckFinding&gt; checkMapFile(std::string_view mapId,
+                                                        const std::filesystem::path&amp; file,
+                                                        const std::filesystem::path&amp; dataRoot);
+
+/// @brief Le bilan du contrÃ´le de toutes les cartes.
+struct MapCheckReport {
+    std::size_t maps = 0;
+    std::vector&lt;MapCheckFinding&gt; findings;
+
+    [[nodiscard]] std::size_t count(MapCheckSeverity severity) const;
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const {
+        return count(MapCheckSeverity::Error) == 0;
+    }</span>
+};
+
+/**
+ * @brief ContrÃ´le toutes les cartes de `&lt;dataRoot&gt;/Levels`, sous-dossiers compris, puis les
+ *        rÃ©fÃ©rences entre elles.
+ */
+[[nodiscard]] MapCheckReport checkAllMaps(const std::filesystem::path&amp; dataRoot);
+
+/// @brief Ce que la migration d'une carte a produit.
+struct MapMigration {
+    /// Le texte v4 canonique, vide en cas d'Ã©chec.
+    std::string text;
+    /// Message d'Ã©chec, vide en cas de succÃ¨s.
+    std::string error;
+    /// PiÃ¨ces nommÃ©es d'aprÃ¨s la table du lieu.
+    std::size_t namedPieces = 0;
+    /// Identifiants donnÃ©s.
+    std::size_t newIds = 0;
+    /// Cases forcÃ©es ajoutÃ©es, lÃ  oÃ¹ la grille Ã©crite s'Ã©carte de la dÃ©duction.
+    std::size_t newForcedCells = 0;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const {
+        return error.empty();
+    }</span>
+};
+
+/**
+ * @brief Migre une carte chargÃ©e (Ã©tapes 2 Ã  5 de l'en-tÃªte).
+ * @param level  La carte, toutes versions confondues.
+ * @param assets Le manifeste et la table de son lieu (vides pour une carte sans lieu).
+ */
+[[nodiscard]] MapMigration migrateLevel(const core::Level&amp; level, const PlaceAssets&amp; assets);
+
+/// @brief Lit @p file et le migre, le lieu Ã©tant cherchÃ© sous @p dataRoot.
+[[nodiscard]] MapMigration migrateMapFile(const std::filesystem::path&amp; file,
+                                          const std::filesystem::path&amp; dataRoot);
+
+/**
+ * @brief L'entrÃ©e sans fenÃªtre de l'Ã©diteur (dÃ©cision D9) : `--check`, `--migrate` et `--apply`
+ *        (`--render`, qui peint, vit du cÃ´tÃ© de l'IHM : `hmi::runRenderCommand`).
+ *
+ * - `--data &lt;racine&gt;` : la racine des donnÃ©es, `Source/Elements` ou le dossier de l'exÃ©cutable
+ *   (dÃ©faut : @p defaultDataRoot) ;
+ * - `--check` : contrÃ´le toutes les cartes ; sortie 1 Ã  la premiÃ¨re erreur, 0 sinon ;
+ * - `--migrate [carteâ¦]` : migre en place les cartes nommÃ©es (identifiant ou chemin), toutes Ã 
+ *   dÃ©faut ; `--output &lt;fichier&gt;` Ã©crit ailleurs une carte unique ;
+ * - `--apply &lt;gestes.json&gt; [carte]` : rejoue les gestes du fichier sur la carte (celle que nomme le
+ *   fichier, Ã  dÃ©faut) et l'Ã©crit en place, ou dans `--output` ; un geste refusÃ© n'Ã©crit rien et
+ *   sort en 1 (`hmi::applyGestureFile`). Suivi de `--check`, il contrÃ´le ensuite toutes les cartes.
+ *
+ * @return Le code de sortie, ou `std::nullopt` si la ligne de commande ne demande aucune de ces
+ *         commandes â l'Ã©diteur ouvre alors sa fenÃªtre.
+ */
+[[nodiscard]] std::optional&lt;int&gt; runMapCommand(const std::vector&lt;std::string&gt;&amp; arguments,
+                                               const std::filesystem::path&amp; defaultDataRoot,
+                                               std::string&amp; output);
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EntityReferences.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/EntityReferences.h"
+
+#include &lt;algorithm&gt;
+#include &lt;fstream&gt;
+#include &lt;set&gt;
+#include &lt;system_error&gt;
+#include &lt;variant&gt;
+
+#include &lt;nlohmann/json.hpp&gt;
+
+#include "Core/Gameplay/Quest.h"
+#include "Core/Resources/ScenePlace.h"
+#include "Core/Rpg/Dialogue.h"
+#include "Core/Rpg/Inventory.h"
+
+namespace hmi {
+
+namespace {
+
+// Vrai si @p directory existe : les chargeurs du Core tolerent un dossier absent, mais certains le
+// journalisent comme une erreur -- l'editeur deploye sans catalogue n'en est pas une.
+<span style = "background-color:#dfd">[[nodiscard]] bool isDirectory(const std::filesystem::path&amp; directory) {
+    std::error_code error;
+    return std::filesystem::is_directory(directory, error);
+}</span>
+
+// Le manifeste JSON @p path, ou `null` s'il manque ou ne se lit pas : une figurine absente se
+// signale a l'entite qui la nomme, pas au chargement de l'editeur.
+<span style = "background-color:#dfd">[[nodiscard]] nlohmann::json readManifest(const std::filesystem::path&amp; path) {
+    std::ifstream file(path);
+    if (!file) {
+        return nullptr;</span>
+    }
+<span style = "background-color:#dfd">    return nlohmann::json::parse(file, nullptr, /*allow_exceptions=*/false);
+}</span>
+
+// Les figurines des deux ateliers : un PNJ par son slug, un monstre par son dossier.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; loadFigures(const std::filesystem::path&amp; assets) {
+    std::vector&lt;std::string&gt; figures;
+    const nlohmann::json npcs = readManifest(assets / "Npc" / "manifest.json");
+    if (npcs.is_object() &amp;&amp; npcs.contains("npcs") &amp;&amp; npcs.at("npcs").is_array()) {
+        for (const nlohmann::json&amp; slug : npcs.at("npcs")) {
+            if (slug.is_string()) {
+                figures.push_back(slug.get&lt;std::string&gt;());
+            }
+        }</span>
+    }
+<span style = "background-color:#dfd">    const nlohmann::json monsters = readManifest(assets / "Monsters" / "manifest.json");
+    if (monsters.is_object() &amp;&amp; monsters.contains("monsters") &amp;&amp;</span>
+        monsters.at("monsters").is_array()) {
+<span style = "background-color:#dfd">        for (const nlohmann::json&amp; monster : monsters.at("monsters")) {
+            if (monster.is_object() &amp;&amp; monster.contains("slug") &amp;&amp; monster.at("slug").is_string()) {
+                figures.push_back("Monsters/" + monster.at("slug").get&lt;std::string&gt;());
+            }
+        }</span>
+    }
+    // Les figurines du monde (`Common/Characters`, LOT-124) : celles que toute carte peut poser.
+<span style = "background-color:#dfd">    for (const auto&amp; [slug, directory] : core::resolveFigures(assets, {})) {
+        figures.push_back(slug);
+    }
+    std::ranges::sort(figures);
+    const auto [duplicates, last] = std::ranges::unique(figures);
+    figures.erase(duplicates, last);
+    return figures;
+}</span>
+
+// Les fiches d'un dossier de l'atlas, par le nom de leur fichier.
+<span style = "background-color:#dfd">[[nodiscard]] std::vector&lt;std::string&gt; fileStems(const std::filesystem::path&amp; directory) {
+    std::vector&lt;std::string&gt; stems;
+    std::error_code error;
+    for (const std::filesystem::directory_entry&amp; entry :
+         std::filesystem::directory_iterator(directory, error)) {
+        if (entry.path().extension() == ".json") {
+            stems.push_back(entry.path().stem().string());
+        }
+    }
+    std::ranges::sort(stems);
+    return stems;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::string entityRef(std::string_view mapId, std::string_view entityId) {
+    return std::string{mapId} + "#" + std::string{entityId};
+}</span>
+
+<span style = "background-color:#dfd">EditorReferences loadEditorReferences(const std::filesystem::path&amp; root) {
+    EditorReferences references;
+    if (const std::filesystem::path dialogues = root / "World" / "dialogues";
+        isDirectory(dialogues)) {
+        const core::DialogueCatalog loaded = core::loadDialogues(dialogues);
+        for (const core::DialogueGraph&amp; graph : loaded.dialogues) {
+            references.dialogues.push_back(graph.id);
+        }
+        std::ranges::sort(references.dialogues);
+    }</span>
+    // Les drapeaux que posent dialogues ET quetes (LOT-116) : un portail ou un PNJ qui en attend
+    // un autre ne s'ouvrirait ou ne paraitrait jamais.
+    {
+<span style = "background-color:#dfd">        const core::DialogueCatalog dialogues = core::loadDialogues(root / "World" / "dialogues");
+        const core::QuestCatalog quests = core::loadQuests(root / "World" / "quests");
+        const std::set&lt;std::string, std::less&lt;&gt;&gt; written = core::flagsWrittenBy(quests, dialogues);
+        references.flags.assign(written.begin(), written.end());
+        for (const core::Quest&amp; quest : quests.quests) {
+            references.declaredFlags.insert(references.declaredFlags.end(), quest.flags.begin(),</span>
+                                            quest.flags.end());
+<span style = "background-color:#dfd">        }
+    }
+    if (const std::filesystem::path locations = root / "World" / "locations";
+        isDirectory(locations)) {
+        references.locations = fileStems(locations);
+    }
+    if (const std::filesystem::path items = root / "Rpg" / "items"; isDirectory(items)) {
+        const auto loadedItems = core::loadItems(items);
+        for (const core::Item&amp; item : loadedItems.items) {
+            references.items.push_back(item.id);
+        }
+        std::ranges::sort(references.items);
+    }
+    references.assets = root / "Assets";
+    references.figures = loadFigures(references.assets);
+    if (const std::filesystem::path encounters = root / "Rpg" / "encounters";
+        isDirectory(encounters)) {
+        references.encounters = core::loadEncounters(encounters);
+    }
+    if (const std::filesystem::path creatures = root / "Rpg" / "creatures";
+        isDirectory(creatures)) {
+        references.bestiary = core::loadBestiary(creatures);
+    }
+    std::error_code absent;
+    if (const std::filesystem::path difficulty =</span>
+            root / "Rpg" / "rules" / "encounter-difficulty.json";
+<span style = "background-color:#dfd">        std::filesystem::is_regular_file(difficulty, absent)) {
+        references.difficulty = core::loadEncounterDifficultyRules(difficulty);
+    }
+    references.world = core::loadWorldGraph(root / "Levels");</span>
+    // Ce que posent les zones des cartes (LOT-126) : un PNJ peut attendre le drapeau qu'une zone
+    // pose, sans qu'aucun dialogue ne le pose.
+<span style = "background-color:#dfd">    std::set&lt;std::string, std::less&lt;&gt;&gt; flags(references.flags.begin(), references.flags.end());
+    for (const core::WorldMapNode&amp; map : references.world.maps) {
+        flags.insert(map.triggerFlags.begin(), map.triggerFlags.end());
+    }
+    references.flags.assign(flags.begin(), flags.end());
+    return references;
+}</span>
+
+core::EntityReferenceContext referenceContext(const EditorReferences&amp; references,
+                                              std::string_view editedMapId,
+                                              const std::vector&lt;core::MapEntity&gt;&amp; editedEntities,
+                                              std::string_view place,
+<span style = "background-color:#dfd">                                              const core::ScenePieceManifest* manifest) {
+    core::EntityReferenceContext context;
+    context.dialogues.insert(references.dialogues.begin(), references.dialogues.end());
+    for (const core::Encounter&amp; encounter : references.encounters.encounters) {
+        context.encounters.insert(encounter.id);
+    }
+    context.figures.insert(references.figures.begin(), references.figures.end());</span>
+    // Les figurines du lieu et de ses niveaux communs (LOT-124) : un PNJ nommÃ© d'une zone ne se
+    // propose qu'aux cartes qui en descendent.
+<span style = "background-color:#dfd">    if (!place.empty() &amp;&amp; !references.assets.empty()) {
+        for (const auto&amp; [slug, directory] : core::resolveFigures(references.assets, place)) {
+            context.figures.insert(slug);
+        }</span>
+    }
+<span style = "background-color:#dfd">    context.flags.insert(references.flags.begin(), references.flags.end());
+    for (const core::QuestFlag&amp; flag : references.declaredFlags) {
+        context.flagValues[flag.id].insert(flag.values.begin(), flag.values.end());
+    }</span>
+    // Les entites du brouillon posent leurs drapeaux avant d'etre enregistrees.
+<span style = "background-color:#dfd">    context.flags.merge(core::flagsSetByEntities(editedEntities));
+    if (manifest != nullptr) {
+        for (const core::ScenePiece&amp; piece : manifest-&gt;pieces()) {
+            context.pieces.insert(piece.name);
+            context.pieces.insert(piece.aliases.begin(), piece.aliases.end());
+        }</span>
+    }
+<span style = "background-color:#dfd">    context.locations.insert(references.locations.begin(), references.locations.end());
+    context.items.insert(references.items.begin(), references.items.end());
+    for (const core::WorldMapNode&amp; map : references.world.maps) {
+        context.arrivalPointsByMap[map.mapId].insert(map.arrivalPoints.begin(),</span>
+                                                     map.arrivalPoints.end());
+        // La carte editee se lit dans le brouillon, pas dans son fichier : un identifiant retire
+        // depuis l'ouverture n'est plus citable.
+<span style = "background-color:#dfd">        if (map.mapId == editedMapId) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const std::string&amp; id : map.entityIds) {
+            context.entityRefs.insert(entityRef(map.mapId, id));
+        }
+    }
+    if (!editedMapId.empty()) {
+        context.arrivalPointsByMap[std::string{editedMapId}] =</span>
+            core::arrivalPointNames(editedEntities);
+<span style = "background-color:#dfd">        for (const core::MapEntity&amp; entity : editedEntities) {
+            if (!entity.id.empty()) {
+                context.entityRefs.insert(entityRef(editedMapId, entity.id));</span>
+            }
+<span style = "background-color:#dfd">        }</span>
+    }
+<span style = "background-color:#dfd">    return context;
+}</span>
+
+std::vector&lt;std::string&gt; entityChoices(const core::EntityPropertySpec&amp; spec,
+                                       const core::MapEntity&amp; entity,
+<span style = "background-color:#dfd">                                       const core::EntityReferenceContext&amp; context) {
+    std::vector&lt;std::string&gt; choices;
+    if (spec.kind != core::EntityPropertyKind::Choice) {</span>
+<span style = "background-color:#fdd">        return choices;</span>
+    }
+<span style = "background-color:#dfd">    switch (spec.source) {</span>
+        case core::EntityChoiceSource::Fixed:
+<span style = "background-color:#dfd">            for (const std::string_view choice : spec.fixedChoices) {
+                choices.emplace_back(choice);
+            }
+            break;</span>
+        case core::EntityChoiceSource::Dialogues:
+<span style = "background-color:#fdd">            choices.assign(context.dialogues.begin(), context.dialogues.end());
+            break;</span>
+        case core::EntityChoiceSource::Encounters:
+<span style = "background-color:#fdd">            choices.assign(context.encounters.begin(), context.encounters.end());
+            break;</span>
+        case core::EntityChoiceSource::Maps:
+<span style = "background-color:#dfd">            for (const auto&amp; [mapId, points] : context.arrivalPointsByMap) {</span>
+                static_cast&lt;void&gt;(points);
+<span style = "background-color:#dfd">                choices.push_back(mapId);
+            }
+            break;</span>
+        case core::EntityChoiceSource::Figures:
+<span style = "background-color:#fdd">            choices.assign(context.figures.begin(), context.figures.end());
+            break;</span>
+        case core::EntityChoiceSource::Flags:
+<span style = "background-color:#fdd">            choices.assign(context.flags.begin(), context.flags.end());
+            break;</span>
+        case core::EntityChoiceSource::Locations:
+<span style = "background-color:#fdd">            choices.assign(context.locations.begin(), context.locations.end());
+            break;</span>
+        case core::EntityChoiceSource::Items:
+<span style = "background-color:#fdd">            choices.assign(context.items.begin(), context.items.end());
+            break;</span>
+        case core::EntityChoiceSource::EntityRefs:
+<span style = "background-color:#fdd">            choices.assign(context.entityRefs.begin(), context.entityRefs.end());
+            break;</span>
+        case core::EntityChoiceSource::WrittenFlags:
+<span style = "background-color:#fdd">            choices.assign(context.flags.begin(), context.flags.end());
+            for (const auto&amp; [flag, values] : context.flagValues) {
+                if (!context.flags.contains(flag)) {
+                    choices.push_back(flag);</span>
+                }
+<span style = "background-color:#fdd">            }
+            break;</span>
+        case core::EntityChoiceSource::Pieces:
+<span style = "background-color:#fdd">            choices.assign(context.pieces.begin(), context.pieces.end());
+            break;</span>
+        case core::EntityChoiceSource::FlagValues: {
+<span style = "background-color:#dfd">            const auto flag = entity.properties.find(std::string{spec.relatedKey});
+            const auto* const name =</span>
+                flag != entity.properties.end() ? std::get_if&lt;std::string&gt;(&amp;flag-&gt;second) : nullptr;
+<span style = "background-color:#dfd">            if (name == nullptr) {</span>
+<span style = "background-color:#fdd">                break;</span>
+            }
+<span style = "background-color:#dfd">            if (const auto values = context.flagValues.find(*name);
+                values != context.flagValues.end()) {
+                choices.assign(values-&gt;second.begin(), values-&gt;second.end());
+            }
+            break;</span>
+<span style = "background-color:#fdd">        }</span>
+        case core::EntityChoiceSource::ArrivalPoints: {
+<span style = "background-color:#dfd">            const auto target = entity.properties.find(std::string{</span>
+                spec.relatedKey.empty() ? core::PORTAL_TARGET_MAP_PROPERTY : spec.relatedKey});
+<span style = "background-color:#dfd">            if (target == entity.properties.end()) {</span>
+<span style = "background-color:#fdd">                break;</span>
+            }
+<span style = "background-color:#dfd">            const auto* const mapId = std::get_if&lt;std::string&gt;(&amp;target-&gt;second);
+            if (mapId == nullptr) {</span>
+<span style = "background-color:#fdd">                break;</span>
+            }
+<span style = "background-color:#dfd">            if (const auto points = context.arrivalPointsByMap.find(*mapId);
+                points != context.arrivalPointsByMap.end()) {
+                choices.assign(points-&gt;second.begin(), points-&gt;second.end());
+            }
+            break;</span>
+<span style = "background-color:#fdd">        }</span>
+    }
+<span style = "background-color:#dfd">    std::ranges::sort(choices);
+    return choices;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

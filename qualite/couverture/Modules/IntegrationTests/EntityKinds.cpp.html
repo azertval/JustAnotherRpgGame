@@ -255,7 +255,7 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
 <span style = "background-color:#dfd">    return communes;
 }</span>
 
-<span style = "background-color:#fdd">std::vector&lt;const EntityPropertySpec*&gt; inspectedProperties(const EntityKind&amp; kind) {
+<span style = "background-color:#dfd">std::vector&lt;const EntityPropertySpec*&gt; inspectedProperties(const EntityKind&amp; kind) {
     std::vector&lt;const EntityPropertySpec*&gt; specs;
     specs.reserve(kind.properties.size() + commonEntityProperties().size());
     for (const EntityPropertySpec&amp; spec : kind.properties) {
@@ -265,7 +265,7 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
         if (kind.find(spec.key) == nullptr) {
             specs.push_back(&amp;spec);</span>
         }
-<span style = "background-color:#fdd">    }
+<span style = "background-color:#dfd">    }
     return specs;
 }</span>
 

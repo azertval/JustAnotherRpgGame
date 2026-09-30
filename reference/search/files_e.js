@@ -8,8 +8,12 @@ var searchData=
   ['quadrecorder_2eh_5',['QuadRecorder.h',['../QuadRecorder_8h.html',1,'']]],
   ['quest_2ecpp_6',['Quest.cpp',['../Quest_8cpp.html',1,'']]],
   ['quest_2eh_7',['Quest.h',['../Quest_8h.html',1,'']]],
-  ['questjournalmodel_2ecpp_8',['QuestJournalModel.cpp',['../QuestJournalModel_8cpp.html',1,'']]],
-  ['questjournalmodel_2eh_9',['QuestJournalModel.h',['../QuestJournalModel_8h.html',1,'']]],
-  ['questjournalscreen_2ecpp_10',['QuestJournalScreen.cpp',['../QuestJournalScreen_8cpp.html',1,'']]],
-  ['questjournalscreen_2eh_11',['QuestJournalScreen.h',['../QuestJournalScreen_8h.html',1,'']]]
+  ['questediting_2ecpp_8',['QuestEditing.cpp',['../QuestEditing_8cpp.html',1,'']]],
+  ['questediting_2eh_9',['QuestEditing.h',['../QuestEditing_8h.html',1,'']]],
+  ['questjournalmodel_2ecpp_10',['QuestJournalModel.cpp',['../QuestJournalModel_8cpp.html',1,'']]],
+  ['questjournalmodel_2eh_11',['QuestJournalModel.h',['../QuestJournalModel_8h.html',1,'']]],
+  ['questjournalscreen_2ecpp_12',['QuestJournalScreen.cpp',['../QuestJournalScreen_8cpp.html',1,'']]],
+  ['questjournalscreen_2eh_13',['QuestJournalScreen.h',['../QuestJournalScreen_8h.html',1,'']]],
+  ['questspanel_2ecpp_14',['QuestsPanel.cpp',['../QuestsPanel_8cpp.html',1,'']]],
+  ['questspanel_2eh_15',['QuestsPanel.h',['../QuestsPanel_8h.html',1,'']]]
 ];

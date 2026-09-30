@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>WorldGraph.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/World/WorldGraph.h"
+
+#include &lt;algorithm&gt;
+#include &lt;functional&gt;
+#include &lt;optional&gt;
+#include &lt;set&gt;
+#include &lt;system_error&gt;
+#include &lt;utility&gt;
+#include &lt;variant&gt;
+
+#include "Core/Levels/LevelLoader.h"
+#include "Core/World/EntityKinds.h"
+
+namespace core {
+
+namespace {
+
+// Une propriete ne vaut que si elle est du texte : un entier la ou l'on attend un nom de carte est
+// une saisie fautive, et la traiter comme vide la fait signaler plutot que deviner.
+<span style = "background-color:#dfd">[[nodiscard]] std::string texteDe(const MapEntity&amp; entite, std::string_view cle) {
+    const auto trouvee = entite.properties.find(std::string{cle});
+    if (trouvee == entite.properties.end()) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    const std::string* texte = std::get_if&lt;std::string&gt;(&amp;trouvee-&gt;second);
+    return texte != nullptr ? *texte : std::string{};
+}</span>
+
+// Le premier cas qui s'applique l'emporte : une cible illisible passe avant une arrivee vide, car
+// on ne peut rien dire des points d'arrivee d'une carte qu'on n'a pas lue.
+<span style = "background-color:#dfd">[[nodiscard]] PortalLinkStatus statutDu(const WorldGraph&amp; graphe, const WorldPortalLink&amp; portail) {
+    if (portail.toMap.empty()) {
+        return PortalLinkStatus::MissingTarget;</span>
+    }
+<span style = "background-color:#dfd">    const WorldMapNode* cible = graphe.find(portail.toMap);
+    if (cible == nullptr) {
+        return PortalLinkStatus::UnknownMap;</span>
+    }
+<span style = "background-color:#dfd">    if (!cible-&gt;loadError.empty()) {
+        return PortalLinkStatus::TargetUnreadable;</span>
+    }
+<span style = "background-color:#dfd">    if (portail.arrival.empty()) {
+        return PortalLinkStatus::MissingArrival;</span>
+    }
+<span style = "background-color:#dfd">    if (!std::ranges::binary_search(cible-&gt;arrivalPoints, portail.arrival)) {
+        return PortalLinkStatus::UnknownArrival;</span>
+    }
+<span style = "background-color:#dfd">    return PortalLinkStatus::Resolved;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">const WorldMapNode* WorldGraph::find(std::string_view mapId) const {
+    const auto trouvee = std::ranges::lower_bound(</span>
+        maps, mapId, std::less&lt;&gt;{},
+<span style = "background-color:#dfd">        [](const WorldMapNode&amp; carte) -&gt; std::string_view { return carte.mapId; });
+    return trouvee != maps.end() &amp;&amp; trouvee-&gt;mapId == mapId ? &amp;*trouvee : nullptr;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;const WorldPortalLink*&gt; WorldGraph::portalsFrom(std::string_view mapId) const {
+    std::vector&lt;const WorldPortalLink*&gt; trouves;
+    for (const WorldPortalLink&amp; portail : portals) {
+        if (portail.fromMap == mapId) {
+            trouves.push_back(&amp;portail);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return trouves;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;const WorldPortalLink*&gt; WorldGraph::portalsTo(std::string_view mapId) const {
+    std::vector&lt;const WorldPortalLink*&gt; trouves;
+    for (const WorldPortalLink&amp; portail : portals) {
+        if (portail.toMap == mapId) {
+            trouves.push_back(&amp;portail);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return trouves;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; WorldGraph::unreachableFrom(std::string_view fromMapId) const {
+    std::set&lt;std::string, std::less&lt;&gt;&gt; vues;
+    if (find(fromMapId) != nullptr) {
+        std::vector&lt;std::string&gt; pile{std::string{fromMapId}};
+        vues.insert(std::string{fromMapId});
+        while (!pile.empty()) {
+            const std::string courante = std::move(pile.back());
+            pile.pop_back();
+            for (const WorldPortalLink* portail : portalsFrom(courante)) {</span>
+                // Seul un portail resolu mene quelque part : un portail casse ne rend pas sa cible
+                // joignable, meme si elle existe.
+<span style = "background-color:#dfd">                if (portail-&gt;status == PortalLinkStatus::Resolved &amp;&amp;</span>
+                    vues.insert(portail-&gt;toMap).second) {
+<span style = "background-color:#dfd">                    pile.push_back(portail-&gt;toMap);
+                }
+            }
+        }
+    }
+    std::vector&lt;std::string&gt; isolees;
+    for (const WorldMapNode&amp; carte : maps) {
+        if (!vues.contains(carte.mapId)) {
+            isolees.push_back(carte.mapId);</span>
+        }
+<span style = "background-color:#dfd">    }
+    return isolees;
+}</span>
+
+namespace {
+
+// Le noeud d'une carte : ses points d'arrivee, ses identifiants d'entite et les drapeaux que ses
+// entites posent, chacun trie et sans doublon.
+<span style = "background-color:#dfd">[[nodiscard]] WorldMapNode noeudDe(const WorldMapInput&amp; entree) {
+    std::set&lt;std::string, std::less&lt;&gt;&gt; points;
+    std::set&lt;std::string, std::less&lt;&gt;&gt; identifiants;
+    const std::set&lt;std::string, std::less&lt;&gt;&gt; drapeaux = flagsSetByEntities(entree.entities);
+    for (const MapEntity&amp; entite : entree.entities) {
+        if (!entite.id.empty()) {
+            identifiants.insert(entite.id);</span>
+        }
+<span style = "background-color:#dfd">        if (entite.type != SPAWN_POINT_ENTITY_TYPE) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        std::string nom = texteDe(entite, SPAWN_POINT_NAME_PROPERTY);
+        if (!nom.empty()) {
+            points.insert(std::move(nom));</span>
+        }
+<span style = "background-color:#dfd">    }
+    return WorldMapNode{</span>
+        .mapId = entree.mapId,
+        .name = entree.name,
+        .arrivalPoints = std::vector&lt;std::string&gt;(points.begin(), points.end()),
+        .loadError = entree.loadError,
+        .entityIds = std::vector&lt;std::string&gt;(identifiants.begin(), identifiants.end()),
+        .triggerFlags = std::vector&lt;std::string&gt;(drapeaux.begin(), drapeaux.end())};
+<span style = "background-color:#dfd">}</span>
+
+// L'arete qu'une entite trace : un portail, ou le transfert d'une zone ; rien pour le reste, ni
+// pour une zone sans transfert (elle n'est pas une arete).
+[[nodiscard]] std::optional&lt;WorldPortalLink&gt; areteDe(const WorldGraph&amp; graphe,
+                                                     const WorldMapInput&amp; entree,
+<span style = "background-color:#dfd">                                                     const MapEntity&amp; entite) {
+    if (entite.type == PORTAL_ENTITY_TYPE) {
+        WorldPortalLink portail{.fromMap = entree.mapId,
+                                .position = entite.position,
+                                .toMap = texteDe(entite, PORTAL_TARGET_MAP_PROPERTY),
+                                .arrival = texteDe(entite, PORTAL_ARRIVAL_PROPERTY)};</span>
+        // Condamne, il est voulu tel : ni erreur, ni chemin (LOT-126).
+<span style = "background-color:#dfd">        portail.status =</span>
+            isSealedPortal(entite) ? PortalLinkStatus::Sealed : statutDu(graphe, portail);
+<span style = "background-color:#dfd">        return portail;</span>
+    }
+<span style = "background-color:#dfd">    if (entite.type == ZONE_ENTITY_TYPE) {
+        WorldPortalLink transfert{.fromMap = entree.mapId,
+                                  .position = entite.position,
+                                  .toMap = texteDe(entite, ZONE_TRIGGER_MAP_PROPERTY),
+                                  .arrival = texteDe(entite, ZONE_TRIGGER_ARRIVAL_PROPERTY),
+                                  .kind = WorldLinkKind::Transfer};
+        if (transfert.toMap.empty()) {
+            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">        transfert.status = statutDu(graphe, transfert);
+        return transfert;</span>
+    }
+<span style = "background-color:#dfd">    return std::nullopt;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">WorldGraph buildWorldGraph(std::vector&lt;WorldMapInput&gt; maps) {</span>
+    // Tri stable : l'ordre de lecture d'un dossier n'est pas garanti, celui du graphe doit l'etre.
+<span style = "background-color:#dfd">    std::ranges::stable_sort(maps, std::less&lt;&gt;{}, &amp;WorldMapInput::mapId);</span>
+
+<span style = "background-color:#dfd">    WorldGraph graphe;
+    graphe.maps.reserve(maps.size());
+    for (const WorldMapInput&amp; entree : maps) {
+        graphe.maps.push_back(noeudDe(entree));
+    }</span>
+
+    // Deux passes : un portail peut viser une carte triee apres la sienne.
+<span style = "background-color:#dfd">    for (const WorldMapInput&amp; entree : maps) {
+        for (const MapEntity&amp; entite : entree.entities) {
+            if (std::optional&lt;WorldPortalLink&gt; arete = areteDe(graphe, entree, entite)) {
+                graphe.portals.push_back(std::move(*arete));
+            }
+        }
+    }
+    return graphe;
+}</span>
+
+<span style = "background-color:#dfd">std::string mapIdOf(const std::filesystem::path&amp; levelsDir, const std::filesystem::path&amp; file) {
+    std::filesystem::path relatif = file.lexically_relative(levelsDir);
+    relatif.replace_extension();
+    return relatif.generic_string();
+}</span>
+
+<span style = "background-color:#dfd">WorldGraph loadWorldGraph(const std::filesystem::path&amp; levelsDir) {
+    std::vector&lt;WorldMapInput&gt; cartes;
+    std::error_code code;
+    if (!std::filesystem::is_directory(levelsDir, code)) {
+        return buildWorldGraph(std::move(cartes));</span>
+    }
+    // Recursif : les quartiers de la Capitale vivent dans `capital/` (`LOT-96`), et leur
+    // identifiant de carte est leur chemin relatif, sans extension, en barres obliques --
+    // `capital/martpart`, ce que le chargeur du jeu (`WorldTravel::directoryLoader`) resout.
+<span style = "background-color:#dfd">    for (auto iterateur = std::filesystem::recursive_directory_iterator(levelsDir, code);
+         !code &amp;&amp; iterateur != std::filesystem::recursive_directory_iterator();
+         iterateur.increment(code)) {
+        const std::filesystem::directory_entry&amp; fichier = *iterateur;
+        const std::filesystem::path&amp; chemin = fichier.path();</span>
+        // Memes exclusions que le navigateur de cartes (`hmi::LevelFileOperations::list`) : les
+        // scripts `sequence-*.json` et les annexes de l'editeur (`*.editor.json`) vivent a cote
+        // des niveaux sans en etre.
+        if (!fichier.is_regular_file(code) || chemin.extension() != ".json" ||
+<span style = "background-color:#dfd">            chemin.filename().string().starts_with("sequence-") ||</span>
+            chemin.filename().string().ends_with(".editor.json")) {
+<span style = "background-color:#dfd">            continue;</span>
+        }
+        WorldMapInput carte{
+<span style = "background-color:#dfd">            .mapId = mapIdOf(levelsDir, chemin), .name = {}, .entities = {}, .loadError = {}};
+        LevelLoadResult lu = LevelLoader::loadFromFile(chemin);
+        if (lu.ok()) {
+            carte.name = lu.level-&gt;name();
+            carte.entities = lu.level-&gt;entities();
+        } else {
+            carte.loadError = std::move(lu.error);</span>
+        }
+<span style = "background-color:#dfd">        cartes.push_back(std::move(carte));
+    }
+    return buildWorldGraph(std::move(cartes));
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

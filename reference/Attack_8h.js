@@ -26,7 +26,7 @@ var Attack_8h =
       [ "core::TargetCheck::OutOfReach", "namespacecore.html#a1c2689aacd9707ef3d8c556e9f2bf840ab3e0302fd4814646ffa6de166cddc38a", null ],
       [ "core::TargetCheck::TotalCover", "namespacecore.html#a1c2689aacd9707ef3d8c556e9f2bf840a62da737bbf89f486e90024dc099e2bc4", null ]
     ] ],
-    [ "core::abilityLabel", "namespacecore.html#a6492cf00497924279c0f171546cbed96", null ],
+    [ "core::abilityLabel", "namespacecore.html#a8d858ac8be11dbddc54bcbface031cf8", null ],
     [ "core::attackCircumstances", "namespacecore.html#adb9ad640862c6901d33d96c181f4c9e0", null ],
     [ "core::attacksFor", "namespacecore.html#a9f790045523fda834167bed21d202dd3", null ],
     [ "core::checkTarget", "namespacecore.html#a7365293652d3b9980a5d196d0ada9400", null ],

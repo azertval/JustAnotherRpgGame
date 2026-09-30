@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>BrushGesture.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/BrushGesture.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cstdint&gt;
+#include &lt;cstdlib&gt;
+#include &lt;optional&gt;
+#include &lt;utility&gt;
+
+#include "Core/Levels/LevelDraft.h"
+#include "Core/Levels/TileLayer.h"
+#include "Core/Levels/TileTypeName.h"
+#include "Editor/Logic/PieceCatalog.h"
+
+namespace hmi {
+
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] bool hasVisualLayers(const core::LevelDraft&amp; draft) {
+    return std::ranges::any_of(draft.layers(), [](const core::TileLayer&amp; layer) {
+        return core::isVisualLayerKind(layer.kind);
+    });
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] BrushResult refused(std::string reason) {
+    return BrushResult{.changed = false, .refusal = std::move(reason)};
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] BrushResult changedIf(bool changed) {
+    return BrushResult{.changed = changed, .refusal = {}};
+}</span>
+
+[[nodiscard]] bool locked(const core::LevelDraft&amp; draft, const LayerViewState&amp; view,
+<span style = "background-color:#dfd">                          LayerSlot slot) {
+    return view.display(slot, hasVisualLayers(draft)).locked;
+}</span>
+
+constexpr const char* LOCKED_LAYER = "The active layer is locked.";
+
+BrushResult applyPiece(core::LevelDraft&amp; draft, const CanvasBrush&amp; brush, LayerSlot active,
+                       const LayerViewState&amp; view, core::GridPosition first,
+<span style = "background-color:#dfd">                       core::GridPosition last, bool continuing) {
+    const std::optional&lt;std::size_t&gt; layer = pieceTargetLayer(draft.layers(), brush.floor, active);
+    if (!layer) {
+        return refused(brush.floor ? "This map has no ground layer: add one in the Layers panel."</span>
+                                   : "This map has no decor layer: add one in the Layers panel.");
+    }
+<span style = "background-color:#dfd">    if (locked(draft, view, *layer)) {
+        return refused(brush.floor ? "The ground layer is locked." : "The decor layer is locked.");</span>
+    }
+<span style = "background-color:#dfd">    if (first == last) {
+        if (continuing) {
+            const std::optional&lt;core::GridPosition&gt; anchor = draft.pieceAnchorAt(*layer, first);
+            if (anchor &amp;&amp;</span>
+                draft.layers()[*layer].pieceAt(anchor-&gt;column, anchor-&gt;row) == brush.piece) {
+<span style = "background-color:#dfd">                return changedIf(false);</span>
+            }
+        }
+<span style = "background-color:#dfd">        const bool fits =</span>
+            draft.tileMap().inBounds(first.column, first.row) &amp;&amp;
+            draft.tileMap().inBounds(first.column + draft.pieceFootprint(brush.piece).columns - 1,
+                                     first.row + draft.pieceFootprint(brush.piece).rows - 1);
+<span style = "background-color:#dfd">        if (!fits) {</span>
+<span style = "background-color:#fdd">            return refused("\"" + brush.piece + "\" does not fit here: it would overflow the map.");</span>
+        }
+<span style = "background-color:#dfd">        return changedIf(draft.placePiece(*layer, first, brush.piece, brush.type));</span>
+    }
+<span style = "background-color:#dfd">    return changedIf(draft.placePieceRegion(*layer, first, last, brush.piece, brush.type));
+}</span>
+
+BrushResult applyEraser(core::LevelDraft&amp; draft, LayerSlot active, const LayerViewState&amp; view,
+<span style = "background-color:#dfd">                        core::GridPosition first, core::GridPosition last) {
+    if (locked(draft, view, active)) {</span>
+<span style = "background-color:#fdd">        return refused(LOCKED_LAYER);</span>
+    }
+<span style = "background-color:#dfd">    if (active) {
+        return changedIf(draft.eraseLayerRegion(*active, first, last));</span>
+    }
+<span style = "background-color:#dfd">    const int minColumn = std::min(first.column, last.column);
+    const int maxColumn = std::max(first.column, last.column);
+    const int minRow = std::min(first.row, last.row);
+    const int maxRow = std::max(first.row, last.row);
+    if (!hasVisualLayers(draft)) {</span>
+        // Une grille unique vaut image et collision : la gommer, c'est la vider.
+<span style = "background-color:#fdd">        const std::vector&lt;std::vector&lt;core::TileType&gt;&gt; block(</span>
+            static_cast&lt;std::size_t&gt;(maxRow - minRow + 1),
+            std::vector&lt;core::TileType&gt;(static_cast&lt;std::size_t&gt;(maxColumn - minColumn + 1),
+                                        core::TileType::Empty));
+<span style = "background-color:#fdd">        const std::uint64_t before = draft.revision();
+        draft.paintRegion(minColumn, minRow, block);
+        return changedIf(draft.revision() != before);</span>
+    }
+    // Sur la collision d'une carte Ã  couches, la gomme retire le forÃ§age.
+<span style = "background-color:#dfd">    std::vector&lt;core::GridPosition&gt; cells;
+    for (int row = minRow; row &lt;= maxRow; ++row) {
+        for (int column = minColumn; column &lt;= maxColumn; ++column) {
+            cells.push_back({.column = column, .row = row});
+        }
+    }
+    return changedIf(draft.unforceCollision(cells));
+}</span>
+
+}  // namespace
+
+BrushResult paintTypeBlock(core::LevelDraft&amp; draft, LayerSlot active, const LayerViewState&amp; view,
+                           core::GridPosition origin,
+<span style = "background-color:#dfd">                           const std::vector&lt;std::vector&lt;core::TileType&gt;&gt;&amp; block) {
+    if (locked(draft, view, active)) {</span>
+<span style = "background-color:#fdd">        return refused(LOCKED_LAYER);</span>
+    }
+<span style = "background-color:#dfd">    const std::uint64_t before = draft.revision();
+    if (!active) {
+        draft.paintRegion(origin.column, origin.row, block);
+        return changedIf(draft.revision() != before);</span>
+    }
+<span style = "background-color:#dfd">    for (const std::vector&lt;core::TileType&gt;&amp; row : block) {
+        for (const core::TileType type : row) {
+            if (!core::isVisualLayerTileType(type)) {
+                return refused("\"" + std::string{core::tileTypeName(type)} +</span>
+                               "\" cannot be painted on a visual layer: the entry lives in the "
+                               "collision grid.");
+            }
+<span style = "background-color:#fdd">        }
+    }
+    const bool single = block.size() == 1 &amp;&amp; block.front().size() == 1;
+    return changedIf(</span>
+        single ? draft.paintLayerTile(*active, origin.column, origin.row, block.front().front())
+               : draft.paintLayerRegion(*active, origin.column, origin.row, block));
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::string brushLabel(const CanvasBrush&amp; brush) {
+    switch (brush.kind) {</span>
+        case BrushKind::Piece:
+<span style = "background-color:#dfd">            return brush.piece;</span>
+        case BrushKind::Eraser:
+<span style = "background-color:#dfd">            return "Eraser";</span>
+        case BrushKind::Type:
+            break;
+    }
+<span style = "background-color:#dfd">    return std::string{core::tileTypeName(brush.type)};
+}</span>
+
+BrushResult applyBrush(core::LevelDraft&amp; draft, const CanvasBrush&amp; brush, LayerSlot active,
+                       const LayerViewState&amp; view, core::GridPosition first,
+<span style = "background-color:#dfd">                       core::GridPosition last, bool continuing) {
+    switch (brush.kind) {</span>
+        case BrushKind::Piece:
+<span style = "background-color:#dfd">            return applyPiece(draft, brush, active, view, first, last, continuing);</span>
+        case BrushKind::Eraser:
+<span style = "background-color:#dfd">            return applyEraser(draft, active, view, first, last);</span>
+        case BrushKind::Type:
+            break;
+    }
+<span style = "background-color:#dfd">    const core::GridPosition origin{.column = std::min(first.column, last.column),
+                                    .row = std::min(first.row, last.row)};
+    const std::vector&lt;std::vector&lt;core::TileType&gt;&gt; block(</span>
+        static_cast&lt;std::size_t&gt;(std::abs(last.row - first.row) + 1),
+        std::vector&lt;core::TileType&gt;(
+            static_cast&lt;std::size_t&gt;(std::abs(last.column - first.column) + 1), brush.type));
+<span style = "background-color:#dfd">    return paintTypeBlock(draft, active, view, origin, block);
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

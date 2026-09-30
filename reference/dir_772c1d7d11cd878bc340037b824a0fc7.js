@@ -59,6 +59,8 @@ var dir_772c1d7d11cd878bc340037b824a0fc7 =
     [ "PanelFocus.h", "PanelFocus_8h.html", "PanelFocus_8h" ],
     [ "PieceCatalog.cpp", "PieceCatalog_8cpp.html", "PieceCatalog_8cpp" ],
     [ "PieceCatalog.h", "PieceCatalog_8h.html", "PieceCatalog_8h" ],
+    [ "QuestEditing.cpp", "QuestEditing_8cpp.html", "QuestEditing_8cpp" ],
+    [ "QuestEditing.h", "QuestEditing_8h.html", "QuestEditing_8h" ],
     [ "Stamps.cpp", "Stamps_8cpp.html", "Stamps_8cpp" ],
     [ "Stamps.h", "Stamps_8h.html", "Stamps_8h" ],
     [ "ThumbnailGeometry.cpp", "ThumbnailGeometry_8cpp.html", "ThumbnailGeometry_8cpp" ],

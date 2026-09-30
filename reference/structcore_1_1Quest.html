@@ -156,6 +156,12 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a7bff5b336a624ba78f09568a4bb0cb9e" id="r_a7bff5b336a624ba78f09568a4bb0cb9e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a7bff5b336a624ba78f09568a4bb0cb9e">id</a></td></tr>
+<tr class="memitem:a88993f5aaee5f85fbc903ca91a45fac5" id="r_a88993f5aaee5f85fbc903ca91a45fac5"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a88993f5aaee5f85fbc903ca91a45fac5">name</a></td></tr>
+<tr class="memdesc:a88993f5aaee5f85fbc903ca91a45fac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nom de travail de l'auteur ; le joueur lit le titre du journal (<span class="tt"><a class="el" href="namespacecore.html#a5d7f2790b523d35912bf71153755498b" title="quest.&lt;quête&gt;.title — le titre de la quête dans le journal.">questTitleKey</a></span>).  <br /></td></tr>
+<tr class="memitem:a0e574caf15ac4eaabd4004f1500bfb91" id="r_a0e574caf15ac4eaabd4004f1500bfb91"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0e574caf15ac4eaabd4004f1500bfb91">source</a></td></tr>
+<tr class="memdesc:a0e574caf15ac4eaabd4004f1500bfb91"><td class="mdescLeft">&#160;</td><td class="mdescRight">D'où vient la quête (<span class="tt">original</span>, un livre…), comme pour un dialogue.  <br /></td></tr>
+<tr class="memitem:a7960b67ad9d4e7a1ee2ee42b6a2f27bd" id="r_a7960b67ad9d4e7a1ee2ee42b6a2f27bd"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a7960b67ad9d4e7a1ee2ee42b6a2f27bd">status</a></td></tr>
+<tr class="memdesc:a7960b67ad9d4e7a1ee2ee42b6a2f27bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'état de l'entrée (<span class="tt">common.schema.json</span>), s'il est dit : gardé tel quel à la réécriture.  <br /></td></tr>
 <tr class="memitem:a3730399cb94bad76c8122b0c5ae88549" id="r_a3730399cb94bad76c8122b0c5ae88549"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">QuestFlag</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3730399cb94bad76c8122b0c5ae88549">flags</a></td></tr>
 <tr class="memitem:af918042b01f106ca73e9738293b24877" id="r_af918042b01f106ca73e9738293b24877"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1QuestStep.html">QuestStep</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af918042b01f106ca73e9738293b24877">steps</a></td></tr>
 </table>
@@ -215,6 +221,54 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a88993f5aaee5f85fbc903ca91a45fac5" name="a88993f5aaee5f85fbc903ca91a45fac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88993f5aaee5f85fbc903ca91a45fac5">&#9670;&#160;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Quest::name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le nom de travail de l'auteur ; le joueur lit le titre du journal (<span class="tt"><a class="el" href="namespacecore.html#a5d7f2790b523d35912bf71153755498b" title="quest.&lt;quête&gt;.title — le titre de la quête dans le journal.">questTitleKey</a></span>). </p>
+
+</div>
+</div>
+<a id="a0e574caf15ac4eaabd4004f1500bfb91" name="a0e574caf15ac4eaabd4004f1500bfb91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e574caf15ac4eaabd4004f1500bfb91">&#9670;&#160;</a></span>source</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Quest::source</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>D'où vient la quête (<span class="tt">original</span>, un livre…), comme pour un dialogue. </p>
+
+</div>
+</div>
+<a id="a7960b67ad9d4e7a1ee2ee42b6a2f27bd" name="a7960b67ad9d4e7a1ee2ee42b6a2f27bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7960b67ad9d4e7a1ee2ee42b6a2f27bd">&#9670;&#160;</a></span>status</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::Quest::status</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'état de l'entrée (<span class="tt">common.schema.json</span>), s'il est dit : gardé tel quel à la réécriture. </p>
 
 </div>
 </div>

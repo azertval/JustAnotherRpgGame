@@ -129,18 +129,15 @@ bool isFlankedFrom(const CombatState&amp; combat, CombatantId attacker, GridPosi
     if (attaquant == nullptr) {</span>
 <span style = "background-color:#fdd">        return false;</span>
     }
-<span style = "background-color:#dfd">    for (const CombatantId autre : combat.combatants()) {
+<span style = "background-color:#dfd">    return std::ranges::any_of(combat.combatants(), [&amp;](const CombatantId autre) {
         const Combatant* allie = combat.find(autre);</span>
         if (autre == attacker || autre == target || allie == nullptr ||
 <span style = "background-color:#dfd">            allie-&gt;status != CombatantStatus::Standing ||</span>
             allie-&gt;profile.side != attaquant-&gt;profile.side) {
-<span style = "background-color:#dfd">            continue;</span>
+<span style = "background-color:#dfd">            return false;</span>
         }
-<span style = "background-color:#dfd">        if (gridDistance(combat, autre, target) == 1) {
-            return true;
-        }
-    }
-    return false;
+<span style = "background-color:#dfd">        return gridDistance(combat, autre, target) == 1;
+    });
 }</span>
 
 }  // namespace core</pre>

@@ -1,0 +1,784 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>GestureScript.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/GestureScript.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cstdint&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;stdexcept&gt;
+#include &lt;utility&gt;
+
+#include "Core/Levels/LevelDraft.h"
+#include "Core/Levels/LevelLoader.h"
+#include "Core/Levels/LevelWriter.h"
+#include "Core/Levels/TileLayer.h"
+#include "Core/Levels/TileTypeName.h"
+#include "Core/Resources/ScenePieceManifest.h"
+#include "Core/World/EntityKinds.h"
+#include "Editor/Logic/EntityGesture.h"
+#include "Editor/Logic/EntityShapes.h"
+#include "Editor/Logic/EntityVerdicts.h"
+#include "Editor/Logic/PieceCatalog.h"
+#include "Editor/Logic/Stamps.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
+
+namespace hmi {
+
+namespace {
+
+// Un geste refusÃ© : le message remonte jusqu'Ã  applyGestureScript, qui y ajoute le geste. Ne
+// quitte jamais ce fichier (EX-NFR-040).
+class GestureRefused : public std::runtime_error {
+public:
+    using std::runtime_error::runtime_error;
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string cellText(core::GridPosition cell) {
+    return "[" + std::to_string(cell.column) + ", " + std::to_string(cell.row) + "]";
+}</span>
+
+// Rejoue un geste : lit ses champs, arme, puis fait ce que la main ferait.
+class GesturePlayer {
+public:
+    GesturePlayer(core::LevelDraft&amp; draft, EditorSidecar&amp; sidecar, const PlaceAssets&amp; assets,
+                  std::filesystem::path dataRoot, GestureScriptResult&amp; result)
+<span style = "background-color:#dfd">        : _draft(draft),
+          _sidecar(sidecar),
+          _assets(assets),
+          _dataRoot(std::move(dataRoot)),
+          _result(result) {
+        _state.view.sync(_draft.layers().size());
+    }</span>
+
+<span style = "background-color:#dfd">    void play(const nlohmann::json&amp; gesture) {
+        if (!gesture.is_object()) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused("a gesture is a JSON object");</span>
+        }
+<span style = "background-color:#dfd">        _gesture = &amp;gesture;
+        arm();
+        if (!gesture.contains("tool")) {
+            return;  // un geste qui ne fait qu'armer.</span>
+        }
+<span style = "background-color:#dfd">        const std::string tool = text("tool");
+        if (tool == "paint" || tool == "eraser") {
+            stroke(tool == "eraser");
+        } else if (tool == "rectangle") {
+            report(applyRectangleStroke(_draft, currentBrush(), _state.activeLayer, _state.view,</span>
+                                        cell("from"), cell("to"), strokeContext()));
+<span style = "background-color:#dfd">        } else if (tool == "line") {
+            report(applyStroke(_draft, currentBrush(), _state.activeLayer, _state.view,</span>
+                               lineCells(cell("from"), cell("to")), false, strokeContext()));
+<span style = "background-color:#dfd">        } else if (tool == "bucket") {
+            report(applyBucket(_draft, currentBrush(), _state.activeLayer, _state.view, cell("at"),</span>
+                               strokeContext()));
+<span style = "background-color:#dfd">        } else if (tool == "pipette") {
+            pick(cell("at"));
+        } else if (tool == "selection") {
+            select();
+        } else if (tool == "paste") {
+            paste();
+        } else if (tool == "entity") {
+            entity();
+        } else if (tool == "shape") {
+            shape();
+        } else if (tool == "measure") {
+            const core::GridPosition from = cell("from");
+            const core::GridPosition to = cell("to");
+            _result.log.push_back("measure " + cellText(from) + " â " + cellText(to) + ": " +</span>
+                                  measureLabel(measureBetween(from, to)));
+<span style = "background-color:#dfd">        } else if (tool == "inspect") {
+            inspect();
+        } else if (tool == "note") {
+            _result.notesChanged =</span>
+                setNote(_sidecar, cell("at"), text("text")) || _result.notesChanged;
+<span style = "background-color:#dfd">        } else {
+            throw GestureRefused("unknown tool \"" + tool + "\"");</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+private:
+    // --- Lecture des champs ------------------------------------------------------------------
+
+<span style = "background-color:#dfd">    [[nodiscard]] const nlohmann::json* field(const char* name) const {
+        const auto found = _gesture-&gt;find(name);
+        return found == _gesture-&gt;end() ? nullptr : &amp;*found;
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] const nlohmann::json&amp; required(const char* name) const {
+        const nlohmann::json* value = field(name);
+        if (value == nullptr) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused(std::string{"\""} + name + "\" is missing");</span>
+        }
+<span style = "background-color:#dfd">        return *value;
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] std::string text(const char* name) const {
+        const nlohmann::json&amp; value = required(name);
+        if (!value.is_string()) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused(std::string{"\""} + name + "\" must be a string");</span>
+        }
+<span style = "background-color:#dfd">        return value.get&lt;std::string&gt;();
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool flag(const char* name) const {
+        const nlohmann::json* value = field(name);
+        if (value == nullptr) {
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        if (!value-&gt;is_boolean()) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused(std::string{"\""} + name + "\" must be true or false");</span>
+        }
+<span style = "background-color:#dfd">        return value-&gt;get&lt;bool&gt;();
+    }</span>
+
+    // Une case [colonne, ligne], qui doit Ãªtre dans la carte : la main ne clique pas Ã  cÃ´tÃ©.
+<span style = "background-color:#dfd">    [[nodiscard]] core::GridPosition cellOf(const nlohmann::json&amp; value, const char* name) const {
+        if (!value.is_array() || value.size() != 2 || !value[0].is_number_integer() ||</span>
+            !value[1].is_number_integer()) {
+<span style = "background-color:#fdd">            throw GestureRefused(std::string{"\""} + name + "\" must be a cell [column, row]");</span>
+        }
+<span style = "background-color:#dfd">        const core::GridPosition position{.column = value[0].get&lt;int&gt;(),
+                                          .row = value[1].get&lt;int&gt;()};
+        if (!_draft.tileMap().inBounds(position.column, position.row)) {
+            throw GestureRefused("cell " + cellText(position) + " is outside the map (" +</span>
+                                 std::to_string(_draft.tileMap().width()) + " Ã " +
+                                 std::to_string(_draft.tileMap().height()) + ")");
+        }
+<span style = "background-color:#dfd">        return position;
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] core::GridPosition cell(const char* name) const {
+        return cellOf(required(name), name);
+    }</span>
+
+    // Le trajet d'un glisser : `path`, ou la seule case `at`.
+<span style = "background-color:#dfd">    [[nodiscard]] std::vector&lt;core::GridPosition&gt; path() const {
+        std::vector&lt;core::GridPosition&gt; cells;
+        if (const nlohmann::json* value = field("path")) {
+            if (!value-&gt;is_array() || value-&gt;empty()) {</span>
+<span style = "background-color:#fdd">                throw GestureRefused("\"path\" must be a non-empty list of cells");</span>
+            }
+<span style = "background-color:#dfd">            for (const nlohmann::json&amp; item : *value) {
+                cells.push_back(cellOf(item, "path"));
+            }
+            return cells;</span>
+        }
+<span style = "background-color:#dfd">        cells.push_back(cell("at"));
+        return cells;
+    }</span>
+
+    // --- Armer -------------------------------------------------------------------------------
+
+<span style = "background-color:#dfd">    [[nodiscard]] LayerSlot layerNamed(const std::string&amp; name) const {
+        if (name == "collision") {
+            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">        const std::vector&lt;core::TileLayer&gt;&amp; layers = _draft.layers();
+        for (std::size_t index = 0; index &lt; layers.size(); ++index) {
+            if (layers[index].name == name &amp;&amp; core::isVisualLayerKind(layers[index].kind)) {
+                return index;</span>
+            }
+<span style = "background-color:#dfd">        }</span>
+<span style = "background-color:#fdd">        throw GestureRefused("no visual layer named \"" + name + "\"");</span>
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    void lockLayers(const char* name, bool locked) {
+        const nlohmann::json* value = field(name);
+        if (value == nullptr) {
+            return;</span>
+        }
+<span style = "background-color:#dfd">        if (!value-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused(std::string{"\""} + name + "\" must be a list of layer names");</span>
+        }
+<span style = "background-color:#dfd">        for (const nlohmann::json&amp; layer : *value) {
+            if (!layer.is_string()) {</span>
+<span style = "background-color:#fdd">                throw GestureRefused(std::string{"\""} + name + "\" must be a list of layer names");</span>
+            }
+<span style = "background-color:#dfd">            _state.view.setLocked(layerNamed(layer.get&lt;std::string&gt;()), locked);
+        }
+    }</span>
+
+    // Ce que fait EditorViewport::setActiveLayer : une sÃ©lection d'une autre couche tromperait le
+    // collage.
+<span style = "background-color:#dfd">    void setActiveLayer(LayerSlot slot) {
+        const LayerSlot valid = validActiveLayer(_draft.layers(), slot);
+        if (valid != _state.activeLayer) {
+            _state.activeLayer = valid;
+            _state.selection.reset();</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    // Ce que fait EditorViewport::setActivePiece : la piÃ¨ce va sur sa couche, montrÃ©e active.
+<span style = "background-color:#dfd">    void armPiece(const std::string&amp; piece, bool floor) {
+        _state.brush = pieceBrush(appearance(), piece, floor);
+        if (const std::optional&lt;std::size_t&gt; layer =
+                pieceTargetLayer(_draft.layers(), floor, _state.activeLayer)) {
+            setActiveLayer(*layer);</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    void arm() {
+        lockLayers("lock", true);
+        lockLayers("unlock", false);
+        if (field("layer") != nullptr) {
+            setActiveLayer(layerNamed(text("layer")));</span>
+        }
+<span style = "background-color:#dfd">        if (const nlohmann::json* mirror = field("mirror")) {
+            if (mirror-&gt;is_boolean() &amp;&amp; !mirror-&gt;get&lt;bool&gt;()) {
+                _state.mirror.reset();
+            } else {
+                _state.mirror = mirrorAxisThrough(cellOf(*mirror, "mirror"));</span>
+            }
+        }
+<span style = "background-color:#dfd">        armBrush();
+        armEntities();
+        armPrefab();
+        if (const nlohmann::json* level = field("partyLevel")) {
+            if (!level-&gt;is_number_integer() || level-&gt;get&lt;int&gt;() &lt; 1 || level-&gt;get&lt;int&gt;() &gt; 20) {</span>
+<span style = "background-color:#fdd">                throw GestureRefused("\"partyLevel\" must be a level from 1 to 20");</span>
+            }
+<span style = "background-color:#dfd">            _partyLevel = level-&gt;get&lt;int&gt;();</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    // Ce que le canevas ecrit a cote de l'entite selectionnee (`hmi::entityVerdicts`, LOT-143),
+    // dans le compte rendu : une ligne par ligne du verdict, precedee de l'identifiant.
+<span style = "background-color:#dfd">    void inspect() {
+        if (!_state.selectedEntity) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused("no entity selected to inspect");</span>
+        }
+<span style = "background-color:#dfd">        if (!_references) {
+            _references = _dataRoot.empty() ? EditorReferences{} : loadEditorReferences(_dataRoot);</span>
+        }
+<span style = "background-color:#dfd">        const std::vector&lt;core::MapEntity&gt;&amp; entities = _draft.entities();
+        const std::string id = entities[*_state.selectedEntity].id;
+        const std::vector&lt;EntityVerdict&gt; verdicts =</span>
+            entityVerdicts(_draft.tileMap(), entities, verdictContext(*_references, _partyLevel));
+<span style = "background-color:#dfd">        const auto found =</span>
+            std::ranges::find(verdicts, *_state.selectedEntity, &amp;EntityVerdict::entityIndex);
+<span style = "background-color:#dfd">        if (found == verdicts.end()) {</span>
+<span style = "background-color:#fdd">            _result.log.push_back("inspect " + id + ": no verdict");
+            return;</span>
+        }
+<span style = "background-color:#dfd">        for (const std::string&amp; line : found-&gt;lines) {
+            _result.log.push_back("inspect " + id + (found-&gt;ok ? ": " : " [refused]: ") + line);
+        }
+    }</span>
+
+    // La bibliotheque du lieu (LOT-EDITOR-08) : un prefabrique devient le tampon a poser.
+<span style = "background-color:#dfd">    void armPrefab() {
+        if (field("prefab") == nullptr) {
+            return;</span>
+        }
+<span style = "background-color:#fdd">        const std::string name = text("prefab");
+        if (_dataRoot.empty()) {
+            throw GestureRefused("no data root: a prefab is read under &lt;data&gt;/Editor/Prefabs");</span>
+        }
+<span style = "background-color:#fdd">        const std::string place = scenePlaceOf(_draft.layers());
+        std::string error;
+        std::optional&lt;Stamp&gt; stamp = readPrefab(_dataRoot, place, name, error);
+        if (!stamp) {
+            throw GestureRefused("prefab \"" + name + "\": " + error);</span>
+        }
+<span style = "background-color:#fdd">        _state.clipboard = std::move(*stamp);
+    }</span>
+
+    // La palette : un type, ou une piÃ¨ce de la planche.
+<span style = "background-color:#dfd">    void armBrush() {
+        if (field("type") != nullptr) {
+            const std::string name = text("type");
+            const std::optional&lt;core::TileType&gt; type = core::parseTileType(name);
+            if (!type) {</span>
+<span style = "background-color:#fdd">                throw GestureRefused("unknown tile type \"" + name + "\"");</span>
+            }
+<span style = "background-color:#dfd">            _state.brush =</span>
+                CanvasBrush{.kind = BrushKind::Type, .type = *type, .piece = {}, .floor = false};
+<span style = "background-color:#dfd">        }
+        if (field("piece") != nullptr) {
+            const std::string name = text("piece");
+            const core::ScenePiece* piece =</span>
+                _assets.manifest ? _assets.manifest-&gt;find(name) : nullptr;
+<span style = "background-color:#dfd">            if (piece == nullptr &amp;&amp; field("floor") == nullptr) {
+                throw GestureRefused("piece \"" + name +</span>
+                                     "\" is not on the sheet of this place: say \"floor\" to "
+                                     "place it anyway");
+            }
+<span style = "background-color:#dfd">            const bool floor = field("floor") != nullptr</span>
+                                   ? flag("floor")
+                                   : piece-&gt;pieceClass == core::ScenePieceClass::Floor;
+<span style = "background-color:#dfd">            armPiece(name, floor);
+        }
+    }</span>
+
+    // L'outil EntitÃ© : la famille Ã  poser, la sÃ©lection.
+<span style = "background-color:#dfd">    void armEntities() {
+        if (field("kind") != nullptr) {
+            const std::string kind = text("kind");
+            if (!kind.empty() &amp;&amp; core::findEntityKind(kind) == nullptr) {</span>
+<span style = "background-color:#fdd">                throw GestureRefused("unknown entity kind \"" + kind + "\"");</span>
+            }
+<span style = "background-color:#dfd">            _state.kindToPlace = kind;
+        }
+        if (const nlohmann::json* select = field("select")) {
+            if (!select-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">                throw GestureRefused("\"select\" must be a list of entity ids");</span>
+            }
+<span style = "background-color:#dfd">            std::vector&lt;std::size_t&gt; indices;
+            for (const nlohmann::json&amp; id : *select) {
+                if (!id.is_string()) {</span>
+<span style = "background-color:#fdd">                    throw GestureRefused("\"select\" must be a list of entity ids");</span>
+                }
+<span style = "background-color:#dfd">                indices.push_back(entityIndex(id.get&lt;std::string&gt;()));
+            }
+            const std::optional&lt;std::size_t&gt; primary =</span>
+                indices.empty() ? std::nullopt : std::make_optional(indices.back());
+<span style = "background-color:#dfd">            setEntitySelection(std::move(indices), primary);
+        }
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t entityIndex(const std::string&amp; id) const {
+        const std::vector&lt;core::MapEntity&gt;&amp; entities = _draft.entities();
+        for (std::size_t index = 0; index &lt; entities.size(); ++index) {
+            if (entities[index].id == id) {
+                return index;</span>
+            }
+<span style = "background-color:#dfd">        }
+        throw GestureRefused("no entity with id \"" + id + "\"");
+    }</span>
+
+    // Ce que fait EditorViewport::setEntitySelection.
+<span style = "background-color:#dfd">    void setEntitySelection(std::vector&lt;std::size_t&gt; indices, std::optional&lt;std::size_t&gt; primary) {
+        std::ranges::sort(indices);
+        const auto [first, last] = std::ranges::unique(indices);
+        indices.erase(first, last);
+        if (!primary || !std::ranges::binary_search(indices, *primary)) {
+            primary = indices.empty() ? std::nullopt : std::make_optional(indices.back());</span>
+        }
+<span style = "background-color:#dfd">        _state.selectedEntities = std::move(indices);
+        _state.selectedEntity = primary;
+    }</span>
+
+    // --- Les outils du peintre ---------------------------------------------------------------
+
+<span style = "background-color:#dfd">    [[nodiscard]] const PlaceAppearance* appearance() const {
+        return _assets.appearance ? &amp;*_assets.appearance : nullptr;
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] StrokeContext strokeContext() const {
+        return StrokeContext{.mirror = _state.mirror, .appearance = appearance()};
+    }</span>
+
+    // Ce que fait EditorViewport::currentBrush, hors de la gomme.
+<span style = "background-color:#dfd">    [[nodiscard]] CanvasBrush currentBrush() const {
+        CanvasBrush brush = _state.brush;
+        if (brush.kind == BrushKind::Piece) {
+            brush.type = pieceCellType(appearance(), brush.piece, brush.floor);</span>
+        }
+<span style = "background-color:#dfd">        return brush;
+    }</span>
+
+<span style = "background-color:#dfd">    static void report(const BrushResult&amp; result) {
+        if (!result.changed &amp;&amp; !result.refusal.empty()) {
+            throw GestureRefused(result.refusal);</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    // Le pinceau ou la gomme, du clic au relÃ¢chement : un geste du brouillon ; l'appui sur la
+    // premiÃ¨re case, puis une case par mouvement, comme EditorViewport::paintAt.
+<span style = "background-color:#dfd">    void stroke(bool erase) {
+        const CanvasBrush brush =</span>
+            erase ? CanvasBrush{.kind = BrushKind::Eraser, .type = {}, .piece = {}, .floor = false}
+                  : currentBrush();
+<span style = "background-color:#dfd">        const std::vector&lt;core::GridPosition&gt; cells = path();
+        const core::GestureScope gesture(_draft);
+        bool continuing = false;
+        for (const core::GridPosition cell : cells) {
+            report(applyStroke(_draft, brush, _state.activeLayer, _state.view, {cell}, continuing,</span>
+                               strokeContext()));
+<span style = "background-color:#dfd">            continuing = true;
+        }
+    }</span>
+
+    // Ce que fait EditorViewport::pickAt.
+<span style = "background-color:#dfd">    void pick(core::GridPosition at) {
+        const std::optional&lt;PickedBrush&gt; picked =</span>
+            pickBrush(_draft, _state.activeLayer, at, appearance());
+<span style = "background-color:#dfd">        if (!picked) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused("nothing to pick at " + cellText(at));</span>
+        }
+<span style = "background-color:#dfd">        if (picked-&gt;brush.kind == BrushKind::Piece) {
+            armPiece(picked-&gt;brush.piece, picked-&gt;brush.floor);
+        } else {
+            _state.brush = picked-&gt;brush;
+            setActiveLayer(picked-&gt;layer);</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    [[nodiscard]] const core::TileMap&amp; activeLayerTiles() const {
+        if (_state.activeLayer &amp;&amp; *_state.activeLayer &lt; _draft.layers().size()) {
+            return _draft.layers()[*_state.activeLayer].tiles;
+        }
+        return _draft.tileMap();
+    }
+
+<span style = "background-color:#dfd">    void select() {
+        const core::GridPosition from = cell("from");
+        const core::GridPosition to = cell("to");
+        _state.selection =</span>
+            std::make_pair(core::GridPosition{.column = std::min(from.column, to.column),
+                                              .row = std::min(from.row, to.row)},
+                           core::GridPosition{.column = std::max(from.column, to.column),
+                                              .row = std::max(from.row, to.row)});
+<span style = "background-color:#dfd">        if (field("then") == nullptr) {</span>
+<span style = "background-color:#fdd">            return;</span>
+        }
+<span style = "background-color:#dfd">        const std::string then = text("then");
+        if (then == "copy") {</span>
+            // Le tampon entier (LOT-EDITOR-08) : couches, pieces, entites, cases forcees.
+<span style = "background-color:#dfd">            _state.clipboard = cutStamp(_draft, _state.selection-&gt;first, _state.selection-&gt;second);
+        } else if (then == "delete") {</span>
+            const CanvasBrush eraser{
+<span style = "background-color:#dfd">                .kind = BrushKind::Eraser, .type = {}, .piece = {}, .floor = false};
+            report(applyRectangleStroke(_draft, eraser, _state.activeLayer, _state.view,</span>
+                                        _state.selection-&gt;first, _state.selection-&gt;second,
+                                        StrokeContext{}));
+<span style = "background-color:#dfd">        } else {</span>
+<span style = "background-color:#fdd">            throw GestureRefused("a selection is followed by then: copy, or then: delete");</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    void paste() {
+        if (_state.clipboard.empty()) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused("nothing to paste: copy a selection, or arm a prefab, first");</span>
+        }
+<span style = "background-color:#dfd">        const Stamp stamp =</span>
+            flag("flip") ? mirrorStamp(_state.clipboard, manifest()) : _state.clipboard;
+<span style = "background-color:#dfd">        const StampPasteResult result = pasteStamp(_draft, stamp, cell("at"), _state.view);
+        if (!result.refusal.empty()) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused(result.refusal);</span>
+        }
+<span style = "background-color:#dfd">        if (!result.entities.empty()) {</span>
+<span style = "background-color:#fdd">            setEntitySelection(result.entities, result.entities.back());</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] const core::ScenePieceManifest* manifest() const {
+        return _assets.manifest ? &amp;*_assets.manifest : nullptr;
+    }</span>
+
+    // --- EntitÃ©s et formes -------------------------------------------------------------------
+
+    // Le glisser de l'outil EntitÃ© ou Forme, relÃ¢chÃ© en `to` (la case d'appui Ã  dÃ©faut).
+<span style = "background-color:#dfd">    void release(const EntityDrag&amp; drag, core::GridPosition at) {
+        const core::GridPosition to = field("to") != nullptr ? cell("to") : at;
+        const EntityDragResult result = dragEntities(</span>
+            drag, _draft.entities(), to, _draft.tileMap().width(), _draft.tileMap().height());
+<span style = "background-color:#dfd">        if (result.refused) {
+            throw GestureRefused("move refused: an entity would leave the map");</span>
+        }
+<span style = "background-color:#dfd">        const EntityDragApplied applied = applyEntityDrag(_draft, result);
+        if (applied.placed) {
+            setEntitySelection({*applied.placed}, *applied.placed);</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    // Ce que font EditorViewport::handleEntityPress puis handleEntityRelease.
+<span style = "background-color:#dfd">    void press(core::GridPosition at) {
+        const EntityGestureDecision decision = resolveEntityPress(</span>
+            _draft, at, _state.selectedEntities, _state.kindToPlace,
+            EntityPressModifiers{.force = flag("ctrl"), .toggle = flag("shift")});
+<span style = "background-color:#dfd">        switch (decision.action) {</span>
+            case EntityGestureAction::Ignore:
+<span style = "background-color:#fdd">                break;</span>
+            case EntityGestureAction::Deselect:
+<span style = "background-color:#fdd">                setEntitySelection({}, std::nullopt);
+                break;</span>
+            case EntityGestureAction::Toggle:
+<span style = "background-color:#dfd">                setEntitySelection(toggledSelection(_state.selectedEntities, decision.entityIndex),</span>
+                                   decision.entityIndex);
+<span style = "background-color:#dfd">                break;</span>
+            case EntityGestureAction::Grab:
+<span style = "background-color:#dfd">                if (!std::ranges::binary_search(_state.selectedEntities, decision.entityIndex)) {
+                    setEntitySelection({decision.entityIndex}, decision.entityIndex);
+                } else {
+                    _state.selectedEntity = decision.entityIndex;</span>
+                }
+<span style = "background-color:#dfd">                release(EntityDrag{.mode = decision.handle ? EntityDrag::Mode::Reshape</span>
+                                                           : EntityDrag::Mode::Move,
+                                   .indices = decision.handle
+                                                  ? std::vector&lt;std::size_t&gt;{decision.entityIndex}
+                                                  : _state.selectedEntities,
+                                   .handle = decision.handle,
+                                   .kind = {},
+                                   .from = at},
+                        at);
+<span style = "background-color:#dfd">                break;</span>
+            case EntityGestureAction::Draw:
+<span style = "background-color:#dfd">                release(EntityDrag{.mode = EntityDrag::Mode::Draw,</span>
+                                   .indices = {},
+                                   .handle = std::nullopt,
+                                   .kind = _state.kindToPlace,
+                                   .from = at},
+                        at);
+<span style = "background-color:#dfd">                break;</span>
+            case EntityGestureAction::Place:
+<span style = "background-color:#dfd">                if (const std::optional&lt;std::size_t&gt; placed =
+                        placeEntityOfKind(_draft, _state.kindToPlace, decision.cell)) {
+                    setEntitySelection({*placed}, *placed);</span>
+                }
+                break;
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    [[nodiscard]] static core::PropertyValue propertyValue(const std::string&amp; key,
+<span style = "background-color:#dfd">                                                           const nlohmann::json&amp; value) {
+        if (value.is_boolean()) {</span>
+<span style = "background-color:#fdd">            return value.get&lt;bool&gt;();</span>
+        }
+<span style = "background-color:#dfd">        if (value.is_number_integer()) {</span>
+<span style = "background-color:#fdd">            return value.get&lt;std::int64_t&gt;();</span>
+        }
+<span style = "background-color:#dfd">        if (value.is_number_float()) {</span>
+<span style = "background-color:#fdd">            return value.get&lt;double&gt;();</span>
+        }
+<span style = "background-color:#dfd">        if (value.is_string()) {
+            return value.get&lt;std::string&gt;();</span>
+        }
+<span style = "background-color:#fdd">        throw GestureRefused("property \"" + key + "\" must be a boolean, a number or a string");</span>
+<span style = "background-color:#dfd">    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t primaryEntity() const {
+        if (!_state.selectedEntity || *_state.selectedEntity &gt;= _draft.entities().size()) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused("no entity is selected");</span>
+        }
+<span style = "background-color:#dfd">        return *_state.selectedEntity;
+    }</span>
+
+<span style = "background-color:#dfd">    void entity() {
+        if (field("at") != nullptr) {
+            press(cell("at"));</span>
+        }
+<span style = "background-color:#dfd">        if (const nlohmann::json* set = field("set")) {
+            if (!set-&gt;is_object()) {</span>
+<span style = "background-color:#fdd">                throw GestureRefused("\"set\" must be an object of properties");</span>
+            }
+<span style = "background-color:#dfd">            const std::size_t index = primaryEntity();
+            const core::GestureScope gesture(_draft);
+            for (const auto&amp; [key, value] : set-&gt;items()) {
+                if (!_draft.setEntityProperty(index, key, propertyValue(key, value))) {</span>
+<span style = "background-color:#fdd">                    if (_draft.entities()[index].properties.contains(key)) {
+                        continue;  // dÃ©jÃ  cette valeur.</span>
+                    }
+<span style = "background-color:#fdd">                    throw GestureRefused("property \"" + key + "\" cannot be set");</span>
+<span style = "background-color:#dfd">                }
+            }
+        }
+        if (field("then") != nullptr) {
+            if (text("then") != "delete") {</span>
+<span style = "background-color:#fdd">                throw GestureRefused("the entity tool is followed by then: delete, only");</span>
+            }
+<span style = "background-color:#dfd">            if (_state.selectedEntities.empty()) {</span>
+<span style = "background-color:#fdd">                throw GestureRefused("no entity is selected");</span>
+            }
+<span style = "background-color:#dfd">            static_cast&lt;void&gt;(removeEntities(_draft, _state.selectedEntities));
+            setEntitySelection({}, std::nullopt);</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    // Ce que font EditorViewport::handleShapePress et paintShapeAt.
+<span style = "background-color:#dfd">    void shape() {
+        const std::size_t index = primaryEntity();
+        const std::vector&lt;core::GridPosition&gt; cells = path();</span>
+        const ShapeGestureDecision decision =
+<span style = "background-color:#dfd">            resolveShapePress(_draft.entities()[index], cells.front(), flag("ctrl"));
+        switch (decision.action) {</span>
+            case ShapeGestureAction::Ignore:
+<span style = "background-color:#fdd">                throw GestureRefused(</span>
+                    "the selected entity has no cells to paint: resize it with the entity tool");
+            case ShapeGestureAction::PaintCells:
+            case ShapeGestureAction::EraseCells: {
+<span style = "background-color:#dfd">                const bool paint = decision.action == ShapeGestureAction::PaintCells;
+                const core::GestureScope gesture(_draft);
+                for (const core::GridPosition cell : cells) {
+                    static_cast&lt;void&gt;(_draft.replaceEntity(</span>
+                        index, paintArea(_draft.entities()[index], {cell}, paint)));
+<span style = "background-color:#dfd">                }
+                break;</span>
+<span style = "background-color:#fdd">            }</span>
+            case ShapeGestureAction::AppendWaypoint:
+<span style = "background-color:#dfd">                static_cast&lt;void&gt;(_draft.replaceEntity(</span>
+                    index, withWaypointAdded(_draft.entities()[index], cells.front())));
+<span style = "background-color:#dfd">                break;</span>
+            case ShapeGestureAction::GrabWaypoint:
+<span style = "background-color:#dfd">                release(EntityDrag{.mode = EntityDrag::Mode::Reshape,</span>
+                                   .indices = {index},
+                                   .handle = EntityHandle{.kind = HandleKind::Waypoint,
+                                                          .cell = cells.front(),
+                                                          .waypoint = decision.waypoint},
+                                   .kind = {},
+                                   .from = cells.front()},
+                        cells.front());
+<span style = "background-color:#dfd">                break;</span>
+            case ShapeGestureAction::RemoveWaypoint:
+<span style = "background-color:#dfd">                static_cast&lt;void&gt;(_draft.replaceEntity(</span>
+                    index, withWaypointRemoved(_draft.entities()[index], decision.waypoint)));
+                break;
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    core::LevelDraft&amp; _draft;
+    EditorSidecar&amp; _sidecar;
+    const PlaceAssets&amp; _assets;
+    std::filesystem::path _dataRoot;
+    GestureScriptResult&amp; _result;
+    GestureState _state;
+<span style = "background-color:#dfd">    const nlohmann::json* _gesture = nullptr;</span>
+    /// Les catalogues du verdict, lus au premier `inspect`.
+    std::optional&lt;EditorReferences&gt; _references;
+    /// Le niveau du groupe du budget des rencontres (`partyLevel`).
+<span style = "background-color:#dfd">    int _partyLevel = 1;</span>
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string gestureName(const nlohmann::json&amp; gesture, std::size_t index) {
+    std::string name = "gesture " + std::to_string(index + 1);
+    if (gesture.is_object()) {
+        const auto tool = gesture.find("tool");
+        if (tool != gesture.end() &amp;&amp; tool-&gt;is_string()) {
+            name += " (" + tool-&gt;get&lt;std::string&gt;() + ")";</span>
+        }
+<span style = "background-color:#dfd">    }
+    return name;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string readText(const std::filesystem::path&amp; path) {
+    std::ifstream file(path, std::ios::binary);
+    std::ostringstream buffer;
+    buffer &lt;&lt; file.rdbuf();
+    return buffer.str();
+}</span>
+
+}  // namespace
+
+GestureScriptResult applyGestureScript(const nlohmann::json&amp; script, core::LevelDraft&amp; draft,
+                                       EditorSidecar&amp; sidecar, const PlaceAssets&amp; assets,
+<span style = "background-color:#dfd">                                       const std::filesystem::path&amp; dataRoot) {
+    GestureScriptResult result;
+    if (!script.is_object() || script.value("format", std::string{}) != GESTURE_SCRIPT_FORMAT) {
+        result.error =</span>
+            "not a gesture file: its format must be " + std::string{GESTURE_SCRIPT_FORMAT};
+<span style = "background-color:#dfd">        return result;</span>
+    }
+<span style = "background-color:#dfd">    const auto version = script.find("version");
+    if (version == script.end() || !version-&gt;is_number_integer() ||</span>
+        version-&gt;get&lt;int&gt;() != GESTURE_SCRIPT_VERSION) {
+<span style = "background-color:#fdd">        result.error = "gesture file version must be " + std::to_string(GESTURE_SCRIPT_VERSION);
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    const auto gestures = script.find("gestures");
+    if (gestures == script.end() || !gestures-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        result.error = "\"gestures\" must be a list";
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    GesturePlayer player(draft, sidecar, assets, dataRoot, result);
+    for (std::size_t index = 0; index &lt; gestures-&gt;size(); ++index) {
+        const nlohmann::json&amp; gesture = (*gestures)[index];
+        const std::uint64_t before = draft.revision();</span>
+        try {
+<span style = "background-color:#dfd">            player.play(gesture);
+        } catch (const GestureRefused&amp; refused) {
+            result.error = gestureName(gesture, index) + ": " + refused.what();
+            return result;</span>
+<span style = "background-color:#fdd">        } catch (const nlohmann::json::exception&amp; invalid) {
+            result.error = gestureName(gesture, index) + ": " + invalid.what();
+            return result;
+        }</span>
+<span style = "background-color:#dfd">        ++result.gestures;
+        if (draft.revision() != before) {
+            ++result.steps;</span>
+        }
+<span style = "background-color:#dfd">    }
+    return result;
+}</span>
+
+GestureFileResult applyGestureFile(const std::filesystem::path&amp; scriptFile, std::string_view map,
+                                   const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                   std::filesystem::path&amp; mapFile) {
+    GestureFileResult file;
+    const std::string origin = scriptFile.string();
+    const nlohmann::json script = nlohmann::json::parse(readText(scriptFile), nullptr, false);
+    if (script.is_discarded()) {</span>
+<span style = "background-color:#fdd">        file.script.error = origin + ": not a JSON file (or it cannot be read)";
+        return file;</span>
+    }
+<span style = "background-color:#dfd">    file.mapId = std::string{map};
+    if (file.mapId.empty() &amp;&amp; script.is_object()) {
+        file.mapId = script.value("map", std::string{});</span>
+    }
+<span style = "background-color:#dfd">    if (file.mapId.empty()) {</span>
+<span style = "background-color:#fdd">        file.script.error = origin + ": no map to edit (name one, or give \"map\")";
+        return file;</span>
+    }
+<span style = "background-color:#dfd">    const std::filesystem::path asPath{file.mapId};
+    mapFile = std::filesystem::is_regular_file(asPath)</span>
+                  ? asPath
+                  : dataRoot / "Levels" / (file.mapId + ".json");
+<span style = "background-color:#dfd">    const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(mapFile);
+    if (!loaded.ok()) {</span>
+<span style = "background-color:#fdd">        file.script.error = mapFile.string() + ": " + loaded.error;
+        return file;</span>
+    }
+<span style = "background-color:#dfd">    const PlaceAssets assets = loadPlaceAssets(dataRoot, scenePlaceOf(loaded.level-&gt;layers()));
+    core::LevelDraft draft = core::LevelDraft::fromLevel(*loaded.level);
+    if (assets.manifest) {
+        draft.setPieceManifest(std::make_shared&lt;const core::ScenePieceManifest&gt;(*assets.manifest));</span>
+    }
+<span style = "background-color:#dfd">    const std::filesystem::path sidecarFile = sidecarPath(mapFile);
+    EditorSidecar sidecar = readSidecar(sidecarFile).sidecar;</span>
+
+<span style = "background-color:#dfd">    file.script = applyGestureScript(script, draft, sidecar, assets, dataRoot);
+    if (!file.script.ok()) {
+        file.script.error = origin + ": " + file.script.error;
+        return file;</span>
+    }
+    // Ce que l'enregistrement de la fenÃªtre fait : la carte se valide avant de s'Ã©crire.
+<span style = "background-color:#dfd">    const core::LevelLoadResult validated = draft.toLevel();
+    if (!validated.ok()) {</span>
+<span style = "background-color:#fdd">        file.script.error = origin + ": the edited map is not valid: " + validated.error;
+        return file;</span>
+    }
+<span style = "background-color:#dfd">    file.mapText = core::LevelWriter::toJsonString(*validated.level);
+    if (file.script.notesChanged) {
+        file.sidecar = std::move(sidecar);</span>
+    }
+<span style = "background-color:#dfd">    return file;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

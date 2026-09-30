@@ -32,5 +32,6 @@ var Quest_8h =
     [ "core::questTextKeys", "namespacecore.html#a3ebf2c787cfe94cf56cba364093f05c5", null ],
     [ "core::questTitleKey", "namespacecore.html#a5d7f2790b523d35912bf71153755498b", null ],
     [ "core::readQuest", "namespacecore.html#a11a13d88d62b9ed0ba9c505a4a507bf3", null ],
-    [ "core::validateFlagUses", "namespacecore.html#a66b4d783d58fedf1af25e7719b872833", null ]
+    [ "core::validateFlagUses", "namespacecore.html#a66b4d783d58fedf1af25e7719b872833", null ],
+    [ "core::writeQuest", "namespacecore.html#ab581b492ed14e4921fa29277f4529fbc", null ]
 ];

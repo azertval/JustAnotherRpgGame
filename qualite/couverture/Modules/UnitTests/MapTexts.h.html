@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MapTexts.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;filesystem&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;unordered_map&gt;
+#include &lt;vector&gt;
+
+/**
+ * @file Editor/Logic/MapTexts.h
+ * @brief Les textes qu'une carte cite : des **clÃ©s de traduction**, jamais du texte
+ *        (`LOT-EDITOR-07`).
+ *
+ * Une carte ne porte que deux textes que le jeu affiche : son **nom** (`name`), que le bandeau du
+ * jeu montre, et le nom de ses **Ã®lots** (`cityBlock`), que le plan de la ville montre sous la clÃ©
+ * `city_block.&lt;nom&gt;`. Le nom d'une carte est lui-mÃªme une clÃ©, `map.&lt;identifiant&gt;.name`, les barres
+ * obliques de l'identifiant devenant des points (`map.capital.martpart.name`) : *dÃ©cision de
+ * l'auteur, 19 septembre 2026*. Le jeu la traduit (`hmi::ruleLabel`), et un nom qui n'est pas une
+ * clÃ© s'affiche tel quel.
+ *
+ * Les catalogues sont les fichiers `&lt;langue&gt;.lang` de `&lt;racine&gt;/Localization`, lus par
+ * `hmi::Localization::parseCatalog` : l'Ã©diteur ne connaÃ®t pas d'autre format.
+ */
+
+namespace hmi {
+
+/// @brief Le prÃ©fixe de clÃ© du nom d'un Ã®lot, suivi de son nom (`city_block.parvis`).
+inline constexpr std::string_view CITY_BLOCK_KEY_PREFIX = "city_block.";
+
+/// @return La clÃ© du nom de la carte @p mapId : `map.capital.martpart.name`.
+[[nodiscard]] std::string mapNameKey(std::string_view mapId);
+
+/// @return Le dossier des catalogues de traduction de @p dataRoot.
+[[nodiscard]] std::filesystem::path localizationDirectory(const std::filesystem::path&amp; dataRoot);
+
+/// @brief Les catalogues d'un dossier : langue (nom du fichier sans `.lang`) â clÃ© â texte.
+using TranslationCatalogs =
+    std::map&lt;std::string, std::unordered_map&lt;std::string, std::string&gt;, std::less&lt;&gt;&gt;;
+
+/// @return Les catalogues `&lt;langue&gt;.lang` de @p directory ; vide si le dossier n'en a pas.
+[[nodiscard]] TranslationCatalogs loadTranslationCatalogs(const std::filesystem::path&amp; directory);
+
+/// @return Les langues de @p catalogs qui n'ont pas @p key, triÃ©es.
+[[nodiscard]] std::vector&lt;std::string&gt; languagesMissing(const TranslationCatalogs&amp; catalogs,
+                                                        std::string_view key);
+
+/**
+ * @brief Ajoute `key = â¦` Ã  la fin de chaque catalogue de @p directory qui n'a pas @p key.
+ *
+ * Chaque catalogue reÃ§oit son texte de @p copyFrom s'il a cette clÃ© â une carte renommÃ©e garde ses
+ * traductions â, sinon @p text, le mÃªme dans toutes les langues : c'est un nom propre que l'auteur
+ * traduira ensuite. Un catalogue qui a dÃ©jÃ  la clÃ© n'est pas touchÃ© ; l'ancienne clÃ© reste.
+ *
+ * @return Faux si un catalogue n'a pas pu s'Ã©crire.
+ */
+[[nodiscard]] bool addTranslation(const std::filesystem::path&amp; directory, std::string_view key,
+                                  std::string_view text, std::string_view copyFrom = {});
+
+/**
+ * @brief La clÃ© du nom de la carte @p mapId, ajoutÃ©e aux catalogues de @p dataRoot.
+ * @param dataRoot La racine des donnÃ©es, dont les catalogues de traduction s'Ã©crivent.
+ * @param mapId    L'identifiant de la carte, qui forme la clÃ© `map.&lt;id&gt;.name`.
+ * @param text    Le texte des catalogues qui n'ont ni la clÃ©, ni @p copyFrom.
+ * @param copyFrom L'ancien nom de la carte, dont les traductions se reprennent.
+ * @return La clÃ© ; vide si un catalogue n'a pas pu s'Ã©crire.
+ */
+[[nodiscard]] std::string nameMapInCatalogs(const std::filesystem::path&amp; dataRoot,
+                                            std::string_view mapId, std::string_view text,
+                                            std::string_view copyFrom = {});
+
+/// @return Les fichiers `&lt;langue&gt;.lang` de @p directory, triÃ©s.
+[[nodiscard]] std::vector&lt;std::filesystem::path&gt; catalogFilesIn(
+    const std::filesystem::path&amp; directory);
+
+/// @return La clÃ© d'une ligne de catalogue, vide pour un commentaire ou une ligne sans `=`.
+[[nodiscard]] std::string catalogLineKey(std::string_view line);
+
+/**
+ * @brief Le texte d'un catalogue oÃ¹ @p key vaut @p text (`LOT-144`).
+ *
+ * Une clÃ© prÃ©sente change de texte **Ã  sa place**, la ligne gardÃ©e si le texte est le mÃªme ; une
+ * clÃ© absente s'ajoute aprÃ¨s la derniÃ¨re ligne dont la clÃ© commence par @p groupPrefix â les
+ * textes d'une quÃªte restent ensemble â, Ã  la fin Ã  dÃ©faut. Un saut de ligne dans @p text devient
+ * une espace : le format n'a qu'une ligne par clÃ©.
+ */
+[[nodiscard]] std::string withCatalogEntry(std::string_view catalog, std::string_view key,
+                                           std::string_view text,
+                                           std::string_view groupPrefix = {});
+
+/// @return Le texte d'un catalogue sans les lignes dont la clÃ© satisfait @p drop.
+template &lt;typename Drop&gt;
+<span style = "background-color:#dfd">[[nodiscard]] std::string withoutCatalogEntries(std::string_view catalog, Drop drop) {
+    std::string result;
+    std::size_t start = 0;
+    while (start &lt; catalog.size()) {
+        std::size_t end = catalog.find('\n', start);
+        end = end == std::string_view::npos ? catalog.size() : end + 1;
+        const std::string_view line = catalog.substr(start, end - start);
+        const std::string key = catalogLineKey(line);
+        if (key.empty() || !drop(std::string_view{key})) {
+            result += line;</span>
+        }
+<span style = "background-color:#dfd">        start = end;
+    }
+    return result;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-30 09:58 UTC",
-  "commit": "5d0fe978c",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36695134874",
+  "generated": "2026-09-30 13:24 UTC",
+  "commit": "fa4805354",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36716672627",
   "coverage": {
-    "percent": 91.46,
-    "covered": 39311,
-    "valid": 42982,
-    "files": 276,
+    "percent": 91.42,
+    "covered": 47103,
+    "valid": 51524,
+    "files": 278,
     "areas": [
       {
         "name": "Core",
@@ -16,15 +16,15 @@
       },
       {
         "name": "Core/Combat",
-        "covered": 4399,
-        "valid": 4647,
-        "percent": 94.66
+        "covered": 4454,
+        "valid": 4707,
+        "percent": 94.63
       },
       {
         "name": "Core/Data",
-        "covered": 167,
+        "covered": 170,
         "valid": 176,
-        "percent": 94.89
+        "percent": 96.59
       },
       {
         "name": "Core/Diagnostics",
@@ -40,9 +40,9 @@
       },
       {
         "name": "Core/Gameplay",
-        "covered": 652,
-        "valid": 715,
-        "percent": 91.19
+        "covered": 759,
+        "valid": 822,
+        "percent": 92.34
       },
       {
         "name": "Core/Levels",
@@ -64,9 +64,9 @@
       },
       {
         "name": "Core/Rpg",
-        "covered": 2793,
-        "valid": 3119,
-        "percent": 89.55
+        "covered": 2850,
+        "valid": 3178,
+        "percent": 89.68
       },
       {
         "name": "Core/Time",
@@ -76,15 +76,15 @@
       },
       {
         "name": "Core/World",
-        "covered": 1316,
-        "valid": 1450,
-        "percent": 90.76
+        "covered": 1331,
+        "valid": 1453,
+        "percent": 91.6
       },
       {
         "name": "Editor/Logic",
-        "covered": 4633,
-        "valid": 5291,
-        "percent": 87.56
+        "covered": 5495,
+        "valid": 6241,
+        "percent": 88.05
       },
       {
         "name": "Editor/Ui",
@@ -100,15 +100,15 @@
       },
       {
         "name": "HMI/Game",
-        "covered": 518,
-        "valid": 574,
-        "percent": 90.24
+        "covered": 520,
+        "valid": 576,
+        "percent": 90.28
       },
       {
         "name": "HMI/Graphics",
-        "covered": 2932,
-        "valid": 3217,
-        "percent": 91.14
+        "covered": 2936,
+        "valid": 3221,
+        "percent": 91.15
       },
       {
         "name": "HMI/Input",

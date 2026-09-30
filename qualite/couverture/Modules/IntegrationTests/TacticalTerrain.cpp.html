@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>TacticalTerrain.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Combat/TacticalTerrain.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cstdint&gt;
+#include &lt;optional&gt;
+#include &lt;utility&gt;
+
+#include "Core/Combat/BattleGrid.h"
+#include "Core/Combat/CombatTransition.h"
+#include "Core/Combat/Pathfinding.h"
+#include "Core/Rpg/Bestiary.h"
+
+namespace core {
+
+namespace {
+
+// Le combattant fictif qui arpente la zone : seul sur sa grille, son identifiant importe peu.
+constexpr CombatantId ARPENTEUR{1};
+
+<span style = "background-color:#dfd">[[nodiscard]] CreatureSize tailleDe(const std::string&amp; creatureId, const Bestiary* bestiary) {
+    if (bestiary == nullptr) {
+        return CreatureSize::Medium;</span>
+    }
+<span style = "background-color:#dfd">    const Creature* creature = bestiary-&gt;find(creatureId);
+    return creature == nullptr ? CreatureSize::Medium : creature-&gt;size;
+}</span>
+
+// Le refus de la grille, traduit en problÃ¨me d'auteur. `InvalidCombatant` n'en est pas un : il
+// ne survient pas pour un identifiant neuf et une taille du bestiaire.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;TacticalIssueCode&gt; problemeDe(PlacementResult result) {
+    switch (result) {</span>
+        case PlacementResult::OutOfBounds:
+<span style = "background-color:#dfd">            return TacticalIssueCode::CombatantOutOfBounds;</span>
+        case PlacementResult::Obstructed:
+<span style = "background-color:#dfd">            return TacticalIssueCode::CombatantObstructed;</span>
+        case PlacementResult::Occupied:
+<span style = "background-color:#dfd">            return TacticalIssueCode::CombatantsOverlap;</span>
+        case PlacementResult::Placed:
+        case PlacementResult::InvalidCombatant:
+<span style = "background-color:#dfd">            return std::nullopt;</span>
+    }
+<span style = "background-color:#fdd">    return std::nullopt;</span>
+<span style = "background-color:#dfd">}</span>
+
+// Les cases oÃ¹ un marcheur de taille M, parti du dÃ©clencheur, peut finir un tour de 30 pieds â
+// le dÃ©clencheur compris. Vide si le dÃ©clencheur lui-mÃªme ne se tient pas.
+[[nodiscard]] std::vector&lt;GridPosition&gt; zoneAtteignable(const TileMap&amp; collision,
+<span style = "background-color:#dfd">                                                        GridPosition trigger) {
+    BattleGrid grille(collision);
+    if (grille.place(ARPENTEUR, trigger) != PlacementResult::Placed) {
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    const ReachableArea aire(grille, Mover{.combatant = ARPENTEUR, .canPassThrough = {}},</span>
+                             TACTICAL_AREA_RADIUS);
+<span style = "background-color:#dfd">    std::vector&lt;GridPosition&gt; zone = aire.destinations();
+    zone.push_back(trigger);
+    std::ranges::sort(zone, [](GridPosition a, GridPosition b) {
+        return a.row != b.row ? a.row &lt; b.row : a.column &lt; b.column;
+    });
+    return zone;
+}</span>
+
+}  // namespace
+
+std::vector&lt;EncounterTerrain&gt; analyzeEncounterTerrain(const TileMap&amp; collision,
+                                                      const std::vector&lt;MapEntity&gt;&amp; entities,
+                                                      const EncounterCatalog&amp; encounters,
+<span style = "background-color:#dfd">                                                      const Bestiary* bestiary) {
+    std::vector&lt;EncounterTerrain&gt; verdicts;
+    for (std::size_t index = 0; index &lt; entities.size(); ++index) {</span>
+        // Le nom de carte n'ouvre que la clÃ© de drapeau, dont cette vÃ©rification n'a pas l'usage.
+<span style = "background-color:#dfd">        const std::optional&lt;EncounterTrigger&gt; declencheur =</span>
+            encounterTriggerFor(entities[index], "");
+<span style = "background-color:#dfd">        if (!declencheur.has_value()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const Encounter* rencontre = encounters.find(declencheur-&gt;encounterId);
+        if (rencontre == nullptr) {
+            continue;</span>
+        }
+
+<span style = "background-color:#dfd">        EncounterTerrain verdict;
+        verdict.entityIndex = index;
+        verdict.encounterId = declencheur-&gt;encounterId;
+        verdict.trigger = declencheur-&gt;position;
+        verdict.placements = placeCombatants(*rencontre, declencheur-&gt;position);</span>
+
+        // La mÃªme grille, la mÃªme pose que le montage : chaque combattant posÃ© gÃªne les suivants,
+        // et c'est donc le second de deux combattants superposÃ©s qui est signalÃ©.
+<span style = "background-color:#dfd">        BattleGrid grille(collision);
+        std::uint32_t suivant = 1;
+        for (const CombatantPlacement&amp; placement : verdict.placements) {
+            const PlacementResult pose =</span>
+                grille.place(CombatantId{suivant++}, placement.position,
+                             footprintSide(tailleDe(placement.creatureId, bestiary)));
+<span style = "background-color:#dfd">            if (const auto probleme = problemeDe(pose); probleme.has_value()) {
+                verdict.issues.push_back({.code = *probleme,</span>
+                                          .creatureId = placement.creatureId,
+                                          .cell = placement.position});
+            }
+<span style = "background-color:#dfd">        }</span>
+
+<span style = "background-color:#dfd">        verdict.area = zoneAtteignable(collision, verdict.trigger);
+        verdict.requiredCells =</span>
+            (static_cast&lt;int&gt;(verdict.placements.size()) + TACTICAL_PARTY_SIZE) *
+            TACTICAL_CELLS_PER_COMBATANT;
+<span style = "background-color:#dfd">        if (std::cmp_less(verdict.area.size(), verdict.requiredCells)) {
+            verdict.issues.push_back({.code = TacticalIssueCode::AreaTooNarrow,</span>
+                                      .creatureId = {},
+                                      .cell = verdict.trigger});
+        }
+<span style = "background-color:#dfd">        verdicts.push_back(std::move(verdict));
+    }
+    return verdicts;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

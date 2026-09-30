@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>GestureScript.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;cstddef&gt;
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;utility&gt;
+#include &lt;vector&gt;
+
+#include &lt;nlohmann/json.hpp&gt;
+
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/TileType.h"
+#include "Editor/Logic/BrushGesture.h"
+#include "Editor/Logic/EditorSidecar.h"
+#include "Editor/Logic/LayerView.h"
+#include "Editor/Logic/MapFormat.h"
+#include "Editor/Logic/PaintTools.h"
+#include "Editor/Logic/Stamps.h"
+
+namespace core {
+class LevelDraft;
+}
+
+/**
+ * @file Editor/Logic/GestureScript.h
+ * @brief L'Ã©diteur **sans fenÃªtre** : rejouer une liste de gestes sur une carte
+ *        (`LevelEditor --apply gestes.json`, `LOT-EDITOR-13`, dÃ©cision D9, `EX-EDIT-074`).
+ *
+ * Ce que les scripts des cartes apportaient â l'Ã©dition en masse, rejouable, relue en diff
+ * (constat A11) â sans les scripts. Un fichier de gestes dÃ©crit ce que la main ferait dans la
+ * fenÃªtre : un **outil**, un **appui** sur une case, un **glisser**, un **relÃ¢chement**, et entre
+ * deux gestes ce qu'on arme (une piÃ¨ce de la palette, une couche, le miroir, une famille
+ * d'entitÃ©). L'exÃ©cuteur appelle **les fonctions mÃªmes** que le canevas appelle Ã  la souris
+ * (`hmi::applyStroke`, `hmi::applyRectangleStroke`, `hmi::applyBucket`, `hmi::pickBrush`,
+ * `hmi::resolveEntityPress`, `hmi::dragEntities`, `hmi::applyEntityDrag`â¦), dans le mÃªme ordre
+ * (rÃ¨gle 4 de la feuille de route) : un geste rejouÃ© rend le fichier que le geste Ã  la souris
+ * aurait rendu, et chaque geste est un pas d'annulation, comme dans la fenÃªtre.
+ *
+ * ## Le fichier
+ *
+ * @code{.json}
+ * {
+ *   "format": "jadg-editor-gestures",
+ *   "version": 1,
+ *   "map": "capital/martpart",
+ *   "gestures": [
+ *     {"piece": "street-2", "tool": "paint", "path": [[1, 3], [4, 0]]},
+ *     {"tool": "line", "piece": "wall-right", "from": [0, 2], "to": [12, 2]},
+ *     {"tool": "entity", "kind": "chest", "at": [5, 4]},
+ *     {"tool": "entity", "select": ["e3"], "set": {"name": "coffre-du-marchand"}}
+ *   ]
+ * }
+ * @endcode
+ *
+ * Une case s'Ã©crit `[colonne, ligne]`. Chaque geste peut d'abord **armer**, dans cet ordre :
+ * `lock` et `unlock` (noms de couches), `layer` (la couche active, par son nom, ou `collision`),
+ * `mirror` (`[c, r]` : l'axe qui passe par cette case ; `false` : plus de miroir), `type` (un type
+ * de tuile) ou `piece` (une piÃ¨ce de la planche du lieu, `floor` la dit sol si la planche ne la
+ * connaÃ®t pas), `kind` (la famille d'entitÃ© Ã  poser ; `""` : l'outil ne fait que sÃ©lectionner),
+ * `select` (des identifiants d'entitÃ©), `prefab` (un prÃ©fabriquÃ© de la bibliothÃ¨que du lieu, qui
+ * devient le tampon Ã  poser), `partyLevel` (le niveau du groupe du budget des rencontres, 1 par
+ * dÃ©faut). Un geste sans `tool` ne fait qu'armer. Ce qui est armÃ© le
+ * reste pour les gestes suivants, comme dans la fenÃªtre.
+ *
+ * | `tool` | champs | ce que fait la main |
+ * |---|---|---|
+ * | `paint` | `path` | appui sur la premiÃ¨re case, glisser par les suivantes |
+ * | `eraser` | `path` | la gomme, de mÃªme, sans dÃ©sarmer le pinceau |
+ * | `rectangle`, `line` | `from`, `to` | tirer de `from` Ã  `to` |
+ * | `bucket` | `at` | un clic |
+ * | `pipette` | `at` | un clic : le pinceau pris est armÃ© |
+ * | `selection` | `from`, `to`, `then` | tirer ; `then` : `copy` (`Ctrl+C`) ou `delete` (`Suppr`) |
+ * | `paste` | `at`, `flip` | `Ctrl+V`, coin haut gauche sur la case ; `flip` : le tampon reflÃ©tÃ© |
+ * | `entity` | `at`, `to`, `ctrl`, `shift`, `set`, `then` | appui, glisser jusqu'Ã  `to` ; `set` :
+ * propriÃ©tÃ©s de l'entitÃ© sÃ©lectionnÃ©e ; `then: "delete"` : `Suppr` | | `shape` | `path` ou `at`,
+ * `to`, `ctrl` | l'outil Forme sur l'entitÃ© sÃ©lectionnÃ©e | | `measure` | `from`, `to` | la mesure,
+ * Ã©crite dans le compte rendu | | `inspect` | â | le verdict de l'entitÃ© sÃ©lectionnÃ©e, tel que le
+ * canevas l'Ã©crit Ã  cÃ´tÃ© d'elle (`hmi::entityVerdicts`), dans le compte rendu | | `note` | `at`,
+ * `text` | la note de la case (vide : retirÃ©e) |
+ *
+ * ## Un geste refusÃ©
+ *
+ * Un geste que la fenÃªtre refuserait (couche verrouillÃ©e, case hors de la carte, piÃ¨ce inconnue,
+ * entitÃ© qui sortirait de la carte, identifiant qui n'existe pasâ¦) arrÃªte tout : l'exÃ©cution rend
+ * une erreur lisible, qui nomme le geste, et **le fichier n'est pas touchÃ©**. Un geste qui ne
+ * change rien n'est pas une erreur.
+ */
+
+namespace hmi {
+
+/// @brief Nom du format d'un fichier de gestes (champ `format`).
+inline constexpr std::string_view GESTURE_SCRIPT_FORMAT = "jadg-editor-gestures";
+
+/// @brief Version du format d'un fichier de gestes (champ `version`).
+inline constexpr int GESTURE_SCRIPT_VERSION = 1;
+
+/**
+ * @brief Ce que la fenÃªtre garde d'un geste Ã  l'autre : le pinceau, la couche active, le miroir,
+ *        la sÃ©lectionâ¦ â l'Ã©tat de l'Ã©diteur que les gestes arment.
+ */
+struct GestureState {
+    CanvasBrush brush;
+    LayerSlot activeLayer;
+    LayerViewState view;
+    std::optional&lt;MirrorAxis&gt; mirror;
+    /// La famille d'entitÃ© que l'outil EntitÃ© pose ; vide : il ne fait que sÃ©lectionner.
+    std::string kindToPlace;
+    /// Les entitÃ©s sÃ©lectionnÃ©es (rangs triÃ©s) et la principale.
+    std::vector&lt;std::size_t&gt; selectedEntities;
+    std::optional&lt;std::size_t&gt; selectedEntity;
+    /// La rÃ©gion de l'outil SÃ©lection, coins triÃ©s.
+    std::optional&lt;std::pair&lt;core::GridPosition, core::GridPosition&gt;&gt; selection;
+    /// Ce que `Ctrl+C` a copiÃ©, ou le prÃ©fabriquÃ© armÃ© (`LOT-EDITOR-08`).
+    Stamp clipboard;
+};
+
+/// @brief Ce qu'un fichier de gestes a fait.
+struct GestureScriptResult {
+    /// Le message d'Ã©chec, qui nomme le geste ; vide si tout a Ã©tÃ© rejouÃ©.
+    std::string error;
+    /// Nombre de gestes rejouÃ©s.
+    std::size_t gestures = 0;
+    /// Nombre de pas d'annulation que les gestes ont empilÃ©s : un geste qui change la carte en est
+    /// un.
+    std::size_t steps = 0;
+    /// Les notes d'auteur ont changÃ© : l'annexe est Ã  rÃ©Ã©crire.
+    bool notesChanged = false;
+    /// Ce que les gestes ont Ã  dire (mesures) : une ligne par constat.
+    std::vector&lt;std::string&gt; log;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return error.empty();
+    }</span>
+};
+
+/**
+ * @brief Rejoue les gestes de @p script sur @p draft.
+ *
+ * Le brouillon doit porter le manifeste du lieu (`core::LevelDraft::setPieceManifest`) : la
+ * collision suit chaque geste par la dÃ©duction, comme dans la fenÃªtre. En cas d'Ã©chec, @p draft
+ * et @p sidecar sont dans l'Ã©tat du geste refusÃ© ; l'appelant les jette.
+ *
+ * @param script  Le fichier de gestes, lu.
+ * @param draft   La carte Ã  modifier.
+ * @param sidecar Son annexe (les notes).
+ * @param assets  Le manifeste et la table de son lieu.
+ * @param dataRoot La racine des donnÃ©es, oÃ¹ vit la bibliothÃ¨que de prÃ©fabriquÃ©s ; vide, un geste
+ *                 qui arme un `prefab` est refusÃ©.
+ */
+[[nodiscard]] GestureScriptResult applyGestureScript(const nlohmann::json&amp; script,
+                                                     core::LevelDraft&amp; draft,
+                                                     EditorSidecar&amp; sidecar,
+                                                     const PlaceAssets&amp; assets,
+                                                     const std::filesystem::path&amp; dataRoot = {});
+
+/// @brief Ce que `--apply` a produit : le texte de la carte et celui de son annexe.
+struct GestureFileResult {
+    GestureScriptResult script;
+    /// Le texte canonique de la carte modifiÃ©e, vide en cas d'Ã©chec.
+    std::string mapText;
+    /// L'annexe, si les notes ont changÃ© : Ã  Ã©crire par `hmi::writeSidecar`, qui retire le
+    /// fichier d'une annexe vidÃ©e.
+    std::optional&lt;EditorSidecar&gt; sidecar;
+    /// L'identifiant de la carte, lu dans le fichier de gestes ou donnÃ© par l'appelant.
+    std::string mapId;
+};
+
+/**
+ * @brief Lit le fichier de gestes @p scriptFile, charge la carte, rejoue les gestes et rend les
+ *        textes Ã  Ã©crire â sans rien Ã©crire.
+ * @param scriptFile Le fichier de gestes.
+ * @param map        La carte (identifiant ou chemin) ; vide : celle que nomme le champ `map`.
+ * @param dataRoot   La racine des donnÃ©es.
+ * @param mapFile    ReÃ§oit le fichier de la carte.
+ */
+[[nodiscard]] GestureFileResult applyGestureFile(const std::filesystem::path&amp; scriptFile,
+                                                 std::string_view map,
+                                                 const std::filesystem::path&amp; dataRoot,
+                                                 std::filesystem::path&amp; mapFile);
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

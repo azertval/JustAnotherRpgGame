@@ -1,0 +1,580 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/test_quest_editing.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__quest__editing_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_quest_editing.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests du mode Quêtes de l'éditeur (<span class="tt">LOT-144</span>, <span class="tt">EX-EDIT-100</span>) : l'écriture canonique, l'enregistrement qui refuse ce que le jeu refuserait, les textes du journal, qui se sert d'un drapeau, les renommages par un plan, l'état de partie qui atteint une étape, et le lieu d'une étape suivi par <span class="tt">--check</span>.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;random&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="Quest_8h_source.html">Core/Gameplay/Quest.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelWriter_8h_source.html">Core/Levels/LevelWriter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ContentCheck_8h_source.html">Editor/Logic/ContentCheck.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapFormat_8h_source.html">Editor/Logic/MapFormat.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapRefactor_8h_source.html">Editor/Logic/MapRefactor.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapTexts_8h_source.html">Editor/Logic/MapTexts.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="QuestEditing_8h_source.html">Editor/Logic/QuestEditing.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad99f635f36d72dcd58889e3e50723888" id="r_ad99f635f36d72dcd58889e3e50723888"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad99f635f36d72dcd58889e3e50723888">TEST</a> (QuestWriting, UneQueteSeReecritOctetPourOctet)</td></tr>
+<tr class="memdesc:ad99f635f36d72dcd58889e3e50723888"><td class="mdescLeft">&#160;</td><td class="mdescRight">La forme canonique : une quête lue puis réécrite rend son texte octet pour octet, champs facultatifs, conditions composées et effets compris ; la quête de la racine d'essai aussi.  <br /></td></tr>
+<tr class="memitem:ac5b3f25e110eaad85e5c948f4c2cf7be" id="r_ac5b3f25e110eaad85e5c948f4c2cf7be"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac5b3f25e110eaad85e5c948f4c2cf7be">TEST</a> (QuestWriting, UnLieuDEtapeSEcritCarteDiezeEntite)</td></tr>
+<tr class="memdesc:ac5b3f25e110eaad85e5c948f4c2cf7be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un lieu d'étape mal formé est refusé au chargement.  <br /></td></tr>
+<tr class="memitem:a0368f748b48c6afaead870eecc23d651" id="r_a0368f748b48c6afaead870eecc23d651"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0368f748b48c6afaead870eecc23d651">TEST_F</a> (ModeQuetesProjet, EnregistrerEcritLaQueteEtSesTextes)</td></tr>
+<tr class="memdesc:a0368f748b48c6afaead870eecc23d651"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistrer écrit la quête sous sa forme canonique et ses textes dans chaque catalogue : une clé présente change à sa place, une nouvelle se range avec celles de la quête, celle d'une étape retirée s'en va ; un second enregistrement ne change rien.  <br /></td></tr>
+<tr class="memitem:a5f7c5f8d1452aef66f04c08aabe5728d" id="r_a5f7c5f8d1452aef66f04c08aabe5728d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5f7c5f8d1452aef66f04c08aabe5728d">TEST_F</a> (ModeQuetesProjet, CeQueLeJeuRefuseraitNeSEnregistrePas)</td></tr>
+<tr class="memdesc:a5f7c5f8d1452aef66f04c08aabe5728d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Critère du <span class="tt">LOT-144</span> : une étape sans condition, ou qui compare une valeur non déclarée, ne s'enregistre pas ; l'erreur nomme l'étape.  <br /></td></tr>
+<tr class="memitem:a6ce10d15d1a4614c2caea927f0215e7f" id="r_a6ce10d15d1a4614c2caea927f0215e7f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6ce10d15d1a4614c2caea927f0215e7f">TEST_F</a> (ModeQuetesProjet, QuiSeSertDUneValeurDeDrapeau)</td></tr>
+<tr class="memdesc:a6ce10d15d1a4614c2caea927f0215e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qui se sert d'un drapeau : la déclaration, les étapes, le dialogue (conditions et actions), la présence du garde et le déclencheur de la zone — ce dernier par la source de ses propriétés, sans code par famille.  <br /></td></tr>
+<tr class="memitem:a159e05d895f6d4c5723de8be776158b2" id="r_a159e05d895f6d4c5723de8be776158b2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a159e05d895f6d4c5723de8be776158b2">TEST_F</a> (ModeQuetesProjet, RenommerUneValeurLaSuitPartoutEtSeulementElle)</td></tr>
+<tr class="memdesc:a159e05d895f6d4c5723de8be776158b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renommer une valeur : la déclaration et son initiale, les étapes, le dialogue — chaîne par chaîne, le reste du fichier gardé —, la présence <span class="tt">a|b</span> et le déclencheur de la carte.  <br /></td></tr>
+<tr class="memitem:a7514030fc4536e56aad22e8f23e615c3" id="r_a7514030fc4536e56aad22e8f23e615c3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7514030fc4536e56aad22e8f23e615c3">TEST_F</a> (ModeQuetesProjet, RenommerUnDrapeauDeclare)</td></tr>
+<tr class="memdesc:a7514030fc4536e56aad22e8f23e615c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renommer un drapeau déclaré le suit dans la quête, le dialogue et les deux entités.  <br /></td></tr>
+<tr class="memitem:a5c178e28acc13deb6f91254bf179e720" id="r_a5c178e28acc13deb6f91254bf179e720"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5c178e28acc13deb6f91254bf179e720">TEST_F</a> (ModeQuetesProjet, RenommerPuisRetirerUneQuete)</td></tr>
+<tr class="memdesc:a5c178e28acc13deb6f91254bf179e720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renommer une quête : son fichier, ses clés de journal (textes gardés), la quête que le dialogue démarre ; retirer une quête ôte son fichier et ses clés.  <br /></td></tr>
+<tr class="memitem:a9caae7fe32b5255a4a03e9a1f9144375" id="r_a9caae7fe32b5255a4a03e9a1f9144375"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9caae7fe32b5255a4a03e9a1f9144375">TEST_F</a> (ModeQuetesProjet, LEtatDePartieQuiAtteintUneEtape)</td></tr>
+<tr class="memdesc:a9caae7fe32b5255a4a03e9a1f9144375"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jouer une étape : l'état de partie qui l'atteint, condition par condition.  <br /></td></tr>
+<tr class="memitem:a6a38128eae9d7744765202d7dde9c6ec" id="r_a6a38128eae9d7744765202d7dde9c6ec"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6a38128eae9d7744765202d7dde9c6ec">TEST_F</a> (ModeQuetesProjet, LeLieuDUneEtapeSuitLEntite)</td></tr>
+<tr class="memdesc:a6a38128eae9d7744765202d7dde9c6ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu d'une étape : <span class="tt">--check</span> refuse une entité qui n'existe pas, et renommer l'entité ou sa carte récrit le lieu, comme une propriété <span class="tt">EntityRefs</span>.  <br /></td></tr>
+<tr class="memitem:af8753c3f207982f94b406a8514d7ded8" id="r_af8753c3f207982f94b406a8514d7ded8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af8753c3f207982f94b406a8514d7ded8">TEST_F</a> (ModeQuetesProjet, LeModeQuetesSansFenetre)</td></tr>
+<tr class="memdesc:af8753c3f207982f94b406a8514d7ded8"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--save-quest</span> enregistre comme le mode ; <span class="tt">--who-cites flag</span> liste les usages ; un renommage refusé n'écrit rien.  <br /></td></tr>
+<tr class="memitem:a085a30f27d842c3faa42bb3a74c6abec" id="r_a085a30f27d842c3faa42bb3a74c6abec"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a085a30f27d842c3faa42bb3a74c6abec">TEST</a> (CatalogEntry, UneCleChangeASaPlace)</td></tr>
+<tr class="memdesc:a085a30f27d842c3faa42bb3a74c6abec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une clé de catalogue change à sa place ; une nouvelle rejoint son groupe ; le même texte ne touche à rien.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests du mode Quêtes de l'éditeur (<span class="tt">LOT-144</span>, <span class="tt">EX-EDIT-100</span>) : l'écriture canonique, l'enregistrement qui refuse ce que le jeu refuserait, les textes du journal, qui se sert d'un drapeau, les renommages par un plan, l'état de partie qui atteint une étape, et le lieu d'une étape suivi par <span class="tt">--check</span>. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a085a30f27d842c3faa42bb3a74c6abec" name="a085a30f27d842c3faa42bb3a74c6abec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a085a30f27d842c3faa42bb3a74c6abec">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CatalogEntry</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCleChangeASaPlace</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une clé de catalogue change à sa place ; une nouvelle rejoint son groupe ; le même texte ne touche à rien. </p>
+<p>Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Une clé de catalogue change à sa place.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Donner un texte à une clé présente, à une nouvelle clé du groupe, à une clé hors groupe, et le même texte à une clé présente.<br  />
+ <b>Resultat attendu :</b> Chaque ligne à sa place ; la nouvelle clé après la dernière du groupe ; la clé hors groupe à la fin ; le texte inchangé. </p>
+
+</div>
+</div>
+<a id="ad99f635f36d72dcd58889e3e50723888" name="ad99f635f36d72dcd58889e3e50723888"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad99f635f36d72dcd58889e3e50723888">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">QuestWriting</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneQueteSeReecritOctetPourOctet</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La forme canonique : une quête lue puis réécrite rend son texte octet pour octet, champs facultatifs, conditions composées et effets compris ; la quête de la racine d'essai aussi. </p>
+<p>Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Une quête se réécrit octet pour octet.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire la quête d'essai, écrite sous forme canonique.<br  />
+2. La réécrire par <span class="tt"><a class="el" href="namespacecore.html#ab581b492ed14e4921fa29277f4529fbc" title="Le texte canonique d&#39;une quête : ce que le mode Quêtes de l&#39;éditeur écrit (LOT-144).">core::writeQuest</a></span>.<br  />
+3. Faire de même avec la quête de la racine d'essai.<br  />
+ <b>Resultat attendu :</b> Les deux textes sont identiques à leur fichier. </p>
+
+</div>
+</div>
+<a id="ac5b3f25e110eaad85e5c948f4c2cf7be" name="ac5b3f25e110eaad85e5c948f4c2cf7be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5b3f25e110eaad85e5c948f4c2cf7be">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">QuestWriting</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnLieuDEtapeSEcritCarteDiezeEntite</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un lieu d'étape mal formé est refusé au chargement. </p>
+<p>Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Un lieu d'étape s'écrit carte#entité.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire une quête dont une étape a <span class="tt">"at": "place"</span>.<br  />
+ <b>Resultat attendu :</b> Refusée ; l'erreur nomme l'étape et le champ. </p>
+
+</div>
+</div>
+<a id="a5f7c5f8d1452aef66f04c08aabe5728d" name="a5f7c5f8d1452aef66f04c08aabe5728d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f7c5f8d1452aef66f04c08aabe5728d">&#9670;&#160;</a></span>TEST_F() <span class="overload">[1/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ModeQuetesProjet</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeQueLeJeuRefuseraitNeSEnregistrePas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Critère du <span class="tt">LOT-144</span> : une étape sans condition, ou qui compare une valeur non déclarée, ne s'enregistre pas ; l'erreur nomme l'étape. </p>
+<p>Une quête neuve ne prend pas un nom pris. Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Ce que le jeu refuserait ne s'enregistre pas.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Ajouter une étape « vide » sans condition.<br  />
+2. Comparer <span class="tt">quete.essai</span> à <span class="tt">perdue</span>, qu'il ne déclare pas.<br  />
+3. Déclarer un drapeau qu'une autre quête déclare.<br  />
+4. Créer une quête « essai ».<br  />
+ <b>Resultat attendu :</b> Chaque plan est refusé et nomme l'étape, la valeur ou le drapeau ; rien n'est écrit. </p>
+
+</div>
+</div>
+<a id="a0368f748b48c6afaead870eecc23d651" name="a0368f748b48c6afaead870eecc23d651"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0368f748b48c6afaead870eecc23d651">&#9670;&#160;</a></span>TEST_F() <span class="overload">[2/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ModeQuetesProjet</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EnregistrerEcritLaQueteEtSesTextes</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enregistrer écrit la quête sous sa forme canonique et ses textes dans chaque catalogue : une clé présente change à sa place, une nouvelle se range avec celles de la quête, celle d'une étape retirée s'en va ; un second enregistrement ne change rien. </p>
+<p>Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Enregistrer écrit la quête et ses textes de journal.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Retirer l'étape « acceptee », donner le texte de « rendue » en français et en anglais, changer le titre anglais.<br  />
+2. Enregistrer.<br  />
+3. Enregistrer de nouveau.<br  />
+ <b>Resultat attendu :</b> La quête relue est celle du brouillon ; <span class="tt">quest.essai.acceptee</span> a quitté le catalogue français, <span class="tt">quest.essai.rendue</span> suit le titre ; le second plan ne récrit aucun catalogue. </p>
+
+</div>
+</div>
+<a id="a6a38128eae9d7744765202d7dde9c6ec" name="a6a38128eae9d7744765202d7dde9c6ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a38128eae9d7744765202d7dde9c6ec">&#9670;&#160;</a></span>TEST_F() <span class="overload">[3/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ModeQuetesProjet</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeLieuDUneEtapeSuitLEntite</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le lieu d'une étape : <span class="tt">--check</span> refuse une entité qui n'existe pas, et renommer l'entité ou sa carte récrit le lieu, comme une propriété <span class="tt">EntityRefs</span>. </p>
+<p>Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Le lieu d'une étape suit l'entité.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Contrôler le récit.<br  />
+2. Renommer <span class="tt">place#e1</span> en <span class="tt">place#garde</span>, puis la carte en <span class="tt">parvis</span>.<br  />
+3. Faire pointer l'étape sur <span class="tt">parvis#e9</span>.<br  />
+ <b>Resultat attendu :</b> Aucune erreur ; l'étape cite <span class="tt">parvis#garde</span>, et <span class="tt">--who-cites entity</span> la nomme ; puis une erreur qui nomme la quête, l'étape et le lieu. </p>
+
+</div>
+</div>
+<a id="af8753c3f207982f94b406a8514d7ded8" name="af8753c3f207982f94b406a8514d7ded8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8753c3f207982f94b406a8514d7ded8">&#9670;&#160;</a></span>TEST_F() <span class="overload">[4/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ModeQuetesProjet</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeModeQuetesSansFenetre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><span class="tt">--save-quest</span> enregistre comme le mode ; <span class="tt">--who-cites flag</span> liste les usages ; un renommage refusé n'écrit rien. </p>
+<p>Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Le mode Quêtes sans fenêtre.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Écrire un brouillon de quête neuve avec son journal.<br  />
+2. <span class="tt">--save-quest</span>.<br  />
+3. <span class="tt">--who-cites flag quete.essai rendue</span>.<br  />
+4. <span class="tt">--rename-flag-value quete.essai rendue
+ acceptee</span>.<br  />
+ <b>Resultat attendu :</b> La quête est écrite sous sa forme canonique, ses deux textes aussi ; trois citations ; le renommage sort en 1, « nothing written ». </p>
+
+</div>
+</div>
+<a id="a9caae7fe32b5255a4a03e9a1f9144375" name="a9caae7fe32b5255a4a03e9a1f9144375"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9caae7fe32b5255a4a03e9a1f9144375">&#9670;&#160;</a></span>TEST_F() <span class="overload">[5/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ModeQuetesProjet</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LEtatDePartieQuiAtteintUneEtape</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Jouer une étape : l'état de partie qui l'atteint, condition par condition. </p>
+<p>Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>L'état de partie qui atteint une étape.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander l'état de « acceptee », « garde-vu », « rendue » et d'une étape inconnue.<br  />
+2. Faire avancer la quête depuis l'état de « garde-vu ».<br  />
+ <b>Resultat attendu :</b> <span class="tt">quete.essai=acceptee</span> ; <span class="tt">quete.essai=garde-vu</span> (ni l'initiale ni <span class="tt">acceptee</span>, et « non posé » n'écrit rien) ; <span class="tt">quete.essai=rendue</span> ; rien ; l'étape « garde-vu » est atteinte. </p>
+
+</div>
+</div>
+<a id="a6ce10d15d1a4614c2caea927f0215e7f" name="a6ce10d15d1a4614c2caea927f0215e7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ce10d15d1a4614c2caea927f0215e7f">&#9670;&#160;</a></span>TEST_F() <span class="overload">[6/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ModeQuetesProjet</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QuiSeSertDUneValeurDeDrapeau</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Qui se sert d'un drapeau : la déclaration, les étapes, le dialogue (conditions et actions), la présence du garde et le déclencheur de la zone — ce dernier par la source de ses propriétés, sans code par famille. </p>
+<p>Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Qui se sert d'une valeur de drapeau.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire les usages du projet.<br  />
+2. Garder ceux de <span class="tt">quete.essai = garde-vu</span>.<br  />
+ <b>Resultat attendu :</b> Cinq usages : le garde (lit) et la zone (pose), sur leur case, la déclaration, le nœud condition et l'action du dialogue ; l'étape qui compare à d'autres valeurs n'y est pas. </p>
+
+</div>
+</div>
+<a id="a5c178e28acc13deb6f91254bf179e720" name="a5c178e28acc13deb6f91254bf179e720"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c178e28acc13deb6f91254bf179e720">&#9670;&#160;</a></span>TEST_F() <span class="overload">[7/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ModeQuetesProjet</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RenommerPuisRetirerUneQuete</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renommer une quête : son fichier, ses clés de journal (textes gardés), la quête que le dialogue démarre ; retirer une quête ôte son fichier et ses clés. </p>
+<p>Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Renommer puis retirer une quête.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Renommer <span class="tt">essai</span> en <span class="tt">trial</span>.<br  />
+2. Retirer <span class="tt">trial</span>.<br  />
+ <b>Resultat attendu :</b> <span class="tt">trial.json</span> existe, <span class="tt">essai.json</span> non ; <span class="tt">quest.trial.title = Essai</span> ; le dialogue démarre <span class="tt">trial</span> ; puis plus de fichier ni de clé <span class="tt">quest.trial.</span>, l'autre clé gardée. </p>
+
+</div>
+</div>
+<a id="a7514030fc4536e56aad22e8f23e615c3" name="a7514030fc4536e56aad22e8f23e615c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7514030fc4536e56aad22e8f23e615c3">&#9670;&#160;</a></span>TEST_F() <span class="overload">[8/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ModeQuetesProjet</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RenommerUnDrapeauDeclare</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renommer un drapeau déclaré le suit dans la quête, le dialogue et les deux entités. </p>
+<p>Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Renommer un drapeau déclaré.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Renommer <span class="tt">quete.essai</span> en <span class="tt">quete.trial</span>.<br  />
+2. Tenter de renommer un fait non déclaré.<br  />
+ <b>Resultat attendu :</b> Aucun fichier ne cite plus <span class="tt">quete.essai</span> ; le récit se contrôle sans erreur ; le second plan est refusé. </p>
+
+</div>
+</div>
+<a id="a159e05d895f6d4c5723de8be776158b2" name="a159e05d895f6d4c5723de8be776158b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a159e05d895f6d4c5723de8be776158b2">&#9670;&#160;</a></span>TEST_F() <span class="overload">[9/9]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">ModeQuetesProjet</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RenommerUneValeurLaSuitPartoutEtSeulementElle</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renommer une valeur : la déclaration et son initiale, les étapes, le dialogue — chaîne par chaîne, le reste du fichier gardé —, la présence <span class="tt">a|b</span> et le déclencheur de la carte. </p>
+<p>Le nœud qui porte le même mot garde son identifiant. Exigence : <span class="tt">EX-EDIT-100</span>. <b>Cas de test :</b> <b>Renommer une valeur la suit partout, et seulement elle.</b><br  />
+ <b>Categorie :</b> Unitaire · Mode Quêtes<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Renommer <span class="tt">garde-vu</span> en <span class="tt">vu</span>.<br  />
+2. Renommer <span class="tt">inconnue</span> (l'initiale) en <span class="tt">neuve</span>.<br  />
+ <b>Resultat attendu :</b> Le dialogue ne diffère que des deux chaînes de valeur ; le nœud <span class="tt">garde-vu</span> et sa cible restent ; la carte cite <span class="tt">acceptee|vu</span> ; l'initiale est <span class="tt">neuve</span> ; le récit se contrôle sans erreur. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_72f94039b203173a88806b7e5cad74af.html">Editor</a></li><li class="navelem"><a href="test__quest__editing_8cpp.html">test_quest_editing.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

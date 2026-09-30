@@ -1396,8 +1396,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a91e905d2d65ad1c9a0916752b0fd9b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points d'entrée d'une carte, rangés par camp, rang, puis position.  <br /></td></tr>
 <tr class="memitem:a7195d9f7d6b4f5e48eb604871553d6f9" id="r_a7195d9f7d6b4f5e48eb604871553d6f9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1ArenaSpell.html">ArenaSpell</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7195d9f7d6b4f5e48eb604871553d6f9">arenaSpellsFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1PlayableClass.html">PlayableClass</a> &amp;playableClass, const <a class="el" href="structcore_1_1SpellCatalog.html">SpellCatalog</a> &amp;spells, int <a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>, std::vector&lt; std::string &gt; &amp;skipped)</td></tr>
 <tr class="memdesc:a7195d9f7d6b4f5e48eb604871553d6f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sorts qu'une fiche sait lancer dans l'arène (<span class="tt">LOT-131</span>, <span class="tt">LOT-133</span>) : ceux qu'elle connaît (<span class="tt"><a class="el" href="structcore_1_1CharacterSheet.html#aa50a06bbc0a1771f5931244a0b9e583c" title="Les sorts connus et leurs lancers restants dans la journée (EX-RPG-025).">CharacterSheet::knownSpells</a></span>) et que le moteur sait jouer (<span class="tt"><a class="el" href="#aaad5d2aff3f5506f00ce7a09ff8b418e" title="Le mécanisme par lequel le moteur joue ce sort, ou std::nullopt s&#39;il n&#39;en a aucun : un sort narratif,...">core::spellMechanism</a></span>), avec leurs lancers restants, le profil de sort de sa classe et son degré de difficulté.  <br /></td></tr>
-<tr class="memitem:a6492cf00497924279c0f171546cbed96" id="r_a6492cf00497924279c0f171546cbed96"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a6492cf00497924279c0f171546cbed96">abilityLabel</a> (<a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> ability) noexcept</td></tr>
-<tr class="memdesc:a6492cf00497924279c0f171546cbed96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nom français d'une caractéristique, tel que le journal l'écrit : « Dexterite ».  <br /></td></tr>
+<tr class="memitem:a8d858ac8be11dbddc54bcbface031cf8" id="r_a8d858ac8be11dbddc54bcbface031cf8"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a8d858ac8be11dbddc54bcbface031cf8">abilityLabel</a> (<a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> caracteristique) noexcept</td></tr>
+<tr class="memdesc:a8d858ac8be11dbddc54bcbface031cf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nom français d'une caractéristique, tel que le journal l'écrit : « Dexterite ».  <br /></td></tr>
 <tr class="memitem:a9f790045523fda834167bed21d202dd3" id="r_a9f790045523fda834167bed21d202dd3"><td class="memItemLeft"><a class="el" href="structcore_1_1CreatureAttacks.html">CreatureAttacks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9f790045523fda834167bed21d202dd3">attacksFor</a> (const <a class="el" href="structcore_1_1Creature.html">Creature</a> &amp;creature)</td></tr>
 <tr class="memdesc:a9f790045523fda834167bed21d202dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les attaques d'un bloc de bestiaire : chaque action qui a un bonus d'attaque et des dégâts.  <br /></td></tr>
 <tr class="memitem:a1881c42c8483587a6baa65c336a230c2" id="r_a1881c42c8483587a6baa65c336a230c2"><td class="memItemLeft"><a class="el" href="structcore_1_1AttackProfile.html">AttackProfile</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1881c42c8483587a6baa65c336a230c2">weaponAttackFor</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet, const <a class="el" href="structcore_1_1Weapon.html">Weapon</a> *weapon, int <a class="el" href="#ab3286191c0a02de9afbc9e711ec799d1">proficiencyBonus</a>, bool proficient=true)</td></tr>
@@ -1587,6 +1587,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a07f40df9fbe2a910d1e99b9756220fea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les familles connues : coffre, panneau (<span class="tt">LOT-10</span>), PNJ (<span class="tt">LOT-15</span>).  <br /></td></tr>
 <tr class="memitem:adb2706947c6f0111c0cdd008fde5779e" id="r_adb2706947c6f0111c0cdd008fde5779e"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#adb2706947c6f0111c0cdd008fde5779e">spawnMapEntities</a> (<a class="el" href="classcore_1_1World.html">World</a> &amp;world, const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;level, std::string_view mapName, const std::function&lt; void(<a class="el" href="structcore_1_1Entity.html">Entity</a>, const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;)&gt; &amp;onEntity={})</td></tr>
 <tr class="memdesc:adb2706947c6f0111c0cdd008fde5779e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peuple un <span class="tt"><a class="el" href="classcore_1_1World.html" title="Point d&#39;entrée unique de la simulation : possède les entités, les composants et les systèmes.">World</a></span> d'une <b>entité par objet</b> de la couche <span class="tt">objects</span>.  <br /></td></tr>
+<tr class="memitem:ab581b492ed14e4921fa29277f4529fbc" id="r_ab581b492ed14e4921fa29277f4529fbc"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab581b492ed14e4921fa29277f4529fbc">writeQuest</a> (const <a class="el" href="structcore_1_1Quest.html">Quest</a> &amp;quest)</td></tr>
+<tr class="memdesc:ab581b492ed14e4921fa29277f4529fbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le texte <b>canonique</b> d'une quête : ce que le mode Quêtes de l'éditeur écrit (<span class="tt">LOT-144</span>).  <br /></td></tr>
 <tr class="memitem:ab9156c67818b8a348e4deacfba98a72e" id="r_ab9156c67818b8a348e4deacfba98a72e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab9156c67818b8a348e4deacfba98a72e">questStepFlag</a> (std::string_view questId, std::string_view stepId)</td></tr>
 <tr class="memdesc:ab9156c67818b8a348e4deacfba98a72e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">quest/&lt;quête&gt;/step/&lt;étape&gt;</span> — le fait « cette étape a été atteinte ».  <br /></td></tr>
 <tr class="memitem:a5d7f2790b523d35912bf71153755498b" id="r_a5d7f2790b523d35912bf71153755498b"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a5d7f2790b523d35912bf71153755498b">questTitleKey</a> (std::string_view questId)</td></tr>
@@ -5013,8 +5015,8 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a6492cf00497924279c0f171546cbed96" name="a6492cf00497924279c0f171546cbed96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6492cf00497924279c0f171546cbed96">&#9670;&#160;</a></span>abilityLabel()</h2>
+<a id="a8d858ac8be11dbddc54bcbface031cf8" name="a8d858ac8be11dbddc54bcbface031cf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d858ac8be11dbddc54bcbface031cf8">&#9670;&#160;</a></span>abilityLabel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -15197,6 +15199,34 @@ Les places</h2>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ab581b492ed14e4921fa29277f4529fbc" name="ab581b492ed14e4921fa29277f4529fbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab581b492ed14e4921fa29277f4529fbc">&#9670;&#160;</a></span>writeQuest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::writeQuest </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Quest.html">Quest</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quest</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le texte <b>canonique</b> d'une quête : ce que le mode Quêtes de l'éditeur écrit (<span class="tt">LOT-144</span>). </p>
+<p>Indenté de deux espaces, un objet par drapeau et par étape, et sur une ligne ce qui se lit d'un coup d'œil : les valeurs d'un drapeau, les conditions, les effets. Les champs vides ne s'écrivent pas (<span class="tt">name</span>, <span class="tt">source</span>, <span class="tt">status</span>, <span class="tt">at</span>, <span class="tt">effects</span>, <span class="tt">outcome</span>, <span class="tt">flags</span>), l'initiale d'un drapeau toujours. <span class="tt"><a class="el" href="#a11a13d88d62b9ed0ba9c505a4a507bf3" title="Lit et valide une quête.">readQuest</a></span> relit ce texte en la même quête ; une quête lue puis réécrite rend son fichier, octet pour octet, quand il était déjà sous cette forme. </p>
 
 </div>
 </div>
