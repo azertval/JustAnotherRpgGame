@@ -349,6 +349,60 @@ TEST(EncounterModelTest, LeCombatLaisseAuxFichesCeQuIlEnReste) {
 }
 
 /**
+ * @brief Le niveau donné survit au combat, et le repos rend la fiche pleine à ce niveau
+ *        (`LOT-142`) : la série de l'arène donne un niveau et un repos entre deux combats.
+ * \castest{<b>Un combat garde le niveau donne ; le repos rend les points de vie.</b><br/>
+ * \tcat Unitaire · Combat sur la carte<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Donner un niveau au groupe ; engager les rats, fuir.<br/>2. Lire le registre.<br/>
+ * 3. Donner un repos au groupe ; engager les rats.<br/>
+ * \tattendu Apres la fuite, chaque membre garde le niveau 2 au registre ; apres le repos, il n'a
+ * plus de points de vie retenus, et le Brawler entre en combat plein, au maximum du niveau 2.
+ * }
+ */
+TEST(EncounterModelTest, LeNiveauDonneSurvitAuCombatEtLeReposSoigne) {
+    hmi::WorldModel monde;
+    ouvrirLeDonjon(monde);
+    ASSERT_TRUE(monde.levelUp(QStringLiteral("party")));
+    core::MemberRecord blesse = *monde.ledger().record("heros-brawler");
+    blesse.hitPoints = 4;
+    monde.recordMember("heros-brawler", blesse);
+
+    hmi::EncounterModel rencontre;
+    rencontre.setContentRoot(dataRoot());
+    rencontre.setSeed(2026);
+    ASSERT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon")))
+        << rencontre.status().toStdString();
+    std::set<std::string> bandes;
+    fuir(rencontre, monde, bandes);
+    ASSERT_TRUE(rencontre.ended());
+    rencontre.leave();
+    for (const std::string& membre : monde.party().members()) {
+        const core::MemberRecord* const record = monde.ledger().record(membre);
+        ASSERT_NE(record, nullptr) << membre;
+        EXPECT_EQ(record->level, 2) << membre << " : le combat a garde le niveau donne";
+    }
+
+    EXPECT_TRUE(monde.rest(QStringLiteral("party")));
+    EXPECT_FALSE(monde.rest(QStringLiteral("party"))) << "un groupe repose n'a rien a reposer";
+    for (const std::string& membre : monde.party().members()) {
+        const core::MemberRecord* const record = monde.ledger().record(membre);
+        ASSERT_NE(record, nullptr) << membre;
+        EXPECT_EQ(record->level, 2) << membre;
+        EXPECT_FALSE(record->hitPoints.has_value()) << membre;
+    }
+    monde.placeHero(core::cellCenter({.column = 24, .row = 19}));
+    ASSERT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon")))
+        << rencontre.status().toStdString();
+    const QStringList pv = rencontre.heroHitPoints().split(QStringLiteral(" / "));
+    ASSERT_EQ(pv.size(), 2);
+    EXPECT_EQ(pv.front(), pv.back()) << "plein apres le repos";
+    EXPECT_GT(pv.back().toInt(), 15) << "au maximum du niveau 2";
+    fuir(rencontre, monde, bandes);
+    rencontre.leave();
+}
+
+/**
  * @brief L'interface de combat de groupe (`LOT-140`, `EX-IHM-108`) lit ce que la vue-modèle
  *        publie : le round, les jetons de l'ordre d'initiative, le panneau du combattant actif, le
  *        détail des actions et la prévisualisation de l'action choisie sur la case du curseur.

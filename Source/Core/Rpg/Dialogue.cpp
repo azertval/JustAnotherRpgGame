@@ -230,10 +230,13 @@ void lireCondition(const Json& brut, DialogueNode& noeud, Rapport& rapport) {
     } else if (type == "levelUp") {
         action.kind = DialogueActionKind::LevelUp;
         champ = "character";
+    } else if (type == "rest") {
+        action.kind = DialogueActionKind::Rest;
+        champ = "character";
     } else {
         rapport.noeud(noeudId,
                       "action de type inconnu (setFlag, clearFlag, giveItem, "
-                      "startQuest, startEncounter, endDemo, levelUp).");
+                      "startQuest, startEncounter, endDemo, levelUp, rest).");
         return std::nullopt;
     }
     action.target = exiger(effet, champ, noeudId, rapport);
@@ -1013,6 +1016,10 @@ void DialogueRunner::apply(const DialogueAction& action) {
         case DialogueActionKind::LevelUp:
             _listener.levelUp(action.target);
             _journal.push_back("niveau donne : " + action.target);
+            break;
+        case DialogueActionKind::Rest:
+            _listener.rest(action.target);
+            _journal.push_back("repos donne : " + action.target);
             break;
     }
 }

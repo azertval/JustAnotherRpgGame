@@ -195,6 +195,14 @@ public:
      * @return Vrai si un personnage au moins a gagné un niveau.
      */
     Q_INVOKABLE bool levelUp(const QString& characterId);
+    /**
+     * @brief Le repos long de @p characterId — `party` : de chaque membre du groupe (`LOT-142`).
+     *
+     * Les points de vie et les lancers reviennent à ceux de la fiche, au niveau que la partie a
+     * donné (`core::PartyLedger::rest`). Le maître d'arène le donne entre deux combats de la
+     * série. @return Vrai si un membre au moins portait une blessure ou un lancer dépensé.
+     */
+    Q_INVOKABLE bool rest(const QString& characterId);
     /// @brief Désigne le personnage dont la fiche s'ouvre (`shownCharacterId`) ; vide : le meneur.
     Q_INVOKABLE void showCharacter(const QString& characterId);
     [[nodiscard]] QString shownCharacterId() const;

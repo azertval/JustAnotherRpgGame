@@ -47,5 +47,6 @@ QtObject {
     function toggleMember(characterId) { return true }
     function moveMember(characterId, offset) { return true }
     function levelUp(characterId) { return true }
+    function rest(characterId) { return true }
     function showCharacter(characterId) {}
 }

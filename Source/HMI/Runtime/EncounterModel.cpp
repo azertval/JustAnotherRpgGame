@@ -109,6 +109,25 @@ void logCatalogErrors(const std::string& prefix, const std::vector<std::string>&
     return std::nullopt;
 }
 
+// La fiche en cache pleine : ses points de vie au maximum, ses lancers au compte du jour. Le cache
+// garde la fiche telle qu'elle a ete lue la premiere fois, registre d'alors applique ; sans ce
+// plein, un repos (LOT-142), qui retire du registre les blessures, les laisserait au cache.
+void refill(HeroContestantSource& source) {
+    source.sheet.currentHitPoints = source.sheet.maximumHitPoints;
+    for (core::KnownSpell& connu : source.sheet.knownSpells) {
+        if (connu.perDay > 0) {
+            connu.remaining = connu.perDay;
+        }
+    }
+    for (core::ArenaSpell& sort : source.spells) {
+        const auto connu =
+            std::ranges::find(source.sheet.knownSpells, sort.id, &core::KnownSpell::spellId);
+        if (sort.uses >= 0 && connu != source.sheet.knownSpells.end() && connu->perDay > 0) {
+            sort.uses = connu->perDay;
+        }
+    }
+}
+
 // Le registre de la partie sur la fiche lue : ce que les combats precedents en ont laisse, les
 // lancers restants de chaque sort compris.
 void applyMemberRecord(HeroContestantSource& source, const core::MemberRecord& record) {
@@ -234,6 +253,7 @@ std::vector<std::pair<std::string, HeroContestantSource>> EncounterModel::partyS
             lue = _catalogs->heroes.emplace(fichier, std::move(*source)).first;
         }
         HeroContestantSource source = lue->second;
+        refill(source);
         if (record != nullptr) {
             applyMemberRecord(source, *record);
         }
@@ -733,7 +753,12 @@ void EncounterModel::settleParty(WorldModel& world, core::CombatOutcome outcome)
             morts.push_back(membre.characterId);
             continue;
         }
+        // Le registre garde ce que le combat ne touche pas : le niveau donne (LOT-141). Un
+        // enregistrement neuf l'effacait, et la fiche retombait au niveau de son fichier au
+        // combat suivant (LOT-142).
+        const core::MemberRecord* const avant = world.ledger().record(membre.characterId);
         core::MemberRecord record;
+        record.level = avant != nullptr ? avant->level : std::nullopt;
         // A terre a la fin d'un combat gagne, un personnage se releve a 1 point de vie : le
         // Manuel le rend a 1 PV apres 1d4 heures une fois stabilise ; ici, la victoire vaut ce
         // repos (decision du LOT-139). Debout, il garde ce qui lui reste.

@@ -129,6 +129,15 @@ public:
             HMI_LOG_WARNING("Dialogue : montee de niveau sans partie en cours.");
         }
     }
+    // Le repos donne par un PNJ (LOT-142) : la partie oublie blessures et lancers depenses.
+    void rest(std::string_view characterId) override {
+        if (WorldModel* const partie = WorldModel::current()) {
+            static_cast<void>(partie->rest(
+                QString::fromUtf8(characterId.data(), static_cast<qsizetype>(characterId.size()))));
+        } else {
+            HMI_LOG_WARNING("Dialogue : repos sans partie en cours.");
+        }
+    }
 
 private:
     const core::ExperienceTable& _experience;

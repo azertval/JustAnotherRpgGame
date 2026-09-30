@@ -96,6 +96,10 @@ enum class DialogueActionKind {
     /// (`party`) : la montée de niveau est donnée par la quête tant que l'expérience n'arrive pas
     /// (`core::DialogueListener::levelUp`).
     LevelUp,
+    /// **Donne un repos long** (`LOT-142`) au personnage nommé par `target`, ou à tout le groupe
+    /// (`party`) : points de vie et lancers rendus, niveau gardé
+    /// (`core::DialogueListener::rest`).
+    Rest,
 };
 
 /// @brief Un effet d'un nœud d'action.
@@ -345,9 +349,14 @@ public:
     virtual void levelUp(std::string_view characterId) {
         static_cast<void>(characterId);
     }
+    /// Le PNJ donne un repos long à @p characterId — `party` : à tout le groupe (`LOT-142`). Sans
+    /// effet par défaut, pour la même raison que `startEncounter`.
+    virtual void rest(std::string_view characterId) {
+        static_cast<void>(characterId);
+    }
 };
 
-/// @brief La cible d'un `levelUp` qui vise tout le groupe.
+/// @brief La cible d'un `levelUp` ou d'un `rest` qui vise tout le groupe.
 inline constexpr std::string_view LEVEL_UP_PARTY = "party";
 
 /**
