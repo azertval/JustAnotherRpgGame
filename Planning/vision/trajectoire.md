@@ -14,6 +14,7 @@ jouable, détaillée à fond ; les suivantes esquissées ; rien au-delà n'est p
 |---|---|---|
 | `0.0.1` | **Démo basique** : Martpart, Arenarea et son donjon l'Arena of Fate, en **cartes de principe** (D-25) ; le standard 2D HD ; une quête | détaillée, lot par lot |
 | `0.0.2` | **Système de combat** : les quatre classes de base, le combat de groupe, l'interface | détaillée |
+| `0.0.2.5` | **Passage à la 3D** (D-29) : même vue isométrique, décor d'architecture en maillages, personnages composés sur un squelette commun, cycle jour / nuit ; le jeu de la `0.0.2` rejoué dans sa nouvelle matière | détaillée, lot par lot |
 | `0.0.3` → `0.0.9` | **Une sous-version par zone** de l'Empire central : la Capitale dans ses murs, les faubourgs, les abords, la côte sud, Bak, le nord, l'ouest | détaillée à la maille de la zone |
 | **`0.1.0`** | **L'Empire central**, relu d'un bloc : toutes ses zones, ses PNJ nommés, ses peuples, ses animaux, ses monstres, quatre classes | détaillée |
 | **`0.2.0`** | **La compagnie**, et les dernières fonctionnalités : après elle, on n'ajoute plus que du contenu | détaillée à la maille de la fonctionnalité |

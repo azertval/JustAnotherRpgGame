@@ -6,6 +6,16 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Planification — la version 0.0.2.5, passage à la 3D.** Le jeu garde sa vue isométrique et
+  passe en 3D, entre la recette de la `0.0.2` et la `0.0.3` (décisions D-29 à D-35) : décor
+  d'architecture en maillages, personnages **composés** — un corps parmi huit, une texture, des
+  pièces d'équipement sur un squelette commun —, cycle jour / nuit, et un atelier des assets 3D
+  dans l'éditeur. Onze lots, `LOT-1000` à `LOT-1010`, ouverts par une preuve de la chaîne de
+  personnages ; **chaque fiche nomme ce qu'elle supprime** (rubrique « À supprimer »), et ce qui
+  reste en image jusqu'à la `0.0.3` est écrit comme dette. Le `LOT-145` est clos sur son mannequin
+  humanoïde. Les identifiants de lot admettent quatre chiffres (`lint_planning.py`,
+  `lint_docs.py`). Aucun code du jeu ne change.
+
 - **LOT-141 — La fiche et l'écran de groupe.** La fiche de personnage s'ouvre pour **chaque
   membre** (`Tab` passe au suivant ; depuis l'écran Groupe, `F` ouvre la fiche du personnage
   désigné) et gagne deux onglets (`Page suiv.` / `Page préc.`, `RB` / `LB`) : **Classe** — les

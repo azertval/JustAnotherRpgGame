@@ -68,7 +68,7 @@ objectifs = [
   "Les **quatre classes de base** du *Player's Guide*, fidèles aux fiches préfabriquées (p. 195, 199, 203, 207) : compétences, capacités, assets.",
   "Le **combat de groupe** : plusieurs personnages joués contre plusieurs adversaires.",
   "Une **interface à jour** : les profils des personnages dans le combat, la fiche et le groupe.",
-  "Les **mannequins de remplacement** (LOT-145, repris de la `0.0.1` par la décision D-26) : trois silhouettes dans les quatre orientations, pour que chaque créature d'une rencontre se voie et s'anime avant sa figurine.",
+  "Les **mannequins de remplacement** (LOT-145, repris de la `0.0.1` par la décision D-26) : l'humanoïde dans les quatre orientations, pour que chaque créature d'une rencontre se voie et s'anime avant sa figurine ; les silhouettes quadrupède et volante ne sont pas produites en 2D (décision D-34).",
 ]
 criteres_de_sortie = [
   "Chacune des quatre fiches préfabriquées se recrée dans le jeu, valeur pour valeur.",
@@ -77,6 +77,29 @@ criteres_de_sortie = [
 ]
 sources = [
   "Player's Guide to Tanares — classes simplifiées, p. 192-208 ; fiches préfabriquées p. 195, 199, 203, 207",
+]
+
+[[version]]
+id = "0.0.2.5"
+titre = "Passage à la 3D"
+nature = "detaillee"
+referentiel = "0.1.0"
+dossier = "v0.1.0/v0.0.2.5-passage-3d"
+resume = "Le jeu garde sa vue isométrique et passe en 3D : un personnage est un corps commun, une texture et des pièces d'équipement sur un squelette partagé ; le décor d'architecture est en maillages, éclairé, avec un cycle jour / nuit. Chaque lot retire ce qu'il remplace."
+objectifs = [
+  "Une **production de personnages stable** : un corps parmi huit (deux sexes, quatre corpulences), une texture par personnage, une bibliothèque de pièces d'équipement, six animations réglées une fois sur un squelette commun (décision D-31).",
+  "Un **décor d'architecture en maillages** sous la même caméra isométrique, et un **cycle jour / nuit** : soleil, ombres portées, lumières de nuit.",
+  "Un **atelier des assets 3D** dans l'éditeur : déclarer une pièce, assembler un personnage, composer un ensemble de décor en préfabriqué (décision D-33).",
+  "Un **dépôt sans asset mort** : chaque lot nomme ce qu'il supprime, et le supprime dans sa propre PR (décision D-32).",
+]
+criteres_de_sortie = [
+  "La quête « Des pommes pour l'arène » et un combat à quatre contre quatre se rejouent de bout en bout en 3D, de jour comme de nuit, au clavier comme à la manette.",
+  "Les quatre héros sont des modèles assemblés dans l'atelier ; plus aucune bande d'animation de figurine ne reste dans le dépôt ni dans les kits (les effets de `Common/Fx/` restent des bandes).",
+  "L'éditeur montre exactement ce que le jeu dessine : ils partagent un seul rendu, et plus aucun peintre `QPainter` ne dessine la scène.",
+  "Le contrôle des orphelins passe : tout fichier installé est cité par un manifeste ou une fiche, toute entrée citée existe, et les seules images de décor restantes sont celles de la dette déclarée pour la `0.0.3`.",
+]
+sources = [
+  "Audit de faisabilité du 30 septembre 2026 — https://claude.ai/code/artifact/9cffa31b-7b23-4e0a-8df9-1c0cb9534523",
 ]
 
 [[version]]

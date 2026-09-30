@@ -3,7 +3,7 @@ id = "LOT-145"
 titre = "Les mannequins de remplacement"
 version = "0.0.2"
 filiere = "pnj"
-statut = "en-cours"
+statut = "livre"
 taille = "M"
 resume = "Toute entité sans figurine se voit et s'anime quand même : un mannequin par silhouette tient la place de l'asset, en exploration comme en combat, jusqu'à ce que l'atelier livre le vrai."
 prerequis = ["LOT-112"]
@@ -136,7 +136,16 @@ dans la liste `portraits` du manifeste `Characters/` et non dans `npcs`. Le mote
 le mannequin ; leurs bandes, quand elles viendront, les feront passer dans `npcs`. L'installateur,
 le contrôle des assets et la galerie connaissent cette liste.
 
-Restent : les mannequins quadrupède et volant.
+## Clos le 30 septembre 2026
+
+Le lot est **livré sur l'humanoïde** (PR #154) et clos en l'état par la décision
+[D-34](../../../../vision/decisions.md). Les mannequins **quadrupède** et **volant** ne sont pas
+produits : le jeu passe à la 3D à la `0.0.2.5` ([D-29](../../../../vision/decisions.md)), et les
+produire en bandes serait fabriquer un asset que le
+[LOT-1006](../../v0.0.2.5-passage-3d/lots/LOT-1006-corps-de-reference.md) supprimerait. Les
+livrables et critères qui les nomment ne sont donc **pas tenus**, et ne le seront pas sous cette
+forme : les silhouettes reviendront en squelettes, avec leurs créatures. La règle de repli et la
+propriété `silhouette` restent en service.
 
 ## Risques et questions ouvertes
 

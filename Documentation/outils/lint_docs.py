@@ -31,7 +31,7 @@ import mini_markdown  # noqa: E402  (chemin ajouté par build_docs_site)
 
 DOXYGEN_RE = re.compile(r'(?<![\w`])(?:[@\\](?:ref|subpage|page|section|copydoc)\b|\\anchor\b)')
 LINK_RE = re.compile(r'!?\[[^\]]*\]\(([^)\s]+)\)')
-LOT_RE = re.compile(r'\bLOT-(?:EDITOR-\d{2}|\d{2,3})\b')
+LOT_RE = re.compile(r'\bLOT-(?:EDITOR-\d{2}|\d{2,4})\b')
 
 
 def anchors_of(path, cache={}):  # noqa: B006 — cache de module voulu
