@@ -48,12 +48,20 @@ $common = @(
     '--excluded_sources', (Join-Path $repoRoot 'Source\Test'),
     '--excluded_sources', (Join-Path $repoRoot 'External')
 )
+# Les tests d'equilibrage par simulation rejouent des centaines de combats : sous OpenCppCoverage,
+# ils depassaient l'heure du job (LOT-142). Ils ne couvrent rien que les tests unitaires de l'IA
+# ne couvrent deja, et CTest les joue dans les trois configurations.
+$filtres = @{
+    'IntegrationTests' = '--gtest_filter=-SerieDeLArene.ChaqueRencontreSeGagneDansSaBande:QueteDesPommes.LeCombatSeGagneDeuxFoisSurTrois:QueteDesPommes.LaProbabiliteDeVictoireTientSurMilleGraines'
+}
 $inputs = @()
 foreach ($suite in 'UnitTests', 'IntegrationTests', 'SystemTests') {
     $exe = Join-Path $bin "$suite.exe"
     if (-not (Test-Path -LiteralPath $exe)) { throw "Suite absente : $exe" }
     $intermediate = Join-Path $out "$suite.cov"
-    & $OpenCppCoverage @common --export_type "binary:$intermediate" -- $exe
+    $arguments = @()
+    if ($filtres.ContainsKey($suite)) { $arguments += $filtres[$suite] }
+    & $OpenCppCoverage @common --export_type "binary:$intermediate" -- $exe @arguments
     if ($LASTEXITCODE -ne 0) { throw "$suite sous OpenCppCoverage : échec ($LASTEXITCODE)." }
     $inputs += '--input_coverage', $intermediate
 }

@@ -1719,13 +1719,15 @@ Le sable de l'Arena of Fate porte quatre contre six, et rougit réduit de moiti�
 - Vérifie que `rendu.script.ok()` est vrai.
 - Vérifie que `rendu.script.gestures` vaut `4U`.
 - Vérifie que `rendu.script.steps` vaut `1U`.
-- Vérifie que `rendu.script.log.size()` vaut `attendu.size() + 6U`.
+- Vérifie que `rendu.script.log.size()` vaut `62U`.
 - Vérifie que `rendu.script.log[ligne]` vaut `attendu[ligne]`.
-- Vérifie que `rendu.script.log[ligne].find("would stand outside combat zone \"sable\"")` diffère de `std::string::npos`.
+- Vérifie que `texte.find("inspect e4 [refused]: ")` diffère de `std::string::npos`.
+- Vérifie que `horsZone || marqueur || verdict` est vrai.
+- Vérifie que `marqueurs` vaut `6U`.
 
 ### GestureScriptTest.UnGesteRefuseRendUneErreurLisible
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:255`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:281`
 
 Un geste refusé rend une erreur lisible.
 
@@ -1740,7 +1742,7 @@ Un geste refusé rend une erreur lisible.
 
 ### GestureScriptTest.UnGesteRefuseNeTouchePasAuFichier
 
-*Critique · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:293`
+*Critique · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:319`
 
 Un geste refusé ne touche pas au fichier.
 

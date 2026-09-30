@@ -924,7 +924,7 @@ Un objet de grille bloque tant qu'il tient, puis se detruit.
 
 ### ClassBrawlerTest.LaFichePreTireePorteToughAsNails
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:60`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:61`
 
 La fiche de la page 195 se charge avec Tough as Nails et sa CA de 14.
 
@@ -944,7 +944,7 @@ La fiche de la page 195 se charge avec Tough as Nails et sa CA de 14.
 
 ### ClassBrawlerTest.ToughAsNailsDonneSaCaSansArmure
 
-*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:83`
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:84`
 
 La formule de Tough as Nails se recalcule avec ce que le Brawler porte.
 
@@ -963,14 +963,15 @@ La formule de Tough as Nails se recalcule avec ce que le Brawler porte.
 
 ### ClassBrawlerTest.ToughAsNailsDiviseLesDegatsEtSeNomme
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:109`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:112`
 
-Le mannequin touche le Brawler : il ne perd que la moitie des degats, et le journal ecrit « resistance (tranchant ; Tough as Nails) ».
+Le mannequin touche le Brawler a 5 PV sur 15 : il retire le tiers des degats, et le journal ecrit « resistance graduee (tranchant ; Tough as Nails) » ; plein de vie, il perd tout.
 
 **Étapes**
 
-1. Monter le Brawler N1 contre un mannequin a +20 au toucher.
+1. Monter le Brawler N1 a 5 PV contre un mannequin a +20 au toucher.
 2. Passer au tour du mannequin et attaquer ; graine choisie pour toucher.
+3. Recommencer a 15 PV.
 
 **Résultat attendu**
 
@@ -980,13 +981,19 @@ Le mannequin touche le Brawler : il ne perd que la moitie des degats, et le jour
 - Vérifie que `attaque.result` vaut `core::ArenaActionResult::Done`.
 - Vérifie que `coup.has_value()` est vrai.
 - Vérifie que `journalHas(session.journal(), "capacites Grom Tranche-Écaille : Tough as Nails")` est vrai.
-- Vérifie que `ligne.find("resistance (tranchant ; Tough as Nails)")` diffère de `std::string::npos`.
 - Vérifie que `coup->report.has_value()` est vrai.
-- Vérifie que `coup->report->hitPointsBefore - coup->report->hitPointsAfter` vaut `lances / 2`.
+- Vérifie que `ligne.find("resistance graduee (tranchant ; Tough as Nails)")` diffère de `std::string::npos`.
+- Vérifie que `coup->report->hitPointsBefore - coup->report->hitPointsAfter` vaut `std::min(5, lances - retire)`.
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `attaque.result` vaut `core::ArenaActionResult::Done`.
+- Vérifie que `plein.has_value() && plein->report.has_value()` est vrai.
+- Vérifie que `plein->report->hitPointsBefore - plein->report->hitPointsAfter` vaut `std::min(15, plein->damage.front().amount)`.
 
 ### ClassBrawlerTest.HitTheMarkAjouteDeuxAuJet
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:146`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:176`
 
 Au niveau 3, le jet de la hache porte « + 2 (Hit the Mark) » ; au niveau 2, non.
 
@@ -1007,7 +1014,7 @@ Au niveau 3, le jet de la hache porte « + 2 (Hit the Mark) » ; au niveau 2, no
 
 ### ClassBrawlerTest.ExtraAttackDonneDeuxAttaquesParAction
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:177`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:207`
 
 Au niveau 5, le Brawler attaque deux fois dans le tour ; la seconde est nommee au journal ; une troisieme est refusee, et l'action n'est plus la pour esquiver.
 
@@ -1040,7 +1047,7 @@ Au niveau 5, le Brawler attaque deux fois dans le tour ; la seconde est nommee a
 
 ### ClassBrawlerTest.ExtraAttackNeSuitQueLActionAttaquer
 
-*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:217`
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:247`
 
 Apres une esquive, le Brawler N5 n'attaque pas.
 
@@ -1059,7 +1066,7 @@ Apres une esquive, le Brawler N5 n'attaque pas.
 
 ### ClassBrawlerTest.DuNiveau1AuNiveau5LaTableSeLit
 
-*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:237`
+*Critique · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:267`
 
 Monter le Brawler de la page 195 niveau par niveau donne les capacites de la table, sans capacite manquante.
 
@@ -1081,7 +1088,7 @@ Monter le Brawler de la page 195 niveau par niveau donne les capacites de la tab
 
 ### ClassBrawlerTest.UneAttaqueEnPlusNulleEstRefusee
 
-*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:277`
+*Majeur · Unitaire · Classes* — `Source/Test/Unit/Core/Combat/test_class_brawler.cpp:307`
 
 Une capacite qui declare « extra-attack » a 0 est refusee et nommee.
 

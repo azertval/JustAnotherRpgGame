@@ -41,7 +41,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 ### BestiaryTest.LesQuatreVingtQuatorzeProfilsChargent
 
-*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:96`
+*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:99`
 
 Les 94 creatures du bestiaire de base se chargent toutes.
 
@@ -55,11 +55,11 @@ Les 94 creatures du bestiaire de base se chargent toutes.
 - Vérifie que `identifiants.insert(creature.id).second` est vrai.
 - Vérifie que `creature.name.empty()` est faux.
 - Vérifie que `creature.source` vaut `"original"`.
-- Vérifie que `srd` vaut `BETES_DU_SRD`.
+- Vérifie que `srd` vaut `BETES_DU_SRD + PNJ_DU_MANUEL`.
 
 ### BestiaryTest.DixProfilsConcordentAvecLeLivre
 
-*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:129`
+*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:134`
 
 Dix blocs de statistiques du bestiaire concordent avec le livre.
 
@@ -83,7 +83,7 @@ Dix blocs de statistiques du bestiaire concordent avec le livre.
 
 ### BestiaryTest.ChaqueProfilEstComplet
 
-*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:169`
+*Critique · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:174`
 
 Aucun profil du bestiaire n'a de caracteristique ni de vitesse manquante.
 
@@ -102,7 +102,7 @@ Aucun profil du bestiaire n'a de caracteristique ni de vitesse manquante.
 
 ### BestiaryTest.UneVitesseNulleSignifieUnAutreDeplacement
 
-*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:193`
+*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:198`
 
 Une creature sans vitesse de marche possede un autre mode de deplacement.
 
@@ -117,7 +117,7 @@ Une creature sans vitesse de marche possede un autre mode de deplacement.
 
 ### BestiaryTest.LesMecanismesExigesSontAnnonces
 
-*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:221`
+*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:226`
 
 Exigences : `EX-CNT-031`
 
@@ -134,7 +134,7 @@ Le bestiaire annonce les mecanismes que les creatures exigent du moteur.
 
 ### BestiaryTest.UnDossierAbsentEstSignale
 
-*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:242`
+*Majeur · Unitaire · Bestiaire* — `Source/Test/Unit/Core/Rpg/test_bestiary.cpp:247`
 
 Charger un dossier de creatures inexistant produit une erreur nommee.
 

@@ -14,10 +14,9 @@
  * nomme `JADG_SIMULATION_OUT`. La CI joue le test de garde, plus court.
  */
 
-#include <QString>
-#include <QtGlobal>
 #include <algorithm>
 #include <cstdint>
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
@@ -40,6 +39,24 @@
 namespace {
 
 const std::filesystem::path ELEMENTS{JADG_ELEMENTS_DIR};
+
+// Une variable d'environnement, sans l'avertissement de MSVC sur getenv (comme
+// test_map_format.cpp) : ce test n'a pas Qt, que le job sanitize ne construit pas.
+[[nodiscard]] std::optional<std::string> variable(const char* name) {
+#ifdef _MSC_VER
+    char* value = nullptr;
+    std::size_t size = 0;
+    if (_dupenv_s(&value, &size, name) != 0 || value == nullptr) {
+        return std::nullopt;
+    }
+    std::string copy{value};
+    std::free(value);  // NOLINT(cppcoreguidelines-no-malloc) : allouee par _dupenv_s
+    return copy;
+#else
+    const char* value = std::getenv(name);  // NOLINT(concurrency-mt-unsafe)
+    return value == nullptr ? std::nullopt : std::optional<std::string>{value};
+#endif
+}
 
 /// Une rencontre de la série et le niveau auquel le groupe la joue.
 struct Etape {
@@ -210,11 +227,11 @@ TEST(SerieDeLArene, ChaqueRencontreSeGagneDansSaBande) {
  * }
  */
 TEST(SerieDeLArene, MesureCompleteParComposition) {
-    const QString graines = qEnvironmentVariable("JADG_SIMULATION_SEEDS");
-    if (graines.isEmpty()) {
+    const std::optional<std::string> graines = variable("JADG_SIMULATION_SEEDS");
+    if (!graines.has_value() || graines->empty()) {
         GTEST_SKIP() << "JADG_SIMULATION_SEEDS n'est pas posee : pas de mesure complete.";
     }
-    const int n = std::max(1, graines.toInt());
+    const int n = std::max(1, std::atoi(graines->c_str()));
     const core::LevelLoadResult carte = sable();
     ASSERT_TRUE(carte.ok()) << carte.error;
     const test_support::ArenaContent arene(ELEMENTS);
@@ -261,8 +278,9 @@ TEST(SerieDeLArene, MesureCompleteParComposition) {
     md << "\nÉcart entre trios : " << std::fixed << std::setprecision(1) << (meilleur - pire)
        << " points, sur " << n << " graines par case.\n";
     std::cout << md.str();
-    if (const QString sortie = qEnvironmentVariable("JADG_SIMULATION_OUT"); !sortie.isEmpty()) {
-        std::ofstream(std::filesystem::path(sortie.toStdWString())) << md.str();
+    if (const std::optional<std::string> sortie = variable("JADG_SIMULATION_OUT");
+        sortie.has_value() && !sortie->empty()) {
+        std::ofstream(std::filesystem::path(*sortie)) << md.str();
     }
     EXPECT_LT(meilleur - pire, 20.0) << md.str();
 }

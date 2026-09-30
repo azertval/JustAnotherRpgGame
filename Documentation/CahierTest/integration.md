@@ -367,7 +367,7 @@ Une quete de trois etapes se joue sans fenetre.
 
 ### SerieDeLArene.LaSerieMonteEnDifficulte
 
-*Critique · Integration · Serie de l'arene · Equilibrage* — `Source/Test/Integration/test_serie_de_l_arene.cpp:115`
+*Critique · Integration · Serie de l'arene · Equilibrage* — `Source/Test/Integration/test_serie_de_l_arene.cpp:132`
 
 Les six rencontres de la serie sont difficiles, les deux dernieres mortelles, et leur budget croit jusqu'au niveau 5.
 
@@ -386,7 +386,7 @@ Les six rencontres de la serie sont difficiles, les deux dernieres mortelles, et
 
 ### SerieDeLArene.ChaqueRencontreSeGagneDansSaBande
 
-*Critique · Integration · Serie de l'arene · Equilibrage* — `Source/Test/Integration/test_serie_de_l_arene.cpp:154`
+*Critique · Integration · Serie de l'arene · Equilibrage* — `Source/Test/Integration/test_serie_de_l_arene.cpp:171`
 
 Chaque rencontre de la serie se gagne dans sa bande de victoires.
 
@@ -403,7 +403,7 @@ Chaque rencontre de la serie se gagne dans sa bande de victoires.
 
 ### SerieDeLArene.MesureCompleteParComposition
 
-*Critique · Integration · Serie de l'arene · Equilibrage* — `Source/Test/Integration/test_serie_de_l_arene.cpp:202`
+*Critique · Integration · Serie de l'arene · Equilibrage* — `Source/Test/Integration/test_serie_de_l_arene.cpp:219`
 
 Sur la serie, l'ecart de victoires entre les quatre trios reste sous vingt points.
 

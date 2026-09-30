@@ -448,8 +448,6 @@ add_executable(IntegrationTests
 target_link_libraries(IntegrationTests PRIVATE
     EditorLogic
     HmiLib
-    # qEnvironmentVariable : la mesure complete de la serie de l'arene (LOT-142).
-    Qt6::Core
     GTest::gtest_main
     project_warnings
     project_options
