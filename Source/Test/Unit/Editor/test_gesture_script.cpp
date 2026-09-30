@@ -211,8 +211,9 @@ TEST(GestureScriptTest, UneRueRefaiteRendLaCarteALOctet) {
  *          sable, puis la rencontre au niveau 1, tirer la poignée sud-est du sable de 22 à 11
  *          colonnes, inspecter le sable.<br/>
  * \tattendu Le sable : 4 contre 6, quatre places, 244 cases pour 40 ; la rencontre : 300 PX
- *           modifiés, « difficile » pour quatre niveaux 1 ; réduit, le sable est refusé : marqueur
- *           et six bandits hors de la zone. Un seul pas d'annulation.
+ *           modifiés, « difficile » pour quatre niveaux 1 ; les cinq rencontres de la série de
+ *           l'arène (`LOT-142`) tiennent aussi ; réduit, le sable est refusé : les six marqueurs
+ *           et leurs combattants hors de la zone. Un seul pas d'annulation.
  * }
  */
 TEST(GestureScriptTest, LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit) {
@@ -223,9 +224,20 @@ TEST(GestureScriptTest, LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit) {
     ASSERT_TRUE(rendu.script.ok()) << rendu.script.error;
     EXPECT_EQ(rendu.script.gestures, 4U);
     EXPECT_EQ(rendu.script.steps, 1U);
+    // Le sable porte la demo et la serie de l'arene (LOT-142) : six rencontres.
     const std::vector<std::string> attendu{
         "inspect e4: sable: 22 x 14, 244 free cells of 308, 0 arena entries inside, 0 outside.",
         "inspect e4: arene-bandits: 4 vs 6, party places 4/4, 244 free cells reached (40 "
+        "required).",
+        "inspect e4: arene-gladiateurs: 4 vs 7, party places 4/4, 244 free cells reached (44 "
+        "required).",
+        "inspect e4: arene-morts: 4 vs 9, party places 4/4, 244 free cells reached (52 "
+        "required).",
+        "inspect e4: arene-veteran: 4 vs 5, party places 4/4, 244 free cells reached (36 "
+        "required).",
+        "inspect e4: arene-capitaine: 4 vs 7, party places 4/4, 244 free cells reached (44 "
+        "required).",
+        "inspect e4: arene-champion: 4 vs 6, party places 4/4, 244 free cells reached (40 "
         "required).",
         "inspect e6: arene-bandits: 300 XP adjusted (6 foes, 150 XP x 2), difficile for 4 of "
         "level 1 (facile 100, moyenne 200, difficile 300, mortelle 400).",
@@ -238,16 +250,30 @@ TEST(GestureScriptTest, LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit) {
         "inspect e4 [refused]: Encounter \"arene-bandits\": its marker stands outside combat "
         "zone \"sable\".",
     };
-    ASSERT_EQ(rendu.script.log.size(), attendu.size() + 6U);
+    std::string journal;
+    for (const std::string& ligne : rendu.script.log) {
+        journal += ligne + "\n";
+    }
+    // Les six rencontres et leurs 40 combattants : 12 lignes exactes, puis une ligne par
+    // combattant hors de la zone, et pour les cinq autres rencontres le verdict et le marqueur.
+    ASSERT_EQ(rendu.script.log.size(), 62U) << journal;
     for (std::size_t ligne = 0; ligne < attendu.size(); ++ligne) {
         EXPECT_EQ(rendu.script.log[ligne], attendu[ligne]);
     }
-    // Puis les six bandits, chacun hors de la zone.
+    // Le sable reduit refuse tout : chaque combattant hors de la zone, chaque marqueur aussi.
+    std::size_t marqueurs = 1;
     for (std::size_t ligne = attendu.size(); ligne < rendu.script.log.size(); ++ligne) {
-        EXPECT_NE(rendu.script.log[ligne].find("would stand outside combat zone \"sable\""),
-                  std::string::npos)
-            << rendu.script.log[ligne];
+        const std::string& texte = rendu.script.log[ligne];
+        EXPECT_NE(texte.find("inspect e4 [refused]: "), std::string::npos) << texte;
+        const bool horsZone =
+            texte.find("would stand outside combat zone \"sable\"") != std::string::npos;
+        const bool marqueur =
+            texte.find("its marker stands outside combat zone \"sable\"") != std::string::npos;
+        const bool verdict = texte.find("122 free cells reached") != std::string::npos;
+        EXPECT_TRUE(horsZone || marqueur || verdict) << texte;
+        marqueurs += marqueur ? 1U : 0U;
     }
+    EXPECT_EQ(marqueurs, 6U) << journal;
 }
 
 /**

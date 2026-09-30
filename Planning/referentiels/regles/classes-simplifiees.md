@@ -21,7 +21,7 @@ Règles communes (p. 192) : pas de multiclassage vers/depuis une classe simplifi
 ## Progression complète des capacités (texte des règles)
 
 **Brawler** (p. 192-194) — maîtrises : armures légères, intermédiaires, boucliers ; armes courantes et de guerre ; 2 compétences parmi Animal Handling, Athletics, Intimidation, Nature, Perception, Survival. Équipement : (a) greataxe ou (b) arme de guerre de corps à corps ; (a) deux handaxes ou (b) arme courante ; explorer's pack + quatre javelins.
-- N1 **Tough as Nails** : sans armure, CA = 10 + Dex + Con (bouclier permis) ; **résistance à tous les types de dégâts**.
+- N1 **Tough as Nails** : sans armure, CA = 10 + Dex + Con (bouclier permis) ; **résistance à tous les types de dégâts**. *Écart au livre (`LOT-142`, décision de l'auteur)* : dans le jeu, la résistance est **graduée** — elle retire aux dégâts la part des points de vie perdus, la moitié au plus à 0 PV. Entière dès le niveau 1, elle rendait le Brawler indispensable : la simulation de la série de l'arène mesurait 35 points d'écart entre le trio sans lui et le meilleur trio, 16 avec la retouche.
 - N2 Experience · N3 **Hit the Mark** : +2 aux jets d'attaque (+3 au N9, +4 au N13) · N4 ASI
 - N5 **Extra Attack** · N6 **Physical Might** : +3 aux tests et sauvegardes de For et Con (+4 au N14)
 - N7 **Powerful Legs** : vitesse +5 ft (+5 de plus au N15) · N11 **Deadly** : 1/tour, +1d10 dégâts d'arme (1d12 au N17)

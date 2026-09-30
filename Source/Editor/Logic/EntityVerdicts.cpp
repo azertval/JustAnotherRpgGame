@@ -171,6 +171,7 @@ std::vector<EntityVerdict> entityVerdicts(const core::TileMap& collision,
         context.bestiary);
 
     std::vector<EntityVerdict> verdicts;
+    verdicts.reserve(zones.size() + deployments.size());
     for (const core::CombatZoneTerrain& zone : zones) {
         verdicts.push_back(zoneVerdict(zone, deployments, entities));
     }

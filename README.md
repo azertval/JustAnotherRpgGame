@@ -21,11 +21,12 @@ de Qt, qui retient **Direct3D 11** par défaut sous Windows.
 - ⬇️ **Télécharger la dernière version** : <https://github.com/azertval/JustAnotherRpgGame/releases/latest>
   (préversion roulante du dernier `main` : <https://github.com/azertval/JustAnotherRpgGame/releases/tag/debug-latest>)
 
-**Version courante : `0.0.1` — la démo basique** (25 septembre 2026). Une quête, « Des pommes pour
-l'arène », jouée de bout en bout sur trois cartes de principe de la Capitale, avec trois fins. Ce
-qu'elle contient et ce qu'elle laisse aux versions suivantes est dans son
-[bilan](Planning/versions/v0.1.0/v0.0.1-demo/bilan.md) ; la suite est la
-[`0.0.2`, le système de combat](Planning/versions/v0.1.0/v0.0.2-combat/README.md).
+**Version courante : `0.0.2` — le système de combat** (30 septembre 2026). Les quatre classes de
+base du *Player's Guide to Tanares*, fidèles à leurs fiches pré-tirées, du niveau 1 au niveau 5, et
+le combat de groupe ; la démo de la `0.0.1` se rejoue avec le meneur qu'on choisit, et le maître
+d'arène propose ensuite une série de six combats. Ce qu'elle contient et ce qu'elle laisse aux
+versions suivantes est dans son [bilan](Planning/versions/v0.1.0/v0.0.2-combat/bilan.md) ; la suite
+est la [`0.0.2.5`, le passage à la 3D](Planning/versions/v0.1.0/v0.0.2.5-passage-3d/README.md).
 
 ## Description
 
@@ -46,7 +47,7 @@ Le *quoi* et le *pourquoi* sont décrits dans les
 [spécifications](https://azertval.github.io/JustAnotherRpgGame/) ; le *comment* dans le
 **Guide du développeur** et la référence de code Doxygen.
 
-## Fonctionnalités (état de la `0.0.1`)
+## Fonctionnalités (état de la `0.0.2`)
 
 > Le jeu a quitté le pixel art pour la **2D HD** le 20 septembre 2026 et a repris à zéro ses cartes
 > et ses assets. La `0.0.1` est la première version publiée depuis : une **démo basique**, jouée sur

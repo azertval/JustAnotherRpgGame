@@ -101,9 +101,9 @@ void attendre(int millisecondes) {
     static_cast<void>(pomper([] { return false; }, millisecondes));
 }
 
-/// La première graine, à partir de 1, dont le d20 du jet de Persuasion du héros de la démo
+/// La première graine, à partir de 1, dont le d20 du jet de Persuasion du meneur @p meneur
 /// réussit (ou échoue) le DD « moyenne » : c'est celle que le test donne au dialogue du garde.
-[[nodiscard]] int graineDePersuasion(bool reussite) {
+[[nodiscard]] int graineDePersuasion(bool reussite, const std::string& meneur = "heros-brawler") {
     const std::filesystem::path rpg = ELEMENTS / "Rpg";
     const core::CharacterOptions options =
         core::loadCharacterOptions(rpg / "species", rpg / "backgrounds", rpg / "classes");
@@ -113,7 +113,7 @@ void attendre(int millisecondes) {
     const core::CharacterCreationRules regles =
         core::loadCharacterCreationRules(rpg / "rules" / "character-creation.json");
     core::LoadedCharacterSheet heros = core::loadCharacterSheet(
-        rpg / "characters" / "heros-brawler.json", options, regles, experience);
+        rpg / "characters" / (meneur + ".json"), options, regles, experience);
     core::CharacterListener auditeur(heros.sheet, heros.inventory, experience, competences);
     const std::vector<core::Modifier> modificateurs = auditeur.skillModifiers("persuasion");
     for (int graine = 1; graine < 1000; ++graine) {
@@ -149,12 +149,23 @@ public:
         rencontre.setContentRoot(ELEMENTS);
     }
 
-    /// « Nouvelle partie » : le menu ouvre la vue de jeu, qui démarre la partie.
+    /// « Nouvelle partie » : le menu ouvre la vue de jeu, qui démarre la partie ; le joueur
+    /// choisit son meneur (`LOT-142`), `meneur`, et referme l'écran du choix.
     void nouvellePartie() {
         router.openGame();
         ASSERT_TRUE(monde.startNewGame()) << monde.status().toStdString();
         ASSERT_EQ(router.currentScreen(), Screen::Game);
+        ASSERT_TRUE(monde.choosingLeader()) << "Nouvelle partie demande le meneur";
+        if (meneur != monde.leaderId().toStdString()) {
+            ASSERT_TRUE(monde.setLeader(QString::fromStdString(meneur))) << meneur;
+        }
+        monde.endLeaderChoice();
+        ASSERT_FALSE(monde.choosingLeader());
+        ASSERT_EQ(monde.leaderId().toStdString(), meneur);
     }
+
+    /// Le meneur que le joueur choisit à « Nouvelle partie » (`LOT-142`).
+    std::string meneur = "heros-brawler";
 
     [[nodiscard]] core::GridPosition heros() const {
         return monde.play().session().heroCell();
@@ -422,6 +433,34 @@ TEST(DemoDeBoutEnBout, LaFinParLaParole) {
     EXPECT_EQ(jeu.etapes.back(), "pommes/enfant-libere");
     EXPECT_EQ(jeu.parler(DEVANT_LE_GARDE), std::nullopt) << "le garde a quitte le parvis";
 
+    ASSERT_NO_FATAL_FAILURE(finirChezLaMere(jeu, "parole"));
+}
+
+/**
+ * @brief La démo se rejoue avec le meneur qu'on choisit (`LOT-142`) : le Scoundrel mène, parle au
+ *        garde et fait le jet de Persuasion ; la voie de la parole mène à l'étal.
+ * \castest{<b>Nouvelle partie avec le Scoundrel pour meneur, puis la demo jusqu'a sa fin par la
+ * parole.</b><br/>
+ * \tcat Systeme · Demo<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Nouvelle partie ; choisir le Scoundrel pour meneur.<br/>2. Accepter la quete, au
+ * parvis convaincre le garde a une graine qui reussit le jet du Scoundrel.<br/>3. Rendre
+ * l'enfant.<br/>
+ * \tattendu Le meneur est le Scoundrel du debut a la fin ; la Persuasion reussit ; l'ecran de
+ * fin dit la voie de la parole.
+ * }
+ */
+TEST(DemoDeBoutEnBout, LaDemoSeRejoueAvecLeMeneurChoisi) {
+    Jeu jeu;
+    jeu.meneur = "heros-scoundrel";
+    ASSERT_NO_FATAL_FAILURE(jusquAuParvis(jeu));
+    ASSERT_NO_FATAL_FAILURE(jeu.repondre({"partir"}));
+    jeu.graineDuDialogue = graineDePersuasion(/*reussite=*/true, jeu.meneur);
+    ASSERT_NE(jeu.graineDuDialogue, 0);
+    ASSERT_EQ(jeu.parler(DEVANT_LE_GARDE), "garde");
+    ASSERT_NO_FATAL_FAILURE(jeu.repondre({"convaincre", "continue"}));
+    EXPECT_EQ(jeu.valeur(), "enfant-libere");
+    EXPECT_EQ(jeu.monde.leaderId().toStdString(), "heros-scoundrel");
     ASSERT_NO_FATAL_FAILURE(finirChezLaMere(jeu, "parole"));
 }
 

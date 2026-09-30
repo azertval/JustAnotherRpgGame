@@ -938,6 +938,16 @@
     <name>Party</name>
     <message>
         <location filename="../../App/Game/Qml/Screens/Party.qml" line="31"/>
+        <source>Choisissez votre meneur</source>
+        <translation>Choose your leader</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/Party.qml" line="31"/>
+        <source>Groupe</source>
+        <translation>Party</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/Party.qml" line="31"/>
         <source>Laisser</source>
         <translation>Leave out</translation>
     </message>

@@ -35,6 +35,9 @@ const std::filesystem::path CREATURES{JADG_RPG_CREATURES_DIR};
 
 // Les 94 betes du SRD, telles que le sommaire d'Animaux.pdf les compte.
 constexpr std::size_t BETES_DU_SRD = 94;
+// Les PNJ combattants du Manuel des Monstres (annexe B) : malfrat, berserker, capitaine bandit,
+// veteran, gladiateur (LOT-142, la serie de l'arene).
+constexpr std::size_t PNJ_DU_MANUEL = 5;
 
 /**
  * @brief Un profil recopie a la main du PDF : page imprimee, et les valeurs de l'acceptation.
@@ -121,7 +124,9 @@ TEST(BestiaryTest, LesQuatreVingtQuatorzeProfilsChargent) {
             EXPECT_EQ(creature.source, "original") << creature.id << " : provenance inattendue";
         }
     }
-    EXPECT_EQ(srd, BETES_DU_SRD) << "le sommaire d'Animaux.pdf en compte " << BETES_DU_SRD;
+    EXPECT_EQ(srd, BETES_DU_SRD + PNJ_DU_MANUEL)
+        << "le sommaire d'Animaux.pdf en compte " << BETES_DU_SRD << ", l'annexe B du Manuel des "
+        << "Monstres " << PNJ_DU_MANUEL;
 }
 
 /**

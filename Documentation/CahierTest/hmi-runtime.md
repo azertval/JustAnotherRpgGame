@@ -1,14 +1,14 @@
 # HMI · Runtime
 
-Tests unitaires — **12 cas** (3 bloquants, 7 critiques, 2 majeurs). [Retour à la synthèse](README.md).
+Tests unitaires — **14 cas** (3 bloquants, 8 critiques, 2 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_character_sheet_model.cpp`](#test-character-sheet-modelcpp) | 2 | 1 | 1 | - | - |
-| [`test_encounter_model.cpp`](#test-encounter-modelcpp) | 6 | 1 | 3 | 2 | - |
-| [`test_party_model.cpp`](#test-party-modelcpp) | 4 | 1 | 3 | - | - |
+| [`test_encounter_model.cpp`](#test-encounter-modelcpp) | 7 | 1 | 4 | 2 | - |
+| [`test_party_model.cpp`](#test-party-modelcpp) | 5 | 1 | 3 | - | 1 |
 
 ## Exigences vérifiées par cette page
 
@@ -243,9 +243,38 @@ Le registre du groupe : points de vie relus, mort qui ne suit plus.
 - Vérifie que `monde.buryMember("heros-mage")` est faux.
 - Vérifie que `monde.party().size()` vaut `1U`.
 
+### EncounterModelTest.LeNiveauDonneSurvitAuCombatEtLeReposSoigne
+
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:354`
+
+Un combat garde le niveau donne ; le repos rend les points de vie.
+
+**Étapes**
+
+1. Donner un niveau au groupe ; engager les rats, fuir.
+2. Lire le registre.
+3. Donner un repos au groupe ; engager les rats.
+
+**Résultat attendu**
+
+- Vérifie que `monde.levelUp(QStringLiteral("party"))` est vrai.
+- Vérifie que `rencontre.begin(QStringLiteral("rats-du-donjon"))` est vrai.
+- Vérifie que `rencontre.ended()` est vrai.
+- Vérifie que `record` diffère de `nullptr`.
+- Vérifie que `record->level` vaut `2`.
+- Vérifie que `monde.rest(QStringLiteral("party"))` est vrai.
+- Vérifie que `monde.rest(QStringLiteral("party"))` est faux.
+- Vérifie que `record` diffère de `nullptr`.
+- Vérifie que `record->level` vaut `2`.
+- Vérifie que `record->hitPoints.has_value()` est faux.
+- Vérifie que `rencontre.begin(QStringLiteral("rats-du-donjon"))` est vrai.
+- Vérifie que `pv.size()` vaut `2`.
+- Vérifie que `pv.front()` vaut `pv.back()`.
+- Vérifie que `pv.back().toInt()` est strictement supérieur à `15`.
+
 ### EncounterModelTest.LInterfaceDeGroupeLitLaVueModele
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:355`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:409`
 
 Exigences : `EX-IHM-108`
 
@@ -413,3 +442,19 @@ L'ecran de groupe lit la fiche des quatre et compose le groupe de la partie.
 - Vérifie que `groupe.moveMember(QStringLiteral("heros-brawler"), 1)` est faux.
 - Vérifie que `groupe.leaderName()` vaut `QStringLiteral("Nessa Double-Vie")`.
 - Vérifie que `identifiants(monde.partyMembers())` vaut `(QStringList{"heros-brawler", "heros-priest", "heros-scoundrel", "heros-mage"})`.
+
+### PartyModelTest.UneCarteImposeeNeDemandePasDeMeneur
+
+*Mineur · Unitaire · Groupe* — `Source/Test/Unit/HMI/Runtime/test_party_model.cpp:282`
+
+Une carte imposee ne demande pas de meneur.
+
+**Étapes**
+
+1. Ouvrir le donjon d'essai par une carte imposee.
+2. Clore un choix qui n'est pas en cours.
+
+**Résultat attendu**
+
+- Vérifie que `monde.choosingLeader()` est faux.
+- Vérifie que `monde.choosingLeader()` est faux.

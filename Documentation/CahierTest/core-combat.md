@@ -1,12 +1,13 @@
 # Core · Combat
 
-Tests unitaires — **176 cas** (33 bloquants, 98 critiques, 44 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **182 cas** (33 bloquants, 102 critiques, 46 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_action_economy.cpp`](#test-action-economycpp) | 3 | - | 1 | 2 | - |
+| [`test_ai_spells.cpp`](#test-ai-spellscpp) | 6 | - | 4 | 2 | - |
 | [`test_area_of_effect.cpp`](#test-area-of-effectcpp) | 3 | 1 | 1 | 1 | - |
 | [`test_arena.cpp`](#test-arenacpp) | 7 | 2 | 5 | - | - |
 | [`test_attack.cpp`](#test-attackcpp) | 9 | 3 | 4 | 2 | - |
@@ -123,6 +124,132 @@ Une ressource nouvelle se declare sans rien casser, et un octroi ne dure que jus
 - Vérifie que `immunites.isImmune("ogre", "dragon-rouge", maintenant)` est faux.
 - Vérifie que `immunites.isImmune("gobelin", "dragon-rouge", maintenant + core::IMMUNITY_DAY_SECONDS - 1)` est vrai.
 - Vérifie que `immunites.isImmune("gobelin", "dragon-rouge", maintenant + core::IMMUNITY_DAY_SECONDS - 1)` est faux.
+
+## test_ai_spells.cpp
+
+### AiSpellsTest.LePriestReleveUnAllieATerre
+
+*Critique · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:83`
+
+L'IA du Priest releve un allie tombe.
+
+**Étapes**
+
+1. Priest N1 en (1, 3), un allie en (3, 3) porte a 0 PV, un mannequin ennemi en (9, 6).
+2. Jouer le tour du Priest par l'IA.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `session.combat().find(CombatantId{2})->status` vaut `core::CombatantStatus::Down`.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `journalHas(session.journal(), "releve Allie")` est vrai.
+- Vérifie que `session.combat().find(CombatantId{2})->status` vaut `core::CombatantStatus::Standing`.
+- Vérifie que `lancersDe(session, "cure-wounds")` vaut `1`.
+
+### AiSpellsTest.LePriestBenitUneFois
+
+*Majeur · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:115`
+
+L'IA du Priest benit le groupe, une seule fois.
+
+**Étapes**
+
+1. Priest N1 en (1, 3), deux allies en (2, 3) et (1, 4), un mannequin ennemi en (11, 7).
+2. Jouer le tour du Priest, finir les tours des autres, rejouer le Priest.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `journalHas(session.journal(), "benit 3 allie(s)")` est vrai.
+- Vérifie que `std::ranges::find(etats, core::CombatCondition::Blessed)` diffère de `etats.end()`.
+- Vérifie que `std::ranges::find(etats, core::CombatCondition::Concentrating)` diffère de `etats.end()`.
+- Vérifie que `lancersDe(session, "bless")` vaut `1`.
+- Vérifie que `session.endTurn()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `lancersDe(session, "bless")` vaut `1`.
+
+### AiSpellsTest.LeMageLanceUnSortQuiBlesse
+
+*Critique · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:154`
+
+L'IA du Mage lance un sort qui blesse.
+
+**Étapes**
+
+1. Mage N1 en (1, 3), un mannequin ennemi en (7, 3).
+2. Jouer le tour du Mage.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `journalHas(session.journal(), " : lance ")` est vrai.
+- Vérifie que `journalHas(session.journal(), "blesse Mannequin")` est vrai.
+- Vérifie que `session.combat().find(CombatantId{2})->profile.currentHitPoints` est strictement inférieur à `60`.
+
+### AiSpellsTest.LaBouleDeFeuEpargneLesAllies
+
+*Critique · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:180`
+
+L'IA du Mage epargne ses allies, et groupe ses cibles.
+
+**Étapes**
+
+1. Mage N5 en (1, 3) ; un ennemi en (7, 3) au contact d'un allie en (7, 4) ; jouer le tour.
+2. Mage N5 en (1, 3) ; trois ennemis en (8, 3), (9, 3), (8, 4) ; jouer le tour.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `lancersDe(session, "fireball")` vaut `avant`.
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `lancersDe(session, "fireball")` vaut `avant - 1`.
+
+### AiSpellsTest.LeBrawlerFrappeDeuxFois
+
+*Critique · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:219`
+
+L'IA du Brawler frappe deux fois au niveau 5.
+
+**Étapes**
+
+1. Brawler N5 en (1, 3), un mannequin de 200 PV au contact en (2, 3).
+2. Jouer le tour du Brawler.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `journalHas(session.journal(), "attaque supplementaire")` est vrai.
+
+### AiSpellsTest.LArmeSpirituelleFrappeParLActionBonus
+
+*Majeur · Unitaire · IA tactique* — `Source/Test/Unit/Core/Combat/test_ai_spells.cpp:244`
+
+L'IA du Priest frappe de l'arme spirituelle par l'action bonus.
+
+**Étapes**
+
+1. Priest N3 en (1, 3), un mannequin de 200 PV en (5, 3).
+2. Jouer le tour du Priest.
+
+**Résultat attendu**
+
+- Vérifie que `session.mount(bout).refusals.empty()` est vrai.
+- Vérifie que `session.start()` est vrai.
+- Vérifie que `core::playTurn(session, catalogue)` est vrai.
+- Vérifie que `journalHas(session.journal(), "action bonus")` est vrai.
+- Vérifie que `lancersDe(session, "spiritual-weapon")` vaut `avant - 1`.
 
 ## test_area_of_effect.cpp
 

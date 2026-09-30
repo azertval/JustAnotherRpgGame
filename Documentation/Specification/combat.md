@@ -132,6 +132,15 @@ et rejouable par un test.
   blessé pendant qu'un allié frappe est ce qu'un joueur lit comme de l'acharnement, pas comme une
   tactique ; le *Guide du Maître* ne dit rien d'achever, la règle est une décision nommée.
 
+- **EX-CBT-052** — L'IA joue **les sorts et les gestes gratuits** de qui les a, dans la monnaie
+  de ses attaques — les dégâts attendus (`core::planTurn`, `LOT-142`) : sorts à jet d'attaque, à
+  sauvegarde et à sphère (un allié pris compte double, en moins), soins sur un allié ensanglanté
+  ou à terre, *bénédiction* quand elle ne se concentre sur rien, attaques supplémentaires de
+  l'action *Attaquer*, sort d'action bonus ; les capacités de l'acteur (*Sneak Attack*, *Hit the
+  Mark*) entrent dans l'espérance aux conditions du jet réel. C'est ce qui rend l'équilibrage par
+  simulation honnête : un groupe simulé à l'arme seule mesure des classes qui ne sont pas les
+  siennes.
+
 ## 7. Le combat de groupe
 
 Le moteur n'a jamais supposé un duel (`EX-CBT-010`) ; ce qui suit dit comment le **groupe** du
@@ -158,3 +167,15 @@ joueur (`EX-EXP-013`) entre dans un combat, le joue, et en sort (`LOT-139`).
   les seuils de PX des membres sommés par catégorie, la somme des PX des monstres multipliée selon
   leur nombre, le seuil inférieur le plus proche. Aucun seuil n'est écrit dans le code
   (`EX-REG-021`) ; une créature que le bestiaire ne connaît pas compte pour rien et se dit.
+
+- **EX-CBT-064** — Le registre garde le **niveau donné** d'un combat à l'autre, et le **repos
+  long** (`core::PartyLedger::rest`, action de dialogue `rest`) rend à chacun ses points de vie
+  et ses lancers sans lui retirer son niveau (`LOT-142`). La série de l'arène donne l'un et
+  l'autre entre deux combats ; sans eux, un niveau gagné retombait au combat suivant.
+
+- **EX-CBT-065** — Une série de rencontres s'**équilibre par simulation** (`LOT-142`) : chaque
+  rencontre, jouée par l'IA des deux côtés, par le groupe entier et par les quatre **trios** sans
+  une classe, sur cent graines ; aucune classe n'est indispensable ni inutile — l'écart de taux
+  de victoire entre trios, sur la série, reste sous **vingt points**. Les créatures ont leurs
+  **attaques multiples** (`multiattack`), jouées comme l'*Extra Attack* d'un héros. Le test de
+  garde tient chaque rencontre dans sa bande ; la mesure complète est au bilan de la version.

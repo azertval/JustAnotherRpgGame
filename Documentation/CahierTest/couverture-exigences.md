@@ -1,6 +1,6 @@
 # Couverture des exigences
 
-**43 exigences en vigueur sur 310** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
+**43 exigences en vigueur sur 313** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
 
 ## Par famille
 
@@ -8,7 +8,7 @@
 |---|---|---|---|---|
 | `EX-ARCH` | [Architecture (décisions dimensionnantes)](../Specification/architecture.md) | 13 | 0 | 13 |
 | `EX-BUILD` | [Exigences non fonctionnelles](../Specification/exigences-non-fonctionnelles.md) | 1 | 0 | 1 |
-| `EX-CBT` | [Combat tactique](../Specification/combat.md) | 19 | 6 | 13 |
+| `EX-CBT` | [Combat tactique](../Specification/combat.md) | 22 | 6 | 16 |
 | `EX-CNT` | [Contenu et données](../Specification/contenu.md) | 22 | 4 | 18 |
 | `EX-CTRL` | [Contrôles & entrées](../Specification/controles.md) | 7 | 0 | 7 |
 | `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 77 | 10 | 67 |
@@ -22,7 +22,7 @@
 | `EX-REN` | [Rendu & cible technique](../Specification/rendu-technique.md) | 26 | 4 | 22 |
 | `EX-RPG` | [Personnage et progression](../Specification/rpg.md) | 19 | 1 | 18 |
 | `EX-VIS` | [Vision & périmètre](../Specification/vision.md) | 9 | 0 | 9 |
-| **Total** | | **310** | **43** | **267** |
+| **Total** | | **313** | **43** | **270** |
 
 ## Exigence par exigence
 
@@ -71,10 +71,13 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-CBT-042` | [Combat tactique](../Specification/combat.md) | — |
 | `EX-CBT-050` | [Combat tactique](../Specification/combat.md) | [`DeathAndDyingTest.LIaAcheveOuEpargneSelonSonProfil`](core-combat.md#deathanddyingtestliaacheveouepargneselonsonprofil), [`EnemyAiTest.LIaNeLitQueLEtatEnsanglante`](core-combat.md#enemyaitestlianelitqueletatensanglante) |
 | `EX-CBT-051` | [Combat tactique](../Specification/combat.md) | — |
+| `EX-CBT-052` | [Combat tactique](../Specification/combat.md) | — |
 | `EX-CBT-060` | [Combat tactique](../Specification/combat.md) | — |
 | `EX-CBT-061` | [Combat tactique](../Specification/combat.md) | [`EncounterModelTest.LeRejeuAGraineFixeeDonneLeMemeCombat`](hmi-runtime.md#encountermodeltestlerejeuagrainefixeedonnelememecombat) |
 | `EX-CBT-062` | [Combat tactique](../Specification/combat.md) | — |
 | `EX-CBT-063` | [Combat tactique](../Specification/combat.md) | — |
+| `EX-CBT-064` | [Combat tactique](../Specification/combat.md) | — |
+| `EX-CBT-065` | [Combat tactique](../Specification/combat.md) | — |
 
 ### `EX-CNT`
 

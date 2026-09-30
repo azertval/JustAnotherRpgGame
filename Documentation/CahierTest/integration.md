@@ -1,6 +1,6 @@
 # Tests d'intégration
 
-Tests d'intégration — **14 cas** (3 bloquants, 6 critiques, 5 majeurs). [Retour à la synthèse](README.md).
+Tests d'intégration — **17 cas** (3 bloquants, 9 critiques, 5 majeurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -10,6 +10,7 @@ Tests d'intégration — **14 cas** (3 bloquants, 6 critiques, 5 majeurs). [Reto
 | [`test_mode_quetes.cpp`](#test-mode-quetescpp) | 3 | 3 | - | - | - |
 | [`test_quete_des_pommes.cpp`](#test-quete-des-pommescpp) | 6 | - | 3 | 3 | - |
 | [`test_quete_trois_etapes.cpp`](#test-quete-trois-etapescpp) | 1 | - | 1 | - | - |
+| [`test_serie_de_l_arene.cpp`](#test-serie-de-l-arenecpp) | 3 | - | 3 | - | - |
 
 ## Exigences vérifiées par cette page
 
@@ -188,7 +189,7 @@ Renommer `condamne` laisse le contrôle vert.
 
 ### QueteDesPommes.LaVoieDeLaParole
 
-*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:431`
+*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:299`
 
 La demo se finit par la parole quand la Persuasion reussit.
 
@@ -210,7 +211,7 @@ La demo se finit par la parole quand la Persuasion reussit.
 
 ### QueteDesPommes.LaVoieDeLArene
 
-*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:460`
+*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:328`
 
 La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 
@@ -242,7 +243,9 @@ La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 - Vérifie que `partie.drapeaux().isSet(core::encounterWonFlag(RENCONTRE))` est vrai.
 - Vérifie que `partie.etapesAtteintes()` vaut `(std::vector<std::string>{"pommes/victoire", "pommes/enfant-libere"})`.
 - Vérifie que `partie.valeur()` vaut `"enfant-libere"`.
-- Vérifie que `partie.parlerDepuis(DEVANT_LE_MAITRE)` vaut `std::nullopt`.
+- Vérifie que `partie.parlerDepuis(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
+- Vérifie que `suite.rencontres` vaut `(std::vector<std::string>{"arene-gladiateurs"})`.
+- Vérifie que `partie.drapeaux().isSet("arene/recompense-1")` est vrai.
 - Vérifie que `partie.marcherJusquA(PORTE_DU_TRIOMPHE, {0.0F, -1.0F}, core::ExplorationEventKind::MapEntered)` vaut `VESTIAIRES`.
 - Vérifie que `partie.marcherJusquA(ARRIVEE_AUX_VESTIAIRES, {1.0F, 0.0F}, core::ExplorationEventKind::MapEntered)` vaut `ARENAREA`.
 - Vérifie que `partie.session().heroCell()` vaut `DEVANT_L_ESCALIER`.
@@ -250,7 +253,7 @@ La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 
 ### QueteDesPommes.LaDefaiteSurLeSable
 
-*Majeur · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:542`
+*Majeur · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:415`
 
 Une defaite sur le sable ne pose rien : la demo s'y termine.
 
@@ -273,9 +276,9 @@ Une defaite sur le sable ne pose rien : la demo s'y termine.
 
 ### QueteDesPommes.LeCombatSeGagneDeuxFoisSurTrois
 
-*Critique · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:583`
+*Critique · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:455`
 
-Le groupe gagne le combat de l'arene entre 45 et 60 fois sur cent.
+Le groupe gagne le combat de l'arene entre 62 et 78 fois sur cent.
 
 **Étapes**
 
@@ -287,27 +290,27 @@ Le groupe gagne le combat de l'arene entre 45 et 60 fois sur cent.
 - Vérifie que `sable.ok()` est vrai.
 - Vérifie que `heros.loaded().errors.empty()` est vrai.
 - Vérifie que `issue.has_value()` est vrai.
-- Vérifie que `victoires` est supérieur ou égal à `45`.
-- Vérifie que `victoires` est inférieur ou égal à `60`.
+- Vérifie que `victoires` est supérieur ou égal à `62`.
+- Vérifie que `victoires` est inférieur ou égal à `78`.
 
 ### QueteDesPommes.LaProbabiliteDeVictoireTientSurMilleGraines
 
-*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:619`
+*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:491`
 
-Sur deux cents combats a graines tirees, le groupe gagne une fois sur deux.
+Sur cent combats a graines tirees, le groupe gagne sept fois sur dix.
 
 **Étapes**
 
-1. Deux cents graines tirees de la graine maitresse 120.
+1. Cent graines tirees de la graine maitresse 120.
 2. Un combat par graine, les deux camps par l'IA.
 
 **Résultat attendu**
 
-- Chaque combat se termine ; entre 85 et 115 victoires.
+- Chaque combat se termine ; entre 60 et 80 victoires.
 
 ### QueteDesPommes.LaPersuasionReussitUneFoisSurQuatre
 
-*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:656`
+*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:528`
 
 Sur deux mille jets a graines tirees, la Persuasion reussit une fois sur quatre.
 
@@ -359,3 +362,57 @@ Une quete de trois etapes se joue sans fenetre.
 - Vérifie que `journal.quests.front().value` vaut `"journal.status.succeeded"`.
 - Vérifie que `journal.objectives.size()` vaut `3U`.
 - Vérifie que `journal.detail` vaut `"quest.essai-trois-etapes.rendue"`.
+
+## test_serie_de_l_arene.cpp
+
+### SerieDeLArene.LaSerieMonteEnDifficulte
+
+*Critique · Integration · Serie de l'arene · Equilibrage* — `Source/Test/Integration/test_serie_de_l_arene.cpp:115`
+
+Les six rencontres de la serie sont difficiles, les deux dernieres mortelles, et leur budget croit jusqu'au niveau 5.
+
+**Étapes**
+
+1. Charger les rencontres, le bestiaire et les regles de difficulte livres.
+2. Juger chaque rencontre de la serie pour quatre heros de son niveau.
+
+**Résultat attendu**
+
+- Vérifie que `rencontre` diffère de `nullptr`.
+- Vérifie que `budget.unknownCreatures.empty()` est vrai.
+- Vérifie que `budget.category == "difficile" || budget.category == "mortelle"` est vrai.
+- Vérifie que `budget.adjustedExperience` est strictement supérieur à `precedent`.
+- Vérifie que `budget.category` vaut `"mortelle"`.
+
+### SerieDeLArene.ChaqueRencontreSeGagneDansSaBande
+
+*Critique · Integration · Serie de l'arene · Equilibrage* — `Source/Test/Integration/test_serie_de_l_arene.cpp:154`
+
+Chaque rencontre de la serie se gagne dans sa bande de victoires.
+
+**Étapes**
+
+1. Le sable ; le groupe de « Nouvelle partie » monte au niveau de chaque rencontre.
+2. Trente combats par rencontre en Release (six en Debug), les deux camps par l'IA.
+
+**Résultat attendu**
+
+- Vérifie que `carte.ok()` est vrai.
+- Vérifie que `gagnes` est supérieur ou égal à `bas`.
+- Vérifie que `gagnes` est inférieur ou égal à `haut`.
+
+### SerieDeLArene.MesureCompleteParComposition
+
+*Critique · Integration · Serie de l'arene · Equilibrage* — `Source/Test/Integration/test_serie_de_l_arene.cpp:202`
+
+Sur la serie, l'ecart de victoires entre les quatre trios reste sous vingt points.
+
+**Étapes**
+
+1. Poser `JADG_SIMULATION_SEEDS` (cent) et `JADG_SIMULATION_OUT`.
+2. Jouer chaque rencontre par le groupe et par chaque trio.
+
+**Résultat attendu**
+
+- Vérifie que `carte.ok()` est vrai.
+- Vérifie que `meilleur - pire` est strictement inférieur à `20.0`.

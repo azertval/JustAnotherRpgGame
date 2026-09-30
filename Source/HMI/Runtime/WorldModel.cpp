@@ -133,7 +133,22 @@ bool WorldModel::startNewGame() {
         emit changed();
         return false;
     }
-    return enterMap(QString::fromStdString(depart), QString::fromStdString(_city.startArrival));
+    const bool ouverte =
+        enterMap(QString::fromStdString(depart), QString::fromStdString(_city.startArrival));
+    // La demo se rejoue avec le meneur qu'on choisit (LOT-142) : c'est lui qui parle et fait les
+    // jets, les quatre restent du groupe.
+    if (ouverte && !_choosingLeader) {
+        _choosingLeader = true;
+        emit partyChanged();
+    }
+    return ouverte;
+}
+
+void WorldModel::endLeaderChoice() {
+    if (_choosingLeader) {
+        _choosingLeader = false;
+        emit partyChanged();
+    }
 }
 
 void WorldModel::placeHeroAtStartCell() {
