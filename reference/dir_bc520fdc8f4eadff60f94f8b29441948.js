@@ -34,6 +34,8 @@ var dir_bc520fdc8f4eadff60f94f8b29441948 =
     [ "LineOfSight.h", "LineOfSight_8h.html", "LineOfSight_8h" ],
     [ "MapEncounter.cpp", "MapEncounter_8cpp.html", "MapEncounter_8cpp" ],
     [ "MapEncounter.h", "MapEncounter_8h.html", "MapEncounter_8h" ],
+    [ "PartyDeployment.cpp", "PartyDeployment_8cpp.html", "PartyDeployment_8cpp" ],
+    [ "PartyDeployment.h", "PartyDeployment_8h.html", "PartyDeployment_8h" ],
     [ "Pathfinding.cpp", "Pathfinding_8cpp.html", "Pathfinding_8cpp" ],
     [ "Pathfinding.h", "Pathfinding_8h.html", "Pathfinding_8h" ],
     [ "TacticalTerrain.cpp", "TacticalTerrain_8cpp.html", "TacticalTerrain_8cpp" ],

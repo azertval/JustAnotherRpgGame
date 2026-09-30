@@ -74,7 +74,8 @@ class LevelDraft;
  * de tuile) ou `piece` (une piÃ¨ce de la planche du lieu, `floor` la dit sol si la planche ne la
  * connaÃ®t pas), `kind` (la famille d'entitÃ© Ã  poser ; `""` : l'outil ne fait que sÃ©lectionner),
  * `select` (des identifiants d'entitÃ©), `prefab` (un prÃ©fabriquÃ© de la bibliothÃ¨que du lieu, qui
- * devient le tampon Ã  poser). Un geste sans `tool` ne fait qu'armer. Ce qui est armÃ© le
+ * devient le tampon Ã  poser), `partyLevel` (le niveau du groupe du budget des rencontres, 1 par
+ * dÃ©faut). Un geste sans `tool` ne fait qu'armer. Ce qui est armÃ© le
  * reste pour les gestes suivants, comme dans la fenÃªtre.
  *
  * | `tool` | champs | ce que fait la main |
@@ -89,7 +90,9 @@ class LevelDraft;
  * | `entity` | `at`, `to`, `ctrl`, `shift`, `set`, `then` | appui, glisser jusqu'Ã  `to` ; `set` :
  * propriÃ©tÃ©s de l'entitÃ© sÃ©lectionnÃ©e ; `then: "delete"` : `Suppr` | | `shape` | `path` ou `at`,
  * `to`, `ctrl` | l'outil Forme sur l'entitÃ© sÃ©lectionnÃ©e | | `measure` | `from`, `to` | la mesure,
- * Ã©crite dans le compte rendu | | `note` | `at`, `text` | la note de la case (vide : retirÃ©e) |
+ * Ã©crite dans le compte rendu | | `inspect` | â | le verdict de l'entitÃ© sÃ©lectionnÃ©e, tel que le
+ * canevas l'Ã©crit Ã  cÃ´tÃ© d'elle (`hmi::entityVerdicts`), dans le compte rendu | | `note` | `at`,
+ * `text` | la note de la case (vide : retirÃ©e) |
  *
  * ## Un geste refusÃ©
  *

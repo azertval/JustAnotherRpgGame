@@ -309,7 +309,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1abe4771976bfcb1d167607b6380e4b3" id="r_a1abe4771976bfcb1d167607b6380e4b3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1abe4771976bfcb1d167607b6380e4b3">removeEntity</a> (std::size_t index)</td></tr>
 <tr class="memitem:ad6c9d069d19a7609638034547194c661" id="r_ad6c9d069d19a7609638034547194c661"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad6c9d069d19a7609638034547194c661">removeSelectedEntities</a> ()</td></tr>
 <tr class="memdesc:ad6c9d069d19a7609638034547194c661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire toutes les entités sélectionnées, en un pas.  <br /></td></tr>
-<tr class="memitem:af40c7d5bd3c2c7cae3c5e643d7345b73" id="r_af40c7d5bd3c2c7cae3c5e643d7345b73"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#af40c7d5bd3c2c7cae3c5e643d7345b73">combatZones</a> () const noexcept</td></tr>
+<tr class="memitem:aea3f979543a6eade26883b4bec37acc5" id="r_aea3f979543a6eade26883b4bec37acc5"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structhmi_1_1EntityVerdict.html">EntityVerdict</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aea3f979543a6eade26883b4bec37acc5">entityVerdicts</a> () const noexcept</td></tr>
+<tr class="memitem:ad9f238cc34077d1849fd8e12bf1c978c" id="r_ad9f238cc34077d1849fd8e12bf1c978c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad9f238cc34077d1849fd8e12bf1c978c">setPartyLevel</a> (int level)</td></tr>
+<tr class="memdesc:ad9f238cc34077d1849fd8e12bf1c978c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau du groupe de quatre dont le budget des rencontres se calcule (1 à 20).  <br /></td></tr>
+<tr class="memitem:a23e474583b87c75c4c88e6ce8aa1da08" id="r_a23e474583b87c75c4c88e6ce8aa1da08"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a23e474583b87c75c4c88e6ce8aa1da08">partyLevel</a> () const noexcept</td></tr>
 <tr class="memitem:a755b8510cb7c3eb633666cdf947f54ae" id="r_a755b8510cb7c3eb633666cdf947f54ae"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structhmi_1_1EditorDiagnostic.html">EditorDiagnostic</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a755b8510cb7c3eb633666cdf947f54ae">diagnostics</a> () const noexcept</td></tr>
 <tr class="memitem:ae7cc33f93d60895b194e984eee6b3ce2" id="r_ae7cc33f93d60895b194e984eee6b3ce2"><td class="memItemLeft">const <a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae7cc33f93d60895b194e984eee6b3ce2">entityReferenceContext</a> () const noexcept</td></tr>
 <tr class="memitem:ae3e7472df74297b2e90fa3b26978d49f" id="r_ae3e7472df74297b2e90fa3b26978d49f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae3e7472df74297b2e90fa3b26978d49f">paintCanvas</a> (QPainter &amp;painter, const QRectF &amp;exposed)</td></tr>
@@ -415,8 +418,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:abee23b4d02fad0e1e027b9615a409ece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les entités du brouillon telles que le glisser en cours les laisserait.  <br /></td></tr>
 <tr class="memitem:a2f1b048fc3b6a7d8903969c2219a0ded" id="r_a2f1b048fc3b6a7d8903969c2219a0ded"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2f1b048fc3b6a7d8903969c2219a0ded">paintEntities</a> (QPainter &amp;painter, const <a class="el" href="structhmi_1_1CellRange.html">CellRange</a> &amp;cells, bool iso)</td></tr>
 <tr class="memdesc:a2f1b048fc3b6a7d8903969c2219a0ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les entités par leur forme : zones, trajets, marqueurs, étiquettes, poignées et aperçu du glisser, en iso ou à plat.  <br /></td></tr>
-<tr class="memitem:aa02f99d25f9416779131a597c4d6c3cd" id="r_aa02f99d25f9416779131a597c4d6c3cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa02f99d25f9416779131a597c4d6c3cd">paintZoneVerdict</a> (QPainter &amp;painter, bool iso)</td></tr>
-<tr class="memdesc:aa02f99d25f9416779131a597c4d6c3cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le verdict de la zone de combat sélectionnée : cases libres et pleines, entrées d'arène (<span class="tt">EX-EDIT-071</span>), recalculé sur l'aperçu pendant qu'on la tire.  <br /></td></tr>
+<tr class="memitem:a8ee8e497ca03b1bf974792ff0ef40aa8" id="r_a8ee8e497ca03b1bf974792ff0ef40aa8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8ee8e497ca03b1bf974792ff0ef40aa8">paintEntityVerdicts</a> (QPainter &amp;painter, bool iso)</td></tr>
+<tr class="memdesc:a8ee8e497ca03b1bf974792ff0ef40aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les verdicts des entités (<span class="tt"><a class="el" href="namespacehmi.html#aa4edebfd3cfee6ae8c18b887a9ced0df" title="Le verdict de chaque entité qui en a un, dans l&#39;ordre des entités : les zones de combat (leur terrain...">hmi::entityVerdicts</a></span>) : la première ligne à côté de chacune, toutes les lignes et les cases marquées pour la sélectionnée — cases libres et pleines, entrées d'arène (<span class="tt">EX-EDIT-071</span>), formation adverse et places du groupe (<span class="tt">LOT-143</span>) —, recalculés sur l'aperçu pendant qu'on tire.  <br /></td></tr>
 <tr class="memitem:a44e7f1b24929d08333e8ced958c06f72" id="r_a44e7f1b24929d08333e8ced958c06f72"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a44e7f1b24929d08333e8ced958c06f72">hasVisualLayers</a> () const</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -507,8 +510,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:abca8c6c951cacfe9c636ef4d9868cb18" id="r_abca8c6c951cacfe9c636ef4d9868cb18"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#abca8c6c951cacfe9c636ef4d9868cb18">_shapeErasing</a> = false</td></tr>
 <tr class="memitem:ac2a6a67ed618561e8243d47c45c04fc4" id="r_ac2a6a67ed618561e8243d47c45c04fc4"><td class="memItemLeft"><a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac2a6a67ed618561e8243d47c45c04fc4">_referenceContext</a></td></tr>
 <tr class="memitem:a6b0330c776cfd4ce714af2a9fdc502a9" id="r_a6b0330c776cfd4ce714af2a9fdc502a9"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1EncounterTerrain.html">core::EncounterTerrain</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6b0330c776cfd4ce714af2a9fdc502a9">_terrains</a></td></tr>
-<tr class="memitem:ab78d4e16f3f9d42c3748b701fef8a60b" id="r_ab78d4e16f3f9d42c3748b701fef8a60b"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab78d4e16f3f9d42c3748b701fef8a60b">_zoneVerdicts</a></td></tr>
+<tr class="memitem:aad961f1a6a6120b79d2f4115fc434488" id="r_aad961f1a6a6120b79d2f4115fc434488"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EntityVerdict.html">EntityVerdict</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aad961f1a6a6120b79d2f4115fc434488">_verdicts</a></td></tr>
 <tr class="memitem:a86e3fac5b37c1a2cf7ad9724df3ad64a" id="r_a86e3fac5b37c1a2cf7ad9724df3ad64a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EditorDiagnostic.html">EditorDiagnostic</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86e3fac5b37c1a2cf7ad9724df3ad64a">_diagnostics</a></td></tr>
+<tr class="memitem:ad144d94f706dcaea2db284d7415bb72d" id="r_ad144d94f706dcaea2db284d7415bb72d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad144d94f706dcaea2db284d7415bb72d">_partyLevel</a> = 1</td></tr>
+<tr class="memdesc:ad144d94f706dcaea2db284d7415bb72d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le niveau du groupe du budget des rencontres (<span class="tt">LOT-143</span>).  <br /></td></tr>
 <tr class="memitem:a9802c47b1319cc77d266a399242f4d2b" id="r_a9802c47b1319cc77d266a399242f4d2b"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9802c47b1319cc77d266a399242f4d2b">_stateEntries</a></td></tr>
 <tr class="memitem:a6412b730caadc21c6ae7a2cc40ecc857" id="r_a6412b730caadc21c6ae7a2cc40ecc857"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6412b730caadc21c6ae7a2cc40ecc857">_statePreview</a> = false</td></tr>
 <tr class="memitem:a430924cf241b7dd8cac9e94b03dab1aa" id="r_a430924cf241b7dd8cac9e94b03dab1aa"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldFlags.html">core::WorldFlags</a>&#160;</td><td class="memItemRight"><a class="el" href="#a430924cf241b7dd8cac9e94b03dab1aa">_stateFlags</a></td></tr>
@@ -1174,32 +1179,6 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="af40c7d5bd3c2c7cae3c5e643d7345b73" name="af40c7d5bd3c2c7cae3c5e643d7345b73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af40c7d5bd3c2c7cae3c5e643d7345b73">&#9670;&#160;</a></span>combatZones()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt; <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &gt; &amp; hmi::EditorViewport::combatZones </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le verdict de chaque zone de combat du brouillon (<span class="tt"><a class="el" href="namespacecore.html#a2202cb32725409d8b48364db226a6fde" title="Le verdict de chaque zone de combat de entities sur la collision collision, dans l&#39;ordre des entités.">core::analyzeCombatZones</a></span>). </dd></dl>
-
-</div>
-</div>
 <a id="a5daf16badf13822378d78e2d1ef88666" name="a5daf16badf13822378d78e2d1ef88666"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5daf16badf13822378d78e2d1ef88666">&#9670;&#160;</a></span>contentBounds()</h2>
 
@@ -1583,6 +1562,32 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aea3f979543a6eade26883b4bec37acc5" name="aea3f979543a6eade26883b4bec37acc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea3f979543a6eade26883b4bec37acc5">&#9670;&#160;</a></span>entityVerdicts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="structhmi_1_1EntityVerdict.html">EntityVerdict</a> &gt; &amp; hmi::EditorViewport::entityVerdicts </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le verdict de chaque entité qui en a un (<span class="tt"><a class="el" href="namespacehmi.html#aa4edebfd3cfee6ae8c18b887a9ced0df" title="Le verdict de chaque entité qui en a un, dans l&#39;ordre des entités : les zones de combat (leur terrain...">hmi::entityVerdicts</a></span>) : zones de combat face au groupe, budget des rencontres (<span class="tt">LOT-143</span>). </dd></dl>
 
 </div>
 </div>
@@ -2610,6 +2615,37 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8ee8e497ca03b1bf974792ff0ef40aa8" name="a8ee8e497ca03b1bf974792ff0ef40aa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ee8e497ca03b1bf974792ff0ef40aa8">&#9670;&#160;</a></span>paintEntityVerdicts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::paintEntityVerdicts </td>
+          <td>(</td>
+          <td class="paramtype">QPainter &amp;</td>          <td class="paramname"><span class="paramname"><em>painter</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>iso</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les verdicts des entités (<span class="tt"><a class="el" href="namespacehmi.html#aa4edebfd3cfee6ae8c18b887a9ced0df" title="Le verdict de chaque entité qui en a un, dans l&#39;ordre des entités : les zones de combat (leur terrain...">hmi::entityVerdicts</a></span>) : la première ligne à côté de chacune, toutes les lignes et les cases marquées pour la sélectionnée — cases libres et pleines, entrées d'arène (<span class="tt">EX-EDIT-071</span>), formation adverse et places du groupe (<span class="tt">LOT-143</span>) —, recalculés sur l'aperçu pendant qu'on tire. </p>
+
+</div>
+</div>
 <a id="a6499150d81362b98e1182105af2f217b" name="a6499150d81362b98e1182105af2f217b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6499150d81362b98e1182105af2f217b">&#9670;&#160;</a></span>paintFlat()</h2>
 
@@ -2943,8 +2979,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa02f99d25f9416779131a597c4d6c3cd" name="aa02f99d25f9416779131a597c4d6c3cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa02f99d25f9416779131a597c4d6c3cd">&#9670;&#160;</a></span>paintZoneVerdict()</h2>
+<a id="a23e474583b87c75c4c88e6ce8aa1da08" name="a23e474583b87c75c4c88e6ce8aa1da08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23e474583b87c75c4c88e6ce8aa1da08">&#9670;&#160;</a></span>partyLevel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2953,24 +2989,18 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void hmi::EditorViewport::paintZoneVerdict </td>
+          <td class="memname">int hmi::EditorViewport::partyLevel </td>
           <td>(</td>
-          <td class="paramtype">QPainter &amp;</td>          <td class="paramname"><span class="paramname"><em>painter</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>iso</em></span>&#160;)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Le verdict de la zone de combat sélectionnée : cases libres et pleines, entrées d'arène (<span class="tt">EX-EDIT-071</span>), recalculé sur l'aperçu pendant qu'on la tire. </p>
 
 </div>
 </div>
@@ -4172,6 +4202,25 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Écrit la note de <code class="param">cell</code>, retirée si <code class="param">text</code> est vide ; l'annexe s'écrit tout de suite. </p>
+
+</div>
+</div>
+<a id="ad9f238cc34077d1849fd8e12bf1c978c" name="ad9f238cc34077d1849fd8e12bf1c978c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9f238cc34077d1849fd8e12bf1c978c">&#9670;&#160;</a></span>setPartyLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::setPartyLevel </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le niveau du groupe de quatre dont le budget des rencontres se calcule (1 à 20). </p>
 
 </div>
 </div>
@@ -5569,6 +5618,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ad144d94f706dcaea2db284d7415bb72d" name="ad144d94f706dcaea2db284d7415bb72d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad144d94f706dcaea2db284d7415bb72d">&#9670;&#160;</a></span>_partyLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::EditorViewport::_partyLevel = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le niveau du groupe du budget des rencontres (<span class="tt">LOT-143</span>). </p>
+
+</div>
+</div>
 <a id="a5c023f981223939b933650aee0c6dfe7" name="a5c023f981223939b933650aee0c6dfe7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c023f981223939b933650aee0c6dfe7">&#9670;&#160;</a></span>_placeAssetsLoaded</h2>
 
@@ -6269,8 +6342,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a338f196f98c909cbcb654c46fa3ff22e" name="a338f196f98c909cbcb654c46fa3ff22e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a338f196f98c909cbcb654c46fa3ff22e">&#9670;&#160;</a></span>_view</h2>
+<a id="aad961f1a6a6120b79d2f4115fc434488" name="aad961f1a6a6120b79d2f4115fc434488"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad961f1a6a6120b79d2f4115fc434488">&#9670;&#160;</a></span>_verdicts</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6279,7 +6352,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacehmi.html#a78257412917b7881b3766489df80d4c4">CanvasView</a> hmi::EditorViewport::_view = <a class="el" href="namespacehmi.html#a78257412917b7881b3766489df80d4c4a3a631438d6f2eba0ef81c8cc070fe15f">CanvasView::Iso</a></td>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1EntityVerdict.html">EntityVerdict</a>&gt; hmi::EditorViewport::_verdicts</td>
         </tr>
       </table>
   </td>
@@ -6291,8 +6364,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab78d4e16f3f9d42c3748b701fef8a60b" name="ab78d4e16f3f9d42c3748b701fef8a60b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab78d4e16f3f9d42c3748b701fef8a60b">&#9670;&#160;</a></span>_zoneVerdicts</h2>
+<a id="a338f196f98c909cbcb654c46fa3ff22e" name="a338f196f98c909cbcb654c46fa3ff22e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a338f196f98c909cbcb654c46fa3ff22e">&#9670;&#160;</a></span>_view</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6301,7 +6374,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a>&gt; hmi::EditorViewport::_zoneVerdicts</td>
+          <td class="memname"><a class="el" href="namespacehmi.html#a78257412917b7881b3766489df80d4c4">CanvasView</a> hmi::EditorViewport::_view = <a class="el" href="namespacehmi.html#a78257412917b7881b3766489df80d4c4a3a631438d6f2eba0ef81c8cc070fe15f">CanvasView::Iso</a></td>
         </tr>
       </table>
   </td>

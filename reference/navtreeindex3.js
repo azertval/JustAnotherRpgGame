@@ -1,5 +1,11 @@
 var NAVTREEINDEX3 =
 {
+"bench__combat_8cpp.html#a4ca979476852dda55e11b02c2c989710":[4,0,0,1,2,2],
+"bench__combat_8cpp.html#a54a1c6e7d14c3662172e4b2f925cd8d9":[4,0,0,1,2,6],
+"bench__combat_8cpp.html#a7c463e25ea7d66a50e2758600c3db3be":[4,0,0,1,2,7],
+"bench__combat_8cpp.html#a7cec6301a58f87c8b24f4a44a19df96f":[4,0,0,1,2,0],
+"bench__combat_8cpp.html#a82076d15b4f9484765cf828b9e74f56f":[4,0,0,1,2,8],
+"bench__combat_8cpp.html#ace8605499a6afe42f017bb075650fcac":[4,0,0,1,2,3],
 "bench__combat_8cpp.html#aeb2f275681d55d8b3905ccc0f63057c3":[4,0,0,1,2,9],
 "bench__combat_8cpp.html#aeb72136d9d2f394937e075742735dcb7":[4,0,0,1,2,5],
 "bench__levels_8cpp.html":[4,0,0,1,3],
@@ -243,11 +249,5 @@ var NAVTREEINDEX3 =
 "classcore_1_1BattleGrid.html#a854f13083bbcbe9e7327237105ec9e17":[2,0,1,22,18],
 "classcore_1_1BattleGrid.html#a854f13083bbcbe9e7327237105ec9e17":[3,0,0,22,18],
 "classcore_1_1BattleGrid.html#a8ab7ae1207fe1040f5f685e00c8250db":[2,0,1,22,11],
-"classcore_1_1BattleGrid.html#a8ab7ae1207fe1040f5f685e00c8250db":[3,0,0,22,11],
-"classcore_1_1BattleGrid.html#a8cdc5cef5a4d2b8068bbb90b913771ee":[2,0,1,22,13],
-"classcore_1_1BattleGrid.html#a8cdc5cef5a4d2b8068bbb90b913771ee":[3,0,0,22,13],
-"classcore_1_1BattleGrid.html#a9a72b3f8bd2b12d3e81e55d12b2a6531":[2,0,1,22,3],
-"classcore_1_1BattleGrid.html#a9a72b3f8bd2b12d3e81e55d12b2a6531":[3,0,0,22,3],
-"classcore_1_1BattleGrid.html#a9c8889e9f69bff54e9562f1cf5263eaa":[2,0,1,22,14],
-"classcore_1_1BattleGrid.html#a9c8889e9f69bff54e9562f1cf5263eaa":[3,0,0,22,14]
+"classcore_1_1BattleGrid.html#a8ab7ae1207fe1040f5f685e00c8250db":[3,0,0,22,11]
 };

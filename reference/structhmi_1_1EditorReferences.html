@@ -155,6 +155,8 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a23ed6a66d53b85190ae0666bf471edfb" id="r_a23ed6a66d53b85190ae0666bf471edfb"><td class="memItemLeft"><a class="el" href="structcore_1_1EncounterCatalog.html">core::EncounterCatalog</a>&#160;</td><td class="memItemRight"><a class="el" href="#a23ed6a66d53b85190ae0666bf471edfb">encounters</a></td></tr>
 <tr class="memitem:a2347b4745df3c2f026bfb4972b4e2132" id="r_a2347b4745df3c2f026bfb4972b4e2132"><td class="memItemLeft"><a class="el" href="structcore_1_1Bestiary.html">core::Bestiary</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2347b4745df3c2f026bfb4972b4e2132">bestiary</a></td></tr>
 <tr class="memdesc:a2347b4745df3c2f026bfb4972b4e2132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pour l'emprise des créatures d'une rencontre (<span class="tt"><a class="el" href="namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d" title="Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide.">core::analyzeEncounterTerrain</a></span>).  <br /></td></tr>
+<tr class="memitem:a565ac4e99bfbdc4c75df8992441f6f32" id="r_a565ac4e99bfbdc4c75df8992441f6f32"><td class="memItemLeft"><a class="el" href="structcore_1_1EncounterDifficultyRules.html">core::EncounterDifficultyRules</a>&#160;</td><td class="memItemRight"><a class="el" href="#a565ac4e99bfbdc4c75df8992441f6f32">difficulty</a></td></tr>
+<tr class="memdesc:a565ac4e99bfbdc4c75df8992441f6f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le budget d'une rencontre (<span class="tt">Rpg/rules/encounter-difficulty.json</span>, <span class="tt">LOT-139</span>) : ce que l'éditeur affiche à côté de l'entité <span class="tt">encounter</span> (<span class="tt">LOT-143</span>).  <br /></td></tr>
 <tr class="memitem:a1b9a14a7e8d8fafb6d81ec468819b357" id="r_a1b9a14a7e8d8fafb6d81ec468819b357"><td class="memItemLeft"><a class="el" href="structcore_1_1WorldGraph.html">core::WorldGraph</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1b9a14a7e8d8fafb6d81ec468819b357">world</a></td></tr>
 <tr class="memitem:ae65812f5ec623b0414bc4f1abd217e8f" id="r_ae65812f5ec623b0414bc4f1abd217e8f"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae65812f5ec623b0414bc4f1abd217e8f">figures</a></td></tr>
 <tr class="memdesc:ae65812f5ec623b0414bc4f1abd217e8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines que toute carte peut poser, triées : les slugs de <span class="tt">Assets/Npc/manifest.json</span>, <span class="tt">Monsters/&lt;slug&gt;</span> pour chaque monstre de <span class="tt">Assets/Monsters/manifest.json</span>, et les slugs du monde (<span class="tt">Assets/Common/Characters</span>, <span class="tt">LOT-124</span>).  <br /></td></tr>
@@ -234,6 +236,23 @@ Public Attributes</h2></td></tr>
 
 <p>Identifiants des dialogues <b>acceptés</b> au chargement, triés. </p>
 <p>Un dialogue refusé ne se propose pas : le poser produirait un PNJ muet en jeu. </p>
+
+</div>
+</div>
+<a id="a565ac4e99bfbdc4c75df8992441f6f32" name="a565ac4e99bfbdc4c75df8992441f6f32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a565ac4e99bfbdc4c75df8992441f6f32">&#9670;&#160;</a></span>difficulty</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1EncounterDifficultyRules.html">core::EncounterDifficultyRules</a> hmi::EditorReferences::difficulty</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le budget d'une rencontre (<span class="tt">Rpg/rules/encounter-difficulty.json</span>, <span class="tt">LOT-139</span>) : ce que l'éditeur affiche à côté de l'entité <span class="tt">encounter</span> (<span class="tt">LOT-143</span>). </p>
+<p>Sans le fichier, aucune catégorie. </p>
 
 </div>
 </div>

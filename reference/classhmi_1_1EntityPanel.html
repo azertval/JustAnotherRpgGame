@@ -168,6 +168,8 @@ Signals</h2></td></tr>
 <tr class="memitem:a7b2f10554ef53c27b369a7ad8f773b58" id="r_a7b2f10554ef53c27b369a7ad8f773b58"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7b2f10554ef53c27b369a7ad8f773b58">propertyChanged</a> (std::size_t index, const QString &amp;key, const <a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d">core::PropertyValue</a> &amp;value)</td></tr>
 <tr class="memitem:a544fc33e6b5ae61f2f4b6c7b46863495" id="r_a544fc33e6b5ae61f2f4b6c7b46863495"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a544fc33e6b5ae61f2f4b6c7b46863495">removeRequested</a> ()</td></tr>
 <tr class="memdesc:a544fc33e6b5ae61f2f4b6c7b46863495"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retirer toutes les entités sélectionnées.  <br /></td></tr>
+<tr class="memitem:a882f13ad15aa0f6d5cd467f9a5659c8b" id="r_a882f13ad15aa0f6d5cd467f9a5659c8b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a882f13ad15aa0f6d5cd467f9a5659c8b">partyLevelChanged</a> (int level)</td></tr>
+<tr class="memdesc:a882f13ad15aa0f6d5cd467f9a5659c8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'auteur a choisi le niveau du groupe dont se calcule le budget des rencontres.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -175,6 +177,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a057a81d88961c14170d824eb0a3ec1bf" id="r_a057a81d88961c14170d824eb0a3ec1bf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a057a81d88961c14170d824eb0a3ec1bf">~EntityPanel</a> () override</td></tr>
 <tr class="memitem:ada8279372bb01716d6e8f77c5f4695e1" id="r_ada8279372bb01716d6e8f77c5f4695e1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ada8279372bb01716d6e8f77c5f4695e1">refresh</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, const std::vector&lt; std::size_t &gt; &amp;selection, std::optional&lt; std::size_t &gt; selected, const <a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a> &amp;context, const std::vector&lt; <a class="el" href="structhmi_1_1EditorDiagnostic.html">EditorDiagnostic</a> &gt; &amp;diagnostics, const std::string &amp;verdict)</td></tr>
 <tr class="memdesc:ada8279372bb01716d6e8f77c5f4695e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruit liste, formulaire et avertissements.  <br /></td></tr>
+<tr class="memitem:a34fb8ffbec837e1851301113b8af6203" id="r_a34fb8ffbec837e1851301113b8af6203"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a34fb8ffbec837e1851301113b8af6203">setPartyLevel</a> (int level)</td></tr>
+<tr class="memdesc:a34fb8ffbec837e1851301113b8af6203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Montre <code class="param">level</code> comme niveau du groupe du budget, sans émettre <span class="tt"><a class="el" href="#a882f13ad15aa0f6d5cd467f9a5659c8b" title="L&#39;auteur a choisi le niveau du groupe dont se calcule le budget des rencontres.">partyLevelChanged</a></span>.  <br /></td></tr>
 <tr class="memitem:a3e09c0091086b69baf02c9d9c2e92c3a" id="r_a3e09c0091086b69baf02c9d9c2e92c3a"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3e09c0091086b69baf02c9d9c2e92c3a">kindToPlace</a> () const</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
@@ -198,7 +202,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a41f572ab085473e649398ea705971d6f" id="r_a41f572ab085473e649398ea705971d6f"><td class="memItemLeft">std::vector&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a41f572ab085473e649398ea705971d6f">_selection</a></td></tr>
 <tr class="memitem:a70005c4cc5712e70f2105ad54182d46e" id="r_a70005c4cc5712e70f2105ad54182d46e"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a70005c4cc5712e70f2105ad54182d46e">_selected</a></td></tr>
 <tr class="memitem:a49aa30861a928f997658d70b5fc7686e" id="r_a49aa30861a928f997658d70b5fc7686e"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a49aa30861a928f997658d70b5fc7686e">_verdict</a></td></tr>
-<tr class="memdesc:a49aa30861a928f997658d70b5fc7686e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le verdict de la zone de combat principale (<span class="tt"><a class="el" href="namespacehmi.html#a84629539a766d354203c18ea75e0bab9" title="Le verdict d&#39;une zone de combat en une ligne, pour l&#39;inspecteur : sa taille, ses cases libres,...">hmi::combatZoneSummary</a></span>), vide sinon.  <br /></td></tr>
+<tr class="memdesc:a49aa30861a928f997658d70b5fc7686e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le verdict de l'entité principale (<span class="tt"><a class="el" href="namespacehmi.html#aa4edebfd3cfee6ae8c18b887a9ced0df" title="Le verdict de chaque entité qui en a un, dans l&#39;ordre des entités : les zones de combat (leur terrain...">hmi::entityVerdicts</a></span>), vide sinon.  <br /></td></tr>
 <tr class="memitem:abab0deec54d8351cb2fe1b6399da53c2" id="r_abab0deec54d8351cb2fe1b6399da53c2"><td class="memItemLeft"><a class="el" href="structcore_1_1EntityReferenceContext.html">core::EntityReferenceContext</a>&#160;</td><td class="memItemRight"><a class="el" href="#abab0deec54d8351cb2fe1b6399da53c2">_context</a></td></tr>
 <tr class="memitem:a75ecce479d57d39f3da4fc453b8e7d9d" id="r_a75ecce479d57d39f3da4fc453b8e7d9d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EditorDiagnostic.html">EditorDiagnostic</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a75ecce479d57d39f3da4fc453b8e7d9d">_diagnostics</a></td></tr>
 <tr class="memitem:a7868d01e55b978fc44506ec2c5c0dd81" id="r_a7868d01e55b978fc44506ec2c5c0dd81"><td class="memItemLeft">std::optional&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7868d01e55b978fc44506ec2c5c0dd81">_formIndex</a></td></tr>
@@ -210,7 +214,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Vue des entités du brouillon courant — remplace le panneau « Propriétés » retiré au <span class="tt">LOT-01</span>. </p>
 <p>Même patron que <span class="tt">hmi::LinkPanel</span> : le panneau reflète et demande, le viewport applique. Le formulaire est <b>dérivé</b> de <span class="tt"><a class="el" href="namespacecore.html#a3c877363f8258fc1ba137c48aa283397" title="Les familles que l&#39;éditeur sait poser, dans l&#39;ordre de sa liste.">core::knownEntityKinds</a></span> : une famille ou une propriété ajoutée à la table y apparaît sans toucher au panneau, avec le contrôle que sa nature appelle (liste, texte, entier borné, case à cocher). Une propriété que la table ne déclare pas est montrée telle quelle, sans contrôle : elle est transportée, pas éditée (<span class="tt">EX-EDIT-011</span>).</p>
-<p>La liste se filtre (<span class="tt"><a class="el" href="namespacehmi.html#aa9bc383870e52d4d94f97981c63c4a62" title="Les rangs des entités que filter désigne, dans l&#39;ordre de la carte.">hmi::filterEntities</a></span>) et se sélectionne à plusieurs, comme le canevas : le formulaire montre l'entité <b>principale</b>, la dernière prise, et le verdict d'une zone de combat (<span class="tt">LOT-EDITOR-05</span>, <span class="tt">EX-EDIT-072</span>, <span class="tt">EX-EDIT-073</span>). </p>
+<p>La liste se filtre (<span class="tt"><a class="el" href="namespacehmi.html#aa9bc383870e52d4d94f97981c63c4a62" title="Les rangs des entités que filter désigne, dans l&#39;ordre de la carte.">hmi::filterEntities</a></span>) et se sélectionne à plusieurs, comme le canevas : le formulaire montre l'entité <b>principale</b>, la dernière prise, et son verdict : celui d'une zone de combat face au groupe, le budget d'une rencontre pour le niveau du groupe choisi ici (<span class="tt">LOT-EDITOR-05</span>, <span class="tt">LOT-143</span>, <span class="tt">EX-EDIT-072</span>, <span class="tt">EX-EDIT-073</span>). </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7b25f952e66212262dc69ff3256310d4" name="a7b25f952e66212262dc69ff3256310d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7b25f952e66212262dc69ff3256310d4">&#9670;&#160;</a></span>EntityPanel()</h2>
@@ -497,6 +501,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a882f13ad15aa0f6d5cd467f9a5659c8b" name="a882f13ad15aa0f6d5cd467f9a5659c8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a882f13ad15aa0f6d5cd467f9a5659c8b">&#9670;&#160;</a></span>partyLevelChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EntityPanel::partyLevelChanged </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'auteur a choisi le niveau du groupe dont se calcule le budget des rencontres. </p>
+
+</div>
+</div>
 <a id="a7b2f10554ef53c27b369a7ad8f773b58" name="a7b2f10554ef53c27b369a7ad8f773b58"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7b2f10554ef53c27b369a7ad8f773b58">&#9670;&#160;</a></span>propertyChanged</h2>
 
@@ -699,6 +730,25 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retirer toutes les entités sélectionnées. </p>
+
+</div>
+</div>
+<a id="a34fb8ffbec837e1851301113b8af6203" name="a34fb8ffbec837e1851301113b8af6203"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34fb8ffbec837e1851301113b8af6203">&#9670;&#160;</a></span>setPartyLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EntityPanel::setPartyLevel </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>level</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Montre <code class="param">level</code> comme niveau du groupe du budget, sans émettre <span class="tt"><a class="el" href="#a882f13ad15aa0f6d5cd467f9a5659c8b" title="L&#39;auteur a choisi le niveau du groupe dont se calcule le budget des rencontres.">partyLevelChanged</a></span>. </p>
 
 </div>
 </div>
@@ -967,7 +1017,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Le verdict de la zone de combat principale (<span class="tt"><a class="el" href="namespacehmi.html#a84629539a766d354203c18ea75e0bab9" title="Le verdict d&#39;une zone de combat en une ligne, pour l&#39;inspecteur : sa taille, ses cases libres,...">hmi::combatZoneSummary</a></span>), vide sinon. </p>
+<p>Le verdict de l'entité principale (<span class="tt"><a class="el" href="namespacehmi.html#aa4edebfd3cfee6ae8c18b887a9ced0df" title="Le verdict de chaque entité qui en a un, dans l&#39;ordre des entités : les zones de combat (leur terrain...">hmi::entityVerdicts</a></span>), vide sinon. </p>
 
 </div>
 </div>

@@ -141,6 +141,12 @@ namespace {
         isDirectory(creatures)) {
         references.bestiary = core::loadBestiary(creatures);
     }
+    std::error_code absent;
+    if (const std::filesystem::path difficulty =</span>
+            root / "Rpg" / "rules" / "encounter-difficulty.json";
+<span style = "background-color:#dfd">        std::filesystem::is_regular_file(difficulty, absent)) {
+        references.difficulty = core::loadEncounterDifficultyRules(difficulty);
+    }
     references.world = core::loadWorldGraph(root / "Levels");</span>
     // Ce que posent les zones des cartes (LOT-126) : un PNJ peut attendre le drapeau qu'une zone
     // pose, sans qu'aucun dialogue ne le pose.

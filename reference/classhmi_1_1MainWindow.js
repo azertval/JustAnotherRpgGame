@@ -39,6 +39,7 @@ var classhmi_1_1MainWindow =
     [ "openShortcutsDialog", "classhmi_1_1MainWindow.html#a0c0f25275caa45e3ab0fdab1575520f0", null ],
     [ "openWorldStateDialog", "classhmi_1_1MainWindow.html#abf4ef837c78580b583d0a35767cdf7c6", null ],
     [ "operator=", "classhmi_1_1MainWindow.html#ab6940837dc62d495d934ae0d0e4e4284", null ],
+    [ "partyLevel", "classhmi_1_1MainWindow.html#a85f7ca141387ccf6bfb17182fff8ef4c", null ],
     [ "refreshDocumentLabels", "classhmi_1_1MainWindow.html#aa5446f2537408e5ced7e8f2930d9d02c", null ],
     [ "refreshEntitiesPanel", "classhmi_1_1MainWindow.html#aac19ecd96e7a82c8abcd73556ec39cc8", null ],
     [ "refreshLayersPanel", "classhmi_1_1MainWindow.html#a327ffb86ee9c5c1f18f283370ccdb0c1", null ],

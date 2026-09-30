@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-1009 — Les quatre héros — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-2-5.html">0.0.2.5 — Passage à la 3D</a></p><h1><span class="vid">LOT-1009</span> Les quatre héros</h1><p class="lede">Brawler, Mage, Priest et Scoundrel sont des personnages assemblés dans l'atelier : un corps, une texture, des pièces — la première série produite par la chaîne.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-en-attente">en attente</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-pnj">PNJ</span></dd></div><div><dt>Taille</dt><dd>M</dd></div><div><dt>Ordre calculé</dt><dd>12</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-1008.html">LOT-1008</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-1010.html">LOT-1010</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li>Les quatre fiches de personnage sous <code>Common/Characters/Heroes/</code>, assemblées dans l'atelier : corps, texture, pièces, teintes.</li><li>Leurs quatre <strong>textures de corps</strong>, commandées au générateur d'images d'après la consigne du standard (LOT-1001).</li><li>La <strong>bibliothèque de pièces</strong> qu'ils demandent : cheveux et barbes, pièces d'armure, la robe du mage, les armes de leurs fiches préfabriquées.</li><li>Le temps passé par héros, écrit en fin de fiche : c'est le coût d'un personnage, que les lots de PNJ de la <code>0.0.3</code> reprendront.</li><li>Le kit <code>Common</code> republié et verrouillé.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Chacun des quatre héros se reconnaît à côté de son portrait (jugement de l'auteur).</li><li>Les quatre jouent les six animations sans pièce qui traverse le corps ; la robe du mage suit la marche.</li><li>L'arme en main est celle de l'inventaire : en changer change la pièce affichée.</li><li>Aucun des quatre n'a demandé de retouche à la main d'un maillage ni d'une animation : seules la texture et la fiche sont propres au héros.</li><li>La liste <code>portraits</code> n'existe plus dans le manifeste <code>Characters/</code> ; <code>check_hd_assets.py</code> refuse un héros sans fiche.</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Le LOT-1000 a prouvé la chaîne sur un personnage, à la main. Celui-ci la fait tourner sur une série, avec l'outil : c'est la première mesure honnête de ce que coûte un personnage, et la bibliothèque de pièces qu'il laisse sert à tous ceux qui suivent.</p>
+<h2 id="périmètre">Périmètre</h2>
+<p>Dedans : les quatre héros de la <code>0.0.2</code>, leurs pièces, leurs textures.</p>
+<p>Dehors, nommément : leurs <strong>portraits</strong> et <strong>jetons</strong>, qui restent peints (<a href="../vision/decisions.html">D-30</a>) ; les PNJ de la quête, qui restent des mannequins jusqu'à leur lot de zone ; toute règle de classe.</p>
+<h2 id="à-supprimer">À supprimer</h2>
+<div class="table-wrap"><table><thead><tr><th>Quoi</th><th>Où</th><th>Pourquoi maintenant</th></tr></thead><tbody><tr><td>Le <strong>portrait d'attente</strong> : un héros sans figurine, porté par la liste <code>portraits</code></td><td><code>Source/Elements/Assets/Common/Characters/manifest.json</code> ; sa prise en charge dans <code>check_hd_assets.py</code>, <code>install_hd_asset.py</code> et <code>hmi::AssetGallery</code></td><td>les quatre ont leur fiche ; le concept (<code>LOT-145</code>) n'a plus de cas</td></tr><tr><td>Le brawler et le scoundrel <strong>de la preuve</strong></td><td>atelier local <code>Tools/Assets3D/Characters/</code> ; leurs fiches d'essai si elles ont été installées</td><td>remplacés par les héros assemblés ; les données d'essai du moteur (<code>Source/Test/Fixtures/</code>) restent, elles ne sont pas des héros</td></tr><tr><td>Le repli des héros sur le mannequin</td><td>rien à retirer dans le code — la règle sert aux PNJ sans fiche — mais plus aucun héros ne doit y tomber</td><td>critère de <code>check_hd_assets.py</code></td></tr><tr><td>Les sources 2D des quatre classes</td><td>atelier local : <code>Tools/AssetHd/NPC/Classes/LOT-136-v1/</code></td><td>à archiver par l'auteur, si ce n'est fait au LOT-1006</td></tr></tbody></table></div>
+<h2 id="conception">Conception</h2>
+<ul><li><strong>La robe du mage</strong> est le cas dur annoncé au LOT-1000 : une pièce liée aux os des jambes. Si elle ne tient pas, le mage porte une tunique courte et la fiche le dit.</li><li><strong>Les armes</strong> viennent des fiches préfabriquées (<em>Player's Guide</em>, p. 195, 199, 203, 207) ; une arme est une pièce de l'emplacement « main », choisie par l'inventaire.</li><li>Les corps : le brawler (demi-orc) sur le corps musclé, le priest (nain des collines) sur un corps mis à l'échelle — le cas « petit » éprouvé au LOT-1006.</li></ul>
+<h2 id="risques-et-questions-ouvertes">Risques et questions ouvertes</h2>
+<ul><li>Si un héros ne se reconnaît pas, la décision D-31 se rouvre pour lui : une forme sculptée par personnage, liée au même squelette.</li></ul></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1009-les-quatre-heros.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-09-30 · <code>5d0fe978c</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

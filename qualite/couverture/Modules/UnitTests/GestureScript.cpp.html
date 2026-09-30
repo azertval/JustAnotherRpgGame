@@ -30,6 +30,7 @@
 #include "Core/World/EntityKinds.h"
 #include "Editor/Logic/EntityGesture.h"
 #include "Editor/Logic/EntityShapes.h"
+#include "Editor/Logic/EntityVerdicts.h"
 #include "Editor/Logic/PieceCatalog.h"
 #include "Editor/Logic/Stamps.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -98,7 +99,9 @@ public:
             const core::GridPosition to = cell("to");
             _result.log.push_back("measure " + cellText(from) + " â " + cellText(to) + ": " +</span>
                                   measureLabel(measureBetween(from, to)));
-<span style = "background-color:#dfd">        } else if (tool == "note") {
+<span style = "background-color:#dfd">        } else if (tool == "inspect") {
+            inspect();
+        } else if (tool == "note") {
             _result.notesChanged =</span>
                 setNote(_sidecar, cell("at"), text("text")) || _result.notesChanged;
 <span style = "background-color:#dfd">        } else {
@@ -243,6 +246,36 @@ private:
 <span style = "background-color:#dfd">        armBrush();
         armEntities();
         armPrefab();
+        if (const nlohmann::json* level = field("partyLevel")) {
+            if (!level-&gt;is_number_integer() || level-&gt;get&lt;int&gt;() &lt; 1 || level-&gt;get&lt;int&gt;() &gt; 20) {</span>
+<span style = "background-color:#fdd">                throw GestureRefused("\"partyLevel\" must be a level from 1 to 20");</span>
+            }
+<span style = "background-color:#dfd">            _partyLevel = level-&gt;get&lt;int&gt;();</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+
+    // Ce que le canevas ecrit a cote de l'entite selectionnee (`hmi::entityVerdicts`, LOT-143),
+    // dans le compte rendu : une ligne par ligne du verdict, precedee de l'identifiant.
+<span style = "background-color:#dfd">    void inspect() {
+        if (!_state.selectedEntity) {</span>
+<span style = "background-color:#fdd">            throw GestureRefused("no entity selected to inspect");</span>
+        }
+<span style = "background-color:#dfd">        if (!_references) {
+            _references = _dataRoot.empty() ? EditorReferences{} : loadEditorReferences(_dataRoot);</span>
+        }
+<span style = "background-color:#dfd">        const std::vector&lt;core::MapEntity&gt;&amp; entities = _draft.entities();
+        const std::string id = entities[*_state.selectedEntity].id;
+        const std::vector&lt;EntityVerdict&gt; verdicts =</span>
+            entityVerdicts(_draft.tileMap(), entities, verdictContext(*_references, _partyLevel));
+<span style = "background-color:#dfd">        const auto found =</span>
+            std::ranges::find(verdicts, *_state.selectedEntity, &amp;EntityVerdict::entityIndex);
+<span style = "background-color:#dfd">        if (found == verdicts.end()) {</span>
+<span style = "background-color:#fdd">            _result.log.push_back("inspect " + id + ": no verdict");
+            return;</span>
+        }
+<span style = "background-color:#dfd">        for (const std::string&amp; line : found-&gt;lines) {
+            _result.log.push_back("inspect " + id + (found-&gt;ok ? ": " : " [refused]: ") + line);
+        }
     }</span>
 
     // La bibliotheque du lieu (LOT-EDITOR-08) : un prefabrique devient le tampon a poser.
@@ -613,6 +646,10 @@ private:
     GestureScriptResult&amp; _result;
     GestureState _state;
 <span style = "background-color:#dfd">    const nlohmann::json* _gesture = nullptr;</span>
+    /// Les catalogues du verdict, lus au premier `inspect`.
+    std::optional&lt;EditorReferences&gt; _references;
+    /// Le niveau du groupe du budget des rencontres (`partyLevel`).
+<span style = "background-color:#dfd">    int _partyLevel = 1;</span>
 };
 
 <span style = "background-color:#dfd">[[nodiscard]] std::string gestureName(const nlohmann::json&amp; gesture, std::size_t index) {

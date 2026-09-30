@@ -1,0 +1,253 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/PartyDeployment.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('PartyDeployment_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">PartyDeployment.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="PartyDeployment_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &quot;<a class="code" href="Encounter_8h.html">Core/Combat/Encounter.h</a>&quot;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &quot;<a class="code" href="MapEntity_8h.html">Core/Levels/MapEntity.h</a>&quot;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &quot;<a class="code" href="TileMap_8h.html">Core/Levels/TileMap.h</a>&quot;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1Bestiary.html">Bestiary</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45">   56</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45">DeploymentIssueCode</a> {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a6111922a30d6adae3af8f3a6972f4e9c">   58</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a6111922a30d6adae3af8f3a6972f4e9c">NoCombatZone</a>,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a312b16db99527d7b9291171012472e0e">   60</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a312b16db99527d7b9291171012472e0e">TriggerOutsideZone</a>,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45af7e8a0b1e1e87181063f1379125a7ecf">   62</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45af7e8a0b1e1e87181063f1379125a7ecf">CombatantOutsideZone</a>,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45abf3f779c524c03184fc76fb691f16061">   64</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45abf3f779c524c03184fc76fb691f16061">PartyCannotDeploy</a>,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a797ad5860ac64475e1b7240cf763edf5">   66</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a797ad5860ac64475e1b7240cf763edf5">ZoneTooNarrow</a>,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};</div>
+</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="};">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structcore_1_1DeploymentIssue.html">   70</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1DeploymentIssue.html">DeploymentIssue</a> {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structcore_1_1DeploymentIssue.html#a1bed0352e5b06d3f4ace11ed07499391">   71</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45">DeploymentIssueCode</a> <a class="code hl_variable" href="structcore_1_1DeploymentIssue.html#a1bed0352e5b06d3f4ace11ed07499391">code</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structcore_1_1DeploymentIssue.html#a43b61168c3065e2c16942a502d3b0ae8">   72</a></span>    std::string <a class="code hl_variable" href="structcore_1_1DeploymentIssue.html#a43b61168c3065e2c16942a502d3b0ae8">creatureId</a>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="structcore_1_1DeploymentIssue.html#a93ac0037d0cb16fdfa46f7bcabe02a4e">   73</a></span>    <a class="code hl_struct" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="code hl_variable" href="structcore_1_1DeploymentIssue.html#a93ac0037d0cb16fdfa46f7bcabe02a4e">cell</a>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="structcore_1_1DeploymentIssue.html#a8592356706424a495f3737fdb341fea7">   75</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1DeploymentIssue.html#a8592356706424a495f3737fdb341fea7">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1DeploymentIssue.html">DeploymentIssue</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>};</div>
+</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span></div>
+<div class="foldopen" id="foldopen00079" data-start="{" data-end="};">
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html">   79</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1PartyDeployment.html">PartyDeployment</a> {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#a3e14130621b877fdfa3119efe2d9a190">   81</a></span>    std::size_t <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#a3e14130621b877fdfa3119efe2d9a190">encounterIndex</a> = 0;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#a496b47cacc1a9c833f9324b3d080be1a">   83</a></span>    std::optional&lt;std::size_t&gt; <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#a496b47cacc1a9c833f9324b3d080be1a">zoneIndex</a>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#a22fcad831f66a7b9eec9c67191a4f5c1">   84</a></span>    std::string <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#a22fcad831f66a7b9eec9c67191a4f5c1">encounterId</a>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#a7c408ce5e9d2a265cd1bf402493fcfbd">   85</a></span>    <a class="code hl_struct" href="structcore_1_1GridPosition.html">GridPosition</a> <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#a7c408ce5e9d2a265cd1bf402493fcfbd">trigger</a>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#ad714a891898c1848866c710b738b7fea">   87</a></span>    std::vector&lt;CombatantPlacement&gt; <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#ad714a891898c1848866c710b738b7fea">formation</a>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#a837d405bcd5cfe55ea940c5a26634e24">   89</a></span>    std::vector&lt;GridPosition&gt; <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#a837d405bcd5cfe55ea940c5a26634e24">partyPlaces</a>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#af95ddbd7f07c97f40e2c107580066abb">   91</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#af95ddbd7f07c97f40e2c107580066abb">partySize</a> = 0;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#a5446a225e2e7397a1e2f5dc96a48148a">   94</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#a5446a225e2e7397a1e2f5dc96a48148a">reachableCells</a> = 0;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#afe6aabd3ccd518e791247195fbad440e">   96</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#afe6aabd3ccd518e791247195fbad440e">requiredCells</a> = 0;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#a69c0d71a2aeee9ca575e44d2776f6537">   98</a></span>    std::vector&lt;DeploymentIssue&gt; <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#a69c0d71a2aeee9ca575e44d2776f6537">issues</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="structcore_1_1PartyDeployment.html#a65ca70153db98b8fea37d62208d6f39c">  101</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1PartyDeployment.html#a65ca70153db98b8fea37d62208d6f39c">valid</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1PartyDeployment.html#a69c0d71a2aeee9ca575e44d2776f6537">issues</a>.empty();</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>};</div>
+</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>[[nodiscard]] std::vector&lt;PartyDeployment&gt; <a class="code hl_function" href="namespacecore.html#a7350a5dee4809f11caa61f0c17f6138e">analyzePartyDeployment</a>(</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keyword">const</span> TileMap&amp; collision, <span class="keyword">const</span> std::vector&lt;MapEntity&gt;&amp; entities,</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">const</span> EncounterCatalog&amp; encounters, <span class="keyword">const</span> Bestiary* bestiary = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aEncounter_8h_html"><div class="ttname"><a href="Encounter_8h.html">Encounter.h</a></div><div class="ttdoc">Une rencontre : qui se dresse, et où, quand le combat s&#39;engage (LOT-18, EX-CBT-001).</div></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="aMapEntity_8h_html"><div class="ttname"><a href="MapEntity_8h.html">MapEntity.h</a></div><div class="ttdoc">Entité placée sur une carte : PNJ, coffre, panneau, portail, déclencheur (LOT-04).</div></div>
+<div class="ttc" id="aTileMap_8h_html"><div class="ttname"><a href="TileMap_8h.html">TileMap.h</a></div><div class="ttdoc">Grille de tuiles typées d&#39;un niveau.</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a4e3884c7d5e37775d332ed88be4c4e45"><div class="ttname"><a href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45">core::DeploymentIssueCode</a></div><div class="ttdeci">DeploymentIssueCode</div><div class="ttdoc">Ce qui empêche le groupe de se déployer face à une rencontre.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:56</div></div>
+<div class="ttc" id="anamespacecore_html_a4e3884c7d5e37775d332ed88be4c4e45a312b16db99527d7b9291171012472e0e"><div class="ttname"><a href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a312b16db99527d7b9291171012472e0e">core::DeploymentIssueCode::TriggerOutsideZone</a></div><div class="ttdeci">@ TriggerOutsideZone</div><div class="ttdoc">Le marqueur de la rencontre est hors de sa zone.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:60</div></div>
+<div class="ttc" id="anamespacecore_html_a4e3884c7d5e37775d332ed88be4c4e45a6111922a30d6adae3af8f3a6972f4e9c"><div class="ttname"><a href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a6111922a30d6adae3af8f3a6972f4e9c">core::DeploymentIssueCode::NoCombatZone</a></div><div class="ttdeci">@ NoCombatZone</div><div class="ttdoc">La carte ne déclare aucune zone de combat : la rencontre ne peut pas se jouer.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:58</div></div>
+<div class="ttc" id="anamespacecore_html_a4e3884c7d5e37775d332ed88be4c4e45a797ad5860ac64475e1b7240cf763edf5"><div class="ttname"><a href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a797ad5860ac64475e1b7240cf763edf5">core::DeploymentIssueCode::ZoneTooNarrow</a></div><div class="ttdeci">@ ZoneTooNarrow</div><div class="ttdoc">Les cases libres atteignables de la zone ne logent pas tout le monde.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:66</div></div>
+<div class="ttc" id="anamespacecore_html_a4e3884c7d5e37775d332ed88be4c4e45abf3f779c524c03184fc76fb691f16061"><div class="ttname"><a href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45abf3f779c524c03184fc76fb691f16061">core::DeploymentIssueCode::PartyCannotDeploy</a></div><div class="ttdeci">@ PartyCannotDeploy</div><div class="ttdoc">Moins de places que de membres du groupe, hors de la formation et atteignables.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:64</div></div>
+<div class="ttc" id="anamespacecore_html_a4e3884c7d5e37775d332ed88be4c4e45af7e8a0b1e1e87181063f1379125a7ecf"><div class="ttname"><a href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45af7e8a0b1e1e87181063f1379125a7ecf">core::DeploymentIssueCode::CombatantOutsideZone</a></div><div class="ttdeci">@ CombatantOutsideZone</div><div class="ttdoc">L&#39;emprise d&#39;un adversaire sort de la zone.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:62</div></div>
+<div class="ttc" id="anamespacecore_html_a7350a5dee4809f11caa61f0c17f6138e"><div class="ttname"><a href="namespacecore.html#a7350a5dee4809f11caa61f0c17f6138e">core::analyzePartyDeployment</a></div><div class="ttdeci">std::vector&lt; PartyDeployment &gt; analyzePartyDeployment(const TileMap &amp;collision, const std::vector&lt; MapEntity &gt; &amp;entities, const EncounterCatalog &amp;encounters, const Bestiary *bestiary)</div><div class="ttdoc">Le verdict de chaque rencontre de entities face au groupe de quatre, sur sa zone de combat,...</div><div class="ttdef"><b>Definition</b> PartyDeployment.cpp:241</div></div>
+<div class="ttc" id="astructcore_1_1Bestiary_html"><div class="ttname"><a href="structcore_1_1Bestiary.html">core::Bestiary</a></div><div class="ttdoc">Le catalogue chargé, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> Bestiary.h:126</div></div>
+<div class="ttc" id="astructcore_1_1DeploymentIssue_html"><div class="ttname"><a href="structcore_1_1DeploymentIssue.html">core::DeploymentIssue</a></div><div class="ttdoc">Un défaut relevé : quoi, qui (vide pour le groupe ou la zone), et où.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:70</div></div>
+<div class="ttc" id="astructcore_1_1DeploymentIssue_html_a1bed0352e5b06d3f4ace11ed07499391"><div class="ttname"><a href="structcore_1_1DeploymentIssue.html#a1bed0352e5b06d3f4ace11ed07499391">core::DeploymentIssue::code</a></div><div class="ttdeci">DeploymentIssueCode code</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:71</div></div>
+<div class="ttc" id="astructcore_1_1DeploymentIssue_html_a43b61168c3065e2c16942a502d3b0ae8"><div class="ttname"><a href="structcore_1_1DeploymentIssue.html#a43b61168c3065e2c16942a502d3b0ae8">core::DeploymentIssue::creatureId</a></div><div class="ttdeci">std::string creatureId</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:72</div></div>
+<div class="ttc" id="astructcore_1_1DeploymentIssue_html_a8592356706424a495f3737fdb341fea7"><div class="ttname"><a href="structcore_1_1DeploymentIssue.html#a8592356706424a495f3737fdb341fea7">core::DeploymentIssue::operator==</a></div><div class="ttdeci">bool operator==(const DeploymentIssue &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1DeploymentIssue_html_a93ac0037d0cb16fdfa46f7bcabe02a4e"><div class="ttname"><a href="structcore_1_1DeploymentIssue.html#a93ac0037d0cb16fdfa46f7bcabe02a4e">core::DeploymentIssue::cell</a></div><div class="ttdeci">GridPosition cell</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:73</div></div>
+<div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html"><div class="ttname"><a href="structcore_1_1PartyDeployment.html">core::PartyDeployment</a></div><div class="ttdoc">Le verdict d&#39;une rencontre et du groupe sur leur zone de combat.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:79</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_a22fcad831f66a7b9eec9c67191a4f5c1"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#a22fcad831f66a7b9eec9c67191a4f5c1">core::PartyDeployment::encounterId</a></div><div class="ttdeci">std::string encounterId</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:84</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_a3e14130621b877fdfa3119efe2d9a190"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#a3e14130621b877fdfa3119efe2d9a190">core::PartyDeployment::encounterIndex</a></div><div class="ttdeci">std::size_t encounterIndex</div><div class="ttdoc">Rang de l&#39;entité encounter dans la liste d&#39;entités de la carte.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:81</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_a496b47cacc1a9c833f9324b3d080be1a"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#a496b47cacc1a9c833f9324b3d080be1a">core::PartyDeployment::zoneIndex</a></div><div class="ttdeci">std::optional&lt; std::size_t &gt; zoneIndex</div><div class="ttdoc">Rang de l&#39;entité combatZone où la rencontre se joue ; vide sans zone sur la carte.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:83</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_a5446a225e2e7397a1e2f5dc96a48148a"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#a5446a225e2e7397a1e2f5dc96a48148a">core::PartyDeployment::reachableCells</a></div><div class="ttdeci">int reachableCells</div><div class="ttdoc">Les cases libres de la zone atteignables depuis le marqueur (ou la case libre la plus proche de lui).</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:94</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_a65ca70153db98b8fea37d62208d6f39c"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#a65ca70153db98b8fea37d62208d6f39c">core::PartyDeployment::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:101</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_a69c0d71a2aeee9ca575e44d2776f6537"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#a69c0d71a2aeee9ca575e44d2776f6537">core::PartyDeployment::issues</a></div><div class="ttdeci">std::vector&lt; DeploymentIssue &gt; issues</div><div class="ttdoc">Dans l&#39;ordre : marqueur, adversaires, groupe, zone.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:98</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_a7c408ce5e9d2a265cd1bf402493fcfbd"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#a7c408ce5e9d2a265cd1bf402493fcfbd">core::PartyDeployment::trigger</a></div><div class="ttdeci">GridPosition trigger</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:85</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_a837d405bcd5cfe55ea940c5a26634e24"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#a837d405bcd5cfe55ea940c5a26634e24">core::PartyDeployment::partyPlaces</a></div><div class="ttdeci">std::vector&lt; GridPosition &gt; partyPlaces</div><div class="ttdoc">Les places du groupe trouvées, en cases de la carte : au plus partySize.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:89</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_ad714a891898c1848866c710b738b7fea"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#ad714a891898c1848866c710b738b7fea">core::PartyDeployment::formation</a></div><div class="ttdeci">std::vector&lt; CombatantPlacement &gt; formation</div><div class="ttdoc">Les cases voulues par la formation (core::placeCombatants), en cases de la carte.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:87</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_af95ddbd7f07c97f40e2c107580066abb"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#af95ddbd7f07c97f40e2c107580066abb">core::PartyDeployment::partySize</a></div><div class="ttdeci">int partySize</div><div class="ttdoc">La taille du groupe comptée (core::TACTICAL_PARTY_SIZE).</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:91</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html_afe6aabd3ccd518e791247195fbad440e"><div class="ttname"><a href="structcore_1_1PartyDeployment.html#afe6aabd3ccd518e791247195fbad440e">core::PartyDeployment::requiredCells</a></div><div class="ttdeci">int requiredCells</div><div class="ttdoc">(adversaires + groupe) × TACTICAL_CELLS_PER_COMBATANT.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:96</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_bc520fdc8f4eadff60f94f8b29441948.html">Combat</a></li><li class="navelem"><a href="PartyDeployment_8h.html">PartyDeployment.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

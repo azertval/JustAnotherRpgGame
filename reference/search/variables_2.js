@@ -15,7 +15,7 @@ var searchData=
   ['before_12',['before',['../structcore_1_1DamageStep.html#ad225f453e8e424a90702b9e46a640ec5',1,'core::DamageStep']]],
   ['behavior_13',['behavior',['../structcore_1_1ArenaContestant.html#a190e47f103f3dadbf460e7a18a3ad843',1,'core::ArenaContestant::behavior'],['../structcore_1_1BehaviorAssignment.html#a8e47f1edea0e9543c1b837e27ae1e565',1,'core::BehaviorAssignment::behavior']]],
   ['behaviors_14',['behaviors',['../structhmi_1_1EncounterModel_1_1Catalogs.html#aca95b6274c1fcc21b4fdac359d6258b0',1,'hmi::EncounterModel::Catalogs']]],
-  ['bestiary_15',['bestiary',['../structhmi_1_1EditorReferences.html#a2347b4745df3c2f026bfb4972b4e2132',1,'hmi::EditorReferences::bestiary'],['../structhmi_1_1EncounterModel_1_1Catalogs.html#a59a13bd27397de77a25232a97e2c1372',1,'hmi::EncounterModel::Catalogs::bestiary']]],
+  ['bestiary_15',['bestiary',['../structhmi_1_1EditorReferences.html#a2347b4745df3c2f026bfb4972b4e2132',1,'hmi::EditorReferences::bestiary'],['../structhmi_1_1VerdictContext.html#a3ed887426a9d7130ea1c012cb2f57330',1,'hmi::VerdictContext::bestiary'],['../structhmi_1_1EncounterModel_1_1Catalogs.html#a59a13bd27397de77a25232a97e2c1372',1,'hmi::EncounterModel::Catalogs::bestiary']]],
   ['blockedcells_16',['blockedCells',['../structcore_1_1CombatZoneTerrain.html#a4c94c751e363bbea28fa68a9861271c9',1,'core::CombatZoneTerrain']]],
   ['blocksmovement_17',['blocksMovement',['../structcore_1_1GridObject.html#aeaf196e6d2db7cd9d6c0b969f70435d3',1,'core::GridObject']]],
   ['blocs_18',['blocs',['../structhmi_1_1AssetGalleryLayout.html#a040db25ad4e541a21fe8ff230b2bafff',1,'hmi::AssetGalleryLayout']]],

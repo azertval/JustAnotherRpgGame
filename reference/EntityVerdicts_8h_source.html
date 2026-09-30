@@ -1,0 +1,271 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/EntityVerdicts.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('EntityVerdicts_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">EntityVerdicts.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="EntityVerdicts_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="EncounterDifficulty_8h.html">Core/Combat/EncounterDifficulty.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="PartyDeployment_8h.html">Core/Combat/PartyDeployment.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="GridPosition_8h.html">Core/Levels/GridPosition.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="MapEntity_8h.html">Core/Levels/MapEntity.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="TileMap_8h.html">Core/Levels/TileMap.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;<a class="code" href="CombatZone_8h.html">Core/World/CombatZone.h</a>&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="EntityReferences_8h.html">Editor/Logic/EntityReferences.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8">   33</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8">VerdictCellRole</a> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8ab24ce0cd392a5b0b8dedc66c25213594">   35</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8ab24ce0cd392a5b0b8dedc66c25213594">Free</a>,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a4ecc0d90eec1cea3e9db96583a1bb9c2">   37</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a4ecc0d90eec1cea3e9db96583a1bb9c2">Blocked</a>,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a0fc139aa3812efae863cf3ee66fee521">   39</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a0fc139aa3812efae863cf3ee66fee521">EntryInside</a>,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a5398c3999a98850cb4ccfeac792ea252">   41</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a5398c3999a98850cb4ccfeac792ea252">EntryOutside</a>,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a094a173d3b32f44f5b5c996e8710ae28">   43</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a094a173d3b32f44f5b5c996e8710ae28">Party</a>,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8ac47f96859804ca40a97e3ec80ce85221">   45</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8ac47f96859804ca40a97e3ec80ce85221">Foe</a>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a166e4062742bc8a84f2a44b5bc9c1fe1">   47</a></span>    <a class="code hl_enumvalue" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a166e4062742bc8a84f2a44b5bc9c1fe1">FoeOutside</a>,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="};">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="structhmi_1_1VerdictCell.html">   51</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1VerdictCell.html">VerdictCell</a> {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="structhmi_1_1VerdictCell.html#a21dbfe4ddc778c215b3dd0b57d616456">   52</a></span>    <a class="code hl_struct" href="structcore_1_1GridPosition.html">core::GridPosition</a> <a class="code hl_variable" href="structhmi_1_1VerdictCell.html#a21dbfe4ddc778c215b3dd0b57d616456">cell</a>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structhmi_1_1VerdictCell.html#a38e195bddfa1fa45b71ec27affef3734">   53</a></span>    <a class="code hl_enumeration" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8">VerdictCellRole</a> <a class="code hl_variable" href="structhmi_1_1VerdictCell.html#a38e195bddfa1fa45b71ec27affef3734">role</a> = <a class="code hl_enumvalue" href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8ab24ce0cd392a5b0b8dedc66c25213594">VerdictCellRole::Free</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structhmi_1_1VerdictCell.html#a275f67878ca7d6ce044c8e7ada5ca19c">   55</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1VerdictCell.html#a275f67878ca7d6ce044c8e7ada5ca19c">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1VerdictCell.html">VerdictCell</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="};">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structhmi_1_1EntityVerdict.html">   59</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1EntityVerdict.html">EntityVerdict</a> {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structhmi_1_1EntityVerdict.html#a0a3ed37d755f1515832b3d7b75765806">   60</a></span>    std::size_t <a class="code hl_variable" href="structhmi_1_1EntityVerdict.html#a0a3ed37d755f1515832b3d7b75765806">entityIndex</a> = 0;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structhmi_1_1EntityVerdict.html#ab2dce3b5c5a50bb9611fab4ecace9d98">   62</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structhmi_1_1EntityVerdict.html#ab2dce3b5c5a50bb9611fab4ecace9d98">lines</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structhmi_1_1EntityVerdict.html#a7bd03d7638264fc437ad1956e0f56a07">   64</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structhmi_1_1EntityVerdict.html#a7bd03d7638264fc437ad1956e0f56a07">ok</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structhmi_1_1EntityVerdict.html#a8dc5cfbe0d7b369ff2cd76c00c14fe9f">   66</a></span>    std::vector&lt;VerdictCell&gt; <a class="code hl_variable" href="structhmi_1_1EntityVerdict.html#a8dc5cfbe0d7b369ff2cd76c00c14fe9f">cells</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};</div>
+</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="};">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structhmi_1_1VerdictContext.html">   70</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1VerdictContext.html">VerdictContext</a> {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structhmi_1_1VerdictContext.html#a54680d8fd5d93e539b7f13f1670c003f">   71</a></span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1EncounterCatalog.html">core::EncounterCatalog</a>* <a class="code hl_variable" href="structhmi_1_1VerdictContext.html#a54680d8fd5d93e539b7f13f1670c003f">encounters</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structhmi_1_1VerdictContext.html#a3ed887426a9d7130ea1c012cb2f57330">   72</a></span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Bestiary.html">core::Bestiary</a>* <a class="code hl_variable" href="structhmi_1_1VerdictContext.html#a3ed887426a9d7130ea1c012cb2f57330">bestiary</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="structhmi_1_1VerdictContext.html#a2329bdcfca832780040e845fd862f2dc">   73</a></span>    <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1EncounterDifficultyRules.html">core::EncounterDifficultyRules</a>* <a class="code hl_variable" href="structhmi_1_1VerdictContext.html#a2329bdcfca832780040e845fd862f2dc">difficulty</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="structhmi_1_1VerdictContext.html#a0afa5da74b7fd24050d4f5a9eb75ef66">   75</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structhmi_1_1VerdictContext.html#a0afa5da74b7fd24050d4f5a9eb75ef66">partyLevel</a> = 1;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>};</div>
+</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1VerdictContext.html">VerdictContext</a> <a class="code hl_function" href="namespacehmi.html#ab3624d45d416c10bf58e31ac5a260f31">verdictContext</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1EditorReferences.html">EditorReferences</a>&amp; references, <span class="keywordtype">int</span> partyLevel);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacehmi.html#a45481f852f974380e9fe25d5651cdcd6">encounterBudgetSummary</a>(std::string_view encounterId,</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                                                 <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1EncounterBudget.html">core::EncounterBudget</a>&amp; budget,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                                                 <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1EncounterDifficultyRules.html">core::EncounterDifficultyRules</a>&amp; rules,</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                                                 <span class="keywordtype">int</span> partySize, <span class="keywordtype">int</span> partyLevel);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacehmi.html#a3acc5d011e46868c103d3024c5b88141">deploymentSummary</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1PartyDeployment.html">core::PartyDeployment</a>&amp; deployment);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>[[nodiscard]] std::vector&lt;EntityVerdict&gt; <a class="code hl_function" href="namespacehmi.html#aa4edebfd3cfee6ae8c18b887a9ced0df">entityVerdicts</a>(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1TileMap.html">core::TileMap</a>&amp; collision,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                                                        <span class="keyword">const</span> std::vector&lt;core::MapEntity&gt;&amp; entities,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                                                        <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1VerdictContext.html">VerdictContext</a>&amp; context);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aCombatZone_8h_html"><div class="ttname"><a href="CombatZone_8h.html">CombatZone.h</a></div><div class="ttdoc">La zone de combat d&#39;une carte : le rectangle nommé où l&#39;on se bat, et lui seul (EX-LVL-018,...</div></div>
+<div class="ttc" id="aEncounterDifficulty_8h_html"><div class="ttname"><a href="EncounterDifficulty_8h.html">EncounterDifficulty.h</a></div><div class="ttdoc">Le budget d&#39;une rencontre (LOT-139) : ce que pèse une rencontre à plusieurs adversaires pour un group...</div></div>
+<div class="ttc" id="aEntityReferences_8h_html"><div class="ttname"><a href="EntityReferences_8h.html">EntityReferences.h</a></div><div class="ttdoc">Ce que le panneau « Entités » propose et vérifie : dialogues, rencontres, cartes et points d&#39;arrivée,...</div></div>
+<div class="ttc" id="aGridPosition_8h_html"><div class="ttname"><a href="GridPosition_8h.html">GridPosition.h</a></div><div class="ttdoc">Position entière dans la grille d&#39;un niveau (colonne, ligne).</div></div>
+<div class="ttc" id="aMapEntity_8h_html"><div class="ttname"><a href="MapEntity_8h.html">MapEntity.h</a></div><div class="ttdoc">Entité placée sur une carte : PNJ, coffre, panneau, portail, déclencheur (LOT-04).</div></div>
+<div class="ttc" id="aPartyDeployment_8h_html"><div class="ttname"><a href="PartyDeployment_8h.html">PartyDeployment.h</a></div><div class="ttdoc">Une rencontre et le groupe de quatre sur leur zone de combat (LOT-143) : la formation adverse y tient...</div></div>
+<div class="ttc" id="aTileMap_8h_html"><div class="ttname"><a href="TileMap_8h.html">TileMap.h</a></div><div class="ttdoc">Grille de tuiles typées d&#39;un niveau.</div></div>
+<div class="ttc" id="aclasscore_1_1TileMap_html"><div class="ttname"><a href="classcore_1_1TileMap.html">core::TileMap</a></div><div class="ttdoc">Grille dense de tuiles typées (EX-GP-001), origine haut-gauche.</div><div class="ttdef"><b>Definition</b> TileMap.h:25</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a3acc5d011e46868c103d3024c5b88141"><div class="ttname"><a href="namespacehmi.html#a3acc5d011e46868c103d3024c5b88141">hmi::deploymentSummary</a></div><div class="ttdeci">std::string deploymentSummary(const core::PartyDeployment &amp;deployment)</div><div class="ttdoc">Le déploiement d&#39;une rencontre en une ligne : l&#39;effectif, les places du groupe, les cases.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.cpp:153</div></div>
+<div class="ttc" id="anamespacehmi_html_a45481f852f974380e9fe25d5651cdcd6"><div class="ttname"><a href="namespacehmi.html#a45481f852f974380e9fe25d5651cdcd6">hmi::encounterBudgetSummary</a></div><div class="ttdeci">std::string encounterBudgetSummary(std::string_view encounterId, const core::EncounterBudget &amp;budget, const core::EncounterDifficultyRules &amp;rules, int partySize, int partyLevel)</div><div class="ttdoc">Le budget d&#39;une rencontre en une ligne.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.cpp:119</div></div>
+<div class="ttc" id="anamespacehmi_html_aa4edebfd3cfee6ae8c18b887a9ced0df"><div class="ttname"><a href="namespacehmi.html#aa4edebfd3cfee6ae8c18b887a9ced0df">hmi::entityVerdicts</a></div><div class="ttdeci">std::vector&lt; EntityVerdict &gt; entityVerdicts(const core::TileMap &amp;collision, const std::vector&lt; core::MapEntity &gt; &amp;entities, const VerdictContext &amp;context)</div><div class="ttdoc">Le verdict de chaque entité qui en a un, dans l&#39;ordre des entités : les zones de combat (leur terrain...</div><div class="ttdef"><b>Definition</b> EntityVerdicts.cpp:162</div></div>
+<div class="ttc" id="anamespacehmi_html_ab3624d45d416c10bf58e31ac5a260f31"><div class="ttname"><a href="namespacehmi.html#ab3624d45d416c10bf58e31ac5a260f31">hmi::verdictContext</a></div><div class="ttdeci">VerdictContext verdictContext(const EditorReferences &amp;references, int partyLevel)</div><div class="ttdef"><b>Definition</b> EntityVerdicts.cpp:112</div></div>
+<div class="ttc" id="anamespacehmi_html_afc3c8091c309831baab8fffc581b30f8"><div class="ttname"><a href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8">hmi::VerdictCellRole</a></div><div class="ttdeci">VerdictCellRole</div><div class="ttdoc">Ce qu&#39;une case marquée par un verdict représente, donc sa couleur.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:33</div></div>
+<div class="ttc" id="anamespacehmi_html_afc3c8091c309831baab8fffc581b30f8a094a173d3b32f44f5b5c996e8710ae28"><div class="ttname"><a href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a094a173d3b32f44f5b5c996e8710ae28">hmi::VerdictCellRole::Party</a></div><div class="ttdeci">@ Party</div><div class="ttdoc">Une place du groupe.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:43</div></div>
+<div class="ttc" id="anamespacehmi_html_afc3c8091c309831baab8fffc581b30f8a0fc139aa3812efae863cf3ee66fee521"><div class="ttname"><a href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a0fc139aa3812efae863cf3ee66fee521">hmi::VerdictCellRole::EntryInside</a></div><div class="ttdeci">@ EntryInside</div><div class="ttdoc">Une entrée d&#39;arène que le combat voit.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:39</div></div>
+<div class="ttc" id="anamespacehmi_html_afc3c8091c309831baab8fffc581b30f8a166e4062742bc8a84f2a44b5bc9c1fe1"><div class="ttname"><a href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a166e4062742bc8a84f2a44b5bc9c1fe1">hmi::VerdictCellRole::FoeOutside</a></div><div class="ttdeci">@ FoeOutside</div><div class="ttdoc">La case voulue d&#39;un adversaire, hors du terrain.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:47</div></div>
+<div class="ttc" id="anamespacehmi_html_afc3c8091c309831baab8fffc581b30f8a4ecc0d90eec1cea3e9db96583a1bb9c2"><div class="ttname"><a href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a4ecc0d90eec1cea3e9db96583a1bb9c2">hmi::VerdictCellRole::Blocked</a></div><div class="ttdeci">@ Blocked</div><div class="ttdoc">Une case pleine de la zone.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:37</div></div>
+<div class="ttc" id="anamespacehmi_html_afc3c8091c309831baab8fffc581b30f8a5398c3999a98850cb4ccfeac792ea252"><div class="ttname"><a href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8a5398c3999a98850cb4ccfeac792ea252">hmi::VerdictCellRole::EntryOutside</a></div><div class="ttdeci">@ EntryOutside</div><div class="ttdoc">Une entrée d&#39;arène qu&#39;il ne voit pas.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:41</div></div>
+<div class="ttc" id="anamespacehmi_html_afc3c8091c309831baab8fffc581b30f8ab24ce0cd392a5b0b8dedc66c25213594"><div class="ttname"><a href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8ab24ce0cd392a5b0b8dedc66c25213594">hmi::VerdictCellRole::Free</a></div><div class="ttdeci">@ Free</div><div class="ttdoc">Une case libre de la zone.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:35</div></div>
+<div class="ttc" id="anamespacehmi_html_afc3c8091c309831baab8fffc581b30f8ac47f96859804ca40a97e3ec80ce85221"><div class="ttname"><a href="namespacehmi.html#afc3c8091c309831baab8fffc581b30f8ac47f96859804ca40a97e3ec80ce85221">hmi::VerdictCellRole::Foe</a></div><div class="ttdeci">@ Foe</div><div class="ttdoc">La case voulue d&#39;un adversaire, sur le terrain.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:45</div></div>
+<div class="ttc" id="astructcore_1_1Bestiary_html"><div class="ttname"><a href="structcore_1_1Bestiary.html">core::Bestiary</a></div><div class="ttdoc">Le catalogue chargé, et ce qui n&#39;a pas pu l&#39;être.</div><div class="ttdef"><b>Definition</b> Bestiary.h:126</div></div>
+<div class="ttc" id="astructcore_1_1EncounterBudget_html"><div class="ttname"><a href="structcore_1_1EncounterBudget.html">core::EncounterBudget</a></div><div class="ttdoc">Le verdict sur une rencontre, pour un groupe.</div><div class="ttdef"><b>Definition</b> EncounterDifficulty.h:100</div></div>
+<div class="ttc" id="astructcore_1_1EncounterCatalog_html"><div class="ttname"><a href="structcore_1_1EncounterCatalog.html">core::EncounterCatalog</a></div><div class="ttdoc">Le catalogue des rencontres, et ce qui n&#39;a pas pu être lu.</div><div class="ttdef"><b>Definition</b> Encounter.h:60</div></div>
+<div class="ttc" id="astructcore_1_1EncounterDifficultyRules_html"><div class="ttname"><a href="structcore_1_1EncounterDifficultyRules.html">core::EncounterDifficultyRules</a></div><div class="ttdoc">Les règles du budget, telles que rules/encounter-difficulty.json les déclare.</div><div class="ttdef"><b>Definition</b> EncounterDifficulty.h:55</div></div>
+<div class="ttc" id="astructcore_1_1GridPosition_html"><div class="ttname"><a href="structcore_1_1GridPosition.html">core::GridPosition</a></div><div class="ttdoc">Position d&#39;une case dans la grille d&#39;un niveau, en coordonnées entières.</div><div class="ttdef"><b>Definition</b> GridPosition.h:20</div></div>
+<div class="ttc" id="astructcore_1_1PartyDeployment_html"><div class="ttname"><a href="structcore_1_1PartyDeployment.html">core::PartyDeployment</a></div><div class="ttdoc">Le verdict d&#39;une rencontre et du groupe sur leur zone de combat.</div><div class="ttdef"><b>Definition</b> PartyDeployment.h:79</div></div>
+<div class="ttc" id="astructhmi_1_1EditorReferences_html"><div class="ttname"><a href="structhmi_1_1EditorReferences.html">hmi::EditorReferences</a></div><div class="ttdoc">Les catalogues que les entités d&#39;une carte référencent, lus une fois à l&#39;ouverture de l&#39;éditeur puis ...</div><div class="ttdef"><b>Definition</b> EntityReferences.h:32</div></div>
+<div class="ttc" id="astructhmi_1_1EntityVerdict_html"><div class="ttname"><a href="structhmi_1_1EntityVerdict.html">hmi::EntityVerdict</a></div><div class="ttdoc">Le verdict d&#39;une entité, en anglais comme tout l&#39;éditeur (LOT-EDITOR-01).</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:59</div></div>
+<div class="ttc" id="astructhmi_1_1EntityVerdict_html_a0a3ed37d755f1515832b3d7b75765806"><div class="ttname"><a href="structhmi_1_1EntityVerdict.html#a0a3ed37d755f1515832b3d7b75765806">hmi::EntityVerdict::entityIndex</a></div><div class="ttdeci">std::size_t entityIndex</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:60</div></div>
+<div class="ttc" id="astructhmi_1_1EntityVerdict_html_a7bd03d7638264fc437ad1956e0f56a07"><div class="ttname"><a href="structhmi_1_1EntityVerdict.html#a7bd03d7638264fc437ad1956e0f56a07">hmi::EntityVerdict::ok</a></div><div class="ttdeci">bool ok</div><div class="ttdoc">Faux : le verdict s&#39;écrit en rouge.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:64</div></div>
+<div class="ttc" id="astructhmi_1_1EntityVerdict_html_a8dc5cfbe0d7b369ff2cd76c00c14fe9f"><div class="ttname"><a href="structhmi_1_1EntityVerdict.html#a8dc5cfbe0d7b369ff2cd76c00c14fe9f">hmi::EntityVerdict::cells</a></div><div class="ttdeci">std::vector&lt; VerdictCell &gt; cells</div><div class="ttdoc">Les cases que le canevas marque quand l&#39;entité est sélectionnée.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:66</div></div>
+<div class="ttc" id="astructhmi_1_1EntityVerdict_html_ab2dce3b5c5a50bb9611fab4ecace9d98"><div class="ttname"><a href="structhmi_1_1EntityVerdict.html#ab2dce3b5c5a50bb9611fab4ecace9d98">hmi::EntityVerdict::lines</a></div><div class="ttdeci">std::vector&lt; std::string &gt; lines</div><div class="ttdoc">La première ligne s&#39;écrit à côté de l&#39;entité ; toutes, quand elle est sélectionnée.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:62</div></div>
+<div class="ttc" id="astructhmi_1_1VerdictCell_html"><div class="ttname"><a href="structhmi_1_1VerdictCell.html">hmi::VerdictCell</a></div><div class="ttdoc">Une case marquée par un verdict.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:51</div></div>
+<div class="ttc" id="astructhmi_1_1VerdictCell_html_a21dbfe4ddc778c215b3dd0b57d616456"><div class="ttname"><a href="structhmi_1_1VerdictCell.html#a21dbfe4ddc778c215b3dd0b57d616456">hmi::VerdictCell::cell</a></div><div class="ttdeci">core::GridPosition cell</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:52</div></div>
+<div class="ttc" id="astructhmi_1_1VerdictCell_html_a275f67878ca7d6ce044c8e7ada5ca19c"><div class="ttname"><a href="structhmi_1_1VerdictCell.html#a275f67878ca7d6ce044c8e7ada5ca19c">hmi::VerdictCell::operator==</a></div><div class="ttdeci">bool operator==(const VerdictCell &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1VerdictCell_html_a38e195bddfa1fa45b71ec27affef3734"><div class="ttname"><a href="structhmi_1_1VerdictCell.html#a38e195bddfa1fa45b71ec27affef3734">hmi::VerdictCell::role</a></div><div class="ttdeci">VerdictCellRole role</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:53</div></div>
+<div class="ttc" id="astructhmi_1_1VerdictContext_html"><div class="ttname"><a href="structhmi_1_1VerdictContext.html">hmi::VerdictContext</a></div><div class="ttdoc">Ce qu&#39;il faut pour juger : les catalogues, et le niveau du groupe du budget.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:70</div></div>
+<div class="ttc" id="astructhmi_1_1VerdictContext_html_a0afa5da74b7fd24050d4f5a9eb75ef66"><div class="ttname"><a href="structhmi_1_1VerdictContext.html#a0afa5da74b7fd24050d4f5a9eb75ef66">hmi::VerdictContext::partyLevel</a></div><div class="ttdeci">int partyLevel</div><div class="ttdoc">Le niveau des quatre membres du groupe, de 1 à 20.</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:75</div></div>
+<div class="ttc" id="astructhmi_1_1VerdictContext_html_a2329bdcfca832780040e845fd862f2dc"><div class="ttname"><a href="structhmi_1_1VerdictContext.html#a2329bdcfca832780040e845fd862f2dc">hmi::VerdictContext::difficulty</a></div><div class="ttdeci">const core::EncounterDifficultyRules * difficulty</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:73</div></div>
+<div class="ttc" id="astructhmi_1_1VerdictContext_html_a3ed887426a9d7130ea1c012cb2f57330"><div class="ttname"><a href="structhmi_1_1VerdictContext.html#a3ed887426a9d7130ea1c012cb2f57330">hmi::VerdictContext::bestiary</a></div><div class="ttdeci">const core::Bestiary * bestiary</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:72</div></div>
+<div class="ttc" id="astructhmi_1_1VerdictContext_html_a54680d8fd5d93e539b7f13f1670c003f"><div class="ttname"><a href="structhmi_1_1VerdictContext.html#a54680d8fd5d93e539b7f13f1670c003f">hmi::VerdictContext::encounters</a></div><div class="ttdeci">const core::EncounterCatalog * encounters</div><div class="ttdef"><b>Definition</b> EntityVerdicts.h:71</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="EntityVerdicts_8h.html">EntityVerdicts.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

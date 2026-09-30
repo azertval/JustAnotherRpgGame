@@ -4,6 +4,7 @@ var structhmi_1_1EntityPanel_1_1Widgets =
     [ "entityTable", "structhmi_1_1EntityPanel_1_1Widgets.html#a917187480f8f7ab54caccd6499b25f92", null ],
     [ "filterEdit", "structhmi_1_1EntityPanel_1_1Widgets.html#acb4651f3614d918348a4705cd492756e", null ],
     [ "kindCombo", "structhmi_1_1EntityPanel_1_1Widgets.html#aeab865799fca71c9df455ed81bcc5b9e", null ],
+    [ "partyLevelSpin", "structhmi_1_1EntityPanel_1_1Widgets.html#a45df3cc6e7ff9d97d0d551a6b5b623f8", null ],
     [ "propertiesForm", "structhmi_1_1EntityPanel_1_1Widgets.html#aeab43f3c6ecbd56359b20e54017da5fc", null ],
     [ "removeButton", "structhmi_1_1EntityPanel_1_1Widgets.html#a2f3e21fba6f02c410c2be702b6e2e339", null ],
     [ "selectionLabel", "structhmi_1_1EntityPanel_1_1Widgets.html#ad179a32705c2005dcc7943cb9a76fe5f", null ],

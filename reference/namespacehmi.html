@@ -208,6 +208,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une poignée et la case où elle se tient.  <a href="structhmi_1_1EntityHandle.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EntityPick" id="r_EntityPick"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EntityPick.html">EntityPick</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le curseur désigne : une entité, et la poignée tenue s'il y en a une.  <a href="structhmi_1_1EntityPick.html#details">More...</a><br /></td></tr>
+<tr class="memitem:VerdictCell" id="r_VerdictCell"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1VerdictCell.html">VerdictCell</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une case marquée par un verdict.  <a href="structhmi_1_1VerdictCell.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EntityVerdict" id="r_EntityVerdict"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1EntityVerdict.html">EntityVerdict</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le verdict d'une entité, en anglais comme tout l'éditeur (<span class="tt">LOT-EDITOR-01</span>).  <a href="structhmi_1_1EntityVerdict.html#details">More...</a><br /></td></tr>
+<tr class="memitem:VerdictContext" id="r_VerdictContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1VerdictContext.html">VerdictContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'il faut pour juger : les catalogues, et le niveau du groupe du budget.  <a href="structhmi_1_1VerdictContext.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FileOperationResult" id="r_FileOperationResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FileOperationResult.html">FileOperationResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Succès (avec le chemin résultant) ou échec (avec un message lisible).  <a href="structhmi_1_1FileOperationResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DraftMap" id="r_DraftMap"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DraftMap.html">DraftMap</a></td></tr>
@@ -709,6 +715,18 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:ac6386008eafd49b088cdd36ffd4f3c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une poignée : ce qu'on tire pour changer la forme d'une entité sélectionnée.  <a href="#ac6386008eafd49b088cdd36ffd4f3c19">More...</a><br /></td></tr>
+<tr class="memitem:afc3c8091c309831baab8fffc581b30f8" id="r_afc3c8091c309831baab8fffc581b30f8"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#afc3c8091c309831baab8fffc581b30f8">VerdictCellRole</a> { <br />
+&#160;&#160;<a class="el" href="#afc3c8091c309831baab8fffc581b30f8ab24ce0cd392a5b0b8dedc66c25213594">Free</a>
+, <a class="el" href="#afc3c8091c309831baab8fffc581b30f8a4ecc0d90eec1cea3e9db96583a1bb9c2">Blocked</a>
+, <a class="el" href="#afc3c8091c309831baab8fffc581b30f8a0fc139aa3812efae863cf3ee66fee521">EntryInside</a>
+, <a class="el" href="#afc3c8091c309831baab8fffc581b30f8a5398c3999a98850cb4ccfeac792ea252">EntryOutside</a>
+, <br />
+&#160;&#160;<a class="el" href="#afc3c8091c309831baab8fffc581b30f8a094a173d3b32f44f5b5c996e8710ae28">Party</a>
+, <a class="el" href="#afc3c8091c309831baab8fffc581b30f8ac47f96859804ca40a97e3ec80ce85221">Foe</a>
+, <a class="el" href="#afc3c8091c309831baab8fffc581b30f8a166e4062742bc8a84f2a44b5bc9c1fe1">FoeOutside</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:afc3c8091c309831baab8fffc581b30f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une case marquée par un verdict représente, donc sa couleur.  <a href="#afc3c8091c309831baab8fffc581b30f8">More...</a><br /></td></tr>
 <tr class="memitem:a89e7b964e1125a35414c9694fad4fd64" id="r_a89e7b964e1125a35414c9694fad4fd64"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a89e7b964e1125a35414c9694fad4fd64">MapCheckSeverity</a> { <a class="el" href="#a89e7b964e1125a35414c9694fad4fd64a902b0d55fddef6f8d651fe1035b7d4bd">Error</a>
 , <a class="el" href="#a89e7b964e1125a35414c9694fad4fd64a0eaadb4fcb48a0a0ed7bc9868be9fbaa">Warning</a>
  }</td></tr>
@@ -1031,10 +1049,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ac78b5cb7e164339c106d8eb30dea54c3" id="r_ac78b5cb7e164339c106d8eb30dea54c3"><td class="memItemLeft"><a class="el" href="#a708d53e28e7a6af851f81372cfebd3d7">DiskReaction</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac78b5cb7e164339c106d8eb30dea54c3">reactToDiskChange</a> (<a class="el" href="#ad3d9a6a21747a6c69be71dfc46024733">DiskChange</a> change, bool draftModified) noexcept</td></tr>
 <tr class="memitem:aae4092d693f838bf7beb6e021fedc2b0" id="r_aae4092d693f838bf7beb6e021fedc2b0"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#aae4092d693f838bf7beb6e021fedc2b0">entityIssueTemplate</a> (<a class="el" href="namespacecore.html#ac1032ee70b0c730c8727b80822ab035e">core::EntityIssueCode</a> code) noexcept</td></tr>
 <tr class="memitem:ae04c1f256387579c522acc9d41c38f54" id="r_ae04c1f256387579c522acc9d41c38f54"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#ae04c1f256387579c522acc9d41c38f54">tacticalIssueTemplate</a> (<a class="el" href="namespacecore.html#a81dfcf1ac21704e4f64a7780ec772910">core::TacticalIssueCode</a> code) noexcept</td></tr>
+<tr class="memitem:a058b293c69103dc1ab1875b3e4dda03a" id="r_a058b293c69103dc1ab1875b3e4dda03a"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a058b293c69103dc1ab1875b3e4dda03a">deploymentIssueTemplate</a> (<a class="el" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45">core::DeploymentIssueCode</a> code) noexcept</td></tr>
+<tr class="memitem:a1ccd1ec0260bc43397b44a8cf3347f18" id="r_a1ccd1ec0260bc43397b44a8cf3347f18"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1ccd1ec0260bc43397b44a8cf3347f18">deploymentIssueText</a> (const <a class="el" href="structcore_1_1PartyDeployment.html">core::PartyDeployment</a> &amp;deployment, const <a class="el" href="structcore_1_1DeploymentIssue.html">core::DeploymentIssue</a> &amp;issue, const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities)</td></tr>
 <tr class="memitem:a84629539a766d354203c18ea75e0bab9" id="r_a84629539a766d354203c18ea75e0bab9"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a84629539a766d354203c18ea75e0bab9">combatZoneSummary</a> (const <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &amp;zone)</td></tr>
 <tr class="memdesc:a84629539a766d354203c18ea75e0bab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le verdict d'une zone de combat en une ligne, pour l'inspecteur : sa taille, ses cases libres, ses entrées d'arène dedans et dehors — ou son défaut.  <br /></td></tr>
-<tr class="memitem:a3f098738a2160784b60a63f9b6d3c5e2" id="r_a3f098738a2160784b60a63f9b6d3c5e2"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EditorDiagnostic.html">EditorDiagnostic</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3f098738a2160784b60a63f9b6d3c5e2">editorDiagnostics</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, const std::vector&lt; <a class="el" href="structcore_1_1EntityIssue.html">core::EntityIssue</a> &gt; &amp;issues, const std::vector&lt; <a class="el" href="structcore_1_1EncounterTerrain.html">core::EncounterTerrain</a> &gt; &amp;terrains, const std::vector&lt; <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &gt; &amp;zones={})</td></tr>
-<tr class="memdesc:a3f098738a2160784b60a63f9b6d3c5e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les avertissements de la carte : les références, puis le terrain des rencontres, puis les zones de combat, chacun dans l'ordre des entités.  <br /></td></tr>
+<tr class="memitem:a4c4df2f62c7b9c4605d71d21e79e6aa8" id="r_a4c4df2f62c7b9c4605d71d21e79e6aa8"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EditorDiagnostic.html">EditorDiagnostic</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4c4df2f62c7b9c4605d71d21e79e6aa8">editorDiagnostics</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, const std::vector&lt; <a class="el" href="structcore_1_1EntityIssue.html">core::EntityIssue</a> &gt; &amp;issues, const std::vector&lt; <a class="el" href="structcore_1_1EncounterTerrain.html">core::EncounterTerrain</a> &gt; &amp;terrains, const std::vector&lt; <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &gt; &amp;zones={}, const std::vector&lt; <a class="el" href="structcore_1_1PartyDeployment.html">core::PartyDeployment</a> &gt; &amp;deployments={})</td></tr>
+<tr class="memdesc:a4c4df2f62c7b9c4605d71d21e79e6aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les avertissements de la carte : les références, puis le terrain des rencontres, puis les zones de combat, puis le déploiement du groupe, chacun dans l'ordre des entités.  <br /></td></tr>
 <tr class="memitem:af6b81c8d64a89cc5b4ddf6448fb8bc7e" id="r_af6b81c8d64a89cc5b4ddf6448fb8bc7e"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#af6b81c8d64a89cc5b4ddf6448fb8bc7e">mapStateKey</a> (<a class="el" href="#a5329d365328d797b903f9f92f964d564">MapState</a> state) noexcept</td></tr>
 <tr class="memitem:a66c7ffd37a4eee4e6c716aac5494b04d" id="r_a66c7ffd37a4eee4e6c716aac5494b04d"><td class="memItemLeft"><a class="el" href="#a5329d365328d797b903f9f92f964d564">MapState</a>&#160;</td><td class="memItemRight"><a class="el" href="#a66c7ffd37a4eee4e6c716aac5494b04d">mapStateFromKey</a> (std::string_view key) noexcept</td></tr>
 <tr class="memitem:a6ebc28d193225270289edf917fe2fd1b" id="r_a6ebc28d193225270289edf917fe2fd1b"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a6ebc28d193225270289edf917fe2fd1b">mapStateLabel</a> (<a class="el" href="#a5329d365328d797b903f9f92f964d564">MapState</a> state) noexcept</td></tr>
@@ -1097,6 +1117,13 @@ Functions</h2></td></tr>
 <tr class="memitem:aa9bc383870e52d4d94f97981c63c4a62" id="r_aa9bc383870e52d4d94f97981c63c4a62"><td class="memItemLeft">std::vector&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa9bc383870e52d4d94f97981c63c4a62">filterEntities</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, std::string_view filter)</td></tr>
 <tr class="memdesc:aa9bc383870e52d4d94f97981c63c4a62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les rangs des entités que <code class="param">filter</code> désigne, dans l'ordre de la carte.  <br /></td></tr>
 <tr class="memitem:ab5d9a77ac353caf145404f16a59ab39b" id="r_ab5d9a77ac353caf145404f16a59ab39b"><td class="memItemLeft">std::vector&lt; std::size_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab5d9a77ac353caf145404f16a59ab39b">toggledSelection</a> (std::vector&lt; std::size_t &gt; selection, std::size_t index)</td></tr>
+<tr class="memitem:ab3624d45d416c10bf58e31ac5a260f31" id="r_ab3624d45d416c10bf58e31ac5a260f31"><td class="memItemLeft"><a class="el" href="structhmi_1_1VerdictContext.html">VerdictContext</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab3624d45d416c10bf58e31ac5a260f31">verdictContext</a> (const <a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a> &amp;references, int partyLevel)</td></tr>
+<tr class="memitem:a45481f852f974380e9fe25d5651cdcd6" id="r_a45481f852f974380e9fe25d5651cdcd6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a45481f852f974380e9fe25d5651cdcd6">encounterBudgetSummary</a> (std::string_view encounterId, const <a class="el" href="structcore_1_1EncounterBudget.html">core::EncounterBudget</a> &amp;budget, const <a class="el" href="structcore_1_1EncounterDifficultyRules.html">core::EncounterDifficultyRules</a> &amp;rules, int partySize, int partyLevel)</td></tr>
+<tr class="memdesc:a45481f852f974380e9fe25d5651cdcd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le budget d'une rencontre en une ligne.  <br /></td></tr>
+<tr class="memitem:a3acc5d011e46868c103d3024c5b88141" id="r_a3acc5d011e46868c103d3024c5b88141"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a3acc5d011e46868c103d3024c5b88141">deploymentSummary</a> (const <a class="el" href="structcore_1_1PartyDeployment.html">core::PartyDeployment</a> &amp;deployment)</td></tr>
+<tr class="memdesc:a3acc5d011e46868c103d3024c5b88141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le déploiement d'une rencontre en une ligne : l'effectif, les places du groupe, les cases.  <br /></td></tr>
+<tr class="memitem:aa4edebfd3cfee6ae8c18b887a9ced0df" id="r_aa4edebfd3cfee6ae8c18b887a9ced0df"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EntityVerdict.html">EntityVerdict</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa4edebfd3cfee6ae8c18b887a9ced0df">entityVerdicts</a> (const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;collision, const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, const <a class="el" href="structhmi_1_1VerdictContext.html">VerdictContext</a> &amp;context)</td></tr>
+<tr class="memdesc:aa4edebfd3cfee6ae8c18b887a9ced0df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le verdict de chaque entité qui en a un, dans l'ordre des entités : les zones de combat (leur terrain, et chaque rencontre qui s'y joue face au groupe), les rencontres (leur budget, et leur déploiement).  <br /></td></tr>
 <tr class="memitem:a972ee7f157e264cf55a982955c2d0882" id="r_a972ee7f157e264cf55a982955c2d0882"><td class="memItemLeft">std::filesystem::path&#160;</td><td class="memItemRight"><a class="el" href="#a972ee7f157e264cf55a982955c2d0882">playtestDirectory</a> ()</td></tr>
 <tr class="memitem:ad05eb30edadbbf1334bc6c0057c0cbb2" id="r_ad05eb30edadbbf1334bc6c0057c0cbb2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ad05eb30edadbbf1334bc6c0057c0cbb2">writeDraftMaps</a> (const std::filesystem::path &amp;directory, const std::vector&lt; <a class="el" href="structhmi_1_1DraftMap.html">DraftMap</a> &gt; &amp;drafts)</td></tr>
 <tr class="memdesc:ad05eb30edadbbf1334bc6c0057c0cbb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Écrit <code class="param">drafts</code> sous <code class="param">directory</code>, un fichier par carte (<span class="tt">&lt;mapId&gt;.json</span>).  <br /></td></tr>
@@ -2903,6 +2930,46 @@ Variables</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a30e21236d068bfdc0078d392e42b752da60c17eb98355db0fe5ce016db6c6f444" name="a30e21236d068bfdc0078d392e42b752da60c17eb98355db0fe5ce016db6c6f444"></a>Sharp&#160;</td><td class="fielddoc"><p>Au plus proche, sans mipmap : une image <b>engendrée</b> dont chaque pixel est voulu — le damier de repli, l'aplat, un marqueur, l'atlas procédural de l'éditeur. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a30e21236d068bfdc0078d392e42b752dae510cdf33cd497134b47b9316314d4b4" name="a30e21236d068bfdc0078d392e42b752dae510cdf33cd497134b47b9316314d4b4"></a>Smooth&#160;</td><td class="fielddoc"><p>Bilinéaire avec <b>mipmaps</b> : l'art peint, toujours réduit à l'écran, qui scintillerait au plus proche (<span class="tt">EX-VIS-008</span>, <span class="tt">LOT-103</span>). </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="afc3c8091c309831baab8fffc581b30f8" name="afc3c8091c309831baab8fffc581b30f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc3c8091c309831baab8fffc581b30f8">&#9670;&#160;</a></span>VerdictCellRole</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#afc3c8091c309831baab8fffc581b30f8">hmi::VerdictCellRole</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'une case marquée par un verdict représente, donc sa couleur. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afc3c8091c309831baab8fffc581b30f8ab24ce0cd392a5b0b8dedc66c25213594" name="afc3c8091c309831baab8fffc581b30f8ab24ce0cd392a5b0b8dedc66c25213594"></a>Free&#160;</td><td class="fielddoc"><p>Une case libre de la zone. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afc3c8091c309831baab8fffc581b30f8a4ecc0d90eec1cea3e9db96583a1bb9c2" name="afc3c8091c309831baab8fffc581b30f8a4ecc0d90eec1cea3e9db96583a1bb9c2"></a>Blocked&#160;</td><td class="fielddoc"><p>Une case pleine de la zone. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afc3c8091c309831baab8fffc581b30f8a0fc139aa3812efae863cf3ee66fee521" name="afc3c8091c309831baab8fffc581b30f8a0fc139aa3812efae863cf3ee66fee521"></a>EntryInside&#160;</td><td class="fielddoc"><p>Une entrée d'arène que le combat voit. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afc3c8091c309831baab8fffc581b30f8a5398c3999a98850cb4ccfeac792ea252" name="afc3c8091c309831baab8fffc581b30f8a5398c3999a98850cb4ccfeac792ea252"></a>EntryOutside&#160;</td><td class="fielddoc"><p>Une entrée d'arène qu'il ne voit pas. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afc3c8091c309831baab8fffc581b30f8a094a173d3b32f44f5b5c996e8710ae28" name="afc3c8091c309831baab8fffc581b30f8a094a173d3b32f44f5b5c996e8710ae28"></a>Party&#160;</td><td class="fielddoc"><p>Une place du groupe. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afc3c8091c309831baab8fffc581b30f8ac47f96859804ca40a97e3ec80ce85221" name="afc3c8091c309831baab8fffc581b30f8ac47f96859804ca40a97e3ec80ce85221"></a>Foe&#160;</td><td class="fielddoc"><p>La case voulue d'un adversaire, sur le terrain. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="afc3c8091c309831baab8fffc581b30f8a166e4062742bc8a84f2a44b5bc9c1fe1" name="afc3c8091c309831baab8fffc581b30f8a166e4062742bc8a84f2a44b5bc9c1fe1"></a>FoeOutside&#160;</td><td class="fielddoc"><p>La case voulue d'un adversaire, hors du terrain. </p>
 </td></tr>
 </table>
 
@@ -5558,6 +5625,95 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a058b293c69103dc1ab1875b3e4dda03a" name="a058b293c69103dc1ab1875b3e4dda03a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a058b293c69103dc1ab1875b3e4dda03a">&#9670;&#160;</a></span>deploymentIssueTemplate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * hmi::deploymentIssueTemplate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45">core::DeploymentIssueCode</a></td>          <td class="paramname"><span class="paramname"><em>code</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le message de <code class="param">code</code>, <span class="tt">%1</span> la rencontre, <span class="tt">%2</span> le combattant ou l'effectif, <span class="tt">%3</span> la zone, <span class="tt">%4</span> et <span class="tt">%5</span> ce qu'il compte. </dd></dl>
+
+</div>
+</div>
+<a id="a1ccd1ec0260bc43397b44a8cf3347f18" name="a1ccd1ec0260bc43397b44a8cf3347f18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ccd1ec0260bc43397b44a8cf3347f18">&#9670;&#160;</a></span>deploymentIssueText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::deploymentIssueText </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1PartyDeployment.html">core::PartyDeployment</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>deployment</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1DeploymentIssue.html">core::DeploymentIssue</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>issue</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>entities</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le défaut <code class="param">issue</code> du déploiement <code class="param">deployment</code>, dit en une phrase ; la zone se nomme par <code class="param">entities</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a3acc5d011e46868c103d3024c5b88141" name="a3acc5d011e46868c103d3024c5b88141"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3acc5d011e46868c103d3024c5b88141">&#9670;&#160;</a></span>deploymentSummary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::deploymentSummary </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1PartyDeployment.html">core::PartyDeployment</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>deployment</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le déploiement d'une rencontre en une ligne : l'effectif, les places du groupe, les cases. </p>
+<p>Par exemple : <span class="tt">arene-bandits: 4 vs 6, party places 4/4, 290 free cells reached (40 required).</span> </p>
+
+</div>
+</div>
 <a id="a551d45820ca5a6e720a6a89e1c70c120" name="a551d45820ca5a6e720a6a89e1c70c120"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a551d45820ca5a6e720a6a89e1c70c120">&#9670;&#160;</a></span>depthSortOrder()</h2>
 
@@ -5923,8 +6079,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a3f098738a2160784b60a63f9b6d3c5e2" name="a3f098738a2160784b60a63f9b6d3c5e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f098738a2160784b60a63f9b6d3c5e2">&#9670;&#160;</a></span>editorDiagnostics()</h2>
+<a id="a4c4df2f62c7b9c4605d71d21e79e6aa8" name="a4c4df2f62c7b9c4605d71d21e79e6aa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c4df2f62c7b9c4605d71d21e79e6aa8">&#9670;&#160;</a></span>editorDiagnostics()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5950,7 +6106,12 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>zones</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1CombatZoneTerrain.html">core::CombatZoneTerrain</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>zones</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1PartyDeployment.html">core::PartyDeployment</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>deployments</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -5960,8 +6121,8 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Les avertissements de la carte : les références, puis le terrain des rencontres, puis les zones de combat, chacun dans l'ordre des entités. </p>
-<p>Une zone de combat avertit si elle ne se joue pas (vide, hors de la carte, sans case libre), et une entrée d'arène si elle n'est dans aucune zone : le combat ne la verrait pas. </p>
+<p>Les avertissements de la carte : les références, puis le terrain des rencontres, puis les zones de combat, puis le déploiement du groupe, chacun dans l'ordre des entités. </p>
+<p>Une zone de combat avertit si elle ne se joue pas (vide, hors de la carte, sans case libre), et une entrée d'arène si elle n'est dans aucune zone : le combat ne la verrait pas. Une rencontre avertit si le groupe de quatre ne se déploie pas face à elle sur sa zone (<span class="tt">LOT-143</span>). </p>
 
 </div>
 </div>
@@ -6036,6 +6197,54 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> en cas de succès, <span class="tt">false</span> sinon (dossier de destination absent, image invalide, échec d'écriture — jamais d'exception, <span class="tt">EX-NFR-040</span>). </dd></dl>
+
+</div>
+</div>
+<a id="a45481f852f974380e9fe25d5651cdcd6" name="a45481f852f974380e9fe25d5651cdcd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45481f852f974380e9fe25d5651cdcd6">&#9670;&#160;</a></span>encounterBudgetSummary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::encounterBudgetSummary </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>encounterId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1EncounterBudget.html">core::EncounterBudget</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>budget</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1EncounterDifficultyRules.html">core::EncounterDifficultyRules</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rules</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>partySize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>partyLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le budget d'une rencontre en une ligne. </p>
+<p>Par exemple : <span class="tt">arene-bandits: 300 XP adjusted (6 foes, 150 XP x 2), difficile for 4 of level 1
+(facile 100, moyenne 200, difficile 300, mortelle 400).</span> Les catégories se nomment comme la donnée les déclare. </p>
 
 </div>
 </div>
@@ -6323,6 +6532,42 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>La forme de la famille de <code class="param">entity</code> ; <span class="tt">Point</span> pour une famille inconnue. </dd></dl>
+
+</div>
+</div>
+<a id="aa4edebfd3cfee6ae8c18b887a9ced0df" name="aa4edebfd3cfee6ae8c18b887a9ced0df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4edebfd3cfee6ae8c18b887a9ced0df">&#9670;&#160;</a></span>entityVerdicts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1EntityVerdict.html">EntityVerdict</a> &gt; hmi::entityVerdicts </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">core::TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>collision</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>entities</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1VerdictContext.html">VerdictContext</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>context</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le verdict de chaque entité qui en a un, dans l'ordre des entités : les zones de combat (leur terrain, et chaque rencontre qui s'y joue face au groupe), les rencontres (leur budget, et leur déploiement). </p>
 
 </div>
 </div>
@@ -12153,7 +12398,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md120"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md123"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/checks/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -13528,6 +13773,36 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><code class="param">active</code> s'il désigne encore une couche visuelle de <code class="param">layers</code>, la grille racine sinon — à réappliquer après toute mutation (annulation, retrait, ouverture d'une autre carte). </dd></dl>
+
+</div>
+</div>
+<a id="ab3624d45d416c10bf58e31ac5a260f31" name="ab3624d45d416c10bf58e31ac5a260f31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3624d45d416c10bf58e31ac5a260f31">&#9670;&#160;</a></span>verdictContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1VerdictContext.html">VerdictContext</a> hmi::verdictContext </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>references</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>partyLevel</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le contexte de <code class="param">references</code>, au niveau <code class="param">partyLevel</code>. </dd></dl>
 
 </div>
 </div>

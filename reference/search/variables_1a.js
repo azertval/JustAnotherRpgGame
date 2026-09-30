@@ -11,6 +11,7 @@ var searchData=
   ['zone_5ftrigger_5fonce_5fproperty_8',['ZONE_TRIGGER_ONCE_PROPERTY',['../namespacecore.html#a3c9b15b19f6ae204c944e5ac6e125217',1,'core']]],
   ['zone_5ftrigger_5fvalue_5fproperty_9',['ZONE_TRIGGER_VALUE_PROPERTY',['../namespacecore.html#a62425ac232b89016389b861948ee5139',1,'core']]],
   ['zone_5fwidth_5fproperty_10',['ZONE_WIDTH_PROPERTY',['../namespacecore.html#a3d0539dc27a6ab16c279522c6a60e76e',1,'core']]],
-  ['zones_11',['zones',['../structhmi_1_1MapDistrict.html#ab67890b261bc3919ad180ac8e22001a5',1,'hmi::MapDistrict']]],
-  ['zoom_12',['zoom',['../structhmi_1_1LevelStatusInfo.html#a952a592f66671fc3a835b8fd1158ea5b',1,'hmi::LevelStatusInfo']]]
+  ['zoneindex_11',['zoneIndex',['../structcore_1_1PartyDeployment.html#a496b47cacc1a9c833f9324b3d080be1a',1,'core::PartyDeployment']]],
+  ['zones_12',['zones',['../structhmi_1_1MapDistrict.html#ab67890b261bc3919ad180ac8e22001a5',1,'hmi::MapDistrict']]],
+  ['zoom_13',['zoom',['../structhmi_1_1LevelStatusInfo.html#a952a592f66671fc3a835b8fd1158ea5b',1,'hmi::LevelStatusInfo']]]
 ];

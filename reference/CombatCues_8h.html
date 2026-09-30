@@ -196,7 +196,7 @@ Variables</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce que le combat <b>montre</b> après ce qu'il a décidé : les pas, les coups, les chutes, joués dans le temps par les figurines (<span class="tt">LOT-118</span>). </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md82"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md85"></a>
 Pourquoi une file</h2>
 <p>La session de combat (<span class="tt"><a class="el" href="classcore_1_1ArenaSession.html" title="Une session d&#39;arène : la carte, la composition, et le combat qui s&#39;y joue.">core::ArenaSession</a></span>) est instantanée : un tour de l'IA — approche, attaque, repli — se joue en un appel, et la grille est déjà dans son état final quand l'écran la relit. Dessiner cet état, c'est montrer des combattants qui <b>se téléportent</b> ; c'est ce que l'auteur voyait quand « l'IA ne se déplaçait jamais vers le joueur ».</p>
 <p>Cette file reçoit donc les faits du combat au moment où ils se produisent — un pas et son chemin, une attaque et sa cible, un coup encaissé, une chute — et les <b>rejoue</b> à la vitesse du monde : la marche à deux cases par seconde (celle de l'exploration), une action le temps de sa bande. Tant qu'elle joue, l'écran attend ; quand elle est vide, la grille et l'image disent la même chose.</p>

@@ -1,0 +1,380 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/test_party_deployment.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.1</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__party__deployment_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_party_deployment.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests du verdict d'une zone de combat pour un groupe (<span class="tt">LOT-143</span>) : la formation adverse sur la zone seule, les quatre places du groupe, les cases libres qu'il faut à tous (<span class="tt">EX-EDIT-101</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="Arena_8h_source.html">Core/Combat/Arena.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Encounter_8h_source.html">Core/Combat/Encounter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PartyDeployment_8h_source.html">Core/Combat/PartyDeployment.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TacticalTerrain_8h_source.html">Core/Combat/TacticalTerrain.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileType_8h_source.html">Core/Levels/TileType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CombatZone_8h_source.html">Core/World/CombatZone.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3cc4fa00a94830c3c1e89bd44e6d23f1" id="r_a3cc4fa00a94830c3c1e89bd44e6d23f1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3cc4fa00a94830c3c1e89bd44e6d23f1">TEST</a> (PartyDeploymentTest, UneZoneDegageePorteLeGroupeFaceALaRencontre)</td></tr>
+<tr class="memdesc:a3cc4fa00a94830c3c1e89bd44e6d23f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sur un sable dégagé, le groupe prend le front opposé au marqueur.  <br /></td></tr>
+<tr class="memitem:a17d89527029551e12121d23c86f6459d" id="r_a17d89527029551e12121d23c86f6459d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a17d89527029551e12121d23c86f6459d">TEST</a> (PartyDeploymentTest, LeGroupeEntreDAbordParLesEntreesAlliees)</td></tr>
+<tr class="memdesc:a17d89527029551e12121d23c86f6459d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les entrées d'arène alliées de la zone sont les premières places du groupe.  <br /></td></tr>
+<tr class="memitem:aa40a9d3b7cabbeda2ea2bdc24043a566" id="r_aa40a9d3b7cabbeda2ea2bdc24043a566"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa40a9d3b7cabbeda2ea2bdc24043a566">TEST</a> (PartyDeploymentTest, UneZoneQuiLaisseLaFormationDehorsEstRefusee)</td></tr>
+<tr class="memdesc:aa40a9d3b7cabbeda2ea2bdc24043a566"><td class="mdescLeft">&#160;</td><td class="mdescRight">Réduite, la zone perd la formation et le marqueur : chaque adversaire hors de la zone est dit, et la rencontre reste jugée sur la zone la plus proche.  <br /></td></tr>
+<tr class="memitem:ad1c21128b2134086130f009d0ab3b639" id="r_ad1c21128b2134086130f009d0ab3b639"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad1c21128b2134086130f009d0ab3b639">TEST</a> (PartyDeploymentTest, UneZoneTropPetiteEstTropEtroite)</td></tr>
+<tr class="memdesc:ad1c21128b2134086130f009d0ab3b639"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une zone trop petite pour tout le monde est trop étroite, et le groupe n'y a pas ses quatre places.  <br /></td></tr>
+<tr class="memitem:a5fb20cd932142070cc8542e5c1c2188a" id="r_a5fb20cd932142070cc8542e5c1c2188a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5fb20cd932142070cc8542e5c1c2188a">TEST</a> (PartyDeploymentTest, LeGroupeNeSeDeploieQueLaOuIlRejointLaRencontre)</td></tr>
+<tr class="memdesc:a5fb20cd932142070cc8542e5c1c2188a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un mur qui coupe la zone : le groupe ne se place que du côté de la rencontre.  <br /></td></tr>
+<tr class="memitem:a81d1f68ef81cbed801b92a6e5f8ea15f" id="r_a81d1f68ef81cbed801b92a6e5f8ea15f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a81d1f68ef81cbed801b92a6e5f8ea15f">TEST</a> (PartyDeploymentTest, UneRencontreSansZoneEstRefusee)</td></tr>
+<tr class="memdesc:a81d1f68ef81cbed801b92a6e5f8ea15f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sans zone de combat sur la carte, la rencontre ne se joue pas ; une rencontre inconnue n'est pas jugée ici.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests du verdict d'une zone de combat pour un groupe (<span class="tt">LOT-143</span>) : la formation adverse sur la zone seule, les quatre places du groupe, les cases libres qu'il faut à tous (<span class="tt">EX-EDIT-101</span>). </p>
+<p>Les cartes sont écrites ici à la case près : un seuil déplacé se voit au premier test qui le franchit. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a17d89527029551e12121d23c86f6459d" name="a17d89527029551e12121d23c86f6459d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17d89527029551e12121d23c86f6459d">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyDeploymentTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeGroupeEntreDAbordParLesEntreesAlliees</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les entrées d'arène alliées de la zone sont les premières places du groupe. </p>
+<p><b>Cas de test :</b> <b>Le groupe entre d'abord par les entrées alliées.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. La zone dégagée, deux entrées alliées de rangs 2 et 1 dans la zone, une troisième hors de la zone.<br  />
+2. Juger.<br  />
+ <b>Resultat attendu :</b> Les deux entrées du dedans, par rang, puis deux voisines de la première ; celle du dehors n'est pas prise. </p>
+
+</div>
+</div>
+<a id="a5fb20cd932142070cc8542e5c1c2188a" name="a5fb20cd932142070cc8542e5c1c2188a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fb20cd932142070cc8542e5c1c2188a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyDeploymentTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeGroupeNeSeDeploieQueLaOuIlRejointLaRencontre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un mur qui coupe la zone : le groupe ne se place que du côté de la rencontre. </p>
+<p><b>Cas de test :</b> <b>Le groupe ne se déploie que là où il rejoint la rencontre.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Une zone de 6 x 2 coupée par un mur plein en colonne 5 ; la rencontre à droite du mur, sur deux colonnes.<br  />
+2. Juger.<br  />
+ <b>Resultat attendu :</b> Des quatre cases reliées, deux sont aux rats : deux places seulement, le groupe ne se déploie pas ; les cases de gauche ne comptent pas. </p>
+
+</div>
+</div>
+<a id="a81d1f68ef81cbed801b92a6e5f8ea15f" name="a81d1f68ef81cbed801b92a6e5f8ea15f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81d1f68ef81cbed801b92a6e5f8ea15f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyDeploymentTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneRencontreSansZoneEstRefusee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sans zone de combat sur la carte, la rencontre ne se joue pas ; une rencontre inconnue n'est pas jugée ici. </p>
+<p><b>Cas de test :</b> <b>Une rencontre sans zone est refusée.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Une carte sans zone, une rencontre connue et une inconnue.<br  />
+2. Juger.<br  />
+ <b>Resultat attendu :</b> Un seul verdict, « aucune zone », sans zone ni place. </p>
+
+</div>
+</div>
+<a id="a3cc4fa00a94830c3c1e89bd44e6d23f1" name="a3cc4fa00a94830c3c1e89bd44e6d23f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cc4fa00a94830c3c1e89bd44e6d23f1">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyDeploymentTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneZoneDegageePorteLeGroupeFaceALaRencontre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sur un sable dégagé, le groupe prend le front opposé au marqueur. </p>
+<p><b>Cas de test :</b> <b>Une zone dégagée porte le groupe de quatre face à la rencontre.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Une zone de 10 x 6 en (2, 2) sur un champ de 20 x 20, une rencontre de deux rats dont le marqueur est en (9, 4), au bord droit.<br  />
+2. Juger le déploiement.<br  />
+ <b>Resultat attendu :</b> Aucun défaut ; la zone est celle de la rencontre ; quatre places à gauche, la plus lointaine du marqueur d'abord ; 60 cases reliées pour 24 exigées. </p>
+
+</div>
+</div>
+<a id="aa40a9d3b7cabbeda2ea2bdc24043a566" name="aa40a9d3b7cabbeda2ea2bdc24043a566"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa40a9d3b7cabbeda2ea2bdc24043a566">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyDeploymentTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneZoneQuiLaisseLaFormationDehorsEstRefusee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Réduite, la zone perd la formation et le marqueur : chaque adversaire hors de la zone est dit, et la rencontre reste jugée sur la zone la plus proche. </p>
+<p><b>Cas de test :</b> <b>Une zone qui laisse la formation dehors est refusée.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. La zone ramenée à 5 x 6, le marqueur en (9, 4) au-dehors.<br  />
+2. Juger.<br  />
+ <b>Resultat attendu :</b> Le marqueur hors de la zone, puis les deux rats hors de la zone ; la zone reste celle de la rencontre. </p>
+
+</div>
+</div>
+<a id="ad1c21128b2134086130f009d0ab3b639" name="ad1c21128b2134086130f009d0ab3b639"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1c21128b2134086130f009d0ab3b639">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">PartyDeploymentTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneZoneTropPetiteEstTropEtroite</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une zone trop petite pour tout le monde est trop étroite, et le groupe n'y a pas ses quatre places. </p>
+<p><b>Cas de test :</b> <b>Une zone de 3 x 2 ne loge ni le groupe ni la manœuvre.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Une zone de 3 x 2 autour d'une rencontre de deux rats.<br  />
+2. Juger.<br  />
+ <b>Resultat attendu :</b> Le groupe trouve ses quatre places (six cases moins les deux rats), mais six cases pour vingt-quatre exigées : la zone est trop étroite. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_e4f77e6506ec5ae5855f8bd23358af3b.html">Combat</a></li><li class="navelem"><a href="test__party__deployment_8cpp.html">test_party_deployment.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

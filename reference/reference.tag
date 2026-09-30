@@ -739,6 +739,32 @@
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
+    <name>PartyDeployment.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
+    <filename>PartyDeployment_8cpp.html</filename>
+    <includes id="PartyDeployment_8h" name="PartyDeployment.h" local="yes" import="no" module="no" objc="no">Core/Combat/PartyDeployment.h</includes>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
+    <includes id="CombatTransition_8h" name="CombatTransition.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatTransition.h</includes>
+    <includes id="Pathfinding_8h" name="Pathfinding.h" local="yes" import="no" module="no" objc="no">Core/Combat/Pathfinding.h</includes>
+    <includes id="TacticalTerrain_8h" name="TacticalTerrain.h" local="yes" import="no" module="no" objc="no">Core/Combat/TacticalTerrain.h</includes>
+    <includes id="Bestiary_8h" name="Bestiary.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Bestiary.h</includes>
+    <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>PartyDeployment.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
+    <filename>PartyDeployment_8h.html</filename>
+    <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
+    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <class kind="struct">core::DeploymentIssue</class>
+    <class kind="struct">core::PartyDeployment</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
     <name>Pathfinding.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Combat/</path>
     <filename>Pathfinding_8cpp.html</filename>
@@ -2684,6 +2710,7 @@
     <filename>ContentCheck_8cpp.html</filename>
     <includes id="ContentCheck_8h" name="ContentCheck.h" local="yes" import="no" module="no" objc="no">Editor/Logic/ContentCheck.h</includes>
     <includes id="CombatTransition_8h" name="CombatTransition.h" local="yes" import="no" module="no" objc="no">Core/Combat/CombatTransition.h</includes>
+    <includes id="PartyDeployment_8h" name="PartyDeployment.h" local="yes" import="no" module="no" objc="no">Core/Combat/PartyDeployment.h</includes>
     <includes id="TacticalTerrain_8h" name="TacticalTerrain.h" local="yes" import="no" module="no" objc="no">Core/Combat/TacticalTerrain.h</includes>
     <includes id="MapEntitySpawner_8h" name="MapEntitySpawner.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/MapEntitySpawner.h</includes>
     <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
@@ -2754,6 +2781,7 @@
     <name>EditorDiagnostics.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
     <filename>EditorDiagnostics_8h.html</filename>
+    <includes id="PartyDeployment_8h" name="PartyDeployment.h" local="yes" import="no" module="no" objc="no">Core/Combat/PartyDeployment.h</includes>
     <includes id="TacticalTerrain_8h" name="TacticalTerrain.h" local="yes" import="no" module="no" objc="no">Core/Combat/TacticalTerrain.h</includes>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
@@ -2860,6 +2888,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
     <filename>EntityReferences_8h.html</filename>
     <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
+    <includes id="EncounterDifficulty_8h" name="EncounterDifficulty.h" local="yes" import="no" module="no" objc="no">Core/Combat/EncounterDifficulty.h</includes>
     <includes id="Quest_8h" name="Quest.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Quest.h</includes>
     <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
     <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
@@ -2886,6 +2915,30 @@
     <class kind="struct">hmi::CellRect</class>
     <class kind="struct">hmi::EntityHandle</class>
     <class kind="struct">hmi::EntityPick</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>EntityVerdicts.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>EntityVerdicts_8cpp.html</filename>
+    <includes id="EntityVerdicts_8h" name="EntityVerdicts.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityVerdicts.h</includes>
+    <includes id="EditorDiagnostics_8h" name="EditorDiagnostics.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EditorDiagnostics.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>EntityVerdicts.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>EntityVerdicts_8h.html</filename>
+    <includes id="EncounterDifficulty_8h" name="EncounterDifficulty.h" local="yes" import="no" module="no" objc="no">Core/Combat/EncounterDifficulty.h</includes>
+    <includes id="PartyDeployment_8h" name="PartyDeployment.h" local="yes" import="no" module="no" objc="no">Core/Combat/PartyDeployment.h</includes>
+    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
+    <includes id="EntityReferences_8h" name="EntityReferences.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityReferences.h</includes>
+    <class kind="struct">hmi::VerdictCell</class>
+    <class kind="struct">hmi::EntityVerdict</class>
+    <class kind="struct">hmi::VerdictContext</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -2923,6 +2976,7 @@
     <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
     <includes id="EntityGesture_8h" name="EntityGesture.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityGesture.h</includes>
     <includes id="EntityShapes_8h" name="EntityShapes.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityShapes.h</includes>
+    <includes id="EntityVerdicts_8h" name="EntityVerdicts.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityVerdicts.h</includes>
     <includes id="PieceCatalog_8h" name="PieceCatalog.h" local="yes" import="no" module="no" objc="no">Editor/Logic/PieceCatalog.h</includes>
     <includes id="Stamps_8h" name="Stamps.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Stamps.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
@@ -3747,6 +3801,7 @@
     <includes id="EditorSidecar_8h" name="EditorSidecar.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EditorSidecar.h</includes>
     <includes id="EditorTool_8h" name="EditorTool.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EditorTool.h</includes>
     <includes id="EntityGesture_8h" name="EntityGesture.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityGesture.h</includes>
+    <includes id="EntityVerdicts_8h" name="EntityVerdicts.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EntityVerdicts.h</includes>
     <includes id="LayerView_8h" name="LayerView.h" local="yes" import="no" module="no" objc="no">Editor/Logic/LayerView.h</includes>
     <includes id="PaintTools_8h" name="PaintTools.h" local="yes" import="no" module="no" objc="no">Editor/Logic/PaintTools.h</includes>
     <includes id="PieceCatalog_8h" name="PieceCatalog.h" local="yes" import="no" module="no" objc="no">Editor/Logic/PieceCatalog.h</includes>
@@ -7186,6 +7241,62 @@
       <anchorfile>test__map__encounter_8cpp.html</anchorfile>
       <anchor>a1fb05d2fe040763d30524e9832748827</anchor>
       <arglist>(MapEncounterTest, SansZoneLaRencontreEstRefusee)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_party_deployment.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Combat/</path>
+    <filename>test__party__deployment_8cpp.html</filename>
+    <includes id="Arena_8h" name="Arena.h" local="yes" import="no" module="no" objc="no">Core/Combat/Arena.h</includes>
+    <includes id="Encounter_8h" name="Encounter.h" local="yes" import="no" module="no" objc="no">Core/Combat/Encounter.h</includes>
+    <includes id="PartyDeployment_8h" name="PartyDeployment.h" local="yes" import="no" module="no" objc="no">Core/Combat/PartyDeployment.h</includes>
+    <includes id="TacticalTerrain_8h" name="TacticalTerrain.h" local="yes" import="no" module="no" objc="no">Core/Combat/TacticalTerrain.h</includes>
+    <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
+    <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__deployment_8cpp.html</anchorfile>
+      <anchor>a3cc4fa00a94830c3c1e89bd44e6d23f1</anchor>
+      <arglist>(PartyDeploymentTest, UneZoneDegageePorteLeGroupeFaceALaRencontre)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__deployment_8cpp.html</anchorfile>
+      <anchor>a17d89527029551e12121d23c86f6459d</anchor>
+      <arglist>(PartyDeploymentTest, LeGroupeEntreDAbordParLesEntreesAlliees)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__deployment_8cpp.html</anchorfile>
+      <anchor>aa40a9d3b7cabbeda2ea2bdc24043a566</anchor>
+      <arglist>(PartyDeploymentTest, UneZoneQuiLaisseLaFormationDehorsEstRefusee)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__deployment_8cpp.html</anchorfile>
+      <anchor>ad1c21128b2134086130f009d0ab3b639</anchor>
+      <arglist>(PartyDeploymentTest, UneZoneTropPetiteEstTropEtroite)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__deployment_8cpp.html</anchorfile>
+      <anchor>a5fb20cd932142070cc8542e5c1c2188a</anchor>
+      <arglist>(PartyDeploymentTest, LeGroupeNeSeDeploieQueLaOuIlRejointLaRencontre)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__party__deployment_8cpp.html</anchorfile>
+      <anchor>a81d1f68ef81cbed801b92a6e5f8ea15f</anchor>
+      <arglist>(PartyDeploymentTest, UneRencontreSansZoneEstRefusee)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -11082,6 +11193,13 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__content__check_8cpp.html</anchorfile>
+      <anchor>a3d24adceac5ce9a8a35a03b622139438</anchor>
+      <arglist>(ContentCheckTest, UnGroupeQuiNeSeDeploiePasFaitEchouerLaCi)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__content__check_8cpp.html</anchorfile>
       <anchor>a0bf94ceaa539c5aa0d73c3488af02218</anchor>
       <arglist>(ContentCheckTest, UnPointDArriveeNommeEstUnDepart)</arglist>
     </member>
@@ -11493,6 +11611,13 @@
       <anchorfile>test__gesture__script_8cpp.html</anchorfile>
       <anchor>ab69fc7e3636faed07a0709df02d5f231</anchor>
       <arglist>(GestureScriptTest, UneRueRefaiteRendLaCarteALOctet)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__gesture__script_8cpp.html</anchorfile>
+      <anchor>a3e590f092eefc59f95688aedea85384c</anchor>
+      <arglist>(GestureScriptTest, LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -24443,6 +24568,38 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::DeploymentIssue</name>
+    <filename>structcore_1_1DeploymentIssue.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1DeploymentIssue.html</anchorfile>
+      <anchor>a8592356706424a495f3737fdb341fea7</anchor>
+      <arglist>(const DeploymentIssue &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>DeploymentIssueCode</type>
+      <name>code</name>
+      <anchorfile>structcore_1_1DeploymentIssue.html</anchorfile>
+      <anchor>a1bed0352e5b06d3f4ace11ed07499391</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>creatureId</name>
+      <anchorfile>structcore_1_1DeploymentIssue.html</anchorfile>
+      <anchor>a43b61168c3065e2c16942a502d3b0ae8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>GridPosition</type>
+      <name>cell</name>
+      <anchorfile>structcore_1_1DeploymentIssue.html</anchorfile>
+      <anchor>a93ac0037d0cb16fdfa46f7bcabe02a4e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::DerivedStats</name>
     <filename>structcore_1_1DerivedStats.html</filename>
     <member kind="variable">
@@ -26257,6 +26414,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>core::EncounterDifficultyRules</type>
+      <name>difficulty</name>
+      <anchorfile>structhmi_1_1EditorReferences.html</anchorfile>
+      <anchor>a565ac4e99bfbdc4c75df8992441f6f32</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>core::WorldGraph</type>
       <name>world</name>
       <anchorfile>structhmi_1_1EditorReferences.html</anchorfile>
@@ -27103,10 +27267,24 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>const std::vector&lt; core::CombatZoneTerrain &gt; &amp;</type>
-      <name>combatZones</name>
+      <type>const std::vector&lt; EntityVerdict &gt; &amp;</type>
+      <name>entityVerdicts</name>
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
-      <anchor>af40c7d5bd3c2c7cae3c5e643d7345b73</anchor>
+      <anchor>aea3f979543a6eade26883b4bec37acc5</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPartyLevel</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>ad9f238cc34077d1849fd8e12bf1c978c</anchor>
+      <arglist>(int level)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>partyLevel</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a23e474583b87c75c4c88e6ce8aa1da08</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
@@ -27545,9 +27723,9 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
-      <name>paintZoneVerdict</name>
+      <name>paintEntityVerdicts</name>
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
-      <anchor>aa02f99d25f9416779131a597c4d6c3cd</anchor>
+      <anchor>a8ee8e497ca03b1bf974792ff0ef40aa8</anchor>
       <arglist>(QPainter &amp;painter, bool iso)</arglist>
     </member>
     <member kind="function" protection="private">
@@ -28006,10 +28184,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>std::vector&lt; core::CombatZoneTerrain &gt;</type>
-      <name>_zoneVerdicts</name>
+      <type>std::vector&lt; EntityVerdict &gt;</type>
+      <name>_verdicts</name>
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
-      <anchor>ab78d4e16f3f9d42c3748b701fef8a60b</anchor>
+      <anchor>aad961f1a6a6120b79d2f4115fc434488</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -28017,6 +28195,13 @@
       <name>_diagnostics</name>
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
       <anchor>a86e3fac5b37c1a2cf7ad9724df3ad64a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_partyLevel</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>ad144d94f706dcaea2db284d7415bb72d</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -29422,6 +29607,13 @@
       <anchor>a544fc33e6b5ae61f2f4b6c7b46863495</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>partyLevelChanged</name>
+      <anchorfile>classhmi_1_1EntityPanel.html</anchorfile>
+      <anchor>a882f13ad15aa0f6d5cd467f9a5659c8b</anchor>
+      <arglist>(int level)</arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>EntityPanel</name>
@@ -29442,6 +29634,13 @@
       <anchorfile>classhmi_1_1EntityPanel.html</anchorfile>
       <anchor>ada8279372bb01716d6e8f77c5f4695e1</anchor>
       <arglist>(const core::LevelDraft &amp;draft, const std::vector&lt; std::size_t &gt; &amp;selection, std::optional&lt; std::size_t &gt; selected, const core::EntityReferenceContext &amp;context, const std::vector&lt; EditorDiagnostic &gt; &amp;diagnostics, const std::string &amp;verdict)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPartyLevel</name>
+      <anchorfile>classhmi_1_1EntityPanel.html</anchorfile>
+      <anchor>a34fb8ffbec837e1851301113b8af6203</anchor>
+      <arglist>(int level)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
@@ -29786,6 +29985,38 @@
       <name>arrivalPointsByMap</name>
       <anchorfile>structcore_1_1EntityReferenceContext.html</anchorfile>
       <anchor>aa953d6969338cb2508292bb333a6105b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::EntityVerdict</name>
+    <filename>structhmi_1_1EntityVerdict.html</filename>
+    <member kind="variable">
+      <type>std::size_t</type>
+      <name>entityIndex</name>
+      <anchorfile>structhmi_1_1EntityVerdict.html</anchorfile>
+      <anchor>a0a3ed37d755f1515832b3d7b75765806</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>lines</name>
+      <anchorfile>structhmi_1_1EntityVerdict.html</anchorfile>
+      <anchor>ab2dce3b5c5a50bb9611fab4ecace9d98</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>ok</name>
+      <anchorfile>structhmi_1_1EntityVerdict.html</anchorfile>
+      <anchor>a7bd03d7638264fc437ad1956e0f56a07</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; VerdictCell &gt;</type>
+      <name>cells</name>
+      <anchorfile>structhmi_1_1EntityVerdict.html</anchorfile>
+      <anchor>a8dc5cfbe0d7b369ff2cd76c00c14fe9f</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -35883,6 +36114,13 @@
       <anchor>a5e2887cd1592ff97d25ae5f65861b7a0</anchor>
       <arglist>(const char *label, const std::string &amp;content)</arglist>
     </member>
+    <member kind="function" protection="private" static="yes">
+      <type>static int</type>
+      <name>partyLevel</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a85f7ca141387ccf6bfb17182fff8ef4c</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="variable" protection="private">
       <type>QTabWidget *</type>
       <name>_tabs</name>
@@ -38734,6 +38972,87 @@
       <name>errors</name>
       <anchorfile>structcore_1_1PartyCandidates.html</anchorfile>
       <anchor>a96e88e191fe0850ac2c4a7f1e6f411b3</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::PartyDeployment</name>
+    <filename>structcore_1_1PartyDeployment.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>valid</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>a65ca70153db98b8fea37d62208d6f39c</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::size_t</type>
+      <name>encounterIndex</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>a3e14130621b877fdfa3119efe2d9a190</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; std::size_t &gt;</type>
+      <name>zoneIndex</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>a496b47cacc1a9c833f9324b3d080be1a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>encounterId</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>a22fcad831f66a7b9eec9c67191a4f5c1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>GridPosition</type>
+      <name>trigger</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>a7c408ce5e9d2a265cd1bf402493fcfbd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; CombatantPlacement &gt;</type>
+      <name>formation</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>ad714a891898c1848866c710b738b7fea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; GridPosition &gt;</type>
+      <name>partyPlaces</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>a837d405bcd5cfe55ea940c5a26634e24</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>partySize</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>af95ddbd7f07c97f40e2c107580066abb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>reachableCells</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>a5446a225e2e7397a1e2f5dc96a48148a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>requiredCells</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>afe6aabd3ccd518e791247195fbad440e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; DeploymentIssue &gt;</type>
+      <name>issues</name>
+      <anchorfile>structcore_1_1PartyDeployment.html</anchorfile>
+      <anchor>a69c0d71a2aeee9ca575e44d2776f6537</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -44942,6 +45261,63 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::VerdictCell</name>
+    <filename>structhmi_1_1VerdictCell.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1VerdictCell.html</anchorfile>
+      <anchor>a275f67878ca7d6ce044c8e7ada5ca19c</anchor>
+      <arglist>(const VerdictCell &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>core::GridPosition</type>
+      <name>cell</name>
+      <anchorfile>structhmi_1_1VerdictCell.html</anchorfile>
+      <anchor>a21dbfe4ddc778c215b3dd0b57d616456</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>VerdictCellRole</type>
+      <name>role</name>
+      <anchorfile>structhmi_1_1VerdictCell.html</anchorfile>
+      <anchor>a38e195bddfa1fa45b71ec27affef3734</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::VerdictContext</name>
+    <filename>structhmi_1_1VerdictContext.html</filename>
+    <member kind="variable">
+      <type>const core::EncounterCatalog *</type>
+      <name>encounters</name>
+      <anchorfile>structhmi_1_1VerdictContext.html</anchorfile>
+      <anchor>a54680d8fd5d93e539b7f13f1670c003f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>const core::Bestiary *</type>
+      <name>bestiary</name>
+      <anchorfile>structhmi_1_1VerdictContext.html</anchorfile>
+      <anchor>a3ed887426a9d7130ea1c012cb2f57330</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>const core::EncounterDifficultyRules *</type>
+      <name>difficulty</name>
+      <anchorfile>structhmi_1_1VerdictContext.html</anchorfile>
+      <anchor>a2329bdcfca832780040e845fd862f2dc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>partyLevel</name>
+      <anchorfile>structhmi_1_1VerdictContext.html</anchorfile>
+      <anchor>a0afa5da74b7fd24050d4f5a9eb75ef66</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::SpriteBatch::Vertex</name>
     <filename>structhmi_1_1SpriteBatch_1_1Vertex.html</filename>
     <member kind="variable">
@@ -45240,6 +45616,13 @@
       <name>verdictLabel</name>
       <anchorfile>structhmi_1_1EntityPanel_1_1Widgets.html</anchorfile>
       <anchor>ae86a78ee5fcdf20df13b769a57570568</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QSpinBox *</type>
+      <name>partyLevelSpin</name>
+      <anchorfile>structhmi_1_1EntityPanel_1_1Widgets.html</anchorfile>
+      <anchor>a45df3cc6e7ff9d97d0d551a6b5b623f8</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -48780,6 +49163,8 @@
     <class kind="struct">core::Footprint</class>
     <class kind="struct">core::MapEncounterSetup</class>
     <class kind="struct">core::MapEncounterResult</class>
+    <class kind="struct">core::DeploymentIssue</class>
+    <class kind="struct">core::PartyDeployment</class>
     <class kind="struct">core::Mover</class>
     <class kind="struct">core::Path</class>
     <class kind="class">core::ReachableArea</class>
@@ -49324,6 +49709,18 @@
       <enumvalue file="namespacecore.html" anchor="a004daf868d7dad4026ff9b7d3d75a11dab01b83048682460e96eb4bd2482b8c32">Dodge</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a004daf868d7dad4026ff9b7d3d75a11da79e21afc57b7daacab6d6325caffc75f">Disengage</enumvalue>
       <enumvalue file="namespacecore.html" anchor="a004daf868d7dad4026ff9b7d3d75a11da0f68101772bd5397ef8eb1b632798652">Wait</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>DeploymentIssueCode</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a4e3884c7d5e37775d332ed88be4c4e45</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="a4e3884c7d5e37775d332ed88be4c4e45a6111922a30d6adae3af8f3a6972f4e9c">NoCombatZone</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a4e3884c7d5e37775d332ed88be4c4e45a312b16db99527d7b9291171012472e0e">TriggerOutsideZone</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a4e3884c7d5e37775d332ed88be4c4e45af7e8a0b1e1e87181063f1379125a7ecf">CombatantOutsideZone</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a4e3884c7d5e37775d332ed88be4c4e45abf3f779c524c03184fc76fb691f16061">PartyCannotDeploy</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a4e3884c7d5e37775d332ed88be4c4e45a797ad5860ac64475e1b7240cf763edf5">ZoneTooNarrow</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -50501,6 +50898,13 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>abb340366e5cbcbb9a3b2b5d3f46131c9</anchor>
       <arglist>(const Level &amp;map, std::string_view mapId, const Encounter &amp;encounter, GridPosition trigger, std::span&lt; const GridPosition &gt; partyCells, const ExplorationSnapshot &amp;exploration, std::string defeatFlagKey)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; PartyDeployment &gt;</type>
+      <name>analyzePartyDeployment</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a7350a5dee4809f11caa61f0c17f6138e</anchor>
+      <arglist>(const TileMap &amp;collision, const std::vector&lt; MapEntity &gt; &amp;entities, const EncounterCatalog &amp;encounters, const Bestiary *bestiary=nullptr)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -52811,6 +53215,9 @@
     <class kind="struct">hmi::CellRect</class>
     <class kind="struct">hmi::EntityHandle</class>
     <class kind="struct">hmi::EntityPick</class>
+    <class kind="struct">hmi::VerdictCell</class>
+    <class kind="struct">hmi::EntityVerdict</class>
+    <class kind="struct">hmi::VerdictContext</class>
     <class kind="struct">hmi::FileOperationResult</class>
     <class kind="struct">hmi::DraftMap</class>
     <class kind="struct">hmi::GestureState</class>
@@ -53174,6 +53581,20 @@
       <enumvalue file="namespacehmi.html" anchor="ac6386008eafd49b088cdd36ffd4f3c19ae8eaf797b01fdb4246ed54904368b592">SouthWest</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="ac6386008eafd49b088cdd36ffd4f3c19abf495fc048d8d44b7f32536df5cf3930">West</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="ac6386008eafd49b088cdd36ffd4f3c19a21c0c263ee08d68e9824f0dbadeb0cda">Waypoint</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>VerdictCellRole</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>afc3c8091c309831baab8fffc581b30f8</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacehmi.html" anchor="afc3c8091c309831baab8fffc581b30f8ab24ce0cd392a5b0b8dedc66c25213594">Free</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="afc3c8091c309831baab8fffc581b30f8a4ecc0d90eec1cea3e9db96583a1bb9c2">Blocked</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="afc3c8091c309831baab8fffc581b30f8a0fc139aa3812efae863cf3ee66fee521">EntryInside</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="afc3c8091c309831baab8fffc581b30f8a5398c3999a98850cb4ccfeac792ea252">EntryOutside</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="afc3c8091c309831baab8fffc581b30f8a094a173d3b32f44f5b5c996e8710ae28">Party</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="afc3c8091c309831baab8fffc581b30f8ac47f96859804ca40a97e3ec80ce85221">Foe</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="afc3c8091c309831baab8fffc581b30f8a166e4062742bc8a84f2a44b5bc9c1fe1">FoeOutside</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -53753,6 +54174,20 @@
       <arglist>(core::TacticalIssueCode code) noexcept</arglist>
     </member>
     <member kind="function">
+      <type>const char *</type>
+      <name>deploymentIssueTemplate</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a058b293c69103dc1ab1875b3e4dda03a</anchor>
+      <arglist>(core::DeploymentIssueCode code) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>deploymentIssueText</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a1ccd1ec0260bc43397b44a8cf3347f18</anchor>
+      <arglist>(const core::PartyDeployment &amp;deployment, const core::DeploymentIssue &amp;issue, const std::vector&lt; core::MapEntity &gt; &amp;entities)</arglist>
+    </member>
+    <member kind="function">
       <type>std::string</type>
       <name>combatZoneSummary</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -53763,8 +54198,8 @@
       <type>std::vector&lt; EditorDiagnostic &gt;</type>
       <name>editorDiagnostics</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a3f098738a2160784b60a63f9b6d3c5e2</anchor>
-      <arglist>(const std::vector&lt; core::MapEntity &gt; &amp;entities, const std::vector&lt; core::EntityIssue &gt; &amp;issues, const std::vector&lt; core::EncounterTerrain &gt; &amp;terrains, const std::vector&lt; core::CombatZoneTerrain &gt; &amp;zones={})</arglist>
+      <anchor>a4c4df2f62c7b9c4605d71d21e79e6aa8</anchor>
+      <arglist>(const std::vector&lt; core::MapEntity &gt; &amp;entities, const std::vector&lt; core::EntityIssue &gt; &amp;issues, const std::vector&lt; core::EncounterTerrain &gt; &amp;terrains, const std::vector&lt; core::CombatZoneTerrain &gt; &amp;zones={}, const std::vector&lt; core::PartyDeployment &gt; &amp;deployments={})</arglist>
     </member>
     <member kind="function">
       <type>std::string_view</type>
@@ -54059,6 +54494,34 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ab5d9a77ac353caf145404f16a59ab39b</anchor>
       <arglist>(std::vector&lt; std::size_t &gt; selection, std::size_t index)</arglist>
+    </member>
+    <member kind="function">
+      <type>VerdictContext</type>
+      <name>verdictContext</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ab3624d45d416c10bf58e31ac5a260f31</anchor>
+      <arglist>(const EditorReferences &amp;references, int partyLevel)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>encounterBudgetSummary</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a45481f852f974380e9fe25d5651cdcd6</anchor>
+      <arglist>(std::string_view encounterId, const core::EncounterBudget &amp;budget, const core::EncounterDifficultyRules &amp;rules, int partySize, int partyLevel)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>deploymentSummary</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a3acc5d011e46868c103d3024c5b88141</anchor>
+      <arglist>(const core::PartyDeployment &amp;deployment)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; EntityVerdict &gt;</type>
+      <name>entityVerdicts</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>aa4edebfd3cfee6ae8c18b887a9ced0df</anchor>
+      <arglist>(const core::TileMap &amp;collision, const std::vector&lt; core::MapEntity &gt; &amp;entities, const VerdictContext &amp;context)</arglist>
     </member>
     <member kind="function">
       <type>std::filesystem::path</type>
@@ -56579,6 +57042,8 @@
     <file>LineOfSight.h</file>
     <file>MapEncounter.cpp</file>
     <file>MapEncounter.h</file>
+    <file>PartyDeployment.cpp</file>
+    <file>PartyDeployment.h</file>
     <file>Pathfinding.cpp</file>
     <file>Pathfinding.h</file>
     <file>TacticalTerrain.cpp</file>
@@ -56610,6 +57075,7 @@
     <file>test_iso_projection.cpp</file>
     <file>test_line_of_sight.cpp</file>
     <file>test_map_encounter.cpp</file>
+    <file>test_party_deployment.cpp</file>
     <file>test_pathfinding.cpp</file>
     <file>test_tactical_terrain.cpp</file>
     <file>test_turn_order.cpp</file>
@@ -57116,6 +57582,8 @@
     <file>EntityReferences.h</file>
     <file>EntityShapes.cpp</file>
     <file>EntityShapes.h</file>
+    <file>EntityVerdicts.cpp</file>
+    <file>EntityVerdicts.h</file>
     <file>FileOperationResult.h</file>
     <file>GameLaunch.cpp</file>
     <file>GameLaunch.h</file>

@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>PartyDeployment.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+/**
+ * @file Core/Combat/PartyDeployment.h
+ * @brief Une rencontre et le **groupe de quatre** sur leur zone de combat (`LOT-143`) : la
+ *        formation adverse y tient-elle, le groupe y trouve-t-il ses places, et reste-t-il de quoi
+ *        manÅuvrer ?
+ *
+ * Le verdict de la zone (`core::analyzeCombatZones`, `LOT-EDITOR-05`) a Ã©tÃ© Ã©crit pour un duel ;
+ * celui du terrain (`core::analyzeEncounterTerrain`) regarde la formation sur la **carte**, sans la
+ * borner Ã  la zone que le combat dÃ©coupe (`core::cropLevelToZone`). Depuis le `LOT-139`, le combat
+ * se joue Ã  quatre contre plusieurs, **sur la zone seule** : c'est lÃ  qu'il faut compter tout le
+ * monde.
+ *
+ * ## La zone d'une rencontre
+ *
+ * Celle qui contient son marqueur, comme au jeu (`core::prepareMapEncounter`) ; Ã  dÃ©faut, la plus
+ * proche du marqueur â celle oÃ¹ se tiendra le groupe qui l'engage â, et le marqueur hors zone est
+ * un dÃ©faut : sa formation, Ã©crite autour de lui, tomberait hors du terrain.
+ *
+ * ## Les places du groupe
+ *
+ * Au jeu, le groupe entre lÃ  oÃ¹ il marche (`LOT-139`) : l'Ã©diteur ne peut pas le savoir. Le
+ * verdict lui cherche donc **quatre places** sur la zone, hors de la formation et atteignables
+ * depuis elle : les entrÃ©es d'arÃ¨ne alliÃ©es de la zone d'abord (`core::ARENA_ENTRY_ENTITY_TYPE`),
+ * puis, dÃ©cision nommÃ©e, **le front opposÃ©** au marqueur â la case libre la plus Ã©loignÃ©e de lui,
+ * et ses plus proches voisines. Un groupe qui y tient tient ailleurs sur la zone ; un groupe qui
+ * n'y tient pas ne tient nulle part.
+ *
+ * ## Ce qu'elle ne redit pas
+ *
+ * Une zone dÃ©gÃ©nÃ©rÃ©e, dÃ©bordante ou pleine est dite par `core::validateCombatZones` ; un
+ * combattant dans un mur ou sur un autre, par `core::analyzeEncounterTerrain` ; une rencontre
+ * inconnue, par la validation des entitÃ©s. Le verdict ne le rÃ©pÃ¨te pas.
+ */
+
+#include &lt;cstddef&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+#include "Core/Combat/Encounter.h"
+#include "Core/Levels/GridPosition.h"
+#include "Core/Levels/MapEntity.h"
+#include "Core/Levels/TileMap.h"
+
+namespace core {
+
+struct Bestiary;
+
+/// @brief Ce qui empÃªche le groupe de se dÃ©ployer face Ã  une rencontre. Des codes, jamais du
+///        texte (`EX-NFR-011`).
+enum class DeploymentIssueCode {
+    /// La carte ne dÃ©clare aucune zone de combat : la rencontre ne peut pas se jouer.
+    NoCombatZone,
+    /// Le marqueur de la rencontre est hors de sa zone.
+    TriggerOutsideZone,
+    /// L'emprise d'un adversaire sort de la zone.
+    CombatantOutsideZone,
+    /// Moins de places que de membres du groupe, hors de la formation et atteignables.
+    PartyCannotDeploy,
+    /// Les cases libres atteignables de la zone ne logent pas tout le monde.
+    ZoneTooNarrow,
+};
+
+/// @brief Un dÃ©faut relevÃ© : quoi, qui (vide pour le groupe ou la zone), et oÃ¹.
+struct DeploymentIssue {
+    DeploymentIssueCode code;
+    std::string creatureId;
+    GridPosition cell;
+
+    bool operator==(const DeploymentIssue&amp;) const = default;
+};
+
+/// @brief Le verdict d'une rencontre et du groupe sur leur zone de combat.
+struct PartyDeployment {
+    /// Rang de l'entitÃ© `encounter` dans la liste d'entitÃ©s de la carte.
+    std::size_t encounterIndex = 0;
+    /// Rang de l'entitÃ© `combatZone` oÃ¹ la rencontre se joue ; vide sans zone sur la carte.
+    std::optional&lt;std::size_t&gt; zoneIndex;
+    std::string encounterId;
+    GridPosition trigger;
+    /// Les cases voulues par la formation (`core::placeCombatants`), en cases de la carte.
+    std::vector&lt;CombatantPlacement&gt; formation;
+    /// Les places du groupe trouvÃ©es, en cases de la carte : au plus `partySize`.
+    std::vector&lt;GridPosition&gt; partyPlaces;
+    /// La taille du groupe comptÃ©e (`core::TACTICAL_PARTY_SIZE`).
+    int partySize = 0;
+    /// Les cases libres de la zone atteignables depuis le marqueur (ou la case libre la plus
+    /// proche de lui).
+    int reachableCells = 0;
+    /// `(adversaires + groupe) Ã TACTICAL_CELLS_PER_COMBATANT`.
+    int requiredCells = 0;
+    /// Dans l'ordre : marqueur, adversaires, groupe, zone.
+    std::vector&lt;DeploymentIssue&gt; issues;
+
+    /// @return Vrai si le groupe se dÃ©ploie face Ã  toute la rencontre.
+<span style = "background-color:#dfd">    [[nodiscard]] bool valid() const {
+        return issues.empty();
+    }</span>
+};
+
+/**
+ * @brief Le verdict de chaque rencontre de @p entities face au groupe de quatre, sur sa zone de
+ *        combat, dans l'ordre des entitÃ©s.
+ *
+ * Fonction **pure**, qui prend une grille et des entitÃ©s comme `core::analyzeCombatZones` :
+ * l'Ã©diteur la calcule sur l'aperÃ§u pendant qu'on tire la zone. Une rencontre absente de
+ * @p encounters est ignorÃ©e ; une zone qui a son propre dÃ©faut ne donne ni places ni dÃ©faut.
+ *
+ * @param collision  La grille de collision de la carte.
+ * @param entities   Les entitÃ©s de la carte.
+ * @param encounters Le catalogue des rencontres.
+ * @param bestiary   Pour la taille des crÃ©atures, ou `nullptr` (taille M).
+ */
+[[nodiscard]] std::vector&lt;PartyDeployment&gt; analyzePartyDeployment(
+    const TileMap&amp; collision, const std::vector&lt;MapEntity&gt;&amp; entities,
+    const EncounterCatalog&amp; encounters, const Bestiary* bestiary = nullptr);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

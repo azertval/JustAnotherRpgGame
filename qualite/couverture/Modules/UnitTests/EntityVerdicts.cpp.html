@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>EntityVerdicts.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/EntityVerdicts.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;optional&gt;
+#include &lt;string_view&gt;
+
+#include "Editor/Logic/EditorDiagnostics.h"
+
+namespace hmi {
+
+namespace {
+
+// `2`, `1.5`, `2.5` : un multiplicateur tel que le Guide l'ecrit.
+<span style = "background-color:#dfd">[[nodiscard]] std::string multiplierText(double multiplier) {
+    const long tenths = std::lround(multiplier * 10.0);
+    std::string text = std::to_string(tenths / 10);
+    if (tenths % 10 != 0) {</span>
+<span style = "background-color:#fdd">        text += "." + std::to_string(tenths % 10);</span>
+    }
+<span style = "background-color:#dfd">    return text;
+}</span>
+
+// Les cases que le deploiement marque : la formation (sur le terrain ou hors de lui), le groupe.
+void markDeployment(const core::PartyDeployment&amp; deployment,
+<span style = "background-color:#dfd">                    const std::vector&lt;core::MapEntity&gt;&amp; entities, std::vector&lt;VerdictCell&gt;&amp; cells) {
+    const std::optional&lt;core::CombatZone&gt; zone =</span>
+        deployment.zoneIndex &amp;&amp; *deployment.zoneIndex &lt; entities.size()
+            ? std::make_optional(core::combatZoneOf(entities[*deployment.zoneIndex]))
+            : std::nullopt;
+<span style = "background-color:#dfd">    for (const core::CombatantPlacement&amp; foe : deployment.formation) {
+        const bool inside = zone &amp;&amp; zone-&gt;contains(foe.position);
+        cells.push_back(VerdictCell{.cell = foe.position,</span>
+                                    .role = inside ? VerdictCellRole::Foe
+                                                   : VerdictCellRole::FoeOutside});
+<span style = "background-color:#dfd">    }
+    for (const core::GridPosition place : deployment.partyPlaces) {
+        cells.push_back(VerdictCell{.cell = place, .role = VerdictCellRole::Party});
+    }
+}</span>
+
+void addIssueLines(const core::PartyDeployment&amp; deployment,
+<span style = "background-color:#dfd">                   const std::vector&lt;core::MapEntity&gt;&amp; entities, std::vector&lt;std::string&gt;&amp; lines) {
+    for (const core::DeploymentIssue&amp; issue : deployment.issues) {
+        lines.push_back(deploymentIssueText(deployment, issue, entities));
+    }
+}</span>
+
+[[nodiscard]] EntityVerdict zoneVerdict(const core::CombatZoneTerrain&amp; zone,
+                                        const std::vector&lt;core::PartyDeployment&gt;&amp; deployments,
+<span style = "background-color:#dfd">                                        const std::vector&lt;core::MapEntity&gt;&amp; entities) {
+    EntityVerdict verdict{.entityIndex = zone.entityIndex,
+                          .lines = {combatZoneSummary(zone)},
+                          .ok = !zone.issue.has_value(),
+                          .cells = {}};
+    for (const core::GridPosition cell : zone.freeCells) {
+        verdict.cells.push_back(VerdictCell{.cell = cell, .role = VerdictCellRole::Free});
+    }
+    for (const core::GridPosition cell : zone.blockedCells) {
+        verdict.cells.push_back(VerdictCell{.cell = cell, .role = VerdictCellRole::Blocked});
+    }
+    const auto entries = [&amp;](const std::vector&lt;std::size_t&gt;&amp; indices, VerdictCellRole role) {
+        for (const std::size_t entry : indices) {</span>
+<span style = "background-color:#fdd">            if (entry &lt; entities.size()) {
+                verdict.cells.push_back(VerdictCell{.cell = entities[entry].position, .role = role});</span>
+            }
+        }
+<span style = "background-color:#dfd">    };
+    entries(zone.entriesInside, VerdictCellRole::EntryInside);
+    entries(zone.entriesOutside, VerdictCellRole::EntryOutside);
+    for (const core::PartyDeployment&amp; deployment : deployments) {
+        if (deployment.zoneIndex != zone.entityIndex) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        verdict.lines.push_back(deploymentSummary(deployment));
+        addIssueLines(deployment, entities, verdict.lines);
+        verdict.ok = verdict.ok &amp;&amp; deployment.valid();
+        markDeployment(deployment, entities, verdict.cells);
+    }
+    return verdict;
+}</span>
+
+[[nodiscard]] EntityVerdict encounterVerdict(const core::PartyDeployment&amp; deployment,
+                                             const std::vector&lt;core::MapEntity&gt;&amp; entities,
+<span style = "background-color:#dfd">                                             const VerdictContext&amp; context) {</span>
+    EntityVerdict verdict{
+<span style = "background-color:#dfd">        .entityIndex = deployment.encounterIndex, .lines = {}, .ok = deployment.valid(), .cells = {}};
+    const core::Encounter* const encounter =</span>
+        context.encounters != nullptr ? context.encounters-&gt;find(deployment.encounterId) : nullptr;
+<span style = "background-color:#dfd">    if (encounter != nullptr &amp;&amp; context.difficulty != nullptr &amp;&amp; context.bestiary != nullptr &amp;&amp;</span>
+        context.difficulty-&gt;ok()) {
+<span style = "background-color:#dfd">        const std::vector&lt;int&gt; levels(static_cast&lt;std::size_t&gt;(deployment.partySize),</span>
+                                      context.partyLevel);
+<span style = "background-color:#dfd">        verdict.lines.push_back(encounterBudgetSummary(</span>
+            deployment.encounterId,
+            core::rateEncounter(*context.difficulty, *encounter, *context.bestiary, levels),
+            *context.difficulty, deployment.partySize, context.partyLevel));
+<span style = "background-color:#dfd">    } else {</span>
+<span style = "background-color:#fdd">        verdict.lines.push_back(deployment.encounterId + ": no difficulty rules to rate it.");</span>
+    }
+<span style = "background-color:#dfd">    verdict.lines.push_back(deploymentSummary(deployment));
+    addIssueLines(deployment, entities, verdict.lines);
+    markDeployment(deployment, entities, verdict.cells);
+    return verdict;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">VerdictContext verdictContext(const EditorReferences&amp; references, int partyLevel) {
+    return VerdictContext{.encounters = &amp;references.encounters,</span>
+                          .bestiary = &amp;references.bestiary,
+                          .difficulty = &amp;references.difficulty,
+                          .partyLevel = std::clamp(partyLevel, 1, 20)};
+<span style = "background-color:#dfd">}</span>
+
+std::string encounterBudgetSummary(std::string_view encounterId,
+                                   const core::EncounterBudget&amp; budget,
+                                   const core::EncounterDifficultyRules&amp; rules, int partySize,
+<span style = "background-color:#dfd">                                   int partyLevel) {
+    std::string text = std::string{encounterId} + ": " +</span>
+                       std::to_string(budget.adjustedExperience) + " XP adjusted (" +
+                       std::to_string(budget.monsters) + " foes, " +
+                       std::to_string(budget.monsterExperience) + " XP x " +
+                       multiplierText(budget.multiplier) + "), " +
+                       (budget.category.empty()
+                            ? "below " + (rules.categories.empty() ? std::string{"any category"}
+                                                                   : rules.categories.front())
+                            : budget.category) +
+                       " for " + std::to_string(partySize) + " of level " +
+                       std::to_string(partyLevel) + " (";
+<span style = "background-color:#dfd">    bool first = true;
+    for (const std::string&amp; category : rules.categories) {
+        const auto threshold = budget.thresholds.find(category);
+        if (threshold == budget.thresholds.end()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        text += (first ? "" : ", ") + category + " " + std::to_string(threshold-&gt;second);
+        first = false;
+    }
+    text += ")";
+    if (!budget.unknownCreatures.empty()) {</span>
+<span style = "background-color:#fdd">        text += ", unknown:";
+        for (const std::string&amp; creature : budget.unknownCreatures) {
+            text += " " + creature;
+        }</span>
+    }
+<span style = "background-color:#dfd">    return text + ".";
+}</span>
+
+<span style = "background-color:#dfd">std::string deploymentSummary(const core::PartyDeployment&amp; deployment) {
+    return deployment.encounterId + ": " + std::to_string(deployment.partySize) + " vs " +</span>
+           std::to_string(deployment.formation.size()) + ", party places " +
+           std::to_string(deployment.partyPlaces.size()) + "/" +
+           std::to_string(deployment.partySize) + ", " +
+           std::to_string(deployment.reachableCells) + " free cells reached (" +
+           std::to_string(deployment.requiredCells) + " required).";
+<span style = "background-color:#dfd">}</span>
+
+std::vector&lt;EntityVerdict&gt; entityVerdicts(const core::TileMap&amp; collision,
+                                          const std::vector&lt;core::MapEntity&gt;&amp; entities,
+<span style = "background-color:#dfd">                                          const VerdictContext&amp; context) {
+    static const core::EncounterCatalog noEncounters;
+    const std::vector&lt;core::CombatZoneTerrain&gt; zones =</span>
+        core::analyzeCombatZones(collision, entities);
+<span style = "background-color:#dfd">    const std::vector&lt;core::PartyDeployment&gt; deployments = core::analyzePartyDeployment(</span>
+        collision, entities, context.encounters != nullptr ? *context.encounters : noEncounters,
+        context.bestiary);
+
+<span style = "background-color:#dfd">    std::vector&lt;EntityVerdict&gt; verdicts;
+    for (const core::CombatZoneTerrain&amp; zone : zones) {
+        verdicts.push_back(zoneVerdict(zone, deployments, entities));
+    }
+    for (const core::PartyDeployment&amp; deployment : deployments) {
+        verdicts.push_back(encounterVerdict(deployment, entities, context));
+    }
+    std::ranges::stable_sort(verdicts, {}, &amp;EntityVerdict::entityIndex);
+    return verdicts;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

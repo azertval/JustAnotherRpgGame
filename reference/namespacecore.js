@@ -71,6 +71,8 @@ var namespacecore =
     [ "Footprint", "structcore_1_1Footprint.html", "structcore_1_1Footprint" ],
     [ "MapEncounterSetup", "structcore_1_1MapEncounterSetup.html", "structcore_1_1MapEncounterSetup" ],
     [ "MapEncounterResult", "structcore_1_1MapEncounterResult.html", "structcore_1_1MapEncounterResult" ],
+    [ "DeploymentIssue", "structcore_1_1DeploymentIssue.html", "structcore_1_1DeploymentIssue" ],
+    [ "PartyDeployment", "structcore_1_1PartyDeployment.html", "structcore_1_1PartyDeployment" ],
     [ "Mover", "structcore_1_1Mover.html", "structcore_1_1Mover" ],
     [ "Path", "structcore_1_1Path.html", "structcore_1_1Path" ],
     [ "ReachableArea", "classcore_1_1ReachableArea.html", "classcore_1_1ReachableArea" ],
@@ -467,6 +469,13 @@ var namespacecore =
       [ "Revived", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254a608ff442e5491bad46bc86c5f16c6655", null ],
       [ "Ignored", "namespacecore.html#a2eaea3fb74698b3474825cda0cdce254ad96143ba1b15645919cea00ec9d1be62", null ]
     ] ],
+    [ "DeploymentIssueCode", "namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45", [
+      [ "NoCombatZone", "namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a6111922a30d6adae3af8f3a6972f4e9c", null ],
+      [ "TriggerOutsideZone", "namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a312b16db99527d7b9291171012472e0e", null ],
+      [ "CombatantOutsideZone", "namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45af7e8a0b1e1e87181063f1379125a7ecf", null ],
+      [ "PartyCannotDeploy", "namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45abf3f779c524c03184fc76fb691f16061", null ],
+      [ "ZoneTooNarrow", "namespacecore.html#a4e3884c7d5e37775d332ed88be4c4e45a797ad5860ac64475e1b7240cf763edf5", null ]
+    ] ],
     [ "DialogueActionKind", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680", [
       [ "SetFlag", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680af7728eea36126ba401b5df30bb93f528", null ],
       [ "ClearFlag", "namespacecore.html#aae1dbf957fd7a423de4c11a60fc2d680ac23574157c4f45657c36e9ce5d40eab7", null ],
@@ -837,6 +846,7 @@ var namespacecore =
     [ "allMagicSchools", "namespacecore.html#aada0fb2093fbbb75a0f9c75e28336c8d", null ],
     [ "analyzeCombatZones", "namespacecore.html#a2202cb32725409d8b48364db226a6fde", null ],
     [ "analyzeEncounterTerrain", "namespacecore.html#a0224a562daa9e9d9bc0358fb71a2a04d", null ],
+    [ "analyzePartyDeployment", "namespacecore.html#a7350a5dee4809f11caa61f0c17f6138e", null ],
     [ "applyClassFeatures", "namespacecore.html#a4c49590a655f74dbc20468dbee0fa733", null ],
     [ "applyRecord", "namespacecore.html#a855344de0ea0275ba049eb73f8eaab4e", null ],
     [ "applyVariant", "namespacecore.html#a6c2bfc6a4265b0a8fc867461e1c61137", null ],

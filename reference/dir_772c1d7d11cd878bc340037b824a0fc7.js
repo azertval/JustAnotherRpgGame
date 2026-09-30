@@ -32,6 +32,8 @@ var dir_772c1d7d11cd878bc340037b824a0fc7 =
     [ "EntityReferences.h", "EntityReferences_8h.html", "EntityReferences_8h" ],
     [ "EntityShapes.cpp", "EntityShapes_8cpp.html", "EntityShapes_8cpp" ],
     [ "EntityShapes.h", "EntityShapes_8h.html", "EntityShapes_8h" ],
+    [ "EntityVerdicts.cpp", "EntityVerdicts_8cpp.html", "EntityVerdicts_8cpp" ],
+    [ "EntityVerdicts.h", "EntityVerdicts_8h.html", "EntityVerdicts_8h" ],
     [ "FileOperationResult.h", "FileOperationResult_8h.html", "FileOperationResult_8h" ],
     [ "GameLaunch.cpp", "GameLaunch_8cpp.html", "GameLaunch_8cpp" ],
     [ "GameLaunch.h", "GameLaunch_8h.html", "GameLaunch_8h" ],

@@ -20,6 +20,7 @@
 #include &lt;variant&gt;
 
 #include "Core/Combat/CombatTransition.h"
+#include "Core/Combat/PartyDeployment.h"
 #include "Core/Combat/TacticalTerrain.h"
 #include "Core/Gameplay/MapEntitySpawner.h"
 #include "Core/Gameplay/Quest.h"
@@ -213,6 +214,13 @@ void checkEntities(std::string_view mapId, const core::Level&amp; level, const C
     }
     addDiagnostics(editorDiagnostics(entities, {}, {}, zones), entities, MapCheckSeverity::Warning,</span>
                    findings);
+    // Une rencontre dont le groupe de quatre ne se deploie pas sur sa zone ne se jouerait pas
+    // (LOT-143).
+<span style = "background-color:#dfd">    addDiagnostics(editorDiagnostics(</span>
+                       entities, {}, {}, {},
+                       core::analyzePartyDeployment(level.tileMap(), entities,
+                                                    references.encounters, &amp;references.bestiary)),
+                   entities, MapCheckSeverity::Error, findings);
 <span style = "background-color:#dfd">}</span>
 
 // --- AtteignabilitÃ© --------------------------------------------------------------------------

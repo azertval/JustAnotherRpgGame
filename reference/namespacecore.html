@@ -290,6 +290,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une rencontre prête à monter sur la carte : la zone choisie, la grille, les places.  <a href="structcore_1_1MapEncounterSetup.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MapEncounterResult" id="r_MapEncounterResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MapEncounterResult.html">MapEncounterResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la préparation a donné : un montage, ou la raison du refus.  <a href="structcore_1_1MapEncounterResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DeploymentIssue" id="r_DeploymentIssue"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1DeploymentIssue.html">DeploymentIssue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un défaut relevé : quoi, qui (vide pour le groupe ou la zone), et où.  <a href="structcore_1_1DeploymentIssue.html#details">More...</a><br /></td></tr>
+<tr class="memitem:PartyDeployment" id="r_PartyDeployment"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1PartyDeployment.html">PartyDeployment</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le verdict d'une rencontre et du groupe sur leur zone de combat.  <a href="structcore_1_1PartyDeployment.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Mover" id="r_Mover"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Mover.html">Mover</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qui se déplace, comment, et à travers qui.  <a href="structcore_1_1Mover.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Path" id="r_Path"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1Path.html">Path</a></td></tr>
@@ -864,6 +868,16 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a004daf868d7dad4026ff9b7d3d75a11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'IA fait de son action.  <a href="#a004daf868d7dad4026ff9b7d3d75a11d">More...</a><br /></td></tr>
+<tr class="memitem:a4e3884c7d5e37775d332ed88be4c4e45" id="r_a4e3884c7d5e37775d332ed88be4c4e45"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a4e3884c7d5e37775d332ed88be4c4e45">DeploymentIssueCode</a> { <br />
+&#160;&#160;<a class="el" href="#a4e3884c7d5e37775d332ed88be4c4e45a6111922a30d6adae3af8f3a6972f4e9c">NoCombatZone</a>
+, <a class="el" href="#a4e3884c7d5e37775d332ed88be4c4e45a312b16db99527d7b9291171012472e0e">TriggerOutsideZone</a>
+, <a class="el" href="#a4e3884c7d5e37775d332ed88be4c4e45af7e8a0b1e1e87181063f1379125a7ecf">CombatantOutsideZone</a>
+, <a class="el" href="#a4e3884c7d5e37775d332ed88be4c4e45abf3f779c524c03184fc76fb691f16061">PartyCannotDeploy</a>
+, <br />
+&#160;&#160;<a class="el" href="#a4e3884c7d5e37775d332ed88be4c4e45a797ad5860ac64475e1b7240cf763edf5">ZoneTooNarrow</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a4e3884c7d5e37775d332ed88be4c4e45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui empêche le groupe de se déployer face à une rencontre.  <a href="#a4e3884c7d5e37775d332ed88be4c4e45">More...</a><br /></td></tr>
 <tr class="memitem:a81dfcf1ac21704e4f64a7780ec772910" id="r_a81dfcf1ac21704e4f64a7780ec772910"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a81dfcf1ac21704e4f64a7780ec772910">TacticalIssueCode</a> { <a class="el" href="#a81dfcf1ac21704e4f64a7780ec772910ad885d5cf20dfaace9079e6e7400ac431">CombatantOutOfBounds</a>
 , <a class="el" href="#a81dfcf1ac21704e4f64a7780ec772910a8511b55997b213b48f83e8a525ead187">CombatantObstructed</a>
 , <a class="el" href="#a81dfcf1ac21704e4f64a7780ec772910aae26b8ebc20f7851d4b477cab15620bf">CombatantsOverlap</a>
@@ -1516,6 +1530,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:acedbd9be2b83f7c6219a695e97819da5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un héros seul en <code class="param">heroCell</code> : <span class="tt"><a class="el" href="#acedbd9be2b83f7c6219a695e97819da5" title="Un héros seul en heroCell : prepareMapEncounter avec un groupe d&#39;un membre.">prepareMapEncounter</a></span> avec un groupe d'un membre.  <br /></td></tr>
 <tr class="memitem:abb340366e5cbcbb9a3b2b5d3f46131c9" id="r_abb340366e5cbcbb9a3b2b5d3f46131c9"><td class="memItemLeft"><a class="el" href="structcore_1_1MapEncounterResult.html">MapEncounterResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#abb340366e5cbcbb9a3b2b5d3f46131c9">prepareMapEncounter</a> (const <a class="el" href="classcore_1_1Level.html">Level</a> &amp;map, std::string_view mapId, const <a class="el" href="structcore_1_1Encounter.html">Encounter</a> &amp;encounter, <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> trigger, std::span&lt; const <a class="el" href="structcore_1_1GridPosition.html">GridPosition</a> &gt; partyCells, const <a class="el" href="structcore_1_1ExplorationSnapshot.html">ExplorationSnapshot</a> &amp;exploration, std::string defeatFlagKey)</td></tr>
 <tr class="memdesc:abb340366e5cbcbb9a3b2b5d3f46131c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prépare <code class="param">encounter</code> sur <code class="param">map</code>, déclenchée en <code class="param">trigger</code>, le héros en <code class="param">heroCell</code>.  <br /></td></tr>
+<tr class="memitem:a7350a5dee4809f11caa61f0c17f6138e" id="r_a7350a5dee4809f11caa61f0c17f6138e"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1PartyDeployment.html">PartyDeployment</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7350a5dee4809f11caa61f0c17f6138e">analyzePartyDeployment</a> (const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;collision, const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &gt; &amp;entities, const <a class="el" href="structcore_1_1EncounterCatalog.html">EncounterCatalog</a> &amp;encounters, const <a class="el" href="structcore_1_1Bestiary.html">Bestiary</a> *bestiary=nullptr)</td></tr>
+<tr class="memdesc:a7350a5dee4809f11caa61f0c17f6138e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le verdict de chaque rencontre de <code class="param">entities</code> face au groupe de quatre, sur sa zone de combat, dans l'ordre des entités.  <br /></td></tr>
 <tr class="memitem:a29156af7de7653ab4fa06d96b0c881a1" id="r_a29156af7de7653ab4fa06d96b0c881a1"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a29156af7de7653ab4fa06d96b0c881a1">movementBudget</a> (float speedMeters) noexcept</td></tr>
 <tr class="memdesc:a29156af7de7653ab4fa06d96b0c881a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le budget de déplacement d'une vitesse de <code class="param">speedMeters</code>, en cases entières.  <br /></td></tr>
 <tr class="memitem:aab76f284d12a5c2f1ac73c818061a142" id="r_aab76f284d12a5c2f1ac73c818061a142"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aab76f284d12a5c2f1ac73c818061a142">movementBudget</a> (const <a class="el" href="structcore_1_1CharacterSheet.html">CharacterSheet</a> &amp;sheet) noexcept</td></tr>
@@ -3338,6 +3354,43 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a4e3884c7d5e37775d332ed88be4c4e45" name="a4e3884c7d5e37775d332ed88be4c4e45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e3884c7d5e37775d332ed88be4c4e45">&#9670;&#160;</a></span>DeploymentIssueCode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a4e3884c7d5e37775d332ed88be4c4e45">core::DeploymentIssueCode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qui empêche le groupe de se déployer face à une rencontre. </p>
+<p>Des codes, jamais du texte (<span class="tt">EX-NFR-011</span>). </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4e3884c7d5e37775d332ed88be4c4e45a6111922a30d6adae3af8f3a6972f4e9c" name="a4e3884c7d5e37775d332ed88be4c4e45a6111922a30d6adae3af8f3a6972f4e9c"></a>NoCombatZone&#160;</td><td class="fielddoc"><p>La carte ne déclare aucune zone de combat : la rencontre ne peut pas se jouer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4e3884c7d5e37775d332ed88be4c4e45a312b16db99527d7b9291171012472e0e" name="a4e3884c7d5e37775d332ed88be4c4e45a312b16db99527d7b9291171012472e0e"></a>TriggerOutsideZone&#160;</td><td class="fielddoc"><p>Le marqueur de la rencontre est hors de sa zone. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4e3884c7d5e37775d332ed88be4c4e45af7e8a0b1e1e87181063f1379125a7ecf" name="a4e3884c7d5e37775d332ed88be4c4e45af7e8a0b1e1e87181063f1379125a7ecf"></a>CombatantOutsideZone&#160;</td><td class="fielddoc"><p>L'emprise d'un adversaire sort de la zone. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4e3884c7d5e37775d332ed88be4c4e45abf3f779c524c03184fc76fb691f16061" name="a4e3884c7d5e37775d332ed88be4c4e45abf3f779c524c03184fc76fb691f16061"></a>PartyCannotDeploy&#160;</td><td class="fielddoc"><p>Moins de places que de membres du groupe, hors de la formation et atteignables. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a4e3884c7d5e37775d332ed88be4c4e45a797ad5860ac64475e1b7240cf763edf5" name="a4e3884c7d5e37775d332ed88be4c4e45a797ad5860ac64475e1b7240cf763edf5"></a>ZoneTooNarrow&#160;</td><td class="fielddoc"><p>Les cases libres atteignables de la zone ne logent pas tout le monde. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="aae1dbf957fd7a423de4c11a60fc2d680" name="aae1dbf957fd7a423de4c11a60fc2d680"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aae1dbf957fd7a423de4c11a60fc2d680">&#9670;&#160;</a></span>DialogueActionKind</h2>
 
@@ -5121,7 +5174,7 @@ L'altitude est un attribut, jamais une géométrie</h2>
 </div><div class="memdoc">
 
 <p>Vrai si <code class="param">first</code> joue avant <code class="param">second</code>. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
 La règle de départage</h2>
 <p>Manuel des Joueurs, « Initiative » (PDF p. 191) : les combattants se classent du plus haut résultat au plus bas, et « en cas d'égalité », c'est le MD qui tranche entre ses créatures, les joueurs entre leurs personnages, et le MD encore entre un monstre et un personnage. Le jeu n'a pas de MD : la règle doit être <b>écrite</b>, et elle ne peut pas dépendre de l'ordre dans lequel les combattants ont été rangés en mémoire (<span class="tt">EX-CBT-010</span>). Dans l'ordre :</p>
 <ol type="1">
@@ -5478,10 +5531,10 @@ La règle de départage</h2>
 
 <p>Vérifie que chaque rencontre posée sur la carte tombe sur un terrain tactique valide. </p>
 <p>Le combat se joue <b>sur la carte d'exploration</b> : une rencontre posée dans un couloir d'une case, ou dont la formation entre dans un mur, ne se découvrirait sinon qu'en jeu. Cette fonction le dit à l'auteur au moment où il pose.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
 Une seule règle pour « se tenir ici »</h2>
 <p>Les combattants sont posés sur une <span class="tt"><a class="el" href="classcore_1_1BattleGrid.html" title="La grille tactique d&#39;une rencontre.">core::BattleGrid</a></span> construite depuis <code class="param">collision</code>, par <span class="tt"><a class="el" href="classcore_1_1BattleGrid.html#ae717e61951843569c4bed5e1b9adba67" title="Place combatant, d&#39;emprise side × side, avec anchor pour coin haut-gauche.">core::BattleGrid::place</a></span>, dans l'ordre de la formation — ce que fait le montage (<span class="tt"><a class="el" href="#a5921fce291ef1e0650a91c91bc158a3e" title="Monte la rencontre run sur combat : le groupe, puis les créatures, dans cet ordre.">core::mountEncounter</a></span>). Un avertissement de l'éditeur et un refus au montage ne peuvent donc pas diverger. La zone est une <span class="tt"><a class="el" href="classcore_1_1ReachableArea.html" title="Les cases qu&#39;un combattant peut atteindre ce tour-ci, et par où.">core::ReachableArea</a></span> : diagonales, coins de mur et terrain difficile y suivent la règle du <span class="tt">LOT-19</span>, sans seconde implémentation.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
 Ce qu'elle ne vérifie pas</h2>
 <p>Une rencontre absente de <code class="param">encounters</code> est <b>ignorée</b> : un autre validateur la signale, et la signaler deux fois n'apprendrait rien. Une créature absente du bestiaire — ou un bestiaire absent — compte pour une emprise de taille M. Le groupe du joueur n'est pas posé : ses cases ne sont pas connues avant le jeu, et c'est la taille de la zone qui en répond.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -5494,6 +5547,57 @@ Ce qu'elle ne vérifie pas</h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Un verdict par rencontre reconnue, dans l'ordre des entités. </dd></dl>
+
+</div>
+</div>
+<a id="a7350a5dee4809f11caa61f0c17f6138e" name="a7350a5dee4809f11caa61f0c17f6138e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7350a5dee4809f11caa61f0c17f6138e">&#9670;&#160;</a></span>analyzePartyDeployment()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structcore_1_1PartyDeployment.html">PartyDeployment</a> &gt; core::analyzePartyDeployment </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1TileMap.html">TileMap</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>collision</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>entities</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1EncounterCatalog.html">EncounterCatalog</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>encounters</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Bestiary.html">Bestiary</a> *</td>          <td class="paramname"><span class="paramname"><em>bestiary</em></span><span class="paramdefsep"> = </span><span class="paramdefval">nullptr</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le verdict de chaque rencontre de <code class="param">entities</code> face au groupe de quatre, sur sa zone de combat, dans l'ordre des entités. </p>
+<p>Fonction <b>pure</b>, qui prend une grille et des entités comme <span class="tt"><a class="el" href="#a2202cb32725409d8b48364db226a6fde" title="Le verdict de chaque zone de combat de entities sur la collision collision, dans l&#39;ordre des entités.">core::analyzeCombatZones</a></span> : l'éditeur la calcule sur l'aperçu pendant qu'on tire la zone. Une rencontre absente de <code class="param">encounters</code> est ignorée ; une zone qui a son propre défaut ne donne ni places ni défaut.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">collision</td><td>La grille de collision de la carte. </td></tr>
+    <tr><td class="paramname">entities</td><td>Les entités de la carte. </td></tr>
+    <tr><td class="paramname">encounters</td><td>Le catalogue des rencontres. </td></tr>
+    <tr><td class="paramname">bestiary</td><td>Pour la taille des créatures, ou <span class="tt">nullptr</span> (taille M). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -6005,10 +6109,10 @@ Ce qu'elle ne vérifie pas</h2>
 </div><div class="memdoc">
 
 <p>Peint le marqueur d'une clé d'asset. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
 Pourquoi un marqueur plutôt qu'une image manquante</h2>
 <p><span class="tt">EX-CNT-041</span> : le jeu doit tourner <b>complet</b> avant qu'aucune illustration ne soit produite. Sans marqueur, trois cents entrées s'afficheraient comme des trous, la production graphique deviendrait un préalable bloquant, et rien ne pourrait être joué ni relu avant elle. Avec, elle devient un <b>remplacement progressif</b> : on remplace un marqueur par une image, une à la fois, et le jeu ne cesse jamais d'être jouable.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md54"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md57"></a>
 Déterministe, et c'est le point</h2>
 <p>La même clé donne <b>toujours</b> le même marqueur — même teinte, même figure. Un marqueur tiré au hasard changerait à chaque lancement : le loup ne serait plus reconnaissable d'une partie à l'autre, deux captures d'écran du même combat différeraient, et un test ne pourrait rien en dire. La teinte est donc dérivée de la clé elle-même, par un hachage stable écrit ici plutôt qu'emprunté à <span class="tt">std::hash</span>, dont la valeur n'est <b>pas</b> garantie d'une plateforme ou d'une version de bibliothèque à l'autre.</p>
 <p>Le marqueur reste <b>manifestement</b> un marqueur : deux diagonales barrent la vignette, de sorte qu'on ne le prenne jamais pour une illustration définitive livrée un peu vite.</p>

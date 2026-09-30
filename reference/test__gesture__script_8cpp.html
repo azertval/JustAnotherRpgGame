@@ -154,6 +154,7 @@ $(function(){initNavTree('test__gesture__script_8cpp.html','',''); });
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &lt;nlohmann/json.hpp&gt;</code><br />
 <code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
@@ -170,6 +171,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a294440e32f89c2fb8797e4ee478700db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les outils qui ne touchent pas à la carte disent ce qu'ils ont fait : la mesure dans le compte rendu, les notes dans l'annexe.  <br /></td></tr>
 <tr class="memitem:ab69fc7e3636faed07a0709df02d5f231" id="r_ab69fc7e3636faed07a0709df02d5f231"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab69fc7e3636faed07a0709df02d5f231">TEST</a> (GestureScriptTest, UneRueRefaiteRendLaCarteALOctet)</td></tr>
 <tr class="memdesc:ab69fc7e3636faed07a0709df02d5f231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du lot : la rue du nord de la carte d'essai, effacée puis retracée par <span class="tt">--apply</span> — pavés, seuils, façade, portes, fenêtres, lanternes — rend la carte.  <br /></td></tr>
+<tr class="memitem:a3e590f092eefc59f95688aedea85384c" id="r_a3e590f092eefc59f95688aedea85384c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3e590f092eefc59f95688aedea85384c">TEST</a> (GestureScriptTest, LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit)</td></tr>
+<tr class="memdesc:a3e590f092eefc59f95688aedea85384c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Acceptation du <span class="tt">LOT-143</span> : le sable de l'Arena of Fate porte le groupe de quatre contre les six bandits, la rencontre pèse ce que le Guide du Maître dit ; réduit de moitié par sa poignée, le sable perd la formation et son verdict passe au rouge (<span class="tt">EX-EDIT-101</span>).  <br /></td></tr>
 <tr class="memitem:af1efdee950adf02353fd6e0b11a8d372" id="r_af1efdee950adf02353fd6e0b11a8d372"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af1efdee950adf02353fd6e0b11a8d372">TEST</a> (GestureScriptTest, UnGesteRefuseRendUneErreurLisible)</td></tr>
 <tr class="memdesc:af1efdee950adf02353fd6e0b11a8d372"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un geste que la fenêtre refuserait arrête le fichier, et le message nomme le geste.  <br /></td></tr>
 <tr class="memitem:aed6a7a54e8d326892888e2c222e0781d" id="r_aed6a7a54e8d326892888e2c222e0781d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aed6a7a54e8d326892888e2c222e0781d">TEST</a> (GestureScriptTest, UnGesteRefuseNeTouchePasAuFichier)</td></tr>
@@ -183,7 +186,7 @@ Functions</h2></td></tr>
 <div class="line">    --output Source/Test/Fixtures/Gestures/paint.attendu.json</div>
 </div><!-- fragment --> </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a294440e32f89c2fb8797e4ee478700db" name="a294440e32f89c2fb8797e4ee478700db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a294440e32f89c2fb8797e4ee478700db">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a294440e32f89c2fb8797e4ee478700db">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,8 +214,37 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a3e590f092eefc59f95688aedea85384c" name="a3e590f092eefc59f95688aedea85384c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e590f092eefc59f95688aedea85384c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">GestureScriptTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Acceptation du <span class="tt">LOT-143</span> : le sable de l'Arena of Fate porte le groupe de quatre contre les six bandits, la rencontre pèse ce que le Guide du Maître dit ; réduit de moitié par sa poignée, le sable perd la formation et son verdict passe au rouge (<span class="tt">EX-EDIT-101</span>). </p>
+<p>Le verdict est celui que le canevas écrit à côté de l'entité, pendant qu'on tire comme après (<span class="tt"><a class="el" href="namespacehmi.html#aa4edebfd3cfee6ae8c18b887a9ced0df" title="Le verdict de chaque entité qui en a un, dans l&#39;ordre des entités : les zones de combat (leur terrain...">hmi::entityVerdicts</a></span>) : l'outil <span class="tt">inspect</span> le verse au compte rendu. <b>Cas de test :</b> <b>Le sable de l'Arena of Fate porte quatre contre six, et rougit réduit de moitié.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Sans fenetre<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Rejouer <span class="tt">Fixtures/Gestures/combat-zone.json</span> sur la carte livrée : inspecter le sable, puis la rencontre au niveau 1, tirer la poignée sud-est du sable de 22 à 11 colonnes, inspecter le sable.<br  />
+ <b>Resultat attendu :</b> Le sable : 4 contre 6, quatre places, 244 cases pour 40 ; la rencontre : 300 PX modifiés, « difficile » pour quatre niveaux 1 ; réduit, le sable est refusé : marqueur et six bandits hors de la zone. Un seul pas d'annulation. </p>
+
+</div>
+</div>
 <a id="ab69fc7e3636faed07a0709df02d5f231" name="ab69fc7e3636faed07a0709df02d5f231"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab69fc7e3636faed07a0709df02d5f231">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab69fc7e3636faed07a0709df02d5f231">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -241,7 +273,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aed6a7a54e8d326892888e2c222e0781d" name="aed6a7a54e8d326892888e2c222e0781d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed6a7a54e8d326892888e2c222e0781d">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aed6a7a54e8d326892888e2c222e0781d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -271,7 +303,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af1efdee950adf02353fd6e0b11a8d372" name="af1efdee950adf02353fd6e0b11a8d372"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1efdee950adf02353fd6e0b11a8d372">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af1efdee950adf02353fd6e0b11a8d372">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,7 +332,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a57e8e99d8d79dec73cd88c5ccda9087d" name="a57e8e99d8d79dec73cd88c5ccda9087d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57e8e99d8d79dec73cd88c5ccda9087d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a57e8e99d8d79dec73cd88c5ccda9087d">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
