@@ -75,7 +75,7 @@ Ce que ce lot réalise, ou réalisera, s'écrit dans les spécifications :
 
 ## Décisions de réalisation
 
-Livré le 30 septembre 2026 (exigence `EX-EDIT-100`).
+Livré le 30 septembre 2026, PR #164 (exigence `EX-EDIT-100`).
 
 1. **L'écriture canonique est dans `core`**, à côté du chargeur : `core::writeQuest`. Deux espaces,
    un objet par drapeau et par étape, sur une ligne les valeurs, les conditions et les effets ;

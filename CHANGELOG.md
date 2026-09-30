@@ -30,6 +30,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   réservation, concaténations. Les accesseurs du modèle de groupe lus par QML gardent leur forme
   d'instance, l'exception dite en commentaire.
 
+- **CI — le fuzzing de la nightly tenu en laisse.** La nuit du 30 septembre, le runner du job
+  `fuzz` a lâché en pleine étape, sans journal ni entrée fautive ; rejouées dix minutes chacune sur
+  le poste, les quatre cibles n'ont rien montré. Chaque cible est désormais arrêtée au-delà de son
+  temps et d'une marge (comptée en échec), écrit une ligne par minute — mémoire, mémoire libre,
+  dernière ligne de libFuzzer — dans le journal du job, et sa sortie part toujours en artefact
+  (`fuzz-logs`) ; `-malloc_limit_mb` borne une allocation démesurée. Quatre fichiers du `LOT-143`
+  arrivés hors format sur `main` sont reformatés.
+
 - **Planification — la version 0.0.2.5, passage à la 3D.** Le jeu garde sa vue isométrique et
   passe en 3D, entre la recette de la `0.0.2` et la `0.0.3` (décisions D-29 à D-35) : décor
   d'architecture en maillages, personnages **composés** — un corps parmi huit, une texture, des
