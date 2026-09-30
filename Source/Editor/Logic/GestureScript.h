@@ -63,7 +63,8 @@ class LevelDraft;
  * de tuile) ou `piece` (une pièce de la planche du lieu, `floor` la dit sol si la planche ne la
  * connaît pas), `kind` (la famille d'entité à poser ; `""` : l'outil ne fait que sélectionner),
  * `select` (des identifiants d'entité), `prefab` (un préfabriqué de la bibliothèque du lieu, qui
- * devient le tampon à poser). Un geste sans `tool` ne fait qu'armer. Ce qui est armé le
+ * devient le tampon à poser), `partyLevel` (le niveau du groupe du budget des rencontres, 1 par
+ * défaut). Un geste sans `tool` ne fait qu'armer. Ce qui est armé le
  * reste pour les gestes suivants, comme dans la fenêtre.
  *
  * | `tool` | champs | ce que fait la main |
@@ -78,7 +79,9 @@ class LevelDraft;
  * | `entity` | `at`, `to`, `ctrl`, `shift`, `set`, `then` | appui, glisser jusqu'à `to` ; `set` :
  * propriétés de l'entité sélectionnée ; `then: "delete"` : `Suppr` | | `shape` | `path` ou `at`,
  * `to`, `ctrl` | l'outil Forme sur l'entité sélectionnée | | `measure` | `from`, `to` | la mesure,
- * écrite dans le compte rendu | | `note` | `at`, `text` | la note de la case (vide : retirée) |
+ * écrite dans le compte rendu | | `inspect` | — | le verdict de l'entité sélectionnée, tel que le
+ * canevas l'écrit à côté d'elle (`hmi::entityVerdicts`), dans le compte rendu | | `note` | `at`,
+ * `text` | la note de la case (vide : retirée) |
  *
  * ## Un geste refusé
  *

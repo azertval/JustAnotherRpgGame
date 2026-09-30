@@ -27,6 +27,7 @@
 #include <optional>
 #include <sstream>
 #include <string>
+#include <vector>
 
 #include <gtest/gtest.h>
 #include <nlohmann/json.hpp>
@@ -193,6 +194,60 @@ TEST(GestureScriptTest, UneRueRefaiteRendLaCarteALOctet) {
     EXPECT_EQ(rendu.script.gestures, 10U);
     EXPECT_EQ(rendu.script.steps, 10U);
     EXPECT_EQ(rendu.mapText, lire(dataRoot() / "Levels" / "bourg" / "place.json"));
+}
+
+/**
+ * @brief Acceptation du `LOT-143` : le sable de l'Arena of Fate porte le groupe de quatre contre
+ *        les six bandits, la rencontre pèse ce que le Guide du Maître dit ; réduit de moitié par sa
+ *        poignée, le sable perd la formation et son verdict passe au rouge (`EX-EDIT-101`).
+ *
+ * Le verdict est celui que le canevas écrit à côté de l'entité, pendant qu'on tire comme après
+ * (`hmi::entityVerdicts`) : l'outil `inspect` le verse au compte rendu.
+ * \castest{<b>Le sable de l'Arena of Fate porte quatre contre six, et rougit réduit de
+ * moitié.</b><br/>
+ * \tcat Unitaire · Editeur · Sans fenetre<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Rejouer `Fixtures/Gestures/combat-zone.json` sur la carte livrée : inspecter le
+ *          sable, puis la rencontre au niveau 1, tirer la poignée sud-est du sable de 22 à 11
+ *          colonnes, inspecter le sable.<br/>
+ * \tattendu Le sable : 4 contre 6, quatre places, 244 cases pour 40 ; la rencontre : 300 PX
+ *           modifiés, « difficile » pour quatre niveaux 1 ; réduit, le sable est refusé : marqueur
+ *           et six bandits hors de la zone. Un seul pas d'annulation.
+ * }
+ */
+TEST(GestureScriptTest, LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit) {
+    std::filesystem::path carte;
+    const hmi::GestureFileResult rendu =
+        hmi::applyGestureFile(gestures() / "combat-zone.json", {},
+                              std::filesystem::path(JADG_LEVELS_DIR).parent_path(), carte);
+    ASSERT_TRUE(rendu.script.ok()) << rendu.script.error;
+    EXPECT_EQ(rendu.script.gestures, 4U);
+    EXPECT_EQ(rendu.script.steps, 1U);
+    const std::vector<std::string> attendu{
+        "inspect e4: sable: 22 x 14, 244 free cells of 308, 0 arena entries inside, 0 outside.",
+        "inspect e4: arene-bandits: 4 vs 6, party places 4/4, 244 free cells reached (40 "
+        "required).",
+        "inspect e6: arene-bandits: 300 XP adjusted (6 foes, 150 XP x 2), difficile for 4 of "
+        "level 1 (facile 100, moyenne 200, difficile 300, mortelle 400).",
+        "inspect e6: arene-bandits: 4 vs 6, party places 4/4, 244 free cells reached (40 "
+        "required).",
+        "inspect e4 [refused]: sable: 11 x 14, 122 free cells of 154, 0 arena entries inside, 0 "
+        "outside.",
+        "inspect e4 [refused]: arene-bandits: 4 vs 6, party places 4/4, 122 free cells reached "
+        "(40 required).",
+        "inspect e4 [refused]: Encounter \"arene-bandits\": its marker stands outside combat "
+        "zone \"sable\".",
+    };
+    ASSERT_EQ(rendu.script.log.size(), attendu.size() + 6U);
+    for (std::size_t ligne = 0; ligne < attendu.size(); ++ligne) {
+        EXPECT_EQ(rendu.script.log[ligne], attendu[ligne]);
+    }
+    // Puis les six bandits, chacun hors de la zone.
+    for (std::size_t ligne = attendu.size(); ligne < rendu.script.log.size(); ++ligne) {
+        EXPECT_NE(rendu.script.log[ligne].find("would stand outside combat zone \"sable\""),
+                  std::string::npos)
+            << rendu.script.log[ligne];
+    }
 }
 
 /**

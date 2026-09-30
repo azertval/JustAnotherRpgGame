@@ -109,6 +109,10 @@ Faire une carte de bout en bout : le
 - `EntityReferences`, `EditorDiagnostics` — les catalogues que les entités citent (dialogues,
   rencontres, cartes, figurines, drapeaux, lieux, objets, `carte#id`), et les avertissements rendus
   en anglais, verdict des zones de combat compris (`EX-EDIT-071`, `EX-EDIT-073`).
+- `EntityVerdicts` — ce que le canevas écrit à côté d'une entité : le verdict d'une zone de combat
+  face au groupe de quatre (`core::analyzePartyDeployment`), le budget d'une rencontre pour le
+  niveau de groupe choisi (`core::rateEncounter`) ; des lignes et des cases à rôle, sans que le
+  canevas, l'inspecteur ni `--apply` ne regardent le type (`EX-EDIT-101`, `LOT-143`).
 - `LayerView` — les couches telles que l'éditeur les montre : visibles, opacité, grisées,
   verrouillées (`EX-EDIT-061`), et l'étage d'une couche de décor (`EX-LVL-025`, `LOT-129`) : le
   panneau des couches le règle (« Floor »), le pinceau à pièces peint la couche d'étage active, et
@@ -151,7 +155,8 @@ cartes.
 
 Un fichier de gestes (`jadg-editor-gestures`, version 1) décrit ce que la main ferait : l'outil,
 l'appui (`at`), le glisser (`path`, ou `from` et `to`), et ce qu'on arme entre deux gestes (`piece`,
-`type`, `layer`, `lock`, `mirror`, `kind`, `select`). Le format complet est dans l'en-tête de
+`type`, `layer`, `lock`, `mirror`, `kind`, `select`, `partyLevel`) ; l'outil `inspect` verse
+au compte rendu le verdict de l'entité sélectionnée (`combat-zone.json`, `LOT-143`). Le format complet est dans l'en-tête de
 `Logic/GestureScript.h` ; un exemple par outil dans `Source/Test/Fixtures/Gestures/`, et une rue de
 Martpart entière dans `martpart-rue.json`.
 

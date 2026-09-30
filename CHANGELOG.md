@@ -15,6 +15,19 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   reste en image jusqu'à la `0.0.3` est écrit comme dette. Le `LOT-145` est clos sur son mannequin
   humanoïde. Les identifiants de lot admettent quatre chiffres (`lint_planning.py`,
   `lint_docs.py`). Aucun code du jeu ne change.
+  
+- **LOT-143 — Éditeur : des zones de combat pour un groupe.** Le verdict d'une zone de combat
+  compte désormais le **groupe de quatre** et **toute la rencontre** qui s'y joue : la formation
+  adverse posée sur la zone seule (un bandit hors du sable est dit), les **quatre places** du
+  groupe — entrées d'arène alliées d'abord, puis le front opposé au marqueur — reliées à la
+  formation, et assez de cases libres pour manœuvrer (`core::analyzePartyDeployment`). Le canevas
+  écrit à côté de chaque zone et de chaque rencontre la première ligne de son verdict, toutes pour
+  l'entité sélectionnée, marque formation et places, et recalcule pendant qu'on tire : le sable de
+  l'Arena of Fate porte quatre contre six, réduit de moitié il passe au rouge. À côté de l'entité
+  `encounter`, le **budget de difficulté** du *Guide du Maître* (300 PX, « difficile » pour les
+  bandits de l'arène) pour quatre personnages du niveau choisi dans le panneau des entités
+  (« Party level »). `LevelEditor --check` refuse une rencontre face à laquelle le groupe ne se
+  déploie pas ; `--apply` gagne l'outil `inspect` et le réglage `partyLevel` (`EX-EDIT-101`).
 
 - **LOT-141 — La fiche et l'écran de groupe.** La fiche de personnage s'ouvre pour **chaque
   membre** (`Tab` passe au suivant ; depuis l'écran Groupe, `F` ouvre la fiche du personnage

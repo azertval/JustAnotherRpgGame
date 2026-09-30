@@ -247,6 +247,46 @@ TEST(ContentCheckTest, UnSeulDefautFaitEchouerLaCi) {
 }
 
 /**
+ * @brief Une rencontre face à laquelle le groupe de quatre ne se déploie pas fait échouer `--check`
+ *        (`EX-EDIT-101`, `LOT-143`).
+ * \castest{<b>Un groupe qui ne se déploie pas fait échouer la CI.</b><br/>
+ * \tcat Unitaire · Contrôle du contenu<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Une carte de 12 x 8 dont la zone de combat, de 3 x 2, entoure le marqueur des rats du
+ * donjon, et rien d'autre de fautif.<br/>2. Lancer `--check`.<br/>
+ * \tattendu L'erreur de la zone trop étroite, sur la rencontre ; code de sortie 1. La même carte à
+ * zone de 10 x 6 passe.
+ * }
+ */
+TEST(ContentCheckTest, UnGroupeQuiNeSeDeploiePasFaitEchouerLaCi) {
+    const Projet projet;
+    projet.catalogue("fr", "map.sable.name = Sable\n");
+    const auto sable = [&projet](int largeur, int hauteur) {
+        projet.carte("sable", R"({"version": 4, "name": "map.sable.name", "width": 12,
+          "height": 8, "nextEntityId": 3, "tiles": [ {"x": 0, "y": 0, "type": "entry"} ],
+          "entities": [
+            {"id": "e1", "type": "combatZone", "x": 1, "y": 1, "name": "sable", "width": )" +
+                                  std::to_string(largeur) + R"(, "height": )" +
+                                  std::to_string(hauteur) + R"(},
+            {"id": "e2", "type": "encounter", "x": 2, "y": 2, "encounterId": "rats-du-donjon"}
+          ]})");
+    };
+
+    sable(3, 2);
+    std::string sortie;
+    EXPECT_EQ(hmi::runMapCommand({"--check", "--data", projet.racine().string()}, {}, sortie), 1);
+    EXPECT_NE(sortie.find("error: Encounter \"rats-du-donjon\": combat zone \"sable\" too narrow "
+                          "for 7 combatants (6 free cells, 28 required)."),
+              std::string::npos)
+        << sortie;
+
+    sable(10, 6);
+    sortie.clear();
+    EXPECT_EQ(hmi::runMapCommand({"--check", "--data", projet.racine().string()}, {}, sortie), 0)
+        << sortie;
+}
+
+/**
  * @brief Un point d'arrivée qu'un portail nomme est un départ : ce qu'on atteint depuis lui compte.
  * \castest{<b>On atteint une carte par ses points d'arrivée.</b><br/>
  * \tcat Unitaire · Contrôle du contenu<br/>
