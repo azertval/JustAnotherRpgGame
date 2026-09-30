@@ -1,6 +1,6 @@
 # Core · Combat
 
-Tests unitaires — **170 cas** (33 bloquants, 94 critiques, 42 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **176 cas** (33 bloquants, 98 critiques, 44 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -26,6 +26,7 @@ Tests unitaires — **170 cas** (33 bloquants, 94 critiques, 42 majeurs, 1 mineu
 | [`test_iso_projection.cpp`](#test-iso-projectioncpp) | 9 | 5 | - | 3 | 1 |
 | [`test_line_of_sight.cpp`](#test-line-of-sightcpp) | 3 | 1 | 1 | 1 | - |
 | [`test_map_encounter.cpp`](#test-map-encountercpp) | 4 | - | 3 | 1 | - |
+| [`test_party_deployment.cpp`](#test-party-deploymentcpp) | 6 | - | 4 | 2 | - |
 | [`test_pathfinding.cpp`](#test-pathfindingcpp) | 13 | 4 | 6 | 3 | - |
 | [`test_tactical_terrain.cpp`](#test-tactical-terraincpp) | 10 | - | 4 | 6 | - |
 | [`test_turn_order.cpp`](#test-turn-ordercpp) | 3 | 1 | 1 | 1 | - |
@@ -3583,6 +3584,132 @@ Une rencontre hors de toute zone de combat est refusee.
 - Vérifie que `resultat.issue.find("essai")` diffère de `std::string::npos`.
 - Vérifie que `resultat.issue.find("2,2")` diffère de `std::string::npos`.
 - Vérifie que `resultat.issue.find("3,3")` diffère de `std::string::npos`.
+
+## test_party_deployment.cpp
+
+### PartyDeploymentTest.UneZoneDegageePorteLeGroupeFaceALaRencontre
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_party_deployment.cpp:86`
+
+Une zone dégagée porte le groupe de quatre face à la rencontre.
+
+**Étapes**
+
+1. Une zone de 10 x 6 en (2, 2) sur un champ de 20 x 20, une rencontre de deux rats dont le marqueur est en (9, 4), au bord droit.
+2. Juger le déploiement.
+
+**Résultat attendu**
+
+- Vérifie que `verdicts.size()` vaut `1U`.
+- Vérifie que `verdict.valid()` est vrai.
+- Vérifie que `verdict.encounterIndex` vaut `1U`.
+- Vérifie que `verdict.zoneIndex` vaut `0U`.
+- Vérifie que `verdict.partySize` vaut `core::TACTICAL_PARTY_SIZE`.
+- Vérifie que `verdict.reachableCells` vaut `60`.
+- Vérifie que `verdict.requiredCells` vaut `(2 + 4) * core::TACTICAL_CELLS_PER_COMBATANT`.
+- Vérifie que `verdict.partyPlaces.size()` vaut `4U`.
+- Vérifie que `verdict.partyPlaces.front()` vaut `(GridPosition{2, 2})`.
+- Vérifie que `place.column` est inférieur ou égal à `3`.
+
+### PartyDeploymentTest.LeGroupeEntreDAbordParLesEntreesAlliees
+
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_party_deployment.cpp:117`
+
+Le groupe entre d'abord par les entrées alliées.
+
+**Étapes**
+
+1. La zone dégagée, deux entrées alliées de rangs 2 et 1 dans la zone, une troisième hors de la zone.
+2. Juger.
+
+**Résultat attendu**
+
+- Vérifie que `verdicts.size()` vaut `1U`.
+- Vérifie que `verdict.valid()` est vrai.
+- Vérifie que `verdict.partyPlaces.size()` vaut `4U`.
+- Vérifie que `verdict.partyPlaces[0]` vaut `(GridPosition{4, 3})`.
+- Vérifie que `verdict.partyPlaces[1]` vaut `(GridPosition{5, 6})`.
+- Vérifie que `std::ranges::count(verdict.partyPlaces, GridPosition{15, 15})` vaut `0`.
+
+### PartyDeploymentTest.UneZoneQuiLaisseLaFormationDehorsEstRefusee
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_party_deployment.cpp:144`
+
+Une zone qui laisse la formation dehors est refusée.
+
+**Étapes**
+
+1. La zone ramenée à 5 x 6, le marqueur en (9, 4) au-dehors.
+2. Juger.
+
+**Résultat attendu**
+
+- Vérifie que `verdicts.size()` vaut `1U`.
+- Vérifie que `verdict.valid()` est faux.
+- Vérifie que `verdict.zoneIndex` vaut `0U`.
+- Vérifie que `verdict.issues.size()` est supérieur ou égal à `3U`.
+- Vérifie que `verdict.issues[0].code` vaut `DeploymentIssueCode::TriggerOutsideZone`.
+- Vérifie que `verdict.issues[1].code` vaut `DeploymentIssueCode::CombatantOutsideZone`.
+- Vérifie que `verdict.issues[1].cell` vaut `(GridPosition{9, 3})`.
+- Vérifie que `verdict.issues[2].code` vaut `DeploymentIssueCode::CombatantOutsideZone`.
+- Vérifie que `verdict.issues[2].creatureId` vaut `"rat"`.
+
+### PartyDeploymentTest.UneZoneTropPetiteEstTropEtroite
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_party_deployment.cpp:171`
+
+Une zone de 3 x 2 ne loge ni le groupe ni la manœuvre.
+
+**Étapes**
+
+1. Une zone de 3 x 2 autour d'une rencontre de deux rats.
+2. Juger.
+
+**Résultat attendu**
+
+- Vérifie que `verdicts.size()` vaut `1U`.
+- Vérifie que `verdict.reachableCells` vaut `6`.
+- Vérifie que `verdict.partyPlaces.size()` vaut `4U`.
+- Vérifie que `releve(verdict, DeploymentIssueCode::PartyCannotDeploy)` est faux.
+- Vérifie que `releve(verdict, DeploymentIssueCode::ZoneTooNarrow)` est vrai.
+
+### PartyDeploymentTest.LeGroupeNeSeDeploieQueLaOuIlRejointLaRencontre
+
+*Majeur · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_party_deployment.cpp:193`
+
+Le groupe ne se déploie que là où il rejoint la rencontre.
+
+**Étapes**
+
+1. Une zone de 6 x 2 coupée par un mur plein en colonne 5 ; la rencontre à droite du mur, sur deux colonnes.
+2. Juger.
+
+**Résultat attendu**
+
+- Vérifie que `verdicts.size()` vaut `1U`.
+- Vérifie que `verdict.reachableCells` vaut `4`.
+- Vérifie que `verdict.partyPlaces.size()` vaut `2U`.
+- Vérifie que `releve(verdict, DeploymentIssueCode::PartyCannotDeploy)` est vrai.
+- Vérifie que `place.column` est strictement supérieur à `5`.
+
+### PartyDeploymentTest.UneRencontreSansZoneEstRefusee
+
+*Critique · Unitaire · Combat* — `Source/Test/Unit/Core/Combat/test_party_deployment.cpp:222`
+
+Une rencontre sans zone est refusée.
+
+**Étapes**
+
+1. Une carte sans zone, une rencontre connue et une inconnue.
+2. Juger.
+
+**Résultat attendu**
+
+- Vérifie que `verdicts.size()` vaut `1U`.
+- Vérifie que `verdicts.front().zoneIndex.has_value()` est faux.
+- Vérifie que `verdicts.front().issues.size()` vaut `1U`.
+- Vérifie que `verdicts.front().issues.front().code` vaut `DeploymentIssueCode::NoCombatZone`.
+- Vérifie que `verdicts.front().partyPlaces.empty()` est vrai.
 
 ## test_pathfinding.cpp
 

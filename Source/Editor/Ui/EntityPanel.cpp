@@ -88,6 +88,8 @@ struct EntityPanel::Widgets {
     QLabel* selectionLabel;
     QWidget* propertiesForm;
     QLabel* verdictLabel;
+    /// Le niveau du groupe de quatre dont se calcule le budget des rencontres (`LOT-143`).
+    QSpinBox* partyLevelSpin;
     QPushButton* removeButton;
     QListWidget* warningList;
 
@@ -98,6 +100,7 @@ struct EntityPanel::Widgets {
           selectionLabel(new QLabel(panel)),
           propertiesForm(new QWidget(panel)),
           verdictLabel(new QLabel(panel)),
+          partyLevelSpin(new QSpinBox(panel)),
           removeButton(new QPushButton(QStringLiteral("Remove"), panel)),
           warningList(new QListWidget(panel)) {
         kindCombo->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -113,6 +116,9 @@ struct EntityPanel::Widgets {
         selectionLabel->setWordWrap(true);
         verdictLabel->setWordWrap(true);
         verdictLabel->setVisible(false);
+        partyLevelSpin->setRange(1, 20);
+        partyLevelSpin->setToolTip(
+            QStringLiteral("Level of the party of four that encounter budgets are rated for"));
         removeButton->setEnabled(false);
         warningList->setWordWrap(true);
         warningList->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -124,6 +130,11 @@ struct EntityPanel::Widgets {
         auto* const propertiesLayout = new QVBoxLayout(propertiesBox);
         propertiesLayout->addWidget(selectionLabel);
         propertiesLayout->addWidget(verdictLabel);
+        auto* const partyRow = new QHBoxLayout;
+        partyRow->addWidget(new QLabel(QStringLiteral("Party level"), panel));
+        partyRow->addWidget(partyLevelSpin);
+        partyRow->addStretch(1);
+        propertiesLayout->addLayout(partyRow);
         propertiesLayout->addWidget(propertiesForm);
         propertiesLayout->addWidget(removeButton);
         auto* const warningsBox = new QGroupBox(QStringLiteral("Warnings"), panel);
@@ -168,6 +179,8 @@ EntityPanel::EntityPanel(QWidget* parent)
             }
             emit entitiesSelected(indices, primary);
         });
+    connect(_ui->partyLevelSpin, &QSpinBox::valueChanged, this,
+            [this](int level) { emit partyLevelChanged(level); });
     connect(_ui->filterEdit, &QLineEdit::textChanged, this, [this] { rebuildTable(); });
     connect(_ui->removeButton, &QPushButton::clicked, this, [this] {
         if (!_selection.empty()) {
@@ -185,6 +198,11 @@ EntityPanel::EntityPanel(QWidget* parent)
 }
 
 EntityPanel::~EntityPanel() = default;
+
+void EntityPanel::setPartyLevel(int level) {
+    const QSignalBlocker blocker(_ui->partyLevelSpin);
+    _ui->partyLevelSpin->setValue(level);
+}
 
 std::string EntityPanel::kindToPlace() const {
     return _ui->kindCombo->currentData().toString().toStdString();

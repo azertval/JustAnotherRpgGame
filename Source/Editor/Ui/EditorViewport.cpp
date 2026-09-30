@@ -553,7 +553,7 @@ void EditorViewport::paintFlat(QPainter& painter, const QRectF& exposed) {
     if (!_activeLayer && hasVisualLayers()) {
         paintForcedMask(painter, flatCells, false);
     }
-    paintZoneVerdict(painter, false);
+    paintEntityVerdicts(painter, false);
     paintEntities(painter, flatCells, false);
     paintNotes(painter, flatCells, false);
     paintDragPreview(painter, false);
@@ -607,7 +607,7 @@ void EditorViewport::paintIsoOverlays(QPainter& painter, const CellRange& cells,
     if (_tool == hmi::EditorTool::Entity && _selectedEntity) {
         paintEncounterTerrain(painter);
     }
-    paintZoneVerdict(painter, true);
+    paintEntityVerdicts(painter, true);
     paintEntities(painter, cells, true);
     paintNotes(painter, cells, true);
     paintDragPreview(painter, true);
@@ -1739,8 +1739,24 @@ void EditorViewport::refreshDiagnostics() {
         core::validateMapEntities(_draft.entities(), _referenceContext);
     _terrains = core::analyzeEncounterTerrain(_draft.tileMap(), _draft.entities(),
                                               references.encounters, &references.bestiary);
-    _zoneVerdicts = core::analyzeCombatZones(_draft.tileMap(), _draft.entities());
-    _diagnostics = hmi::editorDiagnostics(_draft.entities(), issues, _terrains, _zoneVerdicts);
+    _verdicts = hmi::entityVerdicts(_draft.tileMap(), _draft.entities(),
+                                    hmi::verdictContext(references, _partyLevel));
+    _diagnostics = hmi::editorDiagnostics(
+        _draft.entities(), issues, _terrains,
+        core::analyzeCombatZones(_draft.tileMap(), _draft.entities()),
+        core::analyzePartyDeployment(_draft.tileMap(), _draft.entities(), references.encounters,
+                                     &references.bestiary));
+}
+
+void EditorViewport::setPartyLevel(int level) {
+    const int bounded = std::clamp(level, 1, 20);
+    if (bounded == _partyLevel) {
+        return;
+    }
+    _partyLevel = bounded;
+    refreshDiagnostics();
+    viewport()->update();
+    emit draftChanged();  // l'inspecteur relit le verdict de l'entite principale.
 }
 
 void EditorViewport::setActiveLayer(LayerSlot slot) {
@@ -2304,48 +2320,79 @@ void EditorViewport::paintEntities(QPainter& painter, const CellRange& cells, bo
     paintEntityHandles(painter, geometry, entities, selected);
 }
 
-void EditorViewport::paintZoneVerdict(QPainter& painter, bool iso) {
-    if (_tool != hmi::EditorTool::Entity || !_selectedEntity) {
+void EditorViewport::paintEntityVerdicts(QPainter& painter, bool iso) {
+    if (_tool != hmi::EditorTool::Entity || _verdicts.empty()) {
         return;
     }
-    // Pendant qu'on tire la zone, le verdict est celui de l'aperçu.
+    // Pendant qu'on tire, les verdicts sont ceux de l'aperçu.
     const std::vector<core::MapEntity> entities = previewEntities(false);
-    const std::vector<core::CombatZoneTerrain> previewed =
-        _entityDrag ? core::analyzeCombatZones(_draft.tileMap(), entities)
-                    : std::vector<core::CombatZoneTerrain>{};
-    const std::vector<core::CombatZoneTerrain>& verdicts = _entityDrag ? previewed : _zoneVerdicts;
-    const auto found =
-        std::ranges::find(verdicts, *_selectedEntity, &core::CombatZoneTerrain::entityIndex);
-    if (found == verdicts.end()) {
-        return;
-    }
+    static const hmi::EditorReferences emptyReferences;
+    const std::vector<EntityVerdict> previewed =
+        _entityDrag ? hmi::entityVerdicts(
+                          _draft.tileMap(), entities,
+                          hmi::verdictContext(
+                              _references != nullptr ? *_references : emptyReferences, _partyLevel))
+                    : std::vector<EntityVerdict>{};
+    const std::vector<EntityVerdict>& verdicts = _entityDrag ? previewed : _verdicts;
     const CanvasGeometry geometry(projection(), iso);
-    painter.setPen(Qt::NoPen);
-    painter.setBrush(QColor::fromRgbF(0.30F, 0.70F, 1.00F, 0.14F));
-    for (const core::GridPosition cell : found->freeCells) {
-        painter.drawPolygon(geometry.cell(cell));
-    }
-    painter.setBrush(QColor::fromRgbF(0.95F, 0.20F, 0.20F, 0.30F));
-    for (const core::GridPosition cell : found->blockedCells) {
-        painter.drawPolygon(geometry.cell(cell));
-    }
-    painter.setBrush(Qt::NoBrush);
-    const auto ring = [&](const std::vector<std::size_t>& entries, const QColor& color) {
-        painter.setPen(screenPen(color, 2.0));
-        for (const std::size_t entry : entries) {
-            if (entry < entities.size()) {
-                painter.drawPolygon(geometry.cell(entities[entry].position));
+
+    // Les cases de l'entité sélectionnée, sous les étiquettes.
+    const auto found =
+        _selectedEntity ? std::ranges::find(verdicts, *_selectedEntity, &EntityVerdict::entityIndex)
+                        : verdicts.end();
+    if (found != verdicts.end()) {
+        for (const VerdictCell& marked : found->cells) {
+            switch (marked.role) {
+                case VerdictCellRole::Free:
+                    painter.setPen(Qt::NoPen);
+                    painter.setBrush(QColor::fromRgbF(0.30F, 0.70F, 1.00F, 0.14F));
+                    break;
+                case VerdictCellRole::Blocked:
+                    painter.setPen(Qt::NoPen);
+                    painter.setBrush(QColor::fromRgbF(0.95F, 0.20F, 0.20F, 0.30F));
+                    break;
+                case VerdictCellRole::EntryInside:
+                    painter.setPen(screenPen(QColor(64, 220, 90), 2.0));
+                    painter.setBrush(Qt::NoBrush);
+                    break;
+                case VerdictCellRole::EntryOutside:
+                case VerdictCellRole::FoeOutside:
+                    painter.setPen(screenPen(QColor(240, 60, 60), 2.0));
+                    painter.setBrush(Qt::NoBrush);
+                    break;
+                case VerdictCellRole::Party:
+                    painter.setPen(screenPen(QColor(90, 200, 255), 2.0));
+                    painter.setBrush(QColor::fromRgbF(0.35F, 0.78F, 1.00F, 0.35F));
+                    break;
+                case VerdictCellRole::Foe:
+                    painter.setPen(screenPen(QColor(255, 170, 60), 2.0));
+                    painter.setBrush(QColor::fromRgbF(1.00F, 0.66F, 0.24F, 0.30F));
+                    break;
             }
+            painter.drawPolygon(geometry.cell(marked.cell));
         }
-    };
-    ring(found->entriesInside, QColor(64, 220, 90));
-    ring(found->entriesOutside, QColor(240, 60, 60));
-    // Le verdict en une ligne, au coin haut-gauche de la zone.
-    const core::GridPosition origin = found->zone.origin;
-    drawScreenLabel(
-        painter, geometry.point(static_cast<float>(origin.column), static_cast<float>(origin.row)),
-        QString::fromStdString(combatZoneSummary(*found)),
-        found->issue ? QColor(255, 120, 120) : QColor(160, 220, 255));
+    }
+
+    // La première ligne à côté de chaque entité ; toutes, empilées, pour la sélectionnée.
+    for (const EntityVerdict& verdict : verdicts) {
+        if (verdict.entityIndex >= entities.size() || verdict.lines.empty()) {
+            continue;
+        }
+        const core::GridPosition cell = entities[verdict.entityIndex].position;
+        const QPointF at =
+            geometry.point(static_cast<float>(cell.column) + 1.0F, static_cast<float>(cell.row));
+        const bool selected = found != verdicts.end() && &*found == &verdict;
+        const QColor color = verdict.ok ? QColor(160, 220, 255) : QColor(255, 120, 120);
+        const std::size_t shown = selected ? verdict.lines.size() : 1U;
+        double offset = 0.0;
+        for (std::size_t line = 0; line < shown; ++line) {
+            const QString text = QString::fromStdString(verdict.lines[line]);
+            const QPointF device = painter.transform().map(at) + QPointF(0.0, offset);
+            const QPointF world = painter.transform().inverted().map(device);
+            drawScreenLabel(painter, world, text, color);
+            offset += screenLabelBox(painter, at, text).height() + 1.0;
+        }
+    }
 }
 
 }  // namespace hmi

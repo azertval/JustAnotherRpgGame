@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **211 cas** (25 bloquants, 47 critiques, 111 majeurs, 28 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **213 cas** (26 bloquants, 48 critiques, 111 majeurs, 28 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -11,7 +11,7 @@ Tests unitaires — **211 cas** (25 bloquants, 47 critiques, 111 majeurs, 28 min
 | [`test_canvas_picking.cpp`](#test-canvas-pickingcpp) | 5 | 2 | - | 3 | - |
 | [`test_canvas_scene.cpp`](#test-canvas-scenecpp) | 5 | 1 | - | 3 | 1 |
 | [`test_city_view.cpp`](#test-city-viewcpp) | 3 | - | 1 | 1 | 1 |
-| [`test_content_check.cpp`](#test-content-checkcpp) | 7 | 3 | 3 | 1 | - |
+| [`test_content_check.cpp`](#test-content-checkcpp) | 8 | 4 | 3 | 1 | - |
 | [`test_disk_guard.cpp`](#test-disk-guardcpp) | 3 | - | 2 | 1 | - |
 | [`test_editor_key_bindings.cpp`](#test-editor-key-bindingscpp) | 7 | - | - | 7 | - |
 | [`test_editor_sidecar.cpp`](#test-editor-sidecarcpp) | 4 | - | 1 | 3 | - |
@@ -19,7 +19,7 @@ Tests unitaires — **211 cas** (25 bloquants, 47 critiques, 111 majeurs, 28 min
 | [`test_entity_editing.cpp`](#test-entity-editingcpp) | 8 | - | - | 7 | 1 |
 | [`test_entity_shapes.cpp`](#test-entity-shapescpp) | 11 | 1 | - | 8 | 2 |
 | [`test_game_launch.cpp`](#test-game-launchcpp) | 6 | - | 1 | 4 | 1 |
-| [`test_gesture_script.cpp`](#test-gesture-scriptcpp) | 5 | 1 | 2 | 2 | - |
+| [`test_gesture_script.cpp`](#test-gesture-scriptcpp) | 6 | 1 | 3 | 2 | - |
 | [`test_level_file_operations.cpp`](#test-level-file-operationscpp) | 10 | 1 | 5 | 4 | - |
 | [`test_level_name_validation.cpp`](#test-level-name-validationcpp) | 5 | - | - | 3 | 2 |
 | [`test_level_tree.cpp`](#test-level-treecpp) | 12 | 4 | 1 | 7 | - |
@@ -51,6 +51,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 | `EX-EDIT-077` | [`ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue`](#contentchecktestunecarteneuveasonnomdanschaquecatalogue) |
 | `EX-EDIT-083` | [`Donnees.RemplacerUnePieceSurToutesLesCartes`](#donneesremplacerunepiecesurtouteslescartes) |
 | `EX-EDIT-084` | [`Donnees.UneCarteChangeDePlancheSansEtreRepeinte`](#donneesunecartechangedeplanchesansetrerepeinte) |
+| `EX-EDIT-101` | [`ContentCheckTest.UnGroupeQuiNeSeDeploiePasFaitEchouerLaCi`](#contentchecktestungroupequinesedeploiepasfaitechouerlaci), [`GestureScriptTest.LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit`](#gesturescripttestlesabledelarenaoffateportelegroupeetrougitreduit) |
 | `EX-EXP-005` | [`ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus`](#scenepaintertestunecartesansaucuneimagesevoitdanslesdeuxrendus) |
 
 ## test_autosave.cpp
@@ -600,9 +601,28 @@ Un PNJ muré fait échouer la CI.
 - Vérifie que `sortie.find("seule (2, 0): error: npc e1 cannot be reached")` diffère de `std::string::npos`.
 - Vérifie que `sortie.find("1 errors")` diffère de `std::string::npos`.
 
+### ContentCheckTest.UnGroupeQuiNeSeDeploiePasFaitEchouerLaCi
+
+*Bloquant · Unitaire · Contrôle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:252`
+
+Exigences : `EX-EDIT-101`
+
+Un groupe qui ne se déploie pas fait échouer la CI.
+
+**Étapes**
+
+1. Une carte de 12 x 8 dont la zone de combat, de 3 x 2, entoure le marqueur des rats du donjon, et rien d'autre de fautif.
+2. Lancer `--check`.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::runMapCommand({"--check", "--data", projet.racine().string()}, {}, sortie)` vaut `1`.
+- Vérifie que `sortie.find("error: Encounter \"rats-du-donjon\": combat zone \"sable\" too narrow " "for 7 combatants (6 free cells, 28 required).")` diffère de `std::string::npos`.
+- Vérifie que `hmi::runMapCommand({"--check", "--data", projet.racine().string()}, {}, sortie)` vaut `0`.
+
 ### ContentCheckTest.UnPointDArriveeNommeEstUnDepart
 
-*Critique · Unitaire · Contrôle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:251`
+*Critique · Unitaire · Contrôle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:291`
 
 On atteint une carte par ses points d'arrivée.
 
@@ -618,7 +638,7 @@ On atteint une carte par ses points d'arrivée.
 
 ### ContentCheckTest.LesCataloguesSeCompletentSansRienPerdre
 
-*Majeur · Unitaire · Contrôle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:282`
+*Majeur · Unitaire · Contrôle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:322`
 
 Une clé ajoutée garde les traductions qu'elle reprend.
 
@@ -641,7 +661,7 @@ Une clé ajoutée garde les traductions qu'elle reprend.
 
 ### ContentCheckTest.UneCarteNeuveASonNomDansChaqueCatalogue
 
-*Bloquant · Unitaire · Contrôle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:316`
+*Bloquant · Unitaire · Contrôle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:356`
 
 Exigences : `EX-EDIT-077`
 
@@ -668,7 +688,7 @@ Une carte neuve a son nom dans chaque catalogue.
 
 ### ContentCheckTest.LeControleDuRecitRefuseUnDrapeauLuQueRienNePose
 
-*Critique · Unitaire · Controle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:364`
+*Critique · Unitaire · Controle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:404`
 
 Le controle du recit refuse un drapeau lu que rien ne pose.
 
@@ -688,7 +708,7 @@ Le controle du recit refuse un drapeau lu que rien ne pose.
 
 ### ContentCheckTest.LeControleDuRecitRefuseUnJetSansBrancheDEchec
 
-*Critique · Unitaire · Controle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:411`
+*Critique · Unitaire · Controle du contenu* — `Source/Test/Unit/Editor/test_content_check.cpp:451`
 
 Le controle du recit refuse un jet sans branche d'echec.
 
@@ -1627,7 +1647,7 @@ Le jeu est cherche a cote de l'editeur.
 
 ### GestureScriptTest.UnScenarioParOutilRendLeFichierAttendu
 
-*Bloquant · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:119`
+*Bloquant · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:120`
 
 Un scénario --apply par outil rend le fichier attendu.
 
@@ -1644,7 +1664,7 @@ Un scénario --apply par outil rend le fichier attendu.
 
 ### GestureScriptTest.LaMesureEtLesNotesRendentLeurCompteRendu
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:146`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:147`
 
 La mesure et les notes rendent leur compte rendu et leur annexe.
 
@@ -1664,7 +1684,7 @@ La mesure et les notes rendent leur compte rendu et leur annexe.
 
 ### GestureScriptTest.UneRueRefaiteRendLaCarteALOctet
 
-*Critique · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:180`
+*Critique · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:181`
 
 Une rue refaite par --apply rend la carte, octet pour octet.
 
@@ -1680,9 +1700,30 @@ Une rue refaite par --apply rend la carte, octet pour octet.
 - Vérifie que `rendu.script.steps` vaut `10U`.
 - Vérifie que `rendu.mapText` vaut `lire(dataRoot() / "Levels" / "bourg" / "place.json")`.
 
+### GestureScriptTest.LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit
+
+*Critique · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:206`
+
+Exigences : `EX-EDIT-101`
+
+Le sable de l'Arena of Fate porte quatre contre six, et rougit réduit de moitié.
+
+**Étapes**
+
+1. Rejouer `Fixtures/Gestures/combat-zone.json` sur la carte livrée : inspecter le sable, puis la rencontre au niveau 1, tirer la poignée sud-est du sable de 22 à 11 colonnes, inspecter le sable.
+
+**Résultat attendu**
+
+- Vérifie que `rendu.script.ok()` est vrai.
+- Vérifie que `rendu.script.gestures` vaut `4U`.
+- Vérifie que `rendu.script.steps` vaut `1U`.
+- Vérifie que `rendu.script.log.size()` vaut `attendu.size() + 6U`.
+- Vérifie que `rendu.script.log[ligne]` vaut `attendu[ligne]`.
+- Vérifie que `rendu.script.log[ligne].find("would stand outside combat zone \"sable\"")` diffère de `std::string::npos`.
+
 ### GestureScriptTest.UnGesteRefuseRendUneErreurLisible
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:200`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:255`
 
 Un geste refusé rend une erreur lisible.
 
@@ -1697,7 +1738,7 @@ Un geste refusé rend une erreur lisible.
 
 ### GestureScriptTest.UnGesteRefuseNeTouchePasAuFichier
 
-*Critique · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:238`
+*Critique · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_gesture_script.cpp:293`
 
 Un geste refusé ne touche pas au fichier.
 

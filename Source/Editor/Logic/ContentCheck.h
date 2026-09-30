@@ -28,7 +28,8 @@
  *   objets, `carte#id`, propriétés requises et bornes (`core::validateMapEntities`) ;
  * - **le terrain** : une rencontre dont la formation ne tient pas (`core::analyzeEncounterTerrain`,
  *   le contrôle du `LOT-11` étendu à toutes les cartes), une zone de combat qui ne se joue pas, une
- *   entrée d'arène hors de toute zone ;
+ *   entrée d'arène hors de toute zone, une rencontre face à laquelle le groupe de quatre ne se
+ *   déploie pas sur sa zone (`core::analyzePartyDeployment`, `LOT-143`) ;
  * - **l'atteignabilité** : toute case utile — portail, point d'arrivée, PNJ, coffre, panneau,
  *   rencontre, zone — est joignable depuis l'entrée de la carte ou un point d'arrivée qu'on
  *   atteint d'ailleurs (`core::ExplorationReach`, la règle de marche du jeu) ;

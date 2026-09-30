@@ -28,6 +28,7 @@ add_library(EditorLogic STATIC
     Logic/EntityShapes.cpp
     Logic/EntityReferences.cpp
     Logic/EditorDiagnostics.cpp
+    Logic/EntityVerdicts.cpp
     Logic/WorldGraphLayout.cpp
     Logic/EditorKeyBindings.cpp
     # Sauvegarde automatique, reprise et garde du fichier modifié sur disque.

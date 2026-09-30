@@ -1,0 +1,12 @@
+{
+  "format": "jadg-editor-gestures",
+  "version": 1,
+  "map": "central-empire/capital/arenarea/arena-of-fate",
+  "note": "LOT-143 : le sable de l'Arena of Fate porte le groupe de quatre contre les six bandits ; la rencontre pèse 300 PX, difficile au niveau 1. Réduit de moitié par sa poignée sud-est, le sable perd la formation : son verdict passe au rouge.",
+  "gestures": [
+    {"select": ["e4"], "tool": "inspect"},
+    {"select": ["e6"], "partyLevel": 1, "tool": "inspect"},
+    {"select": ["e4"], "tool": "entity", "at": [27, 17], "to": [16, 17]},
+    {"tool": "inspect"}
+  ]
+}

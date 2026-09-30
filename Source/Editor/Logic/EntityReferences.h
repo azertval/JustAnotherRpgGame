@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "Core/Combat/Encounter.h"
+#include "Core/Combat/EncounterDifficulty.h"
 #include "Core/Gameplay/Quest.h"
 #include "Core/Levels/MapEntity.h"
 #include "Core/Resources/ScenePieceManifest.h"
@@ -35,6 +36,10 @@ struct EditorReferences {
     core::EncounterCatalog encounters;
     /// Pour l'emprise des créatures d'une rencontre (`core::analyzeEncounterTerrain`).
     core::Bestiary bestiary;
+    /// Le budget d'une rencontre (`Rpg/rules/encounter-difficulty.json`, `LOT-139`) : ce que
+    /// l'éditeur affiche à côté de l'entité `encounter` (`LOT-143`). Sans le fichier, aucune
+    /// catégorie.
+    core::EncounterDifficultyRules difficulty;
     core::WorldGraph world;
     /// Les figurines que toute carte peut poser, triées : les slugs de `Assets/Npc/manifest.json`,
     /// `Monsters/<slug>` pour chaque monstre de `Assets/Monsters/manifest.json`, et les slugs du

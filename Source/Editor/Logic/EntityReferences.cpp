@@ -130,6 +130,12 @@ EditorReferences loadEditorReferences(const std::filesystem::path& root) {
         isDirectory(creatures)) {
         references.bestiary = core::loadBestiary(creatures);
     }
+    std::error_code absent;
+    if (const std::filesystem::path difficulty =
+            root / "Rpg" / "rules" / "encounter-difficulty.json";
+        std::filesystem::is_regular_file(difficulty, absent)) {
+        references.difficulty = core::loadEncounterDifficultyRules(difficulty);
+    }
     references.world = core::loadWorldGraph(root / "Levels");
     // Ce que posent les zones des cartes (LOT-126) : un PNJ peut attendre le drapeau qu'une zone
     // pose, sans qu'aucun dialogue ne le pose.
