@@ -1,7 +1,7 @@
 {
   "version": 1,
   "frameWidth": 384,
-  "frameHeight": 264,
+  "frameHeight": 320,
   "clips": {
     "death": {
       "frames": [

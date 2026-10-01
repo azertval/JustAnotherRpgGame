@@ -391,6 +391,49 @@ def test_une_bande_qu_il_faudrait_agrandir_est_refusee(characters):
         M.build_figures(descriptor)
 
 
+def placed_strip(frames, cell=(192, 256), height=None, left=60, right=130):
+    """Une bande rendue synthétique : un rectangle par cellule, pieds sur la ligne de sol."""
+    width, cell_h = cell
+    strip = np.zeros((height or cell_h, width * frames, 4), np.uint8)
+    for i in range(frames):
+        strip[82:253, i * width + left:i * width + right] = (90, 110, 70 + 10 * i, 255)
+    return strip
+
+
+def test_une_bande_rendue_se_copie_telle_quelle(characters):
+    """LOT-1000 : la caméra du rendu a posé la figurine ; rien ne la déplace, rien ne la réduit —
+    pas même la boîte décentrée d'une hache portée à droite."""
+    target, sources = characters
+    strip = placed_strip(8, height=272, left=60, right=150)
+    strip[255:270, 40:60] = (200, 200, 200, 255)  # ce qui passe sous le sol allonge la cellule
+    Image.fromarray(strip).save(sources / 'walk-se.png')
+    descriptor = figure_descriptor(sources, [{
+        'name': 'Heroes/brawler', 'strips': [{'source': 'walk-se.png', 'clip': 'walk', 'facing': 'se',
+                                              'frames': 8, 'frameDuration': 0.0625, 'placed': True}]}])
+
+    assert M.main([str(descriptor)]) == 0
+    folder = target / 'Heroes' / 'brawler'
+    assert np.array_equal(np.asarray(Image.open(folder / 'walk-se.png')), strip)
+    anim = json.loads((folder / 'walk-se.anim.json').read_text(encoding='utf-8'))
+    assert anim['frameWidth'] == 192 and anim['frameHeight'] == 272
+    assert M.main([str(descriptor), '--check']) == 0
+
+
+@pytest.mark.parametrize('strip, message', [
+    (placed_strip(7), 'large'),                               # 7 cellules pour 8 images
+    (placed_strip(8, height=250), 'haut'),                    # plus basse que la cellule
+    (placed_strip(8, height=260), 'haut'),                    # allongée d'autre chose que 8 px
+    (placed_strip(8, left=2), 'transparents'),                # la marge de gauche mangée
+])
+def test_une_bande_rendue_fautive_est_refusee(characters, strip, message):
+    _, sources = characters
+    Image.fromarray(strip).save(sources / 'walk.png')
+    descriptor = M.read_descriptor(figure_descriptor(sources, [{
+        'name': 'guard', 'strips': [{'source': 'walk.png', 'clip': 'walk', 'frames': 8, 'placed': True}]}]))
+    with pytest.raises(M.DescriptorError, match=message):
+        M.build_figures(descriptor)
+
+
 def test_la_mesure_n_ecrit_rien_et_donne_les_appuis(characters, capsys):
     target, sources = characters
     figure_strip(2).save(sources / 'walk.png')
@@ -413,6 +456,9 @@ def test_la_mesure_n_ecrit_rien_et_donne_les_appuis(characters, capsys):
     ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'fps': 8}]}, 'inconnu'),
     ({'name': 'guard', 'token': 't.png', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6}]},
      'sans portrait'),
+    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'placed': True,
+                                   'scale': 0.5}]}, 'placed'),
+    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'placed': 1}]}, 'placed'),
 ])
 def test_un_descripteur_de_figurine_fautif_est_refuse_et_nomme(tmp_path, figure, message):
     with pytest.raises(M.DescriptorError, match=message):

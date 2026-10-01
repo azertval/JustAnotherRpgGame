@@ -7,9 +7,9 @@ Ne pas le prendre comme référence de marche acceptée tant que le problème re
 
 Le 24 septembre 2026, l'auteur refuse explicitement les **quatre marches** : appuis non
 alternés, voire immobiles dans certains cas. Ce constat global ne précise pas quelles
-directions sont immobiles. L'avis est conservé dans `Planning/quality/brawler-walk-review.json`,
-lié aux fichiers examinés. Les PNG restent inchangés ; une nouvelle cadence seule ne suffit
-pas à résoudre un défaut d'alternance des poses.
+directions sont immobiles. Une nouvelle cadence seule ne suffit pas à résoudre un défaut
+d'alternance des poses. Ces bandes et leur avis de refus ont été retirés au LOT-1000
+(1er octobre 2026) : le brawler livré est désormais rendu depuis son modèle animé.
 
 ## Références de mouvement fournies par l'auteur
 
@@ -164,7 +164,7 @@ to idle; do not force this one-shot action into a walking-style loop.
 Depuis la racine, sur le brawler actuellement livré (lecture seule) :
 
 ```powershell
-python scripts/assetsGeneration/check_figure_walk.py Source/Elements/Assets/Common/Characters/Heroes/brawler --manifest Source/Elements/Assets/Common/Characters/manifest.json --out build/quality/brawler-walk --review Planning/quality/brawler-walk-review.json
+python scripts/assetsGeneration/check_figure_walk.py Source/Elements/Assets/Common/Characters/Heroes/brawler --manifest Source/Elements/Assets/Common/Characters/manifest.json --out build/quality/brawler-walk
 ```
 
 Pour un PNJ, remplacer le dossier et son manifeste par les fichiers normalisés de l'atelier.

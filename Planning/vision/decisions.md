@@ -45,6 +45,17 @@ lot qui les a prises.
 | D-36 | 30 sept. 2026 | **La résistance du Brawler est graduée** (*Tough as Nails*) : elle retire aux dégâts la part des points de vie perdus, la moitié au plus à 0 PV — rien plein de vie. Écart au *Player's Guide* (p. 193), écrit dans la capacité et au référentiel des classes | décision de l'auteur, à la recette (`LOT-142`) — entière dès le niveau 1, elle rendait le Brawler indispensable : 35 points d'écart entre trios à la simulation de la série de l'arène, 16 après (critère : moins de 20) |
 | D-37 | 30 sept. 2026 | **« Nouvelle partie » fait choisir le meneur** parmi les quatre, sur l'écran Groupe ; le groupe reste préformé (D-28). Le meneur parle à l'ouverture des dialogues et fait les jets | décision de l'auteur, à la recette (`LOT-142`) — c'est « la démo rejouée avec une classe au choix » |
 
+### Révision de D-31 — 1er octobre 2026
+
+Pour le LOT-1000, l'auteur refuse les corps MPFB puis les reconstructions TripoSR,
+valide les géométries du brawler et du scoundrel produites par Meshy depuis leurs
+figurines 2D, et choisit **Meshy comme générateur de personnages**. L'affirmation
+initiale « pas de forme sculptée par personnage » est remplacée par cette voie
+image vers maillage. Les sources de textures acceptées restent conservées.
+Le squelette commun et la réutilisation des animations restent des objectifs de
+la chaîne, à éprouver sur ces nouvelles topologies ; leur fonctionnement n'est
+pas déduit de la seule validation des formes.
+
 ## À trancher par l'auteur
 
 | # | Question | Proposition | Se tranche au |
