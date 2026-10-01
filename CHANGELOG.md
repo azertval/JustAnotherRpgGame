@@ -6,11 +6,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
-- **LOT-1000 — La preuve de la chaîne de personnages (en cours).** Un personnage se construit d'un
-  corps commun (MPFB, squelette `game_engine`), d'une texture peinte projetée par script et de
-  pièces accrochées à un os, animé par des poses en cibles (la marche garde les pieds au sol à la
-  vitesse du moteur). `render_character_strips.py` le rend sous la caméra du jeu en bandes au format
-  du moteur ; `install_hd_asset.py` installe ces bandes `placed`, telles quelles.
+- **LOT-1000 — La preuve de la chaîne de personnages.** Après le refus des corps communs MPFB et
+  des essais TripoSR, le personnage vient d'un maillage texturé généré par Meshy d'après sa
+  figurine (révision de D-31), lié dans Blender à un squelette de 53 os et animé par des poses en
+  cibles (la marche garde les pieds au sol à la vitesse du moteur). `render_character_strips.py`
+  le rend sous la caméra du jeu en bandes au format du moteur ; `install_hd_asset.py` installe ces
+  bandes `placed`, telles quelles. Les 20 bandes du brawler sont ainsi rendues et remplacent les
+  bandes générées (kit `Common@5`) ; l'avis de refus de ses anciennes marches est retiré.
 
 ## [0.0.2] - 2026-09-30
 

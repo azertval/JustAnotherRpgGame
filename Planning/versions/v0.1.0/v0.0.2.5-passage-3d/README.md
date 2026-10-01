@@ -29,6 +29,16 @@ du 30 septembre 2026.
 
 ## Ce dont est fait un humanoïde
 
+**Révision du 1er octobre 2026 (LOT-1000) :** l'auteur a refusé les corps communs
+de preuve puis les essais TripoSR, validé les deux géométries Meshy et choisi Meshy
+comme générateur de personnages. Le tableau ci-dessous décrit l'hypothèse
+initiale D-31 ; la preuve utilise désormais des maillages propres aux figurines.
+Le contrat de squelette, les animations et l'organisation des pièces seront
+ajustés d'après cette preuve lors du LOT-1001. Les modèles statiques sont validés,
+la chaîne animée produit les quarante bandes, le brawler est installé et le kit
+`Common@5` publié. L'auteur a accepté le résultat le 1er octobre 2026 : la version
+s'ouvre (détail dans le LOT-1000).
+
 Seule la texture du corps est propre au personnage ([D-31](../../../vision/decisions.md)).
 
 | Élément | Combien | Partagé ou propre |

@@ -34,68 +34,68 @@
   ],
   "sources": {
     "Heroes/brawler/attack-ne.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/attack-ne.png",
-      "sha256": "72414486ad4a6c5b5b859cb87018274974eefc89f3e08d9f06f23ea55c4d73f2"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/attack-ne.png",
+      "sha256": "351969edaf1241a2006ee218444cf0adde5a06bd790eeeea89bee349857b540b"
     },
     "Heroes/brawler/attack-nw.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/attack-nw.png",
-      "sha256": "6cbcb47bd14b27aa0f0545437fb6e41ebcaee9b1ca2106c87172e29acbef3556"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/attack-nw.png",
+      "sha256": "50302b46fca3b317ff7188f0b74c4ed12cdc846204b8a2e5cf5ca249c62344cc"
     },
     "Heroes/brawler/attack-se.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/attack-se.png",
-      "sha256": "f53dcd0a2b1be47935d1ff4a4c360c7e20bc3e4c11de73e4b7c57bf886808dcc"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/attack-se.png",
+      "sha256": "8f9e0f133e218dce1825d380f390471adf823efb1f5d031a20e828cc070d3b68"
     },
     "Heroes/brawler/attack-sw.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/attack-sw.png",
-      "sha256": "86fae23011a06ece1f24959e080651e43b09ecc5778f8c30b3d59bf8b86b2d6d"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/attack-sw.png",
+      "sha256": "5b379caca4cf57d1d25fe4465ab021fbd52d6070c36d7d4696cbb0230d432673"
     },
     "Heroes/brawler/death-ne.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/death-ne.png",
-      "sha256": "0c3554ce181d57fdefd167b3584fd81554b8c027c2c2dc4f6634a1e6c89ce500"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/death-ne.png",
+      "sha256": "965a2ed2727e6aa09408b6b30e480a6afc89bd67e1560fb594adb91a9ef7242e"
     },
     "Heroes/brawler/death-nw.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/death-nw.png",
-      "sha256": "bfc11a7f31644b02f922a6448f927317b77d0ac7377616c8a6cf54881b6eba62"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/death-nw.png",
+      "sha256": "94dd537d4ac07f51338ba7f9db0f696a872b0e73f7d88f4c131098b5e995ae4e"
     },
     "Heroes/brawler/death-se.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/death-se.png",
-      "sha256": "62d9cd1f8162d9100d88690a20aee58b49a2c5978f6f9f0931d24dfe876492ae"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/death-se.png",
+      "sha256": "199c9e07535e94df4bcd3a550076d056447548599e7a3c3de5556db90d0537ac"
     },
     "Heroes/brawler/death-sw.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/death-sw.png",
-      "sha256": "db0783225846b21e390ebe3de3f654c7a47d7818d4e985ec2174aa2f2ebfe503"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/death-sw.png",
+      "sha256": "2305ef50116d91ebfeae79f3981c5c5b054fa4728b090e3f5d3cdc4b5a19aa78"
     },
     "Heroes/brawler/hit-ne.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/hit-ne.png",
-      "sha256": "ba12db444e8d886225c758e963028288188584cc067066e42b626dbb584659d1"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/hit-ne.png",
+      "sha256": "8370e07a771301be6fd72c90c1e7a0a46a7d7a2516b479855d03a3e73aee3832"
     },
     "Heroes/brawler/hit-nw.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/hit-nw.png",
-      "sha256": "8845751b71b6c270cccee2d7d2fc6ba3b8fec3abf5dd79d8216a18c012e27adb"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/hit-nw.png",
+      "sha256": "be27b190adda53c6317fc3c6a54fc3b27cc830dc06208aa9bb06278ef8afb0ba"
     },
     "Heroes/brawler/hit-se.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/hit-se.png",
-      "sha256": "621e2330e12bb2b849820b419baa625fb1260d9d011b0d614e2c24ad0720f2f1"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/hit-se.png",
+      "sha256": "4686dc0001b9dc087742d1d8ebb12b151455572ec6b3cb92660b9d5ec2753aa8"
     },
     "Heroes/brawler/hit-sw.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/hit-sw.png",
-      "sha256": "c951429d069e3a93f0bb2a08ec362e23b1dcfb278beab9dc005f34a328d51cb7"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/hit-sw.png",
+      "sha256": "361b6a9d3b0e5a6d24ff3fdd463aa09f54fada898036a6a7db2f6d425da37d68"
     },
     "Heroes/brawler/idle-ne.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/idle-ne.png",
-      "sha256": "31187ada3ea98e4e3fa26e5f78e0559ec6f6d54566aa609dc4cdaed792b9c232"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/idle-ne.png",
+      "sha256": "c5c5fa0aa54f6ab92097136b8eecb80525f5a54959155cf0c33378c09fe71865"
     },
     "Heroes/brawler/idle-nw.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/idle-nw.png",
-      "sha256": "cbb343c9eebc672974d7f110ad42193785e51227c6d57b5763dea6f89779c260"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/idle-nw.png",
+      "sha256": "1447e0b5b58edcc06d86fba947dd4ae26a9566349c4165ca21d3f72429cf9022"
     },
     "Heroes/brawler/idle-se.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/idle-se.png",
-      "sha256": "9621c9aa4cd40cc293dc7d8e107d778c433f6266deb57de505aef890fa5101af"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/idle-se.png",
+      "sha256": "80bcf6fb94c403e3be94a96570c35646d66033ac2b2e567fbc0c6c9c3028bc62"
     },
     "Heroes/brawler/idle-sw.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/idle-sw.png",
-      "sha256": "55a66bfe377f2bb421289f17c4fe83173cc3efd89de322f402c6f52069b73151"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/idle-sw.png",
+      "sha256": "ab3fe91aeee37d782e3d8556fc307c9cad3fb959a259ada55d9784c37061a4c5"
     },
     "Heroes/brawler/portrait.png": {
       "file": "Common/Characters/Heroes/brawler/portrait.png",
@@ -106,20 +106,20 @@
       "sha256": "afd793c8970117e06d3b82028b63e1c7e7c0395ce4939bdef91bfb1bbc62aded"
     },
     "Heroes/brawler/walk-ne.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/walk-ne.png",
-      "sha256": "38f186e4c415cb9b34fc137f7fc77844fce1893cffaba7ebcb387316cf27ce3a"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/walk-ne.png",
+      "sha256": "85bbb8e6c1092cc7a398f5f476e419a27324718b4c6638a360e2c95cba1874b8"
     },
     "Heroes/brawler/walk-nw.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/walk-nw.png",
-      "sha256": "1406e8ea431ac15694adcfc1b6bc1c213e4b77675ee3efcd5cc61076e5360533"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/walk-nw.png",
+      "sha256": "e0d159360d5e900ff159946ffb32d1d193a486c9078ced4d6113260290fd7b05"
     },
     "Heroes/brawler/walk-se.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/walk-se.png",
-      "sha256": "097a35ec4636e63299d3ea211d6ad120a83a9dcbb0194ad2d3f1c4167f90f810"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/walk-se.png",
+      "sha256": "498f08cb8002703e63268505cbe186b8ce4be326676a5b0bca3fea3b68b38fbe"
     },
     "Heroes/brawler/walk-sw.png": {
-      "file": "Common/Characters/Heroes/brawler/lot136/walk-sw.png",
-      "sha256": "f78187bd6d47aba187ab71aaa57a216bea1daa5c1b31902dfc5be032e5a91e00"
+      "file": "Common/Characters/Heroes/brawler/lot1000-meshy/walk-sw.png",
+      "sha256": "1bba60a11ba4edd12bd835b255c8a9cf2934a9fa2e7d80b572a8339c358742dd"
     },
     "Heroes/mage/attack-ne.png": {
       "file": "Common/Characters/Heroes/mage/lot136/attack-ne.png",

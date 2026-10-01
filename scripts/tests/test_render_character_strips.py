@@ -104,6 +104,16 @@ def test_la_cellule_se_decoupe_et_donne_ce_qui_passe_sous_le_sol():
     assert bande.shape == (272, 384, 4)
 
 
+def test_le_corps_massif_couche_reste_entier_sous_la_ligne_de_sol():
+    # La mort du brawler remodelé dépasse la réserve initiale de 128 px.
+    image, bas = R.cellule_depuis_toile(toile(R.CELLULE_LARGE, 60, 320, 180, 410),
+                                      R.CELLULE_LARGE, 'death-ne')
+    bande = R.assembler([image] * 8, R.CELLULE_LARGE, bas)
+    assert bande.shape == (416, 3072, 4)
+    assert bande[409, 60, 3] == 255
+    assert not bande[410:, :, 3].any()
+
+
 @pytest.mark.parametrize('boite, message', [
     ((60, 130, -3, 250), 'haut'),
     ((2, 130, 80, 250), 'transparents'),

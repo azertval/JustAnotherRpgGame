@@ -1,7 +1,7 @@
 {
   "version": 1,
   "frameWidth": 384,
-  "frameHeight": 256,
+  "frameHeight": 272,
   "clips": {
     "attack": {
       "frames": [
