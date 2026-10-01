@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-01 05:31 UTC",
-  "commit": "7c419c351",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36820151640",
+  "generated": "2026-10-01 13:59 UTC",
+  "commit": "b80fae1af",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/36869142819",
   "coverage": {
     "percent": 91.45,
     "covered": 47650,
