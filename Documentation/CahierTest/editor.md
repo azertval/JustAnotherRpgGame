@@ -201,7 +201,7 @@ L'aller-retour dit ce qui lui manque avant d'ouvrir Blender.
 
 ### BlenderRetouch.LesDeuxCommandesPortentCeQueLeScriptAttend
 
-*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_blender_retouch.cpp:136`
+*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_blender_retouch.cpp:133`
 
 Exigences : `EX-EDIT-103`
 
@@ -587,7 +587,7 @@ L'apercu de l'atelier est une scene du rendu du jeu.
 
 ### CharacterPreviewTest.UnClipJoueUneFoisTientSaDernierePose
 
-*Majeur · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_preview.cpp:100`
+*Majeur · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_preview.cpp:99`
 
 L'apercu tient la derniere pose d'un clip joue une fois.
 
@@ -609,7 +609,7 @@ L'apercu tient la derniere pose d'un clip joue une fois.
 
 ### CharacterPreviewRenderTest.LeRenduDuJeuDessineLePersonnage
 
-*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_preview.cpp:127`
+*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_preview.cpp:126`
 
 Exigences : `EX-EDIT-102`
 
@@ -707,7 +707,7 @@ La fiche du garde s'installe sans fenetre et rend les fichiers attendus.
 
 ### CharacterWorkshop.LesGestesRestentALaCommandeDesCartes
 
-*Majeur · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:200`
+*Majeur · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:199`
 
 L'atelier laisse les scenarios de gestes a la commande des cartes.
 
@@ -725,7 +725,7 @@ L'atelier laisse les scenarios de gestes a la commande des cartes.
 
 ### CharacterWorkshop.UneFicheRefuseeNEcritRien
 
-*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:223`
+*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:222`
 
 Exigences : `EX-EDIT-102`
 
@@ -745,7 +745,7 @@ Une fiche refusee n'ecrit rien et nomme ce qui manque.
 
 ### CharacterWorkshop.UnPersonnageInstalleSeRouvreSansDifference
 
-*Critique · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:277`
+*Critique · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:276`
 
 Exigences : `EX-EDIT-102`
 
@@ -781,7 +781,7 @@ Un personnage installe se rouvre et se reenregistre sans difference.
 
 ### CharacterWorkshopDelivered.LesPersonnagesLivresSeReenregistrentSansDifference
 
-*Critique · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:335`
+*Critique · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:334`
 
 Exigences : `EX-EDIT-102`
 
@@ -801,7 +801,7 @@ Les personnages livres se reenregistrent par l'atelier sans difference.
 
 ### CharacterWorkshop.LeControleNommeCeQuiManque
 
-*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:364`
+*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:363`
 
 Exigences : `EX-EDIT-104`
 
