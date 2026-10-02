@@ -126,7 +126,7 @@ nouvelle.
 ## 5. Le squelette
 
 Un squelette par **silhouette**. La seule produite est `humanoid` ; `quadruped` se construit au
-[LOT-1009](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1009-les-quatre-heros.md), avec le lion et le loup de l'arène,
+[LOT-1011](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1011-les-fauves-de-l-arene.md), avec le lion et le loup de l'arène,
 d'après une image de trois quarts — rien n'en est encore mesuré ; `flying` est nommée et viendra
 avec ses créatures ([D-34](../vision/decisions.md)).
 

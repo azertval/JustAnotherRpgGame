@@ -6,7 +6,7 @@ filiere = "version"
 statut = "a-faire"
 taille = "M"
 resume = "Le jeu de la 0.0.2, rejoué en 3D de bout en bout, de jour comme de nuit — et un dépôt où plus rien de l'ancien rendu ne traîne."
-prerequis = ["LOT-1007", "LOT-1009"]
+prerequis = ["LOT-1007", "LOT-1009", "LOT-1011"]
 livrables = [
   "La recette : la quête « Des pommes pour l'arène » par ses trois issues et un combat à quatre contre quatre, joués en 3D au clavier et à la manette, à midi et de nuit.",
   "Le **balayage final** : le contrôle des orphelins, les recherches de la liste ci-dessous, et la suppression de ce qu'ils trouvent encore.",
@@ -39,7 +39,7 @@ précédent, et le bilan le nomme.
 |---|---|
 | `git grep -n "ScenePainter\|SceneImages"` | rien (LOT-1002) |
 | `git ls-files "Source/Elements/Assets/**/Characters/**/*.anim.json"` | rien (LOT-1006) |
-| `git grep -n "\"portraits\"" Source scripts` | rien (LOT-1009) |
+| `git grep -n "\"portraits\"" Source scripts` | rien (LOT-1011) |
 | `git grep -ln "2D HD\|style-2d-hd" -- . ":!Planning/standards/archives" ":!Planning/versions/v0.0.0" ":!CHANGELOG.md"` | seulement des fiches **livrées**, les décisions datées et les textes remplacés d'`exigences-retirees.md` |
 | PNG sous `floors/`, `walls/`, `balustrades/`, `stairs/`, `roofs/` du kit de la Capitale | **ils restent** : dette déclarée pour la `0.0.3` (D-43, LOT-151) |
 | Scripts de `scripts/` sans appelant | rien (`check_orphans.py`) |

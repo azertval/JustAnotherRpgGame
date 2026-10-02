@@ -63,7 +63,8 @@ Un personnage est une **fiche** : son modèle, son portrait, son jeton.
 | 8 | [LOT-1007](lots/LOT-1007-eclairage-et-cycle-jour-nuit.md) — éclairage et cycle jour / nuit | moteur | L | LOT-1003 |
 | 9 | [LOT-1008](lots/LOT-1008-atelier-des-assets-3d.md) — l'atelier des assets 3D | editeur | L | LOT-1006 |
 | 10 | [LOT-1009](lots/LOT-1009-les-quatre-heros.md) — les personnages de la démo | pnj | L | LOT-1008 |
-| 11 | [LOT-1010](lots/LOT-1010-recette-et-version-0-0-2-5.md) — recette et version | version | M | LOT-1007, LOT-1009 |
+| 11 | [LOT-1011](lots/LOT-1011-les-fauves-de-l-arene.md) — les fauves de l'arène : le squelette `quadruped` | pnj | L | LOT-1009 |
+| 12 | [LOT-1010](lots/LOT-1010-recette-et-version-0-0-2-5.md) — recette et version | version | M | LOT-1007, LOT-1009, LOT-1011 |
 
 Trois règles ont fixé cet ordre.
 
@@ -100,7 +101,8 @@ reste « pour plus tard » sans être écrit dans la dette ci-dessous.
 | LOT-1006 | Un squelette, six animations, le mannequin, le premier personnage au standard | **Toutes** les bandes de figurine (132 images et leurs `.anim.json`) ; la cellule et les quatre orientations de figurine dans le rendu ; les bandes de figurine des données d'essai ; la suite 2D du LOT-145. Les 24 bandes d'effets de `Common/Fx/` et `AnimationCatalog`, qui les lit, **restent** |
 | LOT-1007 | Heure du monde, soleil, ombres, lumières de nuit | Rien d'installé : l'ombre propre cuite dans les textures du kit part avec le kit, à la `0.0.3` |
 | LOT-1008 | L'atelier, vue Character, et l'aller-retour par Blender (D-44) ; la vue Scenery suit le kit à la `0.0.3` | La saisie à la main des manifestes de personnages ; la part « personnage » de l'installateur Python ; le descripteur d'installation des portraits |
-| LOT-1009 | Les quatre héros, les PNJ de la quête, les adversaires et les fauves de l'arène, produits au standard ; le squelette `quadruped` | Le **portrait d'attente** (liste `portraits`) ; le brawler de la preuve |
+| LOT-1009 | Les quatre héros, les PNJ de la quête et les adversaires de l'arène, produits au standard et installés par l'atelier | Le portrait d'attente des **héros** ; le brawler de la preuve |
+| LOT-1011 | Les fauves de l'arène et le squelette `quadruped` | Le **portrait d'attente** (liste `portraits`) ; le mannequin quadrupède statique |
 | LOT-1010 | Le contrôle des orphelins, la recette | Ce que le contrôle trouve encore ; les références d'image périmées |
 
 ## La dette déclarée pour la 0.0.3
