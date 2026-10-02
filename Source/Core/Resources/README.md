@@ -8,6 +8,10 @@
 - `AssetMarker` — le marqueur qui tient lieu d'illustration tant qu'aucune n'existe : pixels RVBA
   peints depuis la clé (`assetMarker`, `stableAssetHash`), sans Qt ni GPU (`EX-ARCH-001`).
 
+- `SkeletonPose`, `SkeletonFile` — le squelette d'un modèle animé (`LOT-1005`) : la pose de ses os à
+  un instant d'un clip (`poseSkeleton`), et ce que déclarent `skeleton.json` (os, durée, boucle et
+  image clé des clips) et `character.json` (le modèle d'un personnage et son squelette).
+
 Il n'y a pas de `ResourceManager` unique dans `Core` (`EX-ARCH-080` dans sa formulation
 d'origine) : un gestionnaire de textures obligerait `Core` à connaître le GPU (`EX-NFR-010`,
 `EX-ARCH-010`). La gestion des ressources vit du côté qui les possède :

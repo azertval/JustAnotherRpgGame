@@ -15,13 +15,18 @@
 
 #include <cstdint>
 #include <filesystem>
+#include <memory>
+#include <string>
+#include <utility>
 #include <vector>
 
 #include <benchmark/benchmark.h>
 
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/LevelLoader.h"
+#include "Core/Resources/MeshFile.h"
 #include "Core/Resources/ScenePieceManifest.h"
+#include "Core/Resources/SkeletonFile.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/StaticWorldScene.h"
@@ -177,3 +182,71 @@ static void ArenareaFrame1080p(benchmark::State& state) {
     state.counters["passes"] = static_cast<double>(composed.batchCount());
 }
 BENCHMARK(ArenareaFrame1080p)->Unit(benchmark::kMicrosecond);
+
+/**
+ * La même image, avec **huit modèles animés** à l'écran (`LOT-1005`) : le héros et sept figurines,
+ * chacun en marche à un instant différent. Ce que la composition y ajoute est la pose de leurs
+ * squelettes — 53 os, six clips échantillonnés — recalculée à chaque image ; le dessin lui-même est
+ * à la carte graphique (`CanvasBenchmarks`, `WorldFrameEightModels1080p`). Le modèle est le
+ * mannequin d'essai (`Fixtures/Characters`), sans GPU : son squelette et ses clips sont ceux d'un
+ * personnage livré.
+ */
+static void ArenareaFrame1080pEightModels(benchmark::State& state) {
+    const Arenarea& data = arenarea();
+    const std::filesystem::path fixture =
+        std::filesystem::path(JADG_CHARACTER_FIXTURE_DIR) / "Assets";
+    const std::string model = "Common/Characters/Mannequins/humanoid/humanoid.glb";
+    core::MeshFileResult read = core::readMeshFile(fixture / model);
+    core::SkeletonFileResult skeleton =
+        core::readSkeletonFile(fixture / core::skeletonFilePath("humanoid"));
+    if (!data.ok() || !read.ok() || !skeleton.ok()) {
+        state.SkipWithError("carte d'Arenarea ou modele d'essai illisible");
+        return;
+    }
+    const hmi::WorldSceneSnapshot snapshot = data.snapshot();
+    const core::IsoProjection projection(snapshot.columns, snapshot.rows,
+                                         core::ARENA_TILE_WIDTH_UNITS, snapshot.diamondRatio);
+    hmi::StaticWorldScene statics;
+    statics.build(snapshot, projection, data.textures);
+    std::uint8_t identity = 0;
+    hmi::ScenePieceTextures textures = data.textures;
+    textures.figures[model] = hmi::SceneFigureModel{
+        .mesh = &identity,
+        .minimum = read.mesh.minimum,
+        .maximum = read.mesh.maximum,
+        .rig = std::make_shared<const core::MeshRig>(std::move(read.mesh.rig)),
+        .skeleton =
+            std::make_shared<const core::SkeletonDescription>(std::move(skeleton.skeleton))};
+
+    const float tile = projection.tileWidth();
+    const core::Vector2 view{19.2F * tile, 10.8F * tile};
+    std::vector<hmi::WorldFigureSnapshot> figures;
+    for (int rank = 0; rank < 8; ++rank) {
+        figures.push_back(hmi::WorldFigureSnapshot{
+            .figure = "Common/Characters/Mannequins/humanoid",
+            .clip = "walk",
+            .point = {60.5F + static_cast<float>(rank % 4), 42.5F + static_cast<float>(rank / 4)},
+            .seconds = 0.0F,
+            .hero = rank == 0,
+            .model = model,
+            .heading = 0.4F * static_cast<float>(rank)});
+    }
+    const core::Vector2 centre = projection.gridToWorld(figures.front().point);
+    hmi::ComposedScene composed;
+    float seconds = 0.0F;
+    for (auto _ : state) {
+        seconds += 1.0F / 60.0F;
+        for (std::size_t rank = 0; rank < figures.size(); ++rank) {
+            figures[rank].seconds = seconds + (0.07F * static_cast<float>(rank));
+        }
+        composed.clear();
+        composed.setVisibleBounds(
+            core::Rect{{centre.x - (view.x / 2.0F), centre.y - (view.y / 2.0F)}, view});
+        statics.compose(composed, figures, textures);
+        benchmark::DoNotOptimize(composed.meshes().size());
+    }
+    state.counters["primitives"] = static_cast<double>(composed.size());
+    state.counters["modeles"] = static_cast<double>(composed.meshes().size());
+    state.counters["os"] = static_cast<double>(textures.figures[model].rig->joints.size());
+}
+BENCHMARK(ArenareaFrame1080pEightModels)->Unit(benchmark::kMicrosecond);

@@ -46,6 +46,10 @@ add_library(Core STATIC
     Resources/ScenePieceManifest.cpp
     # Le chargeur de maillages `.glb` (LOT-1003) : octets -> sommets, indices, image encodée.
     Resources/MeshFile.cpp
+    # Le squelette et les clips d'un modèle animé (LOT-1005) : la pose à un instant, et ce que
+    # `skeleton.json` et `character.json` déclarent.
+    Resources/SkeletonPose.cpp
+    Resources/SkeletonFile.cpp
     # Les niveaux d'un lieu, du plus propre au monde (LOT-124).
     Resources/ScenePlace.cpp
     Combat/CombatTransition.cpp

@@ -170,10 +170,13 @@ private:
     ResolvedFigure _hero;
     /// Dernière orientation du héros : il la garde à l'arrêt.
     FigureFacing _heroFacing = FigureFacing::SouthEast;
+    /// Son cap, pour un modèle, qui s'oriente librement (`LOT-1005`).
+    float _heroHeading = 0.0F;
     /// Un suiveur du groupe (`LOT-138`) : sa figurine, et ce qui choisit sa bande.
     struct Follower {
         ResolvedFigure figure;
         FigureFacing facing = FigureFacing::SouthEast;
+        float heading = 0.0F;
         bool walking = false;
         core::CellPoint point{};
     };

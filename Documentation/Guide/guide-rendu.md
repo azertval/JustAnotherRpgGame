@@ -1006,14 +1006,42 @@ d'un étage au besoin, et `hmi::PlaceCamera::meshMatrix` compose cette pose avec
 bloc JSON : toutes ses primitives triangles fondues en un `core::MeshData` — sommets (position,
 normale, coordonnées de texture), indices, et l'image **encodée** de sa couleur de base, que
 `hmi::MeshBatch::create` décode et téléverse. Ce qu'il ne lit pas — tampon hors du fichier,
-accesseur creux, extension requise — est refusé et nommé ; les os et les animations sont au
-`LOT-1005`. `WorldSceneRenderer` charge les maillages d'une carte comme ses textures : à la
+accesseur creux, extension requise — est refusé et nommé ; les os et les animations d'un modèle
+lié se lisent aussi (voir « Les modèles animés »). `WorldSceneRenderer` charge les maillages d'une carte comme ses textures : à la
 demande, une fois (`hmi::worldMeshPaths`).
 
 **La composition.** Elle reste une fonction pure : une pièce en maillage ne produit pas de
 primitive mais un `hmi::ComposedMesh` — le maillage, sa pose, le rectangle qu'il occupe à l'image,
 son calque et son étage —, dans la liste `ComposedScene::meshes`, à côté de la liste triée des
 primitives. Un maillage dont le fichier manque retombe sur le damier : la pièce se voit.
+
+**Les modèles animés** (`LOT-1005`). Un personnage peut être un **modèle** : un maillage lié à un
+squelette, que ses os déforment. Trois fichiers le disent :
+
+| Fichier | Ce qu'il porte | Qui le lit |
+|---|---|---|
+| `<dossier>/character.json` | le modèle (`.glb` du même dossier) et la silhouette de son squelette | `core::readCharacterSheetFile` |
+| `<dossier>/<modèle>.glb` | le maillage, la liaison de chaque sommet (quatre os, quatre poids), les os, les clips | `core::readMeshFile` : `MeshData::skin`, `MeshData::rig` |
+| `Common/Characters/Skeletons/<silhouette>/skeleton.json` | les os, et par clip sa durée, sa boucle et son **image clé** | `core::readSkeletonFile` |
+
+`hmi::FigureResolver` cherche la fiche avant les bandes — pour la figurine nommée, puis pour le
+mannequin (`hmi::mannequinFigureDirectory`) — et rend le chemin du modèle
+(`ResolvedFigure::model`), que l'instantané porte (`WorldFigureSnapshot::model`). La composition en
+fait un `hmi::ComposedMesh` de plus, sur le calque des figurines : posé sur la position continue de
+la figurine, tourné vers son **cap** (`WorldFigureSnapshot::heading`, un angle libre —
+`hmi::IsoView::turned`), avec la **pose** de ses os à l'instant de son clip
+(`core::poseSkeleton`, seize flottants par os, recopiés dans `ComposedScene`). Un clip boucle ou se
+fige sur sa fin selon ce que le squelette déclare ; un modèle sans le clip demandé joue son repos.
+`hmi::MeshBatch` dessine un maillage lié par un second pipeline (`mesh_skinned.vert`), dont le bloc
+uniforme porte `MAX_BONES` (64) matrices ; un maillage fixe garde le pipeline d'avant.
+
+Un modèle n'a pas de rang de dessin : la profondeur le départage du décor. Il passe devant sa
+profondeur calculée de deux biais d'image, sans quoi un sol en image, qui passe déjà devant la
+sienne, rognerait ses semelles.
+
+En combat, `hmi::CombatCueTrack` reçoit les durées des gestes de chaque combattant
+(`setTimings`, `timingsOf`) : le touché de la cible part à l'**image clé** du clip de l'attaquant,
+et le geste dure son clip. Une figurine en bandes garde ses 0,64 s et son impact à mi-geste.
 
 **Les images dans la scène.** Chaque primitive dit comment elle se tient (`hmi::QuadStance`) :
 

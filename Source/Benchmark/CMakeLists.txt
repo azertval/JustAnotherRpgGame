@@ -31,7 +31,9 @@ target_compile_definitions(Benchmarks PRIVATE
     # carte d'essai, qui ne bouge pas -- et une serie se compare d'une version a l'autre.
     JADG_TEST_DATA_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/GameData"
     # Les donnees livrees : la carte d'Arenarea et les manifestes de ses pieces, suivis par Git.
-    JADG_ELEMENTS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements")
+    JADG_ELEMENTS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements"
+    # Le modèle d'essai animé (LOT-1005) : le mannequin humanoïde réduit, lié aux 53 os.
+    JADG_CHARACTER_FIXTURE_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Characters")
 
 # L'image du canevas de l'éditeur, par le rendu du jeu (LOT-1002) : un travelling sur la carte
 # d'Arenarea, hors écran. Elle lie Qt Gui et QRhi, que les mesures ci-dessus évitent, et lit les
@@ -56,7 +58,8 @@ if(TARGET Qt6::Gui AND TARGET Qt6::GuiPrivate AND COMMAND qt6_add_shaders)
     target_link_libraries(CanvasBenchmarks PRIVATE
         HmiLib Qt6::Gui Qt6::GuiPrivate benchmark::benchmark_main project_warnings)
     target_compile_definitions(CanvasBenchmarks PRIVATE
-        JADG_ELEMENTS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements")
+        JADG_ELEMENTS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements"
+        JADG_CHARACTER_FIXTURE_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Characters")
     qt6_add_shaders(CanvasBenchmarks "canvas_benchmarks_shaders"
         PREFIX "/shaders"
         BASE "${_hmi_graphics}/Shaders"
@@ -64,6 +67,7 @@ if(TARGET Qt6::Gui AND TARGET Qt6::GuiPrivate AND COMMAND qt6_add_shaders)
             ${_hmi_graphics}/Shaders/sprite.vert
             ${_hmi_graphics}/Shaders/sprite.frag
             ${_hmi_graphics}/Shaders/mesh.vert
+            ${_hmi_graphics}/Shaders/mesh_skinned.vert
             ${_hmi_graphics}/Shaders/mesh.frag
     )
 else()

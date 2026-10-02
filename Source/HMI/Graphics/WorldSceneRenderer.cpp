@@ -11,6 +11,7 @@
 
 #include "Core/Resources/AssetMarker.h"
 #include "Core/Resources/MeshFile.h"
+#include "Core/Resources/SkeletonFile.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/IsoView.h"
@@ -216,6 +217,62 @@ void WorldSceneRenderer::ensureMeshes(const std::vector<std::string>& paths) {
     }
 }
 
+void WorldSceneRenderer::ensureFigureModels(const std::vector<std::string>& paths) {
+    for (const std::string& path : paths) {
+        // Ni deja tente : un modele absent ne se redemande pas a chaque image.
+        if (!_requested.insert(path).second) {
+            continue;
+        }
+        core::MeshFileResult read = core::readMeshFile(_directory / path);
+        if (!read.ok()) {
+            // La composition retombe sur les bandes de la figurine, donc sur le damier : un modele
+            // manquant se voit, sans planter.
+            GRAPHICS_LOG_WARNING("Lieu : le modele '" + path + "' ne se charge pas (" +
+                                 read.message + ").");
+            continue;
+        }
+        const MeshHandle handle = _meshes->create(_resources.context(), read.mesh);
+        if (handle == nullptr) {
+            GRAPHICS_LOG_WARNING("Lieu : le modele '" + path + "' ne se cree pas sur le GPU.");
+            continue;
+        }
+        SceneFigureModel& loaded = _textures.figures[path] = SceneFigureModel{
+            .mesh = handle, .minimum = read.mesh.minimum, .maximum = read.mesh.maximum};
+        const std::size_t triangles = read.mesh.triangleCount();
+        const std::size_t clips = read.mesh.rig.clips.size();
+        // Le squelette et ses clips ne valent que si le rendu sait les jouer : sinon le modele se
+        // dessine dans sa pose de liaison (`MeshBatch::create` l'a deja dit).
+        if (!read.mesh.skin.empty() && read.mesh.rig.joints.size() <= MeshBatch::MAX_BONES) {
+            loaded.rig = std::make_shared<const core::MeshRig>(std::move(read.mesh.rig));
+        }
+        // Ce que le squelette declare de ses clips : la fiche du dossier dit lequel.
+        const std::filesystem::path sheetFile =
+            (_directory / path).parent_path() / core::CHARACTER_SHEET_FILE;
+        if (const core::CharacterSheetFileResult sheet = core::readCharacterSheetFile(sheetFile);
+            sheet.ok()) {
+            auto known = _skeletons.find(sheet.sheet.skeleton);
+            if (known == _skeletons.end()) {
+                core::SkeletonFileResult skeleton = core::readSkeletonFile(
+                    _directory / core::skeletonFilePath(sheet.sheet.skeleton));
+                if (!skeleton.ok()) {
+                    GRAPHICS_LOG_WARNING("Lieu : le squelette '" + sheet.sheet.skeleton +
+                                         "' ne se lit pas (" + skeleton.message + ").");
+                }
+                known =
+                    _skeletons
+                        .emplace(sheet.sheet.skeleton,
+                                 skeleton.ok() ? std::make_shared<const core::SkeletonDescription>(
+                                                     std::move(skeleton.skeleton))
+                                               : nullptr)
+                        .first;
+            }
+            loaded.skeleton = known->second;
+        }
+        GRAPHICS_LOG_INFO("Lieu : modele '" + path + "' charge (" + std::to_string(triangles) +
+                          " triangles, " + std::to_string(clips) + " clips).");
+    }
+}
+
 std::optional<LoadedTexture> WorldSceneRenderer::figureMarker(const std::string& path) {
     const std::string cle = figureMarkerKey(path);
     if (cle.empty()) {
@@ -309,6 +366,8 @@ void WorldSceneRenderer::release() noexcept {
     _figuresDirty = true;
     _textures.byPath.clear();
     _textures.meshes.clear();
+    _textures.figures.clear();
+    _skeletons.clear();
     _meshes.reset();
     _textures.missing = SceneTexture{};
     _textures.solid = SceneTexture{};
@@ -359,12 +418,14 @@ void WorldSceneRenderer::refresh(const core::IsoProjection& projection) {
     if (_sceneDirty) {
         ensureTextures(worldTexturePaths(*_scene));
         ensureMeshes(worldMeshPaths(*_scene));
+        ensureFigureModels(worldFigureModelPaths(_scene->figures));
         _statics.build(*_scene, projection, _textures, _composeOptions);
         _sceneDirty = false;
     }
     // Les figurines : leurs bandes, quand elles changent (une figurine neuve, une autre bande).
     if (_figuresDirty) {
         ensureTextures(worldFigureTexturePaths(*_scene, _figures));
+        ensureFigureModels(worldFigureModelPaths(_figures));
         _figuresDirty = false;
     }
 }
@@ -448,7 +509,8 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
     submitComposedScene(sprites, camera.projectionMatrix(), _composed, depth ? &*depth : nullptr);
     _meshes->beginFrame();
     for (const ComposedMesh& mesh : _composed.meshes()) {
-        _meshes->draw(mesh.mesh, camera.meshMatrix(mesh.toView), mesh.opacity);
+        _meshes->draw(mesh.mesh, camera.meshMatrix(mesh.toView), mesh.opacity,
+                      _composed.poseOf(mesh));
     }
 
     // Une seule passe : les televersements d'abord, puis les maillages, qui ecrivent la profondeur,

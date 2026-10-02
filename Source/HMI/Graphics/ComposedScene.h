@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <optional>
+#include <span>
 #include <unordered_map>
 #include <vector>
 
@@ -125,6 +126,11 @@ struct ComposedMesh {
     int storey = 0;
     /// Opacité, de 0 à 1 : 1 partout, sauf ce que l'appelant éteint ou grise.
     float opacity = 1.0F;
+    /// La pose d'un maillage **animé** (`LOT-1005`) : où elle commence dans
+    /// `ComposedScene::poses`, et combien de flottants elle compte (seize par os). Zéro : un
+    /// maillage fixe, ou un modèle dans sa pose de liaison.
+    std::uint32_t poseOffset = 0;
+    std::uint32_t poseFloats = 0;
 
     [[nodiscard]] bool operator==(const ComposedMesh&) const = default;
 };
@@ -250,10 +256,19 @@ public:
      * @param toView  Sa pose dans la vue.
      * @param bounds  Le rectangle de l'image qu'il occupe, en unités monde.
      * @param storey  Étage de la pièce (`LOT-129`), 0 au rez.
+     * @param pose    La pose d'un maillage animé (`core::poseSkeleton`), recopiée dans la scène ;
+     *                vide pour un maillage fixe.
      * @return `true` si le maillage a été conservé, `false` si le culling l'a écarté.
      */
     bool addMesh(RenderLayer layer, MeshHandle mesh, const ViewTransform& toView,
-                 const core::Rect& bounds, int storey = 0);
+                 const core::Rect& bounds, int storey = 0, std::span<const float> pose = {});
+
+    /// @return La pose de @p mesh, vide s'il n'en a pas.
+    [[nodiscard]] std::span<const float> poseOf(const ComposedMesh& mesh) const noexcept {
+        return static_cast<std::size_t>(mesh.poseOffset) + mesh.poseFloats <= _poses.size()
+                   ? std::span<const float>{_poses}.subspan(mesh.poseOffset, mesh.poseFloats)
+                   : std::span<const float>{};
+    }
 
     /// @return Les maillages placés, dans l'ordre de composition.
     [[nodiscard]] const std::vector<ComposedMesh>& meshes() const noexcept {
@@ -348,6 +363,8 @@ private:
 
     std::vector<ComposedQuad> _quads;
     std::vector<ComposedMesh> _meshes;
+    /// Les poses des maillages animés de l'image, bout à bout (`ComposedMesh::poseOffset`).
+    std::vector<float> _poses;
     std::vector<TextureHandle> _textureOrder;
     /// Rang de chaque texture déjà vue. Une carte HD en cite des centaines : une recherche
     /// linéaire par primitive coûtait plus que la composition elle-même (audit de l'affichage, A4).

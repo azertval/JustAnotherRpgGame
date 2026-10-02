@@ -30,7 +30,8 @@ Source/Elements/Assets/
 │   ├── Props/                   mobilier et objets génériques
 │   ├── Fx/                      effets de combat et de sort
 │   └── Characters/
-│       ├── Skeletons/<silhouette>/   le squelette commun et ses clips (LOT-1006)
+│       ├── Skeletons/<silhouette>/   `skeleton.json` : les os et les clips du squelette commun (LOT-1005, LOT-1006)
+│       ├── Mannequins/<silhouette>/  le mannequin en modèle, et sa fiche `character.json`
 │       ├── Heroes/<classe>/     les personnages jouables
 │       ├── Peoples/<espèce>/<archétype>/    PNJ neutres génériques
 │       ├── Beasts/<bête>/       les animaux

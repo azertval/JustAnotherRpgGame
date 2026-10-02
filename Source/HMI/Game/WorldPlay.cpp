@@ -98,6 +98,7 @@ bool WorldPlay::followFollowers() {
                 suiveur.facing = facing;
                 changed = true;
             }
+            suiveur.heading = figureHeadingFor(direction, suiveur.heading);
         }
         suiveur.point = point;
     }
@@ -136,6 +137,7 @@ WorldPlayStep WorldPlay::step(const core::ExplorationIntent& intent, float secon
             _heroFacing = facing;
             result.figuresChanged = true;
         }
+        _heroHeading = figureHeadingFor(intent.move, _heroHeading);
     }
     if (followFollowers()) {
         result.figuresChanged = true;
@@ -218,6 +220,7 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
         const ResolvedFigure& resolue =
             _figures.resolve(figure.figure, nom != nullptr ? *nom : std::string{}, _appearance);
         figure.figure = resolue.directory;
+        figure.model = resolue.model;
         figure.facing = resolue.oriented ? FigureFacing::SouthEast : FigureFacing::None;
         figure.seconds = _elapsed + (static_cast<float>(rang) * NPC_BREATH_OFFSET_SECONDS);
     }
@@ -231,7 +234,10 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
             .frame = frame,
             .facing = suiveur.figure.oriented ? suiveur.facing : FigureFacing::None,
             .seconds = _elapsed,
-            .hero = false});
+            .hero = false,
+            .combatant = false,
+            .model = suiveur.figure.model,
+            .heading = suiveur.heading});
     }
     figures.push_back(
         WorldFigureSnapshot{.figure = _hero.directory,
@@ -240,7 +246,10 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
                             .frame = frame,
                             .facing = heroFacing(),
                             .seconds = _elapsed,
-                            .hero = true});
+                            .hero = true,
+                            .combatant = false,
+                            .model = _hero.model,
+                            .heading = _heroHeading});
     return figures;
 }
 

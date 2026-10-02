@@ -18,7 +18,9 @@ postes produisent les mêmes octets ; `--check` vérifie que les fichiers sont �
 | `Assets/Scene/ilot/roof.glb` | un toit à quatre pans sur trois cases de côté : 4 triangles |
 | `Assets/Scene/ilot/paving.png` | la dalle de sol **en image**, pour qu'une même carte mêle les deux formes |
 | `Assets/Scene/ilot/manifest.json` | le lieu : trois clés citent un maillage (`"mesh"`), une une image (`"file"`) |
-| `Assets/Npc/` | la figurine témoin, 1,80 m, d'une teinte que rien d'autre ne porte |
+| `Assets/Npc/temoin/` | la figurine témoin, 1,80 m, d'une teinte que rien d'autre ne porte |
+| `Assets/Npc/pantin/` | le **pantin** (`LOT-1005`) : un modèle de 1,80 m, trois blocs verts liés à trois os (`Root`, `spine_01`, `head`), six clips de deux à quatre clés, et sa fiche `character.json` |
+| `Assets/Common/Characters/Skeletons/pantin/skeleton.json` | la description du squelette du pantin : os, durée, boucle et image clé de chaque clip |
 | `Levels/ilot.json` | dix cases sur huit : une cour dallée de maillages, un anneau de huit murs, son toit à l'étage, deux PNJ |
 
 Les maillages sont au [standard 3D](../../../../Planning/standards/style-3d.md) : le mètre, la

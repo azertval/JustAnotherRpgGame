@@ -147,6 +147,19 @@ enum class FigureFacing : std::uint8_t {
 [[nodiscard]] FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept;
 
 /**
+ * @brief Le **cap** d'une figurine en modèle (`LOT-1005`) : l'angle, en radians, de la direction
+ *        où elle regarde dans le plan de la grille — 0 vers les colonnes croissantes (sud-est à
+ *        l'écran), π/2 vers les lignes croissantes (sud-ouest). Un modèle s'oriente librement :
+ *        il n'a pas de table de quatre orientations.
+ * @return Le cap de la diagonale @p facing ; pour `None`, face à la caméra (π/4).
+ */
+[[nodiscard]] float figureHeadingOf(FigureFacing facing) noexcept;
+
+/// @return Le cap d'une figurine qui se déplace de @p move, en cases ; @p previous si le
+///         déplacement est nul.
+[[nodiscard]] float figureHeadingFor(core::Vector2 move, float previous) noexcept;
+
+/**
  * @brief Les bandes d'une figurine (standard 2D HD, §5, et le tir du `LOT-136`) : ce qu'une
  * figurine complète sait jouer, et ce qu'un combattant précharge (`LOT-118`).
  *
@@ -183,6 +196,10 @@ inline constexpr std::array<std::string_view, 7> ALL = {IDLE, WALK, ATTACK, RANG
 ///        un personnage sans figurine.
 [[nodiscard]] std::string placeholderFigureDirectory(std::string_view silhouette);
 
+/// @brief Le dossier du mannequin **en modèle** d'une silhouette (`LOT-1005`) : un maillage neutre
+///        lié au squelette de la silhouette, et sa fiche.
+[[nodiscard]] std::string mannequinFigureDirectory(std::string_view silhouette);
+
 /// @brief La silhouette par défaut d'un personnage qui n'en déclare pas.
 inline constexpr std::string_view DEFAULT_SILHOUETTE = "humanoid";
 
@@ -213,6 +230,11 @@ struct WorldFigureSnapshot {
     /// Un combattant (`LOT-118`) : ses bandes se préchargent, pour qu'un coup ne charge pas une
     /// texture au milieu d'une image. Une figurine d'exploration n'en précharge que deux.
     bool combatant = false;
+    /// Le **modèle** de la figurine (`LOT-1005`) : le chemin de son `.glb`, relatif au dossier des
+    /// assets (`hmi::ResolvedFigure::model`). Vide : la figurine se dessine par ses bandes.
+    std::string model;
+    /// Le cap d'un modèle (`figureHeadingOf`) ; absent : celui de @ref facing.
+    std::optional<float> heading;
 
     [[nodiscard]] bool operator==(const WorldFigureSnapshot&) const = default;
 };
@@ -445,6 +467,11 @@ template <class Map>
  */
 [[nodiscard]] std::string figureStripPath(std::string_view figure, std::string_view clip,
                                           FigureFacing facing = FigureFacing::None);
+
+/// @return Les fichiers de modèle (`.glb`) des figurines @p figures qui en ont un, sans doublon,
+///         triés (`LOT-1005`).
+[[nodiscard]] std::vector<std::string> worldFigureModelPaths(
+    std::span<const WorldFigureSnapshot> figures);
 
 /// @return Tous les chemins de texture que @p snapshot demandera, sans doublon, triés. Une pièce
 ///         en maillage n'y est pas : son fichier se charge à part (`worldMeshPaths`).

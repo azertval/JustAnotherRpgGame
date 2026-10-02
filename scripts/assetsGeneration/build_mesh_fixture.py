@@ -14,7 +14,11 @@ ne change avant le LOT-1004. Ce script écrit ces données, sous `Source/Test/Fi
 - le manifeste du lieu `ilot`, dont trois clés citent un maillage (`"mesh"`) et une une image ;
 - la carte `ilot` : une cour dallée, un îlot de murs en anneau, son toit à l'étage ;
 - une figurine témoin de 1,80 m, d'une teinte que rien d'autre ne porte : ce que le tampon de
-  profondeur en laisse voir se compte.
+  profondeur en laisse voir se compte ;
+- un **pantin** (LOT-1005) : un modèle de 1,80 m lié à un squelette de trois os, ses six clips, sa
+  fiche (`character.json`) et la description de son squelette (`skeleton.json`). Chaque sommet
+  suit un seul os et chaque clip tient en trois clés : ce qu'un test attend d'une pose se calcule
+  de tête.
 
 Rien ne s'y retouche à la main, et rien n'y dépend d'une bibliothèque : le `.glb` et le PNG sont
 écrits octet par octet, sans compression, pour que deux postes produisent les mêmes fichiers.
@@ -58,6 +62,7 @@ WARM_GREY = (0x9C, 0x94, 0x8A)
 BURGUNDY = (0x8E, 0x23, 0x35)
 BRONZE = (0x5C, 0x4A, 0x2A)
 TEAL = (0x2F, 0x7F, 0x86)
+LEAF = (0x3F, 0x6B, 0x34)
 
 TEXTURE_SIDE = 64
 
@@ -275,6 +280,198 @@ def encode_glb(name: str, mesh: Mesh, texture: bytes) -> bytes:
     return struct.pack("<4sII", b"glTF", 2, 12 + len(body)) + body
 
 
+# --- Le pantin (LOT-1005) ----------------------------------------------------------------------
+PUPPET = "pantin"
+PUPPET_HEIGHT = 1.8
+PUPPET_HALF = 0.2                    # demi-largeur du corps, en mètres
+# Les os, parents avant enfants : (nom, parent, position de l'articulation dans le maillage).
+PUPPET_BONES = [
+    ("Root", "", (0.0, 0.0, 0.0)),
+    ("spine_01", "Root", (0.0, 0.9, 0.0)),
+    ("head", "spine_01", (0.0, 1.5, 0.0)),
+]
+
+
+def _quaternion(axis: str, degrees: float) -> tuple[float, float, float, float]:
+    """La rotation de `degrees` autour de l'axe `axis`, en quaternion (x, y, z, w)."""
+    half = math.radians(degrees) / 2
+    sine = math.sin(half)
+    return (sine if axis == "x" else 0.0, sine if axis == "y" else 0.0,
+            sine if axis == "z" else 0.0, math.cos(half))
+
+
+# Les clips : (nom, durée, boucle, image clé, canaux). Un canal est (os, chemin, clés), une clé
+# (instant, valeur). Le pantin regarde vers +Z : se pencher en avant tourne autour de +X.
+PUPPET_CLIPS = [
+    ("idle", 1.0, True, None, [
+        ("head", "rotation", [(0.0, _quaternion("x", 0)), (0.5, _quaternion("x", 10)),
+                              (1.0, _quaternion("x", 0))])]),
+    ("walk", 0.5, True, None, [
+        ("spine_01", "rotation", [(0.0, _quaternion("y", 0)), (0.125, _quaternion("y", 20)),
+                                  (0.375, _quaternion("y", -20)), (0.5, _quaternion("y", 0))])]),
+    ("attack", 0.8, False, 0.4, [
+        ("spine_01", "rotation", [(0.0, _quaternion("x", 0)), (0.4, _quaternion("x", 60)),
+                                  (0.8, _quaternion("x", 0))])]),
+    ("cast", 0.6, False, 0.3, [
+        ("head", "rotation", [(0.0, _quaternion("x", 0)), (0.3, _quaternion("x", -30)),
+                              (0.6, _quaternion("x", 0))])]),
+    ("hit", 0.4, False, None, [
+        ("spine_01", "rotation", [(0.0, _quaternion("x", 0)), (0.2, _quaternion("x", -25)),
+                                  (0.4, _quaternion("x", 0))])]),
+    # La chute : le corps bascule en arrière autour de ses pieds et se soulève de sa demi-épaisseur,
+    # pour reposer sur le sol.
+    ("death", 0.8, False, None, [
+        ("Root", "rotation", [(0.0, _quaternion("x", 0)), (0.8, _quaternion("x", -90))]),
+        ("Root", "translation", [(0.0, (0.0, 0.0, 0.0)), (0.8, (0.0, PUPPET_HALF, 0.0))])]),
+]
+
+
+def puppet_texture() -> list[tuple[int, int, int, int]]:
+    """Un aplat vert feuillage : aucune autre pièce de la carte d'essai n'a cette teinte."""
+    return [_shade(LEAF, 1.0)] * (TEXTURE_SIDE * TEXTURE_SIDE)
+
+
+def _box(mesh: Mesh, half: float, bottom: float, top: float) -> None:
+    flanks = [((-half, half), (half, half)), ((half, half), (half, -half)),
+              ((half, -half), (-half, -half)), ((-half, -half), (-half, half))]
+    uvs = [(0.0, 1.0), (1.0, 1.0), (1.0, 0.0), (0.0, 0.0)]
+    for (lx, lz), (rx, rz) in flanks:
+        mesh.face([(lx, bottom, lz), (rx, bottom, rz), (rx, top, rz), (lx, top, lz)], uvs)
+    mesh.face([(-half, top, -half), (-half, top, half), (half, top, half), (half, top, -half)], uvs)
+    mesh.face([(-half, bottom, half), (-half, bottom, -half), (half, bottom, -half),
+               (half, bottom, half)], uvs)
+
+
+def puppet_mesh() -> tuple[Mesh, list[int]]:
+    """Trois blocs empilés -- jambes, buste, tête -- et l'os que suit chaque sommet."""
+    mesh = Mesh()
+    bones: list[int] = []
+    blocks = [(PUPPET_HALF, 0.0, 0.9), (PUPPET_HALF, 0.9, 1.5), (PUPPET_HALF * 0.75, 1.5,
+                                                                PUPPET_HEIGHT)]
+    for bone, (half, bottom, top) in enumerate(blocks):
+        before = len(mesh.positions)
+        _box(mesh, half, bottom, top)
+        bones += [bone] * (len(mesh.positions) - before)
+    return mesh, bones
+
+
+def encode_puppet_glb() -> bytes:
+    """Le pantin : un maillage lié à trois os, ses clips, sa texture incorporée."""
+    mesh, bones = puppet_mesh()
+    names = [name for name, _, _ in PUPPET_BONES]
+    joint_nodes = {name: index + 1 for index, name in enumerate(names)}  # le nœud 0 est le maillage
+    blobs = [
+        b"".join(struct.pack("<3f", *position) for position in mesh.positions),
+        b"".join(struct.pack("<3f", *normal) for normal in mesh.normals),
+        b"".join(struct.pack("<2f", *uv) for uv in mesh.uvs),
+        b"".join(struct.pack("<H", index) for index in mesh.indices),
+        encode_png(TEXTURE_SIDE, TEXTURE_SIDE, puppet_texture()),
+        b"".join(struct.pack("<4B", bone, 0, 0, 0) for bone in bones),
+        b"".join(struct.pack("<4f", 1.0, 0.0, 0.0, 0.0) for _ in bones),
+        # Les matrices de liaison inverses, en colonnes : la translation opposée à l'articulation.
+        b"".join(struct.pack("<16f", 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -x, -y, -z, 1)
+                 for _, _, (x, y, z) in PUPPET_BONES),
+    ]
+    count = len(mesh.positions)
+    stored = [struct.unpack("<3f", struct.pack("<3f", *position)) for position in mesh.positions]
+    accessors = [
+        {"bufferView": 0, "componentType": 5126, "count": count, "type": "VEC3",
+         "min": [min(position[axis] for position in stored) for axis in range(3)],
+         "max": [max(position[axis] for position in stored) for axis in range(3)]},
+        {"bufferView": 1, "componentType": 5126, "count": count, "type": "VEC3"},
+        {"bufferView": 2, "componentType": 5126, "count": count, "type": "VEC2"},
+        {"bufferView": 3, "componentType": 5123, "count": len(mesh.indices), "type": "SCALAR"},
+        {"bufferView": 5, "componentType": 5121, "count": count, "type": "VEC4"},
+        {"bufferView": 6, "componentType": 5126, "count": count, "type": "VEC4"},
+        {"bufferView": 7, "componentType": 5126, "count": len(PUPPET_BONES), "type": "MAT4"},
+    ]
+    animations = []
+    for clip, _, _, _, channels in PUPPET_CLIPS:
+        animation = {"name": clip, "channels": [], "samplers": []}
+        for bone, path, keys in channels:
+            times = b"".join(struct.pack("<f", instant) for instant, _ in keys)
+            values = b"".join(struct.pack(f"<{len(value)}f", *value) for _, value in keys)
+            for blob, kind in ((times, "SCALAR"), (values, "VEC4" if path == "rotation" else "VEC3")):
+                accessor = {"bufferView": len(blobs), "componentType": 5126, "count": len(keys),
+                            "type": kind}
+                if kind == "SCALAR":
+                    accessor |= {"min": [keys[0][0]], "max": [keys[-1][0]]}
+                accessors.append(accessor)
+                blobs.append(blob)
+            animation["samplers"].append({"input": len(accessors) - 2, "output": len(accessors) - 1,
+                                          "interpolation": "LINEAR"})
+            animation["channels"].append({"sampler": len(animation["samplers"]) - 1,
+                                          "target": {"node": joint_nodes[bone], "path": path}})
+        animations.append(animation)
+    views = []
+    binary = bytearray()
+    for blob in blobs:
+        views.append({"buffer": 0, "byteOffset": len(binary), "byteLength": len(blob)})
+        binary += _pad(blob, b"\x00")
+    nodes = [{"name": PUPPET, "mesh": 0, "skin": 0}]
+    for name, parent, (x, y, z) in PUPPET_BONES:
+        px, py, pz = next((position for other, _, position in PUPPET_BONES if other == parent),
+                          (0.0, 0.0, 0.0))
+        node = {"name": name, "translation": [x - px, y - py, z - pz]}
+        children = [joint_nodes[child] for child, above, _ in PUPPET_BONES if above == name]
+        if children:
+            node["children"] = children
+        nodes.append(node)
+    document = {
+        "asset": {"version": "2.0", "generator": "build_mesh_fixture.py (LOT-1005)"},
+        "scene": 0,
+        "scenes": [{"nodes": [0, joint_nodes["Root"]]}],
+        "nodes": nodes,
+        "meshes": [{"name": PUPPET, "primitives": [{
+            "attributes": {"POSITION": 0, "NORMAL": 1, "TEXCOORD_0": 2, "JOINTS_0": 4,
+                           "WEIGHTS_0": 5},
+            "indices": 3, "material": 0, "mode": 4}]}],
+        "skins": [{"name": PUPPET, "joints": [joint_nodes[name] for name in names],
+                   "inverseBindMatrices": 6, "skeleton": joint_nodes["Root"]}],
+        "animations": animations,
+        "materials": [{"name": PUPPET, "pbrMetallicRoughness": {
+            "baseColorTexture": {"index": 0}, "metallicFactor": 0.0, "roughnessFactor": 1.0}}],
+        "textures": [{"sampler": 0, "source": 0}],
+        "samplers": [{"magFilter": 9729, "minFilter": 9987, "wrapS": 10497, "wrapT": 10497}],
+        "images": [{"bufferView": 4, "mimeType": "image/png"}],
+        "accessors": accessors,
+        "bufferViews": views,
+        "buffers": [{"byteLength": len(binary)}],
+    }
+    text = _pad(json.dumps(document, separators=(",", ":")).encode("utf-8"), b" ")
+    body = (struct.pack("<I4s", len(text), b"JSON") + text
+            + struct.pack("<I4s", len(binary), b"BIN\x00") + bytes(binary))
+    return struct.pack("<4sII", b"glTF", 2, 12 + len(body)) + body
+
+
+def puppet_files() -> dict[str, bytes]:
+    """Le pantin, sa fiche et la description de son squelette."""
+    clips = []
+    for name, duration, loop, key, _ in PUPPET_CLIPS:
+        clip = {"name": name, "duration": duration, "loop": loop}
+        if key is not None:
+            clip["key"] = key
+        clips.append(clip)
+    skeleton = {
+        "version": 1,
+        "silhouette": PUPPET,
+        "comment": "Le squelette du pantin d'essai (LOT-1005), écrit par scripts/assetsGeneration/"
+                   "build_mesh_fixture.py, jamais à la main.",
+        "bones": [{"name": name, "parent": parent} for name, parent, _ in PUPPET_BONES],
+        "clips": clips,
+    }
+    sheet = {"version": 1, "model": f"{PUPPET}.glb", "skeleton": PUPPET}
+
+    def text(document: dict) -> bytes:
+        return (json.dumps(document, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+
+    return {
+        f"Assets/Npc/{PUPPET}/{PUPPET}.glb": encode_puppet_glb(),
+        f"Assets/Npc/{PUPPET}/character.json": text(sheet),
+        f"Assets/Common/Characters/Skeletons/{PUPPET}/skeleton.json": text(skeleton),
+    }
+
+
 # --- Le lieu et la carte -----------------------------------------------------------------------
 def manifest() -> str:
     width, height = ART_TILE
@@ -422,7 +619,7 @@ def files() -> dict[str, bytes]:
     """Chaque fichier des données d'essai, par son chemin relatif à la fixture."""
     side = TEXTURE_SIDE
     scene = f"Assets/Scene/{PLACE}"
-    return figure_files() | {
+    return figure_files() | puppet_files() | {
         f"{scene}/floor.glb": encode_glb("floor", floor_mesh(),
                                          encode_png(side, side, paving_texture())),
         f"{scene}/wall.glb": encode_glb("wall", wall_mesh(),

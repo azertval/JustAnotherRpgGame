@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <functional>
 #include <map>
+#include <memory>
 #include <optional>
 #include <string>
 #include <string_view>
@@ -15,6 +16,8 @@
 #include "Core/Levels/GridPosition.h"
 #include "Core/Math/Rect.h"
 #include "Core/Math/Vector2.h"
+#include "Core/Resources/MeshFile.h"
+#include "Core/Resources/SkeletonFile.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/Quad.h"
 #include "HMI/Graphics/RenderLayer.h"
@@ -117,6 +120,23 @@ struct SceneMesh {
 };
 
 /**
+ * @brief Le **modèle** d'une figurine (`LOT-1005`) : son maillage chargé, le squelette et les
+ *        clips que son fichier porte, et ce que le squelette de sa silhouette déclare.
+ */
+struct SceneFigureModel {
+    MeshHandle mesh = nullptr;
+    /// La boîte du maillage dans sa pose de liaison, en mètres.
+    std::array<float, 3> minimum{};
+    std::array<float, 3> maximum{};
+    /// Le squelette et les clips du fichier ; nul pour un modèle sans squelette, qui se dessine
+    /// tel quel.
+    std::shared_ptr<const core::MeshRig> rig;
+    /// Ce que le squelette déclare de ses clips — boucle, image clé (`skeleton.json`) ; nul s'il
+    /// ne se lit pas : un clip sans déclaration boucle, comme une bande sans `.anim.json`.
+    std::shared_ptr<const core::SkeletonDescription> skeleton;
+};
+
+/**
  * @brief Les textures d'un lieu, adressées par leur **chemin** tel que la composition l'écrit —
  *        et, depuis le `LOT-1003`, ses maillages, adressés de même.
  *
@@ -134,6 +154,14 @@ struct ScenePieceTextures {
     [[nodiscard]] const SceneMesh* findMesh(std::string_view path) const {
         const auto found = meshes.find(path);
         return found != meshes.end() && found->second.mesh != nullptr ? &found->second : nullptr;
+    }
+    /// Les modèles des figurines, par chemin de leur `.glb` (`LOT-1005`).
+    std::map<std::string, SceneFigureModel, std::less<>> figures;
+
+    /// @return Le modèle de figurine de @p path, `nullptr` s'il n'est pas chargé.
+    [[nodiscard]] const SceneFigureModel* findFigure(std::string_view path) const {
+        const auto found = figures.find(path);
+        return found != figures.end() && found->second.mesh != nullptr ? &found->second : nullptr;
     }
     /// Damier de repli.
     SceneTexture missing;

@@ -51,11 +51,22 @@ Ce que la preuve a **mesuré**, sur ses deux personnages :
 | Texture incorporée | 4096 × 4096, JPEG | 4096 × 4096, JPEG |
 | Fichier `.glb` | 15,1 Mio | 15,5 Mio |
 
-**Ces valeurs ne sont pas un budget** (décision de l'auteur, 1er octobre 2026) : le plafond de
-triangles, la définition de la texture et la taille des tampons d'os se fixent au
-[LOT-1005](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1005-squelette-et-animations.md), sur
-`bench_world_frame`, quand le moteur anime un modèle. D'ici là, un modèle **ne dépasse pas** ce
-que la preuve a mesuré : 103 000 triangles, 4096 px de côté, 53 os.
+**Le budget d'un modèle animé**, fixé au
+[LOT-1005](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1005-squelette-et-animations.md) sur ce
+que le moteur a mesuré en animant huit modèles à l'écran (2 octobre 2026, poste de l'auteur,
+1080p, carte d'Arenarea) :
+
+| Poste | Budget | Ce qui a été mesuré |
+|---|---|---|
+| Triangles | **100 000** au plus | huit modèles de 100 000 triangles : + 0,5 ms par image, relecture comprise (`CanvasBenchmarks`, `WorldFrameEightModels1080p` : 6,3 ms contre 5,9 ms en bandes, pour 16,7 ms disponibles) |
+| Texture | **2048 × 2048** au plus, couleur de base seule | celle des modèles de l'atelier ; huit modèles tiennent 237 Mio de mémoire graphique, mipmaps comprises |
+| Os | **64** au plus par squelette : la taille du bloc d'os du shader (`hmi::MeshBatch::MAX_BONES`) | le squelette `humanoid` en a 53 ; la pose de huit squelettes coûte 42 µs par image (`bench_world_frame`, `ArenareaFrame1080pEightModels`) |
+| Influences | **quatre** os par sommet, poids de somme 1 | celles du format (`JOINTS_0`, `WEIGHTS_0`) |
+
+Une texture de 4096 px pèse quatre fois plus (85 Mio par modèle) et n'a pas été mesurée à huit
+modèles : elle sort du budget tant qu'une mesure ne l'y fait pas entrer. Les mesures sont celles
+d'une carte graphique dédiée ; le rendu logiciel de la CI (WARP) ne dessine que le modèle d'essai,
+de 4 000 triangles.
 
 Le plafond de **5 Mio par fichier** (`check_binary_files.py`) porte sur les fichiers **suivis par
 Git** : un `.glb` de kit n'y est pas, il n'est donc pas borné par lui. Aucun budget de poids par
@@ -185,7 +196,6 @@ plus rien ne s'y ajoute.
 
 | Question | Tranchée par | Quand |
 |---|---|---|
-| Le **budget** d'un modèle : triangles, texture, os, influences | la mesure de `bench_world_frame` | LOT-1005 |
 | Le **contour sombre** : passe dédiée, ou abandon | l'auteur, sur le kit rendu avec et sans | LOT-1004 |
 | La **forme** — maillage ou image — de chaque pièce des familles 02, 03, 04, 07, 09, 10 | la fiche du lot, pièce par pièce | LOT-1004 |
 | Le budget d'un maillage **de décor** | la mesure sur le kit de la Capitale | LOT-1004 |

@@ -6,6 +6,7 @@
 #include <array>
 #include <cstddef>
 #include <memory>
+#include <span>
 #include <vector>
 
 #include <DirectXMath.h>
@@ -52,10 +53,23 @@ struct RhiContext;
  *
  * L'opacité d'un dessin (`draw`) sert les calques grisés de l'éditeur ; à 1, le mélange
  * prémultiplié du pipeline ne change rien à un maillage opaque.
+ *
+ * ## Les maillages animés (`LOT-1005`)
+ *
+ * Un maillage lié à un squelette (`core::MeshData::skin`) porte un second tampon de sommets — les
+ * quatre os et les quatre poids de chacun — et se dessine par un second pipeline, dont le shader
+ * déforme chaque sommet par les matrices de ses os. La **pose** est donnée au dessin (`draw`,
+ * `bones`) : seize flottants par os, tels que `core::poseSkeleton` les rend. Dessiné sans pose,
+ * un maillage lié reste dans sa pose de liaison, par le pipeline des maillages fixes. Un maillage
+ * fixe ne passe jamais par le second pipeline : son image est celle d'avant le lot.
  */
 class MeshBatch {
 public:
     /// @param rhi Interface de rendu, non possédée ; doit survivre à l'objet.
+    /// Le plus d'os qu'un squelette dessiné peut porter : la taille du bloc d'os du shader
+    /// (`mesh_skinned.vert`). Le squelette humanoïde en a 53.
+    static constexpr std::size_t MAX_BONES = 64;
+
     explicit MeshBatch(QRhi* rhi);
     ~MeshBatch();
 
@@ -90,8 +104,17 @@ public:
      * @param mesh    Le maillage (`create`) ; nul ou inconnu, rien n'est enregistré.
      * @param clip    Matrice maillage → clip (`hmi::PlaceCamera::meshMatrix`).
      * @param opacity Opacité, de 0 à 1.
+     * @param bones   La pose d'un maillage animé : seize flottants par os (`core::poseSkeleton`).
+     *                Vide, ou d'une taille qui n'est pas celle du squelette du maillage : il se
+     *                dessine dans sa pose de liaison.
      */
-    void draw(MeshHandle mesh, const DirectX::XMFLOAT4X4& clip, float opacity = 1.0F);
+    void draw(MeshHandle mesh, const DirectX::XMFLOAT4X4& clip, float opacity = 1.0F,
+              std::span<const float> bones = {});
+
+    /// @return Le nombre de dessins **animés** enregistrés pour l'image en cours.
+    [[nodiscard]] std::size_t skinnedDrawCount() const noexcept {
+        return _poses.size() / (MAX_BONES * 16);
+    }
 
     /// @return Le nombre de maillages enregistrés pour l'image en cours.
     [[nodiscard]] std::size_t drawCount() const noexcept {
@@ -115,12 +138,18 @@ private:
     struct GpuMesh {
         std::unique_ptr<QRhiBuffer> vertices;
         std::unique_ptr<QRhiBuffer> indices;
+        /// Les os et les poids de chaque sommet ; nul pour un maillage fixe.
+        std::unique_ptr<QRhiBuffer> skin;
+        /// Le nombre d'os du squelette ; 0 pour un maillage fixe.
+        std::size_t boneCount = 0;
         LoadedTexture texture;
         std::size_t indexCount = 0;
         std::array<float, 4> baseColor{1.0F, 1.0F, 1.0F, 1.0F};
         /// Liaisons de ce maillage : son bloc uniforme à décalage dynamique, sa texture. Refaites
         /// quand le tampon uniforme change.
         std::unique_ptr<QRhiShaderResourceBindings> bindings;
+        /// Les mêmes, plus le bloc d'os, pour le pipeline animé.
+        std::unique_ptr<QRhiShaderResourceBindings> skinnedBindings;
     };
 
     /// Un dessin enregistré : un maillage, sa matrice, sa teinte.
@@ -128,11 +157,16 @@ private:
         GpuMesh* mesh = nullptr;
         DirectX::XMFLOAT4X4 clip{};
         float opacity = 1.0F;
+        /// Le rang de sa pose parmi les dessins animés de l'image ; -1 : pose de liaison.
+        int pose = -1;
     };
 
     bool ensurePipeline(QRhiRenderTarget* target);
+    bool ensureSkinnedPipeline(QRhiRenderTarget* target);
     bool ensureUniformCapacity(std::size_t drawCount);
+    bool ensureBoneCapacity(std::size_t poseCount);
     QRhiShaderResourceBindings* bindingsFor(GpuMesh& mesh);
+    QRhiShaderResourceBindings* skinnedBindingsFor(GpuMesh& mesh);
 
     QRhi* _rhi;  // non possédé
     std::unique_ptr<QRhiSampler> _sampler;
@@ -142,6 +176,17 @@ private:
     QRhiRenderPassDescriptor* _pipelinePass = nullptr;
     std::size_t _uniformSlots = 0;
     int _uniformStride = 0;
+    /// Le pipeline des maillages animés, son tampon d'os (un bloc de `MAX_BONES` matrices par
+    /// dessin animé) et ses liaisons de référence.
+    std::unique_ptr<QRhiBuffer> _boneBuffer;
+    std::unique_ptr<QRhiShaderResourceBindings> _skinnedLayoutBindings;
+    std::unique_ptr<QRhiGraphicsPipeline> _skinnedPipeline;
+    QRhiRenderPassDescriptor* _skinnedPipelinePass = nullptr;
+    std::size_t _boneSlots = 0;
+    int _boneStride = 0;
+    /// Les poses de l'image : `MAX_BONES` matrices par dessin animé, l'identité au-delà du
+    /// squelette.
+    std::vector<float> _poses;
 
     std::vector<std::unique_ptr<GpuMesh>> _meshes;
     std::size_t _bytes = 0;

@@ -155,6 +155,7 @@ qt6_add_shaders(LevelEditor "level_editor_shaders"
         ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.vert
         ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.frag
         ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.vert
+        ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh_skinned.vert
         ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.frag
 )
 

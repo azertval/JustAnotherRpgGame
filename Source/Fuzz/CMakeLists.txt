@@ -34,7 +34,8 @@ set(JADG_FUZZ_SEEDS_json "${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Json;${PROJ
 set(JADG_FUZZ_SEEDS_level "${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/GameData/Levels;${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Levels")
 # Les trois maillages de la carte d'essai (LOT-1003) : des `.glb` valides et minuscules, d'ou le
 # fuzzer derive ses entrees plutot que de buter sur l'en-tete binaire.
-set(JADG_FUZZ_SEEDS_mesh "${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Meshes/Assets/Scene/ilot")
+# Le pantin (LOT-1005) y ajoute un modèle lié : un squelette, des poids, des clips.
+set(JADG_FUZZ_SEEDS_mesh "${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Meshes/Assets/Scene/ilot;${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Meshes/Assets/Npc/pantin")
 set(JADG_FUZZ_SEEDS_dialogue "${PROJECT_SOURCE_DIR}/Source/Elements/World/dialogues")
 set(JADG_FUZZ_SEEDS_localization "${PROJECT_SOURCE_DIR}/Source/Elements/Localization")
 

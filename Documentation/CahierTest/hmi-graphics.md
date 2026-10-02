@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **178 cas** (40 bloquants, 48 critiques, 85 majeurs, 5 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **186 cas** (44 bloquants, 51 critiques, 86 majeurs, 5 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -13,6 +13,8 @@ Tests unitaires — **178 cas** (40 bloquants, 48 critiques, 85 majeurs, 5 mineu
 | [`test_city_block_render.cpp`](#test-city-block-rendercpp) | 2 | - | - | 2 | - |
 | [`test_depth_sort.cpp`](#test-depth-sortcpp) | 5 | - | 4 | 1 | - |
 | [`test_entity_markers.cpp`](#test-entity-markerscpp) | 5 | - | 1 | 4 | - |
+| [`test_figure_model.cpp`](#test-figure-modelcpp) | 4 | 1 | 2 | 1 | - |
+| [`test_figure_model_render.cpp`](#test-figure-model-rendercpp) | 4 | 3 | 1 | - | - |
 | [`test_hd_mockup_render.cpp`](#test-hd-mockup-rendercpp) | 3 | 2 | - | - | 1 |
 | [`test_image_encode.cpp`](#test-image-encodecpp) | 5 | - | 1 | 4 | - |
 | [`test_iso_view.cpp`](#test-iso-viewcpp) | 6 | 3 | - | 3 | - |
@@ -825,6 +827,189 @@ Les pixels du marqueur sont empaquetes au format de createTexture.
 - Vérifie que `pixels[0]` vaut `0x44332211u`.
 - Vérifie que `pixels[1]` vaut `0xFFCCBBAAu`.
 - Vérifie que `hmi::markerPixelsRgba8(core::MarkerImage{}).empty()` est vrai.
+
+## test_figure_model.cpp
+
+### FigureModelTest.UneFigurineEnModeleSeComposeEnMaillage
+
+*Bloquant · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:108`
+
+Une figurine en modele se compose en maillage, avec la pose de son clip.
+
+**Étapes**
+
+1. Composer le pantin a 0,4 s de son attaque et la figurine temoin, en bandes.
+2. Lire la scene composee.
+
+**Résultat attendu**
+
+- Vérifie que `scene.meshes().size()` vaut `1U`.
+- Vérifie que `mesh.layer` vaut `hmi::RenderLayer::Player`.
+- Vérifie que `mesh.mesh` vaut `&place.identities[0]`.
+- Vérifie que `mesh.poseFloats` vaut `3U * 16U`.
+- Vérifie que `top[1]` vaut `0.9F + (0.9F * 0.5F)`, à `TOLERANCE` près.
+- Vérifie que `top[2]` vaut `0.9F * std::sin(std::numbers::pi_v<float> / 3.0F)`, à `TOLERANCE` près.
+- Vérifie que `scene.quads().size()` vaut `1U`.
+- Vérifie que `scene.quads().front().texture` vaut `&place.identities[1]`.
+- Vérifie que `path.starts_with("Npc/pantin")` est faux.
+- Vérifie que `hmi::worldFigureModelPaths(figures)` vaut `(std::vector<std::string>{MODEL})`.
+
+### FigureModelTest.UnClipBoucleOuSeFige
+
+*Critique · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:147`
+
+Un clip boucle ou se fige selon ce que son squelette declare.
+
+**Étapes**
+
+1. Composer le pantin a 0,125 s puis a 0,625 s de sa marche (clip de 0,5 s, en boucle).
+2. Le composer a 0,8 s puis a 30 s de sa chute (jouee une fois).
+3. Le composer sur un tir, qu'il n'a pas, puis sur un clip inconnu.
+
+**Résultat attendu**
+
+- Vérifie que `scene.meshes().size()` vaut `1U`.
+- Vérifie que `step.size()` vaut `nextCycle.size()`.
+- Vérifie que `step[index]` vaut `nextCycle[index]`, à `TOLERANCE` près.
+- Vérifie que `step` diffère de `poseOf("walk", 0.0F)`.
+- Vérifie que `poseOf("death", 0.8F)` vaut `poseOf("death", 30.0F)`.
+- Vérifie que `crown(fallen, fallen.meshes().front())[1]` vaut `0.2F`, à `TOLERANCE` près.
+- Vérifie que `poseOf("ranged", 0.4F)` vaut `poseOf("attack", 0.4F)`.
+- Vérifie que `poseOf("dance", 0.25F)` vaut `poseOf("idle", 0.25F)`.
+
+### FigureModelTest.UnModeleFaitFaceASonCap
+
+*Critique · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:185`
+
+Un modele fait face a son cap, sans table de quatre orientations.
+
+**Étapes**
+
+1. Composer le pantin avec un cap vers les colonnes croissantes, vers les lignes croissantes, puis a 30 degres entre les deux.
+2. Le composer sans cap, oriente au nord-ouest.
+3. Lire ou sa pose dans la vue met un point situe un metre devant lui.
+
+**Résultat attendu**
+
+- Vérifie que `scene.meshes().size()` vaut `1U`.
+- Vérifie que `foot[0]` vaut `expected.x`, à `TOLERANCE` près.
+- Vérifie que `foot[1]` vaut `expected.y`, à `TOLERANCE` près.
+- Vérifie que `point[0]` vaut `target.x`, à `TOLERANCE` près.
+- Vérifie que `point[1]` vaut `target.y`, à `TOLERANCE` près.
+- Vérifie que `hmi::figureHeadingFor({1.0F, 1.0F}, 0.0F)` vaut `QUARTER / 2.0F`, à `TOLERANCE` près.
+- Vérifie que `hmi::figureHeadingFor({0.0F, 0.0F}, 1.25F)` vaut `1.25F` (comparaison flottante).
+
+### FigureModelTest.UnModeleAbsentLaisseVoirLeDamier
+
+*Majeur · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:235`
+
+Un modele qui ne s'est pas charge laisse voir le damier.
+
+**Étapes**
+
+1. Composer une figurine dont le modele n'est pas parmi ceux du rendu.
+
+**Résultat attendu**
+
+- Vérifie que `scene.meshes().empty()` est vrai.
+- Vérifie que `scene.quads().size()` vaut `1U`.
+- Vérifie que `scene.quads().front().texture` vaut `&place.identities[2]`.
+
+## test_figure_model_render.cpp
+
+### FigureModelRenderTest.LeModeleDEssaiSeDessineEtJoueSesClips
+
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:142`
+
+Le modele d'essai se dessine et joue ses clips par ses os.
+
+**Étapes**
+
+1. Rendre la carte d'essai, le pantin au repos devant l'îlot.
+2. Le rendre à 0,4 s de son attaque : le buste penché de 60° vers la caméra.
+3. Le tourner vers la droite de l'écran et le rendre à la fin de sa chute, puis trente secondes plus tard.
+
+**Résultat attendu**
+
+- Vérifie que `model` diffère de `nullptr`.
+- Vérifie que `model->rig` diffère de `nullptr`.
+- Vérifie que `model->rig->joints.size()` vaut `3U`.
+- Vérifie que `model->skeleton` diffère de `nullptr`.
+- Vérifie que `model->skeleton->silhouette` vaut `"pantin"`.
+- Vérifie que `path.starts_with("Npc/pantin/") && path.ends_with(".png")` est faux.
+- Vérifie que `idle.pixels` est strictement supérieur à `300U`.
+- Vérifie que `idle.height()` est strictement supérieur à `40`.
+- Vérifie que `idle.height()` est strictement inférieur à `62`.
+- Vérifie que `strike.pixels` est strictement supérieur à `300U`.
+- Vérifie que `strike.top` est strictement supérieur à `idle.top + (idle.height() / 5)`.
+- Vérifie que `std::abs(strike.left - idle.left)` est inférieur ou égal à `1`.
+- Vérifie que `fallen.pixels` est strictement supérieur à `300U`.
+- Vérifie que `fallen.width()` est strictement supérieur à `fallen.height() * 2`.
+- Vérifie que `fallen.left` est strictement inférieur à `idle.left - 20`.
+- Vérifie que `fallen.pixels` vaut `later.pixels`.
+- Vérifie que `fallen.left` vaut `later.left`.
+
+### FigureModelRenderTest.UnModeleSeDepartageParLaProfondeur
+
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:208`
+
+Un modele passe derriere un mur, et se tient entier sur un sol en image.
+
+**Étapes**
+
+1. Rendre le pantin devant l'îlot, sur la cour en maillages (5, 5).
+2. Le rendre derrière l'îlot (5, 1).
+3. Le rendre sur le sol en images, hors de la cour (1, 6).
+
+**Résultat attendu**
+
+- Vérifie que `front.pixels` est strictement supérieur à `300U`.
+- Vérifie que `behind.pixels` est strictement inférieur à `front.pixels / 4`.
+- Vérifie que `behind.height()` est strictement inférieur à `front.height() / 3`.
+- Vérifie que `paved.pixels` est strictement supérieur à `(front.pixels * 95) / 100`.
+- Vérifie que `paved.pixels` est strictement inférieur à `(front.pixels * 105) / 100`.
+- Vérifie que `paved.height()` vaut `front.height()`, à `1` près.
+
+### FigureModelRenderTest.BandesEtModeleCohabitent
+
+*Critique · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:244`
+
+Bandes et modele cohabitent ; sans modele, l'image est celle d'avant.
+
+**Étapes**
+
+1. Rendre la carte d'essai avec la figurine témoin, en bandes.
+2. La rendre avec la figurine témoin et le pantin.
+3. La rendre de nouveau avec la figurine témoin seule.
+
+**Résultat attendu**
+
+- Vérifie que `seen(before).pixels` vaut `0U`.
+- Vérifie que `renderer.composed().meshes().size()` vaut `meshesBefore + 1`.
+- Vérifie que `seen(together).pixels` est strictement supérieur à `300U`.
+- Vérifie que `before.size()` vaut `after.size()`.
+- Vérifie que `differing` vaut `0U`.
+
+### FigureModelRenderTest.LeMannequinDEssaiMarche
+
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:291`
+
+Le mannequin d'essai marche sur la carte d'essai.
+
+**Étapes**
+
+1. Rendre la carte d'essai sans figurine.
+2. La rendre avec le mannequin d'essai a deux instants de sa marche, puis a la fin de sa chute.
+
+**Résultat attendu**
+
+- Vérifie que `loaded` diffère de `nullptr`.
+- Vérifie que `loaded->rig` diffère de `nullptr`.
+- Vérifie que `loaded->rig->joints.size()` vaut `53U`.
+- Vérifie que `differing(bare, first)` est strictement supérieur à `300U`.
+- Vérifie que `differing(bare, second)` est strictement supérieur à `300U`.
+- Vérifie que `differing(bare, fallen)` est strictement supérieur à `300U`.
+- Vérifie que `differing(first, second)` est strictement supérieur à `100U`.
 
 ## test_hd_mockup_render.cpp
 

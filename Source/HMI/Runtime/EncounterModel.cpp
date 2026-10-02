@@ -415,8 +415,12 @@ void EncounterModel::bindFigures(WorldModel& world, const core::ArenaMount& moun
         const ResolvedFigure& figure =
             meneur ? world.play().heroResolved()
                    : world.play().resolveHero(WorldModel::heroFigureOf(membre.classId));
-        _bindings[membre.combatant] =
-            Binding{.directory = figure.directory, .oriented = figure.oriented, .hero = meneur};
+        _bindings[membre.combatant] = Binding{.directory = figure.directory,
+                                              .oriented = figure.oriented,
+                                              .hero = meneur,
+                                              .model = figure.model};
+        // Les gestes d'un modele durent ses clips et portent a leur image cle (LOT-1005).
+        _cues.setTimings(membre.combatant, CombatCueTrack::timingsOf(figure.skeleton.get()));
     }
     std::size_t rang = 0;
     for (const core::CombatantPlacement& placement : _setup->run.placements) {
@@ -426,8 +430,12 @@ void EncounterModel::bindFigures(WorldModel& world, const core::ArenaMount& moun
         }
         const ResolvedFigure& figure =
             world.play().resolveFigure(creature->id, creature->silhouette);
-        _bindings[mount.enemies[rang++]] =
-            Binding{.directory = figure.directory, .oriented = figure.oriented, .hero = false};
+        const core::CombatantId enemy = mount.enemies[rang++];
+        _bindings[enemy] = Binding{.directory = figure.directory,
+                                   .oriented = figure.oriented,
+                                   .hero = false,
+                                   .model = figure.model};
+        _cues.setTimings(enemy, CombatCueTrack::timingsOf(figure.skeleton.get()));
     }
 }
 
@@ -677,7 +685,9 @@ void EncounterModel::publishFigures() {
             .facing = binding->second.oriented ? motion->facing : FigureFacing::None,
             .seconds = motion->clipSeconds,
             .hero = binding->second.hero,
-            .combatant = true});
+            .combatant = true,
+            .model = binding->second.model,
+            .heading = motion->heading});
     }
     // Les effets, apres les figurines : a profondeur egale, ils se dessinent devant (`LOT-136`).
     for (const EffectMotion& effect : _cues.effects()) {
@@ -690,7 +700,9 @@ void EncounterModel::publishFigures() {
             .facing = FigureFacing::None,
             .seconds = effect.seconds,
             .hero = false,
-            .combatant = false});
+            .combatant = false,
+            .model = {},
+            .heading = std::nullopt});
     }
     world->setCombatFigures(std::move(figures), heroPoint);
 }

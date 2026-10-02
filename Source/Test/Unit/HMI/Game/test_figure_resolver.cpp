@@ -111,3 +111,62 @@ TEST(FigureResolverTest, LaReponseSeRetientJusquAClear) {
     EXPECT_EQ(propre.directory, "Npc/guard");
     std::filesystem::remove_all(racine);
 }
+
+/**
+ * @brief Une figurine en modèle : son dossier porte une fiche qui nomme un `.glb` présent. Elle
+ *        passe avant les bandes, pour la figurine nommée comme pour le mannequin.
+ * \castest{<b>Le resolveur reconnait un personnage en modele, et son mannequin.</b><br/>
+ * \tcat Unitaire · Mannequins · Squelette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Resoudre le pantin de la carte d'essai, qui a une fiche et un modele.<br/>
+ * 2. Resoudre la figurine temoin de la meme racine, qui n'a que des bandes.<br/>3. Dans un dossier
+ * d'essai, installer un mannequin humanoide en modele a cote du mannequin en bandes, et resoudre
+ * un garde absent.<br/>4. Y poser une fiche dont le modele manque, et resoudre ce personnage.<br/>
+ * \tattendu 1 : le dossier du pantin, son modele `Npc/pantin/pantin.glb`, la description de son
+ * squelette (l'attaque porte a 0,4 s). 2 : des bandes, sans modele. 3 : le mannequin en modele,
+ * avant celui en bandes. 4 : la fiche sans son fichier ne fait pas un modele -- le mannequin.
+ * }
+ */
+TEST(FigureResolverTest, UnPersonnageEnModeleEtSonMannequin) {
+    const std::filesystem::path essai = std::filesystem::path(JADG_MESH_FIXTURE_DIR) / "Assets";
+    hmi::FigureResolver resolveur{essai};
+    const hmi::PlaceAppearance table;
+
+    const hmi::ResolvedFigure& pantin = resolveur.resolve("pantin", {}, table);
+    EXPECT_EQ(pantin.directory, "Npc/pantin");
+    EXPECT_EQ(pantin.model, "Npc/pantin/pantin.glb");
+    EXPECT_TRUE(pantin.oriented) << "un modele garde l'orientation de qui le pose";
+    EXPECT_FALSE(pantin.placeholder);
+    ASSERT_NE(pantin.skeleton, nullptr);
+    const core::SkeletonClip* const attaque = pantin.skeleton->clip("attack");
+    ASSERT_NE(attaque, nullptr);
+    ASSERT_TRUE(attaque->key.has_value());
+    EXPECT_FLOAT_EQ(*attaque->key, 0.4F);
+
+    const hmi::ResolvedFigure& temoin = resolveur.resolve("temoin", {}, table);
+    EXPECT_EQ(temoin.directory, "Npc/temoin");
+    EXPECT_TRUE(temoin.model.empty());
+    EXPECT_EQ(temoin.skeleton, nullptr);
+
+    const std::filesystem::path racine = assets();
+    const std::string mannequin = hmi::mannequinFigureDirectory(hmi::DEFAULT_SILHOUETTE);
+    std::filesystem::create_directories(racine / mannequin);
+    std::ofstream{racine / mannequin / "humanoid.glb"} << "glb";
+    std::ofstream{racine / mannequin / "character.json"}
+        << R"({"version":1,"model":"humanoid.glb","skeleton":"humanoid"})";
+    std::filesystem::create_directories(racine / "Npc/sans-fichier");
+    std::ofstream{racine / "Npc/sans-fichier/character.json"}
+        << R"({"version":1,"model":"absent.glb","skeleton":"humanoid"})";
+    hmi::FigureResolver second{racine};
+
+    const hmi::ResolvedFigure& garde = second.resolve("guard", {}, table);
+    EXPECT_EQ(garde.directory, mannequin);
+    EXPECT_EQ(garde.model, mannequin + "/humanoid.glb");
+    EXPECT_TRUE(garde.placeholder);
+    EXPECT_EQ(garde.skeleton, nullptr) << "sans description lisible, pas de durees declarees";
+
+    const hmi::ResolvedFigure& fantome = second.resolve("Npc/sans-fichier", {}, table);
+    EXPECT_TRUE(fantome.placeholder);
+    EXPECT_EQ(fantome.directory, mannequin);
+    std::filesystem::remove_all(racine);
+}

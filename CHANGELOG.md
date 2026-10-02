@@ -19,6 +19,25 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   compétence quitte le texte de sa valeur (« +5 • ») : clé `sheet.skill.<id>.proficient` et rôle
   `marked` de `SheetRowModel`.
 
+- **LOT-1005 — Squelette et animations.** Le moteur anime un modèle par son squelette. Le chargeur
+  `.glb` lit les os, la liaison de chaque sommet (quatre os, quatre poids) et les clips ; la pose
+  d'un squelette à un instant se calcule sans GPU (`core::poseSkeleton`), et `hmi::MeshBatch`
+  déforme le maillage par un second pipeline (`mesh_skinned.vert`, 64 os au plus). Un personnage
+  en modèle se déclare par une fiche (`character.json` : son modèle, son squelette) ; la
+  description du squelette (`Common/Characters/Skeletons/<silhouette>/skeleton.json`) dit la durée,
+  la boucle et l'**image clé** de chaque clip, et le combat y accroche le touché de la cible
+  (`hmi::CombatCueTrack::setTimings`). Un modèle s'oriente librement, vers son pas ou sa cible
+  (`WorldFigureSnapshot::heading`). `hmi::FigureResolver` cherche la fiche avant les bandes, pour
+  la figurine nommée comme pour le mannequin ; aucun personnage livré n'ayant encore de fiche, le
+  jeu se rend comme avant — les bandes partent au LOT-1006. Données d'essai : un pantin de trois os
+  (`Fixtures/Meshes`) et le mannequin humanoïde réduit, lié aux 53 os (`Fixtures/Characters`). La
+  chaîne de liaison est réécrite : `scripts/assetsGeneration/rig_character.py` lie un maillage
+  Meshy en T au squelette commun et pose les six clips, `scripts/checks/check_character_model.py`
+  contrôle l'export (structure, poids, contact, glissement),
+  `scripts/assetsGeneration/render_character_review.py` rend les planches de revue. Le budget d'un
+  modèle est au standard 3D : 100 000 triangles, texture de 2048 px, 64 os, quatre influences —
+  huit modèles animés coûtent 0,5 ms par image à 1080p.
+
 - **LOT-1003 — Maillages et profondeur.** Le moteur dessine des volumes : une pièce dont le
   manifeste cite un maillage (`"mesh"`, un `.glb`) au lieu d'une image se dessine par une passe de
   maillages (`hmi::MeshBatch` : sommets, normales, coordonnées de texture, couleur de base, sans
