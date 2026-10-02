@@ -72,8 +72,9 @@ Le plafond de **5 Mio par fichier** (`check_binary_files.py`) porte sur les fich
 Git** : un `.glb` de kit n'y est pas, il n'est donc pas borné par lui. Aucun budget de poids par
 zone ([D-23](../vision/decisions.md)), inchangé.
 
-Le budget d'un maillage **de décor** n'a encore aucune mesure : le LOT-1004 le relève sur le kit de
-la Capitale.
+Le budget d'un maillage **de décor** n'a encore aucune mesure : le [LOT-151](../versions/v0.1.0/v0.0.3-capitale-intra-muros/lots/LOT-151-kit-commun-intra-muros.md) le relève
+sur le kit de la Capitale (le LOT-1004, qui devait le faire, est clos sans modification —
+[D-43](../vision/decisions.md), 2 octobre 2026).
 
 ## 4. Les matières et la lumière
 
@@ -88,8 +89,8 @@ la Capitale.
 - **sRGB, 8 bits par canal**, sans palette imposée par image ; la cohérence vient de la palette du
   lieu ci-dessous.
 - **Le contour sombre** du standard 2D n'existe pas en 3D sans une passe de rendu de plus. Il n'est
-  **ni gardé ni abandonné ici** : l'auteur le tranche au LOT-1004, sur le kit de la Capitale rendu
-  avec et sans (décision du 1er octobre 2026). Le LOT-1003 ne prévoit pas cette passe.
+  **ni gardé ni abandonné ici** : l'auteur le tranche au LOT-151, sur le kit de la Capitale rendu
+  avec et sans (décision du 1er octobre 2026, reportée avec le kit par D-43). Le LOT-1003 ne prévoit pas cette passe.
 
 ### La palette de l'Empire central
 
@@ -132,7 +133,7 @@ pour un kit en maillages comme ils valaient pour un kit peint.
   précédentes, les sources et les scripts se gardent dans l'atelier.
 
 La référence acceptée reste le rendu du LOT-105 V4
-(`Tools/AssetsHD/Regions/central-empire/capital/Common/V4/`) : le LOT-1004 compare son kit en
+(`Tools/AssetsHD/Regions/central-empire/capital/Common/V4/`) : le LOT-151 compare son kit en
 maillages à ce rendu, carte pour carte.
 
 ## 6. Les familles de pièces d'un lieu
@@ -141,21 +142,22 @@ Les dix familles restent le **gabarit d'inventaire** d'une zone : un lot d'asset
 en revue et dit, pour chacune, ce qu'il prend au **commun** et ce qu'il produit en **propre**
 ([arborescence](arborescence-assets.md), [gabarit de commande](gabarit-commande-zone.md)).
 
-| # | Famille | Emprise type | Forme dans la `0.0.2.5` |
+| # | Famille | Emprise type | Forme visée (kit repris à la `0.0.3`, LOT-151) |
 |---|---|---|---|
-| 01 | Sols | 1 × 1 | **maillage** (LOT-1004) |
-| 02 | Façades et murs | 2 × 1, 3 × 1 | **maillage** pour les murs ; le reste se classe au LOT-1004 |
-| 03 | Colonnes | 1 × 1, 3 × 1 | se classe au LOT-1004 |
-| 04 | Accès | 2 × 1 | se classe au LOT-1004 |
-| 05 | Balustrades | 2 × 1, angle | **maillage** (LOT-1004) |
+| 01 | Sols | 1 × 1 | **maillage** (LOT-151) |
+| 02 | Façades et murs | 2 × 1, 3 × 1 | **maillage** pour les murs ; le reste se classe au LOT-151 |
+| 03 | Colonnes | 1 × 1, 3 × 1 | se classe au LOT-151 |
+| 04 | Accès | 2 × 1 | se classe au LOT-151 |
+| 05 | Balustrades | 2 × 1, angle | **maillage** (LOT-151) |
 | 06 | Pièces maîtresses | 3 × 3 et plus | **image tolérée** jusqu'à la `0.0.3` ([D-30](../vision/decisions.md)) |
-| 07 | Végétal | 1 × 1 à 3 × 1 | **maillage** pour les haies ; le reste se classe au LOT-1004 |
+| 07 | Végétal | 1 × 1 à 3 × 1 | **maillage** pour les haies ; le reste se classe au LOT-151 |
 | 08 | Mobilier | 1 × 1 | **image tolérée** jusqu'à la `0.0.3` (D-30) |
-| 09 | Bâtiments | 3 × 2 et plus | se classe au LOT-1004 ; les **toits** et les **escaliers** sont des maillages |
-| 10 | Seuils | 3 × 3 et plus | se classe au LOT-1004 |
+| 09 | Bâtiments | 3 × 2 et plus | se classe au LOT-151 ; les **toits** et les **escaliers** sont des maillages |
+| 10 | Seuils | 3 × 3 et plus | se classe au LOT-151 |
 
-« Se classe au LOT-1004 » n'est pas une échappatoire : la fiche de ce lot doit donner, pièce par
-pièce, la forme de tout ce que le kit de la Capitale contient. Une pièce d'architecture gardée en
+« Se classe au LOT-151 » n'est pas une échappatoire : la fiche de ce lot doit donner, pièce par
+pièce, la forme de tout ce que le kit de la Capitale contient. **Dans la `0.0.2.5`, tout le kit
+reste en images** : le LOT-1004, qui devait le convertir, est clos sans modification (D-43). Une pièce d'architecture gardée en
 image y est une **dette nommée**, avec le lot qui la retire.
 
 La règle de la **dalle de fond** demeure : une zone livre d'abord un sol répétable, sans bordure,
@@ -163,13 +165,14 @@ en **trois variantes au moins**, avant ses panneaux décoratifs.
 
 ## 7. Les images tolérées
 
-Trois sortes d'images restent dans une scène en maillages (les bandes de figurine, la quatrième,
+Quatre sortes d'images restent dans une scène en maillages (les bandes de figurine, la cinquième,
 ont été retirées au LOT-1006). Elles gardent, et elles seules, les
 règles du standard 2D HD — dont le texte entier est aux [archives](archives/style-2d-hd.md).
 
 | Ce qui reste une image | Jusqu'à | Pourquoi |
 |---|---|---|
-| Le **mobilier** et les **pièces maîtresses** du kit de la Capitale ; les kits d'**Arenarea**, de l'**Arena of Fate** et de **Martpart** | la `0.0.3` | D-30 : la bascule ne modèle que l'architecture du kit de la Capitale |
+| Le **mobilier** et les **pièces maîtresses** du kit de la Capitale ; les kits d'**Arenarea**, de l'**Arena of Fate** et de **Martpart** | la `0.0.3` | D-30 |
+| L'**architecture** du kit de la Capitale : sols, murs, balustrades, haies, escaliers, toits | la `0.0.3` | D-43 : l'intégralité des assets se reprend à la phase suivante |
 | Les **effets** de `Common/Fx/` | sans date | un éclair ou un soin est une image animée, pas un volume |
 | Les **portraits** et les **jetons** | sans date | D-30 : ils restent peints |
 
@@ -196,9 +199,9 @@ plus rien ne s'y ajoute.
 
 | Question | Tranchée par | Quand |
 |---|---|---|
-| Le **contour sombre** : passe dédiée, ou abandon | l'auteur, sur le kit rendu avec et sans | LOT-1004 |
-| La **forme** — maillage ou image — de chaque pièce des familles 02, 03, 04, 07, 09, 10 | la fiche du lot, pièce par pièce | LOT-1004 |
-| Le budget d'un maillage **de décor** | la mesure sur le kit de la Capitale | LOT-1004 |
+| Le **contour sombre** : passe dédiée, ou abandon | l'auteur, sur le kit rendu avec et sans | LOT-151 |
+| La **forme** — maillage ou image — de chaque pièce des familles 02, 03, 04, 07, 09, 10 | la fiche du lot, pièce par pièce | LOT-151 |
+| Le budget d'un maillage **de décor** | la mesure sur le kit de la Capitale | LOT-151 |
 | Le squelette `quadruped`, ses clips, son image de référence | le lion et le loup de l'arène | LOT-1009 |
 | La silhouette `flying` : un squelette par morphologie | ses créatures | avec le premier lot qui en produit une |
 

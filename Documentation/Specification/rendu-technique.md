@@ -93,7 +93,8 @@ l'intérieur de la famille où le monde se dessine.
   > toujours par le pied dans une **bande de profondeur** de **six rangs** — le relief, la
   > figurine, puis les étages un à quatre (`EX-LVL-025`, `LOT-129`) ; les jetons de maquette n'y
   > sont pas, ils sont de l'interface en scène (`EX-REN-023`) et passent devant tout volume. Le
-  > mécanisme d'étage part au `LOT-1004`, quand les toits deviennent des maillages.
+  > mécanisme d'étage part quand les toits deviennent des maillages : à la `0.0.3` (`LOT-151`),
+  > le `LOT-1004` ayant été clos sans modification.
 
 ### Le rendu de maquette : une carte sans texture (`LOT-128`)
 
