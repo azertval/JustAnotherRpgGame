@@ -3,7 +3,7 @@ id = "LOT-1006"
 titre = "Le squelette commun et le mannequin"
 version = "0.0.2.5"
 filiere = "pnj"
-statut = "a-faire"
+statut = "en-cours"
 taille = "L"
 resume = "Un squelette, six animations soignées, un mannequin et le premier personnage produit au standard : le socle commun de tous les personnages, installé dans le jeu — et plus une seule bande de figurine."
 prerequis = ["LOT-1005"]
@@ -101,6 +101,18 @@ de déformation se lira à la couleur.
 Ce qui reste à ce lot : les lier au squelette, poser les clips, les installer. Le mannequin
 quadrupède arrive avant son squelette, que le standard place au
 [LOT-1009](LOT-1009-les-quatre-heros.md).
+## État au 2 octobre 2026
+
+Première PR du lot. Fait : le mannequin humanoïde lié au squelette et installé, le retrait des
+132 bandes de figurine et de leur lecture (moteur, galerie, outils, données d'essai), `EX-REN-012`
+retirée au profit de `EX-REN-051`, le kit `Common@7` publié et verrouillé.
+
+Reste dû, pour passer la fiche à `livre` :
+
+- le **premier personnage au standard**, généré depuis une vue de face en pose neutre ;
+- le standard des personnages corrigé d'après lui (sa section « non mesuré ») ;
+- le jugement de l'auteur sur les six animations et sur le visage à 100 px par case.
+
 ## Risques et questions ouvertes
 
 - **La pose neutre n'a jamais été générée.** Si Meshy rend un personnage moins fidèle depuis une
