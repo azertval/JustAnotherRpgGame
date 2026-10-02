@@ -61,6 +61,7 @@ set(JADG_UI_QML_FILES
     Controls/ScreenPage.ui.qml
     Controls/ActionSlot.ui.qml
     Controls/OrnateRoundButton.ui.qml
+    Controls/CodexTabs.ui.qml
     Controls/HudFrame.ui.qml
     # La marque de ciblage du calque tactique (LOT-50), heritee de l'ecran du Colisee, retire.
     Controls/ArenaMark.ui.qml

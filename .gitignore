@@ -124,6 +124,8 @@ __pycache__/
 /Source/Elements/Assets/Common/**/*.png
 /Source/Elements/Assets/Common/**/*.jpg
 /Source/Elements/Assets/Common/**/*.jpeg
+/Source/Elements/Assets/Common/**/*.glb
+/Source/Elements/Assets/Regions/**/*.glb
 /Source/Elements/Assets/Regions/**/*.png
 /Source/Elements/Assets/Regions/**/*.jpg
 /Source/Elements/Assets/Regions/**/*.jpeg

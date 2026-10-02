@@ -44,9 +44,9 @@
 #include "Editor/Ui/DraftRenderer.h"
 #include "Editor/Ui/SceneSurface.h"
 #include "HMI/Game/WorldPlay.h"
-#include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/MaquettePalette.h"
+#include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 
@@ -72,7 +72,7 @@ constexpr double FRAME_PADDING_TILES = 0.25;
 /// Un cran de molette agrandit ou réduit d'autant.
 constexpr double ZOOM_STEP = 1.25;
 /// Agrandissement maximal : une unité monde fait alors 8 × 16 pixels.
-constexpr double MAX_PIXELS_PER_UNIT = 8.0 * Camera2D::PIXELS_PER_UNIT;
+constexpr double MAX_PIXELS_PER_UNIT = 8.0 * PlaceCamera::PIXELS_PER_UNIT;
 /// Cadence de l'essai : celle du jeu (60 images par seconde).
 constexpr int PLAYTEST_FRAME_MS = 16;
 /// Opacité du marqueur d'une entité que l'état de partie rend absente (`LOT-126`).
@@ -377,7 +377,7 @@ void EditorViewport::resetCamera() {
 }
 
 float EditorViewport::zoom() const noexcept {
-    return static_cast<float>(transform().m11()) / Camera2D::PIXELS_PER_UNIT;
+    return static_cast<float>(transform().m11()) / PlaceCamera::PIXELS_PER_UNIT;
 }
 
 void EditorViewport::emitZoomIfChanged() {

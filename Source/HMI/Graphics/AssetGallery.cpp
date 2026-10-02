@@ -216,6 +216,11 @@ void readSceneFamily(const std::filesystem::path& root, const std::string& direc
     }
     AssetGalleryFamily family{.title = title, .directory = directory, .entries = {}};
     for (const core::ScenePiece& piece : read.manifest.pieces()) {
+        // La galerie montre des images : un maillage (LOT-1003) n'a pas de vignette à y étaler.
+        // Sa vue est celle de l'atelier des assets 3D (LOT-1008).
+        if (piece.isMesh()) {
+            continue;
+        }
         family.entries.push_back(AssetGalleryEntry{
             .family = family.title,
             .model = piece.className.empty() ? std::string("autre") : piece.className,

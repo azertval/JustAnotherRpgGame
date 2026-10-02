@@ -198,12 +198,21 @@ ScreenPage {
                 }
 
                 LedgerList {
+                    id: replyList
+
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     title: qsTr("Réponses")
                     rows: root.replies
                     interactive: true
-                    onRowActivated: (rowId) => root.replyChosen(rowId)
+                }
+
+                Connections {
+                    target: replyList
+
+                    function onRowActivated(rowId) {
+                        root.replyChosen(rowId)
+                    }
                 }
             }
         }
@@ -263,8 +272,14 @@ ScreenPage {
                     }
 
                     MouseArea {
+                        id: voicePointer
                         anchors.fill: parent
-                        onClicked: root.voiceChosen(voice.modelData.id)
+                    }
+                    Connections {
+                        target: voicePointer
+                        function onClicked() {
+                            root.voiceChosen(voice.modelData.id)
+                        }
                     }
                 }
             }

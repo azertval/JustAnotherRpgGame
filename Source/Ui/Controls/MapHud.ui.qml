@@ -183,9 +183,15 @@ Item {
         }
 
         MouseArea {
+            id: backPointer
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
-            onClicked: root.backRequested()
+        }
+        Connections {
+            target: backPointer
+            function onClicked() {
+                root.backRequested()
+            }
         }
     }
 
@@ -196,26 +202,39 @@ Item {
         spacing: Tokens.gapSmall
 
         OrnateButton {
+            id: zoomInButton
             width: 64 * Tokens.uiScale
             leftPadding: 0
             rightPadding: 0
             kind: "secondary"
             text: "+"
             focusPolicy: Qt.NoFocus
-            onClicked: root.zoomInRequested()
+        }
+        Connections {
+            target: zoomInButton
+            function onClicked() {
+                root.zoomInRequested()
+            }
         }
 
         OrnateButton {
+            id: zoomOutButton
             width: 64 * Tokens.uiScale
             leftPadding: 0
             rightPadding: 0
             kind: "secondary"
             text: "−"
             focusPolicy: Qt.NoFocus
-            onClicked: root.zoomOutRequested()
+        }
+        Connections {
+            target: zoomOutButton
+            function onClicked() {
+                root.zoomOutRequested()
+            }
         }
 
         OrnateButton {
+            id: backButton
             width: 64 * Tokens.uiScale
             leftPadding: 0
             rightPadding: 0
@@ -223,7 +242,12 @@ Item {
             text: "↩"
             enabled: root.canGoBack
             focusPolicy: Qt.NoFocus
-            onClicked: root.backRequested()
+        }
+        Connections {
+            target: backButton
+            function onClicked() {
+                root.backRequested()
+            }
         }
     }
 
@@ -302,40 +326,64 @@ Item {
                 focusPolicy: Qt.NoFocus
             }
             OrnateButton {
+                id: questsButton
                 width: 100 * Tokens.uiScale
                 leftPadding: 0
                 rightPadding: 0
                 kind: "secondary"
                 text: qsTr("Quêtes")
                 focusPolicy: Qt.NoFocus
-                onClicked: root.questsRequested()
+            }
+            Connections {
+                target: questsButton
+                function onClicked() {
+                    root.questsRequested()
+                }
             }
             OrnateButton {
+                id: inventoryButton
                 width: 100 * Tokens.uiScale
                 leftPadding: 0
                 rightPadding: 0
                 kind: "secondary"
                 text: qsTr("Sac")
                 focusPolicy: Qt.NoFocus
-                onClicked: root.inventoryRequested()
+            }
+            Connections {
+                target: inventoryButton
+                function onClicked() {
+                    root.inventoryRequested()
+                }
             }
             OrnateButton {
+                id: companyButton
                 width: 100 * Tokens.uiScale
                 leftPadding: 0
                 rightPadding: 0
                 kind: "secondary"
                 text: qsTr("Équipe")
                 focusPolicy: Qt.NoFocus
-                onClicked: root.companyRequested()
+            }
+            Connections {
+                target: companyButton
+                function onClicked() {
+                    root.companyRequested()
+                }
             }
             OrnateButton {
+                id: optionsButton
                 width: 100 * Tokens.uiScale
                 leftPadding: 0
                 rightPadding: 0
                 kind: "secondary"
                 text: qsTr("Options")
                 focusPolicy: Qt.NoFocus
-                onClicked: root.optionsRequested()
+            }
+            Connections {
+                target: optionsButton
+                function onClicked() {
+                    root.optionsRequested()
+                }
             }
         }
     }

@@ -53,9 +53,9 @@ la façon dont une figurine se pose sur sa case, et le facteur d'affichage dédu
   la **même étendue de monde** — 19,2 losanges de large, 17,4 de haut — et un écran plus fin
   montre le même jeu plus finement, jamais plus de jeu. La « fenêtre » est ici la **scène 16:9**
   qu'`EX-REN-019` y inscrit.
-  > **Mise en œuvre au `LOT-1003`.** Jusque-là la caméra du lieu est plane (`hmi::Camera2D`) et
-  > produit le même cadrage : une image dressée face à une caméra orthographique fixe occupe
-  > exactement les pixels qu'elle occupe aujourd'hui.
+  > **Mise en œuvre (`LOT-1003`).** `hmi::IsoView` porte l'orientation — où tombe un point élevé,
+  > à quelle profondeur —, `hmi::PlaceCamera` le cadrage, repris au flottant près de la caméra
+  > plane qu'elle remplace : une image dressée occupe exactement les pixels qu'elle occupait.
 - **EX-REN-019** — La scène du jeu est **toujours au format 16:9** : dans une fenêtre d'un autre
   format, le plus grand rectangle 16:9 qui tient y est inscrit, **centré au pixel**, et la fenêtre
   peint le reste en **noir** — des bandes sur les côtés pour une fenêtre plus large, en haut et en
@@ -87,11 +87,15 @@ l'intérieur de la famille où le monde se dessine.
   constant d'une image à l'autre. Hors de la scène, l'ordre des calques reste souverain
   (`EX-REN-014`). Le tri par le pied ne vit que tant qu'il reste une image de décor : il part avec
   la dernière, à la `0.0.3`.
-  > **Mise en œuvre au `LOT-1003`.** Jusque-là tout est image, et la scène entière se trie par le
-  > pied dans une **bande de profondeur** de **six rangs** — le relief, la figurine, puis les
-  > étages un à quatre (`EX-LVL-025`, `LOT-129`) ; les jetons de maquette n'y sont pas, ils sont
-  > de l'interface en scène (`EX-REN-023`). Le mécanisme d'étage part au `LOT-1004`, quand les
-  > toits deviennent des maillages.
+  > **Mise en œuvre (`LOT-1003`).** Une pièce dont le manifeste cite un maillage (`"mesh"`) se
+  > dessine par `hmi::MeshBatch`, avant les images de la même passe. Une image **à plat** (un sol)
+  > prend la profondeur du sol sous elle ; une image **dressée** est un plan vertical tourné vers la
+  > caméra, posé sur la ligne de son pied, et le sol au-dessous. La profondeur n'est testée que si
+  > l'image a un maillage : sans lui, le rendu est celui d'avant, au pixel. Les images se trient
+  > toujours par le pied dans une **bande de profondeur** de **six rangs** — le relief, la
+  > figurine, puis les étages un à quatre (`EX-LVL-025`, `LOT-129`) ; les jetons de maquette n'y
+  > sont pas, ils sont de l'interface en scène (`EX-REN-023`) et passent devant tout volume. Le
+  > mécanisme d'étage part au `LOT-1004`, quand les toits deviennent des maillages.
 
 ### Le rendu de maquette : une carte sans texture (`LOT-128`)
 

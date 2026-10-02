@@ -40,6 +40,7 @@ OffscreenRhi::~OffscreenRhi() {
     _target.reset();
     _pass.reset();
     _texture.reset();
+    _depth.reset();
     _rhi.reset();
 }
 
@@ -83,17 +84,24 @@ bool OffscreenRhi::ensureTarget(QSize size) {
     _pass.reset();
     _texture.reset(_rhi->newTexture(QRhiTexture::RGBA8, size, 1,
                                     QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
-    if (!_texture->create()) {
+    // Le tampon de profondeur (LOT-1003) : les maillages d'un lieu s'y departagent, et ses images
+    // s'y comparent. Une carte sans volume ne le lit ni ne l'ecrit.
+    _depth.reset(_rhi->newRenderBuffer(QRhiRenderBuffer::DepthStencil, size));
+    if (!_texture->create() || !_depth->create()) {
         _texture.reset();
+        _depth.reset();
         return false;
     }
-    _target.reset(_rhi->newTextureRenderTarget({{_texture.get()}}));
+    QRhiTextureRenderTargetDescription description{{_texture.get()}};
+    description.setDepthStencilBuffer(_depth.get());
+    _target.reset(_rhi->newTextureRenderTarget(description));
     _pass.reset(_target->newCompatibleRenderPassDescriptor());
     _target->setRenderPassDescriptor(_pass.get());
     if (!_target->create()) {
         _target.reset();
         _pass.reset();
         _texture.reset();
+        _depth.reset();
         return false;
     }
     return true;

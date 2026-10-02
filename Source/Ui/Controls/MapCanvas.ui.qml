@@ -116,17 +116,30 @@ Item {
         }
 
         MouseArea {
+            id: backPointer
             anchors.fill: mapImage
             acceptedButtons: Qt.RightButton
-            onClicked: root.backRequested()
+        }
+        Connections {
+            target: backPointer
+            function onClicked() {
+                root.backRequested()
+            }
         }
 
         // Releve d'une position pour `world-maps.json` : Ctrl+clic. Ici, DANS la `Flickable`, pas
         // sur un ancetre -- voir la note en tete de fichier.
         MouseArea {
+            id: markPointer
+
             anchors.fill: mapImage
             acceptedButtons: Qt.LeftButton
-            onClicked: (mouse) => {
+        }
+
+        Connections {
+            target: markPointer
+
+            function onClicked(mouse) {
                 if (mouse.modifiers & Qt.ControlModifier)
                     root.positionMarked(root.frame.x + mouse.x / root.mapWidth * root.frame.width,
                                         root.frame.y + mouse.y / root.mapHeight * root.frame.height)
@@ -175,8 +188,15 @@ Item {
                 locked: marker.modelData.locked === true
                 active: root.activeIndex === marker.index
                 labelAlways: root.namesAlways
-                onHoveredChanged: root.markerHovered(marker.index, marker.hovered)
-                onActivated: root.markerActivated(marker.index)
+                Connections {
+                    target: marker
+                    function onHoveredChanged() {
+                        root.markerHovered(marker.index, marker.hovered)
+                    }
+                    function onActivated() {
+                        root.markerActivated(marker.index)
+                    }
+                }
             }
         }
 

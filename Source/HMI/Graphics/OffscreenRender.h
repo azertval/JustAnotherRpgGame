@@ -14,6 +14,7 @@
 #include "HMI/Graphics/WorldSceneRenderer.h"
 
 class QRhi;
+class QRhiRenderBuffer;
 class QRhiRenderPassDescriptor;
 class QRhiTexture;
 class QRhiTextureRenderTarget;
@@ -107,6 +108,8 @@ private:
     // La cible meurt avant l'interface : l'ordre de déclaration est l'ordre inverse de libération.
     std::unique_ptr<QRhi> _rhi;
     std::unique_ptr<QRhiTexture> _texture;
+    /// Le tampon de profondeur de la cible (`LOT-1003`), à sa taille.
+    std::unique_ptr<QRhiRenderBuffer> _depth;
     std::unique_ptr<QRhiRenderPassDescriptor> _pass;
     std::unique_ptr<QRhiTextureRenderTarget> _target;
     /// Les rendus gardés, par dossier d'assets.

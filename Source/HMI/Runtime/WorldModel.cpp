@@ -13,6 +13,7 @@
 #include <system_error>
 #include <utility>
 
+#include "Core/Gameplay/Interaction.h"
 #include "Core/Levels/Level.h"
 #include "Core/Rpg/Dialogue.h"
 #include "Core/World/WorldTravel.h"
@@ -73,6 +74,8 @@ WorldModel* WorldModel::current() noexcept {
 
 WorldModel::WorldModel(QObject* parent) : QObject(parent) {
     partieCourante() = this;
+    connect(this, &WorldModel::changed, this, &WorldModel::interactionChanged);
+    connect(this, &WorldModel::heroMoved, this, &WorldModel::interactionChanged);
     _play = std::make_unique<WorldPlay>(
         core::WorldTravel::directoryLoader(dataDirectory() / "Levels"), dataDirectory() / "Assets");
     _clock.setInterval(STEP_MILLISECONDS);
@@ -280,6 +283,31 @@ void WorldModel::interact() {
     _interact = true;
 }
 
+QVariantMap WorldModel::interactionTarget() const {
+    const core::ExplorationSession& session = _play->session();
+    const core::Level* map = session.map();
+    if (map == nullptr) {
+        return {};
+    }
+    std::vector<core::InteractionCandidate> candidates;
+    const auto& interactables = session.interactables();
+    for (std::size_t index = 0; index < interactables.size(); ++index) {
+        candidates.push_back({.interactable = &interactables[index], .index = index});
+    }
+    const auto point = session.heroPoint();
+    const auto target = core::findInteractionTarget({point.column, point.row}, session.facing(),
+                                                    map->tileMap(), candidates, session.flags());
+    if (!target.found()) {
+        return {};
+    }
+    const auto& entity = *target.interactable;
+    const QString prompt = entity.type == "npc"     ? tr("Parler")
+                           : entity.type == "chest" ? tr("Ouvrir")
+                           : entity.type == "sign"  ? tr("Lire")
+                                                    : tr("Interagir");
+    return {{"column", entity.position.column}, {"row", entity.position.row}, {"prompt", prompt}};
+}
+
 void WorldModel::releaseInput() noexcept {
     _move = {};
     _interact = false;
@@ -293,7 +321,11 @@ void WorldModel::step() {
     const core::ExplorationIntent intention{.move = _move, .interact = _interact};
     _interact = false;
 
+    const auto previousFacing = _play->session().facing();
     const WorldPlayStep pas = _play->step(intention, seconds);
+    if (!pas.heroMoved && previousFacing != _play->session().facing()) {
+        emit interactionChanged();
+    }
     // La carte ne se recompose que si elle a changé ; un pas du heros ne touche qu'aux figurines.
     if (pas.sceneChanged) {
         ++_sceneRevision;
@@ -548,6 +580,11 @@ QString WorldModel::shownCharacterId() const {
 }
 
 void WorldModel::recordMember(const std::string& characterId, core::MemberRecord record) {
+    if (!record.inventory.has_value()) {
+        if (const core::MemberRecord* previous = _ledger.record(characterId)) {
+            record.inventory = previous->inventory;
+        }
+    }
     _ledger.write(characterId, std::move(record));
     emit partyChanged();
 }

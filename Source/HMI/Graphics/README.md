@@ -9,7 +9,10 @@ pipeline 2D, la caméra et la composition des scènes.
 - `SceneResources` — les ressources QRhi que **toute** surface de rendu du projet possède (`LOT-86`).
 - `SpriteBatch` — pipeline 2D : quads texturés (`SpriteQuad`) et segments orientés (`LineQuad`), shaders compilés au build (`Shaders/`), fusion alpha et échantillonnage *nearest* (pixel art) ; `begin`/`draw`/`end` avec *batching*. **Une seule texture liée par `begin`** : le rendu émet une passe par groupe de texture plutôt que de modifier ce contrat.
 - `Quad` — primitives de dessin (`SpriteQuad`, `LineQuad`) **sans dépendance GPU** : c'est ce qui permet à la composition d'être testée sans GPU.
-- `Camera2D` — projection monde → écran (16 px/unité, Y-bas, zoom) ; matrice de projection, conversions monde↔écran et **cadrage visible** (`visibleBounds`, base du culling).
+- `PlaceCamera` — la **caméra du lieu** : cadrage vue → écran (16 px/unité, Y-bas, zoom), matrice de projection, conversions monde↔écran et **cadrage visible** (`visibleBounds`, base du culling) ; depuis le `LOT-1003`, l'axe de la profondeur (`setDepthRange`) et la matrice d'un maillage posé (`meshMatrix`).
+- `IsoView` — la **vue en volume** : la caméra orthographique tournée de 45° et élevée de asin 0,62. Où tombe un point élevé, à quelle profondeur, la pose d'un maillage, la profondeur d'une image à plat ou dressée. Pure, sans GPU.
+- `MeshBatch` — la **passe de maillages** (`LOT-1003`) : sommets, normales, coordonnées de texture ; profondeur testée et écrite ; couleur de base seule, sans éclairage. Dessinée avant les quads de la même passe, qui testent la profondeur sans l'écrire.
+- `RhiShaders` — lecture d'un shader précompilé et passage d'une matrice à l'espace de clip, communs aux deux pipelines.
 
 ## Assets et textures
 - `TextureLoader` — `decodeImageFile` (décodage `QImage` → RGBA non prémultiplié), `encodeImageFile`, `createTexture`, `loadTextureFromFile` : **point unique** de création de texture GPU (`QRhiTexture`). Jamais d'exception (`EX-NFR-040`).
@@ -28,7 +31,7 @@ pipeline 2D, la caméra et la composition des scènes.
 - `SpriteRenderer` — **soumet** une scène composée (`submitComposedScene`, une passe `begin/end` par groupe de texture).
 - `ScenePieces` — géométrie des pièces de l'atelier des textures (`LOT-92`), commune au Colisée en combat et aux lieux qu'on parcourt.
 - `PlaceAppearance` — ce qu'un **lieu** met sur une case : la table qui traduit un type de tuile en pièce de sa planche (`Scene/<lieu>/appearance.json`, `LOT-92`, `LOT-09`).
-- `WorldSceneComposer` / `WorldSceneRenderer` — un lieu qu'on parcourt, composé sans GPU puis rendu en QRhi (`LOT-09`) ; depuis le `LOT-1002`, le rendu du canevas de l'éditeur aussi, en édition comme en essai (cadrage imposé, opacité par primitive, carte préparée avant l'image).
+- `WorldSceneComposer` / `WorldSceneRenderer` — un lieu qu'on parcourt, composé sans GPU puis rendu en QRhi (`LOT-09`) ; une pièce dont le manifeste cite un maillage (`"mesh"`) s'ajoute à la liste des maillages placés et se départage par le tampon de profondeur (`LOT-1003`) ; depuis le `LOT-1002`, le rendu du canevas de l'éditeur aussi, en édition comme en essai (cadrage imposé, opacité par primitive, carte préparée avant l'image).
 - `OffscreenRender` — `hmi::OffscreenRhi` : le même rendu **hors écran**, en image, sur un `QRhi` sans fenêtre, par tuiles de 4 096 pixels au plus (`LevelEditor --render`, les vignettes de l'éditeur, les mesures, `LOT-1002`).
 - `StaticWorldScene` — un lieu composé **une fois**, indexé par une grille de seaux, puis découpé à la vue à chaque image ; les figurines s'y fusionnent et les étages s'effacent devant le héros. Le coût d'une image dépend de ce qu'on voit, pas de la taille de la carte ([audit de l'affichage d'un lieu](../../../Planning/standards/audit-affichage-lieu.md)).
 - La scène de combat n'a plus de chaîne à part : depuis le `LOT-118` le combat se joue sur la carte et se rend par `WorldSceneComposer` / `WorldSceneRenderer` dans `hmi::WorldViewportItem` (la chaîne du Colisée seul, `LOT-50`/`LOT-86`, a été retirée à la recette de la 0.0.1).

@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "Core/Math/Rect.h"
+#include "HMI/Graphics/IsoView.h"
 #include "HMI/Graphics/Quad.h"
 #include "HMI/Graphics/RenderLayer.h"
 
@@ -20,6 +21,31 @@
  */
 
 namespace hmi {
+
+/**
+ * @brief Comment une image se tient dans la scène en volume (`LOT-1003`) : ce qui décide de sa
+ *        **profondeur** quand elle croise un maillage (`hmi::IsoView`).
+ *
+ * Sans maillage dans l'image, rien n'en est lu : l'ordre du peintre décide seul, comme avant.
+ */
+enum class QuadStance : std::uint8_t {
+    /// Une marque sur le plan (jeton, tracé, aide d'édition) : devant tout, jamais masquée.
+    Overlay,
+    /// À plat sur le sol : chaque sommet a la profondeur du sol sous lui.
+    Ground,
+    /// Dressée face à la caméra, sur la ligne de son pied (`ComposedQuad::footY`).
+    Upright,
+};
+
+/// @return La tenue par défaut d'une primitive du calque @p layer : le sol et ce qui est dessous
+///         sont à plat, la bande de profondeur est dressée, l'interface est une marque.
+[[nodiscard]] constexpr QuadStance defaultStance(RenderLayer layer) noexcept {
+    if (sortsByDepth(layer)) {
+        return QuadStance::Upright;
+    }
+    return layer == RenderLayer::UI || layer == RenderLayer::EditorOverlay ? QuadStance::Overlay
+                                                                           : QuadStance::Ground;
+}
 
 /// Nature d'une primitive composée : rectangle aligné aux axes, ou segment épais orienté.
 enum class QuadKind {
@@ -65,6 +91,42 @@ struct ComposedQuad {
     /// tout le reste. Porté par la primitive pour qu'une scène composée une fois
     /// (`hmi::StaticWorldScene`) sache l'effacer à chaque image sans rien recomposer.
     core::Rect occlusion{};
+    /// Comment la primitive se tient dans la scène en volume (`LOT-1003`).
+    QuadStance stance = QuadStance::Ground;
+    /// L'ordonnée de la ligne du **pied** d'une primitive dressée, en unités monde : au-dessus, un
+    /// plan vertical ; au-dessous, le sol. Sans objet pour les autres tenues.
+    float footY = 0.0F;
+};
+
+/**
+ * @brief Identité **opaque** d'un maillage chargé, du point de vue de la composition : comme
+ *        `hmi::TextureHandle`, elle se compare et se regroupe sans que la composition connaisse
+ *        le GPU. Nulle : aucun maillage.
+ */
+using MeshHandle = void*;
+
+/**
+ * @brief Un **maillage placé** (`LOT-1003`) : la composition en produit une liste, à côté de la
+ *        liste des primitives.
+ *
+ * Aucun rang de dessin : les maillages sont opaques et écrivent la profondeur, le tampon les
+ * départage entre eux et des images. Seuls le calque et l'étage sont gardés, pour que l'opacité
+ * des calques de l'éditeur vaille pour un mur en volume comme pour un mur peint.
+ */
+struct ComposedMesh {
+    /// Le calque que la pièce occuperait en image : `Tile` pour un sol, `Object` pour le reste.
+    RenderLayer layer = RenderLayer::Object;
+    MeshHandle mesh = nullptr;
+    /// La pose du maillage dans la vue (`hmi::IsoView::meshTransform`).
+    ViewTransform toView{};
+    /// Le rectangle de l'image qu'il occupe, en unités monde : culling et cadrage.
+    core::Rect bounds{};
+    /// L'étage de la pièce (`LOT-129`), 0 au rez.
+    int storey = 0;
+    /// Opacité, de 0 à 1 : 1 partout, sauf ce que l'appelant éteint ou grise.
+    float opacity = 1.0F;
+
+    [[nodiscard]] bool operator==(const ComposedMesh&) const = default;
 };
 
 /**
@@ -173,10 +235,36 @@ public:
      * @param quad      Primitive à composer (unités monde).
      * @param storey    Étage de la pièce (`LOT-129`), 0 au rez.
      * @param occlusion Ce que la pièce masque, pour l'effacer devant le héros (`ComposedQuad`).
+     * @param footY     La ligne du pied d'une primitive **dressée** (`ComposedQuad::footY`) ; sans
+     *                  elle, le bas du rectangle. Sans effet sur un calque à plat ou d'interface.
      * @return `true` si la primitive a été conservée, `false` si le culling l'a écartée.
      */
     bool addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                   const SpriteQuad& quad, int storey = 0, const core::Rect& occlusion = {});
+                   const SpriteQuad& quad, int storey = 0, const core::Rect& occlusion = {},
+                   std::optional<float> footY = std::nullopt);
+
+    /**
+     * @brief Ajoute un maillage placé à la scène, s'il est visible (`LOT-1003`).
+     * @param layer   Le calque que la pièce occuperait en image.
+     * @param mesh    Le maillage (identité opaque) ; nul, rien n'est ajouté.
+     * @param toView  Sa pose dans la vue.
+     * @param bounds  Le rectangle de l'image qu'il occupe, en unités monde.
+     * @param storey  Étage de la pièce (`LOT-129`), 0 au rez.
+     * @return `true` si le maillage a été conservé, `false` si le culling l'a écarté.
+     */
+    bool addMesh(RenderLayer layer, MeshHandle mesh, const ViewTransform& toView,
+                 const core::Rect& bounds, int storey = 0);
+
+    /// @return Les maillages placés, dans l'ordre de composition.
+    [[nodiscard]] const std::vector<ComposedMesh>& meshes() const noexcept {
+        return _meshes;
+    }
+
+    /// @brief Échange les maillages avec @p meshes : pour qui compose d'avance ou retouche la
+    ///        liste, comme `swapQuads`.
+    void swapMeshes(std::vector<ComposedMesh>& meshes) noexcept {
+        _meshes.swap(meshes);
+    }
 
     /**
      * @brief Ajoute un segment épais à la scène, s'il est visible.
@@ -259,6 +347,7 @@ private:
     [[nodiscard]] bool isVisible(const core::Rect& bounds) const;
 
     std::vector<ComposedQuad> _quads;
+    std::vector<ComposedMesh> _meshes;
     std::vector<TextureHandle> _textureOrder;
     /// Rang de chaque texture déjà vue. Une carte HD en cite des centaines : une recherche
     /// linéaire par primitive coûtait plus que la composition elle-même (audit de l'affichage, A4).

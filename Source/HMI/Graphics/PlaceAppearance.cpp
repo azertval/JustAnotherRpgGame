@@ -184,7 +184,8 @@ void PlaceAppearance::adoptManifest(const core::ScenePieceManifest& manifest) {
         if (!piece.directory.empty()) {
             _files.insert_or_assign(piece.name, piece.path());
         } else if (!ownDirectory.empty()) {
-            _files.insert_or_assign(piece.name, ownDirectory + "/" + piece.file);
+            _files.insert_or_assign(
+                piece.name, ownDirectory + "/" + (piece.isMesh() ? piece.mesh : piece.file));
         }
         // Ce qui monte au-dessus du sommet haut de l'emprise : l'ancre, a defaut le haut de
         // l'image au-dessus du losange de sa case. En largeurs de case, au losange du lieu -- a

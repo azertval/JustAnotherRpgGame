@@ -72,7 +72,7 @@ Trois choses se relient **toutes seules** quand elles sont écrites en code :
 |---|---|
 | `` `EX-CBT-020` `` | la déclaration de l'exigence, dans sa spécification |
 | `` `LOT-128` ``, `` `LOT-19` ``, `` `LOT-EDITOR-03` `` | la fiche du lot, dans la planification |
-| `` `core::BattleGrid` ``, `` `hmi::Camera2D::zoom` `` | le symbole, dans la référence du code |
+| `` `core::BattleGrid` ``, `` `hmi::PlaceCamera::zoom` `` | le symbole, dans la référence du code |
 
 ### Exigences
 

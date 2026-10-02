@@ -153,10 +153,22 @@ Item {
 
     // La souris : le survol vise, le clic se deplace ou attaque.
     MouseArea {
+        id: gridPointer
+
         anchors.fill: parent
         enabled: !root.ended
         hoverEnabled: true
-        onPositionChanged: (mouse) => root.gridHovered(mouse.x, mouse.y)
-        onClicked: (mouse) => root.gridClicked(mouse.x, mouse.y)
+    }
+
+    Connections {
+        target: gridPointer
+
+        function onPositionChanged(mouse) {
+            root.gridHovered(mouse.x, mouse.y)
+        }
+
+        function onClicked(mouse) {
+            root.gridClicked(mouse.x, mouse.y)
+        }
     }
 }

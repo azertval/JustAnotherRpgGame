@@ -971,7 +971,7 @@ carte de départ au lieu de s'ouvrir à côté. Tout le reste est privé, et se 
   ce qui est écarté va sous `conflicts/`), `watchLevelFile` (tous les onglets), `checkDiskChange`,
   `keepAside`.
 
-Le cadrage automatique du canevas passe par `hmi::Camera2D::fitZoom` ([Rendu 2D : de la scène à
+Le cadrage automatique du canevas passe par `hmi::PlaceCamera::fitZoom` ([Rendu 2D : de la scène à
 l'écran](guide-rendu.md)) ; molette et glisser au bouton droit prennent le relais, `0` le
 rétablit. `MainWindow::openResizeDialog` interroge `wouldResizeDrop` avant `resizeLevel` et pose une
 confirmation si du contenu serait perdu (`EX-EDIT-012`) ; fermer la fenêtre demande Save, Discard

@@ -167,7 +167,7 @@ PanelFrame {
     }
 
     ListView {
-        id: list
+        id: entryList
 
         anchors.left: parent.left
         anchors.right: parent.right
@@ -189,7 +189,7 @@ PanelFrame {
 
             readonly property bool chosen: root.selectedIndex === line.index
 
-            width: list.width
+            width: entryList.width
             height: Tokens.fontBody + Tokens.gapMedium
             color: line.chosen ? Qt.rgba(Tokens.gemLight.r, Tokens.gemLight.g, Tokens.gemLight.b, 0.55)
                                : "transparent"
@@ -224,10 +224,18 @@ PanelFrame {
             }
 
             MouseArea {
+                id: linePointer
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onClicked: root.entryChosen(line.index)
-                onDoubleClicked: root.entryActivated(line.index)
+            }
+            Connections {
+                target: linePointer
+                function onClicked() {
+                    root.entryChosen(line.index)
+                }
+                function onDoubleClicked() {
+                    root.entryActivated(line.index)
+                }
             }
         }
     }

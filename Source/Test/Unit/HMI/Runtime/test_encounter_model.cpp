@@ -28,6 +28,7 @@
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 #include "HMI/Runtime/EncounterModel.h"
+#include "HMI/Runtime/InventoryModel.h"
 #include "HMI/Runtime/PartyModel.h"
 #include "HMI/Runtime/WorldModel.h"
 
@@ -513,4 +514,51 @@ TEST(EncounterModelTest, LInterfaceDeGroupeLitLaVueModele) {
 
     fuir(rencontre, monde, bandes);
     rencontre.leave();
+}
+
+/**
+ * @brief Une arme retirée entre deux combats ne reste pas dans le cache des combattants.
+ * \castest{<b>Le combat relit l'equipement modifie entre deux rencontres.</b><br/>
+ * \tcat Unitaire · Rencontre<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Jouer puis quitter une premiere rencontre.<br/>
+ *          2. Retirer l'arme en main du brawler par l'inventaire.<br/>
+ *          3. Ouvrir une seconde rencontre et attendre le tour du brawler.<br/>
+ * \tattendu La premiere action proposee au brawler n'est plus son ancienne arme : le combat a
+ *           relu son equipement.
+ * }
+ */
+TEST(EncounterModelTest, LeCombatRelitLEquipementModifie) {
+    hmi::WorldModel monde;
+    ouvrirLeDonjon(monde);
+    hmi::EncounterModel rencontre;
+    rencontre.setContentRoot(dataRoot());
+    rencontre.setSeed(2026);
+    ASSERT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon")));
+    std::set<std::string> bandes;
+    fuir(rencontre, monde, bandes);
+    ASSERT_TRUE(rencontre.ended());
+    rencontre.leave();
+
+    monde.showCharacter(QStringLiteral("heros-brawler"));
+    hmi::InventoryModel inventaire;
+    inventaire.loadShownCharacter();
+    ASSERT_EQ(inventaire.characterId(), QStringLiteral("heros-brawler"));
+    inventaire.selectSlot(QStringLiteral("main-hand"));
+    const QString ancienneArme = inventaire.selection().value("name").toString();
+    ASSERT_FALSE(ancienneArme.isEmpty());
+    inventaire.unequipSelected();
+    ASSERT_TRUE(rencontre.begin(QStringLiteral("rats-du-donjon")));
+    for (int tour = 0; tour < 20 && !rencontre.ended(); ++tour) {
+        jusquAuJoueur(rencontre, monde, bandes);
+        if (rencontre.activeProfile().value("name").toString() ==
+            QStringLiteral("Grom Tranche-Écaille")) {
+            ASSERT_FALSE(rencontre.turnActions().isEmpty());
+            EXPECT_NE(rencontre.turnActions().front().toMap().value("label").toString(),
+                      ancienneArme);
+            return;
+        }
+        rencontre.endTurn();
+    }
+    FAIL() << "Le tour de Grom n'a pas ete atteint";
 }

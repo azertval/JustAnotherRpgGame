@@ -28,4 +28,6 @@ CMakeLists.txt text
 *.ogg binary
 *.mp3 binary
 *.ttf binary
+# Maillages (LOT-1003) : glTF binaire.
+*.glb binary
 *.otf binary

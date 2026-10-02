@@ -135,14 +135,14 @@ l'exécution, sur un seul des deux.
 Ce qui n'y est **pas** — le brouillon d'édition, le `DraftRenderer`, la caméra, la carte jouée —
 appartient à un seul des hôtes : le remonter ici ferait payer au jeu ce dont il ne se sert pas.
 
-## Unités monde et pixels : `hmi::Camera2D`
+## Unités monde et pixels : `hmi::PlaceCamera`
 
 `Core` ne connaît que des **unités monde** ([Mathématiques du moteur](guide-maths.md)) — jamais de
 pixels. Le rendu doit donc **convertir** une position monde en position d'écran avant de dessiner
-quoi que ce soit ; c'est le rôle de `hmi::Camera2D` (`Camera2D.h`). Deux paramètres gouvernent
+quoi que ce soit ; c'est le rôle de `hmi::PlaceCamera` (`PlaceCamera.h`). Deux paramètres gouvernent
 cette conversion :
 
-- `hmi::Camera2D::PIXELS_PER_UNIT` = 16 : l'échelle de base, fixée par convention du projet
+- `hmi::PlaceCamera::PIXELS_PER_UNIT` = 16 : l'échelle de base, fixée par convention du projet
   (`EX-ARCH-021`) — une unité monde occupe 16 pixels à l'écran avant tout zoom. `Core` en garde une
   copie (`core::ARENA_PIXELS_PER_UNIT`) parce qu'il ne voit pas `HMI` ;
 - le **zoom** (`setZoom`, `zoom()`) : un multiplicateur additionnel de cette échelle, strictement
@@ -150,24 +150,29 @@ cette conversion :
 
 La caméra a aussi un **centre** (`setCenter`, `center()`, en unités monde) : le point qui apparaît
 au milieu de la surface, dont les dimensions en pixels sont données au constructeur
-(`Camera2D(viewportWidth, viewportHeight)`) : la caméra ne se redimensionne pas, le rendu la
+(`PlaceCamera(viewportWidth, viewportHeight)`) : la caméra ne se redimensionne pas, le rendu la
 reconstruit à chaque image à la taille de sa cible (`worldCamera`). L'origine écran est en haut à gauche et l'axe Y descend : la convention du
 projet, la même que celle des cartes.
 
-- `hmi::Camera2D::projectionMatrix` combine centre, échelle et dimensions de la surface en une
+- `hmi::PlaceCamera::projectionMatrix` combine centre, échelle et dimensions de la surface en une
   **matrice de projection orthographique** (ligne-major DirectXMath) : la transformation standard
   qui convertit une position monde en position « clip », l'espace normalisé que le GPU attend en
   sortie du *vertex shader*. C'est cette matrice, et non une conversion manuelle pixel par pixel,
   que le pipeline applique à chaque sommet ;
-- `hmi::Camera2D::worldToScreen` et `hmi::Camera2D::screenToWorld` exposent la même conversion
+- `hmi::PlaceCamera::worldToScreen` et `hmi::PlaceCamera::screenToWorld` exposent la même conversion
   côté CPU, pour des besoins hors dessin (convertir une position de souris en position monde) ;
-- `hmi::Camera2D::visibleBounds` est le rectangle du monde effectivement cadré, dérivé de
+- `hmi::PlaceCamera::visibleBounds` est le rectangle du monde effectivement cadré, dérivé de
   `screenToWorld` : la base du **culling** (plus bas). Aucune notion de cadrage nouvelle n'est
   introduite, la caméra reste la seule source de vérité.
 
+C'est la **caméra du lieu** : depuis le `LOT-1003` elle porte un troisième axe, la profondeur de la
+vue, que `setDepthRange` ramène à l'étendue du tampon de profondeur, et `meshMatrix` donne la
+matrice d'un maillage posé ([les volumes](#les-volumes-hmiisoview-et-hmimeshbatch)). Sans étendue
+fixée, sa matrice est celle de la caméra plane qu'elle remplace, coefficient pour coefficient.
+
 ### Cadrer une scène : `fitZoom` et `worldCamera`
 
-`hmi::Camera2D::fitZoom(availableWidth, availableHeight, contentWidth, contentHeight, margin)`
+`hmi::PlaceCamera::fitZoom(availableWidth, availableHeight, contentWidth, contentHeight, margin)`
 calcule le zoom qui fait tenir un rectangle donné (en unités monde) dans une surface disponible (en
 pixels), sans jamais laisser de zone hors champ : le plus petit des deux rapports, multiplié par
 `margin` (1 par défaut) pour laisser une marge visuelle, **sans arrondi**. Il s'arrondissait à
@@ -285,7 +290,7 @@ droit, se fonceraient à chaque niveau.
 ### `hmi::screenProjectionMatrix` : dessiner en pixels
 
 `hmi::screenProjectionMatrix(viewportWidth, viewportHeight)` (`SpriteRenderer.h`) construit la
-projection **écran → clip**, indépendante de `Camera2D`, pour ce qui se dessine en pixels d'écran
+projection **écran → clip**, indépendante de `PlaceCamera`, pour ce qui se dessine en pixels d'écran
 plutôt qu'en unités monde — la galerie des assets. Même convention (origine haut-gauche, Y vers le
 bas) que le reste du rendu.
 
@@ -609,7 +614,7 @@ Le tri est **stable** : à clé égale, l'ordre de composition est préservé d'
 ### Ne dessiner que ce qui se voit : le culling
 
 La composition écarte toute primitive dont la boîte englobante n'intersecte pas le cadrage de la
-caméra (`hmi::Camera2D::visibleBounds`, transmis par `ComposedScene::setVisibleBounds`), élargi
+caméra (`hmi::PlaceCamera::visibleBounds`, transmis par `ComposedScene::setVisibleBounds`), élargi
 d'une **marge d'une case** (`hmi::ComposedScene::CULLING_MARGIN_UNITS`) pour qu'une entité à
 cheval sur la frontière ne disparaisse pas prématurément. Le rectangle marge comprise est calculé
 une fois par `setVisibleBounds`, sur un chemin parcouru des centaines de fois par image. Le test
@@ -979,6 +984,63 @@ centres : un trajet)). Les jetons se posent **toujours** — une entité sans fi
 autrement ; les tracés et les flèches ne paraissent qu'en maquette : une carte finie ne montre pas
 ses déclencheurs.
 
+## Les volumes : `hmi::IsoView` et `hmi::MeshBatch`
+
+Depuis le `LOT-1003`, une pièce de décor peut être un **maillage** : son manifeste cite un fichier
+`.glb` sous `"mesh"` au lieu d'une image sous `"file"` (`core::ScenePiece::isMesh`). Le rendu ne
+trie pas un volume : il le dessine avec le **tampon de profondeur**, et les images de la même scène
+s'y comparent. Rien ne change pour une carte sans maillage — et c'était, à l'ouverture du lot, le
+cas de toutes les cartes livrées : la profondeur n'est ni testée ni écrite, les sommets et la
+matrice sont ceux d'avant, l'image est la même au pixel.
+
+**La vue.** `core::IsoProjection` projette le sol ; `hmi::IsoView` y ajoute ce que le sol seul ne
+disait pas — où tombe un point **élevé**, et à quelle **profondeur** est un point. C'est la caméra
+du standard 3D : orthographique, tournée de 45°, élevée d'un angle dont le sinus est le rapport du
+losange (0,62, soit 38,3°). Le plan de l'image reste celui d'`IsoProjection`, en unités monde ; la
+profondeur est un troisième axe, croissant en s'éloignant. Un maillage est en mètres, la hauteur
+vers +Y, l'origine au sol sous le centre de son emprise, **+X le long des colonnes** de la grille et
+**+Z le long de ses lignes** ; `hmi::IsoView::meshTransform` le pose en un point de grille, élevé
+d'un étage au besoin, et `hmi::PlaceCamera::meshMatrix` compose cette pose avec le cadrage.
+
+**Le chargement.** `core::readMeshFile` lit un `.glb` sans Qt ni GPU, par `nlohmann/json` pour son
+bloc JSON : toutes ses primitives triangles fondues en un `core::MeshData` — sommets (position,
+normale, coordonnées de texture), indices, et l'image **encodée** de sa couleur de base, que
+`hmi::MeshBatch::create` décode et téléverse. Ce qu'il ne lit pas — tampon hors du fichier,
+accesseur creux, extension requise — est refusé et nommé ; les os et les animations sont au
+`LOT-1005`. `WorldSceneRenderer` charge les maillages d'une carte comme ses textures : à la
+demande, une fois (`hmi::worldMeshPaths`).
+
+**La composition.** Elle reste une fonction pure : une pièce en maillage ne produit pas de
+primitive mais un `hmi::ComposedMesh` — le maillage, sa pose, le rectangle qu'il occupe à l'image,
+son calque et son étage —, dans la liste `ComposedScene::meshes`, à côté de la liste triée des
+primitives. Un maillage dont le fichier manque retombe sur le damier : la pièce se voit.
+
+**Les images dans la scène.** Chaque primitive dit comment elle se tient (`hmi::QuadStance`) :
+
+| Tenue | Qui | Profondeur |
+|---|---|---|
+| `Ground` | un sol, un bloc de maquette (`PolyQuad::rise` dit l'élévation de chaque sommet) | celle du sol sous chaque sommet, élevée de ce que le sommet déclare |
+| `Upright` | un relief, une figurine | un plan **vertical**, tourné vers la caméra, sur la ligne du pied (`ComposedQuad::footY`) ; au-dessous, le sol |
+| `Overlay` | un jeton, un tracé, une aide d'édition | devant tout |
+
+Vertical, et non perpendiculaire au regard : un plan face au regard penche en arrière, et une
+figurine à moins de 0,88 m devant un mur aurait la tête dedans. Sous une caméra orthographique
+fixe, l'un comme l'autre occupe les mêmes pixels. `hmi::submitComposedScene` calcule ces
+profondeurs quand on lui donne un `hmi::SceneDepth`, et soumet en deux rectangles une image dressée
+que la ligne de son pied traverse.
+
+**La passe.** `hmi::MeshBatch` dessine les maillages — profondeur testée **et écrite**, couleur de
+base seule, sans éclairage (`LOT-1007`) —, puis `hmi::SpriteBatch` les quads, qui **testent** la
+profondeur sans l'écrire : leurs bords sont adoucis, et entre eux l'ordre du peintre décide
+toujours. L'opacité des calques de l'éditeur vaut pour les deux.
+
+**Les données d'essai.** `Source/Test/Fixtures/Meshes` est une petite racine de données en
+volumes — une cour dallée, un îlot de huit murs, son toit à l'étage, une figurine témoin —, écrite
+octet par octet par `scripts/assetsGeneration/build_mesh_fixture.py` (`--check` vérifie qu'elle
+est à jour). Les tests du chargeur, de la composition et de la passe la lisent, la cible de fuzzing
+`fuzz_mesh` s'y amorce, et l'éditeur l'ouvre :
+`LevelEditor --data Source/Test/Fixtures/Meshes --map=ilot`.
+
 ## Assembler la frame complète
 
 Le rendu de scène du jeu, `hmi::WorldSceneRenderer`, suit trois temps, que l'élément Qt Quick ne
@@ -991,8 +1053,10 @@ fait que relayer :
    toucher au GPU — appelable avant les ressources ;
 3. `render(commandBuffer, target, ...)`, sur le fil de rendu : `SpriteBatch::beginFrame`, cadrage
    (`worldCamera`, la taille de la cible fixant le cadrage), composition,
-   `submitComposedScene`, puis `SpriteBatch::submit`, qui téléverse les sommets et les textures
-   accumulés et émet l'unique passe de l'image.
+   `submitComposedScene`, puis l'unique passe de l'image — les téléversements d'abord
+   (`SpriteBatch::prepare`, `MeshBatch::prepare`), puis les maillages et les quads
+   (`MeshBatch::record`, `SpriteBatch::record`), dans cet ordre
+   ([les volumes](#les-volumes-hmiisoview-et-hmimeshbatch)).
 
 ![Une image du jeu Qt Quick : le fil graphique simule et prend un instantané en valeurs, synchronize() le fait traverser, le fil de rendu enchaîne ensureResources, setSnapshot, la composition pure puis la soumission au GPU](figures/rendu-pipeline-image.svg)
 
@@ -1173,7 +1237,7 @@ nulle ; l'écran affiche alors son fond, pas une erreur.
 
 ## Voir aussi
 - `hmi::SpriteBatch`, `hmi::SpriteQuad`, `hmi::LineQuad`, `hmi::PolyQuad`, `hmi::RhiContext`,
-  `hmi::SceneResources`, `hmi::Camera2D`, `hmi::screenProjectionMatrix`.
+  `hmi::SceneResources`, `hmi::PlaceCamera`, `hmi::screenProjectionMatrix`.
 - `hmi::EditorViewport`, `hmi::WorldViewportItem`,
   `hmi::GameViewportItem`, `hmi::AssetGalleryItem`, `hmi::CityBlockImageProvider` — les surfaces
   de dessin (`EX-REN-050`).

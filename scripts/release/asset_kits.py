@@ -4,7 +4,8 @@
 """Les kits d'assets hors de l'historique Git (LOT-108, `Planning/standards/assets-hors-git-lot108.md`).
 
 Un **kit** est un dossier d'assets publié d'un seul tenant : un lieu de `Regions/` ou de `Common/`
-(sans ses sous-lieux, qui sont d'autres kits), `Maps/` ou `UI/`. Ses **images** partent en archive
+(sans ses sous-lieux, qui sont d'autres kits), `Maps/` ou `UI/`. Ses **images** et ses **modèles**
+(`.glb`, depuis que le moteur les lit : LOT-1003) partent en archive
 immuable sur une release GitHub ; Git ne garde que les manifestes et le verrou
 `Source/Elements/Assets/kits.lock.json`, qui donne l'empreinte de chaque archive.
 
@@ -30,6 +31,8 @@ LOCK = ASSETS / "kits.lock.json"
 WITNESSES = ASSETS / ".kits"
 REPOSITORY = "azertval/JustAnotherRpgGame"
 IMAGES = (".png", ".jpg", ".jpeg")
+# Les modèles : un `.glb` par maillage, hors de Git comme une image (standard 3D, §2).
+MODELS = (".glb",)
 # Les arbres couverts par les kits ; `Fonts/` et `Entities/` restent suivis.
 TREES = ("Common", "Regions", "Maps", "UI")
 # Date fixe des entrées d'archive : deux publications du même contenu ont la même empreinte.
@@ -84,12 +87,13 @@ def release_tag(path: str) -> str:
 
 
 def is_image(path: Path) -> bool:
-    """Un fichier d'image au sens des kits (PNG, JPEG)."""
-    return path.suffix.lower() in IMAGES
+    """Un fichier que porte l'archive d'un kit : une image (PNG, JPEG) ou un modèle (`.glb`)."""
+    return path.suffix.lower() in IMAGES + MODELS
 
 
 def kit_files(path: str, kits: list[str], assets: Path | None = None) -> list[str]:
-    """Les images d'un kit, relatives à son dossier, triées ; les sous-dossiers d'un autre kit exclus."""
+    """Les images et les modèles d'un kit, relatifs à son dossier, triés ; les sous-dossiers d'un
+    autre kit exclus."""
     assets = assets or ASSETS
     base = assets / path
     nested = [k for k in kits if k != path and k.startswith(path + "/")]
@@ -121,8 +125,8 @@ def sha256_file(path: Path) -> str:
 def build_archive(path: str, files: list[str], assets: Path | None = None) -> bytes:
     """L'archive déterministe d'un kit : entrées triées, date fixe, sans attribut de poste, non compressée.
 
-    Les PNG et JPEG sont déjà compressés : les stocker tels quels garde l'archive déterministe sans
-    dépendre de la version de zlib.
+    Les PNG et JPEG sont déjà compressés, et un `.glb` est surtout sa texture : les stocker tels quels
+    garde l'archive déterministe sans dépendre de la version de zlib.
     """
     assets = assets or ASSETS
     buffer = io.BytesIO()

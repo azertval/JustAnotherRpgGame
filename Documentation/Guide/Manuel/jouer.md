@@ -20,7 +20,7 @@ clic) : **Continuer** et **Charger une partie** (grisées tant que la sauvegarde
 **Nouvelle partie**, **Options**, **Crédits**, **Quitter**. Une manette **XInput** navigue aussi
 dans les menus.
 
-![Le menu principal sur son fond peint : le titre du jeu, puis les six entrées dont Continuer et Charger une partie grisées, à 1280 × 720](../captures/jeu-mainmenu.jpg)
+![Le menu principal en codex illustré, avec ses six entrées dont Continuer et Charger une partie grisées, à 1280 × 720](../captures/jeu-mainmenu.jpg)
 
 ## Parcourir le monde
 
@@ -40,13 +40,19 @@ avec la compétence et le seuil à atteindre (« [Persuasion · DD 15] »). Une 
 montre le d20 tiré, le calcul et l'issue ; un jet **raté** ne se retente pas, ni dans cette
 conversation ni dans la suivante.
 
-![L'écran de jeu avant la démo : le cadre de la charte — portrait, jauges, boussole, journal de quêtes, boutons du bandeau — et, au centre, le message « La ville de départ ne s'ouvre pas », à 1280 × 720](../captures/jeu-gameview.jpg)
+![Le HUD d'exploration sur l'arène : portraits du groupe, points de vie et accès aux menus, à 1280 × 720](../captures/jeu-gameview.jpg)
 
-> Cette capture date d'avant les cartes de la démo : le cadre est le même, mais « Nouvelle partie »
-> ouvre désormais le marché de Martpart à la place du message.
+Le HUD montre les quatre mercenaires et leurs points de vie. Cliquez sur un portrait, ou appuyez
+sur **Tab**, pour changer de meneur. Une invite près d'un interlocuteur ou d'un objet indique
+l'interaction disponible. Les boutons ouvrent **Personnage**, **Équipement**, **Journal**,
+**Groupe** et **Menu** ; **Carte** reste en haut à droite.
 
-Les boutons du bandeau ouvrent l'inventaire, le **journal** (la quête en cours et son étape), la
-**carte** et les options.
+La fiche **Personnage** reste le registre d'identité du mercenaire. Ses onglets donnent accès aux
+**Capacités de classe** (avec le **Grimoire**), aux **Compétences** et à l'**Équipement**. Les
+flèches près du titre changent de mercenaire. Les listes de capacités, sorts et objets se filtrent
+par nom. Dans Équipement, sélectionner un objet affiche ses propriétés et la comparaison avec
+l'objet porté ; **Équiper**, **Retirer** et **Jeter un exemplaire** agissent sur son inventaire.
+Jeter demande confirmation. L'équipement se change hors combat et reste conservé pendant la partie.
 
 ![La carte du monde de Tanares : treize régions marquées d'un repère d'or, la fiche de l'Empire central à gauche, à 1280 × 720](../captures/jeu-worldmap.jpg)
 
@@ -101,18 +107,23 @@ le même curseur que le clavier.
 | Déplacer le curseur | **↑ ↓ ← →** | croix ou stick gauche |
 | Confirmer (déplacement, cible, action) ; quitter une fois le combat fini | **Entrée** | **A** |
 | Changer de cible | **Tab** / **Maj+Tab** | **X** |
-| Changer d'action | **Page suivante** / **Page précédente**, ou **1** à **9** | **RB** / **LB** |
+| Changer d'action | **Page suivante** / **Page précédente**, ou **1** à **8** | **RB** / **LB** |
 | Recentrer sur le combattant actif | **Retour arrière** | **B** |
-| Finir son tour (aussi le bouton « Fin du tour » sous la fiche de la cible) | **Espace** | **Y** |
+| Finir son tour (aussi le bouton « Fin du tour » dans la barre d’actions) | **Espace** | **Y** |
 | Fuir, si la rencontre le permet | **F** | — |
 
-![L'affichage de combat : la piste d'initiative, la barre des actions du tour, la fiche de la cible et le journal des jets, à 1280 × 720](../captures/jeu-combathud.jpg)
+![Le HUD de combat : initiative, actions du tour et prévisualisation contextuelle ; les détails et l'historique se déplient à la demande, à 1280 × 720](../captures/jeu-combathud.jpg)
 
 Avant de confirmer, le curseur annonce ce que coûtera le geste et le jet qu'il faudra atteindre :
 la prévisualisation **est** le calcul, pas une estimation. Les déplacements et les coups se
 rejouent à la vitesse du monde ; tant qu'un mouvement joue, les gestes attendent, et **Entrée** saute
 l'animation. Dans la démo, le combat de l'arène est le seul, et il est **létal** : y tomber ouvre
 l'écran de mort.
+
+Les onglets **Toutes**, **Actions** et **Sorts** filtrent la barre. **Historique** affiche les
+jets précédents ; **Détails du calcul** déplie les explications de l'action visée. Ouvrir puis
+refermer la fiche pendant un combat revient au combat. **Options** (ou **Échap** pendant le combat)
+ouvre les réglages puis revient au même tour.
 
 ## Pause
 
@@ -125,8 +136,13 @@ l'écran de mort.
 
 Accessible depuis le menu principal, la pause ou le bandeau. Trois onglets : **Général** (langue du
 jeu, journaux de session), **Graphismes** (plein écran, synchronisation verticale — appliquée au
-prochain lancement —, compteur de diagnostic) et **Audio** (volume général). **Appliquer** retient
+prochain lancement —, compteur de diagnostic, taille du HUD) et **Audio** (volume général). **Appliquer** retient
 les réglages, **Annuler** les abandonne, **Par défaut** les rétablit.
+
+Dans **Graphismes > Interface en jeu**, **Taille du HUD** va de **75 % à 130 %**, par pas de 5 %.
+Le réglage agrandit ou réduit les portraits, commandes et informations d'exploration et de combat.
+Il prend effet avec **Appliquer** et se retrouve au lancement suivant. Le terrain et les menus
+gardent leur taille. La valeur par défaut est **100 %**.
 
 ![L'écran des options, onglet Général : la langue du jeu et le bouton « Enregistrer les journaux de session » ; en pied, « Par défaut », « Annuler » et « Appliquer », à 1280 × 720](../captures/jeu-options.jpg)
 

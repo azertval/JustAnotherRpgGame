@@ -94,8 +94,12 @@ struct ScenePiece {
     std::string name;
     /// Clé de l'atelier (`scene/martpart/wall-left`).
     std::string key;
-    /// Fichier image, relatif au dossier du lieu (`wall-left.png`).
+    /// Fichier image, relatif au dossier du lieu (`wall-left.png`) ; vide pour une pièce en
+    /// maillage.
     std::string file;
+    /// Fichier de maillage, relatif au dossier du lieu (`walls/wall.glb`, `LOT-1003`) : la pièce
+    /// est alors un **volume**, et non une image. Une entrée qui cite les deux est un maillage.
+    std::string mesh;
     ScenePieceClass pieceClass = ScenePieceClass::Other;
     /// Classe telle qu'écrite (`floor`, `tall`, `wide`…), pour une classe inconnue.
     std::string className;
@@ -122,10 +126,17 @@ struct ScenePiece {
     /// Le niveau qui la déclare (`core::SceneLevel::label`) ; vide pour un manifeste lu seul.
     std::string level;
 
-    /// @return Le fichier de l'image, relatif à `Assets/` : `<directory>/<file>` ; @ref file seul
-    ///         pour un manifeste lu seul.
+    /// @return Vrai si la pièce est un maillage (`mesh`), faux si c'est une image.
+    [[nodiscard]] bool isMesh() const noexcept {
+        return !mesh.empty();
+    }
+
+    /// @return Le fichier de la pièce — son maillage, à défaut son image —, relatif à `Assets/` :
+    ///         `<directory>/<fichier>` ; le fichier seul pour un manifeste lu seul. Son extension
+    ///         dit sa forme (`core::isMeshPath`).
     [[nodiscard]] std::string path() const {
-        return directory.empty() ? file : directory + "/" + file;
+        const std::string& own = isMesh() ? mesh : file;
+        return directory.empty() ? own : directory + "/" + own;
     }
 
     /// @return L'emprise de la pièce.
@@ -160,8 +171,8 @@ struct MaskedScenePiece {
 /**
  * @brief Les pièces d'un lieu, dans l'ordre du manifeste.
  *
- * Logique pure. Aucune lecture ne lève (`EX-NFR-040`) ; une entrée mal formée (sans `file`) est
- * ignorée plutôt que de faire perdre les autres, comme la galerie l'a toujours fait.
+ * Logique pure. Aucune lecture ne lève (`EX-NFR-040`) ; une entrée mal formée (sans `file` ni
+ * `mesh`) est ignorée plutôt que de faire perdre les autres, comme la galerie l'a toujours fait.
  */
 class ScenePieceManifest {
 public:

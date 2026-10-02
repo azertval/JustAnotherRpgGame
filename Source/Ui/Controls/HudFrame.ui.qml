@@ -1,603 +1,312 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import QtQuick.Effects
 import Jadg.Ui
 
-/*!
-    Chassis du HUD de jeu : le cadre de la maquette 01, autour de la scene (LOT-87, T4.1).
-
-    Ce que la vue d'exploration (`GameViewForm`) et le HUD de combat (`CombatHudForm`) partagent :
-    l'hote de la surface de rendu, le personnage actif (portrait, niveau, nom, vie, experience), la
-    colonne des membres, la barre de boussole, la mini-carte, les quetes, le jour et le lieu, les
-    raccourcis de navigation et l'indicateur de mode. Ce qui est propre au combat -- journal, roue
-    et barre d'actions, fiche de la cible, ordre d'initiative -- se pose dans le formulaire, comme
-    le contenu d'un `ScreenPage`.
-
-    **La scene n'est pas la maquette.** La maquette peint une scene isometrique ; le moteur rend le
-    viewport de la scene 2D HD (LOT-103). Le cadre se pose PAR-DESSUS l'hote, sans fond : tout ce
-    qui n'est pas un bloc laisse voir la scene.
-
-    Cotes relevees sur `01_InGame_HUD_Mockup.png` (1672 x 940), ramenees a 1920 x 1080 (x 1,148),
-    puis multipliees par `Tokens.uiScale`. Les proprietes portent des VALEURS D'EXEMPLE ; les
-    jumeaux les remplacent.
-
-    Les listes ont les roles de `SheetRowModel` (`rowId`, `label`, `value`), ceux que pose
-    `PendingData.rows()` :
-    - `party` : `label` le nom, `value` les points de vie (`42 / 52`), et le role facultatif
-      `ratio` (0 a 1) qui remplit la jauge -- une chaine ne se decoupe pas dans un `.ui.qml`, ou
-      Qt Design Studio refuse tout appel de fonction ;
-    - `quests` : `label` le titre, `value` l'objectif en cours ; la PREMIERE ligne est la quete
-      suivie.
-*/
+/*! Cadre d'exploration. Les groupes se redimensionnent autour de leur bord d'ancrage ;
+    la scène et les coordonnées du monde restent indépendantes de la préférence du HUD. */
 Item {
     id: root
-
-    /// Vrai tant qu'aucune donnee reelle n'alimente le HUD.
-    property bool pending: false
-
-    /// Le mode de jeu courant : `exploration` ou `combat` (`IGameMode::name()`).
     property string mode: "exploration"
-
-    /// La jauge d'experience : le combat la retire, le tour prend sa place (LOT-140).
-    property bool showExperience: true
-    /// Le panneau des quetes : le combat le retire, la previsualisation prend sa place (LOT-140).
+    property bool pending: false
+    property bool showExperience: false
     property bool showQuests: true
-
-    // --- Le personnage actif -----------------------------------------------------------------------
-    property string characterName: "Brenna Pierrefonte"
-    property string level: "3"
-    property string hitPointsText: "25 / 30"
-    property real hitPointsRatio: 25 / 30
-    property string experienceText: "900 / 2700"
-    property real experienceRatio: 900 / 2700
+    property string characterName: "Grom"
+    property string level: "2"
+    property string hitPointsText: "25 / 32"
+    property real hitPointsRatio: 25 / 32
+    property string experienceText: ""
+    property real experienceRatio: 0
     property url portrait: ""
-
-    // --- Les membres et les quetes ----------------------------------------------------------------
-    property var party: exampleParty
-    /// Le membre actif (indice dans `party`), ou -1.
+    property var party: [
+        { id: "grom", label: "Grom", value: "25 / 32", ratio: 0.78, portrait: "" },
+        { id: "helga", label: "Helga", value: "18 / 18", ratio: 1, portrait: "" },
+        { id: "faelar", label: "Faelar", value: "12 / 12", ratio: 1, portrait: "" },
+        { id: "nessa", label: "Nessa", value: "17 / 20", ratio: 0.85, portrait: "" }
+    ]
     property int activeMember: 0
-    property var quests: exampleQuests
-
-    // --- La barre d'etat et la mini-carte ------------------------------------------------------------
-    property string clock: "Jour 3, 10 h 24"
-    property string location: "Forêt de la Brume"
+    property var quests: []
+    property string trackedObjective: ""
+    property string clock: ""
+    property string location: "Martpart · Place du marché"
     property url minimap: ""
+    property string interactionText: ""
+    property real interactionX: width / 2
+    property real interactionY: height / 2
+    property bool objectiveExpanded: true
+    signal memberClicked(int index)
+    signal objectiveToggleRequested()
+    signal interactRequested()
 
-    property alias viewportHost: viewportHost
+    property alias viewportHost: viewportArea
     property alias inventoryButton: inventoryControl
     property alias journalButton: journalControl
     property alias mapButton: mapControl
     property alias optionsButton: optionsControl
-
-    /// Ce que le formulaire pose par-dessus la scene : la plein-ecran de conception, sous le cadre.
+    property alias characterButton: characterControl
+    property alias groupButton: groupControl
     default property alias content: contentArea.data
-
-    readonly property ListModel exampleParty: ListModel {
-        ListElement { rowId: "brenna"; label: "Brenna"; value: "25 / 30"; ratio: 0.83 }
-        ListElement { rowId: "sarre"; label: "Sarre"; value: "38 / 45"; ratio: 0.84 }
-        ListElement { rowId: "ourse"; label: "Ourse"; value: "28 / 32"; ratio: 0.88 }
-        ListElement { rowId: "ilse"; label: "Ilse"; value: "22 / 28"; ratio: 0.79 }
-    }
-
-    readonly property ListModel exampleQuests: ListModel {
-        ListElement { rowId: "convoi"; label: "Le convoi disparu"; value: "Trouver le marchand disparu (1/3)" }
-        ListElement { rowId: "pillards"; label: "Les pillards"; value: "Éliminer les bandits (2/5)" }
-    }
 
     width: 1920
     height: 1080
 
-    // L'hote de la surface de rendu. La surface elle-meme (`GameViewport`) est un type C++ que
-    // l'atelier ne connait pas : c'est le jumeau qui la pose ici, a l'execution. Dans Qt Design
-    // Studio, l'hote se dessine comme un aplat au parchemin -- ce que la surface efface de toute
-    // facon tant qu'aucune scene n'est jouee.
     Rectangle {
-        id: viewportHost
-
+        id: viewportArea
+        objectName: "worldViewportHost"
         anchors.fill: parent
         color: Tokens.background
     }
+    Item { id: contentArea; anchors.fill: parent; z: 1 }
 
     Item {
-        id: contentArea
-
-        anchors.fill: parent
-    }
-
-    // --- Personnage actif (maquette : 18, 12 -> 520, 212) ---------------------------------------------
-    Item {
-        id: namePlate
-
-        x: 200 * Tokens.uiScale
-        y: 36 * Tokens.uiScale
-        width: 340 * Tokens.uiScale
-        height: 52 * Tokens.uiScale
-
-        Rectangle {
-            anchors.fill: parent
-            visible: !namePlateArt.delivered
-            color: Tokens.panel
-            border.color: Tokens.accent
-            border.width: Tokens.strokeWidth
+        id: locationGroup
+        z: 5
+        visible: root.mode === "exploration"
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.margins: Tokens.gapMedium
+        width: 480 * Tokens.uiScale
+        height: 86 * Tokens.uiScale
+        scale: Tokens.hudScale
+        transformOrigin: Item.TopLeft
+        SectionBanner {
+            width: parent.width
+            text: root.location
+            material: "dark"
         }
-
-        NinePatchArt {
-            id: namePlateArt
-
-            anchors.fill: parent
-            key: "ui/plate/title-black"
-        }
-
         Text {
-            anchors.fill: parent
-            anchors.leftMargin: 48 * Tokens.uiScale
-            anchors.rightMargin: Tokens.gapLarge
-            text: root.characterName
+            anchors.left: parent.left
+            anchors.leftMargin: Tokens.gapLarge
+            anchors.bottom: parent.bottom
+            text: root.clock
+            visible: text.length > 0
             color: Tokens.textOnPanel
-            font.family: Tokens.titleFamily
-            font.pixelSize: Tokens.fontSectionTitle
-            font.weight: Font.DemiBold
-            verticalAlignment: Text.AlignVCenter
-            elide: Text.ElideRight
+            font.family: Tokens.bodyFamily
+            font.pixelSize: Tokens.fontBody
+            style: Text.Outline
+            styleColor: Tokens.panel
         }
     }
 
-    Gauge {
-        x: 216 * Tokens.uiScale
-        y: 96 * Tokens.uiScale
-        width: 380 * Tokens.uiScale
-        height: 32 * Tokens.uiScale
-        kind: "health"
-        value: root.hitPointsRatio
-        label: root.hitPointsText
-    }
-
-    Gauge {
-        x: 216 * Tokens.uiScale
-        y: 138 * Tokens.uiScale
-        width: 344 * Tokens.uiScale
-        height: 32 * Tokens.uiScale
-        visible: root.showExperience
-        kind: "experience"
-        value: root.experienceRatio
-        label: root.experienceText
-    }
-
-    // Pose apres les jauges : le medaillon mord sur leur embout gauche, comme sur la maquette.
-    PortraitFrame {
-        x: 20 * Tokens.uiScale
-        y: 16 * Tokens.uiScale
-        shape: "hud"
-        size: 200 * Tokens.uiScale
-        source: root.portrait
-        level: root.level
-    }
-
-    // --- Membres (maquette : 28, 222 -> 142, 640) ---------------------------------------------------
-    Column {
-        x: 32 * Tokens.uiScale
-        y: 252 * Tokens.uiScale
-        spacing: 12 * Tokens.uiScale
-
-        Repeater {
-            model: root.party
-
-            Item {
-                id: member
-
-                required property int index
-                // Le modele entier, et non ses roles un par un : `ratio` est un role FACULTATIF,
-                // que les lignes en attente de `PendingData.rows()` n'ont pas. Un role requis absent
-                // ferait echouer la delegation ; lu ici, il vaut `undefined`, et la jauge reste vide.
-                required property var model
-
-                readonly property string label: member.model.label
-                readonly property string value: member.model.value
-                readonly property real ratio: member.model.ratio !== undefined ? member.model.ratio : 0
-                // Role FACULTATIF (LOT-140) : un membre a terre ou mort s'eteint dans la colonne.
-                readonly property bool down: member.model.down !== undefined && member.model.down === true
-
-                // Le rail des points de vie mord sur le bas du portrait, comme sur la maquette.
-                width: 112 * Tokens.uiScale
-                height: 112 * Tokens.uiScale
-                opacity: member.down ? 0.45 : 1
-
-                PortraitFrame {
-                    id: memberPortrait
-
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: parent.top
-                    shape: "square"
-                    size: 96 * Tokens.uiScale
-                    // Role FACULTATIF, comme `ratio` : les lignes en attente n'en ont pas.
-                    source: member.model.portrait !== undefined ? member.model.portrait : ""
-                    active: member.index === root.activeMember
+    Item {
+        id: orientationGroup
+        z: 5
+        visible: root.mode === "exploration"
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.margins: Tokens.gapMedium
+        width: 310 * Tokens.uiScale
+        height: (root.minimap.toString().length > 0 ? 310 : 70) * Tokens.uiScale
+                + (objective.visible ? objective.height : 0)
+        scale: Tokens.hudScale
+        transformOrigin: Item.TopRight
+        Item {
+            id: mapDisc
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 230 * Tokens.uiScale
+            height: width
+            visible: root.minimap.toString().length > 0
+            Image {
+                anchors.fill: parent
+                anchors.margins: 34 * Tokens.uiScale
+                source: root.minimap
+                fillMode: Image.PreserveAspectFit
+            }
+            FixedArt { anchors.fill: parent; key: "ui/medallion/minimap-ring" }
+        }
+        OrnateButton {
+            id: mapControl
+            objectName: "hudMap"
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: mapDisc.visible ? mapDisc.height : 0
+            width: 240 * Tokens.uiScale
+            kind: "secondary"
+            text: qsTr("Carte")
+            iconKey: "ui/icon/nav/map"
+        }
+        PanelFrame {
+            id: objective
+            anchors.top: mapControl.bottom
+            anchors.topMargin: Tokens.gapSmall
+            width: parent.width
+            height: (root.objectiveExpanded ? 172 : 62) * Tokens.uiScale
+            visible: root.showQuests && root.trackedObjective.length > 0
+            subpanel: true
+            Column {
+                anchors.fill: parent
+                spacing: Tokens.gapSmall
+                OrnateButton {
+                    id: objectiveToggle
+                    width: parent.width
+                    height: 40 * Tokens.uiScale
+                    kind: "secondary"
+                    text: qsTr("Objectif suivi") + (root.objectiveExpanded ? " ▾" : " ▸")
                 }
-
-                Gauge {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.bottom: parent.bottom
-                    height: 24 * Tokens.uiScale
-                    kind: "health"
-                    value: member.ratio
-                    label: member.value.length > 0 ? member.value : member.label
+                Connections {
+                    target: objectiveToggle
+                    function onClicked() {
+                        root.objectiveToggleRequested()
+                    }
                 }
-
-                // Le membre actif se signale par une marque, pas par la seule teinte de son cadre
-                // (EX-IHM-071).
-                FocusMark {
-                    anchors.left: memberPortrait.right
-                    anchors.verticalCenter: memberPortrait.verticalCenter
-                    anchors.leftMargin: Tokens.gapSmall
-                    visible: member.index === root.activeMember
+                Text {
+                    width: parent.width
+                    visible: root.objectiveExpanded
+                    text: root.trackedObjective
+                    color: Tokens.textOnPanel
+                    font.family: Tokens.bodyFamily
+                    font.pixelSize: Tokens.fontBody
+                    wrapMode: Text.WordWrap
+                    maximumLineCount: 4
+                    elide: Text.ElideRight
                 }
             }
         }
     }
 
-    // --- Barre de boussole (maquette : 585, 35 -> 1082, 78) --------------------------------------------
-    Item {
-        id: compass
-
-        x: 672 * Tokens.uiScale
-        y: 40 * Tokens.uiScale
-        width: 576 * Tokens.uiScale
-        height: 50 * Tokens.uiScale
-
-        Rectangle {
-            anchors.fill: parent
-            visible: !compassArt.delivered
-            color: Tokens.panel
-            border.color: Tokens.panelEdge
-            border.width: Tokens.strokeWidth
-        }
-
-        NinePatchArt {
-            id: compassArt
-
-            anchors.fill: parent
-            key: "ui/plate/compass-bar"
-        }
-
-        Row {
-            anchors.centerIn: parent
-            spacing: 160 * Tokens.uiScale
-
-            Text { text: qsTr("O"); color: Tokens.textOnPanel; font.family: Tokens.titleFamily; font.pixelSize: Tokens.fontBody }
-            Text { text: qsTr("N"); color: Tokens.goldLight; font.family: Tokens.titleFamily; font.pixelSize: Tokens.fontBody; font.weight: Font.Bold }
-            Text { text: qsTr("E"); color: Tokens.textOnPanel; font.family: Tokens.titleFamily; font.pixelSize: Tokens.fontBody }
-        }
-    }
-
-    // Pose sur un aplat : sous le cadre, c'est la scene, dont rien ne garantit le contraste.
-    Rectangle {
-        anchors.horizontalCenter: compass.horizontalCenter
-        anchors.top: compass.bottom
-        anchors.topMargin: Tokens.gapSmall
-        width: pendingNote.implicitWidth + 2 * Tokens.gapMedium
-        height: pendingNote.implicitHeight + Tokens.gapSmall
-        visible: root.pending
-        color: Tokens.panel
-
-        Text {
-            id: pendingNote
-
-            anchors.centerIn: parent
-            text: qsTr("HUD dessiné, données à venir")
-            color: Tokens.textOnPanelMuted
-            font.family: Tokens.loreFamily
-            font.italic: true
-            font.pixelSize: Tokens.fontCaption
-        }
-    }
-
-    // --- Mini-carte (maquette : 1398, 22 -> 1658, 268) ------------------------------------------------
-    Item {
-        x: 1628 * Tokens.uiScale
-        y: 28 * Tokens.uiScale
-        width: 264 * Tokens.uiScale
-        height: 264 * Tokens.uiScale
-
-        // La carte, decoupee au rond sur un disque sombre ; l'anneau livre se pose par-dessus,
-        // centre ajoure. Pas de PortraitFrame : son etat vide peint une silhouette de personnage.
-        Rectangle {
-            id: minimapMask
-
-            anchors.fill: parent
-            anchors.margins: parent.width * 0.18 // ouverture de l'anneau livre : rayon 0,29
-            radius: width / 2
-            color: Tokens.panel
-            layer.enabled: true
-        }
-
-        Image {
-            id: minimapImage
-
-            anchors.fill: minimapMask
-            visible: false
-            source: root.minimap
-            fillMode: Image.PreserveAspectCrop
-            smooth: true
-            mipmap: true
-        }
-
-        MultiEffect {
-            anchors.fill: minimapMask
-            visible: root.minimap.toString().length > 0
-            source: minimapImage
-            maskEnabled: true
-            maskSource: minimapMask
-        }
-
-        FixedArt {
-            id: ringArt
-
-            anchors.fill: parent
-            key: "ui/medallion/minimap-ring"
-        }
-
-        Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: -Tokens.gapSmall
-            text: qsTr("N")
-            color: Tokens.goldLight
-            style: Text.Outline
-            styleColor: Tokens.panel
-            font.family: Tokens.titleFamily
-            font.pixelSize: Tokens.fontBody
-            font.weight: Font.Bold
-        }
-    }
-
-    // --- Quetes (maquette : 1398, 278 -> 1658, 485) ------------------------------------------------------
     PanelFrame {
-        x: 1600 * Tokens.uiScale
-        y: 312 * Tokens.uiScale
-        width: 296 * Tokens.uiScale
-        height: 244 * Tokens.uiScale
-        visible: root.showQuests
+        id: partyDock
+        objectName: "explorationPartyDock"
+        z: 5
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.margins: Tokens.gapMedium
+        width: 590 * Tokens.uiScale
+        height: 194 * Tokens.uiScale
+        visible: root.mode === "exploration"
+        scale: Tokens.hudScale
+        transformOrigin: Item.BottomLeft
         subpanel: true
-
-        Text {
-            id: questsTitle
-
-            anchors.left: parent.left
-            anchors.top: parent.top
-            text: qsTr("Quêtes")
-            color: Tokens.textOnPanel
-            font.family: Tokens.titleFamily
-            font.pixelSize: Tokens.fontSectionTitle
-            font.weight: Font.DemiBold
-        }
-
-        GoldDivider {
-            id: questsDivider
-
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: questsTitle.bottom
-            anchors.topMargin: Tokens.gapSmall
-        }
-
-        Column {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: questsDivider.bottom
-            anchors.bottom: parent.bottom
-            anchors.topMargin: Tokens.gapSmall
-            spacing: Tokens.gapSmall
-            clip: true
-
+        padding: Tokens.gapSmall
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
             Repeater {
-                model: root.quests
-
-                Item {
-                    id: quest
-
+                model: root.party
+                delegate: Item {
+                    id: member
+                    required property var modelData
                     required property int index
-                    required property string label
-                    required property string value
-
-                    readonly property bool tracked: quest.index === 0
-
-                    width: parent.width
-                    height: questTitle.implicitHeight + questObjective.implicitHeight
-
-                    Item {
-                        id: questMark
-
-                        anchors.left: parent.left
-                        anchors.verticalCenter: questTitle.verticalCenter
-                        width: 20 * Tokens.uiScale
-                        height: 20 * Tokens.uiScale
-
-                        Rectangle {
-                            anchors.centerIn: parent
-                            width: parent.width * 0.7
-                            height: parent.height * 0.7
-                            visible: !questPipArt.delivered
-                            rotation: quest.tracked ? 45 : 0
-                            radius: quest.tracked ? 0 : width / 2
-                            color: quest.tracked ? Tokens.goldLight : "transparent"
-                            border.color: quest.tracked ? Tokens.panelEdge : Tokens.textOnPanel
-                            border.width: Tokens.strokeWidth
-                        }
-
-                        FixedArt {
-                            id: questPipArt
-
-                            anchors.fill: parent
-                            key: quest.tracked ? "ui/control/pip/filled" : "ui/control/pip/empty"
-                        }
+                    width: 140 * Tokens.uiScale
+                    height: 162 * Tokens.uiScale
+                    PortraitFrame {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        size: 116 * Tokens.uiScale
+                        shape: "round"
+                        source: member.modelData.portrait || ""
+                        active: member.index === root.activeMember
                     }
-
                     Text {
-                        id: questTitle
-
-                        anchors.left: questMark.right
-                        anchors.right: parent.right
-                        anchors.leftMargin: Tokens.gapSmall
-                        text: quest.label
-                        color: quest.tracked ? Tokens.goldLight : Tokens.textOnPanel
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        y: 99 * Tokens.uiScale
+                        width: parent.width - Tokens.gapSmall
+                        horizontalAlignment: Text.AlignHCenter
+                        text: (member.index === root.activeMember ? "◆ " : "") + member.modelData.label
+                        color: member.index === root.activeMember ? Tokens.goldLight : Tokens.textOnPanel
                         font.family: Tokens.bodyFamily
                         font.pixelSize: Tokens.fontBody
                         elide: Text.ElideRight
                     }
-
-                    Text {
-                        id: questObjective
-
-                        anchors.left: questTitle.left
-                        anchors.right: parent.right
-                        anchors.top: questTitle.bottom
-                        text: quest.value.length > 0 ? "•  " + quest.value : ""
-                        color: Tokens.textOnPanel
-                        font.family: Tokens.bodyFamily
-                        font.pixelSize: Tokens.fontCaption
-                        wrapMode: Text.WordWrap
-                        maximumLineCount: 2
-                        elide: Text.ElideRight
+                    Gauge {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        y: 128 * Tokens.uiScale
+                        width: 126 * Tokens.uiScale
+                        kind: "health"
+                        value: member.modelData.ratio || 0
+                        label: member.modelData.value
+                    }
+                    MouseArea {
+                        id: memberPointer
+                        anchors.fill: parent
+                    }
+                    Connections {
+                        target: memberPointer
+                        function onClicked() {
+                            root.memberClicked(member.index)
+                        }
                     }
                 }
             }
         }
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            text: qsTr("Tab · Changer de meneur")
+            color: Tokens.textOnPanel
+            font.family: Tokens.bodyFamily
+            font.pixelSize: Tokens.fontCaption
+        }
     }
 
-    // --- Barre d'etat : jour et lieu (maquette : 0, 870 -> 388, 915) ---------------------------------------
     Item {
-        x: 0
-        y: 1004 * Tokens.uiScale
-        width: 480 * Tokens.uiScale
-        height: 52 * Tokens.uiScale
-
-        Rectangle {
-            anchors.fill: parent
-            visible: !statusArt.delivered
-            color: Tokens.panel
-            border.color: Tokens.panelEdge
-            border.width: Tokens.strokeWidth
-        }
-
-        NinePatchArt {
-            id: statusArt
-
-            anchors.fill: parent
-            key: "ui/plate/status-bar"
-        }
-
-        Row {
-            anchors.left: parent.left
-            anchors.leftMargin: Tokens.gapLarge
-            anchors.verticalCenter: parent.verticalCenter
-            spacing: Tokens.gapLarge
-
-            Text {
-                text: root.clock
-                color: Tokens.textOnPanel
-                font.family: Tokens.bodyFamily
-                font.pixelSize: Tokens.fontBody
-            }
-
-            Text {
-                text: root.location
-                color: Tokens.textOnPanel
-                font.family: Tokens.bodyFamily
-                font.pixelSize: Tokens.fontBody
-            }
-        }
-    }
-
-    // --- Raccourcis de navigation (maquette : 1410, 790 -> 1660, 860) ---------------------------------------
-    Row {
-        x: 1596 * Tokens.uiScale
-        y: 912 * Tokens.uiScale
-        spacing: Tokens.gapSmall
-
-        OrnateRoundButton {
-            id: inventoryControl
-
-            text: qsTr("Sac")
-            iconKey: "ui/icon/nav/inventory"
-            focusPolicy: Qt.NoFocus
-        }
-
-        OrnateRoundButton {
-            id: journalControl
-
-            text: qsTr("Quêtes")
-            iconKey: "ui/icon/nav/quests"
-            focusPolicy: Qt.NoFocus
-        }
-
-        OrnateRoundButton {
-            id: mapControl
-
-            text: qsTr("Carte")
-            iconKey: "ui/icon/nav/map"
-            focusPolicy: Qt.NoFocus
-        }
-
-        OrnateRoundButton {
-            id: optionsControl
-
-            text: qsTr("Options")
-            iconKey: "ui/icon/nav/options"
-            focusPolicy: Qt.NoFocus
-        }
-    }
-
-    // --- Indicateur de mode (maquette : 1368, 872 -> 1662, 910) ---------------------------------------------
-    Item {
-        x: 1572 * Tokens.uiScale
-        y: 1004 * Tokens.uiScale
-        width: 336 * Tokens.uiScale
-        height: 48 * Tokens.uiScale
-
-        Rectangle {
-            anchors.fill: parent
-            visible: !ribbonArt.delivered
-            color: Tokens.surface
-            border.color: Tokens.border
-            border.width: Tokens.strokeWidth
-        }
-
-        NinePatchArt {
-            id: ribbonArt
-
-            anchors.fill: parent
-            key: "ui/plate/parchment-ribbon"
-        }
-
+        id: navigationDock
+        objectName: "hudNavigation"
+        z: 5
+        anchors.right: parent.right
+        anchors.top: root.mode === "combat" ? parent.top : undefined
+        anchors.bottom: root.mode === "combat" ? undefined : parent.bottom
+        anchors.margins: Tokens.gapMedium
+        width: (root.mode === "combat" ? 288 : 760) * Tokens.uiScale
+        height: 90 * Tokens.uiScale
+        scale: Tokens.hudScale
+        transformOrigin: root.mode === "combat" ? Item.TopRight : Item.BottomRight
+        PanelFrame { anchors.fill: parent; subpanel: true; padding: 0 }
         Row {
             anchors.centerIn: parent
-            spacing: Tokens.gapSmall
-
-            Text {
-                text: qsTr("Exploration")
-                color: root.mode === "exploration" ? Tokens.text : Tokens.textMuted
-                font.family: Tokens.titleFamily
-                font.pixelSize: Tokens.fontBody
-                font.weight: root.mode === "exploration" ? Font.Bold : Font.Normal
-                font.underline: root.mode === "exploration"
+            spacing: 2 * Tokens.uiScale
+            OrnateButton {
+                id: characterControl
+                objectName: "hudCharacter"
+                width: 164 * Tokens.uiScale
+                text: qsTr("Personnage")
+                kind: "secondary"
             }
-
-            Text {
-                text: "·"
-                color: Tokens.textMuted
-                font.family: Tokens.titleFamily
-                font.pixelSize: Tokens.fontBody
+            OrnateButton {
+                id: inventoryControl
+                visible: root.mode !== "combat"
+                width: 174 * Tokens.uiScale
+                text: qsTr("Équipement")
+                kind: "secondary"
             }
-
-            Text {
-                text: qsTr("Tactique")
-                color: root.mode === "combat" ? Tokens.text : Tokens.textMuted
-                font.family: Tokens.titleFamily
-                font.pixelSize: Tokens.fontBody
-                font.weight: root.mode === "combat" ? Font.Bold : Font.Normal
-                font.underline: root.mode === "combat"
+            OrnateButton {
+                id: journalControl
+                visible: root.mode !== "combat"
+                width: 124 * Tokens.uiScale
+                text: qsTr("Journal")
+                kind: "secondary"
+            }
+            OrnateButton {
+                id: groupControl
+                visible: root.mode !== "combat"
+                width: 132 * Tokens.uiScale
+                text: qsTr("Groupe")
+                kind: "secondary"
+            }
+            OrnateButton {
+                id: optionsControl
+                width: 112 * Tokens.uiScale
+                text: root.mode === "combat" ? qsTr("Options") : qsTr("Menu")
+                kind: "secondary"
             }
         }
+    }
+
+    PanelFrame {
+        objectName: "interactionPrompt"
+        z: 6
+        visible: root.mode === "exploration" && root.interactionText.length > 0
+        x: Math.max(Tokens.gapMedium, Math.min(root.width - width * Tokens.hudScale - Tokens.gapMedium, root.interactionX - width * Tokens.hudScale / 2))
+        y: Math.max(100 * Tokens.uiScale, Math.min(root.height - height * Tokens.hudScale - 240 * Tokens.uiScale, root.interactionY - height * Tokens.hudScale))
+        width: 270 * Tokens.uiScale
+        height: 68 * Tokens.uiScale
+        subpanel: true
+        scale: Tokens.hudScale
+        transformOrigin: Item.TopLeft
+        Text {
+            anchors.centerIn: parent
+            text: root.interactionText
+            color: Tokens.textOnPanel
+            font.family: Tokens.bodyFamily
+            font.pixelSize: Tokens.fontSectionTitle
+        }
+        MouseArea { id: interactPointer; anchors.fill: parent }
+        Connections { target: interactPointer; function onClicked() { root.interactRequested() } }
     }
 }

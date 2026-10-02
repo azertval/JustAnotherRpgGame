@@ -11,7 +11,7 @@
 #include <rhi/qrhi.h>
 
 #include "Core/Combat/IsoProjection.h"
-#include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/Graphics/WorldSceneRenderer.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/ExecutableDirectory.h"
@@ -86,7 +86,7 @@ void WorldViewportRenderer::render(QRhiCommandBuffer* commandBuffer) {
 
 struct WorldViewportItem::Framing {
     core::IsoProjection projection{0, 0};
-    Camera2D camera;
+    PlaceCamera camera;
     // Pixels de texture par unité d'élément, sur chaque axe.
     qreal pixelsPerItemX = 1.0;
     qreal pixelsPerItemY = 1.0;

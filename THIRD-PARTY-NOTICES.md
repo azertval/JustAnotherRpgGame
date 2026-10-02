@@ -63,6 +63,12 @@ garder de D&D que le SRD. Un ayant droit qui demande le retrait d'un élément l
 | [Google Benchmark](https://github.com/google/benchmark) | v1.9.5 | Apache 2.0 | FetchContent, avec `BUILD_BENCHMARKS` | Non — mesures de performance seulement |
 | [aqtinstall](https://github.com/miurahr/aqtinstall) | commit épinglé | MIT | Outil de build | Non |
 
+Le **chargeur de maillages** (`core::readMeshFile`, `LOT-1003`) lit le format glTF 2.0 binaire
+(`.glb`), spécification ouverte du Khronos Group, sans bibliothèque dédiée : l'enveloppe binaire est
+lue par le code du projet, son bloc JSON par **nlohmann/json**, déjà lié, et l'image incorporée est
+décodée par **Qt** (`QImage`). Qt Quick 3D n'est pas utilisé — il n'est distribué que sous GPLv3 ou
+licence commerciale.
+
 `DirectX` ne figure pas ici : il provient du **Windows SDK** et relève de sa licence, comme tout
 composant du système d'exploitation.
 

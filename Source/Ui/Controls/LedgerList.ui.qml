@@ -102,7 +102,12 @@ PanelFrame {
                 enabled: root.interactive
                 hoverEnabled: root.interactive
                 cursorShape: root.interactive ? Qt.PointingHandCursor : Qt.ArrowCursor
-                onClicked: root.rowActivated(line.rowId)
+            }
+            Connections {
+                target: linePointer
+                function onClicked() {
+                    root.rowActivated(line.rowId)
+                }
             }
 
             Rectangle {

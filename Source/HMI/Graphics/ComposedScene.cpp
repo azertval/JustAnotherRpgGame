@@ -12,6 +12,7 @@ namespace hmi {
 // Vide la scene (capacite conservee) et remet les compteurs a zero. Le cadrage est conserve.
 void ComposedScene::clear() noexcept {
     _quads.clear();
+    _meshes.clear();
     _textureOrder.clear();
     _textureRanks.clear();
     _considered = 0;
@@ -58,7 +59,8 @@ bool ComposedScene::isVisible(const core::Rect& bounds) const {
 // Ajoute un rectangle texture a la scene, s'il est visible.
 // true si la primitive a ete conservee, false si le culling l'a ecartee.
 bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                              const SpriteQuad& quad, int storey, const core::Rect& occlusion) {
+                              const SpriteQuad& quad, int storey, const core::Rect& occlusion,
+                              std::optional<float> footY) {
     ++_considered;
     if (!isVisible(spriteQuadBounds(quad))) {
         ++_culled;
@@ -73,6 +75,9 @@ bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int
     composed.sprite = quad;
     composed.storey = storey;
     composed.occlusion = occlusion;
+    // Dressee, elle se tient sur la ligne de son pied ; a defaut, sur le bas de son rectangle.
+    composed.stance = defaultStance(layer);
+    composed.footY = footY.value_or(quad.y + quad.height);
     _quads.push_back(composed);
     return true;
 }
@@ -93,6 +98,9 @@ bool ComposedScene::addLine(RenderLayer layer, TextureHandle texture, std::int32
     composed.sortOrder = sortOrder;
     composed.kind = QuadKind::Line;
     composed.line = quad;
+    // Un segment n'est jamais dresse : une marque, ou un trait au sol.
+    composed.stance =
+        defaultStance(layer) == QuadStance::Overlay ? QuadStance::Overlay : QuadStance::Ground;
     _quads.push_back(composed);
     return true;
 }
@@ -115,7 +123,22 @@ bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32
     composed.poly = quad;
     composed.storey = storey;
     composed.occlusion = occlusion;
+    // Un quadrilatere libre dit l'elevation de chacun de ses sommets (`PolyQuad::rise`) : a plat
+    // ou en bloc, sa profondeur s'en deduit sans ligne de pied.
+    composed.stance =
+        defaultStance(layer) == QuadStance::Overlay ? QuadStance::Overlay : QuadStance::Ground;
     _quads.push_back(composed);
+    return true;
+}
+
+// Ajoute un maillage place a la scene, s'il est visible (LOT-1003).
+bool ComposedScene::addMesh(RenderLayer layer, MeshHandle mesh, const ViewTransform& toView,
+                            const core::Rect& bounds, int storey) {
+    if (mesh == nullptr || !isVisible(bounds)) {
+        return false;
+    }
+    _meshes.push_back(ComposedMesh{
+        .layer = layer, .mesh = mesh, .toView = toView, .bounds = bounds, .storey = storey});
     return true;
 }
 

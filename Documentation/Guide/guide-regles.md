@@ -655,7 +655,7 @@ seul. Ce que le jeu en affiche passe par deux couches décrites avec
   `hmi::characterSheetValues` (`Source/HMI/Presentation/CharacterSheetValues.h`, `LOT-38`) et
   `hmi::inventoryValues` (`InventoryValues.h`, `LOT-14`). C'est là que se prennent les règles
   d'affichage : le signe d'un modificateur (`+3` et non `3`), les points de vie contre leur maximum
-  (`27 / 32`), la pastille de maîtrise (`+4 •`), la Perception passive (10 + le modificateur), la
+  (`27 / 32`), la maîtrise d'une compétence (une clé `.proficient` à part du `+4`), la Perception passive (10 + le modificateur), la
   répartition de la bourse. Elles se vérifient par test sans ouvrir de fenêtre. Un
   `hmi::CharacterSheetContext` reçoit la fiche, les catalogues, la table d'expérience et, s'il y a
   un inventaire, les `core::DerivedStats` qui **remplacent** alors la classe d'armure et la vitesse

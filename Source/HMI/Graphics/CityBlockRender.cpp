@@ -12,8 +12,8 @@
 
 #include "Core/Combat/IsoProjection.h"
 #include "Core/World/CityBlock.h"
-#include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/Graphics/ScenePieces.h"
 #include "HMI/Graphics/WorldSceneRenderer.h"
 
@@ -81,11 +81,15 @@ QImage renderCityBlock(const std::filesystem::path& assetsDirectory,
     const std::unique_ptr<QRhiTexture> texture(
         rhi->newTexture(QRhiTexture::RGBA8, taille, 1,
                         QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
-    if (!texture->create()) {
+    // Le tampon de profondeur : un îlot peut poser des volumes (LOT-1003).
+    const std::unique_ptr<QRhiRenderBuffer> profondeur(
+        rhi->newRenderBuffer(QRhiRenderBuffer::DepthStencil, taille));
+    if (!texture->create() || !profondeur->create()) {
         return {};
     }
-    const std::unique_ptr<QRhiTextureRenderTarget> cible(
-        rhi->newTextureRenderTarget({{texture.get()}}));
+    QRhiTextureRenderTargetDescription description{{texture.get()}};
+    description.setDepthStencilBuffer(profondeur.get());
+    const std::unique_ptr<QRhiTextureRenderTarget> cible(rhi->newTextureRenderTarget(description));
     const std::unique_ptr<QRhiRenderPassDescriptor> passe(
         cible->newCompatibleRenderPassDescriptor());
     cible->setRenderPassDescriptor(passe.get());

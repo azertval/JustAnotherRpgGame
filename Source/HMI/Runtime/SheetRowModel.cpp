@@ -27,6 +27,8 @@ QVariant SheetRowModel::data(const QModelIndex& index, int role) const {
             return row.label;
         case ValueRole:
             return row.value;
+        case MarkedRole:
+            return row.marked;
         default:
             return {};
     }
@@ -39,6 +41,7 @@ QHash<int, QByteArray> SheetRowModel::roleNames() const {
         {IdRole, QByteArrayLiteral("rowId")},
         {LabelRole, QByteArrayLiteral("label")},
         {ValueRole, QByteArrayLiteral("value")},
+        {MarkedRole, QByteArrayLiteral("marked")},
     };
 }
 

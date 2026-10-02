@@ -98,6 +98,16 @@ Soit **30 crédits par personnage**. Les copies exportées font 102 894 et 102 9
 ne sont pas réduites davantage ([budget](style-3d.md#3-le-poids-dun-modèle), ouvert jusqu'au
 LOT-1005).
 
+> **Décision de l'auteur, 2 octobre 2026 — la réduction se fait par script.** Le maître téléchargé
+> de Meshy (de 10 000 à 2,6 millions de triangles, mesuré sur les 44 modèles de la démo) passe par
+> `scripts/assetsGeneration/reduce_model.py` : Blender sans fenêtre le pose au sol, ne lui laisse
+> que sa couleur de base, le décime à 100 000 triangles au plus, et la texture du maître est
+> remise octet pour octet dans la copie. Jugé par l'auteur sur une planche comparant le maître et
+> la copie de trois modèles sous la caméra du jeu : à la taille du jeu, moins de 0,4 % des pixels
+> diffèrent de plus de 8 niveaux à 1080p, moins de 0,7 % à 2160p ; en gros plan, la décimation
+> laisse de petits points clairs aux coutures de texture, acceptés. La copie réduite dans Meshy
+> (ligne « Réduction » ci-dessus) n'est plus l'étape de la chaîne ; le maître reste conservé.
+
 La reconstruction locale (TripoSR, 40 variantes par personnage) a été essayée et **écartée** par
 l'auteur le même jour : visages émoussés, armes interrompues. Elle ne se réessaie pas sans raison
 nouvelle.

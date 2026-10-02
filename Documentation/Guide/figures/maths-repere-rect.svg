@@ -52,5 +52,5 @@
   <line x1="610" y1="270" x2="610" y2="330" stroke="#8a2233" stroke-width="3"/>
   <text x="730" y="296" fill="#8a2233">contact par un bord :</text>
   <text x="730" y="314" font-family="Consolas, monospace" font-size="12" fill="#8a2233">intersects() = false</text>
-  <text x="500" y="356" font-size="12" fill="#6a6152">Les pixels n'existent pas ici : la conversion est faite par hmi::Camera2D, au rendu.</text>
+  <text x="500" y="356" font-size="12" fill="#6a6152">Les pixels n'existent pas ici : la conversion est faite par hmi::PlaceCamera, au rendu.</text>
 </svg>

@@ -102,6 +102,7 @@ add_executable(LevelEditor
     ${HMI_DIR}/Graphics/WorldSceneRenderer.cpp
     ${HMI_DIR}/Graphics/OffscreenRender.cpp
     ${HMI_DIR}/Graphics/SceneResources.cpp
+    ${HMI_DIR}/Graphics/MeshBatch.cpp
     ${HMI_DIR}/Graphics/SpriteBatch.cpp
     ${HMI_DIR}/Graphics/SpriteRenderer.cpp
     ${HMI_DIR}/Graphics/TextureLoader.cpp
@@ -153,6 +154,8 @@ qt6_add_shaders(LevelEditor "level_editor_shaders"
     FILES
         ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.vert
         ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.frag
+        ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.vert
+        ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.frag
 )
 
 target_include_directories(LevelEditor PRIVATE ${PROJECT_SOURCE_DIR}/Source)

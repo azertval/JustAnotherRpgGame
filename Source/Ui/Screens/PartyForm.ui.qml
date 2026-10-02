@@ -300,8 +300,14 @@ ScreenPage {
                         }
 
                         MouseArea {
+                            id: candidatePointer
                             anchors.fill: parent
-                            onClicked: root.candidateClicked(candidate.index)
+                        }
+                        Connections {
+                            target: candidatePointer
+                            function onClicked() {
+                                root.candidateClicked(candidate.index)
+                            }
                         }
                     }
                 }
@@ -313,37 +319,67 @@ ScreenPage {
             spacing: Tokens.gapMedium
 
             OrnateButton {
+                id: toggleButton
                 kind: "primary"
                 text: root.toggleText
                 enabled: root.canToggle
-                onClicked: root.toggleClicked()
+            }
+            Connections {
+                target: toggleButton
+                function onClicked() {
+                    root.toggleClicked()
+                }
             }
 
             OrnateButton {
+                id: leadButton
                 kind: "secondary"
                 text: qsTr("Mener")
                 enabled: root.canLead
-                onClicked: root.leadClicked()
+            }
+            Connections {
+                target: leadButton
+                function onClicked() {
+                    root.leadClicked()
+                }
             }
 
             OrnateButton {
+                id: moveUpButton
                 kind: "default"
                 text: qsTr("Avancer")
                 enabled: root.canMove
-                onClicked: root.moveClicked(-1)
+            }
+            Connections {
+                target: moveUpButton
+                function onClicked() {
+                    root.moveClicked(-1)
+                }
             }
 
             OrnateButton {
+                id: moveDownButton
                 kind: "default"
                 text: qsTr("Reculer")
                 enabled: root.canMove
-                onClicked: root.moveClicked(1)
+            }
+            Connections {
+                target: moveDownButton
+                function onClicked() {
+                    root.moveClicked(1)
+                }
             }
 
             OrnateButton {
+                id: sheetButton
                 kind: "default"
                 text: qsTr("Fiche")
-                onClicked: root.sheetClicked()
+            }
+            Connections {
+                target: sheetButton
+                function onClicked() {
+                    root.sheetClicked()
+                }
             }
         }
 

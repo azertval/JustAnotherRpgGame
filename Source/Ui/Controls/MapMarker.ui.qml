@@ -142,6 +142,11 @@ Item {
         anchors.margins: -8 * Tokens.uiScale
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: root.activated()
+    }
+    Connections {
+        target: markerPointer
+        function onClicked() {
+            root.activated()
+        }
     }
 }

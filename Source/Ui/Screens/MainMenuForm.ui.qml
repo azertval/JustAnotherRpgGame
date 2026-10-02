@@ -86,20 +86,56 @@ Item {
     }
 
     // --- Logotype (maquette : 110, 25 -> 640, 345) ------------------------------------------------
+    PanelFrame {
+        x: 150 * Tokens.uiScale
+        y: 105 * Tokens.uiScale
+        width: 1620 * Tokens.uiScale
+        height: 900 * Tokens.uiScale
+        material: "parchment"
+        bound: true
+        padding: 0
+    }
+    PanelFrame {
+        x: 950 * Tokens.uiScale
+        y: 130 * Tokens.uiScale
+        width: 795 * Tokens.uiScale
+        height: 840 * Tokens.uiScale
+        material: "parchment"
+        subpanel: true
+        padding: 0
+    }
+    PanelFrame {
+        x: 202 * Tokens.uiScale
+        y: 167 * Tokens.uiScale
+        width: 716 * Tokens.uiScale
+        height: 744 * Tokens.uiScale
+        material: "parchment"
+        subpanel: true
+        padding: 28 * Tokens.uiScale
+        CoverArt { anchors.fill: parent; key: "ui/background/menu-scene" }
+        FixedArt {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 20 * Tokens.uiScale
+            width: 160 * Tokens.uiScale
+            height: 180 * Tokens.uiScale
+            key: "ui/ornament/crossed-crest"
+        }
+    }
     LogoPlate {
         id: logo
 
-        x: 126 * Tokens.uiScale
-        y: 28 * Tokens.uiScale
-        width: 608 * Tokens.uiScale
+        x: 1125 * Tokens.uiScale
+        y: 140 * Tokens.uiScale
+        width: 440 * Tokens.uiScale
     }
 
     // --- Les six entrees (maquette : 150, 355 -> 540, 805 ; pas de 88 px a 1080p) -----------------
     Column {
         id: entries
 
-        x: 180 * Tokens.uiScale
-        y: 408 * Tokens.uiScale
+        x: 1040 * Tokens.uiScale
+        y: 430 * Tokens.uiScale
         spacing: Tokens.gapMedium
 
         Row {

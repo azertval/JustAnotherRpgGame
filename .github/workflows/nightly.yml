@@ -356,7 +356,7 @@ jobs:
             call "%%i\VC\Auxiliary\Build\vcvars64.bat" || exit /b 1
           )
           cmake -S . -B build/fuzz -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_FUZZERS=ON -DBUILD_TESTING=OFF -DBUILD_EDITOR_QT=OFF -DENABLE_PCH=OFF -DENABLE_COMPILER_CACHE=OFF || exit /b 1
-          cmake --build build/fuzz --target fuzz_json fuzz_level fuzz_dialogue fuzz_localization || exit /b 1
+          cmake --build build/fuzz --target fuzz_json fuzz_level fuzz_mesh fuzz_dialogue fuzz_localization || exit /b 1
 
       - name: Restaurer le corpus des nuits precedentes
         uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -380,7 +380,7 @@ jobs:
           $failed = @()
           $rows = @()
           New-Item -ItemType Directory -Force crashes, fuzz-logs | Out-Null
-          foreach ($target in 'json', 'level', 'dialogue', 'localization') {
+          foreach ($target in 'json', 'level', 'mesh', 'dialogue', 'localization') {
             $corpus = "fuzz-corpus/$target"
             New-Item -ItemType Directory -Force $corpus | Out-Null
             $seeds = @(Get-Content "build/fuzz/fuzz/$target.seeds" | Where-Object { $_ })

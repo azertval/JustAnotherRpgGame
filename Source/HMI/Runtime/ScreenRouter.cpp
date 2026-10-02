@@ -94,9 +94,11 @@ bool ScreenRouter::apply(ScreenEvent event) {
 }
 
 void ScreenRouter::openMenu() {
+    _returnToCombat = false;
     static_cast<void>(apply(ScreenEvent::OpenMenu));
 }
 void ScreenRouter::openGame() {
+    _returnToCombat = false;
     static_cast<void>(apply(ScreenEvent::OpenGame));
 }
 void ScreenRouter::openOptions() {
@@ -159,6 +161,10 @@ void ScreenRouter::openDialogue(const QString& dialogueId) {
 }
 
 void ScreenRouter::openRpgScreen(RpgScreen screen) {
+    if (_state.screen == ScreenId::RpgScreen && _rpgScreen == RpgScreenId::CombatHud &&
+        screen != RpgScreen::CombatHud) {
+        _returnToCombat = true;
+    }
     // L'écran demandé est retenu MÊME si la transition échoue déjà parce qu'on y est : ouvrir la
     // fiche puis l'inventaire depuis le châssis ne repasse pas par un changement d'état global.
     _rpgScreen = toRpgScreenId(screen);
@@ -168,7 +174,18 @@ void ScreenRouter::openRpgScreen(RpgScreen screen) {
 }
 
 void ScreenRouter::closeRpgScreen() {
+    if (_returnToCombat && _state.screen == ScreenId::RpgScreen) {
+        _returnToCombat = false;
+        _rpgScreen = RpgScreenId::CombatHud;
+        emit changed();
+        return;
+    }
     static_cast<void>(apply(ScreenEvent::CloseRpgScreen));
+}
+
+void ScreenRouter::openCharacterTab(int tab) {
+    _characterTab = tab >= 0 && tab <= 2 ? tab : 0;
+    openRpgScreen(RpgScreen::CharacterSheet);
 }
 
 }  // namespace hmi

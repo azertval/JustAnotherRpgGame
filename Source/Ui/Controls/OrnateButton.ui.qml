@@ -48,8 +48,8 @@ Button {
     implicitHeight: (root.menu || root.kind === "back" ? 72 : 56) * Tokens.uiScale
 
     // La marge gauche des pieces de menu et de retour (96 px) porte leur ornement et l'icone.
-    leftPadding: (root.menu || root.kind === "back" ? 96 : 48) * Tokens.uiScale
-    rightPadding: 48 * Tokens.uiScale
+    leftPadding: root.menu || root.kind === "back" ? 96 * Tokens.uiScale : Math.min(48 * Tokens.uiScale, width * 0.09)
+    rightPadding: root.menu || root.kind === "back" ? 48 * Tokens.uiScale : Math.min(48 * Tokens.uiScale, width * 0.09)
     topPadding: 0
     bottomPadding: 0
 

@@ -51,9 +51,13 @@ constexpr int MANIFEST_VERSION = 1;
     const auto textures = manifest->root.find("textures");
     if (textures != manifest->root.end() && textures->is_object()) {
         for (const nlohmann::json& entry : *textures) {
-            const auto file = entry.is_object() ? entry.find("file") : entry.end();
-            if (file != entry.end() && file->is_string()) {
-                manifest->entries.try_emplace(file->get<std::string>(), &entry);
+            // Une entrée cite une image (`file`) ou un maillage (`mesh`, LOT-1003) : l'un comme
+            // l'autre retrouve par là le manifeste qui le range.
+            for (const char* const field : {"file", "mesh"}) {
+                const auto file = entry.is_object() ? entry.find(field) : entry.end();
+                if (file != entry.end() && file->is_string()) {
+                    manifest->entries.try_emplace(file->get<std::string>(), &entry);
+                }
             }
         }
     }

@@ -58,6 +58,8 @@ QtObject {
     function openCredits() {}
     function closeCredits() {}
     function jumpToGame() {}
+    property int characterTab: 0
+    function openCharacterTab(tab) {}
     function openRpgScreen(screen) {}
     function closeRpgScreen() {}
 }

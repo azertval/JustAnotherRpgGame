@@ -52,8 +52,29 @@ CombatHudForm {
 
     /// La barre montre huit cases a la fois.
     readonly property int actionWindow: 8
+    playerTurn: EncounterModel.activeMember >= 0
+    readonly property var filteredActions: EncounterModel.turnActions.map((row, index) => Object.assign({}, row, {sourceIndex: index}))
+        .filter(row => root.actionFilter === 0 || (root.actionFilter === 2) === (row.iconKey || "").startsWith("ui/icon/spell/"))
+    actionPaging: root.filteredActions.length > root.actionWindow
+    onFilterRequested: (filter) => {
+        root.actionFilter = filter
+        if (root.filteredActions.length > 0) EncounterModel.selectAction(root.filteredActions[0].sourceIndex)
+    }
+    onActionPageRequested: (direction) => root.cycleDisplayed(direction * root.actionWindow)
+    onDetailsToggleRequested: root.detailsExpanded = !root.detailsExpanded
+    onLogToggleRequested: root.logExpanded = !root.logExpanded
+    function selectVisible(index) {
+        const row = root.filteredActions[root.windowStart + index]
+        if (row) EncounterModel.selectAction(row.sourceIndex)
+    }
+    function cycleDisplayed(step) {
+        const rows = root.filteredActions
+        if (rows.length === 0) return
+        const next = (root.selectedRow(rows) + step % rows.length + rows.length) % rows.length
+        EncounterModel.selectAction(rows[next].sourceIndex)
+    }
     /// La premiere action visible dans la barre : la fenetre suit l'action choisie.
-    readonly property int windowStart: root.windowStartFor(EncounterModel.turnActions, root.selectedRow(EncounterModel.turnActions))
+    readonly property int windowStart: root.windowStartFor(root.filteredActions, root.selectedRow(root.filteredActions))
 
     // Le personnage en avant : le membre du groupe dont c'est le tour, sinon le meneur (LOT-139).
     readonly property var focusMember: root.memberInFront(EncounterModel.partyMembers, EncounterModel.activeMember)
@@ -79,8 +100,8 @@ CombatHudForm {
     activeIndex: root.activeRow(EncounterModel.turnOrder)
     round: "" + EncounterModel.round
     combatLog: root.logRows(EncounterModel.journal)
-    actions: root.actionRows(EncounterModel.turnActions, root.windowStart)
-    activeAction: root.selectedRow(EncounterModel.turnActions) - root.windowStart
+    actions: root.actionRows(root.filteredActions, root.windowStart)
+    activeAction: root.selectedRow(root.filteredActions) - root.windowStart
     activeActionLabel: root.selectedField(EncounterModel.turnActions, "label")
     activeActionDetail: root.selectedField(EncounterModel.turnActions, "detail")
 
@@ -142,6 +163,8 @@ CombatHudForm {
     }
 
     onGridHovered: (x, y) => {
+        root.pointerX = x
+        root.pointerY = y
         const cell = viewport.cellAt(x, y)
         if (cell.x >= 0) {
             EncounterModel.pointCursor(cell.x - EncounterModel.zoneColumn, cell.y - EncounterModel.zoneRow)
@@ -160,7 +183,7 @@ CombatHudForm {
         root.forceActiveFocus()
     }
     onActionClicked: (index) => {
-        EncounterModel.selectAction(root.windowStart + index)
+        root.selectVisible(index)
         root.forceActiveFocus()
     }
 
@@ -181,6 +204,7 @@ CombatHudForm {
         target: EncounterModel
 
         function onChanged() {
+            if (root.filteredActions.length === 0) root.actionFilter = 0
             if (EncounterModel.outcome === "defeat") {
                 ScreenRouter.openDeath()
             }
@@ -208,8 +232,8 @@ CombatHudForm {
         case "b": EncounterModel.centerCursor(); break
         case "x": EncounterModel.cycleTarget(1); break
         case "y": EncounterModel.endTurn(); break
-        case "lb": EncounterModel.cycleAction(-1); break
-        case "rb": EncounterModel.cycleAction(1); break
+        case "lb": root.cycleDisplayed(-1); break
+        case "rb": root.cycleDisplayed(1); break
         }
     }
 
@@ -230,15 +254,16 @@ CombatHudForm {
         case Qt.Key_Enter: root.confirm(); break
         case Qt.Key_Tab: EncounterModel.cycleTarget(1); break
         case Qt.Key_Backtab: EncounterModel.cycleTarget(-1); break
-        case Qt.Key_PageDown: EncounterModel.cycleAction(1); break
-        case Qt.Key_PageUp: EncounterModel.cycleAction(-1); break
+        case Qt.Key_PageDown: root.cycleDisplayed(1); break
+        case Qt.Key_PageUp: root.cycleDisplayed(-1); break
         case Qt.Key_Backspace: EncounterModel.centerCursor(); break
         case Qt.Key_Space: EncounterModel.endTurn(); break
         case Qt.Key_F: EncounterModel.withdraw(); break
+        case Qt.Key_Escape: ScreenRouter.openOptions(); break
         default:
             // Les touches 1 a 8 : la case VISIBLE de ce rang dans la fenetre de la barre.
             if (event.key >= Qt.Key_1 && event.key <= Qt.Key_1 + root.actionWindow - 1) {
-                EncounterModel.selectAction(root.windowStart + event.key - Qt.Key_1)
+                root.selectVisible(event.key - Qt.Key_1)
                 break
             }
             return
@@ -373,5 +398,12 @@ CombatHudForm {
     Connections {
         target: root.optionsButton
         function onClicked() { ScreenRouter.openOptions() }
+    }
+    Connections {
+        target: root.characterButton
+        function onClicked() {
+            WorldModel.showCharacter(root.focusMember ? root.focusMember.id : "")
+            ScreenRouter.openCharacterTab(0)
+        }
     }
 }

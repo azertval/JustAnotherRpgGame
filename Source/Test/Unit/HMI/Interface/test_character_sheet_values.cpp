@@ -160,8 +160,10 @@ TEST(CharacterSheetValuesTest, LaCompetenceMaitriseeSeSignaleEtLaPerceptionPassi
     const std::map<std::string, std::string> valeurs = hmi::characterSheetValues(
         {.sheet = &personnage, .experience = &table, .skills = &competences});
 
-    EXPECT_EQ(valeurs.at("sheet.skill.athletics"), "+5 •");  // +3 de Force, +2 de maîtrise
-    EXPECT_EQ(valeurs.at("sheet.skill.stealth"), "+1");      // Dextérité seule
+    EXPECT_EQ(valeurs.at("sheet.skill.athletics"), "+5");  // +3 de Force, +2 de maîtrise
+    EXPECT_TRUE(valeurs.contains("sheet.skill.athletics.proficient"));
+    EXPECT_EQ(valeurs.at("sheet.skill.stealth"), "+1");  // Dextérité seule
+    EXPECT_FALSE(valeurs.contains("sheet.skill.stealth.proficient"));
     // Sagesse 13 -> +1 ; Perception non maîtrisée -> 10 + 1.
     EXPECT_EQ(valeurs.at("sheet.passive_perception"), "11");
 }

@@ -617,5 +617,37 @@
       "file": "Common/Characters/Placeholders/humanoid/walk-se.png",
       "sha256": "c429326dfadeace661858c33e3d97c93c529b484dfcf8f96ba0734456ab8e83c"
     }
+  },
+  "models": {
+    "Mannequins/humanoid": {
+      "model": "Mannequins/humanoid/humanoid.glb",
+      "silhouette": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.902,
+        1.813,
+        0.352
+      ],
+      "sha256": "9843952e938a4f71e8e9498d296610c78b818f260bad612917fb29255e2e4047",
+      "source": {
+        "file": "Personnages/mannequin/Meshy_AI_Chromatic_Sentinel_1002134639_texture.glb",
+        "sha256": "cf88cac4995b8996984ad8d609130e0e9579d45b6f7edd13c59ec0951e210d8c"
+      }
+    },
+    "Mannequins/quadruped": {
+      "model": "Mannequins/quadruped/quadruped.glb",
+      "silhouette": "quadruped",
+      "triangles": 100000,
+      "size": [
+        0.607,
+        1.359,
+        1.903
+      ],
+      "sha256": "c576d884ff6ea7cac7f42d583a626ec07991ee57d9d121ab9e5c8bca4fae2754",
+      "source": {
+        "file": "Personnages/mannequin/Meshy_AI_Chromatic_Sentinel_1002134654_texture.glb",
+        "sha256": "e3489629a8e621ac8c72f784a4f469fb6f0298ccce989db952b5722a4a071a7f"
+      }
+    }
   }
 }

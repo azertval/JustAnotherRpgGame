@@ -30,6 +30,7 @@ OptionsForm {
            || root.vsyncCheck.checked !== OptionsModel.vsync
            || root.diagnosticsCheck.checked !== OptionsModel.diagnostics
            || Math.round(root.volumeSlider.value) !== OptionsModel.volume
+           || Math.round(root.hudScaleSlider.value) !== OptionsModel.hudScalePercent
            || OptionsModel.languages[root.languageBox.currentIndex] !== OptionsModel.language
 
     property string lastLogsMessage: ""
@@ -48,6 +49,7 @@ OptionsForm {
         root.vsyncCheck.checked = values.vsync
         root.diagnosticsCheck.checked = values.diagnostics
         root.volumeSlider.value = values.volume
+        root.hudScaleSlider.value = values.hudScalePercent
         root.languageBox.currentIndex = OptionsModel.languages.indexOf(values.language)
     }
 
@@ -56,6 +58,7 @@ OptionsForm {
         OptionsModel.vsync = root.vsyncCheck.checked
         OptionsModel.diagnostics = root.diagnosticsCheck.checked
         OptionsModel.volume = Math.round(root.volumeSlider.value)
+        OptionsModel.hudScalePercent = Math.round(root.hudScaleSlider.value)
         OptionsModel.language = OptionsModel.languages[root.languageBox.currentIndex]
     }
 

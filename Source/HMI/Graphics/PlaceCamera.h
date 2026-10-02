@@ -7,24 +7,34 @@
 
 #include "Core/Math/Rect.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Graphics/IsoView.h"
 
 /**
- * @file HMI/Graphics/Camera2D.h
- * @brief Caméra 2D : conversion entre unités monde et pixels écran.
+ * @file HMI/Graphics/PlaceCamera.h
+ * @brief La **caméra du lieu** (`LOT-1003`) : orthographique, elle cadre la vue en volume
+ *        (`hmi::IsoView`) et ramène sa profondeur entre deux plans.
  */
 
 namespace hmi {
 
 /**
- * @brief Caméra 2D orthographique : projette le monde vers l'écran pour le rendu.
+ * @brief Caméra orthographique d'un lieu : du repère de la vue (`hmi::IsoView`) à l'écran.
  *
- * La caméra est centrée sur une position **en unités monde** et applique l'échelle
- * **16 pixels/unité** (`EX-ARCH-021`), avec l'origine écran en haut-gauche et l'axe Y vers
- * le bas (convention du projet). Un facteur de **zoom**, libre (`EX-ARCH-022`, `EX-REN-013`),
- * multiplie cette échelle. La caméra est un objet de
- * **présentation** : elle lit des positions monde mais ne modifie jamais l'ECS.
+ * L'orientation est fixe et n'est pas ici : tournée de 45°, élevée de asin 0,62 (38,3°), c'est
+ * `hmi::IsoView` qui la porte, et `core::IsoProjection` pour le sol. La caméra ne fait que
+ * **cadrer** : elle est centrée sur un point du plan de l'image, **en unités monde**, à l'échelle
+ * de **16 pixels par unité** (`EX-ARCH-021`) que multiplie un facteur de **zoom** libre
+ * (`EX-ARCH-022`, `EX-REN-013`) ; l'origine de l'écran est en haut à gauche, l'axe Y vers le bas.
+ *
+ * Elle remplace la caméra 2D d'avant le lot, dont elle garde le cadrage au flottant près : la
+ * matrice des deux premiers axes est la même, et une image posée dans le plan occupe les mêmes
+ * pixels. Ce qu'elle y ajoute est le troisième axe — la profondeur de la vue, ramenée de
+ * `depthRange()` à l'étendue du tampon de profondeur — et la matrice d'un maillage posé
+ * (`meshMatrix`).
+ *
+ * Objet de **présentation** : elle lit des positions, elle ne modifie jamais la simulation.
  */
-class Camera2D {
+class PlaceCamera {
 public:
     /// Nombre de pixels par unité monde (`EX-ARCH-021`).
     static constexpr float PIXELS_PER_UNIT = 16.0f;
@@ -34,7 +44,7 @@ public:
      * @param viewportWidth  Largeur de la surface de rendu, en pixels.
      * @param viewportHeight Hauteur de la surface de rendu, en pixels.
      */
-    Camera2D(int viewportWidth, int viewportHeight);
+    PlaceCamera(int viewportWidth, int viewportHeight);
 
     /**
      * @brief Place le centre de la caméra.
@@ -48,6 +58,16 @@ public:
      */
     void setZoom(float zoom);
 
+    /**
+     * @brief Fixe l'étendue de profondeur que la caméra ramène entre ses deux plans
+     *        (`hmi::IsoView::depthRange`).
+     *
+     * Sans effet sur le plan de l'image. L'étendue par défaut, [-1, 1], laisse la profondeur telle
+     * quelle : une scène sans volume, dont toutes les primitives sont à la profondeur zéro, se
+     * dessine comme avant le lot.
+     */
+    void setDepthRange(const DepthRange& range);
+
     /// @return Le centre courant de la caméra, en unités monde.
     [[nodiscard]] const core::Vector2& center() const noexcept {
         return _center;
@@ -58,11 +78,24 @@ public:
         return _zoom;
     }
 
+    [[nodiscard]] const DepthRange& depthRange() const noexcept {
+        return _depth;
+    }
+
     /**
-     * @brief Matrice de projection monde → clip, pour le vertex shader.
-     * @return La matrice (ligne-major DirectXMath) transformant une position monde en clip.
+     * @brief Matrice de projection vue → clip, pour le vertex shader.
+     * @return La matrice (ligne-major DirectXMath) transformant une position de la vue en clip :
+     *         le plan de l'image sur les deux premiers axes, la profondeur sur le troisième
+     *         (convention OpenGL, de -1 au plus près à 1 au plus loin ; QRhi la ramène à celle du
+     *         backend).
      */
     [[nodiscard]] DirectX::XMFLOAT4X4 projectionMatrix() const;
+
+    /**
+     * @brief Matrice maillage → clip d'un maillage posé par @p transform
+     *        (`hmi::IsoView::meshTransform`) : la projection, composée avec la pose.
+     */
+    [[nodiscard]] DirectX::XMFLOAT4X4 meshMatrix(const ViewTransform& transform) const;
 
     /**
      * @brief Convertit une position monde en pixels écran.
@@ -93,9 +126,8 @@ public:
      * @brief Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ.
      *
      * Le facteur est celui qui fait tenir le contenu, **sans arrondi** (`EX-REN-013`,
-     * `EX-EDIT-013`). Il s'arrondissait à l'entier au-dessus de 1 pour la netteté du pixel art ;
-     * l'art de scène est désormais peint et filtré par mipmaps (`EX-ARCH-022`, `LOT-103`), et
-     * l'arrondi ne faisait plus que laisser des bords vides.
+     * `EX-EDIT-013`) : l'art de scène est filtré par mipmaps (`EX-ARCH-022`, `LOT-103`), aucune
+     * grille de pixels n'est à protéger.
      *
      * Fonction **pure**, partagée par le cadrage automatique de l'éditeur et celui du jeu (aucune
      * règle dupliquée entre les deux écrans, LOT-16).
@@ -103,8 +135,8 @@ public:
      * @param availableHeight Hauteur disponible, en pixels (> 0).
      * @param contentWidth    Largeur du contenu à cadrer, en unités monde (> 0).
      * @param contentHeight   Hauteur du contenu à cadrer, en unités monde (> 0).
-     * @param margin          Facteur multiplicatif appliqué avant l'arrondi (ex. `0.85` pour
-     *                        laisser une marge visuelle) ; `1.0` par défaut (aucune marge).
+     * @param margin          Facteur multiplicatif (ex. `0.85` pour laisser une marge visuelle) ;
+     *                        `1.0` par défaut (aucune marge).
      * @return Le facteur de zoom à appliquer via `setZoom`.
      */
     [[nodiscard]] static float fitZoom(float availableWidth, float availableHeight,
@@ -119,6 +151,7 @@ private:
     int _viewportHeight;
     core::Vector2 _center{};
     float _zoom = 1.0f;
+    DepthRange _depth{};
 };
 
 }  // namespace hmi

@@ -40,6 +40,14 @@
  * case | | relief (pièce nommée à la case, ou type de la couche « décor ») | `RenderLayer::Object`
  * | pied de la case | | figurine (héros, PNJ) | `RenderLayer::Player` | pied de sa case |
  *
+ * ## Les pièces en maillage (`LOT-1003`)
+ *
+ * Une pièce dont le manifeste cite un maillage (`"mesh"`) ne produit pas de primitive : elle
+ * s'ajoute à la liste des **maillages placés** de la scène (`ComposedScene::meshes`), posée par
+ * `hmi::IsoView` au centre de son emprise, sans rang de tri — le tampon de profondeur la départage.
+ * Les images gardent leur liste et leur ordre, et portent en plus la ligne où elles se dressent
+ * (`ComposedQuad::footY`), lue seulement quand l'image a des maillages à croiser.
+ *
  * ## Par instantané, comme l'arène
  *
  * La composition ne lit qu'un `hmi::WorldSceneSnapshot` — des **valeurs**, aucun pointeur vers la
@@ -438,8 +446,13 @@ template <class Map>
 [[nodiscard]] std::string figureStripPath(std::string_view figure, std::string_view clip,
                                           FigureFacing facing = FigureFacing::None);
 
-/// @return Tous les chemins de texture que @p snapshot demandera, sans doublon, triés.
+/// @return Tous les chemins de texture que @p snapshot demandera, sans doublon, triés. Une pièce
+///         en maillage n'y est pas : son fichier se charge à part (`worldMeshPaths`).
 [[nodiscard]] std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot);
+
+/// @return Les fichiers de maillage (`.glb`) des pièces que @p snapshot pose, sans doublon, triés
+///         (`LOT-1003`) ; vide pour une carte dont toutes les pièces sont des images.
+[[nodiscard]] std::vector<std::string> worldMeshPaths(const WorldSceneSnapshot& snapshot);
 
 /**
  * @return Les chemins de texture des figurines @p figures — leurs bandes `idle` et `walk` —, sans

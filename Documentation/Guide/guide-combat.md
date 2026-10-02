@@ -820,7 +820,7 @@ planche du Colisée, 86 px, à sa taille native au zoom 1) et H = 0,62 L sa haut
 l'angle des tuiles de la planche, pas le 2:1 classique). Le coin de grille (c, r) tombe sur le
 sommet haut du losange de la case ; une bande de `ARENA_WALL_RISE · L` est réservée en haut pour
 les murs du fond. Le cadrage — centrer, faire tenir dans la surface — n'est pas l'affaire de la
-projection mais de la caméra (`hmi::Camera2D`, [Rendu 2D](guide-rendu.md)).
+projection mais de la caméra (`hmi::PlaceCamera`, [Rendu 2D](guide-rendu.md)).
 
 - `columns`, `rows`, `tileWidth`, `tileHeight`, `wallHeight`, `diagonals` (`columns + rows`, au
   moins 1 : une grille vide garde une scène non dégénérée), `sceneSize`, `origin`.

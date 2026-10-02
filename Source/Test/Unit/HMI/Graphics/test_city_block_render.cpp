@@ -19,9 +19,9 @@
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/World/CityBlock.h"
-#include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/CityBlockRender.h"
 #include "HMI/Graphics/PlaceAppearance.h"
+#include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace {
