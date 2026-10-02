@@ -32,6 +32,11 @@ la main :
 Le contrôle de ce qui est installé (fichiers cités, dimensions, poids par zone) est celui de la CI,
 `scripts/checks/check_hd_assets.py`, qui n'a pas besoin des sources.
 
+Les **personnages** ne passent plus par ici (LOT-1008) : leur fiche s'écrit et s'installe par
+l'atelier des assets de l'éditeur, en fenêtre ou par `LevelEditor --apply <fiche d'atelier>`
+(`Source/Editor/Logic/CharacterWorkshop.h`). Un descripteur dont la cible est un dossier
+`Characters/` est refusé.
+
 Le descripteur (`install.json`) :
 
     {
@@ -46,49 +51,9 @@ Le descripteur (`install.json`) :
       ]
     }
 
-## Les personnages (LOT-1006)
-
-Un descripteur dont la cible est un dossier `Characters/` installe des **personnages**. Un
-personnage est un **modèle** (`Planning/standards/personnages-3d.md`) : son `.glb` lié au squelette
-commun, sorti de `scripts/assetsGeneration/rig_character.py`, et sa fiche. Plus aucune bande de
-figurine ne s'installe : le moteur anime le modèle lui-même.
-
-1. **Le squelette** (`skeletons`) : le `skeleton.json` écrit par la chaîne de liaison se copie tel
-   quel dans `Skeletons/<silhouette>/skeleton.json`.
-2. **Le modèle** (`model`, `skeleton`) : le `.glb` se copie octet pour octet dans le dossier du
-   personnage, sous son nom (`Heroes/brawler/brawler.glb`), et sa fiche `character.json` s'écrit à
-   côté — son modèle, son squelette, ce que le moteur lit (`core::readCharacterSheetFile`). Le
-   manifeste reçoit son entrée dans `models` : triangles, taille, empreintes du fichier et de sa
-   source ; le nom du personnage va dans `npcs`.
-3. **Le portrait** (512 × 512) et le **jeton** (128 × 128, détouré en rond), si une source de
-   portrait est donnée ; sans source, ceux déjà installés restent.
-4. **Le ménage** : dans le dossier de chaque personnage du descripteur, tout ce qui n'est ni son
-   modèle, ni sa fiche, ni son portrait, ni son jeton est **supprimé** — les bandes et leurs
-   `.anim.json` d'avant le lot. Les dossiers nommés sous `remove` partent entiers, avec leur nom
-   dans les listes du manifeste. Les clés des bandes (`frame`, `wideFrame`, `ground`,
-   `animations`) quittent le manifeste, et ses `sources` ne gardent que ce qui est encore là.
-
-Un personnage **sans modèle** est un **portrait d'attente** (`LOT-145`) : il a son visage — donné
-par le descripteur, ou déjà installé — et le moteur le dessine par le mannequin de sa silhouette.
-Son nom va dans la liste `portraits` du manifeste, pas dans `npcs` ; le jour où son modèle
-s'installe, il passe de l'une à l'autre.
-
-    {
-      "version": 1,
-      "target": "Common/Characters",
-      "skeletons": [{"name": "humanoid", "source": "skeleton.json"}],
-      "remove": ["Placeholders/humanoid"],
-      "figures": [
-        {"name": "Mannequins/humanoid", "model": "mannequin/mannequin.glb", "skeleton": "humanoid"},
-        {"name": "Heroes/brawler", "model": "brawler/brawler.glb", "skeleton": "humanoid"},
-        {"name": "Heroes/mage"}
-      ]
-    }
-
 Usage :
     python scripts/assetsGeneration/install_hd_asset.py Tools/AssetsHD/Colisee/install.json
     python scripts/assetsGeneration/install_hd_asset.py DESCRIPTEUR --piece wall-arcade-u   # une seule pièce
-    python scripts/assetsGeneration/install_hd_asset.py DESCRIPTEUR --piece Heroes/brawler  # un seul personnage
     python scripts/assetsGeneration/install_hd_asset.py DESCRIPTEUR --check   # l'installé est-il à jour des sources ?
     python scripts/assetsGeneration/install_hd_asset.py DESCRIPTEUR --measure # mesures seules, rien n'est écrit
 
@@ -102,8 +67,6 @@ import hashlib
 import io
 import json
 import re
-import shutil
-import struct
 import sys
 from collections import deque
 from dataclasses import dataclass, field
@@ -147,21 +110,6 @@ CHAMPS = {"source", "name", "sheet", "family", "footprint", "class", "tactical",
 # Le nom d'une pièce (arborescence, règle 4) : minuscules, chiffres, tirets.
 NOM = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
-# --- Les personnages (standard des personnages 3D) ------------------------------------------------
-PORTRAIT = 512
-JETON = 128
-CHAMPS_FIGURE = {"name", "model", "skeleton", "portrait", "token"}
-# Ce qu'un dossier de personnage garde : son portrait et son jeton, à côté de son modèle et de sa
-# fiche. Tout le reste y est une bande d'avant le LOT-1006, et part.
-FICHE = "character.json"
-IMAGES_PERSONNAGE = ("portrait.png", "token.png")
-# Les clés du manifeste qui décrivaient les bandes de figurine : elles partent avec elles.
-CLES_BANDES = ("frame", "wideFrame", "ground", "animations")
-ATELIER_3D = ROOT / "Tools" / "Assets3D"
-# Un dossier de figurine : des dossiers de rangement (`Heroes`), puis le nom de la figurine.
-DOSSIER = re.compile(r"^[A-Za-z0-9]+(-[a-z0-9]+)*$")
-
-
 class DescriptorError(ValueError):
     """Un descripteur qui ne dit pas assez, ou pas juste, ce que devient une source."""
 
@@ -189,35 +137,10 @@ class PieceSpec:
 
 
 @dataclass
-class FigureSpec:
-    """Un personnage : son modèle lié et son squelette, la source de son portrait et de son jeton."""
-
-    name: str
-    model: str | None = None
-    skeleton: str | None = None
-    portrait: str | None = None
-    token: str | None = None
-
-
-@dataclass
-class SkeletonSpec:
-    """La description d'un squelette, à copier dans `Skeletons/<name>/skeleton.json`."""
-
-    name: str
-    source: str
-
-
-@dataclass
 class Descriptor:
     path: Path
     target: str
     pieces: list[PieceSpec] = field(default_factory=list)
-    figures: list[FigureSpec] = field(default_factory=list)
-    skeletons: list[SkeletonSpec] = field(default_factory=list)
-    # Les dossiers de personnage à retirer entiers, relatifs à la cible.
-    remove: list[str] = field(default_factory=list)
-    # Un essai se mesure et s'aperçoit, il ne s'installe jamais.
-    preview_only: bool = False
     # Le rangement d'un kit en sous-dossiers (LOT-129) : la première règle dont le motif prend le
     # nom de la pièce donne son dossier, relatif à `target` (`roofs/l/d\1`).
     folders: list[tuple[re.Pattern, str]] = field(default_factory=list)
@@ -229,10 +152,6 @@ class Descriptor:
     @property
     def target_dir(self) -> Path:
         return ASSETS / self.target
-
-    @property
-    def is_characters(self) -> bool:
-        return self.target.endswith("/Characters") or self.target == "Characters"
 
 
 def _pair(value, what: str) -> tuple[int, int]:
@@ -252,11 +171,11 @@ def read_descriptor(path: Path) -> Descriptor:
         raise DescriptorError(f"{path} : version {data.get('version')!r}, attendu {DESCRIPTOR_VERSION}")
     target = data.get("target")
     if not isinstance(target, str) or ".." in target:
-        raise DescriptorError(f"{path} : `target` doit nommer un dossier Scene/ ou Characters/ sous les assets")
-    preview_only = data.get("previewOnly", False)
-    if not isinstance(preview_only, bool):
-        raise DescriptorError(f"{path} : `previewOnly` est un booléen")
-    descriptor = Descriptor(path=path, target=target, preview_only=preview_only)
+        raise DescriptorError(f"{path} : `target` doit nommer un dossier Scene/ sous les assets")
+    if target.endswith("/Characters") or target == "Characters":
+        raise DescriptorError(f"{path} : un personnage s'installe par l'atelier des assets de l'éditeur "
+                              "(LevelEditor --apply <fiche d'atelier>), plus par ce script")
+    descriptor = Descriptor(path=path, target=target)
     for index, rule in enumerate(data.get("folders", [])):
         where = f"{path.name}, règle de dossier {index + 1}"
         if not isinstance(rule, dict) or not isinstance(rule.get("match"), str) \
@@ -269,18 +188,8 @@ def read_descriptor(path: Path) -> Descriptor:
             descriptor.folders.append((re.compile(rule["match"]), folder))
         except re.error as error:
             raise DescriptorError(f"{where} : motif illisible ({error})") from error
-    if descriptor.is_characters:
-        if "pieces" in data:
-            raise DescriptorError(f"{path} : un dossier Characters/ reçoit des `figures`, pas des `pieces`")
-        descriptor.skeletons = read_skeletons(path, data.get("skeletons", []))
-        descriptor.remove = read_removals(path, data.get("remove", []))
-        descriptor.figures = read_figures(path, data.get("figures", []),
-                                          allow_empty=bool(descriptor.skeletons or descriptor.remove))
-        return descriptor
     if not target.endswith("/Scene"):
-        raise DescriptorError(f"{path} : `target` doit nommer un dossier Scene/ ou Characters/ sous les assets")
-    if "figures" in data:
-        raise DescriptorError(f"{path} : un dossier Scene/ reçoit des `pieces`, pas des `figures`")
+        raise DescriptorError(f"{path} : `target` doit nommer un dossier Scene/ sous les assets")
     seen: set[str] = set()
     for index, raw in enumerate(data.get("pieces", [])):
         where = f"{path.name}, pièce {index + 1}"
@@ -333,80 +242,6 @@ def read_descriptor(path: Path) -> Descriptor:
     if not descriptor.pieces:
         raise DescriptorError(f"{path} : aucune pièce")
     return descriptor
-
-
-def _folder_name(name) -> bool:
-    parts = name.split("/") if isinstance(name, str) else []
-    return bool(parts) and all(DOSSIER.match(p) for p in parts[:-1]) and bool(NOM.match(parts[-1]))
-
-
-def read_skeletons(path: Path, raws) -> list[SkeletonSpec]:
-    """Les squelettes d'un descripteur : un nom de silhouette, la source de sa description."""
-    if not isinstance(raws, list):
-        raise DescriptorError(f"{path} : `skeletons` est une liste")
-    skeletons: list[SkeletonSpec] = []
-    for index, raw in enumerate(raws):
-        where = f"{path.name}, squelette {index + 1}"
-        if not isinstance(raw, dict) or set(raw) != {"name", "source"}:
-            raise DescriptorError(f"{where} : `name` et `source` attendus, rien d'autre")
-        if not isinstance(raw["name"], str) or not NOM.match(raw["name"]):
-            raise DescriptorError(f"{where} : nom {raw['name']!r} (minuscules, chiffres, tirets)")
-        if not isinstance(raw["source"], str):
-            raise DescriptorError(f"{where} : `source` nomme un skeleton.json")
-        if raw["name"] in {s.name for s in skeletons}:
-            raise DescriptorError(f"{where} : `{raw['name']}` nommé deux fois")
-        skeletons.append(SkeletonSpec(name=raw["name"], source=raw["source"]))
-    return skeletons
-
-
-def read_removals(path: Path, raws) -> list[str]:
-    """Les dossiers de personnage à retirer : des noms de dossier sous la cible."""
-    if not isinstance(raws, list) or not all(_folder_name(name) for name in raws):
-        raise DescriptorError(f"{path} : `remove` est une liste de dossiers de personnage")
-    return list(raws)
-
-
-def read_figures(path: Path, raws, allow_empty: bool = False) -> list[FigureSpec]:
-    """Les personnages d'un descripteur dont la cible est un dossier Characters/."""
-    if not isinstance(raws, list) or (not raws and not allow_empty):
-        raise DescriptorError(f"{path} : aucun personnage")
-    figures: list[FigureSpec] = []
-    names: set[str] = set()
-    for index, raw in enumerate(raws):
-        where = f"{path.name}, personnage {index + 1}"
-        if not isinstance(raw, dict):
-            raise DescriptorError(f"{where} : un personnage est un objet")
-        if "strips" in raw:
-            raise DescriptorError(f"{where} : `strips` — une figurine ne s'installe plus en bandes, "
-                                  "un personnage est un modèle (`model`, `skeleton`)")
-        unknown = set(raw) - CHAMPS_FIGURE
-        if unknown:
-            raise DescriptorError(f"{where} : champ(s) inconnu(s) {sorted(unknown)}")
-        name = raw.get("name")
-        if not _folder_name(name):
-            raise DescriptorError(f"{where} : nom {name!r} (dossiers de rangement, puis minuscules et tirets)")
-        if name in names:
-            raise DescriptorError(f"{where} : `{name}` nommé deux fois")
-        names.add(name)
-        figure = FigureSpec(name=name)
-        for key in ("model", "skeleton", "portrait", "token"):
-            if key in raw:
-                if not isinstance(raw[key], str) or not raw[key]:
-                    raise DescriptorError(f"{where} : `{key}` nomme une source")
-                setattr(figure, key, raw[key])
-        if (figure.model is None) != (figure.skeleton is None):
-            raise DescriptorError(f"{where} : `model` et `skeleton` vont ensemble")
-        if figure.model is not None and not figure.model.lower().endswith(".glb"):
-            raise DescriptorError(f"{where} : `model` est un fichier .glb")
-        if figure.skeleton is not None and not NOM.match(figure.skeleton):
-            raise DescriptorError(f"{where} : squelette {figure.skeleton!r} (une silhouette : humanoid)")
-        if figure.token is not None and figure.portrait is None:
-            raise DescriptorError(f"{where} : un jeton sans portrait")
-        figures.append(figure)
-    return figures
-
-
-# --- Détourage et découpe ------------------------------------------------------------------------
 
 
 def clean_alpha(alpha: np.ndarray) -> np.ndarray:
@@ -681,347 +516,7 @@ def build(descriptor: Descriptor, only: str | None = None) -> list[Installed]:
     return ready
 
 
-# --- Les personnages -----------------------------------------------------------------------------
-
-
-@dataclass
-class InstalledFigure:
-    """Un personnage prêt : son modèle et sa fiche, son portrait et son jeton, ses sources."""
-
-    name: str
-    # Le `.glb` lié, octet pour octet, et son nom de fichier dans le dossier du personnage.
-    model: bytes | None = None
-    model_file: str | None = None
-    skeleton: str | None = None
-    # L'entrée du personnage dans `models` du manifeste.
-    entry: dict | None = None
-    portrait: np.ndarray | None = None
-    token: np.ndarray | None = None
-    sources: dict = field(default_factory=dict)
-
-    def images(self) -> dict[str, np.ndarray]:
-        """Les images à écrire dans le dossier du personnage, par nom de fichier."""
-        images = {}
-        if self.portrait is not None:
-            images["portrait.png"] = self.portrait
-        if self.token is not None:
-            images["token.png"] = self.token
-        return images
-
-    def sheet(self) -> bytes | None:
-        """La fiche `character.json` du personnage ; rien pour un portrait d'attente."""
-        if self.model is None:
-            return None
-        sheet = {"version": 1, "model": self.model_file, "skeleton": self.skeleton}
-        return (json.dumps(sheet, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
-
-    def kept(self) -> set[str]:
-        """Ce que le dossier du personnage garde ; le reste y est une bande d'avant, et part."""
-        names = set(IMAGES_PERSONNAGE)
-        if self.model is not None:
-            names |= {self.model_file, FICHE}
-        return names
-
-
-@dataclass
-class InstalledSkeleton:
-    """Une description de squelette prête : son texte, tel que la chaîne de liaison l'a écrit."""
-
-    name: str
-    text: bytes
-    source: dict
-
-    @property
-    def file(self) -> str:
-        return f"Skeletons/{self.name}/skeleton.json"
-
-
-def square(rgba: np.ndarray, side: int, where: str) -> np.ndarray:
-    """Le carré central d'une image, réduit à `side` : jamais agrandi."""
-    height, width = rgba.shape[:2]
-    edge = min(width, height)
-    if edge < side:
-        raise DescriptorError(f"{where} : {width} × {height} px, trop petit pour {side} × {side} "
-                              "(l'art n'est jamais agrandi)")
-    x0, y0 = (width - edge) // 2, (height - edge) // 2
-    return resize_premultiplied(rgba[y0:y0 + edge, x0:x0 + edge], (side, side))
-
-
-def round_token(rgba: np.ndarray, where: str) -> np.ndarray:
-    """Le jeton : le carré central à `JETON` px, détouré en rond, bord adouci d'un pixel."""
-    token = square(rgba, JETON, where)
-    centre = JETON / 2.0
-    ys, xs = np.mgrid[0:JETON, 0:JETON]
-    distance = np.hypot(xs + 0.5 - centre, ys + 0.5 - centre)
-    coverage = np.clip(centre - 0.5 - distance + 0.5, 0.0, 1.0)
-    token[..., 3] = np.rint(token[..., 3] * coverage).astype(np.uint8)
-    token[token[..., 3] == 0] = 0
-    return token
-
-
-def load_rgba(path: Path) -> np.ndarray:
-    return np.asarray(Image.open(path).convert("RGBA")).copy()
-
-
-def source_entry(descriptor: Descriptor, relative: str) -> tuple[Path, dict]:
-    source = (descriptor.source_dir / relative).resolve()
-    if not source.is_file():
-        raise DescriptorError(f"{relative} : source absente de {descriptor.source_dir}")
-    file = relative
-    for atelier in (SOURCES, ATELIER_3D):
-        if source.is_relative_to(atelier):
-            file = source.relative_to(atelier).as_posix()
-            break
-    return source, {"file": file, "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}
-
-
-def glb_measures(data: bytes, where: str) -> tuple[int, list[float], bool]:
-    """Les triangles d'un `.glb`, la taille de sa boîte (m) et s'il porte un squelette."""
-    try:
-        magic, version, _ = struct.unpack_from("<4sII", data, 0)
-        length, kind = struct.unpack_from("<I4s", data, 12)
-        if magic != b"glTF" or version != 2 or kind != b"JSON":
-            raise ValueError("pas un fichier .glb 2.0")
-        document = json.loads(data[20:20 + length])
-        accessors = document["accessors"]
-        triangles = 0
-        low, high = [float("inf")] * 3, [float("-inf")] * 3
-        for mesh in document["meshes"]:
-            for primitive in mesh["primitives"]:
-                position = accessors[primitive["attributes"]["POSITION"]]
-                count = accessors[primitive["indices"]]["count"] if "indices" in primitive else position["count"]
-                triangles += count // 3
-                low = [min(a, b) for a, b in zip(low, position["min"])]
-                high = [max(a, b) for a, b in zip(high, position["max"])]
-    except (ValueError, KeyError, IndexError, TypeError, struct.error) as error:
-        raise DescriptorError(f"{where} : .glb illisible ({error})") from error
-    return triangles, [round(b - a, 3) for a, b in zip(low, high)], bool(document.get("skins"))
-
-
-def build_skeletons(descriptor: Descriptor) -> list[InstalledSkeleton]:
-    """Les descriptions de squelette du descripteur, lues et vérifiées lisibles."""
-    ready = []
-    for spec in descriptor.skeletons:
-        source, entry = source_entry(descriptor, spec.source)
-        text = source.read_bytes().replace(b"\r\n", b"\n")
-        try:
-            document = json.loads(text)
-        except json.JSONDecodeError as error:
-            raise DescriptorError(f"{spec.source} : illisible ({error})") from error
-        if not isinstance(document, dict) or document.get("silhouette") != spec.name:
-            raise DescriptorError(f"{spec.source} : la description n'est pas celle de la silhouette `{spec.name}`")
-        ready.append(InstalledSkeleton(name=spec.name, text=text, source=entry))
-    return ready
-
-
-def build_figures(descriptor: Descriptor, only: str | None = None) -> list[InstalledFigure]:
-    """Tous les personnages du descripteur (ou le seul `only`), prêts à écrire."""
-    known = {s.name for s in descriptor.skeletons}
-    ready: list[InstalledFigure] = []
-    for figure in descriptor.figures:
-        if only is not None and figure.name != only:
-            continue
-        installed = InstalledFigure(name=figure.name)
-        if figure.model is not None:
-            source, entry = source_entry(descriptor, figure.model)
-            data = source.read_bytes()
-            triangles, size, skinned = glb_measures(data, figure.model)
-            if not skinned:
-                raise DescriptorError(f"{figure.model} : le modèle n'est pas lié à un squelette "
-                                      "(scripts/assetsGeneration/rig_character.py)")
-            # Le squelette est commun au monde : un personnage de zone se lie à celui de
-            # `Common/Characters/Skeletons/`, là où le moteur le lit.
-            if figure.skeleton not in known and not (
-                    ASSETS / "Common" / "Characters" / "Skeletons" / figure.skeleton / "skeleton.json").is_file():
-                raise DescriptorError(f"{figure.name} : squelette `{figure.skeleton}` ni au descripteur, "
-                                      "ni installé")
-            installed.model = data
-            installed.model_file = f"{figure.name.split('/')[-1]}.glb"
-            installed.skeleton = figure.skeleton
-            installed.entry = {"model": f"{figure.name}/{installed.model_file}", "skeleton": figure.skeleton,
-                               "triangles": triangles, "size": size,
-                               "sha256": hashlib.sha256(data).hexdigest(), "source": entry}
-        if figure.portrait is not None:
-            source, entry = source_entry(descriptor, figure.portrait)
-            portrait = load_rgba(source)
-            installed.portrait = square(portrait, PORTRAIT, f"{figure.name}/portrait")
-            installed.sources[f"{figure.name}/portrait.png"] = entry
-            if figure.token is not None:
-                source, entry = source_entry(descriptor, figure.token)
-                portrait = load_rgba(source)
-            installed.token = round_token(portrait, f"{figure.name}/token")
-            installed.sources[f"{figure.name}/token.png"] = entry
-        elif figure.model is None and not (descriptor.target_dir / figure.name / "portrait.png").is_file():
-            raise DescriptorError(f"{figure.name} : ni modèle, ni portrait donné, ni portrait installé")
-        ready.append(installed)
-    if only is not None and not ready:
-        raise DescriptorError(f"{only} : aucun personnage de ce nom au descripteur")
-    return ready
-
-
-def figure_manifest(descriptor: Descriptor, ready: list[InstalledFigure],
-                    skeletons: list[InstalledSkeleton], removed: set[str] | None = None) -> dict:
-    """Le manifeste de la cible, avec les personnages de `ready` inscrits.
-
-    `removed` : les fichiers (relatifs à la cible) que l'installation retire ; leurs sources quittent
-    le manifeste avec eux.
-    """
-    manifest = read_manifest(descriptor)
-    gone = set(descriptor.remove)
-    drawn = {figure.name for figure in ready if figure.model is not None}
-    waiting = {figure.name for figure in ready if figure.model is None}
-    manifest["npcs"] = sorted(((set(manifest.get("npcs", [])) - waiting) | drawn) - gone)
-    # Les portraits d'attente : ceux qui ont un visage sans modèle. Un personnage qui reçoit son
-    # modèle quitte la liste ; une liste vide disparaît.
-    portraits = sorted(((set(manifest.get("portraits", [])) - drawn) | waiting) - gone)
-    if portraits:
-        manifest["portraits"] = portraits
-    else:
-        manifest.pop("portraits", None)
-    # Plus aucune bande de figurine : ce qui les décrivait part.
-    for key in CLES_BANDES:
-        manifest.pop(key, None)
-    models = dict(manifest.get("models", {}))
-    for name in list(models):
-        if name in gone or name in waiting:
-            del models[name]
-    for figure in ready:
-        if figure.entry is not None:
-            models[figure.name] = figure.entry
-    if models:
-        manifest["models"] = dict(sorted(models.items()))
-    else:
-        manifest.pop("models", None)
-    declared = dict(manifest.get("skeletons", {}))
-    for skeleton in skeletons:
-        declared[skeleton.name] = {"file": skeleton.file,
-                                   "sha256": hashlib.sha256(skeleton.text).hexdigest(),
-                                   "source": skeleton.source}
-    if declared:
-        manifest["skeletons"] = dict(sorted(declared.items()))
-    sources = dict(manifest.get("sources", {}))
-    for figure in ready:
-        sources.update(figure.sources)
-    removed = removed or set()
-    manifest["sources"] = dict(sorted(
-        (key, entry) for key, entry in sources.items()
-        if key not in removed and not any(key == name or key.startswith(name + "/") for name in gone)))
-    if str(manifest.get("comment", "")).startswith("Vide"):
-        del manifest["comment"]
-    return manifest
-
-
-def leftovers(descriptor: Descriptor, ready: list[InstalledFigure]) -> list[Path]:
-    """Ce que les dossiers des personnages de `ready` portent en trop : les bandes d'avant."""
-    extra: list[Path] = []
-    for figure in ready:
-        folder = descriptor.target_dir / figure.name
-        if not folder.is_dir():
-            continue
-        keep = figure.kept()
-        extra += sorted(path for path in folder.iterdir() if path.is_file() and path.name not in keep)
-    return extra
-
-
-def write_figures(descriptor: Descriptor, ready: list[InstalledFigure],
-                  skeletons: list[InstalledSkeleton], whole: bool = True) -> tuple[int, int]:
-    """Écrit les personnages et les squelettes ; rend le nombre de fichiers et de dossiers retirés."""
-    target = descriptor.target_dir
-    extra = leftovers(descriptor, ready)
-    removed = {path.relative_to(target).as_posix() for path in extra}
-    # Le manifeste d'abord, calculé sur l'état d'avant : il sait ce qui part.
-    manifest = figure_manifest(descriptor, ready, skeletons, removed)
-    for skeleton in skeletons:
-        path = target / skeleton.file
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_bytes(skeleton.text)
-    for figure in ready:
-        folder = target / figure.name
-        folder.mkdir(parents=True, exist_ok=True)
-        for filename, image in figure.images().items():
-            (folder / filename).write_bytes(encode_png(image))
-        if figure.model is not None:
-            (folder / figure.model_file).write_bytes(figure.model)
-            (folder / FICHE).write_bytes(figure.sheet())
-    for path in extra:
-        path.unlink()
-    folders = 0
-    if whole:
-        for name in descriptor.remove:
-            if (target / name).is_dir():
-                shutil.rmtree(target / name)
-                folders += 1
-                # Un dossier de rangement resté vide part avec ce qu'il rangeait.
-                parent = (target / name).parent
-                while parent != target and not any(parent.iterdir()):
-                    parent.rmdir()
-                    parent = parent.parent
-    (target / "manifest.json").write_bytes(manifest_text(manifest).encode("utf-8"))
-    return len(extra), folders
-
-
-def stale_figures(descriptor: Descriptor, ready: list[InstalledFigure],
-                  skeletons: list[InstalledSkeleton]) -> list[str]:
-    """Ce qui, dans les personnages installés, n'est plus ce que la commande produirait."""
-    manifest = read_manifest(descriptor)
-    target = descriptor.target_dir
-    problems = []
-    for skeleton in skeletons:
-        path = target / skeleton.file
-        if not path.is_file() or path.read_bytes().replace(b"\r\n", b"\n") != skeleton.text:
-            problems.append(f"{skeleton.file} : absent ou différent de sa source")
-    for name in descriptor.remove:
-        if (target / name).exists():
-            problems.append(f"{name} : dossier à retirer, encore là")
-    for path in leftovers(descriptor, ready):
-        problems.append(f"{path.relative_to(target).as_posix()} : bande de figurine à retirer")
-    for key in CLES_BANDES:
-        if key in manifest:
-            problems.append(f"manifest.json : `{key}` décrit des bandes de figurine")
-    for figure in ready:
-        liste = "npcs" if figure.model is not None else "portraits"
-        if figure.name not in manifest.get(liste, []):
-            problems.append(f"{figure.name} : absent de `{liste}`")
-        recorded = manifest.get("sources", {})
-        for key, entry in figure.sources.items():
-            if recorded.get(key) != entry:
-                problems.append(f"{key} : source absente de `sources`, ou d'une autre empreinte")
-        folder = target / figure.name
-        for filename, image in figure.images().items():
-            path = folder / filename
-            if not path.is_file():
-                problems.append(f"{figure.name}/{filename} : absent")
-            elif not np.array_equal(np.asarray(Image.open(path).convert("RGBA")), image):
-                problems.append(f"{figure.name}/{filename} : diffère de ce que donne la source")
-        if figure.model is not None:
-            if manifest.get("models", {}).get(figure.name) != figure.entry:
-                problems.append(f"{figure.name} : entrée de `models` absente ou différente")
-            path = folder / figure.model_file
-            if not path.is_file() or path.read_bytes() != figure.model:
-                problems.append(f"{figure.name}/{figure.model_file} : absent ou différent de sa source")
-            sheet = folder / FICHE
-            if not sheet.is_file() or sheet.read_bytes().replace(b"\r\n", b"\n") != figure.sheet():
-                problems.append(f"{figure.name}/{FICHE} : absente ou différente")
-    return problems
-
-
-def print_figures(ready: list[InstalledFigure], skeletons: list[InstalledSkeleton]) -> None:
-    for skeleton in skeletons:
-        document = json.loads(skeleton.text)
-        print(f"{skeleton.file:40} {len(document.get('bones', []))} os, "
-              f"{len(document.get('clips', []))} clip(s)")
-    for figure in ready:
-        if figure.entry is not None:
-            size = " × ".join(f"{value:.2f}" for value in figure.entry["size"])
-            print(f"{figure.name:28} modèle {figure.entry['triangles']} triangles, {size} m, "
-                  f"{len(figure.model) / (1024 * 1024):.1f} Mio, squelette {figure.skeleton}")
-        else:
-            print(f"{figure.name:28} portrait d'attente (sans modèle)")
-        if figure.portrait is not None:
-            print(f"{figure.name}/portrait     {PORTRAIT} × {PORTRAIT}, jeton {JETON} × {JETON}")
-
-
-# --- Le manifeste --------------------------------------------------------------------------------
+# --- Le manifeste et l'écriture -----------------------------------------------------------------
 
 
 def place_tile(descriptor: Descriptor) -> tuple[int, int]:
@@ -1101,7 +596,7 @@ def stale(descriptor: Descriptor, ready: list[Installed]) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("descriptor", type=Path, help="le install.json d'un dossier de sources")
-    parser.add_argument("--piece", help="n'installer que cette pièce (ou ce personnage)")
+    parser.add_argument("--piece", help="n'installer que cette pièce")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--check", action="store_true", help="vérifier que l'installé est à jour")
     mode.add_argument("--measure", action="store_true", help="afficher les mesures sans rien écrire")
@@ -1109,8 +604,6 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         descriptor = read_descriptor(args.descriptor.resolve())
-        if descriptor.is_characters:
-            return main_figures(args, descriptor)
         ready = build(descriptor, args.piece)
     except DescriptorError as error:
         print(f"install_hd_asset : {error}", file=sys.stderr)
@@ -1134,32 +627,6 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     write(descriptor, ready)
     print(f"{len(ready)} pièce(s) installée(s) dans {descriptor.target}")
-    return 0
-
-
-def main_figures(args: argparse.Namespace, descriptor: Descriptor) -> int:
-    """La commande pour un dossier Characters/ : mêmes modes que pour les pièces."""
-    skeletons = build_skeletons(descriptor) if args.piece is None else []
-    ready = build_figures(descriptor, args.piece)
-    print_figures(ready, skeletons)
-    if args.measure:
-        return 0
-    if args.check:
-        problems = stale_figures(descriptor, ready, skeletons)
-        for problem in problems:
-            print(problem, file=sys.stderr)
-        if problems:
-            print(f"relancer : python scripts/assetsGeneration/install_hd_asset.py {args.descriptor}", file=sys.stderr)
-            return 1
-        print(f"{len(ready)} personnage(s) à jour dans {descriptor.target}")
-        return 0
-    if descriptor.preview_only:
-        print(f"install_hd_asset : {args.descriptor} est un essai (`previewOnly`) : il se mesure "
-              "(--measure), il ne s'installe pas", file=sys.stderr)
-        return 1
-    files, folders = write_figures(descriptor, ready, skeletons, whole=args.piece is None)
-    print(f"{len(ready)} personnage(s) installé(s) dans {descriptor.target} ; "
-          f"{files} fichier(s) de bande et {folders} dossier(s) retiré(s)")
     return 0
 
 
