@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1001 — Le standard 3D.** `Planning/standards/style-3d.md` (unités, caméra, format `.glb`,
+  matières, lumière, familles de pièces, images tolérées) et `personnages-3d.md` remplacent le
+  standard 2D HD, sa consigne et le workflow de revue des marches, archivés. Chaque valeur est
+  mesurée au LOT-1000 ou décidée et datée par l'auteur ; le reste est écrit comme ouvert, avec le
+  lot qui le tranche. Décisions de l'auteur : **un maillage Meshy par personnage**, lié au
+  squelette commun de 53 os — les huit corps et la bibliothèque de pièces sont abandonnés
+  (D-38) ; image de référence **de face, en pose neutre** (D-39) ; budget d'un modèle au LOT-1005
+  et contour sombre au LOT-1004 (D-40) ; **les modèles se génèrent sans arme** (D-42), et le LOT-1009
+  devient « les personnages de la démo », vingt modèles dont deux fauves. Les exigences `EX-VIS-008`, `EX-VIS-009`, `EX-REN-013`,
+  `EX-REN-014` et `EX-REN-018` sont réécrites, leurs anciens textes gardés dans
+  `exigences-retirees.md`. La chaîne de génération de figurines 2D (`prepare_envois_figure.py`,
+  `check_figure_walk.py`, `preview_figure_walk.py`) est supprimée. Nouveau contrôle en CI,
+  `check_orphans.py` : tout fichier d'asset est cité par un manifeste, toute entrée citée existe,
+  tout script a un appelant (D-32). Les fiches des LOT-1003 à 1010 sont amendées en conséquence.
+
 - **LOT-1000 — La preuve de la chaîne de personnages.** Après le refus des corps communs MPFB et
   des essais TripoSR, le personnage vient d'un maillage texturé généré par Meshy d'après sa
   figurine (révision de D-31), lié dans Blender à un squelette de 53 os et animé par des poses en

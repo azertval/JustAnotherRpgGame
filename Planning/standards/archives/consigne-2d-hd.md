@@ -1,7 +1,9 @@
 # La consigne du générateur — 2D HD
 
+> **Archivé le 1er octobre 2026 ([LOT-1001](../../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1001-standard-3d.md)).** Ce document n'est plus normatif : le jeu passe à la 3D ([D-29](../../vision/decisions.md)), et la règle en vigueur est le [standard 3D](../style-3d.md). Il reste la mémoire des lots livrés qui le citent, et la référence figée des **images tolérées** ([standard 3D, §7](../style-3d.md#7-les-images-tolérées)).
+
 Le style de la scène est **écrit**, pas laissé au générateur : c'est ce que dit
-[`EX-VIS-008`](../../Documentation/Specification/vision.md). Cette page est cette écriture. Elle
+[`EX-VIS-008`](../../../Documentation/Specification/vision.md). Cette page est cette écriture. Elle
 remplace le bloc A de l'atelier des textures (`LOT-92`), qui décrivait du pixel art.
 
 Une commande d'image se compose de **trois blocs**, toujours dans cet ordre, toujours en anglais —
@@ -17,7 +19,7 @@ La **planche de référence** `Tools/AssetsHD/Arenarea/arenarea-planche-referenc
 chaque envoi comme image de référence : elle vaut mieux que trois paragraphes de plus.
 
 > **Le générateur reste un outil manuel.** Aucune génération ne tourne en CI, et Claude ne dessine
-> pas : il écrit la commande, l'auteur l'envoie, la chaîne du [LOT-104](../versions/v0.1.0/v0.0.1-demo/lots/LOT-104-chaine-de-production-hd.md)
+> pas : il écrit la commande, l'auteur l'envoie, la chaîne du [LOT-104](../../versions/v0.1.0/v0.0.1-demo/lots/LOT-104-chaine-de-production-hd.md)
 > installe le résultat. Règle du `LOT-91`, inchangée.
 
 ## Bloc A — le style
@@ -173,7 +175,7 @@ number.
 La marge de 8 px est celle du [standard](style-2d-hd.md) : sans elle, le niveau de mipmap d'une
 image déborde sur sa voisine.
 
-L'essai de cadence du [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) a
+L'essai de cadence du [LOT-112](../../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) a
 ajouté deux choses à cette variante. La phrase « Draw it as large as the canvas allows » se **garde**
 à la fin du cadrage : c'est la règle « réduit, jamais agrandi ». Et la ligne `OUTPUT` du bloc B, qui
 demande un canevas carré, devient :
@@ -241,7 +243,7 @@ VARIANTS: none.
 ## Ce que la maquette a appris à la consigne
 
 Trois règles ci-dessus ne viennent pas de la planche mais du montage de la maquette
-([LOT-101](../versions/v0.1.0/v0.0.1-demo/lots/LOT-101-standard-2d-hd.md)) :
+([LOT-101](../../versions/v0.1.0/v0.0.1-demo/lots/LOT-101-standard-2d-hd.md)) :
 
 1. **« une pièce par image »** — la planche livre ses pièces par panneaux de trois ou quatre ; les
    séparer ensuite coûte un détourage par pièce et laisse des franges.

@@ -3,12 +3,12 @@
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 """Rend un personnage animé (`.glb`) en bandes de figurine, au format que lit le moteur (LOT-1000).
 
-Le modèle vient de l'atelier des personnages (un corps commun, une texture peinte, des pièces). Ses
+Le modèle vient de l'atelier des personnages (un maillage par personnage, lié au squelette commun : `Planning/standards/personnages-3d.md`). Ses
 animations sont rendues par Blender, sans fenêtre, sous la caméra du jeu :
 
 - **orthographique**, tournée de 45° entre les deux axes de la grille et inclinée de
   asin(0,62) ≈ 38,3° : le sol se projette exactement en losange de rapport 0,62
-  (`Planning/standards/style-2d-hd.md`) ;
+  (`Planning/standards/style-3d.md`, §1) ;
 - **à l'échelle du losange** : une case de 1,5 m fait 256 px de large, soit 120,7 px par mètre ; un
   corps de 1,80 m mesure alors 170 px, la hauteur de figurine du standard ;
 - **les pieds sur la ligne de sol** (y = 252) au milieu de la cellule : la caméra vise le point qui

@@ -402,6 +402,7 @@ sur le poste. La colonne « Refuse » dit ce qui fait passer le code de sortie �
 | `check_ui_assets.py` | une illustration d'une provenance autre que `produced` (`EX-IHM-076`), retouchée sans manifeste, orpheline, citée par le QML sans exister | CI, poste |
 | `check_map_assets.py` | une carte hors manifeste ou hors 1920 × 1080, une provenance autre qu'`author`, une région sans carte, un lieu inconnu de l'atlas | CI, poste |
 | `check_asset_keys.py` | une clé d'asset orpheline ou malformée (`EX-CNT-040`) ; **liste** sans échouer les clés encore servies par un marqueur (`EX-CNT-041`) | CI, poste |
+| `check_orphans.py` | un fichier de `Source/Elements/Assets/` qu'aucun manifeste ni fiche ne cite, une entrée de manifeste sans fichier, un script de `scripts/` que ni la CI, ni un hook, ni un document en vigueur, ni un script appelé ne nomme (décision D-32) | CI, poste |
 | `check_powershell.py` | une règle PSScriptAnalyzer (erreur ou avertissement, dont la syntaxe pwsh 7), une autre version du module que celle de `ci.yml` | CI, poste |
 | `check_binary_files.py` | un fichier au-delà de la taille maximale, un binaire dont l'extension n'est pas déclarée `binary` dans `.gitattributes` | hook, CI (`--all`) |
 | `check_json_files.py` | un JSON invalide, une clé en double, un BOM, un retour à la ligne final absent | hook, CI (`--all`) |

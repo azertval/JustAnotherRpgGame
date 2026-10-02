@@ -30,6 +30,7 @@ Source/Elements/Assets/
 │   ├── Props/                   mobilier et objets génériques
 │   ├── Fx/                      effets de combat et de sort
 │   └── Characters/
+│       ├── Skeletons/<silhouette>/   le squelette commun et ses clips (LOT-1006)
 │       ├── Heroes/<classe>/     les personnages jouables
 │       ├── Peoples/<espèce>/<archétype>/    PNJ neutres génériques
 │       ├── Beasts/<bête>/       les animaux
@@ -71,9 +72,13 @@ Les **cartes jouables** suivent le même découpage, dans `Source/Elements/Level
    dans la sous-zone, puis la zone, la ville, la région, le monde. Une zone peut donc **remplacer**
    une pièce commune par la sienne, sous la même clé.
 3. **Un dossier, un manifeste.** Chaque dossier `Scene/` et `Characters/` porte un `manifest.json`
-   qui liste ses pièces : clé, fichier, emprise, ancre, type tactique. Un fichier que le manifeste
-   ne cite pas fait échouer la CI (`EX-CNT-042`, inchangée : tout asset livré paraît dans la
-   galerie de débug).
+   qui liste ses pièces : clé, fichier, emprise, ancre, type tactique. Une pièce est une **image**
+   (`"file"`) ou un **maillage** (`"mesh"`, un `.glb` au [standard 3D](style-3d.md) — lu par le
+   moteur à partir du `LOT-1003`). Un fichier que le manifeste ne cite pas fait échouer la CI
+   (`EX-CNT-042`, inchangée : tout asset livré paraît dans la galerie de débug), et
+   `scripts/checks/check_orphans.py` étend la règle à tout `Source/Elements/Assets/` : pas un
+   fichier sans manifeste qui le cite, pas une entrée sans fichier
+   ([D-32](../vision/decisions.md)).
    Un kit volumineux se **range en sous-dossiers** sous son `Scene/`, sans second manifeste : le
    manifeste du dossier cite chaque pièce par son chemin (`"file": "roofs/l/d3/roof-l-d3-ne-c0r0.png"`),
    la clé ne change pas, les cartes non plus. Les sous-dossiers suivent les familles, en anglais :
@@ -84,16 +89,20 @@ Les **cartes jouables** suivent le même découpage, dans `Source/Elements/Level
    Les noms de lieux sont ceux de l'atlas (`World/locations/`), sans leur préfixe de région.
    Une pièce se nomme `<famille>-<objet>[-<variante>]` : `floor-sand-01`, `wall-arcade-u`,
    `prop-lamppost`.
-5. **Un PNJ, un dossier** : `<pnj>/portrait.png`, `<pnj>/token.png`, une planche et un
-   `.anim.json` par animation. Un PNJ **nommé** vit dans la zone où on le rencontre ; un
-   archétype (citadin, marchande, garde) vit dans le commun de sa ville ou de sa région.
+5. **Un PNJ, un dossier** : `<pnj>/portrait.png`, `<pnj>/token.png` et son **modèle**
+   (`<pnj>/<pnj>.glb`, [personnages 3D](personnages-3d.md)). Jusqu'au `LOT-1006`, le moteur
+   n'anime pas de modèle : le dossier porte à sa place les bandes **rendues** depuis ce modèle,
+   une par animation et par orientation, avec leur `.anim.json`. Un PNJ **nommé** vit dans la zone
+   où on le rencontre ; un archétype (citadin, marchande, garde) vit dans le commun de sa ville ou
+   de sa région.
 6. **`Tools/` n'est jamais livré.** C'est le répertoire de travail **local** de l'auteur : sorties
    brutes du générateur, planches de référence, masters en pleine définition, et aussi la
    [commande de la zone](gabarit-commande-zone.md) et le descripteur `install.json` — sous
-   `Tools/AssetsHD/`, rangés **sous le même arbre**. Rien n'en est versionné (`.gitignore`, décision
+   `Tools/AssetsHD/`, rangés **sous le même arbre** ; les modèles, leurs exports reçus, leurs
+   fiches de liaison et les scripts Blender sous `Tools/Assets3D/`. Rien n'en est versionné (`.gitignore`, décision
    de l'auteur du 23 septembre 2026, qui retire l'exception du `LOT-104`). Le dépôt ne reçoit que
-   l'asset **installé** : détouré, réduit à l'échelle du standard, ancré, inscrit au manifeste —
-   par `scripts/assetsGeneration/install_hd_asset.py`, jamais à la main.
+   l'asset **installé** : inscrit au manifeste — et, pour une image, détouré, réduit à l'échelle
+   du standard et ancré — par `scripts/assetsGeneration/install_hd_asset.py`, jamais à la main.
 
 ## Le poids
 
@@ -117,7 +126,7 @@ une PR.
 
 | Suivi par Git | Hors de Git |
 |---|---|
-| les manifestes (`manifest.json`, `appearance.json`, `Maps/manifest.json`, `UI/illustrations.json`), les `README.md`, `Fonts/`, `Entities/` | les images (`*.png`, `*.jpg`) de `Common/`, `Regions/`, `Maps/` et `UI/` |
+| les manifestes (`manifest.json`, `appearance.json`, `Maps/manifest.json`, `UI/illustrations.json`), les `README.md`, `Fonts/`, `Entities/` | les images (`*.png`, `*.jpg`) de `Common/`, `Regions/`, `Maps/` et `UI/` ; les modèles (`*.glb`), dès que le moteur les lit (`LOT-1003`) |
 | le verrou `Source/Elements/Assets/kits.lock.json` : l'empreinte de chaque archive | les archives, une release par région (`assets-central-empire`), plus `assets-common`, `assets-maps`, `assets-ui` |
 
 Un **kit** est un dossier publié d'un seul tenant : un lieu (sans ses sous-lieux, qui sont d'autres

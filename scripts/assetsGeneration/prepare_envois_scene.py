@@ -3,9 +3,9 @@
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
 """Prépare les envois au générateur des pièces de scène d'une commande : un dossier par envoi (LOT-105).
 
-Le pendant de `prepare_envois_figure.py` pour les pièces de décor. Il lit la **commande** d'une zone
+Prépare les envois des pièces de décor en image. Il lit la **commande** d'une zone
 (`Tools/AssetsHD/…/commande.md`, gabarit `Planning/standards/gabarit-commande-zone.md`) et les blocs
-A et B de la consigne (`Planning/standards/consigne-2d-hd.md`), et écrit pour chaque pièce un dossier
+A et B de la consigne archivée (`Planning/standards/archives/consigne-2d-hd.md`), et écrit pour chaque pièce un dossier
 `envois/NN-<pièce>/` à côté de la commande :
 
 - `prompt.txt` : le texte entier à coller, blocs A, B et C assemblés ;
@@ -33,7 +33,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-CONSIGNE = ROOT / "Planning" / "standards" / "consigne-2d-hd.md"
+CONSIGNE = ROOT / "Planning" / "standards" / "archives" / "consigne-2d-hd.md"
 PLANCHE = ROOT / "Tools" / "AssetsHD" / "Arenarea" / "arenarea-planche-reference-v2.png"
 LOSANGE = (256, 159)
 MOTS = {"TWO": 2, "THREE": 3, "FOUR": 4, "FIVE": 5, "SIX": 6}

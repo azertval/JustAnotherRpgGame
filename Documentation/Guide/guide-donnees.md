@@ -540,18 +540,19 @@ scripts, hors CI, tiennent la chaîne, et chacun dit dans son en-tête ce qu'il 
   portrait et son jeton s'installent, et son nom va dans la liste `portraits` du manifeste, pas
   dans `npcs` : le moteur le dessine par son mannequin, et `check_hd_assets.py` ne cite pour lui
   que ces deux images. Ses bandes installées le font passer de `portraits` à `npcs`.
-- [`prepare_envois_figure.py`](../../scripts/assetsGeneration/prepare_envois_figure.py) (`LOT-112`)
-  et [`prepare_envois_scene.py`](../../scripts/assetsGeneration/prepare_envois_scene.py)
-  (`LOT-105`) préparent les **envois** au générateur, qui reste un outil manuel : depuis la
-  commande versionnée d'une figurine ou d'une zone (`Tools/AssetsHD/…/commande.md`, la source
-  unique des textes), un dossier `envois/NN-<nom>/` par envoi, avec le texte entier à coller, les
-  pièces jointes déjà produites et un `LIRE.txt` qui dit ce qu'il reste à joindre et sous quel nom
-  enregistrer la sortie. `--seulement` ne prépare qu'une reprise, `--suffixe` évite d'écraser une
-  source acceptée.
-- [`preview_figure_walk.py`](../../scripts/assetsGeneration/preview_figure_walk.py) (`LOT-112`)
-  fait marcher une figurine sur la maquette du standard, à la vitesse et à la cadence du jeu, sans
-  rien écrire dans le dépôt : une cadence se juge à côté de son ancre et de son sol, pas sur une
-  planche.
+- [`prepare_envois_scene.py`](../../scripts/assetsGeneration/prepare_envois_scene.py)
+  (`LOT-105`) prépare les **envois** au générateur, qui reste un outil manuel : depuis la
+  commande d'une zone (`Tools/AssetsHD/…/commande.md`, la source unique des textes), un dossier
+  `envois/NN-<nom>/` par envoi, avec le texte entier à coller, les pièces jointes déjà produites
+  et un `LIRE.txt` qui dit ce qu'il reste à joindre et sous quel nom enregistrer la sortie.
+  `--seulement` ne prépare qu'une reprise, `--suffixe` évite d'écraser une source acceptée. Il ne
+  sert plus qu'aux **images tolérées** du standard 3D ; son pendant pour les figurines
+  (`LOT-112`) et l'aperçu de marche ont été retirés au `LOT-1001` : un personnage ne se commande
+  plus en bandes peintes.
+- [`render_character_strips.py`](../../scripts/assetsGeneration/render_character_strips.py)
+  (`LOT-1000`) rend, dans Blender et sans fenêtre, le modèle animé d'un personnage en bandes au
+  format du moteur — huit images, quatre orientations, caméra du jeu —, que l'installateur pose
+  telles quelles (`placed`).
 - [`build_hd_mockup.py`](../../scripts/assetsGeneration/build_hd_mockup.py) (`LOT-101`) monte la
   maquette de validation du standard 2D HD, huit cases sur huit à 1080p et 2160p, et écrit sous
   `Source/Test/Fixtures/HdMockup/` la même scène en données d'essai du moteur ; `--check` vérifie
@@ -559,7 +560,10 @@ scripts, hors CI, tiennent la chaîne, et chacun dit dans son en-tête ce qu'il 
 
 Ce que ces scripts installent est gardé en CI par
 [`check_hd_assets.py`](../../scripts/checks/check_hd_assets.py), qui n'a pas besoin des sources
-(voir les kits, ci-dessous).
+(voir les kits, ci-dessous). [`check_orphans.py`](../../scripts/checks/check_orphans.py)
+(`LOT-1001`) étend la règle à tout `Source/Elements/Assets/` — images, maillages, manifestes,
+polices : pas un fichier qu'aucun manifeste ne cite, pas une entrée sans fichier — et aux scripts
+eux-mêmes, dont aucun ne reste sans appelant. Un lot qui remplace un asset le supprime dans sa PR.
 
 ## Les kits d'assets, hors Git {#kits-assets}
 

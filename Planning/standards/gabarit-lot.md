@@ -9,7 +9,7 @@ que lisent le lint et le site — et se poursuit en Markdown libre.
 ```
 +++
 id = "LOT-104"
-titre = "Assets HD de l'Arena of Fate"
+titre = "Assets de l'Arena of Fate"
 version = "0.0.1"
 filiere = "assets"
 statut = "a-faire"

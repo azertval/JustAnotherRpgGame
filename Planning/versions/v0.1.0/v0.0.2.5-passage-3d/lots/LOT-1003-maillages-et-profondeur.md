@@ -79,4 +79,6 @@ Ce qui **reste**, avec sa date de retrait :
 - Une grande image (fontaine 3 × 3, bâtiment) est un seul plan : elle peut se croiser avec un mur
   en volume. À mesurer sur la carte d'Arenarea ; la parade est de ne garder en image que des
   emprises 1 × 1.
-- Le contour sombre, si le standard le garde, demande une passe de plus.
+- Le contour sombre n'est **pas** dans ce lot : le standard le laisse ouvert, et l'auteur le
+  tranche au [LOT-1004](LOT-1004-kit-de-la-capitale-en-maillages.md), sur le kit rendu avec et sans
+  ([D-40](../../../../vision/decisions.md)). S'il est gardé, la passe s'ajoute là-bas.

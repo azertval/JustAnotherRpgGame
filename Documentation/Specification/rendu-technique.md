@@ -33,22 +33,29 @@ la façon dont une figurine se pose sur sa case, et le facteur d'affichage dédu
 - **EX-REN-012** — Une figurine doit s'animer par **bandes d'images** nommées
   (`idle`, `walk`, `attack`, `hit`, `death`), dont le découpage est décrit par des données
   (`EX-REN-005`). Depuis le `LOT-112`, une bande existe par **diagonale isométrique** — quatre
-  orientations peintes, `walk-se`, `walk-sw`, `walk-ne`, `walk-nw` —, une animation compte
+  orientations, `walk-se`, `walk-sw`, `walk-ne`, `walk-nw` —, une animation compte
   **huit images** dans une cellule de 192 × 256 dont la ligne de sol est déclarée (`ground`), et
-  l'attaque comme la mort occupent la cellule large de 384 × 256 (`EX-VIS-008`). L'orientation de
+  l'attaque comme la mort occupent la cellule large de 384 × 256. L'orientation de
   la session (`EX-EXP-004`) choisit la bande ; la cadence (`frameDuration`) est lue dans la bande,
-  jamais dans le code (`EX-EXP-011`).
+  jamais dans le code (`EX-EXP-011`). Depuis le `LOT-1000`, une bande n'est plus peinte : elle est
+  **rendue depuis le modèle** du personnage, sous la caméra du jeu, et s'installe telle quelle.
+  Cette exigence vit jusqu'au `LOT-1006`, où le moteur anime le modèle lui-même (`EX-VIS-008`).
 - **EX-REN-005** — Les **animations** doivent être décrites par des **données**
   (clip nommé, suite d'images, durée par image, bouclé ou joué une fois) et non codées en dur. Un
   asset sans description d'animation est affiché comme une **image fixe**.
-- **EX-REN-013** — La **caméra** du lieu doit suivre le héros, bornée à la scène
-  (un axe plus étroit que la vue est centré), à un facteur d'affichage **libre** — l'agrandissement
-  entier du pixel art n'a plus d'objet (`EX-ARCH-022`) — et **déduit de la définition de la
-  fenêtre** : la largeur d'une case à l'écran vaut la hauteur de la fenêtre divisée par **10,8**,
-  soit 100 px à 1080p et 200 px à 2160p. Toutes les définitions cadrent donc la **même étendue de
-  monde** — 19,2 losanges de large, 17,4 de haut — et un écran plus fin montre le même jeu plus
-  finement, jamais plus de jeu. La « fenêtre » est ici la **scène 16:9** qu'`EX-REN-019` y
-  inscrit.
+- **EX-REN-013** — La **caméra** du lieu doit être **orthographique et fixe** : tournée de
+  **45°**, inclinée de **asin 0,62 ≈ 38,3°**, sans fuyante ni rotation libre — c'est ce qui redonne
+  le losange de rapport 0,62 d'`core::IsoProjection`, et la projection reste **affine** : le
+  pointage d'une case au sol ne change pas. Elle suit le héros, bornée à la scène (un axe plus
+  étroit que la vue est centré), à un facteur d'affichage **libre** (`EX-ARCH-022`) et **déduit de
+  la définition de la fenêtre** : la largeur d'une case à l'écran vaut la hauteur de la fenêtre
+  divisée par **10,8**, soit 100 px à 1080p et 200 px à 2160p. Toutes les définitions cadrent donc
+  la **même étendue de monde** — 19,2 losanges de large, 17,4 de haut — et un écran plus fin
+  montre le même jeu plus finement, jamais plus de jeu. La « fenêtre » est ici la **scène 16:9**
+  qu'`EX-REN-019` y inscrit.
+  > **Mise en œuvre au `LOT-1003`.** Jusque-là la caméra du lieu est plane (`hmi::Camera2D`) et
+  > produit le même cadrage : une image dressée face à une caméra orthographique fixe occupe
+  > exactement les pixels qu'elle occupe aujourd'hui.
 - **EX-REN-019** — La scène du jeu est **toujours au format 16:9** : dans une fenêtre d'un autre
   format, le plus grand rectangle 16:9 qui tient y est inscrit, **centré au pixel**, et la fenêtre
   peint le reste en **noir** — des bandes sur les côtés pour une fenêtre plus large, en haut et en
@@ -67,18 +74,24 @@ l'intérieur de la famille où le monde se dessine.
 
 - **EX-REN-014** — Le rendu doit gérer un ordre de dessin par **calques**,
   défini par un **ordonnancement unique et explicite** (`hmi::RenderLayer`) dont aucun calque
-  concurrent ne peut s'écarter : sol, objets et figurines, puis interface et aides d'édition.
-- **EX-REN-018** — Dans la scène isométrique, l'ordre de dessin des acteurs et du décor
-  traversé doit venir de leur **profondeur**, et non de leur calque : une entité passe devant ce qui
-  est plus haut qu'elle à l'écran, derrière ce qui est plus bas. La profondeur se lit au **pied** du
-  sprite — le bord bas, point de contact avec le sol — et non à son coin haut. Ces calques forment
-  une **bande de profondeur** commune, à l'intérieur de laquelle le tri par profondeur passe
-  **avant** le regroupement par texture. Le tri doit rester **stable** et quantifié au pixel : à
-  profondeur égale, deux sprites gardent un ordre constant d'une image à l'autre. Hors de cette
-  bande, l'ordre des calques reste souverain (`EX-REN-014`). Concrétisé en `LOT-07`. Depuis le
-  `LOT-129`, la bande compte **six rangs** par profondeur — le relief, la figurine, puis les étages
-  un à quatre (`EX-LVL-025`) — et les jetons de maquette n'y sont plus : ils renseignent, donc
-  ils sont de l'interface en scène (`EX-REN-023`).
+  concurrent ne peut s'écarter : la scène, puis l'interface et les aides d'édition. Le calque
+  tranche **entre** familles ; **à l'intérieur** de la scène, ce qui passe devant quoi se décide
+  par la profondeur (`EX-REN-018`), jamais par un calque de plus.
+- **EX-REN-018** — Dans la scène, qui passe devant qui doit venir de la **profondeur**, et
+  non du calque. Pour un **maillage**, c'est le **tampon de profondeur** qui décide, sans qu'aucun
+  code de tri n'intervienne : les maillages opaques l'écrivent. Une **image** de scène se dresse
+  face à la caméra, **teste** la profondeur sans l'écrire — ses bords sont adoucis —, et les
+  images se trient entre elles par leur **pied**, le bord bas, point de contact avec le sol : une
+  image passe devant ce qui est plus haut qu'elle à l'écran, derrière ce qui est plus bas. Ce tri
+  reste **stable** et quantifié au pixel : à profondeur égale, deux images gardent un ordre
+  constant d'une image à l'autre. Hors de la scène, l'ordre des calques reste souverain
+  (`EX-REN-014`). Le tri par le pied ne vit que tant qu'il reste une image de décor : il part avec
+  la dernière, à la `0.0.3`.
+  > **Mise en œuvre au `LOT-1003`.** Jusque-là tout est image, et la scène entière se trie par le
+  > pied dans une **bande de profondeur** de **six rangs** — le relief, la figurine, puis les
+  > étages un à quatre (`EX-LVL-025`, `LOT-129`) ; les jetons de maquette n'y sont pas, ils sont
+  > de l'interface en scène (`EX-REN-023`). Le mécanisme d'étage part au `LOT-1004`, quand les
+  > toits deviennent des maillages.
 
 ### Le rendu de maquette : une carte sans texture (`LOT-128`)
 

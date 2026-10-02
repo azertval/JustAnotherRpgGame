@@ -45,6 +45,12 @@ lot qui les a prises.
 | D-36 | 30 sept. 2026 | **La résistance du Brawler est graduée** (*Tough as Nails*) : elle retire aux dégâts la part des points de vie perdus, la moitié au plus à 0 PV — rien plein de vie. Écart au *Player's Guide* (p. 193), écrit dans la capacité et au référentiel des classes | décision de l'auteur, à la recette (`LOT-142`) — entière dès le niveau 1, elle rendait le Brawler indispensable : 35 points d'écart entre trios à la simulation de la série de l'arène, 16 après (critère : moins de 20) |
 | D-37 | 30 sept. 2026 | **« Nouvelle partie » fait choisir le meneur** parmi les quatre, sur l'écran Groupe ; le groupe reste préformé (D-28). Le meneur parle à l'ouverture des dialogues et fait les jets | décision de l'auteur, à la recette (`LOT-142`) — c'est « la démo rejouée avec une classe au choix » |
 
+| D-38 | 1er oct. 2026 | **Un maillage par personnage** : chaque personnage a son maillage texturé, généré par **Meshy** depuis une image de référence peinte, et lié au **squelette commun** par sa fiche de liaison. Les **huit corps** et la **bibliothèque de pièces** de D-31 sont abandonnés ; le squelette et les animations restent communs. Écrit dans le [standard des personnages](../standards/personnages-3d.md) | décision de l'auteur, au `LOT-1001`, d'après la preuve du `LOT-1000` — les corps communs ont été refusés, les maillages Meshy validés |
+| D-39 | 1er oct. 2026 | L'**image de référence** d'un personnage est une **vue de face en pose neutre** (pose en A), peinte d'après la figurine ou le portrait validé ; Meshy part de cette image, plus de la figurine orientée. À éprouver au `LOT-1006` sur son premier personnage | décision de l'auteur, au `LOT-1001` — le brawler de la preuve, généré depuis sa figurine sud-est, a le buste vrillé d'environ 45° et un visage de trois quarts |
+| D-40 | 1er oct. 2026 | Le **budget d'un modèle** — triangles, définition de la texture, os — **se fixe au `LOT-1005`**, sur la mesure du moteur ; le standard n'écrit que les valeurs mesurées à la preuve, sans les borner. Le **contour sombre** se tranche au **`LOT-1004`**, sur le kit de la Capitale rendu avec et sans ; le `LOT-1003` ne prévoit pas la passe | décisions de l'auteur, au `LOT-1001` — ne pas borner avant d'avoir mesuré, ne pas trancher une facture sans l'avoir vue |
+| D-41 | 1er oct. 2026 | **Les modèles ont leurs armes** : l'arme et le bouclier d'un personnage font partie de son maillage, générés avec lui. Ni pièce tenue à part, ni accroche d'un modèle à un os dans le moteur, ni vue « Piece » dans l'atelier ; changer d'arme dans l'inventaire ne change pas le modèle affiché. Les **personnages de la démo** — les quatre héros, tous refaits, la mère, l'enfant, le garde, le maître d'arène, les adversaires de la série de l'arène et ses **fauves** (lion, loup, qui ouvrent le squelette `quadruped`) — se produisent ainsi, d'après les descriptions des livres de référence | décision de l'auteur, au `LOT-1001` — « on simplifie le planning, les modèles ont leurs armes » |
+| D-42 | 1er oct. 2026 | **Les modèles se génèrent sans arme**, les mains vides : D-41 est **remplacée** sur ce point, l'inventaire des personnages de la démo reste le sien. Ce que le personnage tient à l'écran — rien, ou une arme produite à part et accrochée à une main — **reste à trancher** ; aucun lot ne produit d'arme d'ici là | décision de l'auteur, au `LOT-1001`, le même jour — « plus simple pour gérer les animations » : une arme soudée aux mains impose des volumes de liaison réglés à la main, personnage par personnage |
+
 ### Révision de D-31 — 1er octobre 2026
 
 Pour le LOT-1000, l'auteur refuse les corps MPFB puis les reconstructions TripoSR,
@@ -56,11 +62,13 @@ Le squelette commun et la réutilisation des animations restent des objectifs de
 la chaîne, à éprouver sur ces nouvelles topologies ; leur fonctionnement n'est
 pas déduit de la seule validation des formes.
 
+Le `LOT-1001` en tire la règle : D-38 remplace la composition de D-31, et la question
+`Q-02` (valeurs du standard 2D HD) est retirée, sans objet depuis l'archivage de ce standard.
+
 ## À trancher par l'auteur
 
 | # | Question | Proposition | Se tranche au |
 |---|---|---|---|
-| Q-02 | Les valeurs du **standard 2D HD** : losange de 256 × 159, figurine de 170 px, six ou huit images par animation | Celles du [standard](../standards/style-2d-hd.md), éprouvées sur une maquette | LOT-101 |
 | Q-05 | Le **maître d'arène**, la mère, l'enfant, le garde : noms et apparences | À nommer au lot de la quête ; le livre n'en dit rien | LOT-120 |
 | Q-08 | **Stockage des assets** au-delà d'un gibioctet : dépôt, Git LFS, ou dépôt à part ? | Mesurer à la `0.0.3`, décider alors | LOT-156 |
 | Q-10 | Les ~17 **villages sans texte** de la carte du monde : contenu inventé, ou décor ? | Décor dans la `0.1.0`, contenu au besoin | `0.0.7` à `0.0.9` |
