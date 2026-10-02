@@ -157,21 +157,21 @@ TEST(EditorKeyBindingsTest, SavePreserveLaSectionJeu) {
 }
 
 /**
- * @brief Sauvegarder les touches d'éditeur préserve une section « manette » déjà présente
+ * @brief Sauvegarder les touches d'éditeur préserve une section inconnue déjà présente
  *        (symétrique de `SavePreserveLaSectionJeu`).
- * \castest{<b>Sauvegarder les touches d'editeur preserve une section manette deja
+ * \castest{<b>Sauvegarder les touches d'editeur preserve une section inconnue deja
  * presente.</b><br/> \tcat Unitaire · Editor Key Bindings<br/> \tcrit Majeur<br/> \tetapes 1.
- * Ecrire un fichier avec une section manette.<br/>2. Sauvegarder des touches d'editeur
- * dessus.<br/>3. Relire le fichier.<br/> \tattendu La section manette et son contenu sont toujours
+ * Ecrire un fichier avec une section de métadonnées.<br/>2. Sauvegarder des touches d'editeur
+ * dessus.<br/>3. Relire le fichier.<br/> \tattendu La section et son contenu sont toujours
  * presents.
  * }
  */
-TEST(EditorKeyBindingsTest, SavePreserveLaSectionManette) {
+TEST(EditorKeyBindingsTest, SavePreserveLaSectionInconnue) {
     const std::filesystem::path path =
-        std::filesystem::temp_directory_path() / "jadg_test_editor_bindings_manette.json";
+        std::filesystem::temp_directory_path() / "jadg_test_editor_bindings_metadata.json";
     {
         std::ofstream file(path, std::ios::binary);
-        file << R"({"manette": {"sauter": 0}})";
+        file << R"({"metadata": {"revision": 1}})";
     }
 
     hmi::EditorKeyBindings bindings;
@@ -184,6 +184,6 @@ TEST(EditorKeyBindingsTest, SavePreserveLaSectionManette) {
     }
     std::filesystem::remove(path);
 
-    EXPECT_NE(content.find("\"manette\""), std::string::npos);
-    EXPECT_NE(content.find("sauter"), std::string::npos);
+    EXPECT_NE(content.find("\"metadata\""), std::string::npos);
+    EXPECT_NE(content.find("revision"), std::string::npos);
 }
