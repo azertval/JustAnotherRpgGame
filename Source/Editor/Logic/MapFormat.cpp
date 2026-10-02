@@ -22,6 +22,7 @@
 #include "Core/Resources/ScenePlace.h"
 #include "Core/World/WorldGraph.h"
 #include "Core/World/WorldTravel.h"
+#include "Editor/Logic/CharacterWorkshop.h"
 #include "Editor/Logic/ContentCheck.h"
 #include "Editor/Logic/EditorSidecar.h"
 #include "Editor/Logic/GestureScript.h"
@@ -716,11 +717,26 @@ int checkCommand(const std::filesystem::path& dataRoot, std::string& output) {
     output += "checked " + std::to_string(report.maps) +
               " maps: " + std::to_string(report.count(MapCheckSeverity::Error)) + " errors, " +
               std::to_string(report.count(MapCheckSeverity::Warning)) + " warnings\n";
+    // Les personnages installes (LOT-1008, EX-EDIT-104) : fiche, squelette, modele, portrait et
+    // jeton. Leur ligne ne parait que s'il y en a : une base sans personnage n'en dit rien.
+    const std::size_t characterCount = installedCharacters(dataRoot).size();
+    std::size_t characterErrors = 0;
+    if (characterCount > 0) {
+        const std::vector<MapCheckFinding> characters = checkCharacters(dataRoot);
+        for (const MapCheckFinding& finding : characters) {
+            output += formatFinding(finding) + "\n";
+        }
+        characterErrors = static_cast<std::size_t>(
+            std::ranges::count(characters, MapCheckSeverity::Error, &MapCheckFinding::severity));
+        output += "checked " + std::to_string(characterCount) +
+                  " characters: " + std::to_string(characterErrors) + " errors, " +
+                  std::to_string(characters.size() - characterErrors) + " warnings\n";
+    }
     if (!library.empty()) {
         output += std::to_string(library.size()) + " unreadable editor library files\n";
         return 1;
     }
-    return report.ok() ? 0 : 1;
+    return report.ok() && characterErrors == 0 ? 0 : 1;
 }
 
 }  // namespace

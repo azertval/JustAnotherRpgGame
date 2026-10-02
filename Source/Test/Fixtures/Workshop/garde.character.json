@@ -1,0 +1,15 @@
+{
+  "format": "jadg-editor-character",
+  "version": 1,
+  "level": "Regions/terre/bourg/Characters",
+  "name": "garde",
+  "skeleton": "humanoid",
+  "skeletonSource": "../Characters/Assets/Common/Characters/Skeletons/humanoid/skeleton.json",
+  "model": "../Characters/Assets/Common/Characters/Mannequins/humanoid/humanoid.glb",
+  "portrait": "portrait.png",
+  "token": "token.png",
+  "workshop": {
+    "received": "recu/garde.glb",
+    "sheet": "recu/liaison.json"
+  }
+}

@@ -136,6 +136,13 @@ Faire une carte de bout en bout : le
 - `Autosave` — les brouillons de reprise (`%LOCALAPPDATA%\JustAnotherRpgGame\Editor\autosave`) et
   les versions mises de côté (`conflicts\`).
 - `DiskGuard` — l'empreinte d'un fichier et la réaction à son changement.
+- `CharacterWorkshop` — l'atelier des assets, vue Character (`LOT-1008`) : la fiche d'atelier
+  d'un personnage, son installation sous `Assets/` et au manifeste, sa réouverture, son contrôle
+  (`EX-EDIT-102`, `EX-EDIT-104`) ; `Sha256` calcule les empreintes des manifestes.
+- `CharacterPreview` — la scène de l'aperçu : un damier, le personnage au centre, l'instant de
+  son clip.
+- `BlenderRetouch` — l'aller-retour par Blender : les fichiers, les outils, les deux commandes
+  de `retouch_character.py` (`EX-EDIT-103`).
 
 ## Sans fenêtre
 
@@ -145,9 +152,10 @@ de l'arbre qui l'a construit, et à défaut le dossier de l'exécutable (`hmi::r
 
 | Commande | Ce qu'elle fait |
 |---|---|
-| `LevelEditor --data Source/Elements --check` | Contrôle le format et le contenu de toutes les cartes ; sort en 1 s'il y a une erreur (`EX-EDIT-062`, `EX-EDIT-079`). |
+| `LevelEditor --data Source/Elements --check` | Contrôle le format et le contenu de toutes les cartes, et les personnages installés ; sort en 1 s'il y a une erreur (`EX-EDIT-062`, `EX-EDIT-079`, `EX-EDIT-104`). |
 | `LevelEditor --migrate [carte…] [--output f]` | Convertit en v4 canonique (`EX-EDIT-062`). |
 | `LevelEditor --apply gestes.json [carte] [--output f]` | Rejoue les gestes du fichier ; un geste refusé n'écrit rien (`EX-EDIT-074`). |
+| `LevelEditor --apply <fiche d'atelier> [fiche…]` | Installe le personnage de chaque fiche d'atelier (`jadg-editor-character`, `Logic/CharacterWorkshop.h`) : modèle, `character.json`, portrait, jeton, manifeste ; une fiche refusée n'écrit rien pour elle (`EX-EDIT-102`). Suivie de `--check`, contrôle ensuite. |
 | `LevelEditor --render [carte…] [--output f.png\|dossier] [--layers floors,relief,figures,collision] [--scale s]` | Rend en PNG, en isométrie (`EX-EDIT-075`). L'échelle 1 est la carte vue à 1080p (une case à 100 pixels), 2 à 2160p ; le cadre est ce qui est peint, reliefs hauts compris ; l'image ne dépasse jamais 8 192 pixels de côté, l'échelle se réduisant pour y tenir (`LOT-125`). |
 | `LevelEditor --list-prefabs [lieu…]` | Liste les préfabriqués d'un lieu, de tous les lieux à défaut (`EX-EDIT-086`). |
 | `LevelEditor --save-prefab <carte> <nom> --from <c,r> --to <c,r>` | Découpe le rectangle et l'écrit comme préfabriqué du lieu de la carte (`EX-EDIT-086`). |

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "comment": "Vide : les personnages du bourg viennent avec sa zone.",
+  "tile": [
+    256,
+    159
+  ],
+  "npcs": [],
+  "portraits": [
+    "garde"
+  ]
+}

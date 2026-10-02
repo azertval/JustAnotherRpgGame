@@ -17,6 +17,8 @@
 // et rendent la main aussitôt : ni `QApplication` ni affichage, ce qui les fait tourner en CI
 // (`hmi::runMapCommand`, `hmi::runRenderCommand`).
 //
+// `--apply <fiche d'atelier>` installe un personnage (`LOT-1008`, `hmi::runCharacterCommand`).
+//
 // `--link-maps <carte> <carte>` relie deux cartes des deux côtés (`LOT-EDITOR-09`), par le plan
 // même que le geste du graphe du monde.
 
@@ -34,6 +36,7 @@
 #include <vector>
 
 #include "App/Common/Bootstrap.h"
+#include "Editor/Logic/CharacterWorkshop.h"
 #include "Editor/Logic/DataRoot.h"
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/MapRefactor.h"
@@ -77,6 +80,19 @@ int main(int argc, char** argv) {
         std::cout << report << std::flush;
         return *code;
     }
+    // Une fiche d'atelier (`--apply bandit.character.json`, LOT-1008) installe un personnage ;
+    // un scénario de gestes reste à `runMapCommand`. Suivie de `--check`, elle contrôle ensuite.
+    if (const std::optional<int> code = hmi::runCharacterCommand(arguments, dataRoot, report)) {
+        const bool check = std::ranges::find(arguments, "--check") != arguments.end();
+        if (*code != 0 || !check) {
+            std::cout << report << std::flush;
+            return *code;
+        }
+        const std::vector<std::string> checkOnly{"--check", "--data", dataRoot.string()};
+        const std::optional<int> checked = hmi::runMapCommand(checkOnly, dataRoot, report);
+        std::cout << report << std::flush;
+        return checked.value_or(0);
+    }
     if (const std::optional<int> code = hmi::runMapCommand(arguments, dataRoot, report)) {
         std::cout << report << std::flush;
         return *code;
@@ -108,10 +124,21 @@ int main(int argc, char** argv) {
     if (screenshot) {
         window.resize(1600, 1000);
         QTimer::singleShot(1800, &window, [&window, screenshot] {
-            QApplication::exit(window.grab().save(QString::fromUtf8(*screenshot)) ? 0 : 3);
+            // Avec `--workshop`, c'est l'atelier des assets qu'on capture : il est au premier plan.
+            QWidget* shown = &window;
+            if (QWidget* const workshop =
+                    window.findChild<QWidget*>(QStringLiteral("AssetWorkshop"))) {
+                shown = workshop;
+            }
+            QApplication::exit(shown->grab().save(QString::fromUtf8(*screenshot)) ? 0 : 3);
         });
     }
     window.show();
+    // `--workshop` ouvre l'atelier des assets au démarrage ; `--workshop=<fiche>` sur une fiche.
+    if (const auto workshop = app::commandLineOption(argc, argv, "--workshop")) {
+        const std::string_view sheet = workshop->starts_with('=') ? workshop->substr(1) : "";
+        window.openAssetWorkshop(std::filesystem::path{sheet});
+    }
 
     const int code = QApplication::exec();
     HMI_LOG_INFO("Arret de LevelEditor (code " + std::to_string(code) + ").");

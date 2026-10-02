@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "tile": [
+    256,
+    159
+  ],
+  "npcs": [],
+  "skeletons": {
+    "humanoid": {
+      "file": "Skeletons/humanoid/skeleton.json",
+      "sha256": "1b32c6bedcd686a333df592d148df26c5e118250dd30a333294ae64e94e60020",
+      "source": {
+        "file": "../Characters/Assets/Common/Characters/Skeletons/humanoid/skeleton.json",
+        "sha256": "1b32c6bedcd686a333df592d148df26c5e118250dd30a333294ae64e94e60020"
+      }
+    }
+  }
+}

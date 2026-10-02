@@ -43,6 +43,7 @@ struct MapEntity;
 
 namespace hmi {
 
+class AssetWorkshop;
 class AutosaveStore;
 struct AutosaveRecord;
 class EditorActions;
@@ -94,6 +95,11 @@ public:
      * @return `false` si la carte ne s'ouvre pas.
      */
     bool openMap(const std::filesystem::path& path, bool reuseCurrent = false);
+    /**
+     * @brief Ouvre la fenêtre « Asset workshop » (`LOT-1008`, `EX-EDIT-102`), sur la fiche
+     *        d'atelier @p sheet si elle est donnée.
+     */
+    void openAssetWorkshop(const std::filesystem::path& sheet = {});
     MainWindow(const MainWindow&) = delete;
     MainWindow& operator=(const MainWindow&) = delete;
 
@@ -301,6 +307,8 @@ private:
 
     /// L'essai complet en cours, s'il y en a un (`LOT-EDITOR-10`) : un seul à la fois.
     QProcess* _game = nullptr;
+    /// L'atelier des assets, créé à sa première ouverture (`LOT-1008`).
+    AssetWorkshop* _workshop = nullptr;
     /// Ce que le dernier « Run in game… » a choisi : repris tel quel par les essais suivants.
     RunInGameChoice _runChoice;
     /// Vrai si le canevas montre la carte sous l'état de partie (`_runChoice.flags`, `LOT-126`).

@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "tile": [
+    256,
+    159
+  ],
+  "npcs": [
+    "garde"
+  ],
+  "models": {
+    "garde": {
+      "model": "garde/garde.glb",
+      "skeleton": "humanoid",
+      "triangles": 4000,
+      "size": [
+        1.885,
+        1.803,
+        0.356
+      ],
+      "sha256": "cd83d6c8df497c9811ae07b0fe05e59f20ce20b97c38a26f27a312bcc01ee0b8",
+      "source": {
+        "file": "../Characters/Assets/Common/Characters/Mannequins/humanoid/humanoid.glb",
+        "sha256": "cd83d6c8df497c9811ae07b0fe05e59f20ce20b97c38a26f27a312bcc01ee0b8"
+      }
+    }
+  },
+  "sources": {
+    "garde/portrait.png": {
+      "file": "portrait.png",
+      "sha256": "3587298ac4c718231fcd227b19805ab72816796be04a4a1ee5da257c20240768"
+    },
+    "garde/token.png": {
+      "file": "token.png",
+      "sha256": "0762988b09afee87833f6454f86f772bfdad26969aae54a1171ae1a105d81444"
+    }
+  }
+}

@@ -182,6 +182,10 @@ add_executable(UnitTests
     Unit/Editor/test_city_view.cpp
     # L'essai complet dans le jeu (LOT-EDITOR-10) : les brouillons poses dans un dossier a eux.
     Unit/Editor/test_game_launch.cpp
+    # L'atelier des assets (LOT-1008) : la fiche d'un personnage installee sans fenetre et comparee
+    # a des fichiers attendus, son controle, et les commandes de l'aller-retour par Blender.
+    Unit/Editor/test_character_workshop.cpp
+    Unit/Editor/test_blender_retouch.cpp
 )
 
 # Encodage/decodage d'image : QImage (Qt) lit et ecrit le PNG, mais aucun device
@@ -228,6 +232,8 @@ if(Qt6_FOUND)
         # identique au pixel a ce que le rendu du jeu dessine (LOT-1002).
         Unit/Editor/test_map_render.cpp
         ../Editor/Ui/MapRender.cpp
+        # L'apercu de l'atelier des assets (LOT-1008) : un personnage rendu par le rendu du jeu.
+        Unit/Editor/test_character_preview.cpp
         # L'ilot du plan (LOT-96) : son cadrage, et la place du marche LIVREE rendue hors ecran.
         Unit/HMI/Graphics/test_city_block_render.cpp
         ../HMI/Graphics/CityBlockRender.cpp
