@@ -8,11 +8,11 @@
  */
 
 #include <algorithm>
+#include <cmath>
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
 #include <limits>
-#include <cmath>
 #include <numbers>
 #include <string>
 #include <vector>
@@ -1103,8 +1103,8 @@ TEST(WorldSceneComposerTest, LaLigneDeSolDUnEffetTombeAuCentreDeSaCase) {
 TEST(WorldSceneComposerTest, LaCadenceEstCelleQueDitLaBande) {
     const hmi::ScenePieceTextures bande = bandeDEffet(hmi::effectStripPath("impact"));
     const auto imageA = [&](float secondes, int image) {
-        const hmi::WorldSceneSnapshot instantane = hmi::snapshotWorldScene(
-            carte(), table(), {effet({1.5F, 1.5F}, secondes, image)});
+        const hmi::WorldSceneSnapshot instantane =
+            hmi::snapshotWorldScene(carte(), table(), {effet({1.5F, 1.5F}, secondes, image)});
         const core::IsoProjection projection{instantane.columns, instantane.rows};
         const hmi::SpriteQuad quad =
             quadDeLaFigurine(hmi::composeWorldScene(instantane, projection, bande));

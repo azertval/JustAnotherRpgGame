@@ -183,10 +183,10 @@ inline constexpr std::string_view SILHOUETTE_PROPERTY = "silhouette";
  * @brief Une figurine à dessiner sur la carte : son modèle, son clip, où elle est et où elle
  *        regarde — ou un **effet** (`effect`), qui reste une bande d'images.
  *
- * Depuis le `LOT-1006` une figurine est un **modèle** (`EX-REN-051`) : celui que nomme @ref model, à défaut celui
- * que déclare la fiche de son dossier (`character.json`, lue par le rendu). Sans l'un ni l'autre,
- * elle se dessine par son **marqueur** (`figureMarkerPath`) : on la voit, on lui parle, et on ne
- * la prend pas pour une illustration.
+ * Depuis le `LOT-1006` une figurine est un **modèle** (`EX-REN-051`) : celui que nomme @ref model,
+ * à défaut celui que déclare la fiche de son dossier (`character.json`, lue par le rendu). Sans
+ * l'un ni l'autre, elle se dessine par son **marqueur** (`figureMarkerPath`) : on la voit, on lui
+ * parle, et on ne la prend pas pour une illustration.
  */
 struct WorldFigureSnapshot {
     /// Figurine : un slug, cherché dans les `Characters/` du lieu et de ses niveaux communs

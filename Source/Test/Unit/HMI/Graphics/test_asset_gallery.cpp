@@ -261,8 +261,8 @@ TEST(AssetGalleryTest, AssetsDEssai) {
  * \tcrit Bloquant<br/>
  * \tetapes 1. Lire le catalogue de Source/Elements/Assets. 2. Parcourir toutes les images
  * livrées.<br/>
- * \tattendu Chaque PNG, JPEG ou modèle `.glb` est une forme de la galerie, ou une planche source, une image
- * d'interface, une carte plein écran ou une police ; les portraits de PNJ y sont.
+ * \tattendu Chaque PNG, JPEG ou modèle `.glb` est une forme de la galerie, ou une planche source,
+ * une image d'interface, une carte plein écran ou une police ; les portraits de PNJ y sont.
  * }
  */
 TEST(AssetGalleryTest, ToutAssetLivreEstDansLaGalerie) {
@@ -483,8 +483,7 @@ TEST(AssetGalleryTest, UnHerosEnModeleRangeParClasse) {
         }
     }
     EXPECT_EQ(formes, (std::vector<std::string>{"idle", "walk", "portrait", "token"}));
-    EXPECT_EQ(unlisted,
-              (std::vector<std::string>{"Common/Characters/Heroes/oublie/oublie.glb"}));
+    EXPECT_EQ(unlisted, (std::vector<std::string>{"Common/Characters/Heroes/oublie/oublie.glb"}));
 }
 
 /**

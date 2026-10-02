@@ -169,8 +169,8 @@ TEST(FigureModelTest, LaFicheDuDossierDonneLeModele) {
     Stage place = stage();
     place.textures.figureModels["Npc/pantin"] = MODEL;
     place.textures.figureModels["Npc/vide"] = {};
-    const hmi::ComposedScene found = compose(
-        place, {hmi::WorldFigureSnapshot{.figure = "pantin", .point = {2.5F, 3.5F}}});
+    const hmi::ComposedScene found =
+        compose(place, {hmi::WorldFigureSnapshot{.figure = "pantin", .point = {2.5F, 3.5F}}});
     ASSERT_EQ(found.meshes().size(), 1U);
     EXPECT_EQ(found.meshes().front().mesh, &place.identities[0]);
     EXPECT_TRUE(found.quads().empty());

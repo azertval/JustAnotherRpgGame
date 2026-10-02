@@ -25,8 +25,8 @@ void modele(const std::filesystem::path& racine, const std::string& dossier,
             const std::string& fichier = "modele.glb") {
     std::filesystem::create_directories(racine / dossier);
     std::ofstream{racine / dossier / fichier} << "glb";
-    std::ofstream{racine / dossier / "character.json"}
-        << R"({"version":1,"model":")" << fichier << R"(","skeleton":"humanoid"})";
+    std::ofstream{racine / dossier / "character.json"} << R"({"version":1,"model":")" << fichier
+                                                       << R"(","skeleton":"humanoid"})";
 }
 
 /// Un dossier d'assets d'essai : un héros en modèle, un mannequin quadrupède et un mannequin

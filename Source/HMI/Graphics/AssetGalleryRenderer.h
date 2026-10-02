@@ -174,8 +174,8 @@ private:
     void compose();
     /// Ajoute à la scène le modèle du bloc @p bloc, posé sur son emprise (@p footprintX,
     /// @p footprintY, @p footprintWidth, @p footprintHeight, en pixels), une case valant @p cell.
-    void addModel(const AssetGalleryDrawnBloc& bloc, float cell, float footprintX,
-                  float footprintY, float footprintWidth, float footprintHeight);
+    void addModel(const AssetGalleryDrawnBloc& bloc, float cell, float footprintX, float footprintY,
+                  float footprintWidth, float footprintHeight);
 
     std::filesystem::path _root;
     AssetGalleryFrame _frame;

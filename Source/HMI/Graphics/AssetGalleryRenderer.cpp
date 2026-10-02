@@ -20,11 +20,11 @@
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/IsoView.h"
 #include "HMI/Graphics/MeshBatch.h"
-#include "HMI/Graphics/PlaceCamera.h"
-#include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
 
@@ -191,7 +191,8 @@ void AssetGalleryRenderer::updateCache(float deltaSeconds) {
             core::MeshFileResult read = core::readMeshFile(_root / path);
             if (read.ok()) {
                 model.mesh = _meshes->create(context, read.mesh);
-                if (!read.mesh.skin.empty() && read.mesh.rig.joints.size() <= MeshBatch::MAX_BONES) {
+                if (!read.mesh.skin.empty() &&
+                    read.mesh.rig.joints.size() <= MeshBatch::MAX_BONES) {
                     model.rig = std::make_shared<const core::MeshRig>(std::move(read.mesh.rig));
                 }
             }
@@ -232,9 +233,8 @@ void AssetGalleryRenderer::updateCache(float deltaSeconds) {
     }
 }
 
-void AssetGalleryRenderer::addModel(const AssetGalleryDrawnBloc& bloc, float cell,
-                                    float footprintX, float footprintY, float footprintWidth,
-                                    float footprintHeight) {
+void AssetGalleryRenderer::addModel(const AssetGalleryDrawnBloc& bloc, float cell, float footprintX,
+                                    float footprintY, float footprintWidth, float footprintHeight) {
     const auto found = _models.find(bloc.path);
     if (found == _models.end() || found->second.mesh == nullptr) {
         return;
@@ -243,15 +243,15 @@ void AssetGalleryRenderer::addModel(const AssetGalleryDrawnBloc& bloc, float cel
     // une carte. Il fait face à la caméra, les pieds au milieu de son emprise.
     const core::IsoProjection projection(1, 1, cell);
     const IsoView view(projection);
-    ViewTransform toView = IsoView::turned(
-        view.meshTransform({0.0F, 0.0F}, 0.0F),
-        (std::numbers::pi_v<float> / 2.0F) - FIGURE_HEADING_FRONT);
+    ViewTransform toView =
+        IsoView::turned(view.meshTransform({0.0F, 0.0F}, 0.0F),
+                        (std::numbers::pi_v<float> / 2.0F) - FIGURE_HEADING_FRONT);
     toView[3] = footprintX + (footprintWidth / 2.0F);
     toView[7] = footprintY + footprintHeight - (projection.tileHeight() / 2.0F);
     toView[11] = 0.0F;
-    const core::Rect bounds{{bloc.x, bloc.y},
-                            {static_cast<float>(bloc.columns) * cell,
-                             static_cast<float>(bloc.rows) * cell}};
+    const core::Rect bounds{
+        {bloc.x, bloc.y},
+        {static_cast<float>(bloc.columns) * cell, static_cast<float>(bloc.rows) * cell}};
     const CachedModel& model = found->second;
     if (model.rig == nullptr || model.rig->empty()) {
         _composed.addMesh(RenderLayer::Tile, model.mesh, toView, bounds);
@@ -336,8 +336,8 @@ void AssetGalleryRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTa
     // à l'étendue du tampon.
     PlaceCamera camera(std::max(1, pixels.width()), std::max(1, pixels.height()));
     camera.setZoom(1.0F / PlaceCamera::PIXELS_PER_UNIT);
-    camera.setCenter({static_cast<float>(pixels.width()) / 2.0F,
-                      static_cast<float>(pixels.height()) / 2.0F});
+    camera.setCenter(
+        {static_cast<float>(pixels.width()) / 2.0F, static_cast<float>(pixels.height()) / 2.0F});
     camera.setDepthRange(
         IsoView(core::IsoProjection(1, 1, std::max(1.0F, _frame.cellPixels))).depthRange());
     _meshes->beginFrame();

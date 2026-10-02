@@ -277,9 +277,9 @@ TEST(CombatCuesTest, UnProjectileVersLaGaucheEstLeMiroir) {
  * 0,7 s, et au rat un touche de 0,3 s.<br/>2. Pousser une attaque du heros sur le rat et le
  * touche du rat.<br/>3. Avancer a 0,6 s, a 0,75 s, a 0,95 s, puis a 1,05 s.<br/>
  * \tattendu A 0,6 s le heros attaque et le rat est au repos : le coup n'a pas porte, alors qu'une
- * duree par defaut l'aurait fait porter a 0,32 s. A 0,75 s le rat encaisse, depuis 0,05 s. A 0,95 s il n'a
- * pas fini (0,25 s sur 0,3), le heros attaque encore. A 1,05 s tous deux sont au repos : le geste
- * a dure son clip. Le cap du heros est celui de sa cible.
+ * duree par defaut l'aurait fait porter a 0,32 s. A 0,75 s le rat encaisse, depuis 0,05 s. A 0,95 s
+ * il n'a pas fini (0,25 s sur 0,3), le heros attaque encore. A 1,05 s tous deux sont au repos : le
+ * geste a dure son clip. Le cap du heros est celui de sa cible.
  * }
  */
 TEST(CombatCuesTest, LesSignauxPartentALImageCleDuClip) {
@@ -296,7 +296,8 @@ TEST(CombatCuesTest, LesSignauxPartentALImageCleDuClip) {
     EXPECT_EQ(durees.cast, (hmi::GestureTiming{.seconds = 0.6F, .impact = 0.3F}))
         << "sans image cle, le milieu du geste";
     EXPECT_FLOAT_EQ(durees.hit, 0.3F);
-    EXPECT_FLOAT_EQ(durees.death, hmi::CombatCueTrack::ACTION_SECONDS) << "non declare : la duree par defaut";
+    EXPECT_FLOAT_EQ(durees.death, hmi::CombatCueTrack::ACTION_SECONDS)
+        << "non declare : la duree par defaut";
     EXPECT_EQ(hmi::CombatCueTrack::timingsOf(nullptr), hmi::CombatCueTrack::defaultTimings());
 
     hmi::CombatCueTrack file;
@@ -317,8 +318,7 @@ TEST(CombatCuesTest, LesSignauxPartentALImageCleDuClip) {
     ASSERT_NE(rat, nullptr);
     EXPECT_EQ(heros->clip, hmi::figure_clips::ATTACK);
     EXPECT_NEAR(heros->clipSeconds, 0.6F, 1e-4F);
-    EXPECT_NEAR(heros->heading, SOUTH_WEST, 1e-4F)
-        << "tourne vers sa cible, une ligne plus bas";
+    EXPECT_NEAR(heros->heading, SOUTH_WEST, 1e-4F) << "tourne vers sa cible, une ligne plus bas";
     EXPECT_EQ(rat->clip, hmi::figure_clips::IDLE) << "le coup n'a pas encore porte";
 
     file.advance(0.15F);

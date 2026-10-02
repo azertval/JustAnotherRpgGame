@@ -500,8 +500,8 @@ TEST(LevelTreeTest, LesFiguresDUneCarteViennentDeSesNiveaux) {
     }
     // Chaque figurine a son modele : la fiche de son dossier, sous le niveau qui la range.
     for (const auto& [figure, directory] : snapshot.figureDirectories) {
-        EXPECT_TRUE(std::filesystem::is_regular_file(tree() / "Assets" / directory /
-                                                     "character.json"))
+        EXPECT_TRUE(
+            std::filesystem::is_regular_file(tree() / "Assets" / directory / "character.json"))
             << figure;
     }
 

@@ -48,8 +48,8 @@ struct OffscreenTarget {
         : texture(rhi.newTexture(QRhiTexture::RGBA8, QSize(TARGET_SIZE, TARGET_SIZE), 1,
                                  QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource)) {
         EXPECT_TRUE(texture->create());
-        depth.reset(rhi.newRenderBuffer(QRhiRenderBuffer::DepthStencil,
-                                        QSize(TARGET_SIZE, TARGET_SIZE)));
+        depth.reset(
+            rhi.newRenderBuffer(QRhiRenderBuffer::DepthStencil, QSize(TARGET_SIZE, TARGET_SIZE)));
         EXPECT_TRUE(depth->create());
         QRhiTextureRenderTargetDescription description{{texture.get()}};
         description.setDepthStencilBuffer(depth.get());

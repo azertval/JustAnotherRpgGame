@@ -311,7 +311,8 @@ std::optional<LoadedTexture> WorldSceneRenderer::figureMarker(const std::string&
     if (image.isEmpty()) {
         return std::nullopt;
     }
-    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle + " n'a pas de modele, son marqueur la remplace.");
+    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle +
+                      " n'a pas de modele, son marqueur la remplace.");
     return createTexture(_resources.context(), image.width, image.height, markerPixelsRgba8(image));
 }
 
@@ -326,8 +327,7 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
         // Le marqueur d'une figurine n'est pas un fichier non plus : il se peint, et seulement si
         // la fiche de son dossier ne lui a pas donne de modele (LOT-1006). Une case de large.
         if (path.ends_with(FIGURE_MARKER_SUFFIX)) {
-            const std::string directory =
-                path.substr(0, path.size() - FIGURE_MARKER_SUFFIX.size());
+            const std::string directory = path.substr(0, path.size() - FIGURE_MARKER_SUFFIX.size());
             if (_textures.findFigureOf(directory) != nullptr) {
                 _requested.erase(path);  // son modele est la : le marqueur reste a peindre un jour
                 continue;

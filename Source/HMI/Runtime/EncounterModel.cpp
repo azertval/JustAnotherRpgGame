@@ -422,8 +422,8 @@ void EncounterModel::bindFigures(WorldModel& world, const core::ArenaMount& moun
         const ResolvedFigure& figure =
             meneur ? world.play().heroResolved()
                    : world.play().resolveHero(WorldModel::heroFigureOf(membre.classId));
-        _bindings[membre.combatant] =
-            Binding{.directory = figure.directory, .hero = meneur, .model = figure.model, .named = {}};
+        _bindings[membre.combatant] = Binding{
+            .directory = figure.directory, .hero = meneur, .model = figure.model, .named = {}};
         // Les gestes d'un modele durent ses clips et portent a leur image cle (LOT-1005).
         _cues.setTimings(membre.combatant, CombatCueTrack::timingsOf(figure.skeleton.get()));
     }
@@ -436,11 +436,10 @@ void EncounterModel::bindFigures(WorldModel& world, const core::ArenaMount& moun
         const ResolvedFigure& figure =
             world.play().resolveFigure(creature->id, creature->silhouette);
         const core::CombatantId enemy = mount.enemies[rang++];
-        _bindings[enemy] =
-            Binding{.directory = figure.directory,
-                    .hero = false,
-                    .model = figure.model,
-                    .named = figure.named};
+        _bindings[enemy] = Binding{.directory = figure.directory,
+                                   .hero = false,
+                                   .model = figure.model,
+                                   .named = figure.named};
         _cues.setTimings(enemy, CombatCueTrack::timingsOf(figure.skeleton.get()));
     }
 }
@@ -683,17 +682,16 @@ void EncounterModel::publishFigures() {
         if (binding->second.hero) {
             heroPoint = point;
         }
-        figures.push_back(WorldFigureSnapshot{
-            .figure = binding->second.directory,
-            .clip = std::string{motion->clip},
-            .point = point,
-            .frame = 0,
-            .seconds = motion->clipSeconds,
-            .hero = binding->second.hero,
-            .combatant = true,
-            .model = binding->second.model,
-            .heading = motion->heading,
-            .effect = false});
+        figures.push_back(WorldFigureSnapshot{.figure = binding->second.directory,
+                                              .clip = std::string{motion->clip},
+                                              .point = point,
+                                              .frame = 0,
+                                              .seconds = motion->clipSeconds,
+                                              .hero = binding->second.hero,
+                                              .combatant = true,
+                                              .model = binding->second.model,
+                                              .heading = motion->heading,
+                                              .effect = false});
     }
     // Les effets, apres les figurines : a profondeur egale, ils se dessinent devant (`LOT-136`).
     for (const EffectMotion& effect : _cues.effects()) {

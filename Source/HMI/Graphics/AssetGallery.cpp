@@ -319,7 +319,8 @@ void readScenes(const std::filesystem::path& root, AssetGalleryCatalog& catalog)
 //
 // Un manifeste qui déclare des `textures` est un dossier `Scene/` ; un manifeste qui déclare des
 // personnages (`npcs`, `portraits`, `models`) est un dossier `Characters/`, dont les PNJ ont la
-// forme de l'atelier (`readFigures`). Les manifestes des niveaux encore vides n'ajoutent aucune famille.
+// forme de l'atelier (`readFigures`). Les manifestes des niveaux encore vides n'ajoutent aucune
+// famille.
 void readTree(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
     std::vector<std::filesystem::path> manifests;
     for (const char* tree : {"Common", "Regions"}) {

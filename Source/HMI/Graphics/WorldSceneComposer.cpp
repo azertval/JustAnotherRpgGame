@@ -553,9 +553,9 @@ struct FigurePlacement {
     if (figure.figure.empty()) {
         return std::nullopt;
     }
-    const SceneTexture* const found =
-        textures.find(figure.effect ? effectStripPath(figure.clip)
-                                    : figureMarkerPath(worldFigureDirectory(snapshot, figure.figure)));
+    const SceneTexture* const found = textures.find(
+        figure.effect ? effectStripPath(figure.clip)
+                      : figureMarkerPath(worldFigureDirectory(snapshot, figure.figure)));
     if (found == nullptr || found->texture == nullptr) {
         return std::nullopt;
     }
