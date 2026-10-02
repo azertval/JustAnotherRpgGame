@@ -76,8 +76,8 @@ d'un marcheur — l'exploration doit rester agréable à la manette, pas simuler
 allait à 4 cases par seconde avant le `LOT-112` ; c'est la figurine peinte qui a tranché.
 
 - **EX-EXP-011** — La vitesse de marche est **2 cases par seconde**, et un cycle de marche de
-  la figurine couvre **une case** : la cadence des images se lit dans la bande d'animation
-  (`frameDuration`, `EX-REN-012`), jamais dans une constante du code. À 4 cases par seconde, des
+  la figurine couvre **une case** : la cadence se lit dans le clip de marche du squelette
+  (`skeleton.json`, `EX-REN-051`), jamais dans une constante du code. À 4 cases par seconde, des
   pieds qui ne glissent pas demandaient une image toutes les 31 ms ; le déplacement et l'animation
   sont **un seul réglage**, sans quoi l'un des deux ment toujours. L'orientation vectorielle
   (`EX-EXP-004`) se projette sur la **diagonale peinte** la plus proche — quatre bandes, une par

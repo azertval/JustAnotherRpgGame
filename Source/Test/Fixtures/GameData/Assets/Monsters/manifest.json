@@ -4,14 +4,6 @@
     68,
     42
   ],
-  "animations": [
-    "idle",
-    "walk",
-    "attack",
-    "hit",
-    "death",
-    "cast"
-  ],
   "templates": {
     "medium": {
       "frame": [

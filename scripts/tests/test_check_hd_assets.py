@@ -113,65 +113,150 @@ def test_une_sous_zone_se_pese_a_part(assets):
         ('Regions/r/ville/zone', 'zone'), ('Regions/r/ville/zone/donjon', 'sous-zone')]
 
 
-def test_les_images_d_un_pnj_sont_citees_par_le_manifeste_des_figurines(assets):
-    root, _, _ = assets
-    characters = root / 'Regions' / 'r' / 'ville' / 'zone' / 'Characters'
-    (characters / 'mere').mkdir(parents=True)
-    write(characters / 'manifest.json', {'version': 1, 'animations': ['idle'], 'npcs': ['mere']})
-    png(characters / 'mere' / 'portrait.png', 512, 512)
-    png(characters / 'mere' / 'idle.png', 1200, 272)
-    write(characters / 'mere' / 'idle.anim.json', {'version': 1})
-    assert errors(root) == []
-    png(characters / 'mere' / 'danse.png', 192, 256)
-    assert any('danse.png' in e for e in errors(root))
+# --- Les personnages (LOT-1006) : un modèle, sa fiche, son squelette ; plus aucune bande -----------
+FIXTURE = (C.ROOT / 'Source' / 'Test' / 'Fixtures' / 'Characters' / 'Assets' / 'Common' / 'Characters')
+SKELETON = {'version': 1, 'silhouette': 'humanoid',
+            'bones': [{'name': 'Root', 'parent': ''}, {'name': 'pelvis', 'parent': 'Root'}],
+            'clips': [{'name': 'idle', 'duration': 1.0, 'loop': True},
+                      {'name': 'attack', 'duration': 0.9, 'loop': False, 'key': 0.4}]}
 
 
-def heros(root, facings=C.FACINGS, clips=('idle', 'walk', 'attack')):
-    """Un héros rangé par classe, sous `Common/Characters/Heroes/brawler`, orienté dans @p facings."""
+def heros(root, skeleton=SKELETON, model=None):
+    """Un héros en modèle, rangé par classe sous `Common/Characters/Heroes/brawler` : sa fiche, son
+    portrait, son jeton, le squelette commun — et son `.glb` si `model` en donne les octets (le kit
+    installé ; sans lui, le dépôt nu de la CI)."""
     characters = root / 'Common' / 'Characters'
     folder = characters / 'Heroes' / 'brawler'
     folder.mkdir(parents=True)
-    write(characters / 'manifest.json', {'version': 1, 'animations': ['idle', 'walk', 'attack', 'cast'],
-                                         'npcs': ['Heroes/brawler']})
+    write(characters / 'manifest.json', {
+        'version': 1, 'npcs': ['Heroes/brawler'],
+        'models': {'Heroes/brawler': {'model': 'Heroes/brawler/brawler.glb', 'skeleton': 'humanoid'}}})
+    write(folder / 'character.json', {'version': 1, 'model': 'brawler.glb', 'skeleton': 'humanoid'})
     png(folder / 'portrait.png', 512, 512)
     png(folder / 'token.png', 128, 128)
-    for clip in clips:
-        for facing in facings:
-            png(folder / f'{clip}-{facing}.png', 8 * 192, 256)
-            write(folder / f'{clip}-{facing}.anim.json', {'version': 1})
+    (characters / 'Skeletons' / 'humanoid').mkdir(parents=True)
+    write(characters / 'Skeletons' / 'humanoid' / 'skeleton.json', skeleton)
+    if model is not None:
+        (folder / 'brawler.glb').write_bytes(model)
     return folder
 
 
-def test_un_heros_oriente_range_par_classe_passe(assets):
+def test_un_personnage_en_modele_passe_sans_son_glb(assets):
+    """Le dépôt nu : la fiche, le manifeste et le squelette suffisent, le `.glb` est dans le kit."""
     root, _, _ = assets
     heros(root)
-    assert errors(root) == [], "quatre orientations, pas de sort : un Brawler est complet"
+    assert errors(root) == []
 
 
-def test_une_animation_orientee_a_moitie_echoue(assets):
+def test_le_glb_installe_passe_les_controles_de_l_export(assets):
+    """Le kit installé : le modèle d'essai du moteur, lié aux 53 os, contre son squelette."""
+    root, _, _ = assets
+    skeleton = json.loads((FIXTURE / 'Skeletons' / 'humanoid' / 'skeleton.json').read_text(encoding='utf-8'))
+    model = (FIXTURE / 'Mannequins' / 'humanoid' / 'humanoid.glb').read_bytes()
+    folder = heros(root, skeleton=skeleton, model=model)
+    assert errors(root) == []
+    # Contre un squelette qui n'est pas le sien, le modèle est refusé, et c'est dit.
+    write(folder.parent.parent / 'Skeletons' / 'humanoid' / 'skeleton.json', SKELETON)
+    assert any('brawler.glb' in e for e in errors(root))
+
+
+def test_un_glb_illisible_ou_non_declare_echoue(assets):
+    root, _, _ = assets
+    folder = heros(root, model=b'pas un glb')
+    assert any('brawler.glb' in e and 'illisible' in e for e in errors(root))
+    (folder / 'brawler.glb').unlink()
+    (folder / 'autre.glb').write_bytes(b'x')
+    assert any('autre.glb' in e and 'ne déclare pas' in e for e in errors(root))
+
+
+@pytest.mark.parametrize('sheet,message', [
+    (None, 'sans fiche'),
+    ({'version': 1, 'model': 'autre.glb', 'skeleton': 'humanoid'}, "n'est pas déclaré"),
+    ({'version': 1, 'model': '../brawler.glb', 'skeleton': 'humanoid'}, 'nomme un .glb du dossier'),
+    ({'version': 1, 'model': 'brawler.glb', 'skeleton': 'quadruped'}, 'le manifeste déclare'),
+    ({'version': 2, 'model': 'brawler.glb', 'skeleton': 'humanoid'}, 'version'),
+])
+def test_une_fiche_fautive_echoue(assets, sheet, message):
     root, _, _ = assets
     folder = heros(root)
-    (folder / 'attack-nw.png').unlink()
-    assert any('`attack` orientée à moitié' in e and 'attack-nw.png' in e for e in errors(root))
+    if sheet is None:
+        (folder / 'character.json').unlink()
+    else:
+        write(folder / 'character.json', sheet)
+    assert any(message in e for e in errors(root)), errors(root)
 
 
-def test_une_bande_sans_sa_description_echoue(assets):
+def test_un_squelette_que_rien_ne_declare_echoue(assets):
     root, _, _ = assets
     folder = heros(root)
-    (folder / 'walk-sw.anim.json').unlink()
-    assert any('walk-sw.anim.json' in e for e in errors(root))
+    characters = folder.parent.parent
+    manifest = json.loads((characters / 'manifest.json').read_text(encoding='utf-8'))
+    manifest['models']['Heroes/brawler']['skeleton'] = 'flying'
+    write(characters / 'manifest.json', manifest)
+    write(folder / 'character.json', {'version': 1, 'model': 'brawler.glb', 'skeleton': 'flying'})
+    assert any('squelette `flying` sans' in e for e in errors(root))
 
 
-def test_une_figurine_sans_marche_echoue(assets):
+@pytest.mark.parametrize('change,message', [
+    (lambda s: s['bones'].reverse(), 'pas déclaré avant lui'),
+    (lambda s: s['bones'].append({'name': 'Root', 'parent': ''}), 'déclaré deux fois'),
+    (lambda s: s['clips'][0].update(duration=0), 'durée positive'),
+    (lambda s: s['clips'][1].update(key=1.5), 'sort du clip'),
+    (lambda s: s['clips'][0].update(loop='oui'), '`loop` est un booléen'),
+    (lambda s: s.update(silhouette='quadruped'), 'le dossier dit'),
+    (lambda s: s.update(bones=[]), 'liste non vide'),
+])
+def test_un_squelette_mal_forme_echoue(assets, change, message):
     root, _, _ = assets
-    heros(root, clips=('idle',))
-    assert any('pas de bande `walk`' in e for e in errors(root))
+    skeleton = json.loads(json.dumps(SKELETON))
+    change(skeleton)
+    heros(root, skeleton=skeleton)
+    assert any(message in e for e in errors(root)), errors(root)
+
+
+@pytest.mark.parametrize('name', ['idle-se.png', 'walk.png', 'attack-nw.png'])
+def test_une_bande_de_figurine_est_une_erreur(assets, name):
+    """LOT-1006 : plus une seule bande sous un dossier `Characters/`, ni son `.anim.json`."""
+    root, _, _ = assets
+    folder = heros(root)
+    png(folder / name, 8 * 192, 256)
+    assert any(name in e and 'bande de figurine' in e for e in errors(root))
+    (folder / name).unlink()
+    write(folder / (name[:-4] + '.anim.json'), {'version': 1})
+    assert any('.anim.json' in e and 'bande de figurine' in e for e in errors(root))
+
+
+def test_un_manifeste_qui_decrit_encore_des_bandes_echoue(assets):
+    root, _, _ = assets
+    folder = heros(root)
+    characters = folder.parent.parent
+    manifest = json.loads((characters / 'manifest.json').read_text(encoding='utf-8'))
+    write(characters / 'manifest.json', {**manifest, 'animations': ['idle', 'walk'], 'ground': 252})
+    found = errors(root)
+    assert any('`animations`' in e for e in found) and any('`ground`' in e for e in found)
+
+
+def test_un_modele_lie_absent_des_pnj_echoue(assets):
+    """Un modèle lié à un squelette a sa fiche et son nom dans `npcs` ; un modèle sans squelette (le
+    mannequin d'une silhouette qui n'en a pas encore) attend, sans fiche."""
+    root, _, _ = assets
+    folder = heros(root)
+    characters = folder.parent.parent
+    manifest = json.loads((characters / 'manifest.json').read_text(encoding='utf-8'))
+    manifest['models']['Mannequins/quadruped'] = {'model': 'Mannequins/quadruped/quadruped.glb',
+                                                  'silhouette': 'quadruped'}
+    write(characters / 'manifest.json', manifest)
+    assert errors(root) == []
+    manifest['models']['Mannequins/humanoid'] = {'model': 'Mannequins/humanoid/humanoid.glb',
+                                                 'skeleton': 'humanoid'}
+    write(characters / 'manifest.json', manifest)
+    assert any('Mannequins/humanoid' in e and 'absent de `npcs`' in e for e in errors(root))
 
 
 def test_un_portrait_d_attente_cite_son_visage_et_rien_d_autre(assets):
-    """LOT-145 : un héros qui a son portrait avant sa figurine. `portraits` cite le portrait et le
-    jeton ; une bande posée là n'est pas jouée, donc pas citée ; un portrait manquant, ou un nom
-    dans les deux listes, échoue."""
+    """LOT-145 : un héros qui a son portrait avant son modèle. `portraits` cite le portrait et le
+    jeton ; une bande posée là est une erreur ; un portrait manquant, une fiche, ou un nom dans les
+    deux listes, échouent."""
     root, _, _ = assets
     folder = heros(root)
     characters = folder.parent.parent
@@ -179,8 +264,8 @@ def test_un_portrait_d_attente_cite_son_visage_et_rien_d_autre(assets):
     mage.mkdir()
     png(mage / 'portrait.png', 512, 512)
     png(mage / 'token.png', 128, 128)
-    manifest = {'version': 1, 'animations': ['idle', 'walk', 'attack', 'cast'],
-                'npcs': ['Heroes/brawler'], 'portraits': ['Heroes/mage']}
+    manifest = json.loads((characters / 'manifest.json').read_text(encoding='utf-8'))
+    manifest['portraits'] = ['Heroes/mage']
     write(characters / 'manifest.json', manifest)
     assert errors(root) == []
 
@@ -191,6 +276,10 @@ def test_un_portrait_d_attente_cite_son_visage_et_rien_d_autre(assets):
     (mage / 'portrait.png').unlink()
     assert any('sans `portrait.png`' in e for e in errors(root))
     png(mage / 'portrait.png', 512, 512)
+
+    write(mage / 'character.json', {'version': 1, 'model': 'mage.glb', 'skeleton': 'humanoid'})
+    assert any("n'a pas de fiche" in e for e in errors(root))
+    (mage / 'character.json').unlink()
 
     write(characters / 'manifest.json', {**manifest, 'portraits': ['Heroes/mage', 'Heroes/brawler']})
     assert any('à la fois' in e for e in errors(root))

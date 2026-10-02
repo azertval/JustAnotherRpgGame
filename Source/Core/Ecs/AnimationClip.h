@@ -17,7 +17,7 @@ namespace core {
 
 /// Manière dont un clip se termine à la dernière image.
 enum class ClipEndMode {
-    /// Revient à la première image et continue (comportement historique, `EX-REN-012`).
+    /// Revient à la première image et continue (comportement historique, `EX-REN-005`).
     Loop,
     /// S'arrête à la dernière image puis bascule sur `AnimationClip::nextClip`.
     OneShot,

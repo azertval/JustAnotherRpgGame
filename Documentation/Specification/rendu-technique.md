@@ -30,21 +30,14 @@ la façon dont une figurine se pose sur sa case, et le facteur d'affichage dédu
   carte en pose une, la table d'apparence du lieu décidant laquelle.
 - **EX-REN-011** — Le rendu doit dessiner les **figurines** — héros et PNJ — avec
   transparence, posées sur leur case par le pied.
-- **EX-REN-012** — Une figurine doit s'animer par **bandes d'images** nommées
-  (`idle`, `walk`, `attack`, `hit`, `death`), dont le découpage est décrit par des données
-  (`EX-REN-005`). Depuis le `LOT-112`, une bande existe par **diagonale isométrique** — quatre
-  orientations, `walk-se`, `walk-sw`, `walk-ne`, `walk-nw` —, une animation compte
-  **huit images** dans une cellule de 192 × 256 dont la ligne de sol est déclarée (`ground`), et
-  l'attaque comme la mort occupent la cellule large de 384 × 256. L'orientation de
-  la session (`EX-EXP-004`) choisit la bande ; la cadence (`frameDuration`) est lue dans la bande,
-  jamais dans le code (`EX-EXP-011`). Depuis le `LOT-1000`, une bande n'est plus peinte : elle est
-  **rendue depuis le modèle** du personnage, sous la caméra du jeu, et s'installe telle quelle.
-  Cette exigence vit jusqu'au `LOT-1006`, où le moteur anime le modèle lui-même (`EX-VIS-008`).
-  > **Mise en œuvre par étapes** (`LOT-1005`). Le moteur sait animer un modèle : un personnage
-  > dont le dossier porte une fiche (`character.json`) est un maillage lié à un squelette, déformé
-  > par ses os, qui joue les clips de son `.glb` et s'oriente librement. La durée, la boucle et
-  > l'**image clé** de chaque clip sont des données du squelette (`skeleton.json`, `EX-REN-005`).
-  > Les personnages livrés restent en bandes jusqu'au `LOT-1006`.
+- **EX-REN-051** — Une figurine est un **modèle** : un maillage lié au squelette de sa
+  silhouette, que ses os déforment (`EX-VIS-008`). Le dossier d'un personnage le déclare par une
+  fiche (`character.json` : son modèle, son squelette) ; le squelette déclare ses clips —
+  `idle`, `walk`, `attack`, `cast`, `hit`, `death` —, leur durée, leur boucle et leur **image
+  clé**, l'instant où le coup porte (`skeleton.json`, `EX-REN-005`). Un modèle s'oriente
+  **librement**, vers son pas ou vers sa cible. Un personnage sans modèle prend le mannequin de sa
+  silhouette ; faute de mannequin, son marqueur (`EX-CNT-041`). Seuls les **effets** restent des
+  bandes d'images. La cadence de la marche est celle du clip, jamais du code (`EX-EXP-011`).
 - **EX-REN-005** — Les **animations** doivent être décrites par des **données**
   (clip nommé, suite d'images, durée par image, bouclé ou joué une fois) et non codées en dur. Un
   asset sans description d'animation est affiché comme une **image fixe**.
@@ -185,6 +178,9 @@ avoir un mode où **rien** ne vient d'un fichier : ni sol, ni mur, ni figurine.
   secousse d'écran.
 - **EX-REN-009** *(retirée au `LOT-88`)* — planche du personnage de plateforme ;
   les figurines sont `EX-REN-011`.
+- **EX-REN-012** *(retirée au `LOT-1006`)* — animation d'une figurine par bandes
+  d'images, une par animation et par diagonale isométrique (huit images, cellule de 192 × 256,
+  ligne de sol déclarée) : le moteur anime le modèle lui-même (`EX-REN-051`).
 - **EX-REN-015** *(retirée au `LOT-88`)* — caméra par salle.
 - **EX-REN-016** *(retirée au `LOT-88`)* — trois modes de cadrage choisis par le
   niveau.

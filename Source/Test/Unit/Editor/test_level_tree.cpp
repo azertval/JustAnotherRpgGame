@@ -493,7 +493,16 @@ TEST(LevelTreeTest, LesFiguresDUneCarteViennentDeSesNiveaux) {
     EXPECT_EQ(snapshot.figureDirectories.at("Peoples/human/guard"),
               "Common/Characters/Peoples/human/guard");
     for (const std::string& path : hmi::worldTexturePaths(snapshot)) {
-        EXPECT_TRUE(std::filesystem::is_regular_file(tree() / "Assets" / path)) << path;
+        // Le marqueur d'une figurine n'est pas un fichier : il se peint, faute de modele.
+        if (!path.ends_with("/@marker")) {
+            EXPECT_TRUE(std::filesystem::is_regular_file(tree() / "Assets" / path)) << path;
+        }
+    }
+    // Chaque figurine a son modele : la fiche de son dossier, sous le niveau qui la range.
+    for (const auto& [figure, directory] : snapshot.figureDirectories) {
+        EXPECT_TRUE(std::filesystem::is_regular_file(tree() / "Assets" / directory /
+                                                     "character.json"))
+            << figure;
     }
 
     const hmi::EditorReferences references = hmi::loadEditorReferences(tree());

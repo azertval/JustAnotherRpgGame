@@ -163,7 +163,8 @@ en **trois variantes au moins**, avant ses panneaux décoratifs.
 
 ## 7. Les images tolérées
 
-Quatre sortes d'images restent dans une scène en maillages. Elles gardent, et elles seules, les
+Trois sortes d'images restent dans une scène en maillages (les bandes de figurine, la quatrième,
+ont été retirées au LOT-1006). Elles gardent, et elles seules, les
 règles du standard 2D HD — dont le texte entier est aux [archives](archives/style-2d-hd.md).
 
 | Ce qui reste une image | Jusqu'à | Pourquoi |
@@ -171,7 +172,6 @@ règles du standard 2D HD — dont le texte entier est aux [archives](archives/s
 | Le **mobilier** et les **pièces maîtresses** du kit de la Capitale ; les kits d'**Arenarea**, de l'**Arena of Fate** et de **Martpart** | la `0.0.3` | D-30 : la bascule ne modèle que l'architecture du kit de la Capitale |
 | Les **effets** de `Common/Fx/` | sans date | un éclair ou un soin est une image animée, pas un volume |
 | Les **portraits** et les **jetons** | sans date | D-30 : ils restent peints |
-| Les **bandes de figurine** | le [LOT-1006](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1006-corps-de-reference.md) | le moteur n'anime pas encore de modèle ; plus aucune ne se **commande** |
 
 Les règles qu'elles gardent :
 

@@ -5,6 +5,7 @@
 #include <array>
 #include <cstdint>
 #include <map>
+#include <numbers>
 #include <optional>
 #include <span>
 #include <string>
@@ -118,53 +119,25 @@ inline constexpr std::string_view SCENE_PLACE_PROPERTY = "scene";
 [[nodiscard]] std::int32_t worldDepthSortOrder(float footWorldY, WorldDepthSlot slot) noexcept;
 
 /**
- * @brief L'orientation d'une figurine : l'une des quatre diagonales de l'isométrie (`LOT-112`).
- *
- * Une case de la grille se voit en losange : avancer d'une colonne descend vers le **sud-est** de
- * l'écran, avancer d'une ligne vers le **sud-ouest**. Les quatre directions de la grille sont donc
- * les quatre diagonales de l'écran, et une figurine en a une bande peinte chacune
- * (`walk-se.png`…). `None` : la figurine n'a qu'une bande par animation (`walk.png`).
+ * @brief Le **cap** d'une figurine (`LOT-1005`) : l'angle, en radians, de la direction où elle
+ *        regarde dans le plan de la grille — 0 vers les colonnes croissantes (sud-est à l'écran),
+ *        π/2 vers les lignes croissantes (sud-ouest). Un modèle s'oriente librement : il n'a pas
+ *        de table de quatre orientations.
  */
-enum class FigureFacing : std::uint8_t {
-    None,
-    SouthEast,
-    SouthWest,
-    NorthEast,
-    NorthWest,
-};
 
-/// @return Le suffixe de fichier de @p facing (`se`, `sw`, `ne`, `nw`), vide pour `None`.
-[[nodiscard]] std::string_view figureFacingSuffix(FigureFacing facing) noexcept;
-
-/**
- * @brief L'orientation d'une figurine qui se déplace de @p move, en cases.
- *
- * L'axe dominant l'emporte. À égalité — deux touches enfoncées, un pas droit vers le bas de
- * l'écran —, deux diagonales conviennent : la figurine **garde** @p previous si elle en est une,
- * plutôt que de basculer d'une image à l'autre ; sinon, la première des deux dans l'ordre
- * sud-est, sud-ouest, nord-est, nord-ouest. Un déplacement nul rend @p previous.
- */
-[[nodiscard]] FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept;
-
-/**
- * @brief Le **cap** d'une figurine en modèle (`LOT-1005`) : l'angle, en radians, de la direction
- *        où elle regarde dans le plan de la grille — 0 vers les colonnes croissantes (sud-est à
- *        l'écran), π/2 vers les lignes croissantes (sud-ouest). Un modèle s'oriente librement :
- *        il n'a pas de table de quatre orientations.
- * @return Le cap de la diagonale @p facing ; pour `None`, face à la caméra (π/4).
- */
-[[nodiscard]] float figureHeadingOf(FigureFacing facing) noexcept;
+/// @brief Le cap d'une figurine qui fait **face à la caméra** : le bas de l'écran.
+inline constexpr float FIGURE_HEADING_FRONT = std::numbers::pi_v<float> / 4.0F;
 
 /// @return Le cap d'une figurine qui se déplace de @p move, en cases ; @p previous si le
 ///         déplacement est nul.
 [[nodiscard]] float figureHeadingFor(core::Vector2 move, float previous) noexcept;
 
 /**
- * @brief Les bandes d'une figurine (standard 2D HD, §5, et le tir du `LOT-136`) : ce qu'une
- * figurine complète sait jouer, et ce qu'un combattant précharge (`LOT-118`).
+ * @brief Les clips d'une figurine : ce que le squelette d'un personnage sait jouer (standard des
+ *        personnages, §7), et le tir du `LOT-136`.
  *
- * Le repos et la marche **bouclent** ; les quatre autres se jouent une fois et se figent sur leur
- * dernière image (`SceneTexture::loop`, lu dans le `.anim.json` de la bande).
+ * Le repos et la marche **bouclent** ; les autres se jouent une fois et se figent sur leur fin —
+ * c'est le squelette qui le déclare (`core::SkeletonClip::loop`).
  */
 namespace figure_clips {
 /// Le repos, en boucle.
@@ -185,20 +158,20 @@ inline constexpr std::string_view DEATH = "death";
 inline constexpr std::array<std::string_view, 7> ALL = {IDLE, WALK, ATTACK, RANGED,
                                                         CAST, HIT,  DEATH};
 
-/// @brief La bande qu'une figurine joue à défaut de @p clip : le tir sans bande de tir est une
+/// @brief Le clip qu'une figurine joue à défaut de @p clip : le tir sans clip de tir est une
 ///        attaque ; les autres n'ont pas de repli (vide).
 [[nodiscard]] constexpr std::string_view fallbackOf(std::string_view clip) noexcept {
     return clip == RANGED ? ATTACK : std::string_view{};
 }
 }  // namespace figure_clips
 
-/// @brief Le dossier d'un mannequin de remplacement, par silhouette (`LOT-145`) : ce que dessine
-///        un personnage sans figurine.
-[[nodiscard]] std::string placeholderFigureDirectory(std::string_view silhouette);
-
-/// @brief Le dossier du mannequin **en modèle** d'une silhouette (`LOT-1005`) : un maillage neutre
-///        lié au squelette de la silhouette, et sa fiche.
+/// @brief Le dossier du **mannequin** d'une silhouette (`LOT-145`, en modèle depuis le
+///        `LOT-1005`) : un maillage neutre lié au squelette de la silhouette, et sa fiche — ce que
+///        dessine un personnage sans modèle.
 [[nodiscard]] std::string mannequinFigureDirectory(std::string_view silhouette);
+
+/// @brief Le dossier des effets, depuis la racine des assets : une bande par effet (`LOT-136`).
+inline constexpr std::string_view FX_DIRECTORY = "Common/Fx";
 
 /// @brief La silhouette par défaut d'un personnage qui n'en déclare pas.
 inline constexpr std::string_view DEFAULT_SILHOUETTE = "humanoid";
@@ -206,35 +179,43 @@ inline constexpr std::string_view DEFAULT_SILHOUETTE = "humanoid";
 /// @brief Propriété d'entité `npc` et de fiche de créature qui nomme la silhouette (`LOT-145`).
 inline constexpr std::string_view SILHOUETTE_PROPERTY = "silhouette";
 
-/// @brief Une figurine à dessiner sur la carte : sa planche, son image, où elle est.
+/**
+ * @brief Une figurine à dessiner sur la carte : son modèle, son clip, où elle est et où elle
+ *        regarde — ou un **effet** (`effect`), qui reste une bande d'images.
+ *
+ * Depuis le `LOT-1006` une figurine est un **modèle** (`EX-REN-051`) : celui que nomme @ref model, à défaut celui
+ * que déclare la fiche de son dossier (`character.json`, lue par le rendu). Sans l'un ni l'autre,
+ * elle se dessine par son **marqueur** (`figureMarkerPath`) : on la voit, on lui parle, et on ne
+ * la prend pas pour une illustration.
+ */
 struct WorldFigureSnapshot {
     /// Figurine : un slug, cherché dans les `Characters/` du lieu et de ses niveaux communs
     /// (`citizen`, `Heroes/brawler`, `LOT-124`) ; à défaut un dossier relatif à `Assets/`
     /// (`Common/Characters/Heroes/brawler`), ou un PNJ de l'atelier à plat (`Npc/<slug>`).
+    /// Pour un effet, `FX_DIRECTORY`.
     std::string figure;
-    /// Bande d'animation : l'une de `figure_clips` (`idle`, `walk`, `attack`, `cast`, `hit`,
-    /// `death`).
+    /// Le clip joué : l'un de `figure_clips` (`idle`, `walk`, `attack`, `cast`, `hit`, `death`).
+    /// Pour un effet, sa bande (`fire-bolt`, `impact`).
     std::string clip = "idle";
     /// Position **continue**, en cases : `{1.5, 2.5}` est le centre de la case (1, 2).
     core::Vector2 point{};
-    /// Image de la bande, ramenée dans la bande par la composition.
+    /// Rang d'image, pour qui ne porte pas le temps (@ref seconds négatif) : une image fixe.
     int frame = 0;
-    /// Orientation : `None` pour une figurine qui n'a qu'une bande par animation.
-    FigureFacing facing = FigureFacing::None;
-    /// Temps écoulé, en secondes : s'il est connu (positif ou nul) et que la bande dit la durée de
-    /// ses images, c'est lui qui choisit l'image, et non @ref frame — la cadence est une donnée de
-    /// l'art (`EX-REN-005`), pas du code.
+    /// Temps écoulé depuis le début du clip, en secondes ; négatif : inconnu, @ref frame vaut.
     float seconds = -1.0F;
     /// Le héros : un étage qui le masque s'efface (`LOT-129`).
     bool hero = false;
-    /// Un combattant (`LOT-118`) : ses bandes se préchargent, pour qu'un coup ne charge pas une
-    /// texture au milieu d'une image. Une figurine d'exploration n'en précharge que deux.
+    /// Un combattant (`LOT-118`).
     bool combatant = false;
-    /// Le **modèle** de la figurine (`LOT-1005`) : le chemin de son `.glb`, relatif au dossier des
-    /// assets (`hmi::ResolvedFigure::model`). Vide : la figurine se dessine par ses bandes.
+    /// Le **modèle** de la figurine, quand l'appelant l'a déjà résolu : le chemin de son `.glb`,
+    /// relatif au dossier des assets (`hmi::ResolvedFigure::model`). Vide : le rendu lit la fiche
+    /// du dossier de la figurine.
     std::string model;
-    /// Le cap d'un modèle (`figureHeadingOf`) ; absent : celui de @ref facing.
-    std::optional<float> heading;
+    /// Le cap de la figurine (`figureHeadingFor`) ; par défaut, face à la caméra.
+    float heading = FIGURE_HEADING_FRONT;
+    /// Vrai pour un **effet** (`LOT-136`) : la bande @ref clip de `Common/Fx/`, posée à plat sur
+    /// @ref point. Un effet n'a ni modèle ni marqueur.
+    bool effect = false;
 
     [[nodiscard]] bool operator==(const WorldFigureSnapshot&) const = default;
 };
@@ -410,11 +391,11 @@ template <class Map>
  * @brief Les figurines des PNJ d'une carte, dans l'ordre des entités.
  *
  * Un PNJ sans propriété `figure` ne se dessine pas, sauf si @p placeholders est vrai : il prend
- * alors le mannequin de sa silhouette (`placeholderFigureDirectory`, `LOT-145`), et c'est le
+ * alors le mannequin de sa silhouette (`mannequinFigureDirectory`, `LOT-145`), et c'est le
  * résolveur de figurines du jeu qui dira ensuite si ce mannequin existe. Le jeu y ajoute le héros
  * (`hmi::WorldPlay::figures`) ; l'éditeur les montre telles quelles, jetons compris.
  * @param entities     Les entités de la carte.
- * @param frame        L'image des bandes (0 pour une image fixe).
+ * @param frame        Le rang d'image des clips (0 pour une image fixe).
  * @param placeholders Vrai pour donner un mannequin aux PNJ sans figurine.
  */
 [[nodiscard]] std::vector<WorldFigureSnapshot> npcFigures(
@@ -441,35 +422,45 @@ template <class Map>
                                                     std::vector<WorldFigureSnapshot> figures);
 
 /**
- * @brief La clé du marqueur d'une figurine qui n'a pas d'image (`LOT-39`, `LOT-96`).
+ * @brief La clé du marqueur d'une figurine qui n'a pas de modèle (`LOT-39`, `LOT-96`).
  *
- * Une figurine nommée par une carte avant que son atelier (`LOT-91`, `LOT-93`) ne l'ait
- * produite se dessine par son **marqueur**, comme toute clé d'asset sans image
- * (`EX-CNT-041`) : on la voit, on lui parle, et on ne la prend pas pour une illustration.
+ * Une figurine nommée par une carte avant que son atelier ne l'ait produite se dessine par son
+ * **marqueur**, comme toute clé d'asset sans image (`EX-CNT-041`).
  *
- * @param path Un chemin de bande de figurine, tel que la composition l'écrit
- * (`Npc/<slug>/idle.png`, `Monsters/<slug>/idle.png`,
- * `Common/Characters/Heroes/brawler/idle-se.png`).
+ * @param path Le chemin du marqueur d'une figurine (`figureMarkerPath`).
  * @return `npc/<slug>`, `monsters/<slug>`, `characters/<dossier>` (`characters/heroes/brawler`),
- *         ou une chaîne vide si @p path n'est pas celui d'une figurine.
+ *         ou une chaîne vide si @p path n'est pas celui d'un marqueur de figurine.
  */
 [[nodiscard]] std::string figureMarkerKey(std::string_view path);
 
 /**
- * @brief Le chemin d'une bande de figurine, relatif au dossier des assets.
- *
- * @param figure Le dossier de la figurine, relatif à `Assets/`
- *               (`Regions/…/Characters/<slug>`, `hmi::PlaceAppearance::figureDirectory`), ou un
- *               slug seul, cherché à plat (`core::figureDirectory`).
- * @param clip   La bande (`idle`, `walk`) ; vide : `idle`.
- * @param facing L'orientation ; `None` : la bande sans suffixe.
- * @return `<dossier>/<clip>.png` ; `<clip>-se.png`… pour une figurine orientée.
+ * @brief Le chemin sous lequel le rendu range le **marqueur** de la figurine @p figure : un nom,
+ *        pas un fichier — le marqueur se peint (`<dossier>/@marker`).
+ * @param figure Le dossier de la figurine, relatif à `Assets/`, ou un slug seul, cherché à plat.
  */
-[[nodiscard]] std::string figureStripPath(std::string_view figure, std::string_view clip,
-                                          FigureFacing facing = FigureFacing::None);
+[[nodiscard]] std::string figureMarkerPath(std::string_view figure);
 
-/// @return Les fichiers de modèle (`.glb`) des figurines @p figures qui en ont un, sans doublon,
-///         triés (`LOT-1005`).
+/// @return Le chemin de la bande de l'effet @p effect, relatif au dossier des assets :
+///         `Common/Fx/<effet>.png`.
+[[nodiscard]] std::string effectStripPath(std::string_view effect);
+
+/**
+ * @return Les chemins de texture que les figurines @p figures demandent, sans doublon, triés : la
+ *         bande d'un effet, le marqueur d'une figurine qui ne nomme pas son modèle — le rendu ne
+ *         le peint que si la fiche de son dossier n'en donne pas non plus.
+ */
+[[nodiscard]] std::vector<std::string> worldFigureTexturePaths(
+    const WorldSceneSnapshot& snapshot, std::span<const WorldFigureSnapshot> figures);
+
+/**
+ * @brief Le dossier de la figurine @p figure, relatif au dossier des assets : celui que
+ *        @p snapshot lui donne (`figureDirectories`), à défaut elle-même.
+ */
+[[nodiscard]] std::string worldFigureDirectory(const WorldSceneSnapshot& snapshot,
+                                               std::string_view figure);
+
+/// @return Les fichiers de modèle (`.glb`) que les figurines @p figures nomment elles-mêmes, sans
+///         doublon, triés (`LOT-1005`).
 [[nodiscard]] std::vector<std::string> worldFigureModelPaths(
     std::span<const WorldFigureSnapshot> figures);
 
@@ -480,16 +471,6 @@ template <class Map>
 /// @return Les fichiers de maillage (`.glb`) des pièces que @p snapshot pose, sans doublon, triés
 ///         (`LOT-1003`) ; vide pour une carte dont toutes les pièces sont des images.
 [[nodiscard]] std::vector<std::string> worldMeshPaths(const WorldSceneSnapshot& snapshot);
-
-/**
- * @return Les chemins de texture des figurines @p figures — leurs bandes `idle` et `walk` —, sans
- *         doublon, triés ; leur dossier se lit dans @p snapshot.
- *
- * Ce que le rendu doit charger quand seules les figurines changent : la carte, elle, a déjà ses
- * textures.
- */
-[[nodiscard]] std::vector<std::string> worldFigureTexturePaths(
-    const WorldSceneSnapshot& snapshot, std::span<const WorldFigureSnapshot> figures);
 
 /// @brief Ce que l'appelant peut changer à la composition — rien, par défaut.
 struct WorldComposeOptions {

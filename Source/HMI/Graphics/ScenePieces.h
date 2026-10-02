@@ -158,10 +158,23 @@ struct ScenePieceTextures {
     /// Les modèles des figurines, par chemin de leur `.glb` (`LOT-1005`).
     std::map<std::string, SceneFigureModel, std::less<>> figures;
 
+    /// Le modèle que déclare la fiche de chaque dossier de figurine déjà lu (`LOT-1006`) : dossier
+    /// → chemin du `.glb` ; vide pour un dossier sans fiche, dont la figurine se dessine par son
+    /// marqueur.
+    std::map<std::string, std::string, std::less<>> figureModels;
+
     /// @return Le modèle de figurine de @p path, `nullptr` s'il n'est pas chargé.
     [[nodiscard]] const SceneFigureModel* findFigure(std::string_view path) const {
         const auto found = figures.find(path);
         return found != figures.end() && found->second.mesh != nullptr ? &found->second : nullptr;
+    }
+
+    /// @return Le modèle de la figurine du dossier @p directory, `nullptr` si sa fiche n'en
+    ///         déclare pas, ou s'il n'est pas chargé.
+    [[nodiscard]] const SceneFigureModel* findFigureOf(std::string_view directory) const {
+        const auto found = figureModels.find(directory);
+        return found != figureModels.end() && !found->second.empty() ? findFigure(found->second)
+                                                                     : nullptr;
     }
     /// Damier de repli.
     SceneTexture missing;

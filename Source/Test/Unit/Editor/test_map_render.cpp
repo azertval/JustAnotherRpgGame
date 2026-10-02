@@ -142,8 +142,15 @@ TEST(MapRenderTest, RenderEtLeRenduDuJeuDonnentLaMemeImageAuPixel) {
             rhi->newTexture(QRhiTexture::RGBA8, editor.size(), 1,
                             QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
         ASSERT_TRUE(texture->create());
+        // Un tampon de profondeur : les figurines sont des modeles (LOT-1006), comme pour
+        // `--render`.
+        const std::unique_ptr<QRhiRenderBuffer> depth(
+            rhi->newRenderBuffer(QRhiRenderBuffer::DepthStencil, editor.size()));
+        ASSERT_TRUE(depth->create());
+        QRhiTextureRenderTargetDescription description{{texture.get()}};
+        description.setDepthStencilBuffer(depth.get());
         const std::unique_ptr<QRhiTextureRenderTarget> target(
-            rhi->newTextureRenderTarget({{texture.get()}}));
+            rhi->newTextureRenderTarget(description));
         const std::unique_ptr<QRhiRenderPassDescriptor> pass(
             target->newCompatibleRenderPassDescriptor());
         target->setRenderPassDescriptor(pass.get());

@@ -1,20 +1,11 @@
 {
   "version": 1,
-  "comment": "La figurine témoin de la carte d'essai en maillages (LOT-1003), écrite par scripts/assetsGeneration/build_mesh_fixture.py.",
+  "comment": "Les PNJ de la carte d'essai : le pantin, un modèle (LOT-1005).",
   "tile": [
     64,
     40
   ],
-  "frame": [
-    32,
-    48
-  ],
-  "ground": 46,
-  "animations": [
-    "idle",
-    "walk"
-  ],
   "npcs": [
-    "temoin"
+    "pantin"
   ]
 }

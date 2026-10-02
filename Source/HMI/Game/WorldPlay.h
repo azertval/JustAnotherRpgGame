@@ -106,9 +106,9 @@ public:
         return _figures.resolve(figure, {}, _appearance);
     }
 
-    /// @return L'orientation du héros ; `None` si sa figurine n'a pas de bandes orientées.
-    [[nodiscard]] FigureFacing heroFacing() const noexcept {
-        return _hero.oriented ? _heroFacing : FigureFacing::None;
+    /// @return Le cap du héros (`hmi::figureHeadingFor`) : il le garde à l'arrêt.
+    [[nodiscard]] float heroHeading() const noexcept {
+        return _heroHeading;
     }
 
     /// @return La figurine du héros telle qu'elle se dessine : la sienne, ou son mannequin.
@@ -168,14 +168,12 @@ private:
     /// La figurine du héros résolue : son dossier, ses orientations. Relue quand elle change ou
     /// que le lieu change, pas à chaque image.
     ResolvedFigure _hero;
-    /// Dernière orientation du héros : il la garde à l'arrêt.
-    FigureFacing _heroFacing = FigureFacing::SouthEast;
-    /// Son cap, pour un modèle, qui s'oriente librement (`LOT-1005`).
+    /// Le cap du héros (`LOT-1005`) : il le garde à l'arrêt. Au départ, vers les colonnes
+    /// croissantes.
     float _heroHeading = 0.0F;
     /// Un suiveur du groupe (`LOT-138`) : sa figurine, et ce qui choisit sa bande.
     struct Follower {
         ResolvedFigure figure;
-        FigureFacing facing = FigureFacing::SouthEast;
         float heading = 0.0F;
         bool walking = false;
         core::CellPoint point{};

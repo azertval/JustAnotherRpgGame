@@ -51,11 +51,10 @@ qui rend la production stable — les quatre marches peintes du brawler avaient 
 | 5. **Contrôler** l'export ([§9](#9-les-contrôles)), et le **montrer** | `scripts/checks/check_character_model.py` ; `scripts/assetsGeneration/render_character_review.py` rend chaque clip en huit poses sous la caméra du jeu | un relevé, conservé avec le modèle ; les planches que l'auteur juge |
 | 6. **Installer** et **publier** le kit | `install_hd_asset.py`, `publish_asset_kit.py` | l'asset dans le jeu, le kit verrouillé |
 
-Jusqu'au [LOT-1006](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1006-corps-de-reference.md), le
-moteur n'anime pas de modèle : l'étape 6 **rend** le modèle en bandes
-(`scripts/assetsGeneration/render_character_strips.py`, caméra du jeu, huit images, quatre
-orientations) et installe ces bandes en mode `placed`. C'est ainsi que le brawler est dans le jeu
-depuis le LOT-1000 (`Common@5`).
+Depuis le [LOT-1006](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1006-corps-de-reference.md)
+le moteur anime le modèle lui-même : l'étape 6 installe le `.glb` lié, sa fiche `character.json`
+et, une fois pour la silhouette, `skeleton.json`. Le rendu du modèle en bandes
+(LOT-1000, `Common@5`) n'existe plus.
 
 L'atelier est local (`Tools/Assets3D/`, jamais livré) : références, exports reçus, fiches de
 liaison, scripts Blender, relevés. La provenance d'un modèle — tâche Meshy, réglages, empreintes —

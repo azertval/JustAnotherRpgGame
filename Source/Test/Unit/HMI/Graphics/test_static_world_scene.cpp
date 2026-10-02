@@ -65,12 +65,14 @@ struct Place {
     place.snapshot = hmi::snapshotWorldScene(
         *map.level, appearance.appearance,
         {hmi::WorldFigureSnapshot{.figure = "figurant", .point = {middle, middle}, .hero = true}});
+    // Le marqueur du heros tient lieu de son modele, sans GPU ici : il se compose quand meme.
+    place.textures.byPath[hmi::figureMarkerPath("figurant")] = hmi::SceneTexture{
+        .texture = &place.identities[4000], .width = 48, .height = 64, .frameWidth = 48};
     std::size_t next = 0;
     for (const core::ScenePiece& piece : manifest.manifest.pieces()) {
         place.textures.byPath[piece.path()] = hmi::SceneTexture{
             .texture = &place.identities[next++], .width = piece.width, .height = piece.height};
     }
-    // Le damier tient lieu des figurines, sans image ici : elles se composent quand même.
     place.textures.missing =
         hmi::SceneTexture{.texture = &place.identities[next++], .width = 64, .height = 64};
     place.textures.solid =
@@ -123,6 +125,9 @@ struct Place {
     place.snapshot = hmi::snapshotWorldScene(
         core::Level{std::move(data)}, hmi::PlaceAppearance{},
         {hmi::WorldFigureSnapshot{.figure = "figurant", .point = hero, .hero = true}});
+    // Le marqueur du heros tient lieu de son modele, sans GPU ici : il se compose quand meme.
+    place.textures.byPath[hmi::figureMarkerPath("figurant")] = hmi::SceneTexture{
+        .texture = &place.identities[4000], .width = 48, .height = 64, .frameWidth = 48};
     place.textures.missing =
         hmi::SceneTexture{.texture = &place.identities[0], .width = 64, .height = 64};
     place.textures.solid =

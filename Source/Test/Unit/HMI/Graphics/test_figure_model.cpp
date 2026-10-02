@@ -6,8 +6,9 @@
  * @brief Une figurine en **modèle**, de l'instantané à la scène composée, sans GPU (`LOT-1005`).
  *
  * Le pantin de la carte d'essai (`Fixtures/Meshes`) : la composition en fait un maillage placé,
- * tourné vers son cap, avec la pose de ses os à l'instant de son clip. Une figurine en bandes
- * garde son chemin : la même carte en porte une de chaque forme.
+ * tourné vers son cap, avec la pose de ses os à l'instant de son clip. Depuis le `LOT-1006` une
+ * figurine n'a pas d'autre forme : sans modèle elle prend son marqueur, et seul un effet reste une
+ * bande d'images.
  */
 
 #include <array>
@@ -36,14 +37,15 @@ namespace {
 
 constexpr float TOLERANCE = 1e-3F;
 constexpr const char* MODEL = "Npc/pantin/pantin.glb";
-constexpr const char* STRIP = "Npc/temoin/idle.png";
+constexpr const char* EFFECT = "Common/Fx/temoin.png";
+constexpr const char* MARKER = "Npc/inconnu/@marker";
 
 std::filesystem::path assets() {
     return std::filesystem::path(JADG_MESH_FIXTURE_DIR) / "Assets";
 }
 
 /// Une carte nue de six cases sur six, et ce que le rendu aurait chargé : le pantin en modèle, la
-/// figurine témoin en bande.
+/// bande d'un effet, le marqueur d'une figurine sans modèle.
 struct Stage {
     hmi::WorldSceneSnapshot snapshot;
     hmi::ScenePieceTextures textures;
@@ -71,8 +73,10 @@ Stage stage() {
         .rig = std::make_shared<const core::MeshRig>(std::move(read.mesh.rig)),
         .skeleton =
             std::make_shared<const core::SkeletonDescription>(std::move(skeleton.skeleton))};
-    place.textures.byPath[STRIP] = hmi::SceneTexture{
+    place.textures.byPath[EFFECT] = hmi::SceneTexture{
         .texture = &place.identities[1], .width = 32, .height = 48, .frameWidth = 32};
+    place.textures.byPath[MARKER] = hmi::SceneTexture{
+        .texture = &place.identities[3], .width = 48, .height = 64, .frameWidth = 48};
     place.textures.missing =
         hmi::SceneTexture{.texture = &place.identities[2], .width = 64, .height = 64};
     return place;
@@ -103,23 +107,30 @@ std::array<float, 3> crown(const hmi::ComposedScene& scene, const hmi::ComposedM
 }  // namespace
 
 /**
- * @brief Une figurine en modèle se compose en maillage placé avec la pose de son clip ; une
- *        figurine en bandes, à côté, reste une image.
- * \castest{<b>Une figurine en modele se compose en maillage, avec la pose de son clip.</b><br/>
+ * @brief Une figurine en modèle se compose en maillage placé avec la pose de son clip ; un effet,
+ *        à côté, reste une image ; une figurine sans modèle prend son marqueur.
+ * \castest{<b>Une figurine se compose en maillage ; un effet en image ; sans modele, son
+ * marqueur.</b><br/>
  * \tcat Unitaire · Rendu d'un lieu · Squelette<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Composer le pantin a 0,4 s de son attaque et la figurine temoin, en bandes.<br/>
- *          2. Lire la scene composee.<br/>
+ * \tetapes 1. Composer le pantin a 0,4 s de son attaque, un effet et une figurine dont aucun
+ *          modele n'est charge.<br/>2. Lire la scene composee et les chemins demandes.<br/>
  * \tattendu Un maillage sur le calque des figurines, avec une pose de trois os ou le sommet du
- *           crane est penche de 60 degres ; une primitive pour la figurine en bandes ; les chemins
- *           de texture demandes ne citent aucune bande du pantin, son modele est demande a part.
+ *           crane est penche de 60 degres ; deux primitives, la bande de l'effet et le marqueur.
+ *           Les textures demandees sont la bande de l'effet et le marqueur de la figurine qui ne
+ *           nomme pas son modele -- aucune bande de figurine ; le modele du pantin est demande a
+ *           part.
  * }
  */
-TEST(FigureModelTest, UneFigurineEnModeleSeComposeEnMaillage) {
+TEST(FigureModelTest, UneFigurineSeComposeEnMaillage) {
     const Stage place = stage();
     const std::vector<hmi::WorldFigureSnapshot> figures = {
         puppet("attack", 0.4F),
-        hmi::WorldFigureSnapshot{.figure = "Npc/temoin", .point = {4.5F, 1.5F}}};
+        hmi::WorldFigureSnapshot{.figure = std::string{hmi::FX_DIRECTORY},
+                                 .clip = "temoin",
+                                 .point = {4.5F, 1.5F},
+                                 .effect = true},
+        hmi::WorldFigureSnapshot{.figure = "Npc/inconnu", .point = {1.5F, 1.5F}}};
     const hmi::ComposedScene scene = compose(place, figures);
 
     ASSERT_EQ(scene.meshes().size(), 1U);
@@ -131,14 +142,43 @@ TEST(FigureModelTest, UneFigurineEnModeleSeComposeEnMaillage) {
     EXPECT_NEAR(top[1], 0.9F + (0.9F * 0.5F), TOLERANCE);
     EXPECT_NEAR(top[2], 0.9F * std::sin(std::numbers::pi_v<float> / 3.0F), TOLERANCE);
 
-    ASSERT_EQ(scene.quads().size(), 1U);
-    EXPECT_EQ(scene.quads().front().texture, &place.identities[1]);
+    ASSERT_EQ(scene.quads().size(), 2U);
+    EXPECT_EQ(scene.quads()[0].texture, &place.identities[1]);
+    EXPECT_EQ(scene.quads()[1].texture, &place.identities[3]);
 
-    const std::vector<std::string> textures = hmi::worldFigureTexturePaths(place.snapshot, figures);
-    for (const std::string& path : textures) {
-        EXPECT_FALSE(path.starts_with("Npc/pantin")) << path;
-    }
+    EXPECT_EQ(hmi::worldFigureTexturePaths(place.snapshot, figures),
+              (std::vector<std::string>{EFFECT, MARKER}));
     EXPECT_EQ(hmi::worldFigureModelPaths(figures), (std::vector<std::string>{MODEL}));
+    EXPECT_EQ(hmi::figureMarkerKey(MARKER), "npc/inconnu");
+    EXPECT_EQ(hmi::effectStripPath("temoin"), EFFECT);
+}
+
+/**
+ * @brief Une figurine qui ne nomme pas son modèle prend celui que la fiche de son dossier
+ *        déclare : c'est ainsi que l'éditeur, qui ne résout rien, montre les mêmes modèles.
+ * \castest{<b>Sans modele nomme, la fiche du dossier de la figurine le donne.</b><br/>
+ * \tcat Unitaire · Rendu d'un lieu · Squelette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Composer la figurine `pantin`, sans modele nomme, le rendu ayant lu la fiche de son
+ *          dossier.<br/>2. La composer pour un dossier dont la fiche ne donne rien.<br/>
+ * \tattendu 1 : un maillage, celui du pantin, et aucune primitive. 2 : aucun maillage ; le
+ *           marqueur n'etant pas peint, rien.
+ * }
+ */
+TEST(FigureModelTest, LaFicheDuDossierDonneLeModele) {
+    Stage place = stage();
+    place.textures.figureModels["Npc/pantin"] = MODEL;
+    place.textures.figureModels["Npc/vide"] = {};
+    const hmi::ComposedScene found = compose(
+        place, {hmi::WorldFigureSnapshot{.figure = "pantin", .point = {2.5F, 3.5F}}});
+    ASSERT_EQ(found.meshes().size(), 1U);
+    EXPECT_EQ(found.meshes().front().mesh, &place.identities[0]);
+    EXPECT_TRUE(found.quads().empty());
+
+    const hmi::ComposedScene none =
+        compose(place, {hmi::WorldFigureSnapshot{.figure = "vide", .point = {2.5F, 3.5F}}});
+    EXPECT_TRUE(none.meshes().empty());
+    EXPECT_TRUE(none.quads().empty());
 }
 
 /**
@@ -186,12 +226,11 @@ TEST(FigureModelTest, UnClipBoucleOuSeFige) {
  * \tcat Unitaire · Rendu d'un lieu · Squelette<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Composer le pantin avec un cap vers les colonnes croissantes, vers les lignes
- *          croissantes, puis a 30 degres entre les deux.<br/>2. Le composer sans cap, oriente au
- *          nord-ouest.<br/>3. Lire ou sa pose dans la vue met un point situe un metre devant
- *          lui.<br/>
+ *          croissantes, puis a 30 degres entre les deux.<br/>2. Le composer sans cap.<br/>
+ *          3. Lire ou sa pose dans la vue met un point situe un metre devant lui.<br/>
  * \tattendu Le point devant lui tombe a l'ecran ou tombe le point de la grille situe un metre
  *           plus loin dans la direction du cap ; le pied reste sur sa position dans tous les cas ;
- *           le cap de 30 degres n'est aucune des quatre diagonales.
+ *           un cap de 30 degres se tient comme un autre.
  * }
  */
 TEST(FigureModelTest, UnModeleFaitFaceASonCap) {
@@ -221,30 +260,27 @@ TEST(FigureModelTest, UnModeleFaitFaceASonCap) {
         figure.heading = heading;
         expectAhead(ahead(std::move(figure)), heading);
     }
-    hmi::WorldFigureSnapshot northWest = puppet("idle", 0.0F);
-    northWest.facing = hmi::FigureFacing::NorthWest;
-    expectAhead(ahead(std::move(northWest)), 2.0F * QUARTER);
+    // Sans cap donne, un modele fait face a la camera.
+    expectAhead(ahead(puppet("idle", 0.0F)), hmi::FIGURE_HEADING_FRONT);
 
     EXPECT_NEAR(hmi::figureHeadingFor({1.0F, 1.0F}, 0.0F), QUARTER / 2.0F, TOLERANCE);
     EXPECT_FLOAT_EQ(hmi::figureHeadingFor({0.0F, 0.0F}, 1.25F), 1.25F) << "a l'arret, il le garde";
 }
 
 /**
- * @brief Un modèle nommé mais pas chargé ne plante rien : la figurine retombe sur ses bandes,
- *        donc sur le damier.
- * \castest{<b>Un modele qui ne s'est pas charge laisse voir le damier.</b><br/>
+ * @brief Un modèle nommé mais pas chargé ne plante rien : rien ne se dessine à sa place.
+ * \castest{<b>Un modele qui ne s'est pas charge ne dessine rien.</b><br/>
  * \tcat Unitaire · Rendu d'un lieu · Squelette<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Composer une figurine dont le modele n'est pas parmi ceux du rendu.<br/>
- * \tattendu Aucun maillage ; une primitive, sur le damier.
+ * \tattendu Aucun maillage, aucune primitive : le rendu a dit le modele manquant.
  * }
  */
-TEST(FigureModelTest, UnModeleAbsentLaisseVoirLeDamier) {
+TEST(FigureModelTest, UnModeleAbsentNeDessineRien) {
     const Stage place = stage();
     hmi::WorldFigureSnapshot figure = puppet("idle", 0.0F);
     figure.model = "Npc/pantin/absent.glb";
     const hmi::ComposedScene scene = compose(place, {std::move(figure)});
     EXPECT_TRUE(scene.meshes().empty());
-    ASSERT_EQ(scene.quads().size(), 1U);
-    EXPECT_EQ(scene.quads().front().texture, &place.identities[2]);
+    EXPECT_TRUE(scene.quads().empty());
 }

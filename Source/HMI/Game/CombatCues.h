@@ -27,10 +27,11 @@
  * ## L'image clé (`LOT-1005`)
  *
  * Un coup **porte** à un instant du geste : c'est là que commencent le touché et la chute de la
- * cible, et qu'arrive le projectile. Pour une figurine en bandes, cet instant est le milieu de la
- * bande (`IMPACT_FRACTION`). Pour un modèle, c'est l'**image clé** que son squelette déclare, clip
- * par clip (`core::SkeletonClip::key`), et le geste dure son clip : la file les reçoit par
- * combattant (`setTimings`), et le journal, les dégâts et l'animation restent synchrones.
+ * cible, et qu'arrive le projectile. C'est l'**image clé** que le squelette de la figurine
+ * déclare, clip par clip (`core::SkeletonClip::key`), et le geste dure son clip : la file les
+ * reçoit par combattant (`setTimings`), et le journal, les dégâts et l'animation restent
+ * synchrones. Une figurine dont le squelette ne se lit pas — un marqueur — garde les durées par
+ * défaut (`ACTION_SECONDS`, l'impact à `IMPACT_FRACTION`).
  */
 
 #include <cstddef>
@@ -83,9 +84,6 @@ struct CombatCue {
     bool travels = false;
 };
 
-/// @brief Le dossier des effets, depuis la racine des assets : une bande par effet (`LOT-136`).
-inline constexpr std::string_view FX_DIRECTORY = "Common/Fx";
-
 /// @brief Un effet à dessiner à cet instant (`LOT-136`).
 struct EffectMotion {
     /// La bande, dans `Common/Fx/` (`fire-bolt`, `fire-bolt-left`).
@@ -102,16 +100,14 @@ struct EffectMotion {
 struct FigureMotion {
     /// Position **continue**, en cases de la grille : `{1.5, 2.5}` est le centre de la case (1, 2).
     core::Vector2 point{};
-    /// La bande en cours (`hmi::figure_clips`).
+    /// Le clip en cours (`hmi::figure_clips`).
     std::string_view clip = figure_clips::IDLE;
-    /// La diagonale vers laquelle elle regarde.
-    FigureFacing facing = FigureFacing::SouthEast;
-    /// Son cap (`hmi::figureHeadingOf`) : où regarde un modèle, qui s'oriente librement —
-    /// vers son pas, vers sa cible (`LOT-1005`).
-    float heading = 0.0F;
-    /// Temps écoulé depuis le début de la bande, en secondes.
+    /// Son cap (`hmi::figureHeadingFor`) : où elle regarde — vers son pas, vers sa cible
+    /// (`LOT-1005`).
+    float heading = FIGURE_HEADING_FRONT;
+    /// Temps écoulé depuis le début du clip, en secondes.
     float clipSeconds = 0.0F;
-    /// À terre : sa bande de mort reste sur sa dernière image, et rien ne la relève.
+    /// À terre : son clip de mort reste sur sa fin, et rien ne la relève.
     bool dead = false;
 };
 
@@ -124,8 +120,8 @@ struct GestureTiming {
 };
 
 /**
- * @brief Les durées des gestes d'un combattant (`LOT-1005`) : celles de ses clips, si sa figurine
- *        est un modèle ; celles des bandes sinon.
+ * @brief Les durées des gestes d'un combattant (`LOT-1005`) : celles des clips de son squelette ;
+ *        celles par défaut s'il ne se lit pas.
  */
 struct FigureTimings {
     GestureTiming attack;
@@ -149,29 +145,27 @@ class CombatCueTrack {
 public:
     /// La marche du combat est celle du monde : deux cases par seconde (`LOT-112`, D5).
     static constexpr float WALK_CELLS_PER_SECOND = 2.0F;
-    /// Une action ponctuelle dure sa bande : huit images à 80 ms (`LOT-112`).
+    /// Ce que dure une action ponctuelle dont le squelette ne dit rien (`LOT-112`).
     static constexpr float ACTION_SECONDS = 0.64F;
-    /// Le coup **porte** au milieu de la bande d'attaque : le touché et la chute de la cible
-    /// commencent là, pas quand l'attaquant a fini son geste.
+    /// Où le coup **porte** dans un geste sans image clé déclarée : en son milieu.
     static constexpr float IMPACT_FRACTION = 0.5F;
     /// Un effet dure sa bande : huit images, une petite seconde (`LOT-136`).
     static constexpr float EFFECT_SECONDS = 0.8F;
 
-    /// @return Les durées d'une figurine en bandes : `ACTION_SECONDS`, l'impact à
-    ///         `IMPACT_FRACTION`.
-    [[nodiscard]] static FigureTimings stripTimings() noexcept;
+    /// @return Les durées par défaut : `ACTION_SECONDS`, l'impact à `IMPACT_FRACTION`.
+    [[nodiscard]] static FigureTimings defaultTimings() noexcept;
     /**
-     * @return Les durées des clips que @p skeleton déclare ; celles des bandes pour un clip qu'il
+     * @return Les durées des clips que @p skeleton déclare ; celles par défaut pour un clip qu'il
      *         ne déclare pas, et pour un squelette nul. Un clip sans image clé porte à
      *         `IMPACT_FRACTION` de sa durée ; le tir sans clip de tir est une attaque.
      */
     [[nodiscard]] static FigureTimings timingsOf(const core::SkeletonDescription* skeleton);
-    /// @brief Donne à @p actor les durées de ses gestes ; sans elles, celles des bandes.
+    /// @brief Donne à @p actor les durées de ses gestes ; sans elles, celles par défaut.
     void setTimings(core::CombatantId actor, const FigureTimings& timings);
 
     /// @brief Pose @p actor au repos en @p cell, tout de suite (montage, rejeu, repli).
     void place(core::CombatantId actor, core::GridPosition cell,
-               FigureFacing facing = FigureFacing::SouthEast);
+               float heading = FIGURE_HEADING_FRONT);
     /// @brief Retire @p actor : il est sorti du combat.
     void remove(core::CombatantId actor);
     /// @brief Ajoute un fait à montrer, après ceux déjà en attente.

@@ -391,8 +391,9 @@ sont retirés à la recette de la 0.0.1 : plus rien ne les lisait.
 
 ## L'animation : des clips en données
 
-Une figurine s'anime par **bandes d'images** (`EX-REN-012`), décrites par des **données** plutôt
-que codées en dur (`EX-REN-005`). Un clip (`core::AnimationClip`, `Core/Ecs/AnimationClip.h`) est
+Un **effet** s'anime par une **bande d'images**, décrite par des **données** plutôt que codée en
+dur (`EX-REN-005`) ; une figurine, elle, est un modèle animé par son squelette (`EX-REN-051`, voir
+« Les modèles animés »). Un clip (`core::AnimationClip`, `Core/Ecs/AnimationClip.h`) est
 une donnée pure : un nom, une suite d'indices d'images, une durée par image, bouclé ou joué une
 fois (`core::ClipEndMode`). Plusieurs clips forment un `core::ClipSet`, adressable par nom
 ([ECS : entités, composants, systèmes](guide-ecs.md)).
@@ -716,13 +717,12 @@ un mur d'étage s'extrude en maquette comme au rez. Un étage ne se **déduit** 
 `hmi::WorldFigureSnapshot` décrit une figurine : `figure` (un slug cherché dans les `Characters/`
 du lieu et de ses niveaux communs — `citizen`, `Heroes/brawler` —, à défaut un dossier relatif aux
 assets s'il contient une barre, ou un PNJ de l'atelier à plat, `Npc/<slug>`), `clip` (`idle`,
-`walk`), `point` (position **continue** en cases : `{1.5, 2.5}` est le centre de la case (1, 2)),
-`frame` (image de la bande, ramenée dans la bande par la composition), `facing` (l'orientation,
-`hmi::FigureFacing`, voir plus bas ; `None` pour une figurine qui n'a qu'une bande par animation),
-`seconds` (le temps écoulé : s'il est connu — positif ou nul — et que la bande dit la durée de ses
-images dans son `.anim.json`, c'est lui qui choisit l'image et non `frame`, la cadence étant une
-donnée de l'art, `EX-REN-005`) et `hero` (vrai pour le héros, et lui seul : c'est devant lui qu'un
-étage s'efface).
+`walk`…), `point` (position **continue** en cases : `{1.5, 2.5}` est le centre de la case (1, 2)),
+`seconds` (le temps écoulé dans le clip ; négatif, il est inconnu et `frame` donne un rang d'image),
+`heading` (le cap, voir plus bas), `model` (le `.glb` de la figurine quand l'appelant l'a déjà
+résolu ; vide, le rendu lit la fiche de son dossier), `hero` (vrai pour le héros, et lui seul :
+c'est devant lui qu'un étage s'efface) et `effect` (vrai pour un **effet** de `Common/Fx/`, la
+seule bande d'images qui reste : `clip` nomme alors sa bande).
 
 L'instantané se tire d'une `hmi::WorldSceneSource` — trois références : la grille racine (`root`,
 collision et sol d'une carte sans couche visuelle), les couches (`layers` : la première de sol donne
@@ -740,44 +740,31 @@ la composition n'a qu'**un** chemin (`LOT-EDITOR-02`). Puis :
 - `hmi::npcFigures(entities, frame)` : les figurines des PNJ, dans l'ordre des entités ; un PNJ
   sans propriété `figure` ne se dessine pas. Le jeu y ajoute le héros (`hmi::WorldPlay::figures`),
   l'éditeur les montre telles quelles ;
-- `hmi::figureStripPath(figure, clip, facing)` : le chemin d'une bande, `<dossier>/<clip>.png`
-  pour un dossier relatif aux assets, `Npc/<slug>/<clip>.png` pour un slug seul (cherché à plat,
-  `core::figureDirectory`), et `<clip>-se.png`, `<clip>-sw.png`, `<clip>-ne.png` ou `<clip>-nw.png`
-  dès que `facing` n'est pas `None` (`hmi::figureFacingSuffix`) ; `hmi::figureMarkerKey(path)` en
-  tire la clé du marqueur (`npc/<slug>`, `monsters/<slug>`, `characters/<dossier>`) d'une figurine
-  qui n'a pas encore d'image (`EX-CNT-041`) : on la voit, on lui parle, et on ne la prend pas pour
-  une illustration ;
-- `hmi::worldTexturePaths(snapshot)` : tous les chemins que l'instantané demandera, sans doublon,
-  triés — ce que le rendu doit charger, ni une pièce oubliée, ni une de trop : les pièces du sol, du
-  relief et de chaque étage, les bandes `idle` **et** `walk` de chaque figurine dans son orientation
-  (le rendu ne doit pas charger une texture au milieu d'une image), et les chemins de jeton.
+- `hmi::worldFigureDirectory(snapshot, figure)` : le dossier d'une figurine, sous le niveau qui la
+  range, à défaut `Npc/<slug>` pour un slug seul (`core::figureDirectory`) ;
+  `hmi::figureMarkerPath(figure)` nomme son **marqueur** (`<dossier>/@marker` — un nom, pas un
+  fichier : le marqueur se peint) et `hmi::figureMarkerKey(path)` en tire la clé
+  (`npc/<slug>`, `monsters/<slug>`, `characters/<dossier>`) d'une figurine qui n'a pas encore de
+  modèle (`EX-CNT-041`) : on la voit, on lui parle, et on ne la prend pas pour une illustration ;
+  `hmi::effectStripPath(effect)` rend la bande d'un effet, `Common/Fx/<effet>.png` ;
+- `hmi::worldTexturePaths(snapshot)` : tous les chemins de texture que l'instantané demandera,
+  sans doublon, triés — les pièces du sol, du relief et de chaque étage, les chemins de jeton, la
+  bande de chaque effet et le marqueur de chaque figurine qui ne nomme pas son modèle (le rendu ne
+  le peint que si la fiche de son dossier n'en donne pas non plus) ;
+  `hmi::worldFigureModelPaths(figures)` liste les modèles que les figurines nomment elles-mêmes.
 
-### L'orientation des figurines : quatre diagonales
+### Le cap d'une figurine
 
-Une figurine du standard 2D HD est peinte dans **quatre** orientations (`LOT-112`), et le moteur
-doit choisir laquelle montrer. `core::ExplorationSession::facing` garde la dernière direction non
-nulle que le héros a prise, en cases : `(dx, dy)`, `dx` le long des colonnes, `dy` le long des
-lignes. Or une case de la grille se voit en losange : avancer d'une **colonne** descend vers le
-**sud-est** de l'écran, avancer d'une **ligne** vers le **sud-ouest**. Les quatre directions de la
-grille sont donc les quatre diagonales de l'écran, et c'est ce que nomme `hmi::FigureFacing` :
-`SouthEast`, `SouthWest`, `NorthEast`, `NorthWest`, plus `None` pour une figurine qui n'a qu'une
-bande par animation (`walk.png`).
-
-![Le losange isométrique et les quatre orientations d'une figurine : +colonne mène au sud-est, +ligne au sud-ouest, et chaque diagonale nomme sa bande, walk-se.png, walk-sw.png, walk-ne.png, walk-nw.png](figures/rendu-figurine-orientations.svg)
-
-`hmi::figureFacingFor(move, previous)` fait la conversion : l'**axe dominant** l'emporte — `dx > 0`
-donne `SouthEast`, `dx < 0` `NorthWest`, `dy > 0` `SouthWest`, `dy < 0` `NorthEast`. À égalité
-des deux axes — deux touches enfoncées, un pas droit vers le bas de l'écran —, deux diagonales
-conviennent aussi bien, et basculer de l'une à l'autre à chaque pas ferait trembler la figurine :
-elle **garde** `previous` si c'est l'une des deux, sinon prend la première des deux dans l'ordre de
-l'énumération (sud-est, sud-ouest, nord-est, nord-ouest). L'égalité se juge à 10<sup>−4</sup> près,
-parce qu'une diagonale normalisée n'a pas deux composantes rigoureusement égales après division
-par sa longueur. Un déplacement nul rend `previous`. `hmi::WorldPlay` l'appelle à chaque pas où le
-héros marche, avec l'intention de déplacement, et ne signale la scène changée que si l'orientation
-a changé ; il ne le fait que si la figurine est **orientée**, ce qu'il décide une fois pour toutes en
-cherchant sa bande `idle-se.png` (la première que l'atelier produit ; `check_hd_assets.py` exige
-les quatre). `hmi::figureFacingSuffix(facing)` rend `se`, `sw`, `ne`, `nw` — vide pour `None` —,
-le suffixe que `figureStripPath` colle au nom de la bande.
+Un modèle s'oriente **librement** (`LOT-1005`) : il n'a pas de table d'orientations. Son **cap**
+(`WorldFigureSnapshot::heading`) est l'angle, en radians, de la direction où il regarde dans le plan
+de la grille — 0 vers les colonnes croissantes (le sud-est de l'écran), π/2 vers les lignes
+croissantes (le sud-ouest). `hmi::figureHeadingFor(move, previous)` le tire d'un déplacement
+(`atan2`), et garde `previous` pour un déplacement nul : une figurine à l'arrêt ne se retourne pas.
+`hmi::FIGURE_HEADING_FRONT` (π/4) est le cap d'une figurine qui fait face à la caméra, celui d'un
+PNJ à son poste. `hmi::WorldPlay` suit l'intention de déplacement du héros et la direction de
+chaque suiveur ; `hmi::CombatCueTrack` tourne un combattant vers son pas, puis vers sa cible.
+`core::ExplorationSession::facing`, qui garde la dernière direction du héros pour l'interaction,
+n'a pas changé.
 
 ### Composer
 
@@ -795,8 +782,8 @@ marge basse d'une figurine, `hmi::WORLD_FIGURE_BOTTOM_MARGIN` = 0,42 hauteur de 
 celle que le Colisée avait fixée.
 
 La composition parcourt la carte ligne par ligne : le sol et le relief du rez de chaque case, puis
-les étages du plus bas au plus haut, puis les figurines, puis les jetons et les tracés. Une bande de
-figurine se lit par ses propres traits (`hmi::SceneTexture`) : `frameWidth` et `frameHeight`, sa
+les étages du plus bas au plus haut, puis les figurines, puis les jetons et les tracés. La bande
+d'un effet se lit par ses propres traits (`hmi::SceneTexture`) : `frameWidth` et `frameHeight`, sa
 cellule, viennent de son `.anim.json`, et `hmi::frameWidthOf`, `hmi::frameHeightOf` (la texture
 entière pour une image fixe) et `hmi::frameCountOf` (largeur totale divisée par la cellule, au
 moins 1) en tirent la découpe — une image demandée hors bande est ramenée dedans plutôt que lue à
@@ -1024,9 +1011,12 @@ squelette, que ses os déforment. Trois fichiers le disent :
 | `<dossier>/<modèle>.glb` | le maillage, la liaison de chaque sommet (quatre os, quatre poids), les os, les clips | `core::readMeshFile` : `MeshData::skin`, `MeshData::rig` |
 | `Common/Characters/Skeletons/<silhouette>/skeleton.json` | les os, et par clip sa durée, sa boucle et son **image clé** | `core::readSkeletonFile` |
 
-`hmi::FigureResolver` cherche la fiche avant les bandes — pour la figurine nommée, puis pour le
-mannequin (`hmi::mannequinFigureDirectory`) — et rend le chemin du modèle
-(`ResolvedFigure::model`), que l'instantané porte (`WorldFigureSnapshot::model`). La composition en
+`hmi::FigureResolver` cherche la fiche de la figurine nommée, puis celle du mannequin de sa
+silhouette (`hmi::mannequinFigureDirectory`), puis celle du mannequin humanoïde, et rend le chemin
+du modèle (`ResolvedFigure::model`), que l'instantané porte (`WorldFigureSnapshot::model`). Qui ne
+résout rien — l'éditeur — laisse ce champ vide : le rendu lit alors la fiche du dossier de la
+figurine (`ScenePieceTextures::figureModels`), et le même modèle paraît. Depuis le `LOT-1006` il
+n'y a pas d'autre forme : une figurine sans modèle se dessine par son marqueur. La composition en
 fait un `hmi::ComposedMesh` de plus, sur le calque des figurines : posé sur la position continue de
 la figurine, tourné vers son **cap** (`WorldFigureSnapshot::heading`, un angle libre —
 `hmi::IsoView::turned`), avec la **pose** de ses os à l'instant de son clip
@@ -1041,7 +1031,8 @@ sienne, rognerait ses semelles.
 
 En combat, `hmi::CombatCueTrack` reçoit les durées des gestes de chaque combattant
 (`setTimings`, `timingsOf`) : le touché de la cible part à l'**image clé** du clip de l'attaquant,
-et le geste dure son clip. Une figurine en bandes garde ses 0,64 s et son impact à mi-geste.
+et le geste dure son clip. Un combattant dont le squelette ne se lit pas garde les durées par
+défaut : 0,64 s, l'impact à mi-geste.
 
 **Les images dans la scène.** Chaque primitive dit comment elle se tient (`hmi::QuadStance`) :
 
@@ -1278,7 +1269,7 @@ nulle ; l'écran affiche alors son fond, pas une erreur.
 - `hmi::composeWorldScene`, `hmi::WorldSceneSnapshot`, `hmi::WorldStoreySnapshot`,
   `hmi::WorldFigureSnapshot`, `hmi::snapshotWorldScene`, `hmi::WorldDepthSlot`,
   `hmi::WORLD_DEPTH_SLOTS`, `hmi::worldDepthSortOrder`, `hmi::STOREY_SEE_THROUGH_OPACITY`,
-  `hmi::DEFAULT_STOREY_TILES`, `hmi::FigureFacing`, `hmi::figureFacingFor`,
+  `hmi::DEFAULT_STOREY_TILES`, `hmi::figureHeadingFor`, `hmi::FIGURE_HEADING_FRONT`,
   `hmi::figureFacingSuffix`, `hmi::figureStripPath`, `hmi::WorldSceneRenderer`,
   `hmi::worldCamera`, `hmi::PlaceAppearance` — le lieu qu'on parcourt (`EX-REN-010`,
   `EX-REN-011`, `EX-REN-013`, `EX-LVL-025`).
@@ -1296,7 +1287,7 @@ nulle ; l'écran affiche alors son fond, pas une erreur.
   `hmi::buildMissingTextureImage`, `hmi::entityMarkerKey` — textures depuis fichiers et replis
   (`EX-REN-041`, `EX-REN-042`, `EX-REN-007`, `EX-CNT-041`).
 - `core::AnimationClip`, `core::ClipSet`, `hmi::AnimationCatalog`, `hmi::CombatCueTrack` —
-  l'animation par données (`EX-REN-005`, `EX-REN-012`).
+  l'animation par données (`EX-REN-005`, `EX-REN-051`).
 - `hmi::AssetGalleryCatalog`, `hmi::layoutAssetGallery`, `hmi::AssetGalleryRenderer` — la galerie
   de débug (`EX-CNT-042`).
 - [Boucle de jeu et pas de temps fixe](guide-boucle.md) — où le rendu s'insère dans la boucle de jeu.

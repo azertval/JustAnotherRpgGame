@@ -474,7 +474,10 @@ AssetGalleryFrame AssetGalleryItem::frameFor(float pixelsPerItem) const {
             .frameHeight = entry.frameHeight,
             .frameIndex = entry.frames.empty() ? 0 : entry.frames[static_cast<std::size_t>(rank)],
             .selected = index == _selectedIndex,
-            .tilePixels = entry.tileWidthPixels()});
+            .tilePixels = entry.tileWidthPixels(),
+            .mesh = entry.mesh,
+            .clip = entry.clip,
+            .clipSeconds = static_cast<float>(assetGalleryClipSeconds(entry, _seconds))});
     }
     frame.wanted.assign(wanted.begin(), wanted.end());
     return frame;

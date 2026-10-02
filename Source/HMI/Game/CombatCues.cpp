@@ -21,12 +21,6 @@ constexpr std::size_t MAX_FINISH_STEPS = 4096;
                          static_cast<float>(cell.row) + CELL_CENTER};
 }
 
-// La diagonale qui regarde de `from` vers `to` ; `previous` si les deux se confondent.
-[[nodiscard]] FigureFacing facingTowards(core::Vector2 from, core::Vector2 to,
-                                         FigureFacing previous) noexcept {
-    return figureFacingFor(core::Vector2{to.x - from.x, to.y - from.y}, previous);
-}
-
 [[nodiscard]] bool isVictimCue(CombatCueKind kind) noexcept {
     return kind == CombatCueKind::Hit || kind == CombatCueKind::Death;
 }
@@ -49,7 +43,6 @@ bool applyWalk(FigureMotion& figure, const std::vector<core::GridPosition>& path
         // eu le temps de le montrer.
         const core::Vector2 avant = path.size() >= 2 ? centerOf(path[path.size() - 2]) : start;
         figure.point = centerOf(path.back());
-        figure.facing = facingTowards(avant, figure.point, figure.facing);
         figure.heading = figureHeadingFor(
             core::Vector2{figure.point.x - avant.x, figure.point.y - avant.y}, figure.heading);
         figure.clip = figure_clips::IDLE;
@@ -63,7 +56,6 @@ bool applyWalk(FigureMotion& figure, const std::vector<core::GridPosition>& path
     const core::Vector2 to = centerOf(path[std::min(segment, path.size() - 1)]);
     figure.point =
         core::Vector2{from.x + ((to.x - from.x) * fraction), from.y + ((to.y - from.y) * fraction)};
-    figure.facing = facingTowards(from, to, figure.facing);
     figure.heading = figureHeadingFor(core::Vector2{to.x - from.x, to.y - from.y}, figure.heading);
     figure.clip = figure_clips::WALK;
     figure.clipSeconds = std::max(0.0F, elapsed);
@@ -79,7 +71,7 @@ bool applyWalk(FigureMotion& figure, const std::vector<core::GridPosition>& path
 
 }  // namespace
 
-FigureTimings CombatCueTrack::stripTimings() noexcept {
+FigureTimings CombatCueTrack::defaultTimings() noexcept {
     const GestureTiming gesture{.seconds = ACTION_SECONDS,
                                 .impact = ACTION_SECONDS * IMPACT_FRACTION};
     return FigureTimings{.attack = gesture,
@@ -90,7 +82,7 @@ FigureTimings CombatCueTrack::stripTimings() noexcept {
 }
 
 FigureTimings CombatCueTrack::timingsOf(const core::SkeletonDescription* skeleton) {
-    FigureTimings timings = stripTimings();
+    FigureTimings timings = defaultTimings();
     if (skeleton == nullptr) {
         return timings;
     }
@@ -118,9 +110,9 @@ void CombatCueTrack::setTimings(core::CombatantId actor, const FigureTimings& ti
 }
 
 const FigureTimings& CombatCueTrack::timings(core::CombatantId actor) const {
-    static const FigureTimings strips = stripTimings();
+    static const FigureTimings defaults = defaultTimings();
     const auto found = _timings.find(actor);
-    return found != _timings.end() ? found->second : strips;
+    return found != _timings.end() ? found->second : defaults;
 }
 
 GestureTiming CombatCueTrack::gestureOf(const CombatCue& cue) const {
@@ -131,11 +123,10 @@ GestureTiming CombatCueTrack::gestureOf(const CombatCue& cue) const {
     return cue.ranged ? known.ranged : known.attack;
 }
 
-void CombatCueTrack::place(core::CombatantId actor, core::GridPosition cell, FigureFacing facing) {
+void CombatCueTrack::place(core::CombatantId actor, core::GridPosition cell, float heading) {
     FigureMotion& figure = _figures[actor];
     figure.point = centerOf(cell);
-    figure.facing = facing;
-    figure.heading = figureHeadingOf(facing);
+    figure.heading = heading;
     if (!figure.dead) {
         figure.clip = figure_clips::IDLE;
         figure.clipSeconds = 0.0F;
@@ -254,7 +245,6 @@ bool CombatCueTrack::apply(Running& running) {
         case CombatCueKind::Cast: {
             if (running.cue.target.has_value()) {
                 const core::Vector2 cible = centerOf(*running.cue.target);
-                figure.facing = facingTowards(figure.point, cible, figure.facing);
                 figure.heading = figureHeadingFor(
                     core::Vector2{cible.x - figure.point.x, cible.y - figure.point.y},
                     figure.heading);

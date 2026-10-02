@@ -291,7 +291,7 @@ TEST(ScenePlaceTest, LesFiguresDUnLieuViennentDeSesNiveaux) {
     EXPECT_EQ(core::figureDirectory(arena, "Peoples/human/guard"),
               "Common/Characters/Peoples/human/guard");
     for (const auto& [slug, directory] : arena) {
-        EXPECT_TRUE(std::filesystem::is_regular_file(treeAssets() / directory / "idle.png"))
+        EXPECT_TRUE(std::filesystem::is_regular_file(treeAssets() / directory / "character.json"))
             << slug;
     }
 

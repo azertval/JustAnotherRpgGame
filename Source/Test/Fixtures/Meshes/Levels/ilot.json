@@ -132,14 +132,14 @@
       "type": "npc",
       "x": 5,
       "y": 6,
-      "figure": "temoin"
+      "figure": "pantin"
     },
     {
       "id": "e2",
       "type": "npc",
       "x": 5,
       "y": 0,
-      "figure": "temoin"
+      "figure": "pantin"
     }
   ]
 }

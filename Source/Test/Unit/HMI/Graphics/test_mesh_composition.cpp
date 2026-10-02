@@ -269,9 +269,14 @@ TEST(MeshCompositionTest, UnMaillageManquantSeVoit) {
 TEST(MeshCompositionTest, LesImagesDisentCommentEllesSeTiennent) {
     Ilot place = ilot();
     const core::IsoProjection projection = place.projection();
-    // La figurine n'a pas d'image : le damier la dessine, comme dans les autres tests sans GPU.
-    place.snapshot.figures = {
-        hmi::WorldFigureSnapshot{.figure = "Npc/temoin", .point = {5.5F, 6.5F}}};
+    // L'image temoin : un effet, la seule sorte d'image dressee qui reste sur le calque des
+    // figurines (LOT-1006).
+    place.textures.byPath[hmi::effectStripPath("temoin")] =
+        hmi::SceneTexture{.texture = &place.identities[6], .width = 32, .height = 48};
+    place.snapshot.figures = {hmi::WorldFigureSnapshot{.figure = std::string{hmi::FX_DIRECTORY},
+                                                       .clip = "temoin",
+                                                       .point = {5.5F, 6.5F},
+                                                       .effect = true}};
     const hmi::ComposedScene scene =
         hmi::composeWorldScene(place.snapshot, projection, place.textures);
     bool figureSeen = false;

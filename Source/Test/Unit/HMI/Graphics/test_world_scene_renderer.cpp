@@ -349,11 +349,13 @@ TEST(WorldSceneRendererTest, DeuxLieuxDeviennentDesPixels) {
             EXPECT_NE(quad.texture, renderer.textures().missing.texture)
                 << quartier << " : piece tombee sur le damier";
         }
-        // La sentinelle porte une vraie bande de figurine, et non plus un marqueur.
-        const auto soldat = renderer.textures().byPath.find("Monsters/sentinelle/idle.png");
-        ASSERT_NE(soldat, renderer.textures().byPath.end()) << quartier;
-        EXPECT_NE(soldat->second.texture, nullptr);
-        EXPECT_NE(soldat->second.texture, renderer.textures().missing.texture) << quartier;
+        // La sentinelle a son modele, lu a la fiche de son dossier, et non un marqueur.
+        const hmi::SceneFigureModel* const soldat =
+            renderer.textures().findFigureOf("Monsters/sentinelle");
+        ASSERT_NE(soldat, nullptr) << quartier;
+        EXPECT_NE(soldat->rig, nullptr) << quartier;
+        EXPECT_FALSE(renderer.textures().byPath.contains("Monsters/sentinelle/@marker"))
+            << quartier;
         EXPECT_GT(paintedPixels(image), static_cast<std::size_t>(TARGET_SIZE * TARGET_SIZE / 4))
             << quartier;
     }

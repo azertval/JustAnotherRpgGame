@@ -194,9 +194,8 @@ private:
     /// Ce qu'un combattant dessine.
     struct Binding {
         std::string directory;
-        bool oriented = false;
         bool hero = false;
-        /// Le modèle de la figurine (`LOT-1005`), vide pour des bandes.
+        /// Le modèle de la figurine (`LOT-1005`), vide si rien n'est installé.
         std::string model;
     };
 

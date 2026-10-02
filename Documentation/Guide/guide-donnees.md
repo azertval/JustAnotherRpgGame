@@ -549,10 +549,14 @@ scripts, hors CI, tiennent la chaîne, et chacun dit dans son en-tête ce qu'il 
   sert plus qu'aux **images tolérées** du standard 3D ; son pendant pour les figurines
   (`LOT-112`) et l'aperçu de marche ont été retirés au `LOT-1001` : un personnage ne se commande
   plus en bandes peintes.
-- [`render_character_strips.py`](../../scripts/assetsGeneration/render_character_strips.py)
-  (`LOT-1000`) rend, dans Blender et sans fenêtre, le modèle animé d'un personnage en bandes au
-  format du moteur — huit images, quatre orientations, caméra du jeu —, que l'installateur pose
-  telles quelles (`placed`).
+- [`rig_character.py`](../../scripts/assetsGeneration/rig_character.py) (`LOT-1005`) lie un
+  maillage reçu de Meshy au squelette humanoïde commun, d'après sa fiche de liaison, pose les six
+  clips et écrit le `.glb` autonome et `skeleton.json` ;
+  [`check_character_model.py`](../../scripts/checks/check_character_model.py) contrôle l'export
+  (structure, poids, contact au sol, glissement du pied) et
+  [`render_character_review.py`](../../scripts/assetsGeneration/render_character_review.py) rend
+  les planches que l'auteur juge. L'installateur pose ensuite le modèle, sa fiche `character.json`
+  et le squelette (`LOT-1006`) : il n'installe plus aucune bande de figurine.
 - [`build_hd_mockup.py`](../../scripts/assetsGeneration/build_hd_mockup.py) (`LOT-101`) monte la
   maquette de validation du standard 2D HD, huit cases sur huit à 1080p et 2160p, et écrit sous
   `Source/Test/Fixtures/HdMockup/` la même scène en données d'essai du moteur ; `--check` vérifie

@@ -15,6 +15,6 @@ Implémenté :
 - `ISystem` — interface d'un système (`update(World&, float fixedDelta)`).
 - `World` — façade : `createEntity` / `destroyEntity` (purge toutes les pools), `addComponent` / `getComponent` / `hasComponent` / `removeComponent`, `view<...>()`, `addSystem` / `update` (exécution ordonnée au pas fixe).
 - `AnimationClip` / `ClipSet` — clip d'animation en tant que donnée (images, durée par image, fin en boucle ou unique) et jeu de clips nommés.
-- `Components/` — composants données pures : `Transform` (position, échelle, rotation), `Sprite` (région d'atlas, couche, teinte — lu par le rendu de `HMI`), `Animation` (jeu de clips, clip et image courants, `EX-REN-012`), `Interactable` (cible d'interaction d'une entité de carte), `RpgActor` (lien d'une entité vers sa fiche de personnage).
+- `Components/` — composants données pures : `Transform` (position, échelle, rotation), `Sprite` (région d'atlas, couche, teinte — lu par le rendu de `HMI`), `Animation` (jeu de clips, clip et image courants, `EX-REN-005`), `Interactable` (cible d'interaction d'une entité de carte), `RpgActor` (lien d'une entité vers sa fiche de personnage).
 
 Réf. specs : `EX-ARCH-010`, `EX-ARCH-011`, `EX-ARCH-012`, `EX-ARCH-100`.

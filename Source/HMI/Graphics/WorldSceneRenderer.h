@@ -10,6 +10,7 @@
 #include <memory>
 #include <optional>
 #include <set>
+#include <span>
 #include <string>
 #include <vector>
 
@@ -70,12 +71,13 @@ class QRhiResourceUpdateBatch;
  * caméra est la même (`hmi::PlaceCamera`) ; elle ramène alors la profondeur de la vue
  * (`hmi::IsoView`) à l'étendue du tampon.
  *
- * ## Les figurines en modèle (`LOT-1005`)
+ * ## Les figurines (`LOT-1005`, `LOT-1006`)
  *
- * Une figurine dont l'instantané nomme un modèle (`WorldFigureSnapshot::model`) se charge de même
- * — son `.glb`, la fiche de son dossier, la description du squelette qu'elle cite — et se dessine
- * par la même passe, avec la pose que la composition a calculée pour l'image. Une figurine en
- * bandes garde son chemin d'avant.
+ * Une figurine est un **modèle** : celui que son instantané nomme (`WorldFigureSnapshot::model`),
+ * à défaut celui que déclare la fiche de son dossier (`character.json`). Il se charge comme un
+ * maillage — son `.glb`, sa fiche, la description du squelette qu'elle cite — et se dessine par la
+ * même passe, avec la pose que la composition a calculée pour l'image. Une figurine sans modèle
+ * se dessine par son **marqueur**, peint ; seuls les effets (`Common/Fx/`) restent des bandes.
  *
  * Tout cela n'a lieu que si l'image **a** un maillage. Sans lui — toutes les cartes livrées à
  * l'ouverture du lot —, le pipeline, les sommets et la matrice sont ceux d'avant : l'image est la
@@ -286,9 +288,10 @@ private:
     void ensureTextures(const std::vector<std::string>& paths);
     /// Charge les maillages de @p paths qui manquent encore (`LOT-1003`). Sur le fil de rendu.
     void ensureMeshes(const std::vector<std::string>& paths);
-    /// Charge les modèles de figurine de @p paths qui manquent encore (`LOT-1005`) : le maillage,
+    /// Charge les modèles des figurines @p figures qui manquent encore (`LOT-1005`) — celui que
+    /// la figurine nomme, à défaut celui de la fiche de son dossier (`LOT-1006`) : le maillage,
     /// son squelette, et ce que le squelette de sa fiche déclare. Sur le fil de rendu.
-    void ensureFigureModels(const std::vector<std::string>& paths);
+    void ensureFigureModels(std::span<const WorldFigureSnapshot> figures);
     /// Ce qui est périmé — textures de la carte et des figurines, composition — est refait. Le lot
     /// de téléversements de l'appelant est déjà déclaré (`SceneResources::setFrameUpdates`).
     void refresh(const core::IsoProjection& projection);

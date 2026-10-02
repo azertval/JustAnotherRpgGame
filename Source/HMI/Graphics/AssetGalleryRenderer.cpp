@@ -5,13 +5,23 @@
 
 #include <algorithm>
 #include <cmath>
+#include <memory>
+#include <numbers>
 #include <optional>
 #include <set>
 #include <utility>
+#include <vector>
 
 #include <rhi/qrhi.h>
 
+#include "Core/Combat/IsoProjection.h"
+#include "Core/Resources/MeshFile.h"
+#include "Core/Resources/SkeletonPose.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/IsoView.h"
+#include "HMI/Graphics/MeshBatch.h"
+#include "HMI/Graphics/PlaceCamera.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
@@ -136,12 +146,15 @@ bool AssetGalleryRenderer::ensureResources(QRhi* rhi) {
             createTexture(context, checker.width, checker.height, checker.pixels)) {
         _missing = std::move(*missing);
     }
+    _meshes = std::make_unique<MeshBatch>(rhi);
     _resources.setFrameUpdates(nullptr);
     return true;
 }
 
 void AssetGalleryRenderer::release() noexcept {
     _composed.clear();
+    _models.clear();
+    _meshes.reset();
     _cache.clear();
     _white = LoadedTexture{};
     _missing = LoadedTexture{};
@@ -164,6 +177,31 @@ void AssetGalleryRenderer::updateCache(float deltaSeconds) {
     int uploads = 0;
     _loading = false;
     for (const std::string& path : wanted) {
+        // Un modèle (LOT-1006) : lu une fois, gardé jusqu'à `release`.
+        if (core::isMeshPath(path)) {
+            if (_models.contains(path)) {
+                continue;
+            }
+            if (uploads >= UPLOADS_PER_FRAME) {
+                _loading = true;
+                continue;
+            }
+            ++uploads;
+            CachedModel model;
+            core::MeshFileResult read = core::readMeshFile(_root / path);
+            if (read.ok()) {
+                model.mesh = _meshes->create(context, read.mesh);
+                if (!read.mesh.skin.empty() && read.mesh.rig.joints.size() <= MeshBatch::MAX_BONES) {
+                    model.rig = std::make_shared<const core::MeshRig>(std::move(read.mesh.rig));
+                }
+            }
+            if (model.mesh == nullptr) {
+                GRAPHICS_LOG_WARNING("Galerie des assets : modele illisible, " + path + " (" +
+                                     read.message + ")");
+            }
+            _models.emplace(path, std::move(model));
+            continue;
+        }
         const auto found = _cache.find(path);
         if (found != _cache.end()) {
             found->second.unwantedSeconds = 0.0F;
@@ -194,6 +232,37 @@ void AssetGalleryRenderer::updateCache(float deltaSeconds) {
     }
 }
 
+void AssetGalleryRenderer::addModel(const AssetGalleryDrawnBloc& bloc, float cell,
+                                    float footprintX, float footprintY, float footprintWidth,
+                                    float footprintHeight) {
+    const auto found = _models.find(bloc.path);
+    if (found == _models.end() || found->second.mesh == nullptr) {
+        return;
+    }
+    // La caméra du jeu, une case de la galerie pour un losange : le modèle a la taille qu'il a sur
+    // une carte. Il fait face à la caméra, les pieds au milieu de son emprise.
+    const core::IsoProjection projection(1, 1, cell);
+    const IsoView view(projection);
+    ViewTransform toView = IsoView::turned(
+        view.meshTransform({0.0F, 0.0F}, 0.0F),
+        (std::numbers::pi_v<float> / 2.0F) - FIGURE_HEADING_FRONT);
+    toView[3] = footprintX + (footprintWidth / 2.0F);
+    toView[7] = footprintY + footprintHeight - (projection.tileHeight() / 2.0F);
+    toView[11] = 0.0F;
+    const core::Rect bounds{{bloc.x, bloc.y},
+                            {static_cast<float>(bloc.columns) * cell,
+                             static_cast<float>(bloc.rows) * cell}};
+    const CachedModel& model = found->second;
+    if (model.rig == nullptr || model.rig->empty()) {
+        _composed.addMesh(RenderLayer::Tile, model.mesh, toView, bounds);
+        return;
+    }
+    static thread_local std::vector<float> pose;
+    pose.assign(model.rig->joints.size() * 16, 0.0F);
+    core::poseSkeleton(*model.rig, core::findClip(*model.rig, bloc.clip), bloc.clipSeconds, pose);
+    _composed.addMesh(RenderLayer::Tile, model.mesh, toView, bounds, 0, pose);
+}
+
 void AssetGalleryRenderer::compose() {
     _composed.clear();
     const TextureHandle white = _white.handle();
@@ -220,7 +289,10 @@ void AssetGalleryRenderer::compose() {
                      footprintHeight, line, FOOTPRINT_EDGE);
         }
 
-        const auto cached = _cache.find(bloc.path);
+        if (bloc.mesh) {
+            addModel(bloc, cell, footprintX, footprintY, footprintWidth, footprintHeight);
+        }
+        const auto cached = bloc.mesh ? _cache.end() : _cache.find(bloc.path);
         if (cached != _cache.end()) {
             const bool failed = cached->second.failed || cached->second.texture.texture == nullptr;
             const LoadedTexture& texture = failed ? _missing : cached->second.texture;
@@ -260,7 +332,28 @@ void AssetGalleryRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTa
     sprites.beginFrame();
     submitComposedScene(sprites, screenProjectionMatrix(pixels.width(), pixels.height()),
                         _composed);
-    sprites.submit(commandBuffer, target, updates, clear);
+    // Les modèles : la même surface, un pixel par unité, et la profondeur de la vue du jeu ramenée
+    // à l'étendue du tampon.
+    PlaceCamera camera(std::max(1, pixels.width()), std::max(1, pixels.height()));
+    camera.setZoom(1.0F / PlaceCamera::PIXELS_PER_UNIT);
+    camera.setCenter({static_cast<float>(pixels.width()) / 2.0F,
+                      static_cast<float>(pixels.height()) / 2.0F});
+    camera.setDepthRange(
+        IsoView(core::IsoProjection(1, 1, std::max(1.0F, _frame.cellPixels))).depthRange());
+    _meshes->beginFrame();
+    for (const ComposedMesh& mesh : _composed.meshes()) {
+        _meshes->draw(mesh.mesh, camera.meshMatrix(mesh.toView), mesh.opacity,
+                      _composed.poseOf(mesh));
+    }
+    // Une seule passe : la grille et les images d'abord, les modèles par-dessus -- ils se
+    // départagent entre eux par la profondeur, que les images n'écrivent pas.
+    QRhiResourceUpdateBatch* const uploads =
+        _meshes->prepare(target, sprites.prepare(target, updates));
+    commandBuffer->beginPass(target, QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]),
+                             {1.0F, 0}, uploads);
+    sprites.record(commandBuffer, target);
+    _meshes->record(commandBuffer, target);
+    commandBuffer->endPass();
     _resources.setFrameUpdates(nullptr);
 }
 

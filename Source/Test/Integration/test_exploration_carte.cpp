@@ -67,7 +67,7 @@ TEST(ExplorationCarteIntegration, UneCarteSeChargeEtSeCompose) {
     EXPECT_TRUE(snapshot.figures.back().hero);
     // La racine d'essai n'a pas le heros de la demo : son mannequin tient la place (LOT-145).
     EXPECT_EQ(snapshot.figures.back().figure, play.heroResolved().directory);
-    EXPECT_EQ(play.heroResolved().directory, hmi::placeholderFigureDirectory("humanoid"));
+    EXPECT_EQ(play.heroResolved().directory, hmi::mannequinFigureDirectory("humanoid"));
     EXPECT_TRUE(play.heroResolved().placeholder);
 }
 

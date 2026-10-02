@@ -13,8 +13,9 @@ ne change avant le LOT-1004. Ce script écrit ces données, sous `Source/Test/Fi
 - une dalle de sol **en image**, pour qu'une même carte mêle les deux formes ;
 - le manifeste du lieu `ilot`, dont trois clés citent un maillage (`"mesh"`) et une une image ;
 - la carte `ilot` : une cour dallée, un îlot de murs en anneau, son toit à l'étage ;
-- une figurine témoin de 1,80 m, d'une teinte que rien d'autre ne porte : ce que le tampon de
-  profondeur en laisse voir se compte ;
+- une **image témoin** de 1,80 m, d'une teinte que rien d'autre ne porte, rangée comme un effet
+  (`Common/Fx/temoin`, la seule sorte de bande qui reste depuis le LOT-1006) : ce que le tampon de
+  profondeur laisse voir d'une image dressée se compte ;
 - un **pantin** (LOT-1005) : un modèle de 1,80 m lié à un squelette de trois os, ses six clips, sa
   fiche (`character.json`) et la description de son squelette (`skeleton.json`). Chaque sommet
   suit un seul os et chaque clip tient en trois clés : ce qu'un test attend d'une pose se calcule
@@ -526,7 +527,7 @@ def level() -> str:
     # `LevelEditor --check` dirait la carte à migrer.
     entities = ",\n".join(
         "\n".join("    " + text for text in json.dumps(
-            {"id": identifier, "type": "npc", "x": column, "y": row, "figure": "temoin"},
+            {"id": identifier, "type": "npc", "x": column, "y": row, "figure": PUPPET},
             indent=2).splitlines())
         for identifier, column, row in (("e1", 5, 6), ("e2", 5, 0)))
     return f"""{{
@@ -591,28 +592,40 @@ def figure_image() -> bytes:
 
 
 def figure_files() -> dict[str, bytes]:
-    """La figurine `temoin`, rangée comme un PNJ de l'atelier à plat : deux bandes d'une image."""
+    """L'image témoin, rangée comme un effet : une bande d'une image, et le manifeste des effets.
+
+    L'atelier à plat des PNJ (`Npc/`) ne déclare plus que le pantin, qui est un modèle.
+    """
     width, height = FIGURE_CELL
+    effects = {
+        "version": 1,
+        "disposition": "common-fx",
+        "comment": "L'image témoin de la carte d'essai en maillages (LOT-1003), rangée comme un "
+                   "effet depuis le LOT-1006, écrite par scripts/assetsGeneration/"
+                   "build_mesh_fixture.py.",
+        "tile": list(ART_TILE),
+        "ground": FIGURE_GROUND,
+        "textures": {"fx/temoin": {"file": "temoin.png", "class": "tall", "footprint": [1, 1],
+                                   "size": [width, height]}},
+    }
     workshop = {
         "version": 1,
-        "comment": "La figurine témoin de la carte d'essai en maillages (LOT-1003), écrite par "
-                   "scripts/assetsGeneration/build_mesh_fixture.py.",
+        "comment": "Les PNJ de la carte d'essai : le pantin, un modèle (LOT-1005).",
         "tile": list(ART_TILE),
-        "frame": [width, height],
-        "ground": FIGURE_GROUND,
-        "animations": ["idle", "walk"],
-        "npcs": ["temoin"],
+        "npcs": [PUPPET],
     }
-    out = {"Assets/Npc/manifest.json":
-           (json.dumps(workshop, indent=2, ensure_ascii=False) + "\n").encode("utf-8")}
-    image = figure_image()
-    for clip in ("idle", "walk"):
-        description = {"version": 1, "frameWidth": width, "frameHeight": height,
-                       "clips": {clip: {"frames": [0], "frameDuration": 0.5, "loop": True}}}
-        out[f"Assets/Npc/temoin/{clip}.png"] = image
-        out[f"Assets/Npc/temoin/{clip}.anim.json"] = (
-            json.dumps(description, indent=2) + "\n").encode("utf-8")
-    return out
+    description = {"version": 1, "frameWidth": width, "frameHeight": height,
+                   "clips": {"temoin": {"frames": [0], "frameDuration": 0.5, "loop": True}}}
+
+    def text(document: dict) -> bytes:
+        return (json.dumps(document, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+
+    return {
+        "Assets/Npc/manifest.json": text(workshop),
+        "Assets/Common/Fx/manifest.json": text(effects),
+        "Assets/Common/Fx/temoin.png": figure_image(),
+        "Assets/Common/Fx/temoin.anim.json": text(description),
+    }
 
 
 def files() -> dict[str, bytes]:

@@ -65,10 +65,9 @@ joueur, et son échelle est celle de la fenêtre. La frontière entre les deux e
   une **donnée du lieu** — le champ `"tile"` de son manifeste. Une pièce **tient seule** : pas de
   sol sous un mur, pas de décor autour d'un meuble.
   > **Mise en œuvre par étapes** (`LOT-1001`). Ce texte dit la cible de la `0.0.2.5`. Le moteur
-  > dessine des maillages à partir du `LOT-1003` et anime un modèle à partir du `LOT-1005` ;
-  > jusque-là il affiche des images, et un personnage paraît par les **bandes rendues depuis son
-  > modèle** (`EX-REN-012`), huit images par diagonale. Aucune figurine ne se **commande** plus en
-  > bandes peintes.
+  > dessine des maillages à partir du `LOT-1003`, anime un modèle à partir du `LOT-1005`, et
+  > depuis le `LOT-1006` tout personnage paraît par son modèle ou par le mannequin de sa
+  > silhouette (`EX-REN-051`) : il ne reste aucune bande de figurine.
 - **EX-VIS-009** — L'**interface** — écrans, panneaux, HUD, et tout ce qui
   **renseigne le joueur par-dessus la scène** (curseur, chemin, portées, texte ancré) — doit porter
   la **charte v2** (`EX-IHM-070`) : images produites à 1080p et échantillonnées à tout facteur,

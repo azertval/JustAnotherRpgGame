@@ -4,24 +4,8 @@
     68,
     42
   ],
-  "frame": [
-    48,
-    64
-  ],
-  "wideFrame": [
-    96,
-    64
-  ],
-  "animations": [
-    "idle",
-    "walk",
-    "attack",
-    "cast",
-    "hit",
-    "death"
-  ],
-  "comment": "Monde d'essai : le mannequin humanoide de remplacement (LOT-145), une silhouette plate.",
+  "comment": "Monde d'essai : le mannequin humanoïde (LOT-145), en modèle depuis le LOT-1006 — le pantin de trois os de Fixtures/Meshes.",
   "npcs": [
-    "Placeholders/humanoid"
+    "Mannequins/humanoid"
   ]
 }
