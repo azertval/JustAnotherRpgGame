@@ -170,6 +170,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:ae19137a03918daf51d2159985052ab10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros : un étage qui le masque s'efface (<span class="tt">LOT-129</span>).  <br /></td></tr>
 <tr class="memitem:aae0dc8267662b27b1cfb9ed388dd3a09" id="r_aae0dc8267662b27b1cfb9ed388dd3a09"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aae0dc8267662b27b1cfb9ed388dd3a09">combatant</a> = false</td></tr>
 <tr class="memdesc:aae0dc8267662b27b1cfb9ed388dd3a09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un combattant (<span class="tt">LOT-118</span>) : ses bandes se préchargent, pour qu'un coup ne charge pas une texture au milieu d'une image.  <br /></td></tr>
+<tr class="memitem:a4bffa18c2f9254901aef66061e878791" id="r_a4bffa18c2f9254901aef66061e878791"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a4bffa18c2f9254901aef66061e878791">model</a></td></tr>
+<tr class="memdesc:a4bffa18c2f9254901aef66061e878791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>modèle</b> de la figurine (<span class="tt">LOT-1005</span>) : le chemin de son <span class="tt">.glb</span>, relatif au dossier des assets (<span class="tt"><a class="el" href="structhmi_1_1ResolvedFigure.html#aa04d0fb8c60699ae255b0c3f095e9628" title="Le modèle de la figurine (LOT-1005) : le chemin de son .glb, relatif au dossier des assets.">hmi::ResolvedFigure::model</a></span>).  <br /></td></tr>
+<tr class="memitem:a7fbc66f94737d24741b78b204bbd1e53" id="r_a7fbc66f94737d24741b78b204bbd1e53"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7fbc66f94737d24741b78b204bbd1e53">heading</a></td></tr>
+<tr class="memdesc:a7fbc66f94737d24741b78b204bbd1e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cap d'un modèle (<span class="tt"><a class="el" href="namespacehmi.html#a860cbbc037b925a5a58d443e483c72ac" title="Le cap d&#39;une figurine en modèle (LOT-1005) : l&#39;angle, en radians, de la direction où elle regarde dan...">figureHeadingOf</a></span>) ; absent : celui de <a class="el" href="#a4664bdd4c3b2d290c04650416ad10d90" title="facing">facing</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une figurine à dessiner sur la carte : sa planche, son image, où elle est. </p>
@@ -281,6 +285,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a7fbc66f94737d24741b78b204bbd1e53" name="a7fbc66f94737d24741b78b204bbd1e53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fbc66f94737d24741b78b204bbd1e53">&#9670;&#160;</a></span>heading</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; hmi::WorldFigureSnapshot::heading</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le cap d'un modèle (<span class="tt"><a class="el" href="namespacehmi.html#a860cbbc037b925a5a58d443e483c72ac" title="Le cap d&#39;une figurine en modèle (LOT-1005) : l&#39;angle, en radians, de la direction où elle regarde dan...">figureHeadingOf</a></span>) ; absent : celui de <a class="el" href="#a4664bdd4c3b2d290c04650416ad10d90" title="facing">facing</a>. </p>
+
+</div>
+</div>
 <a id="ae19137a03918daf51d2159985052ab10" name="ae19137a03918daf51d2159985052ab10"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae19137a03918daf51d2159985052ab10">&#9670;&#160;</a></span>hero</h2>
 
@@ -294,6 +314,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le héros : un étage qui le masque s'efface (<span class="tt">LOT-129</span>). </p>
+
+</div>
+</div>
+<a id="a4bffa18c2f9254901aef66061e878791" name="a4bffa18c2f9254901aef66061e878791"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bffa18c2f9254901aef66061e878791">&#9670;&#160;</a></span>model</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::WorldFigureSnapshot::model</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le <b>modèle</b> de la figurine (<span class="tt">LOT-1005</span>) : le chemin de son <span class="tt">.glb</span>, relatif au dossier des assets (<span class="tt"><a class="el" href="structhmi_1_1ResolvedFigure.html#aa04d0fb8c60699ae255b0c3f095e9628" title="Le modèle de la figurine (LOT-1005) : le chemin de son .glb, relatif au dossier des assets.">hmi::ResolvedFigure::model</a></span>). </p>
+<p>Vide : la figurine se dessine par ses bandes. </p>
 
 </div>
 </div>

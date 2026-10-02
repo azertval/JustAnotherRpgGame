@@ -55,8 +55,14 @@ namespace {
 <span style = "background-color:#dfd">[[nodiscard]] ScenePiece readPiece(const std::string&amp; key, const nlohmann::json&amp; value) {
     ScenePiece piece;
     piece.key = key;
-    piece.name = std::string{scenePieceShortName(key)};
-    piece.file = value["file"].get&lt;std::string&gt;();
+    piece.name = std::string{scenePieceShortName(key)};</span>
+    // Une clÃ© de piÃ¨ce cite une image (`file`) ou un maillage (`mesh`, LOT-1003).
+<span style = "background-color:#dfd">    if (const auto file = value.find("file"); file != value.end() &amp;&amp; file-&gt;is_string()) {
+        piece.file = file-&gt;get&lt;std::string&gt;();
+    }
+    if (const auto mesh = value.find("mesh"); mesh != value.end() &amp;&amp; mesh-&gt;is_string()) {
+        piece.mesh = mesh-&gt;get&lt;std::string&gt;();
+    }
     if (const auto found = value.find("class"); found != value.end() &amp;&amp; found-&gt;is_string()) {
         piece.className = found-&gt;get&lt;std::string&gt;();
     }
@@ -223,8 +229,13 @@ ScenePieceManifestResult ScenePieceManifest::resolve(const std::filesystem::path
         result.manifest._tileHeight = height;</span>
     }
 <span style = "background-color:#dfd">    for (const auto&amp; [key, value] : textures-&gt;items()) {</span>
-        // Une entrÃ©e sans image est ignorÃ©e, pas fatale : les autres piÃ¨ces restent utilisables.
-<span style = "background-color:#dfd">        if (!value.is_object() || !value.contains("file") || !value["file"].is_string()) {
+        // Une entrÃ©e sans image ni maillage est ignorÃ©e, pas fatale : les autres piÃ¨ces restent
+        // utilisables.
+<span style = "background-color:#dfd">        const auto cites = [&amp;value](const char* field) {
+            const auto found = value.find(field);
+            return found != value.end() &amp;&amp; found-&gt;is_string() &amp;&amp; !found-&gt;get&lt;std::string&gt;().empty();
+        };
+        if (!value.is_object() || (!cites("file") &amp;&amp; !cites("mesh"))) {
             continue;</span>
         }
 <span style = "background-color:#dfd">        result.manifest._pieces.push_back(readPiece(key, value));

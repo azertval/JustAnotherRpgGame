@@ -147,21 +147,21 @@
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>directory.isValid()</code> est vrai.</li><li>Vérifie que <code>options.hudScalePercent()</code> vaut <code>100</code>.</li><li>Vérifie que <code>reloaded.hudScalePercent()</code> vaut <code>120</code>.</li><li>Vérifie que <code>options.hudScalePercent()</code> vaut <code>130</code>.</li><li>Vérifie que <code>options.hudScalePercent()</code> vaut <code>75</code>.</li><li>Vérifie que <code>options.defaults().value(&quot;hudScalePercent&quot;).toInt()</code> vaut <code>100</code>.</li><li>Vérifie que <code>invalidStored.hudScalePercent()</code> vaut <code>130</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="inventorymodeltestequipmentsurvivesreopeningandcombatrecords">InventoryModelTest.EquipmentSurvivesReopeningAndCombatRecords</h3>
-<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:62</code></p>
+<p><em>Majeur · Unitaire · Inventaire</em> — <code>Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:64</code></p>
 <p>L'equipement survit a la reouverture de l'ecran et au combat.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Retirer une piece equipee du mercenaire affiche.</li><li>Rouvrir l'inventaire.</li><li>Enregistrer un releve de combat pour ce mercenaire, rééquiper la piece, rouvrir.</li><li>Chercher un objet qui n'existe pas.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>member.isEmpty()</code> est faux.</li><li>Vérifie que <code>equippedSlot.isEmpty()</code> est faux.</li><li>Vérifie que <code>reopened.selection().value(&quot;canEquip&quot;).toBool()</code> est vrai.</li><li>Vérifie que <code>reopened.selection().isEmpty()</code> est vrai.</li><li>Vérifie que <code>world.ledger().record(member.toStdString())</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>world.ledger().record(member.toStdString())-&gt;inventory.has_value()</code> est vrai.</li><li>Vérifie que <code>reopened.selection().value(&quot;itemId&quot;).toString()</code> vaut <code>item</code>.</li><li>Vérifie que <code>reopened.cells().isEmpty()</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="inventorymodeltestrestpreservesequipmentandclearsspentresources">InventoryModelTest.RestPreservesEquipmentAndClearsSpentResources</h3>
-<p><em>Majeur · Unitaire · Registre du groupe</em> — <code>Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:116</code></p>
+<p><em>Majeur · Unitaire · Registre du groupe</em> — <code>Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:118</code></p>
 <p>Un repos garde l'equipement et rend les ressources depensees.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Ecrire au registre un mercenaire blesse, un sort depense, une bourse de 123 pieces.</li><li>Le faire se reposer.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>rested</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>rested-&gt;inventory.has_value()</code> est vrai.</li><li>Vérifie que <code>rested-&gt;inventory-&gt;purseCopper</code> vaut <code>123</code>.</li><li>Vérifie que <code>rested-&gt;hitPoints.has_value()</code> est faux.</li><li>Vérifie que <code>rested-&gt;spellUses.empty()</code> est vrai.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="screenroutertestcodexandoptionsreturntoongoingcombat">ScreenRouterTest.CodexAndOptionsReturnToOngoingCombat</h3>
-<p><em>Majeur · Unitaire · Routeur d'ecrans</em> — <code>Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:144</code></p>
+<p><em>Majeur · Unitaire · Routeur d'ecrans</em> — <code>Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:147</code></p>
 <p>Le codex et les options ramenent au combat en cours.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Ouvrir le jeu, puis le HUD de combat.</li><li>Ouvrir un onglet du codex, puis l'inventaire, et fermer.</li><li>Ouvrir puis fermer les options ; fermer enfin l'ecran de combat.</li></ol>
@@ -169,7 +169,7 @@
 <ul><li>Vérifie que <code>router.characterTab()</code> vaut <code>1</code>.</li><li>Vérifie que <code>router.currentScreen()</code> vaut <code>hmi::ScreenRouter::Screen::RpgScreen</code>.</li><li>Vérifie que <code>router.currentRpgScreen()</code> vaut <code>hmi::ScreenRouter::RpgScreen::CombatHud</code>.</li><li>Vérifie que <code>router.currentRpgScreen()</code> vaut <code>hmi::ScreenRouter::RpgScreen::CombatHud</code>.</li><li>Vérifie que <code>router.currentScreen()</code> vaut <code>hmi::ScreenRouter::Screen::Game</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-presentation.html"><span>Précédent</span>HMI · Presentation</a><a class="next" href="integration.html"><span>Suivant</span>Tests d&#x27;intégration</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-runtime.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-10-02 · <code>cd29208fa</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-10-02 · <code>37e0286bc</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

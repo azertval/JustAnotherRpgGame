@@ -165,6 +165,9 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a31d7984fce5d7a5589ab8a88c47f84ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'étage de la pièce (<span class="tt">LOT-129</span>), 0 au rez.  <br /></td></tr>
 <tr class="memitem:a781923365eb8e513eb5f15de03cf6d9f" id="r_a781923365eb8e513eb5f15de03cf6d9f"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a781923365eb8e513eb5f15de03cf6d9f">opacity</a> = 1.0F</td></tr>
 <tr class="memdesc:a781923365eb8e513eb5f15de03cf6d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité, de 0 à 1 : 1 partout, sauf ce que l'appelant éteint ou grise.  <br /></td></tr>
+<tr class="memitem:adff2eac46324430c087da7b0fab5678a" id="r_adff2eac46324430c087da7b0fab5678a"><td class="memItemLeft">std::uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#adff2eac46324430c087da7b0fab5678a">poseOffset</a> = 0</td></tr>
+<tr class="memdesc:adff2eac46324430c087da7b0fab5678a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La pose d'un maillage <b>animé</b> (<span class="tt">LOT-1005</span>) : où elle commence dans <span class="tt">ComposedScene::poses</span>, et combien de flottants elle compte (seize par os).  <br /></td></tr>
+<tr class="memitem:ad9480e08c2ed9fe61410d99de24cd03b" id="r_ad9480e08c2ed9fe61410d99de24cd03b"><td class="memItemLeft">std::uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#ad9480e08c2ed9fe61410d99de24cd03b">poseFloats</a> = 0</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un <b>maillage placé</b> (<span class="tt">LOT-1003</span>) : la composition en produit une liste, à côté de la liste des primitives. </p>
@@ -255,6 +258,37 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Opacité, de 0 à 1 : 1 partout, sauf ce que l'appelant éteint ou grise. </p>
+
+</div>
+</div>
+<a id="ad9480e08c2ed9fe61410d99de24cd03b" name="ad9480e08c2ed9fe61410d99de24cd03b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9480e08c2ed9fe61410d99de24cd03b">&#9670;&#160;</a></span>poseFloats</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t hmi::ComposedMesh::poseFloats = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adff2eac46324430c087da7b0fab5678a" name="adff2eac46324430c087da7b0fab5678a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adff2eac46324430c087da7b0fab5678a">&#9670;&#160;</a></span>poseOffset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t hmi::ComposedMesh::poseOffset = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La pose d'un maillage <b>animé</b> (<span class="tt">LOT-1005</span>) : où elle commence dans <span class="tt">ComposedScene::poses</span>, et combien de flottants elle compte (seize par os). </p>
+<p>Zéro : un maillage fixe, ou un modèle dans sa pose de liaison. </p>
 
 </div>
 </div>

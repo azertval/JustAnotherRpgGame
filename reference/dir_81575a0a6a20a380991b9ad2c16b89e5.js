@@ -9,5 +9,9 @@ var dir_81575a0a6a20a380991b9ad2c16b89e5 =
     [ "ScenePieceManifest.cpp", "ScenePieceManifest_8cpp.html", "ScenePieceManifest_8cpp" ],
     [ "ScenePieceManifest.h", "ScenePieceManifest_8h.html", "ScenePieceManifest_8h" ],
     [ "ScenePlace.cpp", "ScenePlace_8cpp.html", "ScenePlace_8cpp" ],
-    [ "ScenePlace.h", "ScenePlace_8h.html", "ScenePlace_8h" ]
+    [ "ScenePlace.h", "ScenePlace_8h.html", "ScenePlace_8h" ],
+    [ "SkeletonFile.cpp", "SkeletonFile_8cpp.html", "SkeletonFile_8cpp" ],
+    [ "SkeletonFile.h", "SkeletonFile_8h.html", "SkeletonFile_8h" ],
+    [ "SkeletonPose.cpp", "SkeletonPose_8cpp.html", "SkeletonPose_8cpp" ],
+    [ "SkeletonPose.h", "SkeletonPose_8h.html", "SkeletonPose_8h" ]
 ];

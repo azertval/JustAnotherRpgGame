@@ -161,8 +161,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0a4e00be708093fbbf214379c1f73a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle réellement utilisé pour le culling : le cadrage élargi de la marge.  <br /></td></tr>
 <tr class="memitem:a776bb0228de0fffc9caded06d5bc3e46" id="r_a776bb0228de0fffc9caded06d5bc3e46"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a776bb0228de0fffc9caded06d5bc3e46">addSprite</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, std::int32_t sortOrder, const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;quad, int storey=0, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;occlusion={}, std::optional&lt; float &gt; footY=std::nullopt)</td></tr>
 <tr class="memdesc:a776bb0228de0fffc9caded06d5bc3e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un rectangle texturé à la scène, s'il est visible.  <br /></td></tr>
-<tr class="memitem:a8681cadd04a8b6ca426d162866af99fd" id="r_a8681cadd04a8b6ca426d162866af99fd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8681cadd04a8b6ca426d162866af99fd">addMesh</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a> mesh, const <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> &amp;toView, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;bounds, int storey=0)</td></tr>
-<tr class="memdesc:a8681cadd04a8b6ca426d162866af99fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un maillage placé à la scène, s'il est visible (<span class="tt">LOT-1003</span>).  <br /></td></tr>
+<tr class="memitem:a9f7f68a120268b43d9f1feb65ac335ae" id="r_a9f7f68a120268b43d9f1feb65ac335ae"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9f7f68a120268b43d9f1feb65ac335ae">addMesh</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a> mesh, const <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> &amp;toView, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;bounds, int storey=0, std::span&lt; const float &gt; pose={})</td></tr>
+<tr class="memdesc:a9f7f68a120268b43d9f1feb65ac335ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un maillage placé à la scène, s'il est visible (<span class="tt">LOT-1003</span>).  <br /></td></tr>
+<tr class="memitem:ab2fbdb942d6f7386f573ccbb15400606" id="r_ab2fbdb942d6f7386f573ccbb15400606"><td class="memItemLeft">std::span&lt; const float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab2fbdb942d6f7386f573ccbb15400606">poseOf</a> (const <a class="el" href="structhmi_1_1ComposedMesh.html">ComposedMesh</a> &amp;mesh) const noexcept</td></tr>
 <tr class="memitem:a8733ade9562b71584755342c6c4283d3" id="r_a8733ade9562b71584755342c6c4283d3"><td class="memItemLeft">const std::vector&lt; <a class="el" href="structhmi_1_1ComposedMesh.html">ComposedMesh</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a8733ade9562b71584755342c6c4283d3">meshes</a> () const noexcept</td></tr>
 <tr class="memitem:a53b6959062e07dda78901d9134e4381f" id="r_a53b6959062e07dda78901d9134e4381f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a53b6959062e07dda78901d9134e4381f">swapMeshes</a> (std::vector&lt; <a class="el" href="structhmi_1_1ComposedMesh.html">ComposedMesh</a> &gt; &amp;<a class="el" href="#a8733ade9562b71584755342c6c4283d3">meshes</a>) noexcept</td></tr>
 <tr class="memdesc:a53b6959062e07dda78901d9134e4381f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Échange les maillages avec <code class="param">meshes</code> : pour qui compose d'avance ou retouche la liste, comme <span class="tt"><a class="el" href="#a7c7a06b1d0d858962314fdb706efe024" title="Échange les primitives avec quads, et ajoute considered et culled aux compteurs.">swapQuads</a></span>.  <br /></td></tr>
@@ -200,6 +201,8 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aaa9c9c3f70b554c719bcb6a3a5547e00" id="r_aaa9c9c3f70b554c719bcb6a3a5547e00"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaa9c9c3f70b554c719bcb6a3a5547e00">_quads</a></td></tr>
 <tr class="memitem:a9f767fd8b203215ee0760f2355e99c79" id="r_a9f767fd8b203215ee0760f2355e99c79"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1ComposedMesh.html">ComposedMesh</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9f767fd8b203215ee0760f2355e99c79">_meshes</a></td></tr>
+<tr class="memitem:add2d6c15ac39378103757b8999242336" id="r_add2d6c15ac39378103757b8999242336"><td class="memItemLeft">std::vector&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#add2d6c15ac39378103757b8999242336">_poses</a></td></tr>
+<tr class="memdesc:add2d6c15ac39378103757b8999242336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les poses des maillages animés de l'image, bout à bout (<span class="tt"><a class="el" href="structhmi_1_1ComposedMesh.html#adff2eac46324430c087da7b0fab5678a" title="La pose d&#39;un maillage animé (LOT-1005) : où elle commence dans ComposedScene::poses,...">ComposedMesh::poseOffset</a></span>).  <br /></td></tr>
 <tr class="memitem:aa885de2ea8ce9908fe077a7b2bbfa65a" id="r_aa885de2ea8ce9908fe077a7b2bbfa65a"><td class="memItemLeft">std::vector&lt; <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa885de2ea8ce9908fe077a7b2bbfa65a">_textureOrder</a></td></tr>
 <tr class="memitem:aa2c90c7a877a60139f6f091b3714ffcd" id="r_aa2c90c7a877a60139f6f091b3714ffcd"><td class="memItemLeft">std::unordered_map&lt; <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>, int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa2c90c7a877a60139f6f091b3714ffcd">_textureRanks</a></td></tr>
 <tr class="memdesc:aa2c90c7a877a60139f6f091b3714ffcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang de chaque texture déjà vue.  <br /></td></tr>
@@ -258,8 +261,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8681cadd04a8b6ca426d162866af99fd" name="a8681cadd04a8b6ca426d162866af99fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8681cadd04a8b6ca426d162866af99fd">&#9670;&#160;</a></span>addMesh()</h2>
+<a id="a9f7f68a120268b43d9f1feb65ac335ae" name="a9f7f68a120268b43d9f1feb65ac335ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f7f68a120268b43d9f1feb65ac335ae">&#9670;&#160;</a></span>addMesh()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -287,7 +290,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>storey</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>storey</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::span&lt; const float &gt;</td>          <td class="paramname"><span class="paramname"><em>pose</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -300,6 +308,7 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramname">toView</td><td>Sa pose dans la vue. </td></tr>
     <tr><td class="paramname">bounds</td><td>Le rectangle de l'image qu'il occupe, en unités monde. </td></tr>
     <tr><td class="paramname">storey</td><td>Étage de la pièce (<span class="tt">LOT-129</span>), 0 au rez. </td></tr>
+    <tr><td class="paramname">pose</td><td>La pose d'un maillage animé (<span class="tt"><a class="el" href="namespacecore.html#a06e6ef3c1d8c7e062c5e96b8ff6adb6d" title="Calcule la pose de rig à l&#39;instant seconds de clip.">core::poseSkeleton</a></span>), recopiée dans la scène ; vide pour un maillage fixe. </td></tr>
   </table>
   </dd>
 </dl>
@@ -642,6 +651,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ab2fbdb942d6f7386f573ccbb15400606" name="ab2fbdb942d6f7386f573ccbb15400606"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2fbdb942d6f7386f573ccbb15400606">&#9670;&#160;</a></span>poseOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; const float &gt; hmi::ComposedScene::poseOf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1ComposedMesh.html">ComposedMesh</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>mesh</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La pose de <code class="param">mesh</code>, vide s'il n'en a pas. </dd></dl>
+
+</div>
+</div>
 <a id="ace294695fa499a5f2d899b449d647933" name="ace294695fa499a5f2d899b449d647933"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace294695fa499a5f2d899b449d647933">&#9670;&#160;</a></span>quads()</h2>
 
@@ -946,6 +981,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="add2d6c15ac39378103757b8999242336" name="add2d6c15ac39378103757b8999242336"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add2d6c15ac39378103757b8999242336">&#9670;&#160;</a></span>_poses</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;float&gt; hmi::ComposedScene::_poses</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les poses des maillages animés de l'image, bout à bout (<span class="tt"><a class="el" href="structhmi_1_1ComposedMesh.html#adff2eac46324430c087da7b0fab5678a" title="La pose d&#39;un maillage animé (LOT-1005) : où elle commence dans ComposedScene::poses,...">ComposedMesh::poseOffset</a></span>). </p>
 
 </div>
 </div>

@@ -23,6 +23,8 @@ namespace hmi {
 // Vide la scene (capacite conservee) et remet les compteurs a zero. Le cadrage est conserve.
 <span style = "background-color:#dfd">void ComposedScene::clear() noexcept {
     _quads.clear();
+    _meshes.clear();
+    _poses.clear();
     _textureOrder.clear();
     _textureRanks.clear();
     _considered = 0;
@@ -69,7 +71,8 @@ namespace hmi {
 // Ajoute un rectangle texture a la scene, s'il est visible.
 // true si la primitive a ete conservee, false si le culling l'a ecartee.
 bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-<span style = "background-color:#dfd">                              const SpriteQuad&amp; quad, int storey, const core::Rect&amp; occlusion) {
+                              const SpriteQuad&amp; quad, int storey, const core::Rect&amp; occlusion,
+<span style = "background-color:#dfd">                              std::optional&lt;float&gt; footY) {
     ++_considered;
     if (!isVisible(spriteQuadBounds(quad))) {
         ++_culled;
@@ -83,7 +86,10 @@ bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int
     composed.kind = QuadKind::Sprite;
     composed.sprite = quad;
     composed.storey = storey;
-    composed.occlusion = occlusion;
+    composed.occlusion = occlusion;</span>
+    // Dressee, elle se tient sur la ligne de son pied ; a defaut, sur le bas de son rectangle.
+<span style = "background-color:#dfd">    composed.stance = defaultStance(layer);
+    composed.footY = footY.value_or(quad.y + quad.height);
     _quads.push_back(composed);
     return true;
 }</span>
@@ -103,8 +109,11 @@ bool ComposedScene::addLine(RenderLayer layer, TextureHandle texture, std::int32
     composed.textureRank = registerTexture(texture);
     composed.sortOrder = sortOrder;
     composed.kind = QuadKind::Line;
-    composed.line = quad;
-    _quads.push_back(composed);
+    composed.line = quad;</span>
+    // Un segment n'est jamais dresse : une marque, ou un trait au sol.
+<span style = "background-color:#dfd">    composed.stance =</span>
+        defaultStance(layer) == QuadStance::Overlay ? QuadStance::Overlay : QuadStance::Ground;
+<span style = "background-color:#dfd">    _quads.push_back(composed);
     return true;
 }</span>
 
@@ -125,8 +134,30 @@ bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32
     composed.kind = QuadKind::Poly;
     composed.poly = quad;
     composed.storey = storey;
-    composed.occlusion = occlusion;
-    _quads.push_back(composed);
+    composed.occlusion = occlusion;</span>
+    // Un quadrilatere libre dit l'elevation de chacun de ses sommets (`PolyQuad::rise`) : a plat
+    // ou en bloc, sa profondeur s'en deduit sans ligne de pied.
+<span style = "background-color:#dfd">    composed.stance =</span>
+        defaultStance(layer) == QuadStance::Overlay ? QuadStance::Overlay : QuadStance::Ground;
+<span style = "background-color:#dfd">    _quads.push_back(composed);
+    return true;
+}</span>
+
+// Ajoute un maillage place a la scene, s'il est visible (LOT-1003).
+bool ComposedScene::addMesh(RenderLayer layer, MeshHandle mesh, const ViewTransform&amp; toView,
+<span style = "background-color:#dfd">                            const core::Rect&amp; bounds, int storey, std::span&lt;const float&gt; pose) {
+    if (mesh == nullptr || !isVisible(bounds)) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+    ComposedMesh placed{
+<span style = "background-color:#dfd">        .layer = layer, .mesh = mesh, .toView = toView, .bounds = bounds, .storey = storey};</span>
+    // La pose d'un maillage anime (LOT-1005) est recopiee : la scene se suffit, comme pour un quad.
+<span style = "background-color:#dfd">    if (!pose.empty()) {
+        placed.poseOffset = static_cast&lt;std::uint32_t&gt;(_poses.size());
+        placed.poseFloats = static_cast&lt;std::uint32_t&gt;(pose.size());
+        _poses.insert(_poses.end(), pose.begin(), pose.end());</span>
+    }
+<span style = "background-color:#dfd">    _meshes.push_back(placed);
     return true;
 }</span>
 

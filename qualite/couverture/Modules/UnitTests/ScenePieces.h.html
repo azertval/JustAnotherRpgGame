@@ -15,9 +15,11 @@
 #pragma once
 
 #include &lt;algorithm&gt;
+#include &lt;array&gt;
 #include &lt;cstdint&gt;
 #include &lt;functional&gt;
 #include &lt;map&gt;
+#include &lt;memory&gt;
 #include &lt;optional&gt;
 #include &lt;string&gt;
 #include &lt;string_view&gt;
@@ -25,6 +27,9 @@
 #include "Core/Levels/GridPosition.h"
 #include "Core/Math/Rect.h"
 #include "Core/Math/Vector2.h"
+#include "Core/Resources/MeshFile.h"
+#include "Core/Resources/SkeletonFile.h"
+#include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/Quad.h"
 #include "HMI/Graphics/RenderLayer.h"
 
@@ -112,7 +117,39 @@ struct SceneTexture {
 }</span>
 
 /**
- * @brief Les textures d'un lieu, adressÃ©es par leur **chemin** tel que la composition l'Ã©crit.
+ * @brief Un maillage chargÃ© (`LOT-1003`) : son identitÃ©, sa boÃ®te, et ce que le manifeste de son
+ *        dossier dit de la hauteur d'un Ã©tage.
+ */
+struct SceneMesh {
+    MeshHandle mesh = nullptr;
+    /// La boÃ®te du maillage dans son repÃ¨re, en mÃ¨tres (`core::MeshData`).
+    std::array&lt;float, 3&gt; minimum{};
+    std::array&lt;float, 3&gt; maximum{};
+    /// Hauteur d'un Ã©tage du lieu, en **largeurs de case** (`storey` du manifeste rapportÃ© Ã  son
+    /// losange, `LOT-129`) ; sans elle, `hmi::DEFAULT_STOREY_TILES`.
+    std::optional&lt;float&gt; storeyTiles{};
+};
+
+/**
+ * @brief Le **modÃ¨le** d'une figurine (`LOT-1005`) : son maillage chargÃ©, le squelette et les
+ *        clips que son fichier porte, et ce que le squelette de sa silhouette dÃ©clare.
+ */
+struct SceneFigureModel {
+    MeshHandle mesh = nullptr;
+    /// La boÃ®te du maillage dans sa pose de liaison, en mÃ¨tres.
+    std::array&lt;float, 3&gt; minimum{};
+    std::array&lt;float, 3&gt; maximum{};
+    /// Le squelette et les clips du fichier ; nul pour un modÃ¨le sans squelette, qui se dessine
+    /// tel quel.
+    std::shared_ptr&lt;const core::MeshRig&gt; rig;
+    /// Ce que le squelette dÃ©clare de ses clips â boucle, image clÃ© (`skeleton.json`) ; nul s'il
+    /// ne se lit pas : un clip sans dÃ©claration boucle, comme une bande sans `.anim.json`.
+    std::shared_ptr&lt;const core::SkeletonDescription&gt; skeleton;
+};
+
+/**
+ * @brief Les textures d'un lieu, adressÃ©es par leur **chemin** tel que la composition l'Ã©crit â
+ *        et, depuis le `LOT-1003`, ses maillages, adressÃ©s de mÃªme.
  *
  * La composition ne demande rien au GPU : elle rÃ©sout un chemin en texture dÃ©jÃ  chargÃ©e. Un chemin
  * absent tombe sur le damier (`EX-NFR-040`) ; si lui aussi manque, la piÃ¨ce n'est pas composÃ©e.
@@ -120,6 +157,23 @@ struct SceneTexture {
 struct ScenePieceTextures {
     /// Comparateur transparent : la recherche se fait sans chaÃ®ne temporaire.
     std::map&lt;std::string, SceneTexture, std::less&lt;&gt;&gt; byPath;
+    /// Les maillages chargÃ©s, par chemin (`Scene/ilot/wall.glb`). Une piÃ¨ce en maillage dont le
+    /// fichier ne s'est pas chargÃ© n'y est pas : elle retombe sur le damier, comme une image.
+    std::map&lt;std::string, SceneMesh, std::less&lt;&gt;&gt; meshes;
+
+    /// @return Le maillage de @p path, `nullptr` s'il n'est pas chargÃ©.
+<span style = "background-color:#dfd">    [[nodiscard]] const SceneMesh* findMesh(std::string_view path) const {
+        const auto found = meshes.find(path);
+        return found != meshes.end() &amp;&amp; found-&gt;second.mesh != nullptr ? &amp;found-&gt;second : nullptr;
+    }</span>
+    /// Les modÃ¨les des figurines, par chemin de leur `.glb` (`LOT-1005`).
+    std::map&lt;std::string, SceneFigureModel, std::less&lt;&gt;&gt; figures;
+
+    /// @return Le modÃ¨le de figurine de @p path, `nullptr` s'il n'est pas chargÃ©.
+<span style = "background-color:#dfd">    [[nodiscard]] const SceneFigureModel* findFigure(std::string_view path) const {
+        const auto found = figures.find(path);
+        return found != figures.end() &amp;&amp; found-&gt;second.mesh != nullptr ? &amp;found-&gt;second : nullptr;
+    }</span>
     /// Damier de repli.
     SceneTexture missing;
     /// L'**aplat** : une texture blanche de 1 Ã 1, que les primitives de couleur du rendu de

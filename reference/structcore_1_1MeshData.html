@@ -171,6 +171,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a372cd9b998da87480358e644ea63e1d0" id="r_a372cd9b998da87480358e644ea63e1d0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a372cd9b998da87480358e644ea63e1d0">materialCount</a> = 0</td></tr>
 <tr class="memitem:a445f50ef3e0449e9878c4eaae2e2a9a2" id="r_a445f50ef3e0449e9878c4eaae2e2a9a2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a445f50ef3e0449e9878c4eaae2e2a9a2">skinned</a> = false</td></tr>
 <tr class="memdesc:a445f50ef3e0449e9878c4eaae2e2a9a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le fichier porte un squelette : le maillage est lu dans sa pose de liaison.  <br /></td></tr>
+<tr class="memitem:af90e06f15b58654581b1e4f1414f928a" id="r_af90e06f15b58654581b1e4f1414f928a"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1MeshSkinVertex.html">MeshSkinVertex</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af90e06f15b58654581b1e4f1414f928a">skin</a></td></tr>
+<tr class="memdesc:af90e06f15b58654581b1e4f1414f928a"><td class="mdescLeft">&#160;</td><td class="mdescRight">La liaison de chaque sommet (<span class="tt">LOT-1005</span>), dans l'ordre de <span class="tt"><a class="el" href="#a01021132a8943efe3b79460ba05d50e8">vertices</a></span> ; vide pour un maillage sans squelette, ou dont les primitives ne portent pas <span class="tt">JOINTS_0</span> et <span class="tt">WEIGHTS_0</span>.  <br /></td></tr>
+<tr class="memitem:a96bb2b0033133b43752b470198d4ad60" id="r_a96bb2b0033133b43752b470198d4ad60"><td class="memItemLeft"><a class="el" href="structcore_1_1MeshRig.html">MeshRig</a>&#160;</td><td class="memItemRight"><a class="el" href="#a96bb2b0033133b43752b470198d4ad60">rig</a></td></tr>
+<tr class="memdesc:a96bb2b0033133b43752b470198d4ad60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le squelette et ses clips ; vide sans squelette.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un maillage lu : une seule liste de sommets, des triangles indexés, une matière. </p>
@@ -323,6 +327,38 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le nombre de primitives fondues, et de matières distinctes qu'elles citaient : le standard en veut une de chaque, et qui installe un modèle peut le vérifier ici. </p>
+
+</div>
+</div>
+<a id="a96bb2b0033133b43752b470198d4ad60" name="a96bb2b0033133b43752b470198d4ad60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96bb2b0033133b43752b470198d4ad60">&#9670;&#160;</a></span>rig</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1MeshRig.html">MeshRig</a> core::MeshData::rig</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le squelette et ses clips ; vide sans squelette. </p>
+
+</div>
+</div>
+<a id="af90e06f15b58654581b1e4f1414f928a" name="af90e06f15b58654581b1e4f1414f928a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af90e06f15b58654581b1e4f1414f928a">&#9670;&#160;</a></span>skin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1MeshSkinVertex.html">MeshSkinVertex</a>&gt; core::MeshData::skin</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La liaison de chaque sommet (<span class="tt">LOT-1005</span>), dans l'ordre de <span class="tt"><a class="el" href="#a01021132a8943efe3b79460ba05d50e8">vertices</a></span> ; vide pour un maillage sans squelette, ou dont les primitives ne portent pas <span class="tt">JOINTS_0</span> et <span class="tt">WEIGHTS_0</span>. </p>
 
 </div>
 </div>

@@ -1,0 +1,288 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/SkeletonFile.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('SkeletonFile_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">SkeletonFile.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="SkeletonFile_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="namespacecore.html#aabfd40b8cebbaeb2ce2d3b82471aecd7">   48</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#aabfd40b8cebbaeb2ce2d3b82471aecd7">SKELETON_FORMAT_VERSION</a> = 1;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="namespacecore.html#a69365a0e5a29fabafefd54c1636067f3">   51</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#a69365a0e5a29fabafefd54c1636067f3">CHARACTER_SHEET_FILE</a> = <span class="stringliteral">&quot;character.json&quot;</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="};">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonBone.html">   54</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1SkeletonBone.html">SkeletonBone</a> {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonBone.html#ac4a1c92d3c86a1cddf9822759650d1e6">   55</a></span>    std::string <a class="code hl_variable" href="structcore_1_1SkeletonBone.html#ac4a1c92d3c86a1cddf9822759650d1e6">name</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonBone.html#a42584eedd7a5b3191853035d04b662a7">   56</a></span>    std::string <a class="code hl_variable" href="structcore_1_1SkeletonBone.html#a42584eedd7a5b3191853035d04b662a7">parent</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonBone.html#a3a2e1ca43487ac29a2f17a919f814533">   58</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1SkeletonBone.html#a3a2e1ca43487ac29a2f17a919f814533">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1SkeletonBone.html">SkeletonBone</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>};</div>
+</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonClip.html">   62</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1SkeletonClip.html">SkeletonClip</a> {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonClip.html#ab026de1d3bf7f6f4d86f9b26d50d9f8d">   63</a></span>    std::string <a class="code hl_variable" href="structcore_1_1SkeletonClip.html#ab026de1d3bf7f6f4d86f9b26d50d9f8d">name</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonClip.html#a3a18cd1b24727287ea47d532df9f07cc">   65</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1SkeletonClip.html#a3a18cd1b24727287ea47d532df9f07cc">duration</a> = 0.0F;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonClip.html#accaf51d2e794df31be0107e0a5ed4ea3">   67</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1SkeletonClip.html#accaf51d2e794df31be0107e0a5ed4ea3">loop</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonClip.html#a554c25343948a989883761447744f264">   69</a></span>    std::optional&lt;float&gt; <a class="code hl_variable" href="structcore_1_1SkeletonClip.html#a554c25343948a989883761447744f264">key</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonClip.html#acb3451bfb53e74ace1a740974c2624e6">   71</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1SkeletonClip.html#acb3451bfb53e74ace1a740974c2624e6">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1SkeletonClip.html">SkeletonClip</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="};">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonDescription.html">   75</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1SkeletonDescription.html">SkeletonDescription</a> {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonDescription.html#acf78a0bcae1d3ed6f1e040e635ff377a">   76</a></span>    std::string <a class="code hl_variable" href="structcore_1_1SkeletonDescription.html#acf78a0bcae1d3ed6f1e040e635ff377a">silhouette</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonDescription.html#a79ea32100b54315409282a18120ebb70">   77</a></span>    std::vector&lt;SkeletonBone&gt; <a class="code hl_variable" href="structcore_1_1SkeletonDescription.html#a79ea32100b54315409282a18120ebb70">bones</a>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonDescription.html#af519d52b785bd02642121a26f2dfb152">   78</a></span>    std::vector&lt;SkeletonClip&gt; <a class="code hl_variable" href="structcore_1_1SkeletonDescription.html#af519d52b785bd02642121a26f2dfb152">clips</a>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1SkeletonClip.html">SkeletonClip</a>* <a class="code hl_function" href="structcore_1_1SkeletonDescription.html#a6b16bedac96382290d9b7320894dfba3">clip</a>(std::string_view name) <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonDescription.html#a0a1510c3e8ba70824b6e2ef9eef5fed1">   83</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1SkeletonDescription.html#a0a1510c3e8ba70824b6e2ef9eef5fed1">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1SkeletonDescription.html">SkeletonDescription</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>};</div>
+</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
+<div class="foldopen" id="foldopen00087" data-start="{" data-end="};">
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonFileResult.html">   87</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1SkeletonFileResult.html">SkeletonFileResult</a> {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonFileResult.html#ae65a79ce0369ebb1655ca1534bc9d208">   88</a></span>    <a class="code hl_struct" href="structcore_1_1SkeletonDescription.html">SkeletonDescription</a> <a class="code hl_variable" href="structcore_1_1SkeletonFileResult.html#ae65a79ce0369ebb1655ca1534bc9d208">skeleton</a>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonFileResult.html#a00ea48126ea50a10d5cf4db25af70778">   90</a></span>    std::string <a class="code hl_variable" href="structcore_1_1SkeletonFileResult.html#a00ea48126ea50a10d5cf4db25af70778">message</a>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="structcore_1_1SkeletonFileResult.html#a5de76e7677abb3dfcb151d472e599771">   92</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1SkeletonFileResult.html#a5de76e7677abb3dfcb151d472e599771">ok</a>() const noexcept {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1SkeletonFileResult.html#a00ea48126ea50a10d5cf4db25af70778">message</a>.empty();</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
+</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>};</div>
+</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>[[nodiscard]] SkeletonFileResult <a class="code hl_function" href="namespacecore.html#ae94fd4b025dbbaa8831bdddf23a6375d">readSkeletonDescription</a>(std::string_view json);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>[[nodiscard]] SkeletonFileResult <a class="code hl_function" href="namespacecore.html#aa1986c82281edc74263c4daa8461de7d">readSkeletonFile</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacecore.html#a18606df00c2b63862aac8527090414da">skeletonFilePath</a>(std::string_view silhouette);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span></div>
+<div class="foldopen" id="foldopen00108" data-start="{" data-end="};">
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheetFile.html">  108</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CharacterSheetFile.html">CharacterSheetFile</a> {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheetFile.html#a7cf3250a3340b2ba897d55544b1789e1">  110</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CharacterSheetFile.html#a7cf3250a3340b2ba897d55544b1789e1">model</a>;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheetFile.html#a0a13adf6291158e14dd03497ab8bce4d">  112</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CharacterSheetFile.html#a0a13adf6291158e14dd03497ab8bce4d">skeleton</a>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheetFile.html#a176f6930d1c1a18b98b3bd629dca0fb5">  114</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1CharacterSheetFile.html#a176f6930d1c1a18b98b3bd629dca0fb5">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1CharacterSheetFile.html">CharacterSheetFile</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>};</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="};">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheetFileResult.html">  118</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1CharacterSheetFileResult.html">CharacterSheetFileResult</a> {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheetFileResult.html#a3a7591c2157611916afcb857dc8efce4">  119</a></span>    <a class="code hl_struct" href="structcore_1_1CharacterSheetFile.html">CharacterSheetFile</a> <a class="code hl_variable" href="structcore_1_1CharacterSheetFileResult.html#a3a7591c2157611916afcb857dc8efce4">sheet</a>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheetFileResult.html#a6e7495022798612bddd97551cc9fd8ab">  120</a></span>    std::string <a class="code hl_variable" href="structcore_1_1CharacterSheetFileResult.html#a6e7495022798612bddd97551cc9fd8ab">message</a>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="foldopen" id="foldopen00122" data-start="{" data-end="}">
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="structcore_1_1CharacterSheetFileResult.html#a3a7717d90346f801e74e3171db0d60b0">  122</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1CharacterSheetFileResult.html#a3a7717d90346f801e74e3171db0d60b0">ok</a>() const noexcept {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1CharacterSheetFileResult.html#a6e7495022798612bddd97551cc9fd8ab">message</a>.empty();</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    }</div>
+</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>};</div>
+</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>[[nodiscard]] CharacterSheetFileResult <a class="code hl_function" href="namespacecore.html#a79e8f0c811f53aa7ba238f9418d9e1d5">readCharacterSheet</a>(std::string_view json);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>[[nodiscard]] CharacterSheetFileResult <a class="code hl_function" href="namespacecore.html#a20b30a44af52e22bf63548269391fcbf">readCharacterSheetFile</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a18606df00c2b63862aac8527090414da"><div class="ttname"><a href="namespacecore.html#a18606df00c2b63862aac8527090414da">core::skeletonFilePath</a></div><div class="ttdeci">std::string skeletonFilePath(std::string_view silhouette)</div><div class="ttdef"><b>Definition</b> SkeletonFile.cpp:167</div></div>
+<div class="ttc" id="anamespacecore_html_a20b30a44af52e22bf63548269391fcbf"><div class="ttname"><a href="namespacecore.html#a20b30a44af52e22bf63548269391fcbf">core::readCharacterSheetFile</a></div><div class="ttdeci">CharacterSheetFileResult readCharacterSheetFile(const std::filesystem::path &amp;path)</div><div class="ttdoc">Lit character.json ; un fichier absent est une erreur du résultat.</div><div class="ttdef"><b>Definition</b> SkeletonFile.cpp:182</div></div>
+<div class="ttc" id="anamespacecore_html_a69365a0e5a29fabafefd54c1636067f3"><div class="ttname"><a href="namespacecore.html#a69365a0e5a29fabafefd54c1636067f3">core::CHARACTER_SHEET_FILE</a></div><div class="ttdeci">constexpr std::string_view CHARACTER_SHEET_FILE</div><div class="ttdoc">Le fichier de la fiche d&#39;un personnage, dans son dossier.</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:51</div></div>
+<div class="ttc" id="anamespacecore_html_a79e8f0c811f53aa7ba238f9418d9e1d5"><div class="ttname"><a href="namespacecore.html#a79e8f0c811f53aa7ba238f9418d9e1d5">core::readCharacterSheet</a></div><div class="ttdeci">CharacterSheetFileResult readCharacterSheet(std::string_view json)</div><div class="ttdoc">Lit la fiche d&#39;un personnage depuis le texte de son fichier.</div><div class="ttdef"><b>Definition</b> SkeletonFile.cpp:174</div></div>
+<div class="ttc" id="anamespacecore_html_aa1986c82281edc74263c4daa8461de7d"><div class="ttname"><a href="namespacecore.html#aa1986c82281edc74263c4daa8461de7d">core::readSkeletonFile</a></div><div class="ttdeci">SkeletonFileResult readSkeletonFile(const std::filesystem::path &amp;path)</div><div class="ttdoc">Lit skeleton.json ; un fichier absent est une erreur du résultat.</div><div class="ttdef"><b>Definition</b> SkeletonFile.cpp:154</div></div>
+<div class="ttc" id="anamespacecore_html_aabfd40b8cebbaeb2ce2d3b82471aecd7"><div class="ttname"><a href="namespacecore.html#aabfd40b8cebbaeb2ce2d3b82471aecd7">core::SKELETON_FORMAT_VERSION</a></div><div class="ttdeci">constexpr int SKELETON_FORMAT_VERSION</div><div class="ttdoc">Version des deux formats écrite dans les fichiers, et plus élevée qui soit lue.</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:48</div></div>
+<div class="ttc" id="anamespacecore_html_ae94fd4b025dbbaa8831bdddf23a6375d"><div class="ttname"><a href="namespacecore.html#ae94fd4b025dbbaa8831bdddf23a6375d">core::readSkeletonDescription</a></div><div class="ttdeci">SkeletonFileResult readSkeletonDescription(std::string_view json)</div><div class="ttdoc">Lit la description d&#39;un squelette depuis le texte de son fichier.</div><div class="ttdef"><b>Definition</b> SkeletonFile.cpp:146</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheetFileResult_html"><div class="ttname"><a href="structcore_1_1CharacterSheetFileResult.html">core::CharacterSheetFileResult</a></div><div class="ttdoc">Résultat d&#39;une lecture de fiche : la fiche, ou ce qui a échoué.</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:118</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheetFileResult_html_a3a7591c2157611916afcb857dc8efce4"><div class="ttname"><a href="structcore_1_1CharacterSheetFileResult.html#a3a7591c2157611916afcb857dc8efce4">core::CharacterSheetFileResult::sheet</a></div><div class="ttdeci">CharacterSheetFile sheet</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:119</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheetFileResult_html_a3a7717d90346f801e74e3171db0d60b0"><div class="ttname"><a href="structcore_1_1CharacterSheetFileResult.html#a3a7717d90346f801e74e3171db0d60b0">core::CharacterSheetFileResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:122</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheetFileResult_html_a6e7495022798612bddd97551cc9fd8ab"><div class="ttname"><a href="structcore_1_1CharacterSheetFileResult.html#a6e7495022798612bddd97551cc9fd8ab">core::CharacterSheetFileResult::message</a></div><div class="ttdeci">std::string message</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:120</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheetFile_html"><div class="ttname"><a href="structcore_1_1CharacterSheetFile.html">core::CharacterSheetFile</a></div><div class="ttdoc">La fiche d&#39;un personnage : son modèle et son squelette.</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:108</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheetFile_html_a0a13adf6291158e14dd03497ab8bce4d"><div class="ttname"><a href="structcore_1_1CharacterSheetFile.html#a0a13adf6291158e14dd03497ab8bce4d">core::CharacterSheetFile::skeleton</a></div><div class="ttdeci">std::string skeleton</div><div class="ttdoc">La silhouette du squelette auquel le modèle est lié (humanoid).</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:112</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheetFile_html_a176f6930d1c1a18b98b3bd629dca0fb5"><div class="ttname"><a href="structcore_1_1CharacterSheetFile.html#a176f6930d1c1a18b98b3bd629dca0fb5">core::CharacterSheetFile::operator==</a></div><div class="ttdeci">bool operator==(const CharacterSheetFile &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1CharacterSheetFile_html_a7cf3250a3340b2ba897d55544b1789e1"><div class="ttname"><a href="structcore_1_1CharacterSheetFile.html#a7cf3250a3340b2ba897d55544b1789e1">core::CharacterSheetFile::model</a></div><div class="ttdeci">std::string model</div><div class="ttdoc">Le fichier du modèle, relatif au dossier de la fiche (brawler.glb).</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:110</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonBone_html"><div class="ttname"><a href="structcore_1_1SkeletonBone.html">core::SkeletonBone</a></div><div class="ttdoc">Un os déclaré : son nom, celui de son parent (vide pour la racine).</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:54</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonBone_html_a3a2e1ca43487ac29a2f17a919f814533"><div class="ttname"><a href="structcore_1_1SkeletonBone.html#a3a2e1ca43487ac29a2f17a919f814533">core::SkeletonBone::operator==</a></div><div class="ttdeci">bool operator==(const SkeletonBone &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonBone_html_a42584eedd7a5b3191853035d04b662a7"><div class="ttname"><a href="structcore_1_1SkeletonBone.html#a42584eedd7a5b3191853035d04b662a7">core::SkeletonBone::parent</a></div><div class="ttdeci">std::string parent</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:56</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonBone_html_ac4a1c92d3c86a1cddf9822759650d1e6"><div class="ttname"><a href="structcore_1_1SkeletonBone.html#ac4a1c92d3c86a1cddf9822759650d1e6">core::SkeletonBone::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:55</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonClip_html"><div class="ttname"><a href="structcore_1_1SkeletonClip.html">core::SkeletonClip</a></div><div class="ttdoc">Un clip déclaré : sa durée, sa boucle, son image clé.</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:62</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonClip_html_a3a18cd1b24727287ea47d532df9f07cc"><div class="ttname"><a href="structcore_1_1SkeletonClip.html#a3a18cd1b24727287ea47d532df9f07cc">core::SkeletonClip::duration</a></div><div class="ttdeci">float duration</div><div class="ttdoc">Durée du clip, en secondes (&gt; 0).</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:65</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonClip_html_a554c25343948a989883761447744f264"><div class="ttname"><a href="structcore_1_1SkeletonClip.html#a554c25343948a989883761447744f264">core::SkeletonClip::key</a></div><div class="ttdeci">std::optional&lt; float &gt; key</div><div class="ttdoc">L&#39;instant de l&#39;impact, en secondes depuis le début ; absent pour un clip qui n&#39;en a pas.</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:69</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonClip_html_ab026de1d3bf7f6f4d86f9b26d50d9f8d"><div class="ttname"><a href="structcore_1_1SkeletonClip.html#ab026de1d3bf7f6f4d86f9b26d50d9f8d">core::SkeletonClip::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:63</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonClip_html_acb3451bfb53e74ace1a740974c2624e6"><div class="ttname"><a href="structcore_1_1SkeletonClip.html#acb3451bfb53e74ace1a740974c2624e6">core::SkeletonClip::operator==</a></div><div class="ttdeci">bool operator==(const SkeletonClip &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonClip_html_accaf51d2e794df31be0107e0a5ed4ea3"><div class="ttname"><a href="structcore_1_1SkeletonClip.html#accaf51d2e794df31be0107e0a5ed4ea3">core::SkeletonClip::loop</a></div><div class="ttdeci">bool loop</div><div class="ttdoc">Vrai s&#39;il boucle (repos, marche) ; faux s&#39;il se joue une fois et se fige sur sa fin.</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:67</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonDescription_html"><div class="ttname"><a href="structcore_1_1SkeletonDescription.html">core::SkeletonDescription</a></div><div class="ttdoc">Le squelette d&#39;une silhouette, tel que son fichier le déclare.</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:75</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonDescription_html_a0a1510c3e8ba70824b6e2ef9eef5fed1"><div class="ttname"><a href="structcore_1_1SkeletonDescription.html#a0a1510c3e8ba70824b6e2ef9eef5fed1">core::SkeletonDescription::operator==</a></div><div class="ttdeci">bool operator==(const SkeletonDescription &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonDescription_html_a6b16bedac96382290d9b7320894dfba3"><div class="ttname"><a href="structcore_1_1SkeletonDescription.html#a6b16bedac96382290d9b7320894dfba3">core::SkeletonDescription::clip</a></div><div class="ttdeci">const SkeletonClip * clip(std::string_view name) const noexcept</div><div class="ttdef"><b>Definition</b> SkeletonFile.cpp:140</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonDescription_html_a79ea32100b54315409282a18120ebb70"><div class="ttname"><a href="structcore_1_1SkeletonDescription.html#a79ea32100b54315409282a18120ebb70">core::SkeletonDescription::bones</a></div><div class="ttdeci">std::vector&lt; SkeletonBone &gt; bones</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:77</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonDescription_html_acf78a0bcae1d3ed6f1e040e635ff377a"><div class="ttname"><a href="structcore_1_1SkeletonDescription.html#acf78a0bcae1d3ed6f1e040e635ff377a">core::SkeletonDescription::silhouette</a></div><div class="ttdeci">std::string silhouette</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:76</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonDescription_html_af519d52b785bd02642121a26f2dfb152"><div class="ttname"><a href="structcore_1_1SkeletonDescription.html#af519d52b785bd02642121a26f2dfb152">core::SkeletonDescription::clips</a></div><div class="ttdeci">std::vector&lt; SkeletonClip &gt; clips</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:78</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonFileResult_html"><div class="ttname"><a href="structcore_1_1SkeletonFileResult.html">core::SkeletonFileResult</a></div><div class="ttdoc">Résultat d&#39;une lecture de squelette : la description, ou ce qui a échoué.</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:87</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonFileResult_html_a00ea48126ea50a10d5cf4db25af70778"><div class="ttname"><a href="structcore_1_1SkeletonFileResult.html#a00ea48126ea50a10d5cf4db25af70778">core::SkeletonFileResult::message</a></div><div class="ttdeci">std::string message</div><div class="ttdoc">Message technique, vide en cas de succès.</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:90</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonFileResult_html_a5de76e7677abb3dfcb151d472e599771"><div class="ttname"><a href="structcore_1_1SkeletonFileResult.html#a5de76e7677abb3dfcb151d472e599771">core::SkeletonFileResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:92</div></div>
+<div class="ttc" id="astructcore_1_1SkeletonFileResult_html_ae65a79ce0369ebb1655ca1534bc9d208"><div class="ttname"><a href="structcore_1_1SkeletonFileResult.html#ae65a79ce0369ebb1655ca1534bc9d208">core::SkeletonFileResult::skeleton</a></div><div class="ttdeci">SkeletonDescription skeleton</div><div class="ttdef"><b>Definition</b> SkeletonFile.h:88</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_81575a0a6a20a380991b9ad2c16b89e5.html">Resources</a></li><li class="navelem"><a href="SkeletonFile_8h.html">SkeletonFile.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

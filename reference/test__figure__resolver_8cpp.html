@@ -159,12 +159,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:ae560725caa2d04349981802a13c1f07f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La figurine nommée l'emporte ; à défaut le mannequin de la silhouette ; à défaut l'humanoïde ; à défaut la figurine telle quelle.  <br /></td></tr>
 <tr class="memitem:af681890bdbf50e42ec19f600bae912a8" id="r_af681890bdbf50e42ec19f600bae912a8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af681890bdbf50e42ec19f600bae912a8">TEST</a> (FigureResolverTest, LaReponseSeRetientJusquAClear)</td></tr>
 <tr class="memdesc:af681890bdbf50e42ec19f600bae912a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">La réponse se retient : le disque ne se relit pas tant que <span class="tt">clear</span> n'est pas appelé.  <br /></td></tr>
+<tr class="memitem:a1e98196f0dc44ccef10f1b3a9a334fca" id="r_a1e98196f0dc44ccef10f1b3a9a334fca"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1e98196f0dc44ccef10f1b3a9a334fca">TEST</a> (FigureResolverTest, UnPersonnageEnModeleEtSonMannequin)</td></tr>
+<tr class="memdesc:a1e98196f0dc44ccef10f1b3a9a334fca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine en modèle : son dossier porte une fiche qui nomme un <span class="tt">.glb</span> présent.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests du résolveur de figurines (<span class="tt">LOT-145</span>) : la figurine nommée si elle existe, sinon le mannequin de sa silhouette, sinon l'humanoïde, sinon le marqueur. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ae560725caa2d04349981802a13c1f07f" name="ae560725caa2d04349981802a13c1f07f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae560725caa2d04349981802a13c1f07f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae560725caa2d04349981802a13c1f07f">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -197,7 +199,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af681890bdbf50e42ec19f600bae912a8" name="af681890bdbf50e42ec19f600bae912a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af681890bdbf50e42ec19f600bae912a8">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af681890bdbf50e42ec19f600bae912a8">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,6 +226,40 @@ Functions</h2></td></tr>
 2. Installer sa bande de repos sur le disque, resoudre a nouveau.<br  />
 3. Oublier, resoudre a nouveau.<br  />
  <b>Resultat attendu :</b> 2 : encore le mannequin ; 3 : son propre dossier. </p>
+
+</div>
+</div>
+<a id="a1e98196f0dc44ccef10f1b3a9a334fca" name="a1e98196f0dc44ccef10f1b3a9a334fca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e98196f0dc44ccef10f1b3a9a334fca">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">FigureResolverTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnPersonnageEnModeleEtSonMannequin</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une figurine en modèle : son dossier porte une fiche qui nomme un <span class="tt">.glb</span> présent. </p>
+<p>Elle passe avant les bandes, pour la figurine nommée comme pour le mannequin. <b>Cas de test :</b> <b>Le resolveur reconnait un personnage en modele, et son mannequin.</b><br  />
+ <b>Categorie :</b> Unitaire · Mannequins · Squelette<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Resoudre le pantin de la carte d'essai, qui a une fiche et un modele.<br  />
+</p><ol type="1">
+<li>Resoudre la figurine temoin de la meme racine, qui n'a que des bandes.<br  />
+3. Dans un dossier d'essai, installer un mannequin humanoide en modele a cote du mannequin en bandes, et resoudre un garde absent.<br  />
+4. Y poser une fiche dont le modele manque, et resoudre ce personnage.<br  />
+ <b>Resultat attendu :</b> 1 : le dossier du pantin, son modele <span class="tt">Npc/pantin/pantin.glb</span>, la description de son squelette (l'attaque porte a 0,4 s). 2 : des bandes, sans modele. 3 : le mannequin en modele, avant celui en bandes. 4 : la fiche sans son fichier ne fait pas un modele &ndash; le mannequin. </li>
+</ol>
 
 </div>
 </div>

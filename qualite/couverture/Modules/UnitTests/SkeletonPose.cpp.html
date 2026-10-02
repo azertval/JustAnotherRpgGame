@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>SkeletonPose.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Resources/SkeletonPose.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;cstddef&gt;
+#include &lt;utility&gt;
+
+namespace core {
+
+namespace {
+
+constexpr std::size_t MATRIX_FLOATS = 16;
+
+// a x b, en colonnes : m[colonne * 4 + ligne]. La derniere ligne d'une pose est (0, 0, 0, 1).
+<span style = "background-color:#dfd">[[nodiscard]] MeshMatrix multiply(const float* a, const float* b) noexcept {
+    MeshMatrix out{};
+    for (std::size_t column = 0; column &lt; 4; ++column) {
+        for (std::size_t row = 0; row &lt; 4; ++row) {
+            float sum = 0.0F;
+            for (std::size_t k = 0; k &lt; 4; ++k) {
+                sum += a[(k * 4) + row] * b[(column * 4) + k];
+            }
+            out[(column * 4) + row] = sum;
+        }
+    }
+    return out;
+}</span>
+
+// translation x rotation x echelle.
+[[nodiscard]] MeshMatrix compose(const std::array&lt;float, 3&gt;&amp; t, const std::array&lt;float, 4&gt;&amp; q,
+<span style = "background-color:#dfd">                                 const std::array&lt;float, 3&gt;&amp; s) noexcept {
+    const float x = q[0];
+    const float y = q[1];
+    const float z = q[2];
+    const float w = q[3];
+    return MeshMatrix{(1 - (2 * ((y * y) + (z * z)))) * s[0],</span>
+                      (2 * ((x * y) + (z * w))) * s[0],
+                      (2 * ((x * z) - (y * w))) * s[0],
+                      0,
+                      (2 * ((x * y) - (z * w))) * s[1],
+                      (1 - (2 * ((x * x) + (z * z)))) * s[1],
+                      (2 * ((y * z) + (x * w))) * s[1],
+                      0,
+                      (2 * ((x * z) + (y * w))) * s[2],
+                      (2 * ((y * z) - (x * w))) * s[2],
+                      (1 - (2 * ((x * x) + (y * y)))) * s[2],
+                      0,
+                      t[0],
+                      t[1],
+                      t[2],
+                      1};
+<span style = "background-color:#dfd">}</span>
+
+// Les deux cles qui encadrent `seconds`, et la part de la seconde ; la cle du bord hors du clip.
+struct KeySpan {
+    std::size_t before = 0;
+    std::size_t after = 0;
+    float fraction = 0.0F;
+};
+
+<span style = "background-color:#dfd">[[nodiscard]] KeySpan keysAround(const MeshChannel&amp; channel, float seconds) noexcept {
+    const std::vector&lt;float&gt;&amp; times = channel.times;
+    const auto next = std::ranges::upper_bound(times, seconds);
+    if (next == times.begin()) {</span>
+<span style = "background-color:#fdd">        return KeySpan{};</span>
+    }
+<span style = "background-color:#dfd">    const auto after = static_cast&lt;std::size_t&gt;(next - times.begin());
+    if (next == times.end()) {
+        return KeySpan{.before = after - 1, .after = after - 1, .fraction = 0.0F};</span>
+    }
+<span style = "background-color:#dfd">    const float span = times[after] - times[after - 1];
+    const float fraction =</span>
+        channel.step || span &lt;= 0.0F ? 0.0F : (seconds - times[after - 1]) / span;
+<span style = "background-color:#dfd">    return KeySpan{.before = after - 1, .after = after, .fraction = fraction};
+}</span>
+
+[[nodiscard]] std::array&lt;float, 3&gt; sampleTranslation(const MeshChannel&amp; channel, float seconds,
+<span style = "background-color:#dfd">                                                     const std::array&lt;float, 3&gt;&amp; rest) noexcept {
+    if (channel.empty() || channel.values.size() &lt; channel.times.size() * 3) {
+        return rest;</span>
+    }
+<span style = "background-color:#dfd">    const KeySpan keys = keysAround(channel, seconds);
+    std::array&lt;float, 3&gt; out{};
+    for (std::size_t part = 0; part &lt; 3; ++part) {
+        const float a = channel.values[(keys.before * 3) + part];
+        const float b = channel.values[(keys.after * 3) + part];
+        out[part] = a + ((b - a) * keys.fraction);
+    }
+    return out;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::array&lt;float, 4&gt; normalized(std::array&lt;float, 4&gt; q) noexcept {
+    const float length = std::sqrt((q[0] * q[0]) + (q[1] * q[1]) + (q[2] * q[2]) + (q[3] * q[3]));
+    if (!(length &gt; 0.0F) || !std::isfinite(length)) {</span>
+<span style = "background-color:#fdd">        return {0.0F, 0.0F, 0.0F, 1.0F};</span>
+    }
+<span style = "background-color:#dfd">    for (float&amp; part : q) {
+        part /= length;
+    }
+    return q;
+}</span>
+
+// La rotation entre deux cles : interpolation lineaire normalisee, par le plus court chemin. Les
+// cles d'un clip echantillonne a pas fixe sont proches : l'ecart a l'interpolation spherique ne
+// se voit pas.
+[[nodiscard]] std::array&lt;float, 4&gt; sampleRotation(const MeshChannel&amp; channel, float seconds,
+<span style = "background-color:#dfd">                                                  const std::array&lt;float, 4&gt;&amp; rest) noexcept {
+    if (channel.empty() || channel.values.size() &lt; channel.times.size() * 4) {
+        return normalized(rest);</span>
+    }
+<span style = "background-color:#dfd">    const KeySpan keys = keysAround(channel, seconds);
+    const float* const a = &amp;channel.values[keys.before * 4];
+    const float* const b = &amp;channel.values[keys.after * 4];
+    const float dot = (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2]) + (a[3] * b[3]);
+    const float sign = dot &lt; 0.0F ? -1.0F : 1.0F;
+    std::array&lt;float, 4&gt; out{};
+    for (std::size_t part = 0; part &lt; 4; ++part) {
+        out[part] = a[part] + (((b[part] * sign) - a[part]) * keys.fraction);
+    }
+    return normalized(out);
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">const MeshClip* findClip(const MeshRig&amp; rig, std::string_view name) noexcept {
+    const auto found =
+        std::ranges::find_if(rig.clips, [name](const MeshClip&amp; clip) { return clip.name == name; });
+    return found != rig.clips.end() ? &amp;*found : nullptr;
+}</span>
+
+<span style = "background-color:#dfd">float clipTime(float seconds, float duration, bool loop) noexcept {
+    if (!(duration &gt; 0.0F) || !std::isfinite(seconds)) {
+        return 0.0F;</span>
+    }
+<span style = "background-color:#dfd">    if (!loop) {
+        return std::clamp(seconds, 0.0F, duration);</span>
+    }
+<span style = "background-color:#dfd">    const float wrapped = std::fmod(seconds, duration);
+    return wrapped &lt; 0.0F ? wrapped + duration : wrapped;
+}</span>
+
+<span style = "background-color:#dfd">void poseSkeleton(const MeshRig&amp; rig, const MeshClip* clip, float seconds, std::span&lt;float&gt; out) {
+    const std::size_t count = rig.joints.size();
+    if (out.size() &lt; count * MATRIX_FLOATS || rig.order.size() != count) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const bool animated = clip != nullptr &amp;&amp; clip-&gt;tracks.size() == count;</span>
+    // Premier temps : la transformation de chaque os dans le repere du maillage, parents d'abord.
+<span style = "background-color:#dfd">    for (const std::uint16_t rank : rig.order) {
+        const MeshJoint&amp; joint = rig.joints[rank];
+        std::array&lt;float, 3&gt; translation = joint.translation;
+        std::array&lt;float, 4&gt; rotation = joint.rotation;
+        if (animated) {
+            const MeshJointTrack&amp; track = clip-&gt;tracks[rank];
+            translation = sampleTranslation(track.translation, seconds, joint.translation);
+            rotation = sampleRotation(track.rotation, seconds, joint.rotation);</span>
+        }
+<span style = "background-color:#dfd">        const MeshMatrix local = compose(translation, rotation, joint.scale);
+        const float* const parent =</span>
+            joint.parent &gt;= 0 &amp;&amp; std::cmp_less(joint.parent, count)
+                ? &amp;out[static_cast&lt;std::size_t&gt;(joint.parent) * MATRIX_FLOATS]
+                : joint.anchor.data();
+<span style = "background-color:#dfd">        const MeshMatrix global = multiply(parent, local.data());
+        std::ranges::copy(global, out.begin() + static_cast&lt;std::ptrdiff_t&gt;(rank * MATRIX_FLOATS));
+    }</span>
+    // Second temps : chaque os compose avec sa matrice de liaison inverse.
+<span style = "background-color:#dfd">    for (std::size_t rank = 0; rank &lt; count; ++rank) {
+        float* const matrix = &amp;out[rank * MATRIX_FLOATS];
+        const MeshMatrix skin = multiply(matrix, rig.joints[rank].inverseBind.data());
+        std::ranges::copy(skin, matrix);
+    }
+}</span>
+
+std::array&lt;float, 3&gt; skinnedPosition(std::span&lt;const float&gt; matrices, const MeshSkinVertex&amp; skin,
+<span style = "background-color:#dfd">                                     const std::array&lt;float, 3&gt;&amp; position) noexcept {
+    std::array&lt;float, 3&gt; out{};
+    for (std::size_t influence = 0; influence &lt; 4; ++influence) {
+        const float weight = skin.weights[influence];
+        const std::size_t base = static_cast&lt;std::size_t&gt;(skin.joints[influence]) * MATRIX_FLOATS;
+        if (weight &lt;= 0.0F || base + MATRIX_FLOATS &gt; matrices.size()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const float* const m = &amp;matrices[base];
+        for (std::size_t row = 0; row &lt; 3; ++row) {
+            out[row] += weight * ((m[row] * position[0]) + (m[4 + row] * position[1]) +</span>
+                                  (m[8 + row] * position[2]) + m[12 + row]);
+<span style = "background-color:#dfd">        }
+    }
+    return out;
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

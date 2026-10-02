@@ -21,9 +21,13 @@
 #include &lt;rhi/qrhi.h&gt;
 
 #include "Core/Resources/AssetMarker.h"
+#include "Core/Resources/MeshFile.h"
+#include "Core/Resources/SkeletonFile.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/IsoView.h"
 #include "HMI/Graphics/MaquetteTokens.h"
+#include "HMI/Graphics/MeshBatch.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/SpriteBatch.h"
@@ -31,17 +35,17 @@
 
 namespace hmi {
 
-Camera2D worldCamera(const core::IsoProjection&amp; projection, core::Vector2 focus, int pixelWidth,
-<span style = "background-color:#dfd">                     int pixelHeight, float tilePixels) {
+PlaceCamera worldCamera(const core::IsoProjection&amp; projection, core::Vector2 focus, int pixelWidth,
+<span style = "background-color:#dfd">                        int pixelHeight, float tilePixels) {
     const int width = std::max(1, pixelWidth);
     const int height = std::max(1, pixelHeight);
-    Camera2D camera(width, height);</span>
+    PlaceCamera camera(width, height);</span>
 
     // Un facteur LIBRE, fixe par la definition (EX-REN-013) : une case occupe la hauteur de la vue
     // divisee par 10,8. L'art est toujours reduit, jamais agrandi, et filtre par mipmaps : aucune
     // grille de pixels n'est plus a proteger.
 <span style = "background-color:#dfd">    const float onScreen = tilePixels &gt; 0.0F ? tilePixels : worldTilePixels(height);
-    camera.setZoom(onScreen / (projection.tileWidth() * Camera2D::PIXELS_PER_UNIT));</span>
+    camera.setZoom(onScreen / (projection.tileWidth() * PlaceCamera::PIXELS_PER_UNIT));</span>
 
     // Le point suivi, ramene dans la scene : la vue ne montre pas le vide autour de la carte. Sur
     // un axe ou la scene est plus petite que la vue, elle reste centree. La scene occupe
@@ -58,6 +62,93 @@ Camera2D worldCamera(const core::IsoProjection&amp; projection, core::Vector2 fo
 <span style = "background-color:#dfd">    camera.setCenter(centre);
     return camera;
 }</span>
+
+<span style = "background-color:#dfd">PlaceCamera framedCamera(const WorldFraming&amp; framing, int pixelWidth, int pixelHeight) {
+    PlaceCamera camera(std::max(1, pixelWidth), std::max(1, pixelHeight));
+    camera.setZoom(framing.pixelsPerUnit / PlaceCamera::PIXELS_PER_UNIT);
+    camera.setCenter(framing.center);
+    return camera;
+}</span>
+
+<span style = "background-color:#dfd">core::Rect composedSceneBounds(const ComposedScene&amp; scene, const core::Rect&amp; base) {
+    float left = base.position.x;
+    float top = base.position.y;
+    float right = base.position.x + base.size.x;
+    float bottom = base.position.y + base.size.y;
+    for (const ComposedQuad&amp; quad : scene.quads()) {
+        core::Rect bounds;
+        switch (quad.kind) {</span>
+            case QuadKind::Sprite:
+<span style = "background-color:#dfd">                bounds = spriteQuadBounds(quad.sprite);
+                break;</span>
+            case QuadKind::Line:
+<span style = "background-color:#fdd">                bounds = lineQuadBounds(quad.line);
+                break;</span>
+            case QuadKind::Poly:
+<span style = "background-color:#fdd">                bounds = polyQuadBounds(quad.poly);</span>
+                break;
+        }
+<span style = "background-color:#dfd">        left = std::min(left, bounds.position.x);
+        top = std::min(top, bounds.position.y);
+        right = std::max(right, bounds.position.x + bounds.size.x);
+        bottom = std::max(bottom, bounds.position.y + bounds.size.y);
+    }
+    for (const ComposedMesh&amp; mesh : scene.meshes()) {</span>
+<span style = "background-color:#fdd">        left = std::min(left, mesh.bounds.position.x);
+        top = std::min(top, mesh.bounds.position.y);
+        right = std::max(right, mesh.bounds.position.x + mesh.bounds.size.x);
+        bottom = std::max(bottom, mesh.bounds.position.y + mesh.bounds.size.y);
+    }</span>
+<span style = "background-color:#dfd">    return core::Rect{{left, top}, {right - left, bottom - top}};
+}</span>
+
+namespace {
+
+/// Ce que pese une texture `RGBA8` de @p width x @p height en memoire graphique ; lissee, elle
+/// porte en plus sa chaine de mipmaps, un tiers de sa taille.
+<span style = "background-color:#dfd">[[nodiscard]] std::size_t textureWeight(int width, int height, bool mipmapped) noexcept {
+    const std::size_t pixels = static_cast&lt;std::size_t&gt;(width) * static_cast&lt;std::size_t&gt;(height);
+    const std::size_t bytes = pixels * 4U;
+    return mipmapped ? bytes + (bytes / 3U) : bytes;
+}</span>
+
+/// Applique @p opacity aux primitives de @p quads : l'alpha de chacune est multiplie, et celle que
+/// l'appelant eteint (0 ou moins) est retiree. L'ordre de dessin ne change pas.
+<span style = "background-color:#dfd">void applyQuadOpacity(std::vector&lt;ComposedQuad&gt;&amp; quads, const WorldQuadOpacity&amp; opacity) {
+    std::erase_if(quads, [&amp;opacity](ComposedQuad&amp; quad) {
+        const float extra = opacity(quad);
+        if (extra &lt;= 0.0F) {
+            return true;</span>
+        }
+<span style = "background-color:#dfd">        switch (quad.kind) {</span>
+            case QuadKind::Sprite:
+<span style = "background-color:#dfd">                quad.sprite.a *= extra;
+                break;</span>
+            case QuadKind::Line:
+<span style = "background-color:#fdd">                quad.line.a *= extra;
+                break;</span>
+            case QuadKind::Poly:
+<span style = "background-color:#fdd">                quad.poly.a *= extra;</span>
+                break;
+        }
+<span style = "background-color:#dfd">        return false;
+    });
+}</span>
+
+/// La meme opacite pour les maillages : l'appelant la decide par calque et par etage, que la piece
+/// soit une image ou un volume. Elle lui est demandee sur une primitive qui n'en porte que cela.
+<span style = "background-color:#dfd">void applyMeshOpacity(std::vector&lt;ComposedMesh&gt;&amp; meshes, const WorldQuadOpacity&amp; opacity) {
+    std::erase_if(meshes, [&amp;opacity](ComposedMesh&amp; mesh) {
+        ComposedQuad proxy;
+        proxy.layer = mesh.layer;
+        proxy.storey = mesh.storey;
+        const float extra = opacity(proxy);
+        mesh.opacity *= extra;
+        return extra &lt;= 0.0F;
+    });
+}</span>
+
+}  // namespace
 
 WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">    : _directory(std::move(assetsDirectory)),
@@ -96,9 +187,105 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
         _textures.solid = SceneTexture{</span>
             .texture = _solid.handle(), .width = _solid.width, .height = _solid.height};
 <span style = "background-color:#dfd">    }
+    _meshes = std::make_unique&lt;MeshBatch&gt;(rhi);
     _resources.setFrameUpdates(nullptr);
     GRAPHICS_LOG_INFO("Lieu : ressources QRhi creees (" + std::string(rhi-&gt;backendName()) + ").");
     return true;
+}</span>
+
+<span style = "background-color:#dfd">std::size_t WorldSceneRenderer::textureBytes() const noexcept {
+    return _textureBytes + (_meshes ? _meshes-&gt;bytes() : 0U);
+}</span>
+
+<span style = "background-color:#dfd">void WorldSceneRenderer::ensureMeshes(const std::vector&lt;std::string&gt;&amp; paths) {
+    for (const std::string&amp; path : paths) {</span>
+        // Ni deja tente : un maillage absent ne se redemande pas a chaque image.
+<span style = "background-color:#dfd">        if (!_requested.insert(path).second) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const core::MeshFileResult read = core::readMeshFile(_directory / path);
+        if (!read.ok()) {</span>
+            // La composition retombe sur le damier : une piece manquante se voit, sans planter.
+<span style = "background-color:#dfd">            GRAPHICS_LOG_WARNING("Lieu : le maillage '" + path + "' ne se charge pas (" +</span>
+                                 read.message + ").");
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const MeshHandle handle = _meshes-&gt;create(_resources.context(), read.mesh);
+        if (handle == nullptr) {</span>
+<span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING("Lieu : le maillage '" + path + "' ne se cree pas sur le GPU.");
+            continue;</span>
+        }
+        // La hauteur d'un etage : ce que le manifeste de son dossier declare, rapporte a son
+        // losange (LOT-129) -- la meme lecture que pour une image.
+<span style = "background-color:#dfd">        const SceneTextureTraits traits = readSceneTextureTraits(_directory, path, &amp;_manifests);
+        SceneMesh&amp; loaded = _textures.meshes[path] =</span>
+            SceneMesh{.mesh = handle, .minimum = read.mesh.minimum, .maximum = read.mesh.maximum};
+<span style = "background-color:#dfd">        if (traits.storeyHeight &amp;&amp; traits.artTile.x &gt; 0.0F) {
+            loaded.storeyTiles = *traits.storeyHeight / traits.artTile.x;</span>
+        }
+<span style = "background-color:#dfd">        GRAPHICS_LOG_INFO("Lieu : maillage '" + path + "' charge (" +</span>
+                          std::to_string(read.mesh.triangleCount()) + " triangles).");
+<span style = "background-color:#dfd">    }
+}</span>
+
+<span style = "background-color:#dfd">void WorldSceneRenderer::ensureFigureModels(const std::vector&lt;std::string&gt;&amp; paths) {
+    for (const std::string&amp; path : paths) {</span>
+        // Ni deja tente : un modele absent ne se redemande pas a chaque image.
+<span style = "background-color:#dfd">        if (!_requested.insert(path).second) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        core::MeshFileResult read = core::readMeshFile(_directory / path);
+        if (!read.ok()) {</span>
+            // La composition retombe sur les bandes de la figurine, donc sur le damier : un modele
+            // manquant se voit, sans planter.
+<span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING("Lieu : le modele '" + path + "' ne se charge pas (" +</span>
+                                 read.message + ").");
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const MeshHandle handle = _meshes-&gt;create(_resources.context(), read.mesh);
+        if (handle == nullptr) {</span>
+<span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING("Lieu : le modele '" + path + "' ne se cree pas sur le GPU.");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        SceneFigureModel&amp; loaded = _textures.figures[path] =</span>
+            SceneFigureModel{.mesh = handle,
+                             .minimum = read.mesh.minimum,
+                             .maximum = read.mesh.maximum,
+                             .rig = nullptr,
+                             .skeleton = nullptr};
+<span style = "background-color:#dfd">        const std::size_t triangles = read.mesh.triangleCount();
+        const std::size_t clips = read.mesh.rig.clips.size();</span>
+        // Le squelette et ses clips ne valent que si le rendu sait les jouer : sinon le modele se
+        // dessine dans sa pose de liaison (`MeshBatch::create` l'a deja dit).
+<span style = "background-color:#dfd">        if (!read.mesh.skin.empty() &amp;&amp; read.mesh.rig.joints.size() &lt;= MeshBatch::MAX_BONES) {
+            loaded.rig = std::make_shared&lt;const core::MeshRig&gt;(std::move(read.mesh.rig));</span>
+        }
+        // Ce que le squelette declare de ses clips : la fiche du dossier dit lequel.
+<span style = "background-color:#dfd">        const std::filesystem::path sheetFile =</span>
+            (_directory / path).parent_path() / core::CHARACTER_SHEET_FILE;
+<span style = "background-color:#dfd">        if (const core::CharacterSheetFileResult sheet = core::readCharacterSheetFile(sheetFile);
+            sheet.ok()) {
+            auto known = _skeletons.find(sheet.sheet.skeleton);
+            if (known == _skeletons.end()) {
+                core::SkeletonFileResult skeleton = core::readSkeletonFile(</span>
+                    _directory / core::skeletonFilePath(sheet.sheet.skeleton));
+<span style = "background-color:#dfd">                if (!skeleton.ok()) {</span>
+<span style = "background-color:#fdd">                    GRAPHICS_LOG_WARNING("Lieu : le squelette '" + sheet.sheet.skeleton +</span>
+                                         "' ne se lit pas (" + skeleton.message + ").");
+                }
+<span style = "background-color:#dfd">                known =</span>
+                    _skeletons
+                        .emplace(sheet.sheet.skeleton,
+                                 skeleton.ok() ? std::make_shared&lt;const core::SkeletonDescription&gt;(
+                                                     std::move(skeleton.skeleton))
+                                               : nullptr)
+                        .first;
+<span style = "background-color:#dfd">            }
+            loaded.skeleton = known-&gt;second;
+        }
+        GRAPHICS_LOG_INFO("Lieu : modele '" + path + "' charge (" + std::to_string(triangles) +</span>
+                          " triangles, " + std::to_string(clips) + " clips).");
+<span style = "background-color:#dfd">    }
 }</span>
 
 <span style = "background-color:#dfd">std::optional&lt;LoadedTexture&gt; WorldSceneRenderer::figureMarker(const std::string&amp; path) {
@@ -106,14 +293,14 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
     if (cle.empty()) {
         return std::nullopt;</span>
     }
-<span style = "background-color:#fdd">    const core::MarkerImage image =</span>
+<span style = "background-color:#dfd">    const core::MarkerImage image =</span>
         core::assetMarker(cle, FIGURE_MARKER_WIDTH_PIXELS, FIGURE_MARKER_HEIGHT_PIXELS);
-<span style = "background-color:#fdd">    if (image.isEmpty()) {
-        return std::nullopt;</span>
+<span style = "background-color:#dfd">    if (image.isEmpty()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
     }
-<span style = "background-color:#fdd">    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle + " n'a pas d'image, son marqueur la remplace.");
-    return createTexture(_resources.context(), image.width, image.height, markerPixelsRgba8(image));</span>
-<span style = "background-color:#dfd">}</span>
+<span style = "background-color:#dfd">    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle + " n'a pas d'image, son marqueur la remplace.");
+    return createTexture(_resources.context(), image.width, image.height, markerPixelsRgba8(image));
+}</span>
 
 <span style = "background-color:#dfd">void WorldSceneRenderer::ensureTextures(const std::vector&lt;std::string&gt;&amp; paths) {</span>
     // Ce qui reste a charger : ni deja tente (une piece absente ne se redemande pas a chaque
@@ -132,7 +319,8 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">                _textures.byPath[path] = SceneTexture{.texture = painted-&gt;handle(),</span>
                                                       .width = painted-&gt;width,
                                                       .height = painted-&gt;height};
-<span style = "background-color:#dfd">                _loaded.push_back(std::move(*painted));
+<span style = "background-color:#dfd">                _textureBytes += textureWeight(painted-&gt;width, painted-&gt;height, false);
+                _loaded.push_back(std::move(*painted));
             }
             continue;
         }
@@ -160,14 +348,15 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
         if (!texture.has_value()) {</span>
             // Une figurine sans image se dessine par son marqueur (LOT-39, LOT-96) : la
             // sentinelle se voit avant que l'atelier ne l'ait dessinee. Une case de large.
-<span style = "background-color:#dfd">            if (std::optional&lt;LoadedTexture&gt; marqueur = figureMarker(path)) {</span>
-<span style = "background-color:#fdd">                _textures.byPath[path] = SceneTexture{.texture = marqueur-&gt;handle(),</span>
+<span style = "background-color:#dfd">            if (std::optional&lt;LoadedTexture&gt; marqueur = figureMarker(path)) {
+                _textures.byPath[path] = SceneTexture{.texture = marqueur-&gt;handle(),</span>
                                                       .width = marqueur-&gt;width,
                                                       .height = marqueur-&gt;height,
                                                       .frameWidth = marqueur-&gt;width};
-<span style = "background-color:#fdd">                _loaded.push_back(std::move(*marqueur));
-                continue;</span>
-<span style = "background-color:#dfd">            }</span>
+<span style = "background-color:#dfd">                _textureBytes += textureWeight(marqueur-&gt;width, marqueur-&gt;height, false);
+                _loaded.push_back(std::move(*marqueur));
+                continue;
+            }</span>
             // La composition retombe sur le damier : une piece manquante se voit, sans planter.
 <span style = "background-color:#dfd">            GRAPHICS_LOG_WARNING(missingTextureWarning(path));
             continue;</span>
@@ -177,6 +366,7 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">        SceneTexture&amp; loaded = _textures.byPath[path] = SceneTexture{</span>
             .texture = texture-&gt;handle(), .width = texture-&gt;width, .height = texture-&gt;height};
 <span style = "background-color:#dfd">        applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path, &amp;_manifests));
+        _textureBytes += textureWeight(texture-&gt;width, texture-&gt;height, true);
         _loaded.push_back(std::move(*texture));
     }
 }</span>
@@ -190,9 +380,14 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">    _sceneDirty = true;
     _figuresDirty = true;
     _textures.byPath.clear();
+    _textures.meshes.clear();
+    _textures.figures.clear();
+    _skeletons.clear();
+    _meshes.reset();
     _textures.missing = SceneTexture{};
     _textures.solid = SceneTexture{};
     _loaded.clear();
+    _textureBytes = 0;
     _missing = LoadedTexture{};
     _solid = LoadedTexture{};
     _requested.clear();
@@ -220,6 +415,63 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
     _figuresDirty = true;
 }</span>
 
+<span style = "background-color:#dfd">void WorldSceneRenderer::setComposeOptions(WorldComposeOptions options) noexcept {
+    if (options == _composeOptions) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    _composeOptions = options;
+    _sceneDirty = true;
+}</span>
+
+<span style = "background-color:#dfd">core::IsoProjection WorldSceneRenderer::sceneProjection() const {
+    return {_scene-&gt;columns, _scene-&gt;rows, core::ARENA_TILE_WIDTH_UNITS, _scene-&gt;diamondRatio};
+}</span>
+
+<span style = "background-color:#dfd">void WorldSceneRenderer::refresh(const core::IsoProjection&amp; projection) {</span>
+    // La carte : ses textures et sa composition, une fois par carte. Ce sont ses pieces qui disent
+    // quoi charger, et la carte change au passage d'un portail.
+<span style = "background-color:#dfd">    if (_sceneDirty) {
+        ensureTextures(worldTexturePaths(*_scene));
+        ensureMeshes(worldMeshPaths(*_scene));
+        ensureFigureModels(worldFigureModelPaths(_scene-&gt;figures));
+        _statics.build(*_scene, projection, _textures, _composeOptions);
+        _sceneDirty = false;</span>
+    }
+    // Les figurines : leurs bandes, quand elles changent (une figurine neuve, une autre bande).
+<span style = "background-color:#dfd">    if (_figuresDirty) {
+        ensureTextures(worldFigureTexturePaths(*_scene, _figures));
+        ensureFigureModels(worldFigureModelPaths(_figures));
+        _figuresDirty = false;</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">bool WorldSceneRenderer::prepare() {
+    if (!created()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    if (!_sceneDirty &amp;&amp; !_figuresDirty) {</span>
+<span style = "background-color:#fdd">        return true;</span>
+    }
+    // Hors image : les televersements attendent dans le lot que la prochaine image soumettra.
+<span style = "background-color:#dfd">    if (_pendingUploads == nullptr) {
+        _pendingUploads = _rhi-&gt;nextResourceUpdateBatch();</span>
+    }
+<span style = "background-color:#dfd">    _resources.setFrameUpdates(_pendingUploads);
+    refresh(sceneProjection());
+    _resources.setFrameUpdates(nullptr);
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">core::Rect WorldSceneRenderer::paintedBounds(const core::Rect&amp; base) {
+    if (!prepare()) {
+        return base;</span>
+    }
+    // Toute la carte et ses figurines, sans cadrage : ce qu'une image pourrait montrer.
+<span style = "background-color:#dfd">    ComposedScene whole;
+    _statics.compose(whole, _figures, _textures);
+    return composedSceneBounds(whole, base);
+}</span>
+
 void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target,
 <span style = "background-color:#dfd">                                const float* clear) {
     if (!created() || commandBuffer == nullptr || target == nullptr) {</span>
@@ -231,34 +483,60 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
                                                  : _rhi-&gt;nextResourceUpdateBatch();
 <span style = "background-color:#dfd">    _resources.setFrameUpdates(updates);</span>
 
-<span style = "background-color:#dfd">    const core::IsoProjection projection(_scene-&gt;columns, _scene-&gt;rows,</span>
-                                         core::ARENA_TILE_WIDTH_UNITS, _scene-&gt;diamondRatio);
-    // La carte : ses textures et sa composition, une fois par carte. Ce sont ses pieces qui disent
-    // quoi charger, et la carte change au passage d'un portail.
-<span style = "background-color:#dfd">    if (_sceneDirty) {
-        ensureTextures(worldTexturePaths(*_scene));
-        _statics.build(*_scene, projection, _textures);
-        _sceneDirty = false;</span>
-    }
-    // Les figurines : leurs bandes, quand elles changent (une figurine neuve, une autre bande).
-<span style = "background-color:#dfd">    if (_figuresDirty) {
-        ensureTextures(worldFigureTexturePaths(*_scene, _figures));
-        _figuresDirty = false;</span>
-    }
+<span style = "background-color:#dfd">    const core::IsoProjection projection = sceneProjection();
+    refresh(projection);</span>
 
 <span style = "background-color:#dfd">    const QSize pixels = target-&gt;pixelSize();
-    const Camera2D camera = worldCamera(projection, projection.gridToWorld(_focus), pixels.width(),</span>
-                                        pixels.height(), _tilePixels);
+    PlaceCamera camera = _framing ? framedCamera(*_framing, pixels.width(), pixels.height())</span>
+                                  : worldCamera(projection, projection.gridToWorld(_focus),
+                                                pixels.width(), pixels.height(), _tilePixels);
 
     // L'image : ce que la camera montre de la carte, et les figurines.
 <span style = "background-color:#dfd">    _composed.clear();
     _composed.setVisibleBounds(camera.visibleBounds());
-    _statics.compose(_composed, _figures, _textures);</span>
+    _statics.compose(_composed, _figures, _textures);
+    if (_opacity) {</span>
+        // Les calques de l'editeur (LOT-1002) : la liste, deja triee, est retouchee en place.
+<span style = "background-color:#dfd">        std::vector&lt;ComposedQuad&gt; quads;
+        _composed.swapQuads(quads, 0, 0);
+        applyQuadOpacity(quads, _opacity);
+        _composed.swapQuads(quads, 0, 0);
+        std::vector&lt;ComposedMesh&gt; meshes;
+        _composed.swapMeshes(meshes);
+        applyMeshOpacity(meshes, _opacity);
+        _composed.swapMeshes(meshes);
+    }</span>
+
+    // Les volumes (LOT-1003). Une image qui en a donne a chaque primitive sa profondeur, et la
+    // camera ramene celle de toute la scene a l'etendue du tampon ; une image qui n'en a pas se
+    // dessine comme avant le lot : profondeur nulle, ni test ni ecriture.
+<span style = "background-color:#dfd">    const bool volumes = !_composed.meshes().empty();
+    std::optional&lt;SceneDepth&gt; depth;
+    if (volumes) {
+        const IsoView view(projection);
+        camera.setDepthRange(view.depthRange());
+        depth = SceneDepth{.view = view, .range = camera.depthRange()};</span>
+    }
 
 <span style = "background-color:#dfd">    SpriteBatch&amp; sprites = _resources.sprites();
+    sprites.setDepthTest(volumes);
     sprites.beginFrame();
-    submitComposedScene(sprites, camera.projectionMatrix(), _composed);
-    sprites.submit(commandBuffer, target, updates, clear);
+    submitComposedScene(sprites, camera.projectionMatrix(), _composed, depth ? &amp;*depth : nullptr);
+    _meshes-&gt;beginFrame();
+    for (const ComposedMesh&amp; mesh : _composed.meshes()) {
+        _meshes-&gt;draw(mesh.mesh, camera.meshMatrix(mesh.toView), mesh.opacity,</span>
+                      _composed.poseOf(mesh));
+<span style = "background-color:#dfd">    }</span>
+
+    // Une seule passe : les televersements d'abord, puis les maillages, qui ecrivent la profondeur,
+    // et les images, qui la testent dans l'ordre du peintre.
+<span style = "background-color:#dfd">    QRhiResourceUpdateBatch* const uploads =</span>
+        _meshes-&gt;prepare(target, sprites.prepare(target, updates));
+<span style = "background-color:#dfd">    commandBuffer-&gt;beginPass(target, QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]),</span>
+                             {1.0F, 0}, uploads);
+<span style = "background-color:#dfd">    _meshes-&gt;record(commandBuffer, target);
+    sprites.record(commandBuffer, target);
+    commandBuffer-&gt;endPass();
     _resources.setFrameUpdates(nullptr);
 }</span>
 

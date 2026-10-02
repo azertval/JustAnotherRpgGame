@@ -249,7 +249,22 @@ void StaticWorldScene::compose(ComposedScene&amp; out, std::span&lt;const WorldF
 
 <span style = "background-color:#dfd">    const auto considered = static_cast&lt;int&gt;(statics.size());
     const int culled = considered - static_cast&lt;int&gt;(_visible.size());
-    out.swapQuads(_merged, considered, culled);
+    out.swapQuads(_merged, considered, culled);</span>
+
+    // Les maillages de la carte que le cadrage montre (LOT-1003), a la suite de ceux que
+    // l'appelant avait deja. Aucun ordre a tenir : le tampon de profondeur les departage.
+<span style = "background-color:#dfd">    if (!_scene.meshes().empty()) {
+        std::vector&lt;ComposedMesh&gt; meshes;
+        out.swapMeshes(meshes);
+        const bool culling = out.isCullingEnabled();
+        const core::Rect visible = out.cullingBounds();
+        for (const ComposedMesh&amp; mesh : _scene.meshes()) {
+            if (!culling || visible.intersects(mesh.bounds)) {
+                meshes.push_back(mesh);</span>
+            }
+<span style = "background-color:#dfd">        }
+        out.swapMeshes(meshes);
+    }
 }</span>
 
 }  // namespace hmi</pre>

@@ -153,6 +153,48 @@
       <anchor>a0c8687225e7b462f6c0ea32254490f2c</anchor>
       <arglist>(CanvasTravelArenareaZoomedOut) -&gt; Unit(benchmark::kMillisecond)</arglist>
     </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>WorldFrameStrips1080p</name>
+      <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
+      <anchor>a4aa2c6459e26dca45ab5acb12b26cdb3</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
+      <anchor>a20abfca355c18a9233b62a6fdc5e96f7</anchor>
+      <arglist>(WorldFrameStrips1080p) -&gt; Unit(benchmark::kMillisecond)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>WorldFrameOneModel1080p</name>
+      <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
+      <anchor>a944d8f3a95af170aa42a138f5d31ef8a</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
+      <anchor>abb47efe99f61d9af263e362a0f90a160</anchor>
+      <arglist>(WorldFrameOneModel1080p) -&gt; Unit(benchmark::kMillisecond)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>WorldFrameEightModels1080p</name>
+      <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
+      <anchor>a5160eff9552f419ea288992cffe222bc</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
+      <anchor>aa745c04c464e79322e23cb7d89dbcaa1</anchor>
+      <arglist>(WorldFrameEightModels1080p) -&gt; Unit(benchmark::kMillisecond)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>bench_combat.cpp</name>
@@ -265,7 +307,9 @@
     <filename>bench__world__frame_8cpp.html</filename>
     <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
     <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
     <includes id="StaticWorldScene_8h" name="StaticWorldScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/StaticWorldScene.h</includes>
@@ -339,6 +383,20 @@
       <anchorfile>bench__world__frame_8cpp.html</anchorfile>
       <anchor>aec1781d523904ebfdf259570ce0e028d</anchor>
       <arglist>(ArenareaFrame1080p) -&gt; Unit(benchmark::kMicrosecond)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>ArenareaFrame1080pEightModels</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>ac93baafebefb0cb2ca909a534f6704ff</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__world__frame_8cpp.html</anchorfile>
+      <anchor>a69f64f6bf52a3cb69bebe4b20e9f87b3</anchor>
+      <arglist>(ArenareaFrame1080pEightModels) -&gt; Unit(benchmark::kMicrosecond)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -1667,6 +1725,12 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
     <filename>MeshFile_8h.html</filename>
     <class kind="struct">core::MeshVertex</class>
+    <class kind="struct">core::MeshSkinVertex</class>
+    <class kind="struct">core::MeshJoint</class>
+    <class kind="struct">core::MeshChannel</class>
+    <class kind="struct">core::MeshJointTrack</class>
+    <class kind="struct">core::MeshClip</class>
+    <class kind="struct">core::MeshRig</class>
     <class kind="struct">core::MeshData</class>
     <class kind="struct">core::MeshFileResult</class>
     <namespace>core</namespace>
@@ -1704,6 +1768,40 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
     <filename>ScenePlace_8h.html</filename>
     <class kind="struct">core::SceneLevel</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>SkeletonFile.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
+    <filename>SkeletonFile_8cpp.html</filename>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
+    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>SkeletonFile.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
+    <filename>SkeletonFile_8h.html</filename>
+    <class kind="struct">core::SkeletonBone</class>
+    <class kind="struct">core::SkeletonClip</class>
+    <class kind="struct">core::SkeletonDescription</class>
+    <class kind="struct">core::SkeletonFileResult</class>
+    <class kind="struct">core::CharacterSheetFile</class>
+    <class kind="struct">core::CharacterSheetFileResult</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>SkeletonPose.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
+    <filename>SkeletonPose_8cpp.html</filename>
+    <includes id="SkeletonPose_8h" name="SkeletonPose.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonPose.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>SkeletonPose.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
+    <filename>SkeletonPose_8h.html</filename>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -4366,10 +4464,13 @@
     <includes id="BattleGrid_8h" name="BattleGrid.h" local="yes" import="no" module="no" objc="no">Core/Combat/BattleGrid.h</includes>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <class kind="struct">hmi::CombatCue</class>
     <class kind="struct">hmi::EffectMotion</class>
     <class kind="struct">hmi::FigureMotion</class>
+    <class kind="struct">hmi::GestureTiming</class>
+    <class kind="struct">hmi::FigureTimings</class>
     <class kind="class">hmi::CombatCueTrack</class>
     <class kind="struct">hmi::CombatCueTrack::Running</class>
     <namespace>hmi</namespace>
@@ -4401,6 +4502,7 @@
     <name>FigureResolver.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/</path>
     <filename>FigureResolver_8h.html</filename>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
     <class kind="struct">hmi::ResolvedFigure</class>
     <class kind="class">hmi::FigureResolver</class>
@@ -4843,11 +4945,14 @@
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <includes id="Rect_8h" name="Rect.h" local="yes" import="no" module="no" objc="no">Core/Math/Rect.h</includes>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="Quad_8h" name="Quad.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Quad.h</includes>
     <includes id="RenderLayer_8h" name="RenderLayer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RenderLayer.h</includes>
     <class kind="struct">hmi::SceneTexture</class>
     <class kind="struct">hmi::SceneMesh</class>
+    <class kind="struct">hmi::SceneFigureModel</class>
     <class kind="struct">hmi::ScenePieceTextures</class>
     <namespace>hmi</namespace>
   </compound>
@@ -5018,6 +5123,7 @@
     <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
     <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
     <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
+    <includes id="SkeletonPose_8h" name="SkeletonPose.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonPose.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
     <includes id="CityBlock_8h" name="CityBlock.h" local="yes" import="no" module="no" objc="no">Core/World/CityBlock.h</includes>
     <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
@@ -5063,6 +5169,7 @@
     <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
     <includes id="AssetMarker_8h" name="AssetMarker.h" local="yes" import="no" module="no" objc="no">Core/Resources/AssetMarker.h</includes>
     <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
     <includes id="EntityMarkers_8h" name="EntityMarkers.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/EntityMarkers.h</includes>
     <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
     <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
@@ -9849,6 +9956,56 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_skeleton.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Resources/</path>
+    <filename>test__skeleton_8cpp.html</filename>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
+    <includes id="SkeletonPose_8h" name="SkeletonPose.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonPose.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__skeleton_8cpp.html</anchorfile>
+      <anchor>a4df5dc63e4d65fd90d3e3b03adedd3b7</anchor>
+      <arglist>(SkeletonTest, LeChargeurLitLeSqueletteEtLesClips)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__skeleton_8cpp.html</anchorfile>
+      <anchor>a54be914400af98dec930795fe3c253de</anchor>
+      <arglist>(SkeletonTest, LaPoseDUnOsAUnInstant)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__skeleton_8cpp.html</anchorfile>
+      <anchor>a56eb1aa02c9e15edfa196f68794125b5</anchor>
+      <arglist>(SkeletonTest, LInstantDUnClip)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__skeleton_8cpp.html</anchorfile>
+      <anchor>a54cee43c3dbd871652c0bd167976217a</anchor>
+      <arglist>(SkeletonTest, LaDescriptionDUnSqueletteSeLit)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__skeleton_8cpp.html</anchorfile>
+      <anchor>a62b3d1f6832e9162d73c6324958157bb</anchor>
+      <arglist>(SkeletonTest, LaFicheDUnPersonnage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__skeleton_8cpp.html</anchorfile>
+      <anchor>ae6c1cdcfb15d36895ff314eb3e17cd0c</anchor>
+      <arglist>(SkeletonTest, LeModeleDEssaiPorteLeSqueletteCommun)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_bestiary.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Rpg/</path>
     <filename>test__bestiary_8cpp.html</filename>
@@ -13203,6 +13360,13 @@
       <anchor>ad1a0b6b5f0da0becdc82ce7bae4e341b</anchor>
       <arglist>(CombatCuesTest, UnProjectileVersLaGaucheEstLeMiroir)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__combat__cues_8cpp.html</anchorfile>
+      <anchor>a2caf2c3a2b85844894da48742a2ea24b</anchor>
+      <arglist>(CombatCuesTest, LesSignauxPartentALImageCleDuClip)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_debug_commands.cpp</name>
@@ -13230,6 +13394,13 @@
       <anchorfile>test__figure__resolver_8cpp.html</anchorfile>
       <anchor>af681890bdbf50e42ec19f600bae912a8</anchor>
       <arglist>(FigureResolverTest, LaReponseSeRetientJusquAClear)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__resolver_8cpp.html</anchorfile>
+      <anchor>a1e98196f0dc44ccef10f1b3a9a334fca</anchor>
+      <arglist>(FigureResolverTest, UnPersonnageEnModeleEtSonMannequin)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13565,6 +13736,86 @@
       <anchorfile>test__entity__markers_8cpp.html</anchorfile>
       <anchor>aab1c2aa8b83190dc9523a65de91d3882</anchor>
       <arglist>(EntityMarkersTest, PixelsEmpaquetesEnRgba8)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_figure_model.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__figure__model_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
+    <includes id="SkeletonPose_8h" name="SkeletonPose.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonPose.h</includes>
+    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__model_8cpp.html</anchorfile>
+      <anchor>a4377ad07db763a37305e9f3fef0d2a1c</anchor>
+      <arglist>(FigureModelTest, UneFigurineEnModeleSeComposeEnMaillage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__model_8cpp.html</anchorfile>
+      <anchor>acaaf99c87cdb34a7f854c50f0e97e72b</anchor>
+      <arglist>(FigureModelTest, UnClipBoucleOuSeFige)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__model_8cpp.html</anchorfile>
+      <anchor>a02afc86451af6c80f4d7685501caa935</anchor>
+      <arglist>(FigureModelTest, UnModeleFaitFaceASonCap)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__model_8cpp.html</anchorfile>
+      <anchor>ad94c6c4723fc4846f16394938289fb23</anchor>
+      <arglist>(FigureModelTest, UnModeleAbsentLaisseVoirLeDamier)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_figure_model_render.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__figure__model__render_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="OffscreenRender_8h" name="OffscreenRender.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/OffscreenRender.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__model__render_8cpp.html</anchorfile>
+      <anchor>a67b28d346b623b9fca2527114c457148</anchor>
+      <arglist>(FigureModelRenderTest, LeModeleDEssaiSeDessineEtJoueSesClips)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__model__render_8cpp.html</anchorfile>
+      <anchor>a4129e5efacf7c332492302899f069505</anchor>
+      <arglist>(FigureModelRenderTest, UnModeleSeDepartageParLaProfondeur)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__model__render_8cpp.html</anchorfile>
+      <anchor>a2b716b8642f0f78cb36793ac0b5bdfe1</anchor>
+      <arglist>(FigureModelRenderTest, BandesEtModeleCohabitent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__model__render_8cpp.html</anchorfile>
+      <anchor>aae577aee2e2e0415720356f764ae5784</anchor>
+      <arglist>(FigureModelRenderTest, LeMannequinDEssaiMarche)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -19742,6 +19993,13 @@
       <anchor>a273aecc49435eb704b12b89658e4744d</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>model</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Binding.html</anchorfile>
+      <anchor>af2604693ed2105defae9753528e6a58c</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::BonusDamage</name>
@@ -20664,6 +20922,56 @@
       <name>emptyMark</name>
       <anchorfile>structhmi_1_1CharacterSheetContext.html</anchorfile>
       <anchor>a651111de13b6ec1b7d53862181c84ba1</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::CharacterSheetFile</name>
+    <filename>structcore_1_1CharacterSheetFile.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1CharacterSheetFile.html</anchorfile>
+      <anchor>a176f6930d1c1a18b98b3bd629dca0fb5</anchor>
+      <arglist>(const CharacterSheetFile &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>model</name>
+      <anchorfile>structcore_1_1CharacterSheetFile.html</anchorfile>
+      <anchor>a7cf3250a3340b2ba897d55544b1789e1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>skeleton</name>
+      <anchorfile>structcore_1_1CharacterSheetFile.html</anchorfile>
+      <anchor>a0a13adf6291158e14dd03497ab8bce4d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::CharacterSheetFileResult</name>
+    <filename>structcore_1_1CharacterSheetFileResult.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>ok</name>
+      <anchorfile>structcore_1_1CharacterSheetFileResult.html</anchorfile>
+      <anchor>a3a7717d90346f801e74e3171db0d60b0</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>CharacterSheetFile</type>
+      <name>sheet</name>
+      <anchorfile>structcore_1_1CharacterSheetFileResult.html</anchorfile>
+      <anchor>a3a7591c2157611916afcb857dc8efce4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>message</name>
+      <anchorfile>structcore_1_1CharacterSheetFileResult.html</anchorfile>
+      <anchor>a6e7495022798612bddd97551cc9fd8ab</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -22126,6 +22434,13 @@
     <class kind="struct">hmi::CombatCueTrack::Running</class>
     <member kind="function">
       <type>void</type>
+      <name>setTimings</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a1b02c9fea434f1d7a4b32e703f56cb20</anchor>
+      <arglist>(core::CombatantId actor, const FigureTimings &amp;timings)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
       <name>place</name>
       <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
       <anchor>a5845b0a48c9a4c1b50f97a5b9f58abec</anchor>
@@ -22194,6 +22509,20 @@
       <anchor>ab3e55c85793523ec65bc841f0e768fff</anchor>
       <arglist>() const noexcept</arglist>
     </member>
+    <member kind="function" static="yes">
+      <type>static FigureTimings</type>
+      <name>stripTimings</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a82a77ccfc829e53531315636235d4538</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static FigureTimings</type>
+      <name>timingsOf</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>ab8d08c62faea414a3fe55627c176b80d</anchor>
+      <arglist>(const core::SkeletonDescription *skeleton)</arglist>
+    </member>
     <member kind="variable" static="yes">
       <type>static constexpr float</type>
       <name>WALK_CELLS_PER_SECOND</name>
@@ -22223,6 +22552,20 @@
       <arglist></arglist>
     </member>
     <member kind="function" protection="private">
+      <type>const FigureTimings &amp;</type>
+      <name>timings</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a602be75a81af7f15d6ad9ba2622c878a</anchor>
+      <arglist>(core::CombatantId actor) const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>GestureTiming</type>
+      <name>gestureOf</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a24c7538031a47c2466b9f57d32f8017f</anchor>
+      <arglist>(const CombatCue &amp;cue) const</arglist>
+    </member>
+    <member kind="function" protection="private">
       <type>void</type>
       <name>startNext</name>
       <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
@@ -22241,6 +22584,13 @@
       <name>_figures</name>
       <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
       <anchor>aea130bad9d873753b9e912e01c7e30c8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; core::CombatantId, FigureTimings &gt;</type>
+      <name>_timings</name>
+      <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
+      <anchor>a6648b89856f4b29a5040b902d22e6ab6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -23717,6 +24067,20 @@
       <anchor>a781923365eb8e513eb5f15de03cf6d9f</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::uint32_t</type>
+      <name>poseOffset</name>
+      <anchorfile>structhmi_1_1ComposedMesh.html</anchorfile>
+      <anchor>adff2eac46324430c087da7b0fab5678a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::uint32_t</type>
+      <name>poseFloats</name>
+      <anchorfile>structhmi_1_1ComposedMesh.html</anchorfile>
+      <anchor>ad9480e08c2ed9fe61410d99de24cd03b</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::ComposedQuad</name>
@@ -23855,8 +24219,15 @@
       <type>bool</type>
       <name>addMesh</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
-      <anchor>a8681cadd04a8b6ca426d162866af99fd</anchor>
-      <arglist>(RenderLayer layer, MeshHandle mesh, const ViewTransform &amp;toView, const core::Rect &amp;bounds, int storey=0)</arglist>
+      <anchor>a9f7f68a120268b43d9f1feb65ac335ae</anchor>
+      <arglist>(RenderLayer layer, MeshHandle mesh, const ViewTransform &amp;toView, const core::Rect &amp;bounds, int storey=0, std::span&lt; const float &gt; pose={})</arglist>
+    </member>
+    <member kind="function">
+      <type>std::span&lt; const float &gt;</type>
+      <name>poseOf</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>ab2fbdb942d6f7386f573ccbb15400606</anchor>
+      <arglist>(const ComposedMesh &amp;mesh) const noexcept</arglist>
     </member>
     <member kind="function">
       <type>const std::vector&lt; ComposedMesh &gt; &amp;</type>
@@ -23975,6 +24346,13 @@
       <name>_meshes</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
       <anchor>a9f767fd8b203215ee0760f2355e99c79</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; float &gt;</type>
+      <name>_poses</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>add2d6c15ac39378103757b8999242336</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -26872,6 +27250,13 @@
       <name>opacity</name>
       <anchorfile>structhmi_1_1MeshBatch_1_1Draw.html</anchorfile>
       <anchor>a9b5e2fd90643fe18cbc28191ac1e08ef</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>pose</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1Draw.html</anchorfile>
+      <anchor>a87f6a7aaeb5f1c762b0439578ab9608e</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -31446,6 +31831,13 @@
     </member>
     <member kind="variable">
       <type>float</type>
+      <name>heading</name>
+      <anchorfile>structhmi_1_1FigureMotion.html</anchorfile>
+      <anchor>a4dfcba38722cfdbb2ef088ea3a324b0c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
       <name>clipSeconds</name>
       <anchorfile>structhmi_1_1FigureMotion.html</anchorfile>
       <anchor>a5076ae8c9940a892fc7a149ea9eb92dc</anchor>
@@ -31485,6 +31877,13 @@
     </member>
     <member kind="function">
       <type>bool</type>
+      <name>hasModel</name>
+      <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
+      <anchor>a68bcce654dbed80cf2c3a39b24893410</anchor>
+      <arglist>(std::string_view directory, ResolvedFigure &amp;resolved)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
       <name>hasIdleStrip</name>
       <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
       <anchor>a0a9d37b5c6e6bc87e29153d21e4a5d83</anchor>
@@ -31502,6 +31901,59 @@
       <name>_found</name>
       <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
       <anchor>a0053fe58f22a378c2b135d5e268e8a5f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, std::shared_ptr&lt; const core::SkeletonDescription &gt;, std::less&lt;&gt; &gt;</type>
+      <name>_skeletons</name>
+      <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
+      <anchor>a44695cfea950dd0ee60e31025c0d8660</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::FigureTimings</name>
+    <filename>structhmi_1_1FigureTimings.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1FigureTimings.html</anchorfile>
+      <anchor>a16a496e6c12d485930b161d8b289a5ad</anchor>
+      <arglist>(const FigureTimings &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>GestureTiming</type>
+      <name>attack</name>
+      <anchorfile>structhmi_1_1FigureTimings.html</anchorfile>
+      <anchor>a9e0b287d3e2514c74d417e434a89bb15</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>GestureTiming</type>
+      <name>ranged</name>
+      <anchorfile>structhmi_1_1FigureTimings.html</anchorfile>
+      <anchor>a652e14b3c484ebfcbaa39b0c041552a5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>GestureTiming</type>
+      <name>cast</name>
+      <anchorfile>structhmi_1_1FigureTimings.html</anchorfile>
+      <anchor>a0478d5828c63df8050e6e5199600ea45</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>hit</name>
+      <anchorfile>structhmi_1_1FigureTimings.html</anchorfile>
+      <anchor>a9f6676bf2567f8201d2d3fcfb4a2a9ac</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>death</name>
+      <anchorfile>structhmi_1_1FigureTimings.html</anchorfile>
+      <anchor>a5e798a68a2df433cb748bd35169708d8</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -31805,6 +32257,13 @@
       <name>facing</name>
       <anchorfile>structhmi_1_1WorldPlay_1_1Follower.html</anchorfile>
       <anchor>a124ddf5a2403419ce9f29955defb160c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>heading</name>
+      <anchorfile>structhmi_1_1WorldPlay_1_1Follower.html</anchorfile>
+      <anchor>a270a4553b760edb70d5dbdfbfafd348a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -32396,6 +32855,31 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::GestureTiming</name>
+    <filename>structhmi_1_1GestureTiming.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1GestureTiming.html</anchorfile>
+      <anchor>a044f22cae85659f1b80658eebcc3cf17</anchor>
+      <arglist>(const GestureTiming &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>seconds</name>
+      <anchorfile>structhmi_1_1GestureTiming.html</anchorfile>
+      <anchor>a58b56e76da46ae76c8eaa3ce99462637</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>impact</name>
+      <anchorfile>structhmi_1_1GestureTiming.html</anchorfile>
+      <anchor>ae5903a48b047a650aef04778d2603316</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::MeshBatch::GpuMesh</name>
     <filename>structhmi_1_1MeshBatch_1_1GpuMesh.html</filename>
     <member kind="variable">
@@ -32410,6 +32894,20 @@
       <name>indices</name>
       <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
       <anchor>a6591c47b7492212b8df9060f97bf40b8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::unique_ptr&lt; QRhiBuffer &gt;</type>
+      <name>skin</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
+      <anchor>a34886f26d7afaf4e82d519a6e04488ae</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::size_t</type>
+      <name>boneCount</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
+      <anchor>a836952673b99b235967900960d5447e2</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -32438,6 +32936,13 @@
       <name>bindings</name>
       <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
       <anchor>af481aed6ecd6763447dd91d3ce4c5de7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::unique_ptr&lt; QRhiShaderResourceBindings &gt;</type>
+      <name>skinnedBindings</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
+      <anchor>ada2556e4f4acc2791edca7911d7e1a70</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -33969,6 +34474,13 @@
       <anchorfile>classhmi_1_1IsoView.html</anchorfile>
       <anchor>ab12c02ad1e9dda9091b86a273273b1d3</anchor>
       <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static ViewTransform</type>
+      <name>turned</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a40069dc79e954ef16b4d4e3ee085e0a2</anchor>
+      <arglist>(const ViewTransform &amp;transform, float yaw) noexcept</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static std::array&lt; float, 3 &gt;</type>
@@ -39156,8 +39668,15 @@
       <type>void</type>
       <name>draw</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
-      <anchor>aeef847d07688eaebcc3eb7584e05a13a</anchor>
-      <arglist>(MeshHandle mesh, const DirectX::XMFLOAT4X4 &amp;clip, float opacity=1.0F)</arglist>
+      <anchor>afd8c62b4c3b682ba49a614907b7ebbae</anchor>
+      <arglist>(MeshHandle mesh, const DirectX::XMFLOAT4X4 &amp;clip, float opacity=1.0F, std::span&lt; const float &gt; bones={})</arglist>
+    </member>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>skinnedDrawCount</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a283dca23f3445c646600af15c3a844dc</anchor>
+      <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
       <type>std::size_t</type>
@@ -39180,11 +39699,25 @@
       <anchor>a19a3ef7a34a1cf66253febd88a53dcb2</anchor>
       <arglist>(QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target)</arglist>
     </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr std::size_t</type>
+      <name>MAX_BONES</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>adca70a34b15c6ba95083d6f72cdf2894</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="function" protection="private">
       <type>bool</type>
       <name>ensurePipeline</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
       <anchor>a7d35e80c397a56814213d241c401c374</anchor>
+      <arglist>(QRhiRenderTarget *target)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>ensureSkinnedPipeline</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a709244fb4b33eb4c71a864496faa3a0e</anchor>
       <arglist>(QRhiRenderTarget *target)</arglist>
     </member>
     <member kind="function" protection="private">
@@ -39195,10 +39728,24 @@
       <arglist>(std::size_t drawCount)</arglist>
     </member>
     <member kind="function" protection="private">
+      <type>bool</type>
+      <name>ensureBoneCapacity</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a0693a5b08c6832436fff78cb5d634307</anchor>
+      <arglist>(std::size_t poseCount)</arglist>
+    </member>
+    <member kind="function" protection="private">
       <type>QRhiShaderResourceBindings *</type>
       <name>bindingsFor</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
       <anchor>aa7bdb7029b250fcb4b8db85ae1fa5312</anchor>
+      <arglist>(GpuMesh &amp;mesh)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QRhiShaderResourceBindings *</type>
+      <name>skinnedBindingsFor</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a05f6fb12e17ca2cf60b0fe49fb9cc449</anchor>
       <arglist>(GpuMesh &amp;mesh)</arglist>
     </member>
     <member kind="variable" protection="private">
@@ -39258,6 +39805,55 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiBuffer &gt;</type>
+      <name>_boneBuffer</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>aa0de15c6dd93c83e63cf94ebb73dfe2e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiShaderResourceBindings &gt;</type>
+      <name>_skinnedLayoutBindings</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>af5cf4458648c1e0e2d0736a1ca78ed8a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiGraphicsPipeline &gt;</type>
+      <name>_skinnedPipeline</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>ae78ae12f0d35fc7f1f7d538058815a05</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QRhiRenderPassDescriptor *</type>
+      <name>_skinnedPipelinePass</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a61b948b2346403c0c7efba9d5417552b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::size_t</type>
+      <name>_boneSlots</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>ae5c25e658a9be8215c8cf10b984f20c4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_boneStride</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a8d7a0bec581a2e1ffe7a01e3cc5b2b45</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; float &gt;</type>
+      <name>_poses</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>ae61d08baf445a17379336c438673e8f7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>std::vector&lt; std::unique_ptr&lt; GpuMesh &gt; &gt;</type>
       <name>_meshes</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
@@ -39283,6 +39879,63 @@
       <name>_drawable</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
       <anchor>ac21a115426f9f0babc594fbfdf891103</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MeshChannel</name>
+    <filename>structcore_1_1MeshChannel.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>empty</name>
+      <anchorfile>structcore_1_1MeshChannel.html</anchorfile>
+      <anchor>adc19d96ec686b996bc2d7469aa582edf</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; float &gt;</type>
+      <name>times</name>
+      <anchorfile>structcore_1_1MeshChannel.html</anchorfile>
+      <anchor>aebb1bb60c7a6ccfc373c60b377908e4f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; float &gt;</type>
+      <name>values</name>
+      <anchorfile>structcore_1_1MeshChannel.html</anchorfile>
+      <anchor>abc064ca840b62d0b13d2eb9ca17b3958</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>step</name>
+      <anchorfile>structcore_1_1MeshChannel.html</anchorfile>
+      <anchor>ab6444cf0a4968648aa3900ecd0b078db</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MeshClip</name>
+    <filename>structcore_1_1MeshClip.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structcore_1_1MeshClip.html</anchorfile>
+      <anchor>a450c08ee6432279a404bb1c58c8a5873</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>duration</name>
+      <anchorfile>structcore_1_1MeshClip.html</anchorfile>
+      <anchor>aaff2edd644a2c9f799b5de86cb3dc9ba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; MeshJointTrack &gt;</type>
+      <name>tracks</name>
+      <anchorfile>structcore_1_1MeshClip.html</anchorfile>
+      <anchor>a053530d39df4d0eb99f5e4fcb8626557</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -39366,6 +40019,20 @@
       <anchor>a445f50ef3e0449e9878c4eaae2e2a9a2</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::vector&lt; MeshSkinVertex &gt;</type>
+      <name>skin</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>af90e06f15b58654581b1e4f1414f928a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>MeshRig</type>
+      <name>rig</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a96bb2b0033133b43752b470198d4ad60</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>core::MeshFileResult</name>
@@ -39396,6 +40063,134 @@
       <name>message</name>
       <anchorfile>structcore_1_1MeshFileResult.html</anchorfile>
       <anchor>afbd62566b73b0f8c083b6159d55e9a5e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MeshJoint</name>
+    <filename>structcore_1_1MeshJoint.html</filename>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structcore_1_1MeshJoint.html</anchorfile>
+      <anchor>a695668c595e71c7e0103b53adf8b0e05</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>parent</name>
+      <anchorfile>structcore_1_1MeshJoint.html</anchorfile>
+      <anchor>ac84c8a401bbcaafc8cbb84b6d314151c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>translation</name>
+      <anchorfile>structcore_1_1MeshJoint.html</anchorfile>
+      <anchor>aa08bfa942500063c887e226d47e81b52</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 4 &gt;</type>
+      <name>rotation</name>
+      <anchorfile>structcore_1_1MeshJoint.html</anchorfile>
+      <anchor>a54d04fa2b3be169b6afaae4066d9aa1d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>scale</name>
+      <anchorfile>structcore_1_1MeshJoint.html</anchorfile>
+      <anchor>a0b7d78c373999bed595a95f28669ba44</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>MeshMatrix</type>
+      <name>inverseBind</name>
+      <anchorfile>structcore_1_1MeshJoint.html</anchorfile>
+      <anchor>a3e1fa09e1c3a84b1fb62f6cf5861682c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>MeshMatrix</type>
+      <name>anchor</name>
+      <anchorfile>structcore_1_1MeshJoint.html</anchorfile>
+      <anchor>adf40d2d86404b25931edcbe457631925</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MeshJointTrack</name>
+    <filename>structcore_1_1MeshJointTrack.html</filename>
+    <member kind="variable">
+      <type>MeshChannel</type>
+      <name>translation</name>
+      <anchorfile>structcore_1_1MeshJointTrack.html</anchorfile>
+      <anchor>a802d67ed3dbd121052589a04f99800a5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>MeshChannel</type>
+      <name>rotation</name>
+      <anchorfile>structcore_1_1MeshJointTrack.html</anchorfile>
+      <anchor>a6edcf4574ba8a83d4f51c9549ce2aa5d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MeshRig</name>
+    <filename>structcore_1_1MeshRig.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>empty</name>
+      <anchorfile>structcore_1_1MeshRig.html</anchorfile>
+      <anchor>a2d2d1639cc859daa2d5c40a3ada7f5fb</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; MeshJoint &gt;</type>
+      <name>joints</name>
+      <anchorfile>structcore_1_1MeshRig.html</anchorfile>
+      <anchor>aa9fde3c383838f10b58e016333c70ed2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::uint16_t &gt;</type>
+      <name>order</name>
+      <anchorfile>structcore_1_1MeshRig.html</anchorfile>
+      <anchor>a08e4e620f780470880a2281078962367</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; MeshClip &gt;</type>
+      <name>clips</name>
+      <anchorfile>structcore_1_1MeshRig.html</anchorfile>
+      <anchor>a9164dfdb09b86eced31182e79eac3246</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MeshSkinVertex</name>
+    <filename>structcore_1_1MeshSkinVertex.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1MeshSkinVertex.html</anchorfile>
+      <anchor>a38536e48abc64b1348caaee321c6046d</anchor>
+      <arglist>(const MeshSkinVertex &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; std::uint16_t, 4 &gt;</type>
+      <name>joints</name>
+      <anchorfile>structcore_1_1MeshSkinVertex.html</anchorfile>
+      <anchor>aca4dd45c77077bf21738b53afeaa7699</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 4 &gt;</type>
+      <name>weights</name>
+      <anchorfile>structcore_1_1MeshSkinVertex.html</anchorfile>
+      <anchor>a47921a1cc59624ab18c4fe545399ebef</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -43771,6 +44566,20 @@
       <anchor>a60916348b00f029cbd0fa2f18a0b3f89</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>model</name>
+      <anchorfile>structhmi_1_1ResolvedFigure.html</anchorfile>
+      <anchor>aa04d0fb8c60699ae255b0c3f095e9628</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::shared_ptr&lt; const core::SkeletonDescription &gt;</type>
+      <name>skeleton</name>
+      <anchorfile>structhmi_1_1ResolvedFigure.html</anchorfile>
+      <anchor>ab9cf62a082425206167a5d2f2143bcc3</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::RhiContext</name>
@@ -43963,6 +44772,13 @@
       <anchor>a60afd51c2d0a567c9747ca289ab8dcce</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>flight</name>
+      <anchorfile>structhmi_1_1CombatCueTrack_1_1Running.html</anchorfile>
+      <anchor>aec66e4771d5ef55ccdf79ed7d32576a3</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::AudioEngine::Sample</name>
@@ -44029,6 +44845,45 @@
       <name>OVERLAY_FRACTION</name>
       <anchorfile>structhmi_1_1SceneDepth.html</anchorfile>
       <anchor>a27780ced902ca7440c136c349f01d73f</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::SceneFigureModel</name>
+    <filename>structhmi_1_1SceneFigureModel.html</filename>
+    <member kind="variable">
+      <type>MeshHandle</type>
+      <name>mesh</name>
+      <anchorfile>structhmi_1_1SceneFigureModel.html</anchorfile>
+      <anchor>ac74447a29c903138b5ed302f178a251c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>minimum</name>
+      <anchorfile>structhmi_1_1SceneFigureModel.html</anchorfile>
+      <anchor>a9973362c82978fe5703c66e6cb696bea</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>maximum</name>
+      <anchorfile>structhmi_1_1SceneFigureModel.html</anchorfile>
+      <anchor>a16f1cf8f89f73daa3145bd7f0eb4ea74</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::shared_ptr&lt; const core::MeshRig &gt;</type>
+      <name>rig</name>
+      <anchorfile>structhmi_1_1SceneFigureModel.html</anchorfile>
+      <anchor>acda4a9f43a1e72534b711177cb3ae21b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::shared_ptr&lt; const core::SkeletonDescription &gt;</type>
+      <name>skeleton</name>
+      <anchorfile>structhmi_1_1SceneFigureModel.html</anchorfile>
+      <anchor>ac9413c74b07bd5cf260f0fc69aa3e2ec</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -44420,6 +45275,13 @@
       <arglist>(std::string_view path) const</arglist>
     </member>
     <member kind="function">
+      <type>const SceneFigureModel *</type>
+      <name>findFigure</name>
+      <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
+      <anchor>a4d32d1b021978e2e76eb1e978bc9ae9c</anchor>
+      <arglist>(std::string_view path) const</arglist>
+    </member>
+    <member kind="function">
       <type>const SceneTexture &amp;</type>
       <name>resolve</name>
       <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
@@ -44445,6 +45307,13 @@
       <name>meshes</name>
       <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
       <anchor>a71f8e50d179d9c163c468f4961beadba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::map&lt; std::string, SceneFigureModel, std::less&lt;&gt; &gt;</type>
+      <name>figures</name>
+      <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
+      <anchor>acdee0a5fa3a1e9641482c1a9d8567eb8</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -45547,6 +46416,134 @@
       <name>warning</name>
       <anchorfile>structhmi_1_1SidecarReadResult.html</anchorfile>
       <anchor>aef6ccb6ab488e1f6c1f3474f0767e84a</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::SkeletonBone</name>
+    <filename>structcore_1_1SkeletonBone.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1SkeletonBone.html</anchorfile>
+      <anchor>a3a2e1ca43487ac29a2f17a919f814533</anchor>
+      <arglist>(const SkeletonBone &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structcore_1_1SkeletonBone.html</anchorfile>
+      <anchor>ac4a1c92d3c86a1cddf9822759650d1e6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>parent</name>
+      <anchorfile>structcore_1_1SkeletonBone.html</anchorfile>
+      <anchor>a42584eedd7a5b3191853035d04b662a7</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::SkeletonClip</name>
+    <filename>structcore_1_1SkeletonClip.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1SkeletonClip.html</anchorfile>
+      <anchor>acb3451bfb53e74ace1a740974c2624e6</anchor>
+      <arglist>(const SkeletonClip &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structcore_1_1SkeletonClip.html</anchorfile>
+      <anchor>ab026de1d3bf7f6f4d86f9b26d50d9f8d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>duration</name>
+      <anchorfile>structcore_1_1SkeletonClip.html</anchorfile>
+      <anchor>a3a18cd1b24727287ea47d532df9f07cc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>loop</name>
+      <anchorfile>structcore_1_1SkeletonClip.html</anchorfile>
+      <anchor>accaf51d2e794df31be0107e0a5ed4ea3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; float &gt;</type>
+      <name>key</name>
+      <anchorfile>structcore_1_1SkeletonClip.html</anchorfile>
+      <anchor>a554c25343948a989883761447744f264</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::SkeletonDescription</name>
+    <filename>structcore_1_1SkeletonDescription.html</filename>
+    <member kind="function">
+      <type>const SkeletonClip *</type>
+      <name>clip</name>
+      <anchorfile>structcore_1_1SkeletonDescription.html</anchorfile>
+      <anchor>a6b16bedac96382290d9b7320894dfba3</anchor>
+      <arglist>(std::string_view name) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1SkeletonDescription.html</anchorfile>
+      <anchor>a0a1510c3e8ba70824b6e2ef9eef5fed1</anchor>
+      <arglist>(const SkeletonDescription &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>silhouette</name>
+      <anchorfile>structcore_1_1SkeletonDescription.html</anchorfile>
+      <anchor>acf78a0bcae1d3ed6f1e040e635ff377a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; SkeletonBone &gt;</type>
+      <name>bones</name>
+      <anchorfile>structcore_1_1SkeletonDescription.html</anchorfile>
+      <anchor>a79ea32100b54315409282a18120ebb70</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; SkeletonClip &gt;</type>
+      <name>clips</name>
+      <anchorfile>structcore_1_1SkeletonDescription.html</anchorfile>
+      <anchor>af519d52b785bd02642121a26f2dfb152</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::SkeletonFileResult</name>
+    <filename>structcore_1_1SkeletonFileResult.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>ok</name>
+      <anchorfile>structcore_1_1SkeletonFileResult.html</anchorfile>
+      <anchor>a5de76e7677abb3dfcb151d472e599771</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>SkeletonDescription</type>
+      <name>skeleton</name>
+      <anchorfile>structcore_1_1SkeletonFileResult.html</anchorfile>
+      <anchor>ae65a79ce0369ebb1655ca1534bc9d208</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>message</name>
+      <anchorfile>structcore_1_1SkeletonFileResult.html</anchorfile>
+      <anchor>a00ea48126ea50a10d5cf4db25af70778</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -48461,6 +49458,20 @@
       <anchor>aae0dc8267662b27b1cfb9ed388dd3a09</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>model</name>
+      <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
+      <anchor>a4bffa18c2f9254901aef66061e878791</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; float &gt;</type>
+      <name>heading</name>
+      <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
+      <anchor>a7fbc66f94737d24741b78b204bbd1e53</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>core::WorldFlags</name>
@@ -50485,6 +51496,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_heroHeading</name>
+      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
+      <anchor>a7a924af2e38cbb66825c8186cbcb9963</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>std::vector&lt; std::string &gt;</type>
       <name>_followerFigures</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
@@ -50827,6 +51845,13 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>ensureFigureModels</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>abfa7945e5883064ddac3910d9f0e4bbe</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;paths)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>refresh</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
       <anchor>a55dfc11aadf454da5f305ee9b90314e7</anchor>
@@ -50942,6 +51967,13 @@
       <name>_manifests</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
       <anchor>aeb5bba418426fa54bfd3f6bec816c424</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, std::shared_ptr&lt; const core::SkeletonDescription &gt;, std::less&lt;&gt; &gt;</type>
+      <name>_skeletons</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a47c91e893d3b14e6c4f2f56d058e1438</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -51848,6 +52880,12 @@
     <class kind="struct">core::MarkerColor</class>
     <class kind="struct">core::MarkerImage</class>
     <class kind="struct">core::MeshVertex</class>
+    <class kind="struct">core::MeshSkinVertex</class>
+    <class kind="struct">core::MeshJoint</class>
+    <class kind="struct">core::MeshChannel</class>
+    <class kind="struct">core::MeshJointTrack</class>
+    <class kind="struct">core::MeshClip</class>
+    <class kind="struct">core::MeshRig</class>
     <class kind="struct">core::MeshData</class>
     <class kind="struct">core::MeshFileResult</class>
     <class kind="struct">core::ScenePiece</class>
@@ -51855,6 +52893,12 @@
     <class kind="class">core::ScenePieceManifest</class>
     <class kind="struct">core::ScenePieceManifestResult</class>
     <class kind="struct">core::SceneLevel</class>
+    <class kind="struct">core::SkeletonBone</class>
+    <class kind="struct">core::SkeletonClip</class>
+    <class kind="struct">core::SkeletonDescription</class>
+    <class kind="struct">core::SkeletonFileResult</class>
+    <class kind="struct">core::CharacterSheetFile</class>
+    <class kind="struct">core::CharacterSheetFileResult</class>
     <class kind="struct">core::CreatureTrait</class>
     <class kind="struct">core::CreatureAction</class>
     <class kind="struct">core::CreatureSpeed</class>
@@ -52032,6 +53076,13 @@
       <name>PropertyMap</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>ac3cd7f319efbfd33f183ca31782d1731</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::array&lt; float, 16 &gt;</type>
+      <name>MeshMatrix</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>af973b9d886256b459488301c0a5f1487</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -54248,6 +55299,69 @@
       <arglist>(const FigureDirectories &amp;figures, std::string_view figure)</arglist>
     </member>
     <member kind="function">
+      <type>SkeletonFileResult</type>
+      <name>readSkeletonDescription</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ae94fd4b025dbbaa8831bdddf23a6375d</anchor>
+      <arglist>(std::string_view json)</arglist>
+    </member>
+    <member kind="function">
+      <type>SkeletonFileResult</type>
+      <name>readSkeletonFile</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aa1986c82281edc74263c4daa8461de7d</anchor>
+      <arglist>(const std::filesystem::path &amp;path)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>skeletonFilePath</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a18606df00c2b63862aac8527090414da</anchor>
+      <arglist>(std::string_view silhouette)</arglist>
+    </member>
+    <member kind="function">
+      <type>CharacterSheetFileResult</type>
+      <name>readCharacterSheet</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a79e8f0c811f53aa7ba238f9418d9e1d5</anchor>
+      <arglist>(std::string_view json)</arglist>
+    </member>
+    <member kind="function">
+      <type>CharacterSheetFileResult</type>
+      <name>readCharacterSheetFile</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a20b30a44af52e22bf63548269391fcbf</anchor>
+      <arglist>(const std::filesystem::path &amp;path)</arglist>
+    </member>
+    <member kind="function">
+      <type>const MeshClip *</type>
+      <name>findClip</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a0b6ca7836768941b4c14bb76c2552aed</anchor>
+      <arglist>(const MeshRig &amp;rig, std::string_view name) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>clipTime</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a8feddcde13680d73638adeb214969231</anchor>
+      <arglist>(float seconds, float duration, bool loop) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>poseSkeleton</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a06e6ef3c1d8c7e062c5e96b8ff6adb6d</anchor>
+      <arglist>(const MeshRig &amp;rig, const MeshClip *clip, float seconds, std::span&lt; float &gt; out)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>skinnedPosition</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a78a602290fefe7abb3203a3d8d3b6d57</anchor>
+      <arglist>(std::span&lt; const float &gt; matrices, const MeshSkinVertex &amp;skin, const std::array&lt; float, 3 &gt; &amp;position) noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>std::string_view</type>
       <name>abilityName</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -55445,10 +56559,38 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>constexpr MeshMatrix</type>
+      <name>MESH_IDENTITY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a4fbdd7de5dcc2e38a118aebcc1e21cbe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::size_t</type>
+      <name>MESH_MAX_JOINTS</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a74b37fae60cf9f8b2700060502783263</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>constexpr std::size_t</type>
       <name>MESH_FILE_MAX_BYTES</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a54740985552311c9bd3ca1b0974a7421</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>SKELETON_FORMAT_VERSION</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aabfd40b8cebbaeb2ce2d3b82471aecd7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>CHARACTER_SHEET_FILE</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a69365a0e5a29fabafefd54c1636067f3</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -55964,6 +57106,8 @@
     <class kind="struct">hmi::CombatCue</class>
     <class kind="struct">hmi::EffectMotion</class>
     <class kind="struct">hmi::FigureMotion</class>
+    <class kind="struct">hmi::GestureTiming</class>
+    <class kind="struct">hmi::FigureTimings</class>
     <class kind="class">hmi::CombatCueTrack</class>
     <class kind="struct">hmi::DebugOption</class>
     <class kind="struct">hmi::DebugArgument</class>
@@ -56011,6 +57155,7 @@
     <class kind="struct">hmi::RhiContext</class>
     <class kind="struct">hmi::SceneTexture</class>
     <class kind="struct">hmi::SceneMesh</class>
+    <class kind="struct">hmi::SceneFigureModel</class>
     <class kind="struct">hmi::ScenePieceTextures</class>
     <class kind="class">hmi::SceneResources</class>
     <class kind="struct">hmi::SceneTextureTraits</class>
@@ -58610,6 +59755,13 @@
       <arglist>(std::string_view silhouette)</arglist>
     </member>
     <member kind="function">
+      <type>std::string</type>
+      <name>mannequinFigureDirectory</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a0ed268fdf11d77e308058243732fc1ac</anchor>
+      <arglist>(std::string_view silhouette)</arglist>
+    </member>
+    <member kind="function">
       <type>std::vector&lt; WorldFigureSnapshot &gt;</type>
       <name>npcFigures</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -58636,6 +59788,20 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>abc96b05b9f94854936ee3d8541390286</anchor>
       <arglist>(const WorldSceneSource &amp;source, const PlaceAppearance &amp;appearance, std::vector&lt; WorldFigureSnapshot &gt; figures)</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>figureHeadingOf</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a860cbbc037b925a5a58d443e483c72ac</anchor>
+      <arglist>(FigureFacing facing) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>figureHeadingFor</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac64452b3239caa3f7c4ff9cf237b6d5d</anchor>
+      <arglist>(core::Vector2 move, float previous) noexcept</arglist>
     </member>
     <member kind="function">
       <type>std::string_view</type>
@@ -58671,6 +59837,13 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a2f3d83ca010accd2a3d552ae2b6b97c0</anchor>
       <arglist>(const WorldSceneSnapshot &amp;snapshot, std::span&lt; const WorldFigureSnapshot &gt; figures)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>worldFigureModelPaths</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ab0a22153ca04392816f4bd25a3660328</anchor>
+      <arglist>(std::span&lt; const WorldFigureSnapshot &gt; figures)</arglist>
     </member>
     <member kind="function">
       <type>std::vector&lt; std::string &gt;</type>
@@ -60350,6 +61523,8 @@
     <file>test_city_block_render.cpp</file>
     <file>test_depth_sort.cpp</file>
     <file>test_entity_markers.cpp</file>
+    <file>test_figure_model.cpp</file>
+    <file>test_figure_model_render.cpp</file>
     <file>test_hd_mockup_render.cpp</file>
     <file>test_image_encode.cpp</file>
     <file>test_iso_view.cpp</file>
@@ -60665,6 +61840,10 @@
     <file>ScenePieceManifest.h</file>
     <file>ScenePlace.cpp</file>
     <file>ScenePlace.h</file>
+    <file>SkeletonFile.cpp</file>
+    <file>SkeletonFile.h</file>
+    <file>SkeletonPose.cpp</file>
+    <file>SkeletonPose.h</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Resources</name>
@@ -60674,6 +61853,7 @@
     <file>test_mesh_file.cpp</file>
     <file>test_scene_piece_manifest.cpp</file>
     <file>test_scene_place.cpp</file>
+    <file>test_skeleton.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg</name>

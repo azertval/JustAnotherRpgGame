@@ -166,6 +166,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a40069dc79e954ef16b4d4e3ee085e0a2" id="r_a40069dc79e954ef16b4d4e3ee085e0a2"><td class="memItemLeft">static <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a>&#160;</td><td class="memItemRight"><a class="el" href="#a40069dc79e954ef16b4d4e3ee085e0a2">turned</a> (const <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> &amp;transform, float yaw) noexcept</td></tr>
+<tr class="memdesc:a40069dc79e954ef16b4d4e3ee085e0a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tourne un maillage posé autour de sa verticale (<span class="tt">LOT-1005</span>) : la pose <code class="param">transform</code>, précédée d'une rotation de <code class="param">yaw</code> radians qui amène l'axe +Z du maillage vers son axe +X.  <br /></td></tr>
 <tr class="memitem:a202928e99c023e8c4fb36e62bedf6637" id="r_a202928e99c023e8c4fb36e62bedf6637"><td class="memItemLeft">static std::array&lt; float, 3 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a202928e99c023e8c4fb36e62bedf6637">apply</a> (const <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> &amp;transform, float x, float y, float z) noexcept</td></tr>
 <tr class="memitem:a30710b9cb69b6b2f586a9a61ad38c52a" id="r_a30710b9cb69b6b2f586a9a61ad38c52a"><td class="memItemLeft">static <a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a30710b9cb69b6b2f586a9a61ad38c52a">projectedBounds</a> (const <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> &amp;transform, const std::array&lt; float, 3 &gt; &amp;minimum, const std::array&lt; float, 3 &gt; &amp;maximum) noexcept</td></tr>
 <tr class="memdesc:a30710b9cb69b6b2f586a9a61ad38c52a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rectangle de l'image qu'occupe la boîte [<code class="param">minimum</code>, <code class="param">maximum</code>] d'un maillage posé par <code class="param">transform</code> : ce que le culling et le cadrage comparent.  <br /></td></tr>
@@ -536,6 +538,38 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La profondeur, à l'ordonnée <code class="param">y</code>, d'une image <b>dressée</b> sur la ligne <code class="param">footY</code> : le plan vertical au-dessus du pied, le sol au-dessous. </p>
+
+</div>
+</div>
+<a id="a40069dc79e954ef16b4d4e3ee085e0a2" name="a40069dc79e954ef16b4d4e3ee085e0a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40069dc79e954ef16b4d4e3ee085e0a2">&#9670;&#160;</a></span>turned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> hmi::IsoView::turned </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>transform</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>yaw</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tourne un maillage posé autour de sa verticale (<span class="tt">LOT-1005</span>) : la pose <code class="param">transform</code>, précédée d'une rotation de <code class="param">yaw</code> radians qui amène l'axe +Z du maillage vers son axe +X. </p>
+<p>Un modèle regarde vers +Z : tourné de <span class="tt">yaw</span>, il regarde vers (sin yaw, 0, cos yaw). </p>
 
 </div>
 </div>

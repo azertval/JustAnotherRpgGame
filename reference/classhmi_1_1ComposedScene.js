@@ -1,7 +1,7 @@
 var classhmi_1_1ComposedScene =
 [
     [ "addLine", "classhmi_1_1ComposedScene.html#a84dc1784abf8931b638de5929894ad54", null ],
-    [ "addMesh", "classhmi_1_1ComposedScene.html#a8681cadd04a8b6ca426d162866af99fd", null ],
+    [ "addMesh", "classhmi_1_1ComposedScene.html#a9f7f68a120268b43d9f1feb65ac335ae", null ],
     [ "addPoly", "classhmi_1_1ComposedScene.html#a0c47046f62c3e7fec88c4e28bfb649b8", null ],
     [ "addSprite", "classhmi_1_1ComposedScene.html#a776bb0228de0fffc9caded06d5bc3e46", null ],
     [ "batchCount", "classhmi_1_1ComposedScene.html#a751bbaba08ad6bd4f8104723af3b95df", null ],
@@ -12,6 +12,7 @@ var classhmi_1_1ComposedScene =
     [ "isCullingEnabled", "classhmi_1_1ComposedScene.html#a62f6cc07caaeef96393c6c8e2de233b9", null ],
     [ "isVisible", "classhmi_1_1ComposedScene.html#ad544319d48036199694098d8c61dfd05", null ],
     [ "meshes", "classhmi_1_1ComposedScene.html#a8733ade9562b71584755342c6c4283d3", null ],
+    [ "poseOf", "classhmi_1_1ComposedScene.html#ab2fbdb942d6f7386f573ccbb15400606", null ],
     [ "quads", "classhmi_1_1ComposedScene.html#ace294695fa499a5f2d899b449d647933", null ],
     [ "registerTexture", "classhmi_1_1ComposedScene.html#a484a964df70d29ebbcf8331518e00f43", null ],
     [ "setVisibleBounds", "classhmi_1_1ComposedScene.html#a55f90d51ee8eb346b47163efd1b78301", null ],
@@ -24,6 +25,7 @@ var classhmi_1_1ComposedScene =
     [ "_considered", "classhmi_1_1ComposedScene.html#a26e1b7e6b9bad59ea9654f8b7c923262", null ],
     [ "_culled", "classhmi_1_1ComposedScene.html#aa7224733eaa8db633223dd7e172acb5b", null ],
     [ "_meshes", "classhmi_1_1ComposedScene.html#a9f767fd8b203215ee0760f2355e99c79", null ],
+    [ "_poses", "classhmi_1_1ComposedScene.html#add2d6c15ac39378103757b8999242336", null ],
     [ "_quads", "classhmi_1_1ComposedScene.html#aaa9c9c3f70b554c719bcb6a3a5547e00", null ],
     [ "_textureOrder", "classhmi_1_1ComposedScene.html#aa885de2ea8ce9908fe077a7b2bbfa65a", null ],
     [ "_textureRanks", "classhmi_1_1ComposedScene.html#aa2c90c7a877a60139f6f091b3714ffcd", null ],

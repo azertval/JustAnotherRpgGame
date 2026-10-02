@@ -151,6 +151,7 @@ $(function(){initNavTree('structhmi_1_1ScenePieceTextures.html','','structhmi_1_
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af701378b2d2bc4b8d48f23cb5b48655f" id="r_af701378b2d2bc4b8d48f23cb5b48655f"><td class="memItemLeft">const <a class="el" href="structhmi_1_1SceneMesh.html">SceneMesh</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af701378b2d2bc4b8d48f23cb5b48655f">findMesh</a> (std::string_view path) const</td></tr>
+<tr class="memitem:a4d32d1b021978e2e76eb1e978bc9ae9c" id="r_a4d32d1b021978e2e76eb1e978bc9ae9c"><td class="memItemLeft">const <a class="el" href="structhmi_1_1SceneFigureModel.html">SceneFigureModel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a4d32d1b021978e2e76eb1e978bc9ae9c">findFigure</a> (std::string_view path) const</td></tr>
 <tr class="memitem:aeb53934f3db27bee39a3a517b712dbdf" id="r_aeb53934f3db27bee39a3a517b712dbdf"><td class="memItemLeft">const <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aeb53934f3db27bee39a3a517b712dbdf">resolve</a> (std::string_view path) const</td></tr>
 <tr class="memitem:a9039ee736398be3cfb92694e8f359368" id="r_a9039ee736398be3cfb92694e8f359368"><td class="memItemLeft">const <a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a9039ee736398be3cfb92694e8f359368">find</a> (std::string_view path) const</td></tr>
 <tr class="memdesc:a9039ee736398be3cfb92694e8f359368"><td class="mdescLeft">&#160;</td><td class="mdescRight">La texture de <code class="param">path</code>, <b>sans</b> repli sur le damier.  <br /></td></tr>
@@ -161,6 +162,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a34f4bb97c124acb80a4a73e0a348c53f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comparateur transparent : la recherche se fait sans chaîne temporaire.  <br /></td></tr>
 <tr class="memitem:a71f8e50d179d9c163c468f4961beadba" id="r_a71f8e50d179d9c163c468f4961beadba"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structhmi_1_1SceneMesh.html">SceneMesh</a>, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a71f8e50d179d9c163c468f4961beadba">meshes</a></td></tr>
 <tr class="memdesc:a71f8e50d179d9c163c468f4961beadba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les maillages chargés, par chemin (<span class="tt">Scene/ilot/wall.glb</span>).  <br /></td></tr>
+<tr class="memitem:acdee0a5fa3a1e9641482c1a9d8567eb8" id="r_acdee0a5fa3a1e9641482c1a9d8567eb8"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structhmi_1_1SceneFigureModel.html">SceneFigureModel</a>, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#acdee0a5fa3a1e9641482c1a9d8567eb8">figures</a></td></tr>
+<tr class="memdesc:acdee0a5fa3a1e9641482c1a9d8567eb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les modèles des figurines, par chemin de leur <span class="tt">.glb</span> (<span class="tt">LOT-1005</span>).  <br /></td></tr>
 <tr class="memitem:a56dea4108fc0ff04439355227a88506f" id="r_a56dea4108fc0ff04439355227a88506f"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#a56dea4108fc0ff04439355227a88506f">missing</a></td></tr>
 <tr class="memdesc:a56dea4108fc0ff04439355227a88506f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Damier de repli.  <br /></td></tr>
 <tr class="memitem:a0915ac2c83ced0bab7bea8a193dc94f3" id="r_a0915ac2c83ced0bab7bea8a193dc94f3"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneTexture.html">SceneTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0915ac2c83ced0bab7bea8a193dc94f3">solid</a></td></tr>
@@ -195,6 +198,32 @@ Public Attributes</h2></td></tr>
 
 <p>La texture de <code class="param">path</code>, <b>sans</b> repli sur le damier. </p>
 <p>Pour ce qui n'a de sens que dessiné juste : un jeton de maquette (<span class="tt">LOT-128</span>) est peint ou n'est pas là — un damier à sa place ne dirait rien à personne, et se ferait passer pour une pièce manquante. </p><dl class="section return"><dt>Returns</dt><dd>La texture, ou <span class="tt">nullptr</span> si elle n'est pas chargée. </dd></dl>
+
+</div>
+</div>
+<a id="a4d32d1b021978e2e76eb1e978bc9ae9c" name="a4d32d1b021978e2e76eb1e978bc9ae9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d32d1b021978e2e76eb1e978bc9ae9c">&#9670;&#160;</a></span>findFigure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1SceneFigureModel.html">SceneFigureModel</a> * hmi::ScenePieceTextures::findFigure </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le modèle de figurine de <code class="param">path</code>, <span class="tt">nullptr</span> s'il n'est pas chargé. </dd></dl>
 
 </div>
 </div>
@@ -264,6 +293,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Comparateur transparent : la recherche se fait sans chaîne temporaire. </p>
+
+</div>
+</div>
+<a id="acdee0a5fa3a1e9641482c1a9d8567eb8" name="acdee0a5fa3a1e9641482c1a9d8567eb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdee0a5fa3a1e9641482c1a9d8567eb8">&#9670;&#160;</a></span>figures</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, <a class="el" href="structhmi_1_1SceneFigureModel.html">SceneFigureModel</a>, std::less&lt;&gt; &gt; hmi::ScenePieceTextures::figures</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les modèles des figurines, par chemin de leur <span class="tt">.glb</span> (<span class="tt">LOT-1005</span>). </p>
 
 </div>
 </div>

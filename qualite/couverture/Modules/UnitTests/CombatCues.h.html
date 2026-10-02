@@ -34,6 +34,14 @@
  *
  * Elle ne connaÃ®t ni la session, ni les textures, ni Qt : des identifiants, des cases, des
  * secondes. C'est ce qui la rend vÃ©rifiable sans fenÃªtre.
+ *
+ * ## L'image clÃ© (`LOT-1005`)
+ *
+ * Un coup **porte** Ã  un instant du geste : c'est lÃ  que commencent le touchÃ© et la chute de la
+ * cible, et qu'arrive le projectile. Pour une figurine en bandes, cet instant est le milieu de la
+ * bande (`IMPACT_FRACTION`). Pour un modÃ¨le, c'est l'**image clÃ©** que son squelette dÃ©clare, clip
+ * par clip (`core::SkeletonClip::key`), et le geste dure son clip : la file les reÃ§oit par
+ * combattant (`setTimings`), et le journal, les dÃ©gÃ¢ts et l'animation restent synchrones.
  */
 
 #include &lt;cstddef&gt;
@@ -47,6 +55,7 @@
 #include "Core/Combat/BattleGrid.h"
 #include "Core/Levels/GridPosition.h"
 #include "Core/Math/Vector2.h"
+#include "Core/Resources/SkeletonFile.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
@@ -108,10 +117,36 @@ struct FigureMotion {
     std::string_view clip = figure_clips::IDLE;
     /// La diagonale vers laquelle elle regarde.
     FigureFacing facing = FigureFacing::SouthEast;
+    /// Son cap (`hmi::figureHeadingOf`) : oÃ¹ regarde un modÃ¨le, qui s'oriente librement â
+    /// vers son pas, vers sa cible (`LOT-1005`).
+    float heading = 0.0F;
     /// Temps Ã©coulÃ© depuis le dÃ©but de la bande, en secondes.
     float clipSeconds = 0.0F;
     /// Ã terre : sa bande de mort reste sur sa derniÃ¨re image, et rien ne la relÃ¨ve.
     bool dead = false;
+};
+
+/// @brief Un geste dans le temps : ce qu'il dure, et l'instant oÃ¹ il porte.
+struct GestureTiming {
+    float seconds = 0.0F;
+    float impact = 0.0F;
+
+    [[nodiscard]] bool operator==(const GestureTiming&amp;) const = default;
+};
+
+/**
+ * @brief Les durÃ©es des gestes d'un combattant (`LOT-1005`) : celles de ses clips, si sa figurine
+ *        est un modÃ¨le ; celles des bandes sinon.
+ */
+struct FigureTimings {
+    GestureTiming attack;
+    GestureTiming ranged;
+    GestureTiming cast;
+    /// Ce que dure le coup encaissÃ©, et la chute.
+    float hit = 0.0F;
+    float death = 0.0F;
+
+    [[nodiscard]] bool operator==(const FigureTimings&amp;) const = default;
 };
 
 /**
@@ -132,6 +167,18 @@ public:
     static constexpr float IMPACT_FRACTION = 0.5F;
     /// Un effet dure sa bande : huit images, une petite seconde (`LOT-136`).
     static constexpr float EFFECT_SECONDS = 0.8F;
+
+    /// @return Les durÃ©es d'une figurine en bandes : `ACTION_SECONDS`, l'impact Ã 
+    ///         `IMPACT_FRACTION`.
+    [[nodiscard]] static FigureTimings stripTimings() noexcept;
+    /**
+     * @return Les durÃ©es des clips que @p skeleton dÃ©clare ; celles des bandes pour un clip qu'il
+     *         ne dÃ©clare pas, et pour un squelette nul. Un clip sans image clÃ© porte Ã 
+     *         `IMPACT_FRACTION` de sa durÃ©e ; le tir sans clip de tir est une attaque.
+     */
+    [[nodiscard]] static FigureTimings timingsOf(const core::SkeletonDescription* skeleton);
+    /// @brief Donne Ã  @p actor les durÃ©es de ses gestes ; sans elles, celles des bandes.
+    void setTimings(core::CombatantId actor, const FigureTimings&amp; timings);
 
     /// @brief Pose @p actor au repos en @p cell, tout de suite (montage, rejeu, repli).
     void place(core::CombatantId actor, core::GridPosition cell,
@@ -167,7 +214,14 @@ private:
         float elapsed = 0.0F;
         /// La case d'oÃ¹ part une marche.
         core::Vector2 from{};
+        /// `Effect` en vol : le temps du vol, celui que met le coup Ã  porter.
+        float flight = 0.0F;
     };
+
+    /// @return Les durÃ©es des gestes de @p actor.
+    [[nodiscard]] const FigureTimings&amp; timings(core::CombatantId actor) const;
+    /// @return Le geste que joue @p cue (attaque, tir ou sort) pour son acteur.
+    [[nodiscard]] GestureTiming gestureOf(const CombatCue&amp; cue) const;
 
     /// DÃ©marre le fait suivant, et ceux qui l'accompagnent.
     void startNext();
@@ -175,6 +229,7 @@ private:
     bool apply(Running&amp; running);
 
     std::map&lt;core::CombatantId, FigureMotion&gt; _figures;
+    std::map&lt;core::CombatantId, FigureTimings&gt; _timings;
     std::deque&lt;CombatCue&gt; _queue;
     std::vector&lt;Running&gt; _running;
 };

@@ -42,9 +42,6 @@ constexpr std::size_t MAX_FINISH_STEPS = 4096;
     return kind == CombatCueKind::Hit || kind == CombatCueKind::Death;
 }</span>
 
-// Le temps de vol d'un projectile : il arrive quand le coup porte.
-constexpr float FLIGHT_SECONDS = CombatCueTrack::ACTION_SECONDS * CombatCueTrack::IMPACT_FRACTION;
-
 // Le suffixe d'un projectile qui vole vers la gauche de l'ecran : ses bandes sont peintes vers la
 // droite, et `build_fx.py` en pose le miroir (`&lt;effet&gt;-left`). En isometrique, l'ecran va vers la
 // droite quand la colonne croit plus que la rangee.
@@ -64,7 +61,9 @@ bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition
 <span style = "background-color:#dfd">        const core::Vector2 avant = path.size() &gt;= 2 ? centerOf(path[path.size() - 2]) : start;
         figure.point = centerOf(path.back());
         figure.facing = facingTowards(avant, figure.point, figure.facing);
-        figure.clip = figure_clips::IDLE;
+        figure.heading = figureHeadingFor(</span>
+            core::Vector2{figure.point.x - avant.x, figure.point.y - avant.y}, figure.heading);
+<span style = "background-color:#dfd">        figure.clip = figure_clips::IDLE;
         figure.clipSeconds = 0.0F;
         return true;</span>
     }
@@ -76,17 +75,78 @@ bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition
     figure.point =</span>
         core::Vector2{from.x + ((to.x - from.x) * fraction), from.y + ((to.y - from.y) * fraction)};
 <span style = "background-color:#dfd">    figure.facing = facingTowards(from, to, figure.facing);
+    figure.heading = figureHeadingFor(core::Vector2{to.x - from.x, to.y - from.y}, figure.heading);
     figure.clip = figure_clips::WALK;
     figure.clipSeconds = std::max(0.0F, elapsed);
     return false;
 }</span>
 
+// Les durees d'un clip declare : ce qu'il dure, et son image cle -- a defaut le milieu du geste.
+<span style = "background-color:#dfd">[[nodiscard]] GestureTiming gestureFrom(const core::SkeletonClip&amp; clip) noexcept {
+    return GestureTiming{</span>
+        .seconds = clip.duration,
+        .impact = clip.key.value_or(clip.duration * CombatCueTrack::IMPACT_FRACTION)};
+<span style = "background-color:#dfd">}</span>
+
 }  // namespace
+
+<span style = "background-color:#dfd">FigureTimings CombatCueTrack::stripTimings() noexcept {
+    const GestureTiming gesture{.seconds = ACTION_SECONDS,
+                                .impact = ACTION_SECONDS * IMPACT_FRACTION};
+    return FigureTimings{.attack = gesture,</span>
+                         .ranged = gesture,
+                         .cast = gesture,
+                         .hit = ACTION_SECONDS,
+                         .death = ACTION_SECONDS};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">FigureTimings CombatCueTrack::timingsOf(const core::SkeletonDescription* skeleton) {
+    FigureTimings timings = stripTimings();
+    if (skeleton == nullptr) {
+        return timings;</span>
+    }
+<span style = "background-color:#dfd">    if (const core::SkeletonClip* const clip = skeleton-&gt;clip(figure_clips::ATTACK)) {
+        timings.attack = gestureFrom(*clip);
+        timings.ranged = timings.attack;</span>
+    }
+<span style = "background-color:#dfd">    if (const core::SkeletonClip* const clip = skeleton-&gt;clip(figure_clips::RANGED)) {</span>
+<span style = "background-color:#fdd">        timings.ranged = gestureFrom(*clip);</span>
+    }
+<span style = "background-color:#dfd">    if (const core::SkeletonClip* const clip = skeleton-&gt;clip(figure_clips::CAST)) {
+        timings.cast = gestureFrom(*clip);</span>
+    }
+<span style = "background-color:#dfd">    if (const core::SkeletonClip* const clip = skeleton-&gt;clip(figure_clips::HIT)) {
+        timings.hit = clip-&gt;duration;</span>
+    }
+<span style = "background-color:#dfd">    if (const core::SkeletonClip* const clip = skeleton-&gt;clip(figure_clips::DEATH)) {</span>
+<span style = "background-color:#fdd">        timings.death = clip-&gt;duration;</span>
+    }
+<span style = "background-color:#dfd">    return timings;
+}</span>
+
+<span style = "background-color:#dfd">void CombatCueTrack::setTimings(core::CombatantId actor, const FigureTimings&amp; timings) {
+    _timings[actor] = timings;
+}</span>
+
+<span style = "background-color:#dfd">const FigureTimings&amp; CombatCueTrack::timings(core::CombatantId actor) const {
+    static const FigureTimings strips = stripTimings();
+    const auto found = _timings.find(actor);
+    return found != _timings.end() ? found-&gt;second : strips;
+}</span>
+
+<span style = "background-color:#dfd">GestureTiming CombatCueTrack::gestureOf(const CombatCue&amp; cue) const {
+    const FigureTimings&amp; known = timings(cue.actor);
+    if (cue.kind == CombatCueKind::Cast) {
+        return known.cast;</span>
+    }
+<span style = "background-color:#dfd">    return cue.ranged ? known.ranged : known.attack;
+}</span>
 
 <span style = "background-color:#dfd">void CombatCueTrack::place(core::CombatantId actor, core::GridPosition cell, FigureFacing facing) {
     FigureMotion&amp; figure = _figures[actor];
     figure.point = centerOf(cell);
     figure.facing = facing;
+    figure.heading = figureHeadingOf(facing);
     if (!figure.dead) {
         figure.clip = figure_clips::IDLE;
         figure.clipSeconds = 0.0F;</span>
@@ -95,6 +155,7 @@ bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition
 
 <span style = "background-color:#dfd">void CombatCueTrack::remove(core::CombatantId actor) {
     _figures.erase(actor);
+    _timings.erase(actor);
     std::erase_if(_running, [actor](const Running&amp; r) { return r.cue.actor == actor; });
     std::erase_if(_queue, [actor](const CombatCue&amp; cue) { return cue.actor == actor; });
 }</span>
@@ -112,6 +173,7 @@ bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition
 
 <span style = "background-color:#fdd">void CombatCueTrack::clear() noexcept {
     _figures.clear();
+    _timings.clear();
     _queue.clear();
     _running.clear();
 }</span>
@@ -125,8 +187,9 @@ bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition
         }
 <span style = "background-color:#dfd">        const core::Vector2 cible = centerOf(*running.cue.target);
         if (running.cue.travels) {
-            const float t = std::min(1.0F, running.elapsed / FLIGHT_SECONDS);
-            effets.push_back(EffectMotion{</span>
+            const float t =</span>
+                running.flight &gt; 0.0F ? std::min(1.0F, running.elapsed / running.flight) : 1.0F;
+<span style = "background-color:#dfd">            effets.push_back(EffectMotion{</span>
                 .effect = projectileStrip(running.cue.effect, running.from, cible),
                 .point = core::Vector2{running.from.x + ((cible.x - running.from.x) * t),
                                        running.from.y + ((cible.y - running.from.y) * t)},
@@ -150,33 +213,37 @@ bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition
     }
 <span style = "background-color:#dfd">    CombatCue next = std::move(_queue.front());
     _queue.pop_front();
-    Running running{.cue = std::move(next), .elapsed = 0.0F, .from = {}};
+    Running running{.cue = std::move(next), .elapsed = 0.0F, .from = {}, .flight = 0.0F};
     if (const FigureMotion* figure = motionOf(running.cue.actor)) {
         running.from = figure-&gt;point;</span>
     }
 <span style = "background-color:#dfd">    const bool strike =</span>
         running.cue.kind == CombatCueKind::Attack || running.cue.kind == CombatCueKind::Cast;
-<span style = "background-color:#dfd">    const core::CombatantId attacker = running.cue.actor;
+<span style = "background-color:#dfd">    const core::CombatantId attacker = running.cue.actor;</span>
+    // L'instant ou le coup porte : l'image cle du geste de l'attaquant (LOT-1005).
+<span style = "background-color:#dfd">    const float impact = strike ? gestureOf(running.cue).impact : ACTION_SECONDS * IMPACT_FRACTION;
+    running.flight = impact;
     _running.push_back(std::move(running));
     if (!strike) {
         return;</span>
     }
-    // Le coup porte au milieu du geste : les touches et les chutes qui le suivent immediatement
-    // -- ceux d'AUTRES combattants -- demarrent a cet instant, pas apres le geste entier. Les
-    // effets l'accompagnent aussi : un projectile part avec le geste, le reste parait a l'impact.
+    // Le coup porte a l'image cle du geste : les touches et les chutes qui le suivent
+    // immediatement -- ceux d'AUTRES combattants -- demarrent a cet instant, pas apres le geste
+    // entier. Les effets l'accompagnent aussi : un projectile part avec le geste, le reste parait
+    // a l'impact.
 <span style = "background-color:#dfd">    while (!_queue.empty()) {
         CombatCue&amp; suivant = _queue.front();
         if (suivant.kind == CombatCueKind::Effect) {
-            const float depart = suivant.travels ? 0.0F : -ACTION_SECONDS * IMPACT_FRACTION;
-            Running effet{.cue = std::move(suivant), .elapsed = depart, .from = {}};
+            const float depart = suivant.travels ? 0.0F : -impact;</span>
+            Running effet{
+<span style = "background-color:#dfd">                .cue = std::move(suivant), .elapsed = depart, .from = {}, .flight = impact};
             if (const FigureMotion* figure = motionOf(effet.cue.actor)) {
                 effet.from = figure-&gt;point;</span>
             }
 <span style = "background-color:#dfd">            _running.push_back(std::move(effet));
         } else if (isVictimCue(suivant.kind) &amp;&amp; suivant.actor != attacker) {
-            _running.push_back(Running{.cue = std::move(suivant),</span>
-                                       .elapsed = -ACTION_SECONDS * IMPACT_FRACTION,
-                                       .from = {}});
+            _running.push_back(</span>
+                Running{.cue = std::move(suivant), .elapsed = -impact, .from = {}, .flight = 0.0F});
 <span style = "background-color:#dfd">        } else {</span>
 <span style = "background-color:#fdd">            break;</span>
         }
@@ -197,10 +264,13 @@ bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition
         case CombatCueKind::Attack:
         case CombatCueKind::Cast: {
 <span style = "background-color:#dfd">            if (running.cue.target.has_value()) {
-                figure.facing =</span>
-                    facingTowards(figure.point, centerOf(*running.cue.target), figure.facing);
+                const core::Vector2 cible = centerOf(*running.cue.target);
+                figure.facing = facingTowards(figure.point, cible, figure.facing);
+                figure.heading = figureHeadingFor(</span>
+                    core::Vector2{cible.x - figure.point.x, cible.y - figure.point.y},
+                    figure.heading);
             }
-<span style = "background-color:#dfd">            if (elapsed &gt;= ACTION_SECONDS) {
+<span style = "background-color:#dfd">            if (elapsed &gt;= gestureOf(running.cue).seconds) {
                 figure.clip = figure_clips::IDLE;
                 figure.clipSeconds = 0.0F;
                 return true;</span>
@@ -220,8 +290,8 @@ bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition
 <span style = "background-color:#dfd">            if (figure.dead) {
                 return true;  // un mort n'encaisse plus rien de visible</span>
             }
-<span style = "background-color:#dfd">            if (elapsed &gt;= ACTION_SECONDS) {</span>
-<span style = "background-color:#fdd">                figure.clip = figure_clips::IDLE;
+<span style = "background-color:#dfd">            if (elapsed &gt;= timings(running.cue.actor).hit) {
+                figure.clip = figure_clips::IDLE;
                 figure.clipSeconds = 0.0F;
                 return true;</span>
             }
@@ -230,7 +300,7 @@ bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition
             return false;</span>
         }
         case CombatCueKind::Effect:
-<span style = "background-color:#dfd">            return elapsed &gt;= (running.cue.travels ? FLIGHT_SECONDS : EFFECT_SECONDS);</span>
+<span style = "background-color:#dfd">            return elapsed &gt;= (running.cue.travels ? running.flight : EFFECT_SECONDS);</span>
         case CombatCueKind::Death: {
 <span style = "background-color:#dfd">            if (elapsed &lt; 0.0F) {
                 return false;</span>
@@ -240,7 +310,7 @@ bool applyWalk(FigureMotion&amp; figure, const std::vector&lt;core::GridPosition
             // La bande de mort ne revient jamais au repos : ses secondes continuent de courir, et
             // le rendu la fige sur sa derniere image (`SceneTexture::loop`).
 <span style = "background-color:#dfd">            figure.clipSeconds = elapsed;
-            return elapsed &gt;= ACTION_SECONDS;</span>
+            return elapsed &gt;= timings(running.cue.actor).death;</span>
         }
     }
 <span style = "background-color:#fdd">    return true;</span>

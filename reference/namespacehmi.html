@@ -367,6 +367,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un effet à dessiner à cet instant (<span class="tt">LOT-136</span>).  <a href="structhmi_1_1EffectMotion.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FigureMotion" id="r_FigureMotion"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FigureMotion.html">FigureMotion</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une figurine montre à cet instant.  <a href="structhmi_1_1FigureMotion.html#details">More...</a><br /></td></tr>
+<tr class="memitem:GestureTiming" id="r_GestureTiming"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1GestureTiming.html">GestureTiming</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un geste dans le temps : ce qu'il dure, et l'instant où il porte.  <a href="structhmi_1_1GestureTiming.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FigureTimings" id="r_FigureTimings"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les durées des gestes d'un combattant (<span class="tt">LOT-1005</span>) : celles de ses clips, si sa figurine est un modèle ; celles des bandes sinon.  <a href="structhmi_1_1FigureTimings.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CombatCueTrack" id="r_CombatCueTrack"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatCueTrack.html">CombatCueTrack</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La file des faits du combat, rejoués dans le temps par les figurines.  <a href="classhmi_1_1CombatCueTrack.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DebugOption" id="r_DebugOption"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DebugOption.html">DebugOption</a></td></tr>
@@ -461,6 +465,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une texture liable, ses dimensions en pixels et ce que ses fichiers voisins disent d'elle.  <a href="structhmi_1_1SceneTexture.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SceneMesh" id="r_SceneMesh"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneMesh.html">SceneMesh</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un maillage chargé (<span class="tt">LOT-1003</span>) : son identité, sa boîte, et ce que le manifeste de son dossier dit de la hauteur d'un étage.  <a href="structhmi_1_1SceneMesh.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SceneFigureModel" id="r_SceneFigureModel"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneFigureModel.html">SceneFigureModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>modèle</b> d'une figurine (<span class="tt">LOT-1005</span>) : son maillage chargé, le squelette et les clips que son fichier porte, et ce que le squelette de sa silhouette déclare.  <a href="structhmi_1_1SceneFigureModel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ScenePieceTextures" id="r_ScenePieceTextures"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les textures d'un lieu, adressées par leur <b>chemin</b> tel que la composition l'écrit — et, depuis le <span class="tt">LOT-1003</span>, ses maillages, adressés de même.  <a href="structhmi_1_1ScenePieceTextures.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SceneResources" id="r_SceneResources"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneResources.html">SceneResources</a></td></tr>
@@ -1489,6 +1495,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a47c8f35619d5e7fa59cd899a158c9361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les marques que <code class="param">entities</code> méritent.  <br /></td></tr>
 <tr class="memitem:a511785bc30ed0e18c4894a5d73f54920" id="r_a511785bc30ed0e18c4894a5d73f54920"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a511785bc30ed0e18c4894a5d73f54920">placeholderFigureDirectory</a> (std::string_view silhouette)</td></tr>
 <tr class="memdesc:a511785bc30ed0e18c4894a5d73f54920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier d'un mannequin de remplacement, par silhouette (<span class="tt">LOT-145</span>) : ce que dessine un personnage sans figurine.  <br /></td></tr>
+<tr class="memitem:a0ed268fdf11d77e308058243732fc1ac" id="r_a0ed268fdf11d77e308058243732fc1ac"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0ed268fdf11d77e308058243732fc1ac">mannequinFigureDirectory</a> (std::string_view silhouette)</td></tr>
+<tr class="memdesc:a0ed268fdf11d77e308058243732fc1ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier du mannequin <b>en modèle</b> d'une silhouette (<span class="tt">LOT-1005</span>) : un maillage neutre lié au squelette de la silhouette, et sa fiche.  <br /></td></tr>
 <tr class="memitem:af4b383c877918f88e8a772b02f424e9c" id="r_af4b383c877918f88e8a772b02f424e9c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af4b383c877918f88e8a772b02f424e9c">npcFigures</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, int frame, bool placeholders=false)</td></tr>
 <tr class="memdesc:af4b383c877918f88e8a772b02f424e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines des PNJ d'une carte, dans l'ordre des entités.  <br /></td></tr>
 <tr class="memitem:ab66963a68c69c0957d096fbab448d6a4" id="r_ab66963a68c69c0957d096fbab448d6a4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab66963a68c69c0957d096fbab448d6a4">scenePlaceOf</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers)</td></tr>
@@ -1496,6 +1504,9 @@ Functions</h2></td></tr>
 <tr class="memdesc:a8e3a1dcd14a5132e99f15be875c38936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comme ci-dessus, pour une carte validée.  <br /></td></tr>
 <tr class="memitem:abc96b05b9f94854936ee3d8541390286" id="r_abc96b05b9f94854936ee3d8541390286"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc96b05b9f94854936ee3d8541390286">snapshotWorldScene</a> (const <a class="el" href="structhmi_1_1WorldSceneSource.html">WorldSceneSource</a> &amp;source, const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;appearance, std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures)</td></tr>
 <tr class="memdesc:abc96b05b9f94854936ee3d8541390286"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tire de <code class="param">level</code> l'instantané que la composition dessine.  <br /></td></tr>
+<tr class="memitem:a860cbbc037b925a5a58d443e483c72ac" id="r_a860cbbc037b925a5a58d443e483c72ac"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a860cbbc037b925a5a58d443e483c72ac">figureHeadingOf</a> (<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing) noexcept</td></tr>
+<tr class="memdesc:a860cbbc037b925a5a58d443e483c72ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>cap</b> d'une figurine en modèle (<span class="tt">LOT-1005</span>) : l'angle, en radians, de la direction où elle regarde dans le plan de la grille — 0 vers les colonnes croissantes (sud-est à l'écran), π/2 vers les lignes croissantes (sud-ouest).  <br /></td></tr>
+<tr class="memitem:ac64452b3239caa3f7c4ff9cf237b6d5d" id="r_ac64452b3239caa3f7c4ff9cf237b6d5d"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ac64452b3239caa3f7c4ff9cf237b6d5d">figureHeadingFor</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> move, float previous) noexcept</td></tr>
 <tr class="memitem:adff4a6359d340fc8a1811857e49ac036" id="r_adff4a6359d340fc8a1811857e49ac036"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#adff4a6359d340fc8a1811857e49ac036">figureFacingSuffix</a> (<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing) noexcept</td></tr>
 <tr class="memitem:a42508ae8f53d38fa43dc350b10ab0553" id="r_a42508ae8f53d38fa43dc350b10ab0553"><td class="memItemLeft"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#a42508ae8f53d38fa43dc350b10ab0553">figureFacingFor</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> move, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> previous) noexcept</td></tr>
 <tr class="memdesc:a42508ae8f53d38fa43dc350b10ab0553"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'orientation d'une figurine qui se déplace de <code class="param">move</code>, en cases.  <br /></td></tr>
@@ -1504,6 +1515,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a1c839cebf18adf167ae9ac5452d179b6" id="r_a1c839cebf18adf167ae9ac5452d179b6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1c839cebf18adf167ae9ac5452d179b6">figureMarkerKey</a> (std::string_view path)</td></tr>
 <tr class="memdesc:a1c839cebf18adf167ae9ac5452d179b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé du marqueur d'une figurine qui n'a pas d'image (<span class="tt">LOT-39</span>, <span class="tt">LOT-96</span>).  <br /></td></tr>
 <tr class="memitem:a2f3d83ca010accd2a3d552ae2b6b97c0" id="r_a2f3d83ca010accd2a3d552ae2b6b97c0"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2f3d83ca010accd2a3d552ae2b6b97c0">worldFigureTexturePaths</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures)</td></tr>
+<tr class="memitem:ab0a22153ca04392816f4bd25a3660328" id="r_ab0a22153ca04392816f4bd25a3660328"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab0a22153ca04392816f4bd25a3660328">worldFigureModelPaths</a> (std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures)</td></tr>
 <tr class="memitem:a07929611bf03ab59a2de588feb90ad7d" id="r_a07929611bf03ab59a2de588feb90ad7d"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a07929611bf03ab59a2de588feb90ad7d">worldTexturePaths</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot)</td></tr>
 <tr class="memitem:ac89d2d9e1d9069fc983218c8ab6fa53e" id="r_ac89d2d9e1d9069fc983218c8ab6fa53e"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac89d2d9e1d9069fc983218c8ab6fa53e">worldMeshPaths</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot)</td></tr>
 <tr class="memitem:ac87779e65c2849bfdc39e93d4a96f578" id="r_ac87779e65c2849bfdc39e93d4a96f578"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1WorldHeroPlacement.html">WorldHeroPlacement</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac87779e65c2849bfdc39e93d4a96f578">placeWorldHero</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures, const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;textures)</td></tr>
@@ -7065,6 +7077,64 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ac64452b3239caa3f7c4ff9cf237b6d5d" name="ac64452b3239caa3f7c4ff9cf237b6d5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac64452b3239caa3f7c4ff9cf237b6d5d">&#9670;&#160;</a></span>figureHeadingFor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::figureHeadingFor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>move</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>previous</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le cap d'une figurine qui se déplace de <code class="param">move</code>, en cases ; <code class="param">previous</code> si le déplacement est nul. </dd></dl>
+
+</div>
+</div>
+<a id="a860cbbc037b925a5a58d443e483c72ac" name="a860cbbc037b925a5a58d443e483c72ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a860cbbc037b925a5a58d443e483c72ac">&#9670;&#160;</a></span>figureHeadingOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::figureHeadingOf </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a></td>          <td class="paramname"><span class="paramname"><em>facing</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le <b>cap</b> d'une figurine en modèle (<span class="tt">LOT-1005</span>) : l'angle, en radians, de la direction où elle regarde dans le plan de la grille — 0 vers les colonnes croissantes (sud-est à l'écran), π/2 vers les lignes croissantes (sud-ouest). </p>
+<p>Un modèle s'oriente librement : il n'a pas de table de quatre orientations. </p><dl class="section return"><dt>Returns</dt><dd>Le cap de la diagonale <code class="param">facing</code> ; pour <span class="tt">None</span>, face à la caméra (π/4). </dd></dl>
+
+</div>
+</div>
 <a id="a1c839cebf18adf167ae9ac5452d179b6" name="a1c839cebf18adf167ae9ac5452d179b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c839cebf18adf167ae9ac5452d179b6">&#9670;&#160;</a></span>figureMarkerKey()</h2>
 
@@ -9151,6 +9221,33 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a0ed268fdf11d77e308058243732fc1ac" name="a0ed268fdf11d77e308058243732fc1ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ed268fdf11d77e308058243732fc1ac">&#9670;&#160;</a></span>mannequinFigureDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::mannequinFigureDirectory </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>silhouette</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dossier du mannequin <b>en modèle</b> d'une silhouette (<span class="tt">LOT-1005</span>) : un maillage neutre lié au squelette de la silhouette, et sa fiche. </p>
 
 </div>
 </div>
@@ -13108,7 +13205,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md131"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md138"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/checks/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -14866,6 +14963,32 @@ template&lt;typename Drop&gt; </div>
 </div><div class="memdoc">
 
 <p>Ordre de tri d'une pièce du lieu. </p>
+
+</div>
+</div>
+<a id="ab0a22153ca04392816f4bd25a3660328" name="ab0a22153ca04392816f4bd25a3660328"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a22153ca04392816f4bd25a3660328">&#9670;&#160;</a></span>worldFigureModelPaths()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::worldFigureModelPaths </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>figures</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les fichiers de modèle (<span class="tt">.glb</span>) des figurines <code class="param">figures</code> qui en ont un, sans doublon, triés (<span class="tt">LOT-1005</span>). </dd></dl>
 
 </div>
 </div>

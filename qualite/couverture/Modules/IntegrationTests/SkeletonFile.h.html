@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>SkeletonFile.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+/**
+ * @file Core/Resources/SkeletonFile.h
+ * @brief Ce qu'un personnage en modÃ¨le **dÃ©clare en donnÃ©es** (`LOT-1005`) : la description de son
+ *        squelette (`skeleton.json`) et sa fiche (`character.json`).
+ *
+ * ## Le squelette d'une silhouette
+ *
+ * Un squelette est commun Ã  tous les personnages d'une silhouette (`humanoid`) : ses os, et les
+ * **clips** que tous jouent. `Common/Characters/Skeletons/&lt;silhouette&gt;/skeleton.json` les
+ * dÃ©clare :
+ *
+ *     { "version": 1, "silhouette": "humanoid",
+ *       "bones": [ { "name": "Root", "parent": "" }, { "name": "pelvis", "parent": "Root" } ],
+ *       "clips": [ { "name": "walk", "duration": 0.5, "loop": true },
+ *                  { "name": "attack", "duration": 0.875, "loop": false, "key": 0.4 } ] }
+ *
+ * Les os sont Ã©crits parents avant enfants. Un clip dit sa **durÃ©e**, s'il **boucle**, et son
+ * **image clÃ©** (`key`, en secondes) : l'instant oÃ¹ le coup porte, oÃ¹ le sort part â c'est Ã  lui
+ * que le combat accroche le touchÃ© de la cible (`hmi::CombatCueTrack`). Les courbes elles-mÃªmes
+ * sont dans le `.glb` de chaque personnage, posÃ©es sur ses propres articulations.
+ *
+ * ## La fiche d'un personnage
+ *
+ * Le dossier d'un personnage en modÃ¨le porte `character.json` : son modÃ¨le (un `.glb` du mÃªme
+ * dossier) et le squelette auquel il est liÃ©.
+ *
+ *     { "version": 1, "model": "brawler.glb", "skeleton": "humanoid" }
+ *
+ * Un dossier sans fiche est une figurine en bandes, jusqu'au `LOT-1006`.
+ *
+ * Logique pure, sans Qt ni GPU ; aucune lecture ne lÃ¨ve (`EX-NFR-040`).
+ */
+
+namespace core {
+
+/// Version des deux formats Ã©crite dans les fichiers, et plus Ã©levÃ©e qui soit lue.
+inline constexpr int SKELETON_FORMAT_VERSION = 1;
+
+/// @brief Le fichier de la fiche d'un personnage, dans son dossier.
+inline constexpr std::string_view CHARACTER_SHEET_FILE = "character.json";
+
+/// @brief Un os dÃ©clarÃ© : son nom, celui de son parent (vide pour la racine).
+struct SkeletonBone {
+    std::string name;
+    std::string parent;
+
+    [[nodiscard]] bool operator==(const SkeletonBone&amp;) const = default;
+};
+
+/// @brief Un clip dÃ©clarÃ© : sa durÃ©e, sa boucle, son image clÃ©.
+struct SkeletonClip {
+    std::string name;
+    /// DurÃ©e du clip, en secondes (&gt; 0).
+    float duration = 0.0F;
+    /// Vrai s'il boucle (repos, marche) ; faux s'il se joue une fois et se fige sur sa fin.
+    bool loop = false;
+    /// L'instant de l'impact, en secondes depuis le dÃ©but ; absent pour un clip qui n'en a pas.
+    std::optional&lt;float&gt; key;
+
+    [[nodiscard]] bool operator==(const SkeletonClip&amp;) const = default;
+};
+
+/// @brief Le squelette d'une silhouette, tel que son fichier le dÃ©clare.
+struct SkeletonDescription {
+    std::string silhouette;
+    std::vector&lt;SkeletonBone&gt; bones;
+    std::vector&lt;SkeletonClip&gt; clips;
+
+    /// @return Le clip @p name, `nullptr` s'il n'est pas dÃ©clarÃ©.
+    [[nodiscard]] const SkeletonClip* clip(std::string_view name) const noexcept;
+
+    [[nodiscard]] bool operator==(const SkeletonDescription&amp;) const = default;
+};
+
+/// @brief RÃ©sultat d'une lecture de squelette : la description, ou ce qui a Ã©chouÃ©.
+struct SkeletonFileResult {
+    SkeletonDescription skeleton;
+    /// Message technique, vide en cas de succÃ¨s.
+    std::string message;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return message.empty();
+    }</span>
+};
+
+/// @brief Lit la description d'un squelette depuis le texte de son fichier.
+[[nodiscard]] SkeletonFileResult readSkeletonDescription(std::string_view json);
+
+/// @brief Lit `skeleton.json` ; un fichier absent est une erreur du rÃ©sultat.
+[[nodiscard]] SkeletonFileResult readSkeletonFile(const std::filesystem::path&amp; path);
+
+/// @return Le chemin, relatif au dossier des assets, de la description du squelette de
+///         @p silhouette : `Common/Characters/Skeletons/&lt;silhouette&gt;/skeleton.json`.
+[[nodiscard]] std::string skeletonFilePath(std::string_view silhouette);
+
+/// @brief La fiche d'un personnage : son modÃ¨le et son squelette.
+struct CharacterSheetFile {
+    /// Le fichier du modÃ¨le, relatif au dossier de la fiche (`brawler.glb`).
+    std::string model;
+    /// La silhouette du squelette auquel le modÃ¨le est liÃ© (`humanoid`).
+    std::string skeleton;
+
+    [[nodiscard]] bool operator==(const CharacterSheetFile&amp;) const = default;
+};
+
+/// @brief RÃ©sultat d'une lecture de fiche : la fiche, ou ce qui a Ã©chouÃ©.
+struct CharacterSheetFileResult {
+    CharacterSheetFile sheet;
+    std::string message;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return message.empty();
+    }</span>
+};
+
+/// @brief Lit la fiche d'un personnage depuis le texte de son fichier.
+[[nodiscard]] CharacterSheetFileResult readCharacterSheet(std::string_view json);
+
+/// @brief Lit `character.json` ; un fichier absent est une erreur du rÃ©sultat.
+[[nodiscard]] CharacterSheetFileResult readCharacterSheetFile(const std::filesystem::path&amp; path);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

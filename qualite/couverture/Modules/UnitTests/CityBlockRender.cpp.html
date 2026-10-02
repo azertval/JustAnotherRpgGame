@@ -23,8 +23,8 @@
 
 #include "Core/Combat/IsoProjection.h"
 #include "Core/World/CityBlock.h"
-#include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/Graphics/ScenePieces.h"
 #include "HMI/Graphics/WorldSceneRenderer.h"
 
@@ -92,12 +92,16 @@ QImage renderCityBlock(const std::filesystem::path&amp; assetsDirectory,
 <span style = "background-color:#dfd">    const std::unique_ptr&lt;QRhiTexture&gt; texture(</span>
         rhi-&gt;newTexture(QRhiTexture::RGBA8, taille, 1,
                         QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
-<span style = "background-color:#dfd">    if (!texture-&gt;create()) {</span>
+    // Le tampon de profondeur : un Ã®lot peut poser des volumes (LOT-1003).
+<span style = "background-color:#dfd">    const std::unique_ptr&lt;QRhiRenderBuffer&gt; profondeur(</span>
+        rhi-&gt;newRenderBuffer(QRhiRenderBuffer::DepthStencil, taille));
+<span style = "background-color:#dfd">    if (!texture-&gt;create() || !profondeur-&gt;create()) {</span>
 <span style = "background-color:#fdd">        return {};</span>
     }
-<span style = "background-color:#dfd">    const std::unique_ptr&lt;QRhiTextureRenderTarget&gt; cible(</span>
-        rhi-&gt;newTextureRenderTarget({{texture.get()}}));
-<span style = "background-color:#dfd">    const std::unique_ptr&lt;QRhiRenderPassDescriptor&gt; passe(</span>
+<span style = "background-color:#dfd">    QRhiTextureRenderTargetDescription description{{texture.get()}};
+    description.setDepthStencilBuffer(profondeur.get());
+    const std::unique_ptr&lt;QRhiTextureRenderTarget&gt; cible(rhi-&gt;newTextureRenderTarget(description));
+    const std::unique_ptr&lt;QRhiRenderPassDescriptor&gt; passe(</span>
         cible-&gt;newCompatibleRenderPassDescriptor());
 <span style = "background-color:#dfd">    cible-&gt;setRenderPassDescriptor(passe.get());
     if (!cible-&gt;create()) {</span>

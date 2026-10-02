@@ -150,11 +150,17 @@ $(function(){initNavTree('structhmi_1_1MeshBatch_1_1GpuMesh.html','','structhmi_
 Public Attributes</h2></td></tr>
 <tr class="memitem:aaf3d71e8551483f30dac91de95e9c889" id="r_aaf3d71e8551483f30dac91de95e9c889"><td class="memItemLeft">std::unique_ptr&lt; QRhiBuffer &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaf3d71e8551483f30dac91de95e9c889">vertices</a></td></tr>
 <tr class="memitem:a6591c47b7492212b8df9060f97bf40b8" id="r_a6591c47b7492212b8df9060f97bf40b8"><td class="memItemLeft">std::unique_ptr&lt; QRhiBuffer &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6591c47b7492212b8df9060f97bf40b8">indices</a></td></tr>
+<tr class="memitem:a34886f26d7afaf4e82d519a6e04488ae" id="r_a34886f26d7afaf4e82d519a6e04488ae"><td class="memItemLeft">std::unique_ptr&lt; QRhiBuffer &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a34886f26d7afaf4e82d519a6e04488ae">skin</a></td></tr>
+<tr class="memdesc:a34886f26d7afaf4e82d519a6e04488ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les os et les poids de chaque sommet ; nul pour un maillage fixe.  <br /></td></tr>
+<tr class="memitem:a836952673b99b235967900960d5447e2" id="r_a836952673b99b235967900960d5447e2"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a836952673b99b235967900960d5447e2">boneCount</a> = 0</td></tr>
+<tr class="memdesc:a836952673b99b235967900960d5447e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre d'os du squelette ; 0 pour un maillage fixe.  <br /></td></tr>
 <tr class="memitem:a2a43a15ee071cca3afc831ad10c36b29" id="r_a2a43a15ee071cca3afc831ad10c36b29"><td class="memItemLeft"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2a43a15ee071cca3afc831ad10c36b29">texture</a></td></tr>
 <tr class="memitem:a487248ff7073e37066916c5b780ffab4" id="r_a487248ff7073e37066916c5b780ffab4"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a487248ff7073e37066916c5b780ffab4">indexCount</a> = 0</td></tr>
 <tr class="memitem:ab1a865fde56c69e2efa2fb60e58584dc" id="r_ab1a865fde56c69e2efa2fb60e58584dc"><td class="memItemLeft">std::array&lt; float, 4 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab1a865fde56c69e2efa2fb60e58584dc">baseColor</a> {1.0F, 1.0F, 1.0F, 1.0F}</td></tr>
 <tr class="memitem:af481aed6ecd6763447dd91d3ce4c5de7" id="r_af481aed6ecd6763447dd91d3ce4c5de7"><td class="memItemLeft">std::unique_ptr&lt; QRhiShaderResourceBindings &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af481aed6ecd6763447dd91d3ce4c5de7">bindings</a></td></tr>
 <tr class="memdesc:af481aed6ecd6763447dd91d3ce4c5de7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Liaisons de ce maillage : son bloc uniforme à décalage dynamique, sa texture.  <br /></td></tr>
+<tr class="memitem:ada2556e4f4acc2791edca7911d7e1a70" id="r_ada2556e4f4acc2791edca7911d7e1a70"><td class="memItemLeft">std::unique_ptr&lt; QRhiShaderResourceBindings &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ada2556e4f4acc2791edca7911d7e1a70">skinnedBindings</a></td></tr>
+<tr class="memdesc:ada2556e4f4acc2791edca7911d7e1a70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les mêmes, plus le bloc d'os, pour le pipeline animé.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un maillage sur le GPU. </p>
@@ -190,6 +196,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a836952673b99b235967900960d5447e2" name="a836952673b99b235967900960d5447e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a836952673b99b235967900960d5447e2">&#9670;&#160;</a></span>boneCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::MeshBatch::GpuMesh::boneCount = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le nombre d'os du squelette ; 0 pour un maillage fixe. </p>
+
+</div>
+</div>
 <a id="a487248ff7073e37066916c5b780ffab4" name="a487248ff7073e37066916c5b780ffab4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a487248ff7073e37066916c5b780ffab4">&#9670;&#160;</a></span>indexCount</h2>
 
@@ -215,6 +237,38 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34886f26d7afaf4e82d519a6e04488ae" name="a34886f26d7afaf4e82d519a6e04488ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34886f26d7afaf4e82d519a6e04488ae">&#9670;&#160;</a></span>skin</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QRhiBuffer&gt; hmi::MeshBatch::GpuMesh::skin</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les os et les poids de chaque sommet ; nul pour un maillage fixe. </p>
+
+</div>
+</div>
+<a id="ada2556e4f4acc2791edca7911d7e1a70" name="ada2556e4f4acc2791edca7911d7e1a70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada2556e4f4acc2791edca7911d7e1a70">&#9670;&#160;</a></span>skinnedBindings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QRhiShaderResourceBindings&gt; hmi::MeshBatch::GpuMesh::skinnedBindings</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les mêmes, plus le bloc d'os, pour le pipeline animé. </p>
 
 </div>
 </div>

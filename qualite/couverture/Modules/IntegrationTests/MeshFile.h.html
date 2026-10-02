@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MeshFile.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;array&gt;
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+#include &lt;filesystem&gt;
+#include &lt;span&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+/**
+ * @file Core/Resources/MeshFile.h
+ * @brief Le **chargeur de maillages** du moteur : un fichier `.glb` (glTF 2.0 binaire) lu en
+ *        sommets, indices et texture de couleur (`LOT-1003`).
+ *
+ * Le standard 3D fixe le format d'Ã©change (`Planning/standards/style-3d.md`, Â§2) : un modÃ¨le par
+ * fichier, autonome, sa texture incorporÃ©e. Ce lecteur n'en lit que cela, par ses propres moyens â
+ * l'enveloppe binaire Ã  la main, le bloc JSON par `nlohmann/json`, dÃ©jÃ  liÃ© â et sans Qt Quick 3D,
+ * que sa licence Ã©carte du dÃ©pÃ´t.
+ *
+ * ## Ce qui est lu
+ *
+ * - toutes les primitives **triangles** des nÅuds de la scÃ¨ne, fondues en un seul maillage, chacune
+ *   portÃ©e par la transformation de son nÅud ;
+ * - `POSITION`, `NORMAL`, `TEXCOORD_0` ; des indices sur 8, 16 ou 32 bits, ou pas d'indices ;
+ * - la **couleur de base** de la premiÃ¨re matiÃ¨re : son facteur, et l'image de sa texture, rendue
+ *   **encodÃ©e** (JPEG ou PNG) â la dÃ©coder demande une bibliothÃ¨que d'images, donc `HMI`.
+ *
+ * ## Ce qui est refusÃ©, et dit
+ *
+ * Un tampon ou une image hors du fichier, un accesseur creux (`sparse`), une extension **requise**
+ * (compression Draco ou meshopt, textures KTX) : le rÃ©sultat nomme ce qui manque plutÃ´t que de
+ * rendre un maillage faux.
+ *
+ * ## Le squelette et les clips (`LOT-1005`)
+ *
+ * Un modÃ¨le animÃ© porte un squelette (`skins[0]`) : ses os, leur pose de repos, leur matrice de
+ * liaison inverse, et pour chaque sommet quatre os et quatre poids (`JOINTS_0`, `WEIGHTS_0`). Ses
+ * animations sont lues en **clips** : par os, les clÃ©s de translation et de rotation, interpolÃ©es
+ * linÃ©airement ou tenues (`LINEAR`, `STEP`). Une interpolation `CUBICSPLINE`, un canal d'Ã©chelle
+ * ou de cible de forme ne sont pas lus : le canal est ignorÃ©, le modÃ¨le reste lisible. Les sommets
+ * d'un maillage liÃ© restent dans le repÃ¨re du maillage â la transformation de son nÅud ne s'y
+ * applique pas, c'est le squelette qui le pose (`core::poseSkeleton`, `SkeletonPose.h`).
+ *
+ * Logique pure, sans Qt ni GPU. Aucune lecture ne lÃ¨ve (`EX-NFR-040`) : c'est un lecteur d'octets
+ * venus d'un fichier, et la cible `fuzz_mesh` le lui fait prouver.
+ */
+
+namespace core {
+
+/// @brief L'extension d'un fichier de maillage, point compris.
+inline constexpr std::string_view MESH_FILE_EXTENSION = ".glb";
+
+/// @return Vrai si @p path nomme un fichier de maillage (`.glb`, sans Ã©gard Ã  la casse).
+[[nodiscard]] bool isMeshPath(std::string_view path) noexcept;
+
+/// @brief Un sommet : position (mÃ¨tres, hauteur +Y), normale unitaire, coordonnÃ©es de texture.
+struct MeshVertex {
+    std::array&lt;float, 3&gt; position{};
+    std::array&lt;float, 3&gt; normal{};
+    std::array&lt;float, 2&gt; uv{};
+
+    [[nodiscard]] bool operator==(const MeshVertex&amp;) const = default;
+};
+
+/// @brief Ce qui lie un sommet au squelette : quatre os (rangs dans `MeshRig::joints`) et leurs
+///        poids, de somme 1. Un poids nul rend son os sans effet.
+struct MeshSkinVertex {
+    std::array&lt;std::uint16_t, 4&gt; joints{};
+    std::array&lt;float, 4&gt; weights{};
+
+    [[nodiscard]] bool operator==(const MeshSkinVertex&amp;) const = default;
+};
+
+/// @brief Une matrice 4 Ã 4 en colonnes, comme glTF l'Ã©crit : `m[colonne * 4 + ligne]`.
+using MeshMatrix = std::array&lt;float, 16&gt;;
+
+/// La matrice identitÃ©.
+inline constexpr MeshMatrix MESH_IDENTITY = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1};
+
+/// @brief Un os du squelette : son nom, son parent, sa pose de repos et sa matrice de liaison.
+struct MeshJoint {
+    std::string name;
+    /// Le rang de l'os parent dans `MeshRig::joints` ; -1 pour un os sans parent parmi les os.
+    int parent = -1;
+    /// La pose locale de repos : translation, rotation (quaternion x, y, z, w), Ã©chelle.
+    std::array&lt;float, 3&gt; translation{};
+    std::array&lt;float, 4&gt; rotation{0.0F, 0.0F, 0.0F, 1.0F};
+    std::array&lt;float, 3&gt; scale{1.0F, 1.0F, 1.0F};
+    /// La matrice de liaison inverse : du repÃ¨re du maillage Ã  celui de l'os, en pose de liaison.
+    MeshMatrix inverseBind = MESH_IDENTITY;
+    /// Pour un os sans parent parmi les os : la transformation de ses ancÃªtres dans la scÃ¨ne.
+    MeshMatrix anchor = MESH_IDENTITY;
+};
+
+/// @brief Les clÃ©s d'un canal : des instants croissants, et Ã  chacun une valeur de `width`
+///        composantes (3 pour une translation, 4 pour une rotation).
+struct MeshChannel {
+    std::vector&lt;float&gt; times;
+    std::vector&lt;float&gt; values;
+    /// Vrai si la valeur se tient jusqu'Ã  la clÃ© suivante (`STEP`) ; sinon elle s'interpole.
+    bool step = false;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool empty() const noexcept {
+        return times.empty();
+    }</span>
+};
+
+/// @brief Ce qu'un clip fait d'un os : sa translation et sa rotation dans le temps. Un canal vide
+///        laisse la pose de repos.
+struct MeshJointTrack {
+    MeshChannel translation;
+    MeshChannel rotation;
+};
+
+/// @brief Un clip d'animation : un nom, une durÃ©e, une piste par os du squelette.
+struct MeshClip {
+    std::string name;
+    /// La derniÃ¨re clÃ© du clip, en secondes.
+    float duration = 0.0F;
+    /// Une piste par os, dans l'ordre de `MeshRig::joints`.
+    std::vector&lt;MeshJointTrack&gt; tracks;
+};
+
+/// @brief Le squelette d'un modÃ¨le et ses clips.
+struct MeshRig {
+    std::vector&lt;MeshJoint&gt; joints;
+    /// Les rangs des os, **parents avant enfants** : l'ordre oÃ¹ une pose se calcule.
+    std::vector&lt;std::uint16_t&gt; order;
+    std::vector&lt;MeshClip&gt; clips;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool empty() const noexcept {
+        return joints.empty();
+    }</span>
+};
+
+/// Le plus d'os qu'un squelette lu peut porter.
+inline constexpr std::size_t MESH_MAX_JOINTS = 256;
+
+/// @brief CatÃ©gorie d'Ã©chec de lecture d'un maillage.
+enum class MeshFileError : std::uint8_t {
+    None,
+    /// Fichier absent, illisible, ou plus gros que `MESH_FILE_MAX_BYTES`.
+    FileNotFound,
+    /// L'enveloppe n'est pas celle d'un `.glb` 2.0, ou son bloc JSON ne se lit pas.
+    ParseError,
+    /// Le fichier est un glTF valide qui emploie ce que ce lecteur ne lit pas (voir l'en-tÃªte).
+    Unsupported,
+    /// Un index, une taille ou un dÃ©calage sort de ce que le fichier contient.
+    MalformedStructure,
+};
+
+/// Le plus gros fichier lu, en octets : au-delÃ , ce n'est pas un modÃ¨le du jeu.
+inline constexpr std::size_t MESH_FILE_MAX_BYTES = std::size_t{512} * 1024 * 1024;
+
+/// @brief Un maillage lu : une seule liste de sommets, des triangles indexÃ©s, une matiÃ¨re.
+struct MeshData {
+    std::vector&lt;MeshVertex&gt; vertices;
+    /// Trois indices par triangle, dans `vertices`.
+    std::vector&lt;std::uint32_t&gt; indices;
+    /// La boÃ®te des positions, en mÃ¨tres ; nulle pour un maillage vide.
+    std::array&lt;float, 3&gt; minimum{};
+    std::array&lt;float, 3&gt; maximum{};
+    /// Le facteur de couleur de base de la matiÃ¨re (RVBA, alpha droit) ; blanc par dÃ©faut.
+    std::array&lt;float, 4&gt; baseColor{1.0F, 1.0F, 1.0F, 1.0F};
+    /// L'image de la texture de couleur, **encodÃ©e** telle que le fichier la porte ; vide si la
+    /// matiÃ¨re n'en a pas.
+    std::vector&lt;std::byte&gt; image;
+    /// Son type (`image/jpeg`, `image/png`), vide s'il n'est pas dit.
+    std::string imageMimeType;
+    /// Le nombre de primitives fondues, et de matiÃ¨res distinctes qu'elles citaient : le standard
+    /// en veut une de chaque, et qui installe un modÃ¨le peut le vÃ©rifier ici.
+    int primitiveCount = 0;
+    int materialCount = 0;
+    /// Vrai si le fichier porte un squelette : le maillage est lu dans sa pose de liaison.
+    bool skinned = false;
+    /// La liaison de chaque sommet (`LOT-1005`), dans l'ordre de `vertices` ; vide pour un
+    /// maillage sans squelette, ou dont les primitives ne portent pas `JOINTS_0` et `WEIGHTS_0`.
+    std::vector&lt;MeshSkinVertex&gt; skin;
+    /// Le squelette et ses clips ; vide sans squelette.
+    MeshRig rig;
+
+    /// @return Le nombre de triangles.
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t triangleCount() const noexcept {
+        return indices.size() / 3;
+    }</span>
+};
+
+/// @brief RÃ©sultat d'une lecture : le maillage, et ce qui a Ã©chouÃ©.
+struct MeshFileResult {
+    MeshData mesh;
+    MeshFileError error = MeshFileError::None;
+    /// Message technique, vide en cas de succÃ¨s.
+    std::string message;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return error == MeshFileError::None;
+    }</span>
+};
+
+/// @brief Lit un maillage depuis les octets d'un fichier `.glb`.
+[[nodiscard]] MeshFileResult readMeshFromGlb(std::span&lt;const std::byte&gt; bytes);
+
+/// @brief Lit le fichier `.glb` @p path ; un fichier absent est une erreur du rÃ©sultat.
+[[nodiscard]] MeshFileResult readMeshFile(const std::filesystem::path&amp; path);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

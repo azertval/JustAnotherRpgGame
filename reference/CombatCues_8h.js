@@ -3,6 +3,8 @@ var CombatCues_8h =
     [ "hmi::CombatCue", "structhmi_1_1CombatCue.html", "structhmi_1_1CombatCue" ],
     [ "hmi::EffectMotion", "structhmi_1_1EffectMotion.html", "structhmi_1_1EffectMotion" ],
     [ "hmi::FigureMotion", "structhmi_1_1FigureMotion.html", "structhmi_1_1FigureMotion" ],
+    [ "hmi::GestureTiming", "structhmi_1_1GestureTiming.html", "structhmi_1_1GestureTiming" ],
+    [ "hmi::FigureTimings", "structhmi_1_1FigureTimings.html", "structhmi_1_1FigureTimings" ],
     [ "hmi::CombatCueTrack", "classhmi_1_1CombatCueTrack.html", "classhmi_1_1CombatCueTrack" ],
     [ "hmi::CombatCueTrack::Running", "structhmi_1_1CombatCueTrack_1_1Running.html", "structhmi_1_1CombatCueTrack_1_1Running" ],
     [ "hmi::CombatCueKind", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406", [

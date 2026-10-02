@@ -43,7 +43,7 @@ namespace core {
 <span style = "background-color:#dfd">    MemberRecord&amp; record = trouve-&gt;second;
     record.hitPoints.reset();
     record.spellUses.clear();
-    if (!record.level.has_value()) {
+    if (!record.level.has_value() &amp;&amp; !record.inventory.has_value()) {
         _records.erase(trouve);</span>
     }
 <span style = "background-color:#dfd">}</span>

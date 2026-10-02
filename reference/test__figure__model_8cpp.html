@@ -1,0 +1,326 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/test_figure_model.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__figure__model_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_figure_model.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Une figurine en <b>modèle</b>, de l'instantané à la scène composée, sans GPU (<span class="tt">LOT-1005</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;numbers&gt;</code><br />
+<code>#include &lt;span&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MeshFile_8h_source.html">Core/Resources/MeshFile.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SkeletonFile_8h_source.html">Core/Resources/SkeletonFile.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SkeletonPose_8h_source.html">Core/Resources/SkeletonPose.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IsoView_8h_source.html">HMI/Graphics/IsoView.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4377ad07db763a37305e9f3fef0d2a1c" id="r_a4377ad07db763a37305e9f3fef0d2a1c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4377ad07db763a37305e9f3fef0d2a1c">TEST</a> (FigureModelTest, UneFigurineEnModeleSeComposeEnMaillage)</td></tr>
+<tr class="memdesc:a4377ad07db763a37305e9f3fef0d2a1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine en modèle se compose en maillage placé avec la pose de son clip ; une figurine en bandes, à côté, reste une image.  <br /></td></tr>
+<tr class="memitem:acaaf99c87cdb34a7f854c50f0e97e72b" id="r_acaaf99c87cdb34a7f854c50f0e97e72b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acaaf99c87cdb34a7f854c50f0e97e72b">TEST</a> (FigureModelTest, UnClipBoucleOuSeFige)</td></tr>
+<tr class="memdesc:acaaf99c87cdb34a7f854c50f0e97e72b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La boucle et la fin d'un clip sont des données du squelette : la marche revient à son début, la chute se fige, et un clip que le modèle n'a pas retombe sur son repos.  <br /></td></tr>
+<tr class="memitem:a02afc86451af6c80f4d7685501caa935" id="r_a02afc86451af6c80f4d7685501caa935"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a02afc86451af6c80f4d7685501caa935">TEST</a> (FigureModelTest, UnModeleFaitFaceASonCap)</td></tr>
+<tr class="memdesc:a02afc86451af6c80f4d7685501caa935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un modèle s'oriente librement : il fait face à son cap, quel qu'il soit, et à défaut à la diagonale de son orientation.  <br /></td></tr>
+<tr class="memitem:ad94c6c4723fc4846f16394938289fb23" id="r_ad94c6c4723fc4846f16394938289fb23"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad94c6c4723fc4846f16394938289fb23">TEST</a> (FigureModelTest, UnModeleAbsentLaisseVoirLeDamier)</td></tr>
+<tr class="memdesc:ad94c6c4723fc4846f16394938289fb23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un modèle nommé mais pas chargé ne plante rien : la figurine retombe sur ses bandes, donc sur le damier.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Une figurine en <b>modèle</b>, de l'instantané à la scène composée, sans GPU (<span class="tt">LOT-1005</span>). </p>
+<p>Le pantin de la carte d'essai (<span class="tt">Fixtures/Meshes</span>) : la composition en fait un maillage placé, tourné vers son cap, avec la pose de ses os à l'instant de son clip. Une figurine en bandes garde son chemin : la même carte en porte une de chaque forme. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="acaaf99c87cdb34a7f854c50f0e97e72b" name="acaaf99c87cdb34a7f854c50f0e97e72b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaaf99c87cdb34a7f854c50f0e97e72b">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">FigureModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnClipBoucleOuSeFige</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La boucle et la fin d'un clip sont des données du squelette : la marche revient à son début, la chute se fige, et un clip que le modèle n'a pas retombe sur son repos. </p>
+<p><b>Cas de test :</b> <b>Un clip boucle ou se fige selon ce que son squelette declare.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Squelette<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer le pantin a 0,125 s puis a 0,625 s de sa marche (clip de 0,5 s, en boucle).<br  />
+2. Le composer a 0,8 s puis a 30 s de sa chute (jouee une fois).<br  />
+</p><ol type="1">
+<li>Le composer sur un tir, qu'il n'a pas, puis sur un clip inconnu.<br  />
+ <b>Resultat attendu :</b> Les deux poses de marche sont les memes ; les deux poses de chute aussi, le crane a 0,2 m du sol ; le tir joue l'attaque ; le clip inconnu joue le repos. </li>
+</ol>
+
+</div>
+</div>
+<a id="a4377ad07db763a37305e9f3fef0d2a1c" name="a4377ad07db763a37305e9f3fef0d2a1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4377ad07db763a37305e9f3fef0d2a1c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">FigureModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneFigurineEnModeleSeComposeEnMaillage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une figurine en modèle se compose en maillage placé avec la pose de son clip ; une figurine en bandes, à côté, reste une image. </p>
+<p><b>Cas de test :</b> <b>Une figurine en modele se compose en maillage, avec la pose de son clip.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Squelette<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer le pantin a 0,4 s de son attaque et la figurine temoin, en bandes.<br  />
+</p><ol type="1">
+<li>Lire la scene composee.<br  />
+ <b>Resultat attendu :</b> Un maillage sur le calque des figurines, avec une pose de trois os ou le sommet du crane est penche de 60 degres ; une primitive pour la figurine en bandes ; les chemins de texture demandes ne citent aucune bande du pantin, son modele est demande a part. </li>
+</ol>
+
+</div>
+</div>
+<a id="ad94c6c4723fc4846f16394938289fb23" name="ad94c6c4723fc4846f16394938289fb23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad94c6c4723fc4846f16394938289fb23">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">FigureModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnModeleAbsentLaisseVoirLeDamier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un modèle nommé mais pas chargé ne plante rien : la figurine retombe sur ses bandes, donc sur le damier. </p>
+<p><b>Cas de test :</b> <b>Un modele qui ne s'est pas charge laisse voir le damier.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Squelette<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer une figurine dont le modele n'est pas parmi ceux du rendu.<br  />
+ <b>Resultat attendu :</b> Aucun maillage ; une primitive, sur le damier. </p>
+
+</div>
+</div>
+<a id="a02afc86451af6c80f4d7685501caa935" name="a02afc86451af6c80f4d7685501caa935"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02afc86451af6c80f4d7685501caa935">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">FigureModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnModeleFaitFaceASonCap</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un modèle s'oriente librement : il fait face à son cap, quel qu'il soit, et à défaut à la diagonale de son orientation. </p>
+<p><b>Cas de test :</b> <b>Un modele fait face a son cap, sans table de quatre orientations.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Squelette<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer le pantin avec un cap vers les colonnes croissantes, vers les lignes croissantes, puis a 30 degres entre les deux.<br  />
+2. Le composer sans cap, oriente au nord-ouest.<br  />
+3. Lire ou sa pose dans la vue met un point situe un metre devant lui.<br  />
+ <b>Resultat attendu :</b> Le point devant lui tombe a l'ecran ou tombe le point de la grille situe un metre plus loin dans la direction du cap ; le pied reste sur sa position dans tous les cas ; le cap de 30 degres n'est aucune des quatre diagonales. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_9c2c1d58a156aa8e30c089ae7a4e31f9.html">Graphics</a></li><li class="navelem"><a href="test__figure__model_8cpp.html">test_figure_model.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

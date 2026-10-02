@@ -61,12 +61,16 @@ constexpr int MANIFEST_VERSION = 1;
     manifest-&gt;root = std::move(document.root);
     const auto textures = manifest-&gt;root.find("textures");
     if (textures != manifest-&gt;root.end() &amp;&amp; textures-&gt;is_object()) {
-        for (const nlohmann::json&amp; entry : *textures) {
-            const auto file = entry.is_object() ? entry.find("file") : entry.end();
-            if (file != entry.end() &amp;&amp; file-&gt;is_string()) {
-                manifest-&gt;entries.try_emplace(file-&gt;get&lt;std::string&gt;(), &amp;entry);</span>
-            }
-<span style = "background-color:#dfd">        }</span>
+        for (const nlohmann::json&amp; entry : *textures) {</span>
+            // Une entrÃ©e cite une image (`file`) ou un maillage (`mesh`, LOT-1003) : l'un comme
+            // l'autre retrouve par lÃ  le manifeste qui le range.
+<span style = "background-color:#dfd">            for (const char* const field : {"file", "mesh"}) {
+                const auto file = entry.is_object() ? entry.find(field) : entry.end();
+                if (file != entry.end() &amp;&amp; file-&gt;is_string()) {
+                    manifest-&gt;entries.try_emplace(file-&gt;get&lt;std::string&gt;(), &amp;entry);</span>
+                }
+<span style = "background-color:#dfd">            }
+        }</span>
     }
 <span style = "background-color:#dfd">    return manifest;
 }</span>

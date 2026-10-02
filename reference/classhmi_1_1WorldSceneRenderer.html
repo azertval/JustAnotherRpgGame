@@ -198,6 +198,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:ae28a3765bdefd7b8fd594e5451c8f6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les textures de <code class="param">paths</code> qui manquent encore. Sur le fil de rendu.  <br /></td></tr>
 <tr class="memitem:aa1f8c78651b1fa484a307a8934159b9b" id="r_aa1f8c78651b1fa484a307a8934159b9b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa1f8c78651b1fa484a307a8934159b9b">ensureMeshes</a> (const std::vector&lt; std::string &gt; &amp;paths)</td></tr>
 <tr class="memdesc:aa1f8c78651b1fa484a307a8934159b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les maillages de <code class="param">paths</code> qui manquent encore (<span class="tt">LOT-1003</span>). Sur le fil de rendu.  <br /></td></tr>
+<tr class="memitem:abfa7945e5883064ddac3910d9f0e4bbe" id="r_abfa7945e5883064ddac3910d9f0e4bbe"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abfa7945e5883064ddac3910d9f0e4bbe">ensureFigureModels</a> (const std::vector&lt; std::string &gt; &amp;paths)</td></tr>
+<tr class="memdesc:abfa7945e5883064ddac3910d9f0e4bbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les modèles de figurine de <code class="param">paths</code> qui manquent encore (<span class="tt">LOT-1005</span>) : le maillage, son squelette, et ce que le squelette de sa fiche déclare.  <br /></td></tr>
 <tr class="memitem:a55dfc11aadf454da5f305ee9b90314e7" id="r_a55dfc11aadf454da5f305ee9b90314e7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a55dfc11aadf454da5f305ee9b90314e7">refresh</a> (const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection)</td></tr>
 <tr class="memdesc:a55dfc11aadf454da5f305ee9b90314e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui est périmé — textures de la carte et des figurines, composition — est refait.  <br /></td></tr>
 <tr class="memitem:a8815860ac208e1a7f941d78a5a9dc7d3" id="r_a8815860ac208e1a7f941d78a5a9dc7d3"><td class="memItemLeft"><a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8815860ac208e1a7f941d78a5a9dc7d3">sceneProjection</a> () const</td></tr>
@@ -227,6 +229,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a3cea47c68f6026b218ef345a0f994fad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemins déjà tentés : une pièce absente ne doit pas être redemandée à chaque image.  <br /></td></tr>
 <tr class="memitem:aeb5bba418426fa54bfd3f6bec816c424" id="r_aeb5bba418426fa54bfd3f6bec816c424"><td class="memItemLeft"><a class="el" href="classhmi_1_1ManifestCache.html">ManifestCache</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeb5bba418426fa54bfd3f6bec816c424">_manifests</a></td></tr>
 <tr class="memdesc:aeb5bba418426fa54bfd3f6bec816c424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les manifestes des lieux, lus une fois pour toutes les textures (audit, A6).  <br /></td></tr>
+<tr class="memitem:a47c91e893d3b14e6c4f2f56d058e1438" id="r_a47c91e893d3b14e6c4f2f56d058e1438"><td class="memItemLeft">std::map&lt; std::string, std::shared_ptr&lt; const <a class="el" href="structcore_1_1SkeletonDescription.html">core::SkeletonDescription</a> &gt;, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a47c91e893d3b14e6c4f2f56d058e1438">_skeletons</a></td></tr>
+<tr class="memdesc:a47c91e893d3b14e6c4f2f56d058e1438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les descriptions de squelette déjà lues, par silhouette ; nulle pour une qui ne se lit pas.  <br /></td></tr>
 <tr class="memitem:ad8fbf932e14dc05a5a69aeecc0f3015f" id="r_ad8fbf932e14dc05a5a69aeecc0f3015f"><td class="memItemLeft">QRhi *&#160;</td><td class="memItemRight"><a class="el" href="#ad8fbf932e14dc05a5a69aeecc0f3015f">_rhi</a> = nullptr</td></tr>
 <tr class="memitem:af8df5bd0d75e490d61fe2fcc67a40d04" id="r_af8df5bd0d75e490d61fe2fcc67a40d04"><td class="memItemLeft">QRhiResourceUpdateBatch *&#160;</td><td class="memItemRight"><a class="el" href="#af8df5bd0d75e490d61fe2fcc67a40d04">_pendingUploads</a> = nullptr</td></tr>
 <tr class="memitem:a3641d1e54b87aa51e5e14775e66c1fd4" id="r_a3641d1e54b87aa51e5e14775e66c1fd4"><td class="memItemLeft"><a class="el" href="classhmi_1_1SceneResources.html">SceneResources</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3641d1e54b87aa51e5e14775e66c1fd4">_resources</a></td></tr>
@@ -366,6 +370,34 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="abfa7945e5883064ddac3910d9f0e4bbe" name="abfa7945e5883064ddac3910d9f0e4bbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa7945e5883064ddac3910d9f0e4bbe">&#9670;&#160;</a></span>ensureFigureModels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldSceneRenderer::ensureFigureModels </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>paths</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge les modèles de figurine de <code class="param">paths</code> qui manquent encore (<span class="tt">LOT-1005</span>) : le maillage, son squelette, et ce que le squelette de sa fiche déclare. </p>
+<p>Sur le fil de rendu. </p>
 
 </div>
 </div>
@@ -1485,6 +1517,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La carte a changé : ses textures et sa composition sont à refaire à la prochaine image. </p>
+
+</div>
+</div>
+<a id="a47c91e893d3b14e6c4f2f56d058e1438" name="a47c91e893d3b14e6c4f2f56d058e1438"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47c91e893d3b14e6c4f2f56d058e1438">&#9670;&#160;</a></span>_skeletons</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, std::shared_ptr&lt;const <a class="el" href="structcore_1_1SkeletonDescription.html">core::SkeletonDescription</a>&gt;, std::less&lt;&gt; &gt; hmi::WorldSceneRenderer::_skeletons</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les descriptions de squelette déjà lues, par silhouette ; nulle pour une qui ne se lit pas. </p>
 
 </div>
 </div>

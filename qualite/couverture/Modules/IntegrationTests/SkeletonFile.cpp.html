@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>SkeletonFile.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/Resources/SkeletonFile.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;set&gt;
+#include &lt;utility&gt;
+
+#include "Core/Data/JsonDocument.h"
+
+namespace core {
+
+namespace {
+
+using Json = nlohmann::json;
+
+<span style = "background-color:#dfd">[[nodiscard]] SkeletonFileResult skeletonFailed(std::string message) {
+    return SkeletonFileResult{.skeleton = {}, .message = std::move(message)};
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] CharacterSheetFileResult sheetFailed(std::string message) {
+    return CharacterSheetFileResult{.sheet = {}, .message = std::move(message)};
+}</span>
+
+// Le texte du champ `key` de `object` ; rien s'il manque ou n'est pas une chaine.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;std::string&gt; text(const Json&amp; object, const char* key) {
+    const auto found = object.find(key);
+    if (found == object.end() || !found-&gt;is_string()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return found-&gt;get&lt;std::string&gt;();
+}</span>
+
+// Le nombre fini du champ `key` de `object` ; rien s'il manque ou n'en est pas un.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;float&gt; number(const Json&amp; object, const char* key) {
+    const auto found = object.find(key);
+    if (found == object.end() || !found-&gt;is_number()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const auto value = found-&gt;get&lt;float&gt;();
+    return std::isfinite(value) ? std::optional&lt;float&gt;{value} : std::nullopt;
+}</span>
+
+// Un nom de fichier ou de silhouette : pas de chemin, pour qu'une fiche ne sorte pas de son
+// dossier.
+<span style = "background-color:#dfd">[[nodiscard]] bool plainName(std::string_view name) {
+    return !name.empty() &amp;&amp; name.find_first_of("/\\") == std::string_view::npos &amp;&amp; name != "." &amp;&amp;</span>
+           name != "..";
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] SkeletonFileResult skeletonFrom(const JsonDocument&amp; document) {
+    if (!document.ok()) {
+        return skeletonFailed(document.message);</span>
+    }
+<span style = "background-color:#dfd">    const Json&amp; root = document.root;
+    SkeletonDescription skeleton;
+    skeleton.silhouette = text(root, "silhouette").value_or(std::string{});
+    if (!plainName(skeleton.silhouette)) {</span>
+<span style = "background-color:#fdd">        return skeletonFailed("silhouette missing");</span>
+    }
+<span style = "background-color:#dfd">    const auto bones = root.find("bones");
+    if (bones == root.end() || !bones-&gt;is_array() || bones-&gt;empty()) {</span>
+<span style = "background-color:#fdd">        return skeletonFailed("bones missing");</span>
+    }
+<span style = "background-color:#dfd">    std::set&lt;std::string, std::less&lt;&gt;&gt; known;
+    for (const Json&amp; entry : *bones) {
+        const std::optional&lt;std::string&gt; name =</span>
+            entry.is_object() ? text(entry, "name") : std::nullopt;
+<span style = "background-color:#dfd">        if (!name || name-&gt;empty()) {</span>
+<span style = "background-color:#fdd">            return skeletonFailed("bone without a name");</span>
+        }
+<span style = "background-color:#dfd">        std::string parent = text(entry, "parent").value_or(std::string{});</span>
+        // Parents avant enfants : un parent encore inconnu est un os absent, ou un cycle.
+<span style = "background-color:#dfd">        if (!parent.empty() &amp;&amp; !known.contains(parent)) {
+            return skeletonFailed("bone " + *name + " cites the unknown parent " + parent);</span>
+        }
+<span style = "background-color:#dfd">        if (!known.insert(*name).second) {
+            return skeletonFailed("bone " + *name + " declared twice");</span>
+        }
+<span style = "background-color:#dfd">        skeleton.bones.push_back(SkeletonBone{.name = *name, .parent = std::move(parent)});
+    }
+    const auto clips = root.find("clips");
+    if (clips == root.end() || !clips-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">        return skeletonFailed("clips missing");</span>
+    }
+<span style = "background-color:#dfd">    for (const Json&amp; entry : *clips) {
+        const std::optional&lt;std::string&gt; name =</span>
+            entry.is_object() ? text(entry, "name") : std::nullopt;
+<span style = "background-color:#dfd">        if (!name || name-&gt;empty()) {</span>
+<span style = "background-color:#fdd">            return skeletonFailed("clip without a name");</span>
+        }
+<span style = "background-color:#dfd">        if (skeleton.clip(*name) != nullptr) {</span>
+<span style = "background-color:#fdd">            return skeletonFailed("clip " + *name + " declared twice");</span>
+        }
+<span style = "background-color:#dfd">        SkeletonClip clip;
+        clip.name = *name;
+        const std::optional&lt;float&gt; duration = number(entry, "duration");
+        if (!duration || *duration &lt;= 0.0F) {
+            return skeletonFailed("clip " + *name + " must declare a positive duration");</span>
+        }
+<span style = "background-color:#dfd">        clip.duration = *duration;
+        if (const auto loop = entry.find("loop"); loop != entry.end()) {
+            if (!loop-&gt;is_boolean()) {</span>
+<span style = "background-color:#fdd">                return skeletonFailed("clip " + *name + ": loop is not a boolean");</span>
+            }
+<span style = "background-color:#dfd">            clip.loop = loop-&gt;get&lt;bool&gt;();
+        }
+        if (entry.contains("key")) {
+            const std::optional&lt;float&gt; key = number(entry, "key");
+            if (!key || *key &lt; 0.0F || *key &gt; clip.duration) {
+                return skeletonFailed("clip " + *name + ": key must lie within the clip");</span>
+            }
+<span style = "background-color:#dfd">            clip.key = key;</span>
+        }
+<span style = "background-color:#dfd">        skeleton.clips.push_back(std::move(clip));
+    }
+    return SkeletonFileResult{.skeleton = std::move(skeleton), .message = {}};
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] CharacterSheetFileResult sheetFrom(const JsonDocument&amp; document) {
+    if (!document.ok()) {
+        return sheetFailed(document.message);</span>
+    }
+<span style = "background-color:#dfd">    CharacterSheetFile sheet;
+    sheet.model = text(document.root, "model").value_or(std::string{});
+    sheet.skeleton = text(document.root, "skeleton").value_or(std::string{});
+    if (!plainName(sheet.model)) {
+        return sheetFailed("model must name a file of the character directory");</span>
+    }
+<span style = "background-color:#dfd">    if (!plainName(sheet.skeleton)) {
+        return sheetFailed("skeleton missing");</span>
+    }
+<span style = "background-color:#dfd">    return CharacterSheetFileResult{.sheet = std::move(sheet), .message = {}};
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">const SkeletonClip* SkeletonDescription::clip(std::string_view name) const noexcept {
+    const auto found =
+        std::ranges::find_if(clips, [name](const SkeletonClip&amp; clip) { return clip.name == name; });
+    return found != clips.end() ? &amp;*found : nullptr;
+}</span>
+
+<span style = "background-color:#dfd">SkeletonFileResult readSkeletonDescription(std::string_view json) {</span>
+    try {
+<span style = "background-color:#dfd">        return skeletonFrom(readJsonObject(json, SKELETON_FORMAT_VERSION, "skeleton.json"));</span>
+<span style = "background-color:#fdd">    } catch (const std::exception&amp; error) {
+        return skeletonFailed(error.what());
+    }</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">SkeletonFileResult readSkeletonFile(const std::filesystem::path&amp; path) {</span>
+    try {
+<span style = "background-color:#dfd">        SkeletonFileResult result =</span>
+            skeletonFrom(readJsonObjectFromFile(path, SKELETON_FORMAT_VERSION));
+<span style = "background-color:#dfd">        if (!result.ok()) {
+            result.message = path.string() + ": " + result.message;</span>
+        }
+<span style = "background-color:#dfd">        return result;</span>
+<span style = "background-color:#fdd">    } catch (const std::exception&amp; error) {
+        return skeletonFailed(error.what());
+    }</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">std::string skeletonFilePath(std::string_view silhouette) {
+    std::string path{"Common/Characters/Skeletons/"};
+    path.append(silhouette);
+    path.append("/skeleton.json");
+    return path;
+}</span>
+
+<span style = "background-color:#dfd">CharacterSheetFileResult readCharacterSheet(std::string_view json) {</span>
+    try {
+<span style = "background-color:#dfd">        return sheetFrom(readJsonObject(json, SKELETON_FORMAT_VERSION, CHARACTER_SHEET_FILE));</span>
+<span style = "background-color:#fdd">    } catch (const std::exception&amp; error) {
+        return sheetFailed(error.what());
+    }</span>
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">CharacterSheetFileResult readCharacterSheetFile(const std::filesystem::path&amp; path) {</span>
+    try {
+<span style = "background-color:#dfd">        CharacterSheetFileResult result =</span>
+            sheetFrom(readJsonObjectFromFile(path, SKELETON_FORMAT_VERSION));
+<span style = "background-color:#dfd">        if (!result.ok()) {
+            result.message = path.string() + ": " + result.message;</span>
+        }
+<span style = "background-color:#dfd">        return result;</span>
+<span style = "background-color:#fdd">    } catch (const std::exception&amp; error) {
+        return sheetFailed(error.what());
+    }</span>
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

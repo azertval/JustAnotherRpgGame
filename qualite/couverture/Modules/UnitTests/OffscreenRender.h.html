@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>OffscreenRender.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;QColor&gt;
+#include &lt;QImage&gt;
+#include &lt;QSize&gt;
+#include &lt;cstddef&gt;
+#include &lt;filesystem&gt;
+#include &lt;map&gt;
+#include &lt;memory&gt;
+
+#include "HMI/Graphics/WorldSceneRenderer.h"
+
+class QRhi;
+class QRhiRenderBuffer;
+class QRhiRenderPassDescriptor;
+class QRhiTexture;
+class QRhiTextureRenderTarget;
+
+/**
+ * @file HMI/Graphics/OffscreenRender.h
+ * @brief Le rendu d'un lieu **hors Ã©cran**, en image (`LOT-1002`) : `LevelEditor --render`, les
+ *        vignettes de l'Ã©diteur, les mesures et les tests.
+ *
+ * Le canevas de l'Ã©diteur dessine par `hmi::WorldSceneRenderer` dans sa fenÃªtre ; ce qui n'a pas de
+ * fenÃªtre passe par le mÃªme rendu, sur un `QRhi` sans surface. Il n'y a donc qu'un rendu d'un lieu,
+ * et une image hors Ã©cran est, au pixel, celle que le jeu dessinerait avec le mÃªme cadrage.
+ *
+ * Sans carte graphique, Direct3D rend par WARP : c'est ce qui fait tourner `--render` en CI, comme
+ * les tests de rendu du jeu.
+ */
+
+namespace hmi {
+
+/// Le plus grand cÃ´tÃ© d'une cible de rendu hors Ã©cran, en pixels : une image plus grande se rend
+/// par tuiles, ce qui borne la mÃ©moire graphique d'un `--render` de 8 192 pixels de cÃ´tÃ©.
+inline constexpr int OFFSCREEN_TILE_SIDE = 4096;
+
+/// Le plafond des textures qu'un rendu **gardÃ©** conserve d'une image Ã  l'autre, en octets de
+/// mÃ©moire graphique : au-delÃ , il les rend avant de resservir (`OffscreenRhi::renderer`). C'est le
+/// budget que tenait le cache d'images du canevas (`LOT-125`).
+inline constexpr std::size_t OFFSCREEN_TEXTURE_BUDGET_BYTES = std::size_t{256} * 1024 * 1024;
+
+/**
+ * @brief Une interface `QRhi` sans fenÃªtre, la cible oÃ¹ elle dessine, et les rendus qu'elle garde.
+ *
+ * Elle ne se partage qu'entre objets du **mÃªme fil**. Tout `hmi::WorldSceneRenderer` qui a dessinÃ©
+ * par elle doit Ãªtre libÃ©rÃ© (`release`) ou dÃ©truit **avant** elle : ses ressources lui
+ * appartiennent. Les rendus qu'elle garde (`renderer`) meurent avec elle, dans cet ordre.
+ */
+class OffscreenRhi {
+public:
+    ~OffscreenRhi();
+    OffscreenRhi(const OffscreenRhi&amp;) = delete;
+    OffscreenRhi&amp; operator=(const OffscreenRhi&amp;) = delete;
+
+    /**
+     * @brief L'interface partagÃ©e : la mÃªme pour tous ceux qui la tiennent, recrÃ©Ã©e quand plus
+     *        personne ne la tient.
+     * @return L'interface, ou `nullptr` si la machine n'en offre aucune (`EX-NFR-040`).
+     */
+    [[nodiscard]] static std::shared_ptr&lt;OffscreenRhi&gt; shared();
+
+<span style = "background-color:#dfd">    [[nodiscard]] QRhi* rhi() const noexcept {
+        return _rhi.get();
+    }</span>
+
+    /**
+     * @brief Le rendu **gardÃ©** du dossier d'assets @p assetsDirectory, ressources crÃ©Ã©es.
+     *
+     * Ses textures restent d'une image Ã  l'autre tant que l'interface vit : vingt vignettes d'un
+     * mÃªme kit ne dÃ©codent ses piÃ¨ces qu'une fois. Elles sont bornÃ©es : un rendu qui tient plus de
+     * `OFFSCREEN_TEXTURE_BUDGET_BYTES` est vidÃ© avant d'Ãªtre resservi, et recharge ce que la
+     * prochaine carte demande. L'appelant rÃ¨gle tout ce dont son image dÃ©pend â carte, figurines,
+     * opacitÃ©, options de composition : le rendu garde les rÃ©glages de l'appel d'avant.
+     *
+     * @return Le rendu, ou `nullptr` si ses ressources ne se crÃ©ent pas.
+     */
+    [[nodiscard]] WorldSceneRenderer* renderer(const std::filesystem::path&amp; assetsDirectory);
+
+    /**
+     * @brief Rend une image de @p size pixels du lieu de @p renderer, cadrÃ©e par @p framing.
+     *
+     * Le cadrage est celui de l'image **entiÃ¨re** ; une image plus grande que @p tileSide se rend
+     * tuile par tuile, chacune cadrÃ©e sur sa part. Le cadrage imposÃ© de @p renderer est rÃ©tabli
+     * aprÃ¨s le rendu.
+     *
+     * @param renderer Le rendu, sa carte dÃ©jÃ  donnÃ©e ; ses ressources sont crÃ©Ã©es au besoin.
+     * @param size     La taille de l'image, en pixels.
+     * @param framing  Le centre de l'image et son Ã©chelle.
+     * @param clear    Le fond ; transparent, l'image garde l'alpha de ce qui est dessinÃ©.
+     * @param tileSide Le plus grand cÃ´tÃ© d'une tuile, en pixels.
+     * @return L'image, prÃ©multipliÃ©e (`QImage::Format_RGBA8888_Premultiplied`), nulle en cas
+     *         d'Ã©chec.
+     */
+    [[nodiscard]] QImage render(WorldSceneRenderer&amp; renderer, QSize size,
+                                const WorldFraming&amp; framing, const QColor&amp; clear,
+                                int tileSide = OFFSCREEN_TILE_SIDE);
+
+private:
+    explicit OffscreenRhi(std::unique_ptr&lt;QRhi&gt; rhi);
+
+    /// Garantit une cible de @p size pixels ; la prÃ©cÃ©dente est rÃ©utilisÃ©e si elle convient.
+    [[nodiscard]] bool ensureTarget(QSize size);
+
+    // La cible meurt avant l'interface : l'ordre de dÃ©claration est l'ordre inverse de libÃ©ration.
+    std::unique_ptr&lt;QRhi&gt; _rhi;
+    std::unique_ptr&lt;QRhiTexture&gt; _texture;
+    /// Le tampon de profondeur de la cible (`LOT-1003`), Ã  sa taille.
+    std::unique_ptr&lt;QRhiRenderBuffer&gt; _depth;
+    std::unique_ptr&lt;QRhiRenderPassDescriptor&gt; _pass;
+    std::unique_ptr&lt;QRhiTextureRenderTarget&gt; _target;
+    /// Les rendus gardÃ©s, par dossier d'assets.
+    std::map&lt;std::filesystem::path, std::unique_ptr&lt;WorldSceneRenderer&gt;&gt; _renderers;
+};
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

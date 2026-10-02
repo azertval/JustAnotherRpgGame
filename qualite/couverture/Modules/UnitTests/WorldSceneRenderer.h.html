@@ -14,7 +14,9 @@
 
 #pragma once
 
+#include &lt;cstddef&gt;
 #include &lt;filesystem&gt;
+#include &lt;functional&gt;
 #include &lt;map&gt;
 #include &lt;memory&gt;
 #include &lt;optional&gt;
@@ -24,8 +26,8 @@
 
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Math/Vector2.h"
-#include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/Graphics/ScenePieces.h"
 #include "HMI/Graphics/SceneResources.h"
 #include "HMI/Graphics/SceneTextureTraits.h"
@@ -60,9 +62,41 @@ class QRhiResourceUpdateBatch;
  * prend que ce que la camÃ©ra montre, et y fusionne les figurines (`setFigures`) â le hÃ©ros qui
  * marche, les PNJ qui respirent. Le coÃ»t d'une image dÃ©pend donc de ce qu'on voit, pas de la taille
  * de la carte (audit de l'affichage d'un lieu, `Planning/standards/audit-affichage-lieu.md`).
+ *
+ * ## Le rendu de l'Ã©diteur aussi (`LOT-1002`)
+ *
+ * Le canevas de l'Ã©diteur, `LevelEditor --render` et les vignettes passent par cette classe : il
+ * n'y a qu'un rendu d'un lieu. Ce que l'Ã©diteur demande en plus tient en trois rÃ©glages, sans
+ * effet tant qu'on ne les touche pas : un **cadrage imposÃ©** (`setFraming`, le zoom et le
+ * dÃ©filement du canevas, le cadre d'une image hors Ã©cran), une **opacitÃ© par primitive**
+ * (`setQuadOpacity`, les calques masquÃ©s ou grisÃ©s, les reliefs en transparence) et les options de
+ * composition (`setComposeOptions`, le plan de principe). `prepare` et `paintedBounds` composent la
+ * carte **avant** l'image : le cadre d'un rendu se mesure sur ce qui sera dessinÃ©.
+ *
+ * ## Les volumes (`LOT-1003`)
+ *
+ * Une piÃ¨ce dont le manifeste cite un maillage se charge par `core::readMeshFile` et se dessine par
+ * `hmi::MeshBatch`, **dans la mÃªme passe** que les images et avant elles : les maillages Ã©crivent
+ * la profondeur, les images la testent sans l'Ã©crire et gardent entre elles l'ordre du peintre. La
+ * camÃ©ra est la mÃªme (`hmi::PlaceCamera`) ; elle ramÃ¨ne alors la profondeur de la vue
+ * (`hmi::IsoView`) Ã  l'Ã©tendue du tampon.
+ *
+ * ## Les figurines en modÃ¨le (`LOT-1005`)
+ *
+ * Une figurine dont l'instantanÃ© nomme un modÃ¨le (`WorldFigureSnapshot::model`) se charge de mÃªme
+ * â son `.glb`, la fiche de son dossier, la description du squelette qu'elle cite â et se dessine
+ * par la mÃªme passe, avec la pose que la composition a calculÃ©e pour l'image. Une figurine en
+ * bandes garde son chemin d'avant.
+ *
+ * Tout cela n'a lieu que si l'image **a** un maillage. Sans lui â toutes les cartes livrÃ©es Ã 
+ * l'ouverture du lot â, le pipeline, les sommets et la matrice sont ceux d'avant : l'image est la
+ * mÃªme au pixel. La cible doit avoir un tampon de profondeur dÃ¨s qu'une carte pose un volume ; les
+ * surfaces du jeu et de l'Ã©diteur en ont un, `hmi::OffscreenRhi` aussi.
  */
 
 namespace hmi {
+
+class MeshBatch;
 
 /**
  * @brief Le cadrage d'un lieu : la camÃ©ra **suit** le hÃ©ros, et ne sort pas de la carte.
@@ -81,8 +115,40 @@ namespace hmi {
  * @param tilePixels  Largeur d'une case Ã  l'Ã©cran, en pixels, quand l'appelant l'impose (l'image
  *                    d'un Ã®lot, `hmi::renderCityBlock`) ; 0 : celle que donne la dÃ©finition.
  */
-[[nodiscard]] Camera2D worldCamera(const core::IsoProjection&amp; projection, core::Vector2 focus,
-                                   int pixelWidth, int pixelHeight, float tilePixels = 0.0F);
+[[nodiscard]] PlaceCamera worldCamera(const core::IsoProjection&amp; projection, core::Vector2 focus,
+                                      int pixelWidth, int pixelHeight, float tilePixels = 0.0F);
+
+/**
+ * @brief Un cadrage **imposÃ©** (`LOT-1002`) : ce que montre le canevas de l'Ã©diteur, ou le cadre
+ *        d'une image hors Ã©cran. Sans lui, la camÃ©ra suit le hÃ©ros (`worldCamera`).
+ */
+struct WorldFraming {
+    /// Le point du monde au centre de la cible, en unitÃ©s monde.
+    core::Vector2 center{};
+    /// Pixels de la cible par unitÃ© monde.
+    float pixelsPerUnit = PlaceCamera::PIXELS_PER_UNIT;
+
+    [[nodiscard]] bool operator==(const WorldFraming&amp;) const = default;
+};
+
+/// @return La camÃ©ra d'un cadrage imposÃ©, pour une cible de @p pixelWidth Ã @p pixelHeight.
+[[nodiscard]] PlaceCamera framedCamera(const WorldFraming&amp; framing, int pixelWidth,
+                                       int pixelHeight);
+
+/**
+ * @brief OpacitÃ© supplÃ©mentaire d'une primitive, dÃ©cidÃ©e par l'appelant (calques masquÃ©s, grisÃ©s,
+ *        reliefs en transparence) ; 0 ou moins : la primitive n'est pas dessinÃ©e.
+ */
+using WorldQuadOpacity = std::function&lt;float(const ComposedQuad&amp;)&gt;;
+
+/**
+ * @brief Le rectangle qu'occupe @p scene, rÃ©uni Ã  @p base : chaque primitive et chaque maillage
+ *        compte, reliefs et figurines qui montent au-dessus de leur case compris.
+ *
+ * Le cadre du canevas, des vignettes et de `--render` (`LOT-125`) : il se mesure sur ce qui est
+ * dessinÃ©, et non sur une marge supposÃ©e â une piÃ¨ce de quatre cases de haut n'y est jamais rognÃ©e.
+ */
+[[nodiscard]] core::Rect composedSceneBounds(const ComposedScene&amp; scene, const core::Rect&amp; base);
 
 /**
  * @brief Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la
@@ -163,8 +229,42 @@ public:
         _tilePixels = tilePixels;
     }</span>
 
+    /// @brief Impose le cadrage (`LOT-1002`) ; `std::nullopt` rend la camÃ©ra qui suit le hÃ©ros.
+<span style = "background-color:#dfd">    void setFraming(std::optional&lt;WorldFraming&gt; framing) noexcept {
+        _framing = framing;
+    }</span>
+
+<span style = "background-color:#dfd">    [[nodiscard]] const std::optional&lt;WorldFraming&gt;&amp; framing() const noexcept {
+        return _framing;
+    }</span>
+
+    /// @brief L'opacitÃ© par primitive de chaque image (`LOT-1002`) ; vide : 1 partout.
+<span style = "background-color:#dfd">    void setQuadOpacity(WorldQuadOpacity opacity) {
+        _opacity = std::move(opacity);
+    }</span>
+
+    /// @brief Les options de composition de la carte ; la carte sera recomposÃ©e si elles changent.
+    void setComposeOptions(WorldComposeOptions options) noexcept;
+
+    /**
+     * @brief Charge les textures et compose la carte **maintenant**, sans dessiner (`LOT-1002`).
+     *
+     * Ce que `render` fait Ã  sa premiÃ¨re image, avancÃ© : les tÃ©lÃ©versements attendent dans le lot
+     * que la prochaine image soumettra. Sans effet si rien n'a changÃ©.
+     *
+     * @return `false` si les ressources n'existent pas encore (`ensureResources`).
+     */
+    bool prepare();
+
+    /**
+     * @brief Ce qu'occupent la carte et ses figurines, rÃ©uni Ã  @p base (`composedSceneBounds`).
+     *
+     * PrÃ©pare la carte au besoin (`prepare`) ; sans ressources, rend @p base.
+     */
+    [[nodiscard]] core::Rect paintedBounds(const core::Rect&amp; base);
+
     /// @brief Dessine une image dans @p target : efface Ã  @p clear, puis le lieu cadrÃ© sur le
-    /// hÃ©ros.
+    /// hÃ©ros, ou par le cadrage imposÃ©.
     void render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target, const float* clear);
 
     /// @return La derniÃ¨re image composÃ©e : ce que la camÃ©ra montrait, figurines comprises.
@@ -181,6 +281,11 @@ public:
         return _textures;
     }</span>
 
+    /// @return Les octets de mÃ©moire graphique que tiennent les textures chargÃ©es, mipmaps
+    ///         comprises, et les maillages : ce qu'un cache qui garde ce rendu compare Ã  son
+    ///         budget (`LOT-1002`).
+    [[nodiscard]] std::size_t textureBytes() const noexcept;
+
     /// @return Les chemins que le rendu a essayÃ© de charger, qu'il ait rÃ©ussi ou non â ce qui
     ///         permet de vÃ©rifier, en test, qu'une carte ne redemande pas ce qu'elle a dÃ©jÃ .
 <span style = "background-color:#dfd">    [[nodiscard]] const std::set&lt;std::string&gt;&amp; requested() const noexcept {
@@ -190,6 +295,16 @@ public:
 private:
     /// Charge les textures de @p paths qui manquent encore. Sur le fil de rendu.
     void ensureTextures(const std::vector&lt;std::string&gt;&amp; paths);
+    /// Charge les maillages de @p paths qui manquent encore (`LOT-1003`). Sur le fil de rendu.
+    void ensureMeshes(const std::vector&lt;std::string&gt;&amp; paths);
+    /// Charge les modÃ¨les de figurine de @p paths qui manquent encore (`LOT-1005`) : le maillage,
+    /// son squelette, et ce que le squelette de sa fiche dÃ©clare. Sur le fil de rendu.
+    void ensureFigureModels(const std::vector&lt;std::string&gt;&amp; paths);
+    /// Ce qui est pÃ©rimÃ© â textures de la carte et des figurines, composition â est refait. Le lot
+    /// de tÃ©lÃ©versements de l'appelant est dÃ©jÃ  dÃ©clarÃ© (`SceneResources::setFrameUpdates`).
+    void refresh(const core::IsoProjection&amp; projection);
+    /// @return La projection de la carte courante.
+    [[nodiscard]] core::IsoProjection sceneProjection() const;
     /// Le marqueur d'une figurine sans image (`hmi::figureMarkerKey`), rien pour une autre piece.
     [[nodiscard]] std::optional&lt;LoadedTexture&gt; figureMarker(const std::string&amp; path);
 
@@ -203,6 +318,10 @@ private:
 <span style = "background-color:#dfd">    bool _figuresDirty = true;
     core::Vector2 _focus{};
     float _tilePixels = 0.0F;</span>
+    /// Le cadrage imposÃ©, l'opacitÃ© par primitive et les options de composition (`LOT-1002`).
+    std::optional&lt;WorldFraming&gt; _framing;
+    WorldQuadOpacity _opacity;
+    WorldComposeOptions _composeOptions;
     /// La carte composÃ©e une fois (`setScene`), et l'image composÃ©e Ã  chaque `render`.
     StaticWorldScene _statics;
     ComposedScene _composed;
@@ -210,16 +329,23 @@ private:
     std::set&lt;std::string&gt; _requested;
     /// Les manifestes des lieux, lus une fois pour toutes les textures (audit, A6).
     ManifestCache _manifests;
+    /// Les descriptions de squelette dÃ©jÃ  lues, par silhouette ; nulle pour une qui ne se lit pas.
+    std::map&lt;std::string, std::shared_ptr&lt;const core::SkeletonDescription&gt;, std::less&lt;&gt;&gt; _skeletons;
 
 <span style = "background-color:#dfd">    QRhi* _rhi = nullptr;
     QRhiResourceUpdateBatch* _pendingUploads = nullptr;</span>
     // DÃ©clarÃ©es APRÃS les ressources : les textures meurent avant la grappe qui porte le pipeline.
     SceneResources _resources;
     std::vector&lt;LoadedTexture&gt; _loaded;
+    /// Ce que pÃ¨sent les textures de `_loaded`, mipmaps comprises.
+<span style = "background-color:#dfd">    std::size_t _textureBytes = 0;</span>
     LoadedTexture _missing;
     /// L'aplat blanc de 1 x 1 : la texture que lient les primitives de couleur du rendu de
     /// maquette (`LOT-128`). Creee avec le reste, liberee avec lui.
     LoadedTexture _solid;
+    /// La passe de maillages (`LOT-1003`) : crÃ©Ã©e avec les ressources, libÃ©rÃ©e avant elles. Ses
+    /// maillages sont ceux que `_textures.meshes` dÃ©signe.
+    std::unique_ptr&lt;MeshBatch&gt; _meshes;
     ScenePieceTextures _textures;
 };
 

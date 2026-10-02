@@ -14,13 +14,83 @@
 
 #include "HMI/Graphics/SpriteRenderer.h"
 
+#include &lt;array&gt;
+#include &lt;cstddef&gt;
 #include &lt;vector&gt;
 
 namespace hmi {
 
+namespace {
+
+// Un rectangle dans la scene en volume (LOT-1003) : a plat, il suit le sol ; dresse, il est un plan
+// vertical au-dessus de la ligne de son pied et le sol au-dessous -- deux rectangles quand cette
+// ligne le traverse, la profondeur n'etant plus lineaire d'un bord a l'autre.
+<span style = "background-color:#dfd">void drawSpriteInDepth(SpriteBatch&amp; batch, const ComposedQuad&amp; composed, const SceneDepth&amp; depth) {
+    const SpriteQuad&amp; quad = composed.sprite;
+    if (composed.stance == QuadStance::Overlay) {</span>
+<span style = "background-color:#fdd">        batch.draw(quad, depth.overlayDepth(), depth.overlayDepth());
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const float bias = depth.view.imageBias();
+    const float top = quad.y;
+    const float bottom = quad.y + quad.height;
+    if (composed.stance == QuadStance::Ground) {
+        batch.draw(quad, depth.view.groundDepth(top) - bias, depth.view.groundDepth(bottom) - bias);
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const float foot = composed.footY;</span>
+    // Un rectangle tourne ne se decoupe pas le long d'une horizontale : il reste d'un seul plan.
+<span style = "background-color:#dfd">    if (foot &lt;= top || foot &gt;= bottom || quad.rotation != 0.0F || !(quad.height &gt; 0.0F)) {
+        batch.draw(quad, depth.view.standingDepth(foot, top) - bias,</span>
+                   depth.view.standingDepth(foot, bottom) - bias);
+<span style = "background-color:#dfd">        return;</span>
+    }
+<span style = "background-color:#dfd">    const float footDepth = depth.view.groundDepth(foot) - bias;
+    const float split = (foot - top) / quad.height;
+    SpriteQuad upper = quad;
+    upper.height = foot - top;
+    upper.v1 = quad.v0 + ((quad.v1 - quad.v0) * split);
+    batch.draw(upper, depth.view.standingDepth(foot, top) - bias, footDepth);
+    SpriteQuad lower = quad;
+    lower.y = foot;
+    lower.height = bottom - foot;
+    lower.v0 = upper.v1;
+    batch.draw(lower, footDepth, depth.view.groundDepth(bottom) - bias);
+}</span>
+
+<span style = "background-color:#dfd">void drawInDepth(SpriteBatch&amp; batch, const ComposedQuad&amp; composed, const SceneDepth&amp; depth) {
+    const bool overlay = composed.stance == QuadStance::Overlay;
+    const float bias = depth.view.imageBias();
+    switch (composed.kind) {</span>
+        case QuadKind::Sprite:
+<span style = "background-color:#dfd">            drawSpriteInDepth(batch, composed, depth);
+            break;</span>
+        case QuadKind::Line:
+<span style = "background-color:#fdd">            batch.draw(</span>
+                composed.line,
+                overlay ? depth.overlayDepth() : depth.view.groundDepth(composed.line.ay) - bias,
+                overlay ? depth.overlayDepth() : depth.view.groundDepth(composed.line.by) - bias);
+<span style = "background-color:#fdd">            break;</span>
+        case QuadKind::Poly: {
+            // Chaque sommet dit son elevation : le sol sous lui, puis ce dont il s'en eleve.
+<span style = "background-color:#fdd">            std::array&lt;float, 4&gt; depths{};
+            for (std::size_t i = 0; i &lt; depths.size(); ++i) {
+                const float rise = composed.poly.rise[i];
+                depths[i] = overlay</span>
+                                ? depth.overlayDepth()
+                                : depth.view.raisedDepth(composed.poly.y[i] + rise, rise) - bias;
+<span style = "background-color:#fdd">            }
+            batch.draw(composed.poly, depths);</span>
+            break;
+        }
+    }
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
 // Soumet une scene composee au pipeline de dessin, une passe par groupe de texture.
 void submitComposedScene(SpriteBatch&amp; batch, const DirectX::XMFLOAT4X4&amp; projection,
-<span style = "background-color:#dfd">                         const ComposedScene&amp; scene) {
+<span style = "background-color:#dfd">                         const ComposedScene&amp; scene, const SceneDepth* depth) {
     const std::vector&lt;ComposedQuad&gt;&amp; quads = scene.quads();
     TextureHandle current = nullptr;
     bool open = false;</span>
@@ -38,6 +108,10 @@ void submitComposedScene(SpriteBatch&amp; batch, const DirectX::XMFLOAT4X4&amp; 
 <span style = "background-color:#dfd">            batch.begin(projection, composed.texture);
             current = composed.texture;
             open = true;</span>
+        }
+<span style = "background-color:#dfd">        if (depth != nullptr) {
+            drawInDepth(batch, composed, *depth);
+            continue;</span>
         }
 <span style = "background-color:#dfd">        switch (composed.kind) {</span>
             case QuadKind::Sprite:

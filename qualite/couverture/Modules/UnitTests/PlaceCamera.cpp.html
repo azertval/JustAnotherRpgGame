@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>PlaceCamera.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Graphics/PlaceCamera.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+
+namespace hmi {
+
+namespace {
+
+// Les trois coefficients d'un axe du plan de l'image : ce qui multiplie la coordonnee, et ce qui
+// s'y ajoute.
+struct AxisScale {
+    float scale;
+    float translate;
+};
+
+// L'axe de la profondeur : [nearest, farthest] ramene a [-1, 1]. Une etendue vide ou a l'envers
+// laisse la profondeur telle quelle plutot que de diviser par zero.
+<span style = "background-color:#dfd">[[nodiscard]] AxisScale depthAxis(const DepthRange&amp; range) noexcept {
+    const float span = range.farthest - range.nearest;
+    if (!(span &gt; 0.0F)) {
+        return AxisScale{.scale = 1.0F, .translate = 0.0F};</span>
+    }
+    // `0 - x` et non `-x` : l'etendue par defaut rend un zero positif, comme la matrice d'avant.
+<span style = "background-color:#dfd">    return AxisScale{.scale = 2.0F / span,</span>
+                     .translate = 0.0F - ((range.farthest + range.nearest) / span)};
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+// Construit une camÃ©ra pour une surface de rendu donnÃ©e.
+PlaceCamera::PlaceCamera(int viewportWidth, int viewportHeight)
+<span style = "background-color:#dfd">    : _viewportWidth(viewportWidth), _viewportHeight(viewportHeight) {}</span>
+
+// Place le centre de la camÃ©ra.
+<span style = "background-color:#dfd">void PlaceCamera::setCenter(const core::Vector2&amp; worldCenter) {
+    _center = worldCenter;
+}</span>
+
+// RÃ¨gle le facteur de zoom.
+<span style = "background-color:#dfd">void PlaceCamera::setZoom(float zoom) {
+    _zoom = zoom;
+}</span>
+
+<span style = "background-color:#dfd">void PlaceCamera::setDepthRange(const DepthRange&amp; range) {
+    _depth = range;
+}</span>
+
+// L'Ã©chelle effective, en pixels par unitÃ© monde (PIXELS_PER_UNIT Ã zoom).
+<span style = "background-color:#dfd">float PlaceCamera::scale() const {
+    return PIXELS_PER_UNIT * _zoom;
+}</span>
+
+// Matrice de projection vue â clip, pour le vertex shader.
+// La matrice (ligne-major DirectXMath) transformant une position de la vue en clip.
+<span style = "background-color:#dfd">DirectX::XMFLOAT4X4 PlaceCamera::projectionMatrix() const {</span>
+    // Ãchelle monde â clip sur chaque axe : la moitiÃ© d'Ã©cran (viewport/2 pixels) doit
+    // couvrir 1 en NDC. L'axe Y est inversÃ© (monde Y-bas, NDC Y-haut).
+<span style = "background-color:#dfd">    const float scaleX = scale() * 2.0F / static_cast&lt;float&gt;(_viewportWidth);
+    const float scaleY = scale() * 2.0F / static_cast&lt;float&gt;(_viewportHeight);
+    const float translateX = -_center.x * scaleX;
+    const float translateY = _center.y * scaleY;
+    const AxisScale depth = depthAxis(_depth);</span>
+
+    // Ligne-major, appliquÃ©e en `position * matrice` (convention DirectXMath) :
+    // clip.x =  scaleX * (x - cx) ; clip.y = -scaleY * (y - cy) ; clip.z = profondeur ramenee ;
+    // clip.w = 1. Les deux premiers axes sont ceux de la camera 2D d'avant le LOT-1003, au
+    // flottant pres : une image posee dans le plan occupe les memes pixels.
+<span style = "background-color:#dfd">    return {scaleX,     0.0F,       0.0F,</span>
+            0.0F,  //
+            0.0F,       -scaleY,    0.0F,
+            0.0F,  //
+            0.0F,       0.0F,       depth.scale,
+            0.0F,  //
+            translateX, translateY, depth.translate,
+            1.0F};
+<span style = "background-color:#dfd">}</span>
+
+// Matrice maillage -&gt; clip : la pose du maillage dans la vue, puis la projection.
+<span style = "background-color:#dfd">DirectX::XMFLOAT4X4 PlaceCamera::meshMatrix(const ViewTransform&amp; transform) const {
+    const DirectX::XMFLOAT4X4 projection = projectionMatrix();
+    const float scaleX = projection(0, 0);
+    const float scaleY = projection(1, 1);
+    const float scaleZ = projection(2, 2);</span>
+    // Chaque colonne de la matrice est un axe du clip ; chaque ligne, un axe du maillage (puis la
+    // translation).
+<span style = "background-color:#dfd">    return {scaleX * transform[0],</span>
+            scaleY * transform[4],
+            scaleZ * transform[8],
+            0.0F,  //
+            scaleX * transform[1],
+            scaleY * transform[5],
+            scaleZ * transform[9],
+            0.0F,  //
+            scaleX * transform[2],
+            scaleY * transform[6],
+            scaleZ * transform[10],
+            0.0F,  //
+            (scaleX * transform[3]) + projection(3, 0),
+            (scaleY * transform[7]) + projection(3, 1),
+            (scaleZ * transform[11]) + projection(3, 2),
+            1.0F};
+<span style = "background-color:#dfd">}</span>
+
+// Convertit une position monde en pixels Ã©cran.
+// Position en pixels (origine haut-gauche, Y-bas).
+<span style = "background-color:#dfd">core::Vector2 PlaceCamera::worldToScreen(const core::Vector2&amp; world) const {
+    const float halfWidth = static_cast&lt;float&gt;(_viewportWidth) * 0.5F;
+    const float halfHeight = static_cast&lt;float&gt;(_viewportHeight) * 0.5F;
+    return core::Vector2{((world.x - _center.x) * scale()) + halfWidth,</span>
+                         ((world.y - _center.y) * scale()) + halfHeight};
+<span style = "background-color:#dfd">}</span>
+
+// Convertit une position Ã©cran (pixels) en unitÃ©s monde.
+// Position en unitÃ©s monde.
+<span style = "background-color:#dfd">core::Vector2 PlaceCamera::screenToWorld(const core::Vector2&amp; screen) const {
+    const float halfWidth = static_cast&lt;float&gt;(_viewportWidth) * 0.5F;
+    const float halfHeight = static_cast&lt;float&gt;(_viewportHeight) * 0.5F;
+    return core::Vector2{((screen.x - halfWidth) / scale()) + _center.x,</span>
+                         ((screen.y - halfHeight) / scale()) + _center.y};
+<span style = "background-color:#dfd">}</span>
+
+// Rectangle du monde effectivement cadre par la camera (base du culling, EX-NFR-005).
+// Le rectangle visible, en unites monde (coin haut-gauche + dimensions).
+<span style = "background-color:#dfd">core::Rect PlaceCamera::visibleBounds() const {
+    const core::Vector2 topLeft = screenToWorld(core::Vector2{0.0F, 0.0F});
+    const core::Vector2 size{static_cast&lt;float&gt;(_viewportWidth) / scale(),</span>
+                             static_cast&lt;float&gt;(_viewportHeight) / scale()};
+<span style = "background-color:#dfd">    return core::Rect{topLeft, size};
+}</span>
+
+// Facteur de zoom ajustant un contenu a une surface disponible, sans zone hors champ (LOT-16).
+// Libre depuis le LOT-103 : l'arrondi a l'entier ne protegeait que la grille du pixel art.
+float PlaceCamera::fitZoom(float availableWidth, float availableHeight, float contentWidth,
+<span style = "background-color:#dfd">                           float contentHeight, float margin) {
+    const float fitX = availableWidth / (contentWidth * PIXELS_PER_UNIT);
+    const float fitY = availableHeight / (contentHeight * PIXELS_PER_UNIT);
+    return (std::min)(fitX, fitY) * margin;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

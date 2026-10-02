@@ -2,6 +2,7 @@ var ScenePieces_8h =
 [
     [ "hmi::SceneTexture", "structhmi_1_1SceneTexture.html", "structhmi_1_1SceneTexture" ],
     [ "hmi::SceneMesh", "structhmi_1_1SceneMesh.html", "structhmi_1_1SceneMesh" ],
+    [ "hmi::SceneFigureModel", "structhmi_1_1SceneFigureModel.html", "structhmi_1_1SceneFigureModel" ],
     [ "hmi::ScenePieceTextures", "structhmi_1_1ScenePieceTextures.html", "structhmi_1_1ScenePieceTextures" ],
     [ "hmi::artTileHeight", "namespacehmi.html#a688b39b1850e66b5bfd6a536d3ef5a5a", null ],
     [ "hmi::artTileWidth", "namespacehmi.html#acf7d466bf233ec8793a6ce809dff494f", null ],

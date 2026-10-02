@@ -93,9 +93,13 @@ void addExperienceValues(std::map&lt;std::string, std::string&gt;&amp; valeurs,
 <span style = "background-color:#fdd">                continue;  // le catalogue ne la connaÃ®t pas : ne rien afficher plutÃ´t qu'un zÃ©ro.</span>
             }
             // La maÃ®trise se voit : c'est l'information que la pastille cochÃ©e porte sur la
-            // feuille, et le seul moyen de la rendre dans une ligne de texte.
-<span style = "background-color:#dfd">            valeurs[std::string("sheet.skill.") + competence.id] =</span>
-                signe(modificateur.value) + (modificateur.proficient ? " â¢" : "");
+            // feuille. Elle a sa propre clÃ©, prÃ©sente seulement si la compÃ©tence est maÃ®trisÃ©e :
+            // un `.ui.qml` ne dÃ©coupe pas une chaÃ®ne, Qt Design Studio y refuse tout appel.
+<span style = "background-color:#dfd">            const std::string cle = std::string("sheet.skill.") + competence.id;
+            valeurs[cle] = signe(modificateur.value);
+            if (modificateur.proficient) {
+                valeurs[cle + ".proficient"] = "1";</span>
+            }
 <span style = "background-color:#dfd">        }</span>
         // Perception passive : 10 + le modificateur de Perception, la rÃ¨gle du livre. Elle est
         // dÃ©rivÃ©e, jamais stockÃ©e -- deux valeurs qui doivent s'accorder finissent par diverger.

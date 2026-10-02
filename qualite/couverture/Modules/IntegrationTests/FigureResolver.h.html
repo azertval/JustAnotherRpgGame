@@ -16,18 +16,29 @@
 
 /**
  * @file HMI/Game/FigureResolver.h
- * @brief Quelle bande dessiner pour ce personnage ? La figurine nommÃ©e si elle existe, sinon le
- *        mannequin de sa silhouette (`LOT-145`).
+ * @brief Que dessiner pour ce personnage ? La figurine nommÃ©e si elle existe, sinon le mannequin
+ *        de sa silhouette (`LOT-145`).
  *
  * ## La rÃ¨gle, en trois temps
  *
  * 1. La figurine nommÃ©e â la propriÃ©tÃ© `figure` d'un PNJ, le slug d'une crÃ©ature, la figurine du
  *    hÃ©ros â se cherche par la table du lieu (`hmi::PlaceAppearance::figureDirectory`, `LOT-124`).
- *    Si sa bande de repos existe (`idle-se.png` : elle est orientÃ©e ; Ã  dÃ©faut `idle.png`), c'est
- *    elle.
- * 2. Sinon, le mannequin de sa silhouette (`hmi::placeholderFigureDirectory`), s'il est installÃ©.
+ *    Si elle existe, c'est elle.
+ * 2. Sinon, le mannequin de sa silhouette, s'il est installÃ©.
  * 3. Sinon le mannequin humanoÃ¯de ; et s'il manque lui aussi, la figurine nommÃ©e telle quelle : le
  *    rendu lui donnera son marqueur d'asset, comme avant ce lot.
+ *
+ * ## Deux formes de figurine, le temps d'un lot (`LOT-1005`)
+ *
+ * Une figurine **existe** sous l'une de deux formes :
+ *
+ * - un **modÃ¨le** : son dossier porte une fiche (`character.json`, `core::CharacterSheetFile`)
+ *   qui nomme un `.glb` prÃ©sent et le squelette auquel il est liÃ©. C'est la forme cherchÃ©e
+ *   d'abord, pour la figurine nommÃ©e (dans son dossier) comme pour le mannequin
+ *   (`hmi::mannequinFigureDirectory`) ;
+ * - des **bandes** : sa bande de repos existe (`idle-se.png` : elle est orientÃ©e ; Ã  dÃ©faut
+ *   `idle.png`), dans son dossier ou dans celui du mannequin en bandes
+ *   (`hmi::placeholderFigureDirectory`). Le `LOT-1006` retire cette forme.
  *
  * Le disque ne se relit pas Ã  chaque image : la rÃ©ponse se retient par figurine, et s'oublie
  * quand la carte change (`clear`) â une figurine installÃ©e pendant la partie se verra Ã  la carte
@@ -37,9 +48,11 @@
 
 #include &lt;filesystem&gt;
 #include &lt;map&gt;
+#include &lt;memory&gt;
 #include &lt;string&gt;
 #include &lt;string_view&gt;
 
+#include "Core/Resources/SkeletonFile.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 
 namespace hmi {
@@ -53,6 +66,12 @@ struct ResolvedFigure {
     bool oriented = false;
     /// Vrai si c'est un mannequin qui tient la place de la figurine nommÃ©e.
     bool placeholder = false;
+    /// Le modÃ¨le de la figurine (`LOT-1005`) : le chemin de son `.glb`, relatif au dossier des
+    /// assets. Vide : elle se dessine par ses bandes.
+    std::string model;
+    /// Ce que dÃ©clare le squelette du modÃ¨le â durÃ©e, boucle et image clÃ© de ses clips ; nul pour
+    /// des bandes, ou si la description ne se lit pas.
+    std::shared_ptr&lt;const core::SkeletonDescription&gt; skeleton;
 
     [[nodiscard]] bool operator==(const ResolvedFigure&amp;) const = default;
 };
@@ -80,7 +99,17 @@ public:
     /// @brief Oublie ce qui a Ã©tÃ© trouvÃ© : la carte, ou le lieu, a changÃ©.
 <span style = "background-color:#dfd">    void clear() noexcept {
         _found.clear();
+        _skeletons.clear();
     }</span>
+
+    /**
+     * @brief Le modÃ¨le du dossier @p directory, s'il porte une fiche lisible qui nomme un `.glb`
+     *        prÃ©sent (`LOT-1005`).
+     * @param directory Le dossier du personnage, relatif au dossier des assets.
+     * @param resolved ReÃ§oit le modÃ¨le et son squelette ; inchangÃ© sinon.
+     * @return Vrai si le dossier est celui d'un personnage en modÃ¨le.
+     */
+    [[nodiscard]] bool hasModel(std::string_view directory, ResolvedFigure&amp; resolved);
 
     /// @return Vrai si la bande de repos de @p directory existe, orientÃ©e ou non.
     [[nodiscard]] bool hasIdleStrip(std::string_view directory, bool&amp; oriented) const;
@@ -89,6 +118,8 @@ private:
     std::filesystem::path _assetsDirectory;
     /// ClÃ© : `&lt;figure&gt;|&lt;silhouette&gt;`.
     std::map&lt;std::string, ResolvedFigure, std::less&lt;&gt;&gt; _found;
+    /// Les descriptions de squelette dÃ©jÃ  lues, par silhouette ; nulle pour une qui ne se lit pas.
+    std::map&lt;std::string, std::shared_ptr&lt;const core::SkeletonDescription&gt;, std::less&lt;&gt;&gt; _skeletons;
 };
 
 }  // namespace hmi</pre>

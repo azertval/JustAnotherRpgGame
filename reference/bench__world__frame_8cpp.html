@@ -147,11 +147,16 @@ $(function(){initNavTree('bench__world__frame_8cpp.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;benchmark/benchmark.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MeshFile_8h_source.html">Core/Resources/MeshFile.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ScenePieceManifest_8h_source.html">Core/Resources/ScenePieceManifest.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SkeletonFile_8h_source.html">Core/Resources/SkeletonFile.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="StaticWorldScene_8h_source.html">HMI/Graphics/StaticWorldScene.h</a>&quot;</code><br />
@@ -174,6 +179,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a666dc397bf8f2b53d8d36228444c3102" id="r_a666dc397bf8f2b53d8d36228444c3102"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a666dc397bf8f2b53d8d36228444c3102">ArenareaFrame1080p</a> (benchmark::State &amp;state)</td></tr>
 <tr class="memdesc:a666dc397bf8f2b53d8d36228444c3102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une image à 1080p, le héros au milieu de l'avenue : la partie fixe sous la caméra et le héros.  <br /></td></tr>
 <tr class="memitem:aec1781d523904ebfdf259570ce0e028d" id="r_aec1781d523904ebfdf259570ce0e028d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aec1781d523904ebfdf259570ce0e028d">BENCHMARK</a> (<a class="el" href="#a666dc397bf8f2b53d8d36228444c3102">ArenareaFrame1080p</a>) -&gt; Unit(benchmark::kMicrosecond)</td></tr>
+<tr class="memitem:ac93baafebefb0cb2ca909a534f6704ff" id="r_ac93baafebefb0cb2ca909a534f6704ff"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ac93baafebefb0cb2ca909a534f6704ff">ArenareaFrame1080pEightModels</a> (benchmark::State &amp;state)</td></tr>
+<tr class="memdesc:ac93baafebefb0cb2ca909a534f6704ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">La même image, avec <b>huit modèles animés</b> à l'écran (<span class="tt">LOT-1005</span>) : le héros et sept figurines, chacun en marche à un instant différent.  <br /></td></tr>
+<tr class="memitem:a69f64f6bf52a3cb69bebe4b20e9f87b3" id="r_a69f64f6bf52a3cb69bebe4b20e9f87b3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a69f64f6bf52a3cb69bebe4b20e9f87b3">BENCHMARK</a> (<a class="el" href="#ac93baafebefb0cb2ca909a534f6704ff">ArenareaFrame1080pEightModels</a>) -&gt; Unit(benchmark::kMicrosecond)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Mesure d'une image d'un <b>grand lieu</b> : le quartier d'Arenarea (<span class="tt">LOT-109</span>, 128 × 88 cases, environ quatorze mille pièces sur sept couches). </p>
@@ -260,6 +268,34 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac93baafebefb0cb2ca909a534f6704ff" name="ac93baafebefb0cb2ca909a534f6704ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac93baafebefb0cb2ca909a534f6704ff">&#9670;&#160;</a></span>ArenareaFrame1080pEightModels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArenareaFrame1080pEightModels </td>
+          <td>(</td>
+          <td class="paramtype">benchmark::State &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La même image, avec <b>huit modèles animés</b> à l'écran (<span class="tt">LOT-1005</span>) : le héros et sept figurines, chacun en marche à un instant différent. </p>
+<p>Ce que la composition y ajoute est la pose de leurs squelettes — 53 os, six clips échantillonnés — recalculée à chaque image ; le dessin lui-même est à la carte graphique (<span class="tt">CanvasBenchmarks</span>, <span class="tt"><a class="el" href="bench__canvas__frame_8cpp.html#a5160eff9552f419ea288992cffe222bc">WorldFrameEightModels1080p</a></span>). Le modèle est le mannequin d'essai (<span class="tt">Fixtures/Characters</span>), sans GPU : son squelette et ses clips sont ceux d'un personnage livré. </p>
+
+</div>
+</div>
 <a id="a674608bcb407f6f4efaa6b6fb274176d" name="a674608bcb407f6f4efaa6b6fb274176d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a674608bcb407f6f4efaa6b6fb274176d">&#9670;&#160;</a></span>ArenareaSnapshot()</h2>
 
@@ -315,7 +351,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad0d3b5774fb8c382e0e4d94d6c75e59f" name="ad0d3b5774fb8c382e0e4d94d6c75e59f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0d3b5774fb8c382e0e4d94d6c75e59f">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0d3b5774fb8c382e0e4d94d6c75e59f">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -332,7 +368,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a688805ccd1c013d933ccc1061a0d3c42" name="a688805ccd1c013d933ccc1061a0d3c42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a688805ccd1c013d933ccc1061a0d3c42">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a688805ccd1c013d933ccc1061a0d3c42">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -349,7 +385,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aec1781d523904ebfdf259570ce0e028d" name="aec1781d523904ebfdf259570ce0e028d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec1781d523904ebfdf259570ce0e028d">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aec1781d523904ebfdf259570ce0e028d">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -365,8 +401,25 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a69f64f6bf52a3cb69bebe4b20e9f87b3" name="a69f64f6bf52a3cb69bebe4b20e9f87b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69f64f6bf52a3cb69bebe4b20e9f87b3">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BENCHMARK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ac93baafebefb0cb2ca909a534f6704ff">ArenareaFrame1080pEightModels</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> -&gt;  Unit(benchmark::kMicrosecond)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ada8b50b45f0698318eb18cb0bd61d101" name="ada8b50b45f0698318eb18cb0bd61d101"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada8b50b45f0698318eb18cb0bd61d101">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ada8b50b45f0698318eb18cb0bd61d101">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -383,7 +436,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aea4326faf156bdd0b728a2ddd3589810" name="aea4326faf156bdd0b728a2ddd3589810"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea4326faf156bdd0b728a2ddd3589810">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aea4326faf156bdd0b728a2ddd3589810">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

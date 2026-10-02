@@ -17,10 +17,12 @@
 #include &lt;cstddef&gt;
 #include &lt;cstdint&gt;
 #include &lt;optional&gt;
+#include &lt;span&gt;
 #include &lt;unordered_map&gt;
 #include &lt;vector&gt;
 
 #include "Core/Math/Rect.h"
+#include "HMI/Graphics/IsoView.h"
 #include "HMI/Graphics/Quad.h"
 #include "HMI/Graphics/RenderLayer.h"
 
@@ -31,6 +33,31 @@
  */
 
 namespace hmi {
+
+/**
+ * @brief Comment une image se tient dans la scÃ¨ne en volume (`LOT-1003`) : ce qui dÃ©cide de sa
+ *        **profondeur** quand elle croise un maillage (`hmi::IsoView`).
+ *
+ * Sans maillage dans l'image, rien n'en est lu : l'ordre du peintre dÃ©cide seul, comme avant.
+ */
+enum class QuadStance : std::uint8_t {
+    /// Une marque sur le plan (jeton, tracÃ©, aide d'Ã©dition) : devant tout, jamais masquÃ©e.
+    Overlay,
+    /// Ã plat sur le sol : chaque sommet a la profondeur du sol sous lui.
+    Ground,
+    /// DressÃ©e face Ã  la camÃ©ra, sur la ligne de son pied (`ComposedQuad::footY`).
+    Upright,
+};
+
+/// @return La tenue par dÃ©faut d'une primitive du calque @p layer : le sol et ce qui est dessous
+///         sont Ã  plat, la bande de profondeur est dressÃ©e, l'interface est une marque.
+<span style = "background-color:#dfd">[[nodiscard]] constexpr QuadStance defaultStance(RenderLayer layer) noexcept {
+    if (sortsByDepth(layer)) {
+        return QuadStance::Upright;</span>
+    }
+<span style = "background-color:#dfd">    return layer == RenderLayer::UI || layer == RenderLayer::EditorOverlay ? QuadStance::Overlay</span>
+                                                                           : QuadStance::Ground;
+<span style = "background-color:#dfd">}</span>
 
 /// Nature d'une primitive composÃ©e : rectangle alignÃ© aux axes, ou segment Ã©pais orientÃ©.
 enum class QuadKind {
@@ -76,6 +103,47 @@ struct ComposedQuad {
     /// tout le reste. PortÃ© par la primitive pour qu'une scÃ¨ne composÃ©e une fois
     /// (`hmi::StaticWorldScene`) sache l'effacer Ã  chaque image sans rien recomposer.
     core::Rect occlusion{};
+    /// Comment la primitive se tient dans la scÃ¨ne en volume (`LOT-1003`).
+    QuadStance stance = QuadStance::Ground;
+    /// L'ordonnÃ©e de la ligne du **pied** d'une primitive dressÃ©e, en unitÃ©s monde : au-dessus, un
+    /// plan vertical ; au-dessous, le sol. Sans objet pour les autres tenues.
+    float footY = 0.0F;
+};
+
+/**
+ * @brief IdentitÃ© **opaque** d'un maillage chargÃ©, du point de vue de la composition : comme
+ *        `hmi::TextureHandle`, elle se compare et se regroupe sans que la composition connaisse
+ *        le GPU. Nulle : aucun maillage.
+ */
+using MeshHandle = void*;
+
+/**
+ * @brief Un **maillage placÃ©** (`LOT-1003`) : la composition en produit une liste, Ã  cÃ´tÃ© de la
+ *        liste des primitives.
+ *
+ * Aucun rang de dessin : les maillages sont opaques et Ã©crivent la profondeur, le tampon les
+ * dÃ©partage entre eux et des images. Seuls le calque et l'Ã©tage sont gardÃ©s, pour que l'opacitÃ©
+ * des calques de l'Ã©diteur vaille pour un mur en volume comme pour un mur peint.
+ */
+struct ComposedMesh {
+    /// Le calque que la piÃ¨ce occuperait en image : `Tile` pour un sol, `Object` pour le reste.
+    RenderLayer layer = RenderLayer::Object;
+    MeshHandle mesh = nullptr;
+    /// La pose du maillage dans la vue (`hmi::IsoView::meshTransform`).
+    ViewTransform toView{};
+    /// Le rectangle de l'image qu'il occupe, en unitÃ©s monde : culling et cadrage.
+    core::Rect bounds{};
+    /// L'Ã©tage de la piÃ¨ce (`LOT-129`), 0 au rez.
+    int storey = 0;
+    /// OpacitÃ©, de 0 Ã  1 : 1 partout, sauf ce que l'appelant Ã©teint ou grise.
+<span style = "background-color:#dfd">    float opacity = 1.0F;</span>
+    /// La pose d'un maillage **animÃ©** (`LOT-1005`) : oÃ¹ elle commence dans
+    /// `ComposedScene::poses`, et combien de flottants elle compte (seize par os). ZÃ©ro : un
+    /// maillage fixe, ou un modÃ¨le dans sa pose de liaison.
+<span style = "background-color:#dfd">    std::uint32_t poseOffset = 0;
+    std::uint32_t poseFloats = 0;</span>
+
+    [[nodiscard]] bool operator==(const ComposedMesh&amp;) const = default;
 };
 
 /**
@@ -184,10 +252,45 @@ public:
      * @param quad      Primitive Ã  composer (unitÃ©s monde).
      * @param storey    Ãtage de la piÃ¨ce (`LOT-129`), 0 au rez.
      * @param occlusion Ce que la piÃ¨ce masque, pour l'effacer devant le hÃ©ros (`ComposedQuad`).
+     * @param footY     La ligne du pied d'une primitive **dressÃ©e** (`ComposedQuad::footY`) ; sans
+     *                  elle, le bas du rectangle. Sans effet sur un calque Ã  plat ou d'interface.
      * @return `true` si la primitive a Ã©tÃ© conservÃ©e, `false` si le culling l'a Ã©cartÃ©e.
      */
     bool addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
-                   const SpriteQuad&amp; quad, int storey = 0, const core::Rect&amp; occlusion = {});
+                   const SpriteQuad&amp; quad, int storey = 0, const core::Rect&amp; occlusion = {},
+                   std::optional&lt;float&gt; footY = std::nullopt);
+
+    /**
+     * @brief Ajoute un maillage placÃ© Ã  la scÃ¨ne, s'il est visible (`LOT-1003`).
+     * @param layer   Le calque que la piÃ¨ce occuperait en image.
+     * @param mesh    Le maillage (identitÃ© opaque) ; nul, rien n'est ajoutÃ©.
+     * @param toView  Sa pose dans la vue.
+     * @param bounds  Le rectangle de l'image qu'il occupe, en unitÃ©s monde.
+     * @param storey  Ãtage de la piÃ¨ce (`LOT-129`), 0 au rez.
+     * @param pose    La pose d'un maillage animÃ© (`core::poseSkeleton`), recopiÃ©e dans la scÃ¨ne ;
+     *                vide pour un maillage fixe.
+     * @return `true` si le maillage a Ã©tÃ© conservÃ©, `false` si le culling l'a Ã©cartÃ©.
+     */
+    bool addMesh(RenderLayer layer, MeshHandle mesh, const ViewTransform&amp; toView,
+                 const core::Rect&amp; bounds, int storey = 0, std::span&lt;const float&gt; pose = {});
+
+    /// @return La pose de @p mesh, vide s'il n'en a pas.
+<span style = "background-color:#dfd">    [[nodiscard]] std::span&lt;const float&gt; poseOf(const ComposedMesh&amp; mesh) const noexcept {
+        return static_cast&lt;std::size_t&gt;(mesh.poseOffset) + mesh.poseFloats &lt;= _poses.size()</span>
+                   ? std::span&lt;const float&gt;{_poses}.subspan(mesh.poseOffset, mesh.poseFloats)
+                   : std::span&lt;const float&gt;{};
+<span style = "background-color:#dfd">    }</span>
+
+    /// @return Les maillages placÃ©s, dans l'ordre de composition.
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;ComposedMesh&gt;&amp; meshes() const noexcept {
+        return _meshes;
+    }</span>
+
+    /// @brief Ãchange les maillages avec @p meshes : pour qui compose d'avance ou retouche la
+    ///        liste, comme `swapQuads`.
+<span style = "background-color:#dfd">    void swapMeshes(std::vector&lt;ComposedMesh&gt;&amp; meshes) noexcept {
+        _meshes.swap(meshes);
+    }</span>
 
     /**
      * @brief Ajoute un segment Ã©pais Ã  la scÃ¨ne, s'il est visible.
@@ -270,6 +373,9 @@ private:
     [[nodiscard]] bool isVisible(const core::Rect&amp; bounds) const;
 
     std::vector&lt;ComposedQuad&gt; _quads;
+    std::vector&lt;ComposedMesh&gt; _meshes;
+    /// Les poses des maillages animÃ©s de l'image, bout Ã  bout (`ComposedMesh::poseOffset`).
+    std::vector&lt;float&gt; _poses;
     std::vector&lt;TextureHandle&gt; _textureOrder;
     /// Rang de chaque texture dÃ©jÃ  vue. Une carte HD en cite des centaines : une recherche
     /// linÃ©aire par primitive coÃ»tait plus que la composition elle-mÃªme (audit de l'affichage, A4).

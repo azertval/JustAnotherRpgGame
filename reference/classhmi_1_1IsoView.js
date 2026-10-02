@@ -12,6 +12,7 @@ var classhmi_1_1IsoView =
     [ "riseOf", "classhmi_1_1IsoView.html#a3b2aba7c0d4a988be4fa88efc2287c15", null ],
     [ "sine", "classhmi_1_1IsoView.html#a09062cdda8f35390cdeac8feb82c6cf7", null ],
     [ "standingDepth", "classhmi_1_1IsoView.html#a1ae40b5a618f03b2591530f9bdf78381", null ],
+    [ "turned", "classhmi_1_1IsoView.html#a40069dc79e954ef16b4d4e3ee085e0a2", null ],
     [ "unitsPerMetre", "classhmi_1_1IsoView.html#ad787d7dd23106945ba82a12605949c28", null ],
     [ "_cosine", "classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1", null ],
     [ "_groundY", "classhmi_1_1IsoView.html#a3792b82f01f04957c781c253ffa67b53", null ],

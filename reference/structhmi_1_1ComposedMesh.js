@@ -5,6 +5,8 @@ var structhmi_1_1ComposedMesh =
     [ "layer", "structhmi_1_1ComposedMesh.html#a5e9df242bb3a625891ddf46e7e82524d", null ],
     [ "mesh", "structhmi_1_1ComposedMesh.html#a6d85afab3263a48c2e2b363aa2d2b309", null ],
     [ "opacity", "structhmi_1_1ComposedMesh.html#a781923365eb8e513eb5f15de03cf6d9f", null ],
+    [ "poseFloats", "structhmi_1_1ComposedMesh.html#ad9480e08c2ed9fe61410d99de24cd03b", null ],
+    [ "poseOffset", "structhmi_1_1ComposedMesh.html#adff2eac46324430c087da7b0fab5678a", null ],
     [ "storey", "structhmi_1_1ComposedMesh.html#a31d7984fce5d7a5589ab8a88c47f84ba", null ],
     [ "toView", "structhmi_1_1ComposedMesh.html#a7e177217e566265f526930dae4862478", null ]
 ];

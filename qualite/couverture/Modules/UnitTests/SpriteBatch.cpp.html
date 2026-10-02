@@ -29,6 +29,7 @@
 #include &lt;rhi/qrhi.h&gt;
 
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/RhiShaders.h"
 
 namespace hmi {
 
@@ -46,37 +47,8 @@ namespace {
     return true;
 }</span>
 
-// Charge un shader precompile (.qsb) depuis les ressources de l'executable. Un shader absent est
-// une erreur de BUILD, pas un etat d'execution recuperable : la ressource est embarquee par
-// qt6_add_shaders, elle ne peut manquer que si la compilation n'a pas eu lieu.
-<span style = "background-color:#dfd">QShader loadShader(const char* resourcePath) {
-    QFile file(QString::fromLatin1(resourcePath));
-    if (!file.open(QIODevice::ReadOnly)) {</span>
-<span style = "background-color:#fdd">        throw std::runtime_error(std::string("Shader introuvable dans les ressources : ") +</span>
-                                 resourcePath);
-    }
-<span style = "background-color:#dfd">    const QShader shader = QShader::fromSerialized(file.readAll());
-    if (!shader.isValid()) {</span>
-<span style = "background-color:#fdd">        throw std::runtime_error(std::string("Shader illisible : ") + resourcePath);</span>
-    }
-<span style = "background-color:#dfd">    return shader;
-}</span>
-
 // Taille d'un bloc de projection : une matrice 4x4 de flottants.
 constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
-
-// Convertit la matrice ligne-major de DirectXMath (convention `position * matrice`) en QMatrix4x4
-// (convention `matrice * position`, comme GLSL) : c'est exactement sa transposee. La correction
-// d'espace de clip de QRhi est appliquee par-dessus -- le shader ecrit en convention OpenGL, QRhi
-// la ramene a celle du backend (Direct3D 11 sous Windows).
-<span style = "background-color:#dfd">QMatrix4x4 toClipMatrix(QRhi* rhi, const DirectX::XMFLOAT4X4&amp; projection) {
-    const QMatrix4x4 columnMajor(</span>
-        projection(0, 0), projection(1, 0), projection(2, 0), projection(3, 0),  //
-        projection(0, 1), projection(1, 1), projection(2, 1), projection(3, 1),  //
-        projection(0, 2), projection(1, 2), projection(2, 2), projection(3, 2),  //
-        projection(0, 3), projection(1, 3), projection(2, 3), projection(3, 3));
-<span style = "background-color:#dfd">    return rhi-&gt;clipSpaceCorrMatrix() * columnMajor;
-}</span>
 
 }  // namespace
 
@@ -202,10 +174,15 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
     return raw;
 }</span>
 
-// Cree (ou recree) le pipeline pour la passe de rendu donnee.
+// Cree (ou recree) les pipelines pour la passe de rendu donnee : celui de toujours, et celui qui
+// teste la profondeur si l'image le demande.
 <span style = "background-color:#dfd">bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
     QRhiRenderPassDescriptor* const pass = target-&gt;renderPassDescriptor();
-    if (_pipeline &amp;&amp; _pipelinePass == pass) {
+    if (_pipelinePass != pass) {
+        _pipeline.reset();
+        _depthPipeline.reset();</span>
+    }
+<span style = "background-color:#dfd">    if (_pipeline &amp;&amp; (!_depthTest || _depthPipeline)) {
         return true;</span>
     }
 
@@ -225,7 +202,19 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
         }
     }
 
-<span style = "background-color:#dfd">    auto pipeline = std::unique_ptr&lt;QRhiGraphicsPipeline&gt;(_rhi-&gt;newGraphicsPipeline());
+<span style = "background-color:#dfd">    if (!_pipeline) {
+        _pipeline = createPipeline(pass, false);</span>
+    }
+<span style = "background-color:#dfd">    if (_depthTest &amp;&amp; !_depthPipeline) {
+        _depthPipeline = createPipeline(pass, true);</span>
+    }
+<span style = "background-color:#dfd">    _pipelinePass = pass;
+    return _pipeline &amp;&amp; (!_depthTest || _depthPipeline);
+}</span>
+
+std::unique_ptr&lt;QRhiGraphicsPipeline&gt; SpriteBatch::createPipeline(QRhiRenderPassDescriptor* pass,
+<span style = "background-color:#dfd">                                                                  bool depthTest) {
+    auto pipeline = std::unique_ptr&lt;QRhiGraphicsPipeline&gt;(_rhi-&gt;newGraphicsPipeline());
     pipeline-&gt;setShaderStages({</span>
         {QRhiShaderStage::Vertex, loadShader(":/shaders/sprite.vert.qsb")},
         {QRhiShaderStage::Fragment, loadShader(":/shaders/sprite.frag.qsb")},
@@ -234,18 +223,21 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
 <span style = "background-color:#dfd">    QRhiVertexInputLayout inputLayout;
     inputLayout.setBindings({{static_cast&lt;quint32&gt;(sizeof(Vertex))}});
     inputLayout.setAttributes({</span>
-        {0, 0, QRhiVertexInputAttribute::Float2, 0},
-        {0, 1, QRhiVertexInputAttribute::Float2, 2 * sizeof(float)},
-        {0, 2, QRhiVertexInputAttribute::Float4, 4 * sizeof(float)},
+        {0, 0, QRhiVertexInputAttribute::Float3, 0},
+        {0, 1, QRhiVertexInputAttribute::Float2, 3 * sizeof(float)},
+        {0, 2, QRhiVertexInputAttribute::Float4, 5 * sizeof(float)},
     });
 <span style = "background-color:#dfd">    pipeline-&gt;setVertexInputLayout(inputLayout);
     pipeline-&gt;setShaderResourceBindings(_layoutBindings.get());
     pipeline-&gt;setRenderPassDescriptor(pass);
     pipeline-&gt;setTopology(QRhiGraphicsPipeline::Triangles);</span>
     // Rendu 2D : les quads peuvent etre vus des deux cotes (un segment oriente peut Â« retourner Â»
-    // son quadrilatere), et il n'y a ni profondeur ni pochoir a ecrire.
+    // son quadrilatere), et il n'y a ni profondeur ni pochoir a ecrire. Quand l'image a des
+    // maillages (LOT-1003), les quads TESTENT la profondeur qu'ils ont ecrite, sans l'ecrire :
+    // leurs bords sont adoucis, et entre eux l'ordre du peintre decide toujours.
 <span style = "background-color:#dfd">    pipeline-&gt;setCullMode(QRhiGraphicsPipeline::None);
-    pipeline-&gt;setDepthTest(false);
+    pipeline-&gt;setDepthTest(depthTest);
+    pipeline-&gt;setDepthOp(QRhiGraphicsPipeline::LessOrEqual);
     pipeline-&gt;setDepthWrite(false);</span>
 
     // Fusion alpha PREMULTIPLIE (EX-VIS-008) : toute texture l'est au televersement, et le shader
@@ -262,11 +254,9 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
 
 <span style = "background-color:#dfd">    if (!pipeline-&gt;create()) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation du pipeline graphique");
-        return false;</span>
+        return nullptr;</span>
     }
-<span style = "background-color:#dfd">    _pipeline = std::move(pipeline);
-    _pipelinePass = pass;
-    return true;
+<span style = "background-color:#dfd">    return pipeline;
 }</span>
 
 // Ouvre l'enregistrement d'une image.
@@ -275,6 +265,7 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
     _batches.clear();
     _projections.clear();
     _recording = false;
+    _drawable = false;
 }</span>
 
 // Demarre un lot : fixe la texture echantillonnee et la projection.
@@ -306,7 +297,7 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
 }</span>
 
 // Ajoute un quad au lot courant.
-<span style = "background-color:#dfd">void SpriteBatch::draw(const SpriteQuad&amp; quad) {
+<span style = "background-color:#dfd">void SpriteBatch::draw(const SpriteQuad&amp; quad, float topDepth, float bottomDepth) {
     const float halfWidth = quad.width * 0.5F;
     const float halfHeight = quad.height * 0.5F;
     const float centerX = quad.x + halfWidth;
@@ -322,11 +313,13 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
     const std::array&lt;float, 4&gt; offsetsY = {-halfHeight, -halfHeight, halfHeight, halfHeight};
     const std::array&lt;float, 4&gt; us = {quad.u0, quad.u1, quad.u1, quad.u0};
     const std::array&lt;float, 4&gt; vs = {quad.v0, quad.v0, quad.v1, quad.v1};
+    const std::array&lt;float, 4&gt; depths = {topDepth, topDepth, bottomDepth, bottomDepth};
     for (std::size_t i = 0; i &lt; 4; ++i) {
         const float x = centerX + (offsetsX[i] * cosR) - (offsetsY[i] * sinR);
         const float y = centerY + (offsetsX[i] * sinR) + (offsetsY[i] * cosR);
         _vertices.push_back(Vertex{.x = x,</span>
                                    .y = y,
+                                   .z = depths[i],
                                    .u = us[i],
                                    .v = vs[i],
                                    .r = quad.r,
@@ -337,7 +330,7 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
 }</span>
 
 // Ajoute un segment epais (oriente librement) au lot courant.
-<span style = "background-color:#fdd">void SpriteBatch::draw(const LineQuad&amp; line) {
+<span style = "background-color:#fdd">void SpriteBatch::draw(const LineQuad&amp; line, float startDepth, float endDepth) {
     const float dx = line.bx - line.ax;
     const float dy = line.by - line.ay;
     const float length = std::sqrt((dx * dx) + (dy * dy));
@@ -353,6 +346,7 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
     // convexe coherent, peu importe son orientation) : a+n, b+n, b-n, a-n.
 <span style = "background-color:#fdd">    _vertices.push_back(Vertex{.x = line.ax + nx,</span>
                                .y = line.ay + ny,
+                               .z = startDepth,
                                .u = line.u0,
                                .v = line.v0,
                                .r = line.r,
@@ -361,6 +355,7 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
                                .a = line.a});
 <span style = "background-color:#fdd">    _vertices.push_back(Vertex{.x = line.bx + nx,</span>
                                .y = line.by + ny,
+                               .z = endDepth,
                                .u = line.u1,
                                .v = line.v0,
                                .r = line.r,
@@ -369,6 +364,7 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
                                .a = line.a});
 <span style = "background-color:#fdd">    _vertices.push_back(Vertex{.x = line.bx - nx,</span>
                                .y = line.by - ny,
+                               .z = endDepth,
                                .u = line.u1,
                                .v = line.v1,
                                .r = line.r,
@@ -377,6 +373,7 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
                                .a = line.a});
 <span style = "background-color:#fdd">    _vertices.push_back(Vertex{.x = line.ax - nx,</span>
                                .y = line.ay - ny,
+                               .z = startDepth,
                                .u = line.u0,
                                .v = line.v1,
                                .r = line.r,
@@ -392,12 +389,13 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
 // draw(LineQuad) lui fournit deja pour un segment oriente. Les UV suivent le meme tour que les
 // coins d'un SpriteQuad (u0v0, u1v0, u1v1, u0v1) : avec l'aplat blanc, elles ne servent qu'a
 // rester coherentes avec les deux autres primitives.
-<span style = "background-color:#dfd">void SpriteBatch::draw(const PolyQuad&amp; poly) {
+<span style = "background-color:#dfd">void SpriteBatch::draw(const PolyQuad&amp; poly, const std::array&lt;float, 4&gt;&amp; depths) {
     const std::array&lt;float, 4&gt; us = {poly.u0, poly.u1, poly.u1, poly.u0};
     const std::array&lt;float, 4&gt; vs = {poly.v0, poly.v0, poly.v1, poly.v1};
     for (std::size_t i = 0; i &lt; 4; ++i) {
         _vertices.push_back(Vertex{.x = poly.x[i],</span>
                                    .y = poly.y[i],
+                                   .z = depths[i],
                                    .u = us[i],
                                    .v = vs[i],
                                    .r = poly.r,
@@ -415,10 +413,19 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
 // Televerse l'image enregistree et l'emet en une passe de rendu.
 void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target,
 <span style = "background-color:#dfd">                         QRhiResourceUpdateBatch* updates, const float* clear) {
+    updates = prepare(target, updates);
+    const QColor clearColor = QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]);
+    commandBuffer-&gt;beginPass(target, clearColor, {1.0F, 0}, updates);
+    record(commandBuffer, target);
+    commandBuffer-&gt;endPass();
+}</span>
+
+// Depose les televersements de l'image enregistree dans un lot, hors de toute passe.
+QRhiResourceUpdateBatch* SpriteBatch::prepare(QRhiRenderTarget* target,
+<span style = "background-color:#dfd">                                              QRhiResourceUpdateBatch* updates) {
     closeBatch();</span>
 
-<span style = "background-color:#dfd">    const QColor clearColor = QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]);
-    const std::size_t quadCount = _vertices.size() / 4;</span>
+<span style = "background-color:#dfd">    const std::size_t quadCount = _vertices.size() / 4;</span>
 
     // Le lot de televersement du tampon d'indices n'a pas encore ete soumis (premiere image) :
     // il doit l'etre avant tout dessin qui s'en sert.
@@ -431,9 +438,9 @@ void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* tar
 <span style = "background-color:#dfd">        _pendingIndexUpload = nullptr;</span>
     }
 
-<span style = "background-color:#dfd">    const bool drawable = quadCount &gt; 0 &amp;&amp; ensureVertexCapacity(quadCount) &amp;&amp;</span>
-                          ensureUniformCapacity(_projections.size()) &amp;&amp; ensurePipeline(target);
-<span style = "background-color:#dfd">    if (drawable) {
+<span style = "background-color:#dfd">    _drawable = quadCount &gt; 0 &amp;&amp; ensureVertexCapacity(quadCount) &amp;&amp;</span>
+                ensureUniformCapacity(_projections.size()) &amp;&amp; ensurePipeline(target);
+<span style = "background-color:#dfd">    if (_drawable) {
         if (updates == nullptr) {</span>
 <span style = "background-color:#fdd">            updates = _rhi-&gt;nextResourceUpdateBatch();</span>
         }
@@ -449,10 +456,14 @@ void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* tar
 <span style = "background-color:#dfd">        }</span>
     }
 
-<span style = "background-color:#dfd">    commandBuffer-&gt;beginPass(target, clearColor, {1.0F, 0}, updates);
-    if (drawable) {
+<span style = "background-color:#dfd">    return updates;
+}</span>
+
+// Emet les appels de dessin de l'image preparee, dans la passe ouverte par l'appelant.
+<span style = "background-color:#dfd">void SpriteBatch::record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target) {
+    if (_drawable) {
         const QSize pixelSize = target-&gt;pixelSize();
-        commandBuffer-&gt;setGraphicsPipeline(_pipeline.get());
+        commandBuffer-&gt;setGraphicsPipeline(_depthTest ? _depthPipeline.get() : _pipeline.get());
         commandBuffer-&gt;setViewport({0.0F, 0.0F, static_cast&lt;float&gt;(pixelSize.width()),</span>
                                     static_cast&lt;float&gt;(pixelSize.height())});
 <span style = "background-color:#dfd">        for (const Batch&amp; batch : _batches) {
@@ -477,8 +488,7 @@ void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* tar
             }
         }</span>
     }
-<span style = "background-color:#dfd">    commandBuffer-&gt;endPass();
-}</span>
+<span style = "background-color:#dfd">}</span>
 
 }  // namespace hmi</pre>
         <hr />

@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>OffscreenRender.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Graphics/OffscreenRender.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cstring&gt;
+#include &lt;optional&gt;
+#include &lt;utility&gt;
+
+#include &lt;rhi/qrhi.h&gt;
+
+#include "HMI/Graphics/GraphicsLog.h"
+
+namespace hmi {
+
+namespace {
+
+/// Octets d'un pixel `RGBA8`.
+constexpr int PIXEL_BYTES = 4;
+
+<span style = "background-color:#dfd">[[nodiscard]] std::unique_ptr&lt;QRhi&gt; createRhi() {</span>
+#ifdef Q_OS_WIN
+<span style = "background-color:#dfd">    QRhiD3D11InitParams params;
+    if (QRhi* const rhi = QRhi::create(QRhi::D3D11, &amp;params)) {
+        return std::unique_ptr&lt;QRhi&gt;(rhi);</span>
+    }
+#endif
+<span style = "background-color:#fdd">    return nullptr;</span>
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">OffscreenRhi::OffscreenRhi(std::unique_ptr&lt;QRhi&gt; rhi) : _rhi(std::move(rhi)) {}</span>
+
+<span style = "background-color:#dfd">OffscreenRhi::~OffscreenRhi() {</span>
+    // Les rendus gardes, puis la cible, sa passe et sa texture, puis l'interface.
+<span style = "background-color:#dfd">    _renderers.clear();
+    _target.reset();
+    _pass.reset();
+    _texture.reset();
+    _depth.reset();
+    _rhi.reset();
+}</span>
+
+<span style = "background-color:#dfd">std::shared_ptr&lt;OffscreenRhi&gt; OffscreenRhi::shared() {</span>
+    // Un seul fil : aucun verrou (voir la classe).
+<span style = "background-color:#dfd">    static std::weak_ptr&lt;OffscreenRhi&gt; instance;
+    if (std::shared_ptr&lt;OffscreenRhi&gt; alive = instance.lock()) {
+        return alive;
+    }
+    std::unique_ptr&lt;QRhi&gt; rhi = createRhi();
+    if (!rhi) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Rendu hors ecran : aucune interface QRhi sur cette machine.");
+        return nullptr;</span>
+    }
+<span style = "background-color:#dfd">    std::shared_ptr&lt;OffscreenRhi&gt; created(new OffscreenRhi(std::move(rhi)));
+    instance = created;
+    return created;
+}</span>
+
+<span style = "background-color:#dfd">WorldSceneRenderer* OffscreenRhi::renderer(const std::filesystem::path&amp; assetsDirectory) {
+    std::error_code error;
+    std::filesystem::path key = std::filesystem::weakly_canonical(assetsDirectory, error);
+    if (error) {</span>
+<span style = "background-color:#fdd">        key = assetsDirectory.lexically_normal();</span>
+    }
+<span style = "background-color:#dfd">    std::unique_ptr&lt;WorldSceneRenderer&gt;&amp; kept = _renderers[key];
+    if (!kept) {
+        kept = std::make_unique&lt;WorldSceneRenderer&gt;(assetsDirectory);
+    } else if (kept-&gt;textureBytes() &gt; OFFSCREEN_TEXTURE_BUDGET_BYTES) {</span>
+        // Le budget : tout rendre, et ne recharger que ce que la prochaine carte demande.
+<span style = "background-color:#fdd">        kept-&gt;release();</span>
+    }
+<span style = "background-color:#dfd">    return kept-&gt;ensureResources(_rhi.get()) ? kept.get() : nullptr;
+}</span>
+
+<span style = "background-color:#dfd">bool OffscreenRhi::ensureTarget(QSize size) {
+    if (_target &amp;&amp; _texture &amp;&amp; _texture-&gt;pixelSize() == size) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    _target.reset();
+    _pass.reset();
+    _texture.reset(_rhi-&gt;newTexture(QRhiTexture::RGBA8, size, 1,</span>
+                                    QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
+    // Le tampon de profondeur (LOT-1003) : les maillages d'un lieu s'y departagent, et ses images
+    // s'y comparent. Une carte sans volume ne le lit ni ne l'ecrit.
+<span style = "background-color:#dfd">    _depth.reset(_rhi-&gt;newRenderBuffer(QRhiRenderBuffer::DepthStencil, size));
+    if (!_texture-&gt;create() || !_depth-&gt;create()) {</span>
+<span style = "background-color:#fdd">        _texture.reset();
+        _depth.reset();
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    QRhiTextureRenderTargetDescription description{{_texture.get()}};
+    description.setDepthStencilBuffer(_depth.get());
+    _target.reset(_rhi-&gt;newTextureRenderTarget(description));
+    _pass.reset(_target-&gt;newCompatibleRenderPassDescriptor());
+    _target-&gt;setRenderPassDescriptor(_pass.get());
+    if (!_target-&gt;create()) {</span>
+<span style = "background-color:#fdd">        _target.reset();
+        _pass.reset();
+        _texture.reset();
+        _depth.reset();
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    return true;
+}</span>
+
+QImage OffscreenRhi::render(WorldSceneRenderer&amp; renderer, QSize size, const WorldFraming&amp; framing,
+<span style = "background-color:#dfd">                            const QColor&amp; clear, int tileSide) {
+    if (size.isEmpty() || framing.pixelsPerUnit &lt;= 0.0F || !renderer.ensureResources(_rhi.get())) {</span>
+<span style = "background-color:#fdd">        return {};</span>
+    }
+    // Toutes les tuiles ont la taille de la premiere : celles du bord droit et du bas depassent de
+    // l'image, et seule leur part utile est recopiee. Une image qui tient dans une tuile se rend
+    // d'un coup, dans une cible a sa taille.
+<span style = "background-color:#dfd">    const int side = std::max(1, tileSide);
+    const QSize tile(std::min(size.width(), side), std::min(size.height(), side));
+    if (!ensureTarget(tile)) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Rendu hors ecran : la cible de rendu ne se cree pas.");
+        return {};</span>
+    }
+<span style = "background-color:#dfd">    QImage image(size, QImage::Format_RGBA8888_Premultiplied);
+    if (image.isNull()) {</span>
+<span style = "background-color:#fdd">        return {};</span>
+    }
+    // Le fond, premultiplie comme tout ce que le pipeline ecrit.
+<span style = "background-color:#dfd">    const float alpha = clear.alphaF();
+    const std::array&lt;float, 4&gt; background = {clear.redF() * alpha, clear.greenF() * alpha,
+                                             clear.blueF() * alpha, alpha};
+    const std::optional&lt;WorldFraming&gt; previous = renderer.framing();
+    const auto scale = static_cast&lt;double&gt;(framing.pixelsPerUnit);
+    bool complete = true;
+    for (int top = 0; top &lt; size.height() &amp;&amp; complete; top += tile.height()) {
+        for (int left = 0; left &lt; size.width() &amp;&amp; complete; left += tile.width()) {</span>
+            // Le centre de la tuile : celui de l'image, decale de l'ecart entre leurs milieux.
+<span style = "background-color:#dfd">            const double shiftX = (left + (tile.width() / 2.0)) - (size.width() / 2.0);
+            const double shiftY = (top + (tile.height() / 2.0)) - (size.height() / 2.0);
+            renderer.setFraming(WorldFraming{</span>
+                .center =
+                    {static_cast&lt;float&gt;(static_cast&lt;double&gt;(framing.center.x) + (shiftX / scale)),
+                     static_cast&lt;float&gt;(static_cast&lt;double&gt;(framing.center.y) + (shiftY / scale))},
+                .pixelsPerUnit = framing.pixelsPerUnit});
+
+<span style = "background-color:#dfd">            QRhiCommandBuffer* commands = nullptr;
+            if (_rhi-&gt;beginOffscreenFrame(&amp;commands) != QRhi::FrameOpSuccess) {</span>
+<span style = "background-color:#fdd">                complete = false;
+                break;</span>
+            }
+<span style = "background-color:#dfd">            renderer.render(commands, _target.get(), background.data());
+            QRhiReadbackResult readback;
+            QRhiResourceUpdateBatch* const batch = _rhi-&gt;nextResourceUpdateBatch();
+            batch-&gt;readBackTexture({_texture.get()}, &amp;readback);
+            commands-&gt;resourceUpdate(batch);
+            if (_rhi-&gt;endOffscreenFrame() != QRhi::FrameOpSuccess || readback.pixelSize != tile) {</span>
+<span style = "background-color:#fdd">                complete = false;
+                break;</span>
+            }
+<span style = "background-color:#dfd">            const int columns = std::min(tile.width(), size.width() - left);
+            const int rows = std::min(tile.height(), size.height() - top);
+            const char* const pixels = readback.data.constData();
+            for (int row = 0; row &lt; rows; ++row) {
+                std::memcpy(</span>
+                    image.scanLine(top + row) + (static_cast&lt;qsizetype&gt;(left) * PIXEL_BYTES),
+                    pixels + (static_cast&lt;qsizetype&gt;(row) * tile.width() * PIXEL_BYTES),
+                    static_cast&lt;std::size_t&gt;(columns) * PIXEL_BYTES);
+<span style = "background-color:#dfd">            }
+        }
+    }
+    renderer.setFraming(previous);
+    return complete ? image : QImage{};
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

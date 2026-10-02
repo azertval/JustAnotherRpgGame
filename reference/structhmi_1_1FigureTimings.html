@@ -1,0 +1,286 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::FigureTimings Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structhmi_1_1FigureTimings.html','','structhmi_1_1FigureTimings-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::FigureTimings Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les durées des gestes d'un combattant (<span class="tt">LOT-1005</span>) : celles de ses clips, si sa figurine est un modèle ; celles des bandes sinon.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="CombatCues_8h_source.html">CombatCues.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a16a496e6c12d485930b161d8b289a5ad" id="r_a16a496e6c12d485930b161d8b289a5ad"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a16a496e6c12d485930b161d8b289a5ad">operator==</a> (const <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> &amp;) const =default</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a9e0b287d3e2514c74d417e434a89bb15" id="r_a9e0b287d3e2514c74d417e434a89bb15"><td class="memItemLeft"><a class="el" href="structhmi_1_1GestureTiming.html">GestureTiming</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9e0b287d3e2514c74d417e434a89bb15">attack</a></td></tr>
+<tr class="memitem:a652e14b3c484ebfcbaa39b0c041552a5" id="r_a652e14b3c484ebfcbaa39b0c041552a5"><td class="memItemLeft"><a class="el" href="structhmi_1_1GestureTiming.html">GestureTiming</a>&#160;</td><td class="memItemRight"><a class="el" href="#a652e14b3c484ebfcbaa39b0c041552a5">ranged</a></td></tr>
+<tr class="memitem:a0478d5828c63df8050e6e5199600ea45" id="r_a0478d5828c63df8050e6e5199600ea45"><td class="memItemLeft"><a class="el" href="structhmi_1_1GestureTiming.html">GestureTiming</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0478d5828c63df8050e6e5199600ea45">cast</a></td></tr>
+<tr class="memitem:a9f6676bf2567f8201d2d3fcfb4a2a9ac" id="r_a9f6676bf2567f8201d2d3fcfb4a2a9ac"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a9f6676bf2567f8201d2d3fcfb4a2a9ac">hit</a> = 0.0F</td></tr>
+<tr class="memdesc:a9f6676bf2567f8201d2d3fcfb4a2a9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que dure le coup encaissé, et la chute.  <br /></td></tr>
+<tr class="memitem:a5e798a68a2df433cb748bd35169708d8" id="r_a5e798a68a2df433cb748bd35169708d8"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a5e798a68a2df433cb748bd35169708d8">death</a> = 0.0F</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les durées des gestes d'un combattant (<span class="tt">LOT-1005</span>) : celles de ses clips, si sa figurine est un modèle ; celles des bandes sinon. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a16a496e6c12d485930b161d8b289a5ad" name="a16a496e6c12d485930b161d8b289a5ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16a496e6c12d485930b161d8b289a5ad">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::FigureTimings::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a9e0b287d3e2514c74d417e434a89bb15" name="a9e0b287d3e2514c74d417e434a89bb15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e0b287d3e2514c74d417e434a89bb15">&#9670;&#160;</a></span>attack</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1GestureTiming.html">GestureTiming</a> hmi::FigureTimings::attack</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0478d5828c63df8050e6e5199600ea45" name="a0478d5828c63df8050e6e5199600ea45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0478d5828c63df8050e6e5199600ea45">&#9670;&#160;</a></span>cast</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1GestureTiming.html">GestureTiming</a> hmi::FigureTimings::cast</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5e798a68a2df433cb748bd35169708d8" name="a5e798a68a2df433cb748bd35169708d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e798a68a2df433cb748bd35169708d8">&#9670;&#160;</a></span>death</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::FigureTimings::death = 0.0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9f6676bf2567f8201d2d3fcfb4a2a9ac" name="a9f6676bf2567f8201d2d3fcfb4a2a9ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f6676bf2567f8201d2d3fcfb4a2a9ac">&#9670;&#160;</a></span>hit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::FigureTimings::hit = 0.0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que dure le coup encaissé, et la chute. </p>
+
+</div>
+</div>
+<a id="a652e14b3c484ebfcbaa39b0c041552a5" name="a652e14b3c484ebfcbaa39b0c041552a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a652e14b3c484ebfcbaa39b0c041552a5">&#9670;&#160;</a></span>ranged</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1GestureTiming.html">GestureTiming</a> hmi::FigureTimings::ranged</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Game/<a class="el" href="CombatCues_8h_source.html">CombatCues.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="structhmi_1_1FigureTimings.html">FigureTimings</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

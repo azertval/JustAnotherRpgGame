@@ -146,6 +146,12 @@ var NAVTREEINDEX2 =
 "SheetRowModel_8cpp.html":[4,0,0,6,7,40],
 "SheetRowModel_8h.html":[4,0,0,6,7,41],
 "SheetRowModel_8h_source.html":[4,0,0,6,7,41],
+"SkeletonFile_8cpp.html":[4,0,0,2,7,10],
+"SkeletonFile_8h.html":[4,0,0,2,7,11],
+"SkeletonFile_8h_source.html":[4,0,0,2,7,11],
+"SkeletonPose_8cpp.html":[4,0,0,2,7,12],
+"SkeletonPose_8h.html":[4,0,0,2,7,13],
+"SkeletonPose_8h_source.html":[4,0,0,2,7,13],
 "Skill_8cpp.html":[4,0,0,2,8,30],
 "Skill_8h.html":[4,0,0,2,8,31],
 "Skill_8h_source.html":[4,0,0,2,8,31],
@@ -243,11 +249,5 @@ var NAVTREEINDEX2 =
 "WorldSceneRenderer_8h_source.html":[4,0,0,6,2,57],
 "WorldStateEditor_8cpp.html":[4,0,0,3,1,36],
 "WorldStateEditor_8h.html":[4,0,0,3,1,37],
-"WorldStateEditor_8h_source.html":[4,0,0,3,1,37],
-"WorldState_8cpp.html":[4,0,0,3,0,71],
-"WorldState_8h.html":[4,0,0,3,0,72],
-"WorldState_8h_source.html":[4,0,0,3,0,72],
-"WorldTravel_8cpp.html":[4,0,0,2,10,20],
-"WorldTravel_8h.html":[4,0,0,2,10,21],
-"WorldTravel_8h_source.html":[4,0,0,2,10,21]
+"WorldStateEditor_8h_source.html":[4,0,0,3,1,37]
 };

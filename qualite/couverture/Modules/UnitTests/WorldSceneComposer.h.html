@@ -51,6 +51,14 @@
  * case | | relief (piÃ¨ce nommÃ©e Ã  la case, ou type de la couche Â« dÃ©cor Â») | `RenderLayer::Object`
  * | pied de la case | | figurine (hÃ©ros, PNJ) | `RenderLayer::Player` | pied de sa case |
  *
+ * ## Les piÃ¨ces en maillage (`LOT-1003`)
+ *
+ * Une piÃ¨ce dont le manifeste cite un maillage (`"mesh"`) ne produit pas de primitive : elle
+ * s'ajoute Ã  la liste des **maillages placÃ©s** de la scÃ¨ne (`ComposedScene::meshes`), posÃ©e par
+ * `hmi::IsoView` au centre de son emprise, sans rang de tri â le tampon de profondeur la dÃ©partage.
+ * Les images gardent leur liste et leur ordre, et portent en plus la ligne oÃ¹ elles se dressent
+ * (`ComposedQuad::footY`), lue seulement quand l'image a des maillages Ã  croiser.
+ *
  * ## Par instantanÃ©, comme l'arÃ¨ne
  *
  * La composition ne lit qu'un `hmi::WorldSceneSnapshot` â des **valeurs**, aucun pointeur vers la
@@ -150,6 +158,19 @@ enum class FigureFacing : std::uint8_t {
 [[nodiscard]] FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept;
 
 /**
+ * @brief Le **cap** d'une figurine en modÃ¨le (`LOT-1005`) : l'angle, en radians, de la direction
+ *        oÃ¹ elle regarde dans le plan de la grille â 0 vers les colonnes croissantes (sud-est Ã 
+ *        l'Ã©cran), Ï/2 vers les lignes croissantes (sud-ouest). Un modÃ¨le s'oriente librement :
+ *        il n'a pas de table de quatre orientations.
+ * @return Le cap de la diagonale @p facing ; pour `None`, face Ã  la camÃ©ra (Ï/4).
+ */
+[[nodiscard]] float figureHeadingOf(FigureFacing facing) noexcept;
+
+/// @return Le cap d'une figurine qui se dÃ©place de @p move, en cases ; @p previous si le
+///         dÃ©placement est nul.
+[[nodiscard]] float figureHeadingFor(core::Vector2 move, float previous) noexcept;
+
+/**
  * @brief Les bandes d'une figurine (standard 2D HD, Â§5, et le tir du `LOT-136`) : ce qu'une
  * figurine complÃ¨te sait jouer, et ce qu'un combattant prÃ©charge (`LOT-118`).
  *
@@ -186,6 +207,10 @@ inline constexpr std::array&lt;std::string_view, 7&gt; ALL = {IDLE, WALK, ATTACK
 ///        un personnage sans figurine.
 [[nodiscard]] std::string placeholderFigureDirectory(std::string_view silhouette);
 
+/// @brief Le dossier du mannequin **en modÃ¨le** d'une silhouette (`LOT-1005`) : un maillage neutre
+///        liÃ© au squelette de la silhouette, et sa fiche.
+[[nodiscard]] std::string mannequinFigureDirectory(std::string_view silhouette);
+
 /// @brief La silhouette par dÃ©faut d'un personnage qui n'en dÃ©clare pas.
 inline constexpr std::string_view DEFAULT_SILHOUETTE = "humanoid";
 
@@ -200,13 +225,13 @@ struct WorldFigureSnapshot {
     std::string figure;
     /// Bande d'animation : l'une de `figure_clips` (`idle`, `walk`, `attack`, `cast`, `hit`,
     /// `death`).
-    std::string clip = "idle";
+<span style = "background-color:#dfd">    std::string clip = "idle";</span>
     /// Position **continue**, en cases : `{1.5, 2.5}` est le centre de la case (1, 2).
     core::Vector2 point{};
     /// Image de la bande, ramenÃ©e dans la bande par la composition.
 <span style = "background-color:#dfd">    int frame = 0;</span>
     /// Orientation : `None` pour une figurine qui n'a qu'une bande par animation.
-    FigureFacing facing = FigureFacing::None;
+<span style = "background-color:#dfd">    FigureFacing facing = FigureFacing::None;</span>
     /// Temps Ã©coulÃ©, en secondes : s'il est connu (positif ou nul) et que la bande dit la durÃ©e de
     /// ses images, c'est lui qui choisit l'image, et non @ref frame â la cadence est une donnÃ©e de
     /// l'art (`EX-REN-005`), pas du code.
@@ -216,6 +241,11 @@ struct WorldFigureSnapshot {
     /// Un combattant (`LOT-118`) : ses bandes se prÃ©chargent, pour qu'un coup ne charge pas une
     /// texture au milieu d'une image. Une figurine d'exploration n'en prÃ©charge que deux.
 <span style = "background-color:#dfd">    bool combatant = false;</span>
+    /// Le **modÃ¨le** de la figurine (`LOT-1005`) : le chemin de son `.glb`, relatif au dossier des
+    /// assets (`hmi::ResolvedFigure::model`). Vide : la figurine se dessine par ses bandes.
+    std::string model;
+    /// Le cap d'un modÃ¨le (`figureHeadingOf`) ; absent : celui de @ref facing.
+    std::optional&lt;float&gt; heading;
 
     [[nodiscard]] bool operator==(const WorldFigureSnapshot&amp;) const = default;
 };
@@ -449,8 +479,18 @@ template &lt;class Map&gt;
 [[nodiscard]] std::string figureStripPath(std::string_view figure, std::string_view clip,
                                           FigureFacing facing = FigureFacing::None);
 
-/// @return Tous les chemins de texture que @p snapshot demandera, sans doublon, triÃ©s.
+/// @return Les fichiers de modÃ¨le (`.glb`) des figurines @p figures qui en ont un, sans doublon,
+///         triÃ©s (`LOT-1005`).
+[[nodiscard]] std::vector&lt;std::string&gt; worldFigureModelPaths(
+    std::span&lt;const WorldFigureSnapshot&gt; figures);
+
+/// @return Tous les chemins de texture que @p snapshot demandera, sans doublon, triÃ©s. Une piÃ¨ce
+///         en maillage n'y est pas : son fichier se charge Ã  part (`worldMeshPaths`).
 [[nodiscard]] std::vector&lt;std::string&gt; worldTexturePaths(const WorldSceneSnapshot&amp; snapshot);
+
+/// @return Les fichiers de maillage (`.glb`) des piÃ¨ces que @p snapshot pose, sans doublon, triÃ©s
+///         (`LOT-1003`) ; vide pour une carte dont toutes les piÃ¨ces sont des images.
+[[nodiscard]] std::vector&lt;std::string&gt; worldMeshPaths(const WorldSceneSnapshot&amp; snapshot);
 
 /**
  * @return Les chemins de texture des figurines @p figures â leurs bandes `idle` et `walk` â, sans

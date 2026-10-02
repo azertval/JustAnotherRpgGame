@@ -105,10 +105,10 @@ public:
         return _scene.size();
     }</span>
 
-    /// @return Vrai si rien n'est composÃ©.
-    [[nodiscard]] bool empty() const noexcept {
-        return _scene.size() == 0;
-    }
+    /// @return Vrai si rien n'est composÃ©, ni primitive ni maillage.
+<span style = "background-color:#dfd">    [[nodiscard]] bool empty() const noexcept {
+        return _scene.size() == 0 &amp;&amp; _scene.meshes().empty();
+    }</span>
 
     /// @return La projection de la derniÃ¨re composition.
     [[nodiscard]] const core::IsoProjection&amp; projection() const noexcept {

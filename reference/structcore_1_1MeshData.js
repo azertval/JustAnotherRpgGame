@@ -9,6 +9,8 @@ var structcore_1_1MeshData =
     [ "maximum", "structcore_1_1MeshData.html#a70427a890506f31271ebc207c7f427b8", null ],
     [ "minimum", "structcore_1_1MeshData.html#a3471167a4eb3a8919996016a8daa6549", null ],
     [ "primitiveCount", "structcore_1_1MeshData.html#aab9a382292fa477b576f7fc083491393", null ],
+    [ "rig", "structcore_1_1MeshData.html#a96bb2b0033133b43752b470198d4ad60", null ],
+    [ "skin", "structcore_1_1MeshData.html#af90e06f15b58654581b1e4f1414f928a", null ],
     [ "skinned", "structcore_1_1MeshData.html#a445f50ef3e0449e9878c4eaae2e2a9a2", null ],
     [ "vertices", "structcore_1_1MeshData.html#a01021132a8943efe3b79460ba05d50e8", null ]
 ];

@@ -340,7 +340,7 @@ Functions</h2></td></tr>
  1. Rendre le donjon en 700 x 500 d'un seul coup.<br  />
 </p><ol type="1">
 <li>Le rendre par tuiles de 256 pixels : trois colonnes, deux rangees, les dernieres debordant de l'image.<br  />
- <b>Resultat attendu :</b> Deux images de meme taille ; aucune couture : moins d'un pixel sur mille differe, et jamais de plus de deux niveaux par canal (l'arrondi du centre de chaque tuile). </li>
+ <b>Resultat attendu :</b> Deux images de meme taille ; aucune couture : moins d'un pixel sur cent differe, de deux niveaux par canal au plus (l'arrondi du centre de chaque tuile), et pas plus d'un pixel sur cent mille ne s'en ecarte davantage &ndash; un bord de piece dont la couverture bascule. Mesure le 2 octobre 2026 : 215 pixels sur la carte graphique du poste, tous a deux niveaux au plus ; 1 132 sous le rendu logiciel de la CI (WARP), dont un seul au-dela. </li>
 </ol>
 
 </div>

@@ -161,12 +161,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a5d23b438d830521883b6609376c3ee95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un tir joue la bande <span class="tt">ranged</span> ; sa fleche vole de l'archer a la cible jusqu'a l'impact, puis le rate parait a la cible (<span class="tt">LOT-136</span>).  <br /></td></tr>
 <tr class="memitem:ad1a0b6b5f0da0becdc82ce7bae4e341b" id="r_ad1a0b6b5f0da0becdc82ce7bae4e341b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad1a0b6b5f0da0becdc82ce7bae4e341b">TEST</a> (CombatCuesTest, UnProjectileVersLaGaucheEstLeMiroir)</td></tr>
 <tr class="memdesc:ad1a0b6b5f0da0becdc82ce7bae4e341b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un projectile qui vole vers la gauche de l'ecran prend sa bande miroir, et un effet pose sans geste se joue seul (<span class="tt">LOT-136</span>).  <br /></td></tr>
+<tr class="memitem:a2caf2c3a2b85844894da48742a2ea24b" id="r_a2caf2c3a2b85844894da48742a2ea24b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2caf2c3a2b85844894da48742a2ea24b">TEST</a> (CombatCuesTest, LesSignauxPartentALImageCleDuClip)</td></tr>
+<tr class="memdesc:a2caf2c3a2b85844894da48742a2ea24b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les gestes d'un modèle durent ses clips et portent à leur image clé (<span class="tt">LOT-1005</span>) : le touché de la cible part à l'image clé de l'attaque, pas au milieu de la bande.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests de la file des mouvements du combat (<span class="tt">LOT-118</span>) : une marche se joue case par case à la vitesse du monde, un coup porte au milieu de son geste, un mort reste à terre. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a19dad789ea7ef1cb251cc2a9cf7d85b4" name="a19dad789ea7ef1cb251cc2a9cf7d85b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19dad789ea7ef1cb251cc2a9cf7d85b4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a19dad789ea7ef1cb251cc2a9cf7d85b4">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,8 +197,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a2caf2c3a2b85844894da48742a2ea24b" name="a2caf2c3a2b85844894da48742a2ea24b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2caf2c3a2b85844894da48742a2ea24b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">CombatCuesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesSignauxPartentALImageCleDuClip</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les gestes d'un modèle durent ses clips et portent à leur image clé (<span class="tt">LOT-1005</span>) : le touché de la cible part à l'image clé de l'attaque, pas au milieu de la bande. </p>
+<p><b>Cas de test :</b> <b>Les signaux du combat partent a l'image cle du clip.</b><br  />
+ <b>Categorie :</b> Unitaire · Combat sur la carte · Squelette<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Donner au heros les durees d'un squelette dont l'attaque dure 1,0 s et porte a 0,7 s, et au rat un touche de 0,3 s.<br  />
+2. Pousser une attaque du heros sur le rat et le touche du rat.<br  />
+3. Avancer a 0,6 s, a 0,75 s, a 0,95 s, puis a 1,05 s.<br  />
+ <b>Resultat attendu :</b> A 0,6 s le heros attaque et le rat est au repos : le coup n'a pas porte, alors qu'une bande l'aurait fait porter a 0,32 s. A 0,75 s le rat encaisse, depuis 0,05 s. A 0,95 s il n'a pas fini (0,25 s sur 0,3), le heros attaque encore. A 1,05 s tous deux sont au repos : le geste a dure son clip. Le cap du heros est celui de sa cible. </p>
+
+</div>
+</div>
 <a id="af5e4d02f2f5bb882b43808e0587f6712" name="af5e4d02f2f5bb882b43808e0587f6712"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5e4d02f2f5bb882b43808e0587f6712">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e4d02f2f5bb882b43808e0587f6712">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,7 +259,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3e11f27a0b1f414d78e5bc95208e0dc2" name="a3e11f27a0b1f414d78e5bc95208e0dc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e11f27a0b1f414d78e5bc95208e0dc2">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e11f27a0b1f414d78e5bc95208e0dc2">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +291,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad1a0b6b5f0da0becdc82ce7bae4e341b" name="ad1a0b6b5f0da0becdc82ce7bae4e341b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1a0b6b5f0da0becdc82ce7bae4e341b">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1a0b6b5f0da0becdc82ce7bae4e341b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -289,7 +322,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a5d23b438d830521883b6609376c3ee95" name="a5d23b438d830521883b6609376c3ee95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d23b438d830521883b6609376c3ee95">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d23b438d830521883b6609376c3ee95">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

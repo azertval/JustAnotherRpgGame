@@ -109,6 +109,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
                 suiveur.facing = facing;
                 changed = true;</span>
             }
+<span style = "background-color:#fdd">            suiveur.heading = figureHeadingFor(direction, suiveur.heading);</span>
         }
 <span style = "background-color:#fdd">        suiveur.point = point;
     }</span>
@@ -147,6 +148,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
             _heroFacing = facing;
             result.figuresChanged = true;</span>
         }
+<span style = "background-color:#dfd">        _heroHeading = figureHeadingFor(intent.move, _heroHeading);</span>
     }
 <span style = "background-color:#dfd">    if (followFollowers()) {</span>
 <span style = "background-color:#fdd">        result.figuresChanged = true;</span>
@@ -229,6 +231,7 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
 <span style = "background-color:#dfd">        const ResolvedFigure&amp; resolue =</span>
             _figures.resolve(figure.figure, nom != nullptr ? *nom : std::string{}, _appearance);
 <span style = "background-color:#dfd">        figure.figure = resolue.directory;
+        figure.model = resolue.model;
         figure.facing = resolue.oriented ? FigureFacing::SouthEast : FigureFacing::None;
         figure.seconds = _elapsed + (static_cast&lt;float&gt;(rang) * NPC_BREATH_OFFSET_SECONDS);
     }</span>
@@ -242,7 +245,10 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
             .frame = frame,
             .facing = suiveur.figure.oriented ? suiveur.facing : FigureFacing::None,
             .seconds = _elapsed,
-            .hero = false});
+            .hero = false,
+            .combatant = false,
+            .model = suiveur.figure.model,
+            .heading = suiveur.heading});
 <span style = "background-color:#fdd">    }</span>
 <span style = "background-color:#dfd">    figures.push_back(</span>
         WorldFigureSnapshot{.figure = _hero.directory,
@@ -251,7 +257,10 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
                             .frame = frame,
                             .facing = heroFacing(),
                             .seconds = _elapsed,
-                            .hero = true});
+                            .hero = true,
+                            .combatant = false,
+                            .model = _hero.model,
+                            .heading = _heroHeading});
 <span style = "background-color:#dfd">    return figures;
 }</span>
 

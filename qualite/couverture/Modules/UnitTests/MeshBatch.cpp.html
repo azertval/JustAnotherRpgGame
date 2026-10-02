@@ -1,0 +1,532 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>MeshBatch.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Graphics/MeshBatch.h"
+
+#include &lt;QImage&gt;
+#include &lt;QSize&gt;
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cstdint&gt;
+#include &lt;cstring&gt;
+#include &lt;optional&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+
+#include &lt;rhi/qrhi.h&gt;
+
+#include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/RhiContext.h"
+#include "HMI/Graphics/RhiShaders.h"
+
+namespace hmi {
+
+namespace {
+
+// Le bloc uniforme d'un dessin (std140) : la matrice maillage -&gt; clip, puis la teinte RVBA.
+constexpr int MATRIX_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
+constexpr int TINT_BYTES = 4 * static_cast&lt;int&gt;(sizeof(float));
+constexpr int DRAW_BYTES = MATRIX_BYTES + TINT_BYTES;
+// Le bloc d'os d'un dessin anime (std140) : `MAX_BONES` matrices.
+constexpr std::size_t MATRIX_FLOATS = 16;
+constexpr std::size_t POSE_FLOATS = MeshBatch::MAX_BONES * MATRIX_FLOATS;
+constexpr int BONES_BYTES = static_cast&lt;int&gt;(POSE_FLOATS * sizeof(float));
+// La liaison d'un sommet televersee : quatre rangs d'os, en flottants, puis quatre poids.
+constexpr std::size_t SKIN_FLOATS = 8;
+
+// Le sommet televerse est celui du chargeur, tel quel : position, normale, coordonnees de texture.
+static_assert(sizeof(core::MeshVertex) == 8 * sizeof(float),
+              "core::MeshVertex doit rester huit flottants contigus : il est televerse tel quel");
+
+// Ce que pese une texture `RGBA8` lissee : ses pixels, plus un tiers pour sa chaine de mipmaps.
+<span style = "background-color:#dfd">[[nodiscard]] std::size_t textureWeight(int width, int height) noexcept {
+    const std::size_t bytes =</span>
+        static_cast&lt;std::size_t&gt;(width) * static_cast&lt;std::size_t&gt;(height) * 4U;
+<span style = "background-color:#dfd">    return bytes + (bytes / 3U);
+}</span>
+
+// L'image de la couleur de base, decodee en RGBA a alpha droit ; rien si elle ne se decode pas.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;DecodedImage&gt; decodeBaseColor(const core::MeshData&amp; mesh) {
+    if (mesh.image.empty()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast): QImage lit des `uchar`.
+<span style = "background-color:#dfd">    const QImage source = QImage::fromData(reinterpret_cast&lt;const uchar*&gt;(mesh.image.data()),</span>
+                                           static_cast&lt;int&gt;(mesh.image.size()));
+<span style = "background-color:#dfd">    if (source.isNull()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const QImage image = source.convertToFormat(QImage::Format_RGBA8888);
+    DecodedImage decoded;
+    decoded.width = image.width();
+    decoded.height = image.height();
+    decoded.pixels.resize(static_cast&lt;std::size_t&gt;(decoded.width) *</span>
+                          static_cast&lt;std::size_t&gt;(decoded.height));
+<span style = "background-color:#dfd">    const std::size_t rowBytes = static_cast&lt;std::size_t&gt;(decoded.width) * sizeof(std::uint32_t);
+    for (int row = 0; row &lt; decoded.height; ++row) {
+        std::memcpy(decoded.pixels.data() + (static_cast&lt;std::size_t&gt;(row) * decoded.width),</span>
+                    image.constScanLine(row), rowBytes);
+<span style = "background-color:#dfd">    }
+    return decoded;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">MeshBatch::MeshBatch(QRhi* rhi) : _rhi(rhi) {
+    if (_rhi == nullptr) {</span>
+<span style = "background-color:#fdd">        throw std::runtime_error("MeshBatch : QRhi nul");</span>
+    }
+    // Bilineaire entre les niveaux de mipmaps, comme l'art peint ; en repetition, la convention de
+    // glTF pour une texture qui n'en dit rien.
+<span style = "background-color:#dfd">    _sampler.reset(_rhi-&gt;newSampler(QRhiSampler::Linear, QRhiSampler::Linear, QRhiSampler::Linear,</span>
+                                    QRhiSampler::Repeat, QRhiSampler::Repeat));
+<span style = "background-color:#dfd">    if (!_sampler-&gt;create()) {</span>
+<span style = "background-color:#fdd">        throw std::runtime_error("MeshBatch : echec de creation de l'echantillonneur");</span>
+    }
+<span style = "background-color:#dfd">    _uniformStride = _rhi-&gt;ubufAligned(DRAW_BYTES);
+    _boneStride = _rhi-&gt;ubufAligned(BONES_BYTES);
+    if (!ensureUniformCapacity(16)) {</span>
+<span style = "background-color:#fdd">        throw std::runtime_error("MeshBatch : echec de creation du tampon uniforme");</span>
+    }
+<span style = "background-color:#dfd">    GRAPHICS_LOG_TRACE("MeshBatch : passe de maillages creee sur QRhi (" +</span>
+                       std::string(_rhi-&gt;backendName()) + ")");
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">MeshBatch::~MeshBatch() = default;</span>
+
+<span style = "background-color:#dfd">MeshHandle MeshBatch::create(const RhiContext&amp; context, const core::MeshData&amp; mesh) {
+    if (!context.ready() || mesh.vertices.empty() || mesh.indices.empty()) {</span>
+<span style = "background-color:#fdd">        return nullptr;</span>
+    }
+<span style = "background-color:#dfd">    auto gpu = std::make_unique&lt;GpuMesh&gt;();
+    const auto vertexBytes = static_cast&lt;quint32&gt;(mesh.vertices.size() * sizeof(core::MeshVertex));
+    const auto indexBytes = static_cast&lt;quint32&gt;(mesh.indices.size() * sizeof(std::uint32_t));
+    gpu-&gt;vertices.reset(</span>
+        _rhi-&gt;newBuffer(QRhiBuffer::Immutable, QRhiBuffer::VertexBuffer, vertexBytes));
+<span style = "background-color:#dfd">    gpu-&gt;indices.reset(_rhi-&gt;newBuffer(QRhiBuffer::Immutable, QRhiBuffer::IndexBuffer, indexBytes));
+    if (!gpu-&gt;vertices-&gt;create() || !gpu-&gt;indices-&gt;create()) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des tampons d'un maillage");
+        return nullptr;</span>
+    }
+    // Le lot copie les octets : les tampons du chargeur peuvent mourir apres l'appel.
+<span style = "background-color:#dfd">    context.updates-&gt;uploadStaticBuffer(gpu-&gt;vertices.get(), mesh.vertices.data());
+    context.updates-&gt;uploadStaticBuffer(gpu-&gt;indices.get(), mesh.indices.data());</span>
+
+    // La liaison au squelette (LOT-1005) : un second tampon, pour que le sommet d'un maillage fixe
+    // reste celui d'avant. Un squelette plus grand que le bloc d'os du shader ne s'anime pas : le
+    // maillage se dessine dans sa pose de liaison, et c'est dit.
+<span style = "background-color:#dfd">    std::size_t skinBytes = 0;
+    if (mesh.skin.size() == mesh.vertices.size() &amp;&amp; !mesh.rig.joints.empty()) {
+        if (mesh.rig.joints.size() &gt; MAX_BONES) {</span>
+<span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING("MeshBatch : un squelette de " +</span>
+                                 std::to_string(mesh.rig.joints.size()) + " os depasse les " +
+                                 std::to_string(MAX_BONES) +
+                                 " du rendu, le maillage reste dans sa pose de liaison");
+<span style = "background-color:#fdd">        } else {</span>
+<span style = "background-color:#dfd">            std::vector&lt;float&gt; skin(mesh.skin.size() * SKIN_FLOATS);
+            for (std::size_t index = 0; index &lt; mesh.skin.size(); ++index) {
+                for (std::size_t part = 0; part &lt; 4; ++part) {
+                    skin[(index * SKIN_FLOATS) + part] =</span>
+                        static_cast&lt;float&gt;(mesh.skin[index].joints[part]);
+<span style = "background-color:#dfd">                    skin[(index * SKIN_FLOATS) + 4 + part] = mesh.skin[index].weights[part];
+                }
+            }
+            skinBytes = skin.size() * sizeof(float);
+            gpu-&gt;skin.reset(_rhi-&gt;newBuffer(QRhiBuffer::Immutable, QRhiBuffer::VertexBuffer,</span>
+                                            static_cast&lt;quint32&gt;(skinBytes)));
+<span style = "background-color:#dfd">            if (!gpu-&gt;skin-&gt;create()) {</span>
+<span style = "background-color:#fdd">                GRAPHICS_LOG_WARNING("MeshBatch : echec de creation du tampon d'os d'un maillage");
+                return nullptr;</span>
+            }
+<span style = "background-color:#dfd">            context.updates-&gt;uploadStaticBuffer(gpu-&gt;skin.get(), skin.data());
+            gpu-&gt;boneCount = mesh.rig.joints.size();
+        }</span>
+    }
+
+    // La couleur de base : l'image du fichier, a defaut un pixel blanc que le facteur colore.
+<span style = "background-color:#dfd">    std::optional&lt;LoadedTexture&gt; texture;
+    if (const std::optional&lt;DecodedImage&gt; image = decodeBaseColor(mesh)) {
+        texture = createTexture(context, image-&gt;width, image-&gt;height, image-&gt;pixels,</span>
+                                TextureFiltering::Smooth);
+<span style = "background-color:#fdd">    } else if (!mesh.image.empty()) {
+        GRAPHICS_LOG_WARNING("MeshBatch : la texture d'un maillage ne se decode pas (" +</span>
+                             mesh.imageMimeType + "), il se dessine en couleur unie");
+<span style = "background-color:#dfd">    }
+    if (!texture) {</span>
+<span style = "background-color:#fdd">        texture = createTexture(context, 1, 1, {0xFFFFFFFFU}, TextureFiltering::Smooth);</span>
+    }
+<span style = "background-color:#dfd">    if (!texture) {</span>
+<span style = "background-color:#fdd">        return nullptr;</span>
+    }
+<span style = "background-color:#dfd">    gpu-&gt;texture = std::move(*texture);
+    gpu-&gt;indexCount = mesh.indices.size();
+    gpu-&gt;baseColor = mesh.baseColor;
+    _bytes += vertexBytes + indexBytes + skinBytes +</span>
+              textureWeight(gpu-&gt;texture.width, gpu-&gt;texture.height);
+
+<span style = "background-color:#dfd">    _meshes.push_back(std::move(gpu));
+    return _meshes.back().get();
+}</span>
+
+<span style = "background-color:#fdd">void MeshBatch::clear() noexcept {</span>
+    // Les dessins designent les maillages, les maillages leurs liaisons et leur texture.
+<span style = "background-color:#fdd">    _draws.clear();
+    _poses.clear();
+    _drawable = false;
+    _meshes.clear();
+    _bytes = 0;
+}</span>
+
+<span style = "background-color:#dfd">bool MeshBatch::ensureUniformCapacity(std::size_t drawCount) {
+    if (drawCount &lt;= _uniformSlots &amp;&amp; _uniformBuffer) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    const std::size_t slotCount = std::max&lt;std::size_t&gt;(drawCount, 8) * 2;
+    auto buffer = std::unique_ptr&lt;QRhiBuffer&gt;(_rhi-&gt;newBuffer(</span>
+        QRhiBuffer::Dynamic, QRhiBuffer::UniformBuffer,
+        static_cast&lt;quint32&gt;(slotCount * static_cast&lt;std::size_t&gt;(_uniformStride))));
+<span style = "background-color:#dfd">    if (!buffer-&gt;create()) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    _uniformBuffer = std::move(buffer);
+    _uniformSlots = slotCount;</span>
+    // Les liaisons referencent le tampon : elles deviennent caduques avec lui.
+<span style = "background-color:#dfd">    for (const std::unique_ptr&lt;GpuMesh&gt;&amp; mesh : _meshes) {
+        mesh-&gt;bindings.reset();
+        mesh-&gt;skinnedBindings.reset();
+    }
+    _layoutBindings.reset();
+    _skinnedLayoutBindings.reset();
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">bool MeshBatch::ensureBoneCapacity(std::size_t poseCount) {
+    if (poseCount &lt;= _boneSlots &amp;&amp; _boneBuffer) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    const std::size_t slotCount = std::max&lt;std::size_t&gt;(poseCount, 4) * 2;
+    auto buffer = std::unique_ptr&lt;QRhiBuffer&gt;(</span>
+        _rhi-&gt;newBuffer(QRhiBuffer::Dynamic, QRhiBuffer::UniformBuffer,
+                        static_cast&lt;quint32&gt;(slotCount * static_cast&lt;std::size_t&gt;(_boneStride))));
+<span style = "background-color:#dfd">    if (!buffer-&gt;create()) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    _boneBuffer = std::move(buffer);
+    _boneSlots = slotCount;
+    for (const std::unique_ptr&lt;GpuMesh&gt;&amp; mesh : _meshes) {
+        mesh-&gt;skinnedBindings.reset();
+    }
+    _skinnedLayoutBindings.reset();
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">QRhiShaderResourceBindings* MeshBatch::skinnedBindingsFor(GpuMesh&amp; mesh) {
+    if (mesh.skinnedBindings) {
+        return mesh.skinnedBindings.get();</span>
+    }
+<span style = "background-color:#dfd">    auto bindings = std::unique_ptr&lt;QRhiShaderResourceBindings&gt;(_rhi-&gt;newShaderResourceBindings());
+    bindings-&gt;setBindings({</span>
+        QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+            0, QRhiShaderResourceBinding::VertexStage | QRhiShaderResourceBinding::FragmentStage,
+            _uniformBuffer.get(), DRAW_BYTES),
+        QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
+                                                  mesh.texture.texture.get(), _sampler.get()),
+        QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+            2, QRhiShaderResourceBinding::VertexStage, _boneBuffer.get(), BONES_BYTES),
+    });
+<span style = "background-color:#dfd">    if (!bindings-&gt;create()) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des liaisons d'un maillage anime");
+        return nullptr;</span>
+    }
+<span style = "background-color:#dfd">    mesh.skinnedBindings = std::move(bindings);
+    return mesh.skinnedBindings.get();
+}</span>
+
+<span style = "background-color:#dfd">QRhiShaderResourceBindings* MeshBatch::bindingsFor(GpuMesh&amp; mesh) {
+    if (mesh.bindings) {
+        return mesh.bindings.get();</span>
+    }
+<span style = "background-color:#dfd">    auto bindings = std::unique_ptr&lt;QRhiShaderResourceBindings&gt;(_rhi-&gt;newShaderResourceBindings());
+    bindings-&gt;setBindings({</span>
+        QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+            0, QRhiShaderResourceBinding::VertexStage | QRhiShaderResourceBinding::FragmentStage,
+            _uniformBuffer.get(), DRAW_BYTES),
+        QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
+                                                  mesh.texture.texture.get(), _sampler.get()),
+    });
+<span style = "background-color:#dfd">    if (!bindings-&gt;create()) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des liaisons d'un maillage");
+        return nullptr;</span>
+    }
+<span style = "background-color:#dfd">    mesh.bindings = std::move(bindings);
+    return mesh.bindings.get();
+}</span>
+
+<span style = "background-color:#dfd">bool MeshBatch::ensurePipeline(QRhiRenderTarget* target) {
+    QRhiRenderPassDescriptor* const pass = target-&gt;renderPassDescriptor();
+    if (_pipeline &amp;&amp; _pipelinePass == pass) {
+        return true;</span>
+    }
+    // Liaisons de reference : jamais utilisees pour dessiner, seulement pour decrire la
+    // disposition attendue par le pipeline.
+<span style = "background-color:#dfd">    if (!_layoutBindings) {
+        _layoutBindings.reset(_rhi-&gt;newShaderResourceBindings());
+        _layoutBindings-&gt;setBindings({</span>
+            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+                0,
+                QRhiShaderResourceBinding::VertexStage | QRhiShaderResourceBinding::FragmentStage,
+                _uniformBuffer.get(), DRAW_BYTES),
+            QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
+                                                      nullptr, _sampler.get()),
+        });
+<span style = "background-color:#dfd">        if (!_layoutBindings-&gt;create()) {</span>
+<span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des liaisons de reference");
+            return false;</span>
+        }
+    }
+
+<span style = "background-color:#dfd">    auto pipeline = std::unique_ptr&lt;QRhiGraphicsPipeline&gt;(_rhi-&gt;newGraphicsPipeline());
+    pipeline-&gt;setShaderStages({</span>
+        {QRhiShaderStage::Vertex, loadShader(":/shaders/mesh.vert.qsb")},
+        {QRhiShaderStage::Fragment, loadShader(":/shaders/mesh.frag.qsb")},
+    });
+<span style = "background-color:#dfd">    QRhiVertexInputLayout inputLayout;
+    inputLayout.setBindings({{static_cast&lt;quint32&gt;(sizeof(core::MeshVertex))}});
+    inputLayout.setAttributes({</span>
+        {0, 0, QRhiVertexInputAttribute::Float3, 0},
+        {0, 1, QRhiVertexInputAttribute::Float3, 3 * sizeof(float)},
+        {0, 2, QRhiVertexInputAttribute::Float2, 6 * sizeof(float)},
+    });
+<span style = "background-color:#dfd">    pipeline-&gt;setVertexInputLayout(inputLayout);
+    pipeline-&gt;setShaderResourceBindings(_layoutBindings.get());
+    pipeline-&gt;setRenderPassDescriptor(pass);
+    pipeline-&gt;setTopology(QRhiGraphicsPipeline::Triangles);</span>
+    // Aucune face ecartee : la profondeur decide (voir la classe).
+<span style = "background-color:#dfd">    pipeline-&gt;setCullMode(QRhiGraphicsPipeline::None);
+    pipeline-&gt;setDepthTest(true);
+    pipeline-&gt;setDepthWrite(true);
+    pipeline-&gt;setDepthOp(QRhiGraphicsPipeline::Less);</span>
+
+    // Le melange premultiplie des quads : a l'opacite 1, un maillage opaque remplace ce qu'il
+    // couvre ; au-dessous, il laisse voir le fond, pour les calques grises de l'editeur.
+<span style = "background-color:#dfd">    QRhiGraphicsPipeline::TargetBlend blend;
+    blend.enable = true;
+    blend.srcColor = QRhiGraphicsPipeline::One;
+    blend.dstColor = QRhiGraphicsPipeline::OneMinusSrcAlpha;
+    blend.opColor = QRhiGraphicsPipeline::Add;
+    blend.srcAlpha = QRhiGraphicsPipeline::One;
+    blend.dstAlpha = QRhiGraphicsPipeline::OneMinusSrcAlpha;
+    blend.opAlpha = QRhiGraphicsPipeline::Add;
+    pipeline-&gt;setTargetBlends({blend});</span>
+
+<span style = "background-color:#dfd">    if (!pipeline-&gt;create()) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("MeshBatch : echec de creation du pipeline graphique");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    _pipeline = std::move(pipeline);
+    _pipelinePass = pass;
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">bool MeshBatch::ensureSkinnedPipeline(QRhiRenderTarget* target) {
+    QRhiRenderPassDescriptor* const pass = target-&gt;renderPassDescriptor();
+    if (_skinnedPipeline &amp;&amp; _skinnedPipelinePass == pass) {
+        return true;</span>
+    }
+<span style = "background-color:#dfd">    if (!_skinnedLayoutBindings) {
+        _skinnedLayoutBindings.reset(_rhi-&gt;newShaderResourceBindings());
+        _skinnedLayoutBindings-&gt;setBindings({</span>
+            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+                0,
+                QRhiShaderResourceBinding::VertexStage | QRhiShaderResourceBinding::FragmentStage,
+                _uniformBuffer.get(), DRAW_BYTES),
+            QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
+                                                      nullptr, _sampler.get()),
+            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+                2, QRhiShaderResourceBinding::VertexStage, _boneBuffer.get(), BONES_BYTES),
+        });
+<span style = "background-color:#dfd">        if (!_skinnedLayoutBindings-&gt;create()) {</span>
+<span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des liaisons de reference animees");
+            return false;</span>
+        }
+    }
+
+<span style = "background-color:#dfd">    auto pipeline = std::unique_ptr&lt;QRhiGraphicsPipeline&gt;(_rhi-&gt;newGraphicsPipeline());
+    pipeline-&gt;setShaderStages({</span>
+        {QRhiShaderStage::Vertex, loadShader(":/shaders/mesh_skinned.vert.qsb")},
+        {QRhiShaderStage::Fragment, loadShader(":/shaders/mesh.frag.qsb")},
+    });
+    // Deux tampons : le sommet du chargeur, tel quel, puis ses os et ses poids.
+<span style = "background-color:#dfd">    QRhiVertexInputLayout inputLayout;
+    inputLayout.setBindings({{static_cast&lt;quint32&gt;(sizeof(core::MeshVertex))},</span>
+                             {static_cast&lt;quint32&gt;(SKIN_FLOATS * sizeof(float))}});
+<span style = "background-color:#dfd">    inputLayout.setAttributes({</span>
+        {0, 0, QRhiVertexInputAttribute::Float3, 0},
+        {0, 1, QRhiVertexInputAttribute::Float3, 3 * sizeof(float)},
+        {0, 2, QRhiVertexInputAttribute::Float2, 6 * sizeof(float)},
+        {1, 3, QRhiVertexInputAttribute::Float4, 0},
+        {1, 4, QRhiVertexInputAttribute::Float4, 4 * sizeof(float)},
+    });
+<span style = "background-color:#dfd">    pipeline-&gt;setVertexInputLayout(inputLayout);
+    pipeline-&gt;setShaderResourceBindings(_skinnedLayoutBindings.get());
+    pipeline-&gt;setRenderPassDescriptor(pass);
+    pipeline-&gt;setTopology(QRhiGraphicsPipeline::Triangles);</span>
+    // Les memes regles que le pipeline des maillages fixes : aucune face ecartee, la profondeur
+    // testee et ecrite, le melange premultiplie.
+<span style = "background-color:#dfd">    pipeline-&gt;setCullMode(QRhiGraphicsPipeline::None);
+    pipeline-&gt;setDepthTest(true);
+    pipeline-&gt;setDepthWrite(true);
+    pipeline-&gt;setDepthOp(QRhiGraphicsPipeline::Less);
+    QRhiGraphicsPipeline::TargetBlend blend;
+    blend.enable = true;
+    blend.srcColor = QRhiGraphicsPipeline::One;
+    blend.dstColor = QRhiGraphicsPipeline::OneMinusSrcAlpha;
+    blend.opColor = QRhiGraphicsPipeline::Add;
+    blend.srcAlpha = QRhiGraphicsPipeline::One;
+    blend.dstAlpha = QRhiGraphicsPipeline::OneMinusSrcAlpha;
+    blend.opAlpha = QRhiGraphicsPipeline::Add;
+    pipeline-&gt;setTargetBlends({blend});</span>
+
+<span style = "background-color:#dfd">    if (!pipeline-&gt;create()) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("MeshBatch : echec de creation du pipeline des maillages animes");
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    _skinnedPipeline = std::move(pipeline);
+    _skinnedPipelinePass = pass;
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">void MeshBatch::beginFrame() {
+    _draws.clear();
+    _poses.clear();
+    _drawable = false;
+}</span>
+
+void MeshBatch::draw(MeshHandle mesh, const DirectX::XMFLOAT4X4&amp; clip, float opacity,
+<span style = "background-color:#dfd">                     std::span&lt;const float&gt; bones) {</span>
+    // L'identite est verifiee : une poignee d'avant `clear` ne doit pas etre suivie.
+<span style = "background-color:#dfd">    const auto found = std::ranges::find_if(
+        _meshes, [mesh](const std::unique_ptr&lt;GpuMesh&gt;&amp; known) { return known.get() == mesh; });
+    if (found == _meshes.end() || opacity &lt;= 0.0F) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    Draw draw{.mesh = found-&gt;get(), .clip = clip, .opacity = std::min(opacity, 1.0F), .pose = -1};</span>
+    // Une pose ne vaut que pour le squelette du maillage : os pour os.
+<span style = "background-color:#dfd">    const std::size_t boneCount = draw.mesh-&gt;boneCount;
+    if (boneCount &gt; 0 &amp;&amp; bones.size() == boneCount * MATRIX_FLOATS) {
+        draw.pose = static_cast&lt;int&gt;(_poses.size() / POSE_FLOATS);
+        _poses.insert(_poses.end(), bones.begin(), bones.end());</span>
+        // Le bloc du shader a `MAX_BONES` matrices : l'identite au-dela du squelette.
+<span style = "background-color:#dfd">        for (std::size_t bone = boneCount; bone &lt; MAX_BONES; ++bone) {
+            _poses.insert(_poses.end(), core::MESH_IDENTITY.begin(), core::MESH_IDENTITY.end());
+        }</span>
+    }
+<span style = "background-color:#dfd">    _draws.push_back(draw);
+}</span>
+
+QRhiResourceUpdateBatch* MeshBatch::prepare(QRhiRenderTarget* target,
+<span style = "background-color:#dfd">                                            QRhiResourceUpdateBatch* updates) {
+    const std::size_t poseCount = _poses.size() / POSE_FLOATS;
+    _drawable = !_draws.empty() &amp;&amp; ensureUniformCapacity(_draws.size()) &amp;&amp; ensurePipeline(target);</span>
+    // Sans pipeline anime, les maillages lies se dessinent dans leur pose de liaison.
+<span style = "background-color:#dfd">    if (_drawable &amp;&amp; poseCount &gt; 0 &amp;&amp;</span>
+        !(ensureBoneCapacity(poseCount) &amp;&amp; ensureSkinnedPipeline(target))) {
+<span style = "background-color:#fdd">        for (Draw&amp; draw : _draws) {
+            draw.pose = -1;
+        }
+        _poses.clear();</span>
+    }
+<span style = "background-color:#dfd">    if (!_drawable) {
+        return updates;</span>
+    }
+<span style = "background-color:#dfd">    if (updates == nullptr) {</span>
+<span style = "background-color:#fdd">        updates = _rhi-&gt;nextResourceUpdateBatch();</span>
+    }
+<span style = "background-color:#dfd">    for (std::size_t pose = 0; pose &lt; _poses.size() / POSE_FLOATS; ++pose) {
+        updates-&gt;updateDynamicBuffer(</span>
+            _boneBuffer.get(), static_cast&lt;quint32&gt;(pose * static_cast&lt;std::size_t&gt;(_boneStride)),
+            BONES_BYTES, _poses.data() + (pose * POSE_FLOATS));
+<span style = "background-color:#dfd">    }
+    for (std::size_t index = 0; index &lt; _draws.size(); ++index) {
+        const Draw&amp; draw = _draws[index];
+        const QMatrix4x4 clip = toClipMatrix(_rhi, draw.clip);</span>
+        // La teinte : le facteur de couleur de base, et l'opacite du dessin sur son alpha.
+<span style = "background-color:#dfd">        const std::array&lt;float, 4&gt; tint = {draw.mesh-&gt;baseColor[0], draw.mesh-&gt;baseColor[1],
+                                           draw.mesh-&gt;baseColor[2],
+                                           draw.mesh-&gt;baseColor[3] * draw.opacity};
+        const auto offset = static_cast&lt;quint32&gt;(index * static_cast&lt;std::size_t&gt;(_uniformStride));
+        updates-&gt;updateDynamicBuffer(_uniformBuffer.get(), offset, MATRIX_BYTES, clip.constData());
+        updates-&gt;updateDynamicBuffer(_uniformBuffer.get(), offset + MATRIX_BYTES, TINT_BYTES,</span>
+                                     tint.data());
+<span style = "background-color:#dfd">    }
+    return updates;
+}</span>
+
+<span style = "background-color:#dfd">void MeshBatch::record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target) {
+    if (!_drawable) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    const QSize pixelSize = target-&gt;pixelSize();
+    const QRhiViewport viewport{0.0F, 0.0F, static_cast&lt;float&gt;(pixelSize.width()),</span>
+                                static_cast&lt;float&gt;(pixelSize.height())};
+    // Le pipeline lie : aucun au depart, puis celui du dernier dessin -- les maillages fixes
+    // d'abord dans une carte ordinaire, les figurines ensuite, donc un ou deux changements.
+<span style = "background-color:#dfd">    const QRhiGraphicsPipeline* bound = nullptr;
+    for (std::size_t index = 0; index &lt; _draws.size(); ++index) {
+        const Draw&amp; draw = _draws[index];
+        GpuMesh&amp; mesh = *draw.mesh;
+        const bool skinned = draw.pose &gt;= 0;
+        QRhiShaderResourceBindings* const bindings =</span>
+            skinned ? skinnedBindingsFor(mesh) : bindingsFor(mesh);
+<span style = "background-color:#dfd">        if (bindings == nullptr) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        QRhiGraphicsPipeline* const pipeline = skinned ? _skinnedPipeline.get() : _pipeline.get();
+        if (pipeline != bound) {
+            commandBuffer-&gt;setGraphicsPipeline(pipeline);
+            commandBuffer-&gt;setViewport(viewport);
+            bound = pipeline;</span>
+        }
+        const std::array&lt;QRhiCommandBuffer::DynamicOffset, 2&gt; offsets{
+<span style = "background-color:#dfd">            QRhiCommandBuffer::DynamicOffset{</span>
+                0, static_cast&lt;quint32&gt;(index * static_cast&lt;std::size_t&gt;(_uniformStride))},
+<span style = "background-color:#dfd">            QRhiCommandBuffer::DynamicOffset{</span>
+                2, static_cast&lt;quint32&gt;(static_cast&lt;std::size_t&gt;(std::max(draw.pose, 0)) *
+                                        static_cast&lt;std::size_t&gt;(_boneStride))}};
+<span style = "background-color:#dfd">        commandBuffer-&gt;setShaderResources(bindings, skinned ? 2 : 1, offsets.data());</span>
+        const std::array&lt;QRhiCommandBuffer::VertexInput, 2&gt; inputs{
+<span style = "background-color:#dfd">            QRhiCommandBuffer::VertexInput(mesh.vertices.get(), 0),
+            QRhiCommandBuffer::VertexInput(mesh.skin.get(), 0)};
+        commandBuffer-&gt;setVertexInput(0, skinned ? 2 : 1, inputs.data(), mesh.indices.get(), 0,</span>
+                                      QRhiCommandBuffer::IndexUInt32);
+<span style = "background-color:#dfd">        commandBuffer-&gt;drawIndexed(static_cast&lt;quint32&gt;(mesh.indexCount));
+    }
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

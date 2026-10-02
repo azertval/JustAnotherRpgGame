@@ -175,11 +175,11 @@ Typedefs</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La <b>vue du lieu en volume</b> (<span class="tt">LOT-1003</span>) : ce que la caméra orthographique tournée de 45° et inclinée de asin 0,62 fait d'un point de l'espace, profondeur comprise. </p>
 <p><span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span> projette le <b>sol</b> : une case de la grille tombe sur son losange. C'est exactement ce que voit une caméra orthographique élevée d'un angle θ au-dessus de l'horizon, où sin θ est le rapport du losange (0,62, soit 38,3°). Cette classe en tire les deux choses que le sol seul ne disait pas : où tombe un point <b>élevé</b>, et à quelle <b>profondeur</b> se trouve un point — de quoi départager les volumes par le tampon de profondeur plutôt que par un tri.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md91"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md96"></a>
 Le repère de la vue</h2>
 <p><span class="tt">x</span> et <span class="tt">y</span> sont le plan de l'image, en unités monde, tel qu'<span class="tt">IsoProjection</span> l'écrit depuis toujours (y vers le bas). <span class="tt">z</span> s'y ajoute : la distance le long du regard, <b>croissante en s'éloignant</b>. Pour un point du sol projeté en <span class="tt">y</span>, élevé de <span class="tt">h</span> (mesuré à l'écran, vers le haut) : </p><pre class="fragment">y' = y − h          z' = −(y − y₀) · cot θ − h · tan θ
 </pre><p>où y₀ est l'ordonnée du coin de grille (0, 0). C'est une rotation : rien n'est déformé, et un point du sol reste exactement où <span class="tt">IsoProjection</span> le met — le pointage d'une case ne change pas.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md92"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md97"></a>
 Les images dans la scène</h2>
 <p>Une image n'a pas de volume ; elle reçoit une profondeur par sommet, selon ce qu'elle montre :</p>
 <ul>

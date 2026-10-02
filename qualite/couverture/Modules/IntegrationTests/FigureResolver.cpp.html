@@ -46,6 +46,36 @@ FigureResolver::FigureResolver(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">    return false;
 }</span>
 
+<span style = "background-color:#dfd">bool FigureResolver::hasModel(std::string_view directory, ResolvedFigure&amp; resolved) {
+    if (directory.empty()) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    const std::filesystem::path folder = _assetsDirectory / std::filesystem::path(directory);
+    std::error_code erreur;
+    if (!std::filesystem::is_regular_file(folder / core::CHARACTER_SHEET_FILE, erreur)) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const core::CharacterSheetFileResult sheet =</span>
+        core::readCharacterSheetFile(folder / core::CHARACTER_SHEET_FILE);
+<span style = "background-color:#dfd">    if (!sheet.ok() || !std::filesystem::is_regular_file(folder / sheet.sheet.model, erreur)) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    auto known = _skeletons.find(sheet.sheet.skeleton);
+    if (known == _skeletons.end()) {
+        core::SkeletonFileResult skeleton =</span>
+            core::readSkeletonFile(_assetsDirectory / core::skeletonFilePath(sheet.sheet.skeleton));
+<span style = "background-color:#dfd">        known = _skeletons</span>
+                    .emplace(sheet.sheet.skeleton,
+                             skeleton.ok() ? std::make_shared&lt;const core::SkeletonDescription&gt;(
+                                                 std::move(skeleton.skeleton))
+                                           : nullptr)
+                    .first;
+<span style = "background-color:#dfd">    }
+    resolved.model = std::string{directory} + "/" + sheet.sheet.model;
+    resolved.skeleton = known-&gt;second;
+    return true;
+}</span>
+
 const ResolvedFigure&amp; FigureResolver::resolve(std::string_view figure, std::string_view silhouette,
 <span style = "background-color:#dfd">                                              const PlaceAppearance&amp; appearance) {
     const std::string key = std::string{figure} + "|" + std::string{silhouette};
@@ -53,15 +83,28 @@ const ResolvedFigure&amp; FigureResolver::resolve(std::string_view figure, std::
         return found-&gt;second;
     }
     ResolvedFigure resolved;</span>
-    // 1. La figurine nommee, par la table du lieu.
+    // 1. La figurine nommee, par la table du lieu : son modele, a defaut ses bandes.
 <span style = "background-color:#dfd">    const std::string named = appearance.figureDirectory(figure);
     bool oriented = false;
-    if (hasIdleStrip(named, oriented)) {
+    if (hasModel(named, resolved)) {</span>
+        // Un modele s'oriente librement : il garde la diagonale de qui le pose.
+<span style = "background-color:#dfd">        resolved.directory = named;
+        resolved.oriented = true;
+        return _found.emplace(key, std::move(resolved)).first-&gt;second;</span>
+    }
+<span style = "background-color:#dfd">    if (hasIdleStrip(named, oriented)) {
         resolved = ResolvedFigure{.directory = named, .oriented = oriented, .placeholder = false};
         return _found.emplace(key, std::move(resolved)).first-&gt;second;</span>
     }
     // 2. Le mannequin de sa silhouette ; 3. l'humanoide.
 <span style = "background-color:#dfd">    for (const std::string_view candidate : {silhouette, DEFAULT_SILHOUETTE}) {
+        if (const std::string mannequin = mannequinFigureDirectory(candidate);
+            hasModel(mannequin, resolved)) {
+            resolved.directory = mannequin;
+            resolved.oriented = true;
+            resolved.placeholder = true;
+            return _found.emplace(key, std::move(resolved)).first-&gt;second;
+        }
         const std::string placeholder = placeholderFigureDirectory(candidate);
         if (hasIdleStrip(placeholder, oriented)) {
             resolved =</span>

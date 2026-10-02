@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include &lt;array&gt;
 #include &lt;cstddef&gt;
 #include &lt;memory&gt;
 #include &lt;unordered_map&gt;
@@ -67,6 +68,16 @@ namespace hmi {
  * La projection est portÃ©e **par lot** et non par image : le HUD (`EX-REN-047`) se dessine en
  * coordonnÃ©es Ã©cran dans la mÃªme image que le monde. Elle transite par un tampon uniforme adressÃ©
  * Ã  dÃ©calage dynamique, un emplacement par lot.
+ *
+ * **La profondeur (`LOT-1003`).** Un sommet porte une troisiÃ¨me coordonnÃ©e, la profondeur de la
+ * vue (`hmi::IsoView`), nulle par dÃ©faut. Elle n'est **testÃ©e** que si l'appelant le demande
+ * (`setDepthTest`), c'est-Ã -dire quand l'image a des maillages Ã  croiser : les quads sont alors
+ * comparÃ©s au tampon de profondeur sans y Ã©crire â leurs bords sont adoucis, et leur ordre reste
+ * celui du peintre. Sans cela, le pipeline est celui d'avant le lot, sans test ni Ã©criture.
+ *
+ * Pour partager une passe avec un autre pipeline (`hmi::MeshBatch`), `submit` se dÃ©coupe en
+ * `prepare` â les tÃ©lÃ©versements, hors de toute passe â et `record`, qui Ã©met les appels de dessin
+ * dans la passe que l'appelant a ouverte.
  */
 class SpriteBatch {
 public:
@@ -99,24 +110,29 @@ public:
 
     /**
      * @brief Ajoute un quad au lot courant.
-     * @param quad Quad Ã  dessiner (unitÃ©s monde, UV normalisÃ©es, teinte).
+     * @param quad    Quad Ã  dessiner (unitÃ©s monde, UV normalisÃ©es, teinte).
+     * @param topDepth    Profondeur de ses deux sommets du haut (avant rotation).
+     * @param bottomDepth Profondeur de ses deux sommets du bas.
      */
-    void draw(const SpriteQuad&amp; quad);
+    void draw(const SpriteQuad&amp; quad, float topDepth = 0.0F, float bottomDepth = 0.0F);
 
     /**
      * @brief Ajoute un segment Ã©pais (orientÃ© librement) au lot courant.
      * @param line Segment Ã  dessiner (unitÃ©s monde, UV normalisÃ©es, teinte). Sans effet si les
      *             deux extrÃ©mitÃ©s coÃ¯ncident (segment dÃ©gÃ©nÃ©rÃ©).
+     * @param startDepth Profondeur de l'extrÃ©mitÃ© `a`.
+     * @param endDepth   Profondeur de l'extrÃ©mitÃ© `b`.
      */
-    void draw(const LineQuad&amp; line);
+    void draw(const LineQuad&amp; line, float startDepth = 0.0F, float endDepth = 0.0F);
 
     /**
      * @brief Ajoute un quadrilatÃ¨re Ã  quatre sommets libres au lot courant (`LOT-128`).
      * @param poly QuadrilatÃ¨re Ã  dessiner (unitÃ©s monde, UV normalisÃ©es, teinte). Ses sommets sont
      *             repris tels quels : c'est Ã  la composition de les donner dans l'ordre du
      *             pourtour.
+     * @param depths La profondeur de chacun de ses quatre sommets.
      */
-    void draw(const PolyQuad&amp; poly);
+    void draw(const PolyQuad&amp; poly, const std::array&lt;float, 4&gt;&amp; depths = {});
 
     /// Termine le lot : fige la plage de quads enregistrÃ©e. Un lot vide n'Ã©mettra aucun dessin.
     void end();
@@ -136,11 +152,39 @@ public:
     void submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target,
                 QRhiResourceUpdateBatch* updates, const float* clear);
 
+    /**
+     * @brief Les quads de l'image testent-ils la profondeur (`LOT-1003`) ? Faux par dÃ©faut : le
+     *        pipeline d'avant le lot. Ã rÃ©gler avant `prepare` ; la cible doit alors avoir un
+     *        tampon de profondeur.
+     */
+<span style = "background-color:#dfd">    void setDepthTest(bool enabled) noexcept {
+        _depthTest = enabled;
+    }</span>
+
+    /**
+     * @brief DÃ©pose dans un lot les tÃ©lÃ©versements de l'image enregistrÃ©e â sommets, projections,
+     *        et le tampon d'indices Ã  sa premiÃ¨re image â, **hors** de toute passe.
+     *
+     * @param target  Cible de rendu de l'image : le pipeline se crÃ©e pour sa passe.
+     * @param updates Lot Ã  complÃ©ter ; `nullptr` : un lot est pris au besoin.
+     * @return Le lot Ã  soumettre Ã  l'ouverture de la passe (`beginPass`), `nullptr` s'il n'y a
+     *         rien Ã  tÃ©lÃ©verser.
+     */
+    [[nodiscard]] QRhiResourceUpdateBatch* prepare(QRhiRenderTarget* target,
+                                                   QRhiResourceUpdateBatch* updates);
+
+    /**
+     * @brief Ãmet les appels de dessin de l'image prÃ©parÃ©e, dans la passe **ouverte** par
+     *        l'appelant. Sans effet si `prepare` n'a rien trouvÃ© Ã  dessiner.
+     */
+    void record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target);
+
 private:
-    /// Sommet envoyÃ© au GPU : position monde (x, y), UV, couleur RVBA.
+    /// Sommet envoyÃ© au GPU : position de la vue (x, y, profondeur), UV, couleur RVBA.
     struct Vertex {
         float x;
         float y;
+        float z;
         float u;
         float v;
         float r;
@@ -163,8 +207,11 @@ private:
     /// Nombre de quads couverts par le tampon d'indices, et donc par un seul appel de dessin.
     static constexpr std::size_t MAXIMUM_QUADS = 65536 / 4;
 
-    /// CrÃ©e (ou recrÃ©e) le pipeline pour la passe de rendu donnÃ©e. Idempotent.
+    /// CrÃ©e (ou recrÃ©e) les pipelines pour la passe de rendu donnÃ©e. Idempotent.
     bool ensurePipeline(QRhiRenderTarget* target);
+    /// Construit un pipeline pour @p pass, avec ou sans test de profondeur.
+    [[nodiscard]] std::unique_ptr&lt;QRhiGraphicsPipeline&gt; createPipeline(
+        QRhiRenderPassDescriptor* pass, bool depthTest);
     /// Redimensionne le tampon de sommets si l'image enregistrÃ©e n'y tient pas.
     bool ensureVertexCapacity(std::size_t quadCount);
     /// Redimensionne le tampon uniforme pour @p batchCount emplacements de projection.
@@ -183,6 +230,12 @@ private:
     /// BilinÃ©aire avec mipmaps : l'art peint (`TextureFiltering::Smooth`).
     std::unique_ptr&lt;QRhiSampler&gt; _smoothSampler;
     std::unique_ptr&lt;QRhiGraphicsPipeline&gt; _pipeline;
+    /// Le mÃªme pipeline, qui teste la profondeur sans l'Ã©crire (`setDepthTest`) ; crÃ©Ã© Ã  la
+    /// premiÃ¨re image qui le demande.
+    std::unique_ptr&lt;QRhiGraphicsPipeline&gt; _depthPipeline;
+<span style = "background-color:#dfd">    bool _depthTest = false;</span>
+    /// L'image prÃ©parÃ©e a de quoi dessiner (`prepare`, lu par `record`).
+<span style = "background-color:#dfd">    bool _drawable = false;</span>
     /// Descripteur de la passe pour laquelle `_pipeline` a Ã©tÃ© construit : un changement de cible
     /// (redimensionnement du widget, changement de fenÃªtre) impose de le reconstruire.
 <span style = "background-color:#dfd">    QRhiRenderPassDescriptor* _pipelinePass = nullptr;</span>

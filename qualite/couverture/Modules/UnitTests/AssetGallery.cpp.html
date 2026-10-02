@@ -226,8 +226,13 @@ void readSceneFamily(const std::filesystem::path&amp; root, const std::string&am
 <span style = "background-color:#fdd">        return;</span>
     }
 <span style = "background-color:#dfd">    AssetGalleryFamily family{.title = title, .directory = directory, .entries = {}};
-    for (const core::ScenePiece&amp; piece : read.manifest.pieces()) {
-        family.entries.push_back(AssetGalleryEntry{</span>
+    for (const core::ScenePiece&amp; piece : read.manifest.pieces()) {</span>
+        // La galerie montre des images : un maillage (LOT-1003) n'a pas de vignette Ã  y Ã©taler.
+        // Sa vue est celle de l'atelier des assets 3D (LOT-1008).
+<span style = "background-color:#dfd">        if (piece.isMesh()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        family.entries.push_back(AssetGalleryEntry{</span>
             .family = family.title,
             .model = piece.className.empty() ? std::string("autre") : piece.className,
             .form = piece.name,

@@ -33,6 +33,7 @@ var classhmi_1_1WorldPlay =
     [ "_hero", "classhmi_1_1WorldPlay.html#ae67e2d06524e8c80b53efabfaa650aeb", null ],
     [ "_heroFacing", "classhmi_1_1WorldPlay.html#a0729d639a27a4412f44f3b68caa21da1", null ],
     [ "_heroFigure", "classhmi_1_1WorldPlay.html#ade28d0bca4fd0c4f43b087f68512195e", null ],
+    [ "_heroHeading", "classhmi_1_1WorldPlay.html#a7a924af2e38cbb66825c8186cbcb9963", null ],
     [ "_scene", "classhmi_1_1WorldPlay.html#ad50072f254f350ab206b27f3ff367cdc", null ],
     [ "_session", "classhmi_1_1WorldPlay.html#a1a27f41f8b7444eacf68002667d8c8e0", null ],
     [ "_walking", "classhmi_1_1WorldPlay.html#a2ff668f3c939a7bed7948b1345889295", null ],

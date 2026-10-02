@@ -154,6 +154,8 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a1b02c9fea434f1d7a4b32e703f56cb20" id="r_a1b02c9fea434f1d7a4b32e703f56cb20"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1b02c9fea434f1d7a4b32e703f56cb20">setTimings</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor, const <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> &amp;<a class="el" href="#a602be75a81af7f15d6ad9ba2622c878a">timings</a>)</td></tr>
+<tr class="memdesc:a1b02c9fea434f1d7a4b32e703f56cb20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne à <code class="param">actor</code> les durées de ses gestes ; sans elles, celles des bandes.  <br /></td></tr>
 <tr class="memitem:a5845b0a48c9a4c1b50f97a5b9f58abec" id="r_a5845b0a48c9a4c1b50f97a5b9f58abec"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5845b0a48c9a4c1b50f97a5b9f58abec">place</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell, <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing=<a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a>)</td></tr>
 <tr class="memdesc:a5845b0a48c9a4c1b50f97a5b9f58abec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose <code class="param">actor</code> au repos en <code class="param">cell</code>, tout de suite (montage, rejeu, repli).  <br /></td></tr>
 <tr class="memitem:a924fb983c66452c64e943ae4f423275a" id="r_a924fb983c66452c64e943ae4f423275a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a924fb983c66452c64e943ae4f423275a">remove</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor)</td></tr>
@@ -171,6 +173,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a59568b98a0002eb2537ce890e2271764" id="r_a59568b98a0002eb2537ce890e2271764"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1EffectMotion.html">EffectMotion</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a59568b98a0002eb2537ce890e2271764">effects</a> () const</td></tr>
 <tr class="memitem:ab3e55c85793523ec65bc841f0e768fff" id="r_ab3e55c85793523ec65bc841f0e768fff"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ab3e55c85793523ec65bc841f0e768fff">pending</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a82a77ccfc829e53531315636235d4538" id="r_a82a77ccfc829e53531315636235d4538"><td class="memItemLeft">static <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a>&#160;</td><td class="memItemRight"><a class="el" href="#a82a77ccfc829e53531315636235d4538">stripTimings</a> () noexcept</td></tr>
+<tr class="memitem:ab8d08c62faea414a3fe55627c176b80d" id="r_ab8d08c62faea414a3fe55627c176b80d"><td class="memItemLeft">static <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab8d08c62faea414a3fe55627c176b80d">timingsOf</a> (const <a class="el" href="structcore_1_1SkeletonDescription.html">core::SkeletonDescription</a> *skeleton)</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a5fd46f6bc9c924e710b7c54412301ee0" id="r_a5fd46f6bc9c924e710b7c54412301ee0"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a5fd46f6bc9c924e710b7c54412301ee0">WALK_CELLS_PER_SECOND</a> = 2.0F</td></tr>
@@ -184,6 +191,8 @@ Static Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
+<tr class="memitem:a602be75a81af7f15d6ad9ba2622c878a" id="r_a602be75a81af7f15d6ad9ba2622c878a"><td class="memItemLeft">const <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a602be75a81af7f15d6ad9ba2622c878a">timings</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor) const</td></tr>
+<tr class="memitem:a24c7538031a47c2466b9f57d32f8017f" id="r_a24c7538031a47c2466b9f57d32f8017f"><td class="memItemLeft"><a class="el" href="structhmi_1_1GestureTiming.html">GestureTiming</a>&#160;</td><td class="memItemRight"><a class="el" href="#a24c7538031a47c2466b9f57d32f8017f">gestureOf</a> (const <a class="el" href="structhmi_1_1CombatCue.html">CombatCue</a> &amp;cue) const</td></tr>
 <tr class="memitem:a218a18059ffaee9d819526442883a8c8" id="r_a218a18059ffaee9d819526442883a8c8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a218a18059ffaee9d819526442883a8c8">startNext</a> ()</td></tr>
 <tr class="memdesc:a218a18059ffaee9d819526442883a8c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Démarre le fait suivant, et ceux qui l'accompagnent.  <br /></td></tr>
 <tr class="memitem:a6d209291b75fd618b9098690fdc6bf0a" id="r_a6d209291b75fd618b9098690fdc6bf0a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6d209291b75fd618b9098690fdc6bf0a">apply</a> (<a class="el" href="structhmi_1_1CombatCueTrack_1_1Running.html">Running</a> &amp;running)</td></tr>
@@ -192,6 +201,7 @@ Private Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:aea130bad9d873753b9e912e01c7e30c8" id="r_aea130bad9d873753b9e912e01c7e30c8"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a>, <a class="el" href="structhmi_1_1FigureMotion.html">FigureMotion</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aea130bad9d873753b9e912e01c7e30c8">_figures</a></td></tr>
+<tr class="memitem:a6648b89856f4b29a5040b902d22e6ab6" id="r_a6648b89856f4b29a5040b902d22e6ab6"><td class="memItemLeft">std::map&lt; <a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a>, <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6648b89856f4b29a5040b902d22e6ab6">_timings</a></td></tr>
 <tr class="memitem:a0934d9870bb052824ebf88742b5efb04" id="r_a0934d9870bb052824ebf88742b5efb04"><td class="memItemLeft">std::deque&lt; <a class="el" href="structhmi_1_1CombatCue.html">CombatCue</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0934d9870bb052824ebf88742b5efb04">_queue</a></td></tr>
 <tr class="memitem:a49bf29271602ddc3a7297e31400e0393" id="r_a49bf29271602ddc3a7297e31400e0393"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1CombatCueTrack_1_1Running.html">Running</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a49bf29271602ddc3a7297e31400e0393">_running</a></td></tr>
 </table>
@@ -344,6 +354,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a24c7538031a47c2466b9f57d32f8017f" name="a24c7538031a47c2466b9f57d32f8017f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c7538031a47c2466b9f57d32f8017f">&#9670;&#160;</a></span>gestureOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1GestureTiming.html">GestureTiming</a> hmi::CombatCueTrack::gestureOf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1CombatCue.html">CombatCue</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>cue</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le geste que joue <code class="param">cue</code> (attaque, tir ou sort) pour son acteur. </dd></dl>
+
+</div>
+</div>
 <a id="a49e582ba9ecdf7f00af7b43bc22c02e0" name="a49e582ba9ecdf7f00af7b43bc22c02e0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a49e582ba9ecdf7f00af7b43bc22c02e0">&#9670;&#160;</a></span>motionOf()</h2>
 
@@ -462,6 +498,29 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a1b02c9fea434f1d7a4b32e703f56cb20" name="a1b02c9fea434f1d7a4b32e703f56cb20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b02c9fea434f1d7a4b32e703f56cb20">&#9670;&#160;</a></span>setTimings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::CombatCueTrack::setTimings </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>actor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>timings</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Donne à <code class="param">actor</code> les durées de ses gestes ; sans elles, celles des bandes. </p>
+
+</div>
+</div>
 <a id="a218a18059ffaee9d819526442883a8c8" name="a218a18059ffaee9d819526442883a8c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a218a18059ffaee9d819526442883a8c8">&#9670;&#160;</a></span>startNext()</h2>
 
@@ -486,6 +545,84 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Démarre le fait suivant, et ceux qui l'accompagnent. </p>
+
+</div>
+</div>
+<a id="a82a77ccfc829e53531315636235d4538" name="a82a77ccfc829e53531315636235d4538"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82a77ccfc829e53531315636235d4538">&#9670;&#160;</a></span>stripTimings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> hmi::CombatCueTrack::stripTimings </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les durées d'une figurine en bandes : <span class="tt"><a class="el" href="#ac838aa510aa11e1d6256337e85026600" title="Une action ponctuelle dure sa bande : huit images à 80 ms (LOT-112).">ACTION_SECONDS</a></span>, l'impact à <span class="tt"><a class="el" href="#afd0414c9c8565543290b89aa58a7d098" title="Le coup porte au milieu de la bande d&#39;attaque : le touché et la chute de la cible commencent là,...">IMPACT_FRACTION</a></span>. </dd></dl>
+
+</div>
+</div>
+<a id="a602be75a81af7f15d6ad9ba2622c878a" name="a602be75a81af7f15d6ad9ba2622c878a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a602be75a81af7f15d6ad9ba2622c878a">&#9670;&#160;</a></span>timings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> &amp; hmi::CombatCueTrack::timings </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a></td>          <td class="paramname"><span class="paramname"><em>actor</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les durées des gestes de <code class="param">actor</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ab8d08c62faea414a3fe55627c176b80d" name="ab8d08c62faea414a3fe55627c176b80d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8d08c62faea414a3fe55627c176b80d">&#9670;&#160;</a></span>timingsOf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> hmi::CombatCueTrack::timingsOf </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1SkeletonDescription.html">core::SkeletonDescription</a> *</td>          <td class="paramname"><span class="paramname"><em>skeleton</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les durées des clips que <code class="param">skeleton</code> déclare ; celles des bandes pour un clip qu'il ne déclare pas, et pour un squelette nul. Un clip sans image clé porte à <span class="tt"><a class="el" href="#afd0414c9c8565543290b89aa58a7d098" title="Le coup porte au milieu de la bande d&#39;attaque : le touché et la chute de la cible commencent là,...">IMPACT_FRACTION</a></span> de sa durée ; le tir sans clip de tir est une attaque. </dd></dl>
 
 </div>
 </div>
@@ -545,6 +682,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1CombatCueTrack_1_1Running.html">Running</a>&gt; hmi::CombatCueTrack::_running</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6648b89856f4b29a5040b902d22e6ab6" name="a6648b89856f4b29a5040b902d22e6ab6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6648b89856f4b29a5040b902d22e6ab6">&#9670;&#160;</a></span>_timings</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a>, <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a>&gt; hmi::CombatCueTrack::_timings</td>
         </tr>
       </table>
   </td>

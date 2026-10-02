@@ -440,6 +440,18 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pixels d'un marqueur, en RVBA, ligne par ligne depuis le haut.  <a href="structcore_1_1MarkerImage.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MeshVertex" id="r_MeshVertex"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshVertex.html">MeshVertex</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sommet : position (mètres, hauteur +Y), normale unitaire, coordonnées de texture.  <a href="structcore_1_1MeshVertex.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MeshSkinVertex" id="r_MeshSkinVertex"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshSkinVertex.html">MeshSkinVertex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui lie un sommet au squelette : quatre os (rangs dans <span class="tt"><a class="el" href="structcore_1_1MeshRig.html#aa9fde3c383838f10b58e016333c70ed2">MeshRig::joints</a></span>) et leurs poids, de somme 1.  <a href="structcore_1_1MeshSkinVertex.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MeshJoint" id="r_MeshJoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshJoint.html">MeshJoint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un os du squelette : son nom, son parent, sa pose de repos et sa matrice de liaison.  <a href="structcore_1_1MeshJoint.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MeshChannel" id="r_MeshChannel"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshChannel.html">MeshChannel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les clés d'un canal : des instants croissants, et à chacun une valeur de <span class="tt">width</span> composantes (3 pour une translation, 4 pour une rotation).  <a href="structcore_1_1MeshChannel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MeshJointTrack" id="r_MeshJointTrack"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshJointTrack.html">MeshJointTrack</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un clip fait d'un os : sa translation et sa rotation dans le temps.  <a href="structcore_1_1MeshJointTrack.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MeshClip" id="r_MeshClip"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshClip.html">MeshClip</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un clip d'animation : un nom, une durée, une piste par os du squelette.  <a href="structcore_1_1MeshClip.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MeshRig" id="r_MeshRig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshRig.html">MeshRig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le squelette d'un modèle et ses clips.  <a href="structcore_1_1MeshRig.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MeshData" id="r_MeshData"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshData.html">MeshData</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un maillage lu : une seule liste de sommets, des triangles indexés, une matière.  <a href="structcore_1_1MeshData.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MeshFileResult" id="r_MeshFileResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshFileResult.html">MeshFileResult</a></td></tr>
@@ -454,6 +466,18 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une lecture : le manifeste, et ce qui a échoué.  <a href="structcore_1_1ScenePieceManifestResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SceneLevel" id="r_SceneLevel"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SceneLevel.html">SceneLevel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un niveau de la résolution : un dossier de pièces, et ce qu'il sert.  <a href="structcore_1_1SceneLevel.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SkeletonBone" id="r_SkeletonBone"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SkeletonBone.html">SkeletonBone</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un os déclaré : son nom, celui de son parent (vide pour la racine).  <a href="structcore_1_1SkeletonBone.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SkeletonClip" id="r_SkeletonClip"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SkeletonClip.html">SkeletonClip</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un clip déclaré : sa durée, sa boucle, son image clé.  <a href="structcore_1_1SkeletonClip.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SkeletonDescription" id="r_SkeletonDescription"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SkeletonDescription.html">SkeletonDescription</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le squelette d'une silhouette, tel que son fichier le déclare.  <a href="structcore_1_1SkeletonDescription.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SkeletonFileResult" id="r_SkeletonFileResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1SkeletonFileResult.html">SkeletonFileResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une lecture de squelette : la description, ou ce qui a échoué.  <a href="structcore_1_1SkeletonFileResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CharacterSheetFile" id="r_CharacterSheetFile"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CharacterSheetFile.html">CharacterSheetFile</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche d'un personnage : son modèle et son squelette.  <a href="structcore_1_1CharacterSheetFile.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CharacterSheetFileResult" id="r_CharacterSheetFileResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CharacterSheetFileResult.html">CharacterSheetFileResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une lecture de fiche : la fiche, ou ce qui a échoué.  <a href="structcore_1_1CharacterSheetFileResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CreatureTrait" id="r_CreatureTrait"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CreatureTrait.html">CreatureTrait</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un trait de créature : un nom et sa description, tels que le livre les écrit.  <a href="structcore_1_1CreatureTrait.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CreatureAction" id="r_CreatureAction"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1CreatureAction.html">CreatureAction</a></td></tr>
@@ -682,6 +706,8 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:a9f79b235a73b6264aa3a97d51267919d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Valeur d'une propriété libre : booléen, entier, réel ou chaîne.  <br /></td></tr>
 <tr class="memitem:ac3cd7f319efbfd33f183ca31782d1731" id="r_ac3cd7f319efbfd33f183ca31782d1731"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ac3cd7f319efbfd33f183ca31782d1731">PropertyMap</a> = std::map&lt;std::string, <a class="el" href="#a9f79b235a73b6264aa3a97d51267919d">PropertyValue</a>&gt;</td></tr>
 <tr class="memdesc:ac3cd7f319efbfd33f183ca31782d1731"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriétés libres, indexées par nom.  <br /></td></tr>
+<tr class="memitem:af973b9d886256b459488301c0a5f1487" id="r_af973b9d886256b459488301c0a5f1487"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#af973b9d886256b459488301c0a5f1487">MeshMatrix</a> = std::array&lt;float, 16&gt;</td></tr>
+<tr class="memdesc:af973b9d886256b459488301c0a5f1487"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une matrice 4 × 4 en colonnes, comme glTF l'écrit : <span class="tt">m[colonne * 4 + ligne]</span>.  <br /></td></tr>
 <tr class="memitem:a6c8c611f5b03ec8461b387664a026ac0" id="r_a6c8c611f5b03ec8461b387664a026ac0"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a> = std::map&lt;std::string, std::string, std::less&lt;&gt;&gt;</td></tr>
 <tr class="memdesc:a6c8c611f5b03ec8461b387664a026ac0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier de chaque figurine qu'un lieu peut poser : slug → dossier relatif à <span class="tt">Assets/</span>.  <br /></td></tr>
 <tr class="memitem:ada797bec5feb2db47430f23934f11b26" id="r_ada797bec5feb2db47430f23934f11b26"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ada797bec5feb2db47430f23934f11b26">TrailPoint</a> = <a class="el" href="structcore_1_1Vector2.html">Vector2</a></td></tr>
@@ -1727,6 +1753,22 @@ Functions</h2></td></tr>
 <tr class="memdesc:a03fbe375242fffeae3499c57aaa301bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines que le lieu <code class="param">place</code> peut poser : le slug de chaque entrée <span class="tt">npcs</span> des manifestes de ses niveaux (<span class="tt"><a class="el" href="#aa631d92fa5bd146a155ee27d970b6b6a" title="Les niveaux candidats des figurines de place, du plus propre au monde (LOT-124) : Regions/&lt;préfixe&gt;/C...">characterLevelCandidates</a></span>), vers son dossier.  <br /></td></tr>
 <tr class="memitem:aed05eea4a2732d4c5a29181733d80f08" id="r_aed05eea4a2732d4c5a29181733d80f08"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aed05eea4a2732d4c5a29181733d80f08">figureDirectory</a> (const <a class="el" href="#a6c8c611f5b03ec8461b387664a026ac0">FigureDirectories</a> &amp;figures, std::string_view figure)</td></tr>
 <tr class="memdesc:aed05eea4a2732d4c5a29181733d80f08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier, relatif à <span class="tt">Assets/</span>, de la figurine <code class="param">figure</code> : celui que <code class="param">figures</code> lui donne ; à défaut, <code class="param">figure</code> lui-même s'il contient une barre (un dossier nommé depuis <span class="tt">Assets/</span>, <span class="tt">Common/Characters/Heroes/brawler</span>) ; à défaut, <span class="tt">Npc/&lt;slug&gt;</span>, l'atelier à plat des racines d'essai.  <br /></td></tr>
+<tr class="memitem:ae94fd4b025dbbaa8831bdddf23a6375d" id="r_ae94fd4b025dbbaa8831bdddf23a6375d"><td class="memItemLeft"><a class="el" href="structcore_1_1SkeletonFileResult.html">SkeletonFileResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae94fd4b025dbbaa8831bdddf23a6375d">readSkeletonDescription</a> (std::string_view json)</td></tr>
+<tr class="memdesc:ae94fd4b025dbbaa8831bdddf23a6375d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit la description d'un squelette depuis le texte de son fichier.  <br /></td></tr>
+<tr class="memitem:aa1986c82281edc74263c4daa8461de7d" id="r_aa1986c82281edc74263c4daa8461de7d"><td class="memItemLeft"><a class="el" href="structcore_1_1SkeletonFileResult.html">SkeletonFileResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa1986c82281edc74263c4daa8461de7d">readSkeletonFile</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:aa1986c82281edc74263c4daa8461de7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit <span class="tt">skeleton.json</span> ; un fichier absent est une erreur du résultat.  <br /></td></tr>
+<tr class="memitem:a18606df00c2b63862aac8527090414da" id="r_a18606df00c2b63862aac8527090414da"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a18606df00c2b63862aac8527090414da">skeletonFilePath</a> (std::string_view silhouette)</td></tr>
+<tr class="memitem:a79e8f0c811f53aa7ba238f9418d9e1d5" id="r_a79e8f0c811f53aa7ba238f9418d9e1d5"><td class="memItemLeft"><a class="el" href="structcore_1_1CharacterSheetFileResult.html">CharacterSheetFileResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a79e8f0c811f53aa7ba238f9418d9e1d5">readCharacterSheet</a> (std::string_view json)</td></tr>
+<tr class="memdesc:a79e8f0c811f53aa7ba238f9418d9e1d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit la fiche d'un personnage depuis le texte de son fichier.  <br /></td></tr>
+<tr class="memitem:a20b30a44af52e22bf63548269391fcbf" id="r_a20b30a44af52e22bf63548269391fcbf"><td class="memItemLeft"><a class="el" href="structcore_1_1CharacterSheetFileResult.html">CharacterSheetFileResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a20b30a44af52e22bf63548269391fcbf">readCharacterSheetFile</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:a20b30a44af52e22bf63548269391fcbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit <span class="tt">character.json</span> ; un fichier absent est une erreur du résultat.  <br /></td></tr>
+<tr class="memitem:a0b6ca7836768941b4c14bb76c2552aed" id="r_a0b6ca7836768941b4c14bb76c2552aed"><td class="memItemLeft">const <a class="el" href="structcore_1_1MeshClip.html">MeshClip</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0b6ca7836768941b4c14bb76c2552aed">findClip</a> (const <a class="el" href="structcore_1_1MeshRig.html">MeshRig</a> &amp;rig, std::string_view name) noexcept</td></tr>
+<tr class="memitem:a8feddcde13680d73638adeb214969231" id="r_a8feddcde13680d73638adeb214969231"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8feddcde13680d73638adeb214969231">clipTime</a> (float seconds, float duration, bool loop) noexcept</td></tr>
+<tr class="memdesc:a8feddcde13680d73638adeb214969231"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'instant d'un clip de <code class="param">duration</code> secondes joué depuis <code class="param">seconds</code> : ramené dans le clip s'il <b>boucle</b>, figé sur sa fin sinon — un mort ne se relève pas parce que le temps passe.  <br /></td></tr>
+<tr class="memitem:a06e6ef3c1d8c7e062c5e96b8ff6adb6d" id="r_a06e6ef3c1d8c7e062c5e96b8ff6adb6d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a06e6ef3c1d8c7e062c5e96b8ff6adb6d">poseSkeleton</a> (const <a class="el" href="structcore_1_1MeshRig.html">MeshRig</a> &amp;rig, const <a class="el" href="structcore_1_1MeshClip.html">MeshClip</a> *clip, float seconds, std::span&lt; float &gt; out)</td></tr>
+<tr class="memdesc:a06e6ef3c1d8c7e062c5e96b8ff6adb6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule la pose de <code class="param">rig</code> à l'instant <code class="param">seconds</code> de <code class="param">clip</code>.  <br /></td></tr>
+<tr class="memitem:a78a602290fefe7abb3203a3d8d3b6d57" id="r_a78a602290fefe7abb3203a3d8d3b6d57"><td class="memItemLeft">std::array&lt; float, 3 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a78a602290fefe7abb3203a3d8d3b6d57">skinnedPosition</a> (std::span&lt; const float &gt; matrices, const <a class="el" href="structcore_1_1MeshSkinVertex.html">MeshSkinVertex</a> &amp;skin, const std::array&lt; float, 3 &gt; &amp;position) noexcept</td></tr>
+<tr class="memdesc:a78a602290fefe7abb3203a3d8d3b6d57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le point <code class="param">position</code> d'un sommet lié par <code class="param">skin</code>, déformé par la pose <code class="param">matrices</code> (<span class="tt"><a class="el" href="#a06e6ef3c1d8c7e062c5e96b8ff6adb6d" title="Calcule la pose de rig à l&#39;instant seconds de clip.">poseSkeleton</a></span>) : la somme pondérée de ses quatre os.  <br /></td></tr>
 <tr class="memitem:ad539e41d55b3f90675658586d0d0b77e" id="r_ad539e41d55b3f90675658586d0d0b77e"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ad539e41d55b3f90675658586d0d0b77e">abilityName</a> (<a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> ability) noexcept</td></tr>
 <tr class="memdesc:ad539e41d55b3f90675658586d0d0b77e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom textuel d'une caractéristique, tel que les données l'écrivent.  <br /></td></tr>
 <tr class="memitem:a6faed4224d505ed620516937e3a019dd" id="r_a6faed4224d505ed620516937e3a019dd"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a97f31c7914a6cfc54cc026a77da58fd1">Ability</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6faed4224d505ed620516937e3a019dd">parseAbility</a> (std::string_view name) noexcept</td></tr>
@@ -2060,8 +2102,16 @@ Variables</h2></td></tr>
 <tr class="memdesc:a49c6e01fbd8905740993109a36f65c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolérance par défaut pour les comparaisons de flottants issus de calculs.  <br /></td></tr>
 <tr class="memitem:a3327fed926d0ab370f4a57aaf112c3bc" id="r_a3327fed926d0ab370f4a57aaf112c3bc"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a3327fed926d0ab370f4a57aaf112c3bc">MESH_FILE_EXTENSION</a> = &quot;.glb&quot;</td></tr>
 <tr class="memdesc:a3327fed926d0ab370f4a57aaf112c3bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'extension d'un fichier de maillage, point compris.  <br /></td></tr>
+<tr class="memitem:a4fbdd7de5dcc2e38a118aebcc1e21cbe" id="r_a4fbdd7de5dcc2e38a118aebcc1e21cbe"><td class="memItemLeft">constexpr <a class="el" href="#af973b9d886256b459488301c0a5f1487">MeshMatrix</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4fbdd7de5dcc2e38a118aebcc1e21cbe">MESH_IDENTITY</a> = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}</td></tr>
+<tr class="memdesc:a4fbdd7de5dcc2e38a118aebcc1e21cbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">La matrice identité.  <br /></td></tr>
+<tr class="memitem:a74b37fae60cf9f8b2700060502783263" id="r_a74b37fae60cf9f8b2700060502783263"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a74b37fae60cf9f8b2700060502783263">MESH_MAX_JOINTS</a> = 256</td></tr>
+<tr class="memdesc:a74b37fae60cf9f8b2700060502783263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus d'os qu'un squelette lu peut porter.  <br /></td></tr>
 <tr class="memitem:a54740985552311c9bd3ca1b0974a7421" id="r_a54740985552311c9bd3ca1b0974a7421"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a54740985552311c9bd3ca1b0974a7421">MESH_FILE_MAX_BYTES</a> = std::size_t{512} * 1024 * 1024</td></tr>
 <tr class="memdesc:a54740985552311c9bd3ca1b0974a7421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus gros fichier lu, en octets : au-delà, ce n'est pas un modèle du jeu.  <br /></td></tr>
+<tr class="memitem:aabfd40b8cebbaeb2ce2d3b82471aecd7" id="r_aabfd40b8cebbaeb2ce2d3b82471aecd7"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aabfd40b8cebbaeb2ce2d3b82471aecd7">SKELETON_FORMAT_VERSION</a> = 1</td></tr>
+<tr class="memdesc:aabfd40b8cebbaeb2ce2d3b82471aecd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version des deux formats écrite dans les fichiers, et plus élevée qui soit lue.  <br /></td></tr>
+<tr class="memitem:a69365a0e5a29fabafefd54c1636067f3" id="r_a69365a0e5a29fabafefd54c1636067f3"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a69365a0e5a29fabafefd54c1636067f3">CHARACTER_SHEET_FILE</a> = &quot;character.json&quot;</td></tr>
+<tr class="memdesc:a69365a0e5a29fabafefd54c1636067f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fichier de la fiche d'un personnage, dans son dossier.  <br /></td></tr>
 <tr class="memitem:a42b6dd302d4b68da1f4bdd439884b338" id="r_a42b6dd302d4b68da1f4bdd439884b338"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a42b6dd302d4b68da1f4bdd439884b338">D20_FACES</a> = 20</td></tr>
 <tr class="memdesc:a42b6dd302d4b68da1f4bdd439884b338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de faces du dé de résolution. Le d20 est la mécanique centrale du jeu.  <br /></td></tr>
 <tr class="memitem:a006cfa27ffaf19379846a0d2c1963c00" id="r_a006cfa27ffaf19379846a0d2c1963c00"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a006cfa27ffaf19379846a0d2c1963c00">DIALOGUE_CONTINUE_CHOICE</a> = &quot;continue&quot;</td></tr>
@@ -2268,6 +2318,22 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le dossier de chaque figurine qu'un lieu peut poser : slug → dossier relatif à <span class="tt">Assets/</span>. </p>
+
+</div>
+</div>
+<a id="af973b9d886256b459488301c0a5f1487" name="af973b9d886256b459488301c0a5f1487"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af973b9d886256b459488301c0a5f1487">&#9670;&#160;</a></span>MeshMatrix</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#af973b9d886256b459488301c0a5f1487">core::MeshMatrix</a> = std::array&lt;float, 16&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une matrice 4 × 4 en colonnes, comme glTF l'écrit : <span class="tt">m[colonne * 4 + ligne]</span>. </p>
 
 </div>
 </div>
@@ -6797,6 +6863,42 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a8feddcde13680d73638adeb214969231" name="a8feddcde13680d73638adeb214969231"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8feddcde13680d73638adeb214969231">&#9670;&#160;</a></span>clipTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::clipTime </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>seconds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>duration</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>loop</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'instant d'un clip de <code class="param">duration</code> secondes joué depuis <code class="param">seconds</code> : ramené dans le clip s'il <b>boucle</b>, figé sur sa fin sinon — un mort ne se relève pas parce que le temps passe. </p>
+
+</div>
+</div>
 <a id="a81edd55832615bfecbb8da06147ef2c6" name="a81edd55832615bfecbb8da06147ef2c6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a81edd55832615bfecbb8da06147ef2c6">&#9670;&#160;</a></span>collisionAgrees()</h2>
 
@@ -8678,6 +8780,36 @@ Déterministe, et c'est le point</h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>La portion après le dernier séparateur, ou le chemin entier s'il n'y en a pas. </dd></dl>
+
+</div>
+</div>
+<a id="a0b6ca7836768941b4c14bb76c2552aed" name="a0b6ca7836768941b4c14bb76c2552aed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b6ca7836768941b4c14bb76c2552aed">&#9670;&#160;</a></span>findClip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1MeshClip.html">MeshClip</a> * core::findClip </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1MeshRig.html">MeshRig</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rig</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le clip <code class="param">name</code> de <code class="param">rig</code>, <span class="tt">nullptr</span> s'il n'en a pas de ce nom. </dd></dl>
 
 </div>
 </div>
@@ -12513,6 +12645,48 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a06e6ef3c1d8c7e062c5e96b8ff6adb6d" name="a06e6ef3c1d8c7e062c5e96b8ff6adb6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06e6ef3c1d8c7e062c5e96b8ff6adb6d">&#9670;&#160;</a></span>poseSkeleton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::poseSkeleton </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1MeshRig.html">MeshRig</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rig</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1MeshClip.html">MeshClip</a> *</td>          <td class="paramname"><span class="paramname"><em>clip</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>seconds</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::span&lt; float &gt;</td>          <td class="paramname"><span class="paramname"><em>out</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calcule la pose de <code class="param">rig</code> à l'instant <code class="param">seconds</code> de <code class="param">clip</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rig</td><td>Le squelette. </td></tr>
+    <tr><td class="paramname">clip</td><td>Le clip joué ; <span class="tt">nullptr</span> : la pose de repos. </td></tr>
+    <tr><td class="paramname">seconds</td><td>L'instant dans le clip (<span class="tt"><a class="el" href="#a8feddcde13680d73638adeb214969231" title="L&#39;instant d&#39;un clip de duration secondes joué depuis seconds : ramené dans le clip s&#39;il boucle,...">clipTime</a></span>) ; avant la première clé ou après la dernière, la clé du bord vaut. </td></tr>
+    <tr><td class="paramname">out</td><td>Seize flottants par os, en colonnes, dans l'ordre de <span class="tt">rig.joints</span> ; un tampon trop court n'est pas écrit. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a569a17f14f76ba1b657c3d43521dd3cc" name="a569a17f14f76ba1b657c3d43521dd3cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a569a17f14f76ba1b657c3d43521dd3cc">&#9670;&#160;</a></span>positionOf()</h2>
 
@@ -13208,6 +13382,60 @@ Les places</h2>
 
 </div>
 </div>
+<a id="a79e8f0c811f53aa7ba238f9418d9e1d5" name="a79e8f0c811f53aa7ba238f9418d9e1d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79e8f0c811f53aa7ba238f9418d9e1d5">&#9670;&#160;</a></span>readCharacterSheet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1CharacterSheetFileResult.html">CharacterSheetFileResult</a> core::readCharacterSheet </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>json</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit la fiche d'un personnage depuis le texte de son fichier. </p>
+
+</div>
+</div>
+<a id="a20b30a44af52e22bf63548269391fcbf" name="a20b30a44af52e22bf63548269391fcbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20b30a44af52e22bf63548269391fcbf">&#9670;&#160;</a></span>readCharacterSheetFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1CharacterSheetFileResult.html">CharacterSheetFileResult</a> core::readCharacterSheetFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit <span class="tt">character.json</span> ; un fichier absent est une erreur du résultat. </p>
+
+</div>
+</div>
 <a id="a7ca203540a075321cb431c2a237b45a3" name="a7ca203540a075321cb431c2a237b45a3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ca203540a075321cb431c2a237b45a3">&#9670;&#160;</a></span>readDialogue()</h2>
 
@@ -13501,6 +13729,60 @@ Les places</h2>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ae94fd4b025dbbaa8831bdddf23a6375d" name="ae94fd4b025dbbaa8831bdddf23a6375d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae94fd4b025dbbaa8831bdddf23a6375d">&#9670;&#160;</a></span>readSkeletonDescription()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1SkeletonFileResult.html">SkeletonFileResult</a> core::readSkeletonDescription </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>json</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit la description d'un squelette depuis le texte de son fichier. </p>
+
+</div>
+</div>
+<a id="aa1986c82281edc74263c4daa8461de7d" name="aa1986c82281edc74263c4daa8461de7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1986c82281edc74263c4daa8461de7d">&#9670;&#160;</a></span>readSkeletonFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1SkeletonFileResult.html">SkeletonFileResult</a> core::readSkeletonFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit <span class="tt">skeleton.json</span> ; un fichier absent est une erreur du résultat. </p>
 
 </div>
 </div>
@@ -14336,6 +14618,32 @@ Les places</h2>
 
 </div>
 </div>
+<a id="a18606df00c2b63862aac8527090414da" name="a18606df00c2b63862aac8527090414da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18606df00c2b63862aac8527090414da">&#9670;&#160;</a></span>skeletonFilePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::skeletonFilePath </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>silhouette</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le chemin, relatif au dossier des assets, de la description du squelette de <code class="param">silhouette</code> : <span class="tt">Common/Characters/Skeletons/&lt;silhouette&gt;/skeleton.json</span>. </dd></dl>
+
+</div>
+</div>
 <a id="a29026a1c7235970e3f432ac5d08229ad" name="a29026a1c7235970e3f432ac5d08229ad"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a29026a1c7235970e3f432ac5d08229ad">&#9670;&#160;</a></span>skillModifier()</h2>
 
@@ -14374,6 +14682,43 @@ Les places</h2>
 </div><div class="memdoc">
 
 <p>Le modificateur de la compétence <code class="param">skillId</code> pour <code class="param">sheet</code> : caractéristique du catalogue, plus le bonus de maîtrise de <code class="param">table</code> si la fiche maîtrise la compétence. </p>
+
+</div>
+</div>
+<a id="a78a602290fefe7abb3203a3d8d3b6d57" name="a78a602290fefe7abb3203a3d8d3b6d57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78a602290fefe7abb3203a3d8d3b6d57">&#9670;&#160;</a></span>skinnedPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt; float, 3 &gt; core::skinnedPosition </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; const float &gt;</td>          <td class="paramname"><span class="paramname"><em>matrices</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1MeshSkinVertex.html">MeshSkinVertex</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>skin</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::array&lt; float, 3 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>position</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le point <code class="param">position</code> d'un sommet lié par <code class="param">skin</code>, déformé par la pose <code class="param">matrices</code> (<span class="tt"><a class="el" href="#a06e6ef3c1d8c7e062c5e96b8ff6adb6d" title="Calcule la pose de rig à l&#39;instant seconds de clip.">poseSkeleton</a></span>) : la somme pondérée de ses quatre os. </p>
+<p>Ce que le shader calcule, pour un test ou une mesure. </p>
 
 </div>
 </div>
@@ -15652,6 +15997,30 @@ Les places</h2>
 
 </div>
 </div>
+<a id="a69365a0e5a29fabafefd54c1636067f3" name="a69365a0e5a29fabafefd54c1636067f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69365a0e5a29fabafefd54c1636067f3">&#9670;&#160;</a></span>CHARACTER_SHEET_FILE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::CHARACTER_SHEET_FILE = &quot;character.json&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le fichier de la fiche d'un personnage, dans son dossier. </p>
+
+</div>
+</div>
 <a id="ac0558491c9327cc507693fb30f382432" name="ac0558491c9327cc507693fb30f382432"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac0558491c9327cc507693fb30f382432">&#9670;&#160;</a></span>CITY_BLOCK_ENTITY_TYPE</h2>
 
@@ -16429,6 +16798,54 @@ Les places</h2>
 
 </div>
 </div>
+<a id="a4fbdd7de5dcc2e38a118aebcc1e21cbe" name="a4fbdd7de5dcc2e38a118aebcc1e21cbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fbdd7de5dcc2e38a118aebcc1e21cbe">&#9670;&#160;</a></span>MESH_IDENTITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#af973b9d886256b459488301c0a5f1487">MeshMatrix</a> core::MESH_IDENTITY = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La matrice identité. </p>
+
+</div>
+</div>
+<a id="a74b37fae60cf9f8b2700060502783263" name="a74b37fae60cf9f8b2700060502783263"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74b37fae60cf9f8b2700060502783263">&#9670;&#160;</a></span>MESH_MAX_JOINTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t core::MESH_MAX_JOINTS = 256</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le plus d'os qu'un squelette lu peut porter. </p>
+
+</div>
+</div>
 <a id="a511d502baab5befb28a3742b65ee1e61" name="a511d502baab5befb28a3742b65ee1e61"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a511d502baab5befb28a3742b65ee1e61">&#9670;&#160;</a></span>METERS_PER_TILE</h2>
 
@@ -17014,6 +17431,30 @@ Les places</h2>
 </div><div class="memdoc">
 
 <p>Propriété d'une forme <span class="tt">Rectangle</span> ou <span class="tt">Area</span> : sa largeur, en cases. </p>
+
+</div>
+</div>
+<a id="aabfd40b8cebbaeb2ce2d3b82471aecd7" name="aabfd40b8cebbaeb2ce2d3b82471aecd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabfd40b8cebbaeb2ce2d3b82471aecd7">&#9670;&#160;</a></span>SKELETON_FORMAT_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::SKELETON_FORMAT_VERSION = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Version des deux formats écrite dans les fichiers, et plus élevée qui soit lue. </p>
 
 </div>
 </div>

@@ -160,6 +160,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:aa8c70d040a3e77d11f587b4c3476c876"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si la figurine a ses bandes orientées (<span class="tt">idle-se.png</span>…).  <br /></td></tr>
 <tr class="memitem:a60916348b00f029cbd0fa2f18a0b3f89" id="r_a60916348b00f029cbd0fa2f18a0b3f89"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a60916348b00f029cbd0fa2f18a0b3f89">placeholder</a> = false</td></tr>
 <tr class="memdesc:a60916348b00f029cbd0fa2f18a0b3f89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si c'est un mannequin qui tient la place de la figurine nommée.  <br /></td></tr>
+<tr class="memitem:aa04d0fb8c60699ae255b0c3f095e9628" id="r_aa04d0fb8c60699ae255b0c3f095e9628"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aa04d0fb8c60699ae255b0c3f095e9628">model</a></td></tr>
+<tr class="memdesc:aa04d0fb8c60699ae255b0c3f095e9628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le modèle de la figurine (<span class="tt">LOT-1005</span>) : le chemin de son <span class="tt">.glb</span>, relatif au dossier des assets.  <br /></td></tr>
+<tr class="memitem:ab9cf62a082425206167a5d2f2143bcc3" id="r_ab9cf62a082425206167a5d2f2143bcc3"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structcore_1_1SkeletonDescription.html">core::SkeletonDescription</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab9cf62a082425206167a5d2f2143bcc3">skeleton</a></td></tr>
+<tr class="memdesc:ab9cf62a082425206167a5d2f2143bcc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que déclare le squelette du modèle — durée, boucle et image clé de ses clips ; nul pour des bandes, ou si la description ne se lit pas.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce que le résolveur a trouvé pour une figurine. </p>
@@ -206,6 +210,23 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa04d0fb8c60699ae255b0c3f095e9628" name="aa04d0fb8c60699ae255b0c3f095e9628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa04d0fb8c60699ae255b0c3f095e9628">&#9670;&#160;</a></span>model</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::ResolvedFigure::model</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le modèle de la figurine (<span class="tt">LOT-1005</span>) : le chemin de son <span class="tt">.glb</span>, relatif au dossier des assets. </p>
+<p>Vide : elle se dessine par ses bandes. </p>
+
+</div>
+</div>
 <a id="aa8c70d040a3e77d11f587b4c3476c876" name="aa8c70d040a3e77d11f587b4c3476c876"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa8c70d040a3e77d11f587b4c3476c876">&#9670;&#160;</a></span>oriented</h2>
 
@@ -235,6 +256,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Vrai si c'est un mannequin qui tient la place de la figurine nommée. </p>
+
+</div>
+</div>
+<a id="ab9cf62a082425206167a5d2f2143bcc3" name="ab9cf62a082425206167a5d2f2143bcc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9cf62a082425206167a5d2f2143bcc3">&#9670;&#160;</a></span>skeleton</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;const <a class="el" href="structcore_1_1SkeletonDescription.html">core::SkeletonDescription</a>&gt; hmi::ResolvedFigure::skeleton</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que déclare le squelette du modèle — durée, boucle et image clé de ses clips ; nul pour des bandes, ou si la description ne se lit pas. </p>
 
 </div>
 </div>
