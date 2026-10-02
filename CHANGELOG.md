@@ -6,6 +6,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1004 — clos sans modification.** Le kit de la Capitale ne se convertit pas en maillages
+  dans la `0.0.2.5` : l'auteur reprend l'intégralité des assets à la `0.0.3` (décision D-43). La
+  fiche passe à `abandonne` ; ses livrables, ses suppressions et les questions que le standard 3D
+  lui laissait (contour sombre, forme des pièces, budget d'un maillage de décor) passent au
+  `LOT-151`. L'architecture du kit rejoint la dette d'images déclarée de la version ; les
+  `LOT-1007` et `LOT-1008` ne l'attendent plus. Aucun code, aucun asset ne change.
+
 - **LOT-1006 — Le squelette commun et le mannequin.** Tout personnage paraît par son modèle ou
   par le mannequin de sa silhouette : il ne reste aucune bande de figurine.
   - Le mannequin humanoïde est lié au squelette commun (`Common/Characters/Mannequins/humanoid/`,

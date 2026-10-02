@@ -3,7 +3,7 @@ id = "LOT-1004"
 titre = "Le kit de la Capitale en maillages"
 version = "0.0.2.5"
 filiere = "assets"
-statut = "a-faire"
+statut = "abandonne"
 taille = "L"
 resume = "L'architecture de la Capitale — sols, murs, balustrades, haies, escaliers, toits — devient des volumes : mêmes clés, mêmes cartes, et la combinatoire des pièces d'angle et de jonction disparaît."
 prerequis = ["LOT-1003"]
@@ -26,6 +26,15 @@ criteres = [
   "Le standard 3D n'a plus de ligne ouverte « LOT-1004 » : contour, formes et budget de décor y sont écrits, datés.",
 ]
 +++
+
+> **Clos sans modification le 2 octobre 2026** ([D-43](../../../../vision/decisions.md)). L'auteur
+> reprend **l'intégralité des assets** à la phase suivante : convertir ici 1 340 images en
+> maillages serait produire un kit que la `0.0.3` refait. Rien de ce lot n'a été produit ni
+> supprimé. Ses livrables, ses critères, sa liste « À supprimer » et les trois questions que le
+> standard 3D lui laissait (contour sombre, forme de chaque pièce, budget d'un maillage de décor)
+> passent au [LOT-151](../../v0.0.3-capitale-intra-muros/lots/LOT-151-kit-commun-intra-muros.md),
+> qui ouvre la création des assets de la `0.0.3`. La fiche ci-dessous reste telle qu'elle a été
+> écrite : c'est l'inventaire dont le LOT-151 repart.
 
 ## Pourquoi
 

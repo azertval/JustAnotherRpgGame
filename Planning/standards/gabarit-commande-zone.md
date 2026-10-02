@@ -10,8 +10,9 @@ et suit chaque pièce de la commande à l'asset installé. Livrée par le
 > pour les deux. Le chemin et le descripteur décrits ensuite sont ceux d'une **image tolérée**
 > ([standard 3D, §7](style-3d.md#7-les-images-tolérées)) — mobilier, pièces maîtresses, kits non
 > encore repris. Le chemin d'un **maillage** de décor (sa source, son script, son entrée `"mesh"`)
-> s'écrit au [LOT-1004](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1004-kit-de-la-capitale-en-maillages.md),
-> sur le kit de la Capitale : cette page le recevra alors. Les lots de zone de la `0.0.3` se
+> s'écrit au [LOT-151](../versions/v0.1.0/v0.0.3-capitale-intra-muros/lots/LOT-151-kit-commun-intra-muros.md),
+> sur le kit de la Capitale (le LOT-1004, qui devait l'écrire, est clos sans modification —
+> [D-43](../vision/decisions.md)) : cette page le recevra alors. Les lots de zone de la `0.0.3` se
 > réécrivent à la recette de la `0.0.2.5` ([D-35](../vision/decisions.md)).
 
 ## Où elle vit

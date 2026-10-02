@@ -6,7 +6,7 @@ filiere = "editeur"
 statut = "a-faire"
 taille = "L"
 resume = "Dans l'éditeur, une fenêtre où l'on lie les éléments entre eux : écrire la fiche d'un personnage, composer un ensemble de décor qui paraît dans l'onglet « Prefabs »."
-prerequis = ["LOT-1004", "LOT-1006"]
+prerequis = ["LOT-1006"]
 livrables = [
   "La fenêtre **Asset workshop** de `LevelEditor`, à deux vues, avec un aperçu 3D commun rendu par le rendu du jeu : lecture des six animations, quart de tour, heure du jour.",
   "Vue **Character** : choisir le modèle, le portrait, le jeton et la silhouette ; elle écrit la fiche du personnage sous `Characters/`.",
@@ -42,7 +42,8 @@ Dedans : les deux vues, leur logique, leurs scénarios sans fenêtre, le contrô
 Dehors, nommément :
 
 - **modeler** : l'atelier lie, il ne sculpte pas. Les maillages viennent de Blender ;
-- le **kit de la Capitale** : ses pièces sortent du script du kit (LOT-1004), pas de la vue Scenery,
+- le **kit de la Capitale** : ses pièces sortent du script du kit (LOT-151, depuis la clôture du
+  LOT-1004 — [D-43](../../../../vision/decisions.md)), pas de la vue Scenery,
   qui sert aux maillages importés un par un et à la composition des ensembles ;
 - le **placement hors grille** : le format v4 ancre une pièce sur une case. Poser un maillage entre
   deux cases ou le tourner d'un angle libre est une évolution du format, à décider à part.

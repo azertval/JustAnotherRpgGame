@@ -88,7 +88,7 @@ dossier = "v0.1.0/v0.0.2.5-passage-3d"
 resume = "Le jeu garde sa vue isométrique et passe en 3D : un personnage est un corps commun, une texture et des pièces d'équipement sur un squelette partagé ; le décor d'architecture est en maillages, éclairé, avec un cycle jour / nuit. Chaque lot retire ce qu'il remplace."
 objectifs = [
   "Une **production de personnages stable** : un corps parmi huit (deux sexes, quatre corpulences), une texture par personnage, une bibliothèque de pièces d'équipement, six animations réglées une fois sur un squelette commun (décision D-31).",
-  "Un **décor d'architecture en maillages** sous la même caméra isométrique, et un **cycle jour / nuit** : soleil, ombres portées, lumières de nuit.",
+  "Un **cycle jour / nuit** sous la même caméra isométrique : soleil, ombres portées, lumières de nuit. Le **décor d'architecture en maillages** est reporté à la `0.0.3` (décision D-43, 2 octobre 2026).",
   "Un **atelier des assets 3D** dans l'éditeur : déclarer une pièce, assembler un personnage, composer un ensemble de décor en préfabriqué (décision D-33).",
   "Un **dépôt sans asset mort** : chaque lot nomme ce qu'il supprime, et le supprime dans sa propre PR (décision D-32).",
 ]

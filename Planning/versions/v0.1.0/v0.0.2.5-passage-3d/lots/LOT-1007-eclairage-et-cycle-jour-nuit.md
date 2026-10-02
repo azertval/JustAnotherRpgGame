@@ -6,7 +6,7 @@ filiere = "moteur"
 statut = "a-faire"
 taille = "L"
 resume = "Le monde a une heure : le soleil tourne, les ombres s'allongent, et la nuit les lampadaires et les fenêtres éclairent la rue."
-prerequis = ["LOT-1004"]
+prerequis = ["LOT-1003"]
 livrables = [
   "L'**heure du monde** dans `Source/Core` : elle avance avec le temps de jeu, se fige en combat, se lit et se règle par une commande de débug ; rien d'autre n'en dépend dans cette version.",
   "Un **shader éclairé** pour les maillages : lumière d'ambiance et soleil directionnel, dont la couleur et la direction suivent l'heure par une table en données.",
@@ -17,10 +17,10 @@ livrables = [
 ]
 criteres = [
   "Sur la carte d'Arenarea, l'auteur juge un cycle complet accéléré : pas de saut de lumière, une nuit où l'on lit encore la grille et les personnages.",
-  "À midi, le rendu d'un mur et d'un toit est conforme à celui du LOT-1004 : la lumière n'a pas changé la facture validée.",
+  "À midi, le rendu d'un mur et d'un toit en maillage de la carte d'essai (`Source/Test/Fixtures/Meshes`) est conforme à leur rendu sans lumière : la lumière n'a pas changé la facture.",
   "Un combat lancé de nuit se joue et se lit comme de jour : cases de portée, cibles et zones restent visibles.",
   "`bench_world_frame` tient la cadence avec ombres et huit lumières de nuit à l'écran.",
-  "Aucune texture du kit ne porte plus d'ombre propre cuite : la même matière sert à toute heure.",
+  "Aucune texture de **modèle** ne porte d'ombre propre cuite : la même matière sert à toute heure. Celles du kit de la Capitale, resté en images (D-43), partent avec lui à la `0.0.3`.",
 ]
 +++
 
@@ -28,6 +28,12 @@ criteres = [
 
 C'est le second but de la version. Il n'est possible que parce que le décor a désormais des faces
 orientées : une image peinte garde sa lumière « du haut à gauche » à toute heure.
+
+> **Amendé le 2 octobre 2026** ([D-43](../../../../vision/decisions.md)) : le
+> [LOT-1004](LOT-1004-kit-de-la-capitale-en-maillages.md) est clos sans modification, le kit de la
+> Capitale reste en images jusqu'à la `0.0.3`. Ce lot éclaire donc les **personnages** et les
+> maillages de la carte d'essai, et **teinte** tout le décor ; le soleil sur l'architecture viendra
+> avec le kit repris ([LOT-151](../../v0.0.3-capitale-intra-muros/lots/LOT-151-kit-commun-intra-muros.md)).
 
 ## Périmètre
 
@@ -45,9 +51,9 @@ Dehors, nommément :
 
 | Quoi | Où | Pourquoi maintenant |
 |---|---|---|
-| L'ombre propre posée par sommet au LOT-1004 | le script du kit (atelier local) et les maillages installés, republiés | le shader éclaire ; une ombre cuite s'ajouterait à la sienne et resterait fausse la nuit |
+| ~~L'ombre propre posée par sommet au LOT-1004~~ | — | sans objet : le kit n'a pas été converti (D-43) ; le LOT-151 produit ses maillages sans ombre cuite |
 | La règle « lumière du haut à gauche, ombre propre peinte » pour ce qui est modelé | `Planning/standards/style-3d.md` | elle ne vaut plus que pour les images tolérées |
-| Les références d'image du LOT-1004 rendues sans lumière | `Source/Test/` | remplacées par les références à quatre heures |
+| ~~Les références d'image du LOT-1004 rendues sans lumière~~ | — | sans objet (D-43) |
 
 Rien d'autre : ce lot ajoute une capacité, il ne remplace pas un mécanisme existant — `Core` n'a
 aujourd'hui aucune heure du monde.

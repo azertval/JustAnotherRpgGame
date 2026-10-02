@@ -57,11 +57,11 @@ Un personnage est une **fiche** : son modèle, son portrait, son jeton.
 | 2 | [LOT-1001](lots/LOT-1001-standard-3d.md) — le standard 3D | standard | M | LOT-1000, LOT-142 |
 | 3 | [LOT-1002](lots/LOT-1002-canevas-sur-le-rendu-du-jeu.md) — le canevas de l'éditeur sur le rendu du jeu | editeur | L | LOT-142 |
 | 4 | [LOT-1003](lots/LOT-1003-maillages-et-profondeur.md) — maillages et profondeur | moteur | L | LOT-1001, LOT-1002 |
-| 5 | [LOT-1004](lots/LOT-1004-kit-de-la-capitale-en-maillages.md) — le kit de la Capitale en maillages | assets | L | LOT-1003 |
+| 5 | [LOT-1004](lots/LOT-1004-kit-de-la-capitale-en-maillages.md) — le kit de la Capitale en maillages — **clos sans modification** ([D-43](../../../vision/decisions.md)), repris à la `0.0.3` | assets | L | LOT-1003 |
 | 6 | [LOT-1005](lots/LOT-1005-squelette-et-animations.md) — squelette et animations | moteur | L | LOT-1003 |
 | 7 | [LOT-1006](lots/LOT-1006-corps-de-reference.md) — le squelette commun et le mannequin | pnj | L | LOT-1005 |
-| 8 | [LOT-1007](lots/LOT-1007-eclairage-et-cycle-jour-nuit.md) — éclairage et cycle jour / nuit | moteur | L | LOT-1004 |
-| 9 | [LOT-1008](lots/LOT-1008-atelier-des-assets-3d.md) — l'atelier des assets 3D | editeur | L | LOT-1004, LOT-1006 |
+| 8 | [LOT-1007](lots/LOT-1007-eclairage-et-cycle-jour-nuit.md) — éclairage et cycle jour / nuit | moteur | L | LOT-1003 |
+| 9 | [LOT-1008](lots/LOT-1008-atelier-des-assets-3d.md) — l'atelier des assets 3D | editeur | L | LOT-1006 |
 | 10 | [LOT-1009](lots/LOT-1009-les-quatre-heros.md) — les personnages de la démo | pnj | L | LOT-1008 |
 | 11 | [LOT-1010](lots/LOT-1010-recette-et-version-0-0-2-5.md) — recette et version | version | M | LOT-1007, LOT-1009 |
 
@@ -78,8 +78,10 @@ Trois règles ont fixé cet ordre.
    nouvelle sur des données d'essai ; le lot d'assets qui suit installe les vrais fichiers et
    **supprime dans la même PR** ce qu'ils remplacent — images et code.
 
-Après le LOT-1003, deux filières avancent en parallèle : le décor et la lumière (LOT-1004,
-LOT-1007), les personnages (LOT-1005, LOT-1006) ; elles se rejoignent à l'atelier (LOT-1008).
+Après le LOT-1003, deux filières avancent en parallèle : la lumière (LOT-1007) et les personnages
+(LOT-1005, LOT-1006, puis l'atelier, LOT-1008). Le décor en maillages, que portait le LOT-1004,
+est **reporté à la `0.0.3`** ([D-43](../../../vision/decisions.md), 2 octobre 2026) : l'auteur y
+reprend l'intégralité des assets, et un kit converti ici aurait été refait.
 
 ## Ce que chaque lot retire
 
@@ -93,22 +95,23 @@ reste « pour plus tard » sans être écrit dans la dette ci-dessous.
 | LOT-1001 | `style-3d.md`, `personnages-3d.md`, exigences réécrites, `check_orphans.py` | Le standard et la consigne 2D HD (archivés, plus normatifs) ; le workflow de revue des marches ; la chaîne de **génération de figurines 2D** (3 scripts, 2 tests) ; les exigences remplacées (vers `exigences-retirees.md`) |
 | LOT-1002 | Canevas `QRhiWidget`, `--render` hors écran | `ScenePainter`, `SceneImages`, leurs tests, la parité GPU / `QPainter`, `bench_canvas_paint` |
 | LOT-1003 | Passe de maillages, caméra 3D, chargeur glTF | `Camera2D` comme caméra du lieu. Presque rien d'autre : tant qu'il reste des pièces en image, l'ordre du peintre sert encore — c'est dit |
-| LOT-1004 | Sols, murs, balustrades, haies, escaliers et toits en maillages | Leurs **1 340 PNG** au moins, dont les 686 de toits ; le mécanisme d'étage 2D (rang de tri, occlusion, effacement) ; le recouvrement des dalles ; la maquette 2D HD et son test |
+| LOT-1004 | Rien : **clos sans modification** (D-43) | Rien : ses 1 340 PNG, le mécanisme d'étage 2D, le recouvrement des dalles et la maquette 2D HD passent à la dette ci-dessous |
 | LOT-1005 | Déformation par os, clips d'animation | Rien d'installé : les bandes vivent un lot de plus, leur retrait est au LOT-1006 |
 | LOT-1006 | Un squelette, six animations, le mannequin, le premier personnage au standard | **Toutes** les bandes de figurine (132 images et leurs `.anim.json`) ; la cellule et les quatre orientations de figurine dans le rendu ; les bandes de figurine des données d'essai ; la suite 2D du LOT-145. Les 24 bandes d'effets de `Common/Fx/` et `AnimationCatalog`, qui les lit, **restent** |
-| LOT-1007 | Heure du monde, soleil, ombres, lumières de nuit | L'ombre propre cuite dans les textures du kit |
+| LOT-1007 | Heure du monde, soleil, ombres, lumières de nuit | Rien d'installé : l'ombre propre cuite dans les textures du kit part avec le kit, à la `0.0.3` |
 | LOT-1008 | L'atelier à deux vues | La saisie à la main des manifestes de personnages ; le descripteur d'installation des portraits |
 | LOT-1009 | Les quatre héros, les PNJ de la quête, les adversaires et les fauves de l'arène, produits au standard ; le squelette `quadruped` | Le **portrait d'attente** (liste `portraits`) ; le brawler de la preuve |
 | LOT-1010 | Le contrôle des orphelins, la recette | Ce que le contrôle trouve encore ; les références d'image périmées |
 
 ## La dette déclarée pour la 0.0.3
 
-Deux décisions de l'auteur ([D-30](../../../vision/decisions.md)) laissent des images dans une
-scène 3D. Elles ne sont pas mortes — le jeu les affiche — mais elles ont une date de retrait.
+Deux décisions de l'auteur ([D-30](../../../vision/decisions.md), puis
+[D-43](../../../vision/decisions.md)) laissent des images dans une scène 3D. Elles ne sont pas mortes — le jeu les affiche — mais elles ont une date de retrait.
 
 | Ce qui reste en image | Jusqu'à | Retiré par |
 |---|---|---|
 | Le **mobilier** et les **pièces maîtresses** peints du kit de la Capitale (bancs, lampadaires, fontaine, statues…) | la `0.0.3` | le kit commun complété ([LOT-151](../v0.0.3-capitale-intra-muros/lots/LOT-151-kit-commun-intra-muros.md)) |
+| L'**architecture** du kit de la Capitale — sols, murs, balustrades, haies, escaliers, toits : 1 340 images au moins —, avec le **mécanisme d'étage 2D** (rang de tri, occlusion, effacement), le recouvrement des dalles et la maquette 2D HD de non-régression (D-43) | la `0.0.3` | le kit repris en maillages ([LOT-151](../v0.0.3-capitale-intra-muros/lots/LOT-151-kit-commun-intra-muros.md)), d'après l'inventaire du [LOT-1004](lots/LOT-1004-kit-de-la-capitale-en-maillages.md) |
 | Les kits d'**Arenarea**, de l'**Arena of Fate** et de **Martpart** | la `0.0.3` | les lots de leur quartier (LOT-147, LOT-106, LOT-110) |
 | L'**ordre du peintre** pour ces images (tri par le pied, `ComposedScene`) | le retrait de la dernière image de décor | le dernier des lots ci-dessus |
 
@@ -132,6 +135,6 @@ soleil. Les lots de zone de la `0.0.3` sont à **réécrire** pour commander des
 |---|---|
 | Un personnage fait d'un corps, d'une texture et de pièces **ne tient pas** à côté de son portrait | **survenu** au LOT-1000 : corps communs refusés, repli pris — un maillage par personnage, généré depuis une image et lié au même squelette (D-38) |
 | Un maillage généré depuis une **vue de face en pose neutre** est moins fidèle que depuis la figurine | le LOT-1006 l'éprouve sur un personnage avant la série du LOT-1009 ; en repli, rouvrir D-39 |
-| Le décor en maillages **perd la facture peinte** validée le 23 septembre | le LOT-1004 compare, carte pour carte, le rendu d'avant et d'après |
+| Le décor en maillages **perd la facture peinte** validée le 23 septembre | reporté avec le kit (D-43) : le LOT-151 compare, carte pour carte, le rendu d'avant et d'après |
 | Les images dressées **se croisent mal** avec les volumes | emprises 1 × 1 seulement en image au-delà de la `0.0.3` ; le LOT-1003 le mesure sur la carte d'Arenarea |
 | La version ne « se joue » pas, contre la règle de la trajectoire | sa recette rejoue la quête et le combat de la `0.0.2` : même jeu, autre matière |
