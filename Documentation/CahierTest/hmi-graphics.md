@@ -519,7 +519,7 @@ Le modele du heros, son portrait et son jeton paraissent dans la galerie.
 
 ### AssetGalleryTest.UnEffetSeJoueDansLaGalerie
 
-*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:493`
+*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:492`
 
 Exigences : `EX-CNT-042`
 
