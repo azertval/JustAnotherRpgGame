@@ -21,6 +21,8 @@ var dir_1f83c05e1f2f20b6a532ccaeb0dbcc81 =
     [ "MaquetteTokens.h", "MaquetteTokens_8h.html", "MaquetteTokens_8h" ],
     [ "MissingTexture.cpp", "MissingTexture_8cpp.html", "MissingTexture_8cpp" ],
     [ "MissingTexture.h", "MissingTexture_8h.html", "MissingTexture_8h" ],
+    [ "OffscreenRender.cpp", "OffscreenRender_8cpp.html", null ],
+    [ "OffscreenRender.h", "OffscreenRender_8h.html", "OffscreenRender_8h" ],
     [ "PlaceAppearance.cpp", "PlaceAppearance_8cpp.html", null ],
     [ "PlaceAppearance.h", "PlaceAppearance_8h.html", "PlaceAppearance_8h" ],
     [ "ProceduralAtlas.cpp", "ProceduralAtlas_8cpp.html", "ProceduralAtlas_8cpp" ],

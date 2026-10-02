@@ -1,5 +1,13 @@
 var NAVTREEINDEX53 =
 {
+"test__camera2d_8cpp.html#ae2179c844b3f7524cff7b02e0cad488d":[4,0,0,7,4,2,2,3,8],
+"test__camera2d_8cpp.html#afb44f0a1467aad957fe999626534600c":[4,0,0,7,4,2,2,3,9],
+"test__canvas__picking_8cpp.html":[4,0,0,7,4,1,2],
+"test__canvas__picking_8cpp.html#a75b5658ab4d46ee8bd5acbbb07c28ff0":[4,0,0,7,4,1,2,2],
+"test__canvas__picking_8cpp.html#a806d8db494db42f9084855bfcc18d646":[4,0,0,7,4,1,2,0],
+"test__canvas__picking_8cpp.html#a9a5e46c29748f432384799baefe4cdf9":[4,0,0,7,4,1,2,1],
+"test__canvas__picking_8cpp.html#ae91a2d47e5ce78cbcdddca0d1388245b":[4,0,0,7,4,1,2,4],
+"test__canvas__picking_8cpp.html#af3f0ed81169632e70f1df7b6ce2a10a2":[4,0,0,7,4,1,2,3],
 "test__canvas__scene_8cpp.html":[4,0,0,7,4,1,3],
 "test__canvas__scene_8cpp.html#a35a186a3283c3a1c507889d25c50e60a":[4,0,0,7,4,1,3,2],
 "test__canvas__scene_8cpp.html#a72edc3770439902950ff84b09b32f880":[4,0,0,7,4,1,3,3],
@@ -241,13 +249,5 @@ var NAVTREEINDEX53 =
 "test__dice_8cpp.html#ae7a292dbff3f304e5386d39f7a99926c":[4,0,0,7,4,0,8,6,7],
 "test__dice_8cpp.html#af3e1499f3afd5b9d03c21e5ffeae3127":[4,0,0,7,4,0,8,6,8],
 "test__disk__guard_8cpp.html":[4,0,0,7,4,1,6],
-"test__disk__guard_8cpp.html#a1b492043cd56866d56c4ccf792586dd7":[4,0,0,7,4,1,6,1],
-"test__disk__guard_8cpp.html#a699b478a89383ead7c7e82559daaa557":[4,0,0,7,4,1,6,2],
-"test__disk__guard_8cpp.html#abc89a45df832264b0d5d2b42e09a1d98":[4,0,0,7,4,1,6,0],
-"test__editor__key__bindings_8cpp.html":[4,0,0,7,4,1,7],
-"test__editor__key__bindings_8cpp.html#a0224a94a7c0446c843cd3f02a8773501":[4,0,0,7,4,1,7,0],
-"test__editor__key__bindings_8cpp.html#a33fff987f263030fd1092eeb5e6bde3a":[4,0,0,7,4,1,7,6],
-"test__editor__key__bindings_8cpp.html#a3a722edf1d290b997e13fdf94dea93d7":[4,0,0,7,4,1,7,4],
-"test__editor__key__bindings_8cpp.html#a574219ee2eebfafab676185c40423181":[4,0,0,7,4,1,7,5],
-"test__editor__key__bindings_8cpp.html#a6cb75a39791bf68ed8ac4684756032ce":[4,0,0,7,4,1,7,3]
+"test__disk__guard_8cpp.html#a1b492043cd56866d56c4ccf792586dd7":[4,0,0,7,4,1,6,1]
 };

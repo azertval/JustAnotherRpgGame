@@ -1,11 +1,5 @@
 var NAVTREEINDEX41 =
 {
-"structcore_1_1ProvisionalStatus.html":[3,0,0,156],
-"structcore_1_1ProvisionalStatus.html#a3cb7e2c151216ab1e8f0a2c403fafdfb":[2,0,1,156,0],
-"structcore_1_1ProvisionalStatus.html#a3cb7e2c151216ab1e8f0a2c403fafdfb":[3,0,0,156,0],
-"structcore_1_1ProvisionalStatus.html#a6b9070ea167983ea809524612ce68d0e":[2,0,1,156,1],
-"structcore_1_1ProvisionalStatus.html#a6b9070ea167983ea809524612ce68d0e":[3,0,0,156,1],
-"structcore_1_1ProvisionalStatus.html#ab4a138c7d02d963a262933ff7d7df65b":[2,0,1,156,2],
 "structcore_1_1ProvisionalStatus.html#ab4a138c7d02d963a262933ff7d7df65b":[3,0,0,156,2],
 "structcore_1_1Quest.html":[2,0,1,116],
 "structcore_1_1Quest.html":[3,0,0,116],
@@ -249,5 +243,11 @@ var NAVTREEINDEX41 =
 "structcore_1_1SkillCatalog.html#a65b6856244ceed5206dfeb9bdf125695":[3,0,0,215,2],
 "structcore_1_1SkillCatalog.html#a82416b1a90ae5d7675b6c0f1762a4c0b":[2,0,1,215,0],
 "structcore_1_1SkillCatalog.html#a82416b1a90ae5d7675b6c0f1762a4c0b":[3,0,0,215,0],
-"structcore_1_1SkillCatalog.html#af1a5f314ee5266ed330fb4ef5610d1d5":[2,0,1,215,1]
+"structcore_1_1SkillCatalog.html#af1a5f314ee5266ed330fb4ef5610d1d5":[2,0,1,215,1],
+"structcore_1_1SkillCatalog.html#af1a5f314ee5266ed330fb4ef5610d1d5":[3,0,0,215,1],
+"structcore_1_1SkillCheckModifier.html":[2,0,1,171],
+"structcore_1_1SkillCheckModifier.html":[3,0,0,171],
+"structcore_1_1SkillCheckModifier.html#a0031e06d33916dfdb6a653c8ac9e76b5":[2,0,1,171,1],
+"structcore_1_1SkillCheckModifier.html#a0031e06d33916dfdb6a653c8ac9e76b5":[3,0,0,171,1],
+"structcore_1_1SkillCheckModifier.html#ab7aba02abe8f184dcfebb04e3c0f39f6":[2,0,1,171,0]
 };

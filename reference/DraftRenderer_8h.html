@@ -145,8 +145,9 @@ $(function(){initNavTree('DraftRenderer_8h.html','',''); });
 
 <p>Rendu d'un brouillon d'édition (<span class="tt"><a class="el" href="classcore_1_1LevelDraft.html" title="Carte mutable en cours d&#39;édition, distincte de Level (immuable).">core::LevelDraft</a></span>) dans le canevas de l'éditeur.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;functional&gt;</code><br />
+<div class="textblock"><code>#include &lt;QImage&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
@@ -161,8 +162,6 @@ $(function(){initNavTree('DraftRenderer_8h.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:hmi_3A_3ADraftTextures" id="r_hmi_3A_3ADraftTextures"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DraftTextures.html">hmi::DraftTextures</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les textures que la vue à plat nomme, en identités opaques : la composition ne sait pas comment elles seront peintes (<span class="tt">LOT-EDITOR-02</span> : par <span class="tt">QPainter</span>, <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span>).  <a href="structhmi_1_1DraftTextures.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ADraftEntityOverlay" id="r_hmi_3A_3ADraftEntityOverlay"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DraftEntityOverlay.html">hmi::DraftEntityOverlay</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le canevas montre des entités de carte (<span class="tt">LOT-11</span>), fourni à chaque rendu.  <a href="structhmi_1_1DraftEntityOverlay.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ADraftRenderer" id="r_hmi_3A_3ADraftRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1DraftRenderer.html">hmi::DraftRenderer</a></td></tr>

@@ -312,8 +312,6 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des drapeaux, et les entrées qu'ils ont refusées.  <a href="structhmi_1_1WorldStateFlags.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CityMapView" id="r_CityMapView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CityMapView.html">CityMapView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint une <span class="tt"><a class="el" href="structhmi_1_1CityView.html" title="Une ville jouable, prête à peindre.">hmi::CityView</a></span> sur le plan de sa ville.  <a href="classhmi_1_1CityMapView.html#details">More...</a><br /></td></tr>
-<tr class="memitem:DraftTextures" id="r_DraftTextures"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DraftTextures.html">DraftTextures</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les textures que la vue à plat nomme, en identités opaques : la composition ne sait pas comment elles seront peintes (<span class="tt">LOT-EDITOR-02</span> : par <span class="tt">QPainter</span>, <span class="tt"><a class="el" href="#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span>).  <a href="structhmi_1_1DraftTextures.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DraftEntityOverlay" id="r_DraftEntityOverlay"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DraftEntityOverlay.html">DraftEntityOverlay</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le canevas montre des entités de carte (<span class="tt">LOT-11</span>), fourni à chaque rendu.  <a href="structhmi_1_1DraftEntityOverlay.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DraftRenderer" id="r_DraftRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1DraftRenderer.html">DraftRenderer</a></td></tr>
@@ -321,7 +319,7 @@ Classes</h2></td></tr>
 <tr class="memitem:EditorActions" id="r_EditorActions"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditorActions.html">EditorActions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit et possède les <span class="tt">QAction</span> de l'éditeur : chaque outil et chaque commande n'existe qu'une fois, placée dans la barre d'outils, un menu et son raccourci.  <a href="classhmi_1_1EditorActions.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EditorViewport" id="r_EditorViewport"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EditorViewport.html">EditorViewport</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l'essai.  <a href="classhmi_1_1EditorViewport.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le canevas : le brouillon rendu en iso ou peint à plat, les gestes des outils, l'essai.  <a href="classhmi_1_1EditorViewport.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EntityPanel" id="r_EntityPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EntityPanel.html">EntityPanel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vue des entités du brouillon courant — remplace le panneau « Propriétés » retiré au <span class="tt">LOT-01</span>.  <a href="classhmi_1_1EntityPanel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:LayersPanel" id="r_LayersPanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1LayersPanel.html">LayersPanel</a></td></tr>
@@ -336,6 +334,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les réglages d'un rendu.  <a href="structhmi_1_1MapRenderOptions.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MapImageGrid" id="r_MapImageGrid"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapImageGrid.html">MapImageGrid</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où tombe la <b>grille</b> de la carte sur son image, en fractions de sa largeur et de sa hauteur (<span class="tt">LOT-121</span>) : le point de grille (c, r) — la case c couvre [c, c + 1] — est en <span class="tt">origin + c × column + r × row</span>.  <a href="structhmi_1_1MapImageGrid.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MapRenderFrame" id="r_MapRenderFrame"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapRenderFrame.html">MapRenderFrame</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadre d'un rendu : la taille de l'image, et où le monde y tombe (<span class="tt">LOT-1002</span>).  <a href="structhmi_1_1MapRenderFrame.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MiniMap" id="r_MiniMap"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1MiniMap.html">MiniMap</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La mini-carte : l'image de la carte, le cadre de la vue, et le clic qui la déplace.  <a href="classhmi_1_1MiniMap.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PalettePanel" id="r_PalettePanel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PalettePanel.html">PalettePanel</a></td></tr>
@@ -350,10 +350,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que « Change sheet » a choisi : le lieu, et la table de correspondance.  <a href="structhmi_1_1SceneChangeChoice.html#details">More...</a><br /></td></tr>
 <tr class="memitem:RunInGameChoice" id="r_RunInGameChoice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'auteur a choisi pour l'essai.  <a href="structhmi_1_1RunInGameChoice.html#details">More...</a><br /></td></tr>
-<tr class="memitem:SceneImage" id="r_SceneImage"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une image du cache : l'identité stable qu'une scène composée adresse, et ses <b>niveaux réduits</b>.  <a href="classhmi_1_1SceneImage.html#details">More...</a><br /></td></tr>
-<tr class="memitem:SceneImages" id="r_SceneImages"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneImages.html">SceneImages</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cache des images du canevas : ce que <span class="tt"><a class="el" href="#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span> peint, et ce que <span class="tt"><a class="el" href="#a888058bfce2a151c10776afeaabbb179" title="Compose le lieu dans un tampon réutilisé, figurines comprises (snapshot.figures).">hmi::composeWorldScene</a></span> adresse par chemin.  <a href="classhmi_1_1SceneImages.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SceneSurface" id="r_SceneSurface"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneSurface.html">SceneSurface</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La surface de rendu du canevas : le lieu, par le rendu du jeu.  <a href="classhmi_1_1SceneSurface.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldGraphView" id="r_WorldGraphView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldGraphView.html">WorldGraphView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint un <span class="tt"><a class="el" href="structcore_1_1WorldGraph.html" title="Les cartes et leurs portails.">core::WorldGraph</a></span> disposé par <span class="tt"><a class="el" href="#a05055b81b0f1c8241eeef2c9e9d3a588" title="Dispose graph : nœuds sur un cercle, fantômes et flèches regroupées.">hmi::layoutWorldGraph</a></span>.  <a href="classhmi_1_1WorldGraphView.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldStateEditor" id="r_WorldStateEditor"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldStateEditor.html">WorldStateEditor</a></td></tr>
@@ -433,6 +431,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La forme d'un type en maquette : un losange plat, ou un bloc d'une hauteur et d'une emprise données.  <a href="structhmi_1_1MaquetteShape.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MaquetteTokenRequest" id="r_MaquetteTokenRequest"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteTokenRequest.html">MaquetteTokenRequest</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un chemin de jeton désigne, ou rien si <code class="param">path</code> n'en est pas un.  <a href="structhmi_1_1MaquetteTokenRequest.html#details">More...</a><br /></td></tr>
+<tr class="memitem:OffscreenRhi" id="r_OffscreenRhi"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1OffscreenRhi.html">OffscreenRhi</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une interface <span class="tt">QRhi</span> sans fenêtre, la cible où elle dessine, et les rendus qu'elle garde.  <a href="classhmi_1_1OffscreenRhi.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PlaceAppearance" id="r_PlaceAppearance"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La table d'un lieu : type de tuile → pièces, pour le sol et pour le relief.  <a href="classhmi_1_1PlaceAppearance.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PlaceAppearanceResult" id="r_PlaceAppearanceResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1PlaceAppearanceResult.html">PlaceAppearanceResult</a></td></tr>
@@ -489,6 +489,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'appelant peut changer à la composition — rien, par défaut.  <a href="structhmi_1_1WorldComposeOptions.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldHeroPlacement" id="r_WorldHeroPlacement"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldHeroPlacement.html">WorldHeroPlacement</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui masque le héros : son image, et son rang de dessin (<span class="tt">LOT-129</span>).  <a href="structhmi_1_1WorldHeroPlacement.html#details">More...</a><br /></td></tr>
+<tr class="memitem:WorldFraming" id="r_WorldFraming"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un cadrage <b>imposé</b> (<span class="tt">LOT-1002</span>) : ce que montre le canevas de l'éditeur, ou le cadre d'une image hors écran.  <a href="structhmi_1_1WorldFraming.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldSceneRenderer" id="r_WorldSceneRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldSceneRenderer.html">WorldSceneRenderer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène composée.  <a href="classhmi_1_1WorldSceneRenderer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ButtonRepeat" id="r_ButtonRepeat"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ButtonRepeat.html">ButtonRepeat</a></td></tr>
@@ -617,10 +619,10 @@ Typedefs</h2></td></tr>
 <tr class="memdesc:a188ad6e0ec9559c8a52bb7984d3229ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les textes du journal d'une quête : langue (<span class="tt">fr</span>, <span class="tt">en</span>) → clé → texte.  <br /></td></tr>
 <tr class="memitem:ab0b07cd6db9125460c29672e951b9229" id="r_ab0b07cd6db9125460c29672e951b9229"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ab0b07cd6db9125460c29672e951b9229">PlanFactory</a> = std::function&lt;<a class="el" href="structhmi_1_1RefactorPlan.html">RefactorPlan</a>()&gt;</td></tr>
 <tr class="memdesc:ab0b07cd6db9125460c29672e951b9229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un renommage ou un retrait récrira, calculé quand la fenêtre est prête (cartes enregistrées) : le panneau ne le calcule pas trop tôt.  <br /></td></tr>
-<tr class="memitem:ad39e4163a49fc5ba81aab9827d83118e" id="r_ad39e4163a49fc5ba81aab9827d83118e"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ad39e4163a49fc5ba81aab9827d83118e">QuadOpacity</a> = std::function&lt;float(const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a>&amp;)&gt;</td></tr>
-<tr class="memdesc:ad39e4163a49fc5ba81aab9827d83118e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité supplémentaire d'une primitive, décidée par l'appelant (calques masqués, grisés, reliefs en transparence) ; 0 ou moins : la primitive n'est pas peinte.  <br /></td></tr>
 <tr class="memitem:a979f7ffd7c87877cb1f65f0d08e4419d" id="r_a979f7ffd7c87877cb1f65f0d08e4419d"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> = void*</td></tr>
 <tr class="memdesc:a979f7ffd7c87877cb1f65f0d08e4419d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identité <b>opaque</b> d'une texture liée, du point de vue de la composition.  <br /></td></tr>
+<tr class="memitem:a1ba3efb10e286621ca0b5eab9694d105" id="r_a1ba3efb10e286621ca0b5eab9694d105"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a1ba3efb10e286621ca0b5eab9694d105">WorldQuadOpacity</a> = std::function&lt;float(const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a>&amp;)&gt;</td></tr>
+<tr class="memdesc:a1ba3efb10e286621ca0b5eab9694d105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité supplémentaire d'une primitive, décidée par l'appelant (calques masqués, grisés, reliefs en transparence) ; 0 ou moins : la primitive n'est pas dessinée.  <br /></td></tr>
 <tr class="memitem:a2b7a47650b075de634207cebdf6563e9" id="r_a2b7a47650b075de634207cebdf6563e9"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a2b7a47650b075de634207cebdf6563e9">TextLookup</a> = std::function&lt;std::string(std::string_view key)&gt;</td></tr>
 <tr class="memdesc:a2b7a47650b075de634207cebdf6563e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une clé de traduction, et le texte qu'elle donne dans la langue active.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -1312,7 +1314,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aea9d8742fc17bfd6135f669a67430cd7" id="r_aea9d8742fc17bfd6135f669a67430cd7"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aea9d8742fc17bfd6135f669a67430cd7">parseRenderLayers</a> (std::string_view list)</td></tr>
 <tr class="memdesc:aea9d8742fc17bfd6135f669a67430cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une liste de bandes (<span class="tt">floors,relief,figures,collision</span>).  <br /></td></tr>
 <tr class="memitem:ae7f247079ad6dfe5c32dcc3dbc814f84" id="r_ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#ae7f247079ad6dfe5c32dcc3dbc814f84">renderStamp</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp, const std::filesystem::path &amp;dataRoot, const std::string &amp;place, int maxSide)</td></tr>
-<tr class="memdesc:ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="mdescLeft">&#160;</td><td class="mdescRight">La <b>vignette d'un préfabriqué</b> (<span class="tt">LOT-EDITOR-08</span>) : le tampon posé sur une carte de sa taille, rendu par le même peintre, réduit pour tenir dans un carré de <code class="param">maxSide</code> pixels.  <br /></td></tr>
+<tr class="memdesc:ae7f247079ad6dfe5c32dcc3dbc814f84"><td class="mdescLeft">&#160;</td><td class="mdescRight">La <b>vignette d'un préfabriqué</b> (<span class="tt">LOT-EDITOR-08</span>) : le tampon posé sur une carte de sa taille, rendu par le même rendu, réduit pour tenir dans un carré de <code class="param">maxSide</code> pixels.  <br /></td></tr>
+<tr class="memitem:a51708f03902af8e6f04911b5c9e4a862" id="r_a51708f03902af8e6f04911b5c9e4a862"><td class="memItemLeft"><a class="el" href="structhmi_1_1MapRenderFrame.html">MapRenderFrame</a>&#160;</td><td class="memItemRight"><a class="el" href="#a51708f03902af8e6f04911b5c9e4a862">mapRenderFrame</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;painted, float tileWidth, const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;options)</td></tr>
+<tr class="memdesc:a51708f03902af8e6f04911b5c9e4a862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadre du rendu d'une carte dont la scène occupe <code class="param">painted</code>.  <br /></td></tr>
 <tr class="memitem:a3c843b87b8612e61a4c7b1747f90f229" id="r_a3c843b87b8612e61a4c7b1747f90f229"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#a3c843b87b8612e61a4c7b1747f90f229">renderMap</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level, const std::filesystem::path &amp;dataRoot, const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;options, <a class="el" href="structhmi_1_1MapImageGrid.html">MapImageGrid</a> *grid=nullptr)</td></tr>
 <tr class="memdesc:a3c843b87b8612e61a4c7b1747f90f229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">level</code> en isométrie, hors écran.  <br /></td></tr>
 <tr class="memitem:ad551059312355ed10cda2f2300d1a6b9" id="r_ad551059312355ed10cda2f2300d1a6b9"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad551059312355ed10cda2f2300d1a6b9">runRenderCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;defaultDataRoot, std::string &amp;output)</td></tr>
@@ -1326,15 +1330,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:a9340f6e1b3f43febd69dcc101434fb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande la nouvelle planche, et pour chaque pièce que la carte pose, celle qui la remplace : la table proposée (<span class="tt"><a class="el" href="#a2e091b55877d7aecd5436fad2ee8f474" title="La table que l&#39;éditeur propose pour passer layers à la planche target : chaque pièce citée va à la pi...">hmi::proposedPieceTable</a></span>) d'abord, qu'on corrige.  <br /></td></tr>
 <tr class="memitem:a39d6b60cc1783f750bc5e0a68017b9ae" id="r_a39d6b60cc1783f750bc5e0a68017b9ae"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a39d6b60cc1783f750bc5e0a68017b9ae">askRunInGame</a> (QWidget *parent, const QString &amp;mapId, const std::vector&lt; std::string &gt; &amp;knownFlags, const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;declared, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> bounds, const <a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a> &amp;current)</td></tr>
 <tr class="memdesc:a39d6b60cc1783f750bc5e0a68017b9ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Demande où partir et quels drapeaux poser, puis rend le choix.  <br /></td></tr>
-<tr class="memitem:af371615628977cf8d19ec3b53afafc0b" id="r_af371615628977cf8d19ec3b53afafc0b"><td class="memItemLeft"><a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af371615628977cf8d19ec3b53afafc0b">sceneImageOf</a> (<a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> handle) noexcept</td></tr>
-<tr class="memitem:aaaf1677389a57f473864df3a499e630f" id="r_aaaf1677389a57f473864df3a499e630f"><td class="memItemLeft"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaaf1677389a57f473864df3a499e630f">sceneImageHandle</a> (const <a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a> *image) noexcept</td></tr>
-<tr class="memitem:a13d39d2941050cdcde712bd03062a037" id="r_a13d39d2941050cdcde712bd03062a037"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a13d39d2941050cdcde712bd03062a037">paintComposedScene</a> (QPainter &amp;painter, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const std::optional&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; &amp;visible=std::nullopt, const <a class="el" href="#ad39e4163a49fc5ba81aab9827d83118e">QuadOpacity</a> &amp;opacity={})</td></tr>
-<tr class="memdesc:a13d39d2941050cdcde712bd03062a037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint <code class="param">scene</code> dans <code class="param">painter</code>, dont la transformation porte déjà le cadrage (unités monde vers pixels).  <br /></td></tr>
-<tr class="memitem:a20c3945e5c8e719d1588de9fbc5d931b" id="r_a20c3945e5c8e719d1588de9fbc5d931b"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a20c3945e5c8e719d1588de9fbc5d931b">composedSceneBounds</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;base)</td></tr>
-<tr class="memdesc:a20c3945e5c8e719d1588de9fbc5d931b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rectangle qu'occupe <code class="param">scene</code>, réuni à <code class="param">base</code> : chaque primitive compte, reliefs et figurines qui montent au-dessus de leur case compris.  <br /></td></tr>
-<tr class="memitem:a69e74e4f140af19416ff4a8a7dbd49a8" id="r_a69e74e4f140af19416ff4a8a7dbd49a8"><td class="memItemLeft">QTransform&#160;</td><td class="memItemRight"><a class="el" href="#a69e74e4f140af19416ff4a8a7dbd49a8">cameraTransform</a> (const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera)</td></tr>
-<tr class="memitem:a7e2e49094a1e633ea842459409c9c13b" id="r_a7e2e49094a1e633ea842459409c9c13b"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="#a7e2e49094a1e633ea842459409c9c13b">renderComposedScene</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, int width, int height, const QColor &amp;clear)</td></tr>
-<tr class="memdesc:a7e2e49094a1e633ea842459409c9c13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">scene</code> hors écran, cadrée par <code class="param">camera</code>, sur un fond <code class="param">clear</code> — l'image que le jeu dessinerait avec la même caméra.  <br /></td></tr>
 <tr class="memitem:a6d2e0104481eacf1024ddce11e05491d" id="r_a6d2e0104481eacf1024ddce11e05491d"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1WorldStateChoice.html">WorldStateChoice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6d2e0104481eacf1024ddce11e05491d">askWorldState</a> (QWidget *parent, const std::vector&lt; std::string &gt; &amp;knownFlags, const std::vector&lt; <a class="el" href="structcore_1_1QuestFlag.html">core::QuestFlag</a> &gt; &amp;declared, const <a class="el" href="structhmi_1_1WorldStateChoice.html">WorldStateChoice</a> &amp;current)</td></tr>
 <tr class="memdesc:a6d2e0104481eacf1024ddce11e05491d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dialogue « World state… » ; <span class="tt">std::nullopt</span> si l'auteur renonce.  <br /></td></tr>
 <tr class="memitem:afbbd37a73dccd14815fb4c02a4ed8e16" id="r_afbbd37a73dccd14815fb4c02a4ed8e16"><td class="memItemLeft"><a class="el" href="structcore_1_1ArenaContestant.html">core::ArenaContestant</a>&#160;</td><td class="memItemRight"><a class="el" href="#afbbd37a73dccd14815fb4c02a4ed8e16">heroContestant</a> (const <a class="el" href="structhmi_1_1HeroContestantSource.html">HeroContestantSource</a> &amp;hero, <a class="el" href="namespacecore.html#a5de8069e593ab57dab3a12c60b40b717">core::CombatSide</a> side)</td></tr>
@@ -1500,6 +1495,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a2bc9cad778cbd7211055de83a826e032 template"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSource.html">WorldSceneSource</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2bc9cad778cbd7211055de83a826e032">worldSceneSource</a> (const Map &amp;map)</td></tr>
 <tr class="memitem:a44337da72a19b007b1c90bade791dfdf" id="r_a44337da72a19b007b1c90bade791dfdf"><td class="memItemLeft"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a>&#160;</td><td class="memItemRight"><a class="el" href="#a44337da72a19b007b1c90bade791dfdf">worldCamera</a> (const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> focus, int pixelWidth, int pixelHeight, float tilePixels=0.0F)</td></tr>
 <tr class="memdesc:a44337da72a19b007b1c90bade791dfdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadrage d'un lieu : la caméra <b>suit</b> le héros, et ne sort pas de la carte.  <br /></td></tr>
+<tr class="memitem:a19e2a922a7f8083d4c90e83ae1d815d3" id="r_a19e2a922a7f8083d4c90e83ae1d815d3"><td class="memItemLeft"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a>&#160;</td><td class="memItemRight"><a class="el" href="#a19e2a922a7f8083d4c90e83ae1d815d3">framedCamera</a> (const <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &amp;framing, int pixelWidth, int pixelHeight)</td></tr>
+<tr class="memitem:a20c3945e5c8e719d1588de9fbc5d931b" id="r_a20c3945e5c8e719d1588de9fbc5d931b"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a20c3945e5c8e719d1588de9fbc5d931b">composedSceneBounds</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;base)</td></tr>
+<tr class="memdesc:a20c3945e5c8e719d1588de9fbc5d931b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rectangle qu'occupe <code class="param">scene</code>, réuni à <code class="param">base</code> : chaque primitive compte, reliefs et figurines qui montent au-dessus de leur case compris.  <br /></td></tr>
 <tr class="memitem:aa68d5419b15fd65eb0cbe477f135f642" id="r_aa68d5419b15fd65eb0cbe477f135f642"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#aa68d5419b15fd65eb0cbe477f135f642">gamepadProbeDue</a> (bool wasConnected, std::chrono::steady_clock::duration sinceLastProbe) noexcept</td></tr>
 <tr class="memdesc:aa68d5419b15fd65eb0cbe477f135f642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Faut-il re-sonder XInput maintenant ?  <br /></td></tr>
 <tr class="memitem:a1b53de392afb0dfdf5cdef4543fb672d" id="r_a1b53de392afb0dfdf5cdef4543fb672d"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a83c98e56e30eafa606048853f7962e48">hmi::Key</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d">qtKeyToHmiKey</a> (int qtKey)</td></tr>
@@ -1655,8 +1653,6 @@ Variables</h2></td></tr>
 <tr class="memdesc:a8419e0bc52afdaf288a539da747b1577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de commandes, déclaré au plus près de l'énumération qu'il compte.  <br /></td></tr>
 <tr class="memitem:aeb0082433e6f2272d8c1d754ee3d499a" id="r_aeb0082433e6f2272d8c1d754ee3d499a"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aeb0082433e6f2272d8c1d754ee3d499a">MAP_RENDER_MAX_SIDE</a> = 8192</td></tr>
 <tr class="memdesc:aeb0082433e6f2272d8c1d754ee3d499a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus grand côté d'une image de <span class="tt">--render</span> par défaut, en pixels (<span class="tt">LOT-125</span>).  <br /></td></tr>
-<tr class="memitem:ab755222165119a686d183acf69b1d440" id="r_ab755222165119a686d183acf69b1d440"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ab755222165119a686d183acf69b1d440">SCENE_IMAGES_DEFAULT_BUDGET_BYTES</a> = std::size_t{256} * 1024 * 1024</td></tr>
-<tr class="memdesc:ab755222165119a686d183acf69b1d440"><td class="mdescLeft">&#160;</td><td class="mdescRight">Budget par défaut des pixels évinçables, en octets (<span class="tt">LOT-125</span>, README du module).  <br /></td></tr>
 <tr class="memitem:a4194f9c77255fd090763ac425476d7dc" id="r_a4194f9c77255fd090763ac425476d7dc"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a4194f9c77255fd090763ac425476d7dc">FX_DIRECTORY</a> = &quot;Common/Fx&quot;</td></tr>
 <tr class="memdesc:a4194f9c77255fd090763ac425476d7dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier des effets, depuis la racine des assets : une bande par effet (<span class="tt">LOT-136</span>).  <br /></td></tr>
 <tr class="memitem:a61e621d3e0a60687c0d09c07971eda7f" id="r_a61e621d3e0a60687c0d09c07971eda7f"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="#a61e621d3e0a60687c0d09c07971eda7f">LAUNCH_LIST_SEPARATOR</a> = ','</td></tr>
@@ -1691,6 +1687,10 @@ Variables</h2></td></tr>
 <tr class="memdesc:a75cfef1e5eb0b5569ebd42c004d73ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, du damier de repli généré par défaut (une case, <span class="tt">EX-ARCH-021</span>).  <br /></td></tr>
 <tr class="memitem:a7cc024ad45faf8aabf192a70d2090ac6" id="r_a7cc024ad45faf8aabf192a70d2090ac6"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7cc024ad45faf8aabf192a70d2090ac6">MISSING_TEXTURE_CHECKER_SIZE</a> = 4</td></tr>
 <tr class="memdesc:a7cc024ad45faf8aabf192a70d2090ac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Côté, en pixels, d'un carreau du damier : quatre carreaux par côté, motif lisible même réduit.  <br /></td></tr>
+<tr class="memitem:aa97e4ca253ea135c49b70d7170d1b284" id="r_aa97e4ca253ea135c49b70d7170d1b284"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aa97e4ca253ea135c49b70d7170d1b284">OFFSCREEN_TILE_SIDE</a> = 4096</td></tr>
+<tr class="memdesc:aa97e4ca253ea135c49b70d7170d1b284"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus grand côté d'une cible de rendu hors écran, en pixels : une image plus grande se rend par tuiles, ce qui borne la mémoire graphique d'un <span class="tt">--render</span> de 8 192 pixels de côté.  <br /></td></tr>
+<tr class="memitem:a50c22914893857d88acbf9c3813c0b52" id="r_a50c22914893857d88acbf9c3813c0b52"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a50c22914893857d88acbf9c3813c0b52">OFFSCREEN_TEXTURE_BUDGET_BYTES</a> = std::size_t{256} * 1024 * 1024</td></tr>
+<tr class="memdesc:a50c22914893857d88acbf9c3813c0b52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plafond des textures qu'un rendu <b>gardé</b> conserve d'une image à l'autre, en octets de mémoire graphique : au-delà, il les rend avant de resservir (<span class="tt"><a class="el" href="classhmi_1_1OffscreenRhi.html#ada0bde7f4d049deec15f6569c4355b0d" title="Le rendu gardé du dossier d&#39;assets assetsDirectory, ressources créées.">OffscreenRhi::renderer</a></span>).  <br /></td></tr>
 <tr class="memitem:ac8defcd53d2643e64d9985a898796481" id="r_ac8defcd53d2643e64d9985a898796481"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#ac8defcd53d2643e64d9985a898796481">FLOOR_SEAM_OVERLAP</a> = 1.0F / 256.0F</td></tr>
 <tr class="memdesc:ac8defcd53d2643e64d9985a898796481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Débord d'une dalle de sol au-delà de son losange, de chaque côté, en largeurs de case.  <br /></td></tr>
 <tr class="memitem:a7156a1bc50d513bacc4cf9f6bd64916b" id="r_a7156a1bc50d513bacc4cf9f6bd64916b"><td class="memItemLeft">constexpr std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="#a7156a1bc50d513bacc4cf9f6bd64916b">WORLD_DEPTH_SLOTS</a></td></tr>
@@ -1758,22 +1758,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Ce qu'un renommage ou un retrait récrira, calculé quand la fenêtre est prête (cartes enregistrées) : le panneau ne le calcule pas trop tôt. </p>
-
-</div>
-</div>
-<a id="ad39e4163a49fc5ba81aab9827d83118e" name="ad39e4163a49fc5ba81aab9827d83118e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad39e4163a49fc5ba81aab9827d83118e">&#9670;&#160;</a></span>QuadOpacity</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#ad39e4163a49fc5ba81aab9827d83118e">hmi::QuadOpacity</a> = std::function&lt;float(const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a>&amp;)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Opacité supplémentaire d'une primitive, décidée par l'appelant (calques masqués, grisés, reliefs en transparence) ; 0 ou moins : la primitive n'est pas peinte. </p>
 
 </div>
 </div>
@@ -1857,6 +1841,22 @@ Variables</h2></td></tr>
 <div class="line">std::map&lt;std::string, std::unordered_map&lt;std::string, std::string&gt;, std::less&lt;&gt;&gt;</div>
 </div><!-- fragment -->
 <p>Les catalogues d'un dossier : langue (nom du fichier sans <span class="tt">.lang</span>) → clé → texte. </p>
+
+</div>
+</div>
+<a id="a1ba3efb10e286621ca0b5eab9694d105" name="a1ba3efb10e286621ca0b5eab9694d105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ba3efb10e286621ca0b5eab9694d105">&#9670;&#160;</a></span>WorldQuadOpacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a1ba3efb10e286621ca0b5eab9694d105">hmi::WorldQuadOpacity</a> = std::function&lt;float(const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a>&amp;)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Opacité supplémentaire d'une primitive, décidée par l'appelant (calques masqués, grisés, reliefs en transparence) ; 0 ou moins : la primitive n'est pas dessinée. </p>
 
 </div>
 </div>
@@ -2174,7 +2174,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Action d'éditeur logique, remappable indépendamment de la touche physique. </p>
-<p>Sous-ensemble <b>significatif</b> des raccourcis de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span>), pas exhaustif (décision de cadrage) : navigation de menu, redimensionnement par flèches, <span class="tt">Ctrl+R</span>, <span class="tt">"0"</span>, <span class="tt">Tab</span>, Maj+clic restent câblés en dur. Le modificateur <span class="tt">Ctrl</span> de Save/Undo/Redo/Copy/Paste reste lui-même câblé en dur ; seule la touche-lettre associée est ici remappable. </p>
+<p>Sous-ensemble <b>significatif</b> des raccourcis de l'éditeur (<span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon rendu en iso ou peint à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span>), pas exhaustif (décision de cadrage) : navigation de menu, redimensionnement par flèches, <span class="tt">Ctrl+R</span>, <span class="tt">"0"</span>, <span class="tt">Tab</span>, Maj+clic restent câblés en dur. Le modificateur <span class="tt">Ctrl</span> de Save/Undo/Redo/Copy/Paste reste lui-même câblé en dur ; seule la touche-lettre associée est ici remappable. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354" name="aa4f5968d7b564d555f29fdc5d2fc9585ac9cc8cce247e49bae79f15173ce97354"></a>Save&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119" name="aa4f5968d7b564d555f29fdc5d2fc9585a1cdc076b28f70afac5fcedadf99fa119"></a>Undo&#160;</td><td class="fielddoc"></td></tr>
@@ -4452,32 +4452,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a69e74e4f140af19416ff4a8a7dbd49a8" name="a69e74e4f140af19416ff4a8a7dbd49a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69e74e4f140af19416ff4a8a7dbd49a8">&#9670;&#160;</a></span>cameraTransform()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QTransform hmi::cameraTransform </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>camera</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>La transformation d'un cadrage du jeu : unités monde vers pixels de la surface. </dd></dl>
-
-</div>
-</div>
 <a id="a6070de201a90f5c4e94d30874a2c3c04" name="a6070de201a90f5c4e94d30874a2c3c04"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6070de201a90f5c4e94d30874a2c3c04">&#9670;&#160;</a></span>canvasSnapshot()</h2>
 
@@ -5293,7 +5267,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le rectangle qu'occupe <code class="param">scene</code>, réuni à <code class="param">base</code> : chaque primitive compte, reliefs et figurines qui montent au-dessus de leur case compris. </p>
-<p>Le cadre du canevas, des vignettes et de <span class="tt">--render</span> (<span class="tt">LOT-125</span>) : il se mesure sur ce qui est peint, et non sur une marge supposée — une pièce de quatre cases de haut n'y est jamais rognée. </p>
+<p>Le cadre du canevas, des vignettes et de <span class="tt">--render</span> (<span class="tt">LOT-125</span>) : il se mesure sur ce qui est dessiné, et non sur une marge supposée — une pièce de quatre cases de haut n'y est jamais rognée. </p>
 
 </div>
 </div>
@@ -7530,6 +7504,41 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a19e2a922a7f8083d4c90e83ae1d815d3" name="a19e2a922a7f8083d4c90e83ae1d815d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19e2a922a7f8083d4c90e83ae1d815d3">&#9670;&#160;</a></span>framedCamera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> hmi::framedCamera </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>framing</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pixelWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pixelHeight</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La caméra d'un cadrage imposé, pour une cible de <code class="param">pixelWidth</code> × <code class="param">pixelHeight</code>. </dd></dl>
+
+</div>
+</div>
 <a id="ae67a7efaa5cb116e48427d0aab5280a6" name="ae67a7efaa5cb116e48427d0aab5280a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae67a7efaa5cb116e48427d0aab5280a6">&#9670;&#160;</a></span>frameHeightOf()</h2>
 
@@ -9044,6 +9053,50 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a51708f03902af8e6f04911b5c9e4a862" name="a51708f03902af8e6f04911b5c9e4a862"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51708f03902af8e6f04911b5c9e4a862">&#9670;&#160;</a></span>mapRenderFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1MapRenderFrame.html">MapRenderFrame</a> hmi::mapRenderFrame </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>painted</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>tileWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>options</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le cadre du rendu d'une carte dont la scène occupe <code class="param">painted</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">painted</td><td>Ce que la scène occupe, reliefs compris (<span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html#a5297e82fdf10c881f55121e39f6f0867" title="Ce qu&#39;occupent la carte et ses figurines, réuni à base (composedSceneBounds).">hmi::WorldSceneRenderer::paintedBounds</a></span>). </td></tr>
+    <tr><td class="paramname">tileWidth</td><td>La largeur d'une case, en unités monde. </td></tr>
+    <tr><td class="paramname">options</td><td>L'échelle, le plus grand côté et le cadre imposé. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a66c7ffd37a4eee4e6c716aac5494b04d" name="a66c7ffd37a4eee4e6c716aac5494b04d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66c7ffd37a4eee4e6c716aac5494b04d">&#9670;&#160;</a></span>mapStateFromKey()</h2>
 
@@ -10164,48 +10217,6 @@ Variables</h2></td></tr>
 <p>Ajoute (<code class="param">add</code>) ou retire les cases <code class="param">cells</code> de la zone peinte <code class="param">entity</code> (décision D13). </p>
 <p>Une zone rectangle devient peinte à sa première retouche : ses cases se copient dans <span class="tt">cells</span>, <span class="tt">width</span> et <span class="tt">height</span> partent. Les cases restent triées (ligne, colonne), sans doublon : l'ordre d'une zone ne veut rien dire, et le diff du fichier reste stable. La case de l'entité reste une case de la zone : si on la retire, la première des cases restantes la remplace.</p>
 <dl class="section return"><dt>Returns</dt><dd>La zone retouchée ; <code class="param">entity</code> telle quelle si la retouche la viderait. </dd></dl>
-
-</div>
-</div>
-<a id="a13d39d2941050cdcde712bd03062a037" name="a13d39d2941050cdcde712bd03062a037"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13d39d2941050cdcde712bd03062a037">&#9670;&#160;</a></span>paintComposedScene()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void hmi::paintComposedScene </td>
-          <td>(</td>
-          <td class="paramtype">QPainter &amp;</td>          <td class="paramname"><span class="paramname"><em>painter</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>scene</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::optional&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>visible</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::nullopt</span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="#ad39e4163a49fc5ba81aab9827d83118e">QuadOpacity</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>opacity</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Peint <code class="param">scene</code> dans <code class="param">painter</code>, dont la transformation porte déjà le cadrage (unités monde vers pixels). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">painter</td><td>Surface de peinture, déjà cadrée. </td></tr>
-    <tr><td class="paramname">scene</td><td>Scène composée à peindre. </td></tr>
-    <tr><td class="paramname">visible</td><td>Le rectangle du monde à peindre ; une primitive qui ne le coupe pas est sautée. Absent : tout. </td></tr>
-    <tr><td class="paramname">opacity</td><td>Opacité supplémentaire par primitive ; vide : 1. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -12515,52 +12526,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a7e2e49094a1e633ea842459409c9c13b" name="a7e2e49094a1e633ea842459409c9c13b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e2e49094a1e633ea842459409c9c13b">&#9670;&#160;</a></span>renderComposedScene()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QImage hmi::renderComposedScene </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>scene</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>camera</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>width</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>height</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const QColor &amp;</td>          <td class="paramname"><span class="paramname"><em>clear</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Rend <code class="param">scene</code> hors écran, cadrée par <code class="param">camera</code>, sur un fond <code class="param">clear</code> — l'image que le jeu dessinerait avec la même caméra. </p>
-
-</div>
-</div>
 <a id="a8b8fd5c80e500ad266167edacf261714" name="a8b8fd5c80e500ad266167edacf261714"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8b8fd5c80e500ad266167edacf261714">&#9670;&#160;</a></span>renderLayerName()</h2>
 
@@ -12642,6 +12607,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>L'image, nulle si la machine n'offre aucune interface de rendu (<span class="tt"><a class="el" href="classhmi_1_1OffscreenRhi.html" title="Une interface QRhi sans fenêtre, la cible où elle dessine, et les rendus qu&#39;elle garde.">hmi::OffscreenRhi</a></span>). </dd></dl>
 
 </div>
 </div>
@@ -12708,7 +12674,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>La <b>vignette d'un préfabriqué</b> (<span class="tt">LOT-EDITOR-08</span>) : le tampon posé sur une carte de sa taille, rendu par le même peintre, réduit pour tenir dans un carré de <code class="param">maxSide</code> pixels. </p>
+<p>La <b>vignette d'un préfabriqué</b> (<span class="tt">LOT-EDITOR-08</span>) : le tampon posé sur une carte de sa taille, rendu par le même rendu, réduit pour tenir dans un carré de <code class="param">maxSide</code> pixels. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stamp</td><td>Le tampon. </td></tr>
@@ -12989,7 +12955,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md124"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md125"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/checks/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -13248,58 +13214,6 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 
 <p>Toutes les cartes de <code class="param">directories</code>, dans l'ordre des identifiants. </p>
 <p>Les dossiers sont lus <b>dans l'ordre</b> : quand deux portent la même carte, la première l'emporte — la règle de <span class="tt"><a class="el" href="classcore_1_1WorldTravel.html#a424d0def362d872b0f498f08673f2615" title="Le chargeur qui cherche une carte dans levelsDirs, dans l&#39;ordre donné.">core::WorldTravel::directoriesLoader</a></span>, celle que le jeu applique quand <span class="tt">--levels=</span> pose les brouillons devant les cartes du binaire. Les fichiers annexes de l'éditeur (<span class="tt">&lt;carte&gt;.editor.json</span>) ne sont pas des cartes et sont écartés. Un dossier absent n'est pas une erreur : il ne contient rien. </p>
-
-</div>
-</div>
-<a id="aaaf1677389a57f473864df3a499e630f" name="aaaf1677389a57f473864df3a499e630f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaf1677389a57f473864df3a499e630f">&#9670;&#160;</a></span>sceneImageHandle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> hmi::sceneImageHandle </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a> *</td>          <td class="paramname"><span class="paramname"><em>image</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>L'identité de texture de <code class="param">image</code>, l'inverse de <span class="tt"><a class="el" href="#af371615628977cf8d19ec3b53afafc0b">sceneImageOf</a></span>. L'identité est opaque (<span class="tt">void*</span>) : le retrait du <span class="tt">const</span> ne sert qu'au cache, qui calcule ses niveaux. </dd></dl>
-
-</div>
-</div>
-<a id="af371615628977cf8d19ec3b53afafc0b" name="af371615628977cf8d19ec3b53afafc0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af371615628977cf8d19ec3b53afafc0b">&#9670;&#160;</a></span>sceneImageOf()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classhmi_1_1SceneImage.html">SceneImage</a> * hmi::sceneImageOf </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a></td>          <td class="paramname"><span class="paramname"><em>handle</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>L'image que désigne une identité de texture de ce cache. </dd></dl>
 
 </div>
 </div>
@@ -16323,6 +16237,55 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
+<a id="a50c22914893857d88acbf9c3813c0b52" name="a50c22914893857d88acbf9c3813c0b52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50c22914893857d88acbf9c3813c0b52">&#9670;&#160;</a></span>OFFSCREEN_TEXTURE_BUDGET_BYTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::OFFSCREEN_TEXTURE_BUDGET_BYTES = std::size_t{256} * 1024 * 1024</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le plafond des textures qu'un rendu <b>gardé</b> conserve d'une image à l'autre, en octets de mémoire graphique : au-delà, il les rend avant de resservir (<span class="tt"><a class="el" href="classhmi_1_1OffscreenRhi.html#ada0bde7f4d049deec15f6569c4355b0d" title="Le rendu gardé du dossier d&#39;assets assetsDirectory, ressources créées.">OffscreenRhi::renderer</a></span>). </p>
+<p>C'est le budget que tenait le cache d'images du canevas (<span class="tt">LOT-125</span>). </p>
+
+</div>
+</div>
+<a id="aa97e4ca253ea135c49b70d7170d1b284" name="aa97e4ca253ea135c49b70d7170d1b284"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa97e4ca253ea135c49b70d7170d1b284">&#9670;&#160;</a></span>OFFSCREEN_TILE_SIDE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::OFFSCREEN_TILE_SIDE = 4096</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le plus grand côté d'une cible de rendu hors écran, en pixels : une image plus grande se rend par tuiles, ce qui borne la mémoire graphique d'un <span class="tt">--render</span> de 8 192 pixels de côté. </p>
+
+</div>
+</div>
 <a id="af04ce56b73b71704b41ee6d8cfe4e2e2" name="af04ce56b73b71704b41ee6d8cfe4e2e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af04ce56b73b71704b41ee6d8cfe4e2e2">&#9670;&#160;</a></span>PANEL_COUNT</h2>
 
@@ -16416,30 +16379,6 @@ template&lt;class Map&gt; </div>
 </div><div class="memdoc">
 
 <p>Version du format d'un préfabriqué (champ <span class="tt">version</span>). </p>
-
-</div>
-</div>
-<a id="ab755222165119a686d183acf69b1d440" name="ab755222165119a686d183acf69b1d440"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab755222165119a686d183acf69b1d440">&#9670;&#160;</a></span>SCENE_IMAGES_DEFAULT_BUDGET_BYTES</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t hmi::SCENE_IMAGES_DEFAULT_BUDGET_BYTES = std::size_t{256} * 1024 * 1024</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Budget par défaut des pixels évinçables, en octets (<span class="tt">LOT-125</span>, README du module). </p>
 
 </div>
 </div>

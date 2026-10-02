@@ -1,11 +1,5 @@
 var NAVTREEINDEX42 =
 {
-"structcore_1_1SkillCatalog.html#af1a5f314ee5266ed330fb4ef5610d1d5":[3,0,0,215,1],
-"structcore_1_1SkillCheckModifier.html":[2,0,1,171],
-"structcore_1_1SkillCheckModifier.html":[3,0,0,171],
-"structcore_1_1SkillCheckModifier.html#a0031e06d33916dfdb6a653c8ac9e76b5":[2,0,1,171,1],
-"structcore_1_1SkillCheckModifier.html#a0031e06d33916dfdb6a653c8ac9e76b5":[3,0,0,171,1],
-"structcore_1_1SkillCheckModifier.html#ab7aba02abe8f184dcfebb04e3c0f39f6":[2,0,1,171,0],
 "structcore_1_1SkillCheckModifier.html#ab7aba02abe8f184dcfebb04e3c0f39f6":[3,0,0,171,0],
 "structcore_1_1SkillCheckModifier.html#abc3d0b280075c40dc8a2ae9e8b099785":[2,0,1,171,2],
 "structcore_1_1SkillCheckModifier.html#abc3d0b280075c40dc8a2ae9e8b099785":[3,0,0,171,2],
@@ -249,5 +243,11 @@ var NAVTREEINDEX42 =
 "structcore_1_1TurnSlot.html#ad5f940146319d7d76907df51ca595f70":[3,0,0,80,0],
 "structcore_1_1TurnSlot.html#adae84a4bce908ae66b5ed76adbf5cc35":[2,0,1,80,1],
 "structcore_1_1TurnSlot.html#adae84a4bce908ae66b5ed76adbf5cc35":[3,0,0,80,1],
-"structcore_1_1UnarmoredArmorClass.html":[2,0,1,179]
+"structcore_1_1UnarmoredArmorClass.html":[2,0,1,179],
+"structcore_1_1UnarmoredArmorClass.html":[3,0,0,179],
+"structcore_1_1UnarmoredArmorClass.html#aad8ac75794b7fbbf49edbd35037fe753":[2,0,1,179,2],
+"structcore_1_1UnarmoredArmorClass.html#aad8ac75794b7fbbf49edbd35037fe753":[3,0,0,179,2],
+"structcore_1_1UnarmoredArmorClass.html#ab86960e91a60a2ce63059cd5cf8946ec":[2,0,1,179,0],
+"structcore_1_1UnarmoredArmorClass.html#ab86960e91a60a2ce63059cd5cf8946ec":[3,0,0,179,0],
+"structcore_1_1UnarmoredArmorClass.html#ada16958017ea9ef2d29b433b504c4769":[2,0,1,179,1]
 };

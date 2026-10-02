@@ -1,11 +1,5 @@
 var NAVTREEINDEX39 =
 {
-"structcore_1_1InitiativeEntry.html#adc7782cdf2bebe7cc25c96d92f858a4d":[3,0,0,78,2],
-"structcore_1_1InitiativeMarker.html":[2,0,1,79],
-"structcore_1_1InitiativeMarker.html":[3,0,0,79],
-"structcore_1_1InitiativeMarker.html#aee94c6a78652ddbf8427d78dbb489396":[2,0,1,79,0],
-"structcore_1_1InitiativeMarker.html#aee94c6a78652ddbf8427d78dbb489396":[3,0,0,79,0],
-"structcore_1_1InitiativeMarker.html#aef75d4d331e8ba6e35f1896553990886":[2,0,1,79,1],
 "structcore_1_1InitiativeMarker.html#aef75d4d331e8ba6e35f1896553990886":[3,0,0,79,1],
 "structcore_1_1Interactable.html":[2,0,1,96],
 "structcore_1_1Interactable.html":[3,0,0,96],
@@ -249,5 +243,11 @@ var NAVTREEINDEX39 =
 "structcore_1_1MapEncounterSetup.html#a45a7c4174641f6d7073732ef34c2d437":[3,0,0,69,3],
 "structcore_1_1MapEncounterSetup.html#a614f3c87efc042b717b4802c0f16ad3f":[2,0,1,69,0],
 "structcore_1_1MapEncounterSetup.html#a614f3c87efc042b717b4802c0f16ad3f":[3,0,0,69,0],
-"structcore_1_1MapEncounterSetup.html#aac811ae5d0f375e0d54af3864e2c7003":[2,0,1,69,2]
+"structcore_1_1MapEncounterSetup.html#aac811ae5d0f375e0d54af3864e2c7003":[2,0,1,69,2],
+"structcore_1_1MapEncounterSetup.html#aac811ae5d0f375e0d54af3864e2c7003":[3,0,0,69,2],
+"structcore_1_1MapEncounterSetup.html#ab4ca32b273e4664960e7ff689cb166a3":[2,0,1,69,1],
+"structcore_1_1MapEncounterSetup.html#ab4ca32b273e4664960e7ff689cb166a3":[3,0,0,69,1],
+"structcore_1_1MapEntity.html":[2,0,1,132],
+"structcore_1_1MapEntity.html":[3,0,0,132],
+"structcore_1_1MapEntity.html#a0585fa6522c09d42c879ed8bd9c32550":[2,0,1,132,6]
 };

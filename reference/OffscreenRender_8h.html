@@ -17,7 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/ScenePainter.h File Reference</title>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/OffscreenRender.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,7 +113,7 @@ $(function() { codefold.init(); });
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('ScenePainter_8h.html','',''); });
+$(function(){initNavTree('OffscreenRender_8h.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -139,45 +139,43 @@ $(function(){initNavTree('ScenePainter_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">ScenePainter.h File Reference</div></div>
+  <div class="headertitle"><div class="title">OffscreenRender.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Peindre une <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html" title="Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.">hmi::ComposedScene</a></span> avec <span class="tt">QPainter</span> : la liste de primitives du jeu, dans l'ordre du jeu, sans GPU (<span class="tt">LOT-EDITOR-02</span>, décision D2).  
+<p>Le rendu d'un lieu <b>hors écran</b>, en image (<span class="tt">LOT-1002</span>) : <span class="tt">LevelEditor --render</span>, les vignettes de l'éditeur, les mesures et les tests.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QColor&gt;</code><br />
 <code>#include &lt;QImage&gt;</code><br />
-<code>#include &lt;QTransform&gt;</code><br />
-<code>#include &lt;functional&gt;</code><br />
-<code>#include &lt;optional&gt;</code><br />
-<code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
+<code>#include &lt;QSize&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneRenderer_8h_source.html">HMI/Graphics/WorldSceneRenderer.h</a>&quot;</code><br />
 </div>
-<p><a href="ScenePainter_8h_source.html">Go to the source code of this file.</a></p>
+<p><a href="OffscreenRender_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3AOffscreenRhi" id="r_hmi_3A_3AOffscreenRhi"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1OffscreenRhi.html">hmi::OffscreenRhi</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une interface <span class="tt">QRhi</span> sans fenêtre, la cible où elle dessine, et les rendus qu'elle garde.  <a href="classhmi_1_1OffscreenRhi.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ad39e4163a49fc5ba81aab9827d83118e" id="r_ad39e4163a49fc5ba81aab9827d83118e"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad39e4163a49fc5ba81aab9827d83118e">hmi::QuadOpacity</a> = std::function&lt;float(const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a>&amp;)&gt;</td></tr>
-<tr class="memdesc:ad39e4163a49fc5ba81aab9827d83118e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité supplémentaire d'une primitive, décidée par l'appelant (calques masqués, grisés, reliefs en transparence) ; 0 ou moins : la primitive n'est pas peinte.  <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a13d39d2941050cdcde712bd03062a037" id="r_a13d39d2941050cdcde712bd03062a037"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037">hmi::paintComposedScene</a> (QPainter &amp;painter, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const std::optional&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; &amp;visible=std::nullopt, const <a class="el" href="namespacehmi.html#ad39e4163a49fc5ba81aab9827d83118e">QuadOpacity</a> &amp;opacity={})</td></tr>
-<tr class="memdesc:a13d39d2941050cdcde712bd03062a037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint <code class="param">scene</code> dans <code class="param">painter</code>, dont la transformation porte déjà le cadrage (unités monde vers pixels).  <br /></td></tr>
-<tr class="memitem:a20c3945e5c8e719d1588de9fbc5d931b" id="r_a20c3945e5c8e719d1588de9fbc5d931b"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a20c3945e5c8e719d1588de9fbc5d931b">hmi::composedSceneBounds</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;base)</td></tr>
-<tr class="memdesc:a20c3945e5c8e719d1588de9fbc5d931b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rectangle qu'occupe <code class="param">scene</code>, réuni à <code class="param">base</code> : chaque primitive compte, reliefs et figurines qui montent au-dessus de leur case compris.  <br /></td></tr>
-<tr class="memitem:a69e74e4f140af19416ff4a8a7dbd49a8" id="r_a69e74e4f140af19416ff4a8a7dbd49a8"><td class="memItemLeft">QTransform&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a69e74e4f140af19416ff4a8a7dbd49a8">hmi::cameraTransform</a> (const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera)</td></tr>
-<tr class="memitem:a7e2e49094a1e633ea842459409c9c13b" id="r_a7e2e49094a1e633ea842459409c9c13b"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a7e2e49094a1e633ea842459409c9c13b">hmi::renderComposedScene</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, int width, int height, const QColor &amp;clear)</td></tr>
-<tr class="memdesc:a7e2e49094a1e633ea842459409c9c13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">scene</code> hors écran, cadrée par <code class="param">camera</code>, sur un fond <code class="param">clear</code> — l'image que le jeu dessinerait avec la même caméra.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aa97e4ca253ea135c49b70d7170d1b284" id="r_aa97e4ca253ea135c49b70d7170d1b284"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aa97e4ca253ea135c49b70d7170d1b284">hmi::OFFSCREEN_TILE_SIDE</a> = 4096</td></tr>
+<tr class="memdesc:aa97e4ca253ea135c49b70d7170d1b284"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus grand côté d'une cible de rendu hors écran, en pixels : une image plus grande se rend par tuiles, ce qui borne la mémoire graphique d'un <span class="tt">--render</span> de 8 192 pixels de côté.  <br /></td></tr>
+<tr class="memitem:a50c22914893857d88acbf9c3813c0b52" id="r_a50c22914893857d88acbf9c3813c0b52"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a50c22914893857d88acbf9c3813c0b52">hmi::OFFSCREEN_TEXTURE_BUDGET_BYTES</a> = std::size_t{256} * 1024 * 1024</td></tr>
+<tr class="memdesc:a50c22914893857d88acbf9c3813c0b52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plafond des textures qu'un rendu <b>gardé</b> conserve d'une image à l'autre, en octets de mémoire graphique : au-delà, il les rend avant de resservir (<span class="tt"><a class="el" href="classhmi_1_1OffscreenRhi.html#ada0bde7f4d049deec15f6569c4355b0d" title="Le rendu gardé du dossier d&#39;assets assetsDirectory, ressources créées.">OffscreenRhi::renderer</a></span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Peindre une <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html" title="Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.">hmi::ComposedScene</a></span> avec <span class="tt">QPainter</span> : la liste de primitives du jeu, dans l'ordre du jeu, sans GPU (<span class="tt">LOT-EDITOR-02</span>, décision D2). </p>
-<p>Le jeu soumet la scène composée à <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence prémultipliée et un échantillonnage ...">hmi::SpriteBatch</a></span> ; l'éditeur la parcourt ici, quad par quad, dans le même ordre. Ce qui compte pour ressembler au jeu, et qui est fait ici comme le GPU le fait : l'échantillonnage — l'art peint <b>lissé</b>, lu sur le niveau réduit que demande l'échelle, les images engendrées <b>au plus proche</b> (<span class="tt">LOT-125</span>) —, la région d'image tirée des UV, l'opacité du quad, la rotation autour de son centre. La comparaison d'image avec le rendu hors écran du jeu en est la preuve (<span class="tt"><a class="el" href="test__scene__painter_8cpp.html" title="Le canevas de l&#39;éditeur peint le lieu comme le jeu le dessine (LOT-EDITOR-02).">test_scene_painter.cpp</a></span>) ; elle se fait à un seuil, car le GPU mêle deux niveaux (trilinéaire) là où le peintre n'en lit qu'un.</p>
-<p>Une différence assumée : la <b>teinte</b> RVB d'un quad texturé n'est pas appliquée (le jeu ne teinte aucune pièce de lieu) ; seul un quad à teinte unie (<span class="tt"><a class="el" href="classhmi_1_1SceneImages.html#a81100b0f242ad215cd4f81d6f74d9cd2">hmi::SceneImages::solid</a></span>) se peint en aplat de sa couleur. Un <span class="tt"><a class="el" href="structhmi_1_1PolyQuad.html" title="Un quadrilatère à quatre sommets libres, en unités monde, d&#39;une seule teinte — la primitive du rendu ...">hmi::PolyQuad</a></span> (<span class="tt">LOT-128</span>) se peint toujours ainsi : il n'a pas d'autre contenu que sa teinte. </p>
+<div class="textblock"><p>Le rendu d'un lieu <b>hors écran</b>, en image (<span class="tt">LOT-1002</span>) : <span class="tt">LevelEditor --render</span>, les vignettes de l'éditeur, les mesures et les tests. </p>
+<p>Le canevas de l'éditeur dessine par <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span> dans sa fenêtre ; ce qui n'a pas de fenêtre passe par le même rendu, sur un <span class="tt">QRhi</span> sans surface. Il n'y a donc qu'un rendu d'un lieu, et une image hors écran est, au pixel, celle que le jeu dessinerait avec le même cadrage.</p>
+<p>Sans carte graphique, Direct3D rend par WARP : c'est ce qui fait tourner <span class="tt">--render</span> en CI, comme les tests de rendu du jeu. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -191,7 +189,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_81129cf20409270d9237df2d6b07b076.html">Ui</a></li><li class="navelem"><a href="ScenePainter_8h.html">ScenePainter.h</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="OffscreenRender_8h.html">OffscreenRender.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

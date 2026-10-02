@@ -146,7 +146,6 @@ $(function(){initNavTree('test__storey__render_8cpp.html','',''); });
 <p>Un îlot de murs du kit de la Capitale sur deux étages, coiffé d'un toit, <b>rendu</b> : on voit le héros à travers ce qui le masque (<span class="tt">LOT-129</span>).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QColor&gt;</code><br />
-<code>#include &lt;QDir&gt;</code><br />
 <code>#include &lt;QImage&gt;</code><br />
 <code>#include &lt;QPainter&gt;</code><br />
 <code>#include &lt;QPolygonF&gt;</code><br />
@@ -161,11 +160,10 @@ $(function(){initNavTree('test__storey__render_8cpp.html','',''); });
 <code>#include &lt;nlohmann/json.hpp&gt;</code><br />
 <code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="SceneImages_8h_source.html">Editor/Ui/SceneImages.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ScenePainter_8h_source.html">Editor/Ui/ScenePainter.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Camera2D_8h_source.html">HMI/Graphics/Camera2D.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="OffscreenRender_8h_source.html">HMI/Graphics/OffscreenRender.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneRenderer_8h_source.html">HMI/Graphics/WorldSceneRenderer.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -174,7 +172,7 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un îlot de murs du kit de la Capitale sur deux étages, coiffé d'un toit, <b>rendu</b> : on voit le héros à travers ce qui le masque (<span class="tt">LOT-129</span>). </p>
-<p>Les murs sont ceux du kit installé (<span class="tt">LOT-105</span>), copiés sous <span class="tt">Scene/capital/</span> d'une racine temporaire comme le fait <span class="tt"><a class="el" href="test__capital__kit__render_8cpp.html" title="Le kit commun de la Capitale (LOT-105), rendu par le moteur : une rue de douze cases composée avec se...">test_capital_kit_render.cpp</a></span> — le moteur ne résout pas encore l'arbre <span class="tt">Regions/</span>. Leur manifeste déclare la hauteur d'étage (<span class="tt">storey</span>). Le toit est <b>provisoire</b> : une pyramide bourgogne peinte par le test, en attendant la toiture de la Capitale que produit le lot. Le rendu passe par le peintre de l'éditeur, que le <span class="tt">LOT-125</span> rend conforme au jeu ; l'image est écrite dans <span class="tt">editor-captures/</span> pour l'œil de l'auteur. </p>
+<p>Les murs sont ceux du kit installé (<span class="tt">LOT-105</span>), copiés sous <span class="tt">Scene/capital/</span> d'une racine temporaire comme le fait <span class="tt"><a class="el" href="test__capital__kit__render_8cpp.html" title="Le kit commun de la Capitale (LOT-105), rendu par le moteur : une rue de douze cases composée avec se...">test_capital_kit_render.cpp</a></span> — le moteur ne résout pas encore l'arbre <span class="tt">Regions/</span>. Leur manifeste déclare la hauteur d'étage (<span class="tt">storey</span>). Le toit est <b>provisoire</b> : une pyramide bourgogne peinte par le test, en attendant la toiture de la Capitale que produit le lot. Le rendu est celui du jeu, hors écran (<span class="tt"><a class="el" href="classhmi_1_1OffscreenRhi.html" title="Une interface QRhi sans fenêtre, la cible où elle dessine, et les rendus qu&#39;elle garde.">hmi::OffscreenRhi</a></span>, <span class="tt">LOT-1002</span>) ; l'image est écrite sous le répertoire de construction (<span class="tt">render-captures/</span>) pour l'œil de l'auteur. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a21ae281aeaa6f887da1e3f2091547ef0" name="a21ae281aeaa6f887da1e3f2091547ef0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a21ae281aeaa6f887da1e3f2091547ef0">&#9670;&#160;</a></span>TEST()</h2>

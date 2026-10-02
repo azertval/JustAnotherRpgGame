@@ -1,11 +1,5 @@
 var NAVTREEINDEX33 =
 {
-"structcore_1_1ArenaEffect.html#a76199ab95a241029dd3297cb9d296f8b":[3,0,0,5,1],
-"structcore_1_1ArenaEffect.html#a84de1142da0bb29e3c63684e62ddedcf":[2,0,1,5,5],
-"structcore_1_1ArenaEffect.html#a84de1142da0bb29e3c63684e62ddedcf":[3,0,0,5,5],
-"structcore_1_1ArenaEffect.html#ac5b1c446772d48056fefd201f48faace":[2,0,1,5,6],
-"structcore_1_1ArenaEffect.html#ac5b1c446772d48056fefd201f48faace":[3,0,0,5,6],
-"structcore_1_1ArenaEffect.html#af4795b6b12826cd7103f3e89d99aa4a3":[2,0,1,5,4],
 "structcore_1_1ArenaEffect.html#af4795b6b12826cd7103f3e89d99aa4a3":[3,0,0,5,4],
 "structcore_1_1ArenaEntryPoint.html":[2,0,1,3],
 "structcore_1_1ArenaEntryPoint.html":[3,0,0,3],
@@ -249,5 +243,11 @@ var NAVTREEINDEX33 =
 "structcore_1_1AttackRoll.html#a8704230f162edc0631152dacb5d50bf7":[3,0,0,17,17],
 "structcore_1_1AttackRoll.html#a92362aee27d0322322e39779397bc506":[2,0,1,17,5],
 "structcore_1_1AttackRoll.html#a92362aee27d0322322e39779397bc506":[3,0,0,17,5],
-"structcore_1_1AttackRoll.html#a939d9433a590fcc2a28b0be6168fd317":[2,0,1,17,16]
+"structcore_1_1AttackRoll.html#a939d9433a590fcc2a28b0be6168fd317":[2,0,1,17,16],
+"structcore_1_1AttackRoll.html#a939d9433a590fcc2a28b0be6168fd317":[3,0,0,17,16],
+"structcore_1_1AttackRoll.html#a9d3fda07cfa265bb01b1a82c7a237227":[2,0,1,17,11],
+"structcore_1_1AttackRoll.html#a9d3fda07cfa265bb01b1a82c7a237227":[3,0,0,17,11],
+"structcore_1_1AttackRoll.html#aa1e136f6d9b2feb99c3b9e70e4dd933a":[2,0,1,17,3],
+"structcore_1_1AttackRoll.html#aa1e136f6d9b2feb99c3b9e70e4dd933a":[3,0,0,17,3],
+"structcore_1_1AttackRoll.html#aa300944799cf2938bda1c50922cd680d":[2,0,1,17,6]
 };

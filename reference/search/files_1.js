@@ -3,7 +3,7 @@ var searchData=
   ['battlegrid_2ecpp_0',['BattleGrid.cpp',['../BattleGrid_8cpp.html',1,'']]],
   ['battlegrid_2eh_1',['BattleGrid.h',['../BattleGrid_8h.html',1,'']]],
   ['bench_5fcanvas_2ecpp_2',['bench_canvas.cpp',['../bench__canvas_8cpp.html',1,'']]],
-  ['bench_5fcanvas_5fpaint_2ecpp_3',['bench_canvas_paint.cpp',['../bench__canvas__paint_8cpp.html',1,'']]],
+  ['bench_5fcanvas_5fframe_2ecpp_3',['bench_canvas_frame.cpp',['../bench__canvas__frame_8cpp.html',1,'']]],
   ['bench_5fcombat_2ecpp_4',['bench_combat.cpp',['../bench__combat_8cpp.html',1,'']]],
   ['bench_5flevels_2ecpp_5',['bench_levels.cpp',['../bench__levels_8cpp.html',1,'']]],
   ['bench_5fworld_5fframe_2ecpp_6',['bench_world_frame.cpp',['../bench__world__frame_8cpp.html',1,'']]],

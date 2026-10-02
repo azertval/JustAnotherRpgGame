@@ -173,17 +173,32 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab0160a58f9a4c26eef4ea0d7ae44e08d" id="r_ab0160a58f9a4c26eef4ea0d7ae44e08d"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab0160a58f9a4c26eef4ea0d7ae44e08d">focus</a> () const noexcept</td></tr>
 <tr class="memitem:afba0dba07f75c1abd5e307c4d2286d71" id="r_afba0dba07f75c1abd5e307c4d2286d71"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afba0dba07f75c1abd5e307c4d2286d71">setTilePixels</a> (float tilePixels) noexcept</td></tr>
 <tr class="memdesc:afba0dba07f75c1abd5e307c4d2286d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Impose la largeur d'une case à l'écran, en pixels ; 0 rend la règle de la définition (<span class="tt"><a class="el" href="namespacehmi.html#a44337da72a19b007b1c90bade791dfdf" title="Le cadrage d&#39;un lieu : la caméra suit le héros, et ne sort pas de la carte.">hmi::worldCamera</a></span>).  <br /></td></tr>
+<tr class="memitem:ad91b45ca76f463aab23658218925a019" id="r_ad91b45ca76f463aab23658218925a019"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad91b45ca76f463aab23658218925a019">setFraming</a> (std::optional&lt; <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &gt; <a class="el" href="#a912e925487137e7c91fa390d6597b8dc">framing</a>) noexcept</td></tr>
+<tr class="memdesc:ad91b45ca76f463aab23658218925a019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Impose le cadrage (<span class="tt">LOT-1002</span>) ; <span class="tt">std::nullopt</span> rend la caméra qui suit le héros.  <br /></td></tr>
+<tr class="memitem:a912e925487137e7c91fa390d6597b8dc" id="r_a912e925487137e7c91fa390d6597b8dc"><td class="memItemLeft">const std::optional&lt; <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a912e925487137e7c91fa390d6597b8dc">framing</a> () const noexcept</td></tr>
+<tr class="memitem:a93db72ce993836a04875f6044de7310e" id="r_a93db72ce993836a04875f6044de7310e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a93db72ce993836a04875f6044de7310e">setQuadOpacity</a> (<a class="el" href="namespacehmi.html#a1ba3efb10e286621ca0b5eab9694d105">WorldQuadOpacity</a> opacity)</td></tr>
+<tr class="memdesc:a93db72ce993836a04875f6044de7310e"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'opacité par primitive de chaque image (<span class="tt">LOT-1002</span>) ; vide : 1 partout.  <br /></td></tr>
+<tr class="memitem:a11f3d2c9e7edc817672037c29ea26fc6" id="r_a11f3d2c9e7edc817672037c29ea26fc6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a11f3d2c9e7edc817672037c29ea26fc6">setComposeOptions</a> (<a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> options) noexcept</td></tr>
+<tr class="memdesc:a11f3d2c9e7edc817672037c29ea26fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les options de composition de la carte ; la carte sera recomposée si elles changent.  <br /></td></tr>
+<tr class="memitem:a6559aaca06908411e90abdb1782a96c2" id="r_a6559aaca06908411e90abdb1782a96c2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6559aaca06908411e90abdb1782a96c2">prepare</a> ()</td></tr>
+<tr class="memdesc:a6559aaca06908411e90abdb1782a96c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les textures et compose la carte <b>maintenant</b>, sans dessiner (<span class="tt">LOT-1002</span>).  <br /></td></tr>
+<tr class="memitem:a5297e82fdf10c881f55121e39f6f0867" id="r_a5297e82fdf10c881f55121e39f6f0867"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5297e82fdf10c881f55121e39f6f0867">paintedBounds</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;base)</td></tr>
+<tr class="memdesc:a5297e82fdf10c881f55121e39f6f0867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'occupent la carte et ses figurines, réuni à <code class="param">base</code> (<span class="tt"><a class="el" href="namespacehmi.html#a20c3945e5c8e719d1588de9fbc5d931b" title="Le rectangle qu&#39;occupe scene, réuni à base : chaque primitive compte, reliefs et figurines qui monten...">composedSceneBounds</a></span>).  <br /></td></tr>
 <tr class="memitem:a6aab3318c68d4afcb4ae3f9c72f03e9e" id="r_a6aab3318c68d4afcb4ae3f9c72f03e9e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6aab3318c68d4afcb4ae3f9c72f03e9e">render</a> (QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, const float *clear)</td></tr>
-<tr class="memdesc:a6aab3318c68d4afcb4ae3f9c72f03e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine une image dans <code class="param">target</code> : efface à <code class="param">clear</code>, puis le lieu cadré sur le héros.  <br /></td></tr>
+<tr class="memdesc:a6aab3318c68d4afcb4ae3f9c72f03e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine une image dans <code class="param">target</code> : efface à <code class="param">clear</code>, puis le lieu cadré sur le héros, ou par le cadrage imposé.  <br /></td></tr>
 <tr class="memitem:a83e800ebffc8614f304d885d208af073" id="r_a83e800ebffc8614f304d885d208af073"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a83e800ebffc8614f304d885d208af073">composed</a> () const noexcept</td></tr>
 <tr class="memitem:a53ddda7697bef63590860ae7775329cf" id="r_a53ddda7697bef63590860ae7775329cf"><td class="memItemLeft">const <a class="el" href="classhmi_1_1StaticWorldScene.html">StaticWorldScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a53ddda7697bef63590860ae7775329cf">statics</a> () const noexcept</td></tr>
 <tr class="memitem:ad6ccf005d98a3a82dc22e75fd27ec0f6" id="r_ad6ccf005d98a3a82dc22e75fd27ec0f6"><td class="memItemLeft">const <a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad6ccf005d98a3a82dc22e75fd27ec0f6">textures</a> () const noexcept</td></tr>
+<tr class="memitem:aa9474c2928ca0f84630ef23e644d9dcd" id="r_aa9474c2928ca0f84630ef23e644d9dcd"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#aa9474c2928ca0f84630ef23e644d9dcd">textureBytes</a> () const noexcept</td></tr>
 <tr class="memitem:aba1078eb1edb78c7dbe8956c2fcecf76" id="r_aba1078eb1edb78c7dbe8956c2fcecf76"><td class="memItemLeft">const std::set&lt; std::string &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aba1078eb1edb78c7dbe8956c2fcecf76">requested</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ae28a3765bdefd7b8fd594e5451c8f6cd" id="r_ae28a3765bdefd7b8fd594e5451c8f6cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae28a3765bdefd7b8fd594e5451c8f6cd">ensureTextures</a> (const std::vector&lt; std::string &gt; &amp;paths)</td></tr>
 <tr class="memdesc:ae28a3765bdefd7b8fd594e5451c8f6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les textures de <code class="param">paths</code> qui manquent encore. Sur le fil de rendu.  <br /></td></tr>
+<tr class="memitem:a55dfc11aadf454da5f305ee9b90314e7" id="r_a55dfc11aadf454da5f305ee9b90314e7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a55dfc11aadf454da5f305ee9b90314e7">refresh</a> (const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection)</td></tr>
+<tr class="memdesc:a55dfc11aadf454da5f305ee9b90314e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui est périmé — textures de la carte et des figurines, composition — est refait.  <br /></td></tr>
+<tr class="memitem:a8815860ac208e1a7f941d78a5a9dc7d3" id="r_a8815860ac208e1a7f941d78a5a9dc7d3"><td class="memItemLeft"><a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8815860ac208e1a7f941d78a5a9dc7d3">sceneProjection</a> () const</td></tr>
 <tr class="memitem:abe6d8325e53bf390059ab20353dffc17" id="r_abe6d8325e53bf390059ab20353dffc17"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abe6d8325e53bf390059ab20353dffc17">figureMarker</a> (const std::string &amp;path)</td></tr>
 <tr class="memdesc:abe6d8325e53bf390059ab20353dffc17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le marqueur d'une figurine sans image (<span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas d&#39;image (LOT-39, LOT-96).">hmi::figureMarkerKey</a></span>), rien pour une autre piece.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -199,8 +214,12 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a711411bbae97a13b74d4154aeb74e36e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines ont changé : leurs bandes sont peut-être à charger.  <br /></td></tr>
 <tr class="memitem:a216cc6693ad9bd6d25f9a1e8d641541b" id="r_a216cc6693ad9bd6d25f9a1e8d641541b"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a216cc6693ad9bd6d25f9a1e8d641541b">_focus</a> {}</td></tr>
 <tr class="memitem:a4cf1db8ceec9f90e9cb30ffb3eced6fe" id="r_a4cf1db8ceec9f90e9cb30ffb3eced6fe"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a4cf1db8ceec9f90e9cb30ffb3eced6fe">_tilePixels</a> = 0.0F</td></tr>
+<tr class="memitem:a98d5d46c01f77d2465c76cba5807d7c9" id="r_a98d5d46c01f77d2465c76cba5807d7c9"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a98d5d46c01f77d2465c76cba5807d7c9">_framing</a></td></tr>
+<tr class="memdesc:a98d5d46c01f77d2465c76cba5807d7c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadrage imposé, l'opacité par primitive et les options de composition (<span class="tt">LOT-1002</span>).  <br /></td></tr>
+<tr class="memitem:a98f76fc7a7443cc1e74ea85157bbc7bf" id="r_a98f76fc7a7443cc1e74ea85157bbc7bf"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a1ba3efb10e286621ca0b5eab9694d105">WorldQuadOpacity</a>&#160;</td><td class="memItemRight"><a class="el" href="#a98f76fc7a7443cc1e74ea85157bbc7bf">_opacity</a></td></tr>
+<tr class="memitem:a8bc15a39c24d126e5e04314cc62e82f2" id="r_a8bc15a39c24d126e5e04314cc62e82f2"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8bc15a39c24d126e5e04314cc62e82f2">_composeOptions</a></td></tr>
 <tr class="memitem:a715a5f4a6e359419e050993373ff37a4" id="r_a715a5f4a6e359419e050993373ff37a4"><td class="memItemLeft"><a class="el" href="classhmi_1_1StaticWorldScene.html">StaticWorldScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a715a5f4a6e359419e050993373ff37a4">_statics</a></td></tr>
-<tr class="memdesc:a715a5f4a6e359419e050993373ff37a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte composée une fois (<span class="tt"><a class="el" href="#a0fcbf345f4de023f391508840111dd91" title="Remplace la carte à dessiner : elle sera recomposée à la prochaine image.">setScene</a></span>), et l'image composée à chaque <span class="tt"><a class="el" href="#a6aab3318c68d4afcb4ae3f9c72f03e9e" title="Dessine une image dans target : efface à clear, puis le lieu cadré sur le héros.">render</a></span>.  <br /></td></tr>
+<tr class="memdesc:a715a5f4a6e359419e050993373ff37a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte composée une fois (<span class="tt"><a class="el" href="#a0fcbf345f4de023f391508840111dd91" title="Remplace la carte à dessiner : elle sera recomposée à la prochaine image.">setScene</a></span>), et l'image composée à chaque <span class="tt"><a class="el" href="#a6aab3318c68d4afcb4ae3f9c72f03e9e" title="Dessine une image dans target : efface à clear, puis le lieu cadré sur le héros, ou par le cadrage im...">render</a></span>.  <br /></td></tr>
 <tr class="memitem:a289468f6de877a6557091cb043f580f3" id="r_a289468f6de877a6557091cb043f580f3"><td class="memItemLeft"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a>&#160;</td><td class="memItemRight"><a class="el" href="#a289468f6de877a6557091cb043f580f3">_composed</a></td></tr>
 <tr class="memitem:a3cea47c68f6026b218ef345a0f994fad" id="r_a3cea47c68f6026b218ef345a0f994fad"><td class="memItemLeft">std::set&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3cea47c68f6026b218ef345a0f994fad">_requested</a></td></tr>
 <tr class="memdesc:a3cea47c68f6026b218ef345a0f994fad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chemins déjà tentés : une pièce absente ne doit pas être redemandée à chaque image.  <br /></td></tr>
@@ -210,6 +229,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:af8df5bd0d75e490d61fe2fcc67a40d04" id="r_af8df5bd0d75e490d61fe2fcc67a40d04"><td class="memItemLeft">QRhiResourceUpdateBatch *&#160;</td><td class="memItemRight"><a class="el" href="#af8df5bd0d75e490d61fe2fcc67a40d04">_pendingUploads</a> = nullptr</td></tr>
 <tr class="memitem:a3641d1e54b87aa51e5e14775e66c1fd4" id="r_a3641d1e54b87aa51e5e14775e66c1fd4"><td class="memItemLeft"><a class="el" href="classhmi_1_1SceneResources.html">SceneResources</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3641d1e54b87aa51e5e14775e66c1fd4">_resources</a></td></tr>
 <tr class="memitem:ace343b64de4fac12218d2c3962a130a5" id="r_ace343b64de4fac12218d2c3962a130a5"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ace343b64de4fac12218d2c3962a130a5">_loaded</a></td></tr>
+<tr class="memitem:ab8ff9f220cc9874d74851fc806584f51" id="r_ab8ff9f220cc9874d74851fc806584f51"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ab8ff9f220cc9874d74851fc806584f51">_textureBytes</a> = 0</td></tr>
+<tr class="memdesc:ab8ff9f220cc9874d74851fc806584f51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que pèsent les textures de <span class="tt"><a class="el" href="#ace343b64de4fac12218d2c3962a130a5">_loaded</a></span>, mipmaps comprises.  <br /></td></tr>
 <tr class="memitem:a673a9db015871d3a290980c74324ccb9" id="r_a673a9db015871d3a290980c74324ccb9"><td class="memItemLeft"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#a673a9db015871d3a290980c74324ccb9">_missing</a></td></tr>
 <tr class="memitem:ace4820029eeb81a93aebddd80ae92cf9" id="r_ace4820029eeb81a93aebddd80ae92cf9"><td class="memItemLeft"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#ace4820029eeb81a93aebddd80ae92cf9">_solid</a></td></tr>
 <tr class="memdesc:ace4820029eeb81a93aebddd80ae92cf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'aplat blanc de 1 x 1 : la texture que lient les primitives de couleur du rendu de maquette (<span class="tt">LOT-128</span>).  <br /></td></tr>
@@ -468,6 +489,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a912e925487137e7c91fa390d6597b8dc" name="a912e925487137e7c91fa390d6597b8dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a912e925487137e7c91fa390d6597b8dc">&#9670;&#160;</a></span>framing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::optional&lt; <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &gt; &amp; hmi::WorldSceneRenderer::framing </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a489efac05f908ef5ca8232a463808f45" name="a489efac05f908ef5ca8232a463808f45"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a489efac05f908ef5ca8232a463808f45">&#9670;&#160;</a></span>operator=()</h2>
 
@@ -490,6 +536,83 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5297e82fdf10c881f55121e39f6f0867" name="a5297e82fdf10c881f55121e39f6f0867"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5297e82fdf10c881f55121e39f6f0867">&#9670;&#160;</a></span>paintedBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Rect.html">core::Rect</a> hmi::WorldSceneRenderer::paintedBounds </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>base</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qu'occupent la carte et ses figurines, réuni à <code class="param">base</code> (<span class="tt"><a class="el" href="namespacehmi.html#a20c3945e5c8e719d1588de9fbc5d931b" title="Le rectangle qu&#39;occupe scene, réuni à base : chaque primitive compte, reliefs et figurines qui monten...">composedSceneBounds</a></span>). </p>
+<p>Prépare la carte au besoin (<span class="tt"><a class="el" href="#a6559aaca06908411e90abdb1782a96c2" title="Charge les textures et compose la carte maintenant, sans dessiner (LOT-1002).">prepare</a></span>) ; sans ressources, rend <code class="param">base</code>. </p>
+
+</div>
+</div>
+<a id="a6559aaca06908411e90abdb1782a96c2" name="a6559aaca06908411e90abdb1782a96c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6559aaca06908411e90abdb1782a96c2">&#9670;&#160;</a></span>prepare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldSceneRenderer::prepare </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charge les textures et compose la carte <b>maintenant</b>, sans dessiner (<span class="tt">LOT-1002</span>). </p>
+<p>Ce que <span class="tt"><a class="el" href="#a6aab3318c68d4afcb4ae3f9c72f03e9e" title="Dessine une image dans target : efface à clear, puis le lieu cadré sur le héros, ou par le cadrage im...">render</a></span> fait à sa première image, avancé : les téléversements attendent dans le lot que la prochaine image soumettra. Sans effet si rien n'a changé.</p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si les ressources n'existent pas encore (<span class="tt"><a class="el" href="#a79799fc66af87ee0b4407f54c5c87bdd" title="Garantit que les ressources existent sur rhi, et les recrée s&#39;il a changé.">ensureResources</a></span>). </dd></dl>
+
+</div>
+</div>
+<a id="a55dfc11aadf454da5f305ee9b90314e7" name="a55dfc11aadf454da5f305ee9b90314e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55dfc11aadf454da5f305ee9b90314e7">&#9670;&#160;</a></span>refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldSceneRenderer::refresh </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>projection</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce qui est périmé — textures de la carte et des figurines, composition — est refait. </p>
+<p>Le lot de téléversements de l'appelant est déjà déclaré (<span class="tt"><a class="el" href="classhmi_1_1SceneResources.html#ad4bdea0e7d3a4e35bc1c48d6431ce563" title="Déclare le lot de téléversements de l&#39;image en cours (nullptr pour le retirer en fin d&#39;image).">SceneResources::setFrameUpdates</a></span>). </p>
 
 </div>
 </div>
@@ -544,7 +667,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Dessine une image dans <code class="param">target</code> : efface à <code class="param">clear</code>, puis le lieu cadré sur le héros. </p>
+<p>Dessine une image dans <code class="param">target</code> : efface à <code class="param">clear</code>, puis le lieu cadré sur le héros, ou par le cadrage imposé. </p>
 
 </div>
 </div>
@@ -599,6 +722,59 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8815860ac208e1a7f941d78a5a9dc7d3" name="a8815860ac208e1a7f941d78a5a9dc7d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8815860ac208e1a7f941d78a5a9dc7d3">&#9670;&#160;</a></span>sceneProjection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> hmi::WorldSceneRenderer::sceneProjection </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La projection de la carte courante. </dd></dl>
+
+</div>
+</div>
+<a id="a11f3d2c9e7edc817672037c29ea26fc6" name="a11f3d2c9e7edc817672037c29ea26fc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11f3d2c9e7edc817672037c29ea26fc6">&#9670;&#160;</a></span>setComposeOptions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldSceneRenderer::setComposeOptions </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a></td>          <td class="paramname"><span class="paramname"><em>options</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les options de composition de la carte ; la carte sera recomposée si elles changent. </p>
+
+</div>
+</div>
 <a id="a9499a9cb2e75a65e696220e2e3df37c9" name="a9499a9cb2e75a65e696220e2e3df37c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9499a9cb2e75a65e696220e2e3df37c9">&#9670;&#160;</a></span>setFigures()</h2>
 
@@ -642,6 +818,60 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le point suivi par la caméra, en cases (position continue du héros). </p>
+
+</div>
+</div>
+<a id="ad91b45ca76f463aab23658218925a019" name="ad91b45ca76f463aab23658218925a019"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad91b45ca76f463aab23658218925a019">&#9670;&#160;</a></span>setFraming()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldSceneRenderer::setFraming </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>framing</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Impose le cadrage (<span class="tt">LOT-1002</span>) ; <span class="tt">std::nullopt</span> rend la caméra qui suit le héros. </p>
+
+</div>
+</div>
+<a id="a93db72ce993836a04875f6044de7310e" name="a93db72ce993836a04875f6044de7310e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93db72ce993836a04875f6044de7310e">&#9670;&#160;</a></span>setQuadOpacity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldSceneRenderer::setQuadOpacity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a1ba3efb10e286621ca0b5eab9694d105">WorldQuadOpacity</a></td>          <td class="paramname"><span class="paramname"><em>opacity</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'opacité par primitive de chaque image (<span class="tt">LOT-1002</span>) ; vide : 1 partout. </p>
 
 </div>
 </div>
@@ -764,6 +994,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa9474c2928ca0f84630ef23e644d9dcd" name="aa9474c2928ca0f84630ef23e644d9dcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9474c2928ca0f84630ef23e644d9dcd">&#9670;&#160;</a></span>textureBytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::WorldSceneRenderer::textureBytes </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les octets de mémoire graphique que tiennent les textures chargées, mipmaps comprises : ce qu'un cache qui garde ce rendu compare à son budget (<span class="tt">LOT-1002</span>). </dd></dl>
+
+</div>
+</div>
 <a id="ad6ccf005d98a3a82dc22e75fd27ec0f6" name="ad6ccf005d98a3a82dc22e75fd27ec0f6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad6ccf005d98a3a82dc22e75fd27ec0f6">&#9670;&#160;</a></span>textures()</h2>
 
@@ -801,6 +1057,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> hmi::WorldSceneRenderer::_composed</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8bc15a39c24d126e5e04314cc62e82f2" name="a8bc15a39c24d126e5e04314cc62e82f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bc15a39c24d126e5e04314cc62e82f2">&#9670;&#160;</a></span>_composeOptions</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> hmi::WorldSceneRenderer::_composeOptions</td>
         </tr>
       </table>
   </td>
@@ -902,6 +1180,30 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a98d5d46c01f77d2465c76cba5807d7c9" name="a98d5d46c01f77d2465c76cba5807d7c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98d5d46c01f77d2465c76cba5807d7c9">&#9670;&#160;</a></span>_framing</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a>&gt; hmi::WorldSceneRenderer::_framing</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le cadrage imposé, l'opacité par primitive et les options de composition (<span class="tt">LOT-1002</span>). </p>
+
+</div>
+</div>
 <a id="ace343b64de4fac12218d2c3962a130a5" name="ace343b64de4fac12218d2c3962a130a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace343b64de4fac12218d2c3962a130a5">&#9670;&#160;</a></span>_loaded</h2>
 
@@ -959,6 +1261,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> hmi::WorldSceneRenderer::_missing</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a98f76fc7a7443cc1e74ea85157bbc7bf" name="a98f76fc7a7443cc1e74ea85157bbc7bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98f76fc7a7443cc1e74ea85157bbc7bf">&#9670;&#160;</a></span>_opacity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a1ba3efb10e286621ca0b5eab9694d105">WorldQuadOpacity</a> hmi::WorldSceneRenderer::_opacity</td>
         </tr>
       </table>
   </td>
@@ -1153,7 +1477,31 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>La carte composée une fois (<span class="tt"><a class="el" href="#a0fcbf345f4de023f391508840111dd91" title="Remplace la carte à dessiner : elle sera recomposée à la prochaine image.">setScene</a></span>), et l'image composée à chaque <span class="tt"><a class="el" href="#a6aab3318c68d4afcb4ae3f9c72f03e9e" title="Dessine une image dans target : efface à clear, puis le lieu cadré sur le héros.">render</a></span>. </p>
+<p>La carte composée une fois (<span class="tt"><a class="el" href="#a0fcbf345f4de023f391508840111dd91" title="Remplace la carte à dessiner : elle sera recomposée à la prochaine image.">setScene</a></span>), et l'image composée à chaque <span class="tt"><a class="el" href="#a6aab3318c68d4afcb4ae3f9c72f03e9e" title="Dessine une image dans target : efface à clear, puis le lieu cadré sur le héros, ou par le cadrage im...">render</a></span>. </p>
+
+</div>
+</div>
+<a id="ab8ff9f220cc9874d74851fc806584f51" name="ab8ff9f220cc9874d74851fc806584f51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8ff9f220cc9874d74851fc806584f51">&#9670;&#160;</a></span>_textureBytes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::WorldSceneRenderer::_textureBytes = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ce que pèsent les textures de <span class="tt"><a class="el" href="#ace343b64de4fac12218d2c3962a130a5">_loaded</a></span>, mipmaps comprises. </p>
 
 </div>
 </div>

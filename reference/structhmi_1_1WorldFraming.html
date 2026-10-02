@@ -17,7 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/ScenePainter.cpp File Reference</title>
+<title>JustAnotherRpgGame: hmi::WorldFraming Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,7 +113,7 @@ $(function() { codefold.init(); });
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('ScenePainter_8cpp.html','',''); });
+$(function(){initNavTree('structhmi_1_1WorldFraming.html','','structhmi_1_1WorldFraming-members'); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -139,32 +139,91 @@ $(function(){initNavTree('ScenePainter_8cpp.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">ScenePainter.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">hmi::WorldFraming Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="ScenePainter_8h_source.html">Editor/Ui/ScenePainter.h</a>&quot;</code><br />
-<code>#include &lt;QPainter&gt;</code><br />
-<code>#include &lt;QPolygonF&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
-<code>#include &lt;numbers&gt;</code><br />
-<code>#include &quot;<a class="el" href="SceneImages_8h_source.html">Editor/Ui/SceneImages.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Camera2D_8h_source.html">HMI/Graphics/Camera2D.h</a>&quot;</code><br />
-</div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+
+<p>Un cadrage <b>imposé</b> (<span class="tt">LOT-1002</span>) : ce que montre le canevas de l'éditeur, ou le cadre d'une image hors écran.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="WorldSceneRenderer_8h_source.html">WorldSceneRenderer.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3f59f36268da10296d9ac71f5a06caa7" id="r_a3f59f36268da10296d9ac71f5a06caa7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3f59f36268da10296d9ac71f5a06caa7">operator==</a> (const <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &amp;) const =default</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a13d39d2941050cdcde712bd03062a037" id="r_a13d39d2941050cdcde712bd03062a037"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037">hmi::paintComposedScene</a> (QPainter &amp;painter, const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const std::optional&lt; <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &gt; &amp;visible=std::nullopt, const <a class="el" href="namespacehmi.html#ad39e4163a49fc5ba81aab9827d83118e">QuadOpacity</a> &amp;opacity={})</td></tr>
-<tr class="memdesc:a13d39d2941050cdcde712bd03062a037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint <code class="param">scene</code> dans <code class="param">painter</code>, dont la transformation porte déjà le cadrage (unités monde vers pixels).  <br /></td></tr>
-<tr class="memitem:a20c3945e5c8e719d1588de9fbc5d931b" id="r_a20c3945e5c8e719d1588de9fbc5d931b"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a20c3945e5c8e719d1588de9fbc5d931b">hmi::composedSceneBounds</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;base)</td></tr>
-<tr class="memdesc:a20c3945e5c8e719d1588de9fbc5d931b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rectangle qu'occupe <code class="param">scene</code>, réuni à <code class="param">base</code> : chaque primitive compte, reliefs et figurines qui montent au-dessus de leur case compris.  <br /></td></tr>
-<tr class="memitem:a69e74e4f140af19416ff4a8a7dbd49a8" id="r_a69e74e4f140af19416ff4a8a7dbd49a8"><td class="memItemLeft">QTransform&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a69e74e4f140af19416ff4a8a7dbd49a8">hmi::cameraTransform</a> (const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera)</td></tr>
-<tr class="memitem:a7e2e49094a1e633ea842459409c9c13b" id="r_a7e2e49094a1e633ea842459409c9c13b"><td class="memItemLeft">QImage&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a7e2e49094a1e633ea842459409c9c13b">hmi::renderComposedScene</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a> &amp;camera, int width, int height, const QColor &amp;clear)</td></tr>
-<tr class="memdesc:a7e2e49094a1e633ea842459409c9c13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rend <code class="param">scene</code> hors écran, cadrée par <code class="param">camera</code>, sur un fond <code class="param">clear</code> — l'image que le jeu dessinerait avec la même caméra.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a3994c0b1ccccf1493db6b8e600a74e41" id="r_a3994c0b1ccccf1493db6b8e600a74e41"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3994c0b1ccccf1493db6b8e600a74e41">center</a> {}</td></tr>
+<tr class="memdesc:a3994c0b1ccccf1493db6b8e600a74e41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le point du monde au centre de la cible, en unités monde.  <br /></td></tr>
+<tr class="memitem:a4bce7149d3636472793cf057542e9ad6" id="r_a4bce7149d3636472793cf057542e9ad6"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a4bce7149d3636472793cf057542e9ad6">pixelsPerUnit</a> = <a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88">Camera2D::PIXELS_PER_UNIT</a></td></tr>
+<tr class="memdesc:a4bce7149d3636472793cf057542e9ad6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels de la cible par unité monde.  <br /></td></tr>
 </table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Un cadrage <b>imposé</b> (<span class="tt">LOT-1002</span>) : ce que montre le canevas de l'éditeur, ou le cadre d'une image hors écran. </p>
+<p>Sans lui, la caméra suit le héros (<span class="tt"><a class="el" href="namespacehmi.html#a44337da72a19b007b1c90bade791dfdf" title="Le cadrage d&#39;un lieu : la caméra suit le héros, et ne sort pas de la carte.">worldCamera</a></span>). </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a3f59f36268da10296d9ac71f5a06caa7" name="a3f59f36268da10296d9ac71f5a06caa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f59f36268da10296d9ac71f5a06caa7">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::WorldFraming::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a3994c0b1ccccf1493db6b8e600a74e41" name="a3994c0b1ccccf1493db6b8e600a74e41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3994c0b1ccccf1493db6b8e600a74e41">&#9670;&#160;</a></span>center</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::WorldFraming::center {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le point du monde au centre de la cible, en unités monde. </p>
+
+</div>
+</div>
+<a id="a4bce7149d3636472793cf057542e9ad6" name="a4bce7149d3636472793cf057542e9ad6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bce7149d3636472793cf057542e9ad6">&#9670;&#160;</a></span>pixelsPerUnit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::WorldFraming::pixelsPerUnit = <a class="el" href="classhmi_1_1Camera2D.html#a3d1d52a7653c7a3dca5eb2e5a5990f88">Camera2D::PIXELS_PER_UNIT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pixels de la cible par unité monde. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="WorldSceneRenderer_8h_source.html">WorldSceneRenderer.h</a></li>
+</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -178,7 +237,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_81129cf20409270d9237df2d6b07b076.html">Ui</a></li><li class="navelem"><a href="ScenePainter_8cpp.html">ScenePainter.cpp</a></li>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="structhmi_1_1WorldFraming.html">WorldFraming</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

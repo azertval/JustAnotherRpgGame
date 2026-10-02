@@ -41,6 +41,5 @@ var searchData=
   ['difficultytier_38',['DifficultyTier',['../structcore_1_1DifficultyTier.html',1,'core']]],
   ['draftentityoverlay_39',['DraftEntityOverlay',['../structhmi_1_1DraftEntityOverlay.html',1,'hmi']]],
   ['draftmap_40',['DraftMap',['../structhmi_1_1DraftMap.html',1,'hmi']]],
-  ['draftrenderer_41',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]],
-  ['drafttextures_42',['DraftTextures',['../structhmi_1_1DraftTextures.html',1,'hmi']]]
+  ['draftrenderer_41',['DraftRenderer',['../classhmi_1_1DraftRenderer.html',1,'hmi']]]
 ];

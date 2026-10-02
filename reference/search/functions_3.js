@@ -93,7 +93,7 @@ var searchData=
   ['draft_90',['draft',['../classhmi_1_1EditorViewport.html#a72b6941b98633a12ab5d440ee1e7b454',1,'hmi::EditorViewport']]],
   ['draftchanged_91',['draftChanged',['../classhmi_1_1EditorViewport.html#a7c355b35edfde092e790577fb6b136cc',1,'hmi::EditorViewport']]],
   ['draftjson_92',['draftJson',['../classhmi_1_1EditorViewport.html#a4decd31ed28cf70d9fe3ea73826780a2',1,'hmi::EditorViewport']]],
-  ['draftrenderer_93',['DraftRenderer',['../classhmi_1_1DraftRenderer.html#a49dc04aebe5a58546f208be19a05add1',1,'hmi::DraftRenderer']]],
+  ['draftrenderer_93',['DraftRenderer',['../classhmi_1_1DraftRenderer.html#ababf7f1deb06fb81d3c8571970b66b3e',1,'hmi::DraftRenderer']]],
   ['dragentities_94',['dragEntities',['../namespacehmi.html#a0a372480a8c4bb2d1af4b9b17874eb72',1,'hmi']]],
   ['draw_95',['draw',['../classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d',1,'hmi::SpriteBatch::draw(const SpriteQuad &amp;quad)'],['../classhmi_1_1SpriteBatch.html#afb2cf10826482b3ad8d503a829a8ed5b',1,'hmi::SpriteBatch::draw(const LineQuad &amp;line)'],['../classhmi_1_1SpriteBatch.html#a50b96c3162fe6f5d3c78b4ff9f482f5f',1,'hmi::SpriteBatch::draw(const PolyQuad &amp;poly)']]],
   ['drawncount_96',['drawnCount',['../classhmi_1_1AssetGalleryItem.html#a95a99c8bad7fa656d6747edaad1e5dcd',1,'hmi::AssetGalleryItem']]],

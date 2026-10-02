@@ -17,7 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JustAnotherRpgGame: hmi::DraftTextures Struct Reference</title>
+<title>JustAnotherRpgGame: hmi::MapRenderFrame Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,7 +113,7 @@ $(function() { codefold.init(); });
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('structhmi_1_1DraftTextures.html','','structhmi_1_1DraftTextures-members'); });
+$(function(){initNavTree('structhmi_1_1MapRenderFrame.html','','structhmi_1_1MapRenderFrame-members'); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -139,107 +139,157 @@ $(function(){initNavTree('structhmi_1_1DraftTextures.html','','structhmi_1_1Draf
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">hmi::DraftTextures Struct Reference</div></div>
+  <div class="headertitle"><div class="title">hmi::MapRenderFrame Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Les textures que la vue à plat nomme, en identités opaques : la composition ne sait pas comment elles seront peintes (<span class="tt">LOT-EDITOR-02</span> : par <span class="tt">QPainter</span>, <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span>).  
+<p>Le cadre d'un rendu : la taille de l'image, et où le monde y tombe (<span class="tt">LOT-1002</span>).  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="DraftRenderer_8h_source.html">DraftRenderer.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="MapRender_8h_source.html">MapRender.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aa85353ebd552cbcca2afe490b7ca0f6d" id="r_aa85353ebd552cbcca2afe490b7ca0f6d"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa85353ebd552cbcca2afe490b7ca0f6d">atlas</a> = nullptr</td></tr>
-<tr class="memdesc:aa85353ebd552cbcca2afe490b7ca0f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'atlas procédural des types de tuile, et sa taille en pixels (pour les UV).  <br /></td></tr>
-<tr class="memitem:a3b896eed177ecd15e6693ef4c83bd927" id="r_a3b896eed177ecd15e6693ef4c83bd927"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3b896eed177ecd15e6693ef4c83bd927">atlasWidth</a> = 1</td></tr>
-<tr class="memitem:a1ba810cf9c059478b7bcc5ca6956de91" id="r_a1ba810cf9c059478b7bcc5ca6956de91"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a1ba810cf9c059478b7bcc5ca6956de91">atlasHeight</a> = 1</td></tr>
-<tr class="memitem:abd112736b8dcfcfc071e11ec303ab27f" id="r_abd112736b8dcfcfc071e11ec303ab27f"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#abd112736b8dcfcfc071e11ec303ab27f">solid</a> = nullptr</td></tr>
-<tr class="memdesc:abd112736b8dcfcfc071e11ec303ab27f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une teinte unie : les aides d'édition (grille, masques, cadres) se peignent en aplat.  <br /></td></tr>
-<tr class="memitem:a2079df01c51a813b2dfbdcdd59c7a3d0" id="r_a2079df01c51a813b2dfbdcdd59c7a3d0"><td class="memItemLeft">std::function&lt; <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>(const std::string &amp;key)&gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2079df01c51a813b2dfbdcdd59c7a3d0">marker</a></td></tr>
-<tr class="memdesc:a2079df01c51a813b2dfbdcdd59c7a3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le marqueur d'une clé d'asset d'entité (<span class="tt">LOT-39</span>), <span class="tt">nullptr</span> si elle est refusée.  <br /></td></tr>
+<tr class="memitem:a9b82c25e2a48646f4a089a56dee1ba74" id="r_a9b82c25e2a48646f4a089a56dee1ba74"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9b82c25e2a48646f4a089a56dee1ba74">width</a> = 0</td></tr>
+<tr class="memitem:abf99a370857064e6fe0c345da37d6395" id="r_abf99a370857064e6fe0c345da37d6395"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#abf99a370857064e6fe0c345da37d6395">height</a> = 0</td></tr>
+<tr class="memitem:a35b6da8560ea9e1dd44d0714e2ed342e" id="r_a35b6da8560ea9e1dd44d0714e2ed342e"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a35b6da8560ea9e1dd44d0714e2ed342e">scale</a> = 1.0</td></tr>
+<tr class="memdesc:a35b6da8560ea9e1dd44d0714e2ed342e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pixels par unité monde.  <br /></td></tr>
+<tr class="memitem:a7c7fd1424e2d8d385d6ba75e409773a5" id="r_a7c7fd1424e2d8d385d6ba75e409773a5"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a7c7fd1424e2d8d385d6ba75e409773a5">left</a> = 0.0</td></tr>
+<tr class="memdesc:a7c7fd1424e2d8d385d6ba75e409773a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coin haut gauche du cadre, en unités monde, marge comprise.  <br /></td></tr>
+<tr class="memitem:a8c34c102692968b9a936bcd7f2748abc" id="r_a8c34c102692968b9a936bcd7f2748abc"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a8c34c102692968b9a936bcd7f2748abc">top</a> = 0.0</td></tr>
+<tr class="memitem:ade112d1959d37fc90267de16d894ea65" id="r_ade112d1959d37fc90267de16d894ea65"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ade112d1959d37fc90267de16d894ea65">offsetX</a> = 0.0</td></tr>
+<tr class="memdesc:ade112d1959d37fc90267de16d894ea65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le décalage du cadre dans l'image, en pixels : nul hors du cadre imposé (<span class="tt">--canvas</span>).  <br /></td></tr>
+<tr class="memitem:aeb5ac03839522d8771b107760e75c808" id="r_aeb5ac03839522d8771b107760e75c808"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#aeb5ac03839522d8771b107760e75c808">offsetY</a> = 0.0</td></tr>
+<tr class="memitem:a8b4d8917c0a37aa33516e798bbc69511" id="r_a8b4d8917c0a37aa33516e798bbc69511"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8b4d8917c0a37aa33516e798bbc69511">framing</a></td></tr>
+<tr class="memdesc:a8b4d8917c0a37aa33516e798bbc69511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadrage du rendu : le centre de l'image, et son échelle.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Les textures que la vue à plat nomme, en identités opaques : la composition ne sait pas comment elles seront peintes (<span class="tt">LOT-EDITOR-02</span> : par <span class="tt">QPainter</span>, <span class="tt"><a class="el" href="namespacehmi.html#a13d39d2941050cdcde712bd03062a037" title="Peint scene dans painter, dont la transformation porte déjà le cadrage (unités monde vers pixels).">hmi::paintComposedScene</a></span>). </p>
+<div class="textblock"><p>Le cadre d'un rendu : la taille de l'image, et où le monde y tombe (<span class="tt">LOT-1002</span>). </p>
+<p>Un point du monde <span class="tt">(x, y)</span> est au pixel <span class="tt">(<a class="el" href="#ade112d1959d37fc90267de16d894ea65" title="Le décalage du cadre dans l&#39;image, en pixels : nul hors du cadre imposé (--canvas).">offsetX</a> + (x − <a class="el" href="#a7c7fd1424e2d8d385d6ba75e409773a5" title="Le coin haut gauche du cadre, en unités monde, marge comprise.">left</a>) × <a class="el" href="#a35b6da8560ea9e1dd44d0714e2ed342e" title="Pixels par unité monde.">scale</a>, <a class="el" href="#aeb5ac03839522d8771b107760e75c808">offsetY</a> + (y − <a class="el" href="#a8c34c102692968b9a936bcd7f2748abc">top</a>) ×
+<a class="el" href="#a35b6da8560ea9e1dd44d0714e2ed342e" title="Pixels par unité monde.">scale</a>)</span> ; <span class="tt"><a class="el" href="#a8b4d8917c0a37aa33516e798bbc69511" title="Le cadrage du rendu : le centre de l&#39;image, et son échelle.">framing</a></span> dit la même chose au rendu du jeu. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="aa85353ebd552cbcca2afe490b7ca0f6d" name="aa85353ebd552cbcca2afe490b7ca0f6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa85353ebd552cbcca2afe490b7ca0f6d">&#9670;&#160;</a></span>atlas</h2>
+<a id="a8b4d8917c0a37aa33516e798bbc69511" name="a8b4d8917c0a37aa33516e798bbc69511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b4d8917c0a37aa33516e798bbc69511">&#9670;&#160;</a></span>framing</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> hmi::DraftTextures::atlas = nullptr</td>
+          <td class="memname"><a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> hmi::MapRenderFrame::framing</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>L'atlas procédural des types de tuile, et sa taille en pixels (pour les UV). </p>
+<p>Le cadrage du rendu : le centre de l'image, et son échelle. </p>
 
 </div>
 </div>
-<a id="a1ba810cf9c059478b7bcc5ca6956de91" name="a1ba810cf9c059478b7bcc5ca6956de91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ba810cf9c059478b7bcc5ca6956de91">&#9670;&#160;</a></span>atlasHeight</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::DraftTextures::atlasHeight = 1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3b896eed177ecd15e6693ef4c83bd927" name="a3b896eed177ecd15e6693ef4c83bd927"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b896eed177ecd15e6693ef4c83bd927">&#9670;&#160;</a></span>atlasWidth</h2>
+<a id="abf99a370857064e6fe0c345da37d6395" name="abf99a370857064e6fe0c345da37d6395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf99a370857064e6fe0c345da37d6395">&#9670;&#160;</a></span>height</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int hmi::DraftTextures::atlasWidth = 1</td>
+          <td class="memname">int hmi::MapRenderFrame::height = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a2079df01c51a813b2dfbdcdd59c7a3d0" name="a2079df01c51a813b2dfbdcdd59c7a3d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2079df01c51a813b2dfbdcdd59c7a3d0">&#9670;&#160;</a></span>marker</h2>
+<a id="a7c7fd1424e2d8d385d6ba75e409773a5" name="a7c7fd1424e2d8d385d6ba75e409773a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7fd1424e2d8d385d6ba75e409773a5">&#9670;&#160;</a></span>left</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::function&lt;<a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a>(const std::string&amp; key)&gt; hmi::DraftTextures::marker</td>
+          <td class="memname">double hmi::MapRenderFrame::left = 0.0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Le marqueur d'une clé d'asset d'entité (<span class="tt">LOT-39</span>), <span class="tt">nullptr</span> si elle est refusée. </p>
+<p>Le coin haut gauche du cadre, en unités monde, marge comprise. </p>
 
 </div>
 </div>
-<a id="abd112736b8dcfcfc071e11ec303ab27f" name="abd112736b8dcfcfc071e11ec303ab27f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd112736b8dcfcfc071e11ec303ab27f">&#9670;&#160;</a></span>solid</h2>
+<a id="ade112d1959d37fc90267de16d894ea65" name="ade112d1959d37fc90267de16d894ea65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade112d1959d37fc90267de16d894ea65">&#9670;&#160;</a></span>offsetX</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> hmi::DraftTextures::solid = nullptr</td>
+          <td class="memname">double hmi::MapRenderFrame::offsetX = 0.0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Une teinte unie : les aides d'édition (grille, masques, cadres) se peignent en aplat. </p>
+<p>Le décalage du cadre dans l'image, en pixels : nul hors du cadre imposé (<span class="tt">--canvas</span>). </p>
+
+</div>
+</div>
+<a id="aeb5ac03839522d8771b107760e75c808" name="aeb5ac03839522d8771b107760e75c808"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb5ac03839522d8771b107760e75c808">&#9670;&#160;</a></span>offsetY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double hmi::MapRenderFrame::offsetY = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a35b6da8560ea9e1dd44d0714e2ed342e" name="a35b6da8560ea9e1dd44d0714e2ed342e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35b6da8560ea9e1dd44d0714e2ed342e">&#9670;&#160;</a></span>scale</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double hmi::MapRenderFrame::scale = 1.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pixels par unité monde. </p>
+
+</div>
+</div>
+<a id="a8c34c102692968b9a936bcd7f2748abc" name="a8c34c102692968b9a936bcd7f2748abc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c34c102692968b9a936bcd7f2748abc">&#9670;&#160;</a></span>top</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double hmi::MapRenderFrame::top = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b82c25e2a48646f4a089a56dee1ba74" name="a9b82c25e2a48646f4a089a56dee1ba74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b82c25e2a48646f4a089a56dee1ba74">&#9670;&#160;</a></span>width</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::MapRenderFrame::width = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/<a class="el" href="DraftRenderer_8h_source.html">DraftRenderer.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/<a class="el" href="MapRender_8h_source.html">MapRender.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -254,7 +304,7 @@ Public Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="structhmi_1_1DraftTextures.html">DraftTextures</a></li>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="structhmi_1_1MapRenderFrame.html">MapRenderFrame</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -153,7 +153,7 @@ Inheritance diagram for hmi::EditContextTarget:</div>
  <div class="center">
   <img src="classhmi_1_1EditContextTarget.png" usemap="#hmi_3A_3AEditContextTarget_map" alt=""/>
   <map id="hmi_3A_3AEditContextTarget_map" name="hmi_3A_3AEditContextTarget_map">
-<area href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l&#39;essai." alt="hmi::EditorViewport" shape="rect" coords="0,56,136,80"/>
+<area href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon rendu en iso ou peint à plat, les gestes des outils, l&#39;essai." alt="hmi::EditorViewport" shape="rect" coords="0,56,136,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -171,7 +171,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface pure implémentée par le contexte d'édition <b>actif</b>. </p>
-<p><span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;éditeur (Qt Widgets, style Fusion, textes anglais).">MainWindow</a></span> dispatche les quatre actions dédupliquées (une définition chacune, <span class="tt">EX-IHM-062</span>) à travers cette interface plutôt que d'appeler <span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l&#39;essai.">EditorViewport</a></span> directement : aujourd'hui, <span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span> en est l'unique implémentation (édition de carte). Un second contexte d'édition, avec son propre historique et son propre presse-papiers, s'y brancherait sans que ce point de dispatch n'ait à être réécrit. </p>
+<p><span class="tt"><a class="el" href="classhmi_1_1MainWindow.html" title="Fenêtre principale de l&#39;éditeur (Qt Widgets, style Fusion, textes anglais).">MainWindow</a></span> dispatche les quatre actions dédupliquées (une définition chacune, <span class="tt">EX-IHM-062</span>) à travers cette interface plutôt que d'appeler <span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon rendu en iso ou peint à plat, les gestes des outils, l&#39;essai.">EditorViewport</a></span> directement : aujourd'hui, <span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon rendu en iso ou peint à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span> en est l'unique implémentation (édition de carte). Un second contexte d'édition, avec son propre historique et son propre presse-papiers, s'y brancherait sans que ce point de dispatch n'ait à être réécrit. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a82f63a0d5ba2f3fe2e78ae6bcf79eb99" name="a82f63a0d5ba2f3fe2e78ae6bcf79eb99"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a82f63a0d5ba2f3fe2e78ae6bcf79eb99">&#9670;&#160;</a></span>~EditContextTarget()</h2>

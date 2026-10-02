@@ -145,7 +145,9 @@ $(function(){initNavTree('WorldSceneRenderer_8h.html','',''); });
 
 <p>Le rendu QRhi d'un <b>lieu qu'on parcourt</b> (<span class="tt">LOT-09</span>) ; depuis le <span class="tt">LOT-118</span>, celui du combat aussi.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
@@ -167,6 +169,8 @@ $(function(){initNavTree('WorldSceneRenderer_8h.html','',''); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3AWorldFraming" id="r_hmi_3A_3AWorldFraming"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldFraming.html">hmi::WorldFraming</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un cadrage <b>imposé</b> (<span class="tt">LOT-1002</span>) : ce que montre le canevas de l'éditeur, ou le cadre d'une image hors écran.  <a href="structhmi_1_1WorldFraming.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AWorldSceneRenderer" id="r_hmi_3A_3AWorldSceneRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldSceneRenderer.html">hmi::WorldSceneRenderer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène composée.  <a href="classhmi_1_1WorldSceneRenderer.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -174,10 +178,18 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a1ba3efb10e286621ca0b5eab9694d105" id="r_a1ba3efb10e286621ca0b5eab9694d105"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a1ba3efb10e286621ca0b5eab9694d105">hmi::WorldQuadOpacity</a> = std::function&lt;float(const <a class="el" href="structhmi_1_1ComposedQuad.html">ComposedQuad</a>&amp;)&gt;</td></tr>
+<tr class="memdesc:a1ba3efb10e286621ca0b5eab9694d105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité supplémentaire d'une primitive, décidée par l'appelant (calques masqués, grisés, reliefs en transparence) ; 0 ou moins : la primitive n'est pas dessinée.  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a44337da72a19b007b1c90bade791dfdf" id="r_a44337da72a19b007b1c90bade791dfdf"><td class="memItemLeft"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a44337da72a19b007b1c90bade791dfdf">hmi::worldCamera</a> (const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> focus, int pixelWidth, int pixelHeight, float tilePixels=0.0F)</td></tr>
 <tr class="memdesc:a44337da72a19b007b1c90bade791dfdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadrage d'un lieu : la caméra <b>suit</b> le héros, et ne sort pas de la carte.  <br /></td></tr>
+<tr class="memitem:a19e2a922a7f8083d4c90e83ae1d815d3" id="r_a19e2a922a7f8083d4c90e83ae1d815d3"><td class="memItemLeft"><a class="el" href="classhmi_1_1Camera2D.html">Camera2D</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a19e2a922a7f8083d4c90e83ae1d815d3">hmi::framedCamera</a> (const <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &amp;framing, int pixelWidth, int pixelHeight)</td></tr>
+<tr class="memitem:a20c3945e5c8e719d1588de9fbc5d931b" id="r_a20c3945e5c8e719d1588de9fbc5d931b"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a20c3945e5c8e719d1588de9fbc5d931b">hmi::composedSceneBounds</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;base)</td></tr>
+<tr class="memdesc:a20c3945e5c8e719d1588de9fbc5d931b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rectangle qu'occupe <code class="param">scene</code>, réuni à <code class="param">base</code> : chaque primitive compte, reliefs et figurines qui montent au-dessus de leur case compris.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le rendu QRhi d'un <b>lieu qu'on parcourt</b> (<span class="tt">LOT-09</span>) ; depuis le <span class="tt">LOT-118</span>, celui du combat aussi. </p>
@@ -185,7 +197,10 @@ Functions</h2></td></tr>
 <p><b>Les textures ne sont pas connues d'avance</b> : un lieu a les pièces de sa carte, et la carte change au passage d'un portail. Les textures se chargent donc quand une carte arrive — décodées sur tous les cœurs, créées sur le fil de rendu, dans le lot de l'image.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md98"></a>
 Ce qu'une image refait, et ce qu'elle ne refait pas</h2>
-<p>La carte (<span class="tt">setScene</span>) ne change qu'en entrant ou quand un drapeau fait paraître ou disparaître quelque chose : elle se compose <b>une fois</b>, dans une <span class="tt"><a class="el" href="classhmi_1_1StaticWorldScene.html" title="La partie fixe d&#39;une carte : composée une fois, triée, indexée par seaux, puis découpée au cadrage à ...">hmi::StaticWorldScene</a></span>. Une image ne prend que ce que la caméra montre, et y fusionne les figurines (<span class="tt">setFigures</span>) — le héros qui marche, les PNJ qui respirent. Le coût d'une image dépend donc de ce qu'on voit, pas de la taille de la carte (audit de l'affichage d'un lieu, <span class="tt">Planning/standards/audit-affichage-lieu.md</span>). </p>
+<p>La carte (<span class="tt">setScene</span>) ne change qu'en entrant ou quand un drapeau fait paraître ou disparaître quelque chose : elle se compose <b>une fois</b>, dans une <span class="tt"><a class="el" href="classhmi_1_1StaticWorldScene.html" title="La partie fixe d&#39;une carte : composée une fois, triée, indexée par seaux, puis découpée au cadrage à ...">hmi::StaticWorldScene</a></span>. Une image ne prend que ce que la caméra montre, et y fusionne les figurines (<span class="tt">setFigures</span>) — le héros qui marche, les PNJ qui respirent. Le coût d'une image dépend donc de ce qu'on voit, pas de la taille de la carte (audit de l'affichage d'un lieu, <span class="tt">Planning/standards/audit-affichage-lieu.md</span>).</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md99"></a>
+Le rendu de l'éditeur aussi (<span class="tt">LOT-1002</span>)</h2>
+<p>Le canevas de l'éditeur, <span class="tt">LevelEditor --render</span> et les vignettes passent par cette classe : il n'y a qu'un rendu d'un lieu. Ce que l'éditeur demande en plus tient en trois réglages, sans effet tant qu'on ne les touche pas : un <b>cadrage imposé</b> (<span class="tt">setFraming</span>, le zoom et le défilement du canevas, le cadre d'une image hors écran), une <b>opacité par primitive</b> (<span class="tt">setQuadOpacity</span>, les calques masqués ou grisés, les reliefs en transparence) et les options de composition (<span class="tt">setComposeOptions</span>, le plan de principe). <span class="tt">prepare</span> et <span class="tt">paintedBounds</span> composent la carte <b>avant</b> l'image : le cadre d'un rendu se mesure sur ce qui sera dessiné. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

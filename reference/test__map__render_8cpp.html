@@ -143,27 +143,36 @@ $(function(){initNavTree('test__map__render_8cpp.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Tests de <span class="tt">LevelEditor --render</span> (<span class="tt">LOT-EDITOR-13</span>) : une carte livrée rendue hors écran, sans fenêtre, par le peintre du canevas.  
+<p>Tests de <span class="tt">LevelEditor --render</span> (<span class="tt">LOT-EDITOR-13</span>) : une carte livrée rendue hors écran, sans fenêtre, par le rendu du jeu (<span class="tt">LOT-1002</span>).  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QColor&gt;</code><br />
 <code>#include &lt;QImage&gt;</code><br />
 <code>#include &lt;QRect&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
 <code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &lt;rhi/qrhi.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelDraft_8h_source.html">Core/Levels/LevelDraft.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CanvasScene_8h_source.html">Editor/Logic/CanvasScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="MapRender_8h_source.html">Editor/Ui/MapRender.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneRenderer_8h_source.html">HMI/Graphics/WorldSceneRenderer.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a05bcc0659f58a73f6f4f0fa62ddb77cb" id="r_a05bcc0659f58a73f6f4f0fa62ddb77cb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a05bcc0659f58a73f6f4f0fa62ddb77cb">TEST</a> (MapRenderTest, UneCarteSeRendSansFenetre)</td></tr>
 <tr class="memdesc:a05bcc0659f58a73f6f4f0fa62ddb77cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte d'essai se rend en PNG, sans fenêtre ; la collision se peint par-dessus quand demande.  <br /></td></tr>
+<tr class="memitem:a105749d6a57b7b307e34dea4264ef367" id="r_a105749d6a57b7b307e34dea4264ef367"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a105749d6a57b7b307e34dea4264ef367">TEST</a> (MapRenderTest, RenderEtLeRenduDuJeuDonnentLaMemeImageAuPixel)</td></tr>
+<tr class="memdesc:a105749d6a57b7b307e34dea4264ef367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte rendue par <span class="tt">--render</span> et la même carte rendue par le jeu, hors écran, sont <b>identiques au pixel</b> (<span class="tt">LOT-1002</span>) : il n'y a plus qu'un rendu, donc plus de seuil.  <br /></td></tr>
 <tr class="memitem:ad5aa63a60f1ff4e71b694edfdbeb643c" id="r_ad5aa63a60f1ff4e71b694edfdbeb643c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad5aa63a60f1ff4e71b694edfdbeb643c">TEST</a> (MapRenderTest, UnePieceHauteNEstPasRognee)</td></tr>
 <tr class="memdesc:ad5aa63a60f1ff4e71b694edfdbeb643c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce de quatre cases de haut, posée sur la case la plus haute de la carte, n'est rognée par <span class="tt">--render</span> (<span class="tt">LOT-125</span>) — ni en vignette, qui passe par le même cadre (<span class="tt"><a class="el" href="namespacehmi.html#ae7f247079ad6dfe5c32dcc3dbc814f84" title="La vignette d&#39;un préfabriqué (LOT-EDITOR-08) : le tampon posé sur une carte de sa taille,...">hmi::renderStamp</a></span>, la liste des cartes).  <br /></td></tr>
 <tr class="memitem:aa546d760541f1d8a0c046e774184092a" id="r_aa546d760541f1d8a0c046e774184092a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa546d760541f1d8a0c046e774184092a">TEST</a> (MapRenderTest, LesBandesSeLisentParLeurNom)</td></tr>
@@ -176,10 +185,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:aca776bcc95fd618cbdbcfff65982ae62"><td class="mdescLeft">&#160;</td><td class="mdescRight"><span class="tt">--render</span> montre une carte qui puise dans quatre niveaux (<span class="tt">LOT-124</span>) : chaque pièce est trouvée sous son niveau, aucune ne tombe sur le damier des images manquantes.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Tests de <span class="tt">LevelEditor --render</span> (<span class="tt">LOT-EDITOR-13</span>) : une carte livrée rendue hors écran, sans fenêtre, par le peintre du canevas. </p>
+<div class="textblock"><p>Tests de <span class="tt">LevelEditor --render</span> (<span class="tt">LOT-EDITOR-13</span>) : une carte livrée rendue hors écran, sans fenêtre, par le rendu du jeu (<span class="tt">LOT-1002</span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ab2ccc50483654b01e4a026af0b858638" name="ab2ccc50483654b01e4a026af0b858638"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2ccc50483654b01e4a026af0b858638">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2ccc50483654b01e4a026af0b858638">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,7 +217,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa546d760541f1d8a0c046e774184092a" name="aa546d760541f1d8a0c046e774184092a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa546d760541f1d8a0c046e774184092a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa546d760541f1d8a0c046e774184092a">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -237,7 +246,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a213928bdfe720281e215d07270b1fb43" name="a213928bdfe720281e215d07270b1fb43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a213928bdfe720281e215d07270b1fb43">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a213928bdfe720281e215d07270b1fb43">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,8 +274,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a105749d6a57b7b307e34dea4264ef367" name="a105749d6a57b7b307e34dea4264ef367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a105749d6a57b7b307e34dea4264ef367">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MapRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RenderEtLeRenduDuJeuDonnentLaMemeImageAuPixel</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une carte rendue par <span class="tt">--render</span> et la même carte rendue par le jeu, hors écran, sont <b>identiques au pixel</b> (<span class="tt">LOT-1002</span>) : il n'y a plus qu'un rendu, donc plus de seuil. </p>
+<p><b>Cas de test :</b> <b>&ndash;render et le rendu du jeu donnent la meme image, au pixel.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Sans fenetre · Rendu QRhi d'un lieu<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Rendre la Place et le donjon par <span class="tt"><a class="el" href="namespacehmi.html#a3c843b87b8612e61a4c7b1747f90f229" title="Rend level en isométrie, hors écran.">hmi::renderMap</a></span>, au quart de l'echelle.<br  />
+</p><ol type="1">
+<li>Rendre chacune comme le jeu : son instantane (<span class="tt"><a class="el" href="namespacehmi.html#a8e3a1dcd14a5132e99f15be875c38936" title="Comme ci-dessus, pour une carte validée.">hmi::snapshotWorldScene</a></span>) donne a un <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>, dessine dans une cible hors ecran a lui, sur une interface QRhi a lui, avec le cadre que <span class="tt"><a class="el" href="namespacehmi.html#a51708f03902af8e6f04911b5c9e4a862" title="Le cadre du rendu d&#39;une carte dont la scène occupe painted.">hmi::mapRenderFrame</a></span> donne.<br  />
+ <b>Resultat attendu :</b> Deux images de meme taille, dont aucun pixel ne differe. </li>
+</ol>
+
+</div>
+</div>
 <a id="aca776bcc95fd618cbdbcfff65982ae62" name="aca776bcc95fd618cbdbcfff65982ae62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca776bcc95fd618cbdbcfff65982ae62">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aca776bcc95fd618cbdbcfff65982ae62">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,7 +336,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a05bcc0659f58a73f6f4f0fa62ddb77cb" name="a05bcc0659f58a73f6f4f0fa62ddb77cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05bcc0659f58a73f6f4f0fa62ddb77cb">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a05bcc0659f58a73f6f4f0fa62ddb77cb">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -327,7 +368,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="ad5aa63a60f1ff4e71b694edfdbeb643c" name="ad5aa63a60f1ff4e71b694edfdbeb643c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5aa63a60f1ff4e71b694edfdbeb643c">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5aa63a60f1ff4e71b694edfdbeb643c">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

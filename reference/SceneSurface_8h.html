@@ -17,7 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/SceneImages.cpp File Reference</title>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/SceneSurface.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,7 +113,7 @@ $(function() { codefold.init(); });
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('SceneImages_8cpp.html','',''); });
+$(function(){initNavTree('SceneSurface_8h.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -139,27 +139,34 @@ $(function(){initNavTree('SceneImages_8cpp.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">SceneImages.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">SceneSurface.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="SceneImages_8h_source.html">Editor/Ui/SceneImages.h</a>&quot;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-<code>#include &quot;<a class="el" href="Sprite_8h_source.html">Core/Ecs/Components/Sprite.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="AssetMarker_8h_source.html">Core/Resources/AssetMarker.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="EntityMarkers_8h_source.html">HMI/Graphics/EntityMarkers.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="MaquettePalette_8h_source.html">HMI/Graphics/MaquettePalette.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="MaquetteTokens_8h_source.html">HMI/Graphics/MaquetteTokens.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="MissingTexture_8h_source.html">HMI/Graphics/MissingTexture.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ProceduralAtlas_8h_source.html">HMI/Graphics/ProceduralAtlas.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="HmiLog_8h_source.html">HMI/HmiLog.h</a>&quot;</code><br />
-</div><table class="memberdecls">
+
+<p>La surface où le canevas de l'éditeur dessine le lieu : un <span class="tt">QRhiWidget</span> qui ne fait que porter <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>, le rendu du jeu (<span class="tt">LOT-1002</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;QColor&gt;</code><br />
+<code>#include &lt;QRhiWidget&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneRenderer_8h_source.html">HMI/Graphics/WorldSceneRenderer.h</a>&quot;</code><br />
+</div>
+<p><a href="SceneSurface_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3ASceneSurface" id="r_hmi_3A_3ASceneSurface"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SceneSurface.html">hmi::SceneSurface</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La surface de rendu du canevas : le lieu, par le rendu du jeu.  <a href="classhmi_1_1SceneSurface.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La surface où le canevas de l'éditeur dessine le lieu : un <span class="tt">QRhiWidget</span> qui ne fait que porter <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>, le rendu du jeu (<span class="tt">LOT-1002</span>). </p>
+<p>Elle est au canevas ce que <span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante, posée dans la vue de jeu.">hmi::WorldViewportItem</a></span> est au jeu : un hôte, qui relaie trois appels. Tout ce qui décide de l'image — la carte, les figurines, le cadrage, l'opacité des calques — se règle sur le rendu (<span class="tt">renderer()</span>), et le canevas (<span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon rendu en iso ou peint à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span>) le fait depuis ses gestes. La surface ne reçoit ni la souris ni le clavier : elle est <b>sous</b> la vue du canevas, qui peint les aides d'édition par-dessus.</p>
+<p><span class="tt">QRhiWidget</span> dessine sur le fil de l'interface : le rendu se règle et se prépare donc sans verrou, entre deux images. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -172,7 +179,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_81129cf20409270d9237df2d6b07b076.html">Ui</a></li><li class="navelem"><a href="SceneImages_8cpp.html">SceneImages.cpp</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_81129cf20409270d9237df2d6b07b076.html">Ui</a></li><li class="navelem"><a href="SceneSurface_8h.html">SceneSurface.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -303,6 +303,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ac0d567ff405a642028370981fbd4bc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mode Quêtes (LOT-144) : un onglet à côté des cartes.  <br /></td></tr>
 <tr class="memitem:a59801893a5d925c3152f3f47ef1407ab" id="r_a59801893a5d925c3152f3f47ef1407ab"><td class="memItemLeft">QDockWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a59801893a5d925c3152f3f47ef1407ab">_questsDock</a> = nullptr</td></tr>
 <tr class="memitem:a1740570708e810c8d14a9f85988296fb" id="r_a1740570708e810c8d14a9f85988296fb"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="structhmi_1_1EditorReferences.html">EditorReferences</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1740570708e810c8d14a9f85988296fb">_references</a></td></tr>
+<tr class="memitem:a4c72994d9c60618222b2e92b528c2eca" id="r_a4c72994d9c60618222b2e92b528c2eca"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classhmi_1_1OffscreenRhi.html">OffscreenRhi</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4c72994d9c60618222b2e92b528c2eca">_offscreen</a></td></tr>
+<tr class="memdesc:a4c72994d9c60618222b2e92b528c2eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'interface de rendu hors écran, tenue tant que la fenêtre vit (<span class="tt">LOT-1002</span>) : les vignettes des cartes et des préfabriqués partagent ainsi les textures d'un kit, chargées une fois.  <br /></td></tr>
 <tr class="memitem:aa11ea4bf8bdc5815fc36bee49cd1c0ed" id="r_aa11ea4bf8bdc5815fc36bee49cd1c0ed"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorActions.html">EditorActions</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa11ea4bf8bdc5815fc36bee49cd1c0ed">_actions</a> = nullptr</td></tr>
 <tr class="memitem:ab33c6cdb6968b9fb8550383780597a57" id="r_ab33c6cdb6968b9fb8550383780597a57"><td class="memItemLeft">QToolBar *&#160;</td><td class="memItemRight"><a class="el" href="#ab33c6cdb6968b9fb8550383780597a57">_toolBar</a> = nullptr</td></tr>
 <tr class="memitem:a4574a5a3f8e0d48448a4dcbbca2fc889" id="r_a4574a5a3f8e0d48448a4dcbbca2fc889"><td class="memItemLeft">QAction *&#160;</td><td class="memItemRight"><a class="el" href="#a4574a5a3f8e0d48448a4dcbbca2fc889">_resizeAction</a> = nullptr</td></tr>
@@ -337,7 +339,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Fenêtre principale de l'éditeur (Qt Widgets, style Fusion, textes anglais). </p>
-<p>Le canevas (<span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span>) est le widget central ; la palette, le navigateur de cartes, les couches et les entités sont des docks détachables dont la disposition est persistée (<span class="tt">EX-IHM-011</span>). Tout est construit en code (<span class="tt">LOT-EDITOR-01</span>). La fenêtre ne possède aucune donnée d'édition : le canevas est le seul propriétaire du brouillon, les panneaux demandent et il applique.</p>
+<p>Le canevas (<span class="tt"><a class="el" href="classhmi_1_1EditorViewport.html" title="Le canevas : le brouillon rendu en iso ou peint à plat, les gestes des outils, l&#39;essai.">hmi::EditorViewport</a></span>) est le widget central ; la palette, le navigateur de cartes, les couches et les entités sont des docks détachables dont la disposition est persistée (<span class="tt">EX-IHM-011</span>). Tout est construit en code (<span class="tt">LOT-EDITOR-01</span>). La fenêtre ne possède aucune donnée d'édition : le canevas est le seul propriétaire du brouillon, les panneaux demandent et il applique.</p>
 <p>Elle garde aussi le travail de l'auteur (<span class="tt">LOT-EDITOR-01</span>) : un brouillon modifié est sauvegardé automatiquement hors du dépôt et proposé à la reprise après un plantage ; une carte changée sur disque pendant qu'elle est ouverte n'est jamais écrasée en silence ; fermer avec des modifications demande quoi en faire. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad5314276368d312f8f32bc9e3bed3db2" name="ad5314276368d312f8f32bc9e3bed3db2"></a>
@@ -2618,6 +2620,31 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c72994d9c60618222b2e92b528c2eca" name="a4c72994d9c60618222b2e92b528c2eca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c72994d9c60618222b2e92b528c2eca">&#9670;&#160;</a></span>_offscreen</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classhmi_1_1OffscreenRhi.html">OffscreenRhi</a>&gt; hmi::MainWindow::_offscreen</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'interface de rendu hors écran, tenue tant que la fenêtre vit (<span class="tt">LOT-1002</span>) : les vignettes des cartes et des préfabriqués partagent ainsi les textures d'un kit, chargées une fois. </p>
+<p>Nulle si la machine n'en offre aucune. </p>
 
 </div>
 </div>

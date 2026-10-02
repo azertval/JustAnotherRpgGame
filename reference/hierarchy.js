@@ -150,7 +150,6 @@ var hierarchy =
     [ "hmi::DraftEntityOverlay", "structhmi_1_1DraftEntityOverlay.html", null ],
     [ "hmi::DraftMap", "structhmi_1_1DraftMap.html", null ],
     [ "hmi::DraftRenderer", "classhmi_1_1DraftRenderer.html", null ],
-    [ "hmi::DraftTextures", "structhmi_1_1DraftTextures.html", null ],
     [ "hmi::EditContextTarget", "classhmi_1_1EditContextTarget.html", [
       [ "hmi::EditorViewport", "classhmi_1_1EditorViewport.html", null ]
     ] ],
@@ -300,6 +299,7 @@ var hierarchy =
     [ "hmi::MapPoint", "structhmi_1_1MapPoint.html", null ],
     [ "hmi::MapPropertiesChoice", "structhmi_1_1MapPropertiesChoice.html", null ],
     [ "hmi::MapRegionView", "structhmi_1_1MapRegionView.html", null ],
+    [ "hmi::MapRenderFrame", "structhmi_1_1MapRenderFrame.html", null ],
     [ "hmi::MapRenderOptions", "structhmi_1_1MapRenderOptions.html", null ],
     [ "hmi::MapSite", "structhmi_1_1MapSite.html", null ],
     [ "hmi::MapTemplate", "structhmi_1_1MapTemplate.html", null ],
@@ -327,6 +327,7 @@ var hierarchy =
     [ "core::NamedExtraDamage", "structcore_1_1NamedExtraDamage.html", null ],
     [ "core::NamedResistance", "structcore_1_1NamedResistance.html", null ],
     [ "core::NamedTrait", "structcore_1_1NamedTrait.html", null ],
+    [ "hmi::OffscreenRhi", "classhmi_1_1OffscreenRhi.html", null ],
     [ "hmi::OpenDocument", "structhmi_1_1OpenDocument.html", null ],
     [ "core::CombatState::Operation", "classcore_1_1CombatState_1_1Operation.html", null ],
     [ "hmi::PanelFocusEntry", "structhmi_1_1PanelFocusEntry.html", null ],
@@ -398,6 +399,9 @@ var hierarchy =
       [ "hmi::GameViewportItem", "classhmi_1_1GameViewportItem.html", null ],
       [ "hmi::WorldViewportItem", "classhmi_1_1WorldViewportItem.html", null ]
     ] ],
+    [ "QRhiWidget", null, [
+      [ "hmi::SceneSurface", "classhmi_1_1SceneSurface.html", null ]
+    ] ],
     [ "hmi::QuadRecorder", "classhmi_1_1QuadRecorder.html", null ],
     [ "core::Quest", "structcore_1_1Quest.html", null ],
     [ "core::QuestCatalog", "structcore_1_1QuestCatalog.html", null ],
@@ -441,8 +445,6 @@ var hierarchy =
     [ "hmi::CombatCueTrack::Running", "structhmi_1_1CombatCueTrack_1_1Running.html", null ],
     [ "hmi::AudioEngine::Sample", "structhmi_1_1AudioEngine_1_1Sample.html", null ],
     [ "hmi::SceneChangeChoice", "structhmi_1_1SceneChangeChoice.html", null ],
-    [ "hmi::SceneImage", "classhmi_1_1SceneImage.html", null ],
-    [ "hmi::SceneImages", "classhmi_1_1SceneImages.html", null ],
     [ "core::SceneLevel", "structcore_1_1SceneLevel.html", null ],
     [ "core::ScenePiece", "structcore_1_1ScenePiece.html", null ],
     [ "core::ScenePieceManifest", "classcore_1_1ScenePieceManifest.html", null ],
@@ -508,6 +510,7 @@ var hierarchy =
     [ "hmi::WorldComposeOptions", "structhmi_1_1WorldComposeOptions.html", null ],
     [ "hmi::WorldFigureSnapshot", "structhmi_1_1WorldFigureSnapshot.html", null ],
     [ "core::WorldFlags", "classcore_1_1WorldFlags.html", null ],
+    [ "hmi::WorldFraming", "structhmi_1_1WorldFraming.html", null ],
     [ "core::WorldGraph", "structcore_1_1WorldGraph.html", null ],
     [ "hmi::WorldGraphEdgeGeometry", "structhmi_1_1WorldGraphEdgeGeometry.html", null ],
     [ "hmi::WorldGraphLayout", "structhmi_1_1WorldGraphLayout.html", null ],

@@ -1,10 +1,12 @@
 var NAVTREEINDEX3 =
 {
-"bench__canvas__paint_8cpp.html":[4,0,0,1,1],
-"bench__canvas__paint_8cpp.html#a0f69f4a8e5059df4902c9adf5b885088":[4,0,0,1,1,2],
-"bench__canvas__paint_8cpp.html#a5c6d4fed3c97a45fd8d8456707b06298":[4,0,0,1,1,0],
-"bench__canvas__paint_8cpp.html#aa2f675c864715815c3ff4995e247ec94":[4,0,0,1,1,1],
-"bench__canvas__paint_8cpp.html#aec15734f600eae8baffc76461d095dca":[4,0,0,1,1,3],
+"bench__canvas__frame_8cpp.html":[4,0,0,1,1],
+"bench__canvas__frame_8cpp.html#a0c8687225e7b462f6c0ea32254490f2c":[4,0,0,1,1,2],
+"bench__canvas__frame_8cpp.html#a3800ced8cf5c71c120c3938df454b147":[4,0,0,1,1,5],
+"bench__canvas__frame_8cpp.html#a513f97c7fc85367417fd28c666cff9ed":[4,0,0,1,1,0],
+"bench__canvas__frame_8cpp.html#a7ba282a9a0e37383e5bd5218eac9fa51":[4,0,0,1,1,1],
+"bench__canvas__frame_8cpp.html#a7ff7d396aa875081c2154ba9e195055e":[4,0,0,1,1,3],
+"bench__canvas__frame_8cpp.html#ac7e55aecdba9e801702ccfa143f11f90":[4,0,0,1,1,4],
 "bench__combat_8cpp.html":[4,0,0,1,2],
 "bench__combat_8cpp.html#a39888fa00bb243dc5a1968b168618154":[4,0,0,1,2,4],
 "bench__combat_8cpp.html#a3e255d6720e86b019fbd4c1242dc79f4":[4,0,0,1,2,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX3 =
 "classcore_1_1BattleGrid.html#a6d4aaa5aa23c4c2b65dca09a5f04164e":[2,0,1,22,6],
 "classcore_1_1BattleGrid.html#a6d4aaa5aa23c4c2b65dca09a5f04164e":[3,0,0,22,6],
 "classcore_1_1BattleGrid.html#a6d8f9cbc88d49e6b202f35ea58ae8985":[2,0,1,22,26],
-"classcore_1_1BattleGrid.html#a6d8f9cbc88d49e6b202f35ea58ae8985":[3,0,0,22,26],
-"classcore_1_1BattleGrid.html#a6feccb632a0934cee70683671a6afade":[2,0,1,22,34],
-"classcore_1_1BattleGrid.html#a6feccb632a0934cee70683671a6afade":[3,0,0,22,34]
+"classcore_1_1BattleGrid.html#a6d8f9cbc88d49e6b202f35ea58ae8985":[3,0,0,22,26]
 };

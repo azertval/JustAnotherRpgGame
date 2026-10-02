@@ -15,7 +15,7 @@ var searchData=
   ['maptext_12',['mapText',['../structhmi_1_1GestureFileResult.html#a62b7e99413a150c8783a4bde64eb83b7',1,'hmi::GestureFileResult']]],
   ['maquette_5ftoken_5fsize_5fpixels_13',['MAQUETTE_TOKEN_SIZE_PIXELS',['../namespacehmi.html#a0727f3ff13f8d698e840bf7f44a899a6',1,'hmi']]],
   ['maquette_5ftoken_5ftile_5ffraction_14',['MAQUETTE_TOKEN_TILE_FRACTION',['../namespacehmi.html#a3a1d4a71d831ef9fd0ed8c307a59fc6e',1,'hmi']]],
-  ['marker_15',['marker',['../structcore_1_1CombatEvent.html#a7483c3517a2a45987963e70e97ef7774',1,'core::CombatEvent::marker'],['../structcore_1_1TurnSlot.html#aa6480ef1c8406b9a165817753ece9d18',1,'core::TurnSlot::marker'],['../structhmi_1_1DraftTextures.html#a2079df01c51a813b2dfbdcdd59c7a3d0',1,'hmi::DraftTextures::marker']]],
+  ['marker_15',['marker',['../structcore_1_1CombatEvent.html#a7483c3517a2a45987963e70e97ef7774',1,'core::CombatEvent::marker'],['../structcore_1_1TurnSlot.html#aa6480ef1c8406b9a165817753ece9d18',1,'core::TurnSlot::marker']]],
   ['markid_16',['markId',['../structcore_1_1ArenaContestant.html#abc7382a0078f0c8b9fe97d472e456fe2',1,'core::ArenaContestant']]],
   ['marks_17',['marks',['../structhmi_1_1WorldSceneSnapshot.html#a575f623efd821f68adab02944b81eebf',1,'hmi::WorldSceneSnapshot']]],
   ['maskedby_18',['maskedBy',['../structhmi_1_1PieceCatalogEntry.html#a1f64f90ca80b1b2e6f65de2146265d03',1,'hmi::PieceCatalogEntry']]],

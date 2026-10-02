@@ -86,6 +86,7 @@ var classhmi_1_1MainWindow =
     [ "_levels", "classhmi_1_1MainWindow.html#aa3a6277e15086fc09f3ba9b42dfc86e2", null ],
     [ "_miniMap", "classhmi_1_1MainWindow.html#a23e247e0ca80892f27be7348daacf566", null ],
     [ "_miniMapDock", "classhmi_1_1MainWindow.html#a0fd82b847d227e46f98f3f83d622f435", null ],
+    [ "_offscreen", "classhmi_1_1MainWindow.html#a4c72994d9c60618222b2e92b528c2eca", null ],
     [ "_palette", "classhmi_1_1MainWindow.html#af1127880bfad8cb9a4e49eb5c072ca08", null ],
     [ "_prefabPlace", "classhmi_1_1MainWindow.html#ace2cd0890455862e0d44849fdc839af4", null ],
     [ "_prefabThumbnails", "classhmi_1_1MainWindow.html#aaf3fd467aa48568de39975fe72cfe8de", null ],

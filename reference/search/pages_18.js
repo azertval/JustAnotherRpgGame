@@ -8,6 +8,6 @@ var searchData=
   ['va_20où_5',['Ce qui va où',['../WorldSceneComposer_8h.html#autotoc_md96',1,'']]],
   ['viennent_20les_20formules_6',['D&apos;où viennent les formules',['../IsoProjection_8h.html#autotoc_md35',1,'']]],
   ['vit_7',['Ce que dit le Manuel, et où chaque règle vit',['../Attack_8h.html#autotoc_md13',1,'']]],
-  ['vraiment_20et_20qu_20il_20ne_20faut_20pas_20se_20cacher_8',['Ce qui change vraiment, et qu&apos;il ne faut pas se cacher',['../classhmi_1_1GameViewportItem.html#autotoc_md116',1,'']]],
+  ['vraiment_20et_20qu_20il_20ne_20faut_20pas_20se_20cacher_8',['Ce qui change vraiment, et qu&apos;il ne faut pas se cacher',['../classhmi_1_1GameViewportItem.html#autotoc_md117',1,'']]],
   ['vues_20un_20repère_20de_20cases_9',['Deux vues, un repère de cases',['../CanvasPicking_8h.html#autotoc_md72',1,'']]]
 ];
