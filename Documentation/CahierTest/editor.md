@@ -1,6 +1,6 @@
 # Editor
 
-Tests unitaires — **225 cas** (31 bloquants, 48 critiques, 117 majeurs, 29 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **218 cas** (28 bloquants, 48 critiques, 113 majeurs, 29 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -26,14 +26,12 @@ Tests unitaires — **225 cas** (31 bloquants, 48 critiques, 117 majeurs, 29 min
 | [`test_map_documents.cpp`](#test-map-documentscpp) | 3 | - | - | 2 | 1 |
 | [`test_map_format.cpp`](#test-map-formatcpp) | 8 | - | 5 | 2 | 1 |
 | [`test_map_refactor.cpp`](#test-map-refactorcpp) | 9 | - | 5 | 3 | 1 |
-| [`test_map_render.cpp`](#test-map-rendercpp) | 6 | - | - | 5 | 1 |
+| [`test_map_render.cpp`](#test-map-rendercpp) | 7 | 1 | - | 5 | 1 |
 | [`test_paint_tools.cpp`](#test-paint-toolscpp) | 8 | - | 5 | 2 | 1 |
 | [`test_panel_focus.cpp`](#test-panel-focuscpp) | 3 | - | - | 3 | - |
 | [`test_piece_catalog.cpp`](#test-piece-catalogcpp) | 7 | - | 1 | 5 | 1 |
 | [`test_quest_editing.cpp`](#test-quest-editingcpp) | 12 | 5 | - | 6 | 1 |
 | [`test_quest_map_editor.cpp`](#test-quest-map-editorcpp) | 6 | 1 | 1 | 3 | 1 |
-| [`test_scene_images.cpp`](#test-scene-imagescpp) | 4 | 1 | - | 3 | - |
-| [`test_scene_painter.cpp`](#test-scene-paintercpp) | 4 | 3 | - | 1 | - |
 | [`test_shipped_maps.cpp`](#test-shipped-mapscpp) | 4 | 4 | - | - | - |
 | [`test_stamps.cpp`](#test-stampscpp) | 9 | - | 2 | 6 | 1 |
 | [`test_storey_editing.cpp`](#test-storey-editingcpp) | 3 | 2 | - | 1 | - |
@@ -54,7 +52,6 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 | `EX-EDIT-084` | [`Donnees.UneCarteChangeDePlancheSansEtreRepeinte`](#donneesunecartechangedeplanchesansetrerepeinte) |
 | `EX-EDIT-100` | [`QuestWriting.UneQueteSeReecritOctetPourOctet`](#questwritingunequetesereecritoctetpouroctet), [`QuestWriting.UnLieuDEtapeSEcritCarteDiezeEntite`](#questwritingunlieudetapesecritcartediezeentite), [`ModeQuetesProjet.EnregistrerEcritLaQueteEtSesTextes`](#modequetesprojetenregistrerecritlaqueteetsestextes), [`ModeQuetesProjet.CeQueLeJeuRefuseraitNeSEnregistrePas`](#modequetesprojetcequelejeurefuseraitnesenregistrepas), [`ModeQuetesProjet.QuiSeSertDUneValeurDeDrapeau`](#modequetesprojetquisesertdunevaleurdedrapeau), [`ModeQuetesProjet.RenommerUneValeurLaSuitPartoutEtSeulementElle`](#modequetesprojetrenommerunevaleurlasuitpartoutetseulementelle), [`ModeQuetesProjet.RenommerUnDrapeauDeclare`](#modequetesprojetrenommerundrapeaudeclare), [`ModeQuetesProjet.RenommerPuisRetirerUneQuete`](#modequetesprojetrenommerpuisretirerunequete), [`ModeQuetesProjet.LEtatDePartieQuiAtteintUneEtape`](#modequetesprojetletatdepartiequiatteintuneetape), [`ModeQuetesProjet.LeLieuDUneEtapeSuitLEntite`](#modequetesprojetlelieuduneetapesuitlentite), [`ModeQuetesProjet.LeModeQuetesSansFenetre`](#modequetesprojetlemodequetessansfenetre), [`CatalogEntry.UneCleChangeASaPlace`](#catalogentryuneclechangeasaplace) |
 | `EX-EDIT-101` | [`ContentCheckTest.UnGroupeQuiNeSeDeploiePasFaitEchouerLaCi`](#contentchecktestungroupequinesedeploiepasfaitechouerlaci), [`GestureScriptTest.LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit`](#gesturescripttestlesabledelarenaoffateportelegroupeetrougitreduit) |
-| `EX-EXP-005` | [`ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus`](#scenepaintertestunecartesansaucuneimagesevoitdanslesdeuxrendus) |
 
 ## test_autosave.cpp
 
@@ -2675,7 +2672,7 @@ Une table de correspondance mal formée est refusée.
 
 ### MapRenderTest.UneCarteSeRendSansFenetre
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:55`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:62`
 
 --render peint une carte hors écran.
 
@@ -2692,9 +2689,34 @@ Une table de correspondance mal formée est refusée.
 - Vérifie que `peinte(lieu, options.background)` est strictement supérieur à `1.0 / 5.0`.
 - Vérifie que `collision` diffère de `lieu`.
 
+### MapRenderTest.RenderEtLeRenduDuJeuDonnentLaMemeImageAuPixel
+
+*Bloquant · Unitaire · Editeur · Sans fenetre · Rendu QRhi d'un lieu* — `Source/Test/Unit/Editor/test_map_render.cpp:92`
+
+--render et le rendu du jeu donnent la meme image, au pixel.
+
+**Étapes**
+
+1. Rendre la Place et le donjon par `hmi::renderMap`, au quart de l'echelle.
+2. Rendre chacune comme le jeu : son instantane (`hmi::snapshotWorldScene`) donne a un `hmi::WorldSceneRenderer`, dessine dans une cible hors ecran a lui, sur une interface QRhi a lui, avec le cadre que `hmi::mapRenderFrame` donne.
+
+**Résultat attendu**
+
+- Vérifie que `table.ok()` est vrai.
+- Vérifie que `carte.ok()` est vrai.
+- Vérifie que `editor.isNull()` est faux.
+- Vérifie que `game.ensureResources(rhi.get())` est vrai.
+- Vérifie que `QSize(frame.width, frame.height)` vaut `editor.size()`.
+- Vérifie que `texture->create()` est vrai.
+- Vérifie que `target->create()` est vrai.
+- Vérifie que `rhi->beginOffscreenFrame(&commands)` vaut `QRhi::FrameOpSuccess`.
+- Vérifie que `rhi->endOffscreenFrame()` vaut `QRhi::FrameOpSuccess`.
+- Vérifie que `played.size()` vaut `editor.size()`.
+- Vérifie que `differing` vaut `0`.
+
 ### MapRenderTest.UnePieceHauteNEstPasRognee
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:119`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:216`
 
 Le cadre de --render tient les pièces hautes.
 
@@ -2717,7 +2739,7 @@ Le cadre de --render tient les pièces hautes.
 
 ### MapRenderTest.LesBandesSeLisentParLeurNom
 
-*Mineur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:177`
+*Mineur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:274`
 
 --layers lit les bandes du canevas.
 
@@ -2733,7 +2755,7 @@ Le cadre de --render tient les pièces hautes.
 
 ### MapRenderTest.RenderEcritUneImageParCarte
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:194`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:291`
 
 --render écrit une image par carte.
 
@@ -2751,7 +2773,7 @@ Le cadre de --render tient les pièces hautes.
 
 ### MapRenderTest.LePlanCoucheLesBlocsEtLegende
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:222`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:319`
 
 --plan couche les blocs et ajoute une legende.
 
@@ -2769,7 +2791,7 @@ Le cadre de --render tient les pièces hautes.
 
 ### MapRenderTest.UneCarteQuiPuiseDansQuatreNiveauxSeRend
 
-*Majeur · Unitaire · Editeur · Sans fenetre · Arborescence* — `Source/Test/Unit/Editor/test_map_render.cpp:253`
+*Majeur · Unitaire · Editeur · Sans fenetre · Arborescence* — `Source/Test/Unit/Editor/test_map_render.cpp:350`
 
 --render montre une carte qui puise dans quatre niveaux.
 
@@ -3539,155 +3561,6 @@ La porte close se voit, meme en maquette.
 - Vérifie que `fermee.reliefTypeAt({2, 3})` vaut `core::TileType::Empty`.
 - Vérifie que `hmi::canvasSnapshot(brouillon, apparence, &ouverte.flags).reliefTypeAt({2, 1})` vaut `core::TileType::Empty`.
 
-## test_scene_images.cpp
-
-### SceneImagesTest.LesOngletsPartagentUnSeulCache
-
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_images.cpp:50`
-
-Le cache d'images est partage entre onglets.
-
-**Étapes**
-
-1. Demander trois fois le cache partage du dossier de la maquette, comme trois onglets.
-2. Relacher les onglets un a un.
-
-**Résultat attendu**
-
-- Vérifie que `first.get()` vaut `second.get()`.
-- Vérifie que `first.get()` vaut `third.get()`.
-- Vérifie que `first.use_count()` vaut `3`.
-- Vérifie que `first->residentBytes()` est strictement supérieur à `0U`.
-- Vérifie que `watched.expired()` est faux.
-- Vérifie que `watched.expired()` est vrai.
-
-### SceneImagesTest.LeBudgetEstTenuEtUneImageEvinceeSeRelit
-
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_images.cpp:81`
-
-Le cache d'images tient son budget.
-
-**Étapes**
-
-1. Creer un cache dont le budget tient la plus grosse piece de la maquette, pas toutes.
-2. Charger toutes les pieces, puis peindre (lire) chacune.
-3. Relire la premiere.
-
-**Résultat attendu**
-
-- Vérifie que `paths.size()` est supérieur ou égal à `3U`.
-- Vérifie que `image` diffère de `nullptr`.
-- Vérifie que `image` diffère de `nullptr`.
-- Vérifie que `images.residentBytes()` est inférieur ou égal à `images.budgetBytes() + bytesOf(pixels)`.
-- Vérifie que `first->width()` vaut `firstPixels.width()`.
-- Vérifie que `first->level(0)` vaut `firstPixels`.
-
-### SceneImagesTest.UnePiecePeinteASesNiveauxReduits
-
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_images.cpp:126`
-
-Une piece peinte a ses niveaux reduits.
-
-**Étapes**
-
-1. Charger une piece de la maquette et lire son niveau 1 et son dernier niveau.
-2. Lire un marqueur d'entite.
-
-**Résultat attendu**
-
-- Vérifie que `paths.empty()` est faux.
-- Vérifie que `piece` diffère de `nullptr`.
-- Vérifie que `piece->smooth()` est vrai.
-- Vérifie que `half.width()` vaut `std::max(1, piece->width() / 2)`.
-- Vérifie que `half.height()` vaut `std::max(1, piece->height() / 2)`.
-- Vérifie que `std::min(last.width(), last.height())` est inférieur ou égal à `1`.
-- Vérifie que `marker` diffère de `nullptr`.
-- Vérifie que `marker->smooth()` est faux.
-- Vérifie que `marker->levelCount()` vaut `1`.
-
-### SceneImagesTest.UnManifesteSeLitUneFois
-
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_images.cpp:157`
-
-Un manifeste se lit une fois.
-
-**Étapes**
-
-1. Charger toutes les pieces de la maquette, rangees dans un seul dossier.
-
-**Résultat attendu**
-
-- Vérifie que `paths.size()` est supérieur ou égal à `3U`.
-- Vérifie que `images.manifestReads()` est inférieur ou égal à `3U`.
-- Vérifie que `images.manifestReads()` est strictement inférieur à `paths.size()`.
-
-## test_scene_painter.cpp
-
-### ScenePainterTest.UneCartePeinteEgaleLeRenduDuJeu
-
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:256`
-
-Le canevas de l'editeur peint une carte comme le jeu la dessine.
-
-**Étapes**
-
-1. Composer la carte d'essai, ses PNJ compris.
-2. La rendre hors ecran par le rendu QRhi du jeu, cadree sur trois points (grand- place, coin nord, porte est).
-3. La peindre par le peintre QPainter de l'editeur avec la meme camera.
-
-**Résultat attendu**
-
-- Pour chaque cadrage, moins de 0,5 % des pixels different de plus de 48 sur un canal, l'ecart moyen reste sous 0,75 ; l'image est peinte sur plus de la moitie de sa surface.
-
-### ScenePainterTest.LaSecondeCartePeinteEgaleLeRenduDuJeu
-
-*Majeur · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:280`
-
-Le canevas de l'editeur peint la seconde carte comme le jeu la dessine.
-
-**Étapes**
-
-1. Composer le donjon.
-2. Le rendre par le jeu et par l'editeur, cadre sur sa porte.
-
-**Résultat attendu**
-
-- Moins de 0,5 % des pixels different au-dela de la tolerance ; ecart moyen sous 0,75.
-
-### ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus
-
-*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/Editor/test_scene_painter.cpp:343`
-
-Exigences : `EX-EXP-005`
-
-Une carte sans aucun fichier d'image se voit, pareillement dans les deux rendus.
-
-**Étapes**
-
-1. Batir en memoire une carte sans lieu : sols, eau, enceinte de murs, quatre entites.
-2. La rendre hors ecran par le rendu QRhi du jeu, puis par le peintre de l'editeur.
-
-**Résultat attendu**
-
-- Vérifie que `maquette.place.empty()` est vrai.
-- Vérifie que `hmi::parseMaquetteTokenPath(path).has_value()` est vrai.
-
-### ScenePainterTest.LaMaquetteHdPeinteEgaleLeRenduDuJeu
-
-*Bloquant · Unitaire · Editeur · Canevas* — `Source/Test/Unit/Editor/test_scene_painter.cpp:374`
-
-L'editeur peint la maquette HD comme le jeu.
-
-**Étapes**
-
-1. Lire la scene de Fixtures/HdMockup et ses pieces installees.
-2. La rendre hors ecran par le jeu en 1920 x 1080, une case a 100 pixels.
-3. La peindre par l'editeur avec la meme camera.
-
-**Résultat attendu**
-
-- Vérifie que `scene.is_discarded()` est faux.
-
 ## test_shipped_maps.cpp
 
 ### ShippedMapsTest.ChaqueCarteSOuvreEtSEnregistreALIdentique
@@ -4018,7 +3891,7 @@ Un prefabrique garde ses etages.
 
 ### StoreyRenderTest.OnVoitLeHerosATraversLEtageEtLeToit
 
-*Bloquant · Unitaire · Editeur · Etages* — `Source/Test/Unit/Editor/test_storey_render.cpp:122`
+*Bloquant · Unitaire · Editeur · Etages* — `Source/Test/Unit/Editor/test_storey_render.cpp:120`
 
 On voit le heros a travers l'etage et le toit.
 
@@ -4038,6 +3911,7 @@ On voit le heros a travers l'etage et le toit.
 - Vérifie que `draft.placePiece(roof, {.column = 1, .row = 1}, "roof-test", core::TileType::Wall)` est vrai.
 - Vérifie que `draft.tileMap().tile(2, 3)` vaut `core::TileType::Wall`.
 - Vérifie que `draft.tileMap().tile(2, 2)` diffère de `core::TileType::Wall`.
+- Vérifie que `nobody.isNull()` est faux.
 - Vérifie que `heroPixels` est strictement supérieur à `2 * npcPixels`.
 - Vérifie que `heroPixels` est strictement supérieur à `1000U`.
 

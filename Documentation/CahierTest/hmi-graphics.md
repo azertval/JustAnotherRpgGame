@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **152 cas** (27 bloquants, 48 critiques, 72 majeurs, 5 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **157 cas** (30 bloquants, 48 critiques, 74 majeurs, 5 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -18,6 +18,7 @@ Tests unitaires — **152 cas** (27 bloquants, 48 critiques, 72 majeurs, 5 mineu
 | [`test_image_encode.cpp`](#test-image-encodecpp) | 5 | - | 1 | 4 | - |
 | [`test_maquette_tokens.cpp`](#test-maquette-tokenscpp) | 6 | - | 2 | 4 | - |
 | [`test_missing_texture.cpp`](#test-missing-texturecpp) | 5 | - | 2 | 3 | - |
+| [`test_offscreen_render.cpp`](#test-offscreen-rendercpp) | 5 | 3 | - | 2 | - |
 | [`test_poly_quad.cpp`](#test-poly-quadcpp) | 4 | - | 2 | 2 | - |
 | [`test_procedural_atlas.cpp`](#test-procedural-atlascpp) | 4 | - | 1 | 2 | 1 |
 | [`test_quad_recorder.cpp`](#test-quad-recordercpp) | 7 | - | 3 | 3 | 1 |
@@ -37,6 +38,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 | Exigence | Cas |
 |---|---|
 | `EX-CNT-042` | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosOrienteRangeParClasse`](#assetgallerytestunherosorienterangeparclasse), [`AssetGalleryTest.UnEffetSeJoueDansLaGalerie`](#assetgallerytestuneffetsejouedanslagalerie) |
+| `EX-EXP-005` | [`OffscreenRenderTest.UneCarteSansAucuneImageSeVoit`](#offscreenrendertestunecartesansaucuneimagesevoit) |
 | `EX-NFR-040` | [`ProceduralAtlasTest.ChaqueTypeDeTuileAUneCouleurDeRepliDistincte`](#proceduralatlastestchaquetypedetuileaunecouleurdereplidistincte) |
 | `EX-REN-005` | [`WorldSceneComposerTest.LaCadenceEstCelleQueDitLaBande`](#worldscenecomposertestlacadenceestcellequeditlabande) |
 | `EX-REN-014` | [`TriParProfondeurTest.LaProfondeurNeDebordePasDeSaBande`](#triparprofondeurtestlaprofondeurnedebordepasdesabande), [`QuadRecorderTest.OrdonnancementDeclare`](#quadrecordertestordonnancementdeclare) |
@@ -1313,6 +1315,120 @@ L'avertissement de texture manquante nomme l'asset attendu.
 **Résultat attendu**
 
 - Vérifie que `message.find("Backgrounds/foret.png")` diffère de `std::string::npos`.
+
+## test_offscreen_render.cpp
+
+### OffscreenRenderTest.UnCadrageImposeRemplaceLaCameraQuiSuitLeHeros
+
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Editeur* — `Source/Test/Unit/HMI/Graphics/test_offscreen_render.cpp:89`
+
+Un cadrage impose remplace la camera qui suit le heros.
+
+**Étapes**
+
+1. Construire la camera d'un cadrage : un centre, une echelle.
+2. Rendre le donjon cadre sur le heros, puis par un cadrage impose, puis de nouveau sans.
+
+**Résultat attendu**
+
+- Vérifie que `camera.center().x` vaut `12.5F` (comparaison flottante).
+- Vérifie que `camera.center().y` vaut `-3.0F` (comparaison flottante).
+- Vérifie que `camera.zoom() * hmi::Camera2D::PIXELS_PER_UNIT` vaut `24.0F` (comparaison flottante).
+- Vérifie que `camera.worldToScreen(framing.center).x` vaut `400.0F` (comparaison flottante).
+- Vérifie que `camera.worldToScreen(framing.center).y` vaut `300.0F` (comparaison flottante).
+- Vérifie que `hmi::OffscreenRhi::shared()` vaut `offscreen`.
+- Vérifie que `framed.size()` vaut `size`.
+- Vérifie que `renderer.framing().has_value()` est faux.
+- Vérifie que `differingPixels(framed, moved)` est strictement supérieur à `1000U`.
+- Vérifie que `differingPixels(framed, again)` vaut `0U`.
+
+### OffscreenRenderTest.LOpaciteDesCalquesEstUnParametreDuRendu
+
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Editeur* — `Source/Test/Unit/HMI/Graphics/test_offscreen_render.cpp:136`
+
+L'opacite des calques est un parametre du rendu.
+
+**Étapes**
+
+1. Rendre le donjon sans reglage.
+2. Le rendre avec une opacite de 1 pour toute primitive.
+3. Le rendre le relief eteint, puis le relief a demi.
+
+**Résultat attendu**
+
+- Vérifie que `relief(renderer)` est strictement supérieur à `0U`.
+- Vérifie que `differingPixels(plain, offscreen->render(renderer, size, framing, BACKGROUND))` vaut `0U`.
+- Vérifie que `relief(renderer)` vaut `0U`.
+- Vérifie que `differingPixels(plain, hidden)` est strictement supérieur à `1000U`.
+- Vérifie que `quad.sprite.a` est inférieur ou égal à `0.5F`.
+- Vérifie que `differingPixels(plain, half)` est strictement supérieur à `1000U`.
+- Vérifie que `differingPixels(hidden, half)` est strictement supérieur à `1000U`.
+- Vérifie que `differingPixels(plain, offscreen->render(renderer, size, framing, BACKGROUND))` vaut `0U`.
+
+### OffscreenRenderTest.LaCarteSePrepareEtSeMesureAvantLaPremiereImage
+
+*Majeur · Unitaire · Rendu QRhi d'un lieu · Editeur* — `Source/Test/Unit/HMI/Graphics/test_offscreen_render.cpp:198`
+
+La carte se prepare et se mesure avant la premiere image.
+
+**Étapes**
+
+1. Demander ce qu'occupe le donjon a un rendu sans ressources.
+2. Creer les ressources, redemander, sans dessiner.
+3. Dessiner.
+
+**Résultat attendu**
+
+- Vérifie que `bare.prepare()` est faux.
+- Vérifie que `without.size.x` vaut `base.size.x` (comparaison flottante).
+- Vérifie que `without.size.y` vaut `base.size.y` (comparaison flottante).
+- Vérifie que `renderer.ensureResources(offscreen->rhi())` est vrai.
+- Vérifie que `renderer.textures().byPath.empty()` est faux.
+- Vérifie que `renderer.statics().size()` est strictement supérieur à `700U`.
+- Vérifie que `painted.position.y` est inférieur ou égal à `base.position.y`.
+- Vérifie que `painted.position.x` est inférieur ou égal à `base.position.x`.
+- Vérifie que `painted.position.x + painted.size.x` est supérieur ou égal à `base.position.x + base.size.x`.
+- Vérifie que `painted.position.y + painted.size.y` est supérieur ou égal à `base.position.y + base.size.y`.
+- Vérifie que `image.isNull()` est faux.
+- Vérifie que `paintedPixels` est strictement supérieur à `static_cast<std::size_t>(image.width() * image.height() / 4)`.
+
+### OffscreenRenderTest.UneImageRendueParTuilesEstLaMemeImage
+
+*Majeur · Unitaire · Rendu QRhi d'un lieu · Editeur* — `Source/Test/Unit/HMI/Graphics/test_offscreen_render.cpp:252`
+
+Une image rendue par tuiles est la meme image.
+
+**Étapes**
+
+1. Rendre le donjon en 700 x 500 d'un seul coup.
+2. Le rendre par tuiles de 256 pixels : trois colonnes, deux rangees, les dernieres debordant de l'image.
+
+**Résultat attendu**
+
+- Vérifie que `whole.size()` vaut `size`.
+- Vérifie que `tiled.size()` vaut `size`.
+- Vérifie que `differing` est strictement inférieur à `static_cast<std::size_t>(size.width() * size.height() / 1000)`.
+- Vérifie que `worst` est inférieur ou égal à `2`.
+
+### OffscreenRenderTest.UneCarteSansAucuneImageSeVoit
+
+*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_offscreen_render.cpp:345`
+
+Exigences : `EX-EXP-005`
+
+Une carte sans aucun fichier d'image se voit.
+
+**Étapes**
+
+1. Batir en memoire une carte sans lieu : sols, eau, enceinte de murs, quatre entites.
+2. La rendre hors ecran par le rendu du jeu, cadree sur son milieu.
+
+**Résultat attendu**
+
+- Vérifie que `maquette.place.empty()` est vrai.
+- Vérifie que `hmi::parseMaquetteTokenPath(path).has_value()` est vrai.
+- Vérifie que `image.isNull()` est faux.
+- Vérifie que `painted` est strictement supérieur à `static_cast<std::size_t>(image.width() * image.height() / 2)`.
 
 ## test_poly_quad.cpp
 
@@ -2683,7 +2799,7 @@ Le tir se replie sur l'attaque, et rien d'autre ne se replie.
 
 ### WorldSceneRendererTest.CreationLiberationRecreation
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:134`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:133`
 
 Le cycle de vie des ressources QRhi d'un lieu est sur.
 
@@ -2715,7 +2831,7 @@ Le cycle de vie des ressources QRhi d'un lieu est sur.
 
 ### WorldSceneRendererTest.UnLieuDevientDesPixels
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:194`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:193`
 
 Le donjon d'essai se dessine, sans une seule piece manquante.
 
@@ -2742,7 +2858,7 @@ Le donjon d'essai se dessine, sans une seule piece manquante.
 
 ### WorldSceneRendererTest.LaCameraSuitLeHerosSansSortirDeLaCarte
 
-*Critique · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:248`
+*Critique · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:247`
 
 Le cadrage d'un lieu suit le heros, borne a la scene, une case a la hauteur de la vue divisee par 10,8.
 
@@ -2769,7 +2885,7 @@ Le cadrage d'un lieu suit le heros, borne a la scene, une case a la hauteur de l
 
 ### WorldSceneRendererTest.DeuxLieuxDeviennentDesPixels
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:299`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:298`
 
 Deux lieux se dessinent sans une piece sur le damier, sentinelles sous les traits de leur figurine.
 
@@ -2792,13 +2908,13 @@ Deux lieux se dessinent sans une piece sur le damier, sentinelles sous les trait
 
 ### WorldSceneRendererTest.LesCartesSeSauvegardentEtSeRendentAvecLeurKit
 
-*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:365`
+*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:364`
 
 Les trois cartes se sauvegardent et se rendent avec leur kit.
 
 **Étapes**
 
-1. Charger et enregistrer chaque carte ; comparer les textures du jeu et de l’éditeur.
+1. Charger et enregistrer chaque carte ; la rendre avec les textures de son kit.
 
 **Résultat attendu**
 
@@ -2811,15 +2927,12 @@ Les trois cartes se sauvegardent et se rendent avec leur kit.
 - Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
 - Vérifie que `paintedPixels(image)` est strictement supérieur à `static_cast<std::size_t>(TARGET_SIZE * TARGET_SIZE / 4)`.
 - Vérifie que `quad.texture` diffère de `renderer.textures().missing.texture`.
-- Vérifie que `editor.depthOffset` vaut `gpu.depthOffset`.
-- Vérifie que `editor.anchor.has_value()` vaut `gpu.anchor.has_value()`.
-- Vérifie que `editor.anchor->x` vaut `gpu.anchor->x` (comparaison flottante).
-- Vérifie que `editor.anchor->y` vaut `gpu.anchor->y` (comparaison flottante).
-- Vérifie que `image.save(QString::fromStdString( std::string(name).substr(std::string(name).find('/') + 1) + "-renderer.png"))` est vrai.
+- Vérifie que `renderer.textures().byPath.contains(path)` est vrai.
+- Vérifie que `image.save(QString::fromStdWString((captures / file).wstring()))` est vrai.
 
 ### WorldSceneRendererTest.TousLesPortailsSeTraversent
 
-*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:420`
+*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:416`
 
 Tous les portails des cartes se traversent.
 

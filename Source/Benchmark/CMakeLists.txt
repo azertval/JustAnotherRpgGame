@@ -33,22 +33,37 @@ target_compile_definitions(Benchmarks PRIVATE
     # Les donnees livrees : la carte d'Arenarea et les manifestes de ses pieces, suivis par Git.
     JADG_ELEMENTS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements")
 
-# La peinture du canevas de l'éditeur sur de l'art HD (LOT-125) : elle lie Qt Gui (QPainter), que
-# les mesures ci-dessus évitent. Construite seulement là où Qt se trouve ; le job `benchmarks` de la
-# nuit installe Qt pour elle et publie sa série à part.
+# L'image du canevas de l'éditeur, par le rendu du jeu (LOT-1002) : un travelling sur la carte
+# d'Arenarea, hors écran. Elle lie Qt Gui et QRhi, que les mesures ci-dessus évitent, et lit les
+# images du kit : construite seulement là où Qt se trouve ; le job `benchmarks` de la nuit installe
+# Qt pour elle et publie sa série à part.
 #   cmake --build build/bench --target CanvasBenchmarks
 #   build/bench/bin/CanvasBenchmarks.exe
-find_package(Qt6 QUIET COMPONENTS Gui)
-if(TARGET Qt6::Gui)
+find_package(Qt6 QUIET COMPONENTS Gui GuiPrivate ShaderTools)
+if(TARGET Qt6::Gui AND TARGET Qt6::GuiPrivate AND COMMAND qt6_add_shaders)
+    set(_hmi_graphics ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics)
     add_executable(CanvasBenchmarks
-        bench_canvas_paint.cpp
-        ${PROJECT_SOURCE_DIR}/Source/Editor/Ui/ScenePainter.cpp
-        ${PROJECT_SOURCE_DIR}/Source/Editor/Ui/SceneImages.cpp
+        bench_canvas_frame.cpp
+        ${_hmi_graphics}/WorldSceneRenderer.cpp
+        ${_hmi_graphics}/OffscreenRender.cpp
+        ${_hmi_graphics}/SceneResources.cpp
+        ${_hmi_graphics}/SpriteBatch.cpp
+        ${_hmi_graphics}/SpriteRenderer.cpp
+        ${_hmi_graphics}/TextureLoader.cpp
+        ${_hmi_graphics}/TextureAtlas.cpp
     )
     target_link_libraries(CanvasBenchmarks PRIVATE
-        HmiLib Qt6::Gui benchmark::benchmark_main project_warnings)
+        HmiLib Qt6::Gui Qt6::GuiPrivate benchmark::benchmark_main project_warnings)
     target_compile_definitions(CanvasBenchmarks PRIVATE
-        JADG_HD_MOCKUP_DIR="${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/HdMockup")
+        JADG_ELEMENTS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements")
+    qt6_add_shaders(CanvasBenchmarks "canvas_benchmarks_shaders"
+        PREFIX "/shaders"
+        BASE "${_hmi_graphics}/Shaders"
+        FILES
+            ${_hmi_graphics}/Shaders/sprite.vert
+            ${_hmi_graphics}/Shaders/sprite.frag
+    )
 else()
-    message(STATUS "CanvasBenchmarks : Qt6::Gui introuvable -- mesure de peinture ignoree.")
+    message(STATUS "CanvasBenchmarks : Qt6 (Gui, GuiPrivate, ShaderTools) introuvable -- "
+        "mesure de l'image du canevas ignoree.")
 endif()

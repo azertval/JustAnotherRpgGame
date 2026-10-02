@@ -110,10 +110,6 @@ __pycache__/
 # septembre 2026, qui revient sur l'exception du LOT-104) : le dépôt ne reçoit que l'asset installé.
 /Tools/
 
-# Captures du test de parite peintre / GPU (test_scene_painter) : deux images par cadrage, ecrites
-# a cote de l'executable pour etre relues a l'oeil. Une sortie de test, regeneree a chaque
-# execution -- deja supprimee du depot une fois (PR #91), elle y etait revenue.
-/editor-captures/
 # Images que les tests de rendu hors écran écrivent dans le répertoire courant (test_world_scene_renderer,
 # `<carte>-renderer.png`) : lancés depuis la racine, ils y déposaient huit PNG, commités par mégarde
 # et retirés à la recette de la 0.0.1 (LOT-122).

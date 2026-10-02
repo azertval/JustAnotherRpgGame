@@ -4,25 +4,32 @@
 /**
  * @file test_map_render.cpp
  * @brief Tests de `LevelEditor --render` (`LOT-EDITOR-13`) : une carte livrée rendue hors écran,
- *        sans fenêtre, par le peintre du canevas.
+ *        sans fenêtre, par le rendu du jeu (`LOT-1002`).
  */
 
 #include <QColor>
 #include <QImage>
 #include <QRect>
+#include <array>
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <memory>
 #include <optional>
 #include <string>
+#include <utility>
 
 #include <gtest/gtest.h>
+#include <rhi/qrhi.h>
 
+#include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Editor/Logic/CanvasScene.h"
 #include "Editor/Ui/MapRender.h"
+#include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
+#include "HMI/Graphics/WorldSceneRenderer.h"
 
 namespace {
 
@@ -77,6 +84,96 @@ TEST(MapRenderTest, UneCarteSeRendSansFenetre) {
     options.bands.collision = 1.0F;
     const QImage collision = hmi::renderMap(*carte.level, dataRoot(), options);
     EXPECT_NE(collision, lieu);
+}
+
+/**
+ * @brief Une carte rendue par `--render` et la même carte rendue par le jeu, hors écran, sont
+ *        **identiques au pixel** (`LOT-1002`) : il n'y a plus qu'un rendu, donc plus de seuil.
+ * \castest{<b>--render et le rendu du jeu donnent la meme image, au pixel.</b><br/>
+ * \tcat Unitaire · Editeur · Sans fenetre · Rendu QRhi d'un lieu<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Rendre la Place et le donjon par `hmi::renderMap`, au quart de l'echelle.<br/>
+ *          2. Rendre chacune comme le jeu : son instantane (`hmi::snapshotWorldScene`) donne a un
+ *             `hmi::WorldSceneRenderer`, dessine dans une cible hors ecran a lui, sur une interface
+ *             QRhi a lui, avec le cadre que `hmi::mapRenderFrame` donne.<br/>
+ * \tattendu Deux images de meme taille, dont aucun pixel ne differe.
+ * }
+ */
+TEST(MapRenderTest, RenderEtLeRenduDuJeuDonnentLaMemeImageAuPixel) {
+#ifdef Q_OS_WIN
+    QRhiD3D11InitParams params;
+    const std::unique_ptr<QRhi> rhi(QRhi::create(QRhi::D3D11, &params));
+#else
+    const std::unique_ptr<QRhi> rhi;
+#endif
+    if (!rhi) {
+        GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
+    }
+    const hmi::PlaceAppearanceResult table = hmi::PlaceAppearance::loadFromFile(
+        dataRoot() / "Assets" / "Scene" / "bourg" / "appearance.json");
+    ASSERT_TRUE(table.ok()) << table.message;
+
+    for (const char* const name : {"bourg/place", "donjon"}) {
+        const core::LevelLoadResult carte =
+            core::LevelLoader::loadFromFile(dataRoot() / "Levels" / (std::string{name} + ".json"));
+        ASSERT_TRUE(carte.ok()) << name << " : " << carte.error;
+
+        hmi::MapRenderOptions options;
+        options.scale = 0.25;
+        const QImage editor = hmi::renderMap(*carte.level, dataRoot(), options)
+                                  .convertToFormat(QImage::Format_RGBA8888_Premultiplied);
+        ASSERT_FALSE(editor.isNull()) << name;
+
+        // Le jeu : l'instantané de la carte, ses PNJ à leur poste, et son rendu.
+        hmi::WorldSceneSnapshot snapshot = hmi::snapshotWorldScene(
+            *carte.level, table.appearance, hmi::npcFigures(carte.level->entities(), 0));
+        const core::IsoProjection projection(snapshot.columns, snapshot.rows,
+                                             core::ARENA_TILE_WIDTH_UNITS, snapshot.diamondRatio);
+        hmi::WorldSceneRenderer game(dataRoot() / "Assets");
+        ASSERT_TRUE(game.ensureResources(rhi.get()));
+        game.setSnapshot(std::move(snapshot));
+        const hmi::MapRenderFrame frame = hmi::mapRenderFrame(
+            game.paintedBounds(core::Rect{{0.0F, 0.0F}, projection.sceneSize()}),
+            projection.tileWidth(), options);
+        ASSERT_EQ(QSize(frame.width, frame.height), editor.size()) << name;
+        game.setFraming(frame.framing);
+
+        const std::unique_ptr<QRhiTexture> texture(
+            rhi->newTexture(QRhiTexture::RGBA8, editor.size(), 1,
+                            QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
+        ASSERT_TRUE(texture->create());
+        const std::unique_ptr<QRhiTextureRenderTarget> target(
+            rhi->newTextureRenderTarget({{texture.get()}}));
+        const std::unique_ptr<QRhiRenderPassDescriptor> pass(
+            target->newCompatibleRenderPassDescriptor());
+        target->setRenderPassDescriptor(pass.get());
+        ASSERT_TRUE(target->create());
+
+        const std::array<float, 4> clear = {options.background.redF(), options.background.greenF(),
+                                            options.background.blueF(), 1.0F};
+        QRhiCommandBuffer* commands = nullptr;
+        ASSERT_EQ(rhi->beginOffscreenFrame(&commands), QRhi::FrameOpSuccess);
+        game.render(commands, target.get(), clear.data());
+        QRhiReadbackResult readback;
+        QRhiResourceUpdateBatch* const batch = rhi->nextResourceUpdateBatch();
+        batch->readBackTexture({texture.get()}, &readback);
+        commands->resourceUpdate(batch);
+        ASSERT_EQ(rhi->endOffscreenFrame(), QRhi::FrameOpSuccess);
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast): QImage lit des `uchar`.
+        const QImage played(reinterpret_cast<const uchar*>(readback.data.constData()),
+                            readback.pixelSize.width(), readback.pixelSize.height(),
+                            QImage::Format_RGBA8888_Premultiplied);
+        game.release();
+
+        ASSERT_EQ(played.size(), editor.size()) << name;
+        long long differing = 0;
+        for (int y = 0; y < editor.height(); ++y) {
+            for (int x = 0; x < editor.width(); ++x) {
+                differing += editor.pixel(x, y) != played.pixel(x, y) ? 1 : 0;
+            }
+        }
+        EXPECT_EQ(differing, 0) << name << " : --render et le rendu du jeu divergent";
+    }
 }
 
 namespace {

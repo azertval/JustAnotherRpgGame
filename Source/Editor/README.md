@@ -7,8 +7,9 @@ sert à fabriquer les cartes du jeu. Son programme est la
 
 Le module dépend de `Core` (modèle et validation de carte, manifeste des pièces), de
 `SceneComposition` (la composition d'un lieu, sans GPU, partagée avec le jeu) et de `HmiLib` (carte
-jouée par l'essai). **Rien ne dépend de lui** : ni le jeu, ni `HmiLib`. Depuis le `LOT-EDITOR-02`,
-l'éditeur ne parle plus au GPU : il peint la composition du jeu par `QPainter`.
+jouée par l'essai). **Rien ne dépend de lui** : ni le jeu, ni `HmiLib`. Depuis le `LOT-1002`, le
+canevas dessine le lieu par le **rendu du jeu** (`hmi::WorldSceneRenderer`, dans un `QRhiWidget`) ;
+seules les aides d'édition et la vue à plat sont peintes par `QPainter`.
 
 | Dossier | Contenu | Cible |
 |---|---|---|
@@ -171,32 +172,33 @@ au compte rendu le verdict de l'entité sélectionnée (`combat-zone.json`, `LOT
 `Logic/GestureScript.h` ; un exemple par outil dans `Source/Test/Fixtures/Gestures/`, et une rue de
 Martpart entière dans `martpart-rue.json`.
 
-## Le canevas en HD
+## Le canevas, par le rendu du jeu
 
-Depuis le `LOT-125`, le canevas, les vignettes et `--render` peignent l'art HD comme le jeu :
+Depuis le `LOT-1002`, le canevas, les vignettes et `--render` ne peignent plus la scène : ils la
+font dessiner par `hmi::WorldSceneRenderer`, le rendu du jeu.
 
-- **Lissé** : l'art peint se lit en bilinéaire, sur le **niveau réduit** que l'échelle demande
-  (`hmi::SceneImage::level`, la moitié de l'image à chaque niveau) — `QPainter` n'a pas de
-  mipmaps. Les images engendrées (marqueurs, jetons, atlas, damier) restent au plus proche, comme
-  en jeu. La parité exacte avec le GPU n'est plus promise : il mêle deux niveaux (trilinéaire), le
-  peintre n'en lit qu'un. `test_scene_painter.cpp` en écrit les seuils, mesurés.
-- **Entier** : le cadre du canevas, des vignettes et de `--render` se mesure sur ce qui est peint
-  (`hmi::composedSceneBounds`), et non sur une marge d'un losange.
-- **Borné** : un seul cache d'images par dossier d'assets (`hmi::SceneImages::shared`), que les
-  onglets, les vignettes de la liste des cartes et celles des préfabriqués se partagent. Chaque
-  manifeste s'y lit une fois.
+- **Un seul rendu** : une carte rendue par `--render` et la même carte rendue par le jeu, hors
+  écran, sont identiques au pixel (`test_map_render.cpp`). Il n'y a plus de seuil de parité.
+- **Entier** : le cadre du canevas, des vignettes et de `--render` se mesure sur ce qui est dessiné
+  (`hmi::WorldSceneRenderer::paintedBounds`), et non sur une marge d'un losange.
+- **Sans fenêtre** : `--render` et les vignettes passent par `hmi::OffscreenRhi`, un `QRhi` sans
+  surface ; sans carte graphique, Direct3D rend par WARP. Une image de plus de 4 096 pixels de côté
+  se rend par tuiles.
 
-### La borne de mémoire
+### La mémoire
 
-**Les pixels de l'art peint, niveaux réduits compris, tiennent en 256 Mio**
-(`SCENE_IMAGES_DEFAULT_BUDGET_BYTES`), quel que soit le nombre d'onglets ouverts : au-delà, la
-pièce la moins récemment peinte est évincée, et se relit sur disque à la peinture suivante. Seules
-les images engendrées, de quelques kibioctets chacune, restent hors budget. Un kit de zone HD n'a pas
-de budget de poids (D-23) : c'est cette borne, et non le poids installé, qui tient la mémoire. `test_scene_images.cpp` prouve le partage, le budget et la relecture.
+Les textures sont sur la carte graphique. **Chaque onglet tient celles de sa carte** : elles ne sont
+plus partagées entre onglets ni bornées par un budget commun, comme l'était le cache d'images du
+`LOT-125`. Hors écran, le rendu gardé par `hmi::OffscreenRhi` — vignettes, `--render` — est borné à
+**256 Mio** (`OFFSCREEN_TEXTURE_BUDGET_BYTES`) : au-delà, il rend ses textures et ne recharge que ce
+que la carte suivante demande.
 
-Mesure de la peinture : `CanvasBenchmarks` (`Source/Benchmark/bench_canvas_paint.cpp`), publiée
-chaque nuit. Sur le poste de référence, en Release, la maquette HD se peint en 11,5 ms à 1080p et
-en 4,8 ms dézoomée (une case à 25 pixels), le 23 septembre 2026.
+Mesure de l'image : `CanvasBenchmarks` (`Source/Benchmark/bench_canvas_frame.cpp`), un travelling
+sur la carte d'Arenarea, publiée
+chaque nuit. Sur le poste de référence, en Release, le 2 octobre 2026 : 5,8 ms par image à 1080p
+et 5,7 ms dézoomée (une case à 25 pixels), **relecture de l'image comprise** — pour un plancher de
+6,2 ms (effacer et relire une image vide) : la scène elle-même coûte moins que le bruit de la
+mesure. Le même travelling peint par `QPainter`, avant le lot : 7,3 ms et 2,6 ms.
 
 ## Fichiers du poste
 

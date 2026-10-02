@@ -497,7 +497,7 @@ jobs:
       - name: Install Ninja
         run: choco install ninja -y --no-progress
 
-      # La peinture du canevas de l'éditeur (LOT-125) lie Qt Gui : les autres mesures s'en passent.
+      # L'image du canevas de l'éditeur (LOT-1002) lie Qt Gui et QRhi : les autres mesures s'en passent.
       - name: Install Qt
         uses: ./.github/actions/setup-qt
         with:
@@ -538,11 +538,11 @@ jobs:
           fail-on-alert: false
           summary-always: true
 
-      # La peinture du canevas sur de l'art HD (LOT-125, bench_canvas_paint.cpp), sa propre série.
-      - name: Historique et alerte (peinture du canevas)
+      # L'image du canevas par le rendu du jeu (LOT-1002, bench_canvas_frame.cpp), sa propre série.
+      - name: Historique et alerte (image du canevas)
         uses: benchmark-action/github-action-benchmark@4322e5726e6334590d251fc4f92bec0efafc45dc # v1.22.2
         with:
-          name: Peinture du canevas de l'editeur (Release, windows-2022)
+          name: Image du canevas de l'editeur (Release, windows-2022)
           tool: googlecpp
           output-file-path: canvas-benchmarks.json
           gh-pages-branch: benchmarks

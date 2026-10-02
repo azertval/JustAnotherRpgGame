@@ -28,7 +28,8 @@ pipeline 2D, la caméra et la composition des scènes.
 - `SpriteRenderer` — **soumet** une scène composée (`submitComposedScene`, une passe `begin/end` par groupe de texture).
 - `ScenePieces` — géométrie des pièces de l'atelier des textures (`LOT-92`), commune au Colisée en combat et aux lieux qu'on parcourt.
 - `PlaceAppearance` — ce qu'un **lieu** met sur une case : la table qui traduit un type de tuile en pièce de sa planche (`Scene/<lieu>/appearance.json`, `LOT-92`, `LOT-09`).
-- `WorldSceneComposer` / `WorldSceneRenderer` — un lieu qu'on parcourt, composé sans GPU puis rendu en QRhi (`LOT-09`) ; dessiné pour le jeu comme pour l'essai de l'éditeur.
+- `WorldSceneComposer` / `WorldSceneRenderer` — un lieu qu'on parcourt, composé sans GPU puis rendu en QRhi (`LOT-09`) ; depuis le `LOT-1002`, le rendu du canevas de l'éditeur aussi, en édition comme en essai (cadrage imposé, opacité par primitive, carte préparée avant l'image).
+- `OffscreenRender` — `hmi::OffscreenRhi` : le même rendu **hors écran**, en image, sur un `QRhi` sans fenêtre, par tuiles de 4 096 pixels au plus (`LevelEditor --render`, les vignettes de l'éditeur, les mesures, `LOT-1002`).
 - `StaticWorldScene` — un lieu composé **une fois**, indexé par une grille de seaux, puis découpé à la vue à chaque image ; les figurines s'y fusionnent et les étages s'effacent devant le héros. Le coût d'une image dépend de ce qu'on voit, pas de la taille de la carte ([audit de l'affichage d'un lieu](../../../Planning/standards/audit-affichage-lieu.md)).
 - La scène de combat n'a plus de chaîne à part : depuis le `LOT-118` le combat se joue sur la carte et se rend par `WorldSceneComposer` / `WorldSceneRenderer` dans `hmi::WorldViewportItem` (la chaîne du Colisée seul, `LOT-50`/`LOT-86`, a été retirée à la recette de la 0.0.1).
 - `CityBlockRender` — l'**îlot** vu sur le plan : la carte du quartier telle que le jeu la dessine, cadrée sur un rectangle nommé (`LOT-96`).

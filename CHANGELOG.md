@@ -6,6 +6,21 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1002 — Le canevas de l'éditeur sur le rendu du jeu.** Le canevas ne peint plus la scène par
+  `QPainter` : il la fait dessiner par `hmi::WorldSceneRenderer`, le rendu du jeu, dans un
+  `QRhiWidget` (`hmi::SceneSurface`) posé sous la `QGraphicsView`, qui garde le zoom, le défilement,
+  le pointage et peint les aides d'édition par-dessus. L'essai (`P`) cadre par la caméra du jeu.
+  `LevelEditor --render` et les vignettes passent par le même rendu, hors écran
+  (`hmi::OffscreenRhi`, par tuiles de 4 096 pixels, WARP sans carte graphique) : une carte rendue
+  par `--render` est **identique au pixel** à celle que le rendu du jeu dessine, et le seuil de
+  parité disparaît avec le second rendu. Le rendu reçoit trois réglages pour l'édition — cadrage
+  imposé, opacité par primitive (calques, reliefs en transparence), carte préparée et mesurée avant
+  l'image. Retirés : `ScenePainter`, `SceneImages` et son budget commun de 256 Mio (chaque onglet
+  tient désormais les textures de sa carte ; le rendu hors écran gardé reste borné à 256 Mio),
+  leurs tests, `bench_canvas_paint` — remplacé par `bench_canvas_frame`, un travelling sur
+  Arenarea. La vue à plat et la mini-carte restent peintes. Les tests de rendu écrivent leurs
+  captures sous le répertoire de construction (`render-captures/`), plus à la racine.
+
 - **LOT-1001 — Le standard 3D.** `Planning/standards/style-3d.md` (unités, caméra, format `.glb`,
   matières, lumière, familles de pièces, images tolérées) et `personnages-3d.md` remplacent le
   standard 2D HD, sa consigne et le workflow de revue des marches, archivés. Chaque valeur est

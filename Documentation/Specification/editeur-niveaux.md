@@ -207,11 +207,13 @@ du module ([LOT-EDITOR-01](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/
 On édite sur le lieu tel qu'on le jouera. Ces trois exigences viennent du canevas du module
 ([LOT-EDITOR-02](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-EDITOR-02-canevas.md)).
 
-- **EX-EDIT-059** — Le canevas doit montrer la carte **en isométrie, comme le
-  jeu** : la liste de primitives est celle que compose le jeu (`hmi::composeWorldScene`), dans le
-  même ordre, et son image rendue hors écran égale celle du jeu à une tolérance près. Une bascule
-  montre la carte **à plat**, une case par unité et les types en couleurs, pour lire types et
-  collision. Le canevas ne peint que la partie visible.
+- **EX-EDIT-059** — Le canevas doit montrer la carte **en isométrie, par le rendu
+  du jeu lui-même** (`hmi::WorldSceneRenderer`) : il n'y a qu'un rendu d'un lieu, et une carte
+  rendue hors écran par l'éditeur est **identique au pixel** à celle que le jeu dessine avec le même
+  cadrage. Les aides d'édition se peignent par-dessus, sans être la scène. Une bascule montre la
+  carte **à plat**, une case par unité et les types en couleurs, pour lire types et collision. Le
+  canevas ne dessine que la partie visible. Refondue au `LOT-1002` : la scène était peinte par
+  `QPainter`, et son image comparée à celle du jeu à une tolérance près.
 - **EX-EDIT-060** — Le **pointage** désigne la case dont le **losange** est sous
   le pointeur, jamais l'image qui la couvre : sous un relief haut, on pointe la case de derrière. Il
   prend la hauteur en paramètre (réserve de la décision D11), et reste juste aux quatre coins de la
@@ -324,7 +326,7 @@ les scripts ([LOT-EDITOR-13](../../Planning/versions/v0.0.0/v0.0.0-fondation/lot
   fenêtre refuserait arrête tout, avec une erreur qui **nomme le geste** et sa raison, et **le
   fichier n'est pas touché**.
 - **EX-EDIT-075** — `LevelEditor --render [carte…]` rend une carte en PNG,
-  en isométrie et **sans fenêtre**, par le peintre du canevas (`EX-EDIT-059`) : bandes au choix
+  en isométrie et **sans fenêtre**, par le rendu du canevas (`EX-EDIT-059`) : bandes au choix
   (sol, relief, figurines, masque de collision), échelle au choix, une image par carte nommée
   d'après son identifiant. La CI rend chaque carte qu'une PR ajoute ou change et publie les images.
   `--plan` rend le **plan de principe** d'une carte maquette — losanges plats, pastilles, légende
@@ -415,7 +417,7 @@ Ce qu'on a composé une fois se repose ailleurs, et se garde
   `Editor/Prefabs/<chemin du lieu>/<nom>.json` — au **plus bas niveau** de l'arborescence qui voit
   toutes ses pièces (`EX-LVL-029`), d'où il sert tout lieu qui en descend, et en gardant les
   **étages** de ses couches (`EX-LVL-025`) ; la palette en montre la bibliothèque, chacun avec une
-  **vignette générée** de son propre contenu par le peintre du canevas (`EX-EDIT-059`), et le
+  **vignette générée** de son propre contenu par le rendu du canevas (`EX-EDIT-059`), et le
   choisir arme le tampon. `LevelEditor --list-prefabs` et `--save-prefab <carte> <nom> --from <c,r>
   --to <c,r>` font de même sans fenêtre, par les mêmes fonctions (règle 4) ; `--check` nomme tout
   fichier de la bibliothèque que l'éditeur ne sait pas relire.
@@ -456,7 +458,7 @@ Plusieurs cartes à la fois, un graphe qu'on écrit au geste, et de quoi savoir 
   (`EX-EDIT-084`).
 - **EX-EDIT-092** — L'annexe d'une carte dit **où elle en est** — maquette
   (`blockout`, `LOT-128`), générée, retouchée, finie, ou rien de dit. Le navigateur l'affiche, **filtre** par état, et montre les
-  cartes en **vignettes** rendues par le peintre du canevas (`EX-EDIT-059`), gardées tant que le
+  cartes en **vignettes** rendues par le rendu du canevas (`EX-EDIT-059`), gardées tant que le
   fichier ne change pas. L'état est une note d'auteur : il ne va jamais dans la carte.
 
 ## 20. L'essai complet dans le jeu (`LOT-EDITOR-10`)

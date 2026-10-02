@@ -31,7 +31,6 @@
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/World/WorldTravel.h"
-#include "Editor/Ui/SceneImages.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -365,9 +364,9 @@ TEST(WorldSceneRendererTest, DeuxLieuxDeviennentDesPixels) {
  * \castest{<b>Les trois cartes se sauvegardent et se rendent avec leur kit.</b><br/>
  * \tcat Unitaire · Rendu du donjon d'essai<br/>
  * \tcrit Critique<br/>
- * \tetapes Charger et enregistrer chaque carte ; comparer les textures du jeu et de l’éditeur.<br/>
- * \tattendu Entités et couches conservées, ancrages et profondeurs identiques, aucune texture
- * manquante.
+ * \tetapes Charger et enregistrer chaque carte ; la rendre avec les textures de son kit.<br/>
+ * \tattendu Entités et couches conservées, chaque pièce de la carte sur une texture chargée,
+ * aucune sur le damier.
  * }
  */
 TEST(WorldSceneRendererTest, LesCartesSeSauvegardentEtSeRendentAvecLeurKit) {
@@ -388,10 +387,8 @@ TEST(WorldSceneRendererTest, LesCartesSeSauvegardentEtSeRendentAvecLeurKit) {
         hmi::WorldSceneRenderer renderer(assets());
         ASSERT_TRUE(renderer.ensureResources(rhi.get()));
         renderer.setSnapshot(hmi::snapshotWorldScene(*saved.level, table.appearance, {}));
-        hmi::SceneImages editorImages(assets());
         const auto paths =
             hmi::worldTexturePaths(hmi::snapshotWorldScene(*saved.level, table.appearance, {}));
-        editorImages.ensure(paths);
         // Cadre au centre de la carte : ce test juge le rendu, pas un endroit particulier.
         renderer.setFocus(
             core::Vector2{static_cast<float>(saved.level->tileMap().width()) / 2.0F,
@@ -400,18 +397,17 @@ TEST(WorldSceneRendererTest, LesCartesSeSauvegardentEtSeRendentAvecLeurKit) {
         EXPECT_GT(paintedPixels(image), static_cast<std::size_t>(TARGET_SIZE * TARGET_SIZE / 4));
         for (const auto& quad : renderer.composed().quads())
             EXPECT_NE(quad.texture, renderer.textures().missing.texture) << name;
+        // L'éditeur n'a plus de chargement à lui (LOT-1002) : les textures du rendu sont les
+        // siennes, et chaque pièce de la carte en a une.
         for (const auto& path : paths) {
-            const auto& gpu = renderer.textures().byPath.at(path);
-            const auto& editor = editorImages.textures().byPath.at(path);
-            EXPECT_EQ(editor.depthOffset, gpu.depthOffset) << path;
-            ASSERT_EQ(editor.anchor.has_value(), gpu.anchor.has_value()) << path;
-            if (gpu.anchor) {
-                EXPECT_FLOAT_EQ(editor.anchor->x, gpu.anchor->x);
-                EXPECT_FLOAT_EQ(editor.anchor->y, gpu.anchor->y);
-            }
+            EXPECT_TRUE(renderer.textures().byPath.contains(path)) << path;
         }
-        EXPECT_TRUE(image.save(QString::fromStdString(
-            std::string(name).substr(std::string(name).find('/') + 1) + "-renderer.png")));
+        // La capture, pour l'œil : sous le répertoire de construction, jamais à la racine du dépôt.
+        const std::filesystem::path captures(JADG_RENDER_CAPTURES_DIR);
+        std::filesystem::create_directories(captures);
+        const std::string file =
+            std::string(name).substr(std::string(name).find('/') + 1) + "-renderer.png";
+        EXPECT_TRUE(image.save(QString::fromStdWString((captures / file).wstring())));
     }
 }
 

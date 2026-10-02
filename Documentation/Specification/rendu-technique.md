@@ -160,8 +160,8 @@ avoir un mode où **rien** ne vient d'un fichier : ni sol, ni mur, ni figurine.
 
 ## 6. Surface de rendu
 - **EX-REN-050** — Le rendu doit être présenté dans un **élément composé avec
-  l'interface** — `QQuickRhiItem` pour le jeu, une `QGraphicsView` peinte par `QPainter` pour
-  l'éditeur depuis le `LOT-EDITOR-02` — et jamais dans une **fenêtre native** embarquée : un
+  l'interface** — `QQuickRhiItem` pour le jeu, un `QRhiWidget` sous la `QGraphicsView` des aides
+  d'édition pour l'éditeur depuis le `LOT-1002` — et jamais dans une **fenêtre native** embarquée : un
   élément frère d'une fenêtre native ne se dessine pas de façon fiable par-dessus elle.
 
 ## Exigences retirées {#ren-retirees}

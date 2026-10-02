@@ -3,8 +3,9 @@
 
 #pragma once
 
+#include <QImage>
 #include <cstdint>
-#include <functional>
+#include <map>
 #include <optional>
 #include <string>
 #include <utility>
@@ -21,6 +22,8 @@
  * @brief Rendu d'un brouillon d'édition (`core::LevelDraft`) dans le canevas de l'éditeur.
  */
 
+class QPainter;
+
 namespace core {
 class LevelDraft;
 struct MapEntity;
@@ -28,22 +31,6 @@ class TileMap;
 }  // namespace core
 
 namespace hmi {
-
-/**
- * @brief Les textures que la vue à plat nomme, en identités opaques : la composition ne sait pas
- *        comment elles seront peintes (`LOT-EDITOR-02` : par `QPainter`,
- * `hmi::paintComposedScene`).
- */
-struct DraftTextures {
-    /// L'atlas procédural des types de tuile, et sa taille en pixels (pour les UV).
-    TextureHandle atlas = nullptr;
-    int atlasWidth = 1;
-    int atlasHeight = 1;
-    /// Une teinte unie : les aides d'édition (grille, masques, cadres) se peignent en aplat.
-    TextureHandle solid = nullptr;
-    /// Le marqueur d'une clé d'asset d'entité (`LOT-39`), `nullptr` si elle est refusée.
-    std::function<TextureHandle(const std::string& key)> marker;
-};
 
 /**
  * @brief Ce que le canevas montre des entités de carte (`LOT-11`), fourni à chaque rendu.
@@ -69,11 +56,15 @@ struct DraftEntityOverlay {
  *
  * Toutes les primitives sont composées dans une seule `hmi::ComposedScene`, en unités de case :
  * les aides d'édition portent le calque `RenderLayer::EditorOverlay`, qui les place au-dessus du
- * reste par construction. La liste est inspectable sans GPU (`EX-NFR-004`) ; le canevas la peint.
+ * reste par construction. La liste est inspectable sans GPU (`EX-NFR-004`).
+ *
+ * Cette vue **reste peinte** par `QPainter` (`paint`, `LOT-1002`) : elle ne dessine que des aplats
+ * de couleur et des marqueurs engendrés, rien que le jeu montre. Le lieu, lui, n'a qu'un rendu,
+ * celui du jeu (`hmi::SceneSurface`).
  */
 class DraftRenderer {
 public:
-    explicit DraftRenderer(DraftTextures textures);
+    DraftRenderer() = default;
 
     /**
      * @brief Compose le brouillon.
@@ -93,6 +84,20 @@ public:
         const DraftEntityOverlay& entityOverlay = {});
 
     void setLayerView(const LayerViewState& view);
+
+    /**
+     * @brief Peint la scène du dernier `compose` dans @p painter, dont la transformation porte déjà
+     *        le cadrage (cases vers pixels) : aplats de la teinte de chaque primitive, marqueurs au
+     *        plus proche.
+     */
+    void paint(QPainter& painter) const;
+
+    /**
+     * @brief Le marqueur de la clé d'asset @p key (`LOT-39`), engendré à la première demande.
+     * @return L'image, `nullptr` si la clé est refusée. Elle vit autant que ce rendu : le canevas
+     *         iso la peint aussi, pour une entité sans figurine.
+     */
+    [[nodiscard]] const QImage* marker(const std::string& key);
 
     /// @return La scène composée au dernier appel de `compose`.
     [[nodiscard]] const ComposedScene& lastScene() const noexcept {
@@ -120,7 +125,9 @@ private:
                         float a, std::int32_t order);
 
     LayerViewState _layerView;
-    DraftTextures _textures;
+    /// Les marqueurs déjà engendrés, par clé ; une image nulle pour une clé refusée. Une
+    /// `std::map` : l'adresse d'une image, qui est son identité dans la scène, ne bouge pas.
+    std::map<std::string, QImage> _markers;
     ComposedScene _scene;
 };
 

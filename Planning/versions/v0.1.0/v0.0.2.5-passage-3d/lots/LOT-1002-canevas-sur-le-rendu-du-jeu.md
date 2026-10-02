@@ -3,7 +3,7 @@ id = "LOT-1002"
 titre = "Le canevas de l'éditeur sur le rendu du jeu"
 version = "0.0.2.5"
 filiere = "editeur"
-statut = "a-faire"
+statut = "livre"
 taille = "L"
 resume = "L'éditeur dessine la scène par le rendu du jeu lui-même : ce qu'on y voit est ce qu'on jouera, et le moteur peut changer de matière sans que l'éditeur prenne un lot de retard."
 prerequis = ["LOT-142"]
@@ -63,6 +63,37 @@ Dehors, nommément :
 - Le pointage reste celui du jeu : `screenToWorld`, puis `worldToTile`.
 - Les aides d'édition restent peintes par `QPainter`, **au-dessus** : ce ne sont pas la scène.
 - `F8` (reliefs en transparence) et l'opacité d'une couche deviennent des paramètres du rendu.
+
+## Tranché à l'ouverture (2 octobre 2026)
+
+- **Le `QRhiWidget` va sous la `QGraphicsView`, pas à sa place.** La vue garde le zoom, le
+  défilement, l'ancrage sous le pointeur et le pointage, que rien n'obligeait à réécrire ; son fond
+  devient transparent, et elle dit son cadrage à la surface (`hmi::WorldFraming`) à chaque
+  changement. Les deux plans se repeignent dans la même image.
+- **La vue à plat garde un peintre à elle** (`hmi::DraftRenderer::paint`) : des aplats et des
+  marqueurs engendrés, rien que le jeu dessine. `ScenePainter` et `SceneImages` partent bien en
+  entier.
+- **Le budget commun de 256 Mio ne survit pas au cache qu'il bornait.** Chaque onglet tient les
+  textures de sa carte sur la carte graphique, sans partage entre onglets ; seul le rendu hors
+  écran gardé (vignettes, `--render`) reste borné à 256 Mio. À revoir si plusieurs grandes cartes
+  ouvertes ensemble pèsent trop.
+- **Les tuiles de `--render`** (4 096 pixels) ne servent qu'au-delà de cette taille ; une image en
+  tuiles diffère de la même image d'un seul tenant sur moins d'un pixel sur mille, de deux niveaux
+  au plus (l'arrondi du centre de chaque tuile). L'identité au pixel avec le rendu du jeu est tenue
+  sur une image d'un seul tenant.
+
+## Mesures (poste de l'auteur, Release, 2 octobre 2026)
+
+Travelling sur la carte d'Arenarea, 1920 × 1080 :
+
+| | Avant (`QPainter`) | Après (rendu du jeu, relecture comprise) |
+|---|---|---|
+| Une case à 100 px | 7,3 ms | 5,8 ms |
+| Une case à 25 px | 2,6 ms | 5,7 ms |
+
+La mesure d'après relit l'image pour attendre la carte graphique ; son plancher — effacer et relire
+une image vide — est de 6,2 ms. La scène elle-même coûte donc moins que le bruit de la mesure, et
+le canevas, qui ne relit rien, ne paie pas ce plancher.
 
 ## Risques et questions ouvertes
 

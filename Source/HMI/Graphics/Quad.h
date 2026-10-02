@@ -59,7 +59,7 @@ struct SpriteQuad {
  *
  * Les sommets se donnent dans l'ordre du **pourtour** (sans croisement), même convention que les
  * coins des deux autres primitives : le tampon d'indices attend un quadrilatère convexe cohérent.
- * La texture liée est l'aplat blanc 1 × 1 (`hmi::SceneImages::solid` côté éditeur), de sorte que la
+ * La texture liée est l'aplat blanc 1 × 1 (`hmi::ScenePieceTextures::solid`), de sorte que la
  * teinte seule décide de la couleur, et que le culling, le regroupement par texture et le tri
  * restent ceux de toutes les autres primitives.
  */

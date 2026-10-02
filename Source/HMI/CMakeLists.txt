@@ -16,9 +16,8 @@
 #
 # Ce qu'un lieu met à l'écran, en primitives ordonnées : la liste (`ComposedScene`), la table du lieu
 # (`PlaceAppearance`), la composition d'une carte (`WorldSceneComposer`) et la géométrie des pièces
-# (`ScenePieces.h`, en-tête seul). Le jeu la soumet au GPU (`WorldSceneRenderer`), l'éditeur la peint
-# avec QPainter : **une** composition, deux façons de la dessiner, et l'ordre de dessin est le même
-# par construction (décision D2 de Planning/vision/archives/feuille-de-route-editeur.md, constat A8).
+# (`ScenePieces.h`, en-tête seul). Le jeu et le canevas de l'éditeur la soumettent au GPU par le
+# même rendu (`WorldSceneRenderer`, LOT-1002) ; la logique de l'éditeur, elle, la lit sans GPU.
 #
 # Les fichiers restent sous HMI/Graphics, dans l'espace de noms `hmi` : ce qui sort de HmiLib est la
 # frontière d'édition de liens, pas les chemins d'inclusion que quarante fichiers écrivent. HmiLib la
