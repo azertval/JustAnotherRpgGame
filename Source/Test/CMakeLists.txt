@@ -363,6 +363,7 @@ if(TARGET JadgRuntime)
         Unit/HMI/Runtime/test_party_model.cpp
         # La fiche de chacun (LOT-141) : classe, sorts, montee de niveau, valeur pour valeur.
         Unit/HMI/Runtime/test_character_sheet_model.cpp
+        Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp
     )
 
     target_link_libraries(RuntimeTests PRIVATE

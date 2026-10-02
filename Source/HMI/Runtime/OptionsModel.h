@@ -61,6 +61,9 @@ class OptionsModel : public QObject {
     Q_PROPERTY(bool vsync READ vsync WRITE setVsync NOTIFY vsyncChanged)
     Q_PROPERTY(bool diagnostics READ diagnostics WRITE setDiagnostics NOTIFY diagnosticsChanged)
     Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged)
+    /// Taille des HUD d'exploration et de combat, en pourcentage (75 à 130).
+    Q_PROPERTY(
+        int hudScalePercent READ hudScalePercent WRITE setHudScalePercent NOTIFY hudScaleChanged)
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged)
 
     /// Les langues que le jeu propose, par leur **code** (`fr`, `en`). Constantes : une langue
@@ -103,6 +106,9 @@ public:
     [[nodiscard]] int volume() const noexcept {
         return _volume;
     }
+    [[nodiscard]] int hudScalePercent() const noexcept {
+        return _hudScalePercent;
+    }
     [[nodiscard]] QString language() const {
         return _language;
     }
@@ -117,6 +123,7 @@ public:
     void setVsync(bool enabled);
     void setDiagnostics(bool enabled);
     void setVolume(int percent);
+    void setHudScalePercent(int percent);
     void setLanguage(const QString& code);
 
     /**
@@ -132,6 +139,7 @@ signals:
     void vsyncChanged();
     void diagnosticsChanged();
     void volumeChanged();
+    void hudScaleChanged();
     void languageChanged();
 
 private:
@@ -140,6 +148,7 @@ private:
     bool _vsync = true;
     bool _diagnostics = false;
     int _volume = 100;
+    int _hudScalePercent = 100;
     QString _language;
 };
 

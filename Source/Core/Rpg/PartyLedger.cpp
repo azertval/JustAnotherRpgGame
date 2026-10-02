@@ -32,7 +32,7 @@ void PartyLedger::rest(std::string_view characterId) {
     MemberRecord& record = trouve->second;
     record.hitPoints.reset();
     record.spellUses.clear();
-    if (!record.level.has_value()) {
+    if (!record.level.has_value() && !record.inventory.has_value()) {
         _records.erase(trouve);
     }
 }

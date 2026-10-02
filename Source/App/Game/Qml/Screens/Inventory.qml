@@ -16,7 +16,36 @@ import Jadg.Runtime
 InventoryForm {
     id: root
 
+    focus: true
     readonly property InventoryModel inventory: InventoryModel {}
+    readonly property CharacterSheetModel sheet: CharacterSheetModel {}
+    characterName: sheet.name
+    portrait: {
+        const member = WorldModel.partyMembers.find(row => row.id === inventory.characterId)
+        return member ? member.portrait : ""
+    }
+    canManage: !EncounterModel.active
+    onCloseRequested: ScreenRouter.closeRpgScreen()
+    onTabRequested: (index) => { if (index < 3) ScreenRouter.openCharacterTab(index) }
+    onDropCancelled: root.dropPending = false
+    onDropConfirmed: { inventory.dropSelected(); root.dropPending = false }
+    onMemberStepRequested: (step) => {
+        const members = WorldModel.partyMembers
+        if (members.length === 0) return
+        const index = members.findIndex(row => row.id === inventory.characterId)
+        WorldModel.showCharacter(members[(Math.max(0, index) + step + members.length) % members.length].id)
+        inventory.loadShownCharacter()
+        sheet.loadShownCharacter()
+        root.dropPending = false
+    }
+    Keys.onEscapePressed: {
+        if (root.dropPending) root.dropPending = false
+        else ScreenRouter.closeRpgScreen()
+    }
+    Connections {
+        target: root.searchField
+        function onTextChanged() { root.inventory.query = root.searchField.text }
+    }
 
     equipped: inventory.equipped
     cells: inventory.cells
@@ -49,7 +78,8 @@ InventoryForm {
     }
 
     Component.onCompleted: {
-        inventory.loadDemonstrationCharacter()
+        inventory.loadShownCharacter()
+        sheet.loadShownCharacter()
         // L'ecran s'ouvre sur le premier objet du sac : une fiche vide n'apprend rien.
         if (inventory.cells.length > 0)
             inventory.selectItem(inventory.cells[0].itemId)
@@ -95,6 +125,6 @@ InventoryForm {
     }
     Connections {
         target: root.dropButton
-        function onClicked() { root.inventory.dropSelected() }
+        function onClicked() { root.dropPending = true }
     }
 }

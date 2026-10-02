@@ -1,14 +1,15 @@
 # HMI · Runtime
 
-Tests unitaires — **14 cas** (3 bloquants, 8 critiques, 2 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **19 cas** (3 bloquants, 8 critiques, 7 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_character_sheet_model.cpp`](#test-character-sheet-modelcpp) | 2 | 1 | 1 | - | - |
-| [`test_encounter_model.cpp`](#test-encounter-modelcpp) | 7 | 1 | 4 | 2 | - |
+| [`test_encounter_model.cpp`](#test-encounter-modelcpp) | 8 | 1 | 4 | 3 | - |
 | [`test_party_model.cpp`](#test-party-modelcpp) | 5 | 1 | 3 | - | 1 |
+| [`test_ui_preferences_and_inventory.cpp`](#test-ui-preferences-and-inventorycpp) | 4 | - | - | 4 | - |
 
 ## Exigences vérifiées par cette page
 
@@ -101,7 +102,7 @@ Un niveau donne se voit partout, et n'est pas un soin.
 
 ### EncounterModelTest.DuDeclenchementAuRetourALExploration
 
-*Bloquant · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:84`
+*Bloquant · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:85`
 
 Exigences : `EX-IHM-091`
 
@@ -150,7 +151,7 @@ Du declenchement sur la carte au retour a l'exploration, sans fenetre.
 
 ### EncounterModelTest.UnRefusLaisseLExplorationIntacte
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:181`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:182`
 
 Un refus de montage laisse l'exploration intacte.
 
@@ -172,7 +173,7 @@ Un refus de montage laisse l'exploration intacte.
 
 ### EncounterModelTest.LesGestesAttendentLaFinDUnMouvement
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:209`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:210`
 
 Les gestes attendent la fin d'un mouvement.
 
@@ -193,7 +194,7 @@ Les gestes attendent la fin d'un mouvement.
 
 ### EncounterModelTest.LeRejeuAGraineFixeeDonneLeMemeCombat
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:253`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:254`
 
 Exigences : `EX-CBT-061`
 
@@ -213,7 +214,7 @@ Deux combats de groupe a la meme graine sont identiques.
 
 ### EncounterModelTest.LeCombatLaisseAuxFichesCeQuIlEnReste
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:302`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:303`
 
 Le registre du groupe : points de vie relus, mort qui ne suit plus.
 
@@ -245,7 +246,7 @@ Le registre du groupe : points de vie relus, mort qui ne suit plus.
 
 ### EncounterModelTest.LeNiveauDonneSurvitAuCombatEtLeReposSoigne
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:354`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:355`
 
 Un combat garde le niveau donne ; le repos rend les points de vie.
 
@@ -274,7 +275,7 @@ Un combat garde le niveau donne ; le repos rend les points de vie.
 
 ### EncounterModelTest.LInterfaceDeGroupeLitLaVueModele
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:409`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:410`
 
 Exigences : `EX-IHM-108`
 
@@ -322,6 +323,28 @@ Round, jetons, panneau de l'actif, actions detaillees, previsualisation.
 - Vérifie que `apercu.value("kind").toString()` vaut `QStringLiteral("move")`.
 - Vérifie que `apercu.value("valid").toBool()` est vrai.
 - Vérifie que `apercu.value("lines").toList().front().toMap().value("label").toString()` vaut `QStringLiteral("Chemin")`.
+
+### EncounterModelTest.LeCombatRelitLEquipementModifie
+
+*Majeur · Unitaire · Rencontre* — `Source/Test/Unit/HMI/Runtime/test_encounter_model.cpp:521`
+
+Le combat relit l'equipement modifie entre deux rencontres.
+
+**Étapes**
+
+1. Jouer puis quitter une premiere rencontre.
+2. Retirer l'arme en main du brawler par l'inventaire.
+3. Ouvrir une seconde rencontre et attendre le tour du brawler.
+
+**Résultat attendu**
+
+- Vérifie que `rencontre.begin(QStringLiteral("rats-du-donjon"))` est vrai.
+- Vérifie que `rencontre.ended()` est vrai.
+- Vérifie que `inventaire.characterId()` vaut `QStringLiteral("heros-brawler")`.
+- Vérifie que `ancienneArme.isEmpty()` est faux.
+- Vérifie que `rencontre.begin(QStringLiteral("rats-du-donjon"))` est vrai.
+- Vérifie que `rencontre.turnActions().isEmpty()` est faux.
+- Vérifie que `rencontre.turnActions().front().toMap().value("label").toString()` diffère de `ancienneArme`.
 
 ## test_party_model.cpp
 
@@ -458,3 +481,90 @@ Une carte imposee ne demande pas de meneur.
 
 - Vérifie que `monde.choosingLeader()` est faux.
 - Vérifie que `monde.choosingLeader()` est faux.
+
+## test_ui_preferences_and_inventory.cpp
+
+### UiPreferencesTest.HudSizeIsBoundedAndSurvivesReload
+
+*Majeur · Unitaire · Options* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:19`
+
+La taille du HUD est bornee et survit a un rechargement.
+
+**Étapes**
+
+1. Isoler les preferences dans un dossier temporaire.
+2. Regler la taille du HUD a 120, puis a 1000 et a -1 ; relire par un second modele.
+3. Ecrire une valeur hors bornes dans les preferences et recharger.
+
+**Résultat attendu**
+
+- Vérifie que `directory.isValid()` est vrai.
+- Vérifie que `options.hudScalePercent()` vaut `100`.
+- Vérifie que `reloaded.hudScalePercent()` vaut `120`.
+- Vérifie que `options.hudScalePercent()` vaut `130`.
+- Vérifie que `options.hudScalePercent()` vaut `75`.
+- Vérifie que `options.defaults().value("hudScalePercent").toInt()` vaut `100`.
+- Vérifie que `invalidStored.hudScalePercent()` vaut `130`.
+
+### InventoryModelTest.EquipmentSurvivesReopeningAndCombatRecords
+
+*Majeur · Unitaire · Inventaire* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:62`
+
+L'equipement survit a la reouverture de l'ecran et au combat.
+
+**Étapes**
+
+1. Retirer une piece equipee du mercenaire affiche.
+2. Rouvrir l'inventaire.
+3. Enregistrer un releve de combat pour ce mercenaire, rééquiper la piece, rouvrir.
+4. Chercher un objet qui n'existe pas.
+
+**Résultat attendu**
+
+- Vérifie que `member.isEmpty()` est faux.
+- Vérifie que `equippedSlot.isEmpty()` est faux.
+- Vérifie que `reopened.selection().value("canEquip").toBool()` est vrai.
+- Vérifie que `reopened.selection().isEmpty()` est vrai.
+- Vérifie que `world.ledger().record(member.toStdString())` diffère de `nullptr`.
+- Vérifie que `world.ledger().record(member.toStdString())->inventory.has_value()` est vrai.
+- Vérifie que `reopened.selection().value("itemId").toString()` vaut `item`.
+- Vérifie que `reopened.cells().isEmpty()` est vrai.
+
+### InventoryModelTest.RestPreservesEquipmentAndClearsSpentResources
+
+*Majeur · Unitaire · Registre du groupe* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:116`
+
+Un repos garde l'equipement et rend les ressources depensees.
+
+**Étapes**
+
+1. Ecrire au registre un mercenaire blesse, un sort depense, une bourse de 123 pieces.
+2. Le faire se reposer.
+
+**Résultat attendu**
+
+- Vérifie que `rested` diffère de `nullptr`.
+- Vérifie que `rested->inventory.has_value()` est vrai.
+- Vérifie que `rested->inventory->purseCopper` vaut `123`.
+- Vérifie que `rested->hitPoints.has_value()` est faux.
+- Vérifie que `rested->spellUses.empty()` est vrai.
+
+### ScreenRouterTest.CodexAndOptionsReturnToOngoingCombat
+
+*Majeur · Unitaire · Routeur d'ecrans* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:144`
+
+Le codex et les options ramenent au combat en cours.
+
+**Étapes**
+
+1. Ouvrir le jeu, puis le HUD de combat.
+2. Ouvrir un onglet du codex, puis l'inventaire, et fermer.
+3. Ouvrir puis fermer les options ; fermer enfin l'ecran de combat.
+
+**Résultat attendu**
+
+- Vérifie que `router.characterTab()` vaut `1`.
+- Vérifie que `router.currentScreen()` vaut `hmi::ScreenRouter::Screen::RpgScreen`.
+- Vérifie que `router.currentRpgScreen()` vaut `hmi::ScreenRouter::RpgScreen::CombatHud`.
+- Vérifie que `router.currentRpgScreen()` vaut `hmi::ScreenRouter::RpgScreen::CombatHud`.
+- Vérifie que `router.currentScreen()` vaut `hmi::ScreenRouter::Screen::Game`.

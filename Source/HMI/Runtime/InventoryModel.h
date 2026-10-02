@@ -50,6 +50,8 @@ class InventoryModel : public QObject {
 
     /// Filtre de la grille : 0 tous, 1 équipement, 2 matériel, 3 outils (`hmi::ItemFamily`).
     Q_PROPERTY(int filter READ filter WRITE setFilter NOTIFY changed)
+    Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY changed)
+    Q_PROPERTY(QString characterId READ characterId NOTIFY changed)
     /// Les piles du sac que le filtre retient : `{itemId, name, quantity}`.
     Q_PROPERTY(QVariantList cells READ cells NOTIFY changed)
 
@@ -77,6 +79,15 @@ public:
     /// Charge le personnage de démonstration. Voir `hmi::loadDemonstrationState` : la fiche et
     /// l'inventaire décrivent le même personnage, depuis les mêmes données.
     Q_INVOKABLE void loadDemonstrationCharacter();
+    /// Charge le membre désigné par la fiche, sinon le meneur.
+    Q_INVOKABLE void loadShownCharacter();
+    [[nodiscard]] QString characterId() const {
+        return _characterId;
+    }
+    [[nodiscard]] QString query() const {
+        return _query;
+    }
+    void setQuery(const QString& query);
 
     /// Sélectionne une pile du sac ; une chaîne vide efface la sélection.
     Q_INVOKABLE void selectItem(const QString& itemId);
@@ -143,6 +154,8 @@ signals:
 private:
     /// Recalcule toutes les valeurs publiées depuis l'état, puis prévient.
     void refresh();
+    /// Retient les modifications dans la partie avant de republier les statistiques.
+    void persist();
 
     [[nodiscard]] QString value(const char* key) const;
     [[nodiscard]] QString sheetValue(const char* key) const;
@@ -151,6 +164,8 @@ private:
     std::map<std::string, std::string> _values;
     std::map<std::string, std::string> _sheetValues;
     int _filter = 0;
+    QString _query;
+    QString _characterId;
     QString _selectedItem;
     QString _selectedSlot;
     qreal _loadRatio = 0.0;

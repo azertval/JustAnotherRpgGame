@@ -42,6 +42,7 @@ Item {
     property alias vsyncCheck: vsyncControl
     property alias diagnosticsCheck: diagnosticsControl
     property alias volumeSlider: volumeControl
+    property alias hudScaleSlider: hudScaleControl
     property alias languageBox: languageControl
     property alias saveLogsButton: saveLogsControl
 
@@ -281,12 +282,55 @@ Item {
                     }
                 }
 
-                // La seconde colonne reste vide : une section de la maquette qui n'a pas de reglage
-                // branche ne se dessine pas (EX-IHM-072).
-                Item {
+                PanelFrame {
+                    Layout.alignment: Qt.AlignTop
                     Layout.fillWidth: true
-                    // Meme largeur implicite qu'un panneau : la colonne vide partage la ligne a parts egales.
-                    implicitWidth: 480 * Tokens.uiScale
+                    Layout.preferredHeight: 350 * Tokens.uiScale
+                    subpanel: true
+                    ColumnLayout {
+                        anchors.fill: parent
+                        spacing: Tokens.gapMedium
+                        SectionBanner {
+                            Layout.fillWidth: true
+                            material: "dark"
+                            text: qsTr("Interface en jeu")
+                        }
+                        Text {
+                            text: qsTr("Taille du HUD")
+                            color: Tokens.textOnPanel
+                            font.family: Tokens.bodyFamily
+                            font.pixelSize: Tokens.fontSectionTitle
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            OrnateSlider {
+                                id: hudScaleControl
+                                objectName: "hudScaleSlider"
+                                Layout.fillWidth: true
+                                from: 75
+                                to: 130
+                                stepSize: 5
+                                value: 100
+                                Accessible.name: qsTr("Taille du HUD")
+                            }
+                            Text {
+                                Layout.preferredWidth: 76 * Tokens.uiScale
+                                text: Math.round(hudScaleControl.value) + " %"
+                                color: Tokens.textOnPanel
+                                font.family: Tokens.bodyFamily
+                                font.pixelSize: Tokens.fontSectionTitle
+                            }
+                        }
+                        Text {
+                            Layout.fillWidth: true
+                            text: qsTr("Ajuste les portraits, commandes et informations en exploration et en combat. La taille du terrain et des menus reste inchangée.\nPrend effet avec Appliquer et reste enregistrée.")
+                            color: Tokens.textOnPanel
+                            font.family: Tokens.bodyFamily
+                            font.pixelSize: Tokens.fontBody
+                            wrapMode: Text.WordWrap
+                        }
+                        Item { Layout.fillHeight: true }
+                    }
                 }
             }
 

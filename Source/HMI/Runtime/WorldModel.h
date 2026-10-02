@@ -63,6 +63,7 @@ class WorldModel : public QObject {
     Q_PROPERTY(QString mapName READ mapName NOTIFY changed)
     /// Ce que l'écran doit dire quand rien ne s'affiche : carte absente, portail cassé.
     Q_PROPERTY(QString status READ status NOTIFY changed)
+    Q_PROPERTY(QVariantMap interactionTarget READ interactionTarget NOTIFY interactionChanged)
     /// Vrai si une carte est chargée et se joue.
     Q_PROPERTY(bool loaded READ loaded NOTIFY changed)
     Q_PROPERTY(int columns READ columns NOTIFY changed)
@@ -114,6 +115,8 @@ public:
     /// Pas fixe de la simulation, en millisecondes.
     static constexpr int STEP_MILLISECONDS = 16;
 
+    /// Invite et case de la cible actuellement à portée, ou une table vide.
+    [[nodiscard]] QVariantMap interactionTarget() const;
     explicit WorldModel(QObject* parent = nullptr);
     ~WorldModel() override;
 
@@ -379,6 +382,7 @@ signals:
     void questAdvanced(const QString& quest, const QString& step);
     /// Le groupe a changé : membres, ordre de marche ou meneur (`LOT-138`).
     void partyChanged();
+    void interactionChanged();
 
 private:
     /// Un pas fixe : avance la session, joue ses événements, publie ce qui a changé.

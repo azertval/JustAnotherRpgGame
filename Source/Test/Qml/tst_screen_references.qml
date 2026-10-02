@@ -35,6 +35,7 @@ TestCase {
 
     function cleanupTestCase() {
         Tokens.uiScale = 1
+        Tokens.hudScale = 1
     }
 
     function test_ecran_data() {
@@ -43,22 +44,30 @@ TestCase {
         }).map(function (file) {
             const type = file.substring(file.lastIndexOf("/") + 1)
             return { tag: type, type: type }
-        })
+        }).concat([
+            {tag: "OptionsHud", type: "OptionsForm", properties: {currentTab: 1}},
+            {tag: "CombatHudLarge", type: "CombatHudForm", factor: 1.3},
+            {tag: "ExplorationHudSmall", type: "GameViewForm", factor: 0.75}
+        ])
     }
 
     function test_ecran(data) {
+        Tokens.hudScale = data.factor || 1
         const screen = createTemporaryQmlObject("import QtQuick\nimport Jadg.Ui\n" + data.type
                                                 + " { anchors.fill: parent }", stage, data.tag)
         verify(screen !== null)
+        if (data.properties) {
+            for (const key of Object.keys(data.properties)) screen[key] = data.properties[key]
+        }
         // Images chargees (asynchrones ou non) et une image rendue apres elles.
         tryVerify(function () { return allImagesReady(screen) }, 5000, "images non chargées")
         waitForRendering(screen, 5000)
-        const file = captureDirectory + "/" + data.type + ".capture.png"
+        const file = captureDirectory + "/" + data.tag + ".capture.png"
         let saved = undefined
         verify(stage.grabToImage(function (grab) { saved = grab.saveToFile(file) }))
         tryVerify(function () { return saved !== undefined }, 5000, "capture non rendue")
         verify(saved, "capture non écrite : " + file)
-        const result = referenceImages.compare(file, data.type)
+        const result = referenceImages.compare(file, data.tag)
         verify(result.ok, data.type + " : " + result.message)
     }
 

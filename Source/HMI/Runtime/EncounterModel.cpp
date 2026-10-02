@@ -242,6 +242,10 @@ std::vector<std::pair<std::string, HeroContestantSource>> EncounterModel::partyS
         const std::string fichier =
             candidat->file.string() + "#" +
             std::to_string(record != nullptr && record->level.has_value() ? *record->level : 0);
+        // Un inventaire modifié doit recalculer l'arme et la CA avant chaque rencontre.
+        if (record != nullptr && record->inventory.has_value()) {
+            _catalogs->heroes.erase(fichier);
+        }
         auto lue = _catalogs->heroes.find(fichier);
         if (lue == _catalogs->heroes.end()) {
             std::vector<std::string> problemes;

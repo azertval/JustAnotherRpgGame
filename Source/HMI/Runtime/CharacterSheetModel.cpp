@@ -194,6 +194,13 @@ void appendUpcomingRows(QVariantList& rows, const DemonstrationState& state,
          toQt(spell.duration) +
              (spell.concentration ? CharacterSheetModel::tr(" (concentration)") : QString())},
         {"components", toQt(spell.components)},
+        {"summary",
+         spell.damage.has_value()
+             ? (spell.projectiles > 1 ? QString::number(spell.projectiles) + QStringLiteral(" × (")
+                                      : QString()) +
+                   toQt(core::formatDice(*spell.damage)) +
+                   (spell.projectiles > 1 ? QStringLiteral(")") : QString())
+             : QString()},
         {"damage", spell.damage.has_value() ? toQt(core::formatDice(*spell.damage)) : QString()},
         {"damageType", spell.damageType.has_value()
                            ? toQt(std::string(core::damageTypeLabel(*spell.damageType)))
@@ -296,8 +303,10 @@ void CharacterSheetModel::loadCharacter(const QString& characterId) {
     QVector<SheetRow> skillRows;
     skillRows.reserve(static_cast<qsizetype>(loaded.skills.size()));
     for (const auto& [id, name] : loaded.skills) {
-        skillRows.append(SheetRow{
-            .id = toQt(id), .label = toQt(name), .value = lookup(_values, "sheet.skill." + id)});
+        skillRows.append(SheetRow{.id = toQt(id),
+                                  .label = toQt(name),
+                                  .value = lookup(_values, "sheet.skill." + id),
+                                  .marked = _values.contains("sheet.skill." + id + ".proficient")});
     }
     _skills.setRows(std::move(skillRows));
 

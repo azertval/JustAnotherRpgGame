@@ -26,6 +26,8 @@ QtObject {
     // celle de la CONCEPTION : Qt Design Studio dessine a 1080p, et y lit les tailles exactes de
     // l'echelle typographique ci-dessous.
     property real uiScale: 1
+    // Préférence du joueur, indépendante du viewport et des menus plein écran.
+    property real hudScale: 1
 
     // --- Facteur d'agrandissement ENTIER : l'ancien viewport ----------------------------------
     //
@@ -128,6 +130,7 @@ QtObject {
     readonly property int fontDisplay: Math.round(58 * uiScale)       // titre du jeu, logo
     readonly property int fontScreenTitle: Math.round(36 * uiScale)   // plaque de titre d'ecran
     readonly property int fontSectionTitle: Math.round(24 * uiScale)  // bandeau de section
+    readonly property int fontReading: Math.round(24 * uiScale)
     readonly property int fontBody: Math.round(18 * uiScale)          // libelles et corps
     readonly property int fontCaption: Math.round(14 * uiScale)       // legendes, aides, version
 

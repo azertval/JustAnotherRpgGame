@@ -82,9 +82,13 @@ void addExperienceValues(std::map<std::string, std::string>& valeurs,
                 continue;  // le catalogue ne la connaît pas : ne rien afficher plutôt qu'un zéro.
             }
             // La maîtrise se voit : c'est l'information que la pastille cochée porte sur la
-            // feuille, et le seul moyen de la rendre dans une ligne de texte.
-            valeurs[std::string("sheet.skill.") + competence.id] =
-                signe(modificateur.value) + (modificateur.proficient ? " •" : "");
+            // feuille. Elle a sa propre clé, présente seulement si la compétence est maîtrisée :
+            // un `.ui.qml` ne découpe pas une chaîne, Qt Design Studio y refuse tout appel.
+            const std::string cle = std::string("sheet.skill.") + competence.id;
+            valeurs[cle] = signe(modificateur.value);
+            if (modificateur.proficient) {
+                valeurs[cle + ".proficient"] = "1";
+            }
         }
         // Perception passive : 10 + le modificateur de Perception, la règle du livre. Elle est
         // dérivée, jamais stockée -- deux valeurs qui doivent s'accorder finissent par diverger.

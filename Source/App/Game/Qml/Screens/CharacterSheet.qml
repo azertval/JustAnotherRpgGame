@@ -25,6 +25,19 @@ CharacterSheetForm {
     id: root
 
     focus: true
+    currentTab: ScreenRouter.characterTab
+    query: root.searchField.text
+    selectedSpell: root.spellRows.length > 0 ? root.spellRows[Math.max(0, Math.min(root.spellList.currentIndex, root.spellRows.length - 1))].spell : ({})
+    selectedCapacity: root.classRows.length > 0 ? root.classRows[Math.max(0, Math.min(root.classList.currentIndex, root.classRows.length - 1))] : ({})
+    onTabRequested: (index) => {
+        if (index === 3) ScreenRouter.openRpgScreen(ScreenRouter.Inventory)
+        else root.currentTab = index
+    }
+    onAbilityTabRequested: (index) => { root.abilityTab = index; root.searchField.clear() }
+    onSpellSelected: (index) => { root.spellList.currentIndex = index }
+    onCapacitySelected: (index) => { root.classList.currentIndex = index }
+    onMemberStepRequested: (step) => root.cycleMember(step)
+    onCloseRequested: ScreenRouter.closeRpgScreen()
 
     readonly property CharacterSheetModel sheet: CharacterSheetModel {}
     /// Les membres du groupe, pour passer de l'un à l'autre.
@@ -80,8 +93,8 @@ CharacterSheetForm {
     passivePerception: sheet.passivePerception
 
     skills: sheet.skills
-    classRows: root.classRowsOf(sheet.capacities, sheet.upcomingCapacities)
-    spellRows: root.spellRowsOf(sheet.spells)
+    classRows: root.classRowsOf(sheet.capacities, sheet.upcomingCapacities).filter(row => row.label.toLocaleLowerCase().indexOf(root.query.toLocaleLowerCase()) >= 0)
+    spellRows: root.spellRowsOf(sheet.spells).filter(row => row.label.toLocaleLowerCase().indexOf(root.query.toLocaleLowerCase()) >= 0)
 
     Component.onCompleted: sheet.loadShownCharacter()
 
@@ -122,12 +135,12 @@ CharacterSheetForm {
 
     /// Fait défiler la liste de l'onglet courant (classe, sorts) d'un cran.
     function scroll(step) {
-        const view = root.currentTab === 1 ? root.classList : (root.currentTab === 2 ? root.spellList : null)
+        const view = root.currentTab === 1 ? (root.abilityTab === 1 ? root.spellList : root.classList) : null
         if (view === null) {
             return
         }
-        const cran = 96 * Tokens.uiScale
-        view.contentY = Math.max(0, Math.min(Math.max(0, view.contentHeight - view.height), view.contentY + step * cran))
+        view.currentIndex = Math.max(0, Math.min(view.count - 1, view.currentIndex + step))
+        view.positionViewAtIndex(view.currentIndex, ListView.Contain)
     }
 
     function classRowsOf(capacities, upcoming) {
@@ -149,7 +162,7 @@ CharacterSheetForm {
         const rows = []
         for (let i = 0; i < spells.length; ++i) {
             rows.push({ rowId: spells[i].id, label: spells[i].name, value: spells[i].iconKey,
-                        detail: spells[i].details, uses: spells[i].usesText,
+                        spell: spells[i], detail: spells[i].details, uses: spells[i].usesText,
                         levelText: spells[i].level === 0 ? qsTr("Sort mineur") : qsTr("Niveau %1").arg(spells[i].level) })
         }
         return rows
@@ -183,20 +196,4 @@ CharacterSheetForm {
         }
     }
 
-    Connections {
-        target: root.skillsTab
-        function onClicked() { root.currentTab = 0 }
-    }
-    Connections {
-        target: root.classTab
-        function onClicked() { root.currentTab = 1 }
-    }
-    Connections {
-        target: root.spellsTab
-        function onClicked() { root.currentTab = 2 }
-    }
-    Connections {
-        target: root.skillsButton
-        function onClicked() { ScreenRouter.openRpgScreen(ScreenRouter.Skills) }
-    }
 }

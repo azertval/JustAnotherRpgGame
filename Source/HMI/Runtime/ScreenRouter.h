@@ -45,6 +45,7 @@ class ScreenRouter : public QObject {
 
     /// L'écran affiché ; quand il vaut `RpgScreen`, `currentRpgScreen` dit lequel des écrans du
     /// RPG.
+    Q_PROPERTY(int characterTab READ characterTab NOTIFY changed)
     Q_PROPERTY(Screen currentScreen READ currentScreen NOTIFY changed)
     Q_PROPERTY(RpgScreen currentRpgScreen READ currentRpgScreen NOTIFY changed)
 
@@ -157,6 +158,11 @@ public:
     /// qu'on soit venu du menu, du jeu ou de la pause.
     Q_INVOKABLE void openRpgScreen(RpgScreen screen);
     Q_INVOKABLE void closeRpgScreen();
+    /// Ouvre la page identité, capacités ou compétences du mercenaire.
+    Q_INVOKABLE void openCharacterTab(int tab);
+    [[nodiscard]] int characterTab() const noexcept {
+        return _characterTab;
+    }
 
 signals:
     /// Émis quand l'écran courant change. Rien n'est émis si la transition a été **refusée** :
@@ -171,6 +177,8 @@ private:
     RpgScreenId _rpgScreen = RpgScreenId::CharacterSheet;
     QString _dialogueId;
     QString _ending;
+    int _characterTab = 0;
+    bool _returnToCombat = false;
 };
 
 }  // namespace hmi

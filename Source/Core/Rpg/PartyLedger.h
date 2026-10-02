@@ -25,6 +25,7 @@
 #include <string_view>
 
 #include "Core/Rpg/CharacterSheet.h"
+#include "Core/Rpg/Inventory.h"
 
 namespace core {
 
@@ -39,6 +40,8 @@ struct MemberRecord {
     /// Les lancers restants de chaque sort connu (identifiant du sort → lancers) ; un sort absent
     /// garde ceux de la fiche.
     std::map<std::string, int> spellUses;
+    /// Inventaire modifié en partie ; absent : celui de la fiche écrite.
+    std::optional<Inventory> inventory;
 };
 
 /**

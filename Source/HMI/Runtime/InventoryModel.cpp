@@ -12,6 +12,7 @@
 #include "HMI/Presentation/InventoryScreen.h"
 #include "HMI/Presentation/InventoryValues.h"
 #include "HMI/Runtime/DemonstrationCharacter.h"
+#include "HMI/Runtime/WorldModel.h"
 
 namespace hmi {
 namespace {
@@ -60,7 +61,21 @@ QString InventoryModel::sheetValue(const char* key) const {
 }
 
 void InventoryModel::loadDemonstrationCharacter() {
-    _state = std::make_unique<DemonstrationState>(loadDemonstrationState());
+    loadShownCharacter();
+}
+
+void InventoryModel::loadShownCharacter() {
+    std::filesystem::path file = playedCharacterFile();
+    if (const WorldModel* world = WorldModel::current()) {
+        const std::string shown = world->shownCharacterId().toStdString();
+        const auto candidate =
+            std::ranges::find(world->candidates(), shown, &core::PartyCandidate::id);
+        if (candidate != world->candidates().end()) {
+            file = candidate->file;
+        }
+    }
+    _characterId = toQt(file.stem().string());
+    _state = std::make_unique<DemonstrationState>(loadDemonstrationState(file));
     _selectedItem.clear();
     _selectedSlot.clear();
     refresh();
@@ -132,6 +147,29 @@ void InventoryModel::setFilter(int filter) {
     emit changed();
 }
 
+void InventoryModel::setQuery(const QString& query) {
+    if (_query == query) {
+        return;
+    }
+    _query = query;
+    emit changed();
+}
+
+void InventoryModel::persist() {
+    if (_state != nullptr) {
+        if (WorldModel* world = WorldModel::current()) {
+            core::MemberRecord record;
+            if (const core::MemberRecord* previous =
+                    world->ledger().record(_characterId.toStdString())) {
+                record = *previous;
+            }
+            record.inventory = _state->inventory;
+            world->recordMember(_characterId.toStdString(), std::move(record));
+        }
+    }
+    refresh();
+}
+
 QVariantList InventoryModel::cells() const {
     QVariantList list;
     if (_state == nullptr) {
@@ -139,6 +177,9 @@ QVariantList InventoryModel::cells() const {
     }
     for (const InventoryCell& cell : backpackCells(_state->inventory, _state->lookup(),
                                                    FILTERS[static_cast<std::size_t>(_filter)])) {
+        if (!toQt(cell.name).contains(_query.trimmed(), Qt::CaseInsensitive)) {
+            continue;
+        }
         list.append(QVariantMap{{QStringLiteral("itemId"), toQt(cell.itemId)},
                                 {QStringLiteral("name"), toQt(cell.name)},
                                 {QStringLiteral("quantity"), cell.quantity}});
@@ -165,7 +206,7 @@ QVariantMap InventoryModel::selection() const {
         return {};
     }
     const ItemSheet sheet = itemSheet(itemId, lookup);
-    return QVariantMap{{QStringLiteral("itemId"), toQt(itemId)},
+    QVariantMap result{{QStringLiteral("itemId"), toQt(itemId)},
                        {QStringLiteral("name"), toQt(sheet.name)},
                        {QStringLiteral("kind"), toQt(sheet.kind)},
                        {QStringLiteral("damage"), toQt(sheet.damage)},
@@ -175,6 +216,23 @@ QVariantMap InventoryModel::selection() const {
                        {QStringLiteral("canEquip"), !fromSlot && sheet.equippable},
                        {QStringLiteral("canUnequip"), fromSlot},
                        {QStringLiteral("canDrop"), !fromSlot}};
+    if (!fromSlot && sheet.equippable) {
+        core::Inventory preview = _state->inventory;
+        const auto slot = naturalSlot(itemId, lookup);
+        const std::string previous = slot ? preview.at(*slot) : std::string();
+        if (equipFromBackpack(preview, itemId, lookup)) {
+            const core::DerivedStats after = core::derivedStatsFor(
+                _state->sheet, preview, lookup, _state->rules, _state->encumbrance);
+            result.insert("replaces", previous.empty() ? tr("Emplacement libre")
+                                                       : toQt(itemSheet(previous, lookup).name));
+            result.insert("beforeDamage",
+                          previous.empty() ? QString() : toQt(itemSheet(previous, lookup).damage));
+            result.insert("afterDamage", toQt(sheet.damage));
+            result.insert("beforeArmor", armorClass());
+            result.insert("afterArmor", QString::number(after.armorClass));
+        }
+    }
+    return result;
 }
 
 QString InventoryModel::gold() const {
@@ -210,7 +268,7 @@ void InventoryModel::equipSelected() {
             naturalSlot(_selectedItem.toStdString(), _state->lookup());
         _selectedItem.clear();
         _selectedSlot = slot ? toQt(std::string(core::equipmentSlotName(*slot))) : QString();
-        refresh();
+        persist();
     }
 }
 
@@ -227,7 +285,7 @@ void InventoryModel::unequipSelected() {
     if (unequipToBackpack(_state->inventory, *slot)) {
         _selectedSlot.clear();
         _selectedItem = toQt(removed);
-        refresh();
+        persist();
     }
 }
 
@@ -236,7 +294,7 @@ void InventoryModel::dropSelected() {
         return;
     }
     if (dropFromBackpack(_state->inventory, _selectedItem.toStdString())) {
-        refresh();
+        persist();
     }
 }
 
@@ -245,7 +303,7 @@ void InventoryModel::sortBackpack() {
         return;
     }
     hmi::sortBackpack(_state->inventory, _state->lookup());
-    refresh();
+    persist();
 }
 
 }  // namespace hmi

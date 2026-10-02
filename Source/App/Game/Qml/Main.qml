@@ -83,6 +83,12 @@ Window {
         value: Math.max(0.5, stage.height / 1080)
     }
 
+    Binding {
+        target: Tokens
+        property: "hudScale"
+        value: OptionsModel.hudScalePercent / 100
+    }
+
     /*!
         Écran imposé au lancement, ou vide pour laisser le routeur décider.
 

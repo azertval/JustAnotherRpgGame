@@ -75,6 +75,9 @@ void applyMemberRecord(DemonstrationState& state, const core::MemberRecord& reco
         }
     }
     core::applyRecord(state.sheet, record);
+    if (record.inventory.has_value()) {
+        state.inventory = *record.inventory;
+    }
 }
 
 std::filesystem::path playedCharacterFile() {

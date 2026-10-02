@@ -25,6 +25,7 @@ constexpr const char* FULLSCREEN_KEY = "fullscreen";
 constexpr const char* VSYNC_KEY = "vsync";
 constexpr const char* DIAGNOSTICS_KEY = "diagnostics_overlay";
 constexpr const char* VOLUME_KEY = "volume";
+constexpr const char* HUD_SCALE_KEY = "hud_scale_percent";
 constexpr const char* LANGUAGE_KEY = "language";
 
 // Les valeurs d'usine : lues par le constructeur quand aucun réglage n'est enregistré, et publiées
@@ -33,6 +34,7 @@ constexpr bool DEFAULT_FULLSCREEN = false;
 constexpr bool DEFAULT_VSYNC = true;
 constexpr bool DEFAULT_DIAGNOSTICS = false;
 constexpr int DEFAULT_VOLUME = 100;
+constexpr int DEFAULT_HUD_SCALE = 100;
 constexpr const char* DEFAULT_LANGUAGE = "fr";
 
 [[nodiscard]] QSettings settings() {
@@ -47,6 +49,8 @@ OptionsModel::OptionsModel(QObject* parent) : QObject(parent) {
     _vsync = stored.value(QLatin1String(VSYNC_KEY), DEFAULT_VSYNC).toBool();
     _diagnostics = stored.value(QLatin1String(DIAGNOSTICS_KEY), DEFAULT_DIAGNOSTICS).toBool();
     _volume = std::clamp(stored.value(QLatin1String(VOLUME_KEY), DEFAULT_VOLUME).toInt(), 0, 100);
+    _hudScalePercent =
+        std::clamp(stored.value(QLatin1String(HUD_SCALE_KEY), DEFAULT_HUD_SCALE).toInt(), 75, 130);
     _language =
         stored.value(QLatin1String(LANGUAGE_KEY), QLatin1String(DEFAULT_LANGUAGE)).toString();
 }
@@ -57,6 +61,7 @@ QVariantMap OptionsModel::defaults() const {
             {QStringLiteral("vsync"), DEFAULT_VSYNC},
             {QStringLiteral("diagnostics"), DEFAULT_DIAGNOSTICS},
             {QStringLiteral("volume"), DEFAULT_VOLUME},
+            {QStringLiteral("hudScalePercent"), DEFAULT_HUD_SCALE},
             {QStringLiteral("language"), QLatin1String(DEFAULT_LANGUAGE)}};
 }
 
@@ -121,6 +126,16 @@ void OptionsModel::setLanguage(const QString& code) {
     _language = code;
     settings().setValue(QLatin1String(LANGUAGE_KEY), code);
     emit languageChanged();
+}
+
+void OptionsModel::setHudScalePercent(int percent) {
+    const int clamped = std::clamp(percent, 75, 130);
+    if (_hudScalePercent == clamped) {
+        return;
+    }
+    _hudScalePercent = clamped;
+    settings().setValue(QLatin1String(HUD_SCALE_KEY), clamped);
+    emit hudScaleChanged();
 }
 
 QString OptionsModel::saveLogs() {

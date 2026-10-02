@@ -6,6 +6,19 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Menus du mercenaire et HUD.** Menu principal en codex illustré, fiche d'identité ornementée,
+  capacités de classe et grimoire réunis, compétences et équipement sur leurs propres pages.
+  Recherche dans les sorts, capacités et objets, comparaison avant équipement et confirmation
+  avant abandon. Les changements d'équipement suivent chaque mercenaire pendant la partie,
+  y compris après un repos et au combat. HUD d'exploration avec groupe et interaction de proximité ;
+  HUD de combat compact, filtres d'actions et détails dépliables. Dans **Options > Graphismes**,
+  **Taille du HUD** règle les deux affichages de **75 % à 130 %**, indépendamment des menus et
+  du terrain ; la valeur est enregistrée avec **Appliquer**.
+- **Formulaires éditables dans Qt Design Studio.** Les `.ui.qml` ne portent plus d'appel de
+  fonction hors d'un objet `Connections` (M222) ni d'identifiant ambigu (M209). La maîtrise d'une
+  compétence quitte le texte de sa valeur (« +5 • ») : clé `sheet.skill.<id>.proficient` et rôle
+  `marked` de `SheetRowModel`.
+
 - **LOT-1003 — Maillages et profondeur.** Le moteur dessine des volumes : une pièce dont le
   manifeste cite un maillage (`"mesh"`, un `.glb`) au lieu d'une image se dessine par une passe de
   maillages (`hmi::MeshBatch` : sommets, normales, coordonnées de texture, couleur de base, sans

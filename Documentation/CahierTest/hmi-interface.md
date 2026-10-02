@@ -69,13 +69,15 @@ Une competence maitrisee se signale, et la Perception passive en derive.
 
 **Résultat attendu**
 
-- Vérifie que `valeurs.at("sheet.skill.athletics")` vaut `"+5 •"`.
+- Vérifie que `valeurs.at("sheet.skill.athletics")` vaut `"+5"`.
+- Vérifie que `valeurs.contains("sheet.skill.athletics.proficient")` est vrai.
 - Vérifie que `valeurs.at("sheet.skill.stealth")` vaut `"+1"`.
+- Vérifie que `valeurs.contains("sheet.skill.stealth.proficient")` est faux.
 - Vérifie que `valeurs.at("sheet.passive_perception")` vaut `"11"`.
 
 ### CharacterSheetValuesTest.LesPointsDeVieSeLisentContreLeurMaximum
 
-*Mineur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:171`
+*Mineur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:173`
 
 Les points de vie se lisent contre leur maximum.
 
@@ -91,7 +93,7 @@ Les points de vie se lisent contre leur maximum.
 
 ### CharacterSheetValuesTest.SansFicheAucuneValeurNEstProduite
 
-*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:193`
+*Majeur · Unitaire · Fiche de personnage* — `Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:195`
 
 Sans fiche, aucune valeur n'est produite.
 

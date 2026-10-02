@@ -47,10 +47,10 @@ QtObject {
     }
 
     readonly property ListModel skills: ListModel {
-        ListElement { rowId: "athletics"; label: "Athlétisme"; value: "+5 •" }
-        ListElement { rowId: "stealth"; label: "Discrétion"; value: "+1" }
-        ListElement { rowId: "perception"; label: "Perception"; value: "+1" }
-        ListElement { rowId: "insight"; label: "Intuition"; value: "+1" }
+        ListElement { rowId: "athletics"; label: "Athlétisme"; value: "+5"; marked: true }
+        ListElement { rowId: "stealth"; label: "Discrétion"; value: "+1"; marked: false }
+        ListElement { rowId: "perception"; label: "Perception"; value: "+1"; marked: false }
+        ListElement { rowId: "insight"; label: "Intuition"; value: "+1"; marked: false }
     }
 
     readonly property var capacities: [

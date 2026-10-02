@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Effects
+import QtQuick.Controls
 import Jadg.Ui
 
 /*!
@@ -43,6 +44,17 @@ import Jadg.Ui
 */
 HudFrame {
     id: root
+    property bool playerTurn: true
+    property int actionFilter: 0
+    property bool actionPaging: false
+    property bool detailsExpanded: false
+    property bool logExpanded: false
+    property real pointerX: width * 0.6
+    property real pointerY: height * 0.4
+    signal filterRequested(int filter)
+    signal actionPageRequested(int direction)
+    signal detailsToggleRequested()
+    signal logToggleRequested()
 
     // --- Le calque tactique (LOT-118) -----------------------------------------------------------
     property var fighters: []
@@ -168,6 +180,8 @@ HudFrame {
     // --- Le calque tactique, par-dessus la surface (LOT-118) ---------------------------------------------
     // Le contenu d'un HudFrame remplit le cadre, comme l'hote de la surface : meme rectangle.
     TacticalLayer {
+        id: tacticalLayer
+
         anchors.fill: parent
         visible: root.fighters.length > 0
         fighters: root.fighters
@@ -182,769 +196,441 @@ HudFrame {
         gridTileHeight: root.gridTileHeight
         gridOriginX: root.gridOriginX
         gridOriginY: root.gridOriginY
-        onGridHovered: (x, y) => root.gridHovered(x, y)
-        onGridClicked: (x, y) => root.gridClicked(x, y)
     }
 
-    // --- Le statut du dernier geste, sous l'ordre d'initiative ------------------------------------------
-    Text {
+    Connections {
+        target: tacticalLayer
+
+        function onGridHovered(x, y) {
+            root.gridHovered(x, y)
+        }
+
+        function onGridClicked(x, y) {
+            root.gridClicked(x, y)
+        }
+    }
+
+
+    // L'initiative reste consultable, même avec un grand nombre de combattants.
+    PanelFrame {
+        id: initiativeDock
+        objectName: "combatInitiative"
+        z: 5
         anchors.horizontalCenter: parent.horizontalCenter
-        y: 316 * Tokens.uiScale
-        width: 900 * Tokens.uiScale
-        visible: text.length > 0
-        text: root.busy ? "" : root.status
-        color: Tokens.goldLight
-        font.family: Tokens.bodyFamily
-        font.pixelSize: Tokens.fontBody
-        horizontalAlignment: Text.AlignHCenter
-        elide: Text.ElideMiddle
-        style: Text.Outline
-        styleColor: Tokens.panel
-    }
-
-    // --- L'issue (LOT-118) : ce qui reste a l'ecran quand le combat est fini -----------------------------
-    PanelFrame {
-        anchors.centerIn: parent
-        width: 520 * Tokens.uiScale
-        height: 200 * Tokens.uiScale
-        visible: root.outcome.length > 0
-
-        Column {
-            anchors.centerIn: parent
-            spacing: Tokens.gapMedium
-
-            Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: root.outcome === "victory" ? qsTr("Victoire")
-                    : root.outcome === "flight" ? qsTr("Vous avez pris la fuite")
-                    : qsTr("Vous êtes mort")
-                color: Tokens.goldLight
-                font.family: Tokens.titleFamily
-                font.pixelSize: Tokens.fontSectionTitle
-            }
-
-            Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: 460 * Tokens.uiScale
-                text: root.status
-                color: Tokens.textOnPanel
-                font.family: Tokens.bodyFamily
-                font.pixelSize: Tokens.fontBody
-                horizontalAlignment: Text.AlignHCenter
-                wrapMode: Text.WordWrap
-                maximumLineCount: 2
-                elide: Text.ElideRight
-            }
-
-            OrnateButton {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: root.outcome === "defeat" ? qsTr("Fin de la démo") : qsTr("Reprendre l'exploration")
-                onClicked: root.leaveRequested()
-            }
-        }
-    }
-
-    // --- Le tour du personnage actif (LOT-140) : sous son nom, a la place de l'experience --------------
-    PanelFrame {
-        x: 216 * Tokens.uiScale
-        y: 138 * Tokens.uiScale
-        width: 384 * Tokens.uiScale
-        height: 164 * Tokens.uiScale
+        anchors.top: parent.top
+        anchors.topMargin: Tokens.gapSmall
+        width: 700 * Tokens.uiScale
+        height: 140 * Tokens.uiScale
         subpanel: true
-
-        Column {
-            anchors.fill: parent
-            spacing: 4 * Tokens.uiScale
-            clip: true
-
-            Text {
-                width: parent.width
-                text: qsTr("Niv. %1 · CA %2").arg(root.activeLevel).arg(root.activeArmorClass)
-                      + (root.activeConditions.length > 0 ? " · " + root.activeConditions : "")
-                color: Tokens.textOnPanel
-                font.family: Tokens.bodyFamily
-                font.pixelSize: Tokens.fontCaption
-                elide: Text.ElideRight
-            }
-
-            // Ce qu'il reste a depenser : une pastille par action, pleine tant qu'elle est la.
-            Row {
-                spacing: Tokens.gapSmall
-
-                Text {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("Action")
-                    color: Tokens.textOnPanelMuted
-                    font.family: Tokens.bodyFamily
-                    font.pixelSize: Tokens.fontCaption
-                }
-
-                Repeater {
-                    model: root.activeActionsMax
-
-                    Rectangle {
-                        id: actionPip
-
-                        required property int index
-
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: 12 * Tokens.uiScale
-                        height: 12 * Tokens.uiScale
-                        radius: width / 2
-                        color: actionPip.index < root.activeActions ? Tokens.goldLight : "transparent"
-                        border.color: Tokens.goldLight
-                        border.width: Tokens.strokeWidth
-                    }
-                }
-
-                Item { width: Tokens.gapSmall; height: 1 }
-
-                Text {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("Bonus")
-                    color: Tokens.textOnPanelMuted
-                    font.family: Tokens.bodyFamily
-                    font.pixelSize: Tokens.fontCaption
-                }
-
-                Repeater {
-                    model: root.activeBonusActionsMax
-
-                    Rectangle {
-                        id: bonusPip
-
-                        required property int index
-
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: 12 * Tokens.uiScale
-                        height: 12 * Tokens.uiScale
-                        radius: width / 2
-                        color: bonusPip.index < root.activeBonusActions ? Tokens.goldLight : "transparent"
-                        border.color: Tokens.goldLight
-                        border.width: Tokens.strokeWidth
-                    }
-                }
-
-                Item { width: Tokens.gapSmall; height: 1 }
-
-                Text {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("Déplacement %1").arg(root.activeMovement)
-                    color: Tokens.textOnPanelMuted
-                    font.family: Tokens.bodyFamily
-                    font.pixelSize: Tokens.fontCaption
-                }
-            }
-
-            // Les capacites de classe, icone et nom : ce que la fiche apporte au combat.
-            Repeater {
-                model: root.activeCapacities
-
-                Item {
-                    id: capacity
-
-                    required property string label
-                    required property string value
-
-                    width: parent.width
-                    height: 28 * Tokens.uiScale
-
-                    Rectangle {
-                        id: capacityFallback
-
-                        anchors.left: parent.left
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: 24 * Tokens.uiScale
-                        height: 24 * Tokens.uiScale
-                        radius: width / 2
-                        visible: !capacityIcon.delivered
-                        color: Tokens.panelRaised
-                        border.color: Tokens.goldLight
-                        border.width: Tokens.strokeWidth
-
-                        Text {
-                            anchors.centerIn: parent
-                            text: capacity.label.length > 0 ? capacity.label.charAt(0) : ""
-                            color: Tokens.goldLight
-                            font.family: Tokens.titleFamily
-                            font.pixelSize: Tokens.fontCaption
-                        }
-                    }
-
-                    FixedArt {
-                        id: capacityIcon
-
-                        anchors.left: parent.left
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: 24 * Tokens.uiScale
-                        height: 24 * Tokens.uiScale
-                        key: capacity.value
-                    }
-
-                    Text {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.leftMargin: 32 * Tokens.uiScale
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: capacity.label
-                        color: Tokens.textOnPanel
-                        font.family: Tokens.bodyFamily
-                        font.pixelSize: Tokens.fontCaption
-                        elide: Text.ElideRight
-                    }
-                }
-            }
-        }
-    }
-
-    // --- Ordre d'initiative aux jetons (LOT-140), sous la boussole ---------------------------------------
-    Item {
-        x: 640 * Tokens.uiScale
-        y: 118 * Tokens.uiScale
-        width: 960 * Tokens.uiScale
-        height: 96 * Tokens.uiScale
-
+        scale: Tokens.hudScale
+        transformOrigin: Item.Top
         Text {
             id: roundLabel
-
-            anchors.left: parent.left
-            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("Round %1").arg(root.round)
             color: Tokens.goldLight
             font.family: Tokens.titleFamily
-            font.pixelSize: Tokens.fontCaption
-            font.weight: Font.DemiBold
-            style: Text.Outline
-            styleColor: Tokens.panel
+            font.pixelSize: Tokens.fontBody
         }
-
-        Row {
-            anchors.left: parent.left
+        ListView {
             anchors.top: roundLabel.bottom
-            anchors.topMargin: 2 * Tokens.uiScale
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            orientation: ListView.Horizontal
+            clip: true
             spacing: Tokens.gapSmall
+            model: root.initiative
+            currentIndex: root.activeIndex
+            highlightRangeMode: ListView.ApplyRange
+            preferredHighlightBegin: width / 3
+            preferredHighlightEnd: width * 2 / 3
+            delegate: Item {
+                id: fighter
+                required property int index
+                required property string label
+                required property string value
+                required property string token
+                required property string initials
+                required property bool down
+                width: 80 * Tokens.uiScale
+                height: 86 * Tokens.uiScale
+                opacity: fighter.down ? 0.5 : 1
+                PortraitFrame {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    size: 76 * Tokens.uiScale
+                    source: fighter.token
+                }
+                Text {
+                    anchors.centerIn: parent
+                    visible: fighter.token.length === 0
+                    text: fighter.initials
+                    color: Tokens.textOnPanel
+                    font.family: Tokens.bodyFamily
+                    font.pixelSize: Tokens.fontBody
+                }
+                Text {
+                    anchors.bottom: parent.bottom
+                    width: parent.width
+                    horizontalAlignment: Text.AlignHCenter
+                    text: (fighter.index === root.activeIndex ? "◆ " : fighter.value === "enemy" ? "● " : "◇ ") + fighter.label
+                    elide: Text.ElideRight
+                    color: fighter.index === root.activeIndex ? Tokens.goldLight : Tokens.textOnPanel
+                    font.family: Tokens.bodyFamily
+                    font.pixelSize: Tokens.fontCaption
+                }
+            }
+        }
+    }
 
+    PanelFrame {
+        id: actionDock
+        objectName: "combatActionDock"
+        z: 5
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: Tokens.gapMedium
+        width: 1320 * Tokens.uiScale
+        height: 230 * Tokens.uiScale
+        subpanel: true
+        padding: Tokens.gapMedium
+        scale: Tokens.hudScale
+        transformOrigin: Item.Bottom
+        MouseArea { anchors.fill: parent }
+        PortraitFrame {
+            id: activePortrait
+            anchors.left: parent.left
+            anchors.leftMargin: 14 * Tokens.uiScale
+            anchors.top: parent.top
+            size: 140 * Tokens.uiScale
+            source: root.portrait
+        }
+        Text {
+            x: 8 * Tokens.uiScale
+            y: 138 * Tokens.uiScale
+            width: 152 * Tokens.uiScale
+            text: root.characterName
+            color: Tokens.textOnPanel
+            horizontalAlignment: Text.AlignHCenter
+            font.family: Tokens.bodyFamily
+            font.pixelSize: Tokens.fontBody
+            elide: Text.ElideRight
+        }
+        Gauge {
+            x: 8 * Tokens.uiScale
+            y: 164 * Tokens.uiScale
+            width: 152 * Tokens.uiScale
+            kind: "health"
+            value: root.hitPointsRatio
+            label: root.hitPointsText
+        }
+        Text {
+            x: 190 * Tokens.uiScale
+            width: 860 * Tokens.uiScale
+            text: qsTr("Action %1 / %2   ·   Bonus %3 / %4   ·   Déplacement %5")
+                      .arg(root.activeActions).arg(root.activeActionsMax)
+                      .arg(root.activeBonusActions).arg(root.activeBonusActionsMax).arg(root.activeMovement)
+            color: Tokens.goldLight
+            font.family: Tokens.bodyFamily
+            font.pixelSize: Tokens.fontSectionTitle
+            horizontalAlignment: Text.AlignHCenter
+        }
+        Row {
+            x: 250 * Tokens.uiScale
+            y: 34 * Tokens.uiScale
+            spacing: Tokens.gapSmall
             Repeater {
-                model: root.initiative
-
-                Item {
-                    id: combatant
-
+                model: [qsTr("Toutes"), qsTr("Actions"), qsTr("Sorts")]
+                delegate: OrnateTab {
+                    id: filterTab
+                    required property int index
+                    required property string modelData
+                    width: 220 * Tokens.uiScale
+                    height: 40 * Tokens.uiScale
+                    text: modelData
+                    checked: root.actionFilter === index
+                    checkable: false
+                    Connections {
+                        target: filterTab
+                        function onClicked() {
+                            root.filterRequested(filterTab.index)
+                        }
+                    }
+                }
+            }
+        }
+        Row {
+            x: 194 * Tokens.uiScale
+            y: 82 * Tokens.uiScale
+            spacing: 14 * Tokens.uiScale
+            Repeater {
+                model: root.actions
+                delegate: Item {
+                    id: actionEntry
                     required property int index
                     required property string label
                     required property string value
-                    required property string token
-                    required property string initials
-                    required property bool down
-
-                    readonly property bool current: combatant.index === root.activeIndex
-                    readonly property bool enemy: combatant.value === "enemy"
-                    readonly property color tint: combatant.enemy ? Tokens.textEnemy : Tokens.textAlly
-
+                    required property string iconKey
                     width: 88 * Tokens.uiScale
-                    height: 72 * Tokens.uiScale
-                    opacity: combatant.down ? 0.45 : 1
-
-                    // Le jeton : l'image du membre du groupe, sinon deux lettres sur un disque du
-                    // camp. L'actif est cercle d'or (maquette : ①).
-                    Rectangle {
-                        id: tokenRing
-
+                    height: 110 * Tokens.uiScale
+                    ActionSlot {
                         anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.top: parent.top
-                        width: 48 * Tokens.uiScale
-                        height: 48 * Tokens.uiScale
-                        radius: width / 2
-                        color: Tokens.panel
-                        border.color: combatant.current ? Tokens.goldLight : combatant.tint
-                        border.width: (combatant.current ? 3 : 2) * Tokens.strokeWidth
-
-                        Rectangle {
-                            id: tokenMask
-
-                            anchors.fill: parent
-                            anchors.margins: tokenRing.border.width
-                            radius: width / 2
-                            color: Tokens.panelRaised
-                            layer.enabled: true
-                        }
-
-                        Image {
-                            id: tokenImage
-
-                            anchors.fill: tokenMask
-                            visible: false
-                            source: combatant.token
-                            fillMode: Image.PreserveAspectCrop
-                            smooth: true
-                            mipmap: true
-                        }
-
-                        MultiEffect {
-                            anchors.fill: tokenMask
-                            visible: combatant.token.length > 0
-                            source: tokenImage
-                            maskEnabled: true
-                            maskSource: tokenMask
-                        }
-
-                        Text {
-                            anchors.centerIn: parent
-                            visible: combatant.token.length === 0
-                            text: combatant.initials
-                            color: combatant.current ? Tokens.goldLight : combatant.tint
-                            font.family: Tokens.titleFamily
-                            font.pixelSize: Tokens.fontCaption
-                            font.weight: Font.DemiBold
-                        }
+                        width: 66 * Tokens.uiScale
+                        label: actionEntry.label
+                        iconKey: actionEntry.iconKey
+                        quantity: actionEntry.value
+                        shortcut: "" + (actionEntry.index + 1)
+                        active: actionEntry.index === root.activeAction
+                        forcedState: actionEntry.value === "0" ? "disabled" : ""
                     }
-
                     Text {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.top: tokenRing.bottom
-                        anchors.topMargin: 2 * Tokens.uiScale
-                        text: combatant.label
-                        color: combatant.current ? Tokens.goldLight : Tokens.textOnPanel
+                        anchors.bottom: parent.bottom
+                        width: parent.width
+                        text: actionEntry.label
+                        color: Tokens.textOnPanel
                         font.family: Tokens.bodyFamily
                         font.pixelSize: Tokens.fontCaption
                         horizontalAlignment: Text.AlignHCenter
                         elide: Text.ElideRight
-                        style: Text.Outline
-                        styleColor: Tokens.panel
+                    }
+                    MouseArea {
+                        id: actionPointer
+                        anchors.fill: parent
+                    }
+                    Connections {
+                        target: actionPointer
+                        function onClicked() {
+                            root.actionClicked(actionEntry.index)
+                        }
                     }
                 }
             }
         }
-    }
-
-    // --- Journal de combat (maquette : 20, 678 -> 400, 835) ------------------------------------------------
-    PanelFrame {
-        x: 24 * Tokens.uiScale
-        y: 776 * Tokens.uiScale
-        width: 440 * Tokens.uiScale
-        height: 188 * Tokens.uiScale
-        subpanel: true
-
         Column {
-            anchors.fill: parent
-            spacing: 2 * Tokens.uiScale
-            clip: true
-
-            Repeater {
-                model: root.combatLog
-
-                Item {
-                    id: entry
-
-                    required property string label
-                    required property string value
-
-                    readonly property bool turn: entry.value === "ally" || entry.value === "enemy"
-
-                    width: parent.width
-                    height: 28 * Tokens.uiScale
-
-                    Rectangle {
-                        id: entryMark
-
-                        anchors.left: parent.left
-                        anchors.leftMargin: 4 * Tokens.uiScale
-                        anchors.verticalCenter: parent.verticalCenter
-                        width: (entry.turn ? 14 : 8) * Tokens.uiScale
-                        height: width
-                        rotation: entry.value === "ally" ? 45 : 0
-                        radius: entry.value === "ally" ? 0 : width / 2
-                        color: entry.value === "ally" ? Tokens.textAlly
-                               : (entry.value === "enemy" ? Tokens.textEnemy : "transparent")
-                        border.color: entry.turn ? Tokens.panel : Tokens.panelEdge
-                        border.width: Tokens.strokeWidth
-                    }
-
-                    Text {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.leftMargin: 32 * Tokens.uiScale
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: entry.label
-                        color: entry.value === "ally" ? Tokens.textAlly
-                               : (entry.value === "enemy" ? Tokens.textEnemy : Tokens.textOnPanel)
-                        font.family: entry.turn ? Tokens.titleFamily : Tokens.bodyFamily
-                        font.pixelSize: Tokens.fontBody
-                        font.weight: entry.turn ? Font.DemiBold : Font.Normal
-                        elide: Text.ElideRight
-                    }
+            anchors.right: parent.right
+            y: 54 * Tokens.uiScale
+            spacing: Tokens.gapSmall
+            OrnateButton {
+                id: endTurnButton
+                width: 250 * Tokens.uiScale
+                text: qsTr("Fin du tour")
+                enabled: !root.ended && !root.busy && root.playerTurn
+            }
+            Connections {
+                target: endTurnButton
+                function onClicked() {
+                    root.endTurnRequested()
                 }
             }
-        }
-    }
-
-    // --- Roue d'action (maquette : 425, 758 -> 562, 892) ---------------------------------------------------
-    Item {
-        x: 476 * Tokens.uiScale
-        y: 872 * Tokens.uiScale
-        width: 156 * Tokens.uiScale
-        height: 156 * Tokens.uiScale
-
-        Rectangle {
-            anchors.fill: parent
-            visible: !wheelArt.delivered
-            radius: width / 2
-            color: Tokens.gem
-            border.color: Tokens.panelEdge
-            border.width: 3 * Tokens.strokeWidth
-        }
-
-        FixedArt {
-            id: wheelArt
-
-            anchors.fill: parent
-            key: "ui/medallion/action-wheel"
-        }
-
-        Column {
-            anchors.centerIn: parent
-            width: parent.width * 0.64
-            spacing: 2 * Tokens.uiScale
-
+            Row {
+                visible: root.actionPaging
+                spacing: Tokens.gapSmall
+                OrnateButton { id: previousPageButton; width: 120 * Tokens.uiScale; height: 42 * Tokens.uiScale; kind: "secondary"; text: "◀" }
+                Connections { target: previousPageButton; function onClicked() { root.actionPageRequested(-1) } }
+                OrnateButton { id: nextPageButton; width: 120 * Tokens.uiScale; height: 42 * Tokens.uiScale; kind: "secondary"; text: "▶" }
+                Connections { target: nextPageButton; function onClicked() { root.actionPageRequested(1) } }
+            }
             Text {
-                width: parent.width
-                text: root.activeActionLabel
+                width: 250 * Tokens.uiScale
+                text: root.activeConditions.length > 0 ? root.activeConditions : qsTr("Espace · Fin du tour")
                 color: Tokens.textOnPanel
-                font.family: Tokens.titleFamily
-                font.pixelSize: Tokens.fontBody
-                font.weight: Font.DemiBold
-                horizontalAlignment: Text.AlignHCenter
-                wrapMode: Text.WordWrap
-                maximumLineCount: 2
-                elide: Text.ElideRight
-            }
-
-            // Le jet et les des de l'action choisie (LOT-140).
-            Text {
-                width: parent.width
-                visible: text.length > 0
-                text: root.activeActionDetail
-                color: Tokens.goldLight
                 font.family: Tokens.bodyFamily
                 font.pixelSize: Tokens.fontCaption
-                horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
-                maximumLineCount: 2
-                elide: Text.ElideRight
+                horizontalAlignment: Text.AlignHCenter
             }
         }
     }
 
-    // --- Barre d'actions (maquette : 555, 778 -> 1090, 880) ------------------------------------------------
-    // Huit cases : une fenetre glissante sur les actions du tour, que le jumeau fait suivre l'action
-    // choisie (un mage de niveau 5 en a quatorze).
+    // Une seule fiche contextuelle. Les règles détaillées se déplient à la demande.
     PanelFrame {
-        x: 640 * Tokens.uiScale
-        y: 884 * Tokens.uiScale
-        width: 612 * Tokens.uiScale
-        height: 136 * Tokens.uiScale
+        id: previewPanel
+        objectName: "combatPreview"
+        z: 4
+        visible: root.previewTitle.length > 0 && !root.ended
+        x: Math.max(Tokens.gapMedium, Math.min(root.width - width * Tokens.hudScale - Tokens.gapMedium,
+                                             root.pointerX + 28 * Tokens.uiScale))
+        y: Math.max(170 * Tokens.uiScale, Math.min(root.pointerY - height * Tokens.hudScale / 2,
+                                                  root.height - (260 * Tokens.uiScale + height) * Tokens.hudScale))
+        width: 380 * Tokens.uiScale
+        height: Math.min(520 * Tokens.uiScale, previewColumn.implicitHeight + 40 * Tokens.uiScale)
         subpanel: true
-
-        Row {
-            anchors.centerIn: parent
-            spacing: Tokens.gapSmall
-
-            Repeater {
-                model: root.actions
-
-                ActionSlot {
-                    id: actionCell
-
-                    required property int index
-                    required property string value
-                    // `label` et `iconKey` sont des proprietes de la brique : on les exige, sans
-                    // les redeclarer -- une redeclaration en masquerait la valeur.
-                    required label
-                    required iconKey
-
-                    quantity: actionCell.value
-                    shortcut: "" + (actionCell.index + 1)
-                    active: actionCell.index === root.activeAction
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: root.actionClicked(actionCell.index)
-                    }
-                }
-            }
-        }
-    }
-
-    // --- Fin du tour, sous la fiche de la cible -----------------------------------------------------------
-    // Le seul geste du tour qui n'avait ni case ni bouton : sans lui, la souris ne rendait jamais la main.
-    OrnateButton {
-        x: 1256 * Tokens.uiScale
-        y: 968 * Tokens.uiScale
-        text: qsTr("Fin du tour")
-        enabled: !root.ended && !root.busy && root.outcome.length === 0
-        onClicked: root.endTurnRequested()
-    }
-
-    // --- Previsualisation (LOT-140) : a la place des quetes, au-dessus de la cible -----------------------------
-    PanelFrame {
-        x: 1600 * Tokens.uiScale
-        y: 312 * Tokens.uiScale
-        width: 296 * Tokens.uiScale
-        height: 428 * Tokens.uiScale
-        subpanel: true
-
-        Text {
-            id: previewHeading
-
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            text: qsTr("Prévisualisation")
-            color: Tokens.textOnPanel
-            font.family: Tokens.titleFamily
-            font.pixelSize: Tokens.fontSectionTitle
-            font.weight: Font.DemiBold
-            elide: Text.ElideRight
-        }
-
-        GoldDivider {
-            id: previewDivider
-
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: previewHeading.bottom
-            anchors.topMargin: Tokens.gapSmall
-        }
-
-        Column {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: previewDivider.bottom
-            anchors.bottom: parent.bottom
-            anchors.topMargin: Tokens.gapSmall
-            spacing: 4 * Tokens.uiScale
+        scale: Tokens.hudScale
+        transformOrigin: Item.TopLeft
+        MouseArea { anchors.fill: parent }
+        Flickable {
+            anchors.fill: parent
             clip: true
-            opacity: root.previewValid ? 1 : 0.7
-
+            contentHeight: previewColumn.implicitHeight
+            ScrollBar.vertical: ScrollBar {}
+        Column {
+            id: previewColumn
+            width: parent.width
+            spacing: Tokens.gapSmall
             Text {
                 width: parent.width
                 text: root.previewTitle
-                color: Tokens.goldLight
-                font.family: Tokens.titleFamily
-                font.pixelSize: Tokens.fontBody
-                font.weight: Font.DemiBold
+                color: root.previewValid ? Tokens.goldLight : Tokens.textOnPanel
+                font.family: Tokens.bodyFamily
+                font.pixelSize: Tokens.fontSectionTitle
                 wrapMode: Text.WordWrap
-                maximumLineCount: 2
-                elide: Text.ElideRight
             }
-
             Repeater {
                 model: root.previewLines
-
-                Item {
-                    id: previewRow
-
+                delegate: Text {
                     required property string label
                     required property string value
-
-                    width: parent.width
-                    height: Math.max(previewLabel.implicitHeight, previewValue.implicitHeight)
-
-                    Text {
-                        id: previewLabel
-
-                        anchors.left: parent.left
-                        anchors.top: parent.top
-                        width: 86 * Tokens.uiScale
-                        text: previewRow.label
-                        color: Tokens.textOnPanelMuted
-                        font.family: Tokens.bodyFamily
-                        font.pixelSize: Tokens.fontCaption
-                        elide: Text.ElideRight
-                    }
-
-                    Text {
-                        id: previewValue
-
-                        anchors.left: previewLabel.right
-                        anchors.right: parent.right
-                        anchors.top: parent.top
-                        anchors.leftMargin: Tokens.gapSmall
-                        text: previewRow.value
-                        color: Tokens.textOnPanel
-                        font.family: Tokens.bodyFamily
-                        font.pixelSize: Tokens.fontCaption
-                        wrapMode: Text.WordWrap
-                        maximumLineCount: 3
-                        elide: Text.ElideRight
-                    }
+                    width: previewColumn.width
+                    text: label + " : " + value
+                    color: Tokens.textOnPanel
+                    font.family: Tokens.bodyFamily
+                    font.pixelSize: Tokens.fontBody
+                    wrapMode: Text.WordWrap
                 }
             }
-
-            // La capacite qui joue -- et celle qui ne joue pas, avec sa raison (maquette : ④).
+            Text {
+                width: parent.width
+                visible: root.targetConditions.length > 0
+                text: root.targetConditions
+                color: Tokens.textOnPanel
+                font.family: Tokens.bodyFamily
+                font.pixelSize: Tokens.fontBody
+                wrapMode: Text.WordWrap
+            }
+            OrnateButton {
+                id: detailsToggle
+                width: parent.width
+                height: 38 * Tokens.uiScale
+                kind: "secondary"
+                text: root.detailsExpanded ? qsTr("Masquer les détails") : qsTr("Détails du calcul")
+            }
+            Connections {
+                target: detailsToggle
+                function onClicked() {
+                    root.detailsToggleRequested()
+                }
+            }
             Repeater {
-                model: root.previewCapacities
-
-                Rectangle {
-                    id: previewCapacity
-
+                model: root.detailsExpanded ? root.previewCapacities : null
+                delegate: Text {
                     required property string label
                     required property string value
                     required property bool applies
                     required property string reason
-
-                    width: parent.width
-                    height: capacityColumn.implicitHeight + Tokens.gapSmall
-                    color: previewCapacity.applies ? Tokens.panelRaised : "transparent"
-                    border.color: previewCapacity.applies ? Tokens.goldLight : Tokens.panelEdge
-                    border.width: Tokens.strokeWidth
-
-                    Column {
-                        id: capacityColumn
-
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.margins: Tokens.gapSmall / 2
-                        spacing: 0
-
-                        Text {
-                            width: parent.width
-                            text: (previewCapacity.applies ? "+ " : "") + previewCapacity.label + "  " + previewCapacity.value
-                            color: previewCapacity.applies ? Tokens.goldLight : Tokens.textOnPanelMuted
-                            font.family: Tokens.bodyFamily
-                            font.pixelSize: Tokens.fontCaption
-                            font.weight: previewCapacity.applies ? Font.DemiBold : Font.Normal
-                            elide: Text.ElideRight
-                        }
-
-                        Text {
-                            width: parent.width
-                            visible: text.length > 0
-                            text: previewCapacity.reason
-                            color: Tokens.textOnPanelMuted
-                            font.family: Tokens.loreFamily
-                            font.italic: true
-                            font.pixelSize: Tokens.fontCaption
-                            wrapMode: Text.WordWrap
-                            maximumLineCount: 2
-                            elide: Text.ElideRight
-                        }
-                    }
+                    width: previewColumn.width
+                    text: label + " : " + (applies ? value : reason)
+                    color: Tokens.textOnPanel
+                    font.family: Tokens.bodyFamily
+                    font.pixelSize: Tokens.fontCaption
+                    wrapMode: Text.WordWrap
                 }
             }
-
             Text {
-                width: parent.width
-                visible: root.previewExpected.length > 0
-                text: qsTr("Attendu  %1 dégâts").arg(root.previewExpected)
+                visible: root.detailsExpanded && root.previewExpected.length > 0
+                text: qsTr("Dégâts moyens : %1").arg(root.previewExpected)
                 color: Tokens.textOnPanel
                 font.family: Tokens.bodyFamily
-                font.pixelSize: Tokens.fontCaption
-                elide: Text.ElideRight
+                font.pixelSize: Tokens.fontBody
+            }
+        }
+        }
+    }
+    Text {
+        z: 5
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: actionDock.top
+        anchors.bottomMargin: (Tokens.hudScale - 1) * actionDock.height + Tokens.gapSmall
+        width: 900 * Tokens.uiScale
+        text: root.busy ? qsTr("Action en cours…") : root.status
+        color: Tokens.textOnPanel
+        font.family: Tokens.bodyFamily
+        font.pixelSize: Tokens.fontBody
+        style: Text.Outline
+        styleColor: Tokens.panel
+        horizontalAlignment: Text.AlignHCenter
+        elide: Text.ElideRight
+    }
+    OrnateButton {
+        id: logToggle
+        z: 5
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.margins: Tokens.gapMedium
+        width: 144 * Tokens.uiScale
+        height: 50 * Tokens.uiScale
+        scale: Tokens.hudScale
+        transformOrigin: Item.TopLeft
+        kind: "secondary"
+        text: qsTr("Historique")
+    }
+    Connections {
+        target: logToggle
+        function onClicked() {
+            root.logToggleRequested()
+        }
+    }
+    PanelFrame {
+        z: 6
+        visible: root.logExpanded
+        anchors.left: parent.left
+        anchors.bottom: parent.bottom
+        anchors.leftMargin: Tokens.gapMedium
+        anchors.bottomMargin: 78 * Tokens.uiScale * Tokens.hudScale
+        width: 540 * Tokens.uiScale
+        height: 340 * Tokens.uiScale
+        subpanel: true
+        scale: Tokens.hudScale
+        transformOrigin: Item.BottomLeft
+        MouseArea { anchors.fill: parent }
+        ListView {
+            anchors.fill: parent
+            clip: true
+            model: root.combatLog
+            delegate: Text {
+                required property string label
+                width: ListView.view.width
+                text: label
+                color: Tokens.textOnPanel
+                font.family: Tokens.bodyFamily
+                font.pixelSize: Tokens.fontBody
+                wrapMode: Text.WordWrap
             }
         }
     }
-
-    // --- Fiche de la cible (maquette : 1100, 678 -> 1390, 828) ----------------------------------------------
-    // Rien que ce que la table voit (LOT-23) : un ennemi n'a pas de chiffre de vie, seulement
-    // « ensanglante », « a terre », « mort ».
     PanelFrame {
-        x: 1256 * Tokens.uiScale
-        y: 756 * Tokens.uiScale
-        width: 332 * Tokens.uiScale
-        height: 204 * Tokens.uiScale
-        subpanel: true
-
-        Text {
-            id: targetTitle
-
-            anchors.left: parent.left
-            anchors.right: targetLevelLabel.left
-            anchors.top: parent.top
-            anchors.rightMargin: Tokens.gapSmall
-            text: root.targetName
-            color: Tokens.textOnPanel
-            font.family: Tokens.titleFamily
-            font.pixelSize: Tokens.fontBody
-            font.weight: Font.DemiBold
-            elide: Text.ElideRight
-        }
-
-        Text {
-            id: targetLevelLabel
-
-            anchors.right: parent.right
-            anchors.baseline: targetTitle.baseline
-            visible: root.targetLevel.length > 0
-            text: qsTr("Niv. %1").arg(root.targetLevel)
-            color: Tokens.textOnPanel
-            font.family: Tokens.bodyFamily
-            font.pixelSize: Tokens.fontBody
-        }
-
-        PortraitFrame {
-            id: targetPortraitFrame
-
-            anchors.left: parent.left
-            anchors.top: targetTitle.bottom
-            anchors.topMargin: Tokens.gapSmall
-            shape: "square"
-            size: 96 * Tokens.uiScale
-            source: root.targetPortrait
-        }
-
+        z: 9
+        anchors.centerIn: parent
+        width: 620 * Tokens.uiScale
+        height: 260 * Tokens.uiScale
+        visible: root.outcome.length > 0
         Column {
-            anchors.left: targetPortraitFrame.right
-            anchors.right: parent.right
-            anchors.top: targetPortraitFrame.top
-            anchors.leftMargin: Tokens.gapMedium
-            spacing: 2 * Tokens.uiScale
-
-            Gauge {
-                width: parent.width
-                height: 26 * Tokens.uiScale
-                kind: "health"
-                value: root.targetHitPointsRatio
-                label: root.targetHitPoints
+            anchors.centerIn: parent
+            spacing: Tokens.gapMedium
+            Text {
+                width: 540 * Tokens.uiScale
+                horizontalAlignment: Text.AlignHCenter
+                text: root.outcome === "victory" ? qsTr("Victoire") : root.outcome === "flight" ? qsTr("Vous avez pris la fuite") : qsTr("Vous êtes mort")
+                color: Tokens.goldLight
+                font.family: Tokens.titleFamily
+                font.pixelSize: Tokens.fontSectionTitle
             }
-
-            Item { width: 1; height: 4 * Tokens.uiScale }
-
-            Repeater {
-                model: [
-                    { label: qsTr("CA"), value: root.targetArmorClass },
-                    { label: qsTr("Initiative"), value: root.targetInitiative },
-                    { label: qsTr("Vitesse"), value: root.targetSpeed },
-                    { label: qsTr("États"), value: root.targetConditions }
-                ]
-
-                Item {
-                    id: stat
-
-                    required property var modelData
-
-                    width: parent.width
-                    height: 24 * Tokens.uiScale
-
-                    Text {
-                        anchors.left: parent.left
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: stat.modelData.label
-                        color: Tokens.textOnPanel
-                        font.family: Tokens.bodyFamily
-                        font.pixelSize: Tokens.fontCaption
-                    }
-
-                    Text {
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: stat.modelData.value
-                        color: Tokens.textOnPanel
-                        font.family: Tokens.bodyFamily
-                        font.pixelSize: Tokens.fontCaption
-                    }
+            Text {
+                width: 540 * Tokens.uiScale
+                text: root.status
+                wrapMode: Text.WordWrap
+                color: Tokens.textOnPanel
+                font.family: Tokens.bodyFamily
+                font.pixelSize: Tokens.fontBody
+            }
+            OrnateButton {
+                id: leaveButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Reprendre l’exploration")
+            }
+            Connections {
+                target: leaveButton
+                function onClicked() {
+                    root.leaveRequested()
                 }
             }
         }

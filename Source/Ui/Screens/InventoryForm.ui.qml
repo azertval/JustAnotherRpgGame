@@ -1,60 +1,29 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import QtQuick.Controls
 import Jadg.Ui
 
-/*!
-    Inventaire et equipement -- FORMULAIRE, cote conception (LOT-87, T3.5 ; maquette 04).
-
-    Transcrit de la maquette `04_Inventory_Equipment_Mockup.png` (1536 x 1024), cotes ramenees a
-    1920 x 1080 puis multipliees par `Tokens.uiScale`. Trois parchemins cote a cote :
-
-    - a gauche, les emplacements portes (cinq de chaque cote) et les quatre statistiques derivees ;
-    - au centre, les onglets de filtre, la grille du sac, la charge, l'or et le bouton Trier ;
-    - a droite, la fiche de l'objet selectionne, et ce qu'on peut en faire.
-
-    **Les cases sont des repetitions.** Le formulaire ne sait dessiner qu'une case ; les emplacements
-    et la grille sont des `Repeater`, exposes au jumeau (`slotRepeaterLeft`, `slotRepeaterRight`,
-    `cellRepeater`) pour qu'il branche le pointeur de chaque case -- un formulaire ne contient pas
-    de code.
-
-    Les proprietes portent des VALEURS D'EXEMPLE ; le jumeau les remplace par celles de la vue-modele.
-*/
+/*! Inventaire du membre choisi : porté, sac filtré et conséquences de l'équipement. */
 Item {
     id: root
-
-    /// Ce que chaque emplacement porte, par identifiant (`main-hand`) : `{itemId, name}`.
-    property var equipped: ({
-        "torso": { itemId: "cuir-cloute", name: "Cuir clouté" },
-        "main-hand": { itemId: "epee-longue", name: "Épée longue" },
-        "off-hand": { itemId: "bouclier", name: "Bouclier" }
-    })
-
-    /// La grille : `{itemId, name, quantity}`, dans l'ordre du sac.
-    property var cells: [
-        { itemId: "dague", name: "Dague", quantity: 1 },
-        { itemId: "torche", name: "Torche", quantity: 5 }
-    ]
-
+    property var equipped: ({})
+    property var cells: []
     property int filter: 0
-    property string selectedItem: "dague"
+    property string selectedItem: ""
     property string selectedSlot: ""
-
-    /// La fiche de la selection (vide sans selection).
-    property var selection: ({
-        name: "Dague", kind: "Arme courante", damage: "1d4", armor: "", weight: "0,5 kg",
-        text: "Finesse, légère, lancer", canEquip: true, canUnequip: false, canDrop: true
-    })
-
-    property string carried: "12,5 kg"
-    property string capacity: "225,0 kg"
-    property real loadRatio: 0.06
-    property string gold: "42"
-
-    property string armorClass: "16"
-    property string initiative: "+1"
-    property string speed: "9 m"
-    property string passivePerception: "13"
-
+    property var selection: ({})
+    property string carried: "—"
+    property string capacity: "—"
+    property real loadRatio: 0
+    property string gold: "—"
+    property string armorClass: "—"
+    property string initiative: "—"
+    property string speed: "—"
+    property string passivePerception: "—"
+    property string characterName: "Grom Tranche-Écaille"
+    property url portrait: ""
+    property bool canManage: true
+    property bool dropPending: false
     property alias slotRepeaterLeft: slotsLeft
     property alias slotRepeaterRight: slotsRight
     property alias cellRepeater: cellsRepeater
@@ -65,437 +34,242 @@ Item {
     property alias sortButton: sortControl
     property alias equipButton: equipControl
     property alias dropButton: dropControl
-
+    property alias searchField: searchControl
+    signal tabRequested(int index)
+    signal closeRequested()
+    signal memberStepRequested(int step)
+    signal dropConfirmed()
+    signal dropCancelled()
     readonly property bool hasSelection: root.selection.name !== undefined
-
+    readonly property var slotLabels: ({
+        "head": qsTr("Tête"), "neck": qsTr("Cou"), "cloak": qsTr("Cape"),
+        "torso": qsTr("Armure"), "belt": qsTr("Ceinture"), "hands": qsTr("Mains"),
+        "bracers": qsTr("Brassards"), "feet": qsTr("Pieds"),
+        "main-hand": qsTr("Main principale"), "off-hand": qsTr("Main secondaire"),
+        "ranged": qsTr("À distance"), "ammunition": qsTr("Munitions"),
+        "ring-left": qsTr("Anneau gauche"), "ring-right": qsTr("Anneau droit"),
+        "pouch": qsTr("Sacoche"), "trinket": qsTr("Accessoire")
+    })
     width: 1920
     height: 1080
-
-    Rectangle {
-        anchors.fill: parent
-        color: Tokens.frameEdge
-    }
-
-    // === Parchemin gauche : l'equipement porte (maquette : 30, 15 -> 540, 1010) ====================
-    PanelFrame {
-        x: 38 * Tokens.uiScale
-        y: 16 * Tokens.uiScale
-        width: 638 * Tokens.uiScale
-        height: 1048 * Tokens.uiScale
-        material: "parchment"
-        bound: true
-        padding: 0
-    }
-
-    FixedArt {
-        x: 38 * Tokens.uiScale
-        y: 16 * Tokens.uiScale
-        width: 96 * Tokens.uiScale
-        height: 120 * Tokens.uiScale
-        key: "ui/ornament/crest-pennant"
-    }
-
-    TitlePlate {
-        x: 140 * Tokens.uiScale
-        y: 44 * Tokens.uiScale
-        width: 510 * Tokens.uiScale
-        material: "black"
-        text: qsTr("Inventaire & équipement")
-    }
-
-    FixedArt {
-        x: 157 * Tokens.uiScale
-        y: 240 * Tokens.uiScale
-        width: 400 * Tokens.uiScale
-        height: 400 * Tokens.uiScale
-        key: "ui/ornament/compass-watermark/parchment"
-    }
-
-    // Cinq emplacements de chaque cote (maquette : x 70 et 420, pas de 110 en hauteur).
-    Column {
-        x: 88 * Tokens.uiScale
-        y: 160 * Tokens.uiScale
-        spacing: 16 * Tokens.uiScale
-
-        Repeater {
-            id: slotsLeft
-
-            model: ["head", "cloak", "torso", "hands", "feet"]
-
-            ItemSlot {
-                id: leftSlot
-
-                required property string modelData
-
-                width: 104 * Tokens.uiScale
-                height: 104 * Tokens.uiScale
-                label: root.equipped[leftSlot.modelData] ? root.equipped[leftSlot.modelData].name : ""
-                equipped: leftSlot.label.length > 0
-                selected: root.selectedSlot === leftSlot.modelData
-            }
+    Rectangle { anchors.fill: parent; color: Tokens.frameEdge }
+    PanelFrame { anchors.fill: parent; anchors.margins: 14 * Tokens.uiScale; material: "parchment"; bound: true; padding: 0 }
+    TitlePlate { anchors.horizontalCenter: parent.horizontalCenter; y: 16 * Tokens.uiScale; width: 1170 * Tokens.uiScale; text: qsTr("Équipement") }
+    CodexTabs { id: codexTabs; anchors.right: parent.right; anchors.rightMargin: 92 * Tokens.uiScale; y: 142 * Tokens.uiScale; currentIndex: 3 }
+    Connections {
+        target: codexTabs
+        function onRequested(index) {
+            root.tabRequested(index)
         }
     }
-
-    Column {
-        x: 530 * Tokens.uiScale
-        y: 160 * Tokens.uiScale
-        spacing: 16 * Tokens.uiScale
-
-        Repeater {
-            id: slotsRight
-
-            model: ["main-hand", "off-hand", "ranged", "ring-left", "neck"]
-
-            ItemSlot {
-                id: rightSlot
-
-                required property string modelData
-
-                width: 104 * Tokens.uiScale
-                height: 104 * Tokens.uiScale
-                label: root.equipped[rightSlot.modelData] ? root.equipped[rightSlot.modelData].name : ""
-                equipped: rightSlot.label.length > 0
-                selected: root.selectedSlot === rightSlot.modelData
-            }
-        }
-    }
-
-    // Les quatre statistiques derivees (maquette : 60, 725 -> 525, 820).
     Row {
-        x: 82 * Tokens.uiScale
-        y: 790 * Tokens.uiScale
-        spacing: 30 * Tokens.uiScale
-
-        StatMedallion { kind: "derived"; label: qsTr("CA"); value: root.armorClass }
-        StatMedallion { kind: "derived"; label: qsTr("INIT."); value: root.initiative }
-        StatMedallion { kind: "derived"; label: qsTr("VITESSE"); value: root.speed }
-        StatMedallion { kind: "derived"; label: qsTr("PERC. PASS."); value: root.passivePerception }
+        x: 90 * Tokens.uiScale
+        y: 146 * Tokens.uiScale
+        spacing: Tokens.gapSmall
+        OrnateButton { id: previousMemberButton; width: 70 * Tokens.uiScale; height: 44 * Tokens.uiScale; text: "◀"; kind: "secondary" }
+        Connections { target: previousMemberButton; function onClicked() { root.memberStepRequested(-1) } }
+        OrnateButton { id: nextMemberButton; width: 70 * Tokens.uiScale; height: 44 * Tokens.uiScale; text: "▶"; kind: "secondary" }
+        Connections { target: nextMemberButton; function onClicked() { root.memberStepRequested(1) } }
     }
 
-    FixedArt {
-        x: 75 * Tokens.uiScale
-        y: 935 * Tokens.uiScale
-        width: 100 * Tokens.uiScale
-        height: 100 * Tokens.uiScale
-        key: "ui/ornament/wax-seal"
-    }
-
-    FixedArt {
-        x: 525 * Tokens.uiScale
-        y: 925 * Tokens.uiScale
-        width: 112 * Tokens.uiScale
-        height: 112 * Tokens.uiScale
-        key: "ui/ornament/crossed-crest"
-    }
-
-    // === Parchemin central : le sac (maquette : 550, 15 -> 1080, 1010) ============================
     PanelFrame {
-        x: 688 * Tokens.uiScale
-        y: 16 * Tokens.uiScale
-        width: 663 * Tokens.uiScale
-        height: 1048 * Tokens.uiScale
+        x: 50 * Tokens.uiScale
+        y: 226 * Tokens.uiScale
+        width: 570 * Tokens.uiScale
+        height: 772 * Tokens.uiScale
         material: "parchment"
-        padding: 0
-    }
-
-    // Onglets de filtre (maquette : 560, 70 -> 1065, 110). Les familles des DONNEES, pas celles de
-    // la maquette : aucun objet n'est « consommable » ou « divers » dans les catalogues.
-    Row {
-        x: 712 * Tokens.uiScale
-        y: 70 * Tokens.uiScale
-        spacing: 4 * Tokens.uiScale
-
-        OrnateTab {
-            id: allTabControl
-            width: 150 * Tokens.uiScale
-            // Marges resserrees : quatre segments tiennent dans la largeur de la grille.
-            leftPadding: 10 * Tokens.uiScale
-            rightPadding: 10 * Tokens.uiScale
-            material: "parchment"
-            text: qsTr("Tous")
-            checkable: false
-            checked: root.filter === 0
-            focusPolicy: Qt.NoFocus
-        }
-        OrnateTab {
-            id: equipmentTabControl
-            width: 150 * Tokens.uiScale
-            // Marges resserrees : quatre segments tiennent dans la largeur de la grille.
-            leftPadding: 10 * Tokens.uiScale
-            rightPadding: 10 * Tokens.uiScale
-            material: "parchment"
-            text: qsTr("Équipement")
-            checkable: false
-            checked: root.filter === 1
-            focusPolicy: Qt.NoFocus
-        }
-        OrnateTab {
-            id: gearTabControl
-            width: 150 * Tokens.uiScale
-            // Marges resserrees : quatre segments tiennent dans la largeur de la grille.
-            leftPadding: 10 * Tokens.uiScale
-            rightPadding: 10 * Tokens.uiScale
-            material: "parchment"
-            text: qsTr("Matériel")
-            checkable: false
-            checked: root.filter === 2
-            focusPolicy: Qt.NoFocus
-        }
-        OrnateTab {
-            id: toolsTabControl
-            width: 150 * Tokens.uiScale
-            // Marges resserrees : quatre segments tiennent dans la largeur de la grille.
-            leftPadding: 10 * Tokens.uiScale
-            rightPadding: 10 * Tokens.uiScale
-            material: "parchment"
-            text: qsTr("Outils")
-            checkable: false
-            checked: root.filter === 3
-            focusPolicy: Qt.NoFocus
-        }
-    }
-
-    // La grille : cinq colonnes sur six rangs (maquette : 575, 140 -> 1060, 755).
-    Grid {
-        id: grid
-
-        x: 719 * Tokens.uiScale
-        y: 150 * Tokens.uiScale
-        columns: 5
-        spacing: 12 * Tokens.uiScale
-
-        Repeater {
-            id: cellsRepeater
-
-            model: root.cells
-
-            ItemSlot {
-                id: cell
-
-                required property var modelData
-
-                width: 110 * Tokens.uiScale
-                height: 96 * Tokens.uiScale
-                label: cell.modelData.name
-                quantity: cell.modelData.quantity
-                selected: root.selectedItem === cell.modelData.itemId
-            }
-        }
-
-        // Les cases libres completent la grille : la place du sac se lit, pas seulement son contenu.
-        Repeater {
-            model: Math.max(0, 30 - root.cells.length)
-
-            ItemSlot {
-                width: 110 * Tokens.uiScale
-                height: 96 * Tokens.uiScale
-                enabled: false
-            }
-        }
-    }
-
-    // La charge (maquette : 570, 780 -> 1060, 840).
-    Item {
-        x: 719 * Tokens.uiScale
-        y: 812 * Tokens.uiScale
-        width: 606 * Tokens.uiScale
-        height: 72 * Tokens.uiScale
-
-        FixedArt {
-            id: weightIcon
-
-            anchors.left: parent.left
-            anchors.verticalCenter: parent.verticalCenter
-            width: 56 * Tokens.uiScale
-            height: 56 * Tokens.uiScale
-            key: "ui/icon/resource/weight"
-        }
-
+        padding: Tokens.gapMedium
+        SectionBanner { width: parent.width; text: qsTr("Équipement porté"); material: "parchment" }
+        Text { y: 70 * Tokens.uiScale; width: parent.width; text: root.characterName; color: Tokens.text; font.family: Tokens.bodyFamily; font.pixelSize: Tokens.fontReading; horizontalAlignment: Text.AlignHCenter; elide: Text.ElideRight }
+        PortraitFrame { anchors.horizontalCenter: parent.horizontalCenter; y: 220 * Tokens.uiScale; size: 270 * Tokens.uiScale; source: root.portrait }
         Text {
-            anchors.left: weightIcon.right
-            anchors.leftMargin: Tokens.gapMedium
-            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: 516 * Tokens.uiScale
+            width: 200 * Tokens.uiScale
+            text: qsTr("Armure\n%1\n\nVitesse\n%2").arg(root.armorClass).arg(root.speed)
+            horizontalAlignment: Text.AlignHCenter
+            color: Tokens.gem
+            font.family: Tokens.bodyFamily
+            font.pixelSize: Tokens.fontReading
+        }
+        Column {
+            y: 110 * Tokens.uiScale
+            spacing: 4 * Tokens.uiScale
+            Repeater {
+                id: slotsLeft
+                model: ["head", "cloak", "torso", "hands", "feet", "belt", "bracers", "neck"]
+                delegate: ItemSlot {
+                    id: leftSlot
+                    required property string modelData
+                    width: 98 * Tokens.uiScale
+                    height: 74 * Tokens.uiScale
+                    label: root.equipped[leftSlot.modelData] && root.equipped[leftSlot.modelData].name.length > 0 ? root.equipped[leftSlot.modelData].name : root.slotLabels[leftSlot.modelData]
+                    equipped: root.equipped[leftSlot.modelData] !== undefined && root.equipped[leftSlot.modelData].itemId.length > 0
+                    selected: root.selectedSlot === leftSlot.modelData
+                }
+            }
+        }
+        Column {
+            anchors.right: parent.right
+            y: 110 * Tokens.uiScale
+            spacing: 4 * Tokens.uiScale
+            Repeater {
+                id: slotsRight
+                model: ["main-hand", "off-hand", "ranged", "ammunition", "ring-left", "ring-right", "pouch", "trinket"]
+                delegate: ItemSlot {
+                    id: rightSlot
+                    required property string modelData
+                    width: 98 * Tokens.uiScale
+                    height: 74 * Tokens.uiScale
+                    label: root.equipped[rightSlot.modelData] && root.equipped[rightSlot.modelData].name.length > 0 ? root.equipped[rightSlot.modelData].name : root.slotLabels[rightSlot.modelData]
+                    equipped: root.equipped[rightSlot.modelData] !== undefined && root.equipped[rightSlot.modelData].itemId.length > 0
+                    selected: root.selectedSlot === rightSlot.modelData
+                }
+            }
+        }
+    }
+    PanelFrame {
+        x: 640 * Tokens.uiScale
+        y: 226 * Tokens.uiScale
+        width: 580 * Tokens.uiScale
+        height: 772 * Tokens.uiScale
+        material: "parchment"
+        padding: Tokens.gapMedium
+        SectionBanner { width: parent.width; text: qsTr("Sac"); material: "parchment" }
+        TextField {
+            id: searchControl
+            objectName: "inventorySearch"
+            y: 70 * Tokens.uiScale
+            width: parent.width
+            height: 48 * Tokens.uiScale
+            placeholderText: qsTr("Rechercher un objet…")
+            font.family: Tokens.bodyFamily
+            font.pixelSize: Tokens.fontReading
+            color: Tokens.text
+            selectByMouse: true
+            background: Rectangle { color: Tokens.surfaceAlt; border.color: Tokens.border; border.width: Tokens.strokeWidth }
+        }
+        Row {
+            y: 132 * Tokens.uiScale
+            spacing: 4 * Tokens.uiScale
+            OrnateTab { id: allTabControl; width: 108 * Tokens.uiScale; leftPadding: Tokens.gapSmall; rightPadding: Tokens.gapSmall; material: "parchment"; text: qsTr("Tous"); checked: root.filter === 0; checkable: false }
+            OrnateTab { id: equipmentTabControl; width: 154 * Tokens.uiScale; leftPadding: Tokens.gapSmall; rightPadding: Tokens.gapSmall; material: "parchment"; text: qsTr("Équipement"); checked: root.filter === 1; checkable: false }
+            OrnateTab { id: gearTabControl; width: 136 * Tokens.uiScale; leftPadding: Tokens.gapSmall; rightPadding: Tokens.gapSmall; material: "parchment"; text: qsTr("Matériel"); checked: root.filter === 2; checkable: false }
+            OrnateTab { id: toolsTabControl; width: 124 * Tokens.uiScale; leftPadding: Tokens.gapSmall; rightPadding: Tokens.gapSmall; material: "parchment"; text: qsTr("Outils"); checked: root.filter === 3; checkable: false }
+        }
+        Flickable {
+            y: 205 * Tokens.uiScale
+            width: parent.width
+            height: 400 * Tokens.uiScale
+            contentHeight: inventoryGrid.implicitHeight
+            clip: true
+            ScrollBar.vertical: OrnateScrollBar {}
+            Grid {
+                id: inventoryGrid
+                width: parent.width
+                columns: 4
+                spacing: Tokens.gapSmall
+                Repeater {
+                    id: cellsRepeater
+                    model: root.cells
+                    delegate: ItemSlot {
+                        id: cell
+                        required property var modelData
+                        width: 125 * Tokens.uiScale
+                        height: 125 * Tokens.uiScale
+                        label: cell.modelData.name
+                        quantity: cell.modelData.quantity
+                        selected: root.selectedItem === cell.modelData.itemId
+                    }
+                }
+            }
+            Text { anchors.centerIn: parent; visible: root.cells.length === 0; text: qsTr("Aucun objet."); color: Tokens.textMuted; font.family: Tokens.bodyFamily; font.pixelSize: Tokens.fontReading }
+        }
+        Text {
+            y: 615 * Tokens.uiScale
             text: qsTr("Poids : %1 / %2").arg(root.carried).arg(root.capacity)
             color: Tokens.text
             font.family: Tokens.bodyFamily
-            font.pixelSize: Tokens.fontBody
+            font.pixelSize: Tokens.fontReading
         }
-
-        Gauge {
-            anchors.left: weightIcon.right
-            anchors.leftMargin: Tokens.gapMedium
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            kind: "weight"
-            value: root.loadRatio
-        }
+        Gauge { y: 650 * Tokens.uiScale; width: 330 * Tokens.uiScale; kind: "weight"; value: root.loadRatio }
+        Text { y: 691 * Tokens.uiScale; text: root.gold + " " + qsTr("po"); color: Tokens.text; font.family: Tokens.bodyFamily; font.pixelSize: Tokens.fontReading }
+        OrnateButton { id: sortControl; anchors.right: parent.right; anchors.bottom: parent.bottom; width: 170 * Tokens.uiScale; text: qsTr("Trier"); kind: "secondary"; enabled: root.canManage && root.cells.length > 1 }
     }
-
-    // L'or, l'ecusson et le tri (maquette : 570, 870 -> 1055, 935).
-    SectionBanner {
-        x: 719 * Tokens.uiScale
-        y: 925 * Tokens.uiScale
-        width: 330 * Tokens.uiScale
-        material: "dark"
-        text: qsTr("Pièces d'or") + "   " + root.gold
-    }
-
-    OrnateButton {
-        id: sortControl
-
-        x: 1105 * Tokens.uiScale
-        y: 925 * Tokens.uiScale
-        width: 220 * Tokens.uiScale
-        kind: "secondary"
-        text: qsTr("Trier")
-    }
-
-    // === Parchemin droit : la fiche de l'objet (maquette : 1090, 15 -> 1515, 1010) ================
     PanelFrame {
-        x: 1363 * Tokens.uiScale
-        y: 16 * Tokens.uiScale
-        width: 531 * Tokens.uiScale
-        height: 1048 * Tokens.uiScale
+        x: 1240 * Tokens.uiScale
+        y: 226 * Tokens.uiScale
+        width: 630 * Tokens.uiScale
+        height: 772 * Tokens.uiScale
         material: "parchment"
-        padding: 0
-    }
-
-    FixedArt {
-        x: 1790 * Tokens.uiScale
-        y: 16 * Tokens.uiScale
-        width: 96 * Tokens.uiScale
-        height: 120 * Tokens.uiScale
-        key: "ui/ornament/crest-pennant"
-    }
-
-    FixedArt {
-        x: 1430 * Tokens.uiScale
-        y: 230 * Tokens.uiScale
-        width: 240 * Tokens.uiScale
-        height: 240 * Tokens.uiScale
-        key: "ui/ornament/compass-watermark/parchment"
-    }
-
-    TitlePlate {
-        anchors.horizontalCenter: parent.left
-        anchors.horizontalCenterOffset: 1615 * Tokens.uiScale
-        y: 96 * Tokens.uiScale
-        width: 440 * Tokens.uiScale
-        material: "black"
-        visible: root.hasSelection
-        text: root.hasSelection ? root.selection.name : ""
-    }
-
-    Text {
-        x: 1420 * Tokens.uiScale
-        y: 380 * Tokens.uiScale
-        width: 430 * Tokens.uiScale
-        visible: !root.hasSelection
-        text: qsTr("Choisissez un objet du sac ou un emplacement porté.")
-        color: Tokens.textMuted
-        font.family: Tokens.loreFamily
-        font.italic: true
-        font.pixelSize: Tokens.fontBody
-        horizontalAlignment: Text.AlignHCenter
-        wrapMode: Text.WordWrap
-    }
-
-    Column {
-        x: 1420 * Tokens.uiScale
-        y: 230 * Tokens.uiScale
-        width: 430 * Tokens.uiScale
-        spacing: Tokens.gapSmall
-        visible: root.hasSelection
-
-        Text {
+        SectionBanner { id: itemTitle; width: parent.width; text: root.selection.name || qsTr("Choisissez un objet"); material: "parchment" }
+        Flickable {
+            anchors.top: itemTitle.bottom
+            anchors.topMargin: Tokens.gapMedium
+            anchors.bottom: itemActions.top
+            anchors.bottomMargin: Tokens.gapMedium
             width: parent.width
-            text: root.hasSelection ? root.selection.kind : ""
-            color: Tokens.text
-            font.family: Tokens.bodyFamily
-            font.pixelSize: Tokens.fontBody
-            wrapMode: Text.WordWrap
+            contentHeight: itemDetails.implicitHeight
+            clip: true
+            ScrollBar.vertical: OrnateScrollBar {}
+            Column {
+                id: itemDetails
+                width: parent.width
+                spacing: Tokens.gapMedium
+                Text { width: parent.width; text: root.selection.kind || ""; color: Tokens.text; font.family: Tokens.bodyFamily; font.pixelSize: Tokens.fontReading; wrapMode: Text.WordWrap }
+                Text { width: parent.width; text: root.selection.damage || root.selection.armor || ""; color: Tokens.gem; font.family: Tokens.bodyFamily; font.pixelSize: Tokens.fontScreenTitle; wrapMode: Text.WordWrap }
+                Text { width: parent.width; text: root.hasSelection ? qsTr("Poids : %1").arg(root.selection.weight || "—") : ""; color: Tokens.text; font.family: Tokens.bodyFamily; font.pixelSize: Tokens.fontReading; wrapMode: Text.WordWrap }
+                Text { width: parent.width; text: root.selection.text || ""; color: Tokens.text; font.family: Tokens.bodyFamily; font.pixelSize: Tokens.fontReading; wrapMode: Text.WordWrap }
+                GoldDivider { width: parent.width; visible: root.selection.replaces !== undefined }
+                Text { width: parent.width; visible: root.selection.replaces !== undefined; text: qsTr("Remplace : %1").arg(root.selection.replaces || ""); color: Tokens.text; font.family: Tokens.bodyFamily; font.pixelSize: Tokens.fontReading; wrapMode: Text.WordWrap }
+                Text {
+                    width: parent.width
+                    visible: root.selection.afterArmor !== undefined
+                    text: qsTr("Avant → Après") + "\n" + qsTr("CA : %1 → %2").arg(root.selection.beforeArmor || "").arg(root.selection.afterArmor || "")
+                          + (root.selection.afterDamage ? "\n" + qsTr("Dés de l’arme : %1 → %2").arg(root.selection.beforeDamage || "—").arg(root.selection.afterDamage) : "")
+                    color: Tokens.text
+                    font.family: Tokens.bodyFamily
+                    font.pixelSize: Tokens.fontReading
+                    wrapMode: Text.WordWrap
+                }
+                Text { width: parent.width; visible: !root.canManage; text: qsTr("L’équipement se change hors combat."); color: Tokens.gem; font.family: Tokens.bodyFamily; font.pixelSize: Tokens.fontReading; wrapMode: Text.WordWrap }
+            }
         }
-
-        Text {
+        Column {
+            id: itemActions
             width: parent.width
-            text: root.hasSelection ? qsTr("Poids : %1").arg(root.selection.weight) : ""
-            color: Tokens.textMuted
-            font.family: Tokens.bodyFamily
-            font.pixelSize: Tokens.fontCaption
-        }
-
-        Item { width: 1; height: 150 * Tokens.uiScale }
-
-        SectionBanner {
-            width: parent.width
-            visible: root.hasSelection && root.selection.damage.length > 0
-            text: qsTr("Dégâts")
-        }
-
-        Text {
-            width: parent.width
-            visible: root.hasSelection && root.selection.damage.length > 0
-            text: root.hasSelection ? root.selection.damage : ""
-            color: Tokens.text
-            font.family: Tokens.titleFamily
-            font.pixelSize: Tokens.fontSectionTitle
-        }
-
-        SectionBanner {
-            width: parent.width
-            visible: root.hasSelection && root.selection.armor.length > 0
-            text: qsTr("Protection")
-        }
-
-        Text {
-            width: parent.width
-            visible: root.hasSelection && root.selection.armor.length > 0
-            text: root.hasSelection ? root.selection.armor : ""
-            color: Tokens.text
-            font.family: Tokens.titleFamily
-            font.pixelSize: Tokens.fontSectionTitle
-        }
-
-        SectionBanner {
-            width: parent.width
-            visible: root.hasSelection && root.selection.text.length > 0
-            text: qsTr("Propriétés")
-        }
-
-        Text {
-            width: parent.width
-            visible: root.hasSelection && root.selection.text.length > 0
-            text: root.hasSelection ? root.selection.text : ""
-            color: Tokens.text
-            font.family: Tokens.bodyFamily
-            font.pixelSize: Tokens.fontBody
-            wrapMode: Text.WordWrap
+            anchors.bottom: parent.bottom
+            spacing: Tokens.gapSmall
+            OrnateButton { id: equipControl; width: parent.width; text: root.selectedSlot.length > 0 ? qsTr("Retirer") : qsTr("Équiper"); enabled: root.canManage && (root.selection.canEquip === true || root.selection.canUnequip === true) }
+            OrnateButton { id: dropControl; width: parent.width; text: qsTr("Jeter un exemplaire"); kind: "secondary"; enabled: root.canManage && root.selection.canDrop === true }
         }
     }
-
-    // Les actions (maquette : 1140, 755 -> 1450, 925). « Equiper » devient « Retirer » sur un
-    // emplacement porte ; « Examiner » n'existe pas : la fiche est deja sous les yeux.
-    Column {
-        x: 1425 * Tokens.uiScale
-        y: 850 * Tokens.uiScale
-        spacing: Tokens.gapMedium
-
-        OrnateButton {
-            id: equipControl
-
-            width: 400 * Tokens.uiScale
-            kind: "primary"
-            enabled: root.hasSelection && (root.selection.canEquip || root.selection.canUnequip)
-            text: root.hasSelection && root.selection.canUnequip ? qsTr("Retirer") : qsTr("Équiper")
-        }
-
-        OrnateButton {
-            id: dropControl
-
-            width: 400 * Tokens.uiScale
-            kind: "secondary"
-            enabled: root.hasSelection && root.selection.canDrop
-            text: qsTr("Jeter")
+    OrnateButton { id: closeButton; anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.margins: 24 * Tokens.uiScale; width: 300 * Tokens.uiScale; kind: "back"; text: qsTr("Retour au jeu") }
+    Connections { target: closeButton; function onClicked() { root.closeRequested() } }
+    Rectangle {
+        anchors.fill: parent
+        visible: root.dropPending
+        color: Tokens.panel
+        opacity: 0.7
+        MouseArea { id: dropBackdrop; anchors.fill: parent }
+        Connections { target: dropBackdrop; function onClicked() { root.dropCancelled() } }
+    }
+    PanelFrame {
+        anchors.centerIn: parent
+        visible: root.dropPending
+        width: 720 * Tokens.uiScale
+        height: 250 * Tokens.uiScale
+        Column {
+            anchors.fill: parent
+            spacing: Tokens.gapLarge
+            Text { width: parent.width; text: qsTr("Jeter un exemplaire de « %1 » ?").arg(root.selection.name || ""); color: Tokens.textOnPanel; font.family: Tokens.bodyFamily; font.pixelSize: Tokens.fontReading; wrapMode: Text.WordWrap }
+            Row {
+                spacing: Tokens.gapMedium
+                OrnateButton { id: dropCancelButton; text: qsTr("Annuler"); kind: "secondary" }
+                Connections { target: dropCancelButton; function onClicked() { root.dropCancelled() } }
+                OrnateButton { id: dropConfirmButton; text: qsTr("Jeter"); kind: "cancel" }
+                Connections { target: dropConfirmButton; function onClicked() { root.dropConfirmed() } }
+            }
         }
     }
 }

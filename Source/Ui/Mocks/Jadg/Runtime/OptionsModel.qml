@@ -12,11 +12,12 @@ QtObject {
     property bool vsync: true
     property bool diagnostics: false
     property int volume: 80
+    property int hudScalePercent: 100
     property string language: "fr"
     readonly property var languages: ["fr", "en"]
     readonly property var languageNames: ["Français", "English"]
     readonly property bool logsAvailable: true
-    readonly property var defaults: ({ fullscreen: false, vsync: true, diagnostics: false, volume: 100, language: "fr" })
+    readonly property var defaults: ({ fullscreen: false, vsync: true, diagnostics: false, volume: 100, hudScalePercent: 100, language: "fr" })
 
     function saveLogs() {
         return "";

@@ -12,6 +12,7 @@ QtObject {
     readonly property string mapId: "capital/martpart"
     readonly property string mapName: "Martpart"
     readonly property string status: ""
+    readonly property var interactionTarget: ({})
     readonly property bool loaded: true
     readonly property int columns: 48
     readonly property int rows: 40

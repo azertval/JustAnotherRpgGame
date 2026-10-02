@@ -19,7 +19,8 @@ namespace hmi {
 struct SheetRow {
     QString id;     ///< Identifiant stable (`strength`, `athletics`) — clé de traduction.
     QString label;  ///< Libellé lisible, tel que le catalogue de règles le donne.
-    QString value;  ///< Valeur **déjà formatée** par la couche pure (« 16 (+3) », « +5 • »).
+    QString value;  ///< Valeur **déjà formatée** par la couche pure (« 16 (+3) », « +5 »).
+    bool marked = false;  ///< Ligne marquée : la pastille pleine d'une compétence maîtrisée.
 };
 
 // Volontairement PAS déclaré comme type QML. Un modèle ne s'instancie jamais depuis le QML : il
@@ -43,11 +44,12 @@ class SheetRowModel : public QAbstractListModel {
     Q_OBJECT
 
 public:
-    /// Rôles lisibles depuis QML : `model.rowId`, `model.label`, `model.value`.
+    /// Rôles lisibles depuis QML : `model.rowId`, `model.label`, `model.value`, `model.marked`.
     enum Role {
         IdRole = Qt::UserRole + 1,
         LabelRole,
         ValueRole,
+        MarkedRole,
     };
 
     explicit SheetRowModel(QObject* parent = nullptr);

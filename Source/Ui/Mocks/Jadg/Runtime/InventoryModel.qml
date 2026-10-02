@@ -19,6 +19,8 @@ QtObject {
         "off-hand": { itemId: "bouclier", name: "Bouclier" }
     })
     property int filter: 0
+    property string query: ""
+    readonly property string characterId: "heros-brawler"
     readonly property var cells: [
         { itemId: "dague", name: "Dague", quantity: 1 },
         { itemId: "torche", name: "Torche", quantity: 5 },
@@ -39,6 +41,8 @@ QtObject {
     readonly property string passivePerception: "13"
 
     function loadDemonstrationCharacter() {}
+    function loadShownCharacter() {}
+    function setQuery(query) {}
     function selectItem(itemId) {}
     function selectSlot(slot) {}
     function equipSelected() {}

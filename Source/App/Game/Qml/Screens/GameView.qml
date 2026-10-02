@@ -32,6 +32,18 @@ GameViewForm {
 
     // Le groupe de la partie (LOT-138) : les fiches se lisent une fois par ecran.
     readonly property PartyModel partyModel: PartyModel {}
+    readonly property QuestJournalModel journal: QuestJournalModel {}
+    readonly property var target: WorldModel.interactionTarget
+    trackedObjective: journal.selected.length > 0 ? journal.detail : ""
+    interactionText: root.target.prompt !== undefined ? qsTr("E — %1").arg(root.target.prompt) : ""
+    interactionX: root.target.column !== undefined ? viewport.originX + (root.target.column - root.target.row) * viewport.tileWidth / 2 + viewport.tileWidth / 2 : 0
+    interactionY: root.target.row !== undefined ? viewport.originY + (root.target.column + root.target.row) * viewport.tileHeight / 2 - viewport.tileHeight : 0
+    onInteractRequested: WorldModel.interact()
+    onObjectiveToggleRequested: root.objectiveExpanded = !root.objectiveExpanded
+    onMemberClicked: (index) => {
+        if (index < partyModel.members.length) WorldModel.setLeader(partyModel.members[index].id)
+        root.forceActiveFocus()
+    }
 
     characterName: partyModel.leaderName
     level: partyModel.leaderLevel
@@ -43,7 +55,7 @@ GameViewForm {
     party: partyModel.members
     activeMember: partyModel.members.length > 0 ? 0 : -1
     quests: PendingData.rows("hud.quests", 2)
-    clock: PendingData.value("hud.clock")
+    clock: ""
     location: WorldModel.loaded ? WorldModel.mapName : PendingData.value("hud.location")
     minimap: PendingData.image("hud.minimap")
 
@@ -256,6 +268,14 @@ GameViewForm {
     }
     Connections {
         target: root.optionsButton
-        function onClicked() { ScreenRouter.openOptions() }
+        function onClicked() { ScreenRouter.openPause() }
+    }
+    Connections {
+        target: root.characterButton
+        function onClicked() { WorldModel.showCharacter(""); ScreenRouter.openCharacterTab(0) }
+    }
+    Connections {
+        target: root.groupButton
+        function onClicked() { ScreenRouter.openRpgScreen(ScreenRouter.Party) }
     }
 }
