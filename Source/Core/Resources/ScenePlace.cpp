@@ -248,15 +248,22 @@ FigureDirectories resolveFigures(const std::filesystem::path& assetsDirectory,
             continue;
         }
         const JsonDocument document = readJsonObjectFromFile(file, 1);
-        const auto npcs = document.ok() ? document.root.find("npcs") : document.root.end();
-        if (!document.ok() || npcs == document.root.end() || !npcs->is_array()) {
+        if (!document.ok()) {
             continue;
         }
-        for (const nlohmann::json& slug : *npcs) {
-            if (slug.is_string() && !slug.get<std::string>().empty()) {
-                // Le plus propre gagne : un niveau plus commun ne remplace pas un slug déjà vu.
-                figures.try_emplace(slug.get<std::string>(),
-                                    level.directory + "/" + slug.get<std::string>());
+        // Les modèles (`npcs`), puis les portraits d'attente (`portraits`) : un personnage sans
+        // modèle a tout de même son dossier, où sont son portrait et son jeton.
+        for (const char* const list : {"npcs", "portraits"}) {
+            const auto slugs = document.root.find(list);
+            if (slugs == document.root.end() || !slugs->is_array()) {
+                continue;
+            }
+            for (const nlohmann::json& slug : *slugs) {
+                if (slug.is_string() && !slug.get<std::string>().empty()) {
+                    // Le plus propre gagne : un niveau plus commun ne remplace pas un slug déjà vu.
+                    figures.try_emplace(slug.get<std::string>(),
+                                        level.directory + "/" + slug.get<std::string>());
+                }
             }
         }
     }

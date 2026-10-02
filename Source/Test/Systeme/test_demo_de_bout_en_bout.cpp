@@ -23,6 +23,7 @@
 #include <QVariant>
 #include <QVariantMap>
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <cstdlib>
 #include <filesystem>
@@ -471,9 +472,12 @@ TEST(DemoDeBoutEnBout, LaDemoSeRejoueAvecLeMeneurChoisi) {
  * \tcrit Critique<br/>
  * \tetapes 1. Jusqu'au parvis ; le garde a une graine dont le d20 echoue : convaincre, puis
  * endosser.<br/>2. L'escalier de l'arene : le vestiaire, la porte close ; la porte du triomphe : le
- * sable.<br/>3. Le maitre d'arene engage la rencontre ; la jouer a la premiere graine qui la
- * gagne.<br/>4. Redescendre, passer la porte ouverte, revenir a l'etal.<br/>
- * \tattendu `persuasion-echouee` puis `condamne` ; la victoire pose `enfant-libere` ; l'ecran de
+ * sable.<br/>3. Le maitre d'arene engage les cinq combats du jugement, l'un apres l'autre ;
+ * jouer le premier a la premiere graine qui le gagne, poser la victoire des
+ * suivants.<br/>4. Redescendre, passer la porte ouverte,
+ * revenir a l'etal.<br/>
+ * 	attendu `persuasion-echouee` puis `condamne` ; un niveau et un repos entre deux combats ; la
+ * quete reste a `condamne` jusqu'a la cinquieme victoire, qui pose `enfant-libere` ; l'ecran de
  * fin s'ouvre par la voie `arene`.
  * }
  */
@@ -499,43 +503,74 @@ TEST(DemoDeBoutEnBout, LaFinParLArene) {
     EXPECT_EQ(jeu.carte(), VESTIAIRES);
     ASSERT_TRUE(jeu.passerLePortail(PIED_DE_L_ESCALIER, {0.0F, -1.0F}, SABLE));
 
-    // Le maitre d'arene ; le combat, a la premiere graine qui le gagne.
-    ASSERT_EQ(jeu.parler(DEVANT_LE_MAITRE), "maitre-arene");
-    ASSERT_NO_FATAL_FAILURE(jeu.repondre({"combattre"}));
-    ASSERT_TRUE(jeu.dialogueEngage.has_value());
-    std::optional<int> gagnante;
-    for (int graine = 1; graine <= 30 && !gagnante; ++graine) {
-        const std::string issue = jeu.combattreALaGraine(graine);
-        ASSERT_FALSE(issue.empty()) << "graine " << graine << " : pas d'issue";
-        if (issue == "victory") {
-            gagnante = graine;
-            jeu.quitterLeCombat();
-            ASSERT_NE(jeu.router.currentScreen(), Screen::Death) << "graine " << graine;
-            break;
+    // Le maitre d'arene, et les cinq combats du jugement : le premier se joue a la premiere
+    // graine qui le gagne ; entre deux, le maitre donne un niveau et un repos, puis engage le
+    // suivant.
+    constexpr std::array<std::string_view, 5> CHAINE = {
+        RENCONTRE, "arene-gladiateurs", "arene-morts", "arene-veteran", "arene-capitaine"};
+    for (std::size_t rang = 0; rang < CHAINE.size(); ++rang) {
+        ASSERT_EQ(jeu.parler(DEVANT_LE_MAITRE), "maitre-arene") << "le maitre reste";
+        jeu.dialogueEngage.reset();
+        if (rang == 0) {
+            ASSERT_NO_FATAL_FAILURE(jeu.repondre({"combattre"}));
+        } else {
+            ASSERT_NO_FATAL_FAILURE(jeu.repondre({"continue", "combattre"}));
+            for (const std::string& membre : jeu.monde.party().members()) {
+                const core::MemberRecord* const record = jeu.monde.ledger().record(membre);
+                ASSERT_NE(record, nullptr) << membre;
+                EXPECT_EQ(record->level, static_cast<int>(rang) + 1)
+                    << membre << " : un niveau par victoire";
+                EXPECT_FALSE(record->hitPoints.has_value()) << membre << " : le repos";
+            }
         }
-        // Une graine perdante ouvrirait l'ecran de mort (LOT-119) ; on cherche la gagnante, et
-        // une defaite ne laisse rien aux fiches (LOT-139) : on quitte simplement la rencontre,
-        // le groupe entier, et l'on reessaie a la graine suivante.
-        jeu.rencontre.leave();
-        jeu.router.closeRpgScreen();
-        jeu.monde.setFrozen(false);
+        ASSERT_EQ(jeu.dialogueEngage, std::string{CHAINE[rang]});
+        if (rang > 0) {
+            // Le joueur du harnais -- la premiere action, sur la cible suivante -- ne gagne pas
+            // les combats suivants, et un combat engage ne se quitte pas avant son issue : ils
+            // se jouent, niveau par niveau et par l'IA, dans `SerieDeLArene`. Ici le maitre a
+            // engage la bonne rencontre, le groupe monte de niveau ; sa victoire se pose.
+            if (jeu.router.currentScreen() == Screen::RpgScreen) {
+                jeu.router.closeRpgScreen();
+            }
+            jeu.monde.setFrozen(false);
+            ASSERT_TRUE(jeu.monde.flags().set(core::encounterWonFlag(CHAINE[rang])));
+        } else {
+            std::optional<int> gagnante;
+            for (int graine = 1; graine <= 30 && !gagnante; ++graine) {
+                const std::string issue = jeu.combattreALaGraine(graine);
+                ASSERT_FALSE(issue.empty()) << "graine " << graine << " : pas d'issue";
+                if (issue == "victory") {
+                    gagnante = graine;
+                    jeu.quitterLeCombat();
+                    ASSERT_NE(jeu.router.currentScreen(), Screen::Death) << "graine " << graine;
+                    break;
+                }
+                // Une graine perdante ouvrirait l'ecran de mort (LOT-119) ; on cherche la
+                // gagnante, et une defaite ne laisse rien aux fiches (LOT-139) : on quitte
+                // simplement la rencontre, le groupe entier, et l'on reessaie a la graine
+                // suivante.
+                jeu.rencontre.leave();
+                jeu.router.closeRpgScreen();
+                jeu.monde.setFrozen(false);
+            }
+            ASSERT_TRUE(gagnante.has_value()) << "aucune graine gagnante en trente";
+            ::testing::Test::RecordProperty("graine_gagnante", *gagnante);
+        }
+        EXPECT_TRUE(jeu.monde.flags().isSet(core::encounterWonFlag(CHAINE[rang])));
+        if (rang + 1 < CHAINE.size()) {
+            // Tant que les cinq ne sont pas gagnes, la quete ne bouge pas.
+            static_cast<void>(pomper([] { return false; }, 50));
+            EXPECT_EQ(jeu.valeur(), "condamne") << "apres " << CHAINE[rang];
+        }
     }
-    ASSERT_TRUE(gagnante.has_value()) << "aucune graine gagnante en trente";
-    ::testing::Test::RecordProperty("graine_gagnante", *gagnante);
-    EXPECT_TRUE(jeu.monde.flags().isSet(core::encounterWonFlag(RENCONTRE)));
+    // La cinquieme victoire : la foule rend son jugement.
     ASSERT_TRUE(pomper([&jeu] { return jeu.etapes.size() >= 5; }, 1000));
     EXPECT_EQ(jeu.etapes.back(), "pommes/enfant-libere");
     EXPECT_EQ(jeu.valeur(), "enfant-libere");
-    // Le maitre reste sur le sable (LOT-142) : il donne au groupe un niveau et un repos, puis
-    // propose les gladiateurs ; on les remet a plus tard.
+    // Le maitre reste sur le sable (LOT-142) : un repos, et le champion pour la gloire ; on le
+    // remet a plus tard.
     ASSERT_EQ(jeu.parler(DEVANT_LE_MAITRE), "maitre-arene") << "le maitre reste";
     ASSERT_NO_FATAL_FAILURE(jeu.repondre({"continue", "attendre"}));
-    for (const std::string& membre : jeu.monde.party().members()) {
-        const core::MemberRecord* const record = jeu.monde.ledger().record(membre);
-        ASSERT_NE(record, nullptr) << membre;
-        EXPECT_EQ(record->level, 2) << membre << " : le niveau de la victoire";
-        EXPECT_FALSE(record->hitPoints.has_value()) << membre << " : le repos";
-    }
 
     // Le retour : l'escalier, la porte ouverte, le parvis, l'avenue, l'etal.
     ASSERT_TRUE(jeu.passerLePortail(PORTE_DU_TRIOMPHE, {0.0F, -1.0F}, VESTIAIRES));

@@ -1230,7 +1230,7 @@
       "x": 8,
       "y": 10,
       "dialogue": "maitre-arene",
-      "figure": "",
+      "figure": "arena-master",
       "guards": "",
       "presenceFlag": "quete.pommes",
       "presenceTest": "equals",
@@ -1253,7 +1253,7 @@
       "x": 24,
       "y": 6,
       "encounterId": "arene-gladiateurs",
-      "presenceFlag": "encounter/arene-bandits/won",
+      "presenceFlag": "arene/recompense-1",
       "presenceTest": "set",
       "respawns": false
     },
@@ -1263,7 +1263,7 @@
       "x": 24,
       "y": 8,
       "encounterId": "arene-morts",
-      "presenceFlag": "encounter/arene-bandits/won",
+      "presenceFlag": "arene/recompense-2",
       "presenceTest": "set",
       "respawns": false
     },
@@ -1273,7 +1273,7 @@
       "x": 24,
       "y": 12,
       "encounterId": "arene-veteran",
-      "presenceFlag": "encounter/arene-bandits/won",
+      "presenceFlag": "arene/recompense-3",
       "presenceTest": "set",
       "respawns": false
     },
@@ -1283,7 +1283,7 @@
       "x": 24,
       "y": 14,
       "encounterId": "arene-capitaine",
-      "presenceFlag": "encounter/arene-bandits/won",
+      "presenceFlag": "arene/recompense-4",
       "presenceTest": "set",
       "respawns": false
     },
@@ -1293,7 +1293,7 @@
       "x": 23,
       "y": 10,
       "encounterId": "arene-champion",
-      "presenceFlag": "encounter/arene-bandits/won",
+      "presenceFlag": "arene/recompense-5",
       "presenceTest": "set",
       "respawns": false
     }

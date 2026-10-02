@@ -14,6 +14,7 @@
  */
 
 #include <algorithm>
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <filesystem>
@@ -331,10 +332,11 @@ TEST(QueteDesPommes, LaVoieDeLaParole) {
  * \tetapes 1. Jusqu'au garde ; convaincre avec un jet qui echoue, puis endosser.<br/>2. L'escalier
  * de l'arene : on arrive au vestiaire A, et la porte du couloir arrete le pas.<br/>3. La porte du
  * triomphe : le sable ; le maitre d'arene engage la rencontre ; la jouer a la premiere graine qui
- * la gagne.<br/>4. Redescendre, passer la porte ouverte, revenir a l'etal.<br/>
+ * la gagne.<br/>4. Reparler au maitre apres chaque victoire, jusqu'au capitaine : quatre
+ * combats de plus.<br/>5. Redescendre, passer la porte ouverte, revenir a l'etal.<br/>
  * \tattendu `persuasion-echouee` puis `condamne` ; le portail du -1 arrive au vestiaire ; la porte
- * bloque sous `condamne` et s'ouvre apres ; la victoire pose `enfant-libere` ; la demo se clot par
- * la voie `arene`.
+ * bloque sous `condamne` et s'ouvre apres ; la cinquieme victoire, et elle seule, pose
+ * `enfant-libere` ; la demo se clot par la voie `arene`.
  * }
  */
 TEST(QueteDesPommes, LaVoieDeLArene) {
@@ -388,15 +390,36 @@ TEST(QueteDesPommes, LaVoieDeLArene) {
     static_cast<void>(
         core::endEncounter(engagee, core::CombatOutcome::Victory, partie.session().flags()));
     EXPECT_TRUE(partie.drapeaux().isSet(core::encounterWonFlag(RENCONTRE)));
+    // Un combat ne suffit pas : le jugement en demande cinq. La quete ne bouge pas, et le
+    // marqueur du combat suivant ne parait qu'avec la recompense du maitre.
+    EXPECT_TRUE(partie.etapesAtteintes().empty());
+    EXPECT_EQ(partie.valeur(), "condamne");
+
+    // La suite de la chaine : a chaque retour, le maitre donne un niveau et un repos
+    // (`arene/recompense-N`), puis engage le combat suivant. Les combats eux-memes sont joues,
+    // niveau par niveau, par `SerieDeLArene` ; ici, leur victoire se pose.
+    constexpr std::array<std::string_view, 4> SUITE = {"arene-gladiateurs", "arene-morts",
+                                                       "arene-veteran", "arene-capitaine"};
+    for (std::size_t rang = 0; rang < SUITE.size(); ++rang) {
+        ASSERT_EQ(partie.parlerDepuis(DEVANT_LE_MAITRE), "maitre-arene") << "le maitre reste";
+        const Demandes suite = partie.converser("maitre-arene", {"combattre"});
+        ASSERT_EQ(suite.rencontres, (std::vector<std::string>{std::string{SUITE[rang]}}));
+        EXPECT_TRUE(partie.drapeaux().isSet("arene/recompense-" + std::to_string(rang + 1)));
+        EXPECT_EQ(partie.valeur(), "condamne") << SUITE[rang] << " n'est pas encore gagne";
+        ASSERT_TRUE(partie.session().flags().set(core::encounterWonFlag(SUITE[rang])));
+        if (rang + 1 < SUITE.size()) {
+            EXPECT_TRUE(partie.etapesAtteintes().empty()) << "apres " << SUITE[rang];
+        }
+    }
+    // Le cinquieme combat gagne : la foule rend son jugement.
     EXPECT_EQ(partie.etapesAtteintes(),
               (std::vector<std::string>{"pommes/victoire", "pommes/enfant-libere"}));
     EXPECT_EQ(partie.valeur(), "enfant-libere");
-    // Le maitre reste sur le sable (LOT-142) : il donne un niveau et un repos, et propose la
-    // suite de la serie. Le combat suivant se remet a plus tard.
+    // Le maitre reste (LOT-142) : il ne propose plus que le champion, pour la gloire.
     ASSERT_EQ(partie.parlerDepuis(DEVANT_LE_MAITRE), "maitre-arene") << "le maitre reste";
-    const Demandes suite = partie.converser("maitre-arene", {"combattre"});
-    EXPECT_EQ(suite.rencontres, (std::vector<std::string>{"arene-gladiateurs"}));
-    EXPECT_TRUE(partie.drapeaux().isSet("arene/recompense-1"));
+    const Demandes gloire = partie.converser("maitre-arene", {"attendre"});
+    EXPECT_TRUE(gloire.rencontres.empty());
+    EXPECT_TRUE(partie.drapeaux().isSet("arene/recompense-5"));
 
     // Le retour : l'escalier, la porte ouverte, le parvis, l'avenue, l'etal.
     ASSERT_EQ(partie.marcherJusquA(PORTE_DU_TRIOMPHE, {0.0F, -1.0F},

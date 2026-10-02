@@ -181,7 +181,8 @@ signals:
 protected:
     [[nodiscard]] const core::BehaviorCatalog* behaviors() const override;
     /// Un membre du groupe : sa classe, le niveau de sa fiche, son portrait et son jeton
-    /// (`Common/Characters/Heroes/<classe>/token.png`) ; une créature : rien (`LOT-140`).
+    /// (`Common/Characters/Heroes/<classe>/token.png`) ; une créature : le portrait et le jeton
+    /// de sa figurine nommée, s'ils sont installés (`LOT-1006`).
     [[nodiscard]] Identity identityOf(core::CombatantId combatant) const override;
     /// Sur la carte, l'IA ne joue pas d'un bloc : `tick` joue un tour quand la file est vide.
     void playAiTurns() override;
@@ -197,6 +198,9 @@ private:
         bool hero = false;
         /// Le modèle de la figurine (`LOT-1005`), vide si rien n'est installé.
         std::string model;
+        /// Le dossier de la figurine nommée, où sont son portrait et son jeton — celui de la
+        /// créature même quand un mannequin la dessine. Vide pour un membre du groupe.
+        std::string named;
     };
 
     /// Lit les catalogues à la première rencontre ; @return faux s'il manque l'essentiel.

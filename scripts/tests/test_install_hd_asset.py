@@ -443,3 +443,22 @@ def test_un_dossier_hors_de_la_cible_est_refuse(tmp_path, folder):
     path.write_text(json.dumps(data), encoding='utf-8')
     with pytest.raises(M.DescriptorError, match='dossier'):
         M.read_descriptor(path)
+
+
+def test_un_personnage_de_zone_se_lie_au_squelette_du_monde(characters):
+    """Le squelette est commun : un personnage rangé dans le Characters/ d'une zone s'installe dès que
+    `Common/Characters/Skeletons/` le porte, sans le redéclarer."""
+    target, sources = characters
+    assert M.main([str(figure_descriptor(sources, [BRAWLER], skeletons=SKELETONS))]) == 0
+    zone = target.parent.parent / 'Regions' / 'empire' / 'arene' / 'Characters'
+    zone.mkdir(parents=True)
+    (zone / 'manifest.json').write_text(json.dumps({'version': 1, 'tile': list(TILE), 'npcs': []}),
+                                        encoding='utf-8')
+    (sources / 'zone').mkdir()
+    descriptor = figure_descriptor(
+        sources / 'zone', [{'name': 'bandit', 'model': '../brawler/brawler.glb', 'skeleton': 'humanoid'}],
+        target='Regions/empire/arene/Characters')
+    assert M.main([str(descriptor)]) == 0
+    assert sorted(p.name for p in (zone / 'bandit').iterdir()) == ['bandit.glb', 'character.json']
+    manifest = json.loads((zone / 'manifest.json').read_text(encoding='utf-8'))
+    assert manifest['npcs'] == ['bandit'] and 'skeletons' not in manifest

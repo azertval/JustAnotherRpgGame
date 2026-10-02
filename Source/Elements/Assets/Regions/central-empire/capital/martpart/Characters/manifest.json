@@ -4,6 +4,18 @@
     256,
     159
   ],
-  "comment": "Vide : les PNJ nommes de le quartier du marché (LOT-110).",
-  "npcs": []
+  "npcs": [],
+  "portraits": [
+    "mother"
+  ],
+  "sources": {
+    "mother/portrait.png": {
+      "file": "Personnages/mother/portraits/source.png",
+      "sha256": "1e507ca656198fbceea40fb5cef74f92ad75136862fdaad70358f1c297d34414"
+    },
+    "mother/token.png": {
+      "file": "Personnages/mother/portraits/source.png",
+      "sha256": "1e507ca656198fbceea40fb5cef74f92ad75136862fdaad70358f1c297d34414"
+    }
+  }
 }

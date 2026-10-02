@@ -54,6 +54,7 @@ const ResolvedFigure& FigureResolver::resolve(std::string_view figure, std::stri
     const std::string named = appearance.figureDirectory(figure);
     if (hasModel(named, resolved)) {
         resolved.directory = named;
+        resolved.named = named;
         return _found.emplace(key, std::move(resolved)).first->second;
     }
     // 2. Le mannequin de sa silhouette ; 3. l'humanoide.
@@ -62,11 +63,13 @@ const ResolvedFigure& FigureResolver::resolve(std::string_view figure, std::stri
             hasModel(mannequin, resolved)) {
             resolved.directory = mannequin;
             resolved.placeholder = true;
+            resolved.named = named;
             return _found.emplace(key, std::move(resolved)).first->second;
         }
     }
     // Rien d'installe : la figurine nommee telle quelle, et son marqueur au rendu.
-    resolved = ResolvedFigure{.directory = named, .placeholder = false, .model = {}, .skeleton = {}};
+    resolved = ResolvedFigure{
+        .directory = named, .placeholder = false, .named = named, .model = {}, .skeleton = {}};
     return _found.emplace(key, std::move(resolved)).first->second;
 }
 

@@ -1,6 +1,6 @@
 # Core · Resources
 
-Tests unitaires — **33 cas** (12 bloquants, 6 critiques, 14 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **34 cas** (12 bloquants, 6 critiques, 15 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -9,7 +9,7 @@ Tests unitaires — **33 cas** (12 bloquants, 6 critiques, 14 majeurs, 1 mineur)
 | [`test_asset_keys.cpp`](#test-asset-keyscpp) | 9 | - | 6 | 3 | - |
 | [`test_mesh_file.cpp`](#test-mesh-filecpp) | 7 | 3 | - | 3 | 1 |
 | [`test_scene_piece_manifest.cpp`](#test-scene-piece-manifestcpp) | 3 | 2 | - | 1 | - |
-| [`test_scene_place.cpp`](#test-scene-placecpp) | 8 | 3 | - | 5 | - |
+| [`test_scene_place.cpp`](#test-scene-placecpp) | 9 | 3 | - | 6 | - |
 | [`test_skeleton.cpp`](#test-skeletoncpp) | 6 | 4 | - | 2 | - |
 
 ## test_asset_keys.cpp
@@ -593,6 +593,22 @@ Les figurines d'un lieu viennent de ses niveaux.
 - Vérifie que `core::figureDirectory({}, "Monsters/lion")` vaut `"Monsters/lion"`.
 - Vérifie que `core::figureDirectory({}, "figurant")` vaut `"Npc/figurant"`.
 - Vérifie que `core::figureDirectory({}, "")` vaut `""`.
+
+### ScenePlaceTest.UnPortraitDAttenteEstUneFigurineNommee
+
+*Majeur · Unitaire · Arborescence* — `Source/Test/Unit/Core/Resources/test_scene_place.cpp:312`
+
+Un personnage sans modele garde son dossier.
+
+**Étapes**
+
+1. Ecrire le manifeste d'un dossier Characters/ du monde : un modele sous `npcs`, un portrait d'attente sous `portraits`.
+2. Resoudre les figurines.
+
+**Résultat attendu**
+
+- Vérifie que `core::figureDirectory(figures, "bandit")` vaut `"Common/Characters/bandit"`.
+- Vérifie que `core::figureDirectory(figures, "thug")` vaut `"Common/Characters/thug"`.
 
 ## test_skeleton.cpp
 

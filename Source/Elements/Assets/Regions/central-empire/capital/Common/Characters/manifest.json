@@ -4,6 +4,18 @@
     256,
     159
   ],
-  "comment": "Vide : les citadins de la Capitale (LOT-105).",
-  "npcs": []
+  "npcs": [],
+  "portraits": [
+    "child"
+  ],
+  "sources": {
+    "child/portrait.png": {
+      "file": "Personnages/child/portraits/source.png",
+      "sha256": "20f98c09f296c325da87e2aaf530e56ab352d0ef6e41a1cd12a720e997158dcf"
+    },
+    "child/token.png": {
+      "file": "Personnages/child/portraits/source.png",
+      "sha256": "20f98c09f296c325da87e2aaf530e56ab352d0ef6e41a1cd12a720e997158dcf"
+    }
+  }
 }

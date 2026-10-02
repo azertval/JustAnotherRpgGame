@@ -68,11 +68,14 @@ TEST(FigureResolverTest, LaRegleDeRepliEnTroisTemps) {
     EXPECT_EQ(heros.directory, "Common/Characters/Heroes/brawler");
     EXPECT_EQ(heros.model, "Common/Characters/Heroes/brawler/brawler.glb");
     EXPECT_FALSE(heros.placeholder);
+    EXPECT_EQ(heros.named, heros.directory);
 
     const hmi::ResolvedFigure& loup = resolveur.resolve("wolf", "quadruped", table);
     EXPECT_EQ(loup.directory, hmi::mannequinFigureDirectory("quadruped"));
     EXPECT_EQ(loup.model, hmi::mannequinFigureDirectory("quadruped") + "/modele.glb");
     EXPECT_TRUE(loup.placeholder);
+    EXPECT_EQ(loup.named, table.figureDirectory("wolf"))
+        << "le dossier nomme reste connu sous le mannequin : le jeton du loup y est";
 
     const hmi::ResolvedFigure& garde = resolveur.resolve("guard", {}, table);
     EXPECT_EQ(garde.directory, hmi::mannequinFigureDirectory(hmi::DEFAULT_SILHOUETTE));

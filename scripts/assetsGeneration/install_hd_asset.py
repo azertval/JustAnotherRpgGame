@@ -829,8 +829,10 @@ def build_figures(descriptor: Descriptor, only: str | None = None) -> list[Insta
             if not skinned:
                 raise DescriptorError(f"{figure.model} : le modèle n'est pas lié à un squelette "
                                       "(scripts/assetsGeneration/rig_character.py)")
+            # Le squelette est commun au monde : un personnage de zone se lie à celui de
+            # `Common/Characters/Skeletons/`, là où le moteur le lit.
             if figure.skeleton not in known and not (
-                    descriptor.target_dir / "Skeletons" / figure.skeleton / "skeleton.json").is_file():
+                    ASSETS / "Common" / "Characters" / "Skeletons" / figure.skeleton / "skeleton.json").is_file():
                 raise DescriptorError(f"{figure.name} : squelette `{figure.skeleton}` ni au descripteur, "
                                       "ni installé")
             installed.model = data

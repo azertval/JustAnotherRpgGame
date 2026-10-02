@@ -461,7 +461,7 @@
       "x": 10,
       "y": 5,
       "dialogue": "mere",
-      "figure": "",
+      "figure": "mother",
       "guards": ""
     },
     {
@@ -470,7 +470,7 @@
       "x": 11,
       "y": 5,
       "dialogue": "enfant",
-      "figure": "",
+      "figure": "child",
       "guards": "",
       "presenceFlag": "quete.pommes",
       "presenceTest": "equals",

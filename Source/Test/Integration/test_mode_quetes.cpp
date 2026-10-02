@@ -74,7 +74,7 @@ constexpr std::string_view ARENAREA = "central-empire/capital/arenarea";
                         .when = {fait("dialogue/garde/jet-persuasion/failed")}},
         core::QuestStep{.id = "condamne", .when = {egal("condamne")}},
         core::QuestStep{.id = "victoire",
-                        .when = {fait("encounter/arene-bandits/won")},
+                        .when = {fait("encounter/arene-capitaine/won")},
                         .effects = {core::QuestEffect{.kind = core::QuestEffect::Kind::SetFlag,
                                                       .flag = "quete.pommes",
                                                       .value = "enfant-libere"}}},

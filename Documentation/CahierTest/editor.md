@@ -884,23 +884,23 @@ Sauvegarder les touches d'éditeur préserve une section « jeu » déjà prése
 - Vérifie que `content.find("\"jeu\"")` diffère de `std::string::npos`.
 - Vérifie que `content.find("sauter")` diffère de `std::string::npos`.
 
-### EditorKeyBindingsTest.SavePreserveLaSectionManette
+### EditorKeyBindingsTest.SavePreserveLaSectionInconnue
 
 *Majeur · Unitaire · Editor Key Bindings* — `Source/Test/Unit/Editor/test_editor_key_bindings.cpp:162`
 
-Sauvegarder les touches d'editeur preserve une section manette deja presente.
+Sauvegarder les touches d'editeur preserve une section inconnue deja presente.
 
 **Étapes**
 
-1. Ecrire un fichier avec une section manette.
+1. Ecrire un fichier avec une section de métadonnées.
 2. Sauvegarder des touches d'editeur dessus.
 3. Relire le fichier.
 
 **Résultat attendu**
 
 - Vérifie que `bindings.save(path)` est vrai.
-- Vérifie que `content.find("\"manette\"")` diffère de `std::string::npos`.
-- Vérifie que `content.find("sauter")` diffère de `std::string::npos`.
+- Vérifie que `content.find("\"metadata\"")` diffère de `std::string::npos`.
+- Vérifie que `content.find("revision")` diffère de `std::string::npos`.
 
 ## test_editor_sidecar.cpp
 

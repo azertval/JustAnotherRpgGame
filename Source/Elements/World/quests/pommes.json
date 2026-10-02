@@ -24,7 +24,7 @@
     },
     {
       "id": "victoire",
-      "when": [{ "flag": "encounter/arene-bandits/won" }],
+      "when": [{ "flag": "encounter/arene-capitaine/won" }],
       "effects": [{ "type": "setFlag", "flag": "quete.pommes", "value": "enfant-libere" }]
     },
     {

@@ -275,9 +275,11 @@ Le resolveur applique la regle de repli en trois temps.
 - Vérifie que `heros.directory` vaut `"Common/Characters/Heroes/brawler"`.
 - Vérifie que `heros.model` vaut `"Common/Characters/Heroes/brawler/brawler.glb"`.
 - Vérifie que `heros.placeholder` est faux.
+- Vérifie que `heros.named` vaut `heros.directory`.
 - Vérifie que `loup.directory` vaut `hmi::mannequinFigureDirectory("quadruped")`.
 - Vérifie que `loup.model` vaut `hmi::mannequinFigureDirectory("quadruped") + "/modele.glb"`.
 - Vérifie que `loup.placeholder` est vrai.
+- Vérifie que `loup.named` vaut `table.figureDirectory("wolf")`.
 - Vérifie que `garde.directory` vaut `hmi::mannequinFigureDirectory(hmi::DEFAULT_SILHOUETTE)`.
 - Vérifie que `garde.placeholder` est vrai.
 - Vérifie que `oiseau.directory` vaut `hmi::mannequinFigureDirectory(hmi::DEFAULT_SILHOUETTE)`.
@@ -287,7 +289,7 @@ Le resolveur applique la regle de repli en trois temps.
 
 ### FigureResolverTest.LaReponseSeRetientJusquAClear
 
-*Majeur · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:96`
+*Majeur · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:99`
 
 Le resolveur retient ce qu'il a trouve jusqu'a ce qu'on l'oublie.
 
@@ -307,7 +309,7 @@ Le resolveur retient ce qu'il a trouve jusqu'a ce qu'on l'oublie.
 
 ### FigureResolverTest.UneFigurineEstUnModele
 
-*Critique · Unitaire · Mannequins · Squelette* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:123`
+*Critique · Unitaire · Mannequins · Squelette* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:126`
 
 Une figurine est un modele : une fiche, un fichier, un squelette.
 

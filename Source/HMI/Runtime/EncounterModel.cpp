@@ -171,8 +171,24 @@ const core::BehaviorCatalog* EncounterModel::behaviors() const {
 
 CombatModel::Identity EncounterModel::identityOf(core::CombatantId combatant) const {
     Identity identity;
+    // Le portrait et le jeton sont a cote de la figurine : celle de la classe pour un membre du
+    // groupe, celle que la creature nomme pour un adversaire.
+    const auto images = [&identity](const std::filesystem::path& figure) {
+        std::error_code erreur;
+        for (const auto& [nom, cible] : {std::pair{"portrait.png", &identity.portrait},
+                                         std::pair{"token.png", &identity.token}}) {
+            const std::filesystem::path image = figure / nom;
+            if (std::filesystem::is_regular_file(image, erreur)) {
+                *cible = QUrl::fromLocalFile(QString::fromStdString(image.string()));
+            }
+        }
+    };
     const auto membre = std::ranges::find(_members, combatant, &Member::combatant);
     if (membre == _members.end()) {
+        const auto binding = _bindings.find(combatant);
+        if (binding != _bindings.end() && !binding->second.named.empty()) {
+            images(dataDirectory() / "Assets" / binding->second.named);
+        }
         return identity;
     }
     identity.classId = toQt(membre->classId);
@@ -192,16 +208,7 @@ CombatModel::Identity EncounterModel::identityOf(core::CombatantId combatant) co
             }
         }
     }
-    const std::filesystem::path figure =
-        dataDirectory() / "Assets" / WorldModel::heroFigureOf(membre->classId);
-    std::error_code erreur;
-    for (const auto& [nom, cible] :
-         {std::pair{"portrait.png", &identity.portrait}, std::pair{"token.png", &identity.token}}) {
-        const std::filesystem::path image = figure / nom;
-        if (std::filesystem::is_regular_file(image, erreur)) {
-            *cible = QUrl::fromLocalFile(QString::fromStdString(image.string()));
-        }
-    }
+    images(dataDirectory() / "Assets" / WorldModel::heroFigureOf(membre->classId));
     return identity;
 }
 
@@ -416,7 +423,7 @@ void EncounterModel::bindFigures(WorldModel& world, const core::ArenaMount& moun
             meneur ? world.play().heroResolved()
                    : world.play().resolveHero(WorldModel::heroFigureOf(membre.classId));
         _bindings[membre.combatant] =
-            Binding{.directory = figure.directory, .hero = meneur, .model = figure.model};
+            Binding{.directory = figure.directory, .hero = meneur, .model = figure.model, .named = {}};
         // Les gestes d'un modele durent ses clips et portent a leur image cle (LOT-1005).
         _cues.setTimings(membre.combatant, CombatCueTrack::timingsOf(figure.skeleton.get()));
     }
@@ -430,7 +437,10 @@ void EncounterModel::bindFigures(WorldModel& world, const core::ArenaMount& moun
             world.play().resolveFigure(creature->id, creature->silhouette);
         const core::CombatantId enemy = mount.enemies[rang++];
         _bindings[enemy] =
-            Binding{.directory = figure.directory, .hero = false, .model = figure.model};
+            Binding{.directory = figure.directory,
+                    .hero = false,
+                    .model = figure.model,
+                    .named = figure.named};
         _cues.setTimings(enemy, CombatCueTrack::timingsOf(figure.skeleton.get()));
     }
 }

@@ -48,6 +48,9 @@ struct ResolvedFigure {
     std::string directory;
     /// Vrai si c'est un mannequin qui tient la place de la figurine nommée.
     bool placeholder = false;
+    /// Le dossier de la figurine **nommée**, même quand un mannequin tient sa place : son portrait
+    /// et son jeton y sont (`portrait.png`, `token.png`). Vide si rien n'est nommé.
+    std::string named;
     /// Le modèle de la figurine (`LOT-1005`) : le chemin de son `.glb`, relatif au dossier des
     /// assets. Vide : rien n'est installé, elle se dessine par son marqueur.
     std::string model;

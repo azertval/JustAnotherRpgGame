@@ -78,9 +78,14 @@ pose — le buste du maillage est **vrillé d'environ 45°** sur ses pieds, la h
 deux mains, et le visage, de trois quarts, se lit mal sous la caméra du jeu. L'auteur a accepté ce
 brawler en l'état ; la règle vaut pour les suivants.
 
-> **Non mesuré.** Aucun maillage n'a encore été généré depuis une telle image : la première série
-> ([LOT-1009](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1009-les-quatre-heros.md)) l'éprouve
-> sur son premier personnage, et corrige cette section s'il le faut.
+> **Mesuré au [LOT-1006](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1006-corps-de-reference.md)**, sur le bandit, premier personnage produit selon cette
+> règle (2 octobre 2026). Sa référence est une vue de face, mains vides ; Meshy, avec son option de
+> pose en T (mise à jour de l'auteur en tête de page), rend un maillage **bras à l'horizontale** :
+> 1,81 m d'envergure, 1,90 m de haut, 0,43 m de profondeur, 100 000 triangles après réduction. Sur
+> sa planche de liaison le buste et le visage sont de face, d'aplomb sur les pieds : le vrillage de
+> la preuve ne se reproduit pas. Il s'est lié par sa seule fiche de liaison, estimée par le script,
+> sans volume rigide (`rigid` vide). La lisibilité du visage à 100 px par case reste un
+> jugement de l'auteur, dans le jeu.
 
 ## 4. La génération
 
@@ -163,14 +168,16 @@ articulation déplacée, un volume ajusté — et le script se rejoue.
 
 Les animations sont posées **une fois**, sur le squelette, et rejouées par tous les humanoïdes.
 
-| Clip | Durée mesurée | Boucle | État à la preuve |
-|---|---:|---|---|
-| `idle` | 1,000 s | oui | pose simple |
-| `walk` | 0,500 s | oui | **soigné** : c'est l'animation jugée par l'auteur |
-| `attack` | 0,875 s | non | pose simple |
-| `hit` | 0,703 s | non | pose simple |
-| `death` | 0,844 s | non | pose simple |
-| `cast` | — | non | **non produit** : le sixième clip du moteur, à poser au LOT-1006 |
+| Clip | Durée | Boucle | Image clé | État au LOT-1006 |
+|---|---:|---|---:|---|
+| `idle` | 1,0 s | oui | — | posé par `rig_character.py` |
+| `walk` | 0,5 s | oui | — | posé ; la marche de la preuve avait été jugée par l'auteur |
+| `attack` | 0,9 s | non | 0,4 s | posé, mains vides |
+| `cast` | 1,0 s | non | 0,5 s | posé : le sixième clip du moteur |
+| `hit` | 0,6 s | non | — | posé |
+| `death` | 1,2 s | non | — | posé |
+
+Ce sont les valeurs de `Common/Characters/Skeletons/humanoid/skeleton.json`, installé au LOT-1006.
 
 - **La marche tient la règle du moteur** : un cycle couvre **une case de 1,5 m en 0,5 s**, soit
   deux cases par seconde. Le pied posé recule exactement à cette vitesse ; le bassin descend juste
@@ -188,8 +195,12 @@ Les animations sont posées **une fois**, sur le squelette, et rejouées par tou
   sur ses propres articulations ; le script de liaison écrit les deux d'une même source.
 - **La fiche du personnage** (`character.json`, dans son dossier) nomme son modèle et son
   squelette : c'est elle que le moteur lit pour savoir qu'un personnage est un modèle.
-- Les quatre clips « pose simple » et `cast` sont **repris** au LOT-1006, qui les soumet à
-  l'auteur comme la marche l'a été.
+- Les six clips sont posés par le script de liaison depuis le LOT-1005 et joués dans le jeu
+  depuis le LOT-1006 par le mannequin, le brawler et le bandit ; leur **jugement par l'auteur**,
+  dans le jeu, est le critère de sortie du LOT-1006.
+- **Un personnage petit garde la règle de la marche.** L'enfant de la démo (1,25 m, jambe de
+  0,58 m contre 0,88 m pour le bandit), lié au même squelette par sa fiche, couvre la case en
+  0,5 s : glissement mesuré de 0,001 px d'art, pénétration du sol de 0,2 mm à la marche.
 
 ## 8. Les armes
 
@@ -209,14 +220,17 @@ main — la hache du brawler, soudée à ses deux mains, et les lames du scoundr
 
 Ce qu'un modèle doit tenir avant de s'installer, et ce que la preuve a relevé :
 
-| Contrôle | Seuil | Relevé au LOT-1000 |
-|---|---|---|
-| Structure du `.glb` : un maillage, 53 os, les clips attendus, texture incorporée, indices valides | exact | conforme, les deux |
-| Poids | somme à 1, quatre os au plus | écart < 3 × 10⁻⁸ |
-| Géométrie évaluée, sur huit poses par clip | aucune coordonnée non finie | 40 poses par personnage, toutes finies |
-| Pénétration du sol | pas plus que la preuve : **1,3 mm** | 1,3 mm (brawler), moins de 0,1 mm (scoundrel) |
-| Glissement du pied posé à la marche, mesuré sur les os | pas plus que la preuve : **0,53 px d'art** | 0,45 px (brawler), 0,53 px (scoundrel) |
-| Cadrage des bandes rendues | le corps entier dans la cellule, couché compris | 40 bandes sur 40 |
+| Contrôle | Seuil | Relevé au LOT-1000 | Relevé au LOT-1006 |
+|---|---|---|---|
+| Structure du `.glb` : un maillage, 53 os, les clips attendus, texture incorporée, indices valides | exact | conforme, les deux | conforme : mannequin, brawler, bandit |
+| Poids | somme à 1, quatre os au plus | écart < 3 × 10⁻⁸ | écart < 1,2 × 10⁻⁷ |
+| Géométrie évaluée, sur huit poses par clip | aucune coordonnée non finie | 40 poses par personnage, toutes finies | toutes finies, six clips |
+| Pénétration du sol | pas plus que la preuve : **1,3 mm** | 1,3 mm (brawler), moins de 0,1 mm (scoundrel) | 0,70 mm (mannequin), 0,64 mm (bandit), 0,42 mm (brawler) |
+| Glissement du pied posé à la marche, mesuré sur les os | pas plus que la preuve : **0,53 px d'art** | 0,45 px (brawler), 0,53 px (scoundrel) | 0,03 px (mannequin), 0,17 px (bandit), 0,02 px (brawler) |
+
+Le contrôle du cadrage des bandes rendues part avec les bandes (LOT-1006). Les relevés du LOT-1006
+sont ceux de `scripts/checks/check_character_model.py`, conservés avec chaque modèle
+(`releve.json`).
 
 Ces contrôles **ne remplacent pas** le jugement de l'auteur : les semelles, les vêtements en
 mouvement et la lisibilité du visage se jugent **dans le jeu**, à 100 px par case.
@@ -236,7 +250,7 @@ Présentés à l'auteur le 1er octobre 2026, acceptés pour le brawler, à lever
 
 | Constat | Ce que le standard en fait | Levé au |
 |---|---|---|
-| Buste vrillé d'environ 45° sur les pieds | image de référence de face, en pose neutre ([§3](#3-limage-de-référence)) | LOT-1006 |
-| Visage peu lisible sous la caméra du jeu | même règle : un visage généré de face ; à juger à 100 px par case | LOT-1006 |
-| Texture plus pâle que la figurine peinte | la texture se compare au portrait avant la liaison ; une texture trop pâle se **régénère** | LOT-1006 |
-| Quatre clips en poses simples, `cast` absent | repris et soumis à l'auteur ([§7](#7-les-clips)) | LOT-1006 |
+| Buste vrillé d'environ 45° sur les pieds | image de référence de face ([§3](#3-limage-de-référence)) | **levé** au LOT-1006 : le bandit a le buste de face |
+| Visage peu lisible sous la caméra du jeu | même règle : un visage généré de face | généré de face au LOT-1006 ; sa lisibilité à 100 px par case reste au jugement de l'auteur |
+| Texture plus pâle que la figurine peinte | la texture se compare au portrait avant la liaison ; une texture trop pâle se **régénère** | au jugement de l'auteur, sur le bandit |
+| Quatre clips en poses simples, `cast` absent | les six clips sont posés ([§7](#7-les-clips)) | **levé** au LOT-1006 pour `cast` ; les six clips restent au jugement de l'auteur |

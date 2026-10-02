@@ -13,7 +13,7 @@ Tests système — **5 cas** (5 critiques). [Retour à la synthèse](README.md).
 
 ### DemoDeBoutEnBout.LaFinParLaParole
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:410`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:411`
 
 Nouvelle partie, puis la demo jusqu'a sa fin par la parole.
 
@@ -39,7 +39,7 @@ Nouvelle partie, puis la demo jusqu'a sa fin par la parole.
 
 ### DemoDeBoutEnBout.LaDemoSeRejoueAvecLeMeneurChoisi
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:442`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:443`
 
 Nouvelle partie avec le Scoundrel pour meneur, puis la demo jusqu'a sa fin par la parole.
 
@@ -62,7 +62,7 @@ Nouvelle partie avec le Scoundrel pour meneur, puis la demo jusqu'a sa fin par l
 
 ### DemoDeBoutEnBout.LaFinParLArene
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:469`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:470`
 
 Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.
 
@@ -70,8 +70,9 @@ Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.
 
 1. Jusqu'au parvis ; le garde a une graine dont le d20 echoue : convaincre, puis endosser.
 2. L'escalier de l'arene : le vestiaire, la porte close ; la porte du triomphe : le sable.
-3. Le maitre d'arene engage la rencontre ; la jouer a la premiere graine qui la gagne.
+3. Le maitre d'arene engage les cinq combats du jugement, l'un apres l'autre ; jouer le premier a la premiere graine qui le gagne, poser la victoire des suivants.
 4. Redescendre, passer la porte ouverte, revenir a l'etal.
+5. attendu `persuasion-echouee` puis `condamne` ; un niveau et un repos entre deux combats ; la quete reste a `condamne` jusqu'a la cinquieme victoire, qui pose `enfant-libere` ; l'ecran de fin s'ouvre par la voie `arene`.
 
 **Résultat attendu**
 
@@ -90,26 +91,29 @@ Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.
 - Vérifie que `jeu.passerLePortail(PIED_DE_L_ESCALIER, {0.0F, -1.0F}, SABLE)` est vrai.
 - Vérifie que `jeu.parler(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
 - `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"combattre"}))`
-- Vérifie que `jeu.dialogueEngage.has_value()` est vrai.
+- `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"continue", "combattre"}))`
+- Vérifie que `record` diffère de `nullptr`.
+- Vérifie que `record->level` vaut `static_cast<int>(rang) + 1`.
+- Vérifie que `record->hitPoints.has_value()` est faux.
+- Vérifie que `jeu.dialogueEngage` vaut `std::string{CHAINE[rang]}`.
+- Vérifie que `jeu.monde.flags().set(core::encounterWonFlag(CHAINE[rang]))` est vrai.
 - Vérifie que `issue.empty()` est faux.
 - Vérifie que `jeu.router.currentScreen()` diffère de `Screen::Death`.
 - Vérifie que `gagnante.has_value()` est vrai.
-- Vérifie que `jeu.monde.flags().isSet(core::encounterWonFlag(RENCONTRE))` est vrai.
+- Vérifie que `jeu.monde.flags().isSet(core::encounterWonFlag(CHAINE[rang]))` est vrai.
+- Vérifie que `jeu.valeur()` vaut `"condamne"`.
 - Vérifie que `pomper([&jeu] { return jeu.etapes.size() >= 5; }, 1000)` est vrai.
 - Vérifie que `jeu.etapes.back()` vaut `"pommes/enfant-libere"`.
 - Vérifie que `jeu.valeur()` vaut `"enfant-libere"`.
 - Vérifie que `jeu.parler(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
 - `ASSERT_NO_FATAL_FAILURE(jeu.repondre({"continue", "attendre"}))`
-- Vérifie que `record` diffère de `nullptr`.
-- Vérifie que `record->level` vaut `2`.
-- Vérifie que `record->hitPoints.has_value()` est faux.
 - Vérifie que `jeu.passerLePortail(PORTE_DU_TRIOMPHE, {0.0F, -1.0F}, VESTIAIRES)` est vrai.
 - Vérifie que `jeu.passerLePortail(ARRIVEE_AUX_VESTIAIRES, {1.0F, 0.0F}, ARENAREA)` est vrai.
 - `ASSERT_NO_FATAL_FAILURE(finirChezLaMere(jeu, "arene"))`
 
 ### DemoDeBoutEnBout.LaMortSurLeSable
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:550`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:585`
 
 Nouvelle partie, puis la demo jusqu'a la mort sur le sable.
 
