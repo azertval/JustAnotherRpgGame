@@ -1072,7 +1072,8 @@ private:
     if (jsonChunk.empty()) {
         return failed(MeshFileError::ParseError, "JSON chunk missing");
     }
-    const char* const text = static_cast<const char*>(static_cast<const void*>(jsonChunk.data()));
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast): le bloc JSON est du texte.
+    const char* const text = reinterpret_cast<const char*>(jsonChunk.data());
     const Json root = Json::parse(text, text + jsonChunk.size(), nullptr, false);
     if (root.is_discarded() || !root.is_object()) {
         return failed(MeshFileError::ParseError, "JSON chunk is not a glTF document");
@@ -1115,7 +1116,8 @@ MeshFileResult readMeshFile(const std::filesystem::path& path) {
         }
         std::ifstream file(path, std::ios::binary);
         std::vector<std::byte> bytes(static_cast<std::size_t>(size));
-        if (!file || !file.read(static_cast<char*>(static_cast<void*>(bytes.data())),
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast): `ifstream` lit des `char`.
+        if (!file || !file.read(reinterpret_cast<char*>(bytes.data()),
                                 static_cast<std::streamsize>(bytes.size()))) {
             return failed(MeshFileError::FileNotFound, "cannot read " + path.string());
         }

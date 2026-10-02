@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstddef>
+#include <utility>
 
 namespace core {
 
@@ -159,7 +160,7 @@ void poseSkeleton(const MeshRig& rig, const MeshClip* clip, float seconds, std::
         }
         const MeshMatrix local = compose(translation, rotation, joint.scale);
         const float* const parent =
-            joint.parent >= 0 && static_cast<std::size_t>(joint.parent) < count
+            joint.parent >= 0 && std::cmp_less(joint.parent, count)
                 ? &out[static_cast<std::size_t>(joint.parent) * MATRIX_FLOATS]
                 : joint.anchor.data();
         const MeshMatrix global = multiply(parent, local.data());

@@ -236,8 +236,12 @@ void WorldSceneRenderer::ensureFigureModels(const std::vector<std::string>& path
             GRAPHICS_LOG_WARNING("Lieu : le modele '" + path + "' ne se cree pas sur le GPU.");
             continue;
         }
-        SceneFigureModel& loaded = _textures.figures[path] = SceneFigureModel{
-            .mesh = handle, .minimum = read.mesh.minimum, .maximum = read.mesh.maximum};
+        SceneFigureModel& loaded = _textures.figures[path] =
+            SceneFigureModel{.mesh = handle,
+                             .minimum = read.mesh.minimum,
+                             .maximum = read.mesh.maximum,
+                             .rig = nullptr,
+                             .skeleton = nullptr};
         const std::size_t triangles = read.mesh.triangleCount();
         const std::size_t clips = read.mesh.rig.clips.size();
         // Le squelette et ses clips ne valent que si le rendu sait les jouer : sinon le modele se
