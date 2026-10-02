@@ -532,14 +532,13 @@ scripts, hors CI, tiennent la chaîne, et chacun dit dans son en-tête ce qu'il 
   entrées. La règle `folders` du descripteur (`LOT-129`) range un kit volumineux en sous-dossiers
   sous son `Scene/` : la première règle dont le motif `match` prend le nom de la pièce donne son
   sous-dossier `folder` (`roofs/l/d3/`), le manifeste cite alors la pièce par ce chemin, et la
-  clé ne change pas. Un descripteur dont la cible est un `Characters/` installe des **figurines**
-  (`LOT-112`) : chaque source est une bande d'animation, réduite d'une seule échelle, posée dans
-  ses cellules, avec son `.anim.json` et son entrée `npcs`. Une figurine **sans bande** mais avec
-  un portrait (`"strips": []`) est un **portrait d'attente** (`LOT-145`) : un personnage qui a son
-  visage avant sa figurine — les alliés du groupe dont l'atelier produit les bandes. Seuls son
-  portrait et son jeton s'installent, et son nom va dans la liste `portraits` du manifeste, pas
-  dans `npcs` : le moteur le dessine par son mannequin, et `check_hd_assets.py` ne cite pour lui
-  que ces deux images. Ses bandes installées le font passer de `portraits` à `npcs`.
+  clé ne change pas. Les **personnages** ne passent plus par lui (`LOT-1008`) : un descripteur
+  dont la cible est un `Characters/` est refusé, leur fiche s'écrit et s'installe par l'atelier
+  des assets de l'éditeur — la fenêtre *Asset workshop*, ou `LevelEditor --apply <fiche
+  d'atelier>` ([guide de l'éditeur](guide-editeur.md)). Un personnage **sans modèle** mais avec
+  un portrait est un **portrait d'attente** (`LOT-145`) : son nom est dans la liste `portraits`
+  du manifeste, pas dans `npcs`, le moteur le dessine par son mannequin, et `check_hd_assets.py`
+  ne cite pour lui que son portrait et son jeton ; le concept part avec le `LOT-1009`.
 - [`prepare_envois_scene.py`](../../scripts/assetsGeneration/prepare_envois_scene.py)
   (`LOT-105`) prépare les **envois** au générateur, qui reste un outil manuel : depuis la
   commande d'une zone (`Tools/AssetsHD/…/commande.md`, la source unique des textes), un dossier
@@ -555,8 +554,16 @@ scripts, hors CI, tiennent la chaîne, et chacun dit dans son en-tête ce qu'il 
   [`check_character_model.py`](../../scripts/checks/check_character_model.py) contrôle l'export
   (structure, poids, contact au sol, glissement du pied) et
   [`render_character_review.py`](../../scripts/assetsGeneration/render_character_review.py) rend
-  les planches que l'auteur juge. L'installateur pose ensuite le modèle, sa fiche `character.json`
-  et le squelette (`LOT-1006`) : il n'installe plus aucune bande de figurine.
+  les planches que l'auteur juge. L'atelier des assets de l'éditeur pose ensuite le modèle, sa
+  fiche `character.json`, son portrait, son jeton et le squelette (`LOT-1008`).
+- [`retouch_character.py`](../../scripts/assetsGeneration/retouch_character.py) (`LOT-1008`,
+  décision D-44) fait l'**aller-retour par Blender** d'un personnage lié : `open` ouvre le modèle
+  dans Blender — maillage, 53 os, une action par clip, à 60 images par seconde — et prend un
+  **repère** de ce que Blender a lu ; `import` relit le `.blend` enregistré, ne retient que ce
+  qui diffère du repère — une articulation déplacée dans la fiche de liaison, un clip modifié
+  dans la fiche de retouche `retouche.json` — puis, avec `--source` et `--output`, relie le modèle
+  par `rig_character.py --retouch` et le contrôle. Blender n'est que l'instrument de saisie : rien
+  n'en revient qu'en données, ni maillage, ni poids, ni `.glb` exporté par lui.
 - [`build_hd_mockup.py`](../../scripts/assetsGeneration/build_hd_mockup.py) (`LOT-101`) monte la
   maquette de validation du standard 2D HD, huit cases sur huit à 1080p et 2160p, et écrit sous
   `Source/Test/Fixtures/HdMockup/` la même scène en données d'essai du moteur ; `--check` vérifie

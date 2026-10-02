@@ -899,11 +899,50 @@ essai : la même carte **après** une quête — la case de départ et les drape
 drapeau hors liste se saisissant à la main. Depuis le `LOT-126`, le dialogue emploie le même
 sélecteur que « World state… » ([l'état de partie](#etat-de-partie)).
 
+### L'atelier des assets : `CharacterWorkshop.h`, `BlenderRetouch.h`, `CharacterPreview.h`, `AssetWorkshop.h`
+
+Un personnage est une fiche qui lie un modèle, son portrait et son jeton
+(`Planning/standards/personnages-3d.md`) ; l'atelier (`LOT-1008`, `EX-EDIT-102` à `EX-EDIT-104`)
+l'écrit sans ouvrir un fichier. Ce que l'auteur choisit tient dans une **fiche d'atelier**,
+`hmi::CharacterDraft` — niveau, nom, silhouette, modèle lié, portrait, jeton, et les fichiers de
+l'aller-retour par Blender —, un JSON (`jadg-editor-character`, `hmi::readCharacterDraft`,
+`hmi::characterDraftText`) rangé avec les sources, dont les chemins partent d'une racine (`root`)
+et s'inscrivent au manifeste tels qu'ils sont écrits : c'est la provenance de l'asset.
+`hmi::planCharacter(dataRoot, dossierDeLaFiche, fiche)` calcule tout sans rien écrire — le modèle
+copié octet pour octet et mesuré (`core::readMeshFromGlb` : triangles, taille, squelette, et chaque
+clip que la silhouette déclare), `character.json`, le portrait et le jeton vérifiés aux tailles du
+standard (l'atelier ne retaille rien), les manifestes du niveau et du commun (`models`, `npcs`,
+`sources`, `skeletons`, par `nlohmann::ordered_json`, deux espaces, clés triées) ; un fichier déjà
+à l'identique n'est pas réécrit, et une fiche refusée rend un plan vide avec sa raison.
+`hmi::writeCharacter(plan)` l'exécute. `hmi::draftOfInstalledCharacter` rouvre un personnage
+installé ; `hmi::checkCharacters` relit tout ce qui l'est, pour `--check` et la fenêtre.
+L'empreinte SHA-256 des manifestes est calculée ici (`Sha256.h`), sans Qt.
+
+L'**aperçu** n'a pas de rendu à lui : `hmi::characterPreviewScene` compose un damier de trois
+cases sur trois, sans pièce, et le personnage au centre, tourné de ses quarts de tour ; la fenêtre
+le remet à une `hmi::SceneSurface` dont la racine est le dossier du modèle, sous le cadrage de
+`hmi::characterPreviewFraming`. `hmi::characterPreviewSeconds` fait tourner un clip en boucle et
+tient la dernière pose d'un clip joué une fois, juste avant sa fin — un modèle de l'atelier n'a
+pas encore de fiche à côté de lui, et le rendu le ferait boucler.
+
+L'**aller-retour par Blender** (`BlenderRetouch.h`, décision D-44) est, côté éditeur, deux lignes
+de commande : `hmi::retouchFiles` déduit de la fiche les fichiers (modèle lié, maillage reçu,
+fiche de liaison, `retouche.json` à côté d'elle, `.blend` à côté du modèle, squelette installé),
+`hmi::retouchReadiness` dit ce qui manque, `hmi::findRetouchTools` trouve le script en remontant
+jusqu'au dépôt, Python (`JADG_PYTHON`, à défaut `py -3`) et Blender (`BLENDER`, à défaut son
+emplacement par défaut, comme `reduce_model.find_blender`) ; `hmi::openInBlenderCommand` et
+`hmi::importFromBlenderCommand` composent `retouch_character.py open …` et
+`retouch_character.py import … --source … --output …`. La fenêtre `hmi::AssetWorkshop` les lance
+par `QProcess`, comme l'essai complet, et verse leur sortie au compte rendu. Ce que Blender rend
+est une **donnée**, jamais un maillage : le script prend un repère à l'ouverture, ne retient que
+ce qui en diffère, et relie par `rig_character.py` (`scripts/tests/test_retouch_character.py`).
+
 ## La ligne de commande de l'éditeur, en une table {#ligne-de-commande}
 
 `Source/App/Editor/Main.cpp` essaie les commandes sans fenêtre **avant** de construire quoi que ce
 soit de Qt, dans cet ordre : `hmi::runRefactorCommand`, `hmi::runPrefabCommand`,
-`hmi::runMapCommand`, `hmi::runRenderCommand` ; chacune rend un code de sortie, ou rien si la ligne
+`hmi::runCharacterCommand`, `hmi::runMapCommand`, `hmi::runRenderCommand` ; chacune rend un code
+de sortie, ou rien si la ligne
 de commande ne la demande pas — et la fenêtre s'ouvre alors. Deux familles de syntaxe cohabitent :
 les commandes sans fenêtre prennent des arguments **séparés** (`--data <chemin>`, `--output <f>`),
 lus par le vecteur d'arguments ; les options de la fenêtre s'écrivent `--nom=valeur` et se lisent
@@ -916,9 +955,10 @@ La racine des données est **unique** pour la fenêtre et les commandes : `--dat
 
 | Commande | Ce qu'elle fait | Où |
 |---|---|---|
-| `--check` | contrôle le format et le contenu de toutes les cartes, et les quêtes ; sort en 1 sur une erreur (`EX-EDIT-062`, `EX-EDIT-079`) | `runMapCommand`, [`MapFormat.h`](../../Source/Editor/Logic/MapFormat.h) |
+| `--check` | contrôle le format et le contenu de toutes les cartes, les quêtes et les personnages installés ; sort en 1 sur une erreur (`EX-EDIT-062`, `EX-EDIT-079`, `EX-EDIT-104`) | `runMapCommand`, [`MapFormat.h`](../../Source/Editor/Logic/MapFormat.h) |
 | `--migrate [carte…] [--output f]` | convertit en v4 canonique, en place ou dans `--output` | `runMapCommand` |
 | `--apply gestes.json [carte] [--output f]` | rejoue les gestes du fichier ; un geste refusé n'écrit rien (`EX-EDIT-074`) | `runMapCommand`, [`GestureScript.h`](../../Source/Editor/Logic/GestureScript.h) |
+| `--apply <fiche d'atelier> [fiche…]` | installe le personnage de chaque fiche (`jadg-editor-character`) ; une fiche refusée n'écrit rien pour elle (`EX-EDIT-102`) | `runCharacterCommand`, [`CharacterWorkshop.h`](../../Source/Editor/Logic/CharacterWorkshop.h) |
 | `--render [carte…] [--output <fichier.png ou dossier>] [--layers floors,relief,figures,collision] [--plan] [--scale s]` | rend en PNG, en isométrie (`EX-EDIT-075`) : échelle 1 = la carte vue à 1080p, dans ]0, 4], au plus 8 192 px de côté ; `--plan` pour le plan de principe (`LOT-128`) | `runRenderCommand`, [`MapRender.h`](../../Source/Editor/Ui/MapRender.h) |
 | `--list-prefabs [lieu…]` | les préfabriqués qu'un lieu peut poser, avec leur niveau ; tous les lieux à défaut (`EX-EDIT-086`) | `runPrefabCommand`, [`Stamps.h`](../../Source/Editor/Logic/Stamps.h) |
 | `--save-prefab <carte> <nom> --from <c,r> --to <c,r>` | découpe le rectangle et l'écrit comme préfabriqué, au niveau que `hmi::prefabLevel` choisit (`EX-EDIT-086`) | `runPrefabCommand` |
@@ -930,7 +970,8 @@ La racine des données est **unique** pour la fenêtre et les commandes : `--dat
 | `--link-maps <carte> <carte>` | relie deux cartes, portail et point d'arrivée des deux côtés ; refusé, n'écrit rien (`EX-EDIT-089`) | `runRefactorCommand` |
 | `--data <chemin>` | la racine des données, pour toutes les commandes et la fenêtre | `hmi::resolveDataRoot` |
 | `--map=<identifiant>` | ouvre cette carte (`Levels/<identifiant>.json`) dans la fenêtre ; sort en 2 si elle ne s'ouvre pas | `Main.cpp`, `app::commandLineOption` |
-| `--screenshot=<fichier>` | avec la fenêtre : la redimensionne à 1600 × 1000, la capture 1,8 s après l'ouverture, enregistre et quitte (3 si l'écriture échoue) — les captures de cette page | `Main.cpp` |
+| `--screenshot=<fichier>` | avec la fenêtre : la redimensionne à 1600 × 1000, la capture 1,8 s après l'ouverture, enregistre et quitte (3 si l'écriture échoue) — les captures de cette page ; avec `--workshop`, c'est l'atelier qui est capturé | `Main.cpp` |
+| `--workshop[=<fiche d'atelier>]` | ouvre la fenêtre Asset workshop au démarrage, sur la fiche donnée (`EX-EDIT-102`) | `Main.cpp`, `hmi::MainWindow::openAssetWorkshop` |
 | `--crash-test` | plante volontairement juste après la première sauvegarde automatique, pour éprouver la reprise | `hmi::MainWindow` |
 | `--log-level=<niveau>` | le seuil du journal, comme pour le jeu (`app::installLogging`, [Journalisation](guide-journalisation.md)) | `Bootstrap.cpp` |
 

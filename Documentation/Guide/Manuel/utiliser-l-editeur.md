@@ -272,6 +272,49 @@ Sans fenêtre : `--who-cites flag`, `--rename-flag`, `--rename-flag-value`, `--r
 écrits à la main (décision D-24) : le panneau montre ceux qui lisent ou posent un drapeau, il ne les
 édite pas.
 
+## Écrire la fiche d'un personnage : la fenêtre *Asset workshop* (`LOT-1008`)
+
+Un personnage est une fiche qui lie un modèle, son portrait et son jeton
+(`Planning/standards/personnages-3d.md`). *Assets* › *Asset workshop…* ouvre l'atelier, une
+fenêtre à part de la carte, en trois colonnes :
+
+- **Installed characters**, à gauche : les personnages en modèle de tous les niveaux. En choisir un
+  rouvre sa fiche telle qu'elle est installée, les sources retrouvées dans l'atelier local
+  (**Workshop folder…**, `Tools/Assets3D` par défaut).
+- **La fiche d'atelier**, au centre. *Level* est le dossier `Characters` du niveau, *Name* le
+  personnage (`bandit`, `Heroes/brawler`), *Skeleton* sa silhouette. *Linked model* est le `.glb`
+  lié par la chaîne (`rig_character.py`), *Portrait (512)* et *Token (128)* ses images, déjà aux
+  tailles du standard : l'atelier ne retaille rien, il range. Un champ vide garde ce qui est
+  installé. **Save sheet** écrit la fiche en JSON à côté des sources (`<nom>.character.json`),
+  **Install in the game** écrit le personnage sous `Assets/` et l'inscrit au manifeste de son
+  niveau — exactement ce que fait `LevelEditor --apply <fiche>` sans fenêtre, à l'octet près.
+  Une fiche refusée n'écrit rien, et le compte rendu, sous les boutons, dit pourquoi (un portrait
+  qui n'est pas en 512 × 512, un modèle sans squelette, un clip que la silhouette déclare et que
+  le modèle n'a pas).
+- **L'aperçu**, à droite : le modèle, dessiné par le rendu du jeu sur un damier de maquette, clip
+  par clip (*Clip*), **Play** le fait tourner, **Quarter turn** le fait pivoter. Ce qu'on y voit
+  est ce qu'on jouera. L'heure du jour viendra avec l'éclairage (`LOT-1007`).
+
+**Régler le squelette et les clips dans Blender** (décision D-44). Le groupe *Blender round trip*
+demande le maillage **reçu** (celui que la chaîne lie) et la **fiche de liaison** du personnage.
+**Edit in Blender** ouvre le modèle lié dans Blender — maillage, 53 os, une action par clip, à
+60 images par seconde — et note, à côté du `.blend`, un repère de ce que Blender a lu. On y
+déplace une articulation en mode Édition de l'armature, on y change les clés d'une action en mode
+Pose, on enregistre (`Ctrl+S`). **Import from Blender** relit le fichier, le compare au repère et
+ne retient que ce qui a changé : une articulation déplacée revient dans la fiche de liaison, un
+clip modifié dans la fiche de retouche (`retouche.json`, à côté), puis le modèle est relié par la
+chaîne et contrôlé — un écart au standard (sol traversé, pied qui glisse) refuse l'import et le
+dit. Rien ne revient de Blender qu'en données : ni maillage, ni poids, ni `.glb` exporté par lui.
+Ce qu'il ne sait pas dire au jeu — un os translaté ou mis à l'échelle, un doigt animé — est
+signalé et ignoré. Le détail est dans `scripts/assetsGeneration/retouch_character.py`.
+
+**Check installed characters** relit tout ce qui est installé : fiche, squelette, modèle et ses
+clips, portrait et jeton aux bonnes tailles — ce que `LevelEditor --check` ajoute au contrôle des
+cartes.
+
 ## Ce qui ne se fait pas encore dans l'éditeur
+
+- Composer un ensemble de décor en maillages (la vue *Scenery* de l'atelier) : avec le kit en
+  maillages, à la `0.0.3` (décision D-43, `LOT-151`).
 
 - Semer une forêt ou une prairie sans perdre les retouches : `LOT-168` du planning (`LOT-EDITOR-11`, qui pilotait un générateur, est abandonné).

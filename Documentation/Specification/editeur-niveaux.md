@@ -550,6 +550,33 @@ des données écrites à la main.
   laquelle le groupe ne se déploie pas ; `--apply` verse un verdict au compte rendu par l'outil
   `inspect`.
 
+## 25. L'atelier des assets, vue Character (`LOT-1008`)
+
+- **EX-EDIT-102** — La fenêtre **Asset workshop** écrit la **fiche d'un personnage** sans ouvrir
+  un fichier : son niveau, son nom, sa silhouette, son modèle lié, son portrait et son jeton
+  (`hmi::CharacterDraft`, fiche d'atelier `jadg-editor-character`). L'installer écrit le
+  modèle, `character.json`, le portrait et le jeton sous `Assets/<niveau>/<nom>/` et inscrit le
+  personnage au manifeste de son niveau (`hmi::planCharacter`, `hmi::writeCharacter`) ; tout est
+  vérifié avant la première écriture — le modèle porte un squelette et chaque clip de sa
+  silhouette, le portrait fait 512 × 512, le jeton 128 × 128 — et une fiche refusée n'écrit rien.
+  `LevelEditor --apply <fiche>` fait la même chose sans fenêtre, à l'octet près ; un personnage
+  installé se rouvre et se réenregistre sans différence. L'**aperçu** est le rendu du jeu
+  (`hmi::characterPreviewScene`) : le modèle sur un damier de maquette, clip par clip, avec le
+  quart de tour.
+- **EX-EDIT-103** — L'atelier fait l'**aller-retour par Blender** d'un personnage (décision
+  D-44) : *Edit in Blender* ouvre le modèle lié dans Blender, *Import from Blender* relit ce que
+  l'auteur y a réglé. L'éditeur ne parle pas à Blender : il lance
+  `scripts/assetsGeneration/retouch_character.py` (`hmi::openInBlenderCommand`,
+  `hmi::importFromBlenderCommand`), qui ne retient que ce qui a changé par rapport au repère
+  pris à l'ouverture — une articulation déplacée dans la fiche de liaison, un clip modifié dans la
+  fiche de retouche —, relie le modèle par la chaîne et le contrôle. Rien ne revient de Blender
+  qu'en données ; un import qui ne tient pas le standard est refusé et dit pourquoi.
+- **EX-EDIT-104** — `LevelEditor --check` contrôle les **personnages installés**
+  (`hmi::checkCharacters`) : la fiche se lit, la silhouette est installée, le modèle est là, porte
+  un squelette et chaque clip de sa silhouette, le portrait et le jeton sont là, aux tailles du
+  standard ; chaque constat porte le niveau du personnage. Sur une base dont les kits sont
+  verrouillés mais pas installés, les binaires ne se contrôlent pas et un avertissement le dit.
+
 ## Exigences retirées {#edit-retirees}
 
 > Ancres conservées, jamais renumérotées : les lots livrés s'y réfèrent. Chacune servait un

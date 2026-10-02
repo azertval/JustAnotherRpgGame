@@ -1,15 +1,18 @@
 # Editor
 
-Tests unitaires — **218 cas** (28 bloquants, 48 critiques, 113 majeurs, 29 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **232 cas** (33 bloquants, 53 critiques, 117 majeurs, 29 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_autosave.cpp`](#test-autosavecpp) | 5 | - | 3 | 2 | - |
+| [`test_blender_retouch.cpp`](#test-blender-retouchcpp) | 3 | 1 | 1 | 1 | - |
 | [`test_brush_gesture.cpp`](#test-brush-gesturecpp) | 7 | - | 3 | 3 | 1 |
 | [`test_canvas_picking.cpp`](#test-canvas-pickingcpp) | 5 | 2 | - | 3 | - |
 | [`test_canvas_scene.cpp`](#test-canvas-scenecpp) | 5 | 1 | - | 3 | 1 |
+| [`test_character_preview.cpp`](#test-character-previewcpp) | 3 | 1 | 1 | 1 | - |
+| [`test_character_workshop.cpp`](#test-character-workshopcpp) | 8 | 3 | 3 | 2 | - |
 | [`test_city_view.cpp`](#test-city-viewcpp) | 3 | - | 1 | 1 | 1 |
 | [`test_content_check.cpp`](#test-content-checkcpp) | 8 | 4 | 3 | 1 | - |
 | [`test_disk_guard.cpp`](#test-disk-guardcpp) | 3 | - | 2 | 1 | - |
@@ -52,6 +55,9 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 | `EX-EDIT-084` | [`Donnees.UneCarteChangeDePlancheSansEtreRepeinte`](#donneesunecartechangedeplanchesansetrerepeinte) |
 | `EX-EDIT-100` | [`QuestWriting.UneQueteSeReecritOctetPourOctet`](#questwritingunequetesereecritoctetpouroctet), [`QuestWriting.UnLieuDEtapeSEcritCarteDiezeEntite`](#questwritingunlieudetapesecritcartediezeentite), [`ModeQuetesProjet.EnregistrerEcritLaQueteEtSesTextes`](#modequetesprojetenregistrerecritlaqueteetsestextes), [`ModeQuetesProjet.CeQueLeJeuRefuseraitNeSEnregistrePas`](#modequetesprojetcequelejeurefuseraitnesenregistrepas), [`ModeQuetesProjet.QuiSeSertDUneValeurDeDrapeau`](#modequetesprojetquisesertdunevaleurdedrapeau), [`ModeQuetesProjet.RenommerUneValeurLaSuitPartoutEtSeulementElle`](#modequetesprojetrenommerunevaleurlasuitpartoutetseulementelle), [`ModeQuetesProjet.RenommerUnDrapeauDeclare`](#modequetesprojetrenommerundrapeaudeclare), [`ModeQuetesProjet.RenommerPuisRetirerUneQuete`](#modequetesprojetrenommerpuisretirerunequete), [`ModeQuetesProjet.LEtatDePartieQuiAtteintUneEtape`](#modequetesprojetletatdepartiequiatteintuneetape), [`ModeQuetesProjet.LeLieuDUneEtapeSuitLEntite`](#modequetesprojetlelieuduneetapesuitlentite), [`ModeQuetesProjet.LeModeQuetesSansFenetre`](#modequetesprojetlemodequetessansfenetre), [`CatalogEntry.UneCleChangeASaPlace`](#catalogentryuneclechangeasaplace) |
 | `EX-EDIT-101` | [`ContentCheckTest.UnGroupeQuiNeSeDeploiePasFaitEchouerLaCi`](#contentchecktestungroupequinesedeploiepasfaitechouerlaci), [`GestureScriptTest.LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit`](#gesturescripttestlesabledelarenaoffateportelegroupeetrougitreduit) |
+| `EX-EDIT-102` | [`CharacterPreviewRenderTest.LeRenduDuJeuDessineLePersonnage`](#characterpreviewrendertestlerendudujeudessinelepersonnage), [`CharacterDraftTest.UneFicheSeLitEtSeReecritALIdentique`](#characterdrafttestuneficheselitetsereecritalidentique), [`CharacterWorkshop.LaFicheInstalleLePersonnageEtRendLesFichiersAttendus`](#characterworkshoplaficheinstallelepersonnageetrendlesfichiersattendus), [`CharacterWorkshop.UneFicheRefuseeNEcritRien`](#characterworkshopuneficherefuseenecritrien), [`CharacterWorkshop.UnPersonnageInstalleSeRouvreSansDifference`](#characterworkshopunpersonnageinstalleserouvresansdifference), [`CharacterWorkshopDelivered.LesPersonnagesLivresSeReenregistrentSansDifference`](#characterworkshopdeliveredlespersonnageslivressereenregistrentsansdifference) |
+| `EX-EDIT-103` | [`BlenderRetouch.LesDeuxCommandesPortentCeQueLeScriptAttend`](#blenderretouchlesdeuxcommandesportentcequelescriptattend) |
+| `EX-EDIT-104` | [`CharacterWorkshop.LeControleNommeCeQuiManque`](#characterworkshoplecontrolenommecequimanque) |
 
 ## test_autosave.cpp
 
@@ -149,6 +155,74 @@ La version écartée par un choix de l'auteur est gardée de côté.
 - Vérifie que `kept->parent_path().filename().string()` vaut `"conflicts"`.
 - Vérifie que `content` vaut `"contenu disque"`.
 - Vérifie que `store.pending().empty()` est vrai.
+
+## test_blender_retouch.cpp
+
+### BlenderRetouch.LesFichiersSeDeduisentDeLaFiche
+
+*Critique · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_blender_retouch.cpp:74`
+
+Les fichiers de l'aller-retour se deduisent de la fiche d'atelier.
+
+**Étapes**
+
+1. Demander les fichiers d'une fiche dont la racine remonte d'un dossier et qui ne nomme ni retouche ni fichier Blender.
+2. Nommer les deux, et redemander.
+
+**Résultat attendu**
+
+- Vérifie que `deduits.model` vaut `atelier / "Lies" / "bandit" / "bandit.glb"`.
+- Vérifie que `deduits.received` vaut `atelier / "Standard" / "bandit" / "recu.glb"`.
+- Vérifie que `deduits.sheet` vaut `atelier / "Personnages" / "bandit" / "liaison.json"`.
+- Vérifie que `deduits.retouch` vaut `atelier / "Personnages" / "bandit" / "retouche.json"`.
+- Vérifie que `deduits.blend` vaut `atelier / "Lies" / "bandit" / "bandit.blend"`.
+- Vérifie que `deduits.skeleton` vaut `depot / "Source" / "Elements" / "Assets" / "Common" / "Characters" / "Skeletons" / "humanoid" / "skeleton.json"`.
+- Vérifie que `nommes.retouch` vaut `atelier / "Retouches" / "bandit.json"`.
+- Vérifie que `nommes.blend` vaut `atelier / "Blender" / "bandit.blend"`.
+
+### BlenderRetouch.CeQuiManqueEstDitAvantDOuvrirBlender
+
+*Majeur · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_blender_retouch.cpp:107`
+
+L'aller-retour dit ce qui lui manque avant d'ouvrir Blender.
+
+**Étapes**
+
+1. Demander si l'aller-retour est prêt, en posant un à un le modèle lié, le maillage reçu, la fiche de liaison et le squelette installé.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::retouchReadiness(hmi::RetouchFiles{}).find("linked model")` diffère de `std::string::npos`.
+- Vérifie que `hmi::retouchReadiness(fichiers()).find("linked model not found")` diffère de `std::string::npos`.
+- Vérifie que `hmi::retouchReadiness(fichiers()).find("received model")` diffère de `std::string::npos`.
+- Vérifie que `hmi::retouchReadiness(fichiers()).find("liaison sheet")` diffère de `std::string::npos`.
+- Vérifie que `hmi::retouchReadiness(fichiers()).find("skeleton not installed")` diffère de `std::string::npos`.
+- Vérifie que `hmi::retouchReadiness(fichiers())` vaut `""`.
+
+### BlenderRetouch.LesDeuxCommandesPortentCeQueLeScriptAttend
+
+*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_blender_retouch.cpp:136`
+
+Exigences : `EX-EDIT-103`
+
+L'editeur compose les deux commandes de l'aller-retour par Blender.
+
+**Étapes**
+
+1. Chercher les outils sans script dans le dépôt, puis avec, Blender étant nommé par `BLENDER` et Python par `JADG_PYTHON` ; puis avec un Blender qui n'existe pas.
+2. Composer la commande d'ouverture et celle d'import.
+
+**Résultat attendu**
+
+- Vérifie que `erreur.find("retouch_character.py")` diffère de `std::string::npos`.
+- Vérifie que `erreur` vaut `""`.
+- Vérifie que `outils.python` vaut `"python-essai"`.
+- Vérifie que `outils.pythonArguments.empty()` est vrai.
+- Vérifie que `outils.script.filename()` vaut `"retouch_character.py"`.
+- Vérifie que `erreur.find("BLENDER")` diffère de `std::string::npos`.
+- Vérifie que `ouvrir.program` vaut `"python-essai"`.
+- Vérifie que `ouvrir.arguments` vaut `ouvertureAttendue`.
+- Vérifie que `importer.arguments` vaut `importAttendu`.
 
 ## test_brush_gesture.cpp
 
@@ -481,6 +555,273 @@ Les pieces d'une case se lisent dans la barre d'etat.
 - Vérifie que `hmi::cellPieces(snapshot, {.column = 0, .row = 0})` vaut `"street · wall-left"`.
 - Vérifie que `hmi::cellPieces(snapshot, {.column = 1, .row = 0})` vaut `"square"`.
 - Vérifie que `hmi::cellPieces(snapshot, {.column = 5, .row = 0})` vaut `""`.
+
+## test_character_preview.cpp
+
+### CharacterPreviewTest.LaSceneEstUnDamierEtUnPersonnageAuCentre
+
+*Critique · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_preview.cpp:65`
+
+L'apercu de l'atelier est une scene du rendu du jeu.
+
+**Étapes**
+
+1. Composer l'aperçu d'un modèle, à 0,4 s de son attaque, tourné d'un quart de tour.
+2. Composer l'aperçu sans modèle.
+
+**Résultat attendu**
+
+- Vérifie que `scene.columns` vaut `3`.
+- Vérifie que `scene.rows` vaut `3`.
+- Vérifie que `scene.types.size()` vaut `9U`.
+- Vérifie que `scene.typeAt({1, 1})` vaut `core::TileType::Dirt`.
+- Vérifie que `scene.floorAt({1, 1}).empty()` est vrai.
+- Vérifie que `scene.figures.size()` vaut `1U`.
+- Vérifie que `figure.model` vaut `MODELE`.
+- Vérifie que `figure.clip` vaut `"attack"`.
+- Vérifie que `figure.seconds` vaut `0.4F` (comparaison flottante).
+- Vérifie que `figure.point.x` vaut `1.5F` (comparaison flottante).
+- Vérifie que `figure.point.y` vaut `1.5F` (comparaison flottante).
+- Vérifie que `figure.heading` vaut `hmi::FIGURE_HEADING_FRONT + (std::numbers::pi_v<float> / 2.0F)` (comparaison flottante).
+- Vérifie que `hmi::characterPreviewScene({}).figures.empty()` est vrai.
+
+### CharacterPreviewTest.UnClipJoueUneFoisTientSaDernierePose
+
+*Majeur · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_preview.cpp:100`
+
+L'apercu tient la derniere pose d'un clip joue une fois.
+
+**Étapes**
+
+1. Demander l'instant d'une marche de 0,5 s après 1,2 s d'aperçu.
+2. Demander l'instant d'une mort de 1,2 s après 0,5 s, 1,5 s, puis 2,1 s.
+3. Demander l'instant d'un clip que le squelette ne déclare pas.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::characterPreviewSeconds(&marche, 1.2F)` vaut `0.2F`, à `1e-5F` près.
+- Vérifie que `hmi::characterPreviewSeconds(&mort, 0.5F)` vaut `0.5F`, à `1e-5F` près.
+- Vérifie que `hmi::characterPreviewSeconds(&mort, 1.5F)` vaut `1.2F`, à `2e-3F` près.
+- Vérifie que `hmi::characterPreviewSeconds(&mort, 1.5F)` est strictement inférieur à `1.2F`.
+- Vérifie que `hmi::characterPreviewSeconds(&mort, 1.2F + hmi::CHARACTER_PREVIEW_HOLD + 0.1F)` vaut `0.1F`, à `1e-4F` près.
+- Vérifie que `hmi::characterPreviewSeconds(nullptr, 2.25F)` vaut `0.25F`, à `1e-5F` près.
+- Vérifie que `hmi::characterPreviewSeconds(&mort, -3.0F)` vaut `0.0F` (comparaison flottante).
+
+### CharacterPreviewRenderTest.LeRenduDuJeuDessineLePersonnage
+
+*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_preview.cpp:127`
+
+Exigences : `EX-EDIT-102`
+
+Le rendu du jeu dessine le personnage de l'apercu, cadre et anime.
+
+**Étapes**
+
+1. Rendre hors écran le damier seul, puis l'aperçu du mannequin d'essai, au repos.
+2. Le rendre tourné d'un quart de tour, puis à la fin de sa chute.
+
+**Résultat attendu**
+
+- Vérifie que `image.size()` vaut `TAILLE`.
+- Vérifie que `repos.save(QString::fromStdWString((captures / "atelier-apercu.png").wstring()))` est vrai.
+- Vérifie que `dessines(repos, vide)` est strictement supérieur à `2000U`.
+- Vérifie que `sommetDebout` est strictement supérieur à `TAILLE.height() / 20`.
+- Vérifie que `sommetDebout` est strictement inférieur à `TAILLE.height() / 3`.
+- Vérifie que `tourne` diffère de `repos`.
+- Vérifie que `sommet(couche, vide)` est strictement supérieur à `sommetDebout + (TAILLE.height() / 8)`.
+
+## test_character_workshop.cpp
+
+### Sha256Test.LEmpreinteEstCelleDeLaNorme
+
+*Majeur · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:96`
+
+L'empreinte SHA-256 de l'atelier est celle de la norme.
+
+**Étapes**
+
+1. Calculer l'empreinte du texte vide, de « abc », d'un texte de 56 octets et d'un million de « a ».
+
+**Résultat attendu**
+
+- Vérifie que `hmi::sha256Hex("")` vaut `"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"`.
+- Vérifie que `hmi::sha256Hex("abc")` vaut `"ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"`.
+- Vérifie que `hmi::sha256Hex("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq")` vaut `"248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"`.
+- Vérifie que `hmi::sha256Hex(std::string(1000000, 'a'))` vaut `"cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"`.
+
+### CharacterDraftTest.UneFicheSeLitEtSeReecritALIdentique
+
+*Critique · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:119`
+
+Exigences : `EX-EDIT-102`
+
+Une fiche d'atelier se relit et se reecrit a l'identique.
+
+**Étapes**
+
+1. Lire la fiche du garde, la réécrire, la relire.
+2. Lire un scénario de gestes, une fiche d'une autre version, une fiche au champ inconnu.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::isCharacterScript(texte)` est vrai.
+- Vérifie que `lue.ok()` est vrai.
+- Vérifie que `lue.draft.level` vaut `"Regions/terre/bourg/Characters"`.
+- Vérifie que `lue.draft.name` vaut `"garde"`.
+- Vérifie que `lue.draft.root` vaut `"."`.
+- Vérifie que `lue.draft.workshop.sheet` vaut `"recu/liaison.json"`.
+- Vérifie que `hmi::characterDraftText(lue.draft)` vaut `texte`.
+- Vérifie que `hmi::readCharacterDraft(hmi::characterDraftText(lue.draft)).draft` vaut `lue.draft`.
+- Vérifie que `hmi::isCharacterScript(R"({"format":"jadg-editor-gestures","version":1})")` est faux.
+- Vérifie que `hmi::isCharacterScript("pas du JSON")` est faux.
+- Vérifie que `hmi::readCharacterDraft(R"({"format":"jadg-editor-character","version":2})").ok()` est faux.
+- Vérifie que `inconnu.ok()` est faux.
+- Vérifie que `inconnu.error.find("weapon")` diffère de `std::string::npos`.
+
+### CharacterWorkshop.LaFicheInstalleLePersonnageEtRendLesFichiersAttendus
+
+*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:153`
+
+Exigences : `EX-EDIT-102`
+
+La fiche du garde s'installe sans fenetre et rend les fichiers attendus.
+
+**Étapes**
+
+1. Rejouer `--apply garde.character.json` sur une copie de la racine `base/`.
+2. Comparer les deux manifestes et la fiche `character.json` aux fichiers de `attendu/`, et le modèle, le portrait, le jeton et le squelette à leurs sources.
+3. Rejouer la commande.
+
+**Résultat attendu**
+
+- Vérifie que `code.has_value()` est vrai.
+- Vérifie que `*code` vaut `0`.
+- Vérifie que `sortie.find("installed 1 character")` diffère de `std::string::npos`.
+- Vérifie que `lire(racine / fichier)` vaut `lire(attendu / fichier)`.
+- Vérifie que `lire(bourg() / "garde" / "garde.glb")` vaut `lire(sources / "Mannequins" / "humanoid" / "humanoid.glb")`.
+- Vérifie que `lire(racine / "Assets" / "Common" / "Characters" / "Skeletons" / "humanoid" / "skeleton.json")` vaut `lireTexte(sources / "Skeletons" / "humanoid" / "skeleton.json")`.
+- Vérifie que `lire(bourg() / "garde" / "portrait.png")` vaut `lire(fixtures() / "portrait.png")`.
+- Vérifie que `lire(bourg() / "garde" / "token.png")` vaut `lire(fixtures() / "token.png")`.
+- Vérifie que `hmi::runCharacterCommand({"--apply", fiche}, racine, seconde)` vaut `std::optional{0}`.
+- Vérifie que `seconde.find("nothing to write")` diffère de `std::string::npos`.
+
+### CharacterWorkshop.LesGestesRestentALaCommandeDesCartes
+
+*Majeur · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:200`
+
+L'atelier laisse les scenarios de gestes a la commande des cartes.
+
+**Étapes**
+
+1. Passer à l'atelier `--apply` d'un scénario de gestes, puis `--check` seul.
+2. Lui passer une fiche d'atelier et un scénario de gestes ensemble.
+
+**Résultat attendu**
+
+- Vérifie que `hmi::runCharacterCommand({"--apply", gestes}, racine, sortie).has_value()` est faux.
+- Vérifie que `hmi::runCharacterCommand({"--check"}, racine, sortie).has_value()` est faux.
+- Vérifie que `hmi::runCharacterCommand({"--apply", fiche, gestes}, racine, sortie)` vaut `std::optional{2}`.
+- Vérifie que `std::filesystem::exists(bourg() / "garde")` est faux.
+
+### CharacterWorkshop.UneFicheRefuseeNEcritRien
+
+*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:223`
+
+Exigences : `EX-EDIT-102`
+
+Une fiche refusee n'ecrit rien et nomme ce qui manque.
+
+**Étapes**
+
+1. Installer le garde avec un portrait de 64 px ; avec un modèle sans squelette ; avec un pantin de trois os, qui n'a pas les os de la silhouette ; avec une silhouette inconnue ; sans modèle ; sous un niveau qui n'a pas de manifeste ; avec un nom qui remonte d'un dossier.
+
+**Résultat attendu**
+
+- Vérifie que `plan.ok()` est faux.
+- Vérifie que `plan.error.find(cause)` diffère de `std::string::npos`.
+- Vérifie que `plan.writes.empty()` est vrai.
+- Vérifie que `hmi::writeCharacter(plan).empty()` est faux.
+- Vérifie que `std::filesystem::exists(bourg() / "garde")` est faux.
+
+### CharacterWorkshop.UnPersonnageInstalleSeRouvreSansDifference
+
+*Critique · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:277`
+
+Exigences : `EX-EDIT-102`
+
+Un personnage installe se rouvre et se reenregistre sans difference.
+
+**Étapes**
+
+1. Installer le garde, puis rouvrir sa fiche depuis ce qui est installé, l'atelier local étant le dossier des fixtures.
+2. Calculer son installation ; puis celle de la même fiche sans atelier local.
+3. Remplacer son seul jeton par une image d'un autre nom, et réinstaller.
+
+**Résultat attendu**
+
+- Vérifie que `installer(garde())` vaut `""`.
+- Vérifie que `installes.size()` vaut `1U`.
+- Vérifie que `installes[0]` vaut `(hmi::InstalledCharacter{"Regions/terre/bourg/Characters", "garde"})`.
+- Vérifie que `hmi::characterLevels(racine)` vaut `(std::vector<std::string>{"Common/Characters", "Regions/terre/bourg/Characters"})`.
+- Vérifie que `rouverte.ok()` est vrai.
+- Vérifie que `rouverte.draft.skeleton` vaut `"humanoid"`.
+- Vérifie que `rouverte.draft.portrait` vaut `"portrait.png"`.
+- Vérifie que `rouverte.draft.model` vaut `"../Characters/Assets/Common/Characters/Mannequins/humanoid/humanoid.glb"`.
+- Vérifie que `memePlan.ok()` est vrai.
+- Vérifie que `memePlan.writes.empty() && memePlan.removals.empty()` est vrai.
+- Vérifie que `sansAtelier.ok()` est vrai.
+- Vérifie que `sansAtelier.draft.model.empty() && sansAtelier.draft.portrait.empty()` est vrai.
+- Vérifie que `garde2.ok()` est vrai.
+- Vérifie que `garde2.writes.empty() && garde2.removals.empty()` est vrai.
+- Vérifie que `remplace.ok()` est vrai.
+- Vérifie que `hmi::writeCharacter(remplace)` vaut `""`.
+- Vérifie que `lire(bourg() / "garde" / "garde.glb")` vaut `modeleAvant`.
+- Vérifie que `manifeste.find("atelier/autre-jeton.png")` diffère de `std::string::npos`.
+- Vérifie que `manifeste.find("\"file\": \"portrait.png\"")` diffère de `std::string::npos`.
+
+### CharacterWorkshopDelivered.LesPersonnagesLivresSeReenregistrentSansDifference
+
+*Critique · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:335`
+
+Exigences : `EX-EDIT-102`
+
+Les personnages livres se reenregistrent par l'atelier sans difference.
+
+**Étapes**
+
+1. Lister les personnages en modèle de `Source/Elements/Assets`.
+2. Rouvrir chacun sans atelier local et calculer son installation.
+
+**Résultat attendu**
+
+- Vérifie que `installes.size()` est supérieur ou égal à `3U`.
+- Vérifie que `fiche.ok()` est vrai.
+- Vérifie que `plan.ok()` est vrai.
+- Vérifie que `plan.writes.empty() && plan.removals.empty()` est vrai.
+
+### CharacterWorkshop.LeControleNommeCeQuiManque
+
+*Bloquant · Unitaire · Editeur · Atelier des assets* — `Source/Test/Unit/Editor/test_character_workshop.cpp:364`
+
+Exigences : `EX-EDIT-104`
+
+Le controle des personnages nomme ce qui manque.
+
+**Étapes**
+
+1. Installer le garde : le contrôle ne trouve rien.
+2. Retirer son jeton, remplacer son portrait par une image de 64 px, puis son modèle par un mur sans squelette ; contrôler à chaque fois.
+3. Retirer la description de son squelette, et contrôler.
+4. Poser un verrou de kits sans kit installé, et contrôler.
+
+**Résultat attendu**
+
+- Vérifie que `installer(garde())` vaut `""`.
+- Vérifie que `hmi::checkCharacters(racine).empty()` est vrai.
+- Vérifie que `trouve` est vrai.
+- Vérifie que `sansKit.size()` vaut `1U`.
+- Vérifie que `sansKit[0].severity` vaut `hmi::MapCheckSeverity::Warning`.
+- Vérifie que `sansKit[0].message.find("fetch_assets.py")` diffère de `std::string::npos`.
 
 ## test_city_view.cpp
 
