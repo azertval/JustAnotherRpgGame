@@ -170,11 +170,32 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a37238749d10cab15704ad2e255e6a0ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'étage de la pièce (<span class="tt">LOT-129</span>) : 0 au rez, <span class="tt">n</span> sur la couche d'étage <span class="tt">floor = n</span>.  <br /></td></tr>
 <tr class="memitem:a626ba19038fe4a76af6e786c0f822564" id="r_a626ba19038fe4a76af6e786c0f822564"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a626ba19038fe4a76af6e786c0f822564">occlusion</a> {}</td></tr>
 <tr class="memdesc:a626ba19038fe4a76af6e786c0f822564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une pièce d'étage <b>masque</b> à l'écran, en unités monde : le rectangle que l'on compare à l'image du héros pour l'effacer devant lui (<span class="tt">LOT-129</span>).  <br /></td></tr>
+<tr class="memitem:a264257dbc9ee32d5e00e52a72488b3c1" id="r_a264257dbc9ee32d5e00e52a72488b3c1"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535">QuadStance</a>&#160;</td><td class="memItemRight"><a class="el" href="#a264257dbc9ee32d5e00e52a72488b3c1">stance</a> = <a class="el" href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535a3519d51443d41746a097cd54cd5c11cf">QuadStance::Ground</a></td></tr>
+<tr class="memdesc:a264257dbc9ee32d5e00e52a72488b3c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comment la primitive se tient dans la scène en volume (<span class="tt">LOT-1003</span>).  <br /></td></tr>
+<tr class="memitem:a2ef2a5e645fee15467d36e8c4aaf38e2" id="r_a2ef2a5e645fee15467d36e8c4aaf38e2"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a2ef2a5e645fee15467d36e8c4aaf38e2">footY</a> = 0.0F</td></tr>
+<tr class="memdesc:a2ef2a5e645fee15467d36e8c4aaf38e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'ordonnée de la ligne du <b>pied</b> d'une primitive dressée, en unités monde : au-dessus, un plan vertical ; au-dessous, le sol.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une primitive prête à soumettre, avec tout ce qui détermine <b>quand</b> la dessiner. </p>
 <p>Les deux primitives possibles sont stockées côte à côte plutôt que dans une union ou un <span class="tt">std::variant</span> : la composition doit rester une simple liste ordonnée, parcourue en séquence par la soumission comme par les tests. Le surcoût mémoire (quelques dizaines d'octets par primitive, dans un tampon réutilisé d'une image à l'autre) est sans commune mesure avec la complexité qu'introduirait un accès polymorphe sur le chemin de dessin. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a2ef2a5e645fee15467d36e8c4aaf38e2" name="a2ef2a5e645fee15467d36e8c4aaf38e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ef2a5e645fee15467d36e8c4aaf38e2">&#9670;&#160;</a></span>footY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::ComposedQuad::footY = 0.0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'ordonnée de la ligne du <b>pied</b> d'une primitive dressée, en unités monde : au-dessus, un plan vertical ; au-dessous, le sol. </p>
+<p>Sans objet pour les autres tenues. </p>
+
+</div>
+</div>
 <a id="a11f80072d43177fd77c938bb6efaab02" name="a11f80072d43177fd77c938bb6efaab02"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a11f80072d43177fd77c938bb6efaab02">&#9670;&#160;</a></span>kind</h2>
 
@@ -285,6 +306,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Primitive rectangle, valide si <span class="tt"><a class="el" href="#a11f80072d43177fd77c938bb6efaab02" title="Laquelle des deux primitives ci-dessous est valide.">kind</a> == <a class="el" href="namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd" title="hmi::SpriteQuad : rectangle aligné sur les axes.">QuadKind::Sprite</a></span>. </p>
+
+</div>
+</div>
+<a id="a264257dbc9ee32d5e00e52a72488b3c1" name="a264257dbc9ee32d5e00e52a72488b3c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a264257dbc9ee32d5e00e52a72488b3c1">&#9670;&#160;</a></span>stance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535">QuadStance</a> hmi::ComposedQuad::stance = <a class="el" href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535a3519d51443d41746a097cd54cd5c11cf">QuadStance::Ground</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Comment la primitive se tient dans la scène en volume (<span class="tt">LOT-1003</span>). </p>
 
 </div>
 </div>

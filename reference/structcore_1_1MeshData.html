@@ -1,0 +1,380 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::MeshData Struct Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('structcore_1_1MeshData.html','','structcore_1_1MeshData-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::MeshData Struct Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Un maillage lu : une seule liste de sommets, des triangles indexés, une matière.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="MeshFile_8h_source.html">MeshFile.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a40a257d934c32bfa81743af18696ec88" id="r_a40a257d934c32bfa81743af18696ec88"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a40a257d934c32bfa81743af18696ec88">triangleCount</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a01021132a8943efe3b79460ba05d50e8" id="r_a01021132a8943efe3b79460ba05d50e8"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1MeshVertex.html">MeshVertex</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a01021132a8943efe3b79460ba05d50e8">vertices</a></td></tr>
+<tr class="memitem:a5025b523d4df851a0fa487b0251317f5" id="r_a5025b523d4df851a0fa487b0251317f5"><td class="memItemLeft">std::vector&lt; std::uint32_t &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5025b523d4df851a0fa487b0251317f5">indices</a></td></tr>
+<tr class="memdesc:a5025b523d4df851a0fa487b0251317f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trois indices par triangle, dans <span class="tt"><a class="el" href="#a01021132a8943efe3b79460ba05d50e8">vertices</a></span>.  <br /></td></tr>
+<tr class="memitem:a3471167a4eb3a8919996016a8daa6549" id="r_a3471167a4eb3a8919996016a8daa6549"><td class="memItemLeft">std::array&lt; float, 3 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3471167a4eb3a8919996016a8daa6549">minimum</a> {}</td></tr>
+<tr class="memdesc:a3471167a4eb3a8919996016a8daa6549"><td class="mdescLeft">&#160;</td><td class="mdescRight">La boîte des positions, en mètres ; nulle pour un maillage vide.  <br /></td></tr>
+<tr class="memitem:a70427a890506f31271ebc207c7f427b8" id="r_a70427a890506f31271ebc207c7f427b8"><td class="memItemLeft">std::array&lt; float, 3 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a70427a890506f31271ebc207c7f427b8">maximum</a> {}</td></tr>
+<tr class="memitem:a8924a62ee096241f7492dab279645fc9" id="r_a8924a62ee096241f7492dab279645fc9"><td class="memItemLeft">std::array&lt; float, 4 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8924a62ee096241f7492dab279645fc9">baseColor</a> {1.0F, 1.0F, 1.0F, 1.0F}</td></tr>
+<tr class="memdesc:a8924a62ee096241f7492dab279645fc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le facteur de couleur de base de la matière (RVBA, alpha droit) ; blanc par défaut.  <br /></td></tr>
+<tr class="memitem:a68808ed6fb9f9d51a7e6b90805389628" id="r_a68808ed6fb9f9d51a7e6b90805389628"><td class="memItemLeft">std::vector&lt; std::byte &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a68808ed6fb9f9d51a7e6b90805389628">image</a></td></tr>
+<tr class="memdesc:a68808ed6fb9f9d51a7e6b90805389628"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'image de la texture de couleur, <b>encodée</b> telle que le fichier la porte ; vide si la matière n'en a pas.  <br /></td></tr>
+<tr class="memitem:a69c69864feed09d778d1355a338d80ec" id="r_a69c69864feed09d778d1355a338d80ec"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a69c69864feed09d778d1355a338d80ec">imageMimeType</a></td></tr>
+<tr class="memdesc:a69c69864feed09d778d1355a338d80ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Son type (<span class="tt">image/jpeg</span>, <span class="tt">image/png</span>), vide s'il n'est pas dit.  <br /></td></tr>
+<tr class="memitem:aab9a382292fa477b576f7fc083491393" id="r_aab9a382292fa477b576f7fc083491393"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aab9a382292fa477b576f7fc083491393">primitiveCount</a> = 0</td></tr>
+<tr class="memdesc:aab9a382292fa477b576f7fc083491393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le nombre de primitives fondues, et de matières distinctes qu'elles citaient : le standard en veut une de chaque, et qui installe un modèle peut le vérifier ici.  <br /></td></tr>
+<tr class="memitem:a372cd9b998da87480358e644ea63e1d0" id="r_a372cd9b998da87480358e644ea63e1d0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a372cd9b998da87480358e644ea63e1d0">materialCount</a> = 0</td></tr>
+<tr class="memitem:a445f50ef3e0449e9878c4eaae2e2a9a2" id="r_a445f50ef3e0449e9878c4eaae2e2a9a2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a445f50ef3e0449e9878c4eaae2e2a9a2">skinned</a> = false</td></tr>
+<tr class="memdesc:a445f50ef3e0449e9878c4eaae2e2a9a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si le fichier porte un squelette : le maillage est lu dans sa pose de liaison.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Un maillage lu : une seule liste de sommets, des triangles indexés, une matière. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a40a257d934c32bfa81743af18696ec88" name="a40a257d934c32bfa81743af18696ec88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40a257d934c32bfa81743af18696ec88">&#9670;&#160;</a></span>triangleCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t core::MeshData::triangleCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de triangles. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a8924a62ee096241f7492dab279645fc9" name="a8924a62ee096241f7492dab279645fc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8924a62ee096241f7492dab279645fc9">&#9670;&#160;</a></span>baseColor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;float, 4&gt; core::MeshData::baseColor {1.0F, 1.0F, 1.0F, 1.0F}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le facteur de couleur de base de la matière (RVBA, alpha droit) ; blanc par défaut. </p>
+
+</div>
+</div>
+<a id="a68808ed6fb9f9d51a7e6b90805389628" name="a68808ed6fb9f9d51a7e6b90805389628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68808ed6fb9f9d51a7e6b90805389628">&#9670;&#160;</a></span>image</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::byte&gt; core::MeshData::image</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'image de la texture de couleur, <b>encodée</b> telle que le fichier la porte ; vide si la matière n'en a pas. </p>
+
+</div>
+</div>
+<a id="a69c69864feed09d778d1355a338d80ec" name="a69c69864feed09d778d1355a338d80ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69c69864feed09d778d1355a338d80ec">&#9670;&#160;</a></span>imageMimeType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::MeshData::imageMimeType</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Son type (<span class="tt">image/jpeg</span>, <span class="tt">image/png</span>), vide s'il n'est pas dit. </p>
+
+</div>
+</div>
+<a id="a5025b523d4df851a0fa487b0251317f5" name="a5025b523d4df851a0fa487b0251317f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5025b523d4df851a0fa487b0251317f5">&#9670;&#160;</a></span>indices</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;std::uint32_t&gt; core::MeshData::indices</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trois indices par triangle, dans <span class="tt"><a class="el" href="#a01021132a8943efe3b79460ba05d50e8">vertices</a></span>. </p>
+
+</div>
+</div>
+<a id="a372cd9b998da87480358e644ea63e1d0" name="a372cd9b998da87480358e644ea63e1d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a372cd9b998da87480358e644ea63e1d0">&#9670;&#160;</a></span>materialCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::MeshData::materialCount = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a70427a890506f31271ebc207c7f427b8" name="a70427a890506f31271ebc207c7f427b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70427a890506f31271ebc207c7f427b8">&#9670;&#160;</a></span>maximum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;float, 3&gt; core::MeshData::maximum {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3471167a4eb3a8919996016a8daa6549" name="a3471167a4eb3a8919996016a8daa6549"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3471167a4eb3a8919996016a8daa6549">&#9670;&#160;</a></span>minimum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;float, 3&gt; core::MeshData::minimum {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La boîte des positions, en mètres ; nulle pour un maillage vide. </p>
+
+</div>
+</div>
+<a id="aab9a382292fa477b576f7fc083491393" name="aab9a382292fa477b576f7fc083491393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab9a382292fa477b576f7fc083491393">&#9670;&#160;</a></span>primitiveCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::MeshData::primitiveCount = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le nombre de primitives fondues, et de matières distinctes qu'elles citaient : le standard en veut une de chaque, et qui installe un modèle peut le vérifier ici. </p>
+
+</div>
+</div>
+<a id="a445f50ef3e0449e9878c4eaae2e2a9a2" name="a445f50ef3e0449e9878c4eaae2e2a9a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a445f50ef3e0449e9878c4eaae2e2a9a2">&#9670;&#160;</a></span>skinned</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::MeshData::skinned = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai si le fichier porte un squelette : le maillage est lu dans sa pose de liaison. </p>
+
+</div>
+</div>
+<a id="a01021132a8943efe3b79460ba05d50e8" name="a01021132a8943efe3b79460ba05d50e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01021132a8943efe3b79460ba05d50e8">&#9670;&#160;</a></span>vertices</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1MeshVertex.html">MeshVertex</a>&gt; core::MeshData::vertices</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/<a class="el" href="MeshFile_8h_source.html">MeshFile.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="structcore_1_1MeshData.html">MeshData</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

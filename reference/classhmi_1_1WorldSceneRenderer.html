@@ -172,7 +172,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1a51e2e9c6648dbffe27496ab0e25c43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le point suivi par la caméra, en cases (position continue du héros).  <br /></td></tr>
 <tr class="memitem:ab0160a58f9a4c26eef4ea0d7ae44e08d" id="r_ab0160a58f9a4c26eef4ea0d7ae44e08d"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab0160a58f9a4c26eef4ea0d7ae44e08d">focus</a> () const noexcept</td></tr>
 <tr class="memitem:afba0dba07f75c1abd5e307c4d2286d71" id="r_afba0dba07f75c1abd5e307c4d2286d71"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afba0dba07f75c1abd5e307c4d2286d71">setTilePixels</a> (float tilePixels) noexcept</td></tr>
-<tr class="memdesc:afba0dba07f75c1abd5e307c4d2286d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Impose la largeur d'une case à l'écran, en pixels ; 0 rend la règle de la définition (<span class="tt"><a class="el" href="namespacehmi.html#a44337da72a19b007b1c90bade791dfdf" title="Le cadrage d&#39;un lieu : la caméra suit le héros, et ne sort pas de la carte.">hmi::worldCamera</a></span>).  <br /></td></tr>
+<tr class="memdesc:afba0dba07f75c1abd5e307c4d2286d71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Impose la largeur d'une case à l'écran, en pixels ; 0 rend la règle de la définition (<span class="tt"><a class="el" href="namespacehmi.html#a8c914209a98a09ab29c1116ec8b79ea1" title="Le cadrage d&#39;un lieu : la caméra suit le héros, et ne sort pas de la carte.">hmi::worldCamera</a></span>).  <br /></td></tr>
 <tr class="memitem:ad91b45ca76f463aab23658218925a019" id="r_ad91b45ca76f463aab23658218925a019"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad91b45ca76f463aab23658218925a019">setFraming</a> (std::optional&lt; <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &gt; <a class="el" href="#a912e925487137e7c91fa390d6597b8dc">framing</a>) noexcept</td></tr>
 <tr class="memdesc:ad91b45ca76f463aab23658218925a019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Impose le cadrage (<span class="tt">LOT-1002</span>) ; <span class="tt">std::nullopt</span> rend la caméra qui suit le héros.  <br /></td></tr>
 <tr class="memitem:a912e925487137e7c91fa390d6597b8dc" id="r_a912e925487137e7c91fa390d6597b8dc"><td class="memItemLeft">const std::optional&lt; <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a912e925487137e7c91fa390d6597b8dc">framing</a> () const noexcept</td></tr>
@@ -183,7 +183,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6559aaca06908411e90abdb1782a96c2" id="r_a6559aaca06908411e90abdb1782a96c2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6559aaca06908411e90abdb1782a96c2">prepare</a> ()</td></tr>
 <tr class="memdesc:a6559aaca06908411e90abdb1782a96c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les textures et compose la carte <b>maintenant</b>, sans dessiner (<span class="tt">LOT-1002</span>).  <br /></td></tr>
 <tr class="memitem:a5297e82fdf10c881f55121e39f6f0867" id="r_a5297e82fdf10c881f55121e39f6f0867"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5297e82fdf10c881f55121e39f6f0867">paintedBounds</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;base)</td></tr>
-<tr class="memdesc:a5297e82fdf10c881f55121e39f6f0867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'occupent la carte et ses figurines, réuni à <code class="param">base</code> (<span class="tt"><a class="el" href="namespacehmi.html#a20c3945e5c8e719d1588de9fbc5d931b" title="Le rectangle qu&#39;occupe scene, réuni à base : chaque primitive compte, reliefs et figurines qui monten...">composedSceneBounds</a></span>).  <br /></td></tr>
+<tr class="memdesc:a5297e82fdf10c881f55121e39f6f0867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'occupent la carte et ses figurines, réuni à <code class="param">base</code> (<span class="tt"><a class="el" href="namespacehmi.html#a20c3945e5c8e719d1588de9fbc5d931b" title="Le rectangle qu&#39;occupe scene, réuni à base : chaque primitive et chaque maillage compte,...">composedSceneBounds</a></span>).  <br /></td></tr>
 <tr class="memitem:a6aab3318c68d4afcb4ae3f9c72f03e9e" id="r_a6aab3318c68d4afcb4ae3f9c72f03e9e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6aab3318c68d4afcb4ae3f9c72f03e9e">render</a> (QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, const float *clear)</td></tr>
 <tr class="memdesc:a6aab3318c68d4afcb4ae3f9c72f03e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine une image dans <code class="param">target</code> : efface à <code class="param">clear</code>, puis le lieu cadré sur le héros, ou par le cadrage imposé.  <br /></td></tr>
 <tr class="memitem:a83e800ebffc8614f304d885d208af073" id="r_a83e800ebffc8614f304d885d208af073"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a83e800ebffc8614f304d885d208af073">composed</a> () const noexcept</td></tr>
@@ -196,6 +196,8 @@ Public Member Functions</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ae28a3765bdefd7b8fd594e5451c8f6cd" id="r_ae28a3765bdefd7b8fd594e5451c8f6cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae28a3765bdefd7b8fd594e5451c8f6cd">ensureTextures</a> (const std::vector&lt; std::string &gt; &amp;paths)</td></tr>
 <tr class="memdesc:ae28a3765bdefd7b8fd594e5451c8f6cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les textures de <code class="param">paths</code> qui manquent encore. Sur le fil de rendu.  <br /></td></tr>
+<tr class="memitem:aa1f8c78651b1fa484a307a8934159b9b" id="r_aa1f8c78651b1fa484a307a8934159b9b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa1f8c78651b1fa484a307a8934159b9b">ensureMeshes</a> (const std::vector&lt; std::string &gt; &amp;paths)</td></tr>
+<tr class="memdesc:aa1f8c78651b1fa484a307a8934159b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les maillages de <code class="param">paths</code> qui manquent encore (<span class="tt">LOT-1003</span>). Sur le fil de rendu.  <br /></td></tr>
 <tr class="memitem:a55dfc11aadf454da5f305ee9b90314e7" id="r_a55dfc11aadf454da5f305ee9b90314e7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a55dfc11aadf454da5f305ee9b90314e7">refresh</a> (const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection)</td></tr>
 <tr class="memdesc:a55dfc11aadf454da5f305ee9b90314e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui est périmé — textures de la carte et des figurines, composition — est refait.  <br /></td></tr>
 <tr class="memitem:a8815860ac208e1a7f941d78a5a9dc7d3" id="r_a8815860ac208e1a7f941d78a5a9dc7d3"><td class="memItemLeft"><a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8815860ac208e1a7f941d78a5a9dc7d3">sceneProjection</a> () const</td></tr>
@@ -234,6 +236,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a673a9db015871d3a290980c74324ccb9" id="r_a673a9db015871d3a290980c74324ccb9"><td class="memItemLeft"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#a673a9db015871d3a290980c74324ccb9">_missing</a></td></tr>
 <tr class="memitem:ace4820029eeb81a93aebddd80ae92cf9" id="r_ace4820029eeb81a93aebddd80ae92cf9"><td class="memItemLeft"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#ace4820029eeb81a93aebddd80ae92cf9">_solid</a></td></tr>
 <tr class="memdesc:ace4820029eeb81a93aebddd80ae92cf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'aplat blanc de 1 x 1 : la texture que lient les primitives de couleur du rendu de maquette (<span class="tt">LOT-128</span>).  <br /></td></tr>
+<tr class="memitem:a94b6b02e7c21596f49bdf93d78c62123" id="r_a94b6b02e7c21596f49bdf93d78c62123"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1MeshBatch.html">MeshBatch</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a94b6b02e7c21596f49bdf93d78c62123">_meshes</a></td></tr>
+<tr class="memdesc:a94b6b02e7c21596f49bdf93d78c62123"><td class="mdescLeft">&#160;</td><td class="mdescRight">La passe de maillages (<span class="tt">LOT-1003</span>) : créée avec les ressources, libérée avant elles.  <br /></td></tr>
 <tr class="memitem:a4b8adcaabf36c1c7ab71cd8d411eba99" id="r_a4b8adcaabf36c1c7ab71cd8d411eba99"><td class="memItemLeft"><a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4b8adcaabf36c1c7ab71cd8d411eba99">_textures</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
@@ -362,6 +366,33 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa1f8c78651b1fa484a307a8934159b9b" name="aa1f8c78651b1fa484a307a8934159b9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1f8c78651b1fa484a307a8934159b9b">&#9670;&#160;</a></span>ensureMeshes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldSceneRenderer::ensureMeshes </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>paths</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Charge les maillages de <code class="param">paths</code> qui manquent encore (<span class="tt">LOT-1003</span>). Sur le fil de rendu. </p>
 
 </div>
 </div>
@@ -562,7 +593,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Ce qu'occupent la carte et ses figurines, réuni à <code class="param">base</code> (<span class="tt"><a class="el" href="namespacehmi.html#a20c3945e5c8e719d1588de9fbc5d931b" title="Le rectangle qu&#39;occupe scene, réuni à base : chaque primitive compte, reliefs et figurines qui monten...">composedSceneBounds</a></span>). </p>
+<p>Ce qu'occupent la carte et ses figurines, réuni à <code class="param">base</code> (<span class="tt"><a class="el" href="namespacehmi.html#a20c3945e5c8e719d1588de9fbc5d931b" title="Le rectangle qu&#39;occupe scene, réuni à base : chaque primitive et chaque maillage compte,...">composedSceneBounds</a></span>). </p>
 <p>Prépare la carte au besoin (<span class="tt"><a class="el" href="#a6559aaca06908411e90abdb1782a96c2" title="Charge les textures et compose la carte maintenant, sans dessiner (LOT-1002).">prepare</a></span>) ; sans ressources, rend <code class="param">base</code>. </p>
 
 </div>
@@ -938,7 +969,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Impose la largeur d'une case à l'écran, en pixels ; 0 rend la règle de la définition (<span class="tt"><a class="el" href="namespacehmi.html#a44337da72a19b007b1c90bade791dfdf" title="Le cadrage d&#39;un lieu : la caméra suit le héros, et ne sort pas de la carte.">hmi::worldCamera</a></span>). </p>
+<p>Impose la largeur d'une case à l'écran, en pixels ; 0 rend la règle de la définition (<span class="tt"><a class="el" href="namespacehmi.html#a8c914209a98a09ab29c1116ec8b79ea1" title="Le cadrage d&#39;un lieu : la caméra suit le héros, et ne sort pas de la carte.">hmi::worldCamera</a></span>). </p>
 
 </div>
 </div>
@@ -1012,11 +1043,11 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les octets de mémoire graphique que tiennent les textures chargées, mipmaps comprises : ce qu'un cache qui garde ce rendu compare à son budget (<span class="tt">LOT-1002</span>). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les octets de mémoire graphique que tiennent les textures chargées, mipmaps comprises, et les maillages : ce qu'un cache qui garde ce rendu compare à son budget (<span class="tt">LOT-1002</span>). </dd></dl>
 
 </div>
 </div>
@@ -1247,6 +1278,31 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les manifestes des lieux, lus une fois pour toutes les textures (audit, A6). </p>
+
+</div>
+</div>
+<a id="a94b6b02e7c21596f49bdf93d78c62123" name="a94b6b02e7c21596f49bdf93d78c62123"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94b6b02e7c21596f49bdf93d78c62123">&#9670;&#160;</a></span>_meshes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1MeshBatch.html">MeshBatch</a>&gt; hmi::WorldSceneRenderer::_meshes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La passe de maillages (<span class="tt">LOT-1003</span>) : créée avec les ressources, libérée avant elles. </p>
+<p>Ses maillages sont ceux que <span class="tt">_textures.meshes</span> désigne. </p>
 
 </div>
 </div>

@@ -25,7 +25,7 @@ var searchData=
   ['viewrow_22',['viewRow',['../classhmi_1_1AssetGalleryItem.html#ab7e41b9f6ce00c0576121e96ae994e79',1,'hmi::AssetGalleryItem']]],
   ['viewrows_23',['viewRows',['../classhmi_1_1AssetGalleryItem.html#aba0a5746650fab5082cc04d4aa08cf84',1,'hmi::AssetGalleryItem']]],
   ['visibilityrequested_24',['visibilityRequested',['../classhmi_1_1LayersPanel.html#ae3b5648168f33c5fdf7e7772db0cc91b',1,'hmi::LayersPanel']]],
-  ['visiblebounds_25',['visibleBounds',['../classhmi_1_1Camera2D.html#a471c631178660b8fcd3d9f8072ef6dfb',1,'hmi::Camera2D']]],
+  ['visiblebounds_25',['visibleBounds',['../classhmi_1_1PlaceCamera.html#a905460a7930098f5a6c5680b6858ad7d',1,'hmi::PlaceCamera']]],
   ['visiblegridcorners_26',['visibleGridCorners',['../classhmi_1_1EditorViewport.html#a9c3b4a504fd1490457985123fad6215d',1,'hmi::EditorViewport']]],
   ['visibleindices_27',['visibleIndices',['../classhmi_1_1StaticWorldScene.html#a7db00147304cf9af6cf3edb57c0ba3c4',1,'hmi::StaticWorldScene']]],
   ['visiteddistricts_28',['visitedDistricts',['../classhmi_1_1WorldModel.html#a9e2ed6a1599df88493a0f92ff495cc5d',1,'hmi::WorldModel']]],

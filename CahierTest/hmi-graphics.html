@@ -14,12 +14,12 @@
   <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
 </header>
 <div class="shell with-sidebar">
-<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="recette-manuelle.html">Recette manuelle</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="couverture-exigences.html">Couverture des exigences</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1 active" href="hmi-graphics.html">HMI · Graphics</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#exigences-vérifiées-par-cette-page">Exigences vérifiées par cette page</a><a class="toc depth-2" href="#test-animation-catalogcpp">test_animation_catalog.cpp</a><a class="toc depth-2" href="#test-asset-gallerycpp">test_asset_gallery.cpp</a><a class="toc depth-2" href="#test-asset-gallery-renderercpp">test_asset_gallery_renderer.cpp</a><a class="toc depth-2" href="#test-camera2dcpp">test_camera2d.cpp</a><a class="toc depth-2" href="#test-capital-kit-rendercpp">test_capital_kit_render.cpp</a><a class="toc depth-2" href="#test-city-block-rendercpp">test_city_block_render.cpp</a><a class="toc depth-2" href="#test-depth-sortcpp">test_depth_sort.cpp</a><a class="toc depth-2" href="#test-entity-markerscpp">test_entity_markers.cpp</a><a class="toc depth-2" href="#test-hd-mockup-rendercpp">test_hd_mockup_render.cpp</a><a class="toc depth-2" href="#test-image-encodecpp">test_image_encode.cpp</a><a class="toc depth-2" href="#test-maquette-tokenscpp">test_maquette_tokens.cpp</a><a class="toc depth-2" href="#test-missing-texturecpp">test_missing_texture.cpp</a><a class="toc depth-2" href="#test-offscreen-rendercpp">test_offscreen_render.cpp</a><a class="toc depth-2" href="#test-poly-quadcpp">test_poly_quad.cpp</a><a class="toc depth-2" href="#test-procedural-atlascpp">test_procedural_atlas.cpp</a><a class="toc depth-2" href="#test-quad-recordercpp">test_quad_recorder.cpp</a><a class="toc depth-2" href="#test-render-cullingcpp">test_render_culling.cpp</a><a class="toc depth-2" href="#test-rhi-offscreencpp">test_rhi_offscreen.cpp</a><a class="toc depth-2" href="#test-scene-folderscpp">test_scene_folders.cpp</a><a class="toc depth-2" href="#test-static-world-scenecpp">test_static_world_scene.cpp</a><a class="toc depth-2" href="#test-texture-atlascpp">test_texture_atlas.cpp</a><a class="toc depth-2" href="#test-world-scene-composercpp">test_world_scene_composer.cpp</a><a class="toc depth-2" href="#test-world-scene-renderercpp">test_world_scene_renderer.cpp</a><a class="toc depth-2" href="#test-world-storeyscpp">test_world_storeys.cpp</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="recette-manuelle.html">Recette manuelle</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="couverture-exigences.html">Couverture des exigences</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1 active" href="hmi-graphics.html">HMI · Graphics</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#exigences-vérifiées-par-cette-page">Exigences vérifiées par cette page</a><a class="toc depth-2" href="#test-animation-catalogcpp">test_animation_catalog.cpp</a><a class="toc depth-2" href="#test-asset-gallerycpp">test_asset_gallery.cpp</a><a class="toc depth-2" href="#test-asset-gallery-renderercpp">test_asset_gallery_renderer.cpp</a><a class="toc depth-2" href="#test-capital-kit-rendercpp">test_capital_kit_render.cpp</a><a class="toc depth-2" href="#test-city-block-rendercpp">test_city_block_render.cpp</a><a class="toc depth-2" href="#test-depth-sortcpp">test_depth_sort.cpp</a><a class="toc depth-2" href="#test-entity-markerscpp">test_entity_markers.cpp</a><a class="toc depth-2" href="#test-hd-mockup-rendercpp">test_hd_mockup_render.cpp</a><a class="toc depth-2" href="#test-image-encodecpp">test_image_encode.cpp</a><a class="toc depth-2" href="#test-iso-viewcpp">test_iso_view.cpp</a><a class="toc depth-2" href="#test-maquette-tokenscpp">test_maquette_tokens.cpp</a><a class="toc depth-2" href="#test-mesh-compositioncpp">test_mesh_composition.cpp</a><a class="toc depth-2" href="#test-mesh-rendercpp">test_mesh_render.cpp</a><a class="toc depth-2" href="#test-missing-texturecpp">test_missing_texture.cpp</a><a class="toc depth-2" href="#test-offscreen-rendercpp">test_offscreen_render.cpp</a><a class="toc depth-2" href="#test-place-cameracpp">test_place_camera.cpp</a><a class="toc depth-2" href="#test-poly-quadcpp">test_poly_quad.cpp</a><a class="toc depth-2" href="#test-procedural-atlascpp">test_procedural_atlas.cpp</a><a class="toc depth-2" href="#test-quad-recordercpp">test_quad_recorder.cpp</a><a class="toc depth-2" href="#test-render-cullingcpp">test_render_culling.cpp</a><a class="toc depth-2" href="#test-rhi-offscreencpp">test_rhi_offscreen.cpp</a><a class="toc depth-2" href="#test-scene-folderscpp">test_scene_folders.cpp</a><a class="toc depth-2" href="#test-static-world-scenecpp">test_static_world_scene.cpp</a><a class="toc depth-2" href="#test-texture-atlascpp">test_texture_atlas.cpp</a><a class="toc depth-2" href="#test-world-scene-composercpp">test_world_scene_composer.cpp</a><a class="toc depth-2" href="#test-world-scene-renderercpp">test_world_scene_renderer.cpp</a><a class="toc depth-2" href="#test-world-storeyscpp">test_world_storeys.cpp</a><a class="depth-1" href="hmi-input.html">HMI · Input</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
 <main>
-<article class="prose"><h1 id="hmi-graphics">HMI · Graphics</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">157 cas</span></div>
-<p>Tests unitaires — <strong>157 cas</strong> (30 bloquants, 48 critiques, 74 majeurs, 5 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<article class="prose"><h1 id="hmi-graphics">HMI · Graphics</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">178 cas</span></div>
+<p>Tests unitaires — <strong>178 cas</strong> (40 bloquants, 48 critiques, 85 majeurs, 5 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
 <h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
-<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-animation-catalogcpp"><code>test_animation_catalog.cpp</code></a></td><td>12</td><td>-</td><td>5</td><td>7</td><td>-</td></tr><tr><td><a href="#test-asset-gallerycpp"><code>test_asset_gallery.cpp</code></a></td><td>11</td><td>4</td><td>1</td><td>6</td><td>-</td></tr><tr><td><a href="#test-asset-gallery-renderercpp"><code>test_asset_gallery_renderer.cpp</code></a></td><td>2</td><td>1</td><td>-</td><td>1</td><td>-</td></tr><tr><td><a href="#test-camera2dcpp"><code>test_camera2d.cpp</code></a></td><td>10</td><td>-</td><td>-</td><td>9</td><td>1</td></tr><tr><td><a href="#test-capital-kit-rendercpp"><code>test_capital_kit_render.cpp</code></a></td><td>1</td><td>1</td><td>-</td><td>-</td><td>-</td></tr><tr><td><a href="#test-city-block-rendercpp"><code>test_city_block_render.cpp</code></a></td><td>2</td><td>-</td><td>-</td><td>2</td><td>-</td></tr><tr><td><a href="#test-depth-sortcpp"><code>test_depth_sort.cpp</code></a></td><td>5</td><td>-</td><td>4</td><td>1</td><td>-</td></tr><tr><td><a href="#test-entity-markerscpp"><code>test_entity_markers.cpp</code></a></td><td>5</td><td>-</td><td>1</td><td>4</td><td>-</td></tr><tr><td><a href="#test-hd-mockup-rendercpp"><code>test_hd_mockup_render.cpp</code></a></td><td>3</td><td>2</td><td>-</td><td>-</td><td>1</td></tr><tr><td><a href="#test-image-encodecpp"><code>test_image_encode.cpp</code></a></td><td>5</td><td>-</td><td>1</td><td>4</td><td>-</td></tr><tr><td><a href="#test-maquette-tokenscpp"><code>test_maquette_tokens.cpp</code></a></td><td>6</td><td>-</td><td>2</td><td>4</td><td>-</td></tr><tr><td><a href="#test-missing-texturecpp"><code>test_missing_texture.cpp</code></a></td><td>5</td><td>-</td><td>2</td><td>3</td><td>-</td></tr><tr><td><a href="#test-offscreen-rendercpp"><code>test_offscreen_render.cpp</code></a></td><td>5</td><td>3</td><td>-</td><td>2</td><td>-</td></tr><tr><td><a href="#test-poly-quadcpp"><code>test_poly_quad.cpp</code></a></td><td>4</td><td>-</td><td>2</td><td>2</td><td>-</td></tr><tr><td><a href="#test-procedural-atlascpp"><code>test_procedural_atlas.cpp</code></a></td><td>4</td><td>-</td><td>1</td><td>2</td><td>1</td></tr><tr><td><a href="#test-quad-recordercpp"><code>test_quad_recorder.cpp</code></a></td><td>7</td><td>-</td><td>3</td><td>3</td><td>1</td></tr><tr><td><a href="#test-render-cullingcpp"><code>test_render_culling.cpp</code></a></td><td>10</td><td>-</td><td>5</td><td>4</td><td>1</td></tr><tr><td><a href="#test-rhi-offscreencpp"><code>test_rhi_offscreen.cpp</code></a></td><td>4</td><td>2</td><td>1</td><td>1</td><td>-</td></tr><tr><td><a href="#test-scene-folderscpp"><code>test_scene_folders.cpp</code></a></td><td>2</td><td>2</td><td>-</td><td>-</td><td>-</td></tr><tr><td><a href="#test-static-world-scenecpp"><code>test_static_world_scene.cpp</code></a></td><td>3</td><td>2</td><td>-</td><td>1</td><td>-</td></tr><tr><td><a href="#test-texture-atlascpp"><code>test_texture_atlas.cpp</code></a></td><td>1</td><td>-</td><td>1</td><td>-</td><td>-</td></tr><tr><td><a href="#test-world-scene-composercpp"><code>test_world_scene_composer.cpp</code></a></td><td>37</td><td>4</td><td>16</td><td>17</td><td>-</td></tr><tr><td><a href="#test-world-scene-renderercpp"><code>test_world_scene_renderer.cpp</code></a></td><td>6</td><td>3</td><td>3</td><td>-</td><td>-</td></tr><tr><td><a href="#test-world-storeyscpp"><code>test_world_storeys.cpp</code></a></td><td>7</td><td>6</td><td>-</td><td>1</td><td>-</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-animation-catalogcpp"><code>test_animation_catalog.cpp</code></a></td><td>12</td><td>-</td><td>5</td><td>7</td><td>-</td></tr><tr><td><a href="#test-asset-gallerycpp"><code>test_asset_gallery.cpp</code></a></td><td>11</td><td>4</td><td>1</td><td>6</td><td>-</td></tr><tr><td><a href="#test-asset-gallery-renderercpp"><code>test_asset_gallery_renderer.cpp</code></a></td><td>2</td><td>1</td><td>-</td><td>1</td><td>-</td></tr><tr><td><a href="#test-capital-kit-rendercpp"><code>test_capital_kit_render.cpp</code></a></td><td>1</td><td>1</td><td>-</td><td>-</td><td>-</td></tr><tr><td><a href="#test-city-block-rendercpp"><code>test_city_block_render.cpp</code></a></td><td>2</td><td>-</td><td>-</td><td>2</td><td>-</td></tr><tr><td><a href="#test-depth-sortcpp"><code>test_depth_sort.cpp</code></a></td><td>5</td><td>-</td><td>4</td><td>1</td><td>-</td></tr><tr><td><a href="#test-entity-markerscpp"><code>test_entity_markers.cpp</code></a></td><td>5</td><td>-</td><td>1</td><td>4</td><td>-</td></tr><tr><td><a href="#test-hd-mockup-rendercpp"><code>test_hd_mockup_render.cpp</code></a></td><td>3</td><td>2</td><td>-</td><td>-</td><td>1</td></tr><tr><td><a href="#test-image-encodecpp"><code>test_image_encode.cpp</code></a></td><td>5</td><td>-</td><td>1</td><td>4</td><td>-</td></tr><tr><td><a href="#test-iso-viewcpp"><code>test_iso_view.cpp</code></a></td><td>6</td><td>3</td><td>-</td><td>3</td><td>-</td></tr><tr><td><a href="#test-maquette-tokenscpp"><code>test_maquette_tokens.cpp</code></a></td><td>6</td><td>-</td><td>2</td><td>4</td><td>-</td></tr><tr><td><a href="#test-mesh-compositioncpp"><code>test_mesh_composition.cpp</code></a></td><td>6</td><td>2</td><td>-</td><td>4</td><td>-</td></tr><tr><td><a href="#test-mesh-rendercpp"><code>test_mesh_render.cpp</code></a></td><td>6</td><td>3</td><td>-</td><td>3</td><td>-</td></tr><tr><td><a href="#test-missing-texturecpp"><code>test_missing_texture.cpp</code></a></td><td>5</td><td>-</td><td>2</td><td>3</td><td>-</td></tr><tr><td><a href="#test-offscreen-rendercpp"><code>test_offscreen_render.cpp</code></a></td><td>5</td><td>3</td><td>-</td><td>2</td><td>-</td></tr><tr><td><a href="#test-place-cameracpp"><code>test_place_camera.cpp</code></a></td><td>13</td><td>2</td><td>-</td><td>10</td><td>1</td></tr><tr><td><a href="#test-poly-quadcpp"><code>test_poly_quad.cpp</code></a></td><td>4</td><td>-</td><td>2</td><td>2</td><td>-</td></tr><tr><td><a href="#test-procedural-atlascpp"><code>test_procedural_atlas.cpp</code></a></td><td>4</td><td>-</td><td>1</td><td>2</td><td>1</td></tr><tr><td><a href="#test-quad-recordercpp"><code>test_quad_recorder.cpp</code></a></td><td>7</td><td>-</td><td>3</td><td>3</td><td>1</td></tr><tr><td><a href="#test-render-cullingcpp"><code>test_render_culling.cpp</code></a></td><td>10</td><td>-</td><td>5</td><td>4</td><td>1</td></tr><tr><td><a href="#test-rhi-offscreencpp"><code>test_rhi_offscreen.cpp</code></a></td><td>4</td><td>2</td><td>1</td><td>1</td><td>-</td></tr><tr><td><a href="#test-scene-folderscpp"><code>test_scene_folders.cpp</code></a></td><td>2</td><td>2</td><td>-</td><td>-</td><td>-</td></tr><tr><td><a href="#test-static-world-scenecpp"><code>test_static_world_scene.cpp</code></a></td><td>3</td><td>2</td><td>-</td><td>1</td><td>-</td></tr><tr><td><a href="#test-texture-atlascpp"><code>test_texture_atlas.cpp</code></a></td><td>1</td><td>-</td><td>1</td><td>-</td><td>-</td></tr><tr><td><a href="#test-world-scene-composercpp"><code>test_world_scene_composer.cpp</code></a></td><td>37</td><td>4</td><td>16</td><td>17</td><td>-</td></tr><tr><td><a href="#test-world-scene-renderercpp"><code>test_world_scene_renderer.cpp</code></a></td><td>6</td><td>3</td><td>3</td><td>-</td><td>-</td></tr><tr><td><a href="#test-world-storeyscpp"><code>test_world_storeys.cpp</code></a></td><td>7</td><td>6</td><td>-</td><td>1</td><td>-</td></tr></tbody></table></div>
 <h2 id="exigences-vérifiées-par-cette-page">Exigences vérifiées par cette page</h2>
 <p>Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la <a href="couverture-exigences.html">matrice de traçabilité</a> les rassemble toutes.</p>
 <div class="table-wrap"><table><thead><tr><th>Exigence</th><th>Cas</th></tr></thead><tbody><tr><td><a class="ref" href="../Specification/contenu.html#EX-CNT-042"><code>EX-CNT-042</code></a></td><td><a href="#assetgallerytesttoutassetlivreestdanslagalerie"><code>AssetGalleryTest.ToutAssetLivreEstDansLaGalerie</code></a>, <a href="#assetgallerytestunherosorienterangeparclasse"><code>AssetGalleryTest.UnHerosOrienteRangeParClasse</code></a>, <a href="#assetgallerytestuneffetsejouedanslagalerie"><code>AssetGalleryTest.UnEffetSeJoueDansLaGalerie</code></a></td></tr><tr><td><a class="ref" href="../Specification/exploration.html#EX-EXP-005"><code>EX-EXP-005</code></a></td><td><a href="#offscreenrendertestunecartesansaucuneimagesevoit"><code>OffscreenRenderTest.UneCarteSansAucuneImageSeVoit</code></a></td></tr><tr><td><a class="ref" href="../Specification/exigences-non-fonctionnelles.html#EX-NFR-040"><code>EX-NFR-040</code></a></td><td><a href="#proceduralatlastestchaquetypedetuileaunecouleurdereplidistincte"><code>ProceduralAtlasTest.ChaqueTypeDeTuileAUneCouleurDeRepliDistincte</code></a></td></tr><tr><td><a class="ref" href="../Specification/rendu-technique.html#EX-REN-005"><code>EX-REN-005</code></a></td><td><a href="#worldscenecomposertestlacadenceestcellequeditlabande"><code>WorldSceneComposerTest.LaCadenceEstCelleQueDitLaBande</code></a></td></tr><tr><td><a class="ref" href="../Specification/rendu-technique.html#EX-REN-014"><code>EX-REN-014</code></a></td><td><a href="#triparprofondeurtestlaprofondeurnedebordepasdesabande"><code>TriParProfondeurTest.LaProfondeurNeDebordePasDeSaBande</code></a>, <a href="#quadrecordertestordonnancementdeclare"><code>QuadRecorderTest.OrdonnancementDeclare</code></a></td></tr><tr><td><a class="ref" href="../Specification/rendu-technique.html#EX-REN-018"><code>EX-REN-018</code></a></td><td><a href="#triparprofondeurtesttroisprimitivessortentparpiedcroissant"><code>TriParProfondeurTest.TroisPrimitivesSortentParPiedCroissant</code></a>, <a href="#triparprofondeurtestpersonnageentredeuxobjets"><code>TriParProfondeurTest.PersonnageEntreDeuxObjets</code></a>, <a href="#triparprofondeurtestpiedegalconservelordredecomposition"><code>TriParProfondeurTest.PiedEgalConserveLOrdreDeComposition</code></a>, <a href="#triparprofondeurtestquantificationaupixel"><code>TriParProfondeurTest.QuantificationAuPixel</code></a></td></tr></tbody></table></div>
@@ -204,77 +204,6 @@
 <ol><li>Vouloir 30 textures d'un coup. 2. Dessiner une texture absente.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>renderer.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>renderer.cachedTextureCount()</code> vaut <code>static_cast&lt;std::size_t&gt;(hmi::AssetGalleryRenderer::UPLOADS_PER_FRAME)</code>.</li><li>Vérifie que <code>renderer.loading()</code> est vrai.</li><li>Vérifie que <code>renderer.cachedTextureCount()</code> vaut <code>28U</code>.</li><li>Vérifie que <code>renderer.loading()</code> est faux.</li><li>Vérifie que <code>absent.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>absent.cachedTextureCount()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>paintedPixels(image)</code> est strictement supérieur à <code>100U</code>.</li></ul>
-</section><h2 id="test-camera2dcpp">test_camera2d.cpp</h2>
-<section class="case" data-crit="Majeur"><h3 id="camera2dtestcentreaumilieudelecran">Camera2DTest.CentreAuMilieuDeLEcran</h3>
-<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:25</code></p>
-<p>Le centre de la caméra se projette au centre de l'écran.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>screen.x</code> vaut <code>WIDTH * 0.5f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>screen.y</code> vaut <code>HEIGHT * 0.5f</code>, à <code>TOLERANCE</code> près.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestcenteretzoomrenvoientlesvaleursposees">Camera2DTest.CenterEtZoomRenvoientLesValeursPosees</h3>
-<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:45</code></p>
-<p>center() et zoom() renvoient exactement les valeurs posées.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>camera.center().x</code> vaut <code>3.0f</code> (comparaison flottante).</li><li>Vérifie que <code>camera.center().y</code> vaut <code>4.0f</code> (comparaison flottante).</li><li>Vérifie que <code>camera.zoom()</code> vaut <code>2.5f</code> (comparaison flottante).</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestechelleetaxey">Camera2DTest.EchelleEtAxeY</h3>
-<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:64</code></p>
-<p>Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>right.x</code> vaut <code>WIDTH * 0.5f + 16.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>right.y</code> vaut <code>HEIGHT * 0.5f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>down.y</code> vaut <code>HEIGHT * 0.5f + 16.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestzoom">Camera2DTest.Zoom</h3>
-<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:86</code></p>
-<p>Le zoom multiplie l'échelle en pixels.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>right.x</code> vaut <code>WIDTH * 0.5f + 32.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestconversionsreciproques">Camera2DTest.ConversionsReciproques</h3>
-<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:104</code></p>
-<p><code>screenToWorld</code> est la réciproque de <code>worldToScreen</code>.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>roundTrip.x</code> vaut <code>world.x</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>roundTrip.y</code> vaut <code>world.y</code>, à <code>TOLERANCE</code> près.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestprojectioncentreversorigineclip">Camera2DTest.ProjectionCentreVersOrigineClip</h3>
-<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:125</code></p>
-<p>La matrice de projection envoie le centre de la caméra à l'origine du clip space.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>result.x</code> vaut <code>0.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>result.y</code> vaut <code>0.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>result.w</code> vaut <code>1.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestbordecranversbordclip">Camera2DTest.BordEcranVersBordClip</h3>
-<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:152</code></p>
-<p>Un coin de l'écran correspond à un bord du clip space (±1).</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>result.x</code> vaut <code>1.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestfitzoomremplitsansarrondi">Camera2DTest.FitZoomRemplitSansArrondi</h3>
-<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:176</code></p>
-<p>fitZoom remplit la surface sans arrondi a l'entier.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Cadrer un niveau de 14 x 8 unites dans une fenetre de 1280 x 720, marge 0,85.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>zoom</code> vaut <code>5.625f * 0.85f</code> (comparaison flottante).</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="camera2dtestfitzoomfractionnairepourgrandniveau">Camera2DTest.FitZoomFractionnairePourGrandNiveau</h3>
-<p><em>Majeur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:192</code></p>
-<p>fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>zoom</code> est strictement supérieur à <code>0.0f</code>.</li><li>Vérifie que <code>zoom</code> est strictement inférieur à <code>1.0f</code>.</li><li>Vérifie que <code>100.0f * hmi::Camera2D::PIXELS_PER_UNIT * zoom</code> est inférieur ou égal à <code>1280.0f + TOLERANCE</code>.</li><li>Vérifie que <code>100.0f * hmi::Camera2D::PIXELS_PER_UNIT * zoom</code> est inférieur ou égal à <code>720.0f + TOLERANCE</code>.</li></ul>
-</section><section class="case" data-crit="Mineur"><h3 id="camera2dtestfitzoomappliquelamarge">Camera2DTest.FitZoomAppliqueLaMarge</h3>
-<p><em>Mineur · Unitaire · Camera2 D</em> — <code>Source/Test/Unit/HMI/Graphics/test_camera2d.cpp:213</code></p>
-<p>fitZoom applique la marge telle quelle.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Cadrer 16 x 16 unites dans 1280 x 1280 pixels, sans marge puis a 0,85.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>zoomSansMarge</code> vaut <code>5.0f</code> (comparaison flottante).</li><li>Vérifie que <code>zoomAvecMarge</code> vaut <code>4.25f</code> (comparaison flottante).</li></ul>
 </section><h2 id="test-capital-kit-rendercpp">test_capital_kit_render.cpp</h2>
 <section class="case" data-crit="Bloquant"><h3 id="capitalkitrenderastreetoftwelvecellsiscomposedwiththekitalone">CapitalKitRender.AStreetOfTwelveCellsIsComposedWithTheKitAlone</h3>
 <p><em>Bloquant · Unitaire · Rendu HD</em> — <code>Source/Test/Unit/HMI/Graphics/test_capital_kit_render.cpp:134</code></p>
@@ -433,6 +362,49 @@
 <ol><li>Encoder une premiere image vers un fichier.</li><li>Encoder une seconde image differente vers le meme fichier.</li><li>Decoder le fichier et lister le dossier.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>hmi::encodeImageFile(path, sampleImage())</code> est vrai.</li><li>Vérifie que <code>hmi::encodeImageFile(path, second)</code> est vrai.</li><li>Vérifie que <code>decoded.has_value()</code> est vrai.</li><li>Vérifie que <code>decoded-&gt;width</code> vaut <code>1</code>.</li><li>Vérifie que <code>decoded-&gt;height</code> vaut <code>1</code>.</li><li>Vérifie que <code>fileCount()</code> vaut <code>1U</code>.</li></ul>
+</section><h2 id="test-iso-viewcpp">test_iso_view.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="isoviewtestlesoldunmaillagetombesurlagrille">IsoViewTest.LeSolDUnMaillageTombeSurLaGrille</h3>
+<p><em>Bloquant · Unitaire · Vue en volume</em> — <code>Source/Test/Unit/HMI/Graphics/test_iso_view.cpp:45</code></p>
+<p>Le sol d'un maillage tombe sur la grille.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un maillage au point de grille (4,5 ; 2,5).</li><li>Relever où tombent son origine, le point à 1,5 m en +X et le point à 1,5 m en +Z.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>point[0]</code> vaut <code>world.x</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>point[1]</code> vaut <code>world.y</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>point[2]</code> vaut <code>view.groundDepth(world.y)</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="isoviewtestlesmesuresdustandardsortentdelavue">IsoViewTest.LesMesuresDuStandardSortentDeLaVue</h3>
+<p><em>Bloquant · Unitaire · Vue en volume</em> — <code>Source/Test/Unit/HMI/Graphics/test_iso_view.cpp:73</code></p>
+<p>Les mesures du standard 3D sortent de la vue sans reglage.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Rapporter la vue au losange d'art de 256 pixels.</li><li>Mesurer un mètre à l'horizontale, un corps de 1,80 m, un étage de 2,366 m.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>view.sine()</code> vaut <code>0.62F</code>, à <code>1e-6F</code> près.</li><li>Vérifie que <code>view.unitsPerMetre() * artPixelsPerUnit</code> vaut <code>120.7F</code>, à <code>0.05F</code> près.</li><li>Vérifie que <code>view.riseOf(1.80F) * artPixelsPerUnit</code> vaut <code>170.0F</code>, à <code>0.5F</code> près.</li><li>Vérifie que <code>view.riseOf(2.36573F) / projection.tileWidth()</code> vaut <code>0.875F</code>, à <code>1e-4F</code> près.</li><li>Vérifie que <code>head[0]</code> vaut <code>ground[0]</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>ground[1] - head[1]</code> vaut <code>view.riseOf(1.80F)</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>head[2]</code> est strictement inférieur à <code>ground[2]</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="isoviewtestlavueestunerotation">IsoViewTest.LaVueEstUneRotation</h3>
+<p><em>Majeur · Unitaire · Vue en volume</em> — <code>Source/Test/Unit/HMI/Graphics/test_iso_view.cpp:103</code></p>
+<p>La vue est une rotation : les distances sont gardees.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Prendre des couples de points quelconques d'un maillage.</li><li>Comparer leur distance dans la vue à leur distance en mètres.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>units</code> vaut <code>metres * view.unitsPerMetre()</code>, à <code>1e-3F</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="isoviewtestunetageeleveunmaillage">IsoViewTest.UnEtageEleveUnMaillage</h3>
+<p><em>Majeur · Unitaire · Vue en volume</em> — <code>Source/Test/Unit/HMI/Graphics/test_iso_view.cpp:130</code></p>
+<p>Un etage eleve un maillage sans le deplacer au sol.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser le même maillage au rez, puis élevé d'un étage de 0,875 largeur de case.</li><li>Comparer avec le sommet d'un mur haut d'un étage, posé au rez.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>raised[0]</code> vaut <code>wallTop[0]</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>raised[1]</code> vaut <code>wallTop[1]</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>raised[2]</code> vaut <code>wallTop[2]</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="isoviewtestuneimagedresseeserangecommeunplanvertical">IsoViewTest.UneImageDresseeSeRangeCommeUnPlanVertical</h3>
+<p><em>Bloquant · Unitaire · Vue en volume</em> — <code>Source/Test/Unit/HMI/Graphics/test_iso_view.cpp:156</code></p>
+<p>Une image dressee se range comme un plan vertical.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Dresser une image sur une ligne de pied.</li><li>Comparer sa profondeur, de son pied à 2 m de haut, à celle d'un flanc de mur vertical placé 0,3 m derrière elle, puis 0,3 m devant.</li><li>Comparer, sous son pied, sa profondeur à celle du sol.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>view.standingDepth(footY, behind[1])</code> est strictement inférieur à <code>behind[2]</code>.</li><li>Vérifie que <code>front[1]</code> est strictement inférieur à <code>footY</code>.</li><li>Vérifie que <code>view.standingDepth(footY, front[1])</code> est strictement supérieur à <code>front[2]</code>.</li><li>Vérifie que <code>view.groundDepth(footY)</code> est strictement supérieur à <code>behindHead[2]</code>.</li><li>Vérifie que <code>view.standingDepth(footY, footY + 0.4F)</code> vaut <code>view.groundDepth(footY + 0.4F)</code> (comparaison flottante).</li><li>Vérifie que <code>view.standingDepth(footY, footY)</code> vaut <code>view.groundDepth(footY)</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="isoviewtestletenduedeprofondeurcontientlascene">IsoViewTest.LEtendueDeProfondeurContientLaScene</h3>
+<p><em>Majeur · Unitaire · Vue en volume</em> — <code>Source/Test/Unit/HMI/Graphics/test_iso_view.cpp:206</code></p>
+<p>L'etendue de profondeur contient la scene.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Demander l'étendue de profondeur d'une grille.</li><li>Y chercher le sol de ses quatre coins et le sommet d'un volume de 20 m.</li><li>Projeter la boîte d'un mur d'une case.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>range.nearest</code> est strictement inférieur à <code>range.farthest</code>.</li><li>Vérifie que <code>ground[2]</code> est strictement supérieur à <code>range.nearest</code>.</li><li>Vérifie que <code>ground[2]</code> est strictement inférieur à <code>range.farthest</code>.</li><li>Vérifie que <code>top[2]</code> est strictement supérieur à <code>range.nearest</code>.</li><li>Vérifie que <code>top[2]</code> est strictement inférieur à <code>range.farthest</code>.</li><li>Vérifie que <code>bounds.position.x</code> vaut <code>tile.position.x</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>bounds.size.x</code> vaut <code>tile.size.x</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>bounds.position.y + bounds.size.y</code> vaut <code>tile.position.y + tile.size.y</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>bounds.position.y</code> vaut <code>tile.position.y - view.riseOf(2.0F)</code>, à <code>TOLERANCE</code> près.</li></ul>
 </section><h2 id="test-maquette-tokenscpp">test_maquette_tokens.cpp</h2>
 <section class="case" data-crit="Majeur"><h3 id="maquettetokentestlalettreestlapremierealphanumerique">MaquetteTokenTest.LaLettreEstLaPremiereAlphanumerique</h3>
 <p><em>Majeur · Unitaire · Jetons de maquette</em> — <code>Source/Test/Unit/HMI/Graphics/test_maquette_tokens.cpp:16</code></p>
@@ -476,6 +448,92 @@
 <ol><li>Comparer les teintes des six natures deux a deux.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>hmi::maquetteTokenColor(natures[i]) == hmi::maquetteTokenColor(natures[j])</code> est faux.</li><li>Vérifie que <code>hmi::maquetteTokenKindKey(natures[i])</code> diffère de <code>hmi::maquetteTokenKindKey(natures[j])</code>.</li></ul>
+</section><h2 id="test-mesh-compositioncpp">test_mesh_composition.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="meshcompositiontestlemanifesteciteunmaillageouuneimage">MeshCompositionTest.LeManifesteCiteUnMaillageOuUneImage</h3>
+<p><em>Bloquant · Unitaire · Maillages d'un lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_composition.cpp:104</code></p>
+<p>Le manifeste d'un lieu cite un maillage ou une image.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire un manifeste dont une clé cite <code>&quot;mesh&quot;</code>, une <code>&quot;file&quot;</code>, une les deux, une aucun.</li><li>Lire le lieu d'essai par <code>PlaceAppearance::loadForPlace</code>.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>read.ok()</code> est vrai.</li><li>Vérifie que <code>read.manifest.pieces().size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>mur</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>mur-&gt;isMesh()</code> est vrai.</li><li>Vérifie que <code>mur-&gt;path()</code> vaut <code>&quot;walls/mur.glb&quot;</code>.</li><li>Vérifie que <code>core::isMeshPath(mur-&gt;path())</code> est vrai.</li><li>Vérifie que <code>mur-&gt;footprintColumns</code> vaut <code>2</code>.</li><li>Vérifie que <code>mur-&gt;tactical</code> vaut <code>core::PieceTactical::Solid</code>.</li><li>Vérifie que <code>banc</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>banc-&gt;isMesh()</code> est faux.</li><li>Vérifie que <code>banc-&gt;path()</code> vaut <code>&quot;banc.png&quot;</code>.</li><li>Vérifie que <code>read.manifest.find(&quot;les-deux&quot;)</code> diffère de <code>nullptr</code>.</li><li>Vérifie que <code>read.manifest.find(&quot;les-deux&quot;)-&gt;path()</code> vaut <code>&quot;a.glb&quot;</code>.</li><li>Vérifie que <code>read.manifest.find(&quot;rien&quot;)</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>read.manifest.find(&quot;vide&quot;)</code> vaut <code>nullptr</code>.</li><li>Vérifie que <code>place.ok()</code> est vrai.</li><li>Vérifie que <code>place.appearance.pieceFile(&quot;wall&quot;)</code> vaut <code>WALL</code>.</li><li>Vérifie que <code>place.appearance.pieceFile(&quot;paving&quot;)</code> vaut <code>PAVING</code>.</li><li>Vérifie que <code>place.appearance.pieceFootprint(&quot;roof&quot;)</code> vaut <code>(core::PieceFootprint{.columns = 3, .rows = 3})</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="meshcompositiontestunecartedemandesesmaillagesapart">MeshCompositionTest.UneCarteDemandeSesMaillagesAPart</h3>
+<p><em>Majeur · Unitaire · Maillages d'un lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_composition.cpp:154</code></p>
+<p>Une carte demande ses maillages a part de ses textures.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Tirer l'instantané de la carte d'essai.</li><li>Lister ses chemins de texture, puis ses chemins de maillage.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>hmi::worldMeshPaths(place.snapshot)</code> vaut <code>(std::vector&lt;std::string&gt;{FLOOR, ROOF, WALL})</code>.</li><li>Vérifie que <code>std::ranges::find(textures, PAVING)</code> diffère de <code>textures.end()</code>.</li><li>Vérifie que <code>core::isMeshPath(path)</code> est faux.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="meshcompositiontestlacompositionproduitunelistedemaillagesplaces">MeshCompositionTest.LaCompositionProduitUneListeDeMaillagesPlaces</h3>
+<p><em>Bloquant · Unitaire · Maillages d'un lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_composition.cpp:175</code></p>
+<p>La composition produit une liste de maillages places.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer la carte d'essai, ses trois maillages chargés.</li><li>Compter les maillages placés et les primitives, par pièce.</li><li>Relever la pose d'un mur et celle du toit.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>countMeshes(scene, place.textures, FLOOR)</code> vaut <code>25U</code>.</li><li>Vérifie que <code>countMeshes(scene, place.textures, WALL)</code> vaut <code>8U</code>.</li><li>Vérifie que <code>countMeshes(scene, place.textures, ROOF)</code> vaut <code>1U</code>.</li><li>Vérifie que <code>quad.layer</code> diffère de <code>hmi::RenderLayer::Object</code>.</li><li>Vérifie que <code>quad.stance</code> vaut <code>hmi::QuadStance::Ground</code>.</li><li>Vérifie que <code>floorImages</code> vaut <code>55U</code>.</li><li>Vérifie que <code>mesh.layer</code> vaut <code>hmi::RenderLayer::Tile</code>.</li><li>Vérifie que <code>mesh.storey</code> vaut <code>0</code>.</li><li>Vérifie que <code>mesh.layer</code> vaut <code>hmi::RenderLayer::Object</code>.</li><li>Vérifie que <code>mesh.toView</code> vaut <code>view.meshTransform({4.5F, 2.5F}, 0.0F)</code>.</li><li>Vérifie que <code>mesh.bounds.position.x</code> vaut <code>tile.position.x</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>mesh.bounds.size.x</code> vaut <code>tile.size.x</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>mesh.layer</code> vaut <code>hmi::RenderLayer::Object</code>.</li><li>Vérifie que <code>mesh.storey</code> vaut <code>1</code>.</li><li>Vérifie que <code>mesh.toView</code> vaut <code>view.meshTransform({5.5F, 3.5F}, 0.875F * projection.tileWidth())</code>.</li><li>Vérifie que <code>mesh.bounds.size.x</code> vaut <code>3.0F * projection.tileWidth()</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="meshcompositiontestunmaillagemanquantsevoit">MeshCompositionTest.UnMaillageManquantSeVoit</h3>
+<p><em>Majeur · Unitaire · Maillages d'un lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_composition.cpp:235</code></p>
+<p>Un maillage manquant se voit, par le damier.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer la carte d'essai sans qu'aucun maillage ne soit chargé.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>scene.meshes().empty()</code> est vrai.</li><li>Vérifie que <code>checker</code> vaut <code>25U + 8U + 1U</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="meshcompositiontestlesimagesdisentcommentellessetiennent">MeshCompositionTest.LesImagesDisentCommentEllesSeTiennent</h3>
+<p><em>Majeur · Unitaire · Maillages d'un lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_composition.cpp:258</code></p>
+<p>Les images disent comment elles se tiennent dans la scene en volume.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer la carte d'essai avec une figurine au centre de la case (5, 6).</li><li>Relever la tenue de la figurine, d'un jeton, d'une dalle.</li><li>Composer une carte de maquette et relever l'élévation des sommets d'un bloc.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>quad.stance</code> vaut <code>hmi::QuadStance::Upright</code>.</li><li>Vérifie que <code>quad.footY</code> vaut <code>projection.gridToWorld({5.5F, 6.5F}).y</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>figureSeen</code> est vrai.</li><li>Vérifie que <code>hmi::defaultStance(hmi::RenderLayer::UI)</code> vaut <code>hmi::QuadStance::Overlay</code>.</li><li>Vérifie que <code>hmi::defaultStance(hmi::RenderLayer::Tile)</code> vaut <code>hmi::QuadStance::Ground</code>.</li><li>Vérifie que <code>hmi::defaultStance(hmi::RenderLayer::Object)</code> vaut <code>hmi::QuadStance::Upright</code>.</li><li>Vérifie que <code>quad.stance</code> vaut <code>hmi::QuadStance::Ground</code>.</li><li>Vérifie que <code>groundVertices</code> vaut <code>4U</code>.</li><li>Vérifie que <code>raisedVertices</code> vaut <code>8U</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="meshcompositiontestlelieucomposeunefoisgardesesmaillages">MeshCompositionTest.LeLieuComposeUneFoisGardeSesMaillages</h3>
+<p><em>Majeur · Unitaire · Maillages d'un lieu</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_composition.cpp:317</code></p>
+<p>Le lieu compose une fois garde ses maillages et les cadre.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Composer la carte d'essai dans une <code>StaticWorldScene</code>.</li><li>En tirer une image sans cadrage, puis une image cadrée loin de l'îlot.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>statics.empty()</code> est faux.</li><li>Vérifie que <code>whole.meshes().size()</code> vaut <code>34U</code>.</li><li>Vérifie que <code>countMeshes(corner, place.textures, WALL)</code> vaut <code>0U</code>.</li><li>Vérifie que <code>countMeshes(corner, place.textures, ROOF)</code> vaut <code>0U</code>.</li><li>Vérifie que <code>corner.meshes().size()</code> est strictement inférieur à <code>whole.meshes().size()</code>.</li><li>Vérifie que <code>countMeshes(corner, place.textures, WALL)</code> vaut <code>0U</code>.</li></ul>
+</section><h2 id="test-mesh-rendercpp">test_mesh_render.cpp</h2>
+<section class="case" data-crit="Bloquant"><h3 id="meshrendertestlacartedessaiserendenmaillages">MeshRenderTest.LaCarteDEssaiSeRendEnMaillages</h3>
+<p><em>Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:115</code></p>
+<p>La carte d'essai se rend en maillages.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Donner la carte d'essai au rendu du jeu, hors écran.</li><li>La rendre, cadrée sur l'îlot.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>image.size()</code> vaut <code>SIZE</code>.</li><li>Vérifie que <code>renderer.textures().meshes.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>path.ends_with(&quot;.glb&quot;)</code> est faux.</li><li>Vérifie que <code>renderer.composed().meshes().size()</code> vaut <code>34U</code>.</li><li>Vérifie que <code>renderer.textureBytes()</code> est strictement supérieur à <code>0U</code>.</li><li>Vérifie que <code>countPixels(image, isRoof)</code> est strictement supérieur à <code>3000U</code>.</li><li>Vérifie que <code>countPixels(image, isWall)</code> est strictement supérieur à <code>3000U</code>.</li><li>Vérifie que <code>countPixels(image, isWitness)</code> est strictement supérieur à <code>300U</code>.</li><li>Vérifie que <code>countPixels(image, [](const QColor&amp; color) { return color == BACKGROUND; })</code> est strictement inférieur à <code>static_cast&lt;std::size_t&gt;(SIZE.width() * SIZE.height() * 3 / 4)</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="meshrendertestunefigurinepassedevantpuisderriereunmur">MeshRenderTest.UneFigurinePasseDevantPuisDerriereUnMur</h3>
+<p><em>Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:156</code></p>
+<p>Une figurine passe devant puis derriere un mur en maillage.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Rendre la carte d'essai, la figurine témoin devant l'îlot, case (5, 5).</li><li>La rendre, la figurine derrière l'îlot, case (5, 1).</li><li>Rendre de nouveau la figurine derrière, les maillages éteints.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>front.isNull()</code> est faux.</li><li>Vérifie que <code>figureQuads()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>behind.isNull()</code> est faux.</li><li>Vérifie que <code>figureQuads()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>renderer.composed().meshes().empty()</code> est faux.</li><li>Vérifie que <code>visibleInFront</code> est strictement supérieur à <code>250U</code>.</li><li>Vérifie que <code>visibleBehind</code> est strictement inférieur à <code>visibleInFront / 10</code>.</li><li>Vérifie que <code>visibleAlone</code> est strictement supérieur à <code>(visibleInFront * 9) / 10</code>.</li><li>Vérifie que <code>visibleAlone</code> est strictement inférieur à <code>(visibleInFront * 11) / 10</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="meshrendertestlopacitedescalquesvautpourlesmaillages">MeshRenderTest.LOpaciteDesCalquesVautPourLesMaillages</h3>
+<p><em>Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:217</code></p>
+<p>L'opacite des calques vaut pour les maillages.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Rendre la carte d'essai sans réglage.</li><li>La rendre le relief éteint, puis l'étage seul éteint.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>countPixels(plain, isRoof)</code> est strictement supérieur à <code>3000U</code>.</li><li>Vérifie que <code>countPixels(flat, isRoof)</code> vaut <code>0U</code>.</li><li>Vérifie que <code>countPixels(flat, isWall)</code> vaut <code>0U</code>.</li><li>Vérifie que <code>renderer.composed().meshes().size()</code> vaut <code>25U</code>.</li><li>Vérifie que <code>countPixels(open, isRoof)</code> vaut <code>0U</code>.</li><li>Vérifie que <code>countPixels(open, isWall)</code> est strictement supérieur à <code>3000U</code>.</li><li>Vérifie que <code>countPixels(again, isRoof)</code> vaut <code>countPixels(plain, isRoof)</code>.</li><li>Vérifie que <code>differing</code> vaut <code>0U</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="meshrendertestunecarteenmaillagesrenduepartuilesestlamemeimage">MeshRenderTest.UneCarteEnMaillagesRendueParTuilesEstLaMemeImage</h3>
+<p><em>Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:267</code></p>
+<p>Une carte en maillages rendue par tuiles est la meme image.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Rendre la carte d'essai en 640 × 480 d'un coup.</li><li>La rendre par tuiles de 256 pixels.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>whole.size()</code> vaut <code>tiled.size()</code>.</li><li>Vérifie que <code>differing</code> est strictement inférieur à <code>static_cast&lt;std::size_t&gt;(SIZE.width() * SIZE.height() / 100)</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="meshrendertestunfichierdemaillageabsentlaissevoirledamier">MeshRenderTest.UnFichierDeMaillageAbsentLaisseVoirLeDamier</h3>
+<p><em>Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:301</code></p>
+<p>Un fichier de maillage absent laisse voir le damier.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Donner au rendu la carte d'essai, le fichier du mur remplacé par un <code>.glb</code> qui n'existe pas.</li><li>La rendre deux fois.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>snapshot.pieceFiles.contains(&quot;wall&quot;)</code> est vrai.</li><li>Vérifie que <code>image.isNull()</code> est faux.</li><li>Vérifie que <code>renderer.textures().meshes.size()</code> vaut <code>2U</code>.</li><li>Vérifie que <code>renderer.requested().contains(&quot;Scene/ilot/absent.glb&quot;)</code> est vrai.</li><li>Vérifie que <code>countPixels(image, isWall)</code> vaut <code>0U</code>.</li><li>Vérifie que <code>relief</code> vaut <code>8U</code>.</li><li>Vérifie que <code>again.size()</code> vaut <code>image.size()</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="meshrendertestlepointagedunecaseestceluidavant">MeshRenderTest.LePointageDUneCaseEstCeluiDAvant</h3>
+<p><em>Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages</em> — <code>Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:339</code></p>
+<p>Le pointage d'une case au sol est celui d'avant, sur toute la carte d'Arenarea.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Lire la carte d'Arenarea livrée.</li><li>Pour chaque case, cadrer le jeu sur elle à 1080p, avec et sans étendue de profondeur.</li><li>Envoyer à l'écran le centre et les quatre quarts de la case par la caméra, puis par la formule de la caméra 2D d'avant le lot ; revenir de l'écran à la case.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>map.ok()</code> est vrai.</li><li>Vérifie que <code>screen.x</code> vaut <code>before(world).x</code>.</li><li>Vérifie que <code>screen.y</code> vaut <code>before(world).y</code>.</li><li>Vérifie que <code>deep.worldToScreen(world).x</code> vaut <code>screen.x</code>.</li><li>Vérifie que <code>deep.worldToScreen(world).y</code> vaut <code>screen.y</code>.</li><li>Vérifie que <code>picked.has_value()</code> est vrai.</li><li>Vérifie que <code>*picked</code> vaut <code>cell</code>.</li><li>Vérifie que <code>checked</code> vaut <code>static_cast&lt;std::size_t&gt;(projection.columns()) * static_cast&lt;std::size_t&gt;(projection.rows()) * 5U</code>.</li></ul>
 </section><h2 id="test-missing-texturecpp">test_missing_texture.cpp</h2>
 <section class="case" data-crit="Majeur"><h3 id="missingtexturetestdimensionsattendues">MissingTextureTest.DimensionsAttendues</h3>
 <p><em>Majeur · Unitaire · Missing Texture</em> — <code>Source/Test/Unit/HMI/Graphics/test_missing_texture.cpp:30</code></p>
@@ -519,7 +577,7 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Construire la camera d'un cadrage : un centre, une echelle.</li><li>Rendre le donjon cadre sur le heros, puis par un cadrage impose, puis de nouveau sans.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>camera.center().x</code> vaut <code>12.5F</code> (comparaison flottante).</li><li>Vérifie que <code>camera.center().y</code> vaut <code>-3.0F</code> (comparaison flottante).</li><li>Vérifie que <code>camera.zoom() * hmi::Camera2D::PIXELS_PER_UNIT</code> vaut <code>24.0F</code> (comparaison flottante).</li><li>Vérifie que <code>camera.worldToScreen(framing.center).x</code> vaut <code>400.0F</code> (comparaison flottante).</li><li>Vérifie que <code>camera.worldToScreen(framing.center).y</code> vaut <code>300.0F</code> (comparaison flottante).</li><li>Vérifie que <a class="ref" href="../reference/classhmi_1_1OffscreenRhi.html#a1131c622e7505cf40a79287e8cfb99d6"><code>hmi::OffscreenRhi::shared()</code></a> vaut <code>offscreen</code>.</li><li>Vérifie que <code>framed.size()</code> vaut <code>size</code>.</li><li>Vérifie que <code>renderer.framing().has_value()</code> est faux.</li><li>Vérifie que <code>differingPixels(framed, moved)</code> est strictement supérieur à <code>1000U</code>.</li><li>Vérifie que <code>differingPixels(framed, again)</code> vaut <code>0U</code>.</li></ul>
+<ul><li>Vérifie que <code>camera.center().x</code> vaut <code>12.5F</code> (comparaison flottante).</li><li>Vérifie que <code>camera.center().y</code> vaut <code>-3.0F</code> (comparaison flottante).</li><li>Vérifie que <code>camera.zoom() * hmi::PlaceCamera::PIXELS_PER_UNIT</code> vaut <code>24.0F</code> (comparaison flottante).</li><li>Vérifie que <code>camera.worldToScreen(framing.center).x</code> vaut <code>400.0F</code> (comparaison flottante).</li><li>Vérifie que <code>camera.worldToScreen(framing.center).y</code> vaut <code>300.0F</code> (comparaison flottante).</li><li>Vérifie que <a class="ref" href="../reference/classhmi_1_1OffscreenRhi.html#a1131c622e7505cf40a79287e8cfb99d6"><code>hmi::OffscreenRhi::shared()</code></a> vaut <code>offscreen</code>.</li><li>Vérifie que <code>framed.size()</code> vaut <code>size</code>.</li><li>Vérifie que <code>renderer.framing().has_value()</code> est faux.</li><li>Vérifie que <code>differingPixels(framed, moved)</code> est strictement supérieur à <code>1000U</code>.</li><li>Vérifie que <code>differingPixels(framed, again)</code> vaut <code>0U</code>.</li></ul>
 </section><section class="case" data-crit="Bloquant"><h3 id="offscreenrendertestlopacitedescalquesestunparametredurendu">OffscreenRenderTest.LOpaciteDesCalquesEstUnParametreDuRendu</h3>
 <p><em>Bloquant · Unitaire · Rendu QRhi d'un lieu · Editeur</em> — <code>Source/Test/Unit/HMI/Graphics/test_offscreen_render.cpp:136</code></p>
 <p>L'opacite des calques est un parametre du rendu.</p>
@@ -549,6 +607,98 @@
 <ol><li>Batir en memoire une carte sans lieu : sols, eau, enceinte de murs, quatre entites.</li><li>La rendre hors ecran par le rendu du jeu, cadree sur son milieu.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>maquette.place.empty()</code> est vrai.</li><li>Vérifie que <code>hmi::parseMaquetteTokenPath(path).has_value()</code> est vrai.</li><li>Vérifie que <code>image.isNull()</code> est faux.</li><li>Vérifie que <code>painted</code> est strictement supérieur à <code>static_cast&lt;std::size_t&gt;(image.width() * image.height() / 2)</code>.</li></ul>
+</section><h2 id="test-place-cameracpp">test_place_camera.cpp</h2>
+<section class="case" data-crit="Majeur"><h3 id="placecameratestcentreaumilieudelecran">PlaceCameraTest.CentreAuMilieuDeLEcran</h3>
+<p><em>Majeur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:30</code></p>
+<p>Le centre de la caméra se projette au centre de l'écran.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>screen.x</code> vaut <code>WIDTH * 0.5f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>screen.y</code> vaut <code>HEIGHT * 0.5f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="placecameratestcenteretzoomrenvoientlesvaleursposees">PlaceCameraTest.CenterEtZoomRenvoientLesValeursPosees</h3>
+<p><em>Majeur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:50</code></p>
+<p>center() et zoom() renvoient exactement les valeurs posées.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>camera.center().x</code> vaut <code>3.0f</code> (comparaison flottante).</li><li>Vérifie que <code>camera.center().y</code> vaut <code>4.0f</code> (comparaison flottante).</li><li>Vérifie que <code>camera.zoom()</code> vaut <code>2.5f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="placecameratestechelleetaxey">PlaceCameraTest.EchelleEtAxeY</h3>
+<p><em>Majeur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:69</code></p>
+<p>Une unité monde vaut 16 pixels ; l'axe Y va vers le bas.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>right.x</code> vaut <code>WIDTH * 0.5f + 16.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>right.y</code> vaut <code>HEIGHT * 0.5f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>down.y</code> vaut <code>HEIGHT * 0.5f + 16.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="placecameratestzoom">PlaceCameraTest.Zoom</h3>
+<p><em>Majeur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:91</code></p>
+<p>Le zoom multiplie l'échelle en pixels.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>right.x</code> vaut <code>WIDTH * 0.5f + 32.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="placecameratestconversionsreciproques">PlaceCameraTest.ConversionsReciproques</h3>
+<p><em>Majeur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:109</code></p>
+<p><code>screenToWorld</code> est la réciproque de <code>worldToScreen</code>.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>roundTrip.x</code> vaut <code>world.x</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>roundTrip.y</code> vaut <code>world.y</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="placecameratestprojectioncentreversorigineclip">PlaceCameraTest.ProjectionCentreVersOrigineClip</h3>
+<p><em>Majeur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:130</code></p>
+<p>La matrice de projection envoie le centre de la caméra à l'origine du clip space.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.x</code> vaut <code>0.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>result.y</code> vaut <code>0.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>result.w</code> vaut <code>1.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="placecameratestbordecranversbordclip">PlaceCameraTest.BordEcranVersBordClip</h3>
+<p><em>Majeur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:157</code></p>
+<p>Un coin de l'écran correspond à un bord du clip space (±1).</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>result.x</code> vaut <code>1.0f</code>, à <code>TOLERANCE</code> près.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="placecameratestfitzoomremplitsansarrondi">PlaceCameraTest.FitZoomRemplitSansArrondi</h3>
+<p><em>Majeur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:181</code></p>
+<p>fitZoom remplit la surface sans arrondi a l'entier.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Cadrer un niveau de 14 x 8 unites dans une fenetre de 1280 x 720, marge 0,85.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>zoom</code> vaut <code>5.625f * 0.85f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="placecameratestfitzoomfractionnairepourgrandniveau">PlaceCameraTest.FitZoomFractionnairePourGrandNiveau</h3>
+<p><em>Majeur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:197</code></p>
+<p>fitZoom devient fractionnaire pour un niveau plus grand que la surface disponible.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>zoom</code> est strictement supérieur à <code>0.0f</code>.</li><li>Vérifie que <code>zoom</code> est strictement inférieur à <code>1.0f</code>.</li><li>Vérifie que <code>100.0f * hmi::PlaceCamera::PIXELS_PER_UNIT * zoom</code> est inférieur ou égal à <code>1280.0f + TOLERANCE</code>.</li><li>Vérifie que <code>100.0f * hmi::PlaceCamera::PIXELS_PER_UNIT * zoom</code> est inférieur ou égal à <code>720.0f + TOLERANCE</code>.</li></ul>
+</section><section class="case" data-crit="Mineur"><h3 id="placecameratestfitzoomappliquelamarge">PlaceCameraTest.FitZoomAppliqueLaMarge</h3>
+<p><em>Mineur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:218</code></p>
+<p>fitZoom applique la marge telle quelle.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Cadrer 16 x 16 unites dans 1280 x 1280 pixels, sans marge puis a 0,85.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>zoomSansMarge</code> vaut <code>5.0f</code> (comparaison flottante).</li><li>Vérifie que <code>zoomAvecMarge</code> vaut <code>4.25f</code> (comparaison flottante).</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="placecameratestsansprofondeurlamatriceestcelledelacamera2d">PlaceCameraTest.SansProfondeurLaMatriceEstCelleDeLaCamera2D</h3>
+<p><em>Bloquant · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:236</code></p>
+<p>Sans etendue de profondeur, la matrice est celle de la camera 2D.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Construire une caméra, la centrer, la zoomer, sans toucher à sa profondeur.</li><li>Lire les seize coefficients de sa matrice.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>m(0, 0)</code> vaut <code>scaleX</code>.</li><li>Vérifie que <code>m(1, 1)</code> vaut <code>-scaleY</code>.</li><li>Vérifie que <code>m(3, 0)</code> vaut <code>-12.0f * scaleX</code>.</li><li>Vérifie que <code>m(3, 1)</code> vaut <code>-8.0f * scaleY</code>.</li><li>Vérifie que <code>m(2, 2)</code> vaut <code>1.0f</code>.</li><li>Vérifie que <code>m(3, 2)</code> vaut <code>0.0f</code>.</li><li>Vérifie que <code>std::signbit(m(3, 2))</code> est faux.</li><li>Vérifie que <code>m(3, 3)</code> vaut <code>1.0f</code>.</li><li>Vérifie que <code>m(static_cast&lt;std::size_t&gt;(row), static_cast&lt;std::size_t&gt;(column))</code> vaut <code>0.0f</code>.</li></ul>
+</section><section class="case" data-crit="Majeur"><h3 id="placecameratestletenduedeprofondeurserameneentrelesdeuxplans">PlaceCameraTest.LEtendueDeProfondeurSeRameneEntreLesDeuxPlans</h3>
+<p><em>Majeur · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:272</code></p>
+<p>L'etendue de profondeur se ramene entre les deux plans de la camera.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Fixer l'étendue de profondeur d'une grille.</li><li>Projeter un point à la profondeur la plus proche, la plus lointaine, puis au milieu.</li><li>Fixer une étendue vide.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>camera.depthRange()</code> vaut <code>range</code>.</li><li>Vérifie que <code>project(camera, 3.0f, 4.0f, range.nearest).z</code> vaut <code>-1.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>project(camera, 3.0f, 4.0f, range.farthest).z</code> vaut <code>1.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>project(camera, 3.0f, 4.0f, (range.nearest + range.farthest) / 2.0f).z</code> vaut <code>0.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>project(camera, 3.0f, 4.0f, 7.0f).x</code> vaut <code>project(flat, 3.0f, 4.0f, 7.0f).x</code>.</li><li>Vérifie que <code>project(camera, 3.0f, 4.0f, 7.0f).y</code> vaut <code>project(flat, 3.0f, 4.0f, 7.0f).y</code>.</li><li>Vérifie que <code>camera.projectionMatrix()(2, 2)</code> vaut <code>1.0f</code>.</li><li>Vérifie que <code>camera.projectionMatrix()(3, 2)</code> vaut <code>0.0f</code>.</li></ul>
+</section><section class="case" data-crit="Bloquant"><h3 id="placecameratestlamatricedunmaillagecomposelaposeetlaprojection">PlaceCameraTest.LaMatriceDUnMaillageComposeLaPoseEtLaProjection</h3>
+<p><em>Bloquant · Unitaire · PlaceCamera</em> — <code>Source/Test/Unit/HMI/Graphics/test_place_camera.cpp:316</code></p>
+<p>La matrice d'un maillage pose compose la pose et la projection.</p>
+<p><strong>Étapes</strong></p>
+<ol><li>Poser un maillage au centre d'une case, sous une caméra cadrée et à l'étendue de profondeur de la grille.</li><li>Projeter des points du maillage par sa matrice, puis par la pose suivie de la projection.</li></ol>
+<p><strong>Résultat attendu</strong></p>
+<ul><li>Vérifie que <code>direct.x</code> vaut <code>chained.x</code>, à <code>1e-4f</code> près.</li><li>Vérifie que <code>direct.y</code> vaut <code>chained.y</code>, à <code>1e-4f</code> près.</li><li>Vérifie que <code>direct.z</code> vaut <code>chained.z</code>, à <code>1e-4f</code> près.</li><li>Vérifie que <code>direct.w</code> vaut <code>1.0f</code>, à <code>TOLERANCE</code> près.</li><li>Vérifie que <code>direct.z</code> est strictement supérieur à <code>-1.0f</code>.</li><li>Vérifie que <code>direct.z</code> est strictement inférieur à <code>1.0f</code>.</li><li>Vérifie que <code>(origin.x + 1.0f) * WIDTH * 0.5f</code> vaut <code>screen.x</code>, à <code>1e-2f</code> près.</li><li>Vérifie que <code>(1.0f - origin.y) * HEIGHT * 0.5f</code> vaut <code>screen.y</code>, à <code>1e-2f</code> près.</li></ul>
 </section><h2 id="test-poly-quadcpp">test_poly_quad.cpp</h2>
 <section class="case" data-crit="Majeur"><h3 id="polyquadtestboiteenglobantedessommets">PolyQuadTest.BoiteEnglobanteDesSommets</h3>
 <p><em>Majeur · Unitaire · PolyQuad</em> — <code>Source/Test/Unit/HMI/Graphics/test_poly_quad.cpp:38</code></p>
@@ -732,28 +882,28 @@
 <ul><li>Vérifie que <code>bounds.left()</code> vaut <code>0.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.top()</code> vaut <code>0.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.size.x</code> vaut <code>20.0f</code> (comparaison flottante).</li><li>Vérifie que <code>bounds.size.y</code> vaut <code>10.0f</code> (comparaison flottante).</li><li>Vérifie que <code>camera.visibleBounds().size.x</code> vaut <code>10.0f</code> (comparaison flottante).</li></ul>
 </section><h2 id="test-rhi-offscreencpp">test_rhi_offscreen.cpp</h2>
 <section class="case" data-crit="Bloquant"><h3 id="rhioffscreentestlartpeintreduitsemoyenneparsesmipmaps">RhiOffscreenTest.LArtPeintReduitSeMoyenneParSesMipmaps</h3>
-<p><em>Bloquant · Unitaire · Rendu QRhi</em> — <code>Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:139</code></p>
+<p><em>Bloquant · Unitaire · Rendu QRhi</em> — <code>Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:140</code></p>
 <p>L'art peint reduit ne scintille pas : ses mipmaps le moyennent.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Creer une texture lissee de 64 x 64, damier noir et blanc d'un pixel.</li><li>La dessiner reduite dans une cible de 16 x 16.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>rendered.size()</code> vaut <code>QSize(16, 16)</code>.</li><li>Vérifie que <code>pixel.green()</code> est supérieur ou égal à <code>96</code>.</li><li>Vérifie que <code>pixel.green()</code> est inférieur ou égal à <code>160</code>.</li></ul>
 </section><section class="case" data-crit="Bloquant"><h3 id="rhioffscreentestlatransparenceestpremultipliee">RhiOffscreenTest.LaTransparenceEstPremultipliee</h3>
-<p><em>Bloquant · Unitaire · Rendu QRhi</em> — <code>Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:176</code></p>
+<p><em>Bloquant · Unitaire · Rendu QRhi</em> — <code>Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:177</code></p>
 <p>Une texture a demi transparente se melange en alpha premultiplie.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Dessiner une texture rouge d'alpha 128 sur un fond bleu.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>pixel.red()</code> vaut <code>128</code>, à <code>2</code> près.</li><li>Vérifie que <code>pixel.green()</code> vaut <code>0</code>.</li><li>Vérifie que <code>pixel.blue()</code> vaut <code>127</code>, à <code>2</code> près.</li></ul>
 </section><section class="case" data-crit="Critique"><h3 id="rhioffscreentestzoomentierrestenetenfiltragenearest">RhiOffscreenTest.ZoomEntierResteNetEnFiltrageNearest</h3>
-<p><em>Critique · Unitaire · Rendu QRhi</em> — <code>Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:203</code></p>
+<p><em>Critique · Unitaire · Rendu QRhi</em> — <code>Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:204</code></p>
 <p>Le rendu QRhi garde nette une image engendree agrandie.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Rendre hors ecran une texture temoin 4x4 agrandie 4 fois.</li><li>Relire les pixels de la cible.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>target-&gt;create()</code> est vrai.</li><li>Vérifie que <code>renderTarget-&gt;create()</code> est vrai.</li><li>Vérifie que <code>rhi-&gt;beginOffscreenFrame(&amp;commandBuffer)</code> vaut <code>QRhi::FrameOpSuccess</code>.</li><li>Vérifie que <code>source.has_value()</code> est vrai.</li><li>Vérifie que <code>rhi-&gt;endOffscreenFrame()</code> vaut <code>QRhi::FrameOpSuccess</code>.</li><li>Vérifie que <code>readback.pixelSize</code> vaut <code>QSize(TARGET_SIZE, TARGET_SIZE)</code>.</li><li>Vérifie que <code>pixel.red()</code> vaut <code>red</code>.</li><li>Vérifie que <code>pixel.green()</code> vaut <code>green</code>.</li><li>Vérifie que <code>pixel.blue()</code> vaut <code>blue</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="rhioffscreentestteintemultiplieeeteffacementconserve">RhiOffscreenTest.TeinteMultiplieeEtEffacementConserve</h3>
-<p><em>Majeur · Unitaire · Rendu QRhi</em> — <code>Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:294</code></p>
+<p><em>Majeur · Unitaire · Rendu QRhi</em> — <code>Source/Test/Unit/HMI/Graphics/test_rhi_offscreen.cpp:295</code></p>
 <p>La teinte multiplie la texture et l'effacement subsiste hors du quad.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Rendre hors ecran un quad teinte couvrant un quart de la cible.</li><li>Relire un pixel dans le quad et un pixel hors du quad.</li></ol>
@@ -1160,7 +1310,7 @@
 <ul><li>Vérifie que <code>snapshot.storeys.size()</code> vaut <code>1U</code>.</li><li>Vérifie que <code>storeyFaces</code> vaut <code>3U</code>.</li><li>Vérifie que <code>storeyTop</code> est strictement inférieur à <code>rezTop</code>.</li><li>Vérifie que <code>storeyOrder</code> est strictement supérieur à <code>rezOrder</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-game.html"><span>Précédent</span>HMI · Game</a><a class="next" href="hmi-input.html"><span>Suivant</span>HMI · Input</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-graphics.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-10-02 · <code>12d8b4ae9</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-10-02 · <code>cd29208fa</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

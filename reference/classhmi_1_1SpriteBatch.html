@@ -151,7 +151,7 @@ $(function(){initNavTree('classhmi_1_1SpriteBatch.html','','classhmi_1_1SpriteBa
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:Vertex" id="r_Vertex"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SpriteBatch_1_1Vertex.html">Vertex</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sommet envoyé au GPU : position monde (x, y), UV, couleur RVBA.  <a href="structhmi_1_1SpriteBatch_1_1Vertex.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sommet envoyé au GPU : position de la vue (x, y, profondeur), UV, couleur RVBA.  <a href="structhmi_1_1SpriteBatch_1_1Vertex.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Batch" id="r_Batch"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SpriteBatch_1_1Batch.html">Batch</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un lot enregistré : une texture, une projection, une plage contiguë de quads.  <a href="structhmi_1_1SpriteBatch_1_1Batch.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -167,21 +167,29 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aabfbcc017938ef990ce6d739ae88d815"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre l'enregistrement d'une image : vide les sommets et les lots de la précédente.  <br /></td></tr>
 <tr class="memitem:a6c70d3f90ced34e448c7e20c824db8ea" id="r_a6c70d3f90ced34e448c7e20c824db8ea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6c70d3f90ced34e448c7e20c824db8ea">begin</a> (const DirectX::XMFLOAT4X4 &amp;projection, <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture)</td></tr>
 <tr class="memdesc:a6c70d3f90ced34e448c7e20c824db8ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Démarre un lot : fixe la texture échantillonnée et la projection.  <br /></td></tr>
-<tr class="memitem:adf3e122b7b78551672d6e8642941383d" id="r_adf3e122b7b78551672d6e8642941383d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adf3e122b7b78551672d6e8642941383d">draw</a> (const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;quad)</td></tr>
-<tr class="memdesc:adf3e122b7b78551672d6e8642941383d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un quad au lot courant.  <br /></td></tr>
-<tr class="memitem:afb2cf10826482b3ad8d503a829a8ed5b" id="r_afb2cf10826482b3ad8d503a829a8ed5b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afb2cf10826482b3ad8d503a829a8ed5b">draw</a> (const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;line)</td></tr>
-<tr class="memdesc:afb2cf10826482b3ad8d503a829a8ed5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un segment épais (orienté librement) au lot courant.  <br /></td></tr>
-<tr class="memitem:a50b96c3162fe6f5d3c78b4ff9f482f5f" id="r_a50b96c3162fe6f5d3c78b4ff9f482f5f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a50b96c3162fe6f5d3c78b4ff9f482f5f">draw</a> (const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;poly)</td></tr>
-<tr class="memdesc:a50b96c3162fe6f5d3c78b4ff9f482f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un quadrilatère à quatre sommets libres au lot courant (<span class="tt">LOT-128</span>).  <br /></td></tr>
+<tr class="memitem:a51482a6b33099443b60ad2e7cffa90ce" id="r_a51482a6b33099443b60ad2e7cffa90ce"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a51482a6b33099443b60ad2e7cffa90ce">draw</a> (const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;quad, float topDepth=0.0F, float bottomDepth=0.0F)</td></tr>
+<tr class="memdesc:a51482a6b33099443b60ad2e7cffa90ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un quad au lot courant.  <br /></td></tr>
+<tr class="memitem:a1a86087d4df224dff2e175bcb91258a2" id="r_a1a86087d4df224dff2e175bcb91258a2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1a86087d4df224dff2e175bcb91258a2">draw</a> (const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;line, float startDepth=0.0F, float endDepth=0.0F)</td></tr>
+<tr class="memdesc:a1a86087d4df224dff2e175bcb91258a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un segment épais (orienté librement) au lot courant.  <br /></td></tr>
+<tr class="memitem:ae830a4fdbd7324eedc09d6fcf1e2021e" id="r_ae830a4fdbd7324eedc09d6fcf1e2021e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae830a4fdbd7324eedc09d6fcf1e2021e">draw</a> (const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;poly, const std::array&lt; float, 4 &gt; &amp;depths={})</td></tr>
+<tr class="memdesc:ae830a4fdbd7324eedc09d6fcf1e2021e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un quadrilatère à quatre sommets libres au lot courant (<span class="tt">LOT-128</span>).  <br /></td></tr>
 <tr class="memitem:aac9e3e6a4b2e84a4b24b617d6b4ce58d" id="r_aac9e3e6a4b2e84a4b24b617d6b4ce58d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aac9e3e6a4b2e84a4b24b617d6b4ce58d">end</a> ()</td></tr>
 <tr class="memdesc:aac9e3e6a4b2e84a4b24b617d6b4ce58d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termine le lot : fige la plage de quads enregistrée. Un lot vide n'émettra aucun dessin.  <br /></td></tr>
 <tr class="memitem:a271469045e5d3087caadd4dcaf4ebbe1" id="r_a271469045e5d3087caadd4dcaf4ebbe1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a271469045e5d3087caadd4dcaf4ebbe1">submit</a> (QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, QRhiResourceUpdateBatch *updates, const float *clear)</td></tr>
 <tr class="memdesc:a271469045e5d3087caadd4dcaf4ebbe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Téléverse l'image enregistrée et l'émet en une passe de rendu.  <br /></td></tr>
+<tr class="memitem:a1977ed19b145745d8fb3f85bea453b23" id="r_a1977ed19b145745d8fb3f85bea453b23"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1977ed19b145745d8fb3f85bea453b23">setDepthTest</a> (bool enabled) noexcept</td></tr>
+<tr class="memdesc:a1977ed19b145745d8fb3f85bea453b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quads de l'image testent-ils la profondeur (<span class="tt">LOT-1003</span>) ?  <br /></td></tr>
+<tr class="memitem:a9c9acf62bbd4dd52ad7f0173419db80d" id="r_a9c9acf62bbd4dd52ad7f0173419db80d"><td class="memItemLeft">QRhiResourceUpdateBatch *&#160;</td><td class="memItemRight"><a class="el" href="#a9c9acf62bbd4dd52ad7f0173419db80d">prepare</a> (QRhiRenderTarget *target, QRhiResourceUpdateBatch *updates)</td></tr>
+<tr class="memdesc:a9c9acf62bbd4dd52ad7f0173419db80d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dépose dans un lot les téléversements de l'image enregistrée — sommets, projections, et le tampon d'indices à sa première image —, <b>hors</b> de toute passe.  <br /></td></tr>
+<tr class="memitem:ac4d1f7956b63e74b96283ca16328c3e1" id="r_ac4d1f7956b63e74b96283ca16328c3e1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac4d1f7956b63e74b96283ca16328c3e1">record</a> (QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target)</td></tr>
+<tr class="memdesc:ac4d1f7956b63e74b96283ca16328c3e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émet les appels de dessin de l'image préparée, dans la passe <b>ouverte</b> par l'appelant.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a45fd2a054df485079239ce58d99c29d6" id="r_a45fd2a054df485079239ce58d99c29d6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a45fd2a054df485079239ce58d99c29d6">ensurePipeline</a> (QRhiRenderTarget *target)</td></tr>
-<tr class="memdesc:a45fd2a054df485079239ce58d99c29d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée (ou recrée) le pipeline pour la passe de rendu donnée. Idempotent.  <br /></td></tr>
+<tr class="memdesc:a45fd2a054df485079239ce58d99c29d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée (ou recrée) les pipelines pour la passe de rendu donnée. Idempotent.  <br /></td></tr>
+<tr class="memitem:a8a560c8e55b33b34a616539e3b1f7767" id="r_a8a560c8e55b33b34a616539e3b1f7767"><td class="memItemLeft">std::unique_ptr&lt; QRhiGraphicsPipeline &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8a560c8e55b33b34a616539e3b1f7767">createPipeline</a> (QRhiRenderPassDescriptor *pass, bool depthTest)</td></tr>
+<tr class="memdesc:a8a560c8e55b33b34a616539e3b1f7767"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit un pipeline pour <code class="param">pass</code>, avec ou sans test de profondeur.  <br /></td></tr>
 <tr class="memitem:ae6d118ec18752d51ceb6e4ed428925dd" id="r_ae6d118ec18752d51ceb6e4ed428925dd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae6d118ec18752d51ceb6e4ed428925dd">ensureVertexCapacity</a> (std::size_t quadCount)</td></tr>
 <tr class="memdesc:ae6d118ec18752d51ceb6e4ed428925dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Redimensionne le tampon de sommets si l'image enregistrée n'y tient pas.  <br /></td></tr>
 <tr class="memitem:a2ea59c094fa5a5ba279f22667bfc46a6" id="r_a2ea59c094fa5a5ba279f22667bfc46a6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2ea59c094fa5a5ba279f22667bfc46a6">ensureUniformCapacity</a> (std::size_t batchCount)</td></tr>
@@ -201,6 +209,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a55cb70edf2b067a26b1195c8697ab784" id="r_a55cb70edf2b067a26b1195c8697ab784"><td class="memItemLeft">std::unique_ptr&lt; QRhiSampler &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a55cb70edf2b067a26b1195c8697ab784">_smoothSampler</a></td></tr>
 <tr class="memdesc:a55cb70edf2b067a26b1195c8697ab784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bilinéaire avec mipmaps : l'art peint (<span class="tt"><a class="el" href="namespacehmi.html#a30e21236d068bfdc0078d392e42b752dae510cdf33cd497134b47b9316314d4b4" title="Bilinéaire avec mipmaps : l&#39;art peint, toujours réduit à l&#39;écran, qui scintillerait au plus proche (E...">TextureFiltering::Smooth</a></span>).  <br /></td></tr>
 <tr class="memitem:aa90eaad9d5b0b0c66a8aa5097405ecf8" id="r_aa90eaad9d5b0b0c66a8aa5097405ecf8"><td class="memItemLeft">std::unique_ptr&lt; QRhiGraphicsPipeline &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa90eaad9d5b0b0c66a8aa5097405ecf8">_pipeline</a></td></tr>
+<tr class="memitem:a616baba9e317ddcb8d10837e1e06dcc4" id="r_a616baba9e317ddcb8d10837e1e06dcc4"><td class="memItemLeft">std::unique_ptr&lt; QRhiGraphicsPipeline &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a616baba9e317ddcb8d10837e1e06dcc4">_depthPipeline</a></td></tr>
+<tr class="memdesc:a616baba9e317ddcb8d10837e1e06dcc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le même pipeline, qui teste la profondeur sans l'écrire (<span class="tt"><a class="el" href="#a1977ed19b145745d8fb3f85bea453b23" title="Les quads de l&#39;image testent-ils la profondeur (LOT-1003) ?">setDepthTest</a></span>) ; créé à la première image qui le demande.  <br /></td></tr>
+<tr class="memitem:a1683307f7b9dd32785264d0529060ac6" id="r_a1683307f7b9dd32785264d0529060ac6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1683307f7b9dd32785264d0529060ac6">_depthTest</a> = false</td></tr>
+<tr class="memitem:a5f28131f512b58e4dc8bf6e982b2a208" id="r_a5f28131f512b58e4dc8bf6e982b2a208"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5f28131f512b58e4dc8bf6e982b2a208">_drawable</a> = false</td></tr>
+<tr class="memdesc:a5f28131f512b58e4dc8bf6e982b2a208"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'image préparée a de quoi dessiner (<span class="tt"><a class="el" href="#a9c9acf62bbd4dd52ad7f0173419db80d" title="Dépose dans un lot les téléversements de l&#39;image enregistrée — sommets, projections,...">prepare</a></span>, lu par <span class="tt"><a class="el" href="#ac4d1f7956b63e74b96283ca16328c3e1" title="Émet les appels de dessin de l&#39;image préparée, dans la passe ouverte par l&#39;appelant.">record</a></span>).  <br /></td></tr>
 <tr class="memitem:afbed412aa1ed69cb7f2ff6578ab10d3c" id="r_afbed412aa1ed69cb7f2ff6578ab10d3c"><td class="memItemLeft">QRhiRenderPassDescriptor *&#160;</td><td class="memItemRight"><a class="el" href="#afbed412aa1ed69cb7f2ff6578ab10d3c">_pipelinePass</a> = nullptr</td></tr>
 <tr class="memdesc:afbed412aa1ed69cb7f2ff6578ab10d3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descripteur de la passe pour laquelle <span class="tt"><a class="el" href="#aa90eaad9d5b0b0c66a8aa5097405ecf8">_pipeline</a></span> a été construit : un changement de cible (redimensionnement du widget, changement de fenêtre) impose de le reconstruire.  <br /></td></tr>
 <tr class="memitem:ab55b02a4ffd9e4000d63693f62690c98" id="r_ab55b02a4ffd9e4000d63693f62690c98"><td class="memItemLeft">std::unordered_map&lt; QRhiTexture *, std::unique_ptr&lt; QRhiShaderResourceBindings &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab55b02a4ffd9e4000d63693f62690c98">_bindings</a></td></tr>
@@ -230,7 +243,9 @@ Static Private Attributes</h2></td></tr>
 <div class="textblock"><p>Dessine des quads texturés au travers de QRhi, avec transparence <b>prémultipliée</b> et un échantillonnage qui suit la nature de chaque texture : bilinéaire avec mipmaps pour l'art peint, au plus proche pour une image engendrée (<span class="tt">EX-ARCH-022</span>, <span class="tt">LOT-103</span>). </p>
 <p>Usage inchangé pour les appelants : <span class="tt">begin(projection, texture)</span>, un ou plusieurs <span class="tt">draw(quad)</span>, puis <span class="tt"><a class="el" href="#aac9e3e6a4b2e84a4b24b617d6b4ce58d" title="Termine le lot : fige la plage de quads enregistrée. Un lot vide n&#39;émettra aucun dessin.">end()</a></span>. Ce qui change est <b>quand</b> le GPU voit ces quads.</p>
 <p><b>Deux phases, contrairement à la version Direct3D 11.</b> QRhi interdit de téléverser un tampon pendant une passe de rendu : impossible donc de réécrire le tampon de sommets entre deux <span class="tt">drawIndexed</span>, comme le faisait <span class="tt">Map(WRITE_DISCARD)</span>. La classe <b>enregistre</b> donc toute l'image côté CPU — sommets accumulés bout à bout, plus une liste de lots (texture, projection, plage de quads) — et n'émet quoi que ce soit qu'au <span class="tt"><a class="el" href="#a271469045e5d3087caadd4dcaf4ebbe1" title="Téléverse l&#39;image enregistrée et l&#39;émet en une passe de rendu.">submit()</a></span> final : un téléversement unique, puis une passe contenant un appel de dessin par lot. Le découpage en lots, et donc le nombre d'appels, est <b>strictement le même</b> qu'avant : c'est <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html" title="Liste ordonnée des primitives d&#39;une image, indépendante de Direct3D.">hmi::ComposedScene</a></span> qui le décide, pas ce fichier.</p>
-<p>La projection est portée <b>par lot</b> et non par image : le HUD (<span class="tt">EX-REN-047</span>) se dessine en coordonnées écran dans la même image que le monde. Elle transite par un tampon uniforme adressé à décalage dynamique, un emplacement par lot. </p>
+<p>La projection est portée <b>par lot</b> et non par image : le HUD (<span class="tt">EX-REN-047</span>) se dessine en coordonnées écran dans la même image que le monde. Elle transite par un tampon uniforme adressé à décalage dynamique, un emplacement par lot.</p>
+<p><b>La profondeur (<span class="tt">LOT-1003</span>).</b> Un sommet porte une troisième coordonnée, la profondeur de la vue (<span class="tt"><a class="el" href="classhmi_1_1IsoView.html" title="La vue en volume d&#39;une grille projetée par core::IsoProjection.">hmi::IsoView</a></span>), nulle par défaut. Elle n'est <b>testée</b> que si l'appelant le demande (<span class="tt"><a class="el" href="#a1977ed19b145745d8fb3f85bea453b23" title="Les quads de l&#39;image testent-ils la profondeur (LOT-1003) ?">setDepthTest</a></span>), c'est-à-dire quand l'image a des maillages à croiser : les quads sont alors comparés au tampon de profondeur sans y écrire — leurs bords sont adoucis, et leur ordre reste celui du peintre. Sans cela, le pipeline est celui d'avant le lot, sans test ni écriture.</p>
+<p>Pour partager une passe avec un autre pipeline (<span class="tt"><a class="el" href="classhmi_1_1MeshBatch.html" title="Dessine des maillages texturés au travers de QRhi : sommets, normales, coordonnées de texture ; profo...">hmi::MeshBatch</a></span>), <span class="tt"><a class="el" href="#a271469045e5d3087caadd4dcaf4ebbe1" title="Téléverse l&#39;image enregistrée et l&#39;émet en une passe de rendu.">submit</a></span> se découpe en <span class="tt"><a class="el" href="#a9c9acf62bbd4dd52ad7f0173419db80d" title="Dépose dans un lot les téléversements de l&#39;image enregistrée — sommets, projections,...">prepare</a></span> — les téléversements, hors de toute passe — et <span class="tt"><a class="el" href="#ac4d1f7956b63e74b96283ca16328c3e1" title="Émet les appels de dessin de l&#39;image préparée, dans la passe ouverte par l&#39;appelant.">record</a></span>, qui émet les appels de dessin dans la passe que l'appelant a ouverte. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a08e69f624887237958d145b9050b433d" name="a08e69f624887237958d145b9050b433d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a08e69f624887237958d145b9050b433d">&#9670;&#160;</a></span>SpriteBatch() <span class="overload">[1/2]</span></h2>
@@ -418,8 +433,39 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afb2cf10826482b3ad8d503a829a8ed5b" name="afb2cf10826482b3ad8d503a829a8ed5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb2cf10826482b3ad8d503a829a8ed5b">&#9670;&#160;</a></span>draw() <span class="overload">[1/3]</span></h2>
+<a id="a8a560c8e55b33b34a616539e3b1f7767" name="a8a560c8e55b33b34a616539e3b1f7767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a560c8e55b33b34a616539e3b1f7767">&#9670;&#160;</a></span>createPipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt; QRhiGraphicsPipeline &gt; hmi::SpriteBatch::createPipeline </td>
+          <td>(</td>
+          <td class="paramtype">QRhiRenderPassDescriptor *</td>          <td class="paramname"><span class="paramname"><em>pass</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>depthTest</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construit un pipeline pour <code class="param">pass</code>, avec ou sans test de profondeur. </p>
+
+</div>
+</div>
+<a id="a1a86087d4df224dff2e175bcb91258a2" name="a1a86087d4df224dff2e175bcb91258a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a86087d4df224dff2e175bcb91258a2">&#9670;&#160;</a></span>draw() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -427,8 +473,17 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::SpriteBatch::draw </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>line</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1LineQuad.html">LineQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>line</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>startDepth</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0F</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>endDepth</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0F</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -437,14 +492,16 @@ Static Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">line</td><td>Segment à dessiner (unités monde, UV normalisées, teinte). Sans effet si les deux extrémités coïncident (segment dégénéré). </td></tr>
+    <tr><td class="paramname">startDepth</td><td>Profondeur de l'extrémité <span class="tt">a</span>. </td></tr>
+    <tr><td class="paramname">endDepth</td><td>Profondeur de l'extrémité <span class="tt">b</span>. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a50b96c3162fe6f5d3c78b4ff9f482f5f" name="a50b96c3162fe6f5d3c78b4ff9f482f5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50b96c3162fe6f5d3c78b4ff9f482f5f">&#9670;&#160;</a></span>draw() <span class="overload">[2/3]</span></h2>
+<a id="ae830a4fdbd7324eedc09d6fcf1e2021e" name="ae830a4fdbd7324eedc09d6fcf1e2021e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae830a4fdbd7324eedc09d6fcf1e2021e">&#9670;&#160;</a></span>draw() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -452,8 +509,12 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::SpriteBatch::draw </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>poly</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1PolyQuad.html">PolyQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>poly</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::array&lt; float, 4 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>depths</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -462,14 +523,15 @@ Static Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">poly</td><td>Quadrilatère à dessiner (unités monde, UV normalisées, teinte). Ses sommets sont repris tels quels : c'est à la composition de les donner dans l'ordre du pourtour. </td></tr>
+    <tr><td class="paramname">depths</td><td>La profondeur de chacun de ses quatre sommets. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="adf3e122b7b78551672d6e8642941383d" name="adf3e122b7b78551672d6e8642941383d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf3e122b7b78551672d6e8642941383d">&#9670;&#160;</a></span>draw() <span class="overload">[3/3]</span></h2>
+<a id="a51482a6b33099443b60ad2e7cffa90ce" name="a51482a6b33099443b60ad2e7cffa90ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51482a6b33099443b60ad2e7cffa90ce">&#9670;&#160;</a></span>draw() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -477,8 +539,17 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">void hmi::SpriteBatch::draw </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quad</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>quad</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>topDepth</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0F</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>bottomDepth</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0F</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -487,6 +558,8 @@ Static Private Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">quad</td><td>Quad à dessiner (unités monde, UV normalisées, teinte). </td></tr>
+    <tr><td class="paramname">topDepth</td><td>Profondeur de ses deux sommets du haut (avant rotation). </td></tr>
+    <tr><td class="paramname">bottomDepth</td><td>Profondeur de ses deux sommets du bas. </td></tr>
   </table>
   </dd>
 </dl>
@@ -535,7 +608,7 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Crée (ou recrée) le pipeline pour la passe de rendu donnée. Idempotent. </p>
+<p>Crée (ou recrée) les pipelines pour la passe de rendu donnée. Idempotent. </p>
 
 </div>
 </div>
@@ -618,6 +691,69 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a9c9acf62bbd4dd52ad7f0173419db80d" name="a9c9acf62bbd4dd52ad7f0173419db80d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c9acf62bbd4dd52ad7f0173419db80d">&#9670;&#160;</a></span>prepare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QRhiResourceUpdateBatch * hmi::SpriteBatch::prepare </td>
+          <td>(</td>
+          <td class="paramtype">QRhiRenderTarget *</td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QRhiResourceUpdateBatch *</td>          <td class="paramname"><span class="paramname"><em>updates</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dépose dans un lot les téléversements de l'image enregistrée — sommets, projections, et le tampon d'indices à sa première image —, <b>hors</b> de toute passe. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>Cible de rendu de l'image : le pipeline se crée pour sa passe. </td></tr>
+    <tr><td class="paramname">updates</td><td>Lot à compléter ; <span class="tt">nullptr</span> : un lot est pris au besoin. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le lot à soumettre à l'ouverture de la passe (<span class="tt">beginPass</span>), <span class="tt">nullptr</span> s'il n'y a rien à téléverser. </dd></dl>
+
+</div>
+</div>
+<a id="ac4d1f7956b63e74b96283ca16328c3e1" name="ac4d1f7956b63e74b96283ca16328c3e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4d1f7956b63e74b96283ca16328c3e1">&#9670;&#160;</a></span>record()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::SpriteBatch::record </td>
+          <td>(</td>
+          <td class="paramtype">QRhiCommandBuffer *</td>          <td class="paramname"><span class="paramname"><em>commandBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QRhiRenderTarget *</td>          <td class="paramname"><span class="paramname"><em>target</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Émet les appels de dessin de l'image préparée, dans la passe <b>ouverte</b> par l'appelant. </p>
+<p>Sans effet si <span class="tt"><a class="el" href="#a9c9acf62bbd4dd52ad7f0173419db80d" title="Dépose dans un lot les téléversements de l&#39;image enregistrée — sommets, projections,...">prepare</a></span> n'a rien trouvé à dessiner. </p>
+
+</div>
+</div>
 <a id="a7cf3b7de85ca3bfd5e083cfda5c4e9ba" name="a7cf3b7de85ca3bfd5e083cfda5c4e9ba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7cf3b7de85ca3bfd5e083cfda5c4e9ba">&#9670;&#160;</a></span>rhi()</h2>
 
@@ -641,6 +777,34 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>L'interface de rendu servie par cette instance (comparaison de perte de contexte). </dd></dl>
+
+</div>
+</div>
+<a id="a1977ed19b145745d8fb3f85bea453b23" name="a1977ed19b145745d8fb3f85bea453b23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1977ed19b145745d8fb3f85bea453b23">&#9670;&#160;</a></span>setDepthTest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::SpriteBatch::setDepthTest </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enabled</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les quads de l'image testent-ils la profondeur (<span class="tt">LOT-1003</span>) ? </p>
+<p>Faux par défaut : le pipeline d'avant le lot. À régler avant <span class="tt"><a class="el" href="#a9c9acf62bbd4dd52ad7f0173419db80d" title="Dépose dans un lot les téléversements de l&#39;image enregistrée — sommets, projections,...">prepare</a></span> ; la cible doit alors avoir un tampon de profondeur. </p>
 
 </div>
 </div>
@@ -754,6 +918,76 @@ Static Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Lot en cours d'enregistrement (entre <span class="tt"><a class="el" href="#a6c70d3f90ced34e448c7e20c824db8ea" title="Démarre un lot : fixe la texture échantillonnée et la projection.">begin()</a></span> et <span class="tt"><a class="el" href="#aac9e3e6a4b2e84a4b24b617d6b4ce58d" title="Termine le lot : fige la plage de quads enregistrée. Un lot vide n&#39;émettra aucun dessin.">end()</a></span>), s'il y en a un. </p>
+
+</div>
+</div>
+<a id="a616baba9e317ddcb8d10837e1e06dcc4" name="a616baba9e317ddcb8d10837e1e06dcc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a616baba9e317ddcb8d10837e1e06dcc4">&#9670;&#160;</a></span>_depthPipeline</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QRhiGraphicsPipeline&gt; hmi::SpriteBatch::_depthPipeline</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le même pipeline, qui teste la profondeur sans l'écrire (<span class="tt"><a class="el" href="#a1977ed19b145745d8fb3f85bea453b23" title="Les quads de l&#39;image testent-ils la profondeur (LOT-1003) ?">setDepthTest</a></span>) ; créé à la première image qui le demande. </p>
+
+</div>
+</div>
+<a id="a1683307f7b9dd32785264d0529060ac6" name="a1683307f7b9dd32785264d0529060ac6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1683307f7b9dd32785264d0529060ac6">&#9670;&#160;</a></span>_depthTest</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::SpriteBatch::_depthTest = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5f28131f512b58e4dc8bf6e982b2a208" name="a5f28131f512b58e4dc8bf6e982b2a208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f28131f512b58e4dc8bf6e982b2a208">&#9670;&#160;</a></span>_drawable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::SpriteBatch::_drawable = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'image préparée a de quoi dessiner (<span class="tt"><a class="el" href="#a9c9acf62bbd4dd52ad7f0173419db80d" title="Dépose dans un lot les téléversements de l&#39;image enregistrée — sommets, projections,...">prepare</a></span>, lu par <span class="tt"><a class="el" href="#ac4d1f7956b63e74b96283ca16328c3e1" title="Émet les appels de dessin de l&#39;image préparée, dans la passe ouverte par l&#39;appelant.">record</a></span>). </p>
 
 </div>
 </div>

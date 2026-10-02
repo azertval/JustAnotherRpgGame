@@ -1,0 +1,255 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/PlaceCamera.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('PlaceCamera_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">PlaceCamera.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="PlaceCamera_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;DirectXMath.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="Rect_8h.html">Core/Math/Rect.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="Vector2_8h.html">Core/Math/Vector2.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="IsoView_8h.html">HMI/Graphics/IsoView.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classhmi_1_1PlaceCamera.html">   37</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a75a462658ad31d440f0c99f6d017ac03">PlaceCamera</a> {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classhmi_1_1PlaceCamera.html#a1578bdcb353a4925b3a53f8a9b0a6acc">   40</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1PlaceCamera.html#a1578bdcb353a4925b3a53f8a9b0a6acc">PIXELS_PER_UNIT</a> = 16.0f;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a75a462658ad31d440f0c99f6d017ac03">PlaceCamera</a>(<span class="keywordtype">int</span> viewportWidth, <span class="keywordtype">int</span> viewportHeight);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#ab168eab4569f95469217a51b575212a8">setCenter</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a>&amp; worldCenter);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#aed17f9ce0ee1d0607b3ecb73f7a94ac7">setZoom</a>(<span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a2ead74437e4d681f108572b059f1b1b9">zoom</a>);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a284ac2cd04dd51684a8ed31a3da9ab04">setDepthRange</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1DepthRange.html">DepthRange</a>&amp; range);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span></div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classhmi_1_1PlaceCamera.html#ab6d6e964ad0652b6b1d3af2bc59f3292">   72</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a>&amp; <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#ab6d6e964ad0652b6b1d3af2bc59f3292">center</a>() const noexcept {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1PlaceCamera.html#a3686a21f914307a1506145c39eee5e61">_center</a>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
+<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classhmi_1_1PlaceCamera.html#a2ead74437e4d681f108572b059f1b1b9">   77</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a2ead74437e4d681f108572b059f1b1b9">zoom</a>() const noexcept {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1PlaceCamera.html#a2e841fdae9c285e8d64091b7e2aaede7">_zoom</a>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="classhmi_1_1PlaceCamera.html#a8ebd344c1741d90534d63af52058bdf8">   81</a></span>    [[nodiscard]] <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1DepthRange.html">DepthRange</a>&amp; <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a8ebd344c1741d90534d63af52058bdf8">depthRange</a>() const noexcept {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1PlaceCamera.html#a90f9d3d12673269010b48a56ea72f1a1">_depth</a>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    [[nodiscard]] DirectX::XMFLOAT4X4 <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a0c22f6f6eb40cb74fe96996b5e7c9f0e">projectionMatrix</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    [[nodiscard]] DirectX::XMFLOAT4X4 <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a552e94da10f066f60eeeb627a788b2dc">meshMatrix</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a>&amp; transform) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a8c8c8f86fe35f2d84ab38ee79b76446a">worldToScreen</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a>&amp; world) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#ac5929b8967abdabf033acb33b9cccb6c">screenToWorld</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a>&amp; screen) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    [[nodiscard]] <a class="code hl_struct" href="structcore_1_1Rect.html">core::Rect</a> <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a905460a7930098f5a6c5680b6858ad7d">visibleBounds</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    [[nodiscard]] <span class="keyword">static</span> <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#aef61e365e9c9350b9299ce6215252425">fitZoom</a>(<span class="keywordtype">float</span> availableWidth, <span class="keywordtype">float</span> availableHeight,</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                                       <span class="keywordtype">float</span> contentWidth, <span class="keywordtype">float</span> contentHeight,</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                                       <span class="keywordtype">float</span> margin = 1.0f);</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1PlaceCamera.html#a308df073decac13f436f888330586181">scale</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="classhmi_1_1PlaceCamera.html#a0c322bb4442430e13870211c9ed35dc0">  150</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1PlaceCamera.html#a0c322bb4442430e13870211c9ed35dc0">_viewportWidth</a>;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="classhmi_1_1PlaceCamera.html#a3ec083a03a6db5d3e9e04db74860a273">  151</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1PlaceCamera.html#a3ec083a03a6db5d3e9e04db74860a273">_viewportHeight</a>;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="classhmi_1_1PlaceCamera.html#a3686a21f914307a1506145c39eee5e61">  152</a></span>    <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> <a class="code hl_variable" href="classhmi_1_1PlaceCamera.html#a3686a21f914307a1506145c39eee5e61">_center</a>{};</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="classhmi_1_1PlaceCamera.html#a2e841fdae9c285e8d64091b7e2aaede7">  153</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1PlaceCamera.html#a2e841fdae9c285e8d64091b7e2aaede7">_zoom</a> = 1.0f;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="classhmi_1_1PlaceCamera.html#a90f9d3d12673269010b48a56ea72f1a1">  154</a></span>    <a class="code hl_struct" href="structhmi_1_1DepthRange.html">DepthRange</a> <a class="code hl_variable" href="classhmi_1_1PlaceCamera.html#a90f9d3d12673269010b48a56ea72f1a1">_depth</a>{};</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>};</div>
+</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aIsoView_8h_html"><div class="ttname"><a href="IsoView_8h.html">IsoView.h</a></div><div class="ttdoc">La vue du lieu en volume (LOT-1003) : ce que la caméra orthographique tournée de 45° et inclinée de a...</div></div>
+<div class="ttc" id="aRect_8h_html"><div class="ttname"><a href="Rect_8h.html">Rect.h</a></div><div class="ttdoc">Rectangle aligné sur les axes en coordonnées monde, propre à Core.</div></div>
+<div class="ttc" id="aVector2_8h_html"><div class="ttname"><a href="Vector2_8h.html">Vector2.h</a></div><div class="ttdoc">Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX).</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a0c22f6f6eb40cb74fe96996b5e7c9f0e"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a0c22f6f6eb40cb74fe96996b5e7c9f0e">hmi::PlaceCamera::projectionMatrix</a></div><div class="ttdeci">DirectX::XMFLOAT4X4 projectionMatrix() const</div><div class="ttdoc">Matrice de projection vue → clip, pour le vertex shader.</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:59</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a0c322bb4442430e13870211c9ed35dc0"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a0c322bb4442430e13870211c9ed35dc0">hmi::PlaceCamera::_viewportWidth</a></div><div class="ttdeci">int _viewportWidth</div><div class="ttdef"><b>Definition</b> PlaceCamera.h:150</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a1578bdcb353a4925b3a53f8a9b0a6acc"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a1578bdcb353a4925b3a53f8a9b0a6acc">hmi::PlaceCamera::PIXELS_PER_UNIT</a></div><div class="ttdeci">static constexpr float PIXELS_PER_UNIT</div><div class="ttdoc">Nombre de pixels par unité monde (EX-ARCH-021).</div><div class="ttdef"><b>Definition</b> PlaceCamera.h:40</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a284ac2cd04dd51684a8ed31a3da9ab04"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a284ac2cd04dd51684a8ed31a3da9ab04">hmi::PlaceCamera::setDepthRange</a></div><div class="ttdeci">void setDepthRange(const DepthRange &amp;range)</div><div class="ttdoc">Fixe l&#39;étendue de profondeur que la caméra ramène entre ses deux plans (hmi::IsoView::depthRange).</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:48</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a2e841fdae9c285e8d64091b7e2aaede7"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a2e841fdae9c285e8d64091b7e2aaede7">hmi::PlaceCamera::_zoom</a></div><div class="ttdeci">float _zoom</div><div class="ttdef"><b>Definition</b> PlaceCamera.h:153</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a2ead74437e4d681f108572b059f1b1b9"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a2ead74437e4d681f108572b059f1b1b9">hmi::PlaceCamera::zoom</a></div><div class="ttdeci">float zoom() const noexcept</div><div class="ttdef"><b>Definition</b> PlaceCamera.h:77</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a308df073decac13f436f888330586181"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a308df073decac13f436f888330586181">hmi::PlaceCamera::scale</a></div><div class="ttdeci">float scale() const</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:53</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a3686a21f914307a1506145c39eee5e61"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a3686a21f914307a1506145c39eee5e61">hmi::PlaceCamera::_center</a></div><div class="ttdeci">core::Vector2 _center</div><div class="ttdef"><b>Definition</b> PlaceCamera.h:152</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a3ec083a03a6db5d3e9e04db74860a273"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a3ec083a03a6db5d3e9e04db74860a273">hmi::PlaceCamera::_viewportHeight</a></div><div class="ttdeci">int _viewportHeight</div><div class="ttdef"><b>Definition</b> PlaceCamera.h:151</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a552e94da10f066f60eeeb627a788b2dc"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a552e94da10f066f60eeeb627a788b2dc">hmi::PlaceCamera::meshMatrix</a></div><div class="ttdeci">DirectX::XMFLOAT4X4 meshMatrix(const ViewTransform &amp;transform) const</div><div class="ttdoc">Matrice maillage → clip d&#39;un maillage posé par transform (hmi::IsoView::meshTransform) : la projectio...</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:83</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a75a462658ad31d440f0c99f6d017ac03"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a75a462658ad31d440f0c99f6d017ac03">hmi::PlaceCamera::PlaceCamera</a></div><div class="ttdeci">PlaceCamera(int viewportWidth, int viewportHeight)</div><div class="ttdoc">Construit une caméra pour une surface de rendu donnée.</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:35</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a8c8c8f86fe35f2d84ab38ee79b76446a"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a8c8c8f86fe35f2d84ab38ee79b76446a">hmi::PlaceCamera::worldToScreen</a></div><div class="ttdeci">core::Vector2 worldToScreen(const core::Vector2 &amp;world) const</div><div class="ttdoc">Convertit une position monde en pixels écran.</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:110</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a8ebd344c1741d90534d63af52058bdf8"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a8ebd344c1741d90534d63af52058bdf8">hmi::PlaceCamera::depthRange</a></div><div class="ttdeci">const DepthRange &amp; depthRange() const noexcept</div><div class="ttdef"><b>Definition</b> PlaceCamera.h:81</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a905460a7930098f5a6c5680b6858ad7d"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a905460a7930098f5a6c5680b6858ad7d">hmi::PlaceCamera::visibleBounds</a></div><div class="ttdeci">core::Rect visibleBounds() const</div><div class="ttdoc">Rectangle du monde effectivement cadré par la caméra.</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:128</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_a90f9d3d12673269010b48a56ea72f1a1"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#a90f9d3d12673269010b48a56ea72f1a1">hmi::PlaceCamera::_depth</a></div><div class="ttdeci">DepthRange _depth</div><div class="ttdef"><b>Definition</b> PlaceCamera.h:154</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_ab168eab4569f95469217a51b575212a8"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#ab168eab4569f95469217a51b575212a8">hmi::PlaceCamera::setCenter</a></div><div class="ttdeci">void setCenter(const core::Vector2 &amp;worldCenter)</div><div class="ttdoc">Place le centre de la caméra.</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:39</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_ab6d6e964ad0652b6b1d3af2bc59f3292"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#ab6d6e964ad0652b6b1d3af2bc59f3292">hmi::PlaceCamera::center</a></div><div class="ttdeci">const core::Vector2 &amp; center() const noexcept</div><div class="ttdef"><b>Definition</b> PlaceCamera.h:72</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_ac5929b8967abdabf033acb33b9cccb6c"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#ac5929b8967abdabf033acb33b9cccb6c">hmi::PlaceCamera::screenToWorld</a></div><div class="ttdeci">core::Vector2 screenToWorld(const core::Vector2 &amp;screen) const</div><div class="ttdoc">Convertit une position écran (pixels) en unités monde.</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:119</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_aed17f9ce0ee1d0607b3ecb73f7a94ac7"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#aed17f9ce0ee1d0607b3ecb73f7a94ac7">hmi::PlaceCamera::setZoom</a></div><div class="ttdeci">void setZoom(float zoom)</div><div class="ttdoc">Règle le facteur de zoom.</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:44</div></div>
+<div class="ttc" id="aclasshmi_1_1PlaceCamera_html_aef61e365e9c9350b9299ce6215252425"><div class="ttname"><a href="classhmi_1_1PlaceCamera.html#aef61e365e9c9350b9299ce6215252425">hmi::PlaceCamera::fitZoom</a></div><div class="ttdeci">static float fitZoom(float availableWidth, float availableHeight, float contentWidth, float contentHeight, float margin=1.0f)</div><div class="ttdoc">Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ.</div><div class="ttdef"><b>Definition</b> PlaceCamera.cpp:137</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_abc6aa80f158df082cfe0b7ee36210962"><div class="ttname"><a href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">hmi::ViewTransform</a></div><div class="ttdeci">std::array&lt; float, 12 &gt; ViewTransform</div><div class="ttdoc">Une transformation affine du repère d&#39;un maillage vers celui de la vue : trois lignes (x,...</div><div class="ttdef"><b>Definition</b> IsoView.h:65</div></div>
+<div class="ttc" id="astructcore_1_1Rect_html"><div class="ttname"><a href="structcore_1_1Rect.html">core::Rect</a></div><div class="ttdoc">Rectangle aligné sur les axes (AABB) en unités monde.</div><div class="ttdef"><b>Definition</b> Rect.h:23</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html"><div class="ttname"><a href="structcore_1_1Vector2.html">core::Vector2</a></div><div class="ttdoc">Vecteur bidimensionnel en coordonnées monde (composantes float).</div><div class="ttdef"><b>Definition</b> Vector2.h:21</div></div>
+<div class="ttc" id="astructhmi_1_1DepthRange_html"><div class="ttname"><a href="structhmi_1_1DepthRange.html">hmi::DepthRange</a></div><div class="ttdoc">L&#39;étendue de profondeur d&#39;une scène : ce que la caméra ramène entre ses deux plans.</div><div class="ttdef"><b>Definition</b> IsoView.h:68</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="PlaceCamera_8h.html">PlaceCamera.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

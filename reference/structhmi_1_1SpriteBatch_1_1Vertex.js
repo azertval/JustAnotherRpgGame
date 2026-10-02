@@ -7,5 +7,6 @@ var structhmi_1_1SpriteBatch_1_1Vertex =
     [ "u", "structhmi_1_1SpriteBatch_1_1Vertex.html#adcf41445f05057b738eb3411d8e47703", null ],
     [ "v", "structhmi_1_1SpriteBatch_1_1Vertex.html#aa06f2c610c42f36c0f0f13658bd274e9", null ],
     [ "x", "structhmi_1_1SpriteBatch_1_1Vertex.html#a9a81b3d446ca4b8deda6cfec5b7376fe", null ],
-    [ "y", "structhmi_1_1SpriteBatch_1_1Vertex.html#a3d6d423bd76108581a2b36b256e87dd5", null ]
+    [ "y", "structhmi_1_1SpriteBatch_1_1Vertex.html#a3d6d423bd76108581a2b36b256e87dd5", null ],
+    [ "z", "structhmi_1_1SpriteBatch_1_1Vertex.html#add27887383ee3e4c51c45ea04d0c4d50", null ]
 ];

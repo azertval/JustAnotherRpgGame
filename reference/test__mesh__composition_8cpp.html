@@ -1,0 +1,396 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/test_mesh_composition.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__mesh__composition_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_mesh_composition.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les pièces en maillage d'un lieu, de son manifeste à la scène composée, <b>sans GPU</b> (<span class="tt">LOT-1003</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MeshFile_8h_source.html">Core/Resources/MeshFile.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScenePieceManifest_8h_source.html">Core/Resources/ScenePieceManifest.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IsoView_8h_source.html">HMI/Graphics/IsoView.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="StaticWorldScene_8h_source.html">HMI/Graphics/StaticWorldScene.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a41946b340c2199cf45bad9a092f6a4b9" id="r_a41946b340c2199cf45bad9a092f6a4b9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a41946b340c2199cf45bad9a092f6a4b9">TEST</a> (MeshCompositionTest, LeManifesteCiteUnMaillageOuUneImage)</td></tr>
+<tr class="memdesc:a41946b340c2199cf45bad9a092f6a4b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une clé de pièce cite un maillage ou une image, et le lieu lit les deux.  <br /></td></tr>
+<tr class="memitem:a809136ef65c69946e868733d7d1a6b9b" id="r_a809136ef65c69946e868733d7d1a6b9b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a809136ef65c69946e868733d7d1a6b9b">TEST</a> (MeshCompositionTest, UneCarteDemandeSesMaillagesAPart)</td></tr>
+<tr class="memdesc:a809136ef65c69946e868733d7d1a6b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte demande ses maillages à part de ses textures.  <br /></td></tr>
+<tr class="memitem:ad5f935bc956cfcf0bae3c15f2d167aa2" id="r_ad5f935bc956cfcf0bae3c15f2d167aa2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad5f935bc956cfcf0bae3c15f2d167aa2">TEST</a> (MeshCompositionTest, LaCompositionProduitUneListeDeMaillagesPlaces)</td></tr>
+<tr class="memdesc:ad5f935bc956cfcf0bae3c15f2d167aa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">La composition produit une liste de maillages placés à côté de la liste de primitives.  <br /></td></tr>
+<tr class="memitem:a418ad385362262c1c98f477b92bf78b0" id="r_a418ad385362262c1c98f477b92bf78b0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a418ad385362262c1c98f477b92bf78b0">TEST</a> (MeshCompositionTest, UnMaillageManquantSeVoit)</td></tr>
+<tr class="memdesc:a418ad385362262c1c98f477b92bf78b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un maillage qui ne s'est pas chargé laisse voir le damier : la pièce manquante se voit.  <br /></td></tr>
+<tr class="memitem:a9aed18c4e9bcf304e5150b1439ce7c34" id="r_a9aed18c4e9bcf304e5150b1439ce7c34"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9aed18c4e9bcf304e5150b1439ce7c34">TEST</a> (MeshCompositionTest, LesImagesDisentCommentEllesSeTiennent)</td></tr>
+<tr class="memdesc:a9aed18c4e9bcf304e5150b1439ce7c34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images portent la ligne où elles se dressent, et un bloc de maquette l'élévation de ses sommets : de quoi leur donner une profondeur quand la scène a des volumes.  <br /></td></tr>
+<tr class="memitem:a870e7ebad985eba4f4478fc393598e00" id="r_a870e7ebad985eba4f4478fc393598e00"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a870e7ebad985eba4f4478fc393598e00">TEST</a> (MeshCompositionTest, LeLieuComposeUneFoisGardeSesMaillages)</td></tr>
+<tr class="memdesc:a870e7ebad985eba4f4478fc393598e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu composé une fois garde ses maillages, et n'en rend que ce que le cadrage montre.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les pièces en maillage d'un lieu, de son manifeste à la scène composée, <b>sans GPU</b> (<span class="tt">LOT-1003</span>). </p>
+<p>La carte d'essai (<span class="tt">Fixtures/Meshes</span>) : une cour dallée de maillages au milieu d'un sol en images, un îlot de huit murs en anneau, un toit de trois cases de côté à l'étage. Les maillages sont des identités sans GPU, à la boîte que leur fichier déclare : la composition est une fonction pure, et produit une liste de maillages placés à côté de la liste de primitives. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ad5f935bc956cfcf0bae3c15f2d167aa2" name="ad5f935bc956cfcf0bae3c15f2d167aa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5f935bc956cfcf0bae3c15f2d167aa2">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshCompositionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaCompositionProduitUneListeDeMaillagesPlaces</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La composition produit une liste de maillages placés à côté de la liste de primitives. </p>
+<p><b>Cas de test :</b> <b>La composition produit une liste de maillages places.</b><br  />
+ <b>Categorie :</b> Unitaire · Maillages d'un lieu<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer la carte d'essai, ses trois maillages chargés.<br  />
+</p><ol type="1">
+<li>Compter les maillages placés et les primitives, par pièce.<br  />
+</li>
+<li>Relever la pose d'un mur et celle du toit.<br  />
+ <b>Resultat attendu :</b> Vingt-cinq dalles en maillage sur le calque du sol, huit murs et un toit sur le calque du décor ; cinquante-cinq dalles en image, et aucune primitive de relief. Le mur est posé au centre de sa case, au sol ; le toit au centre de son emprise de trois cases, élevé d'un étage, à l'étage 1. </li>
+</ol>
+
+</div>
+</div>
+<a id="a870e7ebad985eba4f4478fc393598e00" name="a870e7ebad985eba4f4478fc393598e00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a870e7ebad985eba4f4478fc393598e00">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshCompositionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeLieuComposeUneFoisGardeSesMaillages</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le lieu composé une fois garde ses maillages, et n'en rend que ce que le cadrage montre. </p>
+<p><b>Cas de test :</b> <b>Le lieu compose une fois garde ses maillages et les cadre.</b><br  />
+ <b>Categorie :</b> Unitaire · Maillages d'un lieu<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer la carte d'essai dans une <span class="tt">StaticWorldScene</span>.<br  />
+</p><ol type="1">
+<li>En tirer une image sans cadrage, puis une image cadrée loin de l'îlot.<br  />
+ <b>Resultat attendu :</b> Sans cadrage, les trente-quatre maillages ; cadrée sur le coin ouest de la carte, aucun mur ni toit, et la scène n'est pas dite vide tant qu'elle a des maillages. </li>
+</ol>
+
+</div>
+</div>
+<a id="a41946b340c2199cf45bad9a092f6a4b9" name="a41946b340c2199cf45bad9a092f6a4b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41946b340c2199cf45bad9a092f6a4b9">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshCompositionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeManifesteCiteUnMaillageOuUneImage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une clé de pièce cite un maillage ou une image, et le lieu lit les deux. </p>
+<p><b>Cas de test :</b> <b>Le manifeste d'un lieu cite un maillage ou une image.</b><br  />
+ <b>Categorie :</b> Unitaire · Maillages d'un lieu<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire un manifeste dont une clé cite <span class="tt">"mesh"</span>, une <span class="tt">"file"</span>, une les deux, une aucun.<br  />
+</p><ol type="1">
+<li>Lire le lieu d'essai par <span class="tt">PlaceAppearance::loadForPlace</span>.<br  />
+ <b>Resultat attendu :</b> La pièce en maillage dit <span class="tt">isMesh()</span> et son chemin finit en <span class="tt">.glb</span> ; la pièce en image garde le sien ; qui cite les deux est un maillage ; qui ne cite rien est ignorée. Le lieu rend le fichier <span class="tt">.glb</span> de <span class="tt">wall</span> et le <span class="tt">.png</span> de <span class="tt">paving</span>, et l'emprise 3 × 3 du toit. </li>
+</ol>
+
+</div>
+</div>
+<a id="a9aed18c4e9bcf304e5150b1439ce7c34" name="a9aed18c4e9bcf304e5150b1439ce7c34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9aed18c4e9bcf304e5150b1439ce7c34">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshCompositionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesImagesDisentCommentEllesSeTiennent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les images portent la ligne où elles se dressent, et un bloc de maquette l'élévation de ses sommets : de quoi leur donner une profondeur quand la scène a des volumes. </p>
+<p><b>Cas de test :</b> <b>Les images disent comment elles se tiennent dans la scene en volume.</b><br  />
+ <b>Categorie :</b> Unitaire · Maillages d'un lieu<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer la carte d'essai avec une figurine au centre de la case (5, 6).<br  />
+</p><ol type="1">
+<li>Relever la tenue de la figurine, d'un jeton, d'une dalle.<br  />
+</li>
+<li>Composer une carte de maquette et relever l'élévation des sommets d'un bloc.<br  />
+ <b>Resultat attendu :</b> La figurine est dressée sur ses pieds, au centre de sa position ; une dalle est à plat ; un jeton est une marque. Les sommets du dessus d'un bloc portent sa hauteur, ceux de sa base zéro. </li>
+</ol>
+
+</div>
+</div>
+<a id="a809136ef65c69946e868733d7d1a6b9b" name="a809136ef65c69946e868733d7d1a6b9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a809136ef65c69946e868733d7d1a6b9b">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshCompositionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCarteDemandeSesMaillagesAPart</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La carte demande ses maillages à part de ses textures. </p>
+<p><b>Cas de test :</b> <b>Une carte demande ses maillages a part de ses textures.</b><br  />
+ <b>Categorie :</b> Unitaire · Maillages d'un lieu<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Tirer l'instantané de la carte d'essai.<br  />
+</p><ol type="1">
+<li>Lister ses chemins de texture, puis ses chemins de maillage.<br  />
+ <b>Resultat attendu :</b> Trois maillages — le sol, le mur, le toit ; une seule texture de pièce, la dalle en image, et aucun <span class="tt">.glb</span> parmi les textures. </li>
+</ol>
+
+</div>
+</div>
+<a id="a418ad385362262c1c98f477b92bf78b0" name="a418ad385362262c1c98f477b92bf78b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a418ad385362262c1c98f477b92bf78b0">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshCompositionTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnMaillageManquantSeVoit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un maillage qui ne s'est pas chargé laisse voir le damier : la pièce manquante se voit. </p>
+<p><b>Cas de test :</b> <b>Un maillage manquant se voit, par le damier.</b><br  />
+ <b>Categorie :</b> Unitaire · Maillages d'un lieu<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer la carte d'essai sans qu'aucun maillage ne soit chargé.<br  />
+ <b>Resultat attendu :</b> Aucun maillage placé ; chaque pièce en maillage est composée en image sur le damier de repli — vingt-cinq dalles, huit murs, un toit —, jamais omise. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_9c2c1d58a156aa8e30c089ae7a4e31f9.html">Graphics</a></li><li class="navelem"><a href="test__mesh__composition_8cpp.html">test_mesh_composition.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

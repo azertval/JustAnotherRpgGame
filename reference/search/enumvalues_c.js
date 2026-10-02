@@ -21,5 +21,6 @@ var searchData=
   ['outofbounds_18',['OutOfBounds',['../namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4a46dc1018ac1d8fca7c2752a61ce2fd0f',1,'core::OutOfBounds'],['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823a46dc1018ac1d8fca7c2752a61ce2fd0f',1,'core::OutOfBounds']]],
   ['outofrange_19',['OutOfRange',['../namespacecore.html#ac1032ee70b0c730c8727b80822ab035ea365b2699d38b61ef4b4c8a1066c8468f',1,'core']]],
   ['outofreach_20',['OutOfReach',['../namespacecore.html#ac011cdb67f4c31ececbaaceeace4cbedab3e0302fd4814646ffa6de166cddc38a',1,'core::OutOfReach'],['../namespacecore.html#a1c2689aacd9707ef3d8c556e9f2bf840ab3e0302fd4814646ffa6de166cddc38a',1,'core::OutOfReach']]],
-  ['overcapacity_21',['OverCapacity',['../namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a4fcf3e94521b7db24bd0c3bd6e9201af',1,'core']]]
+  ['overcapacity_21',['OverCapacity',['../namespacecore.html#ad77756d2c98fad50a0b353e7924843a5a4fcf3e94521b7db24bd0c3bd6e9201af',1,'core']]],
+  ['overlay_22',['Overlay',['../namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535a6b551379c3c0b59326abdaf3b4395bd3',1,'hmi']]]
 ];

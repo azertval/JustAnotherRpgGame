@@ -150,6 +150,7 @@ $(function(){initNavTree('structcore_1_1ScenePiece.html','','structcore_1_1Scene
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a806a356b6384fbb32f1f6de32a8d28a6" id="r_a806a356b6384fbb32f1f6de32a8d28a6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a806a356b6384fbb32f1f6de32a8d28a6">isMesh</a> () const noexcept</td></tr>
 <tr class="memitem:a95e3be7b50645669d22d20838fc4e84c" id="r_a95e3be7b50645669d22d20838fc4e84c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a95e3be7b50645669d22d20838fc4e84c">path</a> () const</td></tr>
 <tr class="memitem:a3007113a2df28f76da5e67d11eeb1986" id="r_a3007113a2df28f76da5e67d11eeb1986"><td class="memItemLeft"><a class="el" href="structcore_1_1PieceFootprint.html">PieceFootprint</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3007113a2df28f76da5e67d11eeb1986">footprint</a> () const noexcept</td></tr>
 <tr class="memitem:a1e1b67c75d3e7d3ab6b5c389ddb71308" id="r_a1e1b67c75d3e7d3ab6b5c389ddb71308"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1e1b67c75d3e7d3ab6b5c389ddb71308">operator==</a> (const <a class="el" href="structcore_1_1ScenePiece.html">ScenePiece</a> &amp;) const =default</td></tr>
@@ -161,7 +162,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a0baa3d1830021d1eedb0d067a05565bc" id="r_a0baa3d1830021d1eedb0d067a05565bc"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0baa3d1830021d1eedb0d067a05565bc">key</a></td></tr>
 <tr class="memdesc:a0baa3d1830021d1eedb0d067a05565bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clé de l'atelier (<span class="tt">scene/martpart/wall-left</span>).  <br /></td></tr>
 <tr class="memitem:aa07afc5d2306797a84be1b32a4981a80" id="r_aa07afc5d2306797a84be1b32a4981a80"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aa07afc5d2306797a84be1b32a4981a80">file</a></td></tr>
-<tr class="memdesc:aa07afc5d2306797a84be1b32a4981a80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fichier image, relatif au dossier du lieu (<span class="tt">wall-left.png</span>).  <br /></td></tr>
+<tr class="memdesc:aa07afc5d2306797a84be1b32a4981a80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fichier image, relatif au dossier du lieu (<span class="tt">wall-left.png</span>) ; vide pour une pièce en maillage.  <br /></td></tr>
+<tr class="memitem:adcddbb5308483c00c06b56a5751a3019" id="r_adcddbb5308483c00c06b56a5751a3019"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#adcddbb5308483c00c06b56a5751a3019">mesh</a></td></tr>
+<tr class="memdesc:adcddbb5308483c00c06b56a5751a3019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fichier de maillage, relatif au dossier du lieu (<span class="tt">walls/wall.glb</span>, <span class="tt">LOT-1003</span>) : la pièce est alors un <b>volume</b>, et non une image.  <br /></td></tr>
 <tr class="memitem:a922394e6582c74f12072082c93615121" id="r_a922394e6582c74f12072082c93615121"><td class="memItemLeft"><a class="el" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461">ScenePieceClass</a>&#160;</td><td class="memItemRight"><a class="el" href="#a922394e6582c74f12072082c93615121">pieceClass</a> = <a class="el" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387">ScenePieceClass::Other</a></td></tr>
 <tr class="memitem:a55c584d71565d87dcea8934b154e7c98" id="r_a55c584d71565d87dcea8934b154e7c98"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a55c584d71565d87dcea8934b154e7c98">className</a></td></tr>
 <tr class="memdesc:a55c584d71565d87dcea8934b154e7c98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classe telle qu'écrite (<span class="tt">floor</span>, <span class="tt">tall</span>, <span class="tt">wide</span>…), pour une classe inconnue.  <br /></td></tr>
@@ -214,6 +217,32 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a806a356b6384fbb32f1f6de32a8d28a6" name="a806a356b6384fbb32f1f6de32a8d28a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a806a356b6384fbb32f1f6de32a8d28a6">&#9670;&#160;</a></span>isMesh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ScenePiece::isMesh </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si la pièce est un maillage (<span class="tt"><a class="el" href="#adcddbb5308483c00c06b56a5751a3019" title="Fichier de maillage, relatif au dossier du lieu (walls/wall.glb, LOT-1003) : la pièce est alors un vo...">mesh</a></span>), faux si c'est une image. </dd></dl>
+
+</div>
+</div>
 <a id="a1e1b67c75d3e7d3ab6b5c389ddb71308" name="a1e1b67c75d3e7d3ab6b5c389ddb71308"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1e1b67c75d3e7d3ab6b5c389ddb71308">&#9670;&#160;</a></span>operator==()</h2>
 
@@ -261,7 +290,7 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le fichier de l'image, relatif à <span class="tt">Assets/</span> : <span class="tt">&lt;<a class="el" href="#a2ae097df852961297b52126aaa598278" title="Le dossier du manifeste qui la déclare, relatif à Assets/ (Regions/central-empire/capital/Common/Scen...">directory</a>&gt;/&lt;<a class="el" href="#aa07afc5d2306797a84be1b32a4981a80" title="Fichier image, relatif au dossier du lieu (wall-left.png).">file</a>&gt;</span> ; <a class="el" href="#aa07afc5d2306797a84be1b32a4981a80" title="file">file</a> seul pour un manifeste lu seul. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Le fichier de la pièce — son maillage, à défaut son image —, relatif à <span class="tt">Assets/</span> : <span class="tt">&lt;<a class="el" href="#a2ae097df852961297b52126aaa598278" title="Le dossier du manifeste qui la déclare, relatif à Assets/ (Regions/central-empire/capital/Common/Scen...">directory</a>&gt;/&lt;fichier&gt;</span> ; le fichier seul pour un manifeste lu seul. Son extension dit sa forme (<span class="tt"><a class="el" href="namespacecore.html#a82269912dc893aa11627ef297bc7c058">core::isMeshPath</a></span>). </dd></dl>
 
 </div>
 </div>
@@ -356,7 +385,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Fichier image, relatif au dossier du lieu (<span class="tt">wall-left.png</span>). </p>
+<p>Fichier image, relatif au dossier du lieu (<span class="tt">wall-left.png</span>) ; vide pour une pièce en maillage. </p>
 
 </div>
 </div>
@@ -433,6 +462,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le niveau qui la déclare (<span class="tt"><a class="el" href="structcore_1_1SceneLevel.html#abfcab0aafb3340be62611bafc8763967" title="Le nom du niveau, tel que la palette le montre : « Arena of Fate », « Capital », « World ».">core::SceneLevel::label</a></span>) ; vide pour un manifeste lu seul. </p>
+
+</div>
+</div>
+<a id="adcddbb5308483c00c06b56a5751a3019" name="adcddbb5308483c00c06b56a5751a3019"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcddbb5308483c00c06b56a5751a3019">&#9670;&#160;</a></span>mesh</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::ScenePiece::mesh</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fichier de maillage, relatif au dossier du lieu (<span class="tt">walls/wall.glb</span>, <span class="tt">LOT-1003</span>) : la pièce est alors un <b>volume</b>, et non une image. </p>
+<p>Une entrée qui cite les deux est un maillage. </p>
 
 </div>
 </div>

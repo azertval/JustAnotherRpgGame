@@ -178,9 +178,12 @@ Signals</h2></td></tr>
 <tr class="memdesc:ab475b1b1da2ebf4bb6169abcdc93795f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une quête a atteint une étape (<span class="tt">quest</span>) : le journal se relit.  <br /></td></tr>
 <tr class="memitem:a9c5c0c50c1ab2e5e3bd7b43fd9093acd" id="r_a9c5c0c50c1ab2e5e3bd7b43fd9093acd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9c5c0c50c1ab2e5e3bd7b43fd9093acd">partyChanged</a> ()</td></tr>
 <tr class="memdesc:a9c5c0c50c1ab2e5e3bd7b43fd9093acd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le groupe a changé : membres, ordre de marche ou meneur (<span class="tt">LOT-138</span>).  <br /></td></tr>
+<tr class="memitem:a1c2783f23bfd14bd6be96f071aef8df1" id="r_a1c2783f23bfd14bd6be96f071aef8df1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1c2783f23bfd14bd6be96f071aef8df1">interactionChanged</a> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:aeda8d8a27e6420736c679dc720995263" id="r_aeda8d8a27e6420736c679dc720995263"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#aeda8d8a27e6420736c679dc720995263">interactionTarget</a> () const</td></tr>
+<tr class="memdesc:aeda8d8a27e6420736c679dc720995263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invite et case de la cible actuellement à portée, ou une table vide.  <br /></td></tr>
 <tr class="memitem:ad26c761aa266d35a60f559668b593baa" id="r_ad26c761aa266d35a60f559668b593baa"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad26c761aa266d35a60f559668b593baa">WorldModel</a> (QObject *parent=nullptr)</td></tr>
 <tr class="memitem:a57bf1374060f4024ab4990f52249d636" id="r_a57bf1374060f4024ab4990f52249d636"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a57bf1374060f4024ab4990f52249d636">~WorldModel</a> () override</td></tr>
 <tr class="memitem:a2ed37cbcb0f13d16f308389049fe97d7" id="r_a2ed37cbcb0f13d16f308389049fe97d7"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#a2ed37cbcb0f13d16f308389049fe97d7">startNewGame</a> ()</td></tr>
@@ -293,6 +296,7 @@ Properties</h2></td></tr>
 <tr class="memdesc:a377eb7e731e665360dcdbf7e4eee72f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom de la carte, tel qu'elle le porte.  <br /></td></tr>
 <tr class="memitem:ad35b39b91404a26834204600e488b698" id="r_ad35b39b91404a26834204600e488b698"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ad35b39b91404a26834204600e488b698">status</a></td></tr>
 <tr class="memdesc:ad35b39b91404a26834204600e488b698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'écran doit dire quand rien ne s'affiche : carte absente, portail cassé.  <br /></td></tr>
+<tr class="memitem:acf1bf955a4aae21ce6458ed487213546" id="r_acf1bf955a4aae21ce6458ed487213546"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#acf1bf955a4aae21ce6458ed487213546">interactionTarget</a></td></tr>
 <tr class="memitem:a83c6ab17b967d875b0e7495d5787ca65" id="r_a83c6ab17b967d875b0e7495d5787ca65"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a83c6ab17b967d875b0e7495d5787ca65">loaded</a></td></tr>
 <tr class="memdesc:a83c6ab17b967d875b0e7495d5787ca65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si une carte est chargée et se joue.  <br /></td></tr>
 <tr class="memitem:a0edb35d3899752ac9a686a872c935e6e" id="r_a0edb35d3899752ac9a686a872c935e6e"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0edb35d3899752ac9a686a872c935e6e">columns</a></td></tr>
@@ -390,7 +394,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'exploration — <b>la partie en cours</b> : entrer sur une carte, marcher, parler, franchir. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md128"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md134"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span> et fait tourner son <b>pas fixe</b> ; chaque geste de l'écran devient une intention passée à la session, et ce que l'écran montre est relu d'elle. Elle ne décide rien du monde : ni la collision, ni la traversée, ni ce qu'un PNJ répond.</p>
 <p>Même partage que le combat : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante, posée dans la vue de jeu.">hmi::WorldViewportItem</a></span>) prend un <b>instantané en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Une carte en valeurs, telle que la composition la lit : sa grille, ses pièces par case,...">hmi::WorldSceneSnapshot</a></span>) dans <span class="tt">synchronize()</span>, pendant que le fil graphique est bloqué. Le modèle ne lui passe jamais la session. </p>
@@ -1217,6 +1221,58 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Le joueur presse la touche d'interaction : le prochain pas la résoudra. </p>
+
+</div>
+</div>
+<a id="a1c2783f23bfd14bd6be96f071aef8df1" name="a1c2783f23bfd14bd6be96f071aef8df1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c2783f23bfd14bd6be96f071aef8df1">&#9670;&#160;</a></span>interactionChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::interactionChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeda8d8a27e6420736c679dc720995263" name="aeda8d8a27e6420736c679dc720995263"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeda8d8a27e6420736c679dc720995263">&#9670;&#160;</a></span>interactionTarget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::WorldModel::interactionTarget </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Invite et case de la cible actuellement à portée, ou une table vide. </p>
 
 </div>
 </div>
@@ -3309,6 +3365,28 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
       <table class="memname">
         <tr>
           <td class="memname">qreal hmi::WorldModel::heroRow</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acf1bf955a4aae21ce6458ed487213546" name="acf1bf955a4aae21ce6458ed487213546"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf1bf955a4aae21ce6458ed487213546">&#9670;&#160;</a></span>interactionTarget</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QVariantMap hmi::WorldModel::interactionTarget</td>
         </tr>
       </table>
   </td>

@@ -1,0 +1,274 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/MeshFile.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('MeshFile_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">MeshFile.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="MeshFile_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="namespacecore.html#a3327fed926d0ab370f4a57aaf112c3bc">   47</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#a3327fed926d0ab370f4a57aaf112c3bc">MESH_FILE_EXTENSION</a> = <span class="stringliteral">&quot;.glb&quot;</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>[[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="namespacecore.html#a82269912dc893aa11627ef297bc7c058">isMeshPath</a>(std::string_view path) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="};">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="structcore_1_1MeshVertex.html">   53</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1MeshVertex.html">MeshVertex</a> {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="structcore_1_1MeshVertex.html#a3e479fce9bad39aaa11b76a6009c0a6c">   54</a></span>    std::array&lt;float, 3&gt; <a class="code hl_variable" href="structcore_1_1MeshVertex.html#a3e479fce9bad39aaa11b76a6009c0a6c">position</a>{};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structcore_1_1MeshVertex.html#a6df32015802731f0f77d1ce3c4d08e0b">   55</a></span>    std::array&lt;float, 3&gt; <a class="code hl_variable" href="structcore_1_1MeshVertex.html#a6df32015802731f0f77d1ce3c4d08e0b">normal</a>{};</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structcore_1_1MeshVertex.html#a9f2758d72c6533e69c7740359ea3ce5d">   56</a></span>    std::array&lt;float, 2&gt; <a class="code hl_variable" href="structcore_1_1MeshVertex.html#a9f2758d72c6533e69c7740359ea3ce5d">uv</a>{};</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structcore_1_1MeshVertex.html#a4b154c0f15d75e46333295ca6757dca3">   58</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1MeshVertex.html#a4b154c0f15d75e46333295ca6757dca3">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1MeshVertex.html">MeshVertex</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>};</div>
+</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7e">   62</a></span><span class="keyword">enum class</span> <a class="code hl_enumeration" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7e">MeshFileError</a> : std::uint8_t {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7ea6adf97f83acf6453d4a6a4b1070f3754">   63</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">None</a>,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7ea2767828026039e8ba7b38973cbb701f2">   65</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0a2767828026039e8ba7b38973cbb701f2">FileNotFound</a>,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7eae41199faa7290c167f70f314c5e6c165">   67</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0ae41199faa7290c167f70f314c5e6c165">ParseError</a>,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7eab4080bdf74febf04d578ff105cce9d3f">   69</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7eab4080bdf74febf04d578ff105cce9d3f">Unsupported</a>,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7eaa809debdbe0cae246d363461916d924d">   71</a></span>    <a class="code hl_enumvalue" href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0aa809debdbe0cae246d363461916d924d">MalformedStructure</a>,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="namespacecore.html#a54740985552311c9bd3ca1b0974a7421">   75</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::size_t <a class="code hl_variable" href="namespacecore.html#a54740985552311c9bd3ca1b0974a7421">MESH_FILE_MAX_BYTES</a> = std::size_t{512} * 1024 * 1024;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span></div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="};">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html">   78</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1MeshData.html">MeshData</a> {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#a01021132a8943efe3b79460ba05d50e8">   79</a></span>    std::vector&lt;MeshVertex&gt; <a class="code hl_variable" href="structcore_1_1MeshData.html#a01021132a8943efe3b79460ba05d50e8">vertices</a>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#a5025b523d4df851a0fa487b0251317f5">   81</a></span>    std::vector&lt;std::uint32_t&gt; <a class="code hl_variable" href="structcore_1_1MeshData.html#a5025b523d4df851a0fa487b0251317f5">indices</a>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#a3471167a4eb3a8919996016a8daa6549">   83</a></span>    std::array&lt;float, 3&gt; <a class="code hl_variable" href="structcore_1_1MeshData.html#a3471167a4eb3a8919996016a8daa6549">minimum</a>{};</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#a70427a890506f31271ebc207c7f427b8">   84</a></span>    std::array&lt;float, 3&gt; <a class="code hl_variable" href="structcore_1_1MeshData.html#a70427a890506f31271ebc207c7f427b8">maximum</a>{};</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#a8924a62ee096241f7492dab279645fc9">   86</a></span>    std::array&lt;float, 4&gt; <a class="code hl_variable" href="structcore_1_1MeshData.html#a8924a62ee096241f7492dab279645fc9">baseColor</a>{1.0F, 1.0F, 1.0F, 1.0F};</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#a68808ed6fb9f9d51a7e6b90805389628">   89</a></span>    std::vector&lt;std::byte&gt; <a class="code hl_variable" href="structcore_1_1MeshData.html#a68808ed6fb9f9d51a7e6b90805389628">image</a>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#a69c69864feed09d778d1355a338d80ec">   91</a></span>    std::string <a class="code hl_variable" href="structcore_1_1MeshData.html#a69c69864feed09d778d1355a338d80ec">imageMimeType</a>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#aab9a382292fa477b576f7fc083491393">   94</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1MeshData.html#aab9a382292fa477b576f7fc083491393">primitiveCount</a> = 0;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#a372cd9b998da87480358e644ea63e1d0">   95</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="structcore_1_1MeshData.html#a372cd9b998da87480358e644ea63e1d0">materialCount</a> = 0;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#a445f50ef3e0449e9878c4eaae2e2a9a2">   97</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1MeshData.html#a445f50ef3e0449e9878c4eaae2e2a9a2">skinned</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
+<div class="foldopen" id="foldopen00100" data-start="{" data-end="}">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="structcore_1_1MeshData.html#a40a257d934c32bfa81743af18696ec88">  100</a></span>    [[nodiscard]] std::size_t <a class="code hl_function" href="structcore_1_1MeshData.html#a40a257d934c32bfa81743af18696ec88">triangleCount</a>() const noexcept {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1MeshData.html#a5025b523d4df851a0fa487b0251317f5">indices</a>.size() / 3;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
+</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>};</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="};">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="structcore_1_1MeshFileResult.html">  106</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1MeshFileResult.html">MeshFileResult</a> {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="structcore_1_1MeshFileResult.html#a938798a7fb85ead1c9270b579bc437bf">  107</a></span>    <a class="code hl_struct" href="structcore_1_1MeshData.html">MeshData</a> <a class="code hl_variable" href="structcore_1_1MeshFileResult.html#a938798a7fb85ead1c9270b579bc437bf">mesh</a>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="structcore_1_1MeshFileResult.html#afcb244ee8f897b3c3321eddca4f2c887">  108</a></span>    <a class="code hl_enumeration" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7e">MeshFileError</a> <a class="code hl_variable" href="structcore_1_1MeshFileResult.html#afcb244ee8f897b3c3321eddca4f2c887">error</a> = <a class="code hl_enumvalue" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7ea6adf97f83acf6453d4a6a4b1070f3754">MeshFileError::None</a>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="structcore_1_1MeshFileResult.html#afbd62566b73b0f8c083b6159d55e9a5e">  110</a></span>    std::string <a class="code hl_variable" href="structcore_1_1MeshFileResult.html#afbd62566b73b0f8c083b6159d55e9a5e">message</a>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="foldopen" id="foldopen00112" data-start="{" data-end="}">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="structcore_1_1MeshFileResult.html#a4ee915d321a0abd1cffe234e65317bd0">  112</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1MeshFileResult.html#a4ee915d321a0abd1cffe234e65317bd0">ok</a>() const noexcept {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="structcore_1_1MeshFileResult.html#afcb244ee8f897b3c3321eddca4f2c887">error</a> == <a class="code hl_enumvalue" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7ea6adf97f83acf6453d4a6a4b1070f3754">MeshFileError::None</a>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
+</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>};</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>[[nodiscard]] MeshFileResult <a class="code hl_function" href="namespacecore.html#a243f5bef0bdd1b3cfbc8a4adcd26bd8c">readMeshFromGlb</a>(std::span&lt;const std::byte&gt; bytes);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>[[nodiscard]] MeshFileResult <a class="code hl_function" href="namespacecore.html#a469880653f9c41cdb8fca5a6a8d87a4a">readMeshFile</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacecore.html#a0ddd67c0966fb31bf8c2de44a63d6999a6adf97f83acf6453d4a6a4b1070f3754">core::Cover::None</a></div><div class="ttdeci">@ None</div><div class="ttdef"><b>Definition</b> BattleGrid.h:101</div></div>
+<div class="ttc" id="anamespacecore_html_a243f5bef0bdd1b3cfbc8a4adcd26bd8c"><div class="ttname"><a href="namespacecore.html#a243f5bef0bdd1b3cfbc8a4adcd26bd8c">core::readMeshFromGlb</a></div><div class="ttdeci">MeshFileResult readMeshFromGlb(std::span&lt; const std::byte &gt; bytes)</div><div class="ttdoc">Lit un maillage depuis les octets d&#39;un fichier .glb.</div><div class="ttdef"><b>Definition</b> MeshFile.cpp:752</div></div>
+<div class="ttc" id="anamespacecore_html_a3044e9e0cc082011e2c2d5fbe2548e7e"><div class="ttname"><a href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7e">core::MeshFileError</a></div><div class="ttdeci">MeshFileError</div><div class="ttdoc">Catégorie d&#39;échec de lecture d&#39;un maillage.</div><div class="ttdef"><b>Definition</b> MeshFile.h:62</div></div>
+<div class="ttc" id="anamespacecore_html_a3044e9e0cc082011e2c2d5fbe2548e7ea6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7ea6adf97f83acf6453d4a6a4b1070f3754">core::MeshFileError::None</a></div><div class="ttdeci">@ None</div><div class="ttdef"><b>Definition</b> MeshFile.h:63</div></div>
+<div class="ttc" id="anamespacecore_html_a3044e9e0cc082011e2c2d5fbe2548e7eab4080bdf74febf04d578ff105cce9d3f"><div class="ttname"><a href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7eab4080bdf74febf04d578ff105cce9d3f">core::MeshFileError::Unsupported</a></div><div class="ttdeci">@ Unsupported</div><div class="ttdoc">Le fichier est un glTF valide qui emploie ce que ce lecteur ne lit pas (voir l&#39;en-tête).</div><div class="ttdef"><b>Definition</b> MeshFile.h:69</div></div>
+<div class="ttc" id="anamespacecore_html_a3327fed926d0ab370f4a57aaf112c3bc"><div class="ttname"><a href="namespacecore.html#a3327fed926d0ab370f4a57aaf112c3bc">core::MESH_FILE_EXTENSION</a></div><div class="ttdeci">constexpr std::string_view MESH_FILE_EXTENSION</div><div class="ttdoc">L&#39;extension d&#39;un fichier de maillage, point compris.</div><div class="ttdef"><b>Definition</b> MeshFile.h:47</div></div>
+<div class="ttc" id="anamespacecore_html_a3fca58c67ec139153d0204122e9c32e0a2767828026039e8ba7b38973cbb701f2"><div class="ttname"><a href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0a2767828026039e8ba7b38973cbb701f2">core::JsonReadError::FileNotFound</a></div><div class="ttdeci">@ FileNotFound</div><div class="ttdoc">Fichier absent ou illisible.</div><div class="ttdef"><b>Definition</b> JsonDocument.h:30</div></div>
+<div class="ttc" id="anamespacecore_html_a3fca58c67ec139153d0204122e9c32e0aa809debdbe0cae246d363461916d924d"><div class="ttname"><a href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0aa809debdbe0cae246d363461916d924d">core::JsonReadError::MalformedStructure</a></div><div class="ttdeci">@ MalformedStructure</div><div class="ttdoc">Structure inattendue (champ absent, type incorrect…).</div><div class="ttdef"><b>Definition</b> JsonDocument.h:33</div></div>
+<div class="ttc" id="anamespacecore_html_a3fca58c67ec139153d0204122e9c32e0ae41199faa7290c167f70f314c5e6c165"><div class="ttname"><a href="namespacecore.html#a3fca58c67ec139153d0204122e9c32e0ae41199faa7290c167f70f314c5e6c165">core::JsonReadError::ParseError</a></div><div class="ttdeci">@ ParseError</div><div class="ttdoc">JSON malformé, ou racine qui n&#39;est pas un objet.</div><div class="ttdef"><b>Definition</b> JsonDocument.h:31</div></div>
+<div class="ttc" id="anamespacecore_html_a469880653f9c41cdb8fca5a6a8d87a4a"><div class="ttname"><a href="namespacecore.html#a469880653f9c41cdb8fca5a6a8d87a4a">core::readMeshFile</a></div><div class="ttdeci">MeshFileResult readMeshFile(const std::filesystem::path &amp;path)</div><div class="ttdoc">Lit le fichier .glb path ; un fichier absent est une erreur du résultat.</div><div class="ttdef"><b>Definition</b> MeshFile.cpp:764</div></div>
+<div class="ttc" id="anamespacecore_html_a54740985552311c9bd3ca1b0974a7421"><div class="ttname"><a href="namespacecore.html#a54740985552311c9bd3ca1b0974a7421">core::MESH_FILE_MAX_BYTES</a></div><div class="ttdeci">constexpr std::size_t MESH_FILE_MAX_BYTES</div><div class="ttdoc">Le plus gros fichier lu, en octets : au-delà, ce n&#39;est pas un modèle du jeu.</div><div class="ttdef"><b>Definition</b> MeshFile.h:75</div></div>
+<div class="ttc" id="anamespacecore_html_a82269912dc893aa11627ef297bc7c058"><div class="ttname"><a href="namespacecore.html#a82269912dc893aa11627ef297bc7c058">core::isMeshPath</a></div><div class="ttdeci">bool isMeshPath(std::string_view path) noexcept</div><div class="ttdef"><b>Definition</b> MeshFile.cpp:742</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html"><div class="ttname"><a href="structcore_1_1MeshData.html">core::MeshData</a></div><div class="ttdoc">Un maillage lu : une seule liste de sommets, des triangles indexés, une matière.</div><div class="ttdef"><b>Definition</b> MeshFile.h:78</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_a01021132a8943efe3b79460ba05d50e8"><div class="ttname"><a href="structcore_1_1MeshData.html#a01021132a8943efe3b79460ba05d50e8">core::MeshData::vertices</a></div><div class="ttdeci">std::vector&lt; MeshVertex &gt; vertices</div><div class="ttdef"><b>Definition</b> MeshFile.h:79</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_a3471167a4eb3a8919996016a8daa6549"><div class="ttname"><a href="structcore_1_1MeshData.html#a3471167a4eb3a8919996016a8daa6549">core::MeshData::minimum</a></div><div class="ttdeci">std::array&lt; float, 3 &gt; minimum</div><div class="ttdoc">La boîte des positions, en mètres ; nulle pour un maillage vide.</div><div class="ttdef"><b>Definition</b> MeshFile.h:83</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_a372cd9b998da87480358e644ea63e1d0"><div class="ttname"><a href="structcore_1_1MeshData.html#a372cd9b998da87480358e644ea63e1d0">core::MeshData::materialCount</a></div><div class="ttdeci">int materialCount</div><div class="ttdef"><b>Definition</b> MeshFile.h:95</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_a40a257d934c32bfa81743af18696ec88"><div class="ttname"><a href="structcore_1_1MeshData.html#a40a257d934c32bfa81743af18696ec88">core::MeshData::triangleCount</a></div><div class="ttdeci">std::size_t triangleCount() const noexcept</div><div class="ttdef"><b>Definition</b> MeshFile.h:100</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_a445f50ef3e0449e9878c4eaae2e2a9a2"><div class="ttname"><a href="structcore_1_1MeshData.html#a445f50ef3e0449e9878c4eaae2e2a9a2">core::MeshData::skinned</a></div><div class="ttdeci">bool skinned</div><div class="ttdoc">Vrai si le fichier porte un squelette : le maillage est lu dans sa pose de liaison.</div><div class="ttdef"><b>Definition</b> MeshFile.h:97</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_a5025b523d4df851a0fa487b0251317f5"><div class="ttname"><a href="structcore_1_1MeshData.html#a5025b523d4df851a0fa487b0251317f5">core::MeshData::indices</a></div><div class="ttdeci">std::vector&lt; std::uint32_t &gt; indices</div><div class="ttdoc">Trois indices par triangle, dans vertices.</div><div class="ttdef"><b>Definition</b> MeshFile.h:81</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_a68808ed6fb9f9d51a7e6b90805389628"><div class="ttname"><a href="structcore_1_1MeshData.html#a68808ed6fb9f9d51a7e6b90805389628">core::MeshData::image</a></div><div class="ttdeci">std::vector&lt; std::byte &gt; image</div><div class="ttdoc">L&#39;image de la texture de couleur, encodée telle que le fichier la porte ; vide si la matière n&#39;en a p...</div><div class="ttdef"><b>Definition</b> MeshFile.h:89</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_a69c69864feed09d778d1355a338d80ec"><div class="ttname"><a href="structcore_1_1MeshData.html#a69c69864feed09d778d1355a338d80ec">core::MeshData::imageMimeType</a></div><div class="ttdeci">std::string imageMimeType</div><div class="ttdoc">Son type (image/jpeg, image/png), vide s&#39;il n&#39;est pas dit.</div><div class="ttdef"><b>Definition</b> MeshFile.h:91</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_a70427a890506f31271ebc207c7f427b8"><div class="ttname"><a href="structcore_1_1MeshData.html#a70427a890506f31271ebc207c7f427b8">core::MeshData::maximum</a></div><div class="ttdeci">std::array&lt; float, 3 &gt; maximum</div><div class="ttdef"><b>Definition</b> MeshFile.h:84</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_a8924a62ee096241f7492dab279645fc9"><div class="ttname"><a href="structcore_1_1MeshData.html#a8924a62ee096241f7492dab279645fc9">core::MeshData::baseColor</a></div><div class="ttdeci">std::array&lt; float, 4 &gt; baseColor</div><div class="ttdoc">Le facteur de couleur de base de la matière (RVBA, alpha droit) ; blanc par défaut.</div><div class="ttdef"><b>Definition</b> MeshFile.h:86</div></div>
+<div class="ttc" id="astructcore_1_1MeshData_html_aab9a382292fa477b576f7fc083491393"><div class="ttname"><a href="structcore_1_1MeshData.html#aab9a382292fa477b576f7fc083491393">core::MeshData::primitiveCount</a></div><div class="ttdeci">int primitiveCount</div><div class="ttdoc">Le nombre de primitives fondues, et de matières distinctes qu&#39;elles citaient : le standard en veut un...</div><div class="ttdef"><b>Definition</b> MeshFile.h:94</div></div>
+<div class="ttc" id="astructcore_1_1MeshFileResult_html"><div class="ttname"><a href="structcore_1_1MeshFileResult.html">core::MeshFileResult</a></div><div class="ttdoc">Résultat d&#39;une lecture : le maillage, et ce qui a échoué.</div><div class="ttdef"><b>Definition</b> MeshFile.h:106</div></div>
+<div class="ttc" id="astructcore_1_1MeshFileResult_html_a4ee915d321a0abd1cffe234e65317bd0"><div class="ttname"><a href="structcore_1_1MeshFileResult.html#a4ee915d321a0abd1cffe234e65317bd0">core::MeshFileResult::ok</a></div><div class="ttdeci">bool ok() const noexcept</div><div class="ttdef"><b>Definition</b> MeshFile.h:112</div></div>
+<div class="ttc" id="astructcore_1_1MeshFileResult_html_a938798a7fb85ead1c9270b579bc437bf"><div class="ttname"><a href="structcore_1_1MeshFileResult.html#a938798a7fb85ead1c9270b579bc437bf">core::MeshFileResult::mesh</a></div><div class="ttdeci">MeshData mesh</div><div class="ttdef"><b>Definition</b> MeshFile.h:107</div></div>
+<div class="ttc" id="astructcore_1_1MeshFileResult_html_afbd62566b73b0f8c083b6159d55e9a5e"><div class="ttname"><a href="structcore_1_1MeshFileResult.html#afbd62566b73b0f8c083b6159d55e9a5e">core::MeshFileResult::message</a></div><div class="ttdeci">std::string message</div><div class="ttdoc">Message technique, vide en cas de succès.</div><div class="ttdef"><b>Definition</b> MeshFile.h:110</div></div>
+<div class="ttc" id="astructcore_1_1MeshFileResult_html_afcb244ee8f897b3c3321eddca4f2c887"><div class="ttname"><a href="structcore_1_1MeshFileResult.html#afcb244ee8f897b3c3321eddca4f2c887">core::MeshFileResult::error</a></div><div class="ttdeci">MeshFileError error</div><div class="ttdef"><b>Definition</b> MeshFile.h:108</div></div>
+<div class="ttc" id="astructcore_1_1MeshVertex_html"><div class="ttname"><a href="structcore_1_1MeshVertex.html">core::MeshVertex</a></div><div class="ttdoc">Un sommet : position (mètres, hauteur +Y), normale unitaire, coordonnées de texture.</div><div class="ttdef"><b>Definition</b> MeshFile.h:53</div></div>
+<div class="ttc" id="astructcore_1_1MeshVertex_html_a3e479fce9bad39aaa11b76a6009c0a6c"><div class="ttname"><a href="structcore_1_1MeshVertex.html#a3e479fce9bad39aaa11b76a6009c0a6c">core::MeshVertex::position</a></div><div class="ttdeci">std::array&lt; float, 3 &gt; position</div><div class="ttdef"><b>Definition</b> MeshFile.h:54</div></div>
+<div class="ttc" id="astructcore_1_1MeshVertex_html_a4b154c0f15d75e46333295ca6757dca3"><div class="ttname"><a href="structcore_1_1MeshVertex.html#a4b154c0f15d75e46333295ca6757dca3">core::MeshVertex::operator==</a></div><div class="ttdeci">bool operator==(const MeshVertex &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1MeshVertex_html_a6df32015802731f0f77d1ce3c4d08e0b"><div class="ttname"><a href="structcore_1_1MeshVertex.html#a6df32015802731f0f77d1ce3c4d08e0b">core::MeshVertex::normal</a></div><div class="ttdeci">std::array&lt; float, 3 &gt; normal</div><div class="ttdef"><b>Definition</b> MeshFile.h:55</div></div>
+<div class="ttc" id="astructcore_1_1MeshVertex_html_a9f2758d72c6533e69c7740359ea3ce5d"><div class="ttname"><a href="structcore_1_1MeshVertex.html#a9f2758d72c6533e69c7740359ea3ce5d">core::MeshVertex::uv</a></div><div class="ttdeci">std::array&lt; float, 2 &gt; uv</div><div class="ttdef"><b>Definition</b> MeshFile.h:56</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_81575a0a6a20a380991b9ad2c16b89e5.html">Resources</a></li><li class="navelem"><a href="MeshFile_8h.html">MeshFile.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

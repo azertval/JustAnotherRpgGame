@@ -151,6 +151,7 @@ $(function(){initNavTree('ComposedScene_8h.html','',''); });
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IsoView_8h_source.html">HMI/Graphics/IsoView.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Quad_8h_source.html">HMI/Graphics/Quad.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
 </div>
@@ -160,6 +161,8 @@ $(function(){initNavTree('ComposedScene_8h.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3AComposedQuad" id="r_hmi_3A_3AComposedQuad"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ComposedQuad.html">hmi::ComposedQuad</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une primitive prête à soumettre, avec tout ce qui détermine <b>quand</b> la dessiner.  <a href="structhmi_1_1ComposedQuad.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AComposedMesh" id="r_hmi_3A_3AComposedMesh"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ComposedMesh.html">hmi::ComposedMesh</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <b>maillage placé</b> (<span class="tt">LOT-1003</span>) : la composition en produit une liste, à côté de la liste des primitives.  <a href="structhmi_1_1ComposedMesh.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ASceneStatistics" id="r_hmi_3A_3ASceneStatistics"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneStatistics.html">hmi::SceneStatistics</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compteurs d'une image composée, pour l'observabilité du volume soumis (<span class="tt">EX-NFR-005</span>).  <a href="structhmi_1_1SceneStatistics.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AComposedScene" id="r_hmi_3A_3AComposedScene"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ComposedScene.html">hmi::ComposedScene</a></td></tr>
@@ -169,8 +172,18 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a07a437313cbfa408c32343398b830168" id="r_a07a437313cbfa408c32343398b830168"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">hmi::MeshHandle</a> = void*</td></tr>
+<tr class="memdesc:a07a437313cbfa408c32343398b830168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identité <b>opaque</b> d'un maillage chargé, du point de vue de la composition : comme <span class="tt"><a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d" title="Identité opaque d&#39;une texture liée, du point de vue de la composition.">hmi::TextureHandle</a></span>, elle se compare et se regroupe sans que la composition connaisse le GPU.  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:a4d6a8601e9d5a4622b41e9678b1da535" id="r_a4d6a8601e9d5a4622b41e9678b1da535"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535">hmi::QuadStance</a> : std::uint8_t { <a class="el" href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535a6b551379c3c0b59326abdaf3b4395bd3">hmi::Overlay</a>
+, <a class="el" href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535a3519d51443d41746a097cd54cd5c11cf">hmi::Ground</a>
+, <a class="el" href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535aadcd5aa8fd001045d4f75625829875be">hmi::Upright</a>
+ }</td></tr>
+<tr class="memdesc:a4d6a8601e9d5a4622b41e9678b1da535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comment une image se tient dans la scène en volume (<span class="tt">LOT-1003</span>) : ce qui décide de sa <b>profondeur</b> quand elle croise un maillage (<span class="tt"><a class="el" href="classhmi_1_1IsoView.html" title="La vue en volume d&#39;une grille projetée par core::IsoProjection.">hmi::IsoView</a></span>).  <a href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535">More...</a><br /></td></tr>
 <tr class="memitem:aa9ff839f9bcc1bb899b24cb8026ab2b3" id="r_aa9ff839f9bcc1bb899b24cb8026ab2b3"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3">hmi::QuadKind</a> { <a class="el" href="namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3a51f2b7b14433aa22c67d1f4fc18943cd">hmi::Sprite</a>
 , <a class="el" href="namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3a4803e6b9e63dabf04de980788d6a13c4">hmi::Line</a>
 , <a class="el" href="namespacehmi.html#aa9ff839f9bcc1bb899b24cb8026ab2b3a7462cd846ee2e800d33ac6250a8ff4af">hmi::Poly</a>
@@ -179,6 +192,7 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a39847826d305e1d2691ac1281b607b2a" id="r_a39847826d305e1d2691ac1281b607b2a"><td class="memItemLeft">constexpr <a class="el" href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535">QuadStance</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a39847826d305e1d2691ac1281b607b2a">hmi::defaultStance</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer) noexcept</td></tr>
 <tr class="memitem:a551d45820ca5a6e720a6a89e1c70c120" id="r_a551d45820ca5a6e720a6a89e1c70c120"><td class="memItemLeft">std::int32_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a551d45820ca5a6e720a6a89e1c70c120">hmi::depthSortOrder</a> (float footWorldY) noexcept</td></tr>
 <tr class="memdesc:a551d45820ca5a6e720a6a89e1c70c120"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordre de profondeur d'une primitive, à partir du <b>pied</b> de son quad.  <br /></td></tr>
 <tr class="memitem:af7d9b42fc7c496a35a24169feddc6ab8" id="r_af7d9b42fc7c496a35a24169feddc6ab8"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#af7d9b42fc7c496a35a24169feddc6ab8">hmi::spriteQuadBounds</a> (const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;quad) noexcept</td></tr>

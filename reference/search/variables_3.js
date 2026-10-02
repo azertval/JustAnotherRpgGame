@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['camera_0',['camera',['../structhmi_1_1WorldViewportItem_1_1Framing.html#a92d661a7f9aebeb2d5405b4c508f59c9',1,'hmi::WorldViewportItem::Framing']]],
+  ['camera_0',['camera',['../structhmi_1_1WorldViewportItem_1_1Framing.html#aa8c3543adfc6e0a5479b822bc9201c31',1,'hmi::WorldViewportItem::Framing']]],
   ['cameraposition_1',['cameraPosition',['../structcore_1_1ExplorationSnapshot.html#aa5d820019e101216aec7f2113d850f1e',1,'core::ExplorationSnapshot']]],
   ['candidates_2',['candidates',['../structcore_1_1PartyCandidates.html#a6741ade610300e06760c80f5591feee6',1,'core::PartyCandidates']]],
   ['canpassthrough_3',['canPassThrough',['../structcore_1_1Mover.html#aafcdb17a89738202ae994c0e30d9a333',1,'core::Mover']]],
@@ -58,7 +58,7 @@ var searchData=
   ['classname_55',['className',['../structcore_1_1ScenePiece.html#a55c584d71565d87dcea8934b154e7c98',1,'core::ScenePiece']]],
   ['clause_56',['clause',['../structcore_1_1BonusDamage.html#a5e0e896150ad983b1c51c9398611f60b',1,'core::BonusDamage::clause'],['../structcore_1_1RolledDamage.html#a5c67939005c377679a7cdc829fcb9c60',1,'core::RolledDamage::clause']]],
   ['climb_57',['climb',['../structcore_1_1CreatureSpeed.html#a9d1b93d9919b9222738ca0430dd1c991',1,'core::CreatureSpeed']]],
-  ['clip_58',['clip',['../structhmi_1_1FigureMotion.html#a2d7942748d62e7bc151c6a55272a14e1',1,'hmi::FigureMotion::clip'],['../structhmi_1_1WorldFigureSnapshot.html#af1b3756468ad2303e293a11aa0647ec2',1,'hmi::WorldFigureSnapshot::clip']]],
+  ['clip_58',['clip',['../structhmi_1_1FigureMotion.html#a2d7942748d62e7bc151c6a55272a14e1',1,'hmi::FigureMotion::clip'],['../structhmi_1_1MeshBatch_1_1Draw.html#adc2a99273716e1566761acd5378db284',1,'hmi::MeshBatch::Draw::clip'],['../structhmi_1_1WorldFigureSnapshot.html#af1b3756468ad2303e293a11aa0647ec2',1,'hmi::WorldFigureSnapshot::clip']]],
   ['clipboard_59',['clipboard',['../structhmi_1_1GestureState.html#a84f9ad41cfd3b3add3af22aa6adbddb6',1,'hmi::GestureState']]],
   ['clipindex_60',['clipIndex',['../structcore_1_1Animation.html#a5a7f2a8719b59a9db71f439a81937ee5',1,'core::Animation']]],
   ['clips_61',['clips',['../structcore_1_1Animation.html#a09d0b49f51de158e9e159f4a4b18c626',1,'core::Animation::clips'],['../structhmi_1_1AnimationDescription.html#a92f5d1037158b3ece0d7591ae095b077',1,'hmi::AnimationDescription::clips']]],

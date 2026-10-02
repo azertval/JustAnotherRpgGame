@@ -1656,6 +1656,22 @@
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
+    <name>MeshFile.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
+    <filename>MeshFile_8cpp.html</filename>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>MeshFile.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
+    <filename>MeshFile_8h.html</filename>
+    <class kind="struct">core::MeshVertex</class>
+    <class kind="struct">core::MeshData</class>
+    <class kind="struct">core::MeshFileResult</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
     <name>ScenePieceManifest.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/</path>
     <filename>ScenePieceManifest_8cpp.html</filename>
@@ -1972,6 +1988,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Rpg/</path>
     <filename>PartyLedger_8h.html</filename>
     <includes id="CharacterSheet_8h" name="CharacterSheet.h" local="yes" import="no" module="no" objc="no">Core/Rpg/CharacterSheet.h</includes>
+    <includes id="Inventory_8h" name="Inventory.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Inventory.h</includes>
     <class kind="struct">core::MemberRecord</class>
     <class kind="class">core::PartyLedger</class>
     <namespace>core</namespace>
@@ -3812,9 +3829,9 @@
     <includes id="DraftRenderer_8h" name="DraftRenderer.h" local="yes" import="no" module="no" objc="no">Editor/Ui/DraftRenderer.h</includes>
     <includes id="SceneSurface_8h" name="SceneSurface.h" local="yes" import="no" module="no" objc="no">Editor/Ui/SceneSurface.h</includes>
     <includes id="WorldPlay_8h" name="WorldPlay.h" local="yes" import="no" module="no" objc="no">HMI/Game/WorldPlay.h</includes>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
     <includes id="EntityMarkers_8h" name="EntityMarkers.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/EntityMarkers.h</includes>
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
     <class kind="class">hmi::EditorViewport::CanvasItem</class>
@@ -4252,6 +4269,19 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>fuzz_mesh.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Fuzz/</path>
+    <filename>fuzz__mesh_8cpp.html</filename>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <member kind="function">
+      <type>int</type>
+      <name>LLVMFuzzerTestOneInput</name>
+      <anchorfile>fuzz__mesh_8cpp.html</anchorfile>
+      <anchor>a711a7a667e5bd1cf25e37770e35f4206</anchor>
+      <arglist>(const std::uint8_t *data, std::size_t size)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>AudioEngine.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Audio/</path>
     <filename>AudioEngine_8cpp.html</filename>
@@ -4525,30 +4555,14 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
-    <name>Camera2D.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>Camera2D_8cpp.html</filename>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>Camera2D.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
-    <filename>Camera2D_8h.html</filename>
-    <includes id="Rect_8h" name="Rect.h" local="yes" import="no" module="no" objc="no">Core/Math/Rect.h</includes>
-    <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
-    <class kind="class">hmi::Camera2D</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
     <name>CityBlockRender.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>CityBlockRender_8cpp.html</filename>
     <includes id="CityBlockRender_8h" name="CityBlockRender.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/CityBlockRender.h</includes>
     <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
     <includes id="CityBlock_8h" name="CityBlock.h" local="yes" import="no" module="no" objc="no">Core/World/CityBlock.h</includes>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
     <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
     <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
     <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
     <namespace>hmi</namespace>
@@ -4575,9 +4589,11 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>ComposedScene_8h.html</filename>
     <includes id="Rect_8h" name="Rect.h" local="yes" import="no" module="no" objc="no">Core/Math/Rect.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
     <includes id="Quad_8h" name="Quad.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Quad.h</includes>
     <includes id="RenderLayer_8h" name="RenderLayer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RenderLayer.h</includes>
     <class kind="struct">hmi::ComposedQuad</class>
+    <class kind="struct">hmi::ComposedMesh</class>
     <class kind="struct">hmi::SceneStatistics</class>
     <class kind="class">hmi::ComposedScene</class>
     <namespace>hmi</namespace>
@@ -4632,6 +4648,18 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>IsoView.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>IsoView_8h.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="Rect_8h" name="Rect.h" local="yes" import="no" module="no" objc="no">Core/Math/Rect.h</includes>
+    <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
+    <class kind="struct">hmi::DepthRange</class>
+    <class kind="class">hmi::IsoView</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>MaquettePalette.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>MaquettePalette_8h.html</filename>
@@ -4654,6 +4682,28 @@
     <includes id="AssetMarker_8h" name="AssetMarker.h" local="yes" import="no" module="no" objc="no">Core/Resources/AssetMarker.h</includes>
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
     <class kind="struct">hmi::MaquetteTokenRequest</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>MeshBatch.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>MeshBatch_8cpp.html</filename>
+    <includes id="MeshBatch_8h" name="MeshBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MeshBatch.h</includes>
+    <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
+    <includes id="RhiContext_8h" name="RhiContext.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RhiContext.h</includes>
+    <includes id="RhiShaders_8h" name="RhiShaders.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RhiShaders.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>MeshBatch.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>MeshBatch_8h.html</filename>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="TextureLoader_8h" name="TextureLoader.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureLoader.h</includes>
+    <class kind="class">hmi::MeshBatch</class>
+    <class kind="struct">hmi::MeshBatch::GpuMesh</class>
+    <class kind="struct">hmi::MeshBatch::Draw</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4712,6 +4762,23 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>PlaceCamera.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>PlaceCamera_8cpp.html</filename>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>PlaceCamera.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>PlaceCamera_8h.html</filename>
+    <includes id="Rect_8h" name="Rect.h" local="yes" import="no" module="no" objc="no">Core/Math/Rect.h</includes>
+    <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
+    <class kind="class">hmi::PlaceCamera</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>ProceduralAtlas.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>ProceduralAtlas_8cpp.html</filename>
@@ -4764,15 +4831,23 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>RhiShaders.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>RhiShaders_8h.html</filename>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>ScenePieces.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>ScenePieces_8h.html</filename>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
     <includes id="Rect_8h" name="Rect.h" local="yes" import="no" module="no" objc="no">Core/Math/Rect.h</includes>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="Quad_8h" name="Quad.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Quad.h</includes>
     <includes id="RenderLayer_8h" name="RenderLayer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RenderLayer.h</includes>
     <class kind="struct">hmi::SceneTexture</class>
+    <class kind="struct">hmi::SceneMesh</class>
     <class kind="struct">hmi::ScenePieceTextures</class>
     <namespace>hmi</namespace>
   </compound>
@@ -4819,6 +4894,7 @@
     <filename>SpriteBatch_8cpp.html</filename>
     <includes id="SpriteBatch_8h" name="SpriteBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteBatch.h</includes>
     <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
+    <includes id="RhiShaders_8h" name="RhiShaders.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RhiShaders.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4844,7 +4920,9 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>SpriteRenderer_8h.html</filename>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
     <includes id="SpriteBatch_8h" name="SpriteBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteBatch.h</includes>
+    <class kind="struct">hmi::SceneDepth</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4938,12 +5016,14 @@
     <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
     <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
     <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
     <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
     <includes id="CityBlock_8h" name="CityBlock.h" local="yes" import="no" module="no" objc="no">Core/World/CityBlock.h</includes>
     <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
     <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
     <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
     <includes id="StaticWorldScene_8h" name="StaticWorldScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/StaticWorldScene.h</includes>
@@ -4982,9 +5062,12 @@
     <filename>WorldSceneRenderer_8cpp.html</filename>
     <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
     <includes id="AssetMarker_8h" name="AssetMarker.h" local="yes" import="no" module="no" objc="no">Core/Resources/AssetMarker.h</includes>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
     <includes id="EntityMarkers_8h" name="EntityMarkers.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/EntityMarkers.h</includes>
     <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
     <includes id="MaquetteTokens_8h" name="MaquetteTokens.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquetteTokens.h</includes>
+    <includes id="MeshBatch_8h" name="MeshBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MeshBatch.h</includes>
     <includes id="MissingTexture_8h" name="MissingTexture.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MissingTexture.h</includes>
     <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
     <includes id="SpriteBatch_8h" name="SpriteBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteBatch.h</includes>
@@ -4997,8 +5080,8 @@
     <filename>WorldSceneRenderer_8h.html</filename>
     <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
     <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
     <includes id="SceneResources_8h" name="SceneResources.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneResources.h</includes>
     <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
@@ -5605,6 +5688,7 @@
     <includes id="InventoryScreen_8h" name="InventoryScreen.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/InventoryScreen.h</includes>
     <includes id="InventoryValues_8h" name="InventoryValues.h" local="yes" import="no" module="no" objc="no">HMI/Presentation/InventoryValues.h</includes>
     <includes id="DemonstrationCharacter_8h" name="DemonstrationCharacter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/DemonstrationCharacter.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5779,6 +5863,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
     <filename>WorldModel_8cpp.html</filename>
     <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <includes id="Interaction_8h" name="Interaction.h" local="yes" import="no" module="no" objc="no">Core/Gameplay/Interaction.h</includes>
     <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
     <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
@@ -5809,7 +5894,7 @@
     <filename>WorldViewportItem_8cpp.html</filename>
     <includes id="WorldViewportItem_8h" name="WorldViewportItem.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldViewportItem.h</includes>
     <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
     <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
@@ -9619,6 +9704,61 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_mesh_file.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Resources/</path>
+    <filename>test__mesh__file_8cpp.html</filename>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__file_8cpp.html</anchorfile>
+      <anchor>acddadea8740b1e31bf309c3f3c8c39b1</anchor>
+      <arglist>(MeshFileTest, UnMaillageDuStandardSeLitEnEntier)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__file_8cpp.html</anchorfile>
+      <anchor>a8b492a0fc42d0ab5daa010c43d3f4bcc</anchor>
+      <arglist>(MeshFileTest, LaTransformationDuNoeudPorteLeMaillage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__file_8cpp.html</anchorfile>
+      <anchor>a2ac6bfbe6a74d063470bb1b75241aa1e</anchor>
+      <arglist>(MeshFileTest, LesNoeudsSEnchainentEtLesNormalesTournent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__file_8cpp.html</anchorfile>
+      <anchor>a6d8b24499ea685a238358fae9dd3e5ec</anchor>
+      <arglist>(MeshFileTest, CeQuIlNeLitPasEstRefuseEtNomme)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__file_8cpp.html</anchorfile>
+      <anchor>a28438648a00fdb9dd9c4320c8fa7e5d1</anchor>
+      <arglist>(MeshFileTest, UnFichierIncoherentEstMalForme)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__file_8cpp.html</anchorfile>
+      <anchor>a0d70803bdee388ac2b70a0d2cc4d6c96</anchor>
+      <arglist>(MeshFileTest, UnFichierAbsentEstUneErreur)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__file_8cpp.html</anchorfile>
+      <anchor>abc2d3ef0ec938c0a00f6ba8a5288b51f</anchor>
+      <arglist>(MeshFileTest, LesModelesReelsDeLAtelierSeLisent)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_scene_piece_manifest.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Resources/</path>
     <filename>test__scene__piece__manifest_8cpp.html</filename>
@@ -13298,83 +13438,6 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>test_camera2d.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
-    <filename>test__camera2d_8cpp.html</filename>
-    <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>ab1dad21306961b3a2292db4816f50ea1</anchor>
-      <arglist>(Camera2DTest, CentreAuMilieuDeLEcran)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>a44d5005e9eae8a07c363b476a6fc2a5c</anchor>
-      <arglist>(Camera2DTest, CenterEtZoomRenvoientLesValeursPosees)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>abe3c8e4de45220ca2bdc4131088c6393</anchor>
-      <arglist>(Camera2DTest, EchelleEtAxeY)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>afb44f0a1467aad957fe999626534600c</anchor>
-      <arglist>(Camera2DTest, Zoom)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>a8501daf5f578c70a72d0ada742e2ed19</anchor>
-      <arglist>(Camera2DTest, ConversionsReciproques)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>ae2179c844b3f7524cff7b02e0cad488d</anchor>
-      <arglist>(Camera2DTest, ProjectionCentreVersOrigineClip)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>a53f875977ce1115431503ec3ccb00d6c</anchor>
-      <arglist>(Camera2DTest, BordEcranVersBordClip)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>a0911d4af9f73f656ee62c9feb8ea25ed</anchor>
-      <arglist>(Camera2DTest, FitZoomRemplitSansArrondi)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>ad3337cce29ff92f989bed5ad7b77b5c4</anchor>
-      <arglist>(Camera2DTest, FitZoomFractionnairePourGrandNiveau)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__camera2d_8cpp.html</anchorfile>
-      <anchor>a00d50b67f81e6de6a8cc1364b9ec2f8c</anchor>
-      <arglist>(Camera2DTest, FitZoomAppliqueLaMarge)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
     <name>test_capital_kit_render.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
     <filename>test__capital__kit__render_8cpp.html</filename>
@@ -13397,9 +13460,9 @@
     <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
     <includes id="CityBlock_8h" name="CityBlock.h" local="yes" import="no" module="no" objc="no">Core/World/CityBlock.h</includes>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
     <includes id="CityBlockRender_8h" name="CityBlockRender.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/CityBlockRender.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <member kind="function">
       <type></type>
@@ -13576,6 +13639,56 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_iso_view.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__iso__view_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__iso__view_8cpp.html</anchorfile>
+      <anchor>a0e4ead86e35ba5d03ed7c2d033839315</anchor>
+      <arglist>(IsoViewTest, LeSolDUnMaillageTombeSurLaGrille)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__iso__view_8cpp.html</anchorfile>
+      <anchor>ad2fee47c88c4a540e8b42835d7be013b</anchor>
+      <arglist>(IsoViewTest, LesMesuresDuStandardSortentDeLaVue)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__iso__view_8cpp.html</anchorfile>
+      <anchor>a247c3a6f45d8c25eaf1304235e0a8442</anchor>
+      <arglist>(IsoViewTest, LaVueEstUneRotation)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__iso__view_8cpp.html</anchorfile>
+      <anchor>ab118eeb93ed15e950f58ad2d1773af7e</anchor>
+      <arglist>(IsoViewTest, UnEtageEleveUnMaillage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__iso__view_8cpp.html</anchorfile>
+      <anchor>a45bdf842b1e47410f827413e879b4512</anchor>
+      <arglist>(IsoViewTest, UneImageDresseeSeRangeCommeUnPlanVertical)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__iso__view_8cpp.html</anchorfile>
+      <anchor>ab4f4734e8f4676f5cf7e68356dfb34eb</anchor>
+      <arglist>(IsoViewTest, LEtendueDeProfondeurContientLaScene)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_maquette_tokens.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
     <filename>test__maquette__tokens_8cpp.html</filename>
@@ -13621,6 +13734,117 @@
       <anchorfile>test__maquette__tokens_8cpp.html</anchorfile>
       <anchor>aabe7a4701db4b1c44c29263ae05d69f7</anchor>
       <arglist>(MaquetteTokenTest, LesSixNaturesOntSixTeintes)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_mesh_composition.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__mesh__composition_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="StaticWorldScene_8h" name="StaticWorldScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/StaticWorldScene.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__composition_8cpp.html</anchorfile>
+      <anchor>a41946b340c2199cf45bad9a092f6a4b9</anchor>
+      <arglist>(MeshCompositionTest, LeManifesteCiteUnMaillageOuUneImage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__composition_8cpp.html</anchorfile>
+      <anchor>a809136ef65c69946e868733d7d1a6b9b</anchor>
+      <arglist>(MeshCompositionTest, UneCarteDemandeSesMaillagesAPart)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__composition_8cpp.html</anchorfile>
+      <anchor>ad5f935bc956cfcf0bae3c15f2d167aa2</anchor>
+      <arglist>(MeshCompositionTest, LaCompositionProduitUneListeDeMaillagesPlaces)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__composition_8cpp.html</anchorfile>
+      <anchor>a418ad385362262c1c98f477b92bf78b0</anchor>
+      <arglist>(MeshCompositionTest, UnMaillageManquantSeVoit)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__composition_8cpp.html</anchorfile>
+      <anchor>a9aed18c4e9bcf304e5150b1439ce7c34</anchor>
+      <arglist>(MeshCompositionTest, LesImagesDisentCommentEllesSeTiennent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__composition_8cpp.html</anchorfile>
+      <anchor>a870e7ebad985eba4f4478fc393598e00</anchor>
+      <arglist>(MeshCompositionTest, LeLieuComposeUneFoisGardeSesMaillages)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_mesh_render.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__mesh__render_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="OffscreenRender_8h" name="OffscreenRender.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/OffscreenRender.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__render_8cpp.html</anchorfile>
+      <anchor>a93b013ecba54c30b0123fff060b3e5f9</anchor>
+      <arglist>(MeshRenderTest, LaCarteDEssaiSeRendEnMaillages)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__render_8cpp.html</anchorfile>
+      <anchor>aa1c164b94e45ca2343c0f8aa2d785b21</anchor>
+      <arglist>(MeshRenderTest, UneFigurinePasseDevantPuisDerriereUnMur)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__render_8cpp.html</anchorfile>
+      <anchor>a75ce56bc06c4517451a0fb6eab9d0627</anchor>
+      <arglist>(MeshRenderTest, LOpaciteDesCalquesVautPourLesMaillages)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__render_8cpp.html</anchorfile>
+      <anchor>a685d5e33d42d360b4bf2e80f60f4ce6d</anchor>
+      <arglist>(MeshRenderTest, UneCarteEnMaillagesRendueParTuilesEstLaMemeImage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__render_8cpp.html</anchorfile>
+      <anchor>aefe1f78ba023f24245b13cd8af34547a</anchor>
+      <arglist>(MeshRenderTest, UnFichierDeMaillageAbsentLaisseVoirLeDamier)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__render_8cpp.html</anchorfile>
+      <anchor>a9fa1e9033fb6063aded3ba7e807cf87f</anchor>
+      <arglist>(MeshRenderTest, LePointageDUneCaseEstCeluiDAvant)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13711,6 +13935,106 @@
       <anchorfile>test__offscreen__render_8cpp.html</anchorfile>
       <anchor>ae7b1af1bf10b47c0389506fd8cd10713</anchor>
       <arglist>(OffscreenRenderTest, UneCarteSansAucuneImageSeVoit)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_place_camera.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__place__camera_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>affa7ea2d4e333375a01da17926d7efae</anchor>
+      <arglist>(PlaceCameraTest, CentreAuMilieuDeLEcran)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>ac8c958398e9225ba3fa814559e1276b5</anchor>
+      <arglist>(PlaceCameraTest, CenterEtZoomRenvoientLesValeursPosees)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>a9d621bdcd4e56d9da3f9ef6c6e5a60a5</anchor>
+      <arglist>(PlaceCameraTest, EchelleEtAxeY)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>a678854a927b4a9eca25793671d8854da</anchor>
+      <arglist>(PlaceCameraTest, Zoom)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>a29b225d6049865b88aad8dd9b97d3dcb</anchor>
+      <arglist>(PlaceCameraTest, ConversionsReciproques)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>a75b31a66c0421742b0706ba7b68c4fce</anchor>
+      <arglist>(PlaceCameraTest, ProjectionCentreVersOrigineClip)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>a9400fbbc70514dd69211710c9023ba0a</anchor>
+      <arglist>(PlaceCameraTest, BordEcranVersBordClip)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>a2f71fcf0d8f6e03a365474340dfb0d61</anchor>
+      <arglist>(PlaceCameraTest, FitZoomRemplitSansArrondi)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>a478b60305a16a0f940a29e45486df88b</anchor>
+      <arglist>(PlaceCameraTest, FitZoomFractionnairePourGrandNiveau)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>a2d102097847c6feccbcee941493be74c</anchor>
+      <arglist>(PlaceCameraTest, FitZoomAppliqueLaMarge)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>aa762d069592616db3d11e4bedcafd50a</anchor>
+      <arglist>(PlaceCameraTest, SansProfondeurLaMatriceEstCelleDeLaCamera2D)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>a5659e3d2efcd090a7998104dff3a81a9</anchor>
+      <arglist>(PlaceCameraTest, LEtendueDeProfondeurSeRameneEntreLesDeuxPlans)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__place__camera_8cpp.html</anchorfile>
+      <anchor>ad89767fb4237f2f5a953b4d8239f28f3</anchor>
+      <arglist>(PlaceCameraTest, LaMatriceDUnMaillageComposeLaPoseEtLaProjection)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13846,8 +14170,8 @@
     <name>test_render_culling.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
     <filename>test__render__culling_8cpp.html</filename>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
     <includes id="QuadRecorder_8h" name="QuadRecorder.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/QuadRecorder.h</includes>
     <member kind="function">
       <type></type>
@@ -14266,8 +14590,8 @@
     <includes id="LevelDraft_8h" name="LevelDraft.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelDraft.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
     <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
-    <includes id="Camera2D_8h" name="Camera2D.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/Camera2D.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
     <member kind="function">
@@ -14986,6 +15310,7 @@
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <includes id="ExecutableDirectory_8h" name="ExecutableDirectory.h" local="yes" import="no" module="no" objc="no">HMI/Platform/ExecutableDirectory.h</includes>
     <includes id="EncounterModel_8h" name="EncounterModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/EncounterModel.h</includes>
+    <includes id="InventoryModel_8h" name="InventoryModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/InventoryModel.h</includes>
     <includes id="PartyModel_8h" name="PartyModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/PartyModel.h</includes>
     <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
     <member kind="function">
@@ -15037,6 +15362,13 @@
       <anchor>ae144770b940ca702cd108d5ac05e3467</anchor>
       <arglist>(EncounterModelTest, LInterfaceDeGroupeLitLaVueModele)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__encounter__model_8cpp.html</anchorfile>
+      <anchor>a54abfd16fe1f41d68c6a7f57f2caf3be</anchor>
+      <arglist>(EncounterModelTest, LeCombatRelitLEquipementModifie)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_party_model.cpp</name>
@@ -15082,6 +15414,44 @@
       <anchorfile>test__party__model_8cpp.html</anchorfile>
       <anchor>a00c8b2d07d1fdc0c2642b581b5840d24</anchor>
       <arglist>(PartyModelTest, UneCarteImposeeNeDemandePasDeMeneur)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_ui_preferences_and_inventory.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/</path>
+    <filename>test__ui__preferences__and__inventory_8cpp.html</filename>
+    <includes id="PartyLedger_8h" name="PartyLedger.h" local="yes" import="no" module="no" objc="no">Core/Rpg/PartyLedger.h</includes>
+    <includes id="InventoryModel_8h" name="InventoryModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/InventoryModel.h</includes>
+    <includes id="OptionsModel_8h" name="OptionsModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/OptionsModel.h</includes>
+    <includes id="ScreenRouter_8h" name="ScreenRouter.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/ScreenRouter.h</includes>
+    <includes id="WorldModel_8h" name="WorldModel.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldModel.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ui__preferences__and__inventory_8cpp.html</anchorfile>
+      <anchor>a982428c959474696b372caafcc8aeefb</anchor>
+      <arglist>(UiPreferencesTest, HudSizeIsBoundedAndSurvivesReload)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ui__preferences__and__inventory_8cpp.html</anchorfile>
+      <anchor>a703065d151b817645bfbf040f36f15da</anchor>
+      <arglist>(InventoryModelTest, EquipmentSurvivesReopeningAndCombatRecords)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ui__preferences__and__inventory_8cpp.html</anchorfile>
+      <anchor>a6261a504ce63edb11a1cc0c4c3b20344</anchor>
+      <arglist>(InventoryModelTest, RestPreservesEquipmentAndClearsSpentResources)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ui__preferences__and__inventory_8cpp.html</anchorfile>
+      <anchor>af22959de514f2e5996a26efac53af075</anchor>
+      <arglist>(ScreenRouterTest, CodexAndOptionsReturnToOngoingCombat)</arglist>
     </member>
   </compound>
   <compound kind="class">
@@ -19466,122 +19836,6 @@
       <arglist></arglist>
     </member>
   </compound>
-  <compound kind="class">
-    <name>hmi::Camera2D</name>
-    <filename>classhmi_1_1Camera2D.html</filename>
-    <member kind="function">
-      <type></type>
-      <name>Camera2D</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a8e28425fba642a6e08de0fcdf53b0ce7</anchor>
-      <arglist>(int viewportWidth, int viewportHeight)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>setCenter</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a93c7658e7e6beddb7002f8b2223145d3</anchor>
-      <arglist>(const core::Vector2 &amp;worldCenter)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>setZoom</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a6f952a49e27d13539d5ab592233228a9</anchor>
-      <arglist>(float zoom)</arglist>
-    </member>
-    <member kind="function">
-      <type>const core::Vector2 &amp;</type>
-      <name>center</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>aed94ae02f2ca33bdda4d93f19ffa5cbb</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>float</type>
-      <name>zoom</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a1397b9e7944fb98ea697948a5f2ca378</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>DirectX::XMFLOAT4X4</type>
-      <name>projectionMatrix</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>ae4d184982026b7f61e3507c0d264321b</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function">
-      <type>core::Vector2</type>
-      <name>worldToScreen</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a2f872fc80538490f888f3eef52498dfb</anchor>
-      <arglist>(const core::Vector2 &amp;world) const</arglist>
-    </member>
-    <member kind="function">
-      <type>core::Vector2</type>
-      <name>screenToWorld</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>aea18d5858adba920f73a1a252c3be08d</anchor>
-      <arglist>(const core::Vector2 &amp;screen) const</arglist>
-    </member>
-    <member kind="function">
-      <type>core::Rect</type>
-      <name>visibleBounds</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a471c631178660b8fcd3d9f8072ef6dfb</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="function" static="yes">
-      <type>static float</type>
-      <name>fitZoom</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a197df5a46fa35ccf6c17df58662b16bb</anchor>
-      <arglist>(float availableWidth, float availableHeight, float contentWidth, float contentHeight, float margin=1.0f)</arglist>
-    </member>
-    <member kind="variable" static="yes">
-      <type>static constexpr float</type>
-      <name>PIXELS_PER_UNIT</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a3d1d52a7653c7a3dca5eb2e5a5990f88</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>float</type>
-      <name>scale</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a05631b448bb3005aee3bbc5658a6058a</anchor>
-      <arglist>() const</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>int</type>
-      <name>_viewportWidth</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a4da54e9f03ed445992a57e1a64cdaada</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>int</type>
-      <name>_viewportHeight</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>adfbd3dc1e9d3a0840f9fed36c57d47a6</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>core::Vector2</type>
-      <name>_center</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>ab11e9713f8b1ccad4cb98a5c2807a410</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>float</type>
-      <name>_zoom</name>
-      <anchorfile>classhmi_1_1Camera2D.html</anchorfile>
-      <anchor>a1d2b9e4773b2dfaa489d5f9a17d623cc</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
   <compound kind="struct">
     <name>hmi::CanvasBrush</name>
     <filename>structhmi_1_1CanvasBrush.html</filename>
@@ -23412,6 +23666,59 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::ComposedMesh</name>
+    <filename>structhmi_1_1ComposedMesh.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1ComposedMesh.html</anchorfile>
+      <anchor>a74b746586f331c92935d3d586d1bda70</anchor>
+      <arglist>(const ComposedMesh &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>RenderLayer</type>
+      <name>layer</name>
+      <anchorfile>structhmi_1_1ComposedMesh.html</anchorfile>
+      <anchor>a5e9df242bb3a625891ddf46e7e82524d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>MeshHandle</type>
+      <name>mesh</name>
+      <anchorfile>structhmi_1_1ComposedMesh.html</anchorfile>
+      <anchor>a6d85afab3263a48c2e2b363aa2d2b309</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>ViewTransform</type>
+      <name>toView</name>
+      <anchorfile>structhmi_1_1ComposedMesh.html</anchorfile>
+      <anchor>a7e177217e566265f526930dae4862478</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>core::Rect</type>
+      <name>bounds</name>
+      <anchorfile>structhmi_1_1ComposedMesh.html</anchorfile>
+      <anchor>ab87ca5d3c402bfbe7ae321e19d750b00</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>storey</name>
+      <anchorfile>structhmi_1_1ComposedMesh.html</anchorfile>
+      <anchor>a31d7984fce5d7a5589ab8a88c47f84ba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>opacity</name>
+      <anchorfile>structhmi_1_1ComposedMesh.html</anchorfile>
+      <anchor>a781923365eb8e513eb5f15de03cf6d9f</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::ComposedQuad</name>
     <filename>structhmi_1_1ComposedQuad.html</filename>
     <member kind="variable">
@@ -23484,6 +23791,20 @@
       <anchor>a626ba19038fe4a76af6e786c0f822564</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>QuadStance</type>
+      <name>stance</name>
+      <anchorfile>structhmi_1_1ComposedQuad.html</anchorfile>
+      <anchor>a264257dbc9ee32d5e00e52a72488b3c1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>footY</name>
+      <anchorfile>structhmi_1_1ComposedQuad.html</anchorfile>
+      <anchor>a2ef2a5e645fee15467d36e8c4aaf38e2</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::ComposedScene</name>
@@ -23527,8 +23848,29 @@
       <type>bool</type>
       <name>addSprite</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
-      <anchor>a1967932d41ebd5fe89fb77e6411da03c</anchor>
-      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const SpriteQuad &amp;quad, int storey=0, const core::Rect &amp;occlusion={})</arglist>
+      <anchor>a776bb0228de0fffc9caded06d5bc3e46</anchor>
+      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const SpriteQuad &amp;quad, int storey=0, const core::Rect &amp;occlusion={}, std::optional&lt; float &gt; footY=std::nullopt)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>addMesh</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>a8681cadd04a8b6ca426d162866af99fd</anchor>
+      <arglist>(RenderLayer layer, MeshHandle mesh, const ViewTransform &amp;toView, const core::Rect &amp;bounds, int storey=0)</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; ComposedMesh &gt; &amp;</type>
+      <name>meshes</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>a8733ade9562b71584755342c6c4283d3</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>swapMeshes</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>a53b6959062e07dda78901d9134e4381f</anchor>
+      <arglist>(std::vector&lt; ComposedMesh &gt; &amp;meshes) noexcept</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -23626,6 +23968,13 @@
       <name>_quads</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
       <anchor>aaa9c9c3f70b554c719bcb6a3a5547e00</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; ComposedMesh &gt;</type>
+      <name>_meshes</name>
+      <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
+      <anchor>a9f767fd8b203215ee0760f2355e99c79</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -24948,6 +25297,31 @@
       <name>cell</name>
       <anchorfile>structcore_1_1DeploymentIssue.html</anchorfile>
       <anchor>a93ac0037d0cb16fdfa46f7bcabe02a4e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::DepthRange</name>
+    <filename>structhmi_1_1DepthRange.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1DepthRange.html</anchorfile>
+      <anchor>a1bf38559bc91d69d622caebc7fc63c79</anchor>
+      <arglist>(const DepthRange &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>nearest</name>
+      <anchorfile>structhmi_1_1DepthRange.html</anchorfile>
+      <anchor>a93b43dedb4d1e92293863f42467d0385</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>farthest</name>
+      <anchorfile>structhmi_1_1DepthRange.html</anchorfile>
+      <anchor>a73db0a495f0f20964b502679381c8ce2</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -26473,6 +26847,31 @@
       <name>_scene</name>
       <anchorfile>classhmi_1_1DraftRenderer.html</anchorfile>
       <anchor>ab0e865117967424e741c7163552d57b5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::MeshBatch::Draw</name>
+    <filename>structhmi_1_1MeshBatch_1_1Draw.html</filename>
+    <member kind="variable">
+      <type>GpuMesh *</type>
+      <name>mesh</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1Draw.html</anchorfile>
+      <anchor>a166ab91125cff9ef10795bccda72714a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>DirectX::XMFLOAT4X4</type>
+      <name>clip</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1Draw.html</anchorfile>
+      <anchor>adc2a99273716e1566761acd5378db284</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>opacity</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1Draw.html</anchorfile>
+      <anchor>a9b5e2fd90643fe18cbc28191ac1e08ef</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -31533,10 +31932,10 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>Camera2D</type>
+      <type>PlaceCamera</type>
       <name>camera</name>
       <anchorfile>structhmi_1_1WorldViewportItem_1_1Framing.html</anchorfile>
-      <anchor>a92d661a7f9aebeb2d5405b4c508f59c9</anchor>
+      <anchor>aa8c3543adfc6e0a5479b822bc9201c31</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -31993,6 +32392,52 @@
       <name>clipboard</name>
       <anchorfile>structhmi_1_1GestureState.html</anchorfile>
       <anchor>a84f9ad41cfd3b3add3af22aa6adbddb6</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::MeshBatch::GpuMesh</name>
+    <filename>structhmi_1_1MeshBatch_1_1GpuMesh.html</filename>
+    <member kind="variable">
+      <type>std::unique_ptr&lt; QRhiBuffer &gt;</type>
+      <name>vertices</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
+      <anchor>aaf3d71e8551483f30dac91de95e9c889</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::unique_ptr&lt; QRhiBuffer &gt;</type>
+      <name>indices</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
+      <anchor>a6591c47b7492212b8df9060f97bf40b8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>LoadedTexture</type>
+      <name>texture</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
+      <anchor>a2a43a15ee071cca3afc831ad10c36b29</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::size_t</type>
+      <name>indexCount</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
+      <anchor>a487248ff7073e37066916c5b780ffab4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 4 &gt;</type>
+      <name>baseColor</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
+      <anchor>ab1a865fde56c69e2efa2fb60e58584dc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::unique_ptr&lt; QRhiShaderResourceBindings &gt;</type>
+      <name>bindings</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1GpuMesh.html</anchorfile>
+      <anchor>af481aed6ecd6763447dd91d3ce4c5de7</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -32825,6 +33270,34 @@
     </member>
     <member kind="function">
       <type>Q_INVOKABLE void</type>
+      <name>loadShownCharacter</name>
+      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
+      <anchor>a0990ad9a71d71c400ea117975f574959</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>characterId</name>
+      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
+      <anchor>afd323f11bd0fb16426ce50578ebc56f7</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>query</name>
+      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
+      <anchor>a40f8998accc2458a4c28db1cc5513488</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setQuery</name>
+      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
+      <anchor>aba475a7e3041ad259767aba650cdb7df</anchor>
+      <arglist>(const QString &amp;query)</arglist>
+    </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
       <name>selectItem</name>
       <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
       <anchor>a833be550ae864ad77b5affaa33e64a51</anchor>
@@ -33027,6 +33500,20 @@
       <arglist></arglist>
     </member>
     <member kind="property">
+      <type>QString</type>
+      <name>query</name>
+      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
+      <anchor>a6ca0a33f10d4f3e4712c9e2735151273</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>characterId</name>
+      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
+      <anchor>aaa382e36a9fc81e883140394b761e4b4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
       <type>QVariantList</type>
       <name>cells</name>
       <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
@@ -33104,6 +33591,13 @@
       <arglist>()</arglist>
     </member>
     <member kind="function" protection="private">
+      <type>void</type>
+      <name>persist</name>
+      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
+      <anchor>aa601a1153bbee8fd686fa18679075834</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
       <type>QString</type>
       <name>value</name>
       <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
@@ -33143,6 +33637,20 @@
       <name>_filter</name>
       <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
       <anchor>a2a719d08140475e86364fd5c855767ae</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QString</type>
+      <name>_query</name>
+      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
+      <anchor>a8bf470599fd48e08b3ed4a066513ef66</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QString</type>
+      <name>_characterId</name>
+      <anchorfile>classhmi_1_1InventoryModel.html</anchorfile>
+      <anchor>acd1e56becf02afbe0f3c729863461000</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -33379,6 +33887,150 @@
       <name>_wallRise</name>
       <anchorfile>classcore_1_1IsoProjection.html</anchorfile>
       <anchor>a579fd8e19777a118a1e0579143b6ba38</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::IsoView</name>
+    <filename>classhmi_1_1IsoView.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>IsoView</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a07c188ba901a26f62e83065fbd4ddb47</anchor>
+      <arglist>(const core::IsoProjection &amp;projection) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>sine</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a09062cdda8f35390cdeac8feb82c6cf7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>cosine</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a7e89c556f66b69081706a5c1a8e1bf78</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>unitsPerMetre</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>ad787d7dd23106945ba82a12605949c28</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>groundDepth</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>aa6f2cf07303b1811809cc8347ca9a3d8</anchor>
+      <arglist>(float y) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>raisedDepth</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a4f50403419275ef9463b3163a7df25f3</anchor>
+      <arglist>(float groundY, float rise) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>standingDepth</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a1ae40b5a618f03b2591530f9bdf78381</anchor>
+      <arglist>(float footY, float y) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>imageBias</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a62d09d9e4c423d7c0e1abb33aff3fa6d</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>riseOf</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a3b2aba7c0d4a988be4fa88efc2287c15</anchor>
+      <arglist>(float metres) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>ViewTransform</type>
+      <name>meshTransform</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>aaa76876d12e6a57e715db7565420168b</anchor>
+      <arglist>(core::Vector2 gridPoint, float rise) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>DepthRange</type>
+      <name>depthRange</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>ab12c02ad1e9dda9091b86a273273b1d3</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static std::array&lt; float, 3 &gt;</type>
+      <name>apply</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a202928e99c023e8c4fb36e62bedf6637</anchor>
+      <arglist>(const ViewTransform &amp;transform, float x, float y, float z) noexcept</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static core::Rect</type>
+      <name>projectedBounds</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a30710b9cb69b6b2f586a9a61ad38c52a</anchor>
+      <arglist>(const ViewTransform &amp;transform, const std::array&lt; float, 3 &gt; &amp;minimum, const std::array&lt; float, 3 &gt; &amp;maximum) noexcept</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>MAXIMUM_SINE</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>aca27ac630e4086b0d2236610b316120c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>IMAGE_DEPTH_BIAS_TILES</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a9fb5be5183d76f8113a8278a0cb49a12</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>DEPTH_MARGIN_TILES</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a71623dadc71614b127b416a25ea30a68</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>core::IsoProjection</type>
+      <name>_projection</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a412fa6ea1aef07b4191d6fa2a14ceba2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_sine</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a75b61f6ba111c1a5161b9775b2690046</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_cosine</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>aebd669112291a5cd6e25c95ffde46ae1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_groundY</name>
+      <anchorfile>classhmi_1_1IsoView.html</anchorfile>
+      <anchor>a3792b82f01f04957c781c253ffa67b53</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -38397,6 +39049,13 @@
       <anchor>a465fe6b4e75ecc4f7db3c7fd75a6533d</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::optional&lt; Inventory &gt;</type>
+      <name>inventory</name>
+      <anchorfile>structcore_1_1MemberRecord.html</anchorfile>
+      <anchor>a06a2cf28f383e99abbb3c6f3c30274ab</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>core::MemoryLogSink</name>
@@ -38429,6 +39088,346 @@
       <name>_entries</name>
       <anchorfile>classcore_1_1MemoryLogSink.html</anchorfile>
       <anchor>a8c422dc38e0585f9874b738437e4e5e8</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::MeshBatch</name>
+    <filename>classhmi_1_1MeshBatch.html</filename>
+    <class kind="struct">hmi::MeshBatch::GpuMesh</class>
+    <class kind="struct">hmi::MeshBatch::Draw</class>
+    <member kind="function">
+      <type></type>
+      <name>MeshBatch</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a83f7a9303b114da3aeac6cc3f7db880d</anchor>
+      <arglist>(QRhi *rhi)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~MeshBatch</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a572916ab3185d9225e62a0cd5b436370</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>MeshBatch</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>add82e5c6d797e0343211925dd568a60a</anchor>
+      <arglist>(const MeshBatch &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>MeshBatch &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a179bd6369f3afb49667378ee34fbb881</anchor>
+      <arglist>(const MeshBatch &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>MeshHandle</type>
+      <name>create</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>aee4ca5f6f31f0682e344725cd6935224</anchor>
+      <arglist>(const RhiContext &amp;context, const core::MeshData &amp;mesh)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clear</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>abf00fdb36714710d6689d9ebd4c433b8</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>bytes</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a9245b153434d165887ef55f1b7a6cc27</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>beginFrame</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a3b2048c233a2424685b4ac2a56f4c211</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>draw</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>aeef847d07688eaebcc3eb7584e05a13a</anchor>
+      <arglist>(MeshHandle mesh, const DirectX::XMFLOAT4X4 &amp;clip, float opacity=1.0F)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>drawCount</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a8a954c36e43b4e6c2314be5ffda23f85</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>QRhiResourceUpdateBatch *</type>
+      <name>prepare</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a7566971a1eca41e67319fe6b1a822c91</anchor>
+      <arglist>(QRhiRenderTarget *target, QRhiResourceUpdateBatch *updates)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>record</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a19a3ef7a34a1cf66253febd88a53dcb2</anchor>
+      <arglist>(QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>ensurePipeline</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a7d35e80c397a56814213d241c401c374</anchor>
+      <arglist>(QRhiRenderTarget *target)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>ensureUniformCapacity</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a20a74e195d969429152fb70e90210236</anchor>
+      <arglist>(std::size_t drawCount)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QRhiShaderResourceBindings *</type>
+      <name>bindingsFor</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>aa7bdb7029b250fcb4b8db85ae1fa5312</anchor>
+      <arglist>(GpuMesh &amp;mesh)</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QRhi *</type>
+      <name>_rhi</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>ac81e0add3e782bd07710dcdf621ab06a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiSampler &gt;</type>
+      <name>_sampler</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>aedfc2dcb186cfa8de749741f85447ae7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiBuffer &gt;</type>
+      <name>_uniformBuffer</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>ade19e41c33e8c16e3b17590cd8516295</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiShaderResourceBindings &gt;</type>
+      <name>_layoutBindings</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a4e367edc92f075e61cc0dd56fec7fc36</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiGraphicsPipeline &gt;</type>
+      <name>_pipeline</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a42f001059e4fe8944ba6b7741bbbea39</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QRhiRenderPassDescriptor *</type>
+      <name>_pipelinePass</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a997b9fc656c22d9ca49f542cda2600c3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::size_t</type>
+      <name>_uniformSlots</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a4c71925c7a0f2d26ed5130a68780b297</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_uniformStride</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>ac476ef58cf459d4be240644130520823</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; std::unique_ptr&lt; GpuMesh &gt; &gt;</type>
+      <name>_meshes</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>af851c691f52ed1f59a45160bf98c6432</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::size_t</type>
+      <name>_bytes</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>aa8e401ce481b18f74d0bb4e5c5507197</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; Draw &gt;</type>
+      <name>_draws</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a61063da2a9cfae78a4c76b4ea32924e1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_drawable</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>ac21a115426f9f0babc594fbfdf891103</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MeshData</name>
+    <filename>structcore_1_1MeshData.html</filename>
+    <member kind="function">
+      <type>std::size_t</type>
+      <name>triangleCount</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a40a257d934c32bfa81743af18696ec88</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; MeshVertex &gt;</type>
+      <name>vertices</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a01021132a8943efe3b79460ba05d50e8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::uint32_t &gt;</type>
+      <name>indices</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a5025b523d4df851a0fa487b0251317f5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>minimum</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a3471167a4eb3a8919996016a8daa6549</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>maximum</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a70427a890506f31271ebc207c7f427b8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 4 &gt;</type>
+      <name>baseColor</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a8924a62ee096241f7492dab279645fc9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::byte &gt;</type>
+      <name>image</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a68808ed6fb9f9d51a7e6b90805389628</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>imageMimeType</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a69c69864feed09d778d1355a338d80ec</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>primitiveCount</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>aab9a382292fa477b576f7fc083491393</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>materialCount</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a372cd9b998da87480358e644ea63e1d0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>skinned</name>
+      <anchorfile>structcore_1_1MeshData.html</anchorfile>
+      <anchor>a445f50ef3e0449e9878c4eaae2e2a9a2</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MeshFileResult</name>
+    <filename>structcore_1_1MeshFileResult.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>ok</name>
+      <anchorfile>structcore_1_1MeshFileResult.html</anchorfile>
+      <anchor>a4ee915d321a0abd1cffe234e65317bd0</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>MeshData</type>
+      <name>mesh</name>
+      <anchorfile>structcore_1_1MeshFileResult.html</anchorfile>
+      <anchor>a938798a7fb85ead1c9270b579bc437bf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>MeshFileError</type>
+      <name>error</name>
+      <anchorfile>structcore_1_1MeshFileResult.html</anchorfile>
+      <anchor>afcb244ee8f897b3c3321eddca4f2c887</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>message</name>
+      <anchorfile>structcore_1_1MeshFileResult.html</anchorfile>
+      <anchor>afbd62566b73b0f8c083b6159d55e9a5e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::MeshVertex</name>
+    <filename>structcore_1_1MeshVertex.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1MeshVertex.html</anchorfile>
+      <anchor>a4b154c0f15d75e46333295ca6757dca3</anchor>
+      <arglist>(const MeshVertex &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>position</name>
+      <anchorfile>structcore_1_1MeshVertex.html</anchorfile>
+      <anchor>a3e479fce9bad39aaa11b76a6009c0a6c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>normal</name>
+      <anchorfile>structcore_1_1MeshVertex.html</anchorfile>
+      <anchor>a6df32015802731f0f77d1ce3c4d08e0b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 2 &gt;</type>
+      <name>uv</name>
+      <anchorfile>structcore_1_1MeshVertex.html</anchorfile>
+      <anchor>a9f2758d72c6533e69c7740359ea3ce5d</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -38844,6 +39843,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiRenderBuffer &gt;</type>
+      <name>_depth</name>
+      <anchorfile>classhmi_1_1OffscreenRhi.html</anchorfile>
+      <anchor>acfc76a57df4eabdc5feb4a65d5054c50</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>std::unique_ptr&lt; QRhiRenderPassDescriptor &gt;</type>
       <name>_pass</name>
       <anchorfile>classhmi_1_1OffscreenRhi.html</anchorfile>
@@ -38976,6 +39982,13 @@
     </member>
     <member kind="signal">
       <type>void</type>
+      <name>hudScaleChanged</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>afc64dcf1b0fae21cc9622b963c3d892f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
       <name>languageChanged</name>
       <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
       <anchor>ab58c4b2199b558425c3b5988dacb4d02</anchor>
@@ -39021,6 +40034,13 @@
       <name>volume</name>
       <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
       <anchor>a7a71606593c8eeaa040cdaa4176c4945</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>hudScalePercent</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>af07615a0f138f7839c8563a2d5755e6a</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
@@ -39088,6 +40108,13 @@
     </member>
     <member kind="function">
       <type>void</type>
+      <name>setHudScalePercent</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a0e65dc22e0cdfb1e57489f0c2f30599c</anchor>
+      <arglist>(int percent)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
       <name>setLanguage</name>
       <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
       <anchor>a4752355bfd7ef1f06440add45bc71b85</anchor>
@@ -39126,6 +40153,13 @@
       <name>volume</name>
       <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
       <anchor>a0577a4c5c12f6bbc8f756bd92a0a4280</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>hudScalePercent</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a78c707ffabce443087d7ae5c1161f4bd</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -39196,6 +40230,13 @@
       <name>_volume</name>
       <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
       <anchor>a4fddcc430039e273b0a8f0982515d4d4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_hudScalePercent</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>afb9bcfcdaffa446cd282cb9a532f044a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -40530,6 +41571,150 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="class">
+    <name>hmi::PlaceCamera</name>
+    <filename>classhmi_1_1PlaceCamera.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>PlaceCamera</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a75a462658ad31d440f0c99f6d017ac03</anchor>
+      <arglist>(int viewportWidth, int viewportHeight)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setCenter</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>ab168eab4569f95469217a51b575212a8</anchor>
+      <arglist>(const core::Vector2 &amp;worldCenter)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setZoom</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>aed17f9ce0ee1d0607b3ecb73f7a94ac7</anchor>
+      <arglist>(float zoom)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDepthRange</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a284ac2cd04dd51684a8ed31a3da9ab04</anchor>
+      <arglist>(const DepthRange &amp;range)</arglist>
+    </member>
+    <member kind="function">
+      <type>const core::Vector2 &amp;</type>
+      <name>center</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>ab6d6e964ad0652b6b1d3af2bc59f3292</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>zoom</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a2ead74437e4d681f108572b059f1b1b9</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const DepthRange &amp;</type>
+      <name>depthRange</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a8ebd344c1741d90534d63af52058bdf8</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>DirectX::XMFLOAT4X4</type>
+      <name>projectionMatrix</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a0c22f6f6eb40cb74fe96996b5e7c9f0e</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>DirectX::XMFLOAT4X4</type>
+      <name>meshMatrix</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a552e94da10f066f60eeeb627a788b2dc</anchor>
+      <arglist>(const ViewTransform &amp;transform) const</arglist>
+    </member>
+    <member kind="function">
+      <type>core::Vector2</type>
+      <name>worldToScreen</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a8c8c8f86fe35f2d84ab38ee79b76446a</anchor>
+      <arglist>(const core::Vector2 &amp;world) const</arglist>
+    </member>
+    <member kind="function">
+      <type>core::Vector2</type>
+      <name>screenToWorld</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>ac5929b8967abdabf033acb33b9cccb6c</anchor>
+      <arglist>(const core::Vector2 &amp;screen) const</arglist>
+    </member>
+    <member kind="function">
+      <type>core::Rect</type>
+      <name>visibleBounds</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a905460a7930098f5a6c5680b6858ad7d</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static float</type>
+      <name>fitZoom</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>aef61e365e9c9350b9299ce6215252425</anchor>
+      <arglist>(float availableWidth, float availableHeight, float contentWidth, float contentHeight, float margin=1.0f)</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>PIXELS_PER_UNIT</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a1578bdcb353a4925b3a53f8a9b0a6acc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>float</type>
+      <name>scale</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a308df073decac13f436f888330586181</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_viewportWidth</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a0c322bb4442430e13870211c9ed35dc0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_viewportHeight</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a3ec083a03a6db5d3e9e04db74860a273</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>core::Vector2</type>
+      <name>_center</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a3686a21f914307a1506145c39eee5e61</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_zoom</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a2e841fdae9c285e8d64091b7e2aaede7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>DepthRange</type>
+      <name>_depth</name>
+      <anchorfile>classhmi_1_1PlaceCamera.html</anchorfile>
+      <anchor>a90f9d3d12673269010b48a56ea72f1a1</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="struct">
     <name>core::BattleGrid::Placement</name>
     <filename>structcore_1_1BattleGrid_1_1Placement.html</filename>
@@ -40693,6 +41878,13 @@
       <name>y</name>
       <anchorfile>structhmi_1_1PolyQuad.html</anchorfile>
       <anchor>a892dab5e3e57b584b9a28397be3d5ed2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 4 &gt;</type>
+      <name>rise</name>
+      <anchorfile>structhmi_1_1PolyQuad.html</anchorfile>
+      <anchor>a3d95df9844b5e56ea1674dbdd9d5dba2</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -42809,6 +44001,38 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::SceneDepth</name>
+    <filename>structhmi_1_1SceneDepth.html</filename>
+    <member kind="function">
+      <type>float</type>
+      <name>overlayDepth</name>
+      <anchorfile>structhmi_1_1SceneDepth.html</anchorfile>
+      <anchor>aecc5c444ede81bd563be8749af028bf5</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>IsoView</type>
+      <name>view</name>
+      <anchorfile>structhmi_1_1SceneDepth.html</anchorfile>
+      <anchor>ae5983c9254a8d047ce6f109f4a009758</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>DepthRange</type>
+      <name>range</name>
+      <anchorfile>structhmi_1_1SceneDepth.html</anchorfile>
+      <anchor>aa4507fb60673f6b758301d2e8fe57137</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>OVERLAY_FRACTION</name>
+      <anchorfile>structhmi_1_1SceneDepth.html</anchorfile>
+      <anchor>a27780ced902ca7440c136c349f01d73f</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::SceneLevel</name>
     <filename>structcore_1_1SceneLevel.html</filename>
     <member kind="function">
@@ -42841,8 +44065,47 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::SceneMesh</name>
+    <filename>structhmi_1_1SceneMesh.html</filename>
+    <member kind="variable">
+      <type>MeshHandle</type>
+      <name>mesh</name>
+      <anchorfile>structhmi_1_1SceneMesh.html</anchorfile>
+      <anchor>a23fd6121250f1512a82bc7165f0b751c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>minimum</name>
+      <anchorfile>structhmi_1_1SceneMesh.html</anchorfile>
+      <anchor>ac7477dcfd372ddc5184978c88b7a1edc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>maximum</name>
+      <anchorfile>structhmi_1_1SceneMesh.html</anchorfile>
+      <anchor>acfd5c2a57a89b7aa244892f36756c79d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; float &gt;</type>
+      <name>storeyTiles</name>
+      <anchorfile>structhmi_1_1SceneMesh.html</anchorfile>
+      <anchor>a6f435e9aba1e958561099abe6bb6db1e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::ScenePiece</name>
     <filename>structcore_1_1ScenePiece.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>isMesh</name>
+      <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
+      <anchor>a806a356b6384fbb32f1f6de32a8d28a6</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
     <member kind="function">
       <type>std::string</type>
       <name>path</name>
@@ -42883,6 +44146,13 @@
       <name>file</name>
       <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
       <anchor>aa07afc5d2306797a84be1b32a4981a80</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>mesh</name>
+      <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
+      <anchor>adcddbb5308483c00c06b56a5751a3019</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -43143,6 +44413,13 @@
     <name>hmi::ScenePieceTextures</name>
     <filename>structhmi_1_1ScenePieceTextures.html</filename>
     <member kind="function">
+      <type>const SceneMesh *</type>
+      <name>findMesh</name>
+      <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
+      <anchor>af701378b2d2bc4b8d48f23cb5b48655f</anchor>
+      <arglist>(std::string_view path) const</arglist>
+    </member>
+    <member kind="function">
       <type>const SceneTexture &amp;</type>
       <name>resolve</name>
       <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
@@ -43161,6 +44438,13 @@
       <name>byPath</name>
       <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
       <anchor>a34f4bb97c124acb80a4a73e0a348c53f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::map&lt; std::string, SceneMesh, std::less&lt;&gt; &gt;</type>
+      <name>meshes</name>
+      <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
+      <anchor>a71f8e50d179d9c163c468f4961beadba</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -43843,6 +45127,20 @@
       <anchor>a5efecee08cf5d4212b5c68431b1d2ed9</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="function">
+      <type>Q_INVOKABLE void</type>
+      <name>openCharacterTab</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a135b607a901c0afbb3a531275c599c6d</anchor>
+      <arglist>(int tab)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>characterTab</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>ab94fed310054a6fd8857ea29bf3a9163</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
     <member kind="function" static="yes">
       <type>static bool</type>
       <name>developerBuild</name>
@@ -43851,10 +45149,17 @@
       <arglist>() noexcept</arglist>
     </member>
     <member kind="property">
-      <type>QML_SINGLETONScreen</type>
+      <type>QML_SINGLETONint</type>
+      <name>characterTab</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a4cc8a1f0e2e876c9ceca0e65f58743b1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>Screen</type>
       <name>currentScreen</name>
       <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
-      <anchor>ae6f4f69704239e7f7561382ecb88426c</anchor>
+      <anchor>a952acb7772fad83498dfacac20ec1953</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -43925,6 +45230,20 @@
       <name>_ending</name>
       <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
       <anchor>a71aa3afd55c4f50e673d591eac3a20c6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_characterTab</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a2094046a0a486edadc5d240ce9a2f56d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_returnToCombat</name>
+      <anchorfile>classhmi_1_1ScreenRouter.html</anchorfile>
+      <anchor>a38fcb4fba53e474384ab8c0bba3398b9</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -44104,6 +45423,13 @@
       <anchor>a58da53efd38a580938bb529830946ef5</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>marked</name>
+      <anchorfile>structhmi_1_1SheetRow.html</anchorfile>
+      <anchor>a7a087120937e9603c793ea022dfda039</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::SheetRowModel</name>
@@ -44134,6 +45460,12 @@
       <arglist></arglist>
     </member>
     <member kind="enumvalue">
+      <name>MarkedRole</name>
+      <anchorfile>classhmi_1_1SheetRowModel.html</anchorfile>
+      <anchor>ac254339b8a3fccbc693eeefbbb8928faa6812631dbbd584b57ce96a371e8e76e7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
       <name>IdRole</name>
       <anchorfile>classhmi_1_1SheetRowModel.html</anchorfile>
       <anchor>ac254339b8a3fccbc693eeefbbb8928faafb1be8282417276d2a29725a4bdc37ff</anchor>
@@ -44149,6 +45481,12 @@
       <name>ValueRole</name>
       <anchorfile>classhmi_1_1SheetRowModel.html</anchorfile>
       <anchor>ac254339b8a3fccbc693eeefbbb8928faa0fe3a39fe29d4490d5abc10437e8326e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>MarkedRole</name>
+      <anchorfile>classhmi_1_1SheetRowModel.html</anchorfile>
+      <anchor>ac254339b8a3fccbc693eeefbbb8928faa6812631dbbd584b57ce96a371e8e76e7</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -44857,22 +46195,22 @@
       <type>void</type>
       <name>draw</name>
       <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
-      <anchor>adf3e122b7b78551672d6e8642941383d</anchor>
-      <arglist>(const SpriteQuad &amp;quad)</arglist>
+      <anchor>a51482a6b33099443b60ad2e7cffa90ce</anchor>
+      <arglist>(const SpriteQuad &amp;quad, float topDepth=0.0F, float bottomDepth=0.0F)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>draw</name>
       <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
-      <anchor>afb2cf10826482b3ad8d503a829a8ed5b</anchor>
-      <arglist>(const LineQuad &amp;line)</arglist>
+      <anchor>a1a86087d4df224dff2e175bcb91258a2</anchor>
+      <arglist>(const LineQuad &amp;line, float startDepth=0.0F, float endDepth=0.0F)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
       <name>draw</name>
       <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
-      <anchor>a50b96c3162fe6f5d3c78b4ff9f482f5f</anchor>
-      <arglist>(const PolyQuad &amp;poly)</arglist>
+      <anchor>ae830a4fdbd7324eedc09d6fcf1e2021e</anchor>
+      <arglist>(const PolyQuad &amp;poly, const std::array&lt; float, 4 &gt; &amp;depths={})</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -44888,12 +46226,40 @@
       <anchor>a271469045e5d3087caadd4dcaf4ebbe1</anchor>
       <arglist>(QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, QRhiResourceUpdateBatch *updates, const float *clear)</arglist>
     </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDepthTest</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>a1977ed19b145745d8fb3f85bea453b23</anchor>
+      <arglist>(bool enabled) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>QRhiResourceUpdateBatch *</type>
+      <name>prepare</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>a9c9acf62bbd4dd52ad7f0173419db80d</anchor>
+      <arglist>(QRhiRenderTarget *target, QRhiResourceUpdateBatch *updates)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>record</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>ac4d1f7956b63e74b96283ca16328c3e1</anchor>
+      <arglist>(QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target)</arglist>
+    </member>
     <member kind="function" protection="private">
       <type>bool</type>
       <name>ensurePipeline</name>
       <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
       <anchor>a45fd2a054df485079239ce58d99c29d6</anchor>
       <arglist>(QRhiRenderTarget *target)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>std::unique_ptr&lt; QRhiGraphicsPipeline &gt;</type>
+      <name>createPipeline</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>a8a560c8e55b33b34a616539e3b1f7767</anchor>
+      <arglist>(QRhiRenderPassDescriptor *pass, bool depthTest)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>bool</type>
@@ -44970,6 +46336,27 @@
       <name>_pipeline</name>
       <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
       <anchor>aa90eaad9d5b0b0c66a8aa5097405ecf8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiGraphicsPipeline &gt;</type>
+      <name>_depthPipeline</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>a616baba9e317ddcb8d10837e1e06dcc4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_depthTest</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>a1683307f7b9dd32785264d0529060ac6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_drawable</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>a5f28131f512b58e4dc8bf6e982b2a208</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -46362,6 +47749,13 @@
       <name>y</name>
       <anchorfile>structhmi_1_1SpriteBatch_1_1Vertex.html</anchorfile>
       <anchor>a3d6d423bd76108581a2b36b256e87dd5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>z</name>
+      <anchorfile>structhmi_1_1SpriteBatch_1_1Vertex.html</anchorfile>
+      <anchor>add27887383ee3e4c51c45ea04d0c4d50</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -47993,6 +49387,20 @@
       <anchor>a9c5c0c50c1ab2e5e3bd7b43fd9093acd</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>interactionChanged</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a1c2783f23bfd14bd6be96f071aef8df1</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariantMap</type>
+      <name>interactionTarget</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>aeda8d8a27e6420736c679dc720995263</anchor>
+      <arglist>() const</arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>WorldModel</name>
@@ -48495,6 +49903,13 @@
       <name>status</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>ad35b39b91404a26834204600e488b698</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariantMap</type>
+      <name>interactionTarget</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>acf1bf955a4aae21ce6458ed487213546</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -49405,6 +50820,13 @@
     </member>
     <member kind="function" protection="private">
       <type>void</type>
+      <name>ensureMeshes</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>aa1f8c78651b1fa484a307a8934159b9b</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;paths)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
       <name>refresh</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
       <anchor>a55dfc11aadf454da5f305ee9b90314e7</anchor>
@@ -49569,6 +50991,13 @@
       <name>_solid</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
       <anchor>ace4820029eeb81a93aebddd80ae92cf9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; MeshBatch &gt;</type>
+      <name>_meshes</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a94b6b02e7c21596f49bdf93d78c62123</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -50418,6 +51847,9 @@
     <class kind="struct">core::ExpectedAssetKey</class>
     <class kind="struct">core::MarkerColor</class>
     <class kind="struct">core::MarkerImage</class>
+    <class kind="struct">core::MeshVertex</class>
+    <class kind="struct">core::MeshData</class>
+    <class kind="struct">core::MeshFileResult</class>
     <class kind="struct">core::ScenePiece</class>
     <class kind="struct">core::MaskedScenePiece</class>
     <class kind="class">core::ScenePieceManifest</class>
@@ -51054,6 +52486,18 @@
       <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875afe925ee04a93d96abc7adb5118b5ccc3">Tiers</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875acd9aff70b6e031ddc3e265ccf104e7fe">Pit</enumvalue>
       <enumvalue file="namespacecore.html" anchor="ace99a1be913e6294e42e9ebb145eb875a1d18fe2cdd43a72d46421ecfe81b599e">Lava</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>MeshFileError</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a3044e9e0cc082011e2c2d5fbe2548e7e</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacecore.html" anchor="a3044e9e0cc082011e2c2d5fbe2548e7ea6adf97f83acf6453d4a6a4b1070f3754">None</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a3044e9e0cc082011e2c2d5fbe2548e7ea2767828026039e8ba7b38973cbb701f2">FileNotFound</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a3044e9e0cc082011e2c2d5fbe2548e7eae41199faa7290c167f70f314c5e6c165">ParseError</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a3044e9e0cc082011e2c2d5fbe2548e7eab4080bdf74febf04d578ff105cce9d3f">Unsupported</enumvalue>
+      <enumvalue file="namespacecore.html" anchor="a3044e9e0cc082011e2c2d5fbe2548e7eaa809debdbe0cae246d363461916d924d">MalformedStructure</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -52671,6 +54115,27 @@
       <arglist>(std::string_view key, int width, int height)</arglist>
     </member>
     <member kind="function">
+      <type>bool</type>
+      <name>isMeshPath</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a82269912dc893aa11627ef297bc7c058</anchor>
+      <arglist>(std::string_view path) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>MeshFileResult</type>
+      <name>readMeshFromGlb</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a243f5bef0bdd1b3cfbc8a4adcd26bd8c</anchor>
+      <arglist>(std::span&lt; const std::byte &gt; bytes)</arglist>
+    </member>
+    <member kind="function">
+      <type>MeshFileResult</type>
+      <name>readMeshFile</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a469880653f9c41cdb8fca5a6a8d87a4a</anchor>
+      <arglist>(const std::filesystem::path &amp;path)</arglist>
+    </member>
+    <member kind="function">
       <type>const char *</type>
       <name>pieceTacticalName</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -53973,6 +55438,20 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>MESH_FILE_EXTENSION</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a3327fed926d0ab370f4a57aaf112c3bc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::size_t</type>
+      <name>MESH_FILE_MAX_BYTES</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a54740985552311c9bd3ca1b0974a7421</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>constexpr int</type>
       <name>D20_FACES</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -54509,17 +55988,21 @@
     <class kind="struct">hmi::AssetGalleryDrawnBloc</class>
     <class kind="struct">hmi::AssetGalleryFrame</class>
     <class kind="class">hmi::AssetGalleryRenderer</class>
-    <class kind="class">hmi::Camera2D</class>
     <class kind="struct">hmi::CityBlockFraming</class>
     <class kind="struct">hmi::ComposedQuad</class>
+    <class kind="struct">hmi::ComposedMesh</class>
     <class kind="struct">hmi::SceneStatistics</class>
     <class kind="class">hmi::ComposedScene</class>
+    <class kind="struct">hmi::DepthRange</class>
+    <class kind="class">hmi::IsoView</class>
     <class kind="struct">hmi::MaquetteColor</class>
     <class kind="struct">hmi::MaquetteShape</class>
     <class kind="struct">hmi::MaquetteTokenRequest</class>
+    <class kind="class">hmi::MeshBatch</class>
     <class kind="class">hmi::OffscreenRhi</class>
     <class kind="class">hmi::PlaceAppearance</class>
     <class kind="struct">hmi::PlaceAppearanceResult</class>
+    <class kind="class">hmi::PlaceCamera</class>
     <class kind="struct">hmi::ProceduralAtlasImage</class>
     <class kind="struct">hmi::SpriteQuad</class>
     <class kind="struct">hmi::PolyQuad</class>
@@ -54527,12 +56010,14 @@
     <class kind="class">hmi::QuadRecorder</class>
     <class kind="struct">hmi::RhiContext</class>
     <class kind="struct">hmi::SceneTexture</class>
+    <class kind="struct">hmi::SceneMesh</class>
     <class kind="struct">hmi::ScenePieceTextures</class>
     <class kind="class">hmi::SceneResources</class>
     <class kind="struct">hmi::SceneTextureTraits</class>
     <class kind="struct">hmi::IndexedManifest</class>
     <class kind="class">hmi::ManifestCache</class>
     <class kind="class">hmi::SpriteBatch</class>
+    <class kind="struct">hmi::SceneDepth</class>
     <class kind="class">hmi::StaticWorldScene</class>
     <class kind="class">hmi::TextureAtlas</class>
     <class kind="struct">hmi::DecodedImage</class>
@@ -54638,6 +56123,20 @@
       <name>PlanFactory</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ab0b07cd6db9125460c29672e951b9229</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>void *</type>
+      <name>MeshHandle</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a07a437313cbfa408c32343398b830168</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::array&lt; float, 12 &gt;</type>
+      <name>ViewTransform</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>abc6aa80f158df082cfe0b7ee36210962</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -54924,6 +56423,16 @@
       <enumvalue file="namespacehmi.html" anchor="a9bcda977efbe65c2ab28905feb685040ac4816e491f1e2cf4b8c26d844861d8fe">Drawn</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a9bcda977efbe65c2ab28905feb685040ad2dca836f24df89491f958bac04a8ac8">Preloaded</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="a9bcda977efbe65c2ab28905feb685040aa5ae20aa7fda5bd38bf0dce98e65bd2d">Unloaded</enumvalue>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>QuadStance</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a4d6a8601e9d5a4622b41e9678b1da535</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacehmi.html" anchor="a4d6a8601e9d5a4622b41e9678b1da535a6b551379c3c0b59326abdaf3b4395bd3">Overlay</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a4d6a8601e9d5a4622b41e9678b1da535a3519d51443d41746a097cd54cd5c11cf">Ground</enumvalue>
+      <enumvalue file="namespacehmi.html" anchor="a4d6a8601e9d5a4622b41e9678b1da535aadcd5aa8fd001045d4f75625829875be">Upright</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -56737,6 +58246,13 @@
       <arglist>(const PolyQuad &amp;quad) noexcept</arglist>
     </member>
     <member kind="function">
+      <type>constexpr QuadStance</type>
+      <name>defaultStance</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a39847826d305e1d2691ac1281b607b2a</anchor>
+      <arglist>(RenderLayer layer) noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>std::string</type>
       <name>entityMarkerKey</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -56891,6 +58407,20 @@
       <arglist>(RenderLayer layer) noexcept</arglist>
     </member>
     <member kind="function">
+      <type>QShader</type>
+      <name>loadShader</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a1d1f0359e19e0e2d88edab549e4d0fb7</anchor>
+      <arglist>(const char *resourcePath)</arglist>
+    </member>
+    <member kind="function">
+      <type>QMatrix4x4</type>
+      <name>toClipMatrix</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>adc8d4a3f3dbb01257675ef065285f62a</anchor>
+      <arglist>(QRhi *rhi, const DirectX::XMFLOAT4X4 &amp;projection)</arglist>
+    </member>
+    <member kind="function">
       <type>float</type>
       <name>artTileWidth</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -56985,8 +58515,8 @@
       <type>void</type>
       <name>submitComposedScene</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a533df804a658915efda4f8f6c918496e</anchor>
-      <arglist>(SpriteBatch &amp;batch, const DirectX::XMFLOAT4X4 &amp;projection, const ComposedScene &amp;scene)</arglist>
+      <anchor>aab6c130d5df4f7a6ba739eb043380959</anchor>
+      <arglist>(SpriteBatch &amp;batch, const DirectX::XMFLOAT4X4 &amp;projection, const ComposedScene &amp;scene, const SceneDepth *depth=nullptr)</arglist>
     </member>
     <member kind="function">
       <type>DirectX::XMFLOAT4X4</type>
@@ -57150,6 +58680,13 @@
       <arglist>(const WorldSceneSnapshot &amp;snapshot)</arglist>
     </member>
     <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>worldMeshPaths</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac89d2d9e1d9069fc983218c8ab6fa53e</anchor>
+      <arglist>(const WorldSceneSnapshot &amp;snapshot)</arglist>
+    </member>
+    <member kind="function">
       <type>std::optional&lt; WorldHeroPlacement &gt;</type>
       <name>placeWorldHero</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -57199,17 +58736,17 @@
       <arglist>(const Map &amp;map)</arglist>
     </member>
     <member kind="function">
-      <type>Camera2D</type>
+      <type>PlaceCamera</type>
       <name>worldCamera</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a44337da72a19b007b1c90bade791dfdf</anchor>
+      <anchor>a8c914209a98a09ab29c1116ec8b79ea1</anchor>
       <arglist>(const core::IsoProjection &amp;projection, core::Vector2 focus, int pixelWidth, int pixelHeight, float tilePixels=0.0F)</arglist>
     </member>
     <member kind="function">
-      <type>Camera2D</type>
+      <type>PlaceCamera</type>
       <name>framedCamera</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a19e2a922a7f8083d4c90e83ae1d815d3</anchor>
+      <anchor>a324743e1e258c36d42746b83bf5f1156</anchor>
       <arglist>(const WorldFraming &amp;framing, int pixelWidth, int pixelHeight)</arglist>
     </member>
     <member kind="function">
@@ -58678,6 +60215,7 @@
     <file>fuzz_json.cpp</file>
     <file>fuzz_level.cpp</file>
     <file>fuzz_localization.cpp</file>
+    <file>fuzz_mesh.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/App/Game</name>
@@ -58749,8 +60287,6 @@
     <file>AssetGallery.h</file>
     <file>AssetGalleryRenderer.cpp</file>
     <file>AssetGalleryRenderer.h</file>
-    <file>Camera2D.cpp</file>
-    <file>Camera2D.h</file>
     <file>CityBlockRender.cpp</file>
     <file>CityBlockRender.h</file>
     <file>ComposedScene.cpp</file>
@@ -58758,15 +60294,20 @@
     <file>EntityMarkers.cpp</file>
     <file>EntityMarkers.h</file>
     <file>GraphicsLog.h</file>
+    <file>IsoView.h</file>
     <file>MaquettePalette.h</file>
     <file>MaquetteTokens.cpp</file>
     <file>MaquetteTokens.h</file>
+    <file>MeshBatch.cpp</file>
+    <file>MeshBatch.h</file>
     <file>MissingTexture.cpp</file>
     <file>MissingTexture.h</file>
     <file>OffscreenRender.cpp</file>
     <file>OffscreenRender.h</file>
     <file>PlaceAppearance.cpp</file>
     <file>PlaceAppearance.h</file>
+    <file>PlaceCamera.cpp</file>
+    <file>PlaceCamera.h</file>
     <file>ProceduralAtlas.cpp</file>
     <file>ProceduralAtlas.h</file>
     <file>Quad.h</file>
@@ -58774,6 +60315,7 @@
     <file>QuadRecorder.h</file>
     <file>RenderLayer.h</file>
     <file>RhiContext.h</file>
+    <file>RhiShaders.h</file>
     <file>ScenePieces.h</file>
     <file>SceneResources.cpp</file>
     <file>SceneResources.h</file>
@@ -58804,16 +60346,19 @@
     <file>test_animation_catalog.cpp</file>
     <file>test_asset_gallery.cpp</file>
     <file>test_asset_gallery_renderer.cpp</file>
-    <file>test_camera2d.cpp</file>
     <file>test_capital_kit_render.cpp</file>
     <file>test_city_block_render.cpp</file>
     <file>test_depth_sort.cpp</file>
     <file>test_entity_markers.cpp</file>
     <file>test_hd_mockup_render.cpp</file>
     <file>test_image_encode.cpp</file>
+    <file>test_iso_view.cpp</file>
     <file>test_maquette_tokens.cpp</file>
+    <file>test_mesh_composition.cpp</file>
+    <file>test_mesh_render.cpp</file>
     <file>test_missing_texture.cpp</file>
     <file>test_offscreen_render.cpp</file>
+    <file>test_place_camera.cpp</file>
     <file>test_poly_quad.cpp</file>
     <file>test_procedural_atlas.cpp</file>
     <file>test_quad_recorder.cpp</file>
@@ -59114,6 +60659,8 @@
     <file>AssetKey.h</file>
     <file>AssetMarker.cpp</file>
     <file>AssetMarker.h</file>
+    <file>MeshFile.cpp</file>
+    <file>MeshFile.h</file>
     <file>ScenePieceManifest.cpp</file>
     <file>ScenePieceManifest.h</file>
     <file>ScenePlace.cpp</file>
@@ -59124,6 +60671,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Resources/</path>
     <filename>dir_ce0162bee40be316373db36c0f71b686.html</filename>
     <file>test_asset_keys.cpp</file>
+    <file>test_mesh_file.cpp</file>
     <file>test_scene_piece_manifest.cpp</file>
     <file>test_scene_place.cpp</file>
   </compound>
@@ -59245,6 +60793,7 @@
     <file>test_character_sheet_model.cpp</file>
     <file>test_encounter_model.cpp</file>
     <file>test_party_model.cpp</file>
+    <file>test_ui_preferences_and_inventory.cpp</file>
   </compound>
   <compound kind="dir">
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source</name>

@@ -1,0 +1,233 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/Resources/MeshFile.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('MeshFile_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">MeshFile.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Le <b>chargeur de maillages</b> du moteur : un fichier <span class="tt">.glb</span> (glTF 2.0 binaire) lu en sommets, indices et texture de couleur (<span class="tt">LOT-1003</span>).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;span&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div>
+<p><a href="MeshFile_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:core_3A_3AMeshVertex" id="r_core_3A_3AMeshVertex"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshVertex.html">core::MeshVertex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sommet : position (mètres, hauteur +Y), normale unitaire, coordonnées de texture.  <a href="structcore_1_1MeshVertex.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AMeshData" id="r_core_3A_3AMeshData"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshData.html">core::MeshData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un maillage lu : une seule liste de sommets, des triangles indexés, une matière.  <a href="structcore_1_1MeshData.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3AMeshFileResult" id="r_core_3A_3AMeshFileResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshFileResult.html">core::MeshFileResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une lecture : le maillage, et ce qui a échoué.  <a href="structcore_1_1MeshFileResult.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a3044e9e0cc082011e2c2d5fbe2548e7e" id="r_a3044e9e0cc082011e2c2d5fbe2548e7e"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7e">core::MeshFileError</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7ea6adf97f83acf6453d4a6a4b1070f3754">core::None</a>
+, <a class="el" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7ea2767828026039e8ba7b38973cbb701f2">core::FileNotFound</a>
+, <a class="el" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7eae41199faa7290c167f70f314c5e6c165">core::ParseError</a>
+, <a class="el" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7eab4080bdf74febf04d578ff105cce9d3f">core::Unsupported</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7eaa809debdbe0cae246d363461916d924d">core::MalformedStructure</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a3044e9e0cc082011e2c2d5fbe2548e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie d'échec de lecture d'un maillage.  <a href="namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7e">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a82269912dc893aa11627ef297bc7c058" id="r_a82269912dc893aa11627ef297bc7c058"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a82269912dc893aa11627ef297bc7c058">core::isMeshPath</a> (std::string_view path) noexcept</td></tr>
+<tr class="memitem:a243f5bef0bdd1b3cfbc8a4adcd26bd8c" id="r_a243f5bef0bdd1b3cfbc8a4adcd26bd8c"><td class="memItemLeft"><a class="el" href="structcore_1_1MeshFileResult.html">MeshFileResult</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a243f5bef0bdd1b3cfbc8a4adcd26bd8c">core::readMeshFromGlb</a> (std::span&lt; const std::byte &gt; bytes)</td></tr>
+<tr class="memdesc:a243f5bef0bdd1b3cfbc8a4adcd26bd8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un maillage depuis les octets d'un fichier <span class="tt">.glb</span>.  <br /></td></tr>
+<tr class="memitem:a469880653f9c41cdb8fca5a6a8d87a4a" id="r_a469880653f9c41cdb8fca5a6a8d87a4a"><td class="memItemLeft"><a class="el" href="structcore_1_1MeshFileResult.html">MeshFileResult</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a469880653f9c41cdb8fca5a6a8d87a4a">core::readMeshFile</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:a469880653f9c41cdb8fca5a6a8d87a4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit le fichier <span class="tt">.glb</span> <code class="param">path</code> ; un fichier absent est une erreur du résultat.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a3327fed926d0ab370f4a57aaf112c3bc" id="r_a3327fed926d0ab370f4a57aaf112c3bc"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a3327fed926d0ab370f4a57aaf112c3bc">core::MESH_FILE_EXTENSION</a> = &quot;.glb&quot;</td></tr>
+<tr class="memdesc:a3327fed926d0ab370f4a57aaf112c3bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'extension d'un fichier de maillage, point compris.  <br /></td></tr>
+<tr class="memitem:a54740985552311c9bd3ca1b0974a7421" id="r_a54740985552311c9bd3ca1b0974a7421"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a54740985552311c9bd3ca1b0974a7421">core::MESH_FILE_MAX_BYTES</a> = std::size_t{512} * 1024 * 1024</td></tr>
+<tr class="memdesc:a54740985552311c9bd3ca1b0974a7421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus gros fichier lu, en octets : au-delà, ce n'est pas un modèle du jeu.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Le <b>chargeur de maillages</b> du moteur : un fichier <span class="tt">.glb</span> (glTF 2.0 binaire) lu en sommets, indices et texture de couleur (<span class="tt">LOT-1003</span>). </p>
+<p>Le standard 3D fixe le format d'échange (<span class="tt">Planning/standards/style-3d.md</span>, §2) : un modèle par fichier, autonome, sa texture incorporée. Ce lecteur n'en lit que cela, par ses propres moyens — l'enveloppe binaire à la main, le bloc JSON par <span class="tt">nlohmann/json</span>, déjà lié — et sans Qt Quick 3D, que sa licence écarte du dépôt.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md59"></a>
+Ce qui est lu</h2>
+<ul>
+<li>toutes les primitives <b>triangles</b> des nœuds de la scène, fondues en un seul maillage, chacune portée par la transformation de son nœud ;</li>
+<li><span class="tt">POSITION</span>, <span class="tt">NORMAL</span>, <span class="tt">TEXCOORD_0</span> ; des indices sur 8, 16 ou 32 bits, ou pas d'indices ;</li>
+<li>la <b>couleur de base</b> de la première matière : son facteur, et l'image de sa texture, rendue <b>encodée</b> (JPEG ou PNG) — la décoder demande une bibliothèque d'images, donc <span class="tt">HMI</span>.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md60"></a>
+Ce qui est refusé, et dit</h2>
+<p>Un tampon ou une image hors du fichier, un accesseur creux (<span class="tt">sparse</span>), une extension <b>requise</b> (compression Draco ou meshopt, textures KTX) : le résultat nomme ce qui manque plutôt que de rendre un maillage faux. Les os et les animations ne sont pas lus ici — un modèle animé se charge dans sa pose de liaison (<span class="tt">MeshData::skinned</span>), la déformation est au <span class="tt">LOT-1005</span>.</p>
+<p>Logique pure, sans Qt ni GPU. Aucune lecture ne lève (<span class="tt">EX-NFR-040</span>) : c'est un lecteur d'octets venus d'un fichier, et la cible <span class="tt">fuzz_mesh</span> le lui fait prouver. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_81575a0a6a20a380991b9ad2c16b89e5.html">Resources</a></li><li class="navelem"><a href="MeshFile_8h.html">MeshFile.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

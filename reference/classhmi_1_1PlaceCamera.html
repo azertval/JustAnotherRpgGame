@@ -1,0 +1,773 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::PlaceCamera Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1PlaceCamera.html','','classhmi_1_1PlaceCamera-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::PlaceCamera Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Caméra orthographique d'un lieu : du repère de la vue (<span class="tt"><a class="el" href="classhmi_1_1IsoView.html" title="La vue en volume d&#39;une grille projetée par core::IsoProjection.">hmi::IsoView</a></span>) à l'écran.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="PlaceCamera_8h_source.html">PlaceCamera.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a75a462658ad31d440f0c99f6d017ac03" id="r_a75a462658ad31d440f0c99f6d017ac03"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a75a462658ad31d440f0c99f6d017ac03">PlaceCamera</a> (int viewportWidth, int viewportHeight)</td></tr>
+<tr class="memdesc:a75a462658ad31d440f0c99f6d017ac03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construit une caméra pour une surface de rendu donnée.  <br /></td></tr>
+<tr class="memitem:ab168eab4569f95469217a51b575212a8" id="r_ab168eab4569f95469217a51b575212a8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab168eab4569f95469217a51b575212a8">setCenter</a> (const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;worldCenter)</td></tr>
+<tr class="memdesc:ab168eab4569f95469217a51b575212a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Place le centre de la caméra.  <br /></td></tr>
+<tr class="memitem:aed17f9ce0ee1d0607b3ecb73f7a94ac7" id="r_aed17f9ce0ee1d0607b3ecb73f7a94ac7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aed17f9ce0ee1d0607b3ecb73f7a94ac7">setZoom</a> (float <a class="el" href="#a2ead74437e4d681f108572b059f1b1b9">zoom</a>)</td></tr>
+<tr class="memdesc:aed17f9ce0ee1d0607b3ecb73f7a94ac7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Règle le facteur de zoom.  <br /></td></tr>
+<tr class="memitem:a284ac2cd04dd51684a8ed31a3da9ab04" id="r_a284ac2cd04dd51684a8ed31a3da9ab04"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a284ac2cd04dd51684a8ed31a3da9ab04">setDepthRange</a> (const <a class="el" href="structhmi_1_1DepthRange.html">DepthRange</a> &amp;range)</td></tr>
+<tr class="memdesc:a284ac2cd04dd51684a8ed31a3da9ab04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixe l'étendue de profondeur que la caméra ramène entre ses deux plans (<span class="tt"><a class="el" href="classhmi_1_1IsoView.html#ab12c02ad1e9dda9091b86a273273b1d3">hmi::IsoView::depthRange</a></span>).  <br /></td></tr>
+<tr class="memitem:ab6d6e964ad0652b6b1d3af2bc59f3292" id="r_ab6d6e964ad0652b6b1d3af2bc59f3292"><td class="memItemLeft">const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab6d6e964ad0652b6b1d3af2bc59f3292">center</a> () const noexcept</td></tr>
+<tr class="memitem:a2ead74437e4d681f108572b059f1b1b9" id="r_a2ead74437e4d681f108572b059f1b1b9"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a2ead74437e4d681f108572b059f1b1b9">zoom</a> () const noexcept</td></tr>
+<tr class="memitem:a8ebd344c1741d90534d63af52058bdf8" id="r_a8ebd344c1741d90534d63af52058bdf8"><td class="memItemLeft">const <a class="el" href="structhmi_1_1DepthRange.html">DepthRange</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a8ebd344c1741d90534d63af52058bdf8">depthRange</a> () const noexcept</td></tr>
+<tr class="memitem:a0c22f6f6eb40cb74fe96996b5e7c9f0e" id="r_a0c22f6f6eb40cb74fe96996b5e7c9f0e"><td class="memItemLeft">DirectX::XMFLOAT4X4&#160;</td><td class="memItemRight"><a class="el" href="#a0c22f6f6eb40cb74fe96996b5e7c9f0e">projectionMatrix</a> () const</td></tr>
+<tr class="memdesc:a0c22f6f6eb40cb74fe96996b5e7c9f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrice de projection vue → clip, pour le vertex shader.  <br /></td></tr>
+<tr class="memitem:a552e94da10f066f60eeeb627a788b2dc" id="r_a552e94da10f066f60eeeb627a788b2dc"><td class="memItemLeft">DirectX::XMFLOAT4X4&#160;</td><td class="memItemRight"><a class="el" href="#a552e94da10f066f60eeeb627a788b2dc">meshMatrix</a> (const <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> &amp;transform) const</td></tr>
+<tr class="memdesc:a552e94da10f066f60eeeb627a788b2dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrice maillage → clip d'un maillage posé par <code class="param">transform</code> (<span class="tt"><a class="el" href="classhmi_1_1IsoView.html#aaa76876d12e6a57e715db7565420168b" title="Pose un maillage : son origine au point de grille gridPoint, élevée de rise (mesuré à l&#39;écran,...">hmi::IsoView::meshTransform</a></span>) : la projection, composée avec la pose.  <br /></td></tr>
+<tr class="memitem:a8c8c8f86fe35f2d84ab38ee79b76446a" id="r_a8c8c8f86fe35f2d84ab38ee79b76446a"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8c8c8f86fe35f2d84ab38ee79b76446a">worldToScreen</a> (const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;world) const</td></tr>
+<tr class="memdesc:a8c8c8f86fe35f2d84ab38ee79b76446a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une position monde en pixels écran.  <br /></td></tr>
+<tr class="memitem:ac5929b8967abdabf033acb33b9cccb6c" id="r_ac5929b8967abdabf033acb33b9cccb6c"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac5929b8967abdabf033acb33b9cccb6c">screenToWorld</a> (const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;screen) const</td></tr>
+<tr class="memdesc:ac5929b8967abdabf033acb33b9cccb6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convertit une position écran (pixels) en unités monde.  <br /></td></tr>
+<tr class="memitem:a905460a7930098f5a6c5680b6858ad7d" id="r_a905460a7930098f5a6c5680b6858ad7d"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a905460a7930098f5a6c5680b6858ad7d">visibleBounds</a> () const</td></tr>
+<tr class="memdesc:a905460a7930098f5a6c5680b6858ad7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle du monde effectivement cadré par la caméra.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aef61e365e9c9350b9299ce6215252425" id="r_aef61e365e9c9350b9299ce6215252425"><td class="memItemLeft">static float&#160;</td><td class="memItemRight"><a class="el" href="#aef61e365e9c9350b9299ce6215252425">fitZoom</a> (float availableWidth, float availableHeight, float contentWidth, float contentHeight, float margin=1.0f)</td></tr>
+<tr class="memdesc:aef61e365e9c9350b9299ce6215252425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a1578bdcb353a4925b3a53f8a9b0a6acc" id="r_a1578bdcb353a4925b3a53f8a9b0a6acc"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a1578bdcb353a4925b3a53f8a9b0a6acc">PIXELS_PER_UNIT</a> = 16.0f</td></tr>
+<tr class="memdesc:a1578bdcb353a4925b3a53f8a9b0a6acc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de pixels par unité monde (<span class="tt">EX-ARCH-021</span>).  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a308df073decac13f436f888330586181" id="r_a308df073decac13f436f888330586181"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a308df073decac13f436f888330586181">scale</a> () const</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a0c322bb4442430e13870211c9ed35dc0" id="r_a0c322bb4442430e13870211c9ed35dc0"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0c322bb4442430e13870211c9ed35dc0">_viewportWidth</a></td></tr>
+<tr class="memitem:a3ec083a03a6db5d3e9e04db74860a273" id="r_a3ec083a03a6db5d3e9e04db74860a273"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3ec083a03a6db5d3e9e04db74860a273">_viewportHeight</a></td></tr>
+<tr class="memitem:a3686a21f914307a1506145c39eee5e61" id="r_a3686a21f914307a1506145c39eee5e61"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3686a21f914307a1506145c39eee5e61">_center</a> {}</td></tr>
+<tr class="memitem:a2e841fdae9c285e8d64091b7e2aaede7" id="r_a2e841fdae9c285e8d64091b7e2aaede7"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a2e841fdae9c285e8d64091b7e2aaede7">_zoom</a> = 1.0f</td></tr>
+<tr class="memitem:a90f9d3d12673269010b48a56ea72f1a1" id="r_a90f9d3d12673269010b48a56ea72f1a1"><td class="memItemLeft"><a class="el" href="structhmi_1_1DepthRange.html">DepthRange</a>&#160;</td><td class="memItemRight"><a class="el" href="#a90f9d3d12673269010b48a56ea72f1a1">_depth</a> {}</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Caméra orthographique d'un lieu : du repère de la vue (<span class="tt"><a class="el" href="classhmi_1_1IsoView.html" title="La vue en volume d&#39;une grille projetée par core::IsoProjection.">hmi::IsoView</a></span>) à l'écran. </p>
+<p>L'orientation est fixe et n'est pas ici : tournée de 45°, élevée de asin 0,62 (38,3°), c'est <span class="tt"><a class="el" href="classhmi_1_1IsoView.html" title="La vue en volume d&#39;une grille projetée par core::IsoProjection.">hmi::IsoView</a></span> qui la porte, et <span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span> pour le sol. La caméra ne fait que <b>cadrer</b> : elle est centrée sur un point du plan de l'image, <b>en unités monde</b>, à l'échelle de <b>16 pixels par unité</b> (<span class="tt">EX-ARCH-021</span>) que multiplie un facteur de <b>zoom</b> libre (<span class="tt">EX-ARCH-022</span>, <span class="tt">EX-REN-013</span>) ; l'origine de l'écran est en haut à gauche, l'axe Y vers le bas.</p>
+<p>Elle remplace la caméra 2D d'avant le lot, dont elle garde le cadrage au flottant près : la matrice des deux premiers axes est la même, et une image posée dans le plan occupe les mêmes pixels. Ce qu'elle y ajoute est le troisième axe — la profondeur de la vue, ramenée de <span class="tt"><a class="el" href="#a8ebd344c1741d90534d63af52058bdf8">depthRange()</a></span> à l'étendue du tampon de profondeur — et la matrice d'un maillage posé (<span class="tt"><a class="el" href="#a552e94da10f066f60eeeb627a788b2dc" title="Matrice maillage → clip d&#39;un maillage posé par transform (hmi::IsoView::meshTransform) : la projectio...">meshMatrix</a></span>).</p>
+<p>Objet de <b>présentation</b> : elle lit des positions, elle ne modifie jamais la simulation. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a75a462658ad31d440f0c99f6d017ac03" name="a75a462658ad31d440f0c99f6d017ac03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75a462658ad31d440f0c99f6d017ac03">&#9670;&#160;</a></span>PlaceCamera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::PlaceCamera::PlaceCamera </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>viewportWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>viewportHeight</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construit une caméra pour une surface de rendu donnée. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">viewportWidth</td><td>Largeur de la surface de rendu, en pixels. </td></tr>
+    <tr><td class="paramname">viewportHeight</td><td>Hauteur de la surface de rendu, en pixels. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="ab6d6e964ad0652b6b1d3af2bc59f3292" name="ab6d6e964ad0652b6b1d3af2bc59f3292"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6d6e964ad0652b6b1d3af2bc59f3292">&#9670;&#160;</a></span>center()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp; hmi::PlaceCamera::center </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le centre courant de la caméra, en unités monde. </dd></dl>
+
+</div>
+</div>
+<a id="a8ebd344c1741d90534d63af52058bdf8" name="a8ebd344c1741d90534d63af52058bdf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ebd344c1741d90534d63af52058bdf8">&#9670;&#160;</a></span>depthRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1DepthRange.html">DepthRange</a> &amp; hmi::PlaceCamera::depthRange </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aef61e365e9c9350b9299ce6215252425" name="aef61e365e9c9350b9299ce6215252425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef61e365e9c9350b9299ce6215252425">&#9670;&#160;</a></span>fitZoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PlaceCamera::fitZoom </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>availableWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>availableHeight</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>contentWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>contentHeight</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>margin</em></span><span class="paramdefsep"> = </span><span class="paramdefval">1.0f</span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Facteur de zoom ajustant un contenu à une surface disponible, sans zone hors champ. </p>
+<p>Le facteur est celui qui fait tenir le contenu, <b>sans arrondi</b> (<span class="tt">EX-REN-013</span>, <span class="tt">EX-EDIT-013</span>) : l'art de scène est filtré par mipmaps (<span class="tt">EX-ARCH-022</span>, <span class="tt">LOT-103</span>), aucune grille de pixels n'est à protéger.</p>
+<p>Fonction <b>pure</b>, partagée par le cadrage automatique de l'éditeur et celui du jeu (aucune règle dupliquée entre les deux écrans, LOT-16). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">availableWidth</td><td>Largeur disponible, en pixels (&gt; 0). </td></tr>
+    <tr><td class="paramname">availableHeight</td><td>Hauteur disponible, en pixels (&gt; 0). </td></tr>
+    <tr><td class="paramname">contentWidth</td><td>Largeur du contenu à cadrer, en unités monde (&gt; 0). </td></tr>
+    <tr><td class="paramname">contentHeight</td><td>Hauteur du contenu à cadrer, en unités monde (&gt; 0). </td></tr>
+    <tr><td class="paramname">margin</td><td>Facteur multiplicatif (ex. <span class="tt">0.85</span> pour laisser une marge visuelle) ; <span class="tt">1.0</span> par défaut (aucune marge). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Le facteur de zoom à appliquer via <span class="tt"><a class="el" href="#aed17f9ce0ee1d0607b3ecb73f7a94ac7" title="Règle le facteur de zoom.">setZoom</a></span>. </dd></dl>
+
+</div>
+</div>
+<a id="a552e94da10f066f60eeeb627a788b2dc" name="a552e94da10f066f60eeeb627a788b2dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a552e94da10f066f60eeeb627a788b2dc">&#9670;&#160;</a></span>meshMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DirectX::XMFLOAT4X4 hmi::PlaceCamera::meshMatrix </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>transform</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Matrice maillage → clip d'un maillage posé par <code class="param">transform</code> (<span class="tt"><a class="el" href="classhmi_1_1IsoView.html#aaa76876d12e6a57e715db7565420168b" title="Pose un maillage : son origine au point de grille gridPoint, élevée de rise (mesuré à l&#39;écran,...">hmi::IsoView::meshTransform</a></span>) : la projection, composée avec la pose. </p>
+
+</div>
+</div>
+<a id="a0c22f6f6eb40cb74fe96996b5e7c9f0e" name="a0c22f6f6eb40cb74fe96996b5e7c9f0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c22f6f6eb40cb74fe96996b5e7c9f0e">&#9670;&#160;</a></span>projectionMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DirectX::XMFLOAT4X4 hmi::PlaceCamera::projectionMatrix </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Matrice de projection vue → clip, pour le vertex shader. </p>
+<dl class="section return"><dt>Returns</dt><dd>La matrice (ligne-major DirectXMath) transformant une position de la vue en clip : le plan de l'image sur les deux premiers axes, la profondeur sur le troisième (convention OpenGL, de -1 au plus près à 1 au plus loin ; QRhi la ramène à celle du backend). </dd></dl>
+
+</div>
+</div>
+<a id="a308df073decac13f436f888330586181" name="a308df073decac13f436f888330586181"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a308df073decac13f436f888330586181">&#9670;&#160;</a></span>scale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PlaceCamera::scale </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'échelle effective, en pixels par unité monde (PIXELS_PER_UNIT × zoom). </dd></dl>
+
+</div>
+</div>
+<a id="ac5929b8967abdabf033acb33b9cccb6c" name="ac5929b8967abdabf033acb33b9cccb6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5929b8967abdabf033acb33b9cccb6c">&#9670;&#160;</a></span>screenToWorld()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::PlaceCamera::screenToWorld </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>screen</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convertit une position écran (pixels) en unités monde. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">screen</td><td>Position en pixels (origine haut-gauche, Y-bas). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Position en unités monde. </dd></dl>
+
+</div>
+</div>
+<a id="ab168eab4569f95469217a51b575212a8" name="ab168eab4569f95469217a51b575212a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab168eab4569f95469217a51b575212a8">&#9670;&#160;</a></span>setCenter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PlaceCamera::setCenter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>worldCenter</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Place le centre de la caméra. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">worldCenter</td><td>Position visée, au centre de l'écran, en unités monde. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a284ac2cd04dd51684a8ed31a3da9ab04" name="a284ac2cd04dd51684a8ed31a3da9ab04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a284ac2cd04dd51684a8ed31a3da9ab04">&#9670;&#160;</a></span>setDepthRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PlaceCamera::setDepthRange </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1DepthRange.html">DepthRange</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>range</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fixe l'étendue de profondeur que la caméra ramène entre ses deux plans (<span class="tt"><a class="el" href="classhmi_1_1IsoView.html#ab12c02ad1e9dda9091b86a273273b1d3">hmi::IsoView::depthRange</a></span>). </p>
+<p>Sans effet sur le plan de l'image. L'étendue par défaut, [-1, 1], laisse la profondeur telle quelle : une scène sans volume, dont toutes les primitives sont à la profondeur zéro, se dessine comme avant le lot. </p>
+
+</div>
+</div>
+<a id="aed17f9ce0ee1d0607b3ecb73f7a94ac7" name="aed17f9ce0ee1d0607b3ecb73f7a94ac7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed17f9ce0ee1d0607b3ecb73f7a94ac7">&#9670;&#160;</a></span>setZoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::PlaceCamera::setZoom </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>zoom</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Règle le facteur de zoom. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname"><a class="el" href="#a2ead74437e4d681f108572b059f1b1b9">zoom</a></td><td>Multiplicateur d'échelle (&gt; 0). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a905460a7930098f5a6c5680b6858ad7d" name="a905460a7930098f5a6c5680b6858ad7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a905460a7930098f5a6c5680b6858ad7d">&#9670;&#160;</a></span>visibleBounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Rect.html">core::Rect</a> hmi::PlaceCamera::visibleBounds </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rectangle du monde effectivement cadré par la caméra. </p>
+<p>Base du <b>culling</b> (<span class="tt">EX-NFR-005</span>) : une primitive dont la boîte englobante n'intersecte pas ce rectangle (élargi d'une marge, cf. <span class="tt"><a class="el" href="classhmi_1_1ComposedScene.html#ad8dd91b7cee4c5d987aae7b22fac4d7e" title="Marge de culling, en unités monde, ajoutée de chaque côté du cadrage visible.">hmi::ComposedScene::CULLING_MARGIN_UNITS</a></span>) n'a aucune raison d'être soumise. Dérivé de <span class="tt"><a class="el" href="#ac5929b8967abdabf033acb33b9cccb6c" title="Convertit une position écran (pixels) en unités monde.">screenToWorld</a></span> : aucune notion de cadrage nouvelle n'est introduite, la caméra reste la seule source de vérité. </p><dl class="section return"><dt>Returns</dt><dd>Le rectangle visible, en unités monde (coin haut-gauche + dimensions). </dd></dl>
+
+</div>
+</div>
+<a id="a8c8c8f86fe35f2d84ab38ee79b76446a" name="a8c8c8f86fe35f2d84ab38ee79b76446a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c8c8f86fe35f2d84ab38ee79b76446a">&#9670;&#160;</a></span>worldToScreen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::PlaceCamera::worldToScreen </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>world</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Convertit une position monde en pixels écran. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>Position en unités monde. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Position en pixels (origine haut-gauche, Y-bas). </dd></dl>
+
+</div>
+</div>
+<a id="a2ead74437e4d681f108572b059f1b1b9" name="a2ead74437e4d681f108572b059f1b1b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ead74437e4d681f108572b059f1b1b9">&#9670;&#160;</a></span>zoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PlaceCamera::zoom </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le facteur de zoom courant. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a3686a21f914307a1506145c39eee5e61" name="a3686a21f914307a1506145c39eee5e61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3686a21f914307a1506145c39eee5e61">&#9670;&#160;</a></span>_center</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> hmi::PlaceCamera::_center {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a90f9d3d12673269010b48a56ea72f1a1" name="a90f9d3d12673269010b48a56ea72f1a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90f9d3d12673269010b48a56ea72f1a1">&#9670;&#160;</a></span>_depth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DepthRange.html">DepthRange</a> hmi::PlaceCamera::_depth {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3ec083a03a6db5d3e9e04db74860a273" name="a3ec083a03a6db5d3e9e04db74860a273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ec083a03a6db5d3e9e04db74860a273">&#9670;&#160;</a></span>_viewportHeight</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PlaceCamera::_viewportHeight</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0c322bb4442430e13870211c9ed35dc0" name="a0c322bb4442430e13870211c9ed35dc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c322bb4442430e13870211c9ed35dc0">&#9670;&#160;</a></span>_viewportWidth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::PlaceCamera::_viewportWidth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e841fdae9c285e8d64091b7e2aaede7" name="a2e841fdae9c285e8d64091b7e2aaede7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e841fdae9c285e8d64091b7e2aaede7">&#9670;&#160;</a></span>_zoom</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PlaceCamera::_zoom = 1.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1578bdcb353a4925b3a53f8a9b0a6acc" name="a1578bdcb353a4925b3a53f8a9b0a6acc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1578bdcb353a4925b3a53f8a9b0a6acc">&#9670;&#160;</a></span>PIXELS_PER_UNIT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::PlaceCamera::PIXELS_PER_UNIT = 16.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Nombre de pixels par unité monde (<span class="tt">EX-ARCH-021</span>). </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="PlaceCamera_8h_source.html">PlaceCamera.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="PlaceCamera_8cpp.html">PlaceCamera.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1PlaceCamera.html">PlaceCamera</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

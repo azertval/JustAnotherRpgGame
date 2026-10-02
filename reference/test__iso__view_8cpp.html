@@ -1,0 +1,389 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/test_iso_view.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__iso__view_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_iso_view.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>La vue du lieu en volume (<span class="tt">LOT-1003</span>) : la caméra orthographique tournée de 45° et inclinée de asin 0,62, vérifiée sans GPU.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;numbers&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Scale_8h_source.html">Core/Rpg/Scale.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IsoView_8h_source.html">HMI/Graphics/IsoView.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a0e4ead86e35ba5d03ed7c2d033839315" id="r_a0e4ead86e35ba5d03ed7c2d033839315"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0e4ead86e35ba5d03ed7c2d033839315">TEST</a> (IsoViewTest, LeSolDUnMaillageTombeSurLaGrille)</td></tr>
+<tr class="memdesc:a0e4ead86e35ba5d03ed7c2d033839315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le sol d'un maillage tombe sur la grille : son origine au point de grille, +X le long des colonnes, +Z le long des lignes, une case tous les 1,5 m.  <br /></td></tr>
+<tr class="memitem:ad2fee47c88c4a540e8b42835d7be013b" id="r_ad2fee47c88c4a540e8b42835d7be013b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad2fee47c88c4a540e8b42835d7be013b">TEST</a> (IsoViewTest, LesMesuresDuStandardSortentDeLaVue)</td></tr>
+<tr class="memdesc:ad2fee47c88c4a540e8b42835d7be013b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les mesures du standard 3D sortent de la vue sans réglage.  <br /></td></tr>
+<tr class="memitem:a247c3a6f45d8c25eaf1304235e0a8442" id="r_a247c3a6f45d8c25eaf1304235e0a8442"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a247c3a6f45d8c25eaf1304235e0a8442">TEST</a> (IsoViewTest, LaVueEstUneRotation)</td></tr>
+<tr class="memdesc:a247c3a6f45d8c25eaf1304235e0a8442"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue est une rotation : elle ne déforme rien.  <br /></td></tr>
+<tr class="memitem:ab118eeb93ed15e950f58ad2d1773af7e" id="r_ab118eeb93ed15e950f58ad2d1773af7e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab118eeb93ed15e950f58ad2d1773af7e">TEST</a> (IsoViewTest, UnEtageEleveUnMaillage)</td></tr>
+<tr class="memdesc:ab118eeb93ed15e950f58ad2d1773af7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un étage élève un maillage de sa hauteur à l'écran, à la profondeur d'un point élevé.  <br /></td></tr>
+<tr class="memitem:a45bdf842b1e47410f827413e879b4512" id="r_a45bdf842b1e47410f827413e879b4512"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a45bdf842b1e47410f827413e879b4512">TEST</a> (IsoViewTest, UneImageDresseeSeRangeCommeUnPlanVertical)</td></tr>
+<tr class="memdesc:a45bdf842b1e47410f827413e879b4512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une image dressée est un plan vertical au-dessus de son pied, le sol au-dessous : elle se range devant le mur qui est derrière elle et derrière celui qui est devant, à toute hauteur.  <br /></td></tr>
+<tr class="memitem:ab4f4734e8f4676f5cf7e68356dfb34eb" id="r_ab4f4734e8f4676f5cf7e68356dfb34eb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab4f4734e8f4676f5cf7e68356dfb34eb">TEST</a> (IsoViewTest, LEtendueDeProfondeurContientLaScene)</td></tr>
+<tr class="memdesc:ab4f4734e8f4676f5cf7e68356dfb34eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'étendue de profondeur contient toute la scène, et la boîte projetée d'un maillage ce qu'il occupe à l'image.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>La vue du lieu en volume (<span class="tt">LOT-1003</span>) : la caméra orthographique tournée de 45° et inclinée de asin 0,62, vérifiée sans GPU. </p>
+<p>Trois choses doivent rester vraies : un point du <b>sol</b> tombe où <span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span> le met depuis toujours ; les mesures du standard 3D (120,7 px d'art par mètre, un corps de 1,80 m en 170 px) en sortent sans réglage ; et la profondeur range les volumes et les images comme un œil les rangerait. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a247c3a6f45d8c25eaf1304235e0a8442" name="a247c3a6f45d8c25eaf1304235e0a8442"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a247c3a6f45d8c25eaf1304235e0a8442">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IsoViewTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaVueEstUneRotation</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La vue est une rotation : elle ne déforme rien. </p>
+<p><b>Cas de test :</b> <b>La vue est une rotation : les distances sont gardees.</b><br  />
+ <b>Categorie :</b> Unitaire · Vue en volume<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Prendre des couples de points quelconques d'un maillage.<br  />
+</p><ol type="1">
+<li>Comparer leur distance dans la vue à leur distance en mètres.<br  />
+ <b>Resultat attendu :</b> Le rapport est partout l'échelle de la vue (unités par mètre) : profondeur comprise, la vue ne fait que tourner et agrandir. </li>
+</ol>
+
+</div>
+</div>
+<a id="ad2fee47c88c4a540e8b42835d7be013b" name="ad2fee47c88c4a540e8b42835d7be013b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2fee47c88c4a540e8b42835d7be013b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IsoViewTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesMesuresDuStandardSortentDeLaVue</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les mesures du standard 3D sortent de la vue sans réglage. </p>
+<p><b>Cas de test :</b> <b>Les mesures du standard 3D sortent de la vue sans reglage.</b><br  />
+ <b>Categorie :</b> Unitaire · Vue en volume<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Rapporter la vue au losange d'art de 256 pixels.<br  />
+</p><ol type="1">
+<li>Mesurer un mètre à l'horizontale, un corps de 1,80 m, un étage de 2,366 m.<br  />
+ <b>Resultat attendu :</b> 120,7 px d'art par mètre ; 170 px pour le corps ; 224 px, soit 0,875 largeur de case, pour l'étage — les valeurs du standard (<span class="tt">style-3d.md</span>, §1). </li>
+</ol>
+
+</div>
+</div>
+<a id="a0e4ead86e35ba5d03ed7c2d033839315" name="a0e4ead86e35ba5d03ed7c2d033839315"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e4ead86e35ba5d03ed7c2d033839315">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IsoViewTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeSolDUnMaillageTombeSurLaGrille</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le sol d'un maillage tombe sur la grille : son origine au point de grille, +X le long des colonnes, +Z le long des lignes, une case tous les 1,5 m. </p>
+<p><b>Cas de test :</b> <b>Le sol d'un maillage tombe sur la grille.</b><br  />
+ <b>Categorie :</b> Unitaire · Vue en volume<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser un maillage au point de grille (4,5 ; 2,5).<br  />
+</p><ol type="1">
+<li>Relever où tombent son origine, le point à 1,5 m en +X et le point à 1,5 m en +Z.<br  />
+ <b>Resultat attendu :</b> L'origine tombe où <span class="tt">IsoProjection::gridToWorld</span> met (4,5 ; 2,5), les deux autres où elle met (5,5 ; 2,5) et (4,5 ; 3,5) ; chacun a la profondeur du sol à son ordonnée. </li>
+</ol>
+
+</div>
+</div>
+<a id="ab4f4734e8f4676f5cf7e68356dfb34eb" name="ab4f4734e8f4676f5cf7e68356dfb34eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4f4734e8f4676f5cf7e68356dfb34eb">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IsoViewTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LEtendueDeProfondeurContientLaScene</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'étendue de profondeur contient toute la scène, et la boîte projetée d'un maillage ce qu'il occupe à l'image. </p>
+<p><b>Cas de test :</b> <b>L'etendue de profondeur contient la scene.</b><br  />
+ <b>Categorie :</b> Unitaire · Vue en volume<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander l'étendue de profondeur d'une grille.<br  />
+</p><ol type="1">
+<li>Y chercher le sol de ses quatre coins et le sommet d'un volume de 20 m.<br  />
+</li>
+<li>Projeter la boîte d'un mur d'une case.<br  />
+ <b>Resultat attendu :</b> Tout est strictement entre le plan le plus proche et le plus lointain ; la boîte projetée fait une largeur de case, et s'étend du dessus du mur au sommet bas du losange. </li>
+</ol>
+
+</div>
+</div>
+<a id="a45bdf842b1e47410f827413e879b4512" name="a45bdf842b1e47410f827413e879b4512"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45bdf842b1e47410f827413e879b4512">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IsoViewTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneImageDresseeSeRangeCommeUnPlanVertical</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une image dressée est un plan vertical au-dessus de son pied, le sol au-dessous : elle se range devant le mur qui est derrière elle et derrière celui qui est devant, à toute hauteur. </p>
+<p><b>Cas de test :</b> <b>Une image dressee se range comme un plan vertical.</b><br  />
+ <b>Categorie :</b> Unitaire · Vue en volume<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Dresser une image sur une ligne de pied.<br  />
+</p><ol type="1">
+<li>Comparer sa profondeur, de son pied à 2 m de haut, à celle d'un flanc de mur vertical placé 0,3 m derrière elle, puis 0,3 m devant.<br  />
+</li>
+<li>Comparer, sous son pied, sa profondeur à celle du sol.<br  />
+ <b>Resultat attendu :</b> À chaque hauteur l'image est plus proche que le mur de derrière et plus loin que celui de devant — ce qu'un plan face au regard, penché en arrière, ne tiendrait pas ; sous le pied, elle a la profondeur du sol. </li>
+</ol>
+
+</div>
+</div>
+<a id="ab118eeb93ed15e950f58ad2d1773af7e" name="ab118eeb93ed15e950f58ad2d1773af7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab118eeb93ed15e950f58ad2d1773af7e">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">IsoViewTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnEtageEleveUnMaillage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un étage élève un maillage de sa hauteur à l'écran, à la profondeur d'un point élevé. </p>
+<p><b>Cas de test :</b> <b>Un etage eleve un maillage sans le deplacer au sol.</b><br  />
+ <b>Categorie :</b> Unitaire · Vue en volume<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Poser le même maillage au rez, puis élevé d'un étage de 0,875 largeur de case.<br  />
+</p><ol type="1">
+<li>Comparer avec le sommet d'un mur haut d'un étage, posé au rez.<br  />
+ <b>Resultat attendu :</b> L'origine du maillage élevé coïncide, profondeur comprise, avec le sommet du mur : un toit posé à l'étage repose sur les murs. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_9c2c1d58a156aa8e30c089ae7a4e31f9.html">Graphics</a></li><li class="navelem"><a href="test__iso__view_8cpp.html">test_iso_view.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

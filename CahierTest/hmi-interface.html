@@ -44,16 +44,16 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Produire les valeurs d'une fiche maitrisant l'Athletisme.</li><li>Lire Athletisme, Discretion et la Perception passive.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>valeurs.at(&quot;sheet.skill.athletics&quot;)</code> vaut <code>&quot;+5 •&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.skill.stealth&quot;)</code> vaut <code>&quot;+1&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.passive_perception&quot;)</code> vaut <code>&quot;11&quot;</code>.</li></ul>
+<ul><li>Vérifie que <code>valeurs.at(&quot;sheet.skill.athletics&quot;)</code> vaut <code>&quot;+5&quot;</code>.</li><li>Vérifie que <code>valeurs.contains(&quot;sheet.skill.athletics.proficient&quot;)</code> est vrai.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.skill.stealth&quot;)</code> vaut <code>&quot;+1&quot;</code>.</li><li>Vérifie que <code>valeurs.contains(&quot;sheet.skill.stealth.proficient&quot;)</code> est faux.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.passive_perception&quot;)</code> vaut <code>&quot;11&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="charactersheetvaluestestlespointsdevieselisentcontreleurmaximum">CharacterSheetValuesTest.LesPointsDeVieSeLisentContreLeurMaximum</h3>
-<p><em>Mineur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:171</code></p>
+<p><em>Mineur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:173</code></p>
 <p>Les points de vie se lisent contre leur maximum.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Produire les valeurs d'une fiche a 25 points de vie sur 30.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>valeurs.at(&quot;sheet.hit_points&quot;)</code> vaut <code>&quot;25 / 30&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.hit_points_max&quot;)</code> vaut <code>&quot;30&quot;</code>.</li><li>Vérifie que <code>valeurs.at(&quot;sheet.speed&quot;)</code> vaut <code>&quot;9 m&quot;</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="charactersheetvaluestestsansficheaucunevaleurnestproduite">CharacterSheetValuesTest.SansFicheAucuneValeurNEstProduite</h3>
-<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:193</code></p>
+<p><em>Majeur · Unitaire · Fiche de personnage</em> — <code>Source/Test/Unit/HMI/Interface/test_character_sheet_values.cpp:195</code></p>
 <p>Sans fiche, aucune valeur n'est produite.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Produire les valeurs d'un contexte sans fiche.</li></ol>
@@ -190,7 +190,7 @@
 <ul><li>Vérifie que <code>mort.has_value()</code> est vrai.</li><li>Vérifie que <code>mort-&gt;screen</code> vaut <code>ScreenId::Death</code>.</li><li>Vérifie que <code>resolveTransition(game, ScreenEvent::OpenDeath)-&gt;screen</code> vaut <code>ScreenId::Death</code>.</li><li>Vérifie que <code>resolveTransition(*mort, ScreenEvent::OpenGame)-&gt;screen</code> vaut <code>ScreenId::Game</code>.</li><li>Vérifie que <code>resolveTransition(*mort, ScreenEvent::OpenMenu)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(*mort, ScreenEvent::OpenPause).has_value()</code> est faux.</li><li>Vérifie que <code>resolveTransition(*mort, ScreenEvent::OpenOptions).has_value()</code> est faux.</li><li>Vérifie que <code>resolveTransition(*mort, ScreenEvent::CloseRpgScreen).has_value()</code> est faux.</li><li>Vérifie que <code>fin.has_value()</code> est vrai.</li><li>Vérifie que <code>fin-&gt;screen</code> vaut <code>ScreenId::DemoEnd</code>.</li><li>Vérifie que <code>resolveTransition(game, ScreenEvent::OpenDemoEnd)-&gt;screen</code> vaut <code>ScreenId::DemoEnd</code>.</li><li>Vérifie que <code>credits.has_value()</code> est vrai.</li><li>Vérifie que <code>credits-&gt;screen</code> vaut <code>ScreenId::Credits</code>.</li><li>Vérifie que <code>resolveTransition(*credits, ScreenEvent::CloseCredits)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(*fin, ScreenEvent::OpenMenu)-&gt;screen</code> vaut <code>ScreenId::Menu</code>.</li><li>Vérifie que <code>resolveTransition(*fin, ScreenEvent::OpenGame).has_value()</code> est faux.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::OpenDeath).has_value()</code> est faux.</li><li>Vérifie que <code>resolveTransition(menu, ScreenEvent::OpenDemoEnd).has_value()</code> est faux.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-input.html"><span>Précédent</span>HMI · Input</a><a class="next" href="hmi-localization.html"><span>Suivant</span>HMI · Localization</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-interface.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-10-02 · <code>12d8b4ae9</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-10-02 · <code>cd29208fa</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

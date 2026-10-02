@@ -156,6 +156,8 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a0be92e8f3e9738cb22b0ba071ea68ea5" id="r_a0be92e8f3e9738cb22b0ba071ea68ea5"><td class="memItemLeft">std::array&lt; float, 4 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0be92e8f3e9738cb22b0ba071ea68ea5">x</a> {}</td></tr>
 <tr class="memitem:a892dab5e3e57b584b9a28397be3d5ed2" id="r_a892dab5e3e57b584b9a28397be3d5ed2"><td class="memItemLeft">std::array&lt; float, 4 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a892dab5e3e57b584b9a28397be3d5ed2">y</a> {}</td></tr>
+<tr class="memitem:a3d95df9844b5e56ea1674dbdd9d5dba2" id="r_a3d95df9844b5e56ea1674dbdd9d5dba2"><td class="memItemLeft">std::array&lt; float, 4 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3d95df9844b5e56ea1674dbdd9d5dba2">rise</a> {}</td></tr>
+<tr class="memdesc:a3d95df9844b5e56ea1674dbdd9d5dba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'<b>élévation</b> de chaque sommet au-dessus du sol, mesurée à l'écran en unités monde (<span class="tt">LOT-1003</span>) : 0 pour un sommet posé au sol, la hauteur d'un bloc pour son dessus.  <br /></td></tr>
 <tr class="memitem:ad0f21ba102e8807b3d561e193b4981b1" id="r_ad0f21ba102e8807b3d561e193b4981b1"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ad0f21ba102e8807b3d561e193b4981b1">u0</a> = 0.0f</td></tr>
 <tr class="memitem:a88145ee12bcfb16031700767a5d1dde1" id="r_a88145ee12bcfb16031700767a5d1dde1"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a88145ee12bcfb16031700767a5d1dde1">v0</a> = 0.0f</td></tr>
 <tr class="memitem:afe5695fab9f07c9e4ebcbfaaf15956b1" id="r_afe5695fab9f07c9e4ebcbfaaf15956b1"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#afe5695fab9f07c9e4ebcbfaaf15956b1">u1</a> = 1.0f</td></tr>
@@ -167,7 +169,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un quadrilatère à <b>quatre sommets libres</b>, en unités monde, d'une seule teinte — la primitive du <b>rendu de maquette</b> (<span class="tt">LOT-128</span>, décision D1). </p>
-<p>Un losange isométrique n'est ni un <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">SpriteQuad</a></span> (rectangle aligné sur les axes) ni un <span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">LineQuad</a></span> (segment) : au rapport 0,62, ce n'est même pas un carré tourné, puisque sa hauteur et sa largeur ne sont pas dans le même rapport que ses côtés. Les faces d'un bloc extrudé sont, elles, des parallélogrammes. Un quad à sommets libres couvre les deux, et n'est <b>pas</b> un cas nouveau pour le GPU : un quad, ce sont déjà quatre sommets, et <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html#adf3e122b7b78551672d6e8642941383d" title="Ajoute un quad au lot courant.">SpriteBatch::draw</a>(const <a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">LineQuad</a>&amp;)</span> en produit déjà à des positions libres.</p>
+<p>Un losange isométrique n'est ni un <span class="tt"><a class="el" href="structhmi_1_1SpriteQuad.html" title="Un quad texturé à dessiner : rectangle en unités monde, région de texture (coordonnées normalisées) e...">SpriteQuad</a></span> (rectangle aligné sur les axes) ni un <span class="tt"><a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">LineQuad</a></span> (segment) : au rapport 0,62, ce n'est même pas un carré tourné, puisque sa hauteur et sa largeur ne sont pas dans le même rapport que ses côtés. Les faces d'un bloc extrudé sont, elles, des parallélogrammes. Un quad à sommets libres couvre les deux, et n'est <b>pas</b> un cas nouveau pour le GPU : un quad, ce sont déjà quatre sommets, et <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html#a51482a6b33099443b60ad2e7cffa90ce" title="Ajoute un quad au lot courant.">SpriteBatch::draw</a>(const <a class="el" href="structhmi_1_1LineQuad.html" title="Un segment épais à dessiner : deux extrémités en unités monde, une épaisseur (perpendiculaire au segm...">LineQuad</a>&amp;)</span> en produit déjà à des positions libres.</p>
 <p>Les sommets se donnent dans l'ordre du <b>pourtour</b> (sans croisement), même convention que les coins des deux autres primitives : le tampon d'indices attend un quadrilatère convexe cohérent. La texture liée est l'aplat blanc 1 × 1 (<span class="tt"><a class="el" href="structhmi_1_1ScenePieceTextures.html#a0915ac2c83ced0bab7bea8a193dc94f3" title="L&#39;aplat : une texture blanche de 1 × 1, que les primitives de couleur du rendu de maquette lient pour...">hmi::ScenePieceTextures::solid</a></span>), de sorte que la teinte seule décide de la couleur, et que le culling, le regroupement par texture et le tri restent ceux de toutes les autres primitives. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a9927008b954fec679d056f428036d24f" name="a9927008b954fec679d056f428036d24f"></a>
@@ -249,6 +251,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d95df9844b5e56ea1674dbdd9d5dba2" name="a3d95df9844b5e56ea1674dbdd9d5dba2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d95df9844b5e56ea1674dbdd9d5dba2">&#9670;&#160;</a></span>rise</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;float, 4&gt; hmi::PolyQuad::rise {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'<b>élévation</b> de chaque sommet au-dessus du sol, mesurée à l'écran en unités monde (<span class="tt">LOT-1003</span>) : 0 pour un sommet posé au sol, la hauteur d'un bloc pour son dessus. </p>
+<p>Elle ne déplace rien — <span class="tt"><a class="el" href="#a892dab5e3e57b584b9a28397be3d5ed2">y</a></span> est déjà l'ordonnée du sommet élevé — et ne sert qu'à sa <b>profondeur</b>, quand la scène a des maillages (<span class="tt"><a class="el" href="classhmi_1_1IsoView.html#a4f50403419275ef9463b3163a7df25f3">hmi::IsoView::raisedDepth</a></span>). </p>
 
 </div>
 </div>

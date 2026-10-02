@@ -18,12 +18,13 @@ var searchData=
   ['_7elayerspanel_15',['~LayersPanel',['../classhmi_1_1LayersPanel.html#aef50ad35e6c04a4c32a45a7679fa5bd5',1,'hmi::LayersPanel']]],
   ['_7elevelbrowserpanel_16',['~LevelBrowserPanel',['../classhmi_1_1LevelBrowserPanel.html#adde81f1cab1c37e2a715cdb8641fd8ba',1,'hmi::LevelBrowserPanel']]],
   ['_7emainwindow_17',['~MainWindow',['../classhmi_1_1MainWindow.html#a9217cc93491089761355a98056939638',1,'hmi::MainWindow']]],
-  ['_7eoffscreenrhi_18',['~OffscreenRhi',['../classhmi_1_1OffscreenRhi.html#af72877bd2b9eb591aeace68e0ba86bb9',1,'hmi::OffscreenRhi']]],
-  ['_7eoperation_19',['~Operation',['../classcore_1_1CombatState_1_1Operation.html#a3878ba3fa9ac55009ff98dd8144d0ceb',1,'core::CombatState::Operation']]],
-  ['_7esceneresources_20',['~SceneResources',['../classhmi_1_1SceneResources.html#ad2fb3cc3d380a87edc4daf992545d24b',1,'hmi::SceneResources']]],
-  ['_7escenesurface_21',['~SceneSurface',['../classhmi_1_1SceneSurface.html#a7510daead5c9c2c50a150be4ec048afa',1,'hmi::SceneSurface']]],
-  ['_7escopedloglevel_22',['~ScopedLogLevel',['../classcore_1_1ScopedLogLevel.html#a5eef4059dd4d37f99de622b55d6e854c',1,'core::ScopedLogLevel']]],
-  ['_7espritebatch_23',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#a8beb3b957f3cccf4960939d0b203c5fb',1,'hmi::SpriteBatch']]],
-  ['_7eworldmodel_24',['~WorldModel',['../classhmi_1_1WorldModel.html#a57bf1374060f4024ab4990f52249d636',1,'hmi::WorldModel']]],
-  ['_7eworldscenerenderer_25',['~WorldSceneRenderer',['../classhmi_1_1WorldSceneRenderer.html#a08d587730ca8f5097ca017f69ea2e388',1,'hmi::WorldSceneRenderer']]]
+  ['_7emeshbatch_18',['~MeshBatch',['../classhmi_1_1MeshBatch.html#a572916ab3185d9225e62a0cd5b436370',1,'hmi::MeshBatch']]],
+  ['_7eoffscreenrhi_19',['~OffscreenRhi',['../classhmi_1_1OffscreenRhi.html#af72877bd2b9eb591aeace68e0ba86bb9',1,'hmi::OffscreenRhi']]],
+  ['_7eoperation_20',['~Operation',['../classcore_1_1CombatState_1_1Operation.html#a3878ba3fa9ac55009ff98dd8144d0ceb',1,'core::CombatState::Operation']]],
+  ['_7esceneresources_21',['~SceneResources',['../classhmi_1_1SceneResources.html#ad2fb3cc3d380a87edc4daf992545d24b',1,'hmi::SceneResources']]],
+  ['_7escenesurface_22',['~SceneSurface',['../classhmi_1_1SceneSurface.html#a7510daead5c9c2c50a150be4ec048afa',1,'hmi::SceneSurface']]],
+  ['_7escopedloglevel_23',['~ScopedLogLevel',['../classcore_1_1ScopedLogLevel.html#a5eef4059dd4d37f99de622b55d6e854c',1,'core::ScopedLogLevel']]],
+  ['_7espritebatch_24',['~SpriteBatch',['../classhmi_1_1SpriteBatch.html#a8beb3b957f3cccf4960939d0b203c5fb',1,'hmi::SpriteBatch']]],
+  ['_7eworldmodel_25',['~WorldModel',['../classhmi_1_1WorldModel.html#a57bf1374060f4024ab4990f52249d636',1,'hmi::WorldModel']]],
+  ['_7eworldscenerenderer_26',['~WorldSceneRenderer',['../classhmi_1_1WorldSceneRenderer.html#a08d587730ca8f5097ca017f69ea2e388',1,'hmi::WorldSceneRenderer']]]
 ];

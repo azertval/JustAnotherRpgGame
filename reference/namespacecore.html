@@ -438,6 +438,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une couleur RVBA, sans dépendance au rendu — <span class="tt">Core</span> ne connaît ni Qt ni GPU (<span class="tt">EX-ARCH-001</span>).  <a href="structcore_1_1MarkerColor.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MarkerImage" id="r_MarkerImage"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MarkerImage.html">MarkerImage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pixels d'un marqueur, en RVBA, ligne par ligne depuis le haut.  <a href="structcore_1_1MarkerImage.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MeshVertex" id="r_MeshVertex"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshVertex.html">MeshVertex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un sommet : position (mètres, hauteur +Y), normale unitaire, coordonnées de texture.  <a href="structcore_1_1MeshVertex.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MeshData" id="r_MeshData"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshData.html">MeshData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un maillage lu : une seule liste de sommets, des triangles indexés, une matière.  <a href="structcore_1_1MeshData.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MeshFileResult" id="r_MeshFileResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MeshFileResult.html">MeshFileResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Résultat d'une lecture : le maillage, et ce qui a échoué.  <a href="structcore_1_1MeshFileResult.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ScenePiece" id="r_ScenePiece"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1ScenePiece.html">ScenePiece</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce de la planche d'un lieu.  <a href="structcore_1_1ScenePiece.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MaskedScenePiece" id="r_MaskedScenePiece"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1MaskedScenePiece.html">MaskedScenePiece</a></td></tr>
@@ -991,6 +997,16 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:ace99a1be913e6294e42e9ebb145eb875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'une tuile de la grille d'une carte (<span class="tt">EX-LVL-002</span>).  <a href="#ace99a1be913e6294e42e9ebb145eb875">More...</a><br /></td></tr>
+<tr class="memitem:a3044e9e0cc082011e2c2d5fbe2548e7e" id="r_a3044e9e0cc082011e2c2d5fbe2548e7e"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a3044e9e0cc082011e2c2d5fbe2548e7e">MeshFileError</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="#a3044e9e0cc082011e2c2d5fbe2548e7ea6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="#a3044e9e0cc082011e2c2d5fbe2548e7ea2767828026039e8ba7b38973cbb701f2">FileNotFound</a>
+, <a class="el" href="#a3044e9e0cc082011e2c2d5fbe2548e7eae41199faa7290c167f70f314c5e6c165">ParseError</a>
+, <a class="el" href="#a3044e9e0cc082011e2c2d5fbe2548e7eab4080bdf74febf04d578ff105cce9d3f">Unsupported</a>
+, <br />
+&#160;&#160;<a class="el" href="#a3044e9e0cc082011e2c2d5fbe2548e7eaa809debdbe0cae246d363461916d924d">MalformedStructure</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a3044e9e0cc082011e2c2d5fbe2548e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catégorie d'échec de lecture d'un maillage.  <a href="#a3044e9e0cc082011e2c2d5fbe2548e7e">More...</a><br /></td></tr>
 <tr class="memitem:a4a3860a249c1a2e07497950f57f4d461" id="r_a4a3860a249c1a2e07497950f57f4d461"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a4a3860a249c1a2e07497950f57f4d461">ScenePieceClass</a> : std::uint8_t { <a class="el" href="#a4a3860a249c1a2e07497950f57f4d461af3f6d0343d56ce88ce7958170ed05cb3">Floor</a>
 , <a class="el" href="#a4a3860a249c1a2e07497950f57f4d461a31fdedff3e473efdbd079e3b59fcb4f9">Tall</a>
 , <a class="el" href="#a4a3860a249c1a2e07497950f57f4d461ae7c770a61dbdf81ca922ae0260e327c1">Wide</a>
@@ -1683,6 +1699,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:a22e0e2c24dd3236fe3a81f89f795fee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le hachage stable dont <span class="tt"><a class="el" href="#ac6ae670b019f78f94c6c8354d01794bc" title="Peint le marqueur d&#39;une clé d&#39;asset.">assetMarker</a></span> tire sa teinte.  <br /></td></tr>
 <tr class="memitem:ac6ae670b019f78f94c6c8354d01794bc" id="r_ac6ae670b019f78f94c6c8354d01794bc"><td class="memItemLeft"><a class="el" href="structcore_1_1MarkerImage.html">MarkerImage</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac6ae670b019f78f94c6c8354d01794bc">assetMarker</a> (std::string_view key, int width, int height)</td></tr>
 <tr class="memdesc:ac6ae670b019f78f94c6c8354d01794bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint le marqueur d'une clé d'asset.  <br /></td></tr>
+<tr class="memitem:a82269912dc893aa11627ef297bc7c058" id="r_a82269912dc893aa11627ef297bc7c058"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a82269912dc893aa11627ef297bc7c058">isMeshPath</a> (std::string_view path) noexcept</td></tr>
+<tr class="memitem:a243f5bef0bdd1b3cfbc8a4adcd26bd8c" id="r_a243f5bef0bdd1b3cfbc8a4adcd26bd8c"><td class="memItemLeft"><a class="el" href="structcore_1_1MeshFileResult.html">MeshFileResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a243f5bef0bdd1b3cfbc8a4adcd26bd8c">readMeshFromGlb</a> (std::span&lt; const std::byte &gt; bytes)</td></tr>
+<tr class="memdesc:a243f5bef0bdd1b3cfbc8a4adcd26bd8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit un maillage depuis les octets d'un fichier <span class="tt">.glb</span>.  <br /></td></tr>
+<tr class="memitem:a469880653f9c41cdb8fca5a6a8d87a4a" id="r_a469880653f9c41cdb8fca5a6a8d87a4a"><td class="memItemLeft"><a class="el" href="structcore_1_1MeshFileResult.html">MeshFileResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a469880653f9c41cdb8fca5a6a8d87a4a">readMeshFile</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="memdesc:a469880653f9c41cdb8fca5a6a8d87a4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit le fichier <span class="tt">.glb</span> <code class="param">path</code> ; un fichier absent est une erreur du résultat.  <br /></td></tr>
 <tr class="memitem:a15ebe09385d339d43fa1f8031c5610a2" id="r_a15ebe09385d339d43fa1f8031c5610a2"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a15ebe09385d339d43fa1f8031c5610a2">pieceTacticalName</a> (<a class="el" href="#a096c9cc059de39edb20ccea06d18f252">PieceTactical</a> tactical) noexcept</td></tr>
 <tr class="memitem:a24630c3d763af343ac0a0863bddcc5fd" id="r_a24630c3d763af343ac0a0863bddcc5fd"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a096c9cc059de39edb20ccea06d18f252">PieceTactical</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a24630c3d763af343ac0a0863bddcc5fd">parsePieceTactical</a> (std::string_view name) noexcept</td></tr>
 <tr class="memitem:ab61b34d0d8ae2acaa9aa552c099b2255" id="r_ab61b34d0d8ae2acaa9aa552c099b2255"><td class="memItemLeft"><a class="el" href="#a4a3860a249c1a2e07497950f57f4d461">ScenePieceClass</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab61b34d0d8ae2acaa9aa552c099b2255">parseScenePieceClass</a> (std::string_view name) noexcept</td></tr>
@@ -2037,6 +2058,10 @@ Variables</h2></td></tr>
 <tr class="memdesc:a319e1d0258052359525fdc83ee93f269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de valeurs de <span class="tt"><a class="el" href="#ace99a1be913e6294e42e9ebb145eb875" title="Type d&#39;une tuile de la grille d&#39;une carte (EX-LVL-002).">core::TileType</a></span> — <b>seule</b> source de vérité de la fin de l'énumération.  <br /></td></tr>
 <tr class="memitem:a49c6e01fbd8905740993109a36f65c11" id="r_a49c6e01fbd8905740993109a36f65c11"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a49c6e01fbd8905740993109a36f65c11">EPSILON</a> = 1e-5f</td></tr>
 <tr class="memdesc:a49c6e01fbd8905740993109a36f65c11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tolérance par défaut pour les comparaisons de flottants issus de calculs.  <br /></td></tr>
+<tr class="memitem:a3327fed926d0ab370f4a57aaf112c3bc" id="r_a3327fed926d0ab370f4a57aaf112c3bc"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a3327fed926d0ab370f4a57aaf112c3bc">MESH_FILE_EXTENSION</a> = &quot;.glb&quot;</td></tr>
+<tr class="memdesc:a3327fed926d0ab370f4a57aaf112c3bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'extension d'un fichier de maillage, point compris.  <br /></td></tr>
+<tr class="memitem:a54740985552311c9bd3ca1b0974a7421" id="r_a54740985552311c9bd3ca1b0974a7421"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a54740985552311c9bd3ca1b0974a7421">MESH_FILE_MAX_BYTES</a> = std::size_t{512} * 1024 * 1024</td></tr>
+<tr class="memdesc:a54740985552311c9bd3ca1b0974a7421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus gros fichier lu, en octets : au-delà, ce n'est pas un modèle du jeu.  <br /></td></tr>
 <tr class="memitem:a42b6dd302d4b68da1f4bdd439884b338" id="r_a42b6dd302d4b68da1f4bdd439884b338"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a42b6dd302d4b68da1f4bdd439884b338">D20_FACES</a> = 20</td></tr>
 <tr class="memdesc:a42b6dd302d4b68da1f4bdd439884b338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de faces du dé de résolution. Le d20 est la mécanique centrale du jeu.  <br /></td></tr>
 <tr class="memitem:a006cfa27ffaf19379846a0d2c1963c00" id="r_a006cfa27ffaf19379846a0d2c1963c00"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a006cfa27ffaf19379846a0d2c1963c00">DIALOGUE_CONTINUE_CHOICE</a> = &quot;continue&quot;</td></tr>
@@ -4101,6 +4126,41 @@ L'altitude est un attribut, jamais une géométrie</h2>
 <tr><td class="fieldname"><a id="acb09396acc95973b3ca488c497bbddb2ab89d6bd44fd0021f05a1f829a425f0c9" name="acb09396acc95973b3ca488c497bbddb2ab89d6bd44fd0021f05a1f829a425f0c9"></a>Illusion&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="acb09396acc95973b3ca488c497bbddb2ac3170ffd5abd69961f44e353cbf7894a" name="acb09396acc95973b3ca488c497bbddb2ac3170ffd5abd69961f44e353cbf7894a"></a>Necromancy&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="acb09396acc95973b3ca488c497bbddb2af11fb43b55b4f3555e1be6f4a9917163" name="acb09396acc95973b3ca488c497bbddb2af11fb43b55b4f3555e1be6f4a9917163"></a>Transmutation&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a3044e9e0cc082011e2c2d5fbe2548e7e" name="a3044e9e0cc082011e2c2d5fbe2548e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3044e9e0cc082011e2c2d5fbe2548e7e">&#9670;&#160;</a></span>MeshFileError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a3044e9e0cc082011e2c2d5fbe2548e7e">core::MeshFileError</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Catégorie d'échec de lecture d'un maillage. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3044e9e0cc082011e2c2d5fbe2548e7ea6adf97f83acf6453d4a6a4b1070f3754" name="a3044e9e0cc082011e2c2d5fbe2548e7ea6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3044e9e0cc082011e2c2d5fbe2548e7ea2767828026039e8ba7b38973cbb701f2" name="a3044e9e0cc082011e2c2d5fbe2548e7ea2767828026039e8ba7b38973cbb701f2"></a>FileNotFound&#160;</td><td class="fielddoc"><p>Fichier absent, illisible, ou plus gros que <span class="tt"><a class="el" href="#a54740985552311c9bd3ca1b0974a7421" title="Le plus gros fichier lu, en octets : au-delà, ce n&#39;est pas un modèle du jeu.">MESH_FILE_MAX_BYTES</a></span>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a3044e9e0cc082011e2c2d5fbe2548e7eae41199faa7290c167f70f314c5e6c165" name="a3044e9e0cc082011e2c2d5fbe2548e7eae41199faa7290c167f70f314c5e6c165"></a>ParseError&#160;</td><td class="fielddoc"><p>L'enveloppe n'est pas celle d'un <span class="tt">.glb</span> 2.0, ou son bloc JSON ne se lit pas. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a3044e9e0cc082011e2c2d5fbe2548e7eab4080bdf74febf04d578ff105cce9d3f" name="a3044e9e0cc082011e2c2d5fbe2548e7eab4080bdf74febf04d578ff105cce9d3f"></a>Unsupported&#160;</td><td class="fielddoc"><p>Le fichier est un glTF valide qui emploie ce que ce lecteur ne lit pas (voir l'en-tête). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a3044e9e0cc082011e2c2d5fbe2548e7eaa809debdbe0cae246d363461916d924d" name="a3044e9e0cc082011e2c2d5fbe2548e7eaa809debdbe0cae246d363461916d924d"></a>MalformedStructure&#160;</td><td class="fielddoc"><p>Un index, une taille ou un décalage sort de ce que le fichier contient. </p>
+</td></tr>
 </table>
 
 </div>
@@ -9820,6 +9880,32 @@ Déterministe, et c'est le point</h2>
 
 </div>
 </div>
+<a id="a82269912dc893aa11627ef297bc7c058" name="a82269912dc893aa11627ef297bc7c058"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82269912dc893aa11627ef297bc7c058">&#9670;&#160;</a></span>isMeshPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::isMeshPath </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si <code class="param">path</code> nomme un fichier de maillage (<span class="tt">.glb</span>, sans égard à la casse). </dd></dl>
+
+</div>
+</div>
 <a id="a0ae5e9d1a2103328d580bdb08b2f2910" name="a0ae5e9d1a2103328d580bdb08b2f2910"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ae5e9d1a2103328d580bdb08b2f2910">&#9670;&#160;</a></span>isProficientWith()</h2>
 
@@ -13325,6 +13411,60 @@ Les places</h2>
 
 </div>
 </div>
+<a id="a469880653f9c41cdb8fca5a6a8d87a4a" name="a469880653f9c41cdb8fca5a6a8d87a4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a469880653f9c41cdb8fca5a6a8d87a4a">&#9670;&#160;</a></span>readMeshFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1MeshFileResult.html">MeshFileResult</a> core::readMeshFile </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit le fichier <span class="tt">.glb</span> <code class="param">path</code> ; un fichier absent est une erreur du résultat. </p>
+
+</div>
+</div>
+<a id="a243f5bef0bdd1b3cfbc8a4adcd26bd8c" name="a243f5bef0bdd1b3cfbc8a4adcd26bd8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a243f5bef0bdd1b3cfbc8a4adcd26bd8c">&#9670;&#160;</a></span>readMeshFromGlb()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcore_1_1MeshFileResult.html">MeshFileResult</a> core::readMeshFromGlb </td>
+          <td>(</td>
+          <td class="paramtype">std::span&lt; const std::byte &gt;</td>          <td class="paramname"><span class="paramname"><em>bytes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit un maillage depuis les octets d'un fichier <span class="tt">.glb</span>. </p>
+
+</div>
+</div>
 <a id="a11a13d88d62b9ed0ba9c505a4a507bf3" name="a11a13d88d62b9ed0ba9c505a4a507bf3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a11a13d88d62b9ed0ba9c505a4a507bf3">&#9670;&#160;</a></span>readQuest()</h2>
 
@@ -16238,6 +16378,54 @@ Les places</h2>
 </div><div class="memdoc">
 
 <p>Le plus haut étage qu'une couche de décor peut occuper (<span class="tt">EX-LVL-025</span>, <span class="tt">LOT-129</span>). </p>
+
+</div>
+</div>
+<a id="a3327fed926d0ab370f4a57aaf112c3bc" name="a3327fed926d0ab370f4a57aaf112c3bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3327fed926d0ab370f4a57aaf112c3bc">&#9670;&#160;</a></span>MESH_FILE_EXTENSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view core::MESH_FILE_EXTENSION = &quot;.glb&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'extension d'un fichier de maillage, point compris. </p>
+
+</div>
+</div>
+<a id="a54740985552311c9bd3ca1b0974a7421" name="a54740985552311c9bd3ca1b0974a7421"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54740985552311c9bd3ca1b0974a7421">&#9670;&#160;</a></span>MESH_FILE_MAX_BYTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t core::MESH_FILE_MAX_BYTES = std::size_t{512} * 1024 * 1024</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le plus gros fichier lu, en octets : au-delà, ce n'est pas un modèle du jeu. </p>
 
 </div>
 </div>

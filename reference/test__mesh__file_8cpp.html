@@ -1,0 +1,414 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/Resources/test_mesh_file.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__mesh__file_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_mesh_file.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Le chargeur de maillages <span class="tt">.glb</span> (<span class="tt">LOT-1003</span>) : ce qu'il lit, ce qu'il refuse, et qu'il ne lève jamais.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="MeshFile_8h_source.html">Core/Resources/MeshFile.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:acddadea8740b1e31bf309c3f3c8c39b1" id="r_acddadea8740b1e31bf309c3f3c8c39b1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acddadea8740b1e31bf309c3f3c8c39b1">TEST</a> (MeshFileTest, UnMaillageDuStandardSeLitEnEntier)</td></tr>
+<tr class="memdesc:acddadea8740b1e31bf309c3f3c8c39b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mur de la carte d'essai se lit en entier : sommets, triangles, boîte, texture.  <br /></td></tr>
+<tr class="memitem:a8b492a0fc42d0ab5daa010c43d3f4bcc" id="r_a8b492a0fc42d0ab5daa010c43d3f4bcc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8b492a0fc42d0ab5daa010c43d3f4bcc">TEST</a> (MeshFileTest, LaTransformationDuNoeudPorteLeMaillage)</td></tr>
+<tr class="memdesc:a8b492a0fc42d0ab5daa010c43d3f4bcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">La transformation du nœud est appliquée aux positions ; sans indices, les sommets vont par trois ; sans matière, la couleur est blanche et sans image.  <br /></td></tr>
+<tr class="memitem:a2ac6bfbe6a74d063470bb1b75241aa1e" id="r_a2ac6bfbe6a74d063470bb1b75241aa1e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2ac6bfbe6a74d063470bb1b75241aa1e">TEST</a> (MeshFileTest, LesNoeudsSEnchainentEtLesNormalesTournent)</td></tr>
+<tr class="memdesc:a2ac6bfbe6a74d063470bb1b75241aa1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un enfant hérite de la transformation de son parent, et une rotation tourne les normales.  <br /></td></tr>
+<tr class="memitem:a6d8b24499ea685a238358fae9dd3e5ec" id="r_a6d8b24499ea685a238358fae9dd3e5ec"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6d8b24499ea685a238358fae9dd3e5ec">TEST</a> (MeshFileTest, CeQuIlNeLitPasEstRefuseEtNomme)</td></tr>
+<tr class="memdesc:a6d8b24499ea685a238358fae9dd3e5ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le lecteur ne lit pas est refusé et nommé, jamais lu de travers.  <br /></td></tr>
+<tr class="memitem:a28438648a00fdb9dd9c4320c8fa7e5d1" id="r_a28438648a00fdb9dd9c4320c8fa7e5d1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a28438648a00fdb9dd9c4320c8fa7e5d1">TEST</a> (MeshFileTest, UnFichierIncoherentEstMalForme)</td></tr>
+<tr class="memdesc:a28438648a00fdb9dd9c4320c8fa7e5d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un fichier dont un index, une taille ou un graphe sort de ce qu'il contient est mal formé : rien n'est lu hors du fichier.  <br /></td></tr>
+<tr class="memitem:a0d70803bdee388ac2b70a0d2cc4d6c96" id="r_a0d70803bdee388ac2b70a0d2cc4d6c96"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0d70803bdee388ac2b70a0d2cc4d6c96">TEST</a> (MeshFileTest, UnFichierAbsentEstUneErreur)</td></tr>
+<tr class="memdesc:a0d70803bdee388ac2b70a0d2cc4d6c96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un fichier absent est une erreur du résultat ; un chemin se reconnaît à son extension.  <br /></td></tr>
+<tr class="memitem:abc2d3ef0ec938c0a00f6ba8a5288b51f" id="r_abc2d3ef0ec938c0a00f6ba8a5288b51f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abc2d3ef0ec938c0a00f6ba8a5288b51f">TEST</a> (MeshFileTest, LesModelesReelsDeLAtelierSeLisent)</td></tr>
+<tr class="memdesc:abc2d3ef0ec938c0a00f6ba8a5288b51f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les modèles réels de l'atelier se lisent : un relevé, quand un dossier est désigné.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Le chargeur de maillages <span class="tt">.glb</span> (<span class="tt">LOT-1003</span>) : ce qu'il lit, ce qu'il refuse, et qu'il ne lève jamais. </p>
+<p>Les fichiers lus sont ceux de la carte d'essai (<span class="tt">Fixtures/Meshes</span>, écrits par <span class="tt">scripts/assetsGeneration/build_mesh_fixture.py</span>) et des <span class="tt">.glb</span> bâtis en mémoire, un défaut à la fois. Un dossier de modèles réels — les exports Meshy de l'atelier, jamais livrés — se lit en plus quand la variable d'environnement <span class="tt">JADG_MESH_SAMPLES</span> le désigne. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a6d8b24499ea685a238358fae9dd3e5ec" name="a6d8b24499ea685a238358fae9dd3e5ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d8b24499ea685a238358fae9dd3e5ec">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshFileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeQuIlNeLitPasEstRefuseEtNomme</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que le lecteur ne lit pas est refusé et nommé, jamais lu de travers. </p>
+<p><b>Cas de test :</b> <b>Ce que le chargeur ne lit pas est refuse et nomme.</b><br  />
+ <b>Categorie :</b> Unitaire · Chargeur de maillages<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Présenter des octets qui ne sont pas un <span class="tt">.glb</span>, un glTF 1, un fichier tronqué.<br  />
+</p><ol type="1">
+<li>Présenter un <span class="tt">.glb</span> valide qui exige une extension, un accesseur creux, un tampon hors du fichier.<br  />
+ <b>Resultat attendu :</b> Les premiers sont des erreurs de lecture ; les seconds sont « non pris en charge », et le message nomme l'extension exigée. Aucun ne lève. </li>
+</ol>
+
+</div>
+</div>
+<a id="a8b492a0fc42d0ab5daa010c43d3f4bcc" name="a8b492a0fc42d0ab5daa010c43d3f4bcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b492a0fc42d0ab5daa010c43d3f4bcc">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshFileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaTransformationDuNoeudPorteLeMaillage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La transformation du nœud est appliquée aux positions ; sans indices, les sommets vont par trois ; sans matière, la couleur est blanche et sans image. </p>
+<p><b>Cas de test :</b> <b>La transformation du noeud porte le maillage.</b><br  />
+ <b>Categorie :</b> Unitaire · Chargeur de maillages<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Bâtir un triangle sans indices ni matière, porté par un nœud translaté de (10, 2, 0) et agrandi deux fois.<br  />
+2. Le lire.<br  />
+ <b>Resultat attendu :</b> Trois sommets, un triangle ; les positions sont agrandies puis translatées ; la couleur de base est blanche, sans image. </p>
+
+</div>
+</div>
+<a id="abc2d3ef0ec938c0a00f6ba8a5288b51f" name="abc2d3ef0ec938c0a00f6ba8a5288b51f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc2d3ef0ec938c0a00f6ba8a5288b51f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshFileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesModelesReelsDeLAtelierSeLisent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les modèles réels de l'atelier se lisent : un relevé, quand un dossier est désigné. </p>
+<p><b>Cas de test :</b> <b>Les modeles reels de l'atelier se lisent.</b><br  />
+ <b>Categorie :</b> Unitaire · Chargeur de maillages<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire chaque <span class="tt">.glb</span> du dossier que nomme la variable <span class="tt">JADG_MESH_SAMPLES</span>.<br  />
+ <b>Resultat attendu :</b> Chacun se lit, a des triangles et une texture ; le relevé (triangles, primitives, durée) est écrit. Sans la variable, le test est sauté : l'atelier n'est jamais livré. </p>
+
+</div>
+</div>
+<a id="a2ac6bfbe6a74d063470bb1b75241aa1e" name="a2ac6bfbe6a74d063470bb1b75241aa1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ac6bfbe6a74d063470bb1b75241aa1e">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshFileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesNoeudsSEnchainentEtLesNormalesTournent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un enfant hérite de la transformation de son parent, et une rotation tourne les normales. </p>
+<p><b>Cas de test :</b> <b>Les noeuds s'enchainent et les normales tournent.</b><br  />
+ <b>Categorie :</b> Unitaire · Chargeur de maillages<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Bâtir un triangle du sol, de normale +Y, porté par un nœud enfant d'un parent tourné d'un quart de tour autour de X.<br  />
+2. Le lire.<br  />
+ <b>Resultat attendu :</b> La normale lue est +Z : le quart de tour autour de X envoie +Y sur +Z. </p>
+
+</div>
+</div>
+<a id="a0d70803bdee388ac2b70a0d2cc4d6c96" name="a0d70803bdee388ac2b70a0d2cc4d6c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d70803bdee388ac2b70a0d2cc4d6c96">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshFileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnFichierAbsentEstUneErreur</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un fichier absent est une erreur du résultat ; un chemin se reconnaît à son extension. </p>
+<p><b>Cas de test :</b> <b>Un fichier absent est une erreur, et un maillage se reconnait a son extension.</b><br  />
+ <b>Categorie :</b> Unitaire · Chargeur de maillages<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire un fichier qui n'existe pas.<br  />
+2. Demander si des chemins sont des maillages.<br  />
+ <b>Resultat attendu :</b> « Fichier introuvable », sans exception ; <span class="tt">.glb</span> et <span class="tt">.GLB</span> sont des maillages, <span class="tt">.png</span> et un nom plus court que l'extension n'en sont pas. </p>
+
+</div>
+</div>
+<a id="a28438648a00fdb9dd9c4320c8fa7e5d1" name="a28438648a00fdb9dd9c4320c8fa7e5d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28438648a00fdb9dd9c4320c8fa7e5d1">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshFileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnFichierIncoherentEstMalForme</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un fichier dont un index, une taille ou un graphe sort de ce qu'il contient est mal formé : rien n'est lu hors du fichier. </p>
+<p><b>Cas de test :</b> <b>Un fichier incoherent est mal forme, sans lecture hors bornes.</b><br  />
+ <b>Categorie :</b> Unitaire · Chargeur de maillages<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Présenter un accesseur qui dépasse sa vue, une vue qui dépasse le bloc binaire, un indice au-delà des sommets, un graphe de nœuds en boucle, une scène sans triangle.<br  />
+ <b>Resultat attendu :</b> Chacun rend « structure mal formée » et un maillage vide. </p>
+
+</div>
+</div>
+<a id="acddadea8740b1e31bf309c3f3c8c39b1" name="acddadea8740b1e31bf309c3f3c8c39b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acddadea8740b1e31bf309c3f3c8c39b1">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshFileTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnMaillageDuStandardSeLitEnEntier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le mur de la carte d'essai se lit en entier : sommets, triangles, boîte, texture. </p>
+<p><b>Cas de test :</b> <b>Un maillage du standard se lit en entier.</b><br  />
+ <b>Categorie :</b> Unitaire · Chargeur de maillages<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire <span class="tt">wall.glb</span>, le bloc de mur de la carte d'essai.<br  />
+</p><ol type="1">
+<li>Relever ses sommets, ses triangles, sa boîte et sa matière.<br  />
+ <b>Resultat attendu :</b> Vingt sommets et dix triangles (quatre flancs et le dessus) ; une boîte d'une case de côté, du sol à la hauteur d'un étage ; des normales unitaires ; une primitive, une matière, une image PNG incorporée, pas de squelette. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_ce0162bee40be316373db36c0f71b686.html">Resources</a></li><li class="navelem"><a href="test__mesh__file_8cpp.html">test_mesh_file.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

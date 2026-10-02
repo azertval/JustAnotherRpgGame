@@ -1,0 +1,360 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/IsoView.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('IsoView_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">IsoView.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="IsoView_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;numbers&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;<a class="code" href="IsoProjection_8h.html">Core/Combat/IsoProjection.h</a>&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="Rect_8h.html">Core/Math/Rect.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;<a class="code" href="Vector2_8h.html">Core/Math/Vector2.h</a>&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &quot;<a class="code" href="Scale_8h.html">Core/Rpg/Scale.h</a>&quot;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">   65</a></span><span class="keyword">using </span><a class="code hl_typedef" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> = std::array&lt;float, 12&gt;;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="};">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structhmi_1_1DepthRange.html">   68</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1DepthRange.html">DepthRange</a> {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structhmi_1_1DepthRange.html#a93b43dedb4d1e92293863f42467d0385">   69</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1DepthRange.html#a93b43dedb4d1e92293863f42467d0385">nearest</a> = -1.0F;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structhmi_1_1DepthRange.html#a73db0a495f0f20964b502679381c8ce2">   70</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structhmi_1_1DepthRange.html#a73db0a495f0f20964b502679381c8ce2">farthest</a> = 1.0F;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structhmi_1_1DepthRange.html#a1bf38559bc91d69d622caebc7fc63c79">   72</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1DepthRange.html#a1bf38559bc91d69d622caebc7fc63c79">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1DepthRange.html">DepthRange</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>};</div>
+</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span></div>
+<div class="foldopen" id="foldopen00076" data-start="{" data-end="};">
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html">   76</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1IsoView.html#a07c188ba901a26f62e83065fbd4ddb47">IsoView</a> {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#aca27ac630e4086b0d2236610b316120c">   80</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1IsoView.html#aca27ac630e4086b0d2236610b316120c">MAXIMUM_SINE</a> = 0.999F;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a9fb5be5183d76f8113a8278a0cb49a12">   84</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1IsoView.html#a9fb5be5183d76f8113a8278a0cb49a12">IMAGE_DEPTH_BIAS_TILES</a> = 0.02F;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a71623dadc71614b127b416a25ea30a68">   88</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1IsoView.html#a71623dadc71614b127b416a25ea30a68">DEPTH_MARGIN_TILES</a> = 64.0F;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a07c188ba901a26f62e83065fbd4ddb47">   90</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classhmi_1_1IsoView.html#a07c188ba901a26f62e83065fbd4ddb47">IsoView</a>(<span class="keyword">const</span> <a class="code hl_class" href="classcore_1_1IsoProjection.html">core::IsoProjection</a>&amp; projection) noexcept</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        : <a class="code hl_variable" href="classhmi_1_1IsoView.html#a412fa6ea1aef07b4191d6fa2a14ceba2">_projection</a>(projection),</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>          <a class="code hl_variable" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">_sine</a>(std::clamp(projection.tileHeight() / projection.tileWidth(), 0.001F, <a class="code hl_variable" href="classhmi_1_1IsoView.html#aca27ac630e4086b0d2236610b316120c">MAXIMUM_SINE</a>)),</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>          <a class="code hl_variable" href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">_cosine</a>(std::sqrt(1.0F - (<a class="code hl_variable" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">_sine</a> * <a class="code hl_variable" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">_sine</a>))),</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>          <a class="code hl_variable" href="classhmi_1_1IsoView.html#a3792b82f01f04957c781c253ffa67b53">_groundY</a>(projection.origin().y) {}</div>
+</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span></div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a09062cdda8f35390cdeac8feb82c6cf7">   97</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1IsoView.html#a09062cdda8f35390cdeac8feb82c6cf7">sine</a>() const noexcept {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">_sine</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a7e89c556f66b69081706a5c1a8e1bf78">  101</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1IsoView.html#a7e89c556f66b69081706a5c1a8e1bf78">cosine</a>() const noexcept {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">_cosine</a>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="foldopen" id="foldopen00107" data-start="{" data-end="}">
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#ad787d7dd23106945ba82a12605949c28">  107</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1IsoView.html#ad787d7dd23106945ba82a12605949c28">unitsPerMetre</a>() const noexcept {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1IsoView.html#a412fa6ea1aef07b4191d6fa2a14ceba2">_projection</a>.tileWidth() / (<a class="code hl_variable" href="namespacecore.html#a511d502baab5befb28a3742b65ee1e61">core::METERS_PER_TILE</a> * std::numbers::sqrt2_v&lt;float&gt;);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    }</div>
+</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span></div>
+<div class="foldopen" id="foldopen00112" data-start="{" data-end="}">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#aa6f2cf07303b1811809cc8347ca9a3d8">  112</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1IsoView.html#aa6f2cf07303b1811809cc8347ca9a3d8">groundDepth</a>(<span class="keywordtype">float</span> y) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">return</span> -(y - <a class="code hl_variable" href="classhmi_1_1IsoView.html#a3792b82f01f04957c781c253ffa67b53">_groundY</a>) * <a class="code hl_variable" href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">_cosine</a> / <a class="code hl_variable" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">_sine</a>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
+</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span></div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="}">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a4f50403419275ef9463b3163a7df25f3">  118</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1IsoView.html#a4f50403419275ef9463b3163a7df25f3">raisedDepth</a>(<span class="keywordtype">float</span> groundY, <span class="keywordtype">float</span> rise) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classhmi_1_1IsoView.html#aa6f2cf07303b1811809cc8347ca9a3d8">groundDepth</a>(groundY) - (rise * <a class="code hl_variable" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">_sine</a> / <a class="code hl_variable" href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">_cosine</a>);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span></div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a1ae40b5a618f03b2591530f9bdf78381">  126</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1IsoView.html#a1ae40b5a618f03b2591530f9bdf78381">standingDepth</a>(<span class="keywordtype">float</span> footY, <span class="keywordtype">float</span> y) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keywordflow">return</span> y &lt; footY ? <a class="code hl_function" href="classhmi_1_1IsoView.html#a4f50403419275ef9463b3163a7df25f3">raisedDepth</a>(footY, footY - y) : <a class="code hl_function" href="classhmi_1_1IsoView.html#aa6f2cf07303b1811809cc8347ca9a3d8">groundDepth</a>(y);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    }</div>
+</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span></div>
+<div class="foldopen" id="foldopen00131" data-start="{" data-end="}">
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a62d09d9e4c423d7c0e1abb33aff3fa6d">  131</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1IsoView.html#a62d09d9e4c423d7c0e1abb33aff3fa6d">imageBias</a>() const noexcept {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1IsoView.html#a9fb5be5183d76f8113a8278a0cb49a12">IMAGE_DEPTH_BIAS_TILES</a> * <a class="code hl_variable" href="classhmi_1_1IsoView.html#a412fa6ea1aef07b4191d6fa2a14ceba2">_projection</a>.tileWidth();</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
+</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span></div>
+<div class="foldopen" id="foldopen00136" data-start="{" data-end="}">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a3b2aba7c0d4a988be4fa88efc2287c15">  136</a></span>    [[nodiscard]] <span class="keywordtype">float</span> <a class="code hl_function" href="classhmi_1_1IsoView.html#a3b2aba7c0d4a988be4fa88efc2287c15">riseOf</a>(<span class="keywordtype">float</span> metres) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordflow">return</span> metres * <a class="code hl_function" href="classhmi_1_1IsoView.html#ad787d7dd23106945ba82a12605949c28">unitsPerMetre</a>() * <a class="code hl_variable" href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">_cosine</a>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    }</div>
+</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span></div>
+<div class="foldopen" id="foldopen00144" data-start="{" data-end="}">
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#aaa76876d12e6a57e715db7565420168b">  144</a></span>    [[nodiscard]] <a class="code hl_typedef" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> <a class="code hl_function" href="classhmi_1_1IsoView.html#aaa76876d12e6a57e715db7565420168b">meshTransform</a>(<a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> gridPoint, <span class="keywordtype">float</span> rise) <span class="keyword">const</span> <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1Vector2.html">core::Vector2</a> origin = <a class="code hl_variable" href="classhmi_1_1IsoView.html#a412fa6ea1aef07b4191d6fa2a14ceba2">_projection</a>.gridToWorld(gridPoint);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="comment">// Un mètre le long d&#39;une colonne ou d&#39;une ligne : un tiers de demi-losange par 0,5 m.</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> along = <a class="code hl_variable" href="classhmi_1_1IsoView.html#a412fa6ea1aef07b4191d6fa2a14ceba2">_projection</a>.tileWidth() / (2.0F * <a class="code hl_variable" href="namespacecore.html#a511d502baab5befb28a3742b65ee1e61">core::METERS_PER_TILE</a>);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> up = <a class="code hl_function" href="classhmi_1_1IsoView.html#ad787d7dd23106945ba82a12605949c28">unitsPerMetre</a>();</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a>{along,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                             0.0F,</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                             -along,</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                             origin.<a class="code hl_variable" href="structcore_1_1Vector2.html#acc547a6ce80872bab375c7f5f84aabda">x</a>,</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                             along * <a class="code hl_variable" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">_sine</a>,</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                             -up * <a class="code hl_variable" href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">_cosine</a>,</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                             along * <a class="code hl_variable" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">_sine</a>,</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                             origin.<a class="code hl_variable" href="structcore_1_1Vector2.html#a59c9a7e50ed630cd84963fc93bca2160">y</a> - rise,</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                             -along * <a class="code hl_variable" href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">_cosine</a>,</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                             -up * <a class="code hl_variable" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">_sine</a>,</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                             -along * <a class="code hl_variable" href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">_cosine</a>,</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                             <a class="code hl_function" href="classhmi_1_1IsoView.html#a4f50403419275ef9463b3163a7df25f3">raisedDepth</a>(origin.<a class="code hl_variable" href="structcore_1_1Vector2.html#a59c9a7e50ed630cd84963fc93bca2160">y</a>, rise)};</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    }</div>
+</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span></div>
+<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a202928e99c023e8c4fb36e62bedf6637">  164</a></span>    [[nodiscard]] <span class="keyword">static</span> std::array&lt;float, 3&gt; <a class="code hl_function" href="classhmi_1_1IsoView.html#a202928e99c023e8c4fb36e62bedf6637">apply</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a>&amp; transform, <span class="keywordtype">float</span> x,</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                                                    <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        <span class="keywordflow">return</span> {(transform[0] * x) + (transform[1] * y) + (transform[2] * z) + transform[3],</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                (transform[4] * x) + (transform[5] * y) + (transform[6] * z) + transform[7],</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                (transform[8] * x) + (transform[9] * y) + (transform[10] * z) + transform[11]};</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    }</div>
+</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span></div>
+<div class="foldopen" id="foldopen00175" data-start="{" data-end="}">
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a30710b9cb69b6b2f586a9a61ad38c52a">  175</a></span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_struct" href="structcore_1_1Rect.html">core::Rect</a> <a class="code hl_function" href="classhmi_1_1IsoView.html#a30710b9cb69b6b2f586a9a61ad38c52a">projectedBounds</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a>&amp; transform,</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                                                    <span class="keyword">const</span> std::array&lt;float, 3&gt;&amp; minimum,</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                                                    <span class="keyword">const</span> std::array&lt;float, 3&gt;&amp; maximum) <span class="keyword">noexcept</span> {</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        <span class="keywordtype">float</span> left = 0.0F;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="keywordtype">float</span> top = 0.0F;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        <span class="keywordtype">float</span> right = 0.0F;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <span class="keywordtype">float</span> bottom = 0.0F;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> corner = 0; corner &lt; 8; ++corner) {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            <span class="keyword">const</span> std::array&lt;float, 3&gt; point =</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                <a class="code hl_function" href="classhmi_1_1IsoView.html#a202928e99c023e8c4fb36e62bedf6637">apply</a>(transform, (corner &amp; 1) != 0 ? maximum[0] : minimum[0],</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                      (corner &amp; 2) != 0 ? maximum[1] : minimum[1],</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                      (corner &amp; 4) != 0 ? maximum[2] : minimum[2]);</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <span class="keywordflow">if</span> (corner == 0) {</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                left = right = point[0];</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                top = bottom = point[1];</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            }</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            left = std::min(left, point[0]);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            right = std::max(right, point[0]);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            top = std::min(top, point[1]);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            bottom = std::max(bottom, point[1]);</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        }</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordflow">return</span> <a class="code hl_struct" href="structcore_1_1Rect.html">core::Rect</a>{{left, top}, {right - left, bottom - top}};</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    }</div>
+</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span></div>
+<div class="foldopen" id="foldopen00201" data-start="{" data-end="}">
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#ab12c02ad1e9dda9091b86a273273b1d3">  201</a></span>    [[nodiscard]] <a class="code hl_struct" href="structhmi_1_1DepthRange.html">DepthRange</a> <a class="code hl_function" href="classhmi_1_1IsoView.html#ab12c02ad1e9dda9091b86a273273b1d3">depthRange</a>() const noexcept {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> margin = <a class="code hl_variable" href="classhmi_1_1IsoView.html#a71623dadc71614b127b416a25ea30a68">DEPTH_MARGIN_TILES</a> * <a class="code hl_variable" href="classhmi_1_1IsoView.html#a412fa6ea1aef07b4191d6fa2a14ceba2">_projection</a>.tileWidth();</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">return</span> <a class="code hl_struct" href="structhmi_1_1DepthRange.html">DepthRange</a>{.nearest = <a class="code hl_function" href="classhmi_1_1IsoView.html#a4f50403419275ef9463b3163a7df25f3">raisedDepth</a>(<a class="code hl_variable" href="classhmi_1_1IsoView.html#a412fa6ea1aef07b4191d6fa2a14ceba2">_projection</a>.sceneSize().y + margin, margin),</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                          .farthest = <a class="code hl_function" href="classhmi_1_1IsoView.html#aa6f2cf07303b1811809cc8347ca9a3d8">groundDepth</a>(-margin)};</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    }</div>
+</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a412fa6ea1aef07b4191d6fa2a14ceba2">  208</a></span>    <a class="code hl_class" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> <a class="code hl_variable" href="classhmi_1_1IsoView.html#a412fa6ea1aef07b4191d6fa2a14ceba2">_projection</a>;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">  209</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">_sine</a>;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">  210</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">_cosine</a>;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="classhmi_1_1IsoView.html#a3792b82f01f04957c781c253ffa67b53">  212</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="classhmi_1_1IsoView.html#a3792b82f01f04957c781c253ffa67b53">_groundY</a>;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>};</div>
+</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aIsoProjection_8h_html"><div class="ttname"><a href="IsoProjection_8h.html">IsoProjection.h</a></div><div class="ttdoc">La projection isométrique du Colisée : d&#39;une case de la grille de combat à sa place dans le monde,...</div></div>
+<div class="ttc" id="aRect_8h_html"><div class="ttname"><a href="Rect_8h.html">Rect.h</a></div><div class="ttdoc">Rectangle aligné sur les axes en coordonnées monde, propre à Core.</div></div>
+<div class="ttc" id="aScale_8h_html"><div class="ttname"><a href="Scale_8h.html">Scale.h</a></div><div class="ttdoc">L&#39;échelle du monde : une case vaut 1,5 mètre.</div></div>
+<div class="ttc" id="aVector2_8h_html"><div class="ttname"><a href="Vector2_8h.html">Vector2.h</a></div><div class="ttdoc">Vecteur 2D à composantes flottantes, propre à Core (sans dépendance DirectX).</div></div>
+<div class="ttc" id="aclasscore_1_1IsoProjection_html"><div class="ttname"><a href="classcore_1_1IsoProjection.html">core::IsoProjection</a></div><div class="ttdoc">La projection isométrique d&#39;une grille de combat de columns × rows cases.</div><div class="ttdef"><b>Definition</b> IsoProjection.h:71</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a07c188ba901a26f62e83065fbd4ddb47"><div class="ttname"><a href="classhmi_1_1IsoView.html#a07c188ba901a26f62e83065fbd4ddb47">hmi::IsoView::IsoView</a></div><div class="ttdeci">IsoView(const core::IsoProjection &amp;projection) noexcept</div><div class="ttdef"><b>Definition</b> IsoView.h:90</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a09062cdda8f35390cdeac8feb82c6cf7"><div class="ttname"><a href="classhmi_1_1IsoView.html#a09062cdda8f35390cdeac8feb82c6cf7">hmi::IsoView::sine</a></div><div class="ttdeci">float sine() const noexcept</div><div class="ttdef"><b>Definition</b> IsoView.h:97</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a1ae40b5a618f03b2591530f9bdf78381"><div class="ttname"><a href="classhmi_1_1IsoView.html#a1ae40b5a618f03b2591530f9bdf78381">hmi::IsoView::standingDepth</a></div><div class="ttdeci">float standingDepth(float footY, float y) const noexcept</div><div class="ttdoc">La profondeur, à l&#39;ordonnée y, d&#39;une image dressée sur la ligne footY : le plan vertical au-dessus du...</div><div class="ttdef"><b>Definition</b> IsoView.h:126</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a202928e99c023e8c4fb36e62bedf6637"><div class="ttname"><a href="classhmi_1_1IsoView.html#a202928e99c023e8c4fb36e62bedf6637">hmi::IsoView::apply</a></div><div class="ttdeci">static std::array&lt; float, 3 &gt; apply(const ViewTransform &amp;transform, float x, float y, float z) noexcept</div><div class="ttdef"><b>Definition</b> IsoView.h:164</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a30710b9cb69b6b2f586a9a61ad38c52a"><div class="ttname"><a href="classhmi_1_1IsoView.html#a30710b9cb69b6b2f586a9a61ad38c52a">hmi::IsoView::projectedBounds</a></div><div class="ttdeci">static core::Rect projectedBounds(const ViewTransform &amp;transform, const std::array&lt; float, 3 &gt; &amp;minimum, const std::array&lt; float, 3 &gt; &amp;maximum) noexcept</div><div class="ttdoc">Le rectangle de l&#39;image qu&#39;occupe la boîte [minimum, maximum] d&#39;un maillage posé par transform : ce q...</div><div class="ttdef"><b>Definition</b> IsoView.h:175</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a3792b82f01f04957c781c253ffa67b53"><div class="ttname"><a href="classhmi_1_1IsoView.html#a3792b82f01f04957c781c253ffa67b53">hmi::IsoView::_groundY</a></div><div class="ttdeci">float _groundY</div><div class="ttdoc">L&#39;ordonnée du coin de grille (0, 0) : le sol y a la profondeur zéro.</div><div class="ttdef"><b>Definition</b> IsoView.h:212</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a3b2aba7c0d4a988be4fa88efc2287c15"><div class="ttname"><a href="classhmi_1_1IsoView.html#a3b2aba7c0d4a988be4fa88efc2287c15">hmi::IsoView::riseOf</a></div><div class="ttdeci">float riseOf(float metres) const noexcept</div><div class="ttdef"><b>Definition</b> IsoView.h:136</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a412fa6ea1aef07b4191d6fa2a14ceba2"><div class="ttname"><a href="classhmi_1_1IsoView.html#a412fa6ea1aef07b4191d6fa2a14ceba2">hmi::IsoView::_projection</a></div><div class="ttdeci">core::IsoProjection _projection</div><div class="ttdef"><b>Definition</b> IsoView.h:208</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a4f50403419275ef9463b3163a7df25f3"><div class="ttname"><a href="classhmi_1_1IsoView.html#a4f50403419275ef9463b3163a7df25f3">hmi::IsoView::raisedDepth</a></div><div class="ttdeci">float raisedDepth(float groundY, float rise) const noexcept</div><div class="ttdef"><b>Definition</b> IsoView.h:118</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a62d09d9e4c423d7c0e1abb33aff3fa6d"><div class="ttname"><a href="classhmi_1_1IsoView.html#a62d09d9e4c423d7c0e1abb33aff3fa6d">hmi::IsoView::imageBias</a></div><div class="ttdeci">float imageBias() const noexcept</div><div class="ttdef"><b>Definition</b> IsoView.h:131</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a71623dadc71614b127b416a25ea30a68"><div class="ttname"><a href="classhmi_1_1IsoView.html#a71623dadc71614b127b416a25ea30a68">hmi::IsoView::DEPTH_MARGIN_TILES</a></div><div class="ttdeci">static constexpr float DEPTH_MARGIN_TILES</div><div class="ttdoc">Marge de l&#39;étendue de profondeur autour de la scène, en largeurs de case : ce qui déborde de la carte...</div><div class="ttdef"><b>Definition</b> IsoView.h:88</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a75b61f6ba111c1a5161b9775b2690046"><div class="ttname"><a href="classhmi_1_1IsoView.html#a75b61f6ba111c1a5161b9775b2690046">hmi::IsoView::_sine</a></div><div class="ttdeci">float _sine</div><div class="ttdef"><b>Definition</b> IsoView.h:209</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a7e89c556f66b69081706a5c1a8e1bf78"><div class="ttname"><a href="classhmi_1_1IsoView.html#a7e89c556f66b69081706a5c1a8e1bf78">hmi::IsoView::cosine</a></div><div class="ttdeci">float cosine() const noexcept</div><div class="ttdef"><b>Definition</b> IsoView.h:101</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_a9fb5be5183d76f8113a8278a0cb49a12"><div class="ttname"><a href="classhmi_1_1IsoView.html#a9fb5be5183d76f8113a8278a0cb49a12">hmi::IsoView::IMAGE_DEPTH_BIAS_TILES</a></div><div class="ttdeci">static constexpr float IMAGE_DEPTH_BIAS_TILES</div><div class="ttdoc">Ce dont une image passe devant sa profondeur calculée, en largeurs de case : un sol en image et un so...</div><div class="ttdef"><b>Definition</b> IsoView.h:84</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_aa6f2cf07303b1811809cc8347ca9a3d8"><div class="ttname"><a href="classhmi_1_1IsoView.html#aa6f2cf07303b1811809cc8347ca9a3d8">hmi::IsoView::groundDepth</a></div><div class="ttdeci">float groundDepth(float y) const noexcept</div><div class="ttdef"><b>Definition</b> IsoView.h:112</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_aaa76876d12e6a57e715db7565420168b"><div class="ttname"><a href="classhmi_1_1IsoView.html#aaa76876d12e6a57e715db7565420168b">hmi::IsoView::meshTransform</a></div><div class="ttdeci">ViewTransform meshTransform(core::Vector2 gridPoint, float rise) const noexcept</div><div class="ttdoc">Pose un maillage : son origine au point de grille gridPoint, élevée de rise (mesuré à l&#39;écran,...</div><div class="ttdef"><b>Definition</b> IsoView.h:144</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_ab12c02ad1e9dda9091b86a273273b1d3"><div class="ttname"><a href="classhmi_1_1IsoView.html#ab12c02ad1e9dda9091b86a273273b1d3">hmi::IsoView::depthRange</a></div><div class="ttdeci">DepthRange depthRange() const noexcept</div><div class="ttdef"><b>Definition</b> IsoView.h:201</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_aca27ac630e4086b0d2236610b316120c"><div class="ttname"><a href="classhmi_1_1IsoView.html#aca27ac630e4086b0d2236610b316120c">hmi::IsoView::MAXIMUM_SINE</a></div><div class="ttdeci">static constexpr float MAXIMUM_SINE</div><div class="ttdoc">Le plus grand sinus d&#39;élévation admis : au-delà, la caméra regarderait à la verticale et la hauteur n...</div><div class="ttdef"><b>Definition</b> IsoView.h:80</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_ad787d7dd23106945ba82a12605949c28"><div class="ttname"><a href="classhmi_1_1IsoView.html#ad787d7dd23106945ba82a12605949c28">hmi::IsoView::unitsPerMetre</a></div><div class="ttdeci">float unitsPerMetre() const noexcept</div><div class="ttdef"><b>Definition</b> IsoView.h:107</div></div>
+<div class="ttc" id="aclasshmi_1_1IsoView_html_aebd669112291a5cd6e25c95ffde46ae1"><div class="ttname"><a href="classhmi_1_1IsoView.html#aebd669112291a5cd6e25c95ffde46ae1">hmi::IsoView::_cosine</a></div><div class="ttdeci">float _cosine</div><div class="ttdef"><b>Definition</b> IsoView.h:210</div></div>
+<div class="ttc" id="anamespacecore_html_a511d502baab5befb28a3742b65ee1e61"><div class="ttname"><a href="namespacecore.html#a511d502baab5befb28a3742b65ee1e61">core::METERS_PER_TILE</a></div><div class="ttdeci">constexpr float METERS_PER_TILE</div><div class="ttdoc">Côté d&#39;une case de la grille tactique, en mètres.</div><div class="ttdef"><b>Definition</b> Scale.h:27</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_abc6aa80f158df082cfe0b7ee36210962"><div class="ttname"><a href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">hmi::ViewTransform</a></div><div class="ttdeci">std::array&lt; float, 12 &gt; ViewTransform</div><div class="ttdoc">Une transformation affine du repère d&#39;un maillage vers celui de la vue : trois lignes (x,...</div><div class="ttdef"><b>Definition</b> IsoView.h:65</div></div>
+<div class="ttc" id="astructcore_1_1Rect_html"><div class="ttname"><a href="structcore_1_1Rect.html">core::Rect</a></div><div class="ttdoc">Rectangle aligné sur les axes (AABB) en unités monde.</div><div class="ttdef"><b>Definition</b> Rect.h:23</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html"><div class="ttname"><a href="structcore_1_1Vector2.html">core::Vector2</a></div><div class="ttdoc">Vecteur bidimensionnel en coordonnées monde (composantes float).</div><div class="ttdef"><b>Definition</b> Vector2.h:21</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_a59c9a7e50ed630cd84963fc93bca2160"><div class="ttname"><a href="structcore_1_1Vector2.html#a59c9a7e50ed630cd84963fc93bca2160">core::Vector2::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition</b> Vector2.h:23</div></div>
+<div class="ttc" id="astructcore_1_1Vector2_html_acc547a6ce80872bab375c7f5f84aabda"><div class="ttname"><a href="structcore_1_1Vector2.html#acc547a6ce80872bab375c7f5f84aabda">core::Vector2::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition</b> Vector2.h:22</div></div>
+<div class="ttc" id="astructhmi_1_1DepthRange_html"><div class="ttname"><a href="structhmi_1_1DepthRange.html">hmi::DepthRange</a></div><div class="ttdoc">L&#39;étendue de profondeur d&#39;une scène : ce que la caméra ramène entre ses deux plans.</div><div class="ttdef"><b>Definition</b> IsoView.h:68</div></div>
+<div class="ttc" id="astructhmi_1_1DepthRange_html_a1bf38559bc91d69d622caebc7fc63c79"><div class="ttname"><a href="structhmi_1_1DepthRange.html#a1bf38559bc91d69d622caebc7fc63c79">hmi::DepthRange::operator==</a></div><div class="ttdeci">bool operator==(const DepthRange &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1DepthRange_html_a73db0a495f0f20964b502679381c8ce2"><div class="ttname"><a href="structhmi_1_1DepthRange.html#a73db0a495f0f20964b502679381c8ce2">hmi::DepthRange::farthest</a></div><div class="ttdeci">float farthest</div><div class="ttdef"><b>Definition</b> IsoView.h:70</div></div>
+<div class="ttc" id="astructhmi_1_1DepthRange_html_a93b43dedb4d1e92293863f42467d0385"><div class="ttname"><a href="structhmi_1_1DepthRange.html#a93b43dedb4d1e92293863f42467d0385">hmi::DepthRange::nearest</a></div><div class="ttdeci">float nearest</div><div class="ttdef"><b>Definition</b> IsoView.h:69</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="IsoView_8h.html">IsoView.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

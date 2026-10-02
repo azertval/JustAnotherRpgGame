@@ -53,5 +53,7 @@ var searchData=
   ['hoveredcellchanged_50',['hoveredCellChanged',['../classhmi_1_1EditorViewport.html#afec959b9a2fdf31d666775b83af252bd',1,'hmi::EditorViewport']]],
   ['hoveredcellforced_51',['hoveredCellForced',['../classhmi_1_1EditorViewport.html#a9483dfdcea629d7f7f6879cc75b75cb1',1,'hmi::EditorViewport']]],
   ['hoverednote_52',['hoveredNote',['../classhmi_1_1EditorViewport.html#adef0e96de6460676435f9e635f375d4d',1,'hmi::EditorViewport']]],
-  ['hoveredpieces_53',['hoveredPieces',['../classhmi_1_1EditorViewport.html#acea96d2cf94cd7780c655afb1ab5c9df',1,'hmi::EditorViewport']]]
+  ['hoveredpieces_53',['hoveredPieces',['../classhmi_1_1EditorViewport.html#acea96d2cf94cd7780c655afb1ab5c9df',1,'hmi::EditorViewport']]],
+  ['hudscalechanged_54',['hudScaleChanged',['../classhmi_1_1OptionsModel.html#afc64dcf1b0fae21cc9622b963c3d892f',1,'hmi::OptionsModel']]],
+  ['hudscalepercent_55',['hudScalePercent',['../classhmi_1_1OptionsModel.html#af07615a0f138f7839c8563a2d5755e6a',1,'hmi::OptionsModel']]]
 ];

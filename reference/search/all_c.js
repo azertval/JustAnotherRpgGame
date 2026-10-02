@@ -26,8 +26,8 @@ var searchData=
   ['hasproperty_23',['hasProperty',['../namespacecore.html#ad0fe834d01c603c0df43af69133dc1e3',1,'core']]],
   ['hassheet_24',['hasSheet',['../structcore_1_1RpgActor.html#a6d3846c50bd7f04cb938044e0388a670',1,'core::RpgActor']]],
   ['hasvisuallayers_25',['hasVisualLayers',['../classhmi_1_1EditorViewport.html#a44e7f1b24929d08333e8ced958c06f72',1,'hmi::EditorViewport']]],
-  ['haut_20se_20désigne_20par_20son_20pied_26',['Un relief haut se désigne par son pied',['../CanvasPicking_8h.html#autotoc_md73',1,'']]],
-  ['hauteur_20réservée_20d11_27',['La hauteur, réservée (D11)',['../CanvasPicking_8h.html#autotoc_md74',1,'']]],
+  ['haut_20se_20désigne_20par_20son_20pied_26',['Un relief haut se désigne par son pied',['../CanvasPicking_8h.html#autotoc_md75',1,'']]],
+  ['hauteur_20réservée_20d11_27',['La hauteur, réservée (D11)',['../CanvasPicking_8h.html#autotoc_md76',1,'']]],
   ['hdmockupfocus_28',['hdMockupFocus',['../namespacetest__support.html#a48a656f190a8d0b31c9e337b2c0437c1',1,'test_support']]],
   ['hdmockupscene_2eh_29',['HdMockupScene.h',['../HdMockupScene_8h.html',1,'']]],
   ['hdmockupsnapshot_30',['hdMockupSnapshot',['../namespacetest__support.html#ae0504ed11cf8afe35cfc6a85ba8cd353',1,'test_support']]],
@@ -106,5 +106,7 @@ var searchData=
   ['hoveredforced_103',['hoveredForced',['../structhmi_1_1LevelStatusInfo.html#a0d258b359594eefc33b451516f2e3c2d',1,'hmi::LevelStatusInfo']]],
   ['hoverednote_104',['hoveredNote',['../structhmi_1_1LevelStatusInfo.html#a6252b8385d7687c85e99ea368b003f64',1,'hmi::LevelStatusInfo::hoveredNote'],['../classhmi_1_1EditorViewport.html#adef0e96de6460676435f9e635f375d4d',1,'hmi::EditorViewport::hoveredNote()']]],
   ['hoveredpieces_105',['hoveredPieces',['../structhmi_1_1LevelStatusInfo.html#a2effd6644d86469c43423355353cded6',1,'hmi::LevelStatusInfo::hoveredPieces'],['../classhmi_1_1EditorViewport.html#acea96d2cf94cd7780c655afb1ab5c9df',1,'hmi::EditorViewport::hoveredPieces()']]],
-  ['huge_106',['Huge',['../namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204aa2ad65f28a717b0fd2be860a0d8e5c3e',1,'core']]]
+  ['hudscalechanged_106',['hudScaleChanged',['../classhmi_1_1OptionsModel.html#afc64dcf1b0fae21cc9622b963c3d892f',1,'hmi::OptionsModel']]],
+  ['hudscalepercent_107',['hudScalePercent',['../classhmi_1_1OptionsModel.html#a78c707ffabce443087d7ae5c1161f4bd',1,'hmi::OptionsModel::hudScalePercent'],['../classhmi_1_1OptionsModel.html#af07615a0f138f7839c8563a2d5755e6a',1,'hmi::OptionsModel::hudScalePercent() const noexcept']]],
+  ['huge_108',['Huge',['../namespacecore.html#ae6c6faeaa28aa7b90280f4dc39237204aa2ad65f28a717b0fd2be860a0d8e5c3e',1,'core']]]
 ];

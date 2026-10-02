@@ -9,6 +9,7 @@ var classhmi_1_1OffscreenRhi =
     [ "renderer", "classhmi_1_1OffscreenRhi.html#ada0bde7f4d049deec15f6569c4355b0d", null ],
     [ "rhi", "classhmi_1_1OffscreenRhi.html#aeabf86177b2acde950069a242e5ada80", null ],
     [ "shared", "classhmi_1_1OffscreenRhi.html#a1131c622e7505cf40a79287e8cfb99d6", null ],
+    [ "_depth", "classhmi_1_1OffscreenRhi.html#acfc76a57df4eabdc5feb4a65d5054c50", null ],
     [ "_pass", "classhmi_1_1OffscreenRhi.html#a0858fdd8d54dd2e5e43d9d0f33d69e74", null ],
     [ "_renderers", "classhmi_1_1OffscreenRhi.html#ae9d477d92cfcaa4bcb74979d8ed45635", null ],
     [ "_rhi", "classhmi_1_1OffscreenRhi.html#ad94f922cc0e16d7e6c693871af9174a3", null ],

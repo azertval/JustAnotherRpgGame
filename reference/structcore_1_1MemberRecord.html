@@ -156,6 +156,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a9528144c728aeeda237f2283fac6880e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les points de vie courants ; absent : ceux de la fiche.  <br /></td></tr>
 <tr class="memitem:a465fe6b4e75ecc4f7db3c7fd75a6533d" id="r_a465fe6b4e75ecc4f7db3c7fd75a6533d"><td class="memItemLeft">std::map&lt; std::string, int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a465fe6b4e75ecc4f7db3c7fd75a6533d">spellUses</a></td></tr>
 <tr class="memdesc:a465fe6b4e75ecc4f7db3c7fd75a6533d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les lancers restants de chaque sort connu (identifiant du sort → lancers) ; un sort absent garde ceux de la fiche.  <br /></td></tr>
+<tr class="memitem:a06a2cf28f383e99abbb3c6f3c30274ab" id="r_a06a2cf28f383e99abbb3c6f3c30274ab"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1Inventory.html">Inventory</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a06a2cf28f383e99abbb3c6f3c30274ab">inventory</a></td></tr>
+<tr class="memdesc:a06a2cf28f383e99abbb3c6f3c30274ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inventaire modifié en partie ; absent : celui de la fiche écrite.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>L'état d'un membre après un combat, par rapport à sa fiche écrite. </p>
@@ -173,6 +175,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les points de vie courants ; absent : ceux de la fiche. </p>
+
+</div>
+</div>
+<a id="a06a2cf28f383e99abbb3c6f3c30274ab" name="a06a2cf28f383e99abbb3c6f3c30274ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06a2cf28f383e99abbb3c6f3c30274ab">&#9670;&#160;</a></span>inventory</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1Inventory.html">Inventory</a>&gt; core::MemberRecord::inventory</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inventaire modifié en partie ; absent : celui de la fiche écrite. </p>
 
 </div>
 </div>

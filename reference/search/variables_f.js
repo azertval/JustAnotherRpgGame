@@ -12,7 +12,7 @@ var searchData=
   ['onceperturn_9',['oncePerTurn',['../structcore_1_1CapacityEffect.html#a80a31ac675a287c75216f1b713082c3c',1,'core::CapacityEffect::oncePerTurn'],['../structcore_1_1NamedExtraDamage.html#a54ffadc4bba42b29efd7a85d295f92be',1,'core::NamedExtraDamage::oncePerTurn']]],
   ['onfailure_10',['onFailure',['../structcore_1_1DialogueNode.html#a48314ab2be0bcf60f41f666f48b62b3f',1,'core::DialogueNode']]],
   ['onsuccess_11',['onSuccess',['../structcore_1_1DialogueNode.html#aa4facb79ca846633e7b448c1630576b3',1,'core::DialogueNode']]],
-  ['opacity_12',['opacity',['../structhmi_1_1LayerDisplay.html#a9e9aee09d588649fdfce3452cbe4f215',1,'hmi::LayerDisplay']]],
+  ['opacity_12',['opacity',['../structhmi_1_1LayerDisplay.html#a9e9aee09d588649fdfce3452cbe4f215',1,'hmi::LayerDisplay::opacity'],['../structhmi_1_1ComposedMesh.html#a781923365eb8e513eb5f15de03cf6d9f',1,'hmi::ComposedMesh::opacity'],['../structhmi_1_1MeshBatch_1_1Draw.html#a9b5e2fd90643fe18cbc28191ac1e08ef',1,'hmi::MeshBatch::Draw::opacity']]],
   ['opacitylabel_13',['opacityLabel',['../structhmi_1_1LayersPanel_1_1Widgets.html#a8c98ec9caf83c9d5e5d44c3999a9d7b2',1,'hmi::LayersPanel::Widgets']]],
   ['opacityslider_14',['opacitySlider',['../structhmi_1_1LayersPanel_1_1Widgets.html#a9f0b43d31e64a989585baf1ad242c731',1,'hmi::LayersPanel::Widgets']]],
   ['opacityvalue_15',['opacityValue',['../structhmi_1_1LayersPanel_1_1Widgets.html#a57c9c6e231f69f8827ef380168d9c387',1,'hmi::LayersPanel::Widgets']]],
@@ -27,5 +27,6 @@ var searchData=
   ['originy_24',['originY',['../structhmi_1_1MapImageGrid.html#af3e602ab6a7c4259afd5f90d76b8ef68',1,'hmi::MapImageGrid']]],
   ['otherpercent_25',['otherPercent',['../structcore_1_1RegionPopulation.html#a0f8f13b808b437e0283dba47d3368a86',1,'core::RegionPopulation']]],
   ['outcome_26',['outcome',['../structcore_1_1ArenaAttack.html#a132666f2ae9aa71e512b582003eb70a3',1,'core::ArenaAttack::outcome'],['../structcore_1_1QuestStep.html#aeb2248df7a7db75a7cbf16a8c143de89',1,'core::QuestStep::outcome'],['../structcore_1_1QuestEvent.html#a5f0242c2e3813b307dc2f82d4ba95b06',1,'core::QuestEvent::outcome']]],
-  ['overflow_27',['overflow',['../structcore_1_1CombatEvent.html#aca4ca7b9c011cd32b9ba814043162516',1,'core::CombatEvent::overflow'],['../structcore_1_1DamageReport.html#ae06f13af66682a6bba8f5305e70db49c',1,'core::DamageReport::overflow']]]
+  ['overflow_27',['overflow',['../structcore_1_1CombatEvent.html#aca4ca7b9c011cd32b9ba814043162516',1,'core::CombatEvent::overflow'],['../structcore_1_1DamageReport.html#ae06f13af66682a6bba8f5305e70db49c',1,'core::DamageReport::overflow']]],
+  ['overlay_5ffraction_28',['OVERLAY_FRACTION',['../structhmi_1_1SceneDepth.html#a27780ced902ca7440c136c349f01d73f',1,'hmi::SceneDepth']]]
 ];

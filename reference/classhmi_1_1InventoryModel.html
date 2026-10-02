@@ -165,6 +165,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:add0a7a905b9694a05f9ee1c825ab50a2" id="r_add0a7a905b9694a05f9ee1c825ab50a2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#add0a7a905b9694a05f9ee1c825ab50a2">~InventoryModel</a> () override</td></tr>
 <tr class="memitem:ae521bfbb820cf51d0071a4230ed3db19" id="r_ae521bfbb820cf51d0071a4230ed3db19"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ae521bfbb820cf51d0071a4230ed3db19">loadDemonstrationCharacter</a> ()</td></tr>
 <tr class="memdesc:ae521bfbb820cf51d0071a4230ed3db19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le personnage de démonstration.  <br /></td></tr>
+<tr class="memitem:a0990ad9a71d71c400ea117975f574959" id="r_a0990ad9a71d71c400ea117975f574959"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a0990ad9a71d71c400ea117975f574959">loadShownCharacter</a> ()</td></tr>
+<tr class="memdesc:a0990ad9a71d71c400ea117975f574959"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge le membre désigné par la fiche, sinon le meneur.  <br /></td></tr>
+<tr class="memitem:afd323f11bd0fb16426ce50578ebc56f7" id="r_afd323f11bd0fb16426ce50578ebc56f7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#afd323f11bd0fb16426ce50578ebc56f7">characterId</a> () const</td></tr>
+<tr class="memitem:a40f8998accc2458a4c28db1cc5513488" id="r_a40f8998accc2458a4c28db1cc5513488"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a40f8998accc2458a4c28db1cc5513488">query</a> () const</td></tr>
+<tr class="memitem:aba475a7e3041ad259767aba650cdb7df" id="r_aba475a7e3041ad259767aba650cdb7df"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aba475a7e3041ad259767aba650cdb7df">setQuery</a> (const QString &amp;<a class="el" href="#a6ca0a33f10d4f3e4712c9e2735151273">query</a>)</td></tr>
 <tr class="memitem:a833be550ae864ad77b5affaa33e64a51" id="r_a833be550ae864ad77b5affaa33e64a51"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a833be550ae864ad77b5affaa33e64a51">selectItem</a> (const QString &amp;itemId)</td></tr>
 <tr class="memdesc:a833be550ae864ad77b5affaa33e64a51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sélectionne une pile du sac ; une chaîne vide efface la sélection.  <br /></td></tr>
 <tr class="memitem:ade17cf0ed8ae158fb3400e151f786e3a" id="r_ade17cf0ed8ae158fb3400e151f786e3a"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#ade17cf0ed8ae158fb3400e151f786e3a">selectSlot</a> (const QString &amp;slot)</td></tr>
@@ -206,6 +211,8 @@ Properties</h2></td></tr>
 <tr class="memdesc:a74c65696e342d7b763f4883e4d17c7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que chaque emplacement porte, par identifiant (<span class="tt">main-hand</span>) : <span class="tt">{itemId, name}</span>.  <br /></td></tr>
 <tr class="memitem:a004b5cb6fe63070c481432296464df03" id="r_a004b5cb6fe63070c481432296464df03"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a004b5cb6fe63070c481432296464df03">filter</a></td></tr>
 <tr class="memdesc:a004b5cb6fe63070c481432296464df03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Filtre de la grille : 0 tous, 1 équipement, 2 matériel, 3 outils (<span class="tt"><a class="el" href="namespacehmi.html#a874cdf4b3785a41ee4cfc4ae882c2df5" title="Les familles d&#39;objets que les onglets de l&#39;inventaire filtrent.">hmi::ItemFamily</a></span>).  <br /></td></tr>
+<tr class="memitem:a6ca0a33f10d4f3e4712c9e2735151273" id="r_a6ca0a33f10d4f3e4712c9e2735151273"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a6ca0a33f10d4f3e4712c9e2735151273">query</a></td></tr>
+<tr class="memitem:aaa382e36a9fc81e883140394b761e4b4" id="r_aaa382e36a9fc81e883140394b761e4b4"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aaa382e36a9fc81e883140394b761e4b4">characterId</a></td></tr>
 <tr class="memitem:abf7d0e7e5be5b6e58c16e4f973549d9a" id="r_abf7d0e7e5be5b6e58c16e4f973549d9a"><td class="memItemLeft">QVariantList&#160;</td><td class="memItemRight"><a class="el" href="#abf7d0e7e5be5b6e58c16e4f973549d9a">cells</a></td></tr>
 <tr class="memdesc:abf7d0e7e5be5b6e58c16e4f973549d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les piles du sac que le filtre retient : <span class="tt">{itemId, name, quantity}</span>.  <br /></td></tr>
 <tr class="memitem:a4482591aaae9745574c68b268a4d2105" id="r_a4482591aaae9745574c68b268a4d2105"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a4482591aaae9745574c68b268a4d2105">selectedItem</a></td></tr>
@@ -227,6 +234,8 @@ Properties</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:af5dff7100eadc6d8007910570fbea1c0" id="r_af5dff7100eadc6d8007910570fbea1c0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af5dff7100eadc6d8007910570fbea1c0">refresh</a> ()</td></tr>
 <tr class="memdesc:af5dff7100eadc6d8007910570fbea1c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recalcule toutes les valeurs publiées depuis l'état, puis prévient.  <br /></td></tr>
+<tr class="memitem:aa601a1153bbee8fd686fa18679075834" id="r_aa601a1153bbee8fd686fa18679075834"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa601a1153bbee8fd686fa18679075834">persist</a> ()</td></tr>
+<tr class="memdesc:aa601a1153bbee8fd686fa18679075834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retient les modifications dans la partie avant de republier les statistiques.  <br /></td></tr>
 <tr class="memitem:a3a2d5b6bee8db4701e4938a70f52a67a" id="r_a3a2d5b6bee8db4701e4938a70f52a67a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3a2d5b6bee8db4701e4938a70f52a67a">value</a> (const char *key) const</td></tr>
 <tr class="memitem:aa7c25873f9e283d3abbc9772b4bc1fd1" id="r_aa7c25873f9e283d3abbc9772b4bc1fd1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa7c25873f9e283d3abbc9772b4bc1fd1">sheetValue</a> (const char *key) const</td></tr>
 </table><table class="memberdecls">
@@ -236,6 +245,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:adc21c016b772e4f29a8520ac89faaa3e" id="r_adc21c016b772e4f29a8520ac89faaa3e"><td class="memItemLeft">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adc21c016b772e4f29a8520ac89faaa3e">_values</a></td></tr>
 <tr class="memitem:a10f3bf9e46642b81b79ed66094737ccc" id="r_a10f3bf9e46642b81b79ed66094737ccc"><td class="memItemLeft">std::map&lt; std::string, std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a10f3bf9e46642b81b79ed66094737ccc">_sheetValues</a></td></tr>
 <tr class="memitem:a2a719d08140475e86364fd5c855767ae" id="r_a2a719d08140475e86364fd5c855767ae"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2a719d08140475e86364fd5c855767ae">_filter</a> = 0</td></tr>
+<tr class="memitem:a8bf470599fd48e08b3ed4a066513ef66" id="r_a8bf470599fd48e08b3ed4a066513ef66"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a8bf470599fd48e08b3ed4a066513ef66">_query</a></td></tr>
+<tr class="memitem:acd1e56becf02afbe0f3c729863461000" id="r_acd1e56becf02afbe0f3c729863461000"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#acd1e56becf02afbe0f3c729863461000">_characterId</a></td></tr>
 <tr class="memitem:aaccdd0582bfcff00254f71b5b7712b77" id="r_aaccdd0582bfcff00254f71b5b7712b77"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aaccdd0582bfcff00254f71b5b7712b77">_selectedItem</a></td></tr>
 <tr class="memitem:ae9c194bd97d2971dca2764376c0349f0" id="r_ae9c194bd97d2971dca2764376c0349f0"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae9c194bd97d2971dca2764376c0349f0">_selectedSlot</a></td></tr>
 <tr class="memitem:a56796c92cf32a682b7d5abfe39858206" id="r_a56796c92cf32a682b7d5abfe39858206"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a56796c92cf32a682b7d5abfe39858206">_loadRatio</a> = 0.0</td></tr>
@@ -449,6 +460,31 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="afd323f11bd0fb16426ce50578ebc56f7" name="afd323f11bd0fb16426ce50578ebc56f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd323f11bd0fb16426ce50578ebc56f7">&#9670;&#160;</a></span>characterId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::InventoryModel::characterId </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="afe4073a9bd332076c099f1556852107a" name="afe4073a9bd332076c099f1556852107a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe4073a9bd332076c099f1556852107a">&#9670;&#160;</a></span>dropSelected()</h2>
 
@@ -633,6 +669,25 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0990ad9a71d71c400ea117975f574959" name="a0990ad9a71d71c400ea117975f574959"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0990ad9a71d71c400ea117975f574959">&#9670;&#160;</a></span>loadShownCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InventoryModel::loadShownCharacter </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Charge le membre désigné par la fiche, sinon le meneur. </p>
+
+</div>
+</div>
 <a id="a7ff78f3d719d11321ef4b3e6939c8f77" name="a7ff78f3d719d11321ef4b3e6939c8f77"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ff78f3d719d11321ef4b3e6939c8f77">&#9670;&#160;</a></span>passivePerception()</h2>
 
@@ -658,6 +713,33 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa601a1153bbee8fd686fa18679075834" name="aa601a1153bbee8fd686fa18679075834"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa601a1153bbee8fd686fa18679075834">&#9670;&#160;</a></span>persist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InventoryModel::persist </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Retient les modifications dans la partie avant de republier les statistiques. </p>
+
+</div>
+</div>
 <a id="ad145dfad038799a59937922c2aa24a5a" name="ad145dfad038799a59937922c2aa24a5a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad145dfad038799a59937922c2aa24a5a">&#9670;&#160;</a></span>purse()</h2>
 
@@ -669,6 +751,31 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">QString hmi::InventoryModel::purse </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a40f8998accc2458a4c28db1cc5513488" name="a40f8998accc2458a4c28db1cc5513488"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40f8998accc2458a4c28db1cc5513488">&#9670;&#160;</a></span>query()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::InventoryModel::query </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -840,6 +947,23 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aba475a7e3041ad259767aba650cdb7df" name="aba475a7e3041ad259767aba650cdb7df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba475a7e3041ad259767aba650cdb7df">&#9670;&#160;</a></span>setQuery()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::InventoryModel::setQuery </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>query</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa7c25873f9e283d3abbc9772b4bc1fd1" name="aa7c25873f9e283d3abbc9772b4bc1fd1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa7c25873f9e283d3abbc9772b4bc1fd1">&#9670;&#160;</a></span>sheetValue()</h2>
 
@@ -954,6 +1078,28 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="acd1e56becf02afbe0f3c729863461000" name="acd1e56becf02afbe0f3c729863461000"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd1e56becf02afbe0f3c729863461000">&#9670;&#160;</a></span>_characterId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::InventoryModel::_characterId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2a719d08140475e86364fd5c855767ae" name="a2a719d08140475e86364fd5c855767ae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a719d08140475e86364fd5c855767ae">&#9670;&#160;</a></span>_filter</h2>
 
@@ -987,6 +1133,28 @@ Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">qreal hmi::InventoryModel::_loadRatio = 0.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8bf470599fd48e08b3ed4a066513ef66" name="a8bf470599fd48e08b3ed4a066513ef66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bf470599fd48e08b3ed4a066513ef66">&#9670;&#160;</a></span>_query</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::InventoryModel::_query</td>
         </tr>
       </table>
   </td>
@@ -1223,6 +1391,28 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aaa382e36a9fc81e883140394b761e4b4" name="aaa382e36a9fc81e883140394b761e4b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa382e36a9fc81e883140394b761e4b4">&#9670;&#160;</a></span>characterId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::InventoryModel::characterId</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a74c65696e342d7b763f4883e4d17c7a6" name="a74c65696e342d7b763f4883e4d17c7a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a74c65696e342d7b763f4883e4d17c7a6">&#9670;&#160;</a></span>equipped</h2>
 
@@ -1384,6 +1574,28 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La bourse, déjà mise en forme (« 37 po ») ; un tiret cadratin tant que rien ne l'alimente. </p>
+
+</div>
+</div>
+<a id="a6ca0a33f10d4f3e4712c9e2735151273" name="a6ca0a33f10d4f3e4712c9e2735151273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca0a33f10d4f3e4712c9e2735151273">&#9670;&#160;</a></span>query</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::InventoryModel::query</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

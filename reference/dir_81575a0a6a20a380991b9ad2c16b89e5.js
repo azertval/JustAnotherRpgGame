@@ -4,6 +4,8 @@ var dir_81575a0a6a20a380991b9ad2c16b89e5 =
     [ "AssetKey.h", "AssetKey_8h.html", "AssetKey_8h" ],
     [ "AssetMarker.cpp", "AssetMarker_8cpp.html", "AssetMarker_8cpp" ],
     [ "AssetMarker.h", "AssetMarker_8h.html", "AssetMarker_8h" ],
+    [ "MeshFile.cpp", "MeshFile_8cpp.html", "MeshFile_8cpp" ],
+    [ "MeshFile.h", "MeshFile_8h.html", "MeshFile_8h" ],
     [ "ScenePieceManifest.cpp", "ScenePieceManifest_8cpp.html", "ScenePieceManifest_8cpp" ],
     [ "ScenePieceManifest.h", "ScenePieceManifest_8h.html", "ScenePieceManifest_8h" ],
     [ "ScenePlace.cpp", "ScenePlace_8cpp.html", "ScenePlace_8cpp" ],

@@ -17,7 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/Camera2D.h File Reference</title>
+<title>JustAnotherRpgGame: hmi::SceneDepth Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,7 +113,7 @@ $(function() { codefold.init(); });
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('Camera2D_8h.html','',''); });
+$(function(){initNavTree('structhmi_1_1SceneDepth.html','','structhmi_1_1SceneDepth-members'); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -139,30 +139,115 @@ $(function(){initNavTree('Camera2D_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">Camera2D.h File Reference</div></div>
+  <div class="headertitle"><div class="title">hmi::SceneDepth Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Caméra 2D : conversion entre unités monde et pixels écran.  
-<a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;DirectXMath.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
-</div>
-<p><a href="Camera2D_8h_source.html">Go to the source code of this file.</a></p>
+<p>Ce qu'il faut pour donner sa <b>profondeur</b> à chaque image d'une scène qui a des maillages (<span class="tt">LOT-1003</span>) : la vue en volume, et l'étendue que la caméra en garde.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="SpriteRenderer_8h_source.html">SpriteRenderer.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:hmi_3A_3ACamera2D" id="r_hmi_3A_3ACamera2D"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1Camera2D.html">hmi::Camera2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Caméra 2D orthographique : projette le monde vers l'écran pour le rendu.  <a href="classhmi_1_1Camera2D.html#details">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aecc5c444ede81bd563be8749af028bf5" id="r_aecc5c444ede81bd563be8749af028bf5"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aecc5c444ede81bd563be8749af028bf5">overlayDepth</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ae5983c9254a8d047ce6f109f4a009758" id="r_ae5983c9254a8d047ce6f109f4a009758"><td class="memItemLeft"><a class="el" href="classhmi_1_1IsoView.html">IsoView</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae5983c9254a8d047ce6f109f4a009758">view</a></td></tr>
+<tr class="memitem:aa4507fb60673f6b758301d2e8fe57137" id="r_aa4507fb60673f6b758301d2e8fe57137"><td class="memItemLeft"><a class="el" href="structhmi_1_1DepthRange.html">DepthRange</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa4507fb60673f6b758301d2e8fe57137">range</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a27780ced902ca7440c136c349f01d73f" id="r_a27780ced902ca7440c136c349f01d73f"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a27780ced902ca7440c136c349f01d73f">OVERLAY_FRACTION</a> = 1.0e-4F</td></tr>
+<tr class="memdesc:a27780ced902ca7440c136c349f01d73f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La part de l'étendue qui sépare une marque du plan le plus proche : assez pour qu'un arrondi ne la fasse pas sortir du volume de la caméra.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Caméra 2D : conversion entre unités monde et pixels écran. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Ce qu'il faut pour donner sa <b>profondeur</b> à chaque image d'une scène qui a des maillages (<span class="tt">LOT-1003</span>) : la vue en volume, et l'étendue que la caméra en garde. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aecc5c444ede81bd563be8749af028bf5" name="aecc5c444ede81bd563be8749af028bf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecc5c444ede81bd563be8749af028bf5">&#9670;&#160;</a></span>overlayDepth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::SceneDepth::overlayDepth </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La profondeur d'une marque (<span class="tt"><a class="el" href="namespacehmi.html#a4d6a8601e9d5a4622b41e9678b1da535a6b551379c3c0b59326abdaf3b4395bd3" title="Une marque sur le plan (jeton, tracé, aide d&#39;édition) : devant tout, jamais masquée.">QuadStance::Overlay</a></span>) : juste derrière le plan le plus proche, donc devant tout volume. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a27780ced902ca7440c136c349f01d73f" name="a27780ced902ca7440c136c349f01d73f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27780ced902ca7440c136c349f01d73f">&#9670;&#160;</a></span>OVERLAY_FRACTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::SceneDepth::OVERLAY_FRACTION = 1.0e-4F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La part de l'étendue qui sépare une marque du plan le plus proche : assez pour qu'un arrondi ne la fasse pas sortir du volume de la caméra. </p>
+
+</div>
+</div>
+<a id="aa4507fb60673f6b758301d2e8fe57137" name="aa4507fb60673f6b758301d2e8fe57137"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4507fb60673f6b758301d2e8fe57137">&#9670;&#160;</a></span>range</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1DepthRange.html">DepthRange</a> hmi::SceneDepth::range</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae5983c9254a8d047ce6f109f4a009758" name="ae5983c9254a8d047ce6f109f4a009758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5983c9254a8d047ce6f109f4a009758">&#9670;&#160;</a></span>view</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1IsoView.html">IsoView</a> hmi::SceneDepth::view</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="SpriteRenderer_8h_source.html">SpriteRenderer.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -175,7 +260,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="Camera2D_8h.html">Camera2D.h</a></li>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="structhmi_1_1SceneDepth.html">SceneDepth</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

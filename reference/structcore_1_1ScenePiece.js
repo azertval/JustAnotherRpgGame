@@ -1,6 +1,7 @@
 var structcore_1_1ScenePiece =
 [
     [ "footprint", "structcore_1_1ScenePiece.html#a3007113a2df28f76da5e67d11eeb1986", null ],
+    [ "isMesh", "structcore_1_1ScenePiece.html#a806a356b6384fbb32f1f6de32a8d28a6", null ],
     [ "operator==", "structcore_1_1ScenePiece.html#a1e1b67c75d3e7d3ab6b5c389ddb71308", null ],
     [ "path", "structcore_1_1ScenePiece.html#a95e3be7b50645669d22d20838fc4e84c", null ],
     [ "aliases", "structcore_1_1ScenePiece.html#a4c40e2acdc88439674762e5402ba224d", null ],
@@ -14,6 +15,7 @@ var structcore_1_1ScenePiece =
     [ "height", "structcore_1_1ScenePiece.html#a9529ec69148f8f8a393c21b188dcd7da", null ],
     [ "key", "structcore_1_1ScenePiece.html#a0baa3d1830021d1eedb0d067a05565bc", null ],
     [ "level", "structcore_1_1ScenePiece.html#ac36eb97c4fccbb4d271ca7a392fce780", null ],
+    [ "mesh", "structcore_1_1ScenePiece.html#adcddbb5308483c00c06b56a5751a3019", null ],
     [ "mirrorOf", "structcore_1_1ScenePiece.html#a2edc0cbade8abd293671d037c45bd9a0", null ],
     [ "name", "structcore_1_1ScenePiece.html#ac358a548d00c1477032362dfb8f3247b", null ],
     [ "pieceClass", "structcore_1_1ScenePiece.html#a922394e6582c74f12072082c93615121", null ],

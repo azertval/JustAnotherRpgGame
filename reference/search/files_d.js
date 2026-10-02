@@ -24,8 +24,10 @@ var searchData=
   ['piecefootprint_2eh_21',['PieceFootprint.h',['../PieceFootprint_8h.html',1,'']]],
   ['placeappearance_2ecpp_22',['PlaceAppearance.cpp',['../PlaceAppearance_8cpp.html',1,'']]],
   ['placeappearance_2eh_23',['PlaceAppearance.h',['../PlaceAppearance_8h.html',1,'']]],
-  ['problemspanel_2ecpp_24',['ProblemsPanel.cpp',['../ProblemsPanel_8cpp.html',1,'']]],
-  ['problemspanel_2eh_25',['ProblemsPanel.h',['../ProblemsPanel_8h.html',1,'']]],
-  ['proceduralatlas_2ecpp_26',['ProceduralAtlas.cpp',['../ProceduralAtlas_8cpp.html',1,'']]],
-  ['proceduralatlas_2eh_27',['ProceduralAtlas.h',['../ProceduralAtlas_8h.html',1,'']]]
+  ['placecamera_2ecpp_24',['PlaceCamera.cpp',['../PlaceCamera_8cpp.html',1,'']]],
+  ['placecamera_2eh_25',['PlaceCamera.h',['../PlaceCamera_8h.html',1,'']]],
+  ['problemspanel_2ecpp_26',['ProblemsPanel.cpp',['../ProblemsPanel_8cpp.html',1,'']]],
+  ['problemspanel_2eh_27',['ProblemsPanel.h',['../ProblemsPanel_8h.html',1,'']]],
+  ['proceduralatlas_2ecpp_28',['ProceduralAtlas.cpp',['../ProceduralAtlas_8cpp.html',1,'']]],
+  ['proceduralatlas_2eh_29',['ProceduralAtlas.h',['../ProceduralAtlas_8h.html',1,'']]]
 ];

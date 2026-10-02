@@ -1,0 +1,321 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__ui__preferences__and__inventory_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_ui_preferences_and_inventory.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;QCoreApplication&gt;</code><br />
+<code>#include &lt;QSettings&gt;</code><br />
+<code>#include &lt;QTemporaryDir&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="PartyLedger_8h_source.html">Core/Rpg/PartyLedger.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="InventoryModel_8h_source.html">HMI/Runtime/InventoryModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="OptionsModel_8h_source.html">HMI/Runtime/OptionsModel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScreenRouter_8h_source.html">HMI/Runtime/ScreenRouter.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldModel_8h_source.html">HMI/Runtime/WorldModel.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a982428c959474696b372caafcc8aeefb" id="r_a982428c959474696b372caafcc8aeefb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a982428c959474696b372caafcc8aeefb">TEST</a> (UiPreferencesTest, HudSizeIsBoundedAndSurvivesReload)</td></tr>
+<tr class="memdesc:a982428c959474696b372caafcc8aeefb"><td class="mdescLeft">&#160;</td><td class="mdescRight">La taille du HUD est bornée de 75 % à 130 % et survit à un rechargement des préférences.  <br /></td></tr>
+<tr class="memitem:a703065d151b817645bfbf040f36f15da" id="r_a703065d151b817645bfbf040f36f15da"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a703065d151b817645bfbf040f36f15da">TEST</a> (InventoryModelTest, EquipmentSurvivesReopeningAndCombatRecords)</td></tr>
+<tr class="memdesc:a703065d151b817645bfbf040f36f15da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un changement d'équipement reste sur le mercenaire affiché quand l'écran se rouvre, et après un relevé de combat.  <br /></td></tr>
+<tr class="memitem:a6261a504ce63edb11a1cc0c4c3b20344" id="r_a6261a504ce63edb11a1cc0c4c3b20344"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6261a504ce63edb11a1cc0c4c3b20344">TEST</a> (InventoryModelTest, RestPreservesEquipmentAndClearsSpentResources)</td></tr>
+<tr class="memdesc:a6261a504ce63edb11a1cc0c4c3b20344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un repos rend les ressources dépensées et garde l'inventaire.  <br /></td></tr>
+<tr class="memitem:af22959de514f2e5996a26efac53af075" id="r_af22959de514f2e5996a26efac53af075"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af22959de514f2e5996a26efac53af075">TEST</a> (ScreenRouterTest, CodexAndOptionsReturnToOngoingCombat)</td></tr>
+<tr class="memdesc:af22959de514f2e5996a26efac53af075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fermer le codex ou les options ramène au combat en cours, pas à l'exploration.  <br /></td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a703065d151b817645bfbf040f36f15da" name="a703065d151b817645bfbf040f36f15da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a703065d151b817645bfbf040f36f15da">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">EquipmentSurvivesReopeningAndCombatRecords</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un changement d'équipement reste sur le mercenaire affiché quand l'écran se rouvre, et après un relevé de combat. </p>
+<p><b>Cas de test :</b> <b>L'equipement survit a la reouverture de l'ecran et au combat.</b><br  />
+ <b>Categorie :</b> Unitaire · Inventaire<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Retirer une piece equipee du mercenaire affiche.<br  />
+</p><ol type="1">
+<li>Rouvrir l'inventaire.<br  />
+</li>
+<li>Enregistrer un releve de combat pour ce mercenaire, rééquiper la piece, rouvrir.<br  />
+</li>
+<li>Chercher un objet qui n'existe pas.<br  />
+ <b>Resultat attendu :</b> A la reouverture, la piece est dans le sac et son emplacement est vide ; le releve de combat garde l'inventaire ; la piece reequipee est a son emplacement ; la recherche sans resultat ne montre aucune case. </li>
+</ol>
+
+</div>
+</div>
+<a id="a6261a504ce63edb11a1cc0c4c3b20344" name="a6261a504ce63edb11a1cc0c4c3b20344"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6261a504ce63edb11a1cc0c4c3b20344">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">InventoryModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RestPreservesEquipmentAndClearsSpentResources</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un repos rend les ressources dépensées et garde l'inventaire. </p>
+<p><b>Cas de test :</b> <b>Un repos garde l'equipement et rend les ressources depensees.</b><br  />
+ <b>Categorie :</b> Unitaire · Registre du groupe<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire au registre un mercenaire blesse, un sort depense, une bourse de 123 pieces.<br  />
+</p><ol type="1">
+<li>Le faire se reposer.<br  />
+ <b>Resultat attendu :</b> Les points de vie et les lancers depenses sont oublies ; l'inventaire et sa bourse de 123 pieces sont gardes. </li>
+</ol>
+
+</div>
+</div>
+<a id="af22959de514f2e5996a26efac53af075" name="af22959de514f2e5996a26efac53af075"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af22959de514f2e5996a26efac53af075">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">ScreenRouterTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CodexAndOptionsReturnToOngoingCombat</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fermer le codex ou les options ramène au combat en cours, pas à l'exploration. </p>
+<p><b>Cas de test :</b> <b>Le codex et les options ramenent au combat en cours.</b><br  />
+ <b>Categorie :</b> Unitaire · Routeur d'ecrans<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Ouvrir le jeu, puis le HUD de combat.<br  />
+</p><ol type="1">
+<li>Ouvrir un onglet du codex, puis l'inventaire, et fermer.<br  />
+</li>
+<li>Ouvrir puis fermer les options ; fermer enfin l'ecran de combat.<br  />
+ <b>Resultat attendu :</b> L'onglet demande est retenu ; fermer l'inventaire puis les options rend le HUD de combat ; le fermer rend le jeu. </li>
+</ol>
+
+</div>
+</div>
+<a id="a982428c959474696b372caafcc8aeefb" name="a982428c959474696b372caafcc8aeefb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a982428c959474696b372caafcc8aeefb">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">UiPreferencesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">HudSizeIsBoundedAndSurvivesReload</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La taille du HUD est bornée de 75 % à 130 % et survit à un rechargement des préférences. </p>
+<p><b>Cas de test :</b> <b>La taille du HUD est bornee et survit a un rechargement.</b><br  />
+ <b>Categorie :</b> Unitaire · Options<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Isoler les preferences dans un dossier temporaire.<br  />
+</p><ol type="1">
+<li>Regler la taille du HUD a 120, puis a 1000 et a -1 ; relire par un second modele.<br  />
+</li>
+<li>Ecrire une valeur hors bornes dans les preferences et recharger.<br  />
+ <b>Resultat attendu :</b> 120 est relu tel quel ; 1000 est ramene a 130, -1 a 75 ; le defaut vaut 100 ; une valeur enregistree hors bornes est ramenee a 130 au chargement. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_c911b180da51e85765e60707d4387a94.html">Runtime</a></li><li class="navelem"><a href="test__ui__preferences__and__inventory_8cpp.html">test_ui_preferences_and_inventory.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

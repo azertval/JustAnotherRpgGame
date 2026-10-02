@@ -18,5 +18,6 @@ var WorldSceneComposer_8cpp =
     [ "hmi::snapshotWorldScene", "namespacehmi.html#abc96b05b9f94854936ee3d8541390286", null ],
     [ "hmi::worldDepthSortOrder", "namespacehmi.html#abb8a82bb9f00e792f78590f1c2bd788a", null ],
     [ "hmi::worldFigureTexturePaths", "namespacehmi.html#a2f3d83ca010accd2a3d552ae2b6b97c0", null ],
+    [ "hmi::worldMeshPaths", "namespacehmi.html#ac89d2d9e1d9069fc983218c8ab6fa53e", null ],
     [ "hmi::worldTexturePaths", "namespacehmi.html#a07929611bf03ab59a2de588feb90ad7d", null ]
 ];

@@ -146,6 +146,7 @@ $(function(){initNavTree('ScenePieces_8h.html','',''); });
 <p>La géométrie des <b>pièces de scène</b>, commune à l'arène et aux lieux qu'on parcourt.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
@@ -155,6 +156,7 @@ $(function(){initNavTree('ScenePieces_8h.html','',''); });
 <code>#include &quot;<a class="el" href="GridPosition_8h_source.html">Core/Levels/GridPosition.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Vector2_8h_source.html">Core/Math/Vector2.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Quad_8h_source.html">HMI/Graphics/Quad.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="RenderLayer_8h_source.html">HMI/Graphics/RenderLayer.h</a>&quot;</code><br />
 </div>
@@ -164,8 +166,10 @@ $(function(){initNavTree('ScenePieces_8h.html','',''); });
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3ASceneTexture" id="r_hmi_3A_3ASceneTexture"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneTexture.html">hmi::SceneTexture</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une texture liable, ses dimensions en pixels et ce que ses fichiers voisins disent d'elle.  <a href="structhmi_1_1SceneTexture.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3ASceneMesh" id="r_hmi_3A_3ASceneMesh"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneMesh.html">hmi::SceneMesh</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un maillage chargé (<span class="tt">LOT-1003</span>) : son identité, sa boîte, et ce que le manifeste de son dossier dit de la hauteur d'un étage.  <a href="structhmi_1_1SceneMesh.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AScenePieceTextures" id="r_hmi_3A_3AScenePieceTextures"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ScenePieceTextures.html">hmi::ScenePieceTextures</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les textures d'un lieu, adressées par leur <b>chemin</b> tel que la composition l'écrit.  <a href="structhmi_1_1ScenePieceTextures.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les textures d'un lieu, adressées par leur <b>chemin</b> tel que la composition l'écrit — et, depuis le <span class="tt">LOT-1003</span>, ses maillages, adressés de même.  <a href="structhmi_1_1ScenePieceTextures.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
