@@ -29,15 +29,14 @@
 #include "Editor/Logic/CanvasPicking.h"
 #include "Editor/Logic/LayerView.h"
 #include "Editor/Logic/MapFormat.h"
-#include "Editor/Ui/SceneImages.h"
-#include "Editor/Ui/ScenePainter.h"
-#include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/MaquetteTokens.h"
+#include "HMI/Graphics/OffscreenRender.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
+#include "HMI/Graphics/WorldSceneRenderer.h"
 
 namespace hmi {
 
@@ -173,7 +172,7 @@ QImage renderStamp(const Stamp& stamp, const std::filesystem::path& dataRoot,
         return {};
     }
     // Une carte jetable a la taille du tampon : ses couches sont celles qu'il nomme, dans l'ordre
-    // ou il les porte, et le peintre du canevas fait le reste (regle 4 : un seul chemin de rendu).
+    // ou il les porte, et le rendu du jeu fait le reste (regle 4 : un seul chemin de rendu).
     core::LevelDraft draft = core::LevelDraft::empty("prefab", stamp.width, stamp.height);
     bool namedPlace = false;
     for (const StampLayer& layer : stamp.layers) {
@@ -207,7 +206,7 @@ QImage renderStamp(const Stamp& stamp, const std::filesystem::path& dataRoot,
                   MapRenderOptions{.bands = IsoBandOpacity{},
                                    .scale = 1.0,
                                    // Deux fois la vignette au plus : la réduction lisse le reste,
-                                   // sans peindre une image de plein format pour la jeter.
+                                   // sans rendre une image de plein format pour la jeter.
                                    .maxSide = 2 * maxSide,
                                    .background = QColor(0, 0, 0, 0),
                                    .canvas = std::nullopt});
@@ -258,9 +257,8 @@ namespace {
 //
 // Ses libelles s'ecrivent avec la table de glyphes des jetons, et non avec QPainter::drawText :
 // `--render` tourne sans QApplication (LOT-EDITOR-13, decision D9), donc sans aucune police.
-void paintPlanLegend(QPainter& painter, const WorldSceneSnapshot& snapshot, double scale) {
-    const std::vector<core::TileType> types = typesOf(snapshot);
-    const std::vector<MaquetteTokenKind> kinds = tokenKindsOf(snapshot);
+void paintPlanLegend(QPainter& painter, const std::vector<core::TileType>& types,
+                     const std::vector<MaquetteTokenKind>& kinds, double scale) {
     if (types.empty() && kinds.empty()) {
         return;
     }
@@ -309,55 +307,82 @@ void paintPlanLegend(QPainter& painter, const WorldSceneSnapshot& snapshot, doub
 
 }  // namespace
 
+MapRenderFrame mapRenderFrame(const core::Rect& painted, float tileWidth,
+                              const MapRenderOptions& options) {
+    // Le cadre : ce qui est dessine, reliefs compris, et un peu de vide autour (`LOT-125`).
+    const double padding = FRAME_PADDING_TILES * static_cast<double>(tileWidth);
+    MapRenderFrame frame;
+    frame.left = static_cast<double>(painted.position.x) - padding;
+    frame.top = static_cast<double>(painted.position.y) - padding;
+    const double worldWidth = static_cast<double>(painted.size.x) + (2 * padding);
+    const double worldHeight = static_cast<double>(painted.size.y) + (2 * padding);
+    const int maxSide = std::max(1, options.maxSide);
+    frame.scale = std::min(renderPixelsPerUnit(options.scale),
+                           static_cast<double>(maxSide) / std::max(worldWidth, worldHeight));
+    frame.width = std::clamp(static_cast<int>(std::ceil(worldWidth * frame.scale)), 1, maxSide);
+    frame.height = std::clamp(static_cast<int>(std::ceil(worldHeight * frame.scale)), 1, maxSide);
+    // Le cadre imposé : la carte y tient entière, centrée, le reste est du fond (LOT-121).
+    if (options.canvas && !options.canvas->isEmpty()) {
+        frame.width = options.canvas->width();
+        frame.height = options.canvas->height();
+        frame.scale = std::min(frame.width / worldWidth, frame.height / worldHeight);
+        frame.offsetX = (frame.width - (worldWidth * frame.scale)) * HALF;
+        frame.offsetY = (frame.height - (worldHeight * frame.scale)) * HALF;
+    }
+    // Le meme cadre, dit au rendu du jeu : le point du monde au centre de l'image.
+    frame.framing = WorldFraming{
+        .center = {static_cast<float>(frame.left +
+                                      (((frame.width * HALF) - frame.offsetX) / frame.scale)),
+                   static_cast<float>(frame.top +
+                                      (((frame.height * HALF) - frame.offsetY) / frame.scale))},
+        .pixelsPerUnit = static_cast<float>(frame.scale)};
+    return frame;
+}
+
 QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot,
                  const MapRenderOptions& options, MapImageGrid* grid) {
+    const std::shared_ptr<OffscreenRhi> offscreen = OffscreenRhi::shared();
+    if (!offscreen) {
+        return {};
+    }
     const core::LevelDraft draft = core::LevelDraft::fromLevel(level);
     const std::string place = scenePlaceOf(level.layers());
     const PlaceAppearance appearance = [&] {
         PlaceAssets assets = loadPlaceAssets(dataRoot, place);
         return assets.appearance ? std::move(*assets.appearance) : PlaceAppearance{};
     }();
-    const WorldSceneSnapshot snapshot = canvasSnapshot(draft, appearance);
+    WorldSceneSnapshot snapshot = canvasSnapshot(draft, appearance);
     const core::IsoProjection projection(snapshot.columns, snapshot.rows,
                                          core::ARENA_TILE_WIDTH_UNITS, snapshot.diamondRatio);
+    // Ce que la legende du plan lit, garde avant que l'instantane ne parte au rendu.
+    const std::vector<core::TileType> legendTypes = typesOf(snapshot);
+    const std::vector<MaquetteTokenKind> legendKinds = tokenKindsOf(snapshot);
 
-    const std::shared_ptr<SceneImages> images = SceneImages::shared(dataRoot / "Assets");
-    images->ensure(worldTexturePaths(snapshot));
-    ComposedScene scene;
-    composeWorldScene(scene, snapshot, projection, images->textures(),
-                      WorldComposeOptions{.flatBlocks = options.plan});
-    scene.sort();
-
-    // Le cadre : ce qui est peint, reliefs compris, et un peu de vide autour (`LOT-125`).
-    const core::Rect painted =
-        composedSceneBounds(scene, core::Rect{{0.0F, 0.0F}, projection.sceneSize()});
-    const double padding = FRAME_PADDING_TILES * static_cast<double>(projection.tileWidth());
-    const double left = static_cast<double>(painted.position.x) - padding;
-    const double top = static_cast<double>(painted.position.y) - padding;
-    const double worldWidth = static_cast<double>(painted.size.x) + (2 * padding);
-    const double worldHeight = static_cast<double>(painted.size.y) + (2 * padding);
-    double scale = std::min(
-        renderPixelsPerUnit(options.scale),
-        static_cast<double>(std::max(1, options.maxSide)) / std::max(worldWidth, worldHeight));
-    int width = std::clamp(static_cast<int>(std::ceil(worldWidth * scale)), 1,
-                           std::max(1, options.maxSide));
-    int height = std::clamp(static_cast<int>(std::ceil(worldHeight * scale)), 1,
-                            std::max(1, options.maxSide));
-    // Le cadre imposé : la carte y tient entière, centrée, le reste est du fond (LOT-121).
-    double offsetX = 0.0;
-    double offsetY = 0.0;
-    if (options.canvas && !options.canvas->isEmpty()) {
-        width = options.canvas->width();
-        height = options.canvas->height();
-        scale = std::min(width / worldWidth, height / worldHeight);
-        offsetX = (width - (worldWidth * scale)) * HALF;
-        offsetY = (height - (worldHeight * scale)) * HALF;
+    // Le rendu du jeu, hors ecran (LOT-1002) : celui que l'interface garde pour ce dossier
+    // d'assets, dont les textures servent d'une carte, d'une vignette a l'autre. Une carte sans
+    // lieu n'a pas de chemin a part : le rendu de maquette est dans la composition, que le jeu, le
+    // canevas et `--render` partagent (LOT-128).
+    WorldSceneRenderer* const kept = offscreen->renderer(dataRoot / "Assets");
+    if (kept == nullptr) {
+        return {};
     }
+    WorldSceneRenderer& renderer = *kept;
+    renderer.setComposeOptions(WorldComposeOptions{.flatBlocks = options.plan});
+    renderer.setSnapshot(std::move(snapshot));
+    const IsoBandOpacity& bands = options.bands;
+    renderer.setQuadOpacity([bands](const ComposedQuad& quad) { return bandOpacity(bands, quad); });
+
+    const MapRenderFrame frame =
+        mapRenderFrame(renderer.paintedBounds(core::Rect{{0.0F, 0.0F}, projection.sceneSize()}),
+                       projection.tileWidth(), options);
     if (grid != nullptr) {
         const auto fraction = [&](core::Vector2 gridPoint) {
             const core::Vector2 world = projection.gridToWorld(gridPoint);
-            return QPointF((offsetX + ((static_cast<double>(world.x) - left) * scale)) / width,
-                           (offsetY + ((static_cast<double>(world.y) - top) * scale)) / height);
+            return QPointF(
+                (frame.offsetX + ((static_cast<double>(world.x) - frame.left) * frame.scale)) /
+                    frame.width,
+                (frame.offsetY + ((static_cast<double>(world.y) - frame.top) * frame.scale)) /
+                    frame.height);
         };
         const QPointF origin = fraction({0.0F, 0.0F});
         const QPointF column = fraction({1.0F, 0.0F}) - origin;
@@ -370,19 +395,21 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
                              .rowY = row.y()};
     }
 
-    QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
-    image.fill(options.background);
+    QImage image =
+        offscreen
+            ->render(renderer, QSize(frame.width, frame.height), frame.framing, options.background)
+            .convertToFormat(QImage::Format_ARGB32_Premultiplied);
+    if (image.isNull() || (bands.collision <= 0.0F && !options.plan)) {
+        return image;
+    }
+
+    // Ce qui n'est pas la scene se peint par-dessus : le masque de collision, la legende du plan.
     QPainter painter(&image);
     painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
     painter.setRenderHint(QPainter::Antialiasing, false);
-    painter.setTransform(
-        QTransform(scale, 0.0, 0.0, scale, offsetX - (left * scale), offsetY - (top * scale)));
-
-    // Une carte sans lieu n'a plus de chemin de peinture a part : le rendu de maquette est dans la
-    // composition, que le jeu, le canevas et `--render` partagent (LOT-128).
-    const IsoBandOpacity& bands = options.bands;
-    paintComposedScene(painter, scene, std::nullopt,
-                       [&bands](const ComposedQuad& quad) { return bandOpacity(bands, quad); });
+    painter.setTransform(QTransform(frame.scale, 0.0, 0.0, frame.scale,
+                                    frame.offsetX - (frame.left * frame.scale),
+                                    frame.offsetY - (frame.top * frame.scale)));
     if (bands.collision > 0.0F) {
         // Le masque du canevas : rouge ce qui arrête, vert l'entrée.
         paintDiamonds(painter, projection, draft.tileMap(), [&bands](core::TileType type) {
@@ -398,7 +425,7 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
         });
     }
     if (options.plan) {
-        paintPlanLegend(painter, snapshot, scale);
+        paintPlanLegend(painter, legendTypes, legendKinds, frame.scale);
     }
     painter.end();
     return image;
@@ -522,6 +549,9 @@ std::optional<int> runRenderCommand(const std::vector<std::string>& arguments,
         std::error_code error;
         std::filesystem::create_directories(directory, error);
     }
+    // Une seule interface de rendu pour toutes les cartes de la commande : les textures d'un kit
+    // ne se chargent qu'une fois.
+    const std::shared_ptr<OffscreenRhi> offscreen = OffscreenRhi::shared();
     for (const auto& [file, mapId] : files) {
         const core::LevelLoadResult loaded = core::LevelLoader::loadFromFile(file);
         if (!loaded.ok()) {
@@ -532,6 +562,11 @@ std::optional<int> runRenderCommand(const std::vector<std::string>& arguments,
             singleFile ? *line.destination : directory / imageNameOf(mapId);
         MapImageGrid grid;
         const QImage image = renderMap(*loaded.level, line.dataRoot, line.options, &grid);
+        if (image.isNull()) {
+            output += "error: cannot render " + file.string() +
+                      " (no rendering interface on this machine)\n";
+            return 1;
+        }
         // Le format suit l'extension : un JPEG pour l'onglet « Carte » (LOT-121), un PNG sinon.
         const bool jpeg = png.extension() == ".jpg" || png.extension() == ".jpeg";
         if (!image.save(QString::fromStdWString(png.wstring()), jpeg ? "JPG" : "PNG",

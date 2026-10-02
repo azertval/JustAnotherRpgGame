@@ -74,6 +74,7 @@
 #include "Editor/Ui/RunInGameDialog.h"
 #include "Editor/Ui/WorldStateEditor.h"
 #include "HMI/Game/LaunchOptions.h"
+#include "HMI/Graphics/OffscreenRender.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/CrashDump.h"
@@ -135,7 +136,9 @@ constexpr int REFACTOR_STATUS_TIMEOUT_MS = 5000;
 }  // namespace
 
 MainWindow::MainWindow(bool crashAfterAutosave)
-    : _tabs(new QTabWidget), _crashAfterAutosave(crashAfterAutosave) {
+    : _tabs(new QTabWidget),
+      _offscreen(OffscreenRhi::shared()),
+      _crashAfterAutosave(crashAfterAutosave) {
     // Le dossier des données dans le titre : on sait où l'enregistrement écrit (LOT-EDITOR-06).
     setWindowTitle(QStringLiteral("Just Another RPG Game — Editor — %1")
                        .arg(QString::fromStdWString(hmi::editorDataRoot().wstring())));

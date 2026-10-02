@@ -12,8 +12,10 @@
 #include <string_view>
 #include <vector>
 
+#include "Core/Math/Rect.h"
 #include "Editor/Logic/CanvasScene.h"
 #include "Editor/Logic/Stamps.h"
+#include "HMI/Graphics/WorldSceneRenderer.h"
 
 namespace core {
 class Level;
@@ -22,14 +24,15 @@ class Level;
 /**
  * @file Editor/Ui/MapRender.h
  * @brief `LevelEditor --render` : une carte rendue **hors écran** en PNG, en isométrie, par le
- *        peintre du canevas (`LOT-EDITOR-13`, décision D9, `EX-EDIT-075`).
+ *        rendu du jeu (`LOT-EDITOR-13`, décision D9, `EX-EDIT-075`, `LOT-1002`).
  *
- * La même image que le canevas : l'instantané de `hmi::canvasSnapshot`, composé par
- * `hmi::composeWorldScene` et peint par `hmi::paintComposedScene`, sans fenêtre ni GPU — ce qui
- * le fait tourner en CI, où il montre dans la PR la carte qu'elle change. Les bandes se choisissent
- * comme les calques du canevas (`hmi::IsoBandOpacity`) : sol, relief, figurines, et le masque de
- * collision par-dessus. Une carte qui ne nomme aucun lieu se peint par les couleurs de ses types,
- * comme dans le canevas.
+ * La même image que le canevas, et que le jeu : l'instantané de `hmi::canvasSnapshot`, dessiné par
+ * `hmi::WorldSceneRenderer` sur un `QRhi` sans fenêtre (`hmi::OffscreenRhi`). Sans carte graphique,
+ * Direct3D rend par WARP — ce qui le fait tourner en CI, où il montre dans la PR la carte qu'elle
+ * change. Les bandes se choisissent comme les calques du canevas (`hmi::IsoBandOpacity`) : sol,
+ * relief, figurines ; le masque de collision et la légende du plan, qui ne sont pas la scène, se
+ * peignent par-dessus l'image rendue. Une carte qui ne nomme aucun lieu se dessine par les couleurs
+ * de ses types, comme dans le canevas.
  *
  * L'échelle 1 est **la carte vue à 1080p** : une case de 100 pixels, celle du jeu en plein écran
  * (`hmi::worldTilePixels`, `LOT-125`). Une carte de 48 × 40 y fait environ 4 400 × 2 800 pixels ;
@@ -80,6 +83,37 @@ struct MapImageGrid {
 };
 
 /**
+ * @brief Le cadre d'un rendu : la taille de l'image, et où le monde y tombe (`LOT-1002`).
+ *
+ * Un point du monde `(x, y)` est au pixel `(offsetX + (x − left) × scale, offsetY + (y − top) ×
+ * scale)` ; `framing` dit la même chose au rendu du jeu.
+ */
+struct MapRenderFrame {
+    int width = 0;
+    int height = 0;
+    /// Pixels par unité monde.
+    double scale = 1.0;
+    /// Le coin haut gauche du cadre, en unités monde, marge comprise.
+    double left = 0.0;
+    double top = 0.0;
+    /// Le décalage du cadre dans l'image, en pixels : nul hors du cadre imposé (`--canvas`).
+    double offsetX = 0.0;
+    double offsetY = 0.0;
+    /// Le cadrage du rendu : le centre de l'image, et son échelle.
+    WorldFraming framing;
+};
+
+/**
+ * @brief Le cadre du rendu d'une carte dont la scène occupe @p painted.
+ * @param painted   Ce que la scène occupe, reliefs compris
+ * (`hmi::WorldSceneRenderer::paintedBounds`).
+ * @param tileWidth La largeur d'une case, en unités monde.
+ * @param options   L'échelle, le plus grand côté et le cadre imposé.
+ */
+[[nodiscard]] MapRenderFrame mapRenderFrame(const core::Rect& painted, float tileWidth,
+                                            const MapRenderOptions& options);
+
+/**
  * @brief Lit une liste de bandes (`floors,relief,figures,collision`).
  * @return Les opacités (1 pour une bande nommée, 0 sinon), ou rien si un nom est inconnu.
  */
@@ -91,13 +125,14 @@ struct MapImageGrid {
  * @param dataRoot La racine des données : la table du lieu, ses planches, les figurines.
  * @param options  Bandes, échelle et fond.
  * @param grid     S'il n'est pas nul, reçoit la place de la grille sur l'image.
+ * @return L'image, nulle si la machine n'offre aucune interface de rendu (`hmi::OffscreenRhi`).
  */
 [[nodiscard]] QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot,
                                const MapRenderOptions& options, MapImageGrid* grid = nullptr);
 
 /**
  * @brief La **vignette d'un préfabriqué** (`LOT-EDITOR-08`) : le tampon posé sur une carte de sa
- *        taille, rendu par le même peintre, réduit pour tenir dans un carré de @p maxSide pixels.
+ *        taille, rendu par le même rendu, réduit pour tenir dans un carré de @p maxSide pixels.
  * @param stamp    Le tampon.
  * @param dataRoot La racine des données (les planches).
  * @param place    Le lieu dont il prend ses pièces ; vide, il se peint par ses types.

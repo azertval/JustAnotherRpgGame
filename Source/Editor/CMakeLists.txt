@@ -68,7 +68,7 @@ add_library(EditorLogic STATIC
 )
 target_include_directories(EditorLogic PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 target_link_libraries(EditorLogic
-    # La composition d'un lieu, sans GPU (LOT-EDITOR-02) : ce que le canevas peint.
+    # La composition d'un lieu, sans GPU (LOT-EDITOR-02) : ce que le canevas montre.
     PUBLIC SceneComposition
     PUBLIC HmiLib
     PRIVATE project_warnings project_options)
@@ -95,13 +95,20 @@ add_executable(LevelEditor
     ${APP_DIR}/Common/Bootstrap.cpp
     # Pont Qt -> Key : les raccourcis remappables de l'éditeur.
     ${HMI_DIR}/Input/QtKeyMap.cpp
-    # Le canevas (LOT-EDITOR-02) : la composition du jeu, peinte par QPainter -- plus de QRhi ni de
-    # GPU dans l'éditeur (décision D2). La vue à plat, les images des planches, la mini-carte.
+    # Le canevas dessine le lieu par le rendu du jeu (LOT-1002) : la surface QRhi qui le porte, et
+    # le pipeline 2D que le jeu compile aussi (Source/HMI/Runtime). La vue à plat et la mini-carte
+    # restent peintes.
+    Ui/SceneSurface.cpp
+    ${HMI_DIR}/Graphics/WorldSceneRenderer.cpp
+    ${HMI_DIR}/Graphics/OffscreenRender.cpp
+    ${HMI_DIR}/Graphics/SceneResources.cpp
+    ${HMI_DIR}/Graphics/SpriteBatch.cpp
+    ${HMI_DIR}/Graphics/SpriteRenderer.cpp
+    ${HMI_DIR}/Graphics/TextureLoader.cpp
+    ${HMI_DIR}/Graphics/TextureAtlas.cpp
     Ui/DraftRenderer.cpp
-    Ui/SceneImages.cpp
-    Ui/ScenePainter.cpp
     Ui/MiniMap.cpp
-    # --render (LOT-EDITOR-13) : une carte rendue hors écran en PNG, par le peintre du canevas.
+    # --render (LOT-EDITOR-13) : une carte rendue hors écran en PNG, par le même rendu.
     Ui/MapRender.cpp
     # La fenêtre et ses actions.
     Ui/EditorActions.cpp
@@ -132,8 +139,20 @@ target_link_libraries(LevelEditor PRIVATE
     HmiLib
     Qt6::Widgets
     Qt6::Gui
+    # Les en-têtes de QRhi (<rhi/qrhi.h>) vivent dans les en-têtes privés de QtGui.
+    Qt6::GuiPrivate
     project_warnings
     project_options
+)
+
+# Les shaders du pipeline 2D, embarqués comme dans le jeu : `hmi::SpriteBatch` les charge depuis les
+# ressources (`:/shaders/...`).
+qt6_add_shaders(LevelEditor "level_editor_shaders"
+    PREFIX "/shaders"
+    BASE "${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders"
+    FILES
+        ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.vert
+        ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.frag
 )
 
 target_include_directories(LevelEditor PRIVATE ${PROJECT_SOURCE_DIR}/Source)

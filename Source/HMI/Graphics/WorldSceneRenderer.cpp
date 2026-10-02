@@ -48,6 +48,74 @@ Camera2D worldCamera(const core::IsoProjection& projection, core::Vector2 focus,
     return camera;
 }
 
+Camera2D framedCamera(const WorldFraming& framing, int pixelWidth, int pixelHeight) {
+    Camera2D camera(std::max(1, pixelWidth), std::max(1, pixelHeight));
+    camera.setZoom(framing.pixelsPerUnit / Camera2D::PIXELS_PER_UNIT);
+    camera.setCenter(framing.center);
+    return camera;
+}
+
+core::Rect composedSceneBounds(const ComposedScene& scene, const core::Rect& base) {
+    float left = base.position.x;
+    float top = base.position.y;
+    float right = base.position.x + base.size.x;
+    float bottom = base.position.y + base.size.y;
+    for (const ComposedQuad& quad : scene.quads()) {
+        core::Rect bounds;
+        switch (quad.kind) {
+            case QuadKind::Sprite:
+                bounds = spriteQuadBounds(quad.sprite);
+                break;
+            case QuadKind::Line:
+                bounds = lineQuadBounds(quad.line);
+                break;
+            case QuadKind::Poly:
+                bounds = polyQuadBounds(quad.poly);
+                break;
+        }
+        left = std::min(left, bounds.position.x);
+        top = std::min(top, bounds.position.y);
+        right = std::max(right, bounds.position.x + bounds.size.x);
+        bottom = std::max(bottom, bounds.position.y + bounds.size.y);
+    }
+    return core::Rect{{left, top}, {right - left, bottom - top}};
+}
+
+namespace {
+
+/// Ce que pese une texture `RGBA8` de @p width x @p height en memoire graphique ; lissee, elle
+/// porte en plus sa chaine de mipmaps, un tiers de sa taille.
+[[nodiscard]] std::size_t textureWeight(int width, int height, bool mipmapped) noexcept {
+    const std::size_t pixels = static_cast<std::size_t>(width) * static_cast<std::size_t>(height);
+    const std::size_t bytes = pixels * 4U;
+    return mipmapped ? bytes + (bytes / 3U) : bytes;
+}
+
+/// Applique @p opacity aux primitives de @p quads : l'alpha de chacune est multiplie, et celle que
+/// l'appelant eteint (0 ou moins) est retiree. L'ordre de dessin ne change pas.
+void applyQuadOpacity(std::vector<ComposedQuad>& quads, const WorldQuadOpacity& opacity) {
+    std::erase_if(quads, [&opacity](ComposedQuad& quad) {
+        const float extra = opacity(quad);
+        if (extra <= 0.0F) {
+            return true;
+        }
+        switch (quad.kind) {
+            case QuadKind::Sprite:
+                quad.sprite.a *= extra;
+                break;
+            case QuadKind::Line:
+                quad.line.a *= extra;
+                break;
+            case QuadKind::Poly:
+                quad.poly.a *= extra;
+                break;
+        }
+        return false;
+    });
+}
+
+}  // namespace
+
 WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
     : _directory(std::move(assetsDirectory)),
       _scene(std::make_shared<const WorldSceneSnapshot>()) {}
@@ -121,6 +189,7 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
                 _textures.byPath[path] = SceneTexture{.texture = painted->handle(),
                                                       .width = painted->width,
                                                       .height = painted->height};
+                _textureBytes += textureWeight(painted->width, painted->height, false);
                 _loaded.push_back(std::move(*painted));
             }
             continue;
@@ -154,6 +223,7 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
                                                       .width = marqueur->width,
                                                       .height = marqueur->height,
                                                       .frameWidth = marqueur->width};
+                _textureBytes += textureWeight(marqueur->width, marqueur->height, false);
                 _loaded.push_back(std::move(*marqueur));
                 continue;
             }
@@ -166,6 +236,7 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
         SceneTexture& loaded = _textures.byPath[path] = SceneTexture{
             .texture = texture->handle(), .width = texture->width, .height = texture->height};
         applySceneTextureTraits(loaded, readSceneTextureTraits(_directory, path, &_manifests));
+        _textureBytes += textureWeight(texture->width, texture->height, true);
         _loaded.push_back(std::move(*texture));
     }
 }
@@ -182,6 +253,7 @@ void WorldSceneRenderer::release() noexcept {
     _textures.missing = SceneTexture{};
     _textures.solid = SceneTexture{};
     _loaded.clear();
+    _textureBytes = 0;
     _missing = LoadedTexture{};
     _solid = LoadedTexture{};
     _requested.clear();
@@ -209,6 +281,60 @@ void WorldSceneRenderer::setFigures(std::vector<WorldFigureSnapshot> figures) {
     _figuresDirty = true;
 }
 
+void WorldSceneRenderer::setComposeOptions(WorldComposeOptions options) noexcept {
+    if (options == _composeOptions) {
+        return;
+    }
+    _composeOptions = options;
+    _sceneDirty = true;
+}
+
+core::IsoProjection WorldSceneRenderer::sceneProjection() const {
+    return {_scene->columns, _scene->rows, core::ARENA_TILE_WIDTH_UNITS, _scene->diamondRatio};
+}
+
+void WorldSceneRenderer::refresh(const core::IsoProjection& projection) {
+    // La carte : ses textures et sa composition, une fois par carte. Ce sont ses pieces qui disent
+    // quoi charger, et la carte change au passage d'un portail.
+    if (_sceneDirty) {
+        ensureTextures(worldTexturePaths(*_scene));
+        _statics.build(*_scene, projection, _textures, _composeOptions);
+        _sceneDirty = false;
+    }
+    // Les figurines : leurs bandes, quand elles changent (une figurine neuve, une autre bande).
+    if (_figuresDirty) {
+        ensureTextures(worldFigureTexturePaths(*_scene, _figures));
+        _figuresDirty = false;
+    }
+}
+
+bool WorldSceneRenderer::prepare() {
+    if (!created()) {
+        return false;
+    }
+    if (!_sceneDirty && !_figuresDirty) {
+        return true;
+    }
+    // Hors image : les televersements attendent dans le lot que la prochaine image soumettra.
+    if (_pendingUploads == nullptr) {
+        _pendingUploads = _rhi->nextResourceUpdateBatch();
+    }
+    _resources.setFrameUpdates(_pendingUploads);
+    refresh(sceneProjection());
+    _resources.setFrameUpdates(nullptr);
+    return true;
+}
+
+core::Rect WorldSceneRenderer::paintedBounds(const core::Rect& base) {
+    if (!prepare()) {
+        return base;
+    }
+    // Toute la carte et ses figurines, sans cadrage : ce qu'une image pourrait montrer.
+    ComposedScene whole;
+    _statics.compose(whole, _figures, _textures);
+    return composedSceneBounds(whole, base);
+}
+
 void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target,
                                 const float* clear) {
     if (!created() || commandBuffer == nullptr || target == nullptr) {
@@ -220,29 +346,25 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
                                                  : _rhi->nextResourceUpdateBatch();
     _resources.setFrameUpdates(updates);
 
-    const core::IsoProjection projection(_scene->columns, _scene->rows,
-                                         core::ARENA_TILE_WIDTH_UNITS, _scene->diamondRatio);
-    // La carte : ses textures et sa composition, une fois par carte. Ce sont ses pieces qui disent
-    // quoi charger, et la carte change au passage d'un portail.
-    if (_sceneDirty) {
-        ensureTextures(worldTexturePaths(*_scene));
-        _statics.build(*_scene, projection, _textures);
-        _sceneDirty = false;
-    }
-    // Les figurines : leurs bandes, quand elles changent (une figurine neuve, une autre bande).
-    if (_figuresDirty) {
-        ensureTextures(worldFigureTexturePaths(*_scene, _figures));
-        _figuresDirty = false;
-    }
+    const core::IsoProjection projection = sceneProjection();
+    refresh(projection);
 
     const QSize pixels = target->pixelSize();
-    const Camera2D camera = worldCamera(projection, projection.gridToWorld(_focus), pixels.width(),
-                                        pixels.height(), _tilePixels);
+    const Camera2D camera = _framing ? framedCamera(*_framing, pixels.width(), pixels.height())
+                                     : worldCamera(projection, projection.gridToWorld(_focus),
+                                                   pixels.width(), pixels.height(), _tilePixels);
 
     // L'image : ce que la camera montre de la carte, et les figurines.
     _composed.clear();
     _composed.setVisibleBounds(camera.visibleBounds());
     _statics.compose(_composed, _figures, _textures);
+    if (_opacity) {
+        // Les calques de l'editeur (LOT-1002) : la liste, deja triee, est retouchee en place.
+        std::vector<ComposedQuad> quads;
+        _composed.swapQuads(quads, 0, 0);
+        applyQuadOpacity(quads, _opacity);
+        _composed.swapQuads(quads, 0, 0);
+    }
 
     SpriteBatch& sprites = _resources.sprites();
     sprites.beginFrame();

@@ -205,17 +205,16 @@ if(Qt6_FOUND)
         # heros, et une image du Colisee LIVRE -- la capture de reference du lot.
         Unit/HMI/Graphics/test_world_scene_renderer.cpp
         ../HMI/Graphics/WorldSceneRenderer.cpp
-        # Le canevas de l'editeur peint le lieu comme le jeu (LOT-EDITOR-02) : Martpart et le Colisee
-        # rendus par le GPU du jeu et par le peintre QPainter de l'editeur, compares pixel a pixel.
-        Unit/Editor/test_scene_painter.cpp
-        ../Editor/Ui/ScenePainter.cpp
-        ../Editor/Ui/SceneImages.cpp
-        # Le cache d'images du canevas (LOT-125) : partage entre onglets, borne, lu une fois.
-        Unit/Editor/test_scene_images.cpp
+        # Le rendu d'un lieu hors ecran, en image (LOT-1002) : ce que `--render`, les vignettes et
+        # les tests de rendu de l'editeur partagent avec le jeu -- cadrage impose, opacite des
+        # calques, tuiles.
+        Unit/HMI/Graphics/test_offscreen_render.cpp
+        ../HMI/Graphics/OffscreenRender.cpp
         # Un ilot de murs du kit sur deux etages, coiffe d'un toit : le heros se voit a travers
         # (LOT-129).
         Unit/Editor/test_storey_render.cpp
-        # LevelEditor --render (LOT-EDITOR-13) : une carte livree rendue en PNG, sans fenetre.
+        # LevelEditor --render (LOT-EDITOR-13) : une carte livree rendue en PNG, sans fenetre, et
+        # identique au pixel a ce que le rendu du jeu dessine (LOT-1002).
         Unit/Editor/test_map_render.cpp
         ../Editor/Ui/MapRender.cpp
         # L'ilot du plan (LOT-96) : son cadrage, et la place du marche LIVREE rendue hors ecran.
@@ -235,6 +234,11 @@ if(Qt6_FOUND)
         ../HMI/Graphics/TextureLoader.cpp
         ../HMI/Graphics/SpriteBatch.cpp)
     target_link_libraries(UnitTests PRIVATE Qt6::Gui Qt6::GuiPrivate)
+    # Les captures que les tests de rendu ecrivent pour l'oeil de l'auteur : sous le repertoire de
+    # construction, jamais dans le repertoire courant -- lances depuis la racine, ils y deposaient
+    # des PNG (LOT-1002).
+    target_compile_definitions(UnitTests PRIVATE
+        JADG_RENDER_CAPTURES_DIR="${CMAKE_BINARY_DIR}/render-captures")
     # Les shaders du pipeline sont embarques dans UnitTests comme dans l'executable : le test de
     # rendu hors ecran construit un vrai hmi::SpriteBatch, qui les charge depuis les ressources.
     qt6_add_shaders(UnitTests "unittests_shaders"

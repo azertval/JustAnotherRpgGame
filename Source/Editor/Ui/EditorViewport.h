@@ -44,10 +44,9 @@
 #include "Editor/Logic/PaintTools.h"
 #include "Editor/Logic/PieceCatalog.h"
 #include "Editor/Logic/Stamps.h"
-#include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/PlaceAppearance.h"
-#include "HMI/Graphics/StaticWorldScene.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
+#include "HMI/Graphics/WorldSceneRenderer.h"
 
 class QGraphicsScene;
 class QPainter;
@@ -57,12 +56,14 @@ class QPainter;
  * @brief Le canevas de l'éditeur : le lieu qu'on édite, rendu comme dans le jeu, et l'essai
  *        immédiat (`LOT-EDITOR-02`, `EX-EDIT-059`).
  *
- * Une `QGraphicsView` et **un seul élément peint** (décision D2) : il parcourt la `ComposedScene`
- * que la composition du jeu produit — mêmes primitives, même ordre — et la peint par `QPainter`
- * (`hmi::paintComposedScene`), en ne touchant que la partie visible. Par-dessus, les aides
- * d'édition : quadrillage en losanges, case survolée, masque de collision, aperçu des outils,
- * entités (marqueur, ou figurine quand elle existe ; forme, étiquette et poignées), notes
- * d'auteur, axe du miroir.
+ * Deux plans superposés (`LOT-1002`). Dessous, la **scène** : une `hmi::SceneSurface`, un
+ * `QRhiWidget` où le lieu est dessiné par `hmi::WorldSceneRenderer` — le rendu du jeu lui-même, pas
+ * un peintre qui lui ressemble. Dessus, la `QGraphicsView`, au fond transparent, et son **unique
+ * élément peint** : les aides d'édition, par `QPainter` — quadrillage en losanges, case survolée,
+ * masque de collision, aperçu des outils, entités (marqueur quand la scène ne dessine pas leur
+ * figurine ; forme, étiquette et poignées), notes d'auteur, axe du miroir. La vue garde le zoom, le
+ * défilement et le pointage ; à chaque changement de cadrage, elle le dit à la surface
+ * (`hmi::WorldFraming`), si bien que les deux plans montrent le même monde au pixel.
  *
  * Les entités se dessinent et se manipulent **par leur forme** (`core::EntityKind::shape`), jamais
  * par leur type (`LOT-EDITOR-05`) : aucune famille n'a de code propre ici.
@@ -74,24 +75,25 @@ class QPainter;
  *
  * Deux vues, en bascule (décision D1) : **iso** par défaut, le lieu tel qu'on le jouera ; **à
  * plat**, une case par unité et les types en couleurs (`hmi::DraftRenderer`), pour lire types et
- * collision. Tout geste passe par le pointage (`Editor/Logic/CanvasPicking.h`) et parle en cases :
- * les outils ne savent pas quelle vue est affichée.
+ * collision — elle reste peinte, la surface n'y montrant que son fond. Tout geste passe par le
+ * pointage (`Editor/Logic/CanvasPicking.h`) et parle en cases : les outils ne savent pas quelle vue
+ * est affichée.
  *
  * Deux états, jamais mêlés. En **édition**, le brouillon est la seule source. En **essai**, la
- * carte est jouée par `hmi::WorldPlay` et composée comme dans le jeu (`EX-EDIT-055`) ; le même
- * peintre la dessine, cadrée sur le héros.
+ * carte est jouée par `hmi::WorldPlay` et dessinée par le même rendu, sa caméra suivant le héros
+ * comme en jeu (`EX-EDIT-055`, `hmi::worldCamera`) ; aucune aide d'édition ne s'y peint.
  */
 
 namespace hmi {
 class DraftRenderer;
-class SceneImages;
+class SceneSurface;
 class WorldPlay;
 struct EditorReferences;
 }  // namespace hmi
 
 namespace hmi {
 
-/// @brief Le canevas : le brouillon peint en iso ou à plat, les gestes des outils, l'essai.
+/// @brief Le canevas : le brouillon rendu en iso ou peint à plat, les gestes des outils, l'essai.
 class EditorViewport : public QGraphicsView, public EditContextTarget {
     Q_OBJECT
 
@@ -378,7 +380,8 @@ public:
         return _referenceContext;
     }
 
-    /// Peint le canevas : appelé par l'élément unique de la scène, @p exposed en unités monde.
+    /// Peint les aides d'édition (et la vue à plat) : appelé par l'élément unique de la scène,
+    /// @p exposed en unités monde. Le lieu, lui, est dessiné par la surface.
     void paintCanvas(QPainter& painter, const QRectF& exposed);
 
 signals:
@@ -415,7 +418,7 @@ protected:
 private:
     class CanvasItem;
 
-    /// Avance l'essai des pas fixes dus, puis recompose sa scène.
+    /// Avance l'essai des pas fixes dus, puis donne au rendu la carte, les figurines et le héros.
     void stepPlaytest();
     /// Termine l'essai et rend la main à l'édition (brouillon intact).
     void stopPlaytest();
@@ -423,11 +426,21 @@ private:
     [[nodiscard]] core::Vector2 heldDirection() const;
 
     // --- Peinture ---
-    /// Recompose la scène iso du brouillon si elle est périmée.
+    /// Refait l'instantané du brouillon s'il est périmé, et le donne au rendu.
     void ensureIsoScene();
+    /// Mesure ce que la scène du brouillon occupe (`hmi::SceneSurface::paintedBounds`).
+    void measureIsoScene();
+    /// @return Le cadrage que la vue montre, pour la surface : le centre de la vue en unités
+    ///         monde, et son échelle en pixels physiques.
+    [[nodiscard]] WorldFraming viewFraming() const;
+    /// Règle la surface sur ce que la vue montre — cadrage, opacité des calques, vue à plat — et
+    /// la redessine si quelque chose a changé. Sans effet pendant l'essai, que `stepPlaytest` mène.
+    void syncSurface();
+    /// Redemande une peinture des aides d'édition, la surface réglée d'abord : les deux plans se
+    /// repeignent dans la même image.
+    void refreshView();
     void paintIso(QPainter& painter, const QRectF& exposed);
     void paintFlat(QPainter& painter, const QRectF& exposed);
-    void paintPlaytest(QPainter& painter, const QRectF& exposed);
     void paintIsoOverlays(QPainter& painter, const CellRange& cells, const IsoBandOpacity& bands);
     /// Le masque de collision en losanges : une teinte par catégorie de règle.
     /// @param painter Le peintre du canevas.
@@ -521,15 +534,19 @@ private:
 
     QGraphicsScene* _canvasScene;
     CanvasItem* _item;
-    /// Le cache d'images partagé avec les autres onglets et les vignettes (`LOT-125`).
-    std::shared_ptr<SceneImages> _images;
+    /// La surface où le rendu du jeu dessine le lieu, sous la vue (`LOT-1002`) ; enfant du canevas.
+    SceneSurface* _surface;
+    /// Ce que la surface montre : le dernier cadrage et les dernières opacités qu'on lui a donnés.
+    /// Vides : à redonner (au départ, après l'essai).
+    std::optional<WorldFraming> _surfaceFraming;
+    std::optional<IsoBandOpacity> _surfaceBands;
     std::unique_ptr<DraftRenderer> _flat;
     hmi::EditorKeyBindings _editorBindings;
 
     core::LevelDraft _draft;
     CanvasView _view = CanvasView::Iso;
     bool _seeThroughRelief = false;
-    /// Scène iso du brouillon, recomposée seulement quand il change.
+    /// L'instantané du brouillon est périmé : il se refait à la prochaine peinture.
     bool _isoSceneDirty = true;
     PlaceAppearance _appearance;
     std::string _appearancePlace;
@@ -537,8 +554,8 @@ private:
     bool _placeAssetsLoaded = false;
     /// Le manifeste des pièces du lieu : le brouillon en tire emprises et collision.
     std::shared_ptr<const core::ScenePieceManifest> _manifest;
-    WorldSceneSnapshot _snapshot;
-    ComposedScene _isoScene;
+    /// L'instantané du brouillon, partagé avec le rendu ; jamais nul.
+    std::shared_ptr<const WorldSceneSnapshot> _snapshot;
     /// Ce qu'occupe la scène composée, reliefs compris : le cadre du canevas (`LOT-125`).
     core::Rect _isoBounds;
 
@@ -577,24 +594,16 @@ private:
     // --- Essai immédiat : la carte jouée par le moteur du jeu ---
     std::unique_ptr<WorldPlay> _play;
     QTimer _playTimer;
-    /// Le cadrage d'édition, rendu à la fin de l'essai.
-    QTransform _editTransform;
-    QPointF _editCenter;
     Clock::time_point _previousFrame;
     core::FixedTimestep _timestep;
-    /// La carte jouée, partagée avec le moteur (`hmi::WorldPlay::scene`), et sa composition,
-    /// faite une fois par carte : un pas n'y fusionne que les figurines (audit de l'affichage).
+    /// La carte jouée, partagée avec le moteur (`hmi::WorldPlay::scene`) et donnée au rendu, qui
+    /// la compose une fois : un pas n'y change que les figurines (audit de l'affichage).
     std::shared_ptr<const WorldSceneSnapshot> _playMap;
-    StaticWorldScene _playStatics;
-    /// L'image de l'essai : ce que la vue montre de la carte, et les figurines.
-    ComposedScene _playScene;
-    /// Ce qu'occupe la scène de l'essai.
-    core::Rect _playBounds;
     /// Touches de déplacement enfoncées (codes `Qt::Key`).
     std::set<int> _heldKeys;
     /// Interaction demandée depuis le dernier pas.
     bool _interactRequested = false;
-    /// La scène de l'essai doit être recomposée avant la prochaine image.
+    /// L'essai a bougé : le rendu reçoit carte, figurines et héros avant la prochaine image.
     bool _playSceneDirty = true;
 
     // --- Couches et entités (LOT-11) ---

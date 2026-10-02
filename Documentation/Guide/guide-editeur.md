@@ -371,51 +371,50 @@ les pièces d'une case pour la barre d'état (`street · wall-left`).
 
 ![La fenêtre à 1280 × 800 sur la carte d'essai « donjon » de la racine d'essai : le canevas iso peint la salle de combat (20 × 14) et ses pièces synthétiques, les jetons des entités (gardes, joueur, alliés, ennemis, porte, salle), la palette « Pieces » du lieu, les trois couches (Collision, relief, sol), la mini-carte, et le panneau « Problems » qui relève deux points d'arrivée que rien ne nomme](captures/editeur-fenetre-donjon.jpg)
 
-### Peindre sans GPU : `ScenePainter.h`, `SceneImages.h`
+### Dessiner par le rendu du jeu : `SceneSurface.h`
 
-Le jeu soumet la scène composée à `hmi::SpriteBatch` ; l'éditeur la parcourt ici, quad par quad,
-dans le **même ordre** (décision D2). `hmi::paintComposedScene(peintre, scène, visible, opacité)`
-peint la liste dans un `QPainter` dont la transformation porte déjà le cadrage, en sautant toute
-primitive hors du rectangle visible ; `hmi::QuadOpacity` est l'opacité supplémentaire décidée par
-l'appelant (calques masqués, grisés, reliefs en transparence ; 0 ou moins, la primitive n'est pas
-peinte). Ce qui compte pour ressembler au jeu, et qui est fait comme le GPU le fait : la région
-d'image tirée des UV, l'opacité, la rotation autour du centre, et le **lissage** — depuis le
-`LOT-125`, l'art peint se lit en **bilinéaire sur le niveau réduit** que l'échelle demande
-(`hmi::SceneImage::level`, l'image réduite de moitié à chaque niveau, calculée à la première
-demande), parce que `QPainter` n'a pas de mipmaps : réduire une pièce de 256 px à 30, même en
-bilinéaire, ne lirait qu'un texel sur huit et crénellerait. Les images **engendrées** (marqueurs,
-jetons, atlas, damier, aplats) restent au plus proche, comme en jeu, et n'ont que leur niveau 0.
-La parité exacte avec le GPU n'est plus promise — il mêle deux niveaux, le peintre n'en lit qu'un —
-et `test_scene_painter.cpp` en écrit les seuils, mesurés. Une différence assumée : la teinte RVB
-d'un quad texturé n'est pas appliquée (le jeu ne teinte aucune pièce) ; un quad à teinte unie
-(`hmi::SceneImages::solid`) et un `hmi::PolyQuad` (`LOT-128`) se peignent en aplat. `hmi::cameraTransform(caméra)` donne la transformation d'un
-cadrage du jeu, `hmi::renderComposedScene(scène, caméra, largeur, hauteur, fond)` rend hors écran
-— l'image que le jeu dessinerait ; la comparaison avec le rendu GPU en est la preuve.
+Depuis le `LOT-1002`, le canevas ne peint plus la scène : il la fait dessiner par
+`hmi::WorldSceneRenderer`, **le rendu du jeu**. Il n'y a donc plus deux rendus qui se ressemblent à
+un seuil près, mais un seul — et quand le moteur apprend une matière nouvelle, l'éditeur la montre
+le même jour.
 
-`hmi::SceneImages(dossierAssets)` est le cache des images, en `QImage` : le pendant, pour
-`QPainter`, du chargement de `hmi::WorldSceneRenderer`, **mêmes règles dans le même ordre** — un
-chemin se résout en image lue sur disque ; à défaut, une figurine prend son marqueur
-(`hmi::figureMarkerKey`) ; à défaut, le damier (`EX-NFR-040`). `ensure(chemins)` charge ce qui ne
-l'est pas encore (une seule tentative par chemin), `textures()` rend les textures adressées par
-chemin, `atlas()` et `tileColor(type)` l'atlas procédural des types (la vue à plat), `marker(clé)`
-le marqueur d'une clé d'asset (`LOT-39`), `image(chemin)` une image à la demande. L'identité de
-texture que la composition manipule (`hmi::TextureHandle`) est ici l'adresse d'un `QImage` que ce
-cache possède — `hmi::sceneImageOf` et `hmi::sceneImageHandle` convertissent —, dans des
-`std::map` dont les éléments ne bougent pas quand on en ajoute : une adresse donnée à une scène
-composée reste valide tant que le cache vit.
+Le canevas est fait de deux plans superposés. Dessous, `hmi::SceneSurface`, un `QRhiWidget` qui ne
+fait que porter le rendu (`renderer()`), comme `hmi::WorldViewportItem` le porte dans le jeu ;
+`QRhiWidget` dessine sur le fil de l'interface, si bien que le rendu se règle sans verrou, entre
+deux images. Dessus, la `QGraphicsView` de `hmi::EditorViewport`, au fond transparent, dont l'unique
+élément peint les **aides d'édition** par `QPainter` : grille, masque de collision, formes,
+étiquettes et poignées des entités, notes, aperçus des outils. La vue garde le zoom, le défilement
+et le pointage ; à chaque changement de cadrage elle le dit à la surface (`syncSurface`), par un
+`hmi::WorldFraming` — le point du monde au centre de la vue, et l'échelle en pixels physiques.
 
-Depuis le `LOT-125`, ce cache est **partagé** et **borné**. Une pièce HD pèse seize fois une pièce
-de l'ancienne planche : sans borne, un kit coûtait des centaines de mébioctets, et chaque onglet,
-chaque vignette le rechargeait. `hmi::SceneImages::shared(dossierAssets)` rend l'instance unique
-d'un dossier d'assets, que les onglets, les vignettes de la liste des cartes, celles des
-préfabriqués et `--render` se partagent tant que l'un d'eux la tient (même fil, celui de
-l'interface). Les pixels de l'art peint, niveaux réduits compris, tiennent dans
-`SCENE_IMAGES_DEFAULT_BUDGET_BYTES` — **256 Mio** — quel que soit le nombre d'onglets : au-delà,
-la pièce la moins récemment peinte est **évincée** et relue sur disque à la peinture suivante ;
-l'identité d'une image ne meurt pas avec ses pixels, et ses dimensions restent connues — la
-composition n'en lit pas d'autre. Seules les images engendrées, de quelques kibioctets, restent
-hors budget ; un kit de zone n'ayant pas de budget de poids, c'est cette borne, et non le poids
-installé, qui tient la mémoire. Le **cadre** du canevas, des vignettes et de `--render` se mesure
+Ce que l'éditeur demande au rendu en plus du jeu tient en trois réglages de
+`hmi::WorldSceneRenderer`, sans effet tant qu'on ne les touche pas :
+
+- `setFraming(cadrage)` impose le cadrage ; `std::nullopt` rend la caméra qui suit le héros
+  (`hmi::worldCamera`) — c'est ce que fait l'**essai**, qui cadre donc exactement comme le jeu ;
+- `setQuadOpacity(fonction)` donne l'opacité de chaque primitive : les calques masqués ou grisés et
+  les reliefs en transparence (`F8`) sont des paramètres du rendu (`hmi::bandOpacity`) ; 0 ou moins,
+  la primitive n'est pas dessinée ;
+- `setComposeOptions(options)` porte le plan de principe (`--plan`).
+
+`prepare()` charge les textures et compose la carte **avant** l'image, et `paintedBounds(base)` rend
+ce qu'occupent la carte et ses figurines : le cadre se mesure sur ce qui sera dessiné. Tant que la
+surface n'a pas d'interface de rendu — avant d'être montrée —, le cadre est le losange de la carte ;
+`SceneSurface::resourcesChanged` le fait mesurer à nouveau dès qu'elle en a une.
+
+La **vue à plat** (`F9`) et la mini-carte restent peintes : elles ne montrent que des types de tuile
+et des marqueurs engendrés. `hmi::DraftRenderer` compose la vue à plat et la peint lui-même
+(`paint`), la surface n'en étant que le fond ; `marker(clé)` rend le marqueur d'une clé d'asset
+(`LOT-39`), que le canevas iso peint aussi pour une entité sans figurine.
+
+**La mémoire.** Les textures sont celles du rendu du jeu, sur la carte graphique : chaque onglet
+tient celles des pièces de sa carte, et de celles que l'essai traverse ; elles ne sont plus
+partagées d'un onglet à l'autre, ni bornées par un budget commun comme l'était le cache d'images du
+`LOT-125`. Hors écran, en revanche, le rendu que garde `hmi::OffscreenRhi` (vignettes des cartes et
+des préfabriqués, `--render`) est borné à `OFFSCREEN_TEXTURE_BUDGET_BYTES` — **256 Mio** : au-delà,
+il rend ses textures et ne recharge que ce que la carte suivante demande.
+
+Le **cadre** du canevas, des vignettes et de `--render` se mesure
 sur ce qui est peint (`hmi::composedSceneBounds(scène, base)` : chaque primitive compte, reliefs et
 figurines qui montent au-dessus de leur case compris), et non sur une marge d'un losange : une
 pièce de quatre cases de haut n'y est jamais rognée. Pour `--render`, l'**échelle 1 est la carte
@@ -850,15 +849,22 @@ notes ont changé) — sans rien écrire : c'est `runMapCommand` qui écrit, en 
 
 ### Rendre hors écran : `MapRender.h`
 
-`LevelEditor --render` produit la **même image** que le canevas (`EX-EDIT-075`) : l'instantané de
-`hmi::canvasSnapshot`, composé par `hmi::composeWorldScene` et peint par `hmi::paintComposedScene`,
-sans fenêtre ni GPU — ce qui le fait tourner en CI, où il montre dans la PR la carte qu'elle change.
+`LevelEditor --render` produit la **même image** que le canevas (`EX-EDIT-075`), et que le jeu :
+l'instantané de `hmi::canvasSnapshot`, dessiné par `hmi::WorldSceneRenderer` sur un `QRhi` sans
+fenêtre (`hmi::OffscreenRhi`, `Source/HMI/Graphics/OffscreenRender.h`). Sans carte graphique,
+Direct3D rend par WARP — ce qui le fait tourner en CI, où il montre dans la PR la carte qu'elle
+change. Une image de plus de 4 096 pixels de côté se rend **par tuiles** (`OFFSCREEN_TILE_SIDE`), ce
+qui borne la mémoire graphique d'un rendu de 8 192 pixels. `hmi::mapRenderFrame(occupé, case,
+options)` donne le cadre d'un rendu — taille de l'image et cadrage — et un test rend la même carte
+par `hmi::renderMap` et par le rendu du jeu seul : les deux images sont identiques au pixel
+(`test_map_render.cpp`). Le masque de collision et la légende du plan, qui ne sont pas la scène, se
+peignent par-dessus l'image rendue.
 `hmi::renderMap(carte, dataRoot, options)` prend des `hmi::MapRenderOptions` : les bandes
 (`hmi::IsoBandOpacity`, lues par `hmi::parseRenderLayers("floors,relief,figures,collision")` ; par
 défaut ce que le jeu montre, sans la collision), l'échelle (dans ]0, 4]), le fond, et le **plan de
 principe** (`--plan`, `LOT-128`) — les blocs se couchent en losanges plats et une légende s'ajoute :
 ce que la carte contient et comment on y circule, pas ce qu'on y voit. `hmi::renderStamp(tampon,
-dataRoot, lieu, côté)` est la vignette d'un préfabriqué, rendue par le même peintre.
+dataRoot, lieu, côté)` est la vignette d'un préfabriqué, rendue par le même rendu.
 `hmi::runRenderCommand` lit `--render [carte…]`, `--output`, `--layers`, `--plan`, `--scale`,
 `--data`.
 
@@ -1130,7 +1136,7 @@ L'annexe `<carte>.editor.json` note où en est la carte : `blockout` avant `reto
 - `hmi::applyBrush`, `hmi::applyStroke`, `hmi::applyBucket`, `hmi::pickBrush`,
   `hmi::mirrorCell`, `hmi::cutStamp`, `hmi::pasteStamp`, `hmi::MapTemplate`.
 - `hmi::pickIsoCell`, `hmi::isoCellsCovering`, `hmi::canvasSnapshot`, `hmi::isoBandOpacity`,
-  `hmi::paintComposedScene`, `hmi::renderComposedScene`, `hmi::SceneImages`, `hmi::DraftRenderer`,
+  `hmi::SceneSurface`, `hmi::WorldFraming`, `hmi::OffscreenRhi`, `hmi::DraftRenderer`,
   `hmi::MiniMap`.
 - `hmi::pickEntity`, `hmi::entityHandles`, `hmi::resolveEntityPress`, `hmi::dragEntities`,
   `hmi::applyEntityDrag`, `hmi::loadEditorReferences`, `hmi::editorDiagnostics`, `hmi::EntityPanel`.
@@ -1143,8 +1149,8 @@ L'annexe `<carte>.editor.json` note où en est la carte : `blockout` avant `reto
   `hmi::WorldStateFlags`, `hmi::worldStateFlags`, `hmi::presenceUnder`, `hmi::WorldStateEditor`,
   `hmi::WorldStateChoice`, `hmi::askWorldState` — l'état de partie.
 - `hmi::availablePrefabs`, `hmi::prefabLevel`, `hmi::PrefabEntry` — les préfabriqués par niveau ;
-  `hmi::SceneImages::shared`, `hmi::SceneImage::level`, `hmi::composedSceneBounds`,
-  `hmi::MAP_RENDER_MAX_SIDE` — le canevas HD ; `app::commandLineOption` — les options de la
+  `hmi::composedSceneBounds`, `hmi::mapRenderFrame`, `hmi::MAP_RENDER_MAX_SIDE` — le cadre d'un
+  rendu ; `app::commandLineOption` — les options de la
   fenêtre.
 - `hmi::AutosaveStore`, `hmi::reactToDiskChange`, `hmi::resolveDataRoot`,
   `hmi::LevelFileOperations`, `hmi::mapNameKey`, `hmi::writeSidecar`.
@@ -1153,8 +1159,8 @@ L'annexe `<carte>.editor.json` note où en est la carte : `blockout` avant `reto
 - [Niveaux : modèle, couches, entités, chargement](guide-niveaux.md) — le modèle de carte
   immuable, la validation et le format v4 réutilisés sans duplication.
 - [Rendu 2D : de la scène à l'écran](guide-rendu.md) — la composition d'un lieu
-  (`hmi::ComposedScene`, `hmi::composeWorldScene`), que le canevas peint par `QPainter` comme le
-  jeu la soumet au GPU.
+  (`hmi::ComposedScene`, `hmi::composeWorldScene`) et son rendu (`hmi::WorldSceneRenderer`), que
+  le canevas partage avec le jeu.
 - [Monde et exploration](guide-monde.md) — la session d'exploration que l'essai immédiat joue, les
   portails et le graphe du monde que l'éditeur relie.
 - [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) et [Système de design et

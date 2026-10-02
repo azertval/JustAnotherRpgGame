@@ -52,6 +52,7 @@ class LevelBrowserPanel;
 class LayersPanel;
 class EntityPanel;
 class MiniMap;
+class OffscreenRhi;
 class ProblemsPanel;
 class QuestsPanel;
 struct OpenDocument;
@@ -277,6 +278,10 @@ private:
     QuestsPanel* _quests = nullptr;
     QDockWidget* _questsDock = nullptr;
     std::unique_ptr<EditorReferences> _references;
+    /// L'interface de rendu hors écran, tenue tant que la fenêtre vit (`LOT-1002`) : les vignettes
+    /// des cartes et des préfabriqués partagent ainsi les textures d'un kit, chargées une fois.
+    /// Nulle si la machine n'en offre aucune.
+    std::shared_ptr<OffscreenRhi> _offscreen;
     EditorActions* _actions = nullptr;
     QToolBar* _toolBar = nullptr;
     QAction* _resizeAction = nullptr;

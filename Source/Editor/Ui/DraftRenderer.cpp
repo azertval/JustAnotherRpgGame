@@ -3,15 +3,19 @@
 
 #include "Editor/Ui/DraftRenderer.h"
 
+#include <QColor>
+#include <QPainter>
+#include <QRectF>
 #include <algorithm>
 #include <tuple>
 #include <utility>
+#include <vector>
 
-#include "Core/Ecs/Components/Sprite.h"  // core::AtlasRegion
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Levels/TileType.h"
+#include "Core/Resources/AssetMarker.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/RenderLayer.h"
@@ -37,9 +41,54 @@ constexpr std::int32_t OVERLAY_ORDER_HANDLE_BRIGHT = 6;
         return core::isVisualLayerKind(layer.kind);
     });
 }
+
+/// L'identite d'une teinte unie : une primitive qui la porte se peint en aplat de sa teinte. Toute
+/// autre identite de la scene a plat est l'adresse d'un marqueur (`DraftRenderer::marker`).
+[[nodiscard]] TextureHandle solidTexture() noexcept {
+    static char solid = 0;
+    return &solid;
+}
 }  // namespace
 
-DraftRenderer::DraftRenderer(DraftTextures textures) : _textures(std::move(textures)) {}
+const QImage* DraftRenderer::marker(const std::string& key) {
+    const auto found = _markers.find(key);
+    if (found != _markers.end()) {
+        return found->second.isNull() ? nullptr : &found->second;
+    }
+    const core::MarkerImage image =
+        core::assetMarker(key, ENTITY_MARKER_SIZE_PIXELS, ENTITY_MARKER_SIZE_PIXELS);
+    QImage& stored = _markers[key];
+    if (!image.isEmpty()) {
+        // Les pixels sont lus en place puis copies : l'image gardee ne depend pas du vecteur.
+        const std::vector<std::uint32_t> pixels = markerPixelsRgba8(image);
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast): QImage lit des `uchar`.
+        stored = QImage(reinterpret_cast<const uchar*>(pixels.data()), image.width, image.height,
+                        static_cast<qsizetype>(image.width) * 4, QImage::Format_RGBA8888)
+                     .convertToFormat(QImage::Format_ARGB32_Premultiplied);
+    }
+    return stored.isNull() ? nullptr : &stored;
+}
+
+void DraftRenderer::paint(QPainter& painter) const {
+    // Au plus proche : un marqueur est une image engendree, dont chaque pixel est voulu.
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, false);
+    for (const ComposedQuad& quad : _scene.quads()) {
+        if (quad.kind != QuadKind::Sprite || quad.texture == nullptr) {
+            continue;  // la vue a plat ne compose que des rectangles.
+        }
+        const SpriteQuad& sprite = quad.sprite;
+        const QRectF target(sprite.x, sprite.y, sprite.width, sprite.height);
+        if (quad.texture == solidTexture()) {
+            painter.fillRect(target, QColor::fromRgbF(sprite.r, sprite.g, sprite.b, sprite.a));
+            continue;
+        }
+        // Toute autre identite est un marqueur de ce rendu (`marker`).
+        const auto* const image = static_cast<const QImage*>(quad.texture);
+        painter.setOpacity(static_cast<double>(sprite.a));
+        painter.drawImage(target, *image);
+        painter.setOpacity(1.0);
+    }
+}
 
 const ComposedScene& DraftRenderer::compose(
     const core::LevelDraft& draft, const std::optional<core::Rect>& visible, bool showGrid,
@@ -96,9 +145,6 @@ const ComposedScene& DraftRenderer::compose(
 // par type, et non quatre qui se ressemblent.
 void DraftRenderer::composeTiles(const core::TileMap& tiles, RenderLayer layer, std::int32_t order,
                                  float opacity) {
-    if (_textures.solid == nullptr) {
-        return;
-    }
     for (int row = 0; row < tiles.height(); ++row) {
         for (int column = 0; column < tiles.width(); ++column) {
             const core::TileType type = tiles.tile(column, row);
@@ -115,7 +161,7 @@ void DraftRenderer::composeTiles(const core::TileMap& tiles, RenderLayer layer, 
             quad.g = tint.g;
             quad.b = tint.b;
             quad.a = opacity;
-            _scene.addSprite(layer, _textures.solid, order, quad);
+            _scene.addSprite(layer, solidTexture(), order, quad);
         }
     }
 }
@@ -164,7 +210,7 @@ void DraftRenderer::addOverlayRect(float x, float y, float width, float height, 
     quad.g = g;
     quad.b = b;
     quad.a = a;
-    _scene.addSprite(RenderLayer::EditorOverlay, _textures.solid, order, quad);
+    _scene.addSprite(RenderLayer::EditorOverlay, solidTexture(), order, quad);
 }
 
 void DraftRenderer::composeCollisionMask(const core::LevelDraft& draft) {
@@ -243,15 +289,16 @@ void DraftRenderer::composeEntityMarker(const core::MapEntity& entity, bool sele
     const auto y = static_cast<float>(entity.position.row);
     // Marqueur genere de la famille (LOT-39) : aucune illustration n'est requise pour poser un
     // PNJ ou un portail, et deux familles ne se confondent pas.
-    const TextureHandle marker =
-        _textures.marker ? _textures.marker(entityMarkerKey(entity.type)) : nullptr;
-    if (marker != nullptr) {
+    // L'identite de texture est opaque (`void*`) : le retrait du `const` ne sert qu'a la porter.
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
+    const TextureHandle image = const_cast<QImage*>(marker(entityMarkerKey(entity.type)));
+    if (image != nullptr) {
         SpriteQuad quad;
         quad.x = x + MARKER_INSET;
         quad.y = y + MARKER_INSET;
         quad.width = 1.0F - (2 * MARKER_INSET);
         quad.height = 1.0F - (2 * MARKER_INSET);
-        _scene.addSprite(RenderLayer::EditorOverlay, marker, OVERLAY_ORDER_ENTITIES, quad);
+        _scene.addSprite(RenderLayer::EditorOverlay, image, OVERLAY_ORDER_ENTITIES, quad);
     } else {
         addOverlayRect(x + MARKER_INSET, y + MARKER_INSET, 1.0F - (2 * MARKER_INSET),
                        1.0F - (2 * MARKER_INSET), 1.0F, 0.0F, 1.0F, 0.8F, OVERLAY_ORDER_ENTITIES);

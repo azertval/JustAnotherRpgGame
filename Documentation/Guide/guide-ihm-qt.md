@@ -2,7 +2,7 @@
 
 Le **jeu** est une application **Qt Quick** ; l'**éditeur de niveaux** est en **Qt Widgets**, dans
 son propre binaire (`LOT-86`, `LOT-EDITOR-01`). Le rendu de scène passe par **QRhi** — Direct3D 11
-par défaut sous Windows — dans le jeu ; l'éditeur peint par `QPainter`. L'apparence des écrans du
+par défaut sous Windows — dans le jeu comme dans le canevas de l'éditeur (`LOT-1002`). L'apparence des écrans du
 jeu et le mode d'emploi de la conception sont en [Concevoir les écrans dans Qt Design
 Studio](guide-conception-qds.md), que cette page laisse de côté.
 
@@ -482,9 +482,9 @@ Le jeu pose ses surfaces QRhi comme des items Qt Quick (`QQuickRhiItem`, dans `H
 `hmi::AssetGalleryItem` pour la galerie des assets. C'est le jumeau (`GameView.qml`, `CombatHud.qml`…)
 qui les pose, dans l'hôte que le formulaire lui réserve : un type C++ n'a pas sa place dans un
 formulaire. Tous rendent dans une **texture d'appui** que leur hôte compose : la cible technique
-ne change pas (`EX-ARCH-050`), seul l'hôte change. L'éditeur, lui, ne parle plus au GPU depuis le
-`LOT-EDITOR-02` : son canevas est une `QGraphicsView` qui peint par `QPainter` la scène que le jeu
-compose.
+ne change pas (`EX-ARCH-050`), seul l'hôte change. L'éditeur a le sien depuis le `LOT-1002` : un
+`QRhiWidget` (`hmi::SceneSurface`) où le rendu du jeu dessine la scène, sous une `QGraphicsView` qui
+peint les aides d'édition par `QPainter`.
 
 **La différence qui compte** : `QQuickRhiItem` peint sur le **fil de rendu**, pas sur le fil
 graphique. Toute donnée que la simulation produit doit traverser `synchronize()`, appelée pendant

@@ -208,7 +208,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-EXP-002` | [Exploration](../Specification/exploration.md) | — |
 | `EX-EXP-003` | [Exploration](../Specification/exploration.md) | — |
 | `EX-EXP-004` | [Exploration](../Specification/exploration.md) | — |
-| `EX-EXP-005` | [Exploration](../Specification/exploration.md) | [`ScenePainterTest.UneCarteSansAucuneImageSeVoitDansLesDeuxRendus`](editor.md#scenepaintertestunecartesansaucuneimagesevoitdanslesdeuxrendus) |
+| `EX-EXP-005` | [Exploration](../Specification/exploration.md) | [`OffscreenRenderTest.UneCarteSansAucuneImageSeVoit`](hmi-graphics.md#offscreenrendertestunecartesansaucuneimagesevoit) |
 | `EX-EXP-006` | [Exploration](../Specification/exploration.md) | — |
 | `EX-EXP-007` | [Exploration](../Specification/exploration.md) | — |
 | `EX-EXP-008` | [Exploration](../Specification/exploration.md) | — |

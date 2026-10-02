@@ -97,13 +97,13 @@ Le rendu n'est jamais présenté dans une fenêtre native embarquée (`EX-REN-05
 d'une fenêtre native ne se dessine pas de façon fiable par-dessus elle. Les surfaces existantes
 sont toutes composées avec le reste de l'interface :
 
-- `hmi::EditorViewport` (`Source/Editor/Ui`) : le canevas de l'éditeur, une **`QGraphicsView`**
-  (`LOT-EDITOR-02`). Il ne parle pas au GPU : il peint par `QPainter` la **même** scène composée
-  que le jeu soumet (`hmi::paintComposedScene`), en édition comme en essai immédiat
-  ([Éditeur de niveaux](guide-editeur.md)), et reçoit les événements clavier/souris **Qt**
-  ([Entrées et actions logiques](guide-entrees.md)). Un test
-  (`Source/Test/Unit/Editor/test_scene_painter.cpp`) compare son image au rendu QRhi du jeu, cadrage
-  pour cadrage ;
+- `hmi::EditorViewport` (`Source/Editor/Ui`) : le canevas de l'éditeur. Depuis le `LOT-1002`, la
+  scène y est dessinée par `hmi::WorldSceneRenderer`, le rendu du jeu, dans un **`QRhiWidget`**
+  (`hmi::SceneSurface`) ; par-dessus, une `QGraphicsView` au fond transparent peint les aides
+  d'édition par `QPainter` et reçoit les événements clavier/souris **Qt**
+  ([Éditeur de niveaux](guide-editeur.md), [Entrées et actions logiques](guide-entrees.md)). Un
+  test (`Source/Test/Unit/Editor/test_map_render.cpp`) rend la même carte par l'éditeur et par le
+  rendu du jeu seul : les deux images sont identiques au pixel ;
 - `hmi::WorldViewportItem` et `hmi::AssetGalleryItem`
   (`Source/HMI/Runtime`) : le lieu qu'on parcourt et la galerie de débug, dans le jeu
   Qt Quick. Ce sont des **`QQuickRhiItem`**, exposés au QML ([IHM Qt — deux applications, deux
@@ -950,8 +950,8 @@ où une case ne nomme aucune pièce, la composition dessine son **type** en coul
 Les **jetons** (`MaquetteTokens.h`, décision D2) tiennent lieu de figurine : un disque de couleur
 cerné, sa lettre au centre. Il n'existe aucun rendu de texte en scène côté jeu ; plutôt que d'en
 introduire un pour trente-six caractères, le jeton est **peint en code pur** puis téléversé comme
-n'importe quelle texture — parité par construction entre le jeu (QRhi) et l'éditeur (`QPainter`),
-qui montrent la même image et non deux dessins qui se ressemblent.
+n'importe quelle texture — le jeu et l'éditeur, qui partagent le rendu (`LOT-1002`), montrent la
+même image et non deux dessins qui se ressemblent.
 
 - `hmi::MaquetteTokenKind` : `Player` (entrée de carte, point d'apparition, entrée d'arène alliée),
   `Talker` (PNJ qui porte un dialogue), `Neutral`, `Hostile` (rencontre, entrée d'arène adverse),
@@ -1050,15 +1050,18 @@ en largeurs de case) : elle ne vaut plus les 135 pixels de la plus haute pièce 
 (`LOT-103`). L'écran « Carte » réduit l'image lissée (`smooth` et `mipmap` de `BlockMapForm`). `hmi::renderCityBlock(assetsDirectory, snapshot, block)` peint et rend une `QImage`,
 nulle si aucune interface QRhi n'est disponible : l'écran le dit plutôt que de planter.
 
-### Le canevas de l'éditeur : composition partagée, peinture `QPainter`
+### Le canevas de l'éditeur : le même rendu
 
-Le canevas de l'éditeur partage la **composition**, pas la soumission : `hmi::composeWorldScene`
-compose le brouillon (vue iso) ou la carte jouée par `hmi::WorldPlay` (essai), puis
-`hmi::paintComposedScene` (`Source/Editor/Ui/ScenePainter.h`) la peint par `QPainter` —
-échantillonnage au plus proche, remplissage texturé qui prend le centre des pixels comme le GPU ;
-`hmi::SceneImages` tient les `QImage` correspondantes, `solid` compris. En essai, c'est la boucle
-décrite en [Boucle de jeu et pas de temps fixe](guide-boucle.md) : des pas de simulation fixes,
-puis **une** peinture. Le détail est dans [Éditeur de niveaux](guide-editeur.md).
+Le canevas de l'éditeur ne partage plus seulement la composition : depuis le `LOT-1002` il partage
+le **rendu**. `hmi::SceneSurface`, un `QRhiWidget`, porte un `hmi::WorldSceneRenderer` comme
+`hmi::WorldViewportItem` le fait dans le jeu ; l'éditeur lui donne le brouillon (vue iso) ou la carte
+jouée par `hmi::WorldPlay` (essai). Trois réglages du rendu servent l'édition : un cadrage imposé
+(`setFraming`, `hmi::WorldFraming`), une opacité par primitive (`setQuadOpacity`) et la composition
+avancée avant l'image (`prepare`, `paintedBounds`). Hors écran — `LevelEditor --render`, les
+vignettes —, `hmi::OffscreenRhi` rend par le même rendu sur un `QRhi` sans fenêtre, par tuiles de
+4 096 pixels au plus. En essai, c'est la boucle décrite en
+[Boucle de jeu et pas de temps fixe](guide-boucle.md) : des pas de simulation fixes, puis **une**
+image. Le détail est dans [Éditeur de niveaux](guide-editeur.md).
 
 ## La galerie des assets : `hmi::AssetGallery`
 
@@ -1192,8 +1195,10 @@ nulle ; l'écran affiche alors son fond, pas une erreur.
 - `hmi::maquetteColor`, `hmi::maquetteExtrudes`, `hmi::maquetteShape`, `hmi::MaquetteShape`,
   `hmi::maquetteTokenImage`, `hmi::maquetteMarks` — le rendu de maquette (`LOT-128`,
   `EX-EXP-005`).
-- `hmi::paintComposedScene`, `hmi::SceneImages`, `hmi::DraftRenderer`, `hmi::regionForTile`,
-  `hmi::buildProceduralAtlasImage` — le canevas de l'éditeur, peint par `QPainter`.
+- `hmi::WorldFraming`, `hmi::framedCamera`, `hmi::WorldQuadOpacity`, `hmi::composedSceneBounds`,
+  `hmi::OffscreenRhi` — ce que l'éditeur demande au rendu du jeu (`LOT-1002`) ;
+  `hmi::DraftRenderer`, `hmi::regionForTile`, `hmi::buildProceduralAtlasImage` — sa vue à plat,
+  peinte par `QPainter`.
 - `hmi::decodeImageFile`, `hmi::encodeImageFile`, `hmi::createTexture`, `hmi::loadTextureFromFile`,
   `hmi::AssetValidation`,
   `hmi::buildMissingTextureImage`, `hmi::entityMarkerKey` — textures depuis fichiers et replis

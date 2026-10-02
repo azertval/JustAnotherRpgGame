@@ -10,12 +10,11 @@
  * temporaire comme le fait `test_capital_kit_render.cpp` — le moteur ne résout pas encore l'arbre
  * `Regions/`. Leur manifeste déclare la hauteur d'étage (`storey`). Le toit est **provisoire** :
  * une pyramide bourgogne peinte par le test, en attendant la toiture de la Capitale que produit le
- * lot. Le rendu passe par le peintre de l'éditeur, que le `LOT-125` rend conforme au jeu ; l'image
- * est écrite dans `editor-captures/` pour l'œil de l'auteur.
+ * lot. Le rendu est celui du jeu, hors écran (`hmi::OffscreenRhi`, `LOT-1002`) ; l'image est écrite
+ * sous le répertoire de construction (`render-captures/`) pour l'œil de l'auteur.
  */
 
 #include <QColor>
-#include <QDir>
 #include <QImage>
 #include <QPainter>
 #include <QPolygonF>
@@ -32,11 +31,10 @@
 
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/LevelDraft.h"
-#include "Editor/Ui/SceneImages.h"
-#include "Editor/Ui/ScenePainter.h"
-#include "HMI/Graphics/Camera2D.h"
+#include "HMI/Graphics/OffscreenRender.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
+#include "HMI/Graphics/WorldSceneRenderer.h"
 
 namespace {
 
@@ -165,6 +163,14 @@ TEST(StoreyRenderTest, OnVoitLeHerosATraversLEtageEtLeToit) {
     EXPECT_EQ(draft.tileMap().tile(2, 3), core::TileType::Wall);
     EXPECT_NE(draft.tileMap().tile(2, 2), core::TileType::Wall);
 
+    // Le rendu du jeu, hors écran : l'interface d'abord, ses ressources meurent avant elle.
+    const std::shared_ptr<hmi::OffscreenRhi> offscreen = hmi::OffscreenRhi::shared();
+    if (!offscreen) {
+        std::filesystem::remove_all(root);
+        GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
+    }
+    hmi::WorldSceneRenderer renderer(assets);
+
     // Une figurine juste derrière le bâtiment : le héros, un PNJ, ou personne.
     enum class Behind { Nobody, Hero, Npc };
     const auto render = [&](Behind who) {
@@ -175,28 +181,27 @@ TEST(StoreyRenderTest, OnVoitLeHerosATraversLEtageEtLeToit) {
                                                        .point = {2.5F, 0.5F},
                                                        .hero = who == Behind::Hero});
         }
-        const hmi::WorldSceneSnapshot snapshot = hmi::snapshotWorldScene(
+        hmi::WorldSceneSnapshot snapshot = hmi::snapshotWorldScene(
             hmi::worldSceneSource(draft), appearance.appearance, std::move(figures));
         const core::IsoProjection projection(snapshot.columns, snapshot.rows,
                                              core::ARENA_TILE_WIDTH_UNITS, snapshot.diamondRatio);
-        hmi::SceneImages images(assets);
-        images.ensure(hmi::worldTexturePaths(snapshot));
-        const hmi::ComposedScene scene =
-            hmi::composeWorldScene(snapshot, projection, images.textures());
-        hmi::Camera2D camera(960, 720);
-        camera.setZoom(hmi::worldTilePixels(1080) /
-                       (projection.tileWidth() * hmi::Camera2D::PIXELS_PER_UNIT));
-        camera.setCenter(projection.gridToWorld({2.5F, 1.5F}));
-        return hmi::renderComposedScene(scene, camera, 960, 720, QColor(24, 26, 30));
+        renderer.setSnapshot(std::move(snapshot));
+        // Le cadrage du jeu à 1080p, centré sur le bâtiment.
+        const hmi::WorldFraming framing{
+            .center = projection.gridToWorld({2.5F, 1.5F}),
+            .pixelsPerUnit = hmi::worldTilePixels(1080) / projection.tileWidth()};
+        return offscreen->render(renderer, QSize(960, 720), framing, QColor(24, 26, 30));
     };
     const QImage nobody = render(Behind::Nobody);
     const QImage hero = render(Behind::Hero);
     const QImage npc = render(Behind::Npc);
+    renderer.release();
+    ASSERT_FALSE(nobody.isNull());
 
-    const QDir captures(QDir::current().filePath(QStringLiteral("editor-captures")));
-    QDir().mkpath(captures.path());
-    hero.save(captures.filePath(QStringLiteral("etages-heros-derriere.png")));
-    npc.save(captures.filePath(QStringLiteral("etages-pnj-derriere.png")));
+    const std::filesystem::path captures(JADG_RENDER_CAPTURES_DIR);
+    std::filesystem::create_directories(captures);
+    hero.save(QString::fromStdWString((captures / "etages-heros-derriere.png").wstring()));
+    npc.save(QString::fromStdWString((captures / "etages-pnj-derriere.png").wstring()));
 
     const auto visible = [&nobody](const QImage& image) {
         std::size_t differing = 0;

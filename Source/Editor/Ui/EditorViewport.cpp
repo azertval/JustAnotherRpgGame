@@ -42,11 +42,11 @@
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/WorldState.h"
 #include "Editor/Ui/DraftRenderer.h"
-#include "Editor/Ui/SceneImages.h"
-#include "Editor/Ui/ScenePainter.h"
+#include "Editor/Ui/SceneSurface.h"
 #include "HMI/Game/WorldPlay.h"
 #include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/EntityMarkers.h"
+#include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/HmiLog.h"
 #include "HMI/Platform/ExecutableDirectory.h"
 
@@ -247,22 +247,37 @@ EditorViewport::EditorViewport(StartContent content, QWidget* parent)
     : QGraphicsView(parent),
       _canvasScene(new QGraphicsScene(this)),
       _item(new CanvasItem(*this)),
-      _images(SceneImages::shared(assetsDirectory())),
+      _surface(new SceneSurface(assetsDirectory(), this)),
+      _flat(std::make_unique<DraftRenderer>()),
       _editorBindings(hmi::EditorKeyBindings::load(keybindingsPath())),
       _draft(core::LevelDraft::empty("New map", 24, 14)),
+      _snapshot(std::make_shared<const WorldSceneSnapshot>()),
       _mapId(_draft.name()) {
-    _flat = std::make_unique<DraftRenderer>(
-        DraftTextures{.atlas = sceneImageHandle(&_images->atlas()),
-                      .atlasWidth = _images->atlas().width(),
-                      .atlasHeight = _images->atlas().height(),
-                      .solid = SceneImages::solid(),
-                      .marker = [images = _images.get()](const std::string& key) -> TextureHandle {
-                          return sceneImageHandle(images->marker(key));
-                      }});
-
     _canvasScene->addItem(_item);
     setScene(_canvasScene);
-    setBackgroundBrush(EDIT_BACKGROUND);
+    // La scène est dessinée dessous, par la surface (LOT-1002) : la vue n'a pas de fond, et ne
+    // peint que les aides d'édition. Le fond du canevas est celui de la surface.
+    setBackgroundBrush(Qt::NoBrush);
+    viewport()->setAutoFillBackground(false);
+    _surface->stackUnder(viewport());
+    _surface->setGeometry(viewport()->geometry());
+    _surface->setClearColor(EDIT_BACKGROUND);
+    // Une interface de rendu neuve (la surface vient d'être montrée, ou a changé de fenêtre) : ce
+    // que la carte occupe ne se mesure qu'avec ses textures. En file : le signal part d'une
+    // peinture.
+    connect(
+        _surface, &SceneSurface::resourcesChanged, this,
+        [this] {
+            if (_play) {
+                return;
+            }
+            measureIsoScene();
+            refreshBounds();
+            if (!_framed) {
+                resetCamera();
+            }
+        },
+        Qt::QueuedConnection);
     // Une seule peinture par image, de tout ce qui se voit : l'élément unique couvre la scène.
     setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     setRenderHint(QPainter::SmoothPixmapTransform, false);
@@ -333,9 +348,6 @@ QRectF EditorViewport::contentBounds() const {
                       static_cast<double>(bounds.size.x) + (2 * padding),
                       static_cast<double>(bounds.size.y) + (2 * padding));
     };
-    if (_play) {
-        return framed(_playBounds, FRAME_PADDING_TILES * core::ARENA_TILE_WIDTH_UNITS);
-    }
     if (_view == CanvasView::Flat) {
         return {-1.0, -1.0, static_cast<double>(_draft.tileMap().width()) + 2.0,
                 static_cast<double>(_draft.tileMap().height()) + 2.0};
@@ -350,7 +362,7 @@ void EditorViewport::refreshBounds() {
     const QRectF bounds = contentBounds();
     _item->setBounds(bounds);
     _canvasScene->setSceneRect(bounds);
-    viewport()->update();
+    refreshView();
 }
 
 void EditorViewport::resetCamera() {
@@ -359,6 +371,7 @@ void EditorViewport::resetCamera() {
     }
     fitInView(contentBounds(), Qt::KeepAspectRatio);
     _framed = false;
+    refreshView();
     emitZoomIfChanged();
     emit framingChanged();
 }
@@ -377,15 +390,19 @@ void EditorViewport::emitZoomIfChanged() {
 
 void EditorViewport::resizeEvent(QResizeEvent* event) {
     QGraphicsView::resizeEvent(event);
+    // La surface occupe exactement la vue, barres de défilement exclues.
+    _surface->setGeometry(viewport()->geometry());
     // Tant que l'auteur n'a pas cadré lui-même, la carte entière reste dans la vue.
     if (!_framed && !_play) {
         resetCamera();
     }
+    refreshView();
     emit framingChanged();
 }
 
 void EditorViewport::scrollContentsBy(int dx, int dy) {
     QGraphicsView::scrollContentsBy(dx, dy);
+    syncSurface();
     emit framingChanged();
 }
 
@@ -403,10 +420,27 @@ void EditorViewport::setCanvasView(CanvasView view) {
 
 void EditorViewport::setSeeThroughRelief(bool enabled) {
     _seeThroughRelief = enabled;
-    viewport()->update();
+    refreshView();
 }
 
 std::array<core::Vector2, 4> EditorViewport::visibleGridCorners() const {
+    if (_play && _playMap) {
+        // L'essai cadre comme le jeu : ce que montre sa caméra, qui suit le héros.
+        const core::IsoProjection played(_playMap->columns, _playMap->rows,
+                                         core::ARENA_TILE_WIDTH_UNITS, _playMap->diamondRatio);
+        const core::CellPoint hero = _play->session().heroPoint();
+        const qreal ratio = _surface->devicePixelRatioF();
+        const core::Rect shown =
+            worldCamera(played, played.gridToWorld({hero.column, hero.row}),
+                        static_cast<int>(std::lround(_surface->width() * ratio)),
+                        static_cast<int>(std::lround(_surface->height() * ratio)))
+                .visibleBounds();
+        const float right = shown.position.x + shown.size.x;
+        const float bottom = shown.position.y + shown.size.y;
+        return {played.worldToGrid(shown.position), played.worldToGrid({right, shown.position.y}),
+                played.worldToGrid({right, bottom}),
+                played.worldToGrid({shown.position.x, bottom})};
+    }
     const QRect pixels = viewport()->rect();
     const std::array<QPointF, 4> corners = {
         mapToScene(pixels.topLeft()), mapToScene(pixels.topRight()),
@@ -434,7 +468,7 @@ void EditorViewport::revealCell(core::GridPosition cell) {
     _revealedCell = cell;
     centerOnGridPoint(
         {static_cast<float>(cell.column) + 0.5F, static_cast<float>(cell.row) + 0.5F});
-    viewport()->update();
+    refreshView();
 }
 
 core::Vector2 EditorViewport::worldPosition(const QMouseEvent* event) const {
@@ -463,6 +497,49 @@ core::GridPosition EditorViewport::clampedCell(const QMouseEvent* event) const {
 
 void EditorViewport::invalidateScene() {
     _isoSceneDirty = true;
+    refreshView();
+}
+
+WorldFraming EditorViewport::viewFraming() const {
+    // Ce que la vue montre : sa transformation porte le zoom et le défilement. La surface dessine
+    // en pixels physiques, la vue compte en pixels logiques.
+    const QTransform view = viewportTransform();
+    const QPointF center =
+        view.inverted().map(QPointF(viewport()->width() / 2.0, viewport()->height() / 2.0));
+    return WorldFraming{
+        .center = {static_cast<float>(center.x()), static_cast<float>(center.y())},
+        .pixelsPerUnit = static_cast<float>(view.m11() * _surface->devicePixelRatioF())};
+}
+
+void EditorViewport::syncSurface() {
+    if (_play) {
+        return;  // l'essai cadre comme le jeu : `stepPlaytest` règle le rendu.
+    }
+    if (_view == CanvasView::Flat) {
+        _surface->setBlank(true);  // la vue à plat se peint ; la surface n'en est que le fond.
+        return;
+    }
+    _surface->setBlank(false);
+    WorldSceneRenderer& renderer = _surface->renderer();
+    const WorldFraming framing = viewFraming();
+    const IsoBandOpacity bands =
+        isoBandOpacity(_draft.layers(), _layerView, _activeLayer, _seeThroughRelief);
+    if (_surfaceFraming == framing && _surfaceBands == bands) {
+        return;
+    }
+    if (_surfaceBands != bands) {
+        // Les calques masqués ou grisés, les reliefs en transparence : des paramètres du rendu.
+        renderer.setQuadOpacity(
+            [bands](const ComposedQuad& quad) { return bandOpacity(bands, quad); });
+    }
+    renderer.setFraming(framing);
+    _surfaceFraming = framing;
+    _surfaceBands = bands;
+    _surface->update();
+}
+
+void EditorViewport::refreshView() {
+    syncSurface();
     viewport()->update();
 }
 
@@ -492,8 +569,8 @@ void EditorViewport::loadPlaceAssets(const std::string& place) {
 }
 
 void EditorViewport::ensureIsoScene() {
-    if (!_isoSceneDirty) {
-        return;
+    if (!_isoSceneDirty || _play) {
+        return;  // pendant l'essai le rendu montre la carte jouée ; l'instantané attend la fin.
     }
     const std::string place = scenePlaceOf(_draft.layers());
     if (!_placeAssetsLoaded || place != _appearancePlace) {
@@ -501,37 +578,37 @@ void EditorViewport::ensureIsoScene() {
     }
     // Un brouillon remplacé (ouverture, reprise) repart sans manifeste : on le lui redonne.
     _draft.setPieceManifest(_manifest);
-    _snapshot = canvasSnapshot(_draft, _appearance, _statePreview ? &_stateFlags : nullptr);
+    WorldSceneSnapshot snapshot =
+        canvasSnapshot(_draft, _appearance, _statePreview ? &_stateFlags : nullptr);
     // La formation de la rencontre sélectionnée, par ses figurines (LOT-EDITOR-05).
     if (_tool == hmi::EditorTool::Entity && _selectedEntity && _references != nullptr) {
-        appendFormation(_snapshot, _terrains, *_selectedEntity, _references->figures);
+        appendFormation(snapshot, _terrains, *_selectedEntity, _references->figures);
     }
-    _images->ensure(worldTexturePaths(_snapshot));
-    _isoScene.clear();
-    composeWorldScene(_isoScene, _snapshot,
-                      core::IsoProjection(_snapshot.columns, _snapshot.rows,
-                                          core::ARENA_TILE_WIDTH_UNITS, _snapshot.diamondRatio),
-                      _images->textures());
-    _isoScene.sort();
-    _isoBounds = composedSceneBounds(_isoScene, snapshotRect(_snapshot));
+    _snapshot = std::make_shared<const WorldSceneSnapshot>(std::move(snapshot));
     _isoSceneDirty = false;
+    // Le rendu du jeu la compose et la dessine (LOT-1002) : la carte, puis ses figurines.
+    WorldSceneRenderer& renderer = _surface->renderer();
+    renderer.setScene(_snapshot);
+    renderer.setFigures(_snapshot->figures);
+    measureIsoScene();
+    _surface->update();
+}
+
+void EditorViewport::measureIsoScene() {
+    _isoBounds = _surface->paintedBounds(snapshotRect(*_snapshot));
 }
 
 void EditorViewport::paintCanvas(QPainter& painter, const QRectF& exposed) {
     if (_play) {
-        paintPlaytest(painter, exposed);
-    } else if (_view == CanvasView::Flat) {
+        return;  // l'essai n'a pas d'aide d'édition : tout est dans la surface.
+    }
+    // Filet : un cadrage changé sans passer par `refreshView` rattrape la surface ici.
+    syncSurface();
+    if (_view == CanvasView::Flat) {
         paintFlat(painter, exposed);
     } else {
         paintIso(painter, exposed);
     }
-}
-
-void EditorViewport::paintPlaytest(QPainter& painter, const QRectF& exposed) {
-    const core::Rect visible{
-        {static_cast<float>(exposed.x()), static_cast<float>(exposed.y())},
-        {static_cast<float>(exposed.width()), static_cast<float>(exposed.height())}};
-    paintComposedScene(painter, _playScene, visible);
 }
 
 void EditorViewport::paintFlat(QPainter& painter, const QRectF& exposed) {
@@ -543,8 +620,8 @@ void EditorViewport::paintFlat(QPainter& painter, const QRectF& exposed) {
     overlay.terrains = &_terrains;
     overlay.showTerrain = _tool == hmi::EditorTool::Entity;
     _flat->setLayerView(_layerView);
-    paintComposedScene(painter, _flat->compose(_draft, visible, _showGrid, highlight(), overlay),
-                       visible);
+    static_cast<void>(_flat->compose(_draft, visible, _showGrid, highlight(), overlay));
+    _flat->paint(painter);
     const CellRange flatCells{
         .firstColumn = std::max(0, static_cast<int>(exposed.left())),
         .firstRow = std::max(0, static_cast<int>(exposed.top())),
@@ -577,10 +654,9 @@ void EditorViewport::paintIso(QPainter& painter, const QRectF& exposed) {
         {static_cast<float>(exposed.x()), static_cast<float>(exposed.y())},
         {static_cast<float>(exposed.width()), static_cast<float>(exposed.height())}};
     const CellRange cells = isoCellsCovering(iso, visible);
+    // Le lieu est dessous, dans la surface ; ici, ce qui n'est pas la scène.
     const IsoBandOpacity bands =
         isoBandOpacity(_draft.layers(), _layerView, _activeLayer, _seeThroughRelief);
-    paintComposedScene(painter, _isoScene, visible,
-                       [&bands](const ComposedQuad& quad) { return bandOpacity(bands, quad); });
     paintIsoOverlays(painter, cells, bands);
 }
 
@@ -767,14 +843,16 @@ void EditorViewport::paintDragPreview(QPainter& painter, bool iso) {
 }
 
 QColor EditorViewport::tileColor(core::TileType type) {
-    return SceneImages::tileColor(type);
+    // La palette de maquette (LOT-128, décision D5) : la couleur que la case prend à plat.
+    const MaquetteColor tint = maquetteColor(type);
+    return QColor::fromRgbF(tint.r, tint.g, tint.b);
 }
 
 std::string EditorViewport::hoveredPieces() const {
     if (!_hoverCell || _play) {
         return {};
     }
-    return cellPieces(_snapshot, *_hoverCell);
+    return cellPieces(*_snapshot, *_hoverCell);
 }
 
 // --- Brouillon
@@ -834,7 +912,7 @@ void EditorViewport::setMirror(bool enabled) {
                                .arg(through.column)
                                .arg(through.row));
     }
-    viewport()->update();
+    refreshView();
     emit toolStateChanged();
 }
 
@@ -855,7 +933,7 @@ void EditorViewport::reloadSidecar() {
         emit statusMessage(
             QStringLiteral("Author notes: %1").arg(QString::fromStdString(read.warning)));
     }
-    viewport()->update();
+    refreshView();
     emit toolStateChanged();
 }
 
@@ -867,7 +945,7 @@ void EditorViewport::setNote(core::GridPosition cell, const std::string& text) {
         HMI_LOG_ERROR("Editeur : echec d'ecriture de l'annexe de " + _mapId);
         emit statusMessage(QStringLiteral("Failed to write the author notes."));
     }
-    viewport()->update();
+    refreshView();
     emit toolStateChanged();
 }
 
@@ -1146,38 +1224,20 @@ void EditorViewport::stepPlaytest() {
         return;
     }
     _playSceneDirty = false;
-    // La carte : composée une fois, tant qu'elle ne change pas — comme dans le jeu
-    // (`hmi::WorldSceneRenderer`). Un portail, un drapeau la refont.
+    // La carte : donnée au rendu quand elle change (un portail, un drapeau), il la compose une
+    // fois — comme dans le jeu (`hmi::WorldViewportItem`).
+    WorldSceneRenderer& renderer = _surface->renderer();
     const std::shared_ptr<const WorldSceneSnapshot> map = _play->scene();
-    const core::IsoProjection played(map->columns, map->rows, core::ARENA_TILE_WIDTH_UNITS,
-                                     map->diamondRatio);
     if (map != _playMap) {
-        const bool resized =
-            _playMap == nullptr || map->columns != _playMap->columns || map->rows != _playMap->rows;
         _playMap = map;
-        _images->ensure(worldTexturePaths(*map));
-        _playStatics.build(*map, played, _images->textures());
-        _playScene.clear();
-        _playScene.clearVisibleBounds();
-        _playStatics.compose(_playScene, {}, _images->textures());
-        _playBounds = composedSceneBounds(_playScene, snapshotRect(*map));
-        if (resized) {
-            refreshBounds();  // un portail a mené sur une autre carte.
-        }
+        renderer.setScene(map);
     }
-    // La caméra suit le héros, comme en jeu (`hmi::worldCamera`).
+    // L'image : les figurines de l'instant, et la caméra sur le héros (`hmi::worldCamera`).
+    renderer.setFigures(_play->figures());
     const core::CellPoint hero = _play->session().heroPoint();
-    centerOn(toQt(played.gridToWorld({hero.column, hero.row})));
-    // L'image : ce que la vue montre de la carte, et les figurines de l'instant.
-    const std::vector<WorldFigureSnapshot> figures = _play->figures();
-    _images->ensure(worldFigureTexturePaths(*map, figures));
-    const QRectF shown = mapToScene(viewport()->rect()).boundingRect();
-    _playScene.clear();
-    _playScene.setVisibleBounds(
-        core::Rect{{static_cast<float>(shown.x()), static_cast<float>(shown.y())},
-                   {static_cast<float>(shown.width()), static_cast<float>(shown.height())}});
-    _playStatics.compose(_playScene, figures, _images->textures());
-    viewport()->update();
+    renderer.setFocus({hero.column, hero.row});
+    _surface->update();
+    emit framingChanged();
 }
 
 void EditorViewport::startPlaytestHere() {
@@ -1271,21 +1331,23 @@ void EditorViewport::startPlaytest(std::optional<core::GridPosition> from) {
         emit statusMessage(QStringLiteral("Cannot playtest: the map does not open."));
         return;
     }
-    _editTransform = transform();
-    _editCenter = mapToScene(viewport()->rect().center());
     _play = std::move(play);
     _playMap.reset();
-    _playStatics.clear();
     _playSceneDirty = true;
     _heldKeys.clear();
     _interactRequested = false;
     _timestep = core::FixedTimestep{};
     _previousFrame = Clock::now();
-    setBackgroundBrush(PLAYTEST_BACKGROUND);
-    // Le cadrage du jeu : une case à la hauteur de la vue divisée par 10,8 (`hmi::worldCamera`).
-    const double scale = static_cast<double>(worldTilePixels(viewport()->height())) /
-                         static_cast<double>(core::ARENA_TILE_WIDTH_UNITS);
-    setTransform(QTransform::fromScale(scale, scale));
+    // Le rendu du jeu, réglé comme le jeu : plus de cadrage imposé ni de calque — la caméra suit le
+    // héros, une case à la hauteur de la vue divisée par 10,8 (`hmi::worldCamera`).
+    WorldSceneRenderer& renderer = _surface->renderer();
+    renderer.setFraming(std::nullopt);
+    renderer.setQuadOpacity({});
+    _surfaceFraming.reset();
+    _surfaceBands.reset();
+    _surface->setBlank(false);
+    _surface->setClearColor(PLAYTEST_BACKGROUND);
+    viewport()->update();  // les aides d'édition s'effacent.
     stepPlaytest();
     _playTimer.start();
     setFocus();
@@ -1304,14 +1366,12 @@ void EditorViewport::stopPlaytest() {
     _playTimer.stop();
     _play.reset();
     _playMap.reset();
-    _playStatics.clear();
-    _playScene.clear();
-    _playScene.clearVisibleBounds();
     _heldKeys.clear();
-    setBackgroundBrush(EDIT_BACKGROUND);
+    // Le rendu retrouve le brouillon, et la vue son cadrage d'édition, qui n'a pas bougé.
+    _surface->setClearColor(EDIT_BACKGROUND);
+    _isoSceneDirty = true;
     refreshBounds();
-    setTransform(_editTransform);
-    centerOn(_editCenter);
+    emit framingChanged();
     emit statusMessage(QStringLiteral("Back to editing."));
 }
 
@@ -1322,7 +1382,7 @@ bool EditorViewport::viewportEvent(QEvent* event) {
     if (event->type() == QEvent::Leave && _hoverCell) {
         _hoverCell.reset();
         emit hoveredCellChanged(std::nullopt);
-        viewport()->update();
+        refreshView();
     }
     return QGraphicsView::viewportEvent(event);
 }
@@ -1419,7 +1479,7 @@ void EditorViewport::mousePressEvent(QMouseEvent* event) {
                 _measure.reset();
                 emit toolStateChanged();
             }
-            viewport()->update();
+            refreshView();
             break;
         case hmi::EditorTool::Bucket:
             if (cell) {
@@ -1477,7 +1537,7 @@ void EditorViewport::mouseReleaseEvent(QMouseEvent* event) {
                 core::GridPosition{.column = std::max(_dragStart.column, _dragCurrent.column),
                                    .row = std::max(_dragStart.row, _dragCurrent.row)});
         }
-        viewport()->update();
+        refreshView();
     }
     endPainting();
 }
@@ -1498,13 +1558,13 @@ void EditorViewport::mouseMoveEvent(QMouseEvent* event) {
     if (cell != _hoverCell) {
         _hoverCell = cell;
         emit hoveredCellChanged(_hoverCell);
-        viewport()->update();
+        refreshView();
     }
     if (_entityDrag) {
         const core::GridPosition current = clampedCell(event);
         if (current != _entityDragTo) {
             _entityDragTo = current;
-            viewport()->update();
+            refreshView();
         }
     } else if (_shapePainting) {
         if (cell) {
@@ -1516,7 +1576,7 @@ void EditorViewport::mouseMoveEvent(QMouseEvent* event) {
         const core::GridPosition current = clampedCell(event);
         if (current != _dragCurrent) {
             _dragCurrent = current;
-            viewport()->update();
+            refreshView();
             if (_tool == hmi::EditorTool::Measure) {
                 emit toolStateChanged();
             }
@@ -1541,6 +1601,7 @@ void EditorViewport::wheelEvent(QWheelEvent* event) {
                                      std::min(fit, MAX_PIXELS_PER_UNIT), MAX_PIXELS_PER_UNIT);
     const double factor = wanted / current;
     scale(factor, factor);  // ancré sous le pointeur (`AnchorUnderMouse`).
+    refreshView();
     _framed = true;
     emitZoomIfChanged();
     emit framingChanged();
@@ -1684,7 +1745,7 @@ void EditorViewport::redo() {
 
 void EditorViewport::toggleGrid() noexcept {
     _showGrid = !_showGrid;
-    viewport()->update();
+    refreshView();
 }
 
 void EditorViewport::resizeLevel(int width, int height) {
@@ -1755,7 +1816,7 @@ void EditorViewport::setPartyLevel(int level) {
     }
     _partyLevel = bounded;
     refreshDiagnostics();
-    viewport()->update();
+    refreshView();
     emit draftChanged();  // l'inspecteur relit le verdict de l'entite principale.
 }
 
@@ -1765,26 +1826,26 @@ void EditorViewport::setActiveLayer(LayerSlot slot) {
         return;
     }
     _activeLayer = valid;
-    _selection.reset();    // une sélection copiée d'une autre couche tromperait le collage.
-    viewport()->update();  // le masque de collision iso suit la couche active.
+    _selection.reset();  // une sélection copiée d'une autre couche tromperait le collage.
+    refreshView();       // le masque de collision iso suit la couche active.
     emit activeLayerChanged(_activeLayer);
 }
 
 void EditorViewport::setMapLayerVisible(LayerSlot slot, bool visible) {
     _layerView.setVisible(slot, visible);
-    viewport()->update();
+    refreshView();
     emit layerViewChanged();
 }
 
 void EditorViewport::setMapLayerOpacity(LayerSlot slot, float opacity) {
     _layerView.setOpacity(slot, opacity);
-    viewport()->update();
+    refreshView();
     emit layerViewChanged();
 }
 
 void EditorViewport::setMapLayerDimmed(LayerSlot slot, bool dimmed) {
     _layerView.setDimmed(slot, dimmed);
-    viewport()->update();
+    refreshView();
     emit layerViewChanged();
 }
 
@@ -1841,7 +1902,7 @@ void EditorViewport::setWorldState(std::vector<std::string> entries, bool previe
                                                               : std::vector<core::QuestFlag>{})
             .flags;
     invalidateScene();
-    viewport()->update();
+    refreshView();
 }
 
 void EditorViewport::setEditorReferences(const EditorReferences* references) {
@@ -1849,7 +1910,7 @@ void EditorViewport::setEditorReferences(const EditorReferences* references) {
     // Les declarations des quetes ont pu changer : l'etat se relit contre elles.
     setWorldState(_stateEntries, _statePreview);
     refreshDiagnostics();
-    viewport()->update();
+    refreshView();
     emit draftChanged();  // les panneaux relisent avertissements et choix proposés.
 }
 
@@ -2010,7 +2071,7 @@ void EditorViewport::handleEntityPress(const QMouseEvent* event) {
             break;
         }
     }
-    viewport()->update();
+    refreshView();
 }
 
 void EditorViewport::handleEntityRelease(const QMouseEvent* event) {
@@ -2026,7 +2087,7 @@ void EditorViewport::handleEntityRelease(const QMouseEvent* event) {
     const EntityDragResult result = pendingEntityDrag();
     _entityDrag.reset();
     applyEntityDrag(result);
-    viewport()->update();
+    refreshView();
 }
 
 void EditorViewport::handleShapePress(const QMouseEvent* event) {
@@ -2077,7 +2138,7 @@ void EditorViewport::handleShapePress(const QMouseEvent* event) {
             }
             break;
     }
-    viewport()->update();
+    refreshView();
 }
 
 void EditorViewport::paintShapeAt(core::GridPosition cell) {
@@ -2305,8 +2366,8 @@ void EditorViewport::paintEntities(QPainter& painter, const CellRange& cells, bo
             const QRectF target(center.x() - (markerSide / 2.0), center.y() - (markerSide / 2.0),
                                 markerSide, markerSide);
             painter.setOpacity(absent ? ABSENT_ENTITY_OPACITY : 1.0);
-            if (const SceneImage* const marker = _images->marker(entityMarkerKey(entity.type))) {
-                painter.drawImage(target, marker->pinned());
+            if (const QImage* const marker = _flat->marker(entityMarkerKey(entity.type))) {
+                painter.drawImage(target, *marker);
             } else {
                 painter.fillRect(target, QColor(255, 0, 255, 204));
             }

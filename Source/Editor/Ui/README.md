@@ -11,22 +11,21 @@ textes anglais, aucun formulaire `.ui` (`LOT-EDITOR-01`).
   fermeture d'un onglet comme de la fenêtre.
 - `EditorActions` — les commandes comme `QAction` uniques, partagées par la barre d'outils, les
   menus et les raccourcis remappables.
-- `EditorViewport` — le canevas (`LOT-EDITOR-02`) : une `QGraphicsView` et un seul élément peint.
-  En **vue iso** (défaut), il peint la scène que compose le jeu, puis les aides d'édition ; en **vue
-  à plat** (`F9`), la composition de `DraftRenderer`. En **essai** (`P`), la carte est jouée par
-  `hmi::WorldPlay` et peinte de même, caméra sur le héros (`EX-EDIT-055`). `F8` : reliefs en
+- `EditorViewport` — le canevas : une `QGraphicsView` au fond transparent, posée sur une
+  `SceneSurface` (`LOT-1002`). En **vue iso** (défaut), la surface dessine le lieu par le rendu du
+  jeu et la vue peint les aides d'édition par-dessus ; en **vue à plat** (`F9`), la vue peint la
+  composition de `DraftRenderer`. En **essai** (`P`), la carte est jouée par `hmi::WorldPlay` et
+  dessinée par le même rendu, caméra sur le héros comme en jeu (`EX-EDIT-055`). `F8` : reliefs en
   transparence.
-- `ScenePainter` — peint une `hmi::ComposedScene` par `QPainter`, comme le GPU la dessine
-  (échantillonnage au plus proche, remplissage texturé) ; rend aussi hors écran.
+- `SceneSurface` — le `QRhiWidget` qui porte `hmi::WorldSceneRenderer`, le rendu du jeu : carte,
+  figurines, cadrage et opacité des calques se règlent sur lui.
 - `MapRender` — `LevelEditor --render` : une carte rendue en PNG, en isométrie et sans fenêtre, par
-  le même peintre ; bandes et échelle au choix (`EX-EDIT-075`). `renderStamp` y rend la vignette
-  d'un préfabriqué, posé sur une carte jetable de sa taille (`EX-EDIT-086`).
-- `SceneImages` — les images des planches et des figurines, chargées à la demande selon les règles
-  du rendu du jeu (marqueur d'une figurine absente, damier d'une pièce absente), l'atlas des types
-  et les marqueurs d'entité.
-- `DraftRenderer` — la vue à plat composée : une couleur par type de tuile, la collision en masque,
-  les entités par leur marqueur ; le canevas y ajoute formes, étiquettes et poignées, comme en
-  iso.
+  le même rendu, hors écran (`hmi::OffscreenRhi`) ; bandes et échelle au choix (`EX-EDIT-075`).
+  `renderStamp` y rend la vignette d'un préfabriqué, posé sur une carte jetable de sa taille
+  (`EX-EDIT-086`).
+- `DraftRenderer` — la vue à plat, composée puis peinte par `QPainter` : une couleur par type de
+  tuile, la collision en masque, les entités par leur marqueur ; le canevas y ajoute formes,
+  étiquettes et poignées, comme en iso.
 - `MiniMap` — toute la carte, un pixel par case, et le cadre de la vue ; un clic y recentre la vue.
 - `PalettePanel` — la palette : l'onglet « Pieces » (la planche du lieu, `hmi::pieceCatalog`,
   vignettes et recherche), l'onglet « Types » (`hmi::tileTaxonomy`) et l'onglet « Prefabs » (la
