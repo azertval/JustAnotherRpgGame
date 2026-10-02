@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790930537429,
+  "lastUpdate": 1790930542842,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -2218,6 +2218,40 @@ window.BENCHMARK_DATA = {
             "value": 5.230198529411801,
             "unit": "ms/iter",
             "extra": "iterations: 272\ncpu: 5.227481617647059 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "b80fae1af8e11fa60b56fed6f54996eb6a8a7b97",
+          "message": "Merge pull request #166 from azertval/lot-1000-preuve-personnages\n\nLOT-1000 — La preuve de la chaîne de personnages",
+          "timestamp": "2026-10-01T13:30:14Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/b80fae1af8e11fa60b56fed6f54996eb6a8a7b97"
+        },
+        "date": 1790930540913,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 12.965170535714268,
+            "unit": "ms/iter",
+            "extra": "iterations: 112\ncpu: 12.276785714285714 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 6.220559821428599,
+            "unit": "ms/iter",
+            "extra": "iterations: 224\ncpu: 6.34765625 ms\nthreads: 1"
           }
         ]
       }
