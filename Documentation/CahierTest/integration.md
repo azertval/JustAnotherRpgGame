@@ -43,7 +43,7 @@ Une carte du disque se charge et se compose.
 - Vérifie que `snapshot.figures.empty()` est faux.
 - Vérifie que `snapshot.figures.back().hero` est vrai.
 - Vérifie que `snapshot.figures.back().figure` vaut `play.heroResolved().directory`.
-- Vérifie que `play.heroResolved().directory` vaut `hmi::placeholderFigureDirectory("humanoid")`.
+- Vérifie que `play.heroResolved().directory` vaut `hmi::mannequinFigureDirectory("humanoid")`.
 - Vérifie que `play.heroResolved().placeholder` est vrai.
 
 ### ExplorationCarteIntegration.LeHerosMarcheSurUneCarte
@@ -189,7 +189,7 @@ Renommer `condamne` laisse le contrôle vert.
 
 ### QueteDesPommes.LaVoieDeLaParole
 
-*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:299`
+*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:300`
 
 La demo se finit par la parole quand la Persuasion reussit.
 
@@ -211,7 +211,7 @@ La demo se finit par la parole quand la Persuasion reussit.
 
 ### QueteDesPommes.LaVoieDeLArene
 
-*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:328`
+*Critique · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:329`
 
 La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 
@@ -220,7 +220,8 @@ La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 1. Jusqu'au garde ; convaincre avec un jet qui echoue, puis endosser.
 2. L'escalier de l'arene : on arrive au vestiaire A, et la porte du couloir arrete le pas.
 3. La porte du triomphe : le sable ; le maitre d'arene engage la rencontre ; la jouer a la premiere graine qui la gagne.
-4. Redescendre, passer la porte ouverte, revenir a l'etal.
+4. Reparler au maitre apres chaque victoire, jusqu'au capitaine : quatre combats de plus.
+5. Redescendre, passer la porte ouverte, revenir a l'etal.
 
 **Résultat attendu**
 
@@ -241,11 +242,19 @@ La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 - Vérifie que `sable` diffère de `nullptr`.
 - Vérifie que `gagnante.has_value()` est vrai.
 - Vérifie que `partie.drapeaux().isSet(core::encounterWonFlag(RENCONTRE))` est vrai.
+- Vérifie que `partie.etapesAtteintes().empty()` est vrai.
+- Vérifie que `partie.valeur()` vaut `"condamne"`.
+- Vérifie que `partie.parlerDepuis(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
+- Vérifie que `suite.rencontres` vaut `(std::vector<std::string>{std::string{SUITE[rang]}})`.
+- Vérifie que `partie.drapeaux().isSet("arene/recompense-" + std::to_string(rang + 1))` est vrai.
+- Vérifie que `partie.valeur()` vaut `"condamne"`.
+- Vérifie que `partie.session().flags().set(core::encounterWonFlag(SUITE[rang]))` est vrai.
+- Vérifie que `partie.etapesAtteintes().empty()` est vrai.
 - Vérifie que `partie.etapesAtteintes()` vaut `(std::vector<std::string>{"pommes/victoire", "pommes/enfant-libere"})`.
 - Vérifie que `partie.valeur()` vaut `"enfant-libere"`.
 - Vérifie que `partie.parlerDepuis(DEVANT_LE_MAITRE)` vaut `"maitre-arene"`.
-- Vérifie que `suite.rencontres` vaut `(std::vector<std::string>{"arene-gladiateurs"})`.
-- Vérifie que `partie.drapeaux().isSet("arene/recompense-1")` est vrai.
+- Vérifie que `gloire.rencontres.empty()` est vrai.
+- Vérifie que `partie.drapeaux().isSet("arene/recompense-5")` est vrai.
 - Vérifie que `partie.marcherJusquA(PORTE_DU_TRIOMPHE, {0.0F, -1.0F}, core::ExplorationEventKind::MapEntered)` vaut `VESTIAIRES`.
 - Vérifie que `partie.marcherJusquA(ARRIVEE_AUX_VESTIAIRES, {1.0F, 0.0F}, core::ExplorationEventKind::MapEntered)` vaut `ARENAREA`.
 - Vérifie que `partie.session().heroCell()` vaut `DEVANT_L_ESCALIER`.
@@ -253,7 +262,7 @@ La demo se finit par l'arene quand le joueur endosse le crime et gagne.
 
 ### QueteDesPommes.LaDefaiteSurLeSable
 
-*Majeur · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:415`
+*Majeur · Integration · Quete de la demo* — `Source/Test/Integration/test_quete_des_pommes.cpp:438`
 
 Une defaite sur le sable ne pose rien : la demo s'y termine.
 
@@ -276,7 +285,7 @@ Une defaite sur le sable ne pose rien : la demo s'y termine.
 
 ### QueteDesPommes.LeCombatSeGagneDeuxFoisSurTrois
 
-*Critique · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:455`
+*Critique · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:478`
 
 Le groupe gagne le combat de l'arene entre 62 et 78 fois sur cent.
 
@@ -295,7 +304,7 @@ Le groupe gagne le combat de l'arene entre 62 et 78 fois sur cent.
 
 ### QueteDesPommes.LaProbabiliteDeVictoireTientSurMilleGraines
 
-*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:491`
+*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:514`
 
 Sur cent combats a graines tirees, le groupe gagne sept fois sur dix.
 
@@ -310,7 +319,7 @@ Sur cent combats a graines tirees, le groupe gagne sept fois sur dix.
 
 ### QueteDesPommes.LaPersuasionReussitUneFoisSurQuatre
 
-*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:528`
+*Majeur · Integration · Quete de la demo · Equilibrage* — `Source/Test/Integration/test_quete_des_pommes.cpp:551`
 
 Sur deux mille jets a graines tirees, la Persuasion reussit une fois sur quatre.
 

@@ -72,12 +72,12 @@ le joueur se trouve déjà.
 Une case vaut **1,5 m** (5 ft), l'unité tactique du système d20, que la grille de combat du `LOT-19`
 reprend telle quelle. La marche va à **2 cases par seconde**, soit 3 m/s
 (`core::ExplorationSession::WALK_SPEED_CELLS_PER_SECOND`) : une marche vive, pas la vitesse réelle
-d'un marcheur — l'exploration doit rester agréable à la manette, pas simuler une randonnée. Elle
+d'un marcheur — l'exploration doit rester agréable au clavier, pas simuler une randonnée. Elle
 allait à 4 cases par seconde avant le `LOT-112` ; c'est la figurine peinte qui a tranché.
 
 - **EX-EXP-011** — La vitesse de marche est **2 cases par seconde**, et un cycle de marche de
-  la figurine couvre **une case** : la cadence des images se lit dans la bande d'animation
-  (`frameDuration`, `EX-REN-012`), jamais dans une constante du code. À 4 cases par seconde, des
+  la figurine couvre **une case** : la cadence se lit dans le clip de marche du squelette
+  (`skeleton.json`, `EX-REN-051`), jamais dans une constante du code. À 4 cases par seconde, des
   pieds qui ne glissent pas demandaient une image toutes les 31 ms ; le déplacement et l'animation
   sont **un seul réglage**, sans quoi l'un des deux ment toujours. L'orientation vectorielle
   (`EX-EXP-004`) se projette sur la **diagonale peinte** la plus proche — quatre bandes, une par
@@ -111,7 +111,7 @@ partie neuve impose le groupe préformé : Brawler, Priest, Scoundrel, Mage. Con
   joueur y choisit qui parle (`Tab`, ou le clic), et c'est celui-là qui jette, avec ses
   modificateurs (D-28). `Tab` passe la main au suivant — le meneur va en queue, et quatre appuis font
   le tour ; l'écran **Groupe** (`G`) prend, laisse, fait mener et change l'ordre de marche, au
-  clavier comme à la manette.
+  clavier comme à la souris.
 
 ## 4. La mémoire du monde : drapeaux et quêtes
 
@@ -148,7 +148,7 @@ La sauvegarde n'aura que lui à écrire.
   formée laisse l'entité présente.
 - **EX-EXP-010** — Le **journal de quêtes** montre les quêtes commencées et
   leur état, l'entrée la plus récente de la quête choisie et ses étapes atteintes, tirés des seuls
-  drapeaux ; il se parcourt au clavier et à la manette. Sa maquette est dans
+  drapeaux ; il se parcourt au clavier et à la souris. Sa maquette est dans
   [`interface-ihm.md`](interface-ihm.md#ihm-journal).
 - **EX-EXP-012** — L'**avancement** d'une quête n'est **stocké nulle part** : l'état
   (non commencée, en cours, réussie, échouée) et les étapes atteintes se **recalculent** depuis les

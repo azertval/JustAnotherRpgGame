@@ -171,7 +171,7 @@ TEST(EncounterModelTest, DuDeclenchementAuRetourALExploration) {
     bool mannequin = false;
     for (const hmi::WorldFigureSnapshot& figure : monde.figures()) {
         EXPECT_FALSE(figure.combatant);
-        mannequin = mannequin || figure.figure == hmi::placeholderFigureDirectory("humanoid");
+        mannequin = mannequin || figure.figure == hmi::mannequinFigureDirectory("humanoid");
     }
     EXPECT_TRUE(mannequin);
 }

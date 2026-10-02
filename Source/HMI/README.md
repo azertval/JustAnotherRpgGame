@@ -15,7 +15,7 @@ dans `../Ui/`.
 | Dossier | Rôle |
 |---|---|
 | [`Platform/`](Platform/README.md)   | Provisionnement bas niveau (répertoire de l'exécutable, minidump). |
-| [`Input/`](Input/README.md)         | Entrées : état, manette, pont Qt→`Key`. |
+| [`Input/`](Input/README.md)         | Entrées : pont clavier Qt→`Key`. |
 | [`Graphics/`](Graphics/README.md)   | Rendu via **QRhi** (pipeline 2D, caméra, lieu, combat sur la carte). |
 | [`Game/`](Game/README.md)           | La carte qu'on parcourt (`WorldPlay`), partagée par le jeu et l'essai de l'éditeur. |
 | `Presentation/` | Logique de présentation pure (enchaînement des écrans, échelle, valeurs de fiche, crédits). |

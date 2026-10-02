@@ -5,7 +5,7 @@
 # (`LevelEditor`, Qt Widgets) partagent. L'éditeur lui-même vit dans son module, Source/Editor
 # (LOT-EDITOR-01) : il dépend de HMI, et rien ici ne dépend de lui. Le code est réparti par domaine :
 #   Platform/     provisionnement bas niveau (répertoire exécutable, minidump) ;
-#   Input/        entrées (état, manette, table Qt -> touche) ;
+#   Input/        entrées clavier (table Qt -> touche) ;
 #   Graphics/     rendu 2D sur QRhi (sprites, caméra, lieu, combat sur la carte) ;
 #   Game/         la carte qu'on parcourt, partagée par le jeu et l'essai de l'éditeur ;
 #   Presentation/ logique de présentation pure (table de transitions, échelle, valeurs de fiche) ;
@@ -80,8 +80,7 @@ add_library(HmiLib STATIC
     Graphics/EntityMarkers.cpp
     # Ce que les fichiers voisins d'une image disent d'elle : decoupe, echelle, ancre (LOT-103).
     Graphics/SceneTextureTraits.cpp
-    # Entrées : état, mapping, remappage persistant.
-    Input/InputState.cpp
+    # Entrées : mapping clavier et remappage persistant.
     # Localisation, journal de session.
     Localization/Localization.cpp
     # Interface : logique d'écrans, sans widget.

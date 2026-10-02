@@ -93,6 +93,9 @@ core::Rect composedSceneBounds(const ComposedScene& scene, const core::Rect& bas
 
 namespace {
 
+/// Ce qui termine le chemin du marqueur d'une figurine (`hmi::figureMarkerPath`).
+constexpr std::string_view FIGURE_MARKER_SUFFIX = "/@marker";
+
 /// Ce que pese une texture `RGBA8` de @p width x @p height en memoire graphique ; lissee, elle
 /// porte en plus sa chaine de mipmaps, un tiers de sa taille.
 [[nodiscard]] std::size_t textureWeight(int width, int height, bool mipmapped) noexcept {
@@ -217,7 +220,29 @@ void WorldSceneRenderer::ensureMeshes(const std::vector<std::string>& paths) {
     }
 }
 
-void WorldSceneRenderer::ensureFigureModels(const std::vector<std::string>& paths) {
+void WorldSceneRenderer::ensureFigureModels(std::span<const WorldFigureSnapshot> figures) {
+    std::vector<std::string> paths = worldFigureModelPaths(figures);
+    // Une figurine qui ne nomme pas son modele : la fiche de son dossier le dit (LOT-1006). Un
+    // dossier se lit une fois ; sans fiche, il est retenu comme tel et sa figurine prend son
+    // marqueur.
+    for (const WorldFigureSnapshot& figure : figures) {
+        if (figure.effect || figure.figure.empty() || !figure.model.empty()) {
+            continue;
+        }
+        const std::string directory = worldFigureDirectory(*_scene, figure.figure);
+        auto known = _textures.figureModels.find(directory);
+        if (known == _textures.figureModels.end()) {
+            const core::CharacterSheetFileResult sheet = core::readCharacterSheetFile(
+                _directory / std::filesystem::path(directory) / core::CHARACTER_SHEET_FILE);
+            known = _textures.figureModels
+                        .emplace(directory,
+                                 sheet.ok() ? directory + "/" + sheet.sheet.model : std::string{})
+                        .first;
+        }
+        if (!known->second.empty()) {
+            paths.push_back(known->second);
+        }
+    }
     for (const std::string& path : paths) {
         // Ni deja tente : un modele absent ne se redemande pas a chaque image.
         if (!_requested.insert(path).second) {
@@ -225,8 +250,7 @@ void WorldSceneRenderer::ensureFigureModels(const std::vector<std::string>& path
         }
         core::MeshFileResult read = core::readMeshFile(_directory / path);
         if (!read.ok()) {
-            // La composition retombe sur les bandes de la figurine, donc sur le damier : un modele
-            // manquant se voit, sans planter.
+            // Rien ne se dessine a sa place : un modele manquant est dit, sans planter.
             GRAPHICS_LOG_WARNING("Lieu : le modele '" + path + "' ne se charge pas (" +
                                  read.message + ").");
             continue;
@@ -287,7 +311,8 @@ std::optional<LoadedTexture> WorldSceneRenderer::figureMarker(const std::string&
     if (image.isEmpty()) {
         return std::nullopt;
     }
-    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle + " n'a pas d'image, son marqueur la remplace.");
+    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle +
+                      " n'a pas de modele, son marqueur la remplace.");
     return createTexture(_resources.context(), image.width, image.height, markerPixelsRgba8(image));
 }
 
@@ -297,6 +322,24 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
     std::vector<std::string> files;
     for (const std::string& path : paths) {
         if (!_requested.insert(path).second) {
+            continue;
+        }
+        // Le marqueur d'une figurine n'est pas un fichier non plus : il se peint, et seulement si
+        // la fiche de son dossier ne lui a pas donne de modele (LOT-1006). Une case de large.
+        if (path.ends_with(FIGURE_MARKER_SUFFIX)) {
+            const std::string directory = path.substr(0, path.size() - FIGURE_MARKER_SUFFIX.size());
+            if (_textures.findFigureOf(directory) != nullptr) {
+                _requested.erase(path);  // son modele est la : le marqueur reste a peindre un jour
+                continue;
+            }
+            if (std::optional<LoadedTexture> marqueur = figureMarker(path)) {
+                _textures.byPath[path] = SceneTexture{.texture = marqueur->handle(),
+                                                      .width = marqueur->width,
+                                                      .height = marqueur->height,
+                                                      .frameWidth = marqueur->width};
+                _textureBytes += textureWeight(marqueur->width, marqueur->height, false);
+                _loaded.push_back(std::move(*marqueur));
+            }
             continue;
         }
         // Un jeton n'est pas un fichier : il se peint (LOT-128, decision D2). La meme image, au
@@ -335,17 +378,6 @@ void WorldSceneRenderer::ensureTextures(const std::vector<std::string>& paths) {
                 : std::nullopt;
         decoded[index].reset();  // les pixels sont copies dans le lot : on les rend tout de suite
         if (!texture.has_value()) {
-            // Une figurine sans image se dessine par son marqueur (LOT-39, LOT-96) : la
-            // sentinelle se voit avant que l'atelier ne l'ait dessinee. Une case de large.
-            if (std::optional<LoadedTexture> marqueur = figureMarker(path)) {
-                _textures.byPath[path] = SceneTexture{.texture = marqueur->handle(),
-                                                      .width = marqueur->width,
-                                                      .height = marqueur->height,
-                                                      .frameWidth = marqueur->width};
-                _textureBytes += textureWeight(marqueur->width, marqueur->height, false);
-                _loaded.push_back(std::move(*marqueur));
-                continue;
-            }
             // La composition retombe sur le damier : une piece manquante se voit, sans planter.
             GRAPHICS_LOG_WARNING(missingTextureWarning(path));
             continue;
@@ -371,6 +403,7 @@ void WorldSceneRenderer::release() noexcept {
     _textures.byPath.clear();
     _textures.meshes.clear();
     _textures.figures.clear();
+    _textures.figureModels.clear();
     _skeletons.clear();
     _meshes.reset();
     _textures.missing = SceneTexture{};
@@ -420,16 +453,19 @@ void WorldSceneRenderer::refresh(const core::IsoProjection& projection) {
     // La carte : ses textures et sa composition, une fois par carte. Ce sont ses pieces qui disent
     // quoi charger, et la carte change au passage d'un portail.
     if (_sceneDirty) {
+        // Les modeles avant les textures : un marqueur ne se peint que pour une figurine sans
+        // modele.
+        ensureFigureModels(_scene->figures);
         ensureTextures(worldTexturePaths(*_scene));
         ensureMeshes(worldMeshPaths(*_scene));
-        ensureFigureModels(worldFigureModelPaths(_scene->figures));
         _statics.build(*_scene, projection, _textures, _composeOptions);
         _sceneDirty = false;
     }
-    // Les figurines : leurs bandes, quand elles changent (une figurine neuve, une autre bande).
+    // Les figurines : leurs modeles, leurs marqueurs et les bandes des effets, quand elles
+    // changent.
     if (_figuresDirty) {
+        ensureFigureModels(_figures);
         ensureTextures(worldFigureTexturePaths(*_scene, _figures));
-        ensureFigureModels(worldFigureModelPaths(_figures));
         _figuresDirty = false;
     }
 }

@@ -544,24 +544,6 @@ Item {
     // Le releve de position (Ctrl+clic) part de `MapCanvas` (voir sa note en tete de fichier) et
     // rejoint le journal via `wire()`, comme `backRequested` et les reperes.
 
-    GamepadNavigator {
-        active: root.visible
-        onPressed: (button) => {
-            switch (button) {
-            case "up": root.step(0, -1); break
-            case "down": root.step(0, 1); break
-            case "left": root.step(-1, 0); break
-            case "right": root.step(1, 0); break
-            case "a": root.confirm(); break
-            case "b": root.back(); break
-            case "x": root.zoomBy(1.25, root.width / 2, root.height / 2); break
-            case "y": root.zoomBy(1 / 1.25, root.width / 2, root.height / 2); break
-            case "lb": root.cycle(-1); break
-            case "rb": root.cycle(1); break
-            }
-        }
-    }
-
     Keys.onPressed: (event) => {
         switch (event.key) {
         case Qt.Key_Up: root.step(0, -1); break

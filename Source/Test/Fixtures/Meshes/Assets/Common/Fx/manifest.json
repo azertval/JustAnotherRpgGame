@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "disposition": "common-fx",
+  "comment": "L'image témoin de la carte d'essai en maillages (LOT-1003), rangée comme un effet depuis le LOT-1006, écrite par scripts/assetsGeneration/build_mesh_fixture.py.",
+  "tile": [
+    64,
+    40
+  ],
+  "ground": 46,
+  "textures": {
+    "fx/temoin": {
+      "file": "temoin.png",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        32,
+        48
+      ]
+    }
+  }
+}

@@ -1,20 +1,20 @@
 # HMI · Graphics
 
-Tests unitaires — **186 cas** (44 bloquants, 51 critiques, 86 majeurs, 5 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **187 cas** (46 bloquants, 52 critiques, 83 majeurs, 6 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_animation_catalog.cpp`](#test-animation-catalogcpp) | 12 | - | 5 | 7 | - |
-| [`test_asset_gallery.cpp`](#test-asset-gallerycpp) | 11 | 4 | 1 | 6 | - |
-| [`test_asset_gallery_renderer.cpp`](#test-asset-gallery-renderercpp) | 2 | 1 | - | 1 | - |
+| [`test_asset_gallery.cpp`](#test-asset-gallerycpp) | 11 | 5 | 1 | 5 | - |
+| [`test_asset_gallery_renderer.cpp`](#test-asset-gallery-renderercpp) | 3 | 2 | - | 1 | - |
 | [`test_capital_kit_render.cpp`](#test-capital-kit-rendercpp) | 1 | 1 | - | - | - |
 | [`test_city_block_render.cpp`](#test-city-block-rendercpp) | 2 | - | - | 2 | - |
 | [`test_depth_sort.cpp`](#test-depth-sortcpp) | 5 | - | 4 | 1 | - |
 | [`test_entity_markers.cpp`](#test-entity-markerscpp) | 5 | - | 1 | 4 | - |
-| [`test_figure_model.cpp`](#test-figure-modelcpp) | 4 | 1 | 2 | 1 | - |
-| [`test_figure_model_render.cpp`](#test-figure-model-rendercpp) | 4 | 3 | 1 | - | - |
+| [`test_figure_model.cpp`](#test-figure-modelcpp) | 5 | 1 | 3 | 1 | - |
+| [`test_figure_model_render.cpp`](#test-figure-model-rendercpp) | 5 | 3 | 1 | - | 1 |
 | [`test_hd_mockup_render.cpp`](#test-hd-mockup-rendercpp) | 3 | 2 | - | - | 1 |
 | [`test_image_encode.cpp`](#test-image-encodecpp) | 5 | - | 1 | 4 | - |
 | [`test_iso_view.cpp`](#test-iso-viewcpp) | 6 | 3 | - | 3 | - |
@@ -32,7 +32,7 @@ Tests unitaires — **186 cas** (44 bloquants, 51 critiques, 86 majeurs, 5 mineu
 | [`test_scene_folders.cpp`](#test-scene-folderscpp) | 2 | 2 | - | - | - |
 | [`test_static_world_scene.cpp`](#test-static-world-scenecpp) | 3 | 2 | - | 1 | - |
 | [`test_texture_atlas.cpp`](#test-texture-atlascpp) | 1 | - | 1 | - | - |
-| [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 37 | 4 | 16 | 17 | - |
+| [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 35 | 4 | 16 | 15 | - |
 | [`test_world_scene_renderer.cpp`](#test-world-scene-renderercpp) | 6 | 3 | 3 | - | - |
 | [`test_world_storeys.cpp`](#test-world-storeyscpp) | 7 | 6 | - | 1 | - |
 
@@ -42,7 +42,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 | Exigence | Cas |
 |---|---|
-| `EX-CNT-042` | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosOrienteRangeParClasse`](#assetgallerytestunherosorienterangeparclasse), [`AssetGalleryTest.UnEffetSeJoueDansLaGalerie`](#assetgallerytestuneffetsejouedanslagalerie) |
+| `EX-CNT-042` | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosEnModeleRangeParClasse`](#assetgallerytestunherosenmodelerangeparclasse), [`AssetGalleryTest.UnEffetSeJoueDansLaGalerie`](#assetgallerytestuneffetsejouedanslagalerie) |
 | `EX-EXP-005` | [`OffscreenRenderTest.UneCarteSansAucuneImageSeVoit`](#offscreenrendertestunecartesansaucuneimagesevoit) |
 | `EX-NFR-040` | [`ProceduralAtlasTest.ChaqueTypeDeTuileAUneCouleurDeRepliDistincte`](#proceduralatlastestchaquetypedetuileaunecouleurdereplidistincte) |
 | `EX-REN-005` | [`WorldSceneComposerTest.LaCadenceEstCelleQueDitLaBande`](#worldscenecomposertestlacadenceestcellequeditlabande) |
@@ -392,9 +392,12 @@ La galerie lit les assets d'une racine.
 
 - Vérifie que `npcs` diffère de `nullptr`.
 - Vérifie que `attack` diffère de `npcs->entries.end()`.
-- Vérifie que `attack->frameWidth` vaut `96`.
-- Vérifie que `attack->frameCount()` vaut `8`.
+- Vérifie que `attack->mesh` est vrai.
+- Vérifie que `attack->path` vaut `"Npc/figurant/figurant.glb"`.
+- Vérifie que `attack->clip` vaut `"attack"`.
+- Vérifie que `attack->clipDuration` vaut `0.8F` (comparaison flottante).
 - Vérifie que `attack->loop` est faux.
+- Vérifie que `attack->frameCount()` vaut `1`.
 - Vérifie que `familyNamed(catalog, "Monstres")` diffère de `nullptr`.
 - Vérifie que `familyNamed(catalog, "Scène · bourg")` diffère de `nullptr`.
 - Vérifie que `std::filesystem::is_regular_file(root / value.path)` est vrai.
@@ -404,7 +407,7 @@ La galerie lit les assets d'une racine.
 
 ### AssetGalleryTest.ToutAssetLivreEstDansLaGalerie
 
-*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:256`
+*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:259`
 
 Exigences : `EX-CNT-042`
 
@@ -425,7 +428,7 @@ Aucun asset livré n'échappe à la galerie.
 
 ### AssetGalleryTest.ArborescenceParNiveaux
 
-*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:288`
+*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:291`
 
 Les pièces de l'arborescence par niveaux paraissent dans la galerie.
 
@@ -451,59 +454,72 @@ Les pièces de l'arborescence par niveaux paraissent dans la galerie.
 - Vérifie que `wall.anchorX` vaut `6`.
 - Vérifie que `wall.anchorY` vaut `295`.
 
-### AssetGalleryTest.FigurinesDeMonstres
+### AssetGalleryTest.LesPersonnagesParaissentEnModeles
 
-*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:339`
+*Bloquant · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:343`
 
-Une figurine Grande sans sort paraît dans la galerie.
+Les personnages paraissent en modeles, clip par clip.
 
 **Étapes**
 
-1. Écrire un dossier Monsters/ : un manifeste qui nomme idle et cast, un lion qui n'a que idle, en cellules de 96 × 96. 2. Lire le catalogue.
+1. Écrire un dossier Monsters/ : un lion avec sa fiche, son modèle et un squelette à deux clips ; un tigre inscrit au manifeste (`models`) sans fiche ; un fantôme dont la fiche nomme un fichier absent ; un vestige qui n'a qu'une bande d'images. 2. Lire le catalogue.
 
 **Résultat attendu**
 
-- Vérifie que `catalog.errors.empty()` est vrai.
-- Vérifie que `monsters` diffère de `nullptr`.
-- Vérifie que `monsters->directory` vaut `"Monsters"`.
-- Vérifie que `monsters->entries.size()` vaut `1U`.
+- Vérifie que `family` diffère de `nullptr`.
+- Vérifie que `family->directory` vaut `"Monsters"`.
+- Vérifie que `family->entries.size()` vaut `3U`.
 - Vérifie que `idle.model` vaut `"lion"`.
 - Vérifie que `idle.form` vaut `"idle"`.
-- Vérifie que `idle.path` vaut `"Monsters/lion/idle.png"`.
-- Vérifie que `idle.frameWidth` vaut `96`.
-- Vérifie que `idle.frameHeight` vaut `96`.
-- Vérifie que `idle.frameCount()` vaut `6`.
+- Vérifie que `idle.path` vaut `"Monsters/lion/lion.glb"`.
+- Vérifie que `idle.mesh` est vrai.
+- Vérifie que `idle.clip` vaut `"idle"`.
 - Vérifie que `idle.loop` est vrai.
+- Vérifie que `idle.clipDuration` vaut `1.0` (comparaison flottante).
+- Vérifie que `idle.frameWidth` vaut `384`.
+- Vérifie que `idle.frameHeight` vaut `256`.
+- Vérifie que `attack.form` vaut `"attack"`.
+- Vérifie que `attack.loop` est faux.
+- Vérifie que `attack.clipDuration` vaut `0.8F` (comparaison flottante).
+- Vérifie que `still.model` vaut `"tigre"`.
+- Vérifie que `still.form` vaut `"model"`.
+- Vérifie que `still.path` vaut `"Monsters/tigre/tigre.glb"`.
+- Vérifie que `still.mesh` est vrai.
+- Vérifie que `still.clip.empty()` est vrai.
+- Vérifie que `hmi::assetGalleryClipSeconds(idle, 2.25)` vaut `0.25`, à `1e-9` près.
+- Vérifie que `hmi::assetGalleryClipSeconds(attack, 0.5)` vaut `0.5`, à `1e-6` près.
+- Vérifie que `hmi::assetGalleryClipSeconds(attack, 1.2)` vaut `0.8`, à `1e-6` près.
+- Vérifie que `hmi::assetGalleryClipSeconds(attack, 1.5)` vaut `0.1`, à `1e-6` près.
+- Vérifie que `hmi::assetGalleryClipSeconds(still, 3.0)` vaut `0.0` (comparaison flottante).
 
-### AssetGalleryTest.UnHerosOrienteRangeParClasse
+### AssetGalleryTest.UnHerosEnModeleRangeParClasse
 
-*Critique · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:392`
+*Critique · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:435`
 
 Exigences : `EX-CNT-042`
 
-Les bandes orientees du heros et son jeton paraissent dans la galerie.
+Le modele du heros, son portrait et son jeton paraissent dans la galerie.
 
 **Étapes**
 
-1. Ecrire `Common/Characters/manifest.json`, qui nomme `Heroes/brawler` dans `npcs`, et deux bandes de marche orientees, un portrait et un jeton.
+1. Ecrire `Common/Characters/manifest.json`, qui nomme `Heroes/brawler` dans `npcs`, sa fiche, son modele, le squelette humanoide a deux clips, un portrait et un jeton ; a cote, un modele que rien n'inscrit.
 2. Lire le catalogue.
-3. Chercher les images non listees.
+3. Chercher les assets non listes.
 
 **Résultat attendu**
 
 - Vérifie que `catalog.errors.empty()` est vrai.
 - Vérifie que `figurines` diffère de `nullptr`.
 - Vérifie que `entry.model` vaut `"Heroes/brawler"`.
-- Vérifie que `entry.path` vaut `"Common/Characters/Heroes/brawler/walk-se.png"`.
-- Vérifie que `entry.frameWidth` vaut `192`.
-- Vérifie que `entry.frameHeight` vaut `256`.
-- Vérifie que `entry.frameCount()` vaut `8`.
-- Vérifie que `formes` vaut `(std::vector<std::string>{"walk-se", "walk-sw", "portrait", "token"})`.
-- Vérifie que `unlisted.empty()` est vrai.
+- Vérifie que `entry.path` vaut `"Common/Characters/Heroes/brawler/brawler.glb"`.
+- Vérifie que `entry.mesh` est vrai.
+- Vérifie que `entry.clipDuration` vaut `0.5` (comparaison flottante).
+- Vérifie que `formes` vaut `(std::vector<std::string>{"idle", "walk", "portrait", "token"})`.
+- Vérifie que `unlisted` vaut `(std::vector<std::string>{"Common/Characters/Heroes/oublie/oublie.glb"})`.
 
 ### AssetGalleryTest.UnEffetSeJoueDansLaGalerie
 
-*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:447`
+*Majeur · Unitaire · Galerie des assets* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery.cpp:492`
 
 Exigences : `EX-CNT-042`
 
@@ -531,13 +547,13 @@ Un effet parait anime dans la galerie.
 
 ### AssetGalleryRendererTest.ChargementEtLiberation
 
-*Bloquant · Unitaire · Galerie des assets (rendu)* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery_renderer.cpp:112`
+*Bloquant · Unitaire · Galerie des assets (rendu)* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery_renderer.cpp:119`
 
 La galerie ne garde que les textures voulues.
 
 **Étapes**
 
-1. Dessiner la figure au repos d'un PNJ. 2. Ne plus rien vouloir, 1 s puis 1,5 s.
+1. Dessiner le portrait d'un PNJ. 2. Ne plus rien vouloir, 1 s puis 1,5 s.
 
 **Résultat attendu**
 
@@ -549,7 +565,7 @@ La galerie ne garde que les textures voulues.
 
 ### AssetGalleryRendererTest.ChargementsEtalesEtFichierAbsent
 
-*Majeur · Unitaire · Galerie des assets (rendu)* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery_renderer.cpp:142`
+*Majeur · Unitaire · Galerie des assets (rendu)* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery_renderer.cpp:149`
 
 Les chargements s'étalent, un fichier absent ne bloque rien.
 
@@ -567,6 +583,28 @@ Les chargements s'étalent, un fichier absent ne bloque rien.
 - Vérifie que `absent.ensureResources(rhi.get())` est vrai.
 - Vérifie que `absent.cachedTextureCount()` vaut `1U`.
 - Vérifie que `paintedPixels(image)` est strictement supérieur à `100U`.
+
+### AssetGalleryRendererTest.UnModeleSeDessineEtSAnime
+
+*Bloquant · Unitaire · Galerie des assets (rendu)* — `Source/Test/Unit/HMI/Graphics/test_asset_gallery_renderer.cpp:193`
+
+La galerie dessine un modele de personnage, anime par son clip.
+
+**Étapes**
+
+1. Dessiner le modèle du PNJ d'essai au début de son attaque, puis à son image clé.
+2. Dessiner un modèle absent.
+
+**Résultat attendu**
+
+- Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
+- Vérifie que `renderer.cachedModelCount()` vaut `1U`.
+- Vérifie que `renderer.cachedTextureCount()` vaut `0U`.
+- Vérifie que `green(start)` est strictement supérieur à `200U`.
+- Vérifie que `green(strike)` est strictement supérieur à `200U`.
+- Vérifie que `start` diffère de `strike`.
+- Vérifie que `renderer.cachedModelCount()` vaut `2U`.
+- Vérifie que `green(absent)` vaut `0U`.
 
 ## test_capital_kit_render.cpp
 
@@ -830,16 +868,16 @@ Les pixels du marqueur sont empaquetes au format de createTexture.
 
 ## test_figure_model.cpp
 
-### FigureModelTest.UneFigurineEnModeleSeComposeEnMaillage
+### FigureModelTest.UneFigurineSeComposeEnMaillage
 
-*Bloquant · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:108`
+*Bloquant · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:112`
 
-Une figurine en modele se compose en maillage, avec la pose de son clip.
+Une figurine se compose en maillage ; un effet en image ; sans modele, son marqueur.
 
 **Étapes**
 
-1. Composer le pantin a 0,4 s de son attaque et la figurine temoin, en bandes.
-2. Lire la scene composee.
+1. Composer le pantin a 0,4 s de son attaque, un effet et une figurine dont aucun modele n'est charge.
+2. Lire la scene composee et les chemins demandes.
 
 **Résultat attendu**
 
@@ -849,14 +887,36 @@ Une figurine en modele se compose en maillage, avec la pose de son clip.
 - Vérifie que `mesh.poseFloats` vaut `3U * 16U`.
 - Vérifie que `top[1]` vaut `0.9F + (0.9F * 0.5F)`, à `TOLERANCE` près.
 - Vérifie que `top[2]` vaut `0.9F * std::sin(std::numbers::pi_v<float> / 3.0F)`, à `TOLERANCE` près.
-- Vérifie que `scene.quads().size()` vaut `1U`.
-- Vérifie que `scene.quads().front().texture` vaut `&place.identities[1]`.
-- Vérifie que `path.starts_with("Npc/pantin")` est faux.
+- Vérifie que `scene.quads().size()` vaut `2U`.
+- Vérifie que `scene.quads()[0].texture` vaut `&place.identities[1]`.
+- Vérifie que `scene.quads()[1].texture` vaut `&place.identities[3]`.
+- Vérifie que `hmi::worldFigureTexturePaths(place.snapshot, figures)` vaut `(std::vector<std::string>{EFFECT, MARKER})`.
 - Vérifie que `hmi::worldFigureModelPaths(figures)` vaut `(std::vector<std::string>{MODEL})`.
+- Vérifie que `hmi::figureMarkerKey(MARKER)` vaut `"npc/inconnu"`.
+- Vérifie que `hmi::effectStripPath("temoin")` vaut `EFFECT`.
+
+### FigureModelTest.LaFicheDuDossierDonneLeModele
+
+*Critique · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:159`
+
+Sans modele nomme, la fiche du dossier de la figurine le donne.
+
+**Étapes**
+
+1. Composer la figurine `pantin`, sans modele nomme, le rendu ayant lu la fiche de son dossier.
+2. La composer pour un dossier dont la fiche ne donne rien.
+
+**Résultat attendu**
+
+- Vérifie que `found.meshes().size()` vaut `1U`.
+- Vérifie que `found.meshes().front().mesh` vaut `&place.identities[0]`.
+- Vérifie que `found.quads().empty()` est vrai.
+- Vérifie que `none.meshes().empty()` est vrai.
+- Vérifie que `none.quads().empty()` est vrai.
 
 ### FigureModelTest.UnClipBoucleOuSeFige
 
-*Critique · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:147`
+*Critique · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:187`
 
 Un clip boucle ou se fige selon ce que son squelette declare.
 
@@ -879,14 +939,14 @@ Un clip boucle ou se fige selon ce que son squelette declare.
 
 ### FigureModelTest.UnModeleFaitFaceASonCap
 
-*Critique · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:185`
+*Critique · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:225`
 
 Un modele fait face a son cap, sans table de quatre orientations.
 
 **Étapes**
 
 1. Composer le pantin avec un cap vers les colonnes croissantes, vers les lignes croissantes, puis a 30 degres entre les deux.
-2. Le composer sans cap, oriente au nord-ouest.
+2. Le composer sans cap.
 3. Lire ou sa pose dans la vue met un point situe un metre devant lui.
 
 **Résultat attendu**
@@ -899,11 +959,11 @@ Un modele fait face a son cap, sans table de quatre orientations.
 - Vérifie que `hmi::figureHeadingFor({1.0F, 1.0F}, 0.0F)` vaut `QUARTER / 2.0F`, à `TOLERANCE` près.
 - Vérifie que `hmi::figureHeadingFor({0.0F, 0.0F}, 1.25F)` vaut `1.25F` (comparaison flottante).
 
-### FigureModelTest.UnModeleAbsentLaisseVoirLeDamier
+### FigureModelTest.UnModeleAbsentNeDessineRien
 
-*Majeur · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:235`
+*Majeur · Unitaire · Rendu d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model.cpp:272`
 
-Un modele qui ne s'est pas charge laisse voir le damier.
+Un modele qui ne s'est pas charge ne dessine rien.
 
 **Étapes**
 
@@ -912,14 +972,13 @@ Un modele qui ne s'est pas charge laisse voir le damier.
 **Résultat attendu**
 
 - Vérifie que `scene.meshes().empty()` est vrai.
-- Vérifie que `scene.quads().size()` vaut `1U`.
-- Vérifie que `scene.quads().front().texture` vaut `&place.identities[2]`.
+- Vérifie que `scene.quads().empty()` est vrai.
 
 ## test_figure_model_render.cpp
 
 ### FigureModelRenderTest.LeModeleDEssaiSeDessineEtJoueSesClips
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:142`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:145`
 
 Le modele d'essai se dessine et joue ses clips par ses os.
 
@@ -951,7 +1010,7 @@ Le modele d'essai se dessine et joue ses clips par ses os.
 
 ### FigureModelRenderTest.UnModeleSeDepartageParLaProfondeur
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:208`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:211`
 
 Un modele passe derriere un mur, et se tient entier sur un sol en image.
 
@@ -972,7 +1031,7 @@ Un modele passe derriere un mur, et se tient entier sur un sol en image.
 
 ### FigureModelRenderTest.BandesEtModeleCohabitent
 
-*Critique · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:244`
+*Critique · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:247`
 
 Bandes et modele cohabitent ; sans modele, l'image est celle d'avant.
 
@@ -992,7 +1051,7 @@ Bandes et modele cohabitent ; sans modele, l'image est celle d'avant.
 
 ### FigureModelRenderTest.LeMannequinDEssaiMarche
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:291`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:297`
 
 Le mannequin d'essai marche sur la carte d'essai.
 
@@ -1010,6 +1069,23 @@ Le mannequin d'essai marche sur la carte d'essai.
 - Vérifie que `differing(bare, second)` est strictement supérieur à `300U`.
 - Vérifie que `differing(bare, fallen)` est strictement supérieur à `300U`.
 - Vérifie que `differing(first, second)` est strictement supérieur à `100U`.
+
+### FigureModelRenderTest.UnModeleDeLAtelierSeRendClipParClip
+
+*Mineur · Unitaire · Rendu QRhi d'un lieu · Squelette* — `Source/Test/Unit/HMI/Graphics/test_figure_model_render.cpp:360`
+
+Un modele de l'atelier se rend clip par clip, a la taille du jeu.
+
+**Étapes**
+
+1. Désigner un `.glb` lié par la variable d'environnement `JADG_FIGURE_MODEL`.
+2. Le rendre sur la carte d'essai, une case à 100 px puis à 200 px, à quatre instants de chacun de ses clips, face à la caméra puis de dos.
+
+**Résultat attendu**
+
+- Vérifie que `loaded` diffère de `nullptr`.
+- Vérifie que `loaded->rig` diffère de `nullptr`.
+- Vérifie que `clips.empty()` est faux.
 
 ## test_hd_mockup_render.cpp
 
@@ -1502,7 +1578,7 @@ Les images disent comment elles se tiennent dans la scene en volume.
 
 ### MeshCompositionTest.LeLieuComposeUneFoisGardeSesMaillages
 
-*Majeur · Unitaire · Maillages d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_mesh_composition.cpp:317`
+*Majeur · Unitaire · Maillages d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_mesh_composition.cpp:322`
 
 Le lieu compose une fois garde ses maillages et les cadre.
 
@@ -1524,7 +1600,7 @@ Le lieu compose une fois garde ses maillages et les cadre.
 
 ### MeshRenderTest.LaCarteDEssaiSeRendEnMaillages
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:115`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:118`
 
 La carte d'essai se rend en maillages.
 
@@ -1547,7 +1623,7 @@ La carte d'essai se rend en maillages.
 
 ### MeshRenderTest.UneFigurinePasseDevantPuisDerriereUnMur
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:156`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:159`
 
 Une figurine passe devant puis derriere un mur en maillage.
 
@@ -1571,7 +1647,7 @@ Une figurine passe devant puis derriere un mur en maillage.
 
 ### MeshRenderTest.LOpaciteDesCalquesVautPourLesMaillages
 
-*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:217`
+*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:220`
 
 L'opacite des calques vaut pour les maillages.
 
@@ -1593,7 +1669,7 @@ L'opacite des calques vaut pour les maillages.
 
 ### MeshRenderTest.UneCarteEnMaillagesRendueParTuilesEstLaMemeImage
 
-*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:267`
+*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:270`
 
 Une carte en maillages rendue par tuiles est la meme image.
 
@@ -1609,7 +1685,7 @@ Une carte en maillages rendue par tuiles est la meme image.
 
 ### MeshRenderTest.UnFichierDeMaillageAbsentLaisseVoirLeDamier
 
-*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:301`
+*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:304`
 
 Un fichier de maillage absent laisse voir le damier.
 
@@ -1630,7 +1706,7 @@ Un fichier de maillage absent laisse voir le damier.
 
 ### MeshRenderTest.LePointageDUneCaseEstCeluiDAvant
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:339`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:342`
 
 Le pointage d'une case au sol est celui d'avant, sur toute la carte d'Arenarea.
 
@@ -2656,7 +2732,7 @@ L'ancre d'une piece rangee se lit dans le manifeste du lieu.
 
 ### StaticWorldSceneTest.SansCadrageLImageEstLaCompositionComplete
 
-*Bloquant · Unitaire · Rendu d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_static_world_scene.cpp:200`
+*Bloquant · Unitaire · Rendu d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_static_world_scene.cpp:205`
 
 Composer la carte une fois ne change rien a ce qui se dessine.
 
@@ -2671,7 +2747,7 @@ Composer la carte une fois ne change rien a ce qui se dessine.
 
 ### StaticWorldSceneTest.UnCadrageNeGardeQueCeQuIlMontre
 
-*Bloquant · Unitaire · Rendu d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_static_world_scene.cpp:222`
+*Bloquant · Unitaire · Rendu d'un lieu* — `Source/Test/Unit/HMI/Graphics/test_static_world_scene.cpp:227`
 
 Une image ne compose que ce que la camera montre.
 
@@ -2687,7 +2763,7 @@ Une image ne compose que ce que la camera montre.
 
 ### StaticWorldSceneTest.LEtageSEffaceDevantLeHerosAChaqueImage
 
-*Majeur · Unitaire · Rendu d'un lieu · Etages* — `Source/Test/Unit/HMI/Graphics/test_static_world_scene.cpp:257`
+*Majeur · Unitaire · Rendu d'un lieu · Etages* — `Source/Test/Unit/HMI/Graphics/test_static_world_scene.cpp:262`
 
 Un etage s'efface devant le heros a chaque image.
 
@@ -2730,7 +2806,7 @@ tile(colonne, ligne) renvoie un rectangle de 16x16 pixels à l'origine attendue.
 
 ### ScenePiecePlacement.APieceTakesTheScaleItsPlaceDeclares
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:44`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:46`
 
 Une piece prend l'echelle que son lieu declare.
 
@@ -2747,7 +2823,7 @@ Une piece prend l'echelle que son lieu declare.
 
 ### ScenePiecePlacement.AFinerPlaceDrawsAtTheSameSize
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:66`
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:68`
 
 Un lieu plus fin se dessine a la meme taille.
 
@@ -2764,7 +2840,7 @@ Un lieu plus fin se dessine a la meme taille.
 
 ### ScenePiecePlacement.WithoutADeclaredScaleAPieceIsOneCellWide
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:86`
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:88`
 
 Une piece sans echelle declaree a la largeur d'une case.
 
@@ -2779,7 +2855,7 @@ Une piece sans echelle declaree a la largeur d'une case.
 
 ### ScenePiecePlacement.AlignsFractionalOriginWithoutChangingDimensions
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:102`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:104`
 
 Une ancre fractionnaire aligne la pièce.
 
@@ -2798,7 +2874,7 @@ Une ancre fractionnaire aligne la pièce.
 
 ### ScenePiecePlacement.RejectsMalformedAnchor
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:127`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:129`
 
 Une ancre invalide est ignorée.
 
@@ -2812,7 +2888,7 @@ Une ancre invalide est ignorée.
 
 ### ScenePiecePlacement.ReadsTheArtTileOfAManifest
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:142`
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:144`
 
 Le losange d'art se lit dans le manifeste.
 
@@ -2826,48 +2902,31 @@ Le losange d'art se lit dans le manifeste.
 - Vérifie que `tile.y` vaut `159.0F` (comparaison flottante).
 - Vérifie que `hmi::manifestArtTile(nlohmann::json::parse(text)).x` vaut `0.0F` (comparaison flottante).
 
-### ScenePiecePlacement.AFigureOf192By256IsDrawnWhole
+### ScenePiecePlacement.AnEffectFrameOf256By256IsDrawnWhole
 
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:160`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:163`
 
-Une figurine de 192 x 256 s'affiche entiere.
+Une image d'effet de 256 x 256 s'affiche entiere.
 
 **Étapes**
 
-1. Poser l'image 2 d'une bande de six cellules de 192 x 256, a l'echelle d'un losange de 256, sur une case de 100 unites.
+1. Poser l'image 2 d'une bande de six cellules de 256 x 256, a l'echelle d'un losange de 256, sur une case de 100 unites.
 
 **Résultat attendu**
 
 - Vérifie que `hmi::frameCountOf(band)` vaut `6`.
 - Vérifie que `quad.v0` vaut `0.0F` (comparaison flottante).
 - Vérifie que `quad.v1` vaut `1.0F` (comparaison flottante).
-- Vérifie que `quad.width` vaut `75.0F` (comparaison flottante).
+- Vérifie que `quad.width` vaut `100.0F` (comparaison flottante).
 - Vérifie que `quad.height` vaut `100.0F` (comparaison flottante).
 - Vérifie que `quad.u0` vaut `2.0F / 6.0F` (comparaison flottante).
 - Vérifie que `quad.u1` vaut `3.0F / 6.0F` (comparaison flottante).
 - Vérifie que `quad.y + quad.height` vaut `400.0F` (comparaison flottante).
 - Vérifie que `quad.x + (quad.width / 2.0F)` vaut `500.0F` (comparaison flottante).
 
-### ScenePiecePlacement.ACreatureOf384By384IsDrawnWhole
-
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:189`
-
-Une creature de 384 x 384 s'affiche entiere.
-
-**Étapes**
-
-1. Poser une bande de quatre cellules de 384 x 384 a l'echelle d'un losange de 256.
-
-**Résultat attendu**
-
-- Vérifie que `quad.v1` vaut `1.0F` (comparaison flottante).
-- Vérifie que `quad.u1` vaut `1.0F` (comparaison flottante).
-- Vérifie que `quad.width` vaut `150.0F` (comparaison flottante).
-- Vérifie que `quad.height` vaut `150.0F` (comparaison flottante).
-
 ### ScenePiecePlacement.ProjectionIsOptInAndRejectsInvalidRatios
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:211`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:192`
 
 La projection explicite est contrôlée.
 
@@ -2886,7 +2945,7 @@ La projection explicite est contrôlée.
 
 ### WorldSceneComposerTest.LInstantaneTireLeSolDuTypeEtLeReliefDeLaCase
 
-*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:298`
+*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:279`
 
 Le sol vient du type de tuile, le relief de la piece nommee a la case.
 
@@ -2912,7 +2971,7 @@ Le sol vient du type de tuile, le relief de la piece nommee a la case.
 
 ### WorldSceneComposerTest.LesCheminsCouvrentLeLieuEtLesFigurines
 
-*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:331`
+*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:312`
 
 La liste des textures a charger couvre exactement ce que la composition resout.
 
@@ -2928,13 +2987,14 @@ La liste des textures a charger couvre exactement ce que la composition resout.
 - Vérifie que `std::ranges::find(chemins, "Scene/coliseum/stone-slab.png")` diffère de `chemins.end()`.
 - Vérifie que `std::ranges::find(chemins, "Scene/coliseum/wall-left.png")` diffère de `chemins.end()`.
 - Vérifie que `std::ranges::find(chemins, "Scene/coliseum/torch-left.png")` diffère de `chemins.end()`.
-- Vérifie que `std::ranges::find(chemins, "Npc/anariel/idle.png")` diffère de `chemins.end()`.
-- Vérifie que `std::ranges::find(chemins, "Npc/anariel/walk.png")` diffère de `chemins.end()`.
+- Vérifie que `std::ranges::find(chemins, "Npc/anariel/@marker")` diffère de `chemins.end()`.
+- Vérifie que `std::ranges::find(chemins, "Npc/anariel/idle.png")` vaut `chemins.end()`.
+- Vérifie que `std::ranges::find(chemins, "Npc/anariel/walk.png")` vaut `chemins.end()`.
 - Vérifie que `std::ranges::count(chemins, "Scene/coliseum/sand.png")` vaut `1`.
 
 ### WorldSceneComposerTest.LaCompositionPoseChaquePieceSurSonCalque
 
-*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:360`
+*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:342`
 
 Sol, relief et figurine tombent sur les calques Tile, Object et Player.
 
@@ -2951,9 +3011,9 @@ Sol, relief et figurine tombent sur les calques Tile, Object et Player.
 
 ### WorldSceneComposerTest.UneFigurineSansImageAUneCleDeMarqueur
 
-*Majeur · Unitaire · Rendu du lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:410`
+*Majeur · Unitaire · Rendu du lieu* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:392`
 
-La cle du marqueur d'une figurine se tire de son chemin de bande.
+La cle du marqueur d'une figurine se tire de son chemin.
 
 **Étapes**
 
@@ -2961,6 +3021,8 @@ La cle du marqueur d'une figurine se tire de son chemin de bande.
 
 **Résultat attendu**
 
+- Vérifie que `hmi::figureMarkerKey(hmi::figureMarkerPath("sentinelle-ironhand"))` vaut `"npc/sentinelle-ironhand"`.
+- Vérifie que `hmi::figureMarkerKey(hmi::figureMarkerPath("Common/Characters/Heroes/brawler"))` vaut `"characters/heroes/brawler"`.
 - Vérifie que `hmi::figureMarkerKey("Npc/sentinelle-ironhand/idle.png")` vaut `"npc/sentinelle-ironhand"`.
 - Vérifie que `hmi::figureMarkerKey("Npc/sentinelle-ironhand/walk.png")` vaut `"npc/sentinelle-ironhand"`.
 - Vérifie que `hmi::figureMarkerKey("Scene/martpart/street.png")` vaut `""`.
@@ -2976,23 +3038,27 @@ La cle du marqueur d'une figurine se tire de son chemin de bande.
 
 ### WorldSceneComposerTest.UneFigurineSeNommeParSlugOuParDossier
 
-*Majeur · Unitaire · Scène du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:442`
+*Majeur · Unitaire · Scène du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:428`
 
 Le soldat Ironhand se lit dans les monstres, Anariel dans les PNJ.
 
 **Étapes**
 
-1. Demander la bande idle d'« anariel », puis celle de « Monsters/ironhand-soldier ».
+1. Demander le dossier d'« anariel », puis celui de « Monsters/ironhand-soldier », sans table de lieu puis avec une table qui range anariel dans sa zone.
+2. Demander le chemin de leur marqueur, et celui de la bande de l'effet `impact`.
 
 **Résultat attendu**
 
-- Vérifie que `hmi::figureStripPath("anariel", "idle")` vaut `"Npc/anariel/idle.png"`.
-- Vérifie que `hmi::figureStripPath("anariel", "")` vaut `"Npc/anariel/idle.png"`.
-- Vérifie que `hmi::figureStripPath("Monsters/ironhand-soldier", "walk")` vaut `"Monsters/ironhand-soldier/walk.png"`.
+- Vérifie que `hmi::worldFigureDirectory(instantane, "anariel")` vaut `"Npc/anariel"`.
+- Vérifie que `hmi::worldFigureDirectory(instantane, "Monsters/ironhand-soldier")` vaut `"Monsters/ironhand-soldier"`.
+- Vérifie que `hmi::worldFigureDirectory(instantane, "anariel")` vaut `"Regions/zone/Characters/anariel"`.
+- Vérifie que `hmi::figureMarkerPath("anariel")` vaut `"Npc/anariel/@marker"`.
+- Vérifie que `hmi::figureMarkerPath("Monsters/ironhand-soldier")` vaut `"Monsters/ironhand-soldier/@marker"`.
+- Vérifie que `hmi::effectStripPath("impact")` vaut `"Common/Fx/impact.png"`.
 
 ### WorldSceneComposerTest.LaPieceNommeeLEmporteSousSonNomCourant
 
-*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:461`
+*Critique · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:455`
 
 La pièce nommée l'emporte, sous son nom courant.
 
@@ -3009,7 +3075,7 @@ La pièce nommée l'emporte, sous son nom courant.
 
 ### WorldSceneComposerTest.UnePieceLargeSeTrieAuPiedDeSonEmprise
 
-*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:490`
+*Majeur · Unitaire · Lieu compose* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:484`
 
 Une pièce large se trie au pied de son emprise.
 
@@ -3026,7 +3092,7 @@ Une pièce large se trie au pied de son emprise.
 
 ### ScenePiecePlacement.DepthRequiresAValidAnchor
 
-*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:531`
+*Critique · Unitaire · Rendu du Colisée* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:525`
 
 La profondeur exige une ancre valide.
 
@@ -3042,7 +3108,7 @@ La profondeur exige une ancre valide.
 
 ### MaquetteRenderTest.UneCarteSansLieuSeComposeEnLosangesDeCouleur
 
-*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:576`
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:570`
 
 Une carte sans lieu se compose en losanges de couleur.
 
@@ -3064,7 +3130,7 @@ Une carte sans lieu se compose en losanges de couleur.
 
 ### MaquetteRenderTest.UnTypeNonCouvertParLeLieuPrendLaMaquette
 
-*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:613`
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:607`
 
 Un type absent de la table du lieu prend le rendu de maquette.
 
@@ -3083,7 +3149,7 @@ Un type absent de la table du lieu prend le rendu de maquette.
 
 ### MaquetteRenderTest.SansAplatRienNEstCompose
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:655`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:649`
 
 Sans aplat, la maquette ne compose rien.
 
@@ -3097,7 +3163,7 @@ Sans aplat, la maquette ne compose rien.
 
 ### MaquetteRenderTest.UnMurSeComposeEnBlocDeTroisFaces
 
-*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:674`
+*Critique · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:668`
 
 Un mur se compose en bloc de trois faces, haut d'une case.
 
@@ -3116,7 +3182,7 @@ Un mur se compose en bloc de trois faces, haut d'une case.
 
 ### MaquetteRenderTest.UnMurDeDecorSeCoucheAPlatSurLePlan
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:720`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:714`
 
 Un mur de decor se couche a plat sur le plan.
 
@@ -3136,7 +3202,7 @@ Un mur de decor se couche a plat sur le plan.
 
 ### MaquetteRenderTest.LEauProfondeNeSExtrudePas
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:768`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:762`
 
 L'eau profonde reste un losange plat, plus sombre que l'eau vive.
 
@@ -3154,7 +3220,7 @@ L'eau profonde reste un losange plat, plus sombre que l'eau vive.
 
 ### MaquetteRenderTest.ChaqueTypeASaTeinteEtSaForme
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:789`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:783`
 
 Deux types de tuile ne partagent jamais une teinte de maquette.
 
@@ -3175,7 +3241,7 @@ Deux types de tuile ne partagent jamais une teinte de maquette.
 
 ### MaquetteRenderTest.UneColonneSeComposeEnBlocEtroitSurSonSocle
 
-*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:828`
+*Majeur · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:822`
 
 Une colonne se compose en bloc etroit, sur son socle.
 
@@ -3194,7 +3260,7 @@ Une colonne se compose en bloc etroit, sur son socle.
 
 ### MaquetteRenderTest.LaCouleurDuJetonSeDeduitDeLEntite
 
-*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:876`
+*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:870`
 
 La couleur d'un jeton se deduit de ce que le format dit deja.
 
@@ -3223,7 +3289,7 @@ La couleur d'un jeton se deduit de ce que le format dit deja.
 
 ### MaquetteRenderTest.LesTracesNeParaissentQuEnMaquette
 
-*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:926`
+*Critique · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:920`
 
 Une carte habillee garde ses jetons mais perd ses traces.
 
@@ -3245,7 +3311,7 @@ Une carte habillee garde ses jetons mais perd ses traces.
 
 ### MaquetteRenderTest.LesCheminsContiennentLesJetons
 
-*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:969`
+*Majeur · Unitaire · Jetons de maquette* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:963`
 
 Les chemins de textures d'une carte contiennent ceux de ses jetons.
 
@@ -3258,62 +3324,37 @@ Les chemins de textures d'une carte contiennent ceux de ses jetons.
 
 - Vérifie que `std::ranges::find(chemins, hmi::maquetteTokenPath(hmi::MaquetteTokenKind::Hostile, 'W'))` diffère de `chemins.end()`.
 
-### WorldSceneComposerTest.UneFigurineSeTourneVersLUneDesQuatreDiagonales
+### WorldSceneComposerTest.LeCapDUneFigurineSuitSonDeplacement
 
-*Critique · Unitaire · Scene du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:999`
+*Critique · Unitaire · Scene du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:993`
 
-L'orientation d'une figurine suit son deplacement, sans basculer a l'egalite.
+Le cap d'une figurine suit son deplacement, sans table de quatre orientations.
 
 **Étapes**
 
-1. Demander l'orientation d'un pas le long de chaque axe de la grille.
-2. Demander celle d'un pas en diagonale de la grille, depuis une orientation voisine, puis depuis une orientation opposee.
-3. Demander celle d'un pas nul.
+1. Demander le cap d'un pas le long de chaque axe de la grille.
+2. Demander celui d'un pas en diagonale de la grille, et d'un pas quelconque.
+3. Demander celui d'un pas nul.
 
 **Résultat attendu**
 
-- Vérifie que `hmi::figureFacingFor({1.0F, 0.0F}, avant)` vaut `FigureFacing::SouthEast`.
-- Vérifie que `hmi::figureFacingFor({-1.0F, 0.0F}, avant)` vaut `FigureFacing::NorthWest`.
-- Vérifie que `hmi::figureFacingFor({0.0F, 1.0F}, avant)` vaut `FigureFacing::SouthWest`.
-- Vérifie que `hmi::figureFacingFor({0.0F, -1.0F}, avant)` vaut `FigureFacing::NorthEast`.
-- Vérifie que `hmi::figureFacingFor({0.8F, -0.6F}, avant)` vaut `FigureFacing::SouthEast`.
-- Vérifie que `hmi::figureFacingFor({DEMI, DEMI}, FigureFacing::SouthWest)` vaut `FigureFacing::SouthWest`.
-- Vérifie que `hmi::figureFacingFor({DEMI, DEMI}, FigureFacing::SouthEast)` vaut `FigureFacing::SouthEast`.
-- Vérifie que `hmi::figureFacingFor({DEMI, DEMI}, FigureFacing::NorthWest)` vaut `FigureFacing::SouthEast`.
-- Vérifie que `hmi::figureFacingFor({-DEMI, -DEMI}, FigureFacing::SouthEast)` vaut `FigureFacing::NorthEast`.
-- Vérifie que `hmi::figureFacingFor({0.0F, 0.0F}, FigureFacing::NorthWest)` vaut `FigureFacing::NorthWest`.
+- Vérifie que `hmi::figureHeadingFor({1.0F, 0.0F}, AVANT)` vaut `0.0F`, à `1.0e-5F` près.
+- Vérifie que `hmi::figureHeadingFor({0.0F, 1.0F}, AVANT)` vaut `QUART`, à `1.0e-5F` près.
+- Vérifie que `std::abs(hmi::figureHeadingFor({-1.0F, 0.0F}, AVANT))` vaut `2.0F * QUART`, à `1.0e-5F` près.
+- Vérifie que `hmi::figureHeadingFor({0.0F, -1.0F}, AVANT)` vaut `-QUART`, à `1.0e-5F` près.
+- Vérifie que `hmi::figureHeadingFor({0.7F, 0.7F}, AVANT)` vaut `hmi::FIGURE_HEADING_FRONT`, à `1.0e-5F` près.
+- Vérifie que `hmi::figureHeadingFor({0.8F, -0.6F}, AVANT)` vaut `std::atan2(-0.6F, 0.8F)`, à `1.0e-5F` près.
+- Vérifie que `hmi::figureHeadingFor({0.0F, 0.0F}, AVANT)` vaut `AVANT` (comparaison flottante).
 
-### WorldSceneComposerTest.UneFigurineOrienteeLitLaBandeDeSonOrientation
+### WorldSceneComposerTest.LaLigneDeSolDUnEffetTombeAuCentreDeSaCase
 
-*Majeur · Unitaire · Scene du monde* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1036`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1063`
 
-Une figurine orientee a une bande par orientation.
+La ligne de sol d'un effet tombe au centre de sa case, ni au-dessus ni au-dessous.
 
 **Étapes**
 
-1. Demander les chemins de bande du heros, sans orientation puis vers chaque diagonale.
-2. Tirer les chemins d'un instantane ou il regarde le nord-ouest.
-
-**Résultat attendu**
-
-- Vérifie que `hmi::figureStripPath(heros, "walk")` vaut `heros + "/walk.png"`.
-- Vérifie que `hmi::figureStripPath(heros, "walk", hmi::FigureFacing::SouthEast)` vaut `heros + "/walk-se.png"`.
-- Vérifie que `hmi::figureStripPath(heros, "walk", hmi::FigureFacing::SouthWest)` vaut `heros + "/walk-sw.png"`.
-- Vérifie que `hmi::figureStripPath(heros, "idle", hmi::FigureFacing::NorthEast)` vaut `heros + "/idle-ne.png"`.
-- Vérifie que `hmi::figureStripPath(heros, "", hmi::FigureFacing::NorthWest)` vaut `heros + "/idle-nw.png"`.
-- Vérifie que `std::ranges::find(chemins, heros + "/idle-nw.png")` diffère de `chemins.end()`.
-- Vérifie que `std::ranges::find(chemins, heros + "/walk-nw.png")` diffère de `chemins.end()`.
-- Vérifie que `std::ranges::find(chemins, heros + "/walk.png")` vaut `chemins.end()`.
-
-### WorldSceneComposerTest.LesPiedsDuHerosTombentAuCentreDeSaCase
-
-*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1104`
-
-Les pieds du heros tombent au centre de sa case, ni au-dessus ni au-dessous.
-
-**Étapes**
-
-1. Poser la bande de marche du heros (cellule 192 x 256, sol a 252, losange de 256) au centre d'une case, puis a mi-chemin entre deux cases.
+1. Poser la bande d'un effet (cellule 256 x 256, sol a 252, losange de 256) au centre d'une case, puis a mi-chemin entre deux cases.
 
 **Résultat attendu**
 
@@ -3323,7 +3364,7 @@ Les pieds du heros tombent au centre de sa case, ni au-dessus ni au-dessous.
 
 ### WorldSceneComposerTest.LaCadenceEstCelleQueDitLaBande
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1138`
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1094`
 
 Exigences : `EX-REN-005`
 
@@ -3331,8 +3372,8 @@ L'image affichee suit la duree que declare la bande.
 
 **Étapes**
 
-1. Composer la marche du heros (0,1 s par image) a 0,25 s, 0,75 s et 0,85 s.
-2. La composer sans temps connu, a l'image 5.
+1. Composer un effet (0,1 s par image) a 0,25 s, 0,75 s et 0,85 s.
+2. Le composer sans temps connu, a l'image 5.
 
 **Résultat attendu**
 
@@ -3341,15 +3382,15 @@ L'image affichee suit la duree que declare la bande.
 - Vérifie que `imageA(0.85F, 0)` vaut `0`.
 - Vérifie que `imageA(-1.0F, 5)` vaut `5`.
 
-### WorldSceneComposerTest.UnHerosLitLEchelleEtLeSolDeSonAtelier
+### WorldSceneComposerTest.UnEffetLitLEchelleEtLeSolDeSonDossier
 
-*Critique · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1173`
+*Critique · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1122`
 
-Un heros range par classe lit l'echelle et le sol de Characters/manifest.json.
+Un effet lit l'echelle et le sol de Common/Fx/manifest.json.
 
 **Étapes**
 
-1. Ecrire `Common/Characters/manifest.json` (losange 256 x 159, sol 252) et la description de `Heroes/brawler/walk-se.png` (192 x 256, 0,1 s).
+1. Ecrire `Common/Fx/manifest.json` (losange 256 x 159, sol 252) et la description de `impact.png` (256 x 256, 0,1 s, jouee une fois).
 2. Lire les traits de la bande.
 3. Lire ceux d'une image hors de tout atelier.
 
@@ -3359,21 +3400,22 @@ Un heros range par classe lit l'echelle et le sol de Characters/manifest.json.
 - Vérifie que `traits.artTile.y` vaut `159.0F` (comparaison flottante).
 - Vérifie que `traits.groundLine.has_value()` est vrai.
 - Vérifie que `*traits.groundLine` vaut `252.0F` (comparaison flottante).
-- Vérifie que `traits.frameWidth` vaut `192`.
+- Vérifie que `traits.frameWidth` vaut `256`.
 - Vérifie que `traits.frameHeight` vaut `256`.
 - Vérifie que `traits.frameDuration` vaut `0.1F` (comparaison flottante).
+- Vérifie que `traits.loop` est faux.
 - Vérifie que `ailleurs.artTile.x` vaut `0.0F` (comparaison flottante).
 - Vérifie que `ailleurs.groundLine.has_value()` est faux.
 
 ### WorldSceneComposerTest.UneBandeAUnCoupSeFigeSurSaDerniereImage
 
-*Critique · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1217`
+*Critique · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1166`
 
 Une bande a un coup se fige sur sa derniere image.
 
 **Étapes**
 
-1. Composer le heros sur une bande de mort de huit images a 0,1 s, `loop` faux, a 0,25 s, 0,75 s et 3 s.
+1. Composer un effet sur une bande de huit images a 0,1 s, `loop` faux, a 0,25 s, 0,75 s et 3 s.
 2. La meme bande `loop` vrai, a 3 s.
 
 **Résultat attendu**
@@ -3383,27 +3425,30 @@ Une bande a un coup se fige sur sa derniere image.
 - Vérifie que `imageA(3.0F, false)` vaut `7`.
 - Vérifie que `imageA(3.0F, true)` vaut `6`.
 
-### WorldSceneComposerTest.UnCombattantPrechargeSesSeptBandes
+### WorldSceneComposerTest.UneFigurineNeDemandePlusAucuneBande
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1255`
+*Bloquant · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1197`
 
-Les chemins d'un combattant couvrent les sept bandes.
+Une figurine ne demande plus aucune bande.
 
 **Étapes**
 
-1. Lister les chemins d'un heros au repos, puis du meme marque combattant.
+1. Lister les textures d'un heros au repos, combattant ou non.
+2. Lister celles du meme heros, son modele nomme.
+3. Lister celles d'un effet.
 
 **Résultat attendu**
 
-- Vérifie que `hmi::worldFigureTexturePaths(instantane, instantane.figures).size()` vaut `2U`.
-- Vérifie que `chemins.size()` vaut `7U`.
-- Vérifie que `std::ranges::find(chemins, heros + "/death-ne.png")` diffère de `chemins.end()`.
-- Vérifie que `std::ranges::find(chemins, heros + "/ranged-ne.png")` diffère de `chemins.end()`.
-- Vérifie que `std::ranges::find(chemins, heros + "/cast-ne.png")` diffère de `chemins.end()`.
+- Vérifie que `hmi::worldFigureTexturePaths(instantane, instantane.figures)` vaut `marqueur`.
+- Vérifie que `hmi::worldFigureTexturePaths(instantane, {&figure, 1})` vaut `marqueur`.
+- Vérifie que `hmi::worldFigureTexturePaths(instantane, {&figure, 1}).empty()` est vrai.
+- Vérifie que `hmi::worldFigureModelPaths({&figure, 1})` vaut `(std::vector<std::string>{heros + "/brawler.glb"})`.
+- Vérifie que `hmi::worldFigureTexturePaths(instantane, {&impact, 1})` vaut `(std::vector<std::string>{"Common/Fx/impact.png"})`.
+- Vérifie que `hmi::worldFigureModelPaths({&impact, 1}).empty()` est vrai.
 
 ### MaquetteRenderTest.LeMannequinRemplaceLeJetonDUnPnjSansFigurine
 
-*Critique · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1281`
+*Critique · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1229`
 
 Le mannequin remplace le jeton d'un PNJ sans figurine.
 
@@ -3416,8 +3461,8 @@ Le mannequin remplace le jeton d'un PNJ sans figurine.
 
 - Vérifie que `hmi::npcFigures(entites, 0).size()` vaut `1U`.
 - Vérifie que `figurines.size()` vaut `3U`.
-- Vérifie que `figurines[0].figure` vaut `hmi::placeholderFigureDirectory("humanoid")`.
-- Vérifie que `figurines[1].figure` vaut `hmi::placeholderFigureDirectory("quadruped")`.
+- Vérifie que `figurines[0].figure` vaut `hmi::mannequinFigureDirectory("humanoid")`.
+- Vérifie que `figurines[1].figure` vaut `hmi::mannequinFigureDirectory("quadruped")`.
 - Vérifie que `figurines[2].figure` vaut `"anariel"`.
 - Vérifie que `sansFigurine.tokens.size()` vaut `3U`.
 - Vérifie que `avec.tokens.size()` vaut `1U`.
@@ -3425,21 +3470,18 @@ Le mannequin remplace le jeton d'un PNJ sans figurine.
 
 ### WorldSceneComposerTest.LeTirSansBandeJoueLAttaque
 
-*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1319`
+*Majeur · Unitaire · Rendu HD* — `Source/Test/Unit/HMI/Graphics/test_world_scene_composer.cpp:1266`
 
 Le tir se replie sur l'attaque, et rien d'autre ne se replie.
 
 **Étapes**
 
 1. Lire le repli de `ranged` et de `cast`.
-2. Lister les chemins d'une figurine d'exploration qui joue `ranged`.
 
 **Résultat attendu**
 
 - Vérifie que `hmi::figure_clips::fallbackOf(hmi::figure_clips::RANGED)` vaut `hmi::figure_clips::ATTACK`.
 - Vérifie que `hmi::figure_clips::fallbackOf(hmi::figure_clips::CAST).empty()` est vrai.
-- Vérifie que `std::ranges::find(chemins, archer + "/ranged-se.png")` diffère de `chemins.end()`.
-- Vérifie que `std::ranges::find(chemins, archer + "/attack-se.png")` diffère de `chemins.end()`.
 
 ## test_world_scene_renderer.cpp
 
@@ -3547,14 +3589,14 @@ Deux lieux se dessinent sans une piece sur le damier, sentinelles sous les trait
 - Vérifie que `figurines.empty()` est faux.
 - Vérifie que `renderer.ensureResources(rhi.get())` est vrai.
 - Vérifie que `quad.texture` diffère de `renderer.textures().missing.texture`.
-- Vérifie que `soldat` diffère de `renderer.textures().byPath.end()`.
-- Vérifie que `soldat->second.texture` diffère de `nullptr`.
-- Vérifie que `soldat->second.texture` diffère de `renderer.textures().missing.texture`.
+- Vérifie que `soldat` diffère de `nullptr`.
+- Vérifie que `soldat->rig` diffère de `nullptr`.
+- Vérifie que `renderer.textures().byPath.contains("Monsters/sentinelle/@marker")` est faux.
 - Vérifie que `paintedPixels(image)` est strictement supérieur à `static_cast<std::size_t>(TARGET_SIZE * TARGET_SIZE / 4)`.
 
 ### WorldSceneRendererTest.LesCartesSeSauvegardentEtSeRendentAvecLeurKit
 
-*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:364`
+*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:366`
 
 Les trois cartes se sauvegardent et se rendent avec leur kit.
 
@@ -3578,7 +3620,7 @@ Les trois cartes se sauvegardent et se rendent avec leur kit.
 
 ### WorldSceneRendererTest.TousLesPortailsSeTraversent
 
-*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:416`
+*Critique · Unitaire · Rendu du donjon d'essai* — `Source/Test/Unit/HMI/Graphics/test_world_scene_renderer.cpp:418`
 
 Tous les portails des cartes se traversent.
 

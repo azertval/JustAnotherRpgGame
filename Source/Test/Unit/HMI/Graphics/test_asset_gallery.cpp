@@ -215,8 +215,8 @@ TEST(AssetGalleryTest, ImageJouee) {
  * \tcat Unitaire · Galerie des assets<br/>
  * \tcrit Bloquant<br/>
  * \tetapes 1. Lire le catalogue de la racine d'essai.<br/>
- * \tattendu Aucune erreur ; PNJ avec attaque de 96 px en 8 images jouée une fois ; monstres et
- * lieu présents ; toutes les textures existent.
+ * \tattendu Aucune erreur ; le PNJ est un modèle, dont l'attaque dure 0,8 s et se joue une fois ;
+ * monstres et lieu présents ; tous les fichiers existent.
  * }
  */
 TEST(AssetGalleryTest, AssetsDEssai) {
@@ -233,9 +233,12 @@ TEST(AssetGalleryTest, AssetsDEssai) {
                                          return value.model == "figurant" && value.form == "attack";
                                      });
     ASSERT_NE(attack, npcs->entries.end());
-    EXPECT_EQ(attack->frameWidth, 96);
-    EXPECT_EQ(attack->frameCount(), 8);
+    EXPECT_TRUE(attack->mesh);
+    EXPECT_EQ(attack->path, "Npc/figurant/figurant.glb");
+    EXPECT_EQ(attack->clip, "attack");
+    EXPECT_DOUBLE_EQ(attack->clipDuration, 0.8F);
     EXPECT_FALSE(attack->loop);
+    EXPECT_EQ(attack->frameCount(), 1) << "un modèle n'a pas d'images";
 
     EXPECT_NE(familyNamed(catalog, "Monstres"), nullptr);
     EXPECT_NE(familyNamed(catalog, "Scène · bourg"), nullptr);
@@ -258,8 +261,8 @@ TEST(AssetGalleryTest, AssetsDEssai) {
  * \tcrit Bloquant<br/>
  * \tetapes 1. Lire le catalogue de Source/Elements/Assets. 2. Parcourir toutes les images
  * livrées.<br/>
- * \tattendu Chaque PNG ou JPEG est une forme de la galerie, ou une planche source, une image
- * d'interface, une carte plein écran ou une police ; les portraits de PNJ y sont.
+ * \tattendu Chaque PNG, JPEG ou modèle `.glb` est une forme de la galerie, ou une planche source,
+ * une image d'interface, une carte plein écran ou une police ; les portraits de PNJ y sont.
  * }
  */
 TEST(AssetGalleryTest, ToutAssetLivreEstDansLaGalerie) {
@@ -334,44 +337,83 @@ TEST(AssetGalleryTest, ArborescenceParNiveaux) {
 }
 
 /**
- * @brief Les figurines de monstres forment leur famille, au gabarit que dit chaque `.anim.json`,
- *        et une bête sans sort n'a pas d'entrée `cast` (LOT-93).
- * \castest{<b>Une figurine Grande sans sort paraît dans la galerie.</b><br/>
+ * @brief Un personnage paraît par son **modèle**, une forme par clip que son squelette déclare ;
+ *        un modèle inscrit sans fiche paraît dans sa pose ; ce qui n'a pas de modèle ne paraît
+ *        pas (`LOT-1006`).
+ * \castest{<b>Les personnages paraissent en modeles, clip par clip.</b><br/>
  * \tcat Unitaire · Galerie des assets<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Écrire un dossier Monsters/ : un manifeste qui nomme idle et cast, un lion qui n'a
- * que idle, en cellules de 96 × 96. 2. Lire le catalogue.<br/>
- * \tattendu Une famille « Monstres » ; le idle du lion en 96 × 96 et 6 images ; aucune entrée
- * cast, aucune erreur.
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Écrire un dossier Monsters/ : un lion avec sa fiche, son modèle et un squelette à
+ * deux clips ; un tigre inscrit au manifeste (`models`) sans fiche ; un fantôme dont la fiche nomme
+ * un fichier absent ; un vestige qui n'a qu'une bande d'images. 2. Lire le catalogue.<br/>
+ * \tattendu Une famille « Monstres » de trois formes : le lion en `idle` (boucle, 1 s) et `attack`
+ * (une fois, 0,8 s), le tigre en `model`, sans clip ; rien pour le fantôme ni pour le vestige ;
+ * aucune erreur.
  * }
  */
-TEST(AssetGalleryTest, FigurinesDeMonstres) {
+TEST(AssetGalleryTest, LesPersonnagesParaissentEnModeles) {
     const std::filesystem::path root =
         std::filesystem::temp_directory_path() / "jadg_asset_gallery_monsters";
     std::filesystem::remove_all(root);
-    std::filesystem::create_directories(root / "Monsters" / "lion");
-    std::ofstream(root / "Monsters" / "manifest.json")
-        << R"({"version": 1, "animations": ["idle", "cast"], "monsters": []})";
-    std::ofstream(root / "Monsters" / "lion" / "idle.anim.json")
+    const std::filesystem::path monsters = root / "Monsters";
+    for (const char* const name : {"lion", "tigre", "fantome", "vestige"}) {
+        std::filesystem::create_directories(monsters / name);
+    }
+    std::filesystem::create_directories(root / "Common" / "Characters" / "Skeletons" / "fauve");
+    std::ofstream(root / "Common" / "Characters" / "Skeletons" / "fauve" / "skeleton.json")
+        << R"({"version": 1, "silhouette": "fauve", "bones": [{"name": "Root", "parent": ""}],)"
+           R"( "clips": [{"name": "idle", "duration": 1.0, "loop": true},)"
+           R"( {"name": "attack", "duration": 0.8, "loop": false, "key": 0.4}]})";
+    std::ofstream(monsters / "manifest.json")
+        << R"({"version": 1, "tile": [256, 159], "npcs": [], "models": {"tigre": {}}})";
+    std::ofstream(monsters / "lion" / "character.json")
+        << R"({"version": 1, "model": "lion.glb", "skeleton": "fauve"})";
+    std::ofstream(monsters / "lion" / "lion.glb") << "glb";
+    std::ofstream(monsters / "tigre" / "tigre.glb") << "glb";
+    std::ofstream(monsters / "fantome" / "character.json")
+        << R"({"version": 1, "model": "fantome.glb", "skeleton": "fauve"})";
+    std::ofstream(monsters / "vestige" / "idle.anim.json")
         << R"({"version": 1, "frameWidth": 96, "frameHeight": 96, "clips": {"idle": )"
-           R"({"frames": [0, 1, 2, 3, 4, 5], "frameDuration": 0.15, "loop": true}}})";
+           R"({"frames": [0, 1], "frameDuration": 0.15, "loop": true}}})";
 
     const hmi::AssetGalleryCatalog catalog = hmi::AssetGalleryCatalog::load(root);
     std::filesystem::remove_all(root);
 
-    EXPECT_TRUE(catalog.errors.empty());
-    const hmi::AssetGalleryFamily* const monsters = familyNamed(catalog, "Monstres");
-    ASSERT_NE(monsters, nullptr);
-    EXPECT_EQ(monsters->directory, "Monsters");
-    ASSERT_EQ(monsters->entries.size(), 1U);
-    const hmi::AssetGalleryEntry& idle = monsters->entries.front();
+    for (const std::string& error : catalog.errors) {
+        ADD_FAILURE() << error;
+    }
+    const hmi::AssetGalleryFamily* const family = familyNamed(catalog, "Monstres");
+    ASSERT_NE(family, nullptr);
+    EXPECT_EQ(family->directory, "Monsters");
+    ASSERT_EQ(family->entries.size(), 3U);
+    const hmi::AssetGalleryEntry& idle = family->entries[0];
     EXPECT_EQ(idle.model, "lion");
     EXPECT_EQ(idle.form, "idle");
-    EXPECT_EQ(idle.path, "Monsters/lion/idle.png");
-    EXPECT_EQ(idle.frameWidth, 96);
-    EXPECT_EQ(idle.frameHeight, 96);
-    EXPECT_EQ(idle.frameCount(), 6);
+    EXPECT_EQ(idle.path, "Monsters/lion/lion.glb");
+    EXPECT_TRUE(idle.mesh);
+    EXPECT_EQ(idle.clip, "idle");
     EXPECT_TRUE(idle.loop);
+    EXPECT_DOUBLE_EQ(idle.clipDuration, 1.0);
+    EXPECT_EQ(idle.frameWidth, 384) << "une case et demie, pour un bras tendu ou un corps couché";
+    EXPECT_EQ(idle.frameHeight, 256);
+    const hmi::AssetGalleryEntry& attack = family->entries[1];
+    EXPECT_EQ(attack.form, "attack");
+    EXPECT_FALSE(attack.loop);
+    EXPECT_DOUBLE_EQ(attack.clipDuration, 0.8F);
+    const hmi::AssetGalleryEntry& still = family->entries[2];
+    EXPECT_EQ(still.model, "tigre");
+    EXPECT_EQ(still.form, "model");
+    EXPECT_EQ(still.path, "Monsters/tigre/tigre.glb");
+    EXPECT_TRUE(still.mesh);
+    EXPECT_TRUE(still.clip.empty());
+
+    // Le clip d'un modèle dans le temps de la galerie : une boucle revient, un clip joué une fois
+    // se tient sur sa fin avant de reprendre.
+    EXPECT_NEAR(hmi::assetGalleryClipSeconds(idle, 2.25), 0.25, 1e-9);
+    EXPECT_NEAR(hmi::assetGalleryClipSeconds(attack, 0.5), 0.5, 1e-6);
+    EXPECT_NEAR(hmi::assetGalleryClipSeconds(attack, 1.2), 0.8, 1e-6) << "tenu sur sa fin";
+    EXPECT_NEAR(hmi::assetGalleryClipSeconds(attack, 1.5), 0.1, 1e-6) << "puis il reprend";
+    EXPECT_DOUBLE_EQ(hmi::assetGalleryClipSeconds(still, 3.0), 0.0);
 }
 
 namespace {
@@ -387,34 +429,38 @@ void enTetePng(const std::filesystem::path& chemin, unsigned char cote) {
 }  // namespace
 
 /**
- * @brief Un heros range par classe parait dans la galerie, une entree par orientation, avec son
- *        portrait et son jeton (`LOT-112`, `EX-CNT-042`).
- * \castest{<b>Les bandes orientees du heros et son jeton paraissent dans la galerie.</b><br/>
+ * @brief Un heros range par classe parait dans la galerie par son modele, clip par clip, avec son
+ *        portrait et son jeton ; son `.glb` compte parmi les assets a montrer (`LOT-1006`,
+ *        `EX-CNT-042`).
+ * \castest{<b>Le modele du heros, son portrait et son jeton paraissent dans la galerie.</b><br/>
  * \tcat Unitaire · Galerie des assets<br/>
  * \tcrit Critique<br/>
  * \tetapes 1. Ecrire `Common/Characters/manifest.json`, qui nomme `Heroes/brawler` dans `npcs`,
- * et deux bandes de marche orientees, un portrait et un jeton.<br/>2. Lire le catalogue.<br/>
- * 3. Chercher les images non listees.<br/>
- * \tattendu Le modele `Heroes/brawler` a ses entrees `walk-se` et `walk-sw`, en 192 x 256 et huit
- * images, son portrait et son jeton ; aucune image non listee, aucune erreur.
+ * sa fiche, son modele, le squelette humanoide a deux clips, un portrait et un jeton ; a cote, un
+ * modele que rien n'inscrit.<br/>2. Lire le catalogue.<br/>3. Chercher les assets non listes.<br/>
+ * \tattendu Le modele `Heroes/brawler` a ses entrees `idle` et `walk`, son portrait et son jeton ;
+ * le seul asset non liste est le modele que rien n'inscrit ; aucune erreur.
  * }
  */
-TEST(AssetGalleryTest, UnHerosOrienteRangeParClasse) {
+TEST(AssetGalleryTest, UnHerosEnModeleRangeParClasse) {
     const std::filesystem::path root =
         std::filesystem::temp_directory_path() / "jadg_asset_gallery_hero";
     std::filesystem::remove_all(root);
     const std::filesystem::path characters = root / "Common" / "Characters";
     const std::filesystem::path heros = characters / "Heroes" / "brawler";
     std::filesystem::create_directories(heros);
+    std::filesystem::create_directories(characters / "Skeletons" / "humanoid");
+    std::filesystem::create_directories(characters / "Heroes" / "oublie");
     std::ofstream(characters / "manifest.json")
-        << R"({"version": 1, "tile": [256, 159], "animations": ["idle", "walk"],)"
-           R"( "npcs": ["Heroes/brawler"]})";
-    for (const char* sens : {"se", "sw"}) {
-        std::ofstream(heros / (std::string{"walk-"} + sens + ".anim.json"))
-            << R"({"version": 1, "frameWidth": 192, "frameHeight": 256, "clips": {"walk": )"
-               R"({"frames": [0, 1, 2, 3, 4, 5, 6, 7], "frameDuration": 0.1, "loop": true}}})";
-        std::ofstream(heros / (std::string{"walk-"} + sens + ".png")) << "png";
-    }
+        << R"({"version": 1, "tile": [256, 159], "npcs": ["Heroes/brawler"]})";
+    std::ofstream(characters / "Skeletons" / "humanoid" / "skeleton.json")
+        << R"({"version": 1, "silhouette": "humanoid", "bones": [{"name": "Root", "parent": ""}],)"
+           R"( "clips": [{"name": "idle", "duration": 1.0, "loop": true},)"
+           R"( {"name": "walk", "duration": 0.5, "loop": true}]})";
+    std::ofstream(heros / "character.json")
+        << R"({"version": 1, "model": "brawler.glb", "skeleton": "humanoid"})";
+    std::ofstream(heros / "brawler.glb") << "glb";
+    std::ofstream(characters / "Heroes" / "oublie" / "oublie.glb") << "glb";
     enTetePng(heros / "portrait.png", 200);
     enTetePng(heros / "token.png", 128);
 
@@ -430,15 +476,14 @@ TEST(AssetGalleryTest, UnHerosOrienteRangeParClasse) {
     for (const hmi::AssetGalleryEntry& entry : figurines->entries) {
         EXPECT_EQ(entry.model, "Heroes/brawler");
         formes.push_back(entry.form);
-        if (entry.form == "walk-se") {
-            EXPECT_EQ(entry.path, "Common/Characters/Heroes/brawler/walk-se.png");
-            EXPECT_EQ(entry.frameWidth, 192);
-            EXPECT_EQ(entry.frameHeight, 256);
-            EXPECT_EQ(entry.frameCount(), 8);
+        if (entry.form == "walk") {
+            EXPECT_EQ(entry.path, "Common/Characters/Heroes/brawler/brawler.glb");
+            EXPECT_TRUE(entry.mesh);
+            EXPECT_DOUBLE_EQ(entry.clipDuration, 0.5);
         }
     }
-    EXPECT_EQ(formes, (std::vector<std::string>{"walk-se", "walk-sw", "portrait", "token"}));
-    EXPECT_TRUE(unlisted.empty()) << unlisted.front();
+    EXPECT_EQ(formes, (std::vector<std::string>{"idle", "walk", "portrait", "token"}));
+    EXPECT_EQ(unlisted, (std::vector<std::string>{"Common/Characters/Heroes/oublie/oublie.glb"}));
 }
 
 /**

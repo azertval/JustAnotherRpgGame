@@ -7,7 +7,8 @@ import Jadg.Ui
 
     Transcrit de la maquette `05_Options_Mockup.png` (1536 x 1024), cotes ramenees a 1920 x 1080 puis
     multipliees par `Tokens.uiScale` : une colonne d'onglets a gauche sous la plaque de titre, un
-    grand panneau sombre a droite, ses sections, et une barre de pied Par defaut, Annuler, Appliquer.
+    grand panneau de parchemin a droite, ses sections, et une barre de pied Par defaut, Annuler,
+    Appliquer. Le titre suit les pages claires du codex.
 
     **Trois onglets, et non six.** `EX-IHM-072` retire tout reglage inoperant, et la decision du
     14 septembre 2026 l'a garde : seuls les onglets qui portent un reglage BRANCHE sont dessines --
@@ -53,19 +54,25 @@ Item {
     width: 1920
     height: 1080
 
-    // --- Le fond : un decor voile, qui ne dispute rien aux reglages -------------------------------
     Rectangle {
         anchors.fill: parent
-        color: Tokens.panel
+        color: Tokens.frameEdge
     }
 
-    // Tant que le decor n'est pas livre, l'aplat `panel` ci-dessus en tient lieu : plus aucune
-    // image du corpus ne sert de repli (LOT-94, EX-IHM-076).
-    CoverArt {
-        id: backdropArt
-
+    PanelFrame {
         anchors.fill: parent
-        key: "ui/background/options-backdrop"
+        anchors.margins: 14 * Tokens.uiScale
+        material: "parchment"
+        bound: true
+        padding: 0
+    }
+
+    FixedArt {
+        x: 36 * Tokens.uiScale
+        y: 20 * Tokens.uiScale
+        width: 112 * Tokens.uiScale
+        height: 180 * Tokens.uiScale
+        key: "ui/ornament/crest-pennant"
     }
 
     // --- Colonne des onglets (maquette : 100, 70 -> 420, 890) ---------------------------------------
@@ -76,6 +83,7 @@ Item {
         y: 150 * Tokens.uiScale
         width: 420 * Tokens.uiScale
         height: 790 * Tokens.uiScale
+        material: "parchment"
         padding: 0
 
         Column {
@@ -128,9 +136,9 @@ Item {
 
     // La plaque de titre deborde la colonne, comme sur la maquette (95, 65 -> 450, 160).
     TitlePlate {
-        x: 119 * Tokens.uiScale
-        y: 74 * Tokens.uiScale
-        width: 440 * Tokens.uiScale
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: 16 * Tokens.uiScale
+        width: 1170 * Tokens.uiScale
         material: "garnet"
         text: qsTr("Options")
     }
@@ -143,6 +151,7 @@ Item {
         y: 121 * Tokens.uiScale
         width: 1243 * Tokens.uiScale
         height: 865 * Tokens.uiScale
+        material: "parchment"
 
         StackLayout {
             anchors.left: parent.left
@@ -160,6 +169,7 @@ Item {
                     Layout.alignment: Qt.AlignTop
                     Layout.fillWidth: true
                     Layout.preferredHeight: 224 * Tokens.uiScale
+                    material: "parchment"
                     subpanel: true
 
                     ColumnLayout {
@@ -168,7 +178,7 @@ Item {
 
                         SectionBanner {
                             Layout.fillWidth: true
-                            material: "dark"
+                            material: "parchment"
                             text: qsTr("Langue")
                         }
 
@@ -179,7 +189,7 @@ Item {
                             Text {
                                 Layout.fillWidth: true
                                 text: qsTr("Langue du jeu")
-                                color: Tokens.textOnPanel
+                                color: Tokens.text
                                 font.family: Tokens.bodyFamily
                                 font.pixelSize: Tokens.fontBody
                             }
@@ -198,6 +208,7 @@ Item {
                     Layout.alignment: Qt.AlignTop
                     Layout.fillWidth: true
                     Layout.preferredHeight: 224 * Tokens.uiScale
+                    material: "parchment"
                     subpanel: true
 
                     ColumnLayout {
@@ -206,7 +217,7 @@ Item {
 
                         SectionBanner {
                             Layout.fillWidth: true
-                            material: "dark"
+                            material: "parchment"
                             text: qsTr("Journaux")
                         }
 
@@ -221,7 +232,7 @@ Item {
                         Text {
                             Layout.fillWidth: true
                             text: root.logsMessage
-                            color: Tokens.textOnPanelMuted
+                            color: Tokens.textMuted
                             font.family: Tokens.bodyFamily
                             font.pixelSize: Tokens.fontCaption
                             wrapMode: Text.WrapAnywhere
@@ -241,6 +252,7 @@ Item {
                     Layout.alignment: Qt.AlignTop
                     Layout.fillWidth: true
                     Layout.preferredHeight: 300 * Tokens.uiScale
+                    material: "parchment"
                     subpanel: true
 
                     ColumnLayout {
@@ -249,17 +261,19 @@ Item {
 
                         SectionBanner {
                             Layout.fillWidth: true
-                            material: "dark"
+                            material: "parchment"
                             text: qsTr("Affichage")
                         }
 
                         OrnateCheck {
                             id: fullscreenControl
+                            material: "parchment"
                             text: qsTr("Plein écran")
                         }
 
                         OrnateCheck {
                             id: vsyncControl
+                            material: "parchment"
                             text: qsTr("Synchronisation verticale")
                         }
 
@@ -267,7 +281,7 @@ Item {
                             Layout.fillWidth: true
                             Layout.leftMargin: 44 * Tokens.uiScale
                             text: qsTr("Appliquée au prochain lancement.")
-                            color: Tokens.textOnPanelMuted
+                            color: Tokens.textMuted
                             font.family: Tokens.loreFamily
                             font.italic: true
                             font.pixelSize: Tokens.fontCaption
@@ -275,6 +289,7 @@ Item {
 
                         OrnateCheck {
                             id: diagnosticsControl
+                            material: "parchment"
                             text: qsTr("Compteur de diagnostic")
                         }
 
@@ -286,18 +301,19 @@ Item {
                     Layout.alignment: Qt.AlignTop
                     Layout.fillWidth: true
                     Layout.preferredHeight: 350 * Tokens.uiScale
+                    material: "parchment"
                     subpanel: true
                     ColumnLayout {
                         anchors.fill: parent
                         spacing: Tokens.gapMedium
                         SectionBanner {
                             Layout.fillWidth: true
-                            material: "dark"
+                            material: "parchment"
                             text: qsTr("Interface en jeu")
                         }
                         Text {
                             text: qsTr("Taille du HUD")
-                            color: Tokens.textOnPanel
+                            color: Tokens.text
                             font.family: Tokens.bodyFamily
                             font.pixelSize: Tokens.fontSectionTitle
                         }
@@ -316,7 +332,7 @@ Item {
                             Text {
                                 Layout.preferredWidth: 76 * Tokens.uiScale
                                 text: Math.round(hudScaleControl.value) + " %"
-                                color: Tokens.textOnPanel
+                                color: Tokens.text
                                 font.family: Tokens.bodyFamily
                                 font.pixelSize: Tokens.fontSectionTitle
                             }
@@ -324,7 +340,7 @@ Item {
                         Text {
                             Layout.fillWidth: true
                             text: qsTr("Ajuste les portraits, commandes et informations en exploration et en combat. La taille du terrain et des menus reste inchangée.\nPrend effet avec Appliquer et reste enregistrée.")
-                            color: Tokens.textOnPanel
+                            color: Tokens.text
                             font.family: Tokens.bodyFamily
                             font.pixelSize: Tokens.fontBody
                             wrapMode: Text.WordWrap
@@ -342,6 +358,7 @@ Item {
                     Layout.alignment: Qt.AlignTop
                     Layout.fillWidth: true
                     Layout.preferredHeight: 224 * Tokens.uiScale
+                    material: "parchment"
                     subpanel: true
 
                     ColumnLayout {
@@ -350,7 +367,7 @@ Item {
 
                         SectionBanner {
                             Layout.fillWidth: true
-                            material: "dark"
+                            material: "parchment"
                             text: qsTr("Volume")
                         }
 
@@ -360,7 +377,7 @@ Item {
 
                             Text {
                                 text: qsTr("Volume général")
-                                color: Tokens.textOnPanel
+                                color: Tokens.text
                                 font.family: Tokens.bodyFamily
                                 font.pixelSize: Tokens.fontBody
                             }
@@ -377,7 +394,7 @@ Item {
                                 Layout.preferredWidth: 64 * Tokens.uiScale
                                 horizontalAlignment: Text.AlignRight
                                 text: Math.round(volumeControl.value) + " %"
-                                color: Tokens.textOnPanel
+                                color: Tokens.text
                                 font.family: Tokens.bodyFamily
                                 font.pixelSize: Tokens.fontBody
                             }

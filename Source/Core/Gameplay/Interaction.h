@@ -53,8 +53,8 @@ inline constexpr float INTERACTION_REACH_CELLS = 1.5F;
  *
  * L'orientation est un vecteur libre (`core::Actor::facing`) et la case visée est **la voisine**
  * dans la direction dominante — jamais une diagonale. Un personnage qui regarde à 30° vise la case
- * de droite, pas celle du coin : viser en diagonale rendrait la cible imprévisible sur une manette
- * analogique, alors que le joueur doit savoir ce qu'il désigne avant d'appuyer.
+ * de droite, pas celle du coin : viser en diagonale rendrait la cible imprévisible, alors que le
+ * joueur doit savoir ce qu'il désigne avant d'appuyer.
  *
  * Une orientation nulle ne vise rien et renvoie la case du personnage lui-même : c'est le cas d'un
  * `facing` non initialisé, et rendre une voisine arbitraire ferait ouvrir un coffre que le joueur

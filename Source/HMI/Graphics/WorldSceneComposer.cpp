@@ -125,16 +125,6 @@ void composeMeshPiece(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                   IsoView::projectedBounds(toView, mesh.minimum, mesh.maximum), storey);
 }
 
-// Le dossier d'une figurine, sous le niveau qui la range (LOT-124), a defaut elle-meme.
-[[nodiscard]] std::string figureDirectoryIn(const WorldSceneSnapshot& snapshot,
-                                            std::string_view figure) {
-    if (const auto found = snapshot.figureDirectories.find(figure);
-        found != snapshot.figureDirectories.end()) {
-        return found->second;
-    }
-    return std::string{figure};
-}
-
 // Rend : La premiere couche de role `kind` au rez, ou `nullptr` si la carte n'en declare pas.
 [[nodiscard]] const core::TileLayer* layerOf(const WorldSceneSource& source, core::LayerKind kind) {
     for (const core::TileLayer& couche : source.layers) {
@@ -545,15 +535,17 @@ std::optional<float> composeRelief(ComposedScene& scene, const WorldSceneSnapsho
                                 -std::numeric_limits<float>::infinity());
 }
 
-// Une figurine posee : sa texture, son image, son rang de dessin.
+// Une image de figurine posee -- un effet, ou un marqueur : sa texture, son image, son rang.
 struct FigurePlacement {
     TextureHandle texture = nullptr;
     SpriteQuad quad{};
     std::int32_t sortOrder = 0;
-    /// La ligne ou elle se dresse dans la scene en volume : ses pieds, au centre de sa position.
+    /// La ligne ou elle se dresse dans la scene en volume : au centre de sa position.
     float standingY = 0.0F;
 };
 
+// La bande d'un effet, ou le marqueur d'une figurine sans modele ; rien si la texture n'est pas
+// chargee -- un effet inconnu ne se dessine pas, et un marqueur ne se peint que sans modele.
 [[nodiscard]] std::optional<FigurePlacement> placeFigure(const WorldSceneSnapshot& snapshot,
                                                          const core::IsoProjection& projection,
                                                          const ScenePieceTextures& textures,
@@ -561,19 +553,13 @@ struct FigurePlacement {
     if (figure.figure.empty()) {
         return std::nullopt;
     }
-    const std::string directory = figureDirectoryIn(snapshot, figure.figure);
-    const SceneTexture* strip =
-        &textures.resolve(figureStripPath(directory, figure.clip, figure.facing));
-    // Une figurine sans la bande demandee joue celle qui la remplace : un archer peint sans tir
-    // tire avec son attaque (`LOT-136`).
-    if (const std::string_view repli = figure_clips::fallbackOf(figure.clip);
-        strip->texture == nullptr && !repli.empty()) {
-        strip = &textures.resolve(figureStripPath(directory, repli, figure.facing));
-    }
-    const SceneTexture& texture = *strip;
-    if (texture.texture == nullptr) {
+    const SceneTexture* const found = textures.find(
+        figure.effect ? effectStripPath(figure.clip)
+                      : figureMarkerPath(worldFigureDirectory(snapshot, figure.figure)));
+    if (found == nullptr || found->texture == nullptr) {
         return std::nullopt;
     }
+    const SceneTexture& texture = *found;
     // La bande dit sa propre decoupe : sa cellule, et avec sa largeur totale son nombre d'images.
     // Une image hors bande est ramenee dedans plutot que de lire a cote de la texture. Sa cadence
     // aussi, quand elle la dit et que l'instantane porte le temps.
@@ -581,8 +567,8 @@ struct FigurePlacement {
     const int rang = figure.seconds >= 0.0F && texture.frameDuration > 0.0F
                          ? static_cast<int>(figure.seconds / texture.frameDuration)
                          : figure.frame;
-    // Une bande jouee une fois (attaque, touche, mort) se fige sur sa derniere image : un mort ne
-    // se releve pas parce que le temps passe (`LOT-118`). Une bande qui boucle est ramenee dedans.
+    // Une bande jouee une fois se fige sur sa derniere image ; une bande qui boucle est ramenee
+    // dedans.
     const int frame = texture.loop ? ((rang % frameCount) + frameCount) % frameCount
                                    : std::clamp(rang, 0, frameCount - 1);
 
@@ -591,9 +577,8 @@ struct FigurePlacement {
         projection
             .gridToWorld(gridPoint(figure.point.x + CELL_CENTER, figure.point.y + CELL_CENTER))
             .y;
-    // Une figurine qui declare sa ligne de sol la pose au CENTRE du losange de sa position : c'est
-    // la que la maquette du LOT-101 met les pieds. Sans elle, l'ancienne marge : le bas de la
-    // cellule un peu au-dessus de la pointe sud.
+    // Une bande qui declare sa ligne de sol la pose au CENTRE du losange de sa position. Sans
+    // elle -- un marqueur --, le bas de l'image un peu au-dessus de la pointe sud.
     const float bottomY =
         texture.groundLine
             ? center.y + ((static_cast<float>(frameHeightOf(texture)) - *texture.groundLine) *
@@ -611,7 +596,7 @@ struct FigurePlacement {
 constexpr float MODEL_DEPTH_LEAD = 2.0F;
 
 // La cadence d'une figurine dont l'instantane ne porte pas le temps : son rang d'image, en
-// secondes -- celle des bandes de l'exploration.
+// secondes.
 constexpr float MODEL_FRAME_SECONDS = 0.15F;
 
 // Un modele pose : son maillage, sa pose dans la vue, ce qu'il occupe a l'ecran.
@@ -625,21 +610,27 @@ struct ModelPlacement {
     std::int32_t sortOrder = 0;
 };
 
-// Le modele charge de `figure`, pose sur sa position et tourne vers son cap ; rien si la figurine
-// n'en nomme pas, ou s'il ne s'est pas charge.
-[[nodiscard]] std::optional<ModelPlacement> placeModel(const core::IsoProjection& projection,
+// Le modele charge de `figure` -- celui qu'elle nomme, a defaut celui de la fiche de son dossier
+// --, pose sur sa position et tourne vers son cap ; rien pour un effet, ou si aucun modele ne
+// s'est charge.
+[[nodiscard]] std::optional<ModelPlacement> placeModel(const WorldSceneSnapshot& snapshot,
+                                                       const core::IsoProjection& projection,
                                                        const ScenePieceTextures& textures,
                                                        const WorldFigureSnapshot& figure) {
+    if (figure.effect || figure.figure.empty()) {
+        return std::nullopt;
+    }
     const SceneFigureModel* const model =
-        figure.model.empty() ? nullptr : textures.findFigure(figure.model);
+        !figure.model.empty()
+            ? textures.findFigure(figure.model)
+            : textures.findFigureOf(worldFigureDirectory(snapshot, figure.figure));
     if (model == nullptr) {
         return std::nullopt;
     }
     const IsoView view(projection);
     // Un modele regarde vers +Z, les lignes croissantes : le cap se compte depuis +X.
-    const float heading = figure.heading.value_or(figureHeadingOf(figure.facing));
     ViewTransform toView = IsoView::turned(view.meshTransform(figure.point, 0.0F),
-                                           (std::numbers::pi_v<float> / 2.0F) - heading);
+                                           (std::numbers::pi_v<float> / 2.0F) - figure.heading);
     toView[11] -= MODEL_DEPTH_LEAD * view.imageBias();
     const float height = std::max(model->maximum[1], 0.1F);
     float radius = height;
@@ -706,7 +697,8 @@ void composeFigure(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                    const core::IsoProjection& projection, const ScenePieceTextures& textures,
                    const WorldFigureSnapshot& figure) {
     // Un modele (LOT-1005) : un maillage anime, sans rang de dessin -- la profondeur le departage.
-    if (const std::optional<ModelPlacement> model = placeModel(projection, textures, figure)) {
+    if (const std::optional<ModelPlacement> model =
+            placeModel(snapshot, projection, textures, figure)) {
         composeModel(scene, *model, figure);
         return;
     }
@@ -897,11 +889,6 @@ MaquetteMarks maquetteMarks(const std::vector<core::MapEntity>& entities, bool m
     return marks;
 }
 
-std::string placeholderFigureDirectory(std::string_view silhouette) {
-    return "Common/Characters/Placeholders/" +
-           std::string{silhouette.empty() ? DEFAULT_SILHOUETTE : silhouette};
-}
-
 std::string mannequinFigureDirectory(std::string_view silhouette) {
     std::string directory{"Common/Characters/Mannequins/"};
     directory.append(silhouette.empty() ? DEFAULT_SILHOUETTE : silhouette);
@@ -922,7 +909,7 @@ std::vector<WorldFigureSnapshot> npcFigures(const std::vector<core::MapEntity>& 
             }
             // Le mannequin de sa silhouette tient la place (LOT-145) : un PNJ se voit et s'anime
             // avant que l'atelier ne l'ait dessine.
-            figure = placeholderFigureDirectory(textProperty(entity, SILHOUETTE_PROPERTY));
+            figure = mannequinFigureDirectory(textProperty(entity, SILHOUETTE_PROPERTY));
         }
         figures.push_back(
             WorldFigureSnapshot{.figure = std::move(figure),
@@ -1139,74 +1126,30 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
     return snapshot;
 }
 
-float figureHeadingOf(FigureFacing facing) noexcept {
-    constexpr float QUARTER = std::numbers::pi_v<float> / 2.0F;
-    switch (facing) {
-        case FigureFacing::SouthEast:
-            return 0.0F;
-        case FigureFacing::SouthWest:
-            return QUARTER;
-        case FigureFacing::NorthWest:
-            return 2.0F * QUARTER;
-        case FigureFacing::NorthEast:
-            return -QUARTER;
-        case FigureFacing::None:
-            break;
-    }
-    // Sans orientation : face a la camera, le bas de l'ecran.
-    return QUARTER / 2.0F;
-}
-
 float figureHeadingFor(core::Vector2 move, float previous) noexcept {
     return move.x == 0.0F && move.y == 0.0F ? previous : std::atan2(move.y, move.x);
 }
 
-std::string_view figureFacingSuffix(FigureFacing facing) noexcept {
-    switch (facing) {
-        case FigureFacing::SouthEast:
-            return "se";
-        case FigureFacing::SouthWest:
-            return "sw";
-        case FigureFacing::NorthEast:
-            return "ne";
-        case FigureFacing::NorthWest:
-            return "nw";
-        case FigureFacing::None:
-            break;
+std::string worldFigureDirectory(const WorldSceneSnapshot& snapshot, std::string_view figure) {
+    // Sous le niveau qui la range (LOT-124), a defaut elle-meme : un dossier depuis la racine des
+    // assets, ou un slug seul, cherche a plat.
+    if (const auto found = snapshot.figureDirectories.find(figure);
+        found != snapshot.figureDirectories.end()) {
+        return found->second;
     }
-    return {};
+    return core::figureDirectory({}, figure);
 }
 
-FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept {
-    const float enX = std::abs(move.x);
-    const float enY = std::abs(move.y);
-    if (enX == 0.0F && enY == 0.0F) {
-        return previous;
-    }
-    // Colonne : sud-est en avancant, nord-ouest en reculant. Ligne : sud-ouest, nord-est.
-    const FigureFacing parX = move.x > 0.0F ? FigureFacing::SouthEast : FigureFacing::NorthWest;
-    const FigureFacing parY = move.y > 0.0F ? FigureFacing::SouthWest : FigureFacing::NorthEast;
-    // Une egalite a l'arrondi pres : une diagonale normalisee n'a pas deux composantes
-    // rigoureusement egales apres une division par sa longueur.
-    constexpr float EGALITE = 1.0e-4F;
-    if (std::abs(enX - enY) <= EGALITE * std::max(enX, enY)) {
-        if (previous == parX || previous == parY) {
-            return previous;
-        }
-        return std::min(parX, parY);
-    }
-    return enX > enY ? parX : parY;
-}
-
-std::string figureStripPath(std::string_view figure, std::string_view clip, FigureFacing facing) {
-    // Un dossier depuis la racine des assets ; un slug seul se cherche a plat.
+std::string figureMarkerPath(std::string_view figure) {
     std::string path = core::figureDirectory({}, figure);
+    path.append("/@marker");
+    return path;
+}
+
+std::string effectStripPath(std::string_view effect) {
+    std::string path{FX_DIRECTORY};
     path.push_back('/');
-    path.append(clip.empty() ? std::string_view{"idle"} : clip);
-    if (facing != FigureFacing::None) {
-        path.push_back('-');
-        path.append(figureFacingSuffix(facing));
-    }
+    path.append(effect);
     path.append(".png");
     return path;
 }
@@ -1256,26 +1199,15 @@ std::vector<std::string> worldFigureTexturePaths(const WorldSceneSnapshot& snaps
                                                  std::span<const WorldFigureSnapshot> figures) {
     std::set<std::string> uniques;
     for (const WorldFigureSnapshot& figure : figures) {
-        // Une figurine en modele (LOT-1005) n'a pas de bande : son fichier se charge a part
-        // (`worldFigureModelPaths`).
-        if (figure.figure.empty() || !figure.model.empty()) {
+        if (figure.figure.empty()) {
             continue;
         }
-        // Les deux bandes d'une figurine : elle marche et elle attend, et le rendu ne doit pas
-        // charger une texture au milieu d'une image. Un combattant precharge toutes ses bandes : un
-        // coup ne doit pas non plus attendre sa texture (LOT-118).
-        const std::string directory = figureDirectoryIn(snapshot, figure.figure);
-        uniques.insert(figureStripPath(directory, figure_clips::IDLE, figure.facing));
-        uniques.insert(figureStripPath(directory, figure_clips::WALK, figure.facing));
-        if (figure.combatant) {
-            for (const std::string_view clip : figure_clips::ALL) {
-                uniques.insert(figureStripPath(directory, clip, figure.facing));
-            }
-        }
-        // La bande en cours, quelle qu'elle soit : elle se dessine a cette image.
-        uniques.insert(figureStripPath(directory, figure.clip, figure.facing));
-        if (const std::string_view repli = figure_clips::fallbackOf(figure.clip); !repli.empty()) {
-            uniques.insert(figureStripPath(directory, repli, figure.facing));
+        if (figure.effect) {
+            uniques.insert(effectStripPath(figure.clip));
+        } else if (figure.model.empty()) {
+            // Le marqueur d'une figurine qui ne nomme pas son modele : le rendu ne le peint que
+            // si la fiche de son dossier n'en donne pas non plus.
+            uniques.insert(figureMarkerPath(worldFigureDirectory(snapshot, figure.figure)));
         }
     }
     return {uniques.begin(), uniques.end()};
@@ -1284,7 +1216,7 @@ std::vector<std::string> worldFigureTexturePaths(const WorldSceneSnapshot& snaps
 std::vector<std::string> worldFigureModelPaths(std::span<const WorldFigureSnapshot> figures) {
     std::set<std::string> uniques;
     for (const WorldFigureSnapshot& figure : figures) {
-        if (!figure.model.empty()) {
+        if (!figure.effect && !figure.model.empty()) {
             uniques.insert(figure.model);
         }
     }
@@ -1340,7 +1272,8 @@ std::optional<WorldHeroPlacement> placeWorldHero(const WorldSceneSnapshot& snaps
         if (!figure.hero) {
             continue;
         }
-        if (const std::optional<ModelPlacement> model = placeModel(projection, textures, figure)) {
+        if (const std::optional<ModelPlacement> model =
+                placeModel(snapshot, projection, textures, figure)) {
             hero = WorldHeroPlacement{.bounds = model->body, .sortOrder = model->sortOrder};
             continue;
         }

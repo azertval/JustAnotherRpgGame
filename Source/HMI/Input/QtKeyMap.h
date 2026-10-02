@@ -5,7 +5,7 @@
 
 #include <optional>
 
-#include "HMI/Input/InputState.h"  // hmi::Key
+#include "HMI/Input/Key.h"
 
 /**
  * @file HMI/Input/QtKeyMap.h

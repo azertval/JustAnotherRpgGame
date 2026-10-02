@@ -67,10 +67,6 @@ qt_add_qml_module(JadgRuntime
         DialogueModel.h DialogueModel.cpp
         # Le journal de quetes (LOT-116) : relu dans les drapeaux de la partie.
         QuestJournalModel.h QuestJournalModel.cpp
-        # La manette du jeu Qt Quick (LOT-24) : le sondage XInput, jusqu'ici compile dans
-        # l'editeur seul, devient un QObject qui emet des appuis nommes.
-        GamepadNavigator.h GamepadNavigator.cpp
-        ../Input/GamepadPoller.cpp
 )
 
 # Le fichier d'enregistrement des types est ENGENDRÉ et inclut les en-têtes par NOM DE BASE
@@ -104,4 +100,4 @@ target_include_directories(JadgRuntime
 target_compile_definitions(JadgRuntime PUBLIC WIN32_LEAN_AND_MEAN NOMINMAX UNICODE _UNICODE)
 target_link_libraries(JadgRuntime
     PUBLIC HmiLib Qt6::Qml Qt6::Quick Qt6::Gui Qt6::GuiPrivate
-    PRIVATE xinput project_warnings project_options)
+    PRIVATE project_warnings project_options)

@@ -7,6 +7,7 @@
  *        à la vitesse du monde, un coup porte au milieu de son geste, un mort reste à terre.
  */
 
+#include <numbers>
 #include <vector>
 
 #include <gtest/gtest.h>
@@ -17,6 +18,12 @@ namespace {
 
 constexpr core::CombatantId HEROS{1};
 constexpr core::CombatantId RAT{2};
+
+// Les caps des quatre directions de la grille : les colonnes croissantes (sud-est a l'ecran), les
+// lignes croissantes (sud-ouest), et leurs opposes.
+constexpr float SOUTH_EAST = 0.0F;
+constexpr float SOUTH_WEST = std::numbers::pi_v<float> / 2.0F;
+constexpr float NORTH_WEST = std::numbers::pi_v<float>;
 
 }  // namespace
 
@@ -49,7 +56,7 @@ TEST(CombatCuesTest, UneMarcheSeRejoueCaseParCase) {
     EXPECT_EQ(heros->clip, hmi::figure_clips::WALK);
     EXPECT_NEAR(heros->point.x, 1.0F, 1e-4F);
     EXPECT_NEAR(heros->point.y, 0.5F, 1e-4F);
-    EXPECT_EQ(heros->facing, hmi::FigureFacing::SouthEast);
+    EXPECT_NEAR(heros->heading, SOUTH_EAST, 1e-4F);
 
     file.advance(0.5F);
     EXPECT_NEAR(heros->point.x, 2.0F, 1e-4F) << "une case et demie parcourue";
@@ -60,7 +67,7 @@ TEST(CombatCuesTest, UneMarcheSeRejoueCaseParCase) {
     EXPECT_EQ(heros->clip, hmi::figure_clips::IDLE);
     EXPECT_NEAR(heros->point.x, 2.5F, 1e-4F);
     EXPECT_NEAR(heros->point.y, 1.5F, 1e-4F);
-    EXPECT_EQ(heros->facing, hmi::FigureFacing::SouthWest);
+    EXPECT_NEAR(heros->heading, SOUTH_WEST, 1e-4F);
 }
 
 /**
@@ -81,7 +88,7 @@ TEST(CombatCuesTest, UneMarcheSeRejoueCaseParCase) {
 TEST(CombatCuesTest, LeCoupPorteAMiGesteEtUnMortResteATerre) {
     using hmi::CombatCueTrack;
     hmi::CombatCueTrack file;
-    file.place(HEROS, {.column = 0, .row = 0}, hmi::FigureFacing::NorthWest);
+    file.place(HEROS, {.column = 0, .row = 0}, NORTH_WEST);
     file.place(RAT, {.column = 1, .row = 0});
     file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Attack,
                              .actor = HEROS,
@@ -96,7 +103,7 @@ TEST(CombatCuesTest, LeCoupPorteAMiGesteEtUnMortResteATerre) {
     ASSERT_NE(heros, nullptr);
     ASSERT_NE(rat, nullptr);
     EXPECT_EQ(heros->clip, hmi::figure_clips::ATTACK);
-    EXPECT_EQ(heros->facing, hmi::FigureFacing::SouthEast) << "tourne vers sa cible";
+    EXPECT_NEAR(heros->heading, SOUTH_EAST, 1e-4F) << "tourne vers sa cible";
     EXPECT_EQ(rat->clip, hmi::figure_clips::IDLE) << "le coup n'a pas encore porte";
 
     file.advance(CombatCueTrack::ACTION_SECONDS * 0.35F);
@@ -270,9 +277,9 @@ TEST(CombatCuesTest, UnProjectileVersLaGaucheEstLeMiroir) {
  * 0,7 s, et au rat un touche de 0,3 s.<br/>2. Pousser une attaque du heros sur le rat et le
  * touche du rat.<br/>3. Avancer a 0,6 s, a 0,75 s, a 0,95 s, puis a 1,05 s.<br/>
  * \tattendu A 0,6 s le heros attaque et le rat est au repos : le coup n'a pas porte, alors qu'une
- * bande l'aurait fait porter a 0,32 s. A 0,75 s le rat encaisse, depuis 0,05 s. A 0,95 s il n'a
- * pas fini (0,25 s sur 0,3), le heros attaque encore. A 1,05 s tous deux sont au repos : le geste
- * a dure son clip. Le cap du heros est celui de sa cible.
+ * duree par defaut l'aurait fait porter a 0,32 s. A 0,75 s le rat encaisse, depuis 0,05 s. A 0,95 s
+ * il n'a pas fini (0,25 s sur 0,3), le heros attaque encore. A 1,05 s tous deux sont au repos : le
+ * geste a dure son clip. Le cap du heros est celui de sa cible.
  * }
  */
 TEST(CombatCuesTest, LesSignauxPartentALImageCleDuClip) {
@@ -289,8 +296,9 @@ TEST(CombatCuesTest, LesSignauxPartentALImageCleDuClip) {
     EXPECT_EQ(durees.cast, (hmi::GestureTiming{.seconds = 0.6F, .impact = 0.3F}))
         << "sans image cle, le milieu du geste";
     EXPECT_FLOAT_EQ(durees.hit, 0.3F);
-    EXPECT_FLOAT_EQ(durees.death, hmi::CombatCueTrack::ACTION_SECONDS) << "non declare : la bande";
-    EXPECT_EQ(hmi::CombatCueTrack::timingsOf(nullptr), hmi::CombatCueTrack::stripTimings());
+    EXPECT_FLOAT_EQ(durees.death, hmi::CombatCueTrack::ACTION_SECONDS)
+        << "non declare : la duree par defaut";
+    EXPECT_EQ(hmi::CombatCueTrack::timingsOf(nullptr), hmi::CombatCueTrack::defaultTimings());
 
     hmi::CombatCueTrack file;
     file.place(HEROS, {.column = 0, .row = 0});
@@ -310,8 +318,7 @@ TEST(CombatCuesTest, LesSignauxPartentALImageCleDuClip) {
     ASSERT_NE(rat, nullptr);
     EXPECT_EQ(heros->clip, hmi::figure_clips::ATTACK);
     EXPECT_NEAR(heros->clipSeconds, 0.6F, 1e-4F);
-    EXPECT_NEAR(heros->heading, hmi::figureHeadingOf(hmi::FigureFacing::SouthWest), 1e-4F)
-        << "tourne vers sa cible, une ligne plus bas";
+    EXPECT_NEAR(heros->heading, SOUTH_WEST, 1e-4F) << "tourne vers sa cible, une ligne plus bas";
     EXPECT_EQ(rat->clip, hmi::figure_clips::IDLE) << "le coup n'a pas encore porte";
 
     file.advance(0.15F);

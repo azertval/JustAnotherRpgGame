@@ -93,12 +93,11 @@ bool WorldPlay::followFollowers() {
         }
         if (walking) {
             const core::Vector2 direction = _session.followerFacing(rang);
-            const FigureFacing facing = figureFacingFor(direction, suiveur.facing);
-            if (facing != suiveur.facing) {
-                suiveur.facing = facing;
+            const float heading = figureHeadingFor(direction, suiveur.heading);
+            if (heading != suiveur.heading) {
+                suiveur.heading = heading;
                 changed = true;
             }
-            suiveur.heading = figureHeadingFor(direction, suiveur.heading);
         }
         suiveur.point = point;
     }
@@ -132,12 +131,11 @@ WorldPlayStep WorldPlay::step(const core::ExplorationIntent& intent, float secon
         result.figuresChanged = true;
     }
     if (walking) {
-        const FigureFacing facing = figureFacingFor(intent.move, _heroFacing);
-        if (facing != _heroFacing) {
-            _heroFacing = facing;
+        const float heading = figureHeadingFor(intent.move, _heroHeading);
+        if (heading != _heroHeading) {
+            _heroHeading = heading;
             result.figuresChanged = true;
         }
-        _heroHeading = figureHeadingFor(intent.move, _heroHeading);
     }
     if (followFollowers()) {
         result.figuresChanged = true;
@@ -221,7 +219,6 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
             _figures.resolve(figure.figure, nom != nullptr ? *nom : std::string{}, _appearance);
         figure.figure = resolue.directory;
         figure.model = resolue.model;
-        figure.facing = resolue.oriented ? FigureFacing::SouthEast : FigureFacing::None;
         figure.seconds = _elapsed + (static_cast<float>(rang) * NPC_BREATH_OFFSET_SECONDS);
     }
     // Les suiveurs du groupe (LOT-138), derriere le meneur : a egalite de profondeur, il passe
@@ -232,24 +229,24 @@ std::vector<WorldFigureSnapshot> WorldPlay::figures() const {
             .clip = std::string{suiveur.walking ? figure_clips::WALK : figure_clips::IDLE},
             .point = {suiveur.point.column, suiveur.point.row},
             .frame = frame,
-            .facing = suiveur.figure.oriented ? suiveur.facing : FigureFacing::None,
             .seconds = _elapsed,
             .hero = false,
             .combatant = false,
             .model = suiveur.figure.model,
-            .heading = suiveur.heading});
+            .heading = suiveur.heading,
+            .effect = false});
     }
     figures.push_back(
         WorldFigureSnapshot{.figure = _hero.directory,
                             .clip = std::string{_walking ? figure_clips::WALK : figure_clips::IDLE},
                             .point = {_session.heroPoint().column, _session.heroPoint().row},
                             .frame = frame,
-                            .facing = heroFacing(),
                             .seconds = _elapsed,
                             .hero = true,
                             .combatant = false,
                             .model = _hero.model,
-                            .heading = _heroHeading});
+                            .heading = _heroHeading,
+                            .effect = false});
     return figures;
 }
 

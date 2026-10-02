@@ -99,7 +99,7 @@ public:
     /// @brief Fait parler @p characterId pour le groupe : ses langues, ses jets. @return Faux s'il
     ///        n'est pas du groupe.
     Q_INVOKABLE bool selectVoice(const QString& characterId);
-    /// @brief Donne la parole au suivant (@p step = 1) ou au précédent (-1) : `Tab`, la manette.
+    /// @brief Donne la parole au suivant (@p step = 1) ou au précédent (-1) : `Tab` ou Maj+Tab.
     Q_INVOKABLE void cycleVoice(int step);
     [[nodiscard]] QString attitude() const;
     [[nodiscard]] QString line() const;

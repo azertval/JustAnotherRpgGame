@@ -10,7 +10,7 @@ import Jadg.Ui
     dans la version suivante, et deux boutons : les credits, ou le menu.
 
     Les boutons sont exposes pour que le jumeau y branche le survol et le clic ; `currentIndex` dit
-    lequel le clavier ou la manette designe, et la marque du focus le signale.
+    lequel le clavier designe, et la marque du focus le signale.
 */
 Item {
     id: root

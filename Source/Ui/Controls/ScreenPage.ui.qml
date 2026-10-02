@@ -7,7 +7,7 @@ import Jadg.Ui
 
     Remplace le cadre Qt Widgets de la v1 (`RpgScreenFrame`, retire) pour le journal, le dialogue
     et le marchand. La matiere suit la charte : `dark` (panneau sombre, plaque grenat) pour ce qui
-    se superpose au jeu, `parchment` (parchemin relie, plaque noire) pour les documents. Le contenu
+    se superpose au jeu, `parchment` (parchemin relie, plaque grenat) pour les documents. Le contenu
     se pose dedans comme dans un `Item`, sous la plaque de titre.
 
     `pending` affiche, au pied, que l'ecran est dessine sans etre alimente : un ecran pas encore
@@ -46,13 +46,23 @@ Item {
         padding: 0
     }
 
+    FixedArt {
+        x: 36 * Tokens.uiScale
+        y: 20 * Tokens.uiScale
+        width: 112 * Tokens.uiScale
+        height: 180 * Tokens.uiScale
+        key: "ui/ornament/crest-pennant"
+        visible: !root.dark
+    }
+
     TitlePlate {
         id: plate
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: 16 * Tokens.uiScale
-        material: root.dark ? "garnet" : "black"
+        width: root.dark ? implicitWidth : 1170 * Tokens.uiScale
+        material: "garnet"
         text: root.title
     }
 
@@ -66,7 +76,7 @@ Item {
         anchors.leftMargin: 48 * Tokens.uiScale
         anchors.rightMargin: 48 * Tokens.uiScale
         anchors.topMargin: Tokens.gapLarge
-        anchors.bottomMargin: Tokens.gapMedium
+        anchors.bottomMargin: root.dark ? Tokens.gapMedium : 2 * Tokens.gapLarge
     }
 
     Text {

@@ -101,9 +101,6 @@ add_executable(UnitTests
     Unit/Core/Diagnostics/test_log_format.cpp
     Unit/Core/Diagnostics/test_assert.cpp
     Unit/Core/Diagnostics/test_log_level_parse.cpp
-    Unit/HMI/Input/test_input_state.cpp
-    Unit/HMI/Input/test_gamepad_probe.cpp
-    Unit/HMI/Input/test_button_repeat.cpp
     Unit/HMI/Graphics/test_place_camera.cpp
     # La vue en volume et la composition des pièces en maillage, sans GPU (LOT-1003).
     Unit/HMI/Graphics/test_iso_view.cpp

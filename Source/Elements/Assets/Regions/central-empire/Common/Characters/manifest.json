@@ -4,23 +4,18 @@
     256,
     159
   ],
-  "comment": "Vide : gardes, soldats Ironhand, fonctionnaires de l'Empire (LOT-105).",
-  "frame": [
-    192,
-    256
+  "npcs": [],
+  "portraits": [
+    "ironhand-soldier"
   ],
-  "wideFrame": [
-    384,
-    256
-  ],
-  "ground": 252,
-  "animations": [
-    "idle",
-    "walk",
-    "attack",
-    "hit",
-    "death",
-    "cast"
-  ],
-  "npcs": []
+  "sources": {
+    "ironhand-soldier/portrait.png": {
+      "file": "Personnages/ironhand-soldier/portraits/source.png",
+      "sha256": "8fd17afe3478bf2a1433e199423240f4f71112d6f8fc0666b2b057dcebf79c56"
+    },
+    "ironhand-soldier/token.png": {
+      "file": "Personnages/ironhand-soldier/portraits/source.png",
+      "sha256": "8fd17afe3478bf2a1433e199423240f4f71112d6f8fc0666b2b057dcebf79c56"
+    }
+  }
 }

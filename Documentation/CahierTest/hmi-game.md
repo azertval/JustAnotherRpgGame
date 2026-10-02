@@ -24,7 +24,7 @@ Chaque exigence citée par un cas de cette page, avec les cas qui la citent ; la
 
 ### CombatCuesTest.UneMarcheSeRejoueCaseParCase
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:26`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:33`
 
 Une marche se rejoue a deux cases par seconde, puis revient au repos.
 
@@ -41,18 +41,18 @@ Une marche se rejoue a deux cases par seconde, puis revient au repos.
 - Vérifie que `heros->clip` vaut `hmi::figure_clips::WALK`.
 - Vérifie que `heros->point.x` vaut `1.0F`, à `1e-4F` près.
 - Vérifie que `heros->point.y` vaut `0.5F`, à `1e-4F` près.
-- Vérifie que `heros->facing` vaut `hmi::FigureFacing::SouthEast`.
+- Vérifie que `heros->heading` vaut `SOUTH_EAST`, à `1e-4F` près.
 - Vérifie que `heros->point.x` vaut `2.0F`, à `1e-4F` près.
 - Vérifie que `heros->point.y` vaut `0.5F`, à `1e-4F` près.
 - Vérifie que `file.busy()` est faux.
 - Vérifie que `heros->clip` vaut `hmi::figure_clips::IDLE`.
 - Vérifie que `heros->point.x` vaut `2.5F`, à `1e-4F` près.
 - Vérifie que `heros->point.y` vaut `1.5F`, à `1e-4F` près.
-- Vérifie que `heros->facing` vaut `hmi::FigureFacing::SouthWest`.
+- Vérifie que `heros->heading` vaut `SOUTH_WEST`, à `1e-4F` près.
 
 ### CombatCuesTest.LeCoupPorteAMiGesteEtUnMortResteATerre
 
-*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:69`
+*Critique · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:76`
 
 Attaque, touche et mort s'enchainent a l'instant de l'impact.
 
@@ -66,7 +66,7 @@ Attaque, touche et mort s'enchainent a l'instant de l'impact.
 - Vérifie que `heros` diffère de `nullptr`.
 - Vérifie que `rat` diffère de `nullptr`.
 - Vérifie que `heros->clip` vaut `hmi::figure_clips::ATTACK`.
-- Vérifie que `heros->facing` vaut `hmi::FigureFacing::SouthEast`.
+- Vérifie que `heros->heading` vaut `SOUTH_EAST`, à `1e-4F` près.
 - Vérifie que `rat->clip` vaut `hmi::figure_clips::IDLE`.
 - Vérifie que `rat->clip` vaut `hmi::figure_clips::DEATH`.
 - Vérifie que `rat->dead` est vrai.
@@ -79,7 +79,7 @@ Attaque, touche et mort s'enchainent a l'instant de l'impact.
 
 ### CombatCuesTest.LInconnuEstIgnoreEtToutPeutFinirDUnCoup
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:121`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:128`
 
 La file ignore l'inconnu et sait tout finir d'un coup.
 
@@ -101,7 +101,7 @@ La file ignore l'inconnu et sait tout finir d'un coup.
 
 ### CombatCuesTest.UnTirJoueSaBandeEtSaFlecheVole
 
-*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:157`
+*Majeur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:164`
 
 Le tir, sa fleche et le rate s'enchainent sur le geste.
 
@@ -127,7 +127,7 @@ Le tir, sa fleche et le rate s'enchainent sur le geste.
 
 ### CombatCuesTest.UnProjectileVersLaGaucheEstLeMiroir
 
-*Mineur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:218`
+*Mineur · Unitaire · Combat sur la carte* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:225`
 
 Un trait de feu vers la gauche de l'ecran joue `fire-bolt-left`.
 
@@ -149,7 +149,7 @@ Un trait de feu vers la gauche de l'ecran joue `fire-bolt-left`.
 
 ### CombatCuesTest.LesSignauxPartentALImageCleDuClip
 
-*Critique · Unitaire · Combat sur la carte · Squelette* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:266`
+*Critique · Unitaire · Combat sur la carte · Squelette* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:273`
 
 Les signaux du combat partent a l'image cle du clip.
 
@@ -166,12 +166,12 @@ Les signaux du combat partent a l'image cle du clip.
 - Vérifie que `durees.cast` vaut `(hmi::GestureTiming{.seconds = 0.6F, .impact = 0.3F})`.
 - Vérifie que `durees.hit` vaut `0.3F` (comparaison flottante).
 - Vérifie que `durees.death` vaut `hmi::CombatCueTrack::ACTION_SECONDS` (comparaison flottante).
-- Vérifie que `hmi::CombatCueTrack::timingsOf(nullptr)` vaut `hmi::CombatCueTrack::stripTimings()`.
+- Vérifie que `hmi::CombatCueTrack::timingsOf(nullptr)` vaut `hmi::CombatCueTrack::defaultTimings()`.
 - Vérifie que `heros` diffère de `nullptr`.
 - Vérifie que `rat` diffère de `nullptr`.
 - Vérifie que `heros->clip` vaut `hmi::figure_clips::ATTACK`.
 - Vérifie que `heros->clipSeconds` vaut `0.6F`, à `1e-4F` près.
-- Vérifie que `heros->heading` vaut `hmi::figureHeadingOf(hmi::FigureFacing::SouthWest)`, à `1e-4F` près.
+- Vérifie que `heros->heading` vaut `SOUTH_WEST`, à `1e-4F` près.
 - Vérifie que `rat->clip` vaut `hmi::figure_clips::IDLE`.
 - Vérifie que `rat->clip` vaut `hmi::figure_clips::HIT`.
 - Vérifie que `rat->clipSeconds` vaut `0.05F`, à `1e-4F` près.
@@ -258,13 +258,13 @@ La taille de fenetre se lit en LxH, et rien d'autre.
 
 ### FigureResolverTest.LaRegleDeRepliEnTroisTemps
 
-*Critique · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:44`
+*Critique · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:49`
 
 Le resolveur applique la regle de repli en trois temps.
 
 **Étapes**
 
-1. Resoudre le heros (installe, oriente).
+1. Resoudre le heros (installe, en modele).
 2. Resoudre un loup absent, silhouette quadrupede.
 3. Resoudre un garde absent, sans silhouette.
 4. Resoudre un oiseau absent, silhouette volante (pas de mannequin volant).
@@ -273,28 +273,30 @@ Le resolveur applique la regle de repli en trois temps.
 **Résultat attendu**
 
 - Vérifie que `heros.directory` vaut `"Common/Characters/Heroes/brawler"`.
-- Vérifie que `heros.oriented` est vrai.
+- Vérifie que `heros.model` vaut `"Common/Characters/Heroes/brawler/brawler.glb"`.
 - Vérifie que `heros.placeholder` est faux.
-- Vérifie que `loup.directory` vaut `hmi::placeholderFigureDirectory("quadruped")`.
-- Vérifie que `loup.oriented` est faux.
+- Vérifie que `heros.named` vaut `heros.directory`.
+- Vérifie que `loup.directory` vaut `hmi::mannequinFigureDirectory("quadruped")`.
+- Vérifie que `loup.model` vaut `hmi::mannequinFigureDirectory("quadruped") + "/modele.glb"`.
 - Vérifie que `loup.placeholder` est vrai.
-- Vérifie que `garde.directory` vaut `hmi::placeholderFigureDirectory(hmi::DEFAULT_SILHOUETTE)`.
+- Vérifie que `loup.named` vaut `table.figureDirectory("wolf")`.
+- Vérifie que `garde.directory` vaut `hmi::mannequinFigureDirectory(hmi::DEFAULT_SILHOUETTE)`.
 - Vérifie que `garde.placeholder` est vrai.
-- Vérifie que `oiseau.directory` vaut `hmi::placeholderFigureDirectory(hmi::DEFAULT_SILHOUETTE)`.
+- Vérifie que `oiseau.directory` vaut `hmi::mannequinFigureDirectory(hmi::DEFAULT_SILHOUETTE)`.
 - Vérifie que `sansRien.directory` vaut `table.figureDirectory("guard")`.
 - Vérifie que `sansRien.placeholder` est faux.
-- Vérifie que `sansRien.oriented` est faux.
+- Vérifie que `sansRien.model.empty()` est vrai.
 
 ### FigureResolverTest.LaReponseSeRetientJusquAClear
 
-*Majeur · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:91`
+*Majeur · Unitaire · Mannequins* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:99`
 
 Le resolveur retient ce qu'il a trouve jusqu'a ce qu'on l'oublie.
 
 **Étapes**
 
 1. Resoudre un garde absent (humanoide).
-2. Installer sa bande de repos sur le disque, resoudre a nouveau.
+2. Installer son modele sur le disque, resoudre a nouveau.
 3. Oublier, resoudre a nouveau.
 
 **Résultat attendu**
@@ -303,39 +305,32 @@ Le resolveur retient ce qu'il a trouve jusqu'a ce qu'on l'oublie.
 - Vérifie que `resolveur.resolve("Npc/guard", {}, table).placeholder` est vrai.
 - Vérifie que `propre.placeholder` est faux.
 - Vérifie que `propre.directory` vaut `"Npc/guard"`.
+- Vérifie que `propre.model` vaut `"Npc/guard/guard.glb"`.
 
-### FigureResolverTest.UnPersonnageEnModeleEtSonMannequin
+### FigureResolverTest.UneFigurineEstUnModele
 
-*Critique · Unitaire · Mannequins · Squelette* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:118`
+*Critique · Unitaire · Mannequins · Squelette* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:126`
 
-Le resolveur reconnait un personnage en modele, et son mannequin.
+Une figurine est un modele : une fiche, un fichier, un squelette.
 
 **Étapes**
 
-1. Resoudre le pantin de la carte d'essai, qui a une fiche et un modele.
-2. Resoudre la figurine temoin de la meme racine, qui n'a que des bandes.
-3. Dans un dossier d'essai, installer un mannequin humanoide en modele a cote du mannequin en bandes, et resoudre un garde absent.
-4. Y poser une fiche dont le modele manque, et resoudre ce personnage.
+1. Resoudre le pantin de la carte d'essai, qui a une fiche, un modele et un squelette decrit.
+2. Dans un dossier d'essai, resoudre un personnage dont la fiche nomme un fichier absent, un personnage qui n'a que des images, et un personnage dont la fiche est illisible.
 
 **Résultat attendu**
 
 - Vérifie que `pantin.directory` vaut `"Npc/pantin"`.
 - Vérifie que `pantin.model` vaut `"Npc/pantin/pantin.glb"`.
-- Vérifie que `pantin.oriented` est vrai.
 - Vérifie que `pantin.placeholder` est faux.
 - Vérifie que `pantin.skeleton` diffère de `nullptr`.
 - Vérifie que `attaque` diffère de `nullptr`.
 - Vérifie que `attaque->key.has_value()` est vrai.
 - Vérifie que `*attaque->key` vaut `0.4F` (comparaison flottante).
-- Vérifie que `temoin.directory` vaut `"Npc/temoin"`.
-- Vérifie que `temoin.model.empty()` est vrai.
-- Vérifie que `temoin.skeleton` vaut `nullptr`.
-- Vérifie que `garde.directory` vaut `mannequin`.
-- Vérifie que `garde.model` vaut `mannequin + "/humanoid.glb"`.
-- Vérifie que `garde.placeholder` est vrai.
-- Vérifie que `garde.skeleton` vaut `nullptr`.
-- Vérifie que `fantome.placeholder` est vrai.
-- Vérifie que `fantome.directory` vaut `mannequin`.
+- Vérifie que `resolue.placeholder` est vrai.
+- Vérifie que `resolue.directory` vaut `mannequin`.
+- Vérifie que `resolue.model` vaut `mannequin + "/modele.glb"`.
+- Vérifie que `resolue.skeleton` vaut `nullptr`.
 
 ## test_launch_options.cpp
 

@@ -62,7 +62,7 @@ GridPosition aimedCell(GridPosition from, Vector2 facing) {
         return from;
     }
     // La direction DOMINANTE, jamais une diagonale : un personnage qui regarde a 30 degres vise la
-    // case de droite. Viser en diagonale rendrait la cible imprevisible a la manette analogique.
+    // case de droite. Viser en diagonale rendrait la cible imprevisible.
     // A egalite exacte, l'horizontale l'emporte -- il faut un depart, et celui-la est ecrit.
     if (horizontal >= vertical) {
         return {.column = from.column + (facing.x >= 0.0F ? 1 : -1), .row = from.row};

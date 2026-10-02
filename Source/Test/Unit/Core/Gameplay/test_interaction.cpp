@@ -88,7 +88,7 @@ TEST(InteractionTest, LaCaseViseeSuitLaDirectionDominante) {
     EXPECT_EQ(core::aimedCell(depart, {0.0F, -1.0F}), (core::GridPosition{2, 1}));
 
     // 30 degres : la composante horizontale domine. Viser en diagonale rendrait la cible
-    // imprevisible a la manette analogique, alors que le joueur doit savoir ce qu'il designe.
+    // imprevisible, alors que le joueur doit savoir ce qu'il designe.
     EXPECT_EQ(core::aimedCell(depart, {0.866F, 0.5F}), (core::GridPosition{3, 2}));
     EXPECT_EQ(core::aimedCell(depart, {0.5F, 0.866F}), (core::GridPosition{2, 3}));
 

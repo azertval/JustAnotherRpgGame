@@ -39,6 +39,8 @@ std::unique_ptr<QRhi> createOffscreenRhi() {
 
 struct OffscreenTarget {
     std::unique_ptr<QRhiTexture> texture;
+    /// Un tampon de profondeur : la galerie dessine des modèles (`LOT-1006`).
+    std::unique_ptr<QRhiRenderBuffer> depth;
     std::unique_ptr<QRhiTextureRenderTarget> renderTarget;
     std::unique_ptr<QRhiRenderPassDescriptor> pass;
 
@@ -46,7 +48,12 @@ struct OffscreenTarget {
         : texture(rhi.newTexture(QRhiTexture::RGBA8, QSize(TARGET_SIZE, TARGET_SIZE), 1,
                                  QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource)) {
         EXPECT_TRUE(texture->create());
-        renderTarget.reset(rhi.newTextureRenderTarget({{texture.get()}}));
+        depth.reset(
+            rhi.newRenderBuffer(QRhiRenderBuffer::DepthStencil, QSize(TARGET_SIZE, TARGET_SIZE)));
+        EXPECT_TRUE(depth->create());
+        QRhiTextureRenderTargetDescription description{{texture.get()}};
+        description.setDepthStencilBuffer(depth.get());
+        renderTarget.reset(rhi.newTextureRenderTarget(description));
         pass.reset(renderTarget->newCompatibleRenderPassDescriptor());
         renderTarget->setRenderPassDescriptor(pass.get());
         EXPECT_TRUE(renderTarget->create());
@@ -112,7 +119,7 @@ hmi::AssetGalleryFrame figureFrame(const std::string& path) {
  * \castest{<b>La galerie ne garde que les textures voulues.</b><br/>
  * \tcat Unitaire · Galerie des assets (rendu)<br/>
  * \tcrit Bloquant<br/>
- * \tetapes 1. Dessiner la figure au repos d'un PNJ. 2. Ne plus rien vouloir, 1 s puis 1,5 s.<br/>
+ * \tetapes 1. Dessiner le portrait d'un PNJ. 2. Ne plus rien vouloir, 1 s puis 1,5 s.<br/>
  * \tattendu Une texture en mémoire et des pixels peints ; gardée à 1 s ; libérée à 2,5 s.
  * }
  */
@@ -125,7 +132,7 @@ TEST(AssetGalleryRendererTest, ChargementEtLiberation) {
     hmi::AssetGalleryRenderer renderer(assets());
     ASSERT_TRUE(renderer.ensureResources(rhi.get()));
 
-    renderer.setFrame(figureFrame("Npc/figurant/idle.png"));
+    renderer.setFrame(figureFrame("Npc/figurant/portrait.png"));
     const QImage image = renderFrame(*rhi, renderer, target, 0.016f);
     EXPECT_EQ(renderer.cachedTextureCount(), 1U);
     EXPECT_GT(paintedPixels(image), 100U);
@@ -155,21 +162,14 @@ TEST(AssetGalleryRendererTest, ChargementsEtalesEtFichierAbsent) {
     hmi::AssetGalleryRenderer renderer(assets());
     ASSERT_TRUE(renderer.ensureResources(rhi.get()));
 
-    // Les vingt-huit bandes des figurines de la racine d'essai : plus que UPLOADS_PER_FRAME, ce
-    // qui est tout ce que ce test demande a la donnee.
+    // Vingt-huit images voulues d'un coup, plus que UPLOADS_PER_FRAME : c'est tout ce que ce test
+    // demande a la donnee. Le portrait existe ; les autres sont absentes, et une image absente
+    // est retenue comme une autre.
     hmi::AssetGalleryFrame many;
-    for (const char* figure : {"Npc/figurant", "Monsters/sentinelle"}) {
-        for (const char* clip : {"idle", "walk", "attack", "hit", "death", "cast"}) {
-            many.wanted.push_back(std::string(figure) + "/" + clip + ".png");
-        }
+    many.wanted.emplace_back("Npc/figurant/portrait.png");
+    for (int rank = 1; rank < 28; ++rank) {
+        many.wanted.push_back("Npc/absente-" + std::to_string(rank) + "/portrait.png");
     }
-    for (const char* figure :
-         {"Arena/characters/champion", "Arena/characters/doublure", "Arena/enemies/adversaire"}) {
-        for (const char* clip : {"idle", "walk", "attack", "hit", "death"}) {
-            many.wanted.push_back(std::string(figure) + "/" + clip + ".png");
-        }
-    }
-    many.wanted.emplace_back("Arena/enemies/tireur/idle.png");
     renderer.setFrame(many);
     renderFrame(*rhi, renderer, target, 0.016f);
     EXPECT_EQ(renderer.cachedTextureCount(),
@@ -181,8 +181,80 @@ TEST(AssetGalleryRendererTest, ChargementsEtalesEtFichierAbsent) {
 
     hmi::AssetGalleryRenderer absent(assets());
     ASSERT_TRUE(absent.ensureResources(rhi.get()));
-    absent.setFrame(figureFrame("Npc/personne/idle.png"));
+    absent.setFrame(figureFrame("Npc/personne/portrait.png"));
     const QImage image = renderFrame(*rhi, absent, target, 0.016f);
     EXPECT_EQ(absent.cachedTextureCount(), 1U);
     EXPECT_GT(paintedPixels(image), 100U);
+}
+
+/**
+ * @brief Un modèle de personnage se charge et se dessine en volume, et son clip le fait bouger
+ *        (`LOT-1006`).
+ * \castest{<b>La galerie dessine un modele de personnage, anime par son clip.</b><br/>
+ * \tcat Unitaire · Galerie des assets (rendu)<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Dessiner le modèle du PNJ d'essai au début de son attaque, puis à son image clé.<br/>
+ * 2. Dessiner un modèle absent.<br/>
+ * \tattendu Un modèle en mémoire, aucune texture ; des pixels peints, du vert du pantin ; l'image
+ * à l'image clé diffère de celle du début. Le modèle absent est retenu, ne peint rien et ne
+ * plante rien.
+ * }
+ */
+TEST(AssetGalleryRendererTest, UnModeleSeDessineEtSAnime) {
+    const std::unique_ptr<QRhi> rhi = createOffscreenRhi();
+    if (!rhi) {
+        GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
+    }
+    OffscreenTarget target(*rhi);
+    hmi::AssetGalleryRenderer renderer(assets());
+    ASSERT_TRUE(renderer.ensureResources(rhi.get()));
+
+    const auto modelFrame = [](const std::string& path, float seconds) {
+        hmi::AssetGalleryFrame frame;
+        frame.cellPixels = 68.0f;
+        frame.pixelScale = 1.0f;
+        frame.showGrid = false;
+        frame.showFootprint = false;
+        frame.drawn.push_back(hmi::AssetGalleryDrawnBloc{.path = path,
+                                                         .x = 34.0f,
+                                                         .y = 0.0f,
+                                                         .columns = 4,
+                                                         .rows = 3,
+                                                         .footprintColumn = 1,
+                                                         .footprintRow = 1,
+                                                         .frameWidth = 102,
+                                                         .frameHeight = 68,
+                                                         .tilePixels = 68,
+                                                         .mesh = true,
+                                                         .clip = "attack",
+                                                         .clipSeconds = seconds});
+        frame.wanted = {path};
+        return frame;
+    };
+    const auto green = [](const QImage& image) {
+        std::size_t count = 0;
+        for (int y = 0; y < image.height(); ++y) {
+            for (int x = 0; x < image.width(); ++x) {
+                const QColor pixel = image.pixelColor(x, y);
+                count += pixel.green() > pixel.red() + 25 && pixel.green() > pixel.blue() + 25;
+            }
+        }
+        return count;
+    };
+
+    renderer.setFrame(modelFrame("Npc/figurant/figurant.glb", 0.0f));
+    const QImage start = renderFrame(*rhi, renderer, target, 0.016f);
+    EXPECT_EQ(renderer.cachedModelCount(), 1U);
+    EXPECT_EQ(renderer.cachedTextureCount(), 0U);
+    EXPECT_GT(green(start), 200U);
+
+    renderer.setFrame(modelFrame("Npc/figurant/figurant.glb", 0.4f));
+    const QImage strike = renderFrame(*rhi, renderer, target, 0.016f);
+    EXPECT_GT(green(strike), 200U);
+    EXPECT_NE(start, strike) << "le buste s'est penche";
+
+    renderer.setFrame(modelFrame("Npc/personne/personne.glb", 0.0f));
+    const QImage absent = renderFrame(*rhi, renderer, target, 0.016f);
+    EXPECT_EQ(renderer.cachedModelCount(), 2U);
+    EXPECT_EQ(green(absent), 0U);
 }

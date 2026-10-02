@@ -43,7 +43,7 @@ conventions. **Cet ordre-ci est la seule source d'ordre** — le menu du site et
 
 | Document | Ce qu'il fixe |
 |---|---|
-| [Contrôles & entrées](controles.md) | Clavier, souris, manette, et la traduction en actions logiques |
+| [Contrôles & entrées](controles.md) | Clavier, souris et traduction en actions logiques |
 | [Rendu & cible technique](rendu-technique.md) | La projection isométrique, l'ordre de tri, la cible de performance |
 | [Interface utilisateur (IHM)](interface-ihm.md) | Les écrans du jeu, le HUD, la charte, l'outil interne qu'est l'éditeur |
 | [Éditeur de cartes](editeur-niveaux.md) | Le document, les gestes, le contrôle du contenu |

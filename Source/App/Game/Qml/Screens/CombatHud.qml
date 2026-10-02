@@ -13,17 +13,17 @@ import Jadg.Runtime
     de la zone.
 
     Les gestes sont herites de l'ecran du Colisee (LOT-24), retire au profit du combat sur la carte :
-    au clavier, a la manette et a la souris, par les memes touches :
+    au clavier et a la souris, par les memes commandes :
 
-    | Geste | Clavier | Manette |
-    |---|---|---|
-    | Deplacer le curseur | fleches | croix ou stick gauche |
-    | Confirmer (attaquer, se deplacer, l'action choisie) ; quitter une fois fini | Entree | A |
-    | Cible suivante, precedente | Tab, Maj+Tab | X |
-    | Action suivante, precedente | Page suivante, Page precedente, 1 a 8 (la case visible) | RB, LB |
-    | Recentrer sur le combattant actif | Retour arriere | B |
-    | Fin du tour (aussi le bouton sous la fiche de la cible) | Espace | Y |
-    | Fuir (si la rencontre le permet) | F | -- |
+    | Geste | Clavier |
+    |---|---|
+    | Deplacer le curseur | fleches |
+    | Confirmer (attaquer, se deplacer, l'action choisie) ; quitter une fois fini | Entree |
+    | Cible suivante, precedente | Tab, Maj+Tab |
+    | Action suivante, precedente | Page suivante, Page precedente, 1 a 8 (la case visible) |
+    | Recentrer sur le combattant actif | Retour arriere |
+    | Fin du tour (aussi le bouton sous la fiche de la cible) | Espace |
+    | Fuir (si la rencontre le permet) | F |
 
     LE GROUPE (LOT-139, LOT-140). Les quatre entrent en combat ; chacun est joue par ces memes
     gestes a son tour d'initiative. Le portrait en avant est celui du membre dont c'est le tour
@@ -220,28 +220,6 @@ CombatHudForm {
         } else {
             EncounterModel.confirm()
         }
-    }
-
-    function gamepad(button) {
-        switch (button) {
-        case "up": EncounterModel.moveCursor(0, -1); break
-        case "down": EncounterModel.moveCursor(0, 1); break
-        case "left": EncounterModel.moveCursor(-1, 0); break
-        case "right": EncounterModel.moveCursor(1, 0); break
-        case "a": root.confirm(); break
-        case "b": EncounterModel.centerCursor(); break
-        case "x": EncounterModel.cycleTarget(1); break
-        case "y": EncounterModel.endTurn(); break
-        case "lb": root.cycleDisplayed(-1); break
-        case "rb": root.cycleDisplayed(1); break
-        }
-    }
-
-    GamepadNavigator {
-        id: pad
-
-        active: root.visible
-        onPressed: (button) => root.gamepad(button)
     }
 
     Keys.onPressed: (event) => {

@@ -1,6 +1,6 @@
 # Couverture des exigences
 
-**43 exigences en vigueur sur 313** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
+**43 exigences en vigueur sur 311** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
 
 ## Par famille
 
@@ -10,7 +10,7 @@
 | `EX-BUILD` | [Exigences non fonctionnelles](../Specification/exigences-non-fonctionnelles.md) | 1 | 0 | 1 |
 | `EX-CBT` | [Combat tactique](../Specification/combat.md) | 22 | 6 | 16 |
 | `EX-CNT` | [Contenu et données](../Specification/contenu.md) | 22 | 4 | 18 |
-| `EX-CTRL` | [Contrôles & entrées](../Specification/controles.md) | 7 | 0 | 7 |
+| `EX-CTRL` | [Contrôles & entrées](../Specification/controles.md) | 5 | 0 | 5 |
 | `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 77 | 10 | 67 |
 | `EX-EXP` | [Exploration](../Specification/exploration.md) | 14 | 3 | 11 |
 | `EX-GP` | [Gameplay](../Specification/gameplay.md) | 7 | 1 | 6 |
@@ -22,7 +22,7 @@
 | `EX-REN` | [Rendu & cible technique](../Specification/rendu-technique.md) | 26 | 4 | 22 |
 | `EX-RPG` | [Personnage et progression](../Specification/rpg.md) | 19 | 1 | 18 |
 | `EX-VIS` | [Vision & périmètre](../Specification/vision.md) | 9 | 0 | 9 |
-| **Total** | | **313** | **43** | **270** |
+| **Total** | | **311** | **43** | **268** |
 
 ## Exigence par exigence
 
@@ -97,7 +97,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-CNT-032` | [Contenu et données](../Specification/contenu.md) | [`CharacterOptionsTest.LesClassesProvisoiresNeSontReferenceesParRien`](core-rpg.md#characteroptionstestlesclassesprovisoiresnesontreferenceesparrien) |
 | `EX-CNT-040` | [Contenu et données](../Specification/contenu.md) | — |
 | `EX-CNT-041` | [Contenu et données](../Specification/contenu.md) | — |
-| `EX-CNT-042` | [Contenu et données](../Specification/contenu.md) | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](hmi-graphics.md#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosOrienteRangeParClasse`](hmi-graphics.md#assetgallerytestunherosorienterangeparclasse), [`AssetGalleryTest.UnEffetSeJoueDansLaGalerie`](hmi-graphics.md#assetgallerytestuneffetsejouedanslagalerie) |
+| `EX-CNT-042` | [Contenu et données](../Specification/contenu.md) | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](hmi-graphics.md#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosEnModeleRangeParClasse`](hmi-graphics.md#assetgallerytestunherosenmodelerangeparclasse), [`AssetGalleryTest.UnEffetSeJoueDansLaGalerie`](hmi-graphics.md#assetgallerytestuneffetsejouedanslagalerie) |
 | `EX-CNT-050` | [Contenu et données](../Specification/contenu.md) | — |
 | `EX-CNT-060` | [Contenu et données](../Specification/contenu.md) | — |
 | `EX-CNT-061` | [Contenu et données](../Specification/contenu.md) | — |
@@ -111,9 +111,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | Exigence | Spécification | Cas de test |
 |---|---|---|
 | `EX-CTRL-001` | [Contrôles & entrées](../Specification/controles.md) | — |
-| `EX-CTRL-002` | [Contrôles & entrées](../Specification/controles.md) | — |
 | `EX-CTRL-010` | [Contrôles & entrées](../Specification/controles.md) | — |
-| `EX-CTRL-011` | [Contrôles & entrées](../Specification/controles.md) | — |
 | `EX-CTRL-012` | [Contrôles & entrées](../Specification/controles.md) | — |
 | `EX-CTRL-020` | [Contrôles & entrées](../Specification/controles.md) | — |
 | `EX-CTRL-022` | [Contrôles & entrées](../Specification/controles.md) | — |
@@ -363,7 +361,6 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-REN-007` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-010` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-011` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
-| `EX-REN-012` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-013` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-014` | [Rendu & cible technique](../Specification/rendu-technique.md) | [`TriParProfondeurTest.LaProfondeurNeDebordePasDeSaBande`](hmi-graphics.md#triparprofondeurtestlaprofondeurnedebordepasdesabande), [`QuadRecorderTest.OrdonnancementDeclare`](hmi-graphics.md#quadrecordertestordonnancementdeclare) |
 | `EX-REN-018` | [Rendu & cible technique](../Specification/rendu-technique.md) | [`TriParProfondeurTest.TroisPrimitivesSortentParPiedCroissant`](hmi-graphics.md#triparprofondeurtesttroisprimitivessortentparpiedcroissant), [`TriParProfondeurTest.PersonnageEntreDeuxObjets`](hmi-graphics.md#triparprofondeurtestpersonnageentredeuxobjets), [`TriParProfondeurTest.PiedEgalConserveLOrdreDeComposition`](hmi-graphics.md#triparprofondeurtestpiedegalconservelordredecomposition), [`TriParProfondeurTest.QuantificationAuPixel`](hmi-graphics.md#triparprofondeurtestquantificationaupixel) |
@@ -382,6 +379,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-REN-047` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-048` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-050` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
+| `EX-REN-051` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 
 ### `EX-RPG`
 

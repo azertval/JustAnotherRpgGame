@@ -11,14 +11,22 @@ rend impossible l'écart SILENCIEUX entre les deux :
 - une image que son manifeste ne cite pas — déposée à la main, ou restée d'une pièce renommée ;
 - une image hors des bornes du standard (`Planning/standards/style-3d.md`, §7) : PNG 32 bits, taille
   égale à celle que le manifeste déclare, 4096 px de côté au plus, une dalle de sol exactement au
-  losange du lieu, une ancre dans l'image, un losange de lieu égal à celui de sa région.
+  losange du lieu, une ancre dans l'image, un losange de lieu égal à celui de sa région ;
+- un **personnage** qui n'est pas ce que le standard en dit (`Planning/standards/personnages-3d.md`,
+  LOT-1006) : un modèle sans fiche (`character.json`), une fiche qui cite un `.glb` ou un squelette
+  que rien ne déclare, une description de squelette (`skeleton.json`) mal formée, un `.glb` installé
+  qui ne passe pas les contrôles de l'export (`check_character_model.py`) — et **toute bande de
+  figurine** restée sous un dossier `Characters/` : un personnage est un modèle, plus une suite
+  d'images.
 
 Une zone n'a **pas de budget de poids** (décision de l'auteur, 24 septembre 2026 : un jeu lourd
 mais riche plutôt que des kits bridés). Son poids s'affiche, et s'écrit dans le résumé du job quand `GITHUB_STEP_SUMMARY`
 est défini. Les assets installés s'écrivent par `scripts/assetsGeneration/install_hd_asset.py` ; ce contrôle n'a
 pas besoin des sources, qui ne sont pas versionnées.
 
-Aucune dépendance : l'en-tête PNG se lit à la main, comme dans `check_ui_assets.py`.
+Aucune dépendance pour les images : l'en-tête PNG se lit à la main, comme dans
+`check_ui_assets.py`. Le contrôle d'un `.glb` de personnage demande numpy ; sans lui, ou sans le
+fichier (les kits ne sont pas installés), il est passé et le reste du contrôle a lieu.
 
 Usage :
     python scripts/checks/check_hd_assets.py            # code de sortie non nul si écart
@@ -146,54 +154,179 @@ def check_scene(directory: Path, manifest: dict, root: Path, report: Report) -> 
     return cited
 
 
-# Les quatre orientations d'une figurine, suffixe de ses bandes (`walk-se.png`, LOT-112).
-FACINGS = ("se", "sw", "ne", "nw")
-# Les animations qu'une figurine ne peut pas omettre : elle attend et elle marche. Les autres
-# dépendent de ce qu'elle fait — un Brawler n'a pas de sort.
-REQUIRED_ANIMATIONS = ("idle", "walk")
+# Ce qu'un dossier de personnage porte en images : son portrait et son jeton, rien d'autre.
+CHARACTER_IMAGES = ("portrait.png", "token.png")
+SHEET = "character.json"
+SKELETON = "skeleton.json"
+SHEET_VERSION = 1
+# Le dossier des squelettes, sous le dossier `Characters/` du commun du monde.
+SKELETONS = ("Common", "Characters", "Skeletons")
 
 
-def check_figure(folder: Path, animations: list, root: Path, report: Report) -> None:
-    """Une figurine : ses bandes présentes ont leur `.anim.json`, une animation orientée l'est dans
-    les quatre sens (une figurine à moitié tournée se verrait plus mal qu'une qui ne l'est pas), et
-    le repos comme la marche existent."""
-    where = relative(folder, root)
-    for animation in animations:
-        oriented = [f for f in FACINGS if (folder / f"{animation}-{f}.png").is_file()]
-        if oriented and len(oriented) != len(FACINGS):
-            missing = ", ".join(f"{animation}-{f}.png" for f in FACINGS if f not in oriented)
-            report.fail(f"{where} : `{animation}` orientée à moitié, il manque {missing}")
-        strips = [f"{animation}-{f}" for f in oriented]
-        if (folder / f"{animation}.png").is_file():
-            strips.append(animation)
-        for strip in strips:
-            if not (folder / f"{strip}.anim.json").is_file():
-                report.fail(f"{where} : `{strip}.png` sans `{strip}.anim.json`")
-        if animation in REQUIRED_ANIMATIONS and not strips:
-            report.fail(f"{where} : pas de bande `{animation}`")
+def is_number(value) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
 
 
-def check_characters(directory: Path, manifest: dict, root: Path, report: Report) -> dict[Path, set[str]]:
-    """Les figurines d'un dossier `Characters/` : `<pnj>/portrait.png`, `token.png`, une bande par
-    animation, ou une par animation et par orientation (arborescence, règle 5). Un PNJ peut être
-    rangé plus bas (`Heroes/brawler`). Rend, par dossier de PNJ, les noms d'images cités."""
+def check_skeleton(path: Path, root: Path, report: Report) -> dict | None:
+    """Une description de squelette : ses os parents avant enfants, ses clips, leur image clé.
+
+    Les mêmes règles que le lecteur du moteur (`core::readSkeletonDescription`) : ce que ce contrôle
+    laisse passer, le jeu le lit.
+    """
+    where = relative(path, root)
+    data = read_json(path, report, root)
+    if data is None:
+        return None
+    before = len(report.errors)
+    if data.get("version") != SHEET_VERSION:
+        report.fail(f"{where} : version {data.get('version')!r}, attendu {SHEET_VERSION}")
+    if data.get("silhouette") != path.parent.name:
+        report.fail(f"{where} : silhouette {data.get('silhouette')!r}, le dossier dit {path.parent.name!r}")
+    bones = data.get("bones")
+    known: set[str] = set()
+    if not isinstance(bones, list) or not bones:
+        report.fail(f"{where} : `bones` est une liste non vide")
+        bones = []
+    for bone in bones:
+        name = bone.get("name") if isinstance(bone, dict) else None
+        if not isinstance(name, str) or not name:
+            report.fail(f"{where} : un os sans nom")
+            continue
+        parent = bone.get("parent", "")
+        if parent and parent not in known:
+            report.fail(f"{where} : l'os {name} cite le parent {parent!r}, pas déclaré avant lui")
+        if name in known:
+            report.fail(f"{where} : l'os {name} déclaré deux fois")
+        known.add(name)
+    clips = data.get("clips")
+    names: set[str] = set()
+    if not isinstance(clips, list):
+        report.fail(f"{where} : `clips` est une liste")
+        clips = []
+    for clip in clips:
+        name = clip.get("name") if isinstance(clip, dict) else None
+        if not isinstance(name, str) or not name:
+            report.fail(f"{where} : un clip sans nom")
+            continue
+        if name in names:
+            report.fail(f"{where} : le clip {name} déclaré deux fois")
+        names.add(name)
+        duration = clip.get("duration")
+        if not is_number(duration) or duration <= 0:
+            report.fail(f"{where} : le clip {name} doit déclarer une durée positive")
+            continue
+        if "loop" in clip and not isinstance(clip["loop"], bool):
+            report.fail(f"{where} : clip {name}, `loop` est un booléen")
+        if "key" in clip and (not is_number(clip["key"]) or not 0 <= clip["key"] <= duration):
+            report.fail(f"{where} : clip {name}, l'image clé {clip['key']!r} sort du clip ({duration} s)")
+    return data if len(report.errors) == before else None
+
+
+def check_model_file(path: Path, skeleton: dict | None, root: Path, report: Report) -> None:
+    """Un `.glb` de personnage installé passe les contrôles de l'export (standard, §9).
+
+    Par `check_character_model.inspect`, qui les tient : structure, poids, contact au sol, glissement
+    du pied. Demande numpy ; sans lui, le fichier n'est pas ouvert — le contrôle des fiches a lieu
+    quand même.
+    """
+    try:
+        import check_character_model
+    except ImportError:
+        return
+    try:
+        measures = check_character_model.inspect(path.read_bytes(), skeleton)
+    except Exception as error:  # noqa: BLE001 : un fichier illisible est un écart, pas une panne
+        report.fail(f"{relative(path, root)} : modèle illisible ({error})")
+        return
+    for fault in measures.get("faults", []):
+        report.fail(f"{relative(path, root)} : {fault}")
+
+
+def check_sheet(folder: Path, models: dict, name: str, root: Path, report: Report,
+                skeletons: dict[str, dict | None]) -> None:
+    """La fiche d'un personnage en modèle : elle cite un `.glb` et un squelette déclarés."""
+    where = relative(folder / SHEET, root)
+    if not (folder / SHEET).is_file():
+        report.fail(f"{relative(folder, root)} : personnage sans fiche `{SHEET}` (un personnage est un "
+                    "modèle ; un visage sans modèle va dans `portraits`)")
+        return
+    sheet = read_json(folder / SHEET, report, root)
+    if sheet is None:
+        return
+    if sheet.get("version") != SHEET_VERSION:
+        report.fail(f"{where} : version {sheet.get('version')!r}, attendu {SHEET_VERSION}")
+    model, skeleton = sheet.get("model"), sheet.get("skeleton")
+    if not isinstance(model, str) or not model.endswith(".glb") or "/" in model or "\\" in model:
+        report.fail(f"{where} : `model` nomme un .glb du dossier, lu {model!r}")
+        return
+    declared = models.get(name) if isinstance(models, dict) else None
+    if not isinstance(declared, dict) or declared.get("model") != f"{name}/{model}":
+        report.fail(f"{where} : le modèle {model} n'est pas déclaré sous `models` du manifeste")
+    elif declared.get("skeleton") != skeleton:
+        report.fail(f"{where} : squelette {skeleton!r}, le manifeste déclare {declared.get('skeleton')!r}")
+    if not isinstance(skeleton, str) or not skeleton:
+        report.fail(f"{where} : `skeleton` nomme une silhouette")
+        return
+    if skeleton not in skeletons:
+        path = root.joinpath(*SKELETONS, skeleton, SKELETON)
+        if path.is_file():
+            skeletons[skeleton] = check_skeleton(path, root, report)
+        else:
+            skeletons[skeleton] = None
+            report.fail(f"{where} : squelette `{skeleton}` sans {relative(path, root)}")
+    # Le fichier n'est là que si le kit est installé : il est hors de Git, comme une image.
+    if (folder / model).is_file():
+        check_model_file(folder / model, skeletons[skeleton], root, report)
+
+
+def check_no_strip(directory: Path, root: Path, report: Report) -> None:
+    """Aucune bande de figurine sous un dossier `Characters/` (LOT-1006) : ni `.anim.json`, ni image
+    autre qu'un portrait ou un jeton."""
+    for path in sorted(directory.rglob("*")):
+        if not path.is_file():
+            continue
+        if path.name.endswith(".anim.json"):
+            report.fail(f"{relative(path, root)} : description d'une bande de figurine — un personnage "
+                        "est un modèle, ses bandes se suppriment")
+        elif path.suffix.lower() in IMAGES and path.name not in CHARACTER_IMAGES:
+            report.fail(f"{relative(path, root)} : bande de figurine — un dossier de personnage ne porte "
+                        "en images que son portrait et son jeton")
+
+
+def check_characters(directory: Path, manifest: dict, root: Path, report: Report,
+                     skeletons: dict[str, dict | None]) -> dict[Path, set[str]]:
+    """Les personnages d'un dossier `Characters/` : `<pnj>/character.json` et son `.glb`,
+    `portrait.png`, `token.png` (arborescence, règle 5). Un PNJ peut être rangé plus bas
+    (`Heroes/brawler`). Rend, par dossier de PNJ, les noms d'images cités."""
     where = relative(directory / "manifest.json", root)
-    animations = manifest.get("animations", [])
     npcs = manifest.get("npcs", [])
-    if not isinstance(npcs, list) or not isinstance(animations, list):
-        report.fail(f"{where} : `npcs` et `animations` sont des listes")
+    models = manifest.get("models", {})
+    if not isinstance(npcs, list) or not isinstance(models, dict):
+        report.fail(f"{where} : `npcs` est une liste, `models` un objet")
         return {}
+    for key in ("frame", "wideFrame", "ground", "animations"):
+        if key in manifest:
+            report.fail(f"{where} : `{key}` décrit des bandes de figurine, qui n'existent plus")
+    check_no_strip(directory, root, report)
     cited: dict[Path, set[str]] = {}
     for npc in npcs:
         if not isinstance(npc, str) or not (directory / npc).is_dir():
             report.fail(f"{where} : PNJ {npc!r} sans dossier")
             continue
-        strips = [*animations, *(f"{a}-{f}" for a in animations for f in FACINGS)]
-        cited[directory / npc] = {f"{stem}.png" for stem in ["portrait", "token", *strips]}
-        check_figure(directory / npc, animations, root, report)
-    # Les portraits d'attente (LOT-145) : un visage sans figurine, que le moteur dessine par son
-    # mannequin. Seuls le portrait et le jeton sont cités ; une bande dans leur dossier n'est pas
-    # jouée et ressort donc comme image non citée.
+        cited[directory / npc] = set(CHARACTER_IMAGES)
+        check_sheet(directory / npc, models, npc, root, report, skeletons)
+    # Un modèle déclaré sous `skeleton` a sa fiche, donc son nom dans `npcs` ; un modèle sans
+    # squelette (le mannequin d'une silhouette qui n'en a pas encore) attend, sans fiche.
+    for name, entry in models.items():
+        if isinstance(entry, dict) and "skeleton" in entry and name not in npcs:
+            report.fail(f"{where} : le modèle {name} est lié à un squelette mais absent de `npcs`")
+    # Un `.glb` installé que `models` ne déclare pas : déposé à la main, ou resté d'un renommage.
+    declared = {entry.get("model") for entry in models.values() if isinstance(entry, dict)}
+    for path in sorted(directory.rglob("*.glb")):
+        if path.relative_to(directory).as_posix() not in declared:
+            report.fail(f"{relative(path, root)} : modèle que `models` du manifeste ne déclare pas")
+    # Les portraits d'attente (LOT-145) : un visage sans modèle, que le moteur dessine par le
+    # mannequin de sa silhouette. Seuls le portrait et le jeton sont cités.
     portraits = manifest.get("portraits", [])
     if not isinstance(portraits, list):
         report.fail(f"{where} : `portraits` est une liste")
@@ -207,7 +340,10 @@ def check_characters(directory: Path, manifest: dict, root: Path, report: Report
             continue
         if not (directory / name / "portrait.png").is_file():
             report.fail(f"{relative(directory / name, root)} : portrait d'attente sans `portrait.png`")
-        cited[directory / name] = {"portrait.png", "token.png"}
+        if (directory / name / SHEET).is_file():
+            report.fail(f"{relative(directory / name, root)} : un portrait d'attente n'a pas de fiche ; "
+                        "avec son modèle, il va dans `npcs`")
+        cited[directory / name] = set(CHARACTER_IMAGES)
     return cited
 
 
@@ -238,6 +374,8 @@ def weigh(directory: Path, level: str) -> int:
 
 def check(root: Path = ASSETS, maps_text: str | None = None) -> Report:
     report = Report()
+    # Les descriptions de squelette déjà lues, par silhouette ; rien pour une qui ne se lit pas.
+    skeletons: dict[str, dict | None] = {}
     if maps_text is None:
         maps_text = WORLD_MAPS.read_text(encoding="utf-8") if WORLD_MAPS.is_file() else ""
     for tree in TREES:
@@ -265,7 +403,11 @@ def check(root: Path = ASSETS, maps_text: str | None = None) -> Report:
                     image = directory / file
                     cited.setdefault(image.parent, set()).add(image.name)
             elif "npcs" in manifest:
-                cited.update(check_characters(directory, manifest, root, report))
+                cited.update(check_characters(directory, manifest, root, report, skeletons))
+
+        for path in sorted(base.rglob(SKELETON)):
+            if path.parent.name not in skeletons:
+                skeletons[path.parent.name] = check_skeleton(path, root, report)
 
         for directory in directories:
             for image in sorted(p for p in directory.iterdir() if p.is_file() and p.suffix.lower() in IMAGES):

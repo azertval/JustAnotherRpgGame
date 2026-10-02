@@ -58,9 +58,9 @@ struct CellPoint {
 
 /// @brief Ce que le joueur demande d'un pas de simulation.
 struct ExplorationIntent {
-    /// Direction voulue, de longueur au plus 1 (clavier ou manette, déjà normalisée).
+    /// Direction voulue, de longueur au plus 1 (déjà normalisée).
     Vector2 move{};
-    /// Vrai le pas où le joueur presse la touche d'interaction (`E`, bouton de manette).
+    /// Vrai le pas où le joueur presse la touche d'interaction (`E` ou Espace).
     bool interact = false;
 };
 

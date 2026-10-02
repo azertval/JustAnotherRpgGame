@@ -230,239 +230,167 @@ def test_une_planche_dont_le_compte_ne_tombe_pas_juste_est_refusee(zone):
         M.build(descriptor)
 
 
-# --- Les figurines (LOT-112) ---------------------------------------------------------------------
+# --- Les personnages (LOT-1006) : un modèle, sa fiche, son squelette ------------------------------
 
-PITCH = 300          # le pas des images dans la bande du générateur, en px de source
-GROUND_SRC = 450     # la ligne de sol de la bande du générateur
-BODY_H = 340         # hauteur d'une figurine debout dans la source : échelle 170 / 340 = 0,5
-
-
-def figure_strip(count, lift=None, shift=None, pitch=PITCH, width=90, spear=0):
-    """Une bande synthétique : `count` figurines (corps en gélule, tête, deux pieds) à pas constant.
-
-    `lift` {rang: px} lève une image (le haut d'une foulée), `shift` {rang: px} la décale dans sa
-    case (une fente) ; `spear` ajoute une lance horizontale de cette longueur de chaque côté.
-    """
-    lift, shift = lift or {}, shift or {}
-    image = Image.new('RGBA', (pitch * count + 40, 520), (0, 0, 0, 0))
-    draw = ImageDraw.Draw(image)
-    for i in range(count):
-        cx = 20 + pitch * i + pitch / 2 + shift.get(i, 0)
-        bottom = GROUND_SRC - lift.get(i, 0)
-        top = bottom - BODY_H
-        colour = (60 + 30 * i, 120, 200 - 20 * i, 253)
-        draw.rounded_rectangle((cx - width / 2, top + 60, cx + width / 2, bottom - 30), radius=30, fill=colour)
-        draw.ellipse((cx - 35, top, cx + 35, top + 70), fill=colour)
-        draw.ellipse((cx - width / 2, bottom - 40, cx - 5, bottom), fill=colour)   # pied gauche
-        draw.ellipse((cx + 5, bottom - 40, cx + width / 2, bottom), fill=colour)   # pied droit
-        if spear:
-            draw.rectangle((cx - spear, top + 150, cx + spear, top + 160), fill=colour)
-    return image
+FIXTURE = (M.ROOT / 'Source' / 'Test' / 'Fixtures' / 'Characters' / 'Assets' / 'Common' / 'Characters')
 
 
 @pytest.fixture
 def characters(tmp_path, monkeypatch):
-    """Un dossier Characters/ vide, comme la table rase les a laissés, et son dossier de sources."""
+    """Un dossier Characters/ d'avant le lot — un héros en bandes, un mannequin en bandes — et un
+    dossier de sources où la chaîne de liaison a déposé un modèle et la description du squelette."""
     assets = tmp_path / 'Assets'
     target = assets / 'Common' / 'Characters'
-    target.mkdir(parents=True)
+    for folder, strips in (('Heroes/brawler', ('idle-se', 'walk-se')), ('Placeholders/humanoid', ('idle',))):
+        (target / folder).mkdir(parents=True)
+        for strip in strips:
+            Image.new('RGBA', (192, 256), (9, 9, 9, 255)).save(target / folder / f'{strip}.png')
+            (target / folder / f'{strip}.anim.json').write_text('{"version": 1}', encoding='utf-8')
+    Image.new('RGBA', (512, 512), (9, 9, 9, 255)).save(target / 'Heroes' / 'brawler' / 'portrait.png')
+    Image.new('RGBA', (128, 128), (9, 9, 9, 255)).save(target / 'Heroes' / 'brawler' / 'token.png')
     (target / 'manifest.json').write_text(json.dumps({
-        'version': 1, 'tile': list(TILE), 'comment': 'Vide : héros (LOT-102).',
-        'frame': [192, 256], 'wideFrame': [384, 256],
-        'animations': ['idle', 'walk', 'attack', 'hit', 'death', 'cast'], 'npcs': []}), encoding='utf-8')
-    sources = tmp_path / 'Tools' / 'AssetsHD' / 'Heros'
-    sources.mkdir(parents=True)
+        'version': 1, 'tile': list(TILE), 'frame': [192, 256], 'wideFrame': [384, 256], 'ground': 252,
+        'animations': ['idle', 'walk'], 'npcs': ['Heroes/brawler', 'Placeholders/humanoid'],
+        'sources': {'Heroes/brawler/idle-se.png': {'file': 'a', 'sha256': '0'},
+                    'Heroes/brawler/portrait.png': {'file': 'b', 'sha256': '1'},
+                    'Placeholders/humanoid/idle.png': {'file': 'c', 'sha256': '2'}}}), encoding='utf-8')
+    sources = tmp_path / 'Tools' / 'Assets3D' / 'Lies'
+    (sources / 'brawler').mkdir(parents=True)
+    (sources / 'brawler' / 'brawler.glb').write_bytes((FIXTURE / 'Mannequins' / 'humanoid' / 'humanoid.glb')
+                                                      .read_bytes())
+    (sources / 'skeleton.json').write_bytes((FIXTURE / 'Skeletons' / 'humanoid' / 'skeleton.json').read_bytes())
     monkeypatch.setattr(M, 'ASSETS', assets)
     monkeypatch.setattr(M, 'SOURCES', tmp_path / 'Tools' / 'AssetsHD')
+    monkeypatch.setattr(M, 'ATELIER_3D', tmp_path / 'Tools' / 'Assets3D')
     return target, sources
 
 
-def figure_descriptor(folder, figures, target='Common/Characters'):
+def figure_descriptor(folder, figures, target='Common/Characters', **extra):
     path = folder / 'install.json'
-    path.write_text(json.dumps({'version': 1, 'target': target, 'figures': figures}), encoding='utf-8')
+    path.write_text(json.dumps({'version': 1, 'target': target, 'figures': figures, **extra}), encoding='utf-8')
     return path
 
 
-def lowest_row(cell):
-    return int(np.nonzero((cell[..., 3] >= M.OPAQUE).any(axis=1))[0].max())
+BRAWLER = {'name': 'Heroes/brawler', 'model': 'brawler/brawler.glb', 'skeleton': 'humanoid'}
+SKELETONS = [{'name': 'humanoid', 'source': 'skeleton.json'}]
 
 
-def box_centre(cell):
-    xs = np.nonzero((cell[..., 3] >= M.OPAQUE).any(axis=0))[0]
-    return (xs.min() + xs.max() + 1) / 2
-
-
-def test_une_bande_devient_des_cellules_posees_sur_le_sol(characters):
+def test_un_modele_s_installe_avec_sa_fiche_et_emporte_les_bandes(characters):
+    """Le lot entier, sur un dossier d'avant : le squelette, le modèle et sa fiche s'installent ; les
+    bandes du héros et le mannequin en bandes partent ; le manifeste ne décrit plus de bande ; le
+    contrôle de la CI passe sur le résultat."""
     target, sources = characters
-    figure_strip(6, lift={2: 20}, shift={4: 40}).save(sources / 'walk-se.png')
-    Image.new('RGBA', (700, 900), (140, 60, 50, 255)).save(sources / 'portrait.png')
-    descriptor = figure_descriptor(sources, [{
-        'name': 'Heroes/brawler', 'portrait': 'portrait.png',
-        'strips': [{'source': 'walk-se.png', 'clip': 'walk', 'facing': 'se', 'frames': 6,
-                    'frameDuration': 0.12}]}])
-
+    descriptor = figure_descriptor(sources, [BRAWLER], skeletons=SKELETONS, remove=['Placeholders/humanoid'])
+    assert M.main([str(descriptor), '--check']) == 1, "rien n'est encore installé"
     assert M.main([str(descriptor)]) == 0
+
     folder = target / 'Heroes' / 'brawler'
-    strip = np.asarray(Image.open(folder / 'walk-se.png'))
-    assert strip.shape == (256, 6 * 192, 4)
-    cells = [strip[:, i * 192:(i + 1) * 192] for i in range(6)]
-
-    # L'image de repos : pied sur le sol, 170 px de haut, au milieu de sa cellule.
-    assert lowest_row(cells[0]) == 252
-    rows = np.nonzero((cells[0][..., 3] >= M.OPAQUE).any(axis=1))[0]
-    assert abs((rows.max() + 1 - rows.min()) - 170) <= 2
-    assert abs(box_centre(cells[0]) - 96) <= 1
-    # Le mouvement du générateur est gardé, à l'échelle : levée de 20 px, fente de 40 px.
-    assert abs(lowest_row(cells[2]) - (252 - 10)) <= 1
-    assert abs(box_centre(cells[4]) - (96 + 20)) <= 1
-    for i in (1, 3, 5):
-        assert lowest_row(cells[i]) == 252
-        assert abs(box_centre(cells[i]) - 96) <= 1
-    # La marge de chaque cellule reste transparente.
-    for cell in cells:
-        assert cell[:, :M.MARGE_CELLULE, 3].max() == 0
-        assert cell[:, -M.MARGE_CELLULE:, 3].max() == 0
-    # Un alpha continu : le bord garde sa pente.
-    assert len(np.unique(strip[..., 3])) > 10
-
-    anim = json.loads((folder / 'walk-se.anim.json').read_text(encoding='utf-8'))
-    assert anim == {'version': 1, 'frameWidth': 192, 'frameHeight': 256,
-                    'clips': {'walk': {'frames': [0, 1, 2, 3, 4, 5], 'frameDuration': 0.12, 'loop': True}}}
-
-    assert Image.open(folder / 'portrait.png').size == (512, 512)
-    token = np.asarray(Image.open(folder / 'token.png'))
-    assert token.shape == (128, 128, 4)
-    assert token[0, 0, 3] == token[0, -1, 3] == token[-1, 0, 3] == token[-1, -1, 3] == 0
-    assert token[64, 64, 3] == 255
+    assert sorted(p.name for p in folder.iterdir()) == ['brawler.glb', 'character.json', 'portrait.png',
+                                                        'token.png']
+    assert (folder / 'brawler.glb').read_bytes() == (sources / 'brawler' / 'brawler.glb').read_bytes()
+    assert json.loads((folder / 'character.json').read_text(encoding='utf-8')) == {
+        'version': 1, 'model': 'brawler.glb', 'skeleton': 'humanoid'}
+    assert not (target / 'Placeholders').exists(), 'le dossier de rangement vide part aussi'
+    skeleton = json.loads((target / 'Skeletons' / 'humanoid' / 'skeleton.json').read_text(encoding='utf-8'))
+    assert len(skeleton['bones']) == 53
 
     manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
     assert manifest['npcs'] == ['Heroes/brawler']
-    assert 'comment' not in manifest
-    assert manifest['frame'] == [192, 256]
-    assert set(manifest['sources']) == {'Heroes/brawler/walk-se.png', 'Heroes/brawler/portrait.png',
-                                        'Heroes/brawler/token.png'}
-    assert manifest['sources']['Heroes/brawler/walk-se.png']['file'] == 'Heros/walk-se.png'
+    for key in ('frame', 'wideFrame', 'ground', 'animations', 'portraits'):
+        assert key not in manifest
+    assert sorted(manifest['sources']) == ['Heroes/brawler/portrait.png'], 'les sources des bandes partent'
+    entry = manifest['models']['Heroes/brawler']
+    assert entry['model'] == 'Heroes/brawler/brawler.glb' and entry['skeleton'] == 'humanoid'
+    assert entry['triangles'] == 4000
+    assert entry['source']['file'] == 'Lies/brawler/brawler.glb'
+    assert entry['sha256'] == entry['source']['sha256'], 'le modèle est copié octet pour octet'
+    assert manifest['skeletons']['humanoid']['file'] == 'Skeletons/humanoid/skeleton.json'
 
-    # À jour, puis plus à jour dès qu'une bande est retouchée à la main.
     assert M.main([str(descriptor), '--check']) == 0
-    Image.new('RGBA', (4, 4)).save(folder / 'walk-se.png')
+    report = check_hd_assets.check(root=target.parent.parent, maps_text='')
+    assert report.errors == []
+
+    # Un modèle retouché depuis : l'installé n'est plus à jour.
+    (folder / 'brawler.glb').write_bytes(b'autre')
     assert M.main([str(descriptor), '--check']) == 1
 
 
-def test_des_images_qui_se_touchent_se_partagent_en_parts_egales(characters):
-    _, sources = characters
-    figure_strip(4, pitch=100, width=110).save(sources / 'idle.png')
-    descriptor = M.read_descriptor(figure_descriptor(sources, [{
-        'name': 'guard', 'strips': [{'source': 'idle.png', 'clip': 'idle', 'frames': 4}]}]))
-    (figure,) = M.build_figures(descriptor)
-    (strip,) = figure.strips
-    assert strip.split == 'parts égales'
-    assert strip.image.shape == (256, 4 * 192, 4)
-    assert all(frame.bottom == 252 for frame in strip.frames)
-
-
-def test_une_attaque_prend_la_cellule_large(characters):
-    _, sources = characters
-    figure_strip(3, spear=150).save(sources / 'attack.png')
-    descriptor = M.read_descriptor(figure_descriptor(sources, [{
-        'name': 'guard', 'strips': [{'source': 'attack.png', 'clip': 'attack', 'facing': 'ne', 'frames': 3,
-                                     'wide': True, 'loop': False}]}]))
-    (strip,) = M.build_figures(descriptor)[0].strips
-    assert strip.image.shape == (256, 3 * 384, 4)
-    assert strip.anim['frameWidth'] == 384
-    assert strip.anim['clips']['attack']['loop'] is False
-
-
-def test_une_figurine_trop_large_pour_sa_cellule_est_refusee(characters):
-    _, sources = characters
-    figure_strip(3, spear=200, pitch=500).save(sources / 'walk.png')
-    descriptor = M.read_descriptor(figure_descriptor(sources, [{
-        'name': 'guard', 'strips': [{'source': 'walk.png', 'clip': 'walk', 'frames': 3}]}]))
-    with pytest.raises(M.DescriptorError, match='ne tient pas'):
-        M.build_figures(descriptor)
-
-
-def test_une_bande_qu_il_faudrait_agrandir_est_refusee(characters):
-    _, sources = characters
-    figure_strip(2).resize((250, 200)).save(sources / 'walk.png')
-    descriptor = M.read_descriptor(figure_descriptor(sources, [{
-        'name': 'guard', 'strips': [{'source': 'walk.png', 'clip': 'walk', 'frames': 2}]}]))
-    with pytest.raises(M.DescriptorError, match='agrandir'):
-        M.build_figures(descriptor)
-
-
-def placed_strip(frames, cell=(192, 256), height=None, left=60, right=130):
-    """Une bande rendue synthétique : un rectangle par cellule, pieds sur la ligne de sol."""
-    width, cell_h = cell
-    strip = np.zeros((height or cell_h, width * frames, 4), np.uint8)
-    for i in range(frames):
-        strip[82:253, i * width + left:i * width + right] = (90, 110, 70 + 10 * i, 255)
-    return strip
-
-
-def test_une_bande_rendue_se_copie_telle_quelle(characters):
-    """LOT-1000 : la caméra du rendu a posé la figurine ; rien ne la déplace, rien ne la réduit —
-    pas même la boîte décentrée d'une hache portée à droite."""
+def test_un_portrait_d_attente_garde_son_visage_puis_recoit_son_modele(characters):
+    """LOT-145 : un héros sans modèle garde son portrait et son jeton — déjà installés, ou donnés —,
+    perd ses bandes, et va dans `portraits` ; son modèle installé ensuite le fait passer dans `npcs`."""
     target, sources = characters
-    strip = placed_strip(8, height=272, left=60, right=150)
-    strip[255:270, 40:60] = (200, 200, 200, 255)  # ce qui passe sous le sol allonge la cellule
-    Image.fromarray(strip).save(sources / 'walk-se.png')
-    descriptor = figure_descriptor(sources, [{
-        'name': 'Heroes/brawler', 'strips': [{'source': 'walk-se.png', 'clip': 'walk', 'facing': 'se',
-                                              'frames': 8, 'frameDuration': 0.0625, 'placed': True}]}])
-
+    descriptor = figure_descriptor(sources, [{'name': 'Heroes/brawler'}])
     assert M.main([str(descriptor)]) == 0
     folder = target / 'Heroes' / 'brawler'
-    assert np.array_equal(np.asarray(Image.open(folder / 'walk-se.png')), strip)
-    anim = json.loads((folder / 'walk-se.anim.json').read_text(encoding='utf-8'))
-    assert anim['frameWidth'] == 192 and anim['frameHeight'] == 272
+    assert sorted(p.name for p in folder.iterdir()) == ['portrait.png', 'token.png']
+    manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
+    assert manifest['npcs'] == ['Placeholders/humanoid'], "ce que le descripteur ne nomme pas ne bouge pas"
+    assert manifest['portraits'] == ['Heroes/brawler']
     assert M.main([str(descriptor), '--check']) == 0
 
-
-@pytest.mark.parametrize('strip, message', [
-    (placed_strip(7), 'large'),                               # 7 cellules pour 8 images
-    (placed_strip(8, height=250), 'haut'),                    # plus basse que la cellule
-    (placed_strip(8, height=260), 'haut'),                    # allongée d'autre chose que 8 px
-    (placed_strip(8, left=2), 'transparents'),                # la marge de gauche mangée
-])
-def test_une_bande_rendue_fautive_est_refusee(characters, strip, message):
-    _, sources = characters
-    Image.fromarray(strip).save(sources / 'walk.png')
-    descriptor = M.read_descriptor(figure_descriptor(sources, [{
-        'name': 'guard', 'strips': [{'source': 'walk.png', 'clip': 'walk', 'frames': 8, 'placed': True}]}]))
-    with pytest.raises(M.DescriptorError, match=message):
-        M.build_figures(descriptor)
+    Image.new('RGBA', (700, 900), (140, 60, 50, 255)).save(sources / 'portrait.png')
+    descriptor = figure_descriptor(sources, [{**BRAWLER, 'portrait': 'portrait.png'}], skeletons=SKELETONS)
+    assert M.main([str(descriptor)]) == 0
+    assert Image.open(folder / 'portrait.png').size == (512, 512)
+    assert Image.open(folder / 'token.png').size == (128, 128)
+    manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
+    assert 'Heroes/brawler' in manifest['npcs']
+    assert 'portraits' not in manifest
 
 
-def test_la_mesure_n_ecrit_rien_et_donne_les_appuis(characters, capsys):
+def test_la_mesure_n_ecrit_rien(characters, capsys):
     target, sources = characters
-    figure_strip(2).save(sources / 'walk.png')
-    descriptor = figure_descriptor(sources, [{
-        'name': 'guard', 'strips': [{'source': 'walk.png', 'clip': 'walk', 'frames': 2}]}])
+    before = sorted(p.as_posix() for p in target.rglob('*'))
+    descriptor = figure_descriptor(sources, [BRAWLER], skeletons=SKELETONS)
     assert M.main([str(descriptor), '--measure']) == 0
-    assert 'appuis' in capsys.readouterr().out
-    assert not (target / 'guard').exists()
+    assert sorted(p.as_posix() for p in target.rglob('*')) == before
+    out = capsys.readouterr().out
+    assert '4000 triangles' in out and '53 os' in out
 
 
-@pytest.mark.parametrize('figure, message', [
-    ({'name': 'Guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6}]}, 'nom'),
-    ({'name': 'guard', 'strips': []}, 'strips'),
-    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 0}]}, 'frames'),
-    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'facing': 's'}]}, 'facing'),
-    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'standingFrame': 6}]},
-     'standingFrame'),
-    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6},
-                                  {'source': 'b.png', 'clip': 'walk', 'frames': 8}]}, 'deux fois'),
-    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'fps': 8}]}, 'inconnu'),
-    ({'name': 'guard', 'token': 't.png', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6}]},
-     'sans portrait'),
-    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'placed': True,
-                                   'scale': 0.5}]}, 'placed'),
-    ({'name': 'guard', 'strips': [{'source': 'a.png', 'clip': 'walk', 'frames': 6, 'placed': 1}]}, 'placed'),
+def test_un_modele_non_lie_ou_sans_squelette_est_refuse(characters, capsys):
+    target, sources = characters
+    # Un `.glb` sans squelette : le maillage reçu de Meshy, avant la liaison.
+    static = (M.ROOT / 'Source' / 'Test' / 'Fixtures' / 'Meshes' / 'Assets' / 'Scene' / 'ilot' / 'wall.glb')
+    (sources / 'brawler' / 'brawler.glb').write_bytes(static.read_bytes())
+    assert M.main([str(figure_descriptor(sources, [BRAWLER], skeletons=SKELETONS))]) == 1
+    assert "n'est pas lié" in capsys.readouterr().err
+    (sources / 'brawler' / 'brawler.glb').write_bytes(b'pas un glb')
+    assert M.main([str(figure_descriptor(sources, [BRAWLER], skeletons=SKELETONS))]) == 1
+    assert 'illisible' in capsys.readouterr().err
+    (sources / 'brawler' / 'brawler.glb').write_bytes((FIXTURE / 'Mannequins' / 'humanoid' / 'humanoid.glb')
+                                                      .read_bytes())
+    assert M.main([str(figure_descriptor(sources, [BRAWLER]))]) == 1
+    assert 'ni au descripteur' in capsys.readouterr().err
+    assert M.main([str(figure_descriptor(sources, [{'name': 'Heroes/mage'}]))]) == 1
+    assert 'ni modèle, ni portrait' in capsys.readouterr().err
+    assert (target / 'Heroes' / 'brawler' / 'idle-se.png').is_file(), "un refus n'a rien retiré"
+
+
+@pytest.mark.parametrize('figure,message', [
+    ({'name': 'Garde'}, 'nom'),
+    ({'name': 'guard', 'strips': []}, 'plus en bandes'),
+    ({'name': 'guard', 'model': 'a.glb'}, 'vont ensemble'),
+    ({'name': 'guard', 'skeleton': 'humanoid'}, 'vont ensemble'),
+    ({'name': 'guard', 'model': 'a.png', 'skeleton': 'humanoid'}, '.glb'),
+    ({'name': 'guard', 'model': 'a.glb', 'skeleton': 'Humanoid'}, 'squelette'),
+    ({'name': 'guard', 'fps': 8}, 'inconnu'),
+    ({'name': 'guard', 'token': 't.png'}, 'sans portrait'),
 ])
-def test_un_descripteur_de_figurine_fautif_est_refuse_et_nomme(tmp_path, figure, message):
+def test_un_descripteur_de_personnage_fautif_est_refuse_et_nomme(tmp_path, figure, message):
     with pytest.raises(M.DescriptorError, match=message):
         M.read_descriptor(figure_descriptor(tmp_path, [figure]))
+
+
+@pytest.mark.parametrize('extra,message', [
+    ({'skeletons': [{'name': 'humanoid'}]}, 'attendus'),
+    ({'skeletons': [{'name': 'Humanoid', 'source': 's.json'}]}, 'nom'),
+    ({'remove': ['../dehors']}, 'remove'),
+    ({}, 'aucun personnage'),
+])
+def test_un_descripteur_de_squelette_ou_de_retrait_fautif_est_refuse(tmp_path, extra, message):
+    with pytest.raises(M.DescriptorError, match=message):
+        M.read_descriptor(figure_descriptor(tmp_path, [], **extra))
 
 
 def test_des_pieces_dans_un_dossier_characters_sont_refusees(tmp_path):
@@ -474,46 +402,11 @@ def test_des_pieces_dans_un_dossier_characters_sont_refusees(tmp_path):
 
 def test_un_essai_se_mesure_mais_ne_s_installe_pas(characters, capsys):
     target, sources = characters
-    figure_strip(2).save(sources / 'walk.png')
-    descriptor = sources / 'install.json'
-    descriptor.write_text(json.dumps({'version': 1, 'target': 'Common/Characters', 'previewOnly': True,
-                                      'figures': [{'name': 'essai-6', 'strips': [
-                                          {'source': 'walk.png', 'clip': 'walk', 'frames': 2}]}]}),
-                          encoding='utf-8')
+    descriptor = figure_descriptor(sources, [BRAWLER], skeletons=SKELETONS, previewOnly=True)
     assert M.main([str(descriptor), '--measure']) == 0
     assert M.main([str(descriptor)]) == 1
     assert 'ne s\'installe pas' in capsys.readouterr().err
-    assert not (target / 'essai-6').exists()
-    manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
-    assert manifest['npcs'] == []
-
-
-def test_une_hache_qui_touche_la_voisine_reste_a_sa_main(characters):
-    """Des images serrées : la hache de la première touche le corps de la deuxième. Les deux forment
-    un seul morceau ; il se partage en faisant croître chaque corps depuis le milieu de son image.
-    La hache revient à la main qui la tient — seul le point de contact se départage, là où la
-    matière est réellement collée : une commande qui serre ses images se refait."""
-    target, sources = characters
-    image = figure_strip(3)
-    draw = ImageDraw.Draw(image)
-    # La hache de l'image 1 : un manche de la main jusqu'au flanc de l'image 2.
-    cx0, cx1 = 20 + PITCH / 2, 20 + PITCH * 1.5
-    draw.rectangle((cx0, 300, cx1 - 45, 312), fill=(60, 120, 200, 253))
-    image.save(sources / 'attack-se.png')
-    descriptor = figure_descriptor(sources, [{'name': 'guard', 'strips': [
-        {'source': 'attack-se.png', 'clip': 'attack', 'facing': 'se', 'frames': 3, 'wide': True}]}])
-    assert M.main([str(descriptor)]) == 0
-    strip = np.asarray(Image.open(target / 'guard' / 'attack-se.png'))
-    width = strip.shape[1] // 3
-
-    def first(cell):
-        visible = cell[cell[..., 3] >= M.OPAQUE].astype(int)
-        return int(((visible[:, 0] < 75) & (visible[:, 2] > 185)).sum())
-
-    kept, leaked = first(strip[:, :width]), first(strip[:, width:2 * width])
-    assert kept > 0
-    # Tranchée à la borne, la moitié du manche passait chez la voisine ; il n'y reste que le contact.
-    assert leaked < 0.05 * kept, (kept, leaked)
+    assert not (target / 'Heroes' / 'brawler' / 'brawler.glb').exists()
 
 
 def test_un_kit_se_range_en_sous_dossiers_et_le_controle_le_suit(zone):
@@ -552,28 +445,20 @@ def test_un_dossier_hors_de_la_cible_est_refuse(tmp_path, folder):
         M.read_descriptor(path)
 
 
-def test_un_portrait_d_attente_s_installe_sans_bande_puis_cede_la_place(characters):
-    """LOT-145 : un héros a son visage avant sa figurine. Sans bande, seuls le portrait et le jeton
-    s'installent, et le nom va dans `portraits`, pas dans `npcs` ; ses bandes installées ensuite le
-    font passer de l'une à l'autre."""
+def test_un_personnage_de_zone_se_lie_au_squelette_du_monde(characters):
+    """Le squelette est commun : un personnage rangé dans le Characters/ d'une zone s'installe dès que
+    `Common/Characters/Skeletons/` le porte, sans le redéclarer."""
     target, sources = characters
-    Image.new('RGBA', (700, 900), (140, 60, 50, 255)).save(sources / 'portrait.png')
-    descriptor = figure_descriptor(sources, [{'name': 'Heroes/mage', 'portrait': 'portrait.png',
-                                              'strips': []}])
+    assert M.main([str(figure_descriptor(sources, [BRAWLER], skeletons=SKELETONS))]) == 0
+    zone = target.parent.parent / 'Regions' / 'empire' / 'arene' / 'Characters'
+    zone.mkdir(parents=True)
+    (zone / 'manifest.json').write_text(json.dumps({'version': 1, 'tile': list(TILE), 'npcs': []}),
+                                        encoding='utf-8')
+    (sources / 'zone').mkdir()
+    descriptor = figure_descriptor(
+        sources / 'zone', [{'name': 'bandit', 'model': '../brawler/brawler.glb', 'skeleton': 'humanoid'}],
+        target='Regions/empire/arene/Characters')
     assert M.main([str(descriptor)]) == 0
-    folder = target / 'Heroes' / 'mage'
-    assert sorted(p.name for p in folder.iterdir()) == ['portrait.png', 'token.png']
-    assert Image.open(folder / 'portrait.png').size == (512, 512)
-    manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
-    assert manifest['npcs'] == []
-    assert manifest['portraits'] == ['Heroes/mage']
-    assert M.main([str(descriptor), '--check']) == 0
-
-    figure_strip(6).save(sources / 'idle-se.png')
-    descriptor = figure_descriptor(sources, [{'name': 'Heroes/mage', 'portrait': 'portrait.png',
-                                              'strips': [{'source': 'idle-se.png', 'clip': 'idle',
-                                                          'facing': 'se', 'frames': 6}]}])
-    assert M.main([str(descriptor)]) == 0
-    manifest = json.loads((target / 'manifest.json').read_text(encoding='utf-8'))
-    assert manifest['npcs'] == ['Heroes/mage']
-    assert 'portraits' not in manifest
+    assert sorted(p.name for p in (zone / 'bandit').iterdir()) == ['bandit.glb', 'character.json']
+    manifest = json.loads((zone / 'manifest.json').read_text(encoding='utf-8'))
+    assert manifest['npcs'] == ['bandit'] and 'skeletons' not in manifest

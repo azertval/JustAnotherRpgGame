@@ -38,7 +38,6 @@ target_link_libraries(JustAnotherRpgGame PRIVATE
     Qt6::Gui
     Qt6::GuiPrivate
     Qt6::Multimedia
-    xinput
     project_warnings
     project_options
 )

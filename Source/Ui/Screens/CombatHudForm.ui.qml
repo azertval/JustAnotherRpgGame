@@ -13,7 +13,7 @@ import Jadg.Ui
     le journal, l'ordre d'initiative, la roue et la barre d'actions, la fiche de la cible.
 
     Chaque action porte son RACCOURCI, ecrit sous sa case : un combat doit se jouer entierement au
-    clavier et entierement a la manette, le critere que la feuille de route dit « souvent oublie ».
+    clavier et a la souris.
 
     LE GROUPE (LOT-140, maquette `combat-de-groupe.svg`). L'ordre d'initiative se lit AUX JETONS :
     le jeton rond d'un membre du groupe, deux lettres pour une creature, l'actif cercle d'or. Le

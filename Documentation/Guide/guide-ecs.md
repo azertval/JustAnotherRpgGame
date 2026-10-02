@@ -326,7 +326,7 @@ l'**état** d'une entité dans cette animation (le composant).
 `core::AnimationClip` est un clip : un `name` (unique dans son jeu : « idle », « opening »), la
 suite `frames` des indices d'images dans la spritesheet, la `frameDuration` en secondes (`0`, ou une
 seule image : pose figée, jamais animée), et sa fin — `core::ClipEndMode::Loop` revient à la
-première image (`EX-REN-012`) ; `core::ClipEndMode::OneShot` s'arrête à la dernière et bascule sur
+première image (`EX-REN-005`) ; `core::ClipEndMode::OneShot` s'arrête à la dernière et bascule sur
 le clip nommé par `nextClip` (vide ou inconnu : on reste sur la dernière image, jamais une erreur).
 C'est une **donnée pure** : ni spritesheet, ni taille d'image, ni fichier — la traduction en région
 de texture appartient à `HMI`. Un `enum` figé des clips aurait fait de `Core` un catalogue

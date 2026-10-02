@@ -10,7 +10,7 @@ import Jadg.Runtime
     commencees a gauche, l'entree la plus recente et les etapes atteintes de la quete choisie a
     droite ; la choisie porte la marque `›`.
 
-    Au clavier et a la manette : `Haut` et `Bas` changent de quete, `Echap` referme le journal.
+    Au clavier : `Haut` et `Bas` changent de quete, `Echap` referme le journal.
 */
 JournalForm {
     id: root

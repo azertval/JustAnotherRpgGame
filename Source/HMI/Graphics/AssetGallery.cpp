@@ -8,6 +8,7 @@
 #include <cmath>
 #include <fstream>
 #include <map>
+#include <optional>
 #include <set>
 #include <string_view>
 #include <system_error>
@@ -18,6 +19,7 @@
 #include "Core/Data/JsonDocument.h"
 #include "Core/Resources/ScenePieceManifest.h"
 #include "Core/Resources/ScenePlace.h"
+#include "Core/Resources/SkeletonFile.h"
 #include "HMI/Graphics/AnimationCatalog.h"
 #include "HMI/Graphics/SceneTextureTraits.h"
 
@@ -116,12 +118,20 @@ bool readAnimatedEntry(AssetGalleryEntry& entry, const std::filesystem::path& de
         }
     }
     // Les PNJ rangés plus bas, et les portraits d'attente (`LOT-145`) : un héros qui a son visage
-    // avant sa figurine.
+    // avant son modèle.
     for (const char* list : {"npcs", "portraits"}) {
         for (const std::string& npc : stringList(manifest, list)) {
             if (npc.find('/') != std::string::npos) {
                 models.push_back(npc);
             }
+        }
+    }
+    // Les modèles que le manifeste inscrit (`models`, `LOT-1003`) : un mannequin sans squelette y
+    // est, et n'est nulle part ailleurs.
+    if (const auto declared = manifest.find("models");
+        declared != manifest.end() && declared->is_object()) {
+        for (const auto& [name, unused] : declared->items()) {
+            models.push_back(name);
         }
     }
     std::ranges::sort(models);
@@ -130,17 +140,71 @@ bool readAnimatedEntry(AssetGalleryEntry& entry, const std::filesystem::path& de
     return models;
 }
 
-// Les figurines d'un atelier : un dossier par modèle, ses bandes animées et son portrait.
+// La place d'un modèle de personnage dans la galerie, en cases : un corps de 1,80 m, et de quoi
+// tenir un bras tendu ou un corps couché.
+constexpr double MODEL_BLOC_COLUMNS = 1.5;
+constexpr double MODEL_BLOC_ROWS = 1.0;
+// Le losange d'art d'un atelier qui n'en déclare pas : celui du standard.
+constexpr int DEFAULT_ART_TILE = 256;
+
+// Les formes du modèle d'un personnage (`LOT-1006`) : une par clip que son squelette déclare ; une
+// seule, dans sa pose de liaison, si le squelette ne se lit pas ou si le modèle n'a pas de fiche.
+void addModelEntries(const std::filesystem::path& root, const std::string& folder,
+                     const AssetGalleryEntry& base, AssetGalleryFamily& family,
+                     std::vector<std::string>& errors) {
+    const std::filesystem::path directory = root / folder;
+    std::error_code ignored;
+    std::string file;
+    std::optional<core::SkeletonDescription> skeleton;
+    if (std::filesystem::is_regular_file(directory / core::CHARACTER_SHEET_FILE, ignored)) {
+        const core::CharacterSheetFileResult sheet =
+            core::readCharacterSheetFile(directory / core::CHARACTER_SHEET_FILE);
+        if (!sheet.ok()) {
+            errors.push_back(sheet.message);
+            return;
+        }
+        file = sheet.sheet.model;
+        core::SkeletonFileResult read =
+            core::readSkeletonFile(root / core::skeletonFilePath(sheet.sheet.skeleton));
+        if (read.ok()) {
+            skeleton = std::move(read.skeleton);
+        } else {
+            errors.push_back(read.message);
+        }
+    } else {
+        // Sans fiche : un modèle inscrit au manifeste, du nom de son dossier (un mannequin sans
+        // squelette).
+        file = directory.filename().string() + ".glb";
+    }
+    if (!std::filesystem::is_regular_file(directory / file, ignored)) {
+        return;  // le kit n'est pas installé, ou le modèle n'est pas encore produit
+    }
+    AssetGalleryEntry entry = base;
+    entry.path = folder + "/" + file;
+    entry.mesh = true;
+    const int tile = entry.tileWidthPixels();
+    entry.frameWidth = static_cast<int>(MODEL_BLOC_COLUMNS * tile);
+    entry.frameHeight = static_cast<int>(MODEL_BLOC_ROWS * tile);
+    if (!skeleton || skeleton->clips.empty()) {
+        entry.form = "model";
+        family.entries.push_back(std::move(entry));
+        return;
+    }
+    for (const core::SkeletonClip& clip : skeleton->clips) {
+        entry.form = clip.name;
+        entry.clip = clip.name;
+        entry.clipDuration = clip.duration;
+        entry.loop = clip.loop;
+        family.entries.push_back(entry);
+    }
+}
+
+// Les personnages d'un atelier : un dossier par personnage, son modèle, son portrait et son jeton.
 //
-// Sert aux PNJ (`Npc/`, LOT-91) et aux monstres (`Monsters/`, LOT-93), qui partagent la forme :
-// un `manifest.json` qui nomme les `animations`, puis `<modèle>/<animation>.png` et son
-// `.anim.json`. Une animation absente d'un modèle — le `cast` d'une bête sans sort — ne fait pas
-// d'entrée, et ce n'est pas une erreur. La taille de la cellule est celle de chaque `.anim.json` :
-// une figurine Grande (96 × 96) s'affiche comme une Moyenne (48 × 64), sans cas particulier.
-//
-// Une figurine **orientée** (`LOT-112`) a une bande par animation et par diagonale
-// (`walk-se.png`…) : chacune fait son entrée. Un modèle rangé plus bas que l'atelier
-// (`Characters/Heroes/brawler`) est trouvé par la liste `npcs` du manifeste.
+// Sert aux PNJ (`Npc/`, LOT-91), aux monstres (`Monsters/`, LOT-93) et aux dossiers `Characters/`
+// de l'arborescence par niveaux. Un personnage rangé plus bas que l'atelier
+// (`Characters/Heroes/brawler`) est trouvé par les listes du manifeste (`figureModels`). Depuis le
+// `LOT-1006` un personnage n'a plus de bande : son modèle se montre clip par clip.
 void readFigures(const std::filesystem::path& root, const std::string& directory,
                  const std::string& title, AssetGalleryCatalog& catalog) {
     const core::JsonDocument document =
@@ -150,26 +214,18 @@ void readFigures(const std::filesystem::path& root, const std::string& directory
     }
     AssetGalleryFamily family{.title = title, .directory = directory, .entries = {}};
     const std::vector<std::string> models = figureModels(root / directory, document.root);
-    const std::vector<std::string> animations = stringList(document.root, "animations");
-    const auto tile = static_cast<int>(manifestArtTile(document.root).x);
+    const auto declared = static_cast<int>(manifestArtTile(document.root).x);
+    const int tile = declared > 0 ? declared : DEFAULT_ART_TILE;
     for (const std::string& model : models) {
-        const std::string folder = std::string{directory}.append("/").append(model).append("/");
-        for (const std::string& animation : animations) {
-            // La bande sans orientation, puis une par diagonale : `walk`, `walk-se`...
-            for (const std::string_view facing : {"", "-se", "-sw", "-ne", "-nw"}) {
-                const std::string strip = animation + std::string{facing};
-                AssetGalleryEntry entry{.family = family.title,
-                                        .model = model,
-                                        .form = strip,
-                                        .path = folder + strip + ".png",
-                                        .frames = {},
-                                        .tilePixels = tile};
-                if (readAnimatedEntry(entry, root / directory / model / (strip + ".anim.json"),
-                                      catalog.errors)) {
-                    family.entries.push_back(std::move(entry));
-                }
-            }
-        }
+        const std::string folder = std::string{directory}.append("/").append(model);
+        addModelEntries(root, folder,
+                        AssetGalleryEntry{.family = family.title,
+                                          .model = model,
+                                          .form = {},
+                                          .path = {},
+                                          .frames = {},
+                                          .tilePixels = tile},
+                        family, catalog.errors);
         for (const char* still : {"portrait", "token"}) {
             const std::string file = std::string{still} + ".png";
             const auto [width, height] = pngSize(root / directory / model / file);
@@ -177,7 +233,7 @@ void readFigures(const std::filesystem::path& root, const std::string& directory
                 family.entries.push_back(AssetGalleryEntry{.family = family.title,
                                                            .model = model,
                                                            .form = still,
-                                                           .path = folder + file,
+                                                           .path = folder + "/" + file,
                                                            .frameWidth = width,
                                                            .frameHeight = height,
                                                            .frames = {},
@@ -262,8 +318,9 @@ void readScenes(const std::filesystem::path& root, AssetGalleryCatalog& catalog)
 //        l'ordre de son chemin.
 //
 // Un manifeste qui déclare des `textures` est un dossier `Scene/` ; un manifeste qui déclare des
-// `animations` est un dossier `Characters/`, dont les PNJ ont la forme de l'atelier
-// (`readFigures`). Les manifestes des niveaux encore vides n'ajoutent aucune famille.
+// personnages (`npcs`, `portraits`, `models`) est un dossier `Characters/`, dont les PNJ ont la
+// forme de l'atelier (`readFigures`). Les manifestes des niveaux encore vides n'ajoutent aucune
+// famille.
 void readTree(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
     std::vector<std::filesystem::path> manifests;
     for (const char* tree : {"Common", "Regions"}) {
@@ -297,7 +354,8 @@ void readTree(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
                 place.erase(0, std::string_view("Regions/").size());
             }
             readSceneFamily(root, relative, "Scène · " + place, catalog);
-        } else if (document.root.contains("animations")) {
+        } else if (document.root.contains("npcs") || document.root.contains("portraits") ||
+                   document.root.contains("models")) {
             readFigures(root, relative, "Figurines · " + relative, catalog);
         }
     }
@@ -341,7 +399,8 @@ std::vector<std::string> assetGalleryUnlisted(const std::filesystem::path& asset
     for (auto it = std::filesystem::recursive_directory_iterator(assetsRoot, error);
          !error && it != std::filesystem::recursive_directory_iterator(); it.increment(error)) {
         const std::string extension = it->path().extension().string();
-        if (!it->is_regular_file() || (extension != ".png" && extension != ".jpg")) {
+        if (!it->is_regular_file() ||
+            (extension != ".png" && extension != ".jpg" && extension != ".glb")) {
             continue;
         }
         const std::string path = std::filesystem::relative(it->path(), assetsRoot).generic_string();
@@ -445,6 +504,15 @@ AssetGalleryVisibility assetGalleryVisibility(const AssetGalleryBloc& bloc,
     }
     return overlaps(ringCells) ? AssetGalleryVisibility::Preloaded
                                : AssetGalleryVisibility::Unloaded;
+}
+
+double assetGalleryClipSeconds(const AssetGalleryEntry& entry, double seconds) noexcept {
+    if (!entry.mesh || entry.clipDuration <= 0.0 || seconds <= 0.0) {
+        return 0.0;
+    }
+    const double cycle =
+        entry.loop ? entry.clipDuration : entry.clipDuration + ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS;
+    return std::min(std::fmod(seconds, cycle), entry.clipDuration);
 }
 
 int assetGalleryFrameRank(const AssetGalleryEntry& entry, double seconds) noexcept {

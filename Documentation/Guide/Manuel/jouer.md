@@ -17,8 +17,7 @@ version d'aujourd'hui donne à faire.
 
 Six entrées, navigables aux flèches **↑**/**↓** (ou à la souris) et validées par **Entrée** (ou
 clic) : **Continuer** et **Charger une partie** (grisées tant que la sauvegarde n'existe pas),
-**Nouvelle partie**, **Options**, **Crédits**, **Quitter**. Une manette **XInput** navigue aussi
-dans les menus.
+**Nouvelle partie**, **Options**, **Crédits**, **Quitter**.
 
 ![Le menu principal en codex illustré, avec ses six entrées dont Continuer et Charger une partie grisées, à 1280 × 720](../captures/jeu-mainmenu.jpg)
 
@@ -99,18 +98,18 @@ la suite est [le système de combat de la `0.0.2`](../../../Planning/versions/v0
 ## Combattre
 
 Le combat se joue au tour par tour, **sur la carte** où il commence : la carte se fige, la grille
-paraît sur sa zone de combat, et l'exploration reprend à la fin. La souris comme la manette pilotent
+paraît sur sa zone de combat, et l'exploration reprend à la fin. La souris pilote
 le même curseur que le clavier.
 
-| Action | Clavier | Manette |
-|--------|---------|---------|
-| Déplacer le curseur | **↑ ↓ ← →** | croix ou stick gauche |
-| Confirmer (déplacement, cible, action) ; quitter une fois le combat fini | **Entrée** | **A** |
-| Changer de cible | **Tab** / **Maj+Tab** | **X** |
-| Changer d'action | **Page suivante** / **Page précédente**, ou **1** à **8** | **RB** / **LB** |
-| Recentrer sur le combattant actif | **Retour arrière** | **B** |
-| Finir son tour (aussi le bouton « Fin du tour » dans la barre d’actions) | **Espace** | **Y** |
-| Fuir, si la rencontre le permet | **F** | — |
+| Action | Clavier |
+|--------|---------|
+| Déplacer le curseur | **↑ ↓ ← →** |
+| Confirmer (déplacement, cible, action) ; quitter une fois le combat fini | **Entrée** |
+| Changer de cible | **Tab** / **Maj+Tab** |
+| Changer d'action | **Page suivante** / **Page précédente**, ou **1** à **8** |
+| Recentrer sur le combattant actif | **Retour arrière** |
+| Finir son tour (aussi le bouton « Fin du tour » dans la barre d’actions) | **Espace** |
+| Fuir, si la rencontre le permet | **F** |
 
 ![Le HUD de combat : initiative, actions du tour et prévisualisation contextuelle ; les détails et l'historique se déplient à la demande, à 1280 × 720](../captures/jeu-combathud.jpg)
 

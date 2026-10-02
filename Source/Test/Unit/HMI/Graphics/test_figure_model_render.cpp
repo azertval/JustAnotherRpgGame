@@ -12,8 +12,10 @@
 
 #include <QColor>
 #include <QImage>
+#include <QPainter>
 #include <algorithm>
 #include <cstddef>
+#include <cstdlib>
 #include <filesystem>
 #include <iostream>
 #include <memory>
@@ -27,6 +29,7 @@
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/Level.h"
 #include "Core/Levels/LevelLoader.h"
+#include "Core/Resources/SkeletonPose.h"
 #include "HMI/Graphics/OffscreenRender.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
@@ -257,7 +260,10 @@ TEST(FigureModelRenderTest, BandesEtModeleCohabitent) {
     if (!offscreen) {
         GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
     }
-    const hmi::WorldFigureSnapshot witness{.figure = "Npc/temoin", .point = {2.5F, 6.5F}};
+    const hmi::WorldFigureSnapshot witness{.figure = std::string{hmi::FX_DIRECTORY},
+                                           .clip = "temoin",
+                                           .point = {2.5F, 6.5F},
+                                           .effect = true};
     hmi::WorldSceneRenderer renderer(assets());
 
     const hmi::WorldSceneSnapshot alone = ilot({witness});
@@ -346,4 +352,90 @@ TEST(FigureModelRenderTest, LeMannequinDEssaiMarche) {
     EXPECT_GT(differing(bare, second), 300U);
     EXPECT_GT(differing(bare, fallen), 300U);
     EXPECT_GT(differing(first, second), 100U) << "les appuis ont change";
+}
+
+/**
+ * @brief Un modèle de l'atelier — jamais suivi par Git — se rend sous la caméra du jeu, clip par
+ *        clip, pour que l'auteur le juge à la taille du jeu.
+ * \castest{<b>Un modele de l'atelier se rend clip par clip, a la taille du jeu.</b><br/>
+ * \tcat Unitaire · Rendu QRhi d'un lieu · Squelette<br/>
+ * \tcrit Mineur<br/>
+ * \tetapes 1. Désigner un `.glb` lié par la variable d'environnement `JADG_FIGURE_MODEL`.<br/>
+ *          2. Le rendre sur la carte d'essai, une case à 100 px puis à 200 px, à quatre instants
+ *             de chacun de ses clips, face à la caméra puis de dos.<br/>
+ * \tattendu Le modèle se charge avec son squelette ; une planche par échelle est écrite dans les
+ *           captures (`modele-<nom>-100.png`, `-200.png`). Sans la variable, le test est passé.
+ * }
+ */
+TEST(FigureModelRenderTest, UnModeleDeLAtelierSeRendClipParClip) {
+    char* value = nullptr;
+    std::size_t length = 0;
+    if (_dupenv_s(&value, &length, "JADG_FIGURE_MODEL") != 0 || value == nullptr) {
+        GTEST_SKIP() << "JADG_FIGURE_MODEL ne désigne aucun modèle.";
+    }
+    const std::filesystem::path file{value};
+    std::free(value);  // NOLINT(cppcoreguidelines-no-malloc) : allouee par _dupenv_s
+    const std::shared_ptr<hmi::OffscreenRhi> offscreen = hmi::OffscreenRhi::shared();
+    if (!offscreen) {
+        GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
+    }
+    const std::string model = file.generic_string();
+    hmi::WorldSceneRenderer renderer(assets());
+    constexpr int INSTANTS = 4;
+    const QSize cell(360, 300);
+    for (const int tilePixels : {100, 200}) {
+        std::vector<std::string> clips;
+        QImage sheet;
+        for (int row = 0; row < 12; ++row) {
+            for (int column = 0; column < INSTANTS; ++column) {
+                // Le premier rendu charge le modele : ses clips disent le nombre de lignes.
+                const std::string clip = clips.empty() ? "idle" : clips[row / 2];
+                hmi::WorldFigureSnapshot figure = puppet(1, 6, clip, 0.0F);
+                figure.model = model;
+                if (row % 2 == 1) {
+                    figure.heading += std::numbers::pi_v<float>;
+                }
+                const hmi::WorldSceneSnapshot snapshot = ilot({figure});
+                renderer.setSnapshot(snapshot);
+                const core::IsoProjection projection{snapshot.columns, snapshot.rows,
+                                                     core::ARENA_TILE_WIDTH_UNITS,
+                                                     snapshot.diamondRatio};
+                core::Vector2 center = projection.gridToWorld({1.5F, 6.5F});
+                center.y -= projection.tileWidth() * 0.35F;
+                const hmi::WorldFraming frame{
+                    .center = center,
+                    .pixelsPerUnit = static_cast<float>(tilePixels) / projection.tileWidth()};
+                if (clips.empty()) {
+                    (void)offscreen->render(renderer, cell, frame, BACKGROUND);
+                    const hmi::SceneFigureModel* const loaded =
+                        renderer.textures().findFigure(model);
+                    ASSERT_NE(loaded, nullptr) << model;
+                    ASSERT_NE(loaded->rig, nullptr) << model;
+                    for (const core::MeshClip& known : loaded->rig->clips) {
+                        clips.push_back(known.name);
+                    }
+                    ASSERT_FALSE(clips.empty());
+                    sheet = QImage(cell.width() * INSTANTS,
+                                   cell.height() * static_cast<int>(clips.size()) * 2,
+                                   QImage::Format_RGBA8888);
+                }
+                if (row >= static_cast<int>(clips.size()) * 2) {
+                    break;
+                }
+                const core::MeshClip* const curves =
+                    core::findClip(*renderer.textures().findFigure(model)->rig, clips[row / 2]);
+                figure.clip = clips[row / 2];
+                figure.seconds = curves->duration * static_cast<float>(column) /
+                                 static_cast<float>(INSTANTS - 1) * 0.999F;
+                const hmi::WorldSceneSnapshot posed = ilot({figure});
+                renderer.setSnapshot(posed);
+                const QImage image = offscreen->render(renderer, cell, frame, BACKGROUND);
+                QPainter painter(&sheet);
+                painter.drawImage(column * cell.width(), row * cell.height(), image);
+            }
+        }
+        const std::string name =
+            "modele-" + file.stem().string() + "-" + std::to_string(tilePixels) + ".png";
+        capture(sheet, name.c_str());
+    }
 }

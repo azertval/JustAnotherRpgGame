@@ -63,6 +63,7 @@ Item {
         y: 172 * Tokens.uiScale
         width: 400 * Tokens.uiScale
         height: cardColumn.implicitHeight + 2 * Tokens.gapMedium
+        material: "parchment"
         subpanel: true
 
         Column {
@@ -74,7 +75,7 @@ Item {
             Text {
                 width: parent.width
                 text: root.hasSelection ? root.selected.name : ""
-                color: Tokens.goldLight
+                color: Tokens.gem
                 font.family: Tokens.titleFamily
                 font.pixelSize: Tokens.fontSectionTitle
                 font.weight: Font.DemiBold
@@ -84,7 +85,7 @@ Item {
             Text {
                 width: parent.width
                 text: root.hasSelection ? root.selected.government : ""
-                color: Tokens.textOnPanel
+                color: Tokens.text
                 font.family: Tokens.loreFamily
                 font.italic: true
                 font.pixelSize: Tokens.fontCaption
@@ -96,7 +97,7 @@ Item {
             Text {
                 width: parent.width
                 text: root.hasSelection ? root.selected.faction : ""
-                color: Tokens.textOnPanelMuted
+                color: Tokens.textMuted
                 font.family: Tokens.bodyFamily
                 font.pixelSize: Tokens.fontCaption
                 wrapMode: Text.WordWrap
@@ -111,7 +112,7 @@ Item {
             Text {
                 width: parent.width
                 text: root.hasSelection ? qsTr("Lieux : %1").arg(root.selected.places.length) : ""
-                color: Tokens.textOnPanel
+                color: Tokens.text
                 font.family: Tokens.titleFamily
                 font.pixelSize: Tokens.fontCaption
             }
@@ -119,7 +120,7 @@ Item {
             Text {
                 width: parent.width
                 text: qsTr("Entrée ou clic : ouvrir la région")
-                color: Tokens.textOnPanelMuted
+                color: Tokens.textMuted
                 font.family: Tokens.bodyFamily
                 font.pixelSize: Tokens.fontCaption
             }

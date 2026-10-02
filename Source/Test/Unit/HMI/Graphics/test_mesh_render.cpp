@@ -67,11 +67,14 @@ hmi::WorldFraming framing(const hmi::WorldSceneSnapshot& snapshot) {
                              .pixelsPerUnit = 64.0F / projection.tileWidth()};
 }
 
-/// La figurine témoin, au centre de la case (@p column, @p row).
+/// L'image témoin, au centre de la case (@p column, @p row) : un effet, la seule sorte d'image
+/// dressée qui reste sur le calque des figurines (`LOT-1006`).
 hmi::WorldFigureSnapshot witness(int column, int row) {
     return hmi::WorldFigureSnapshot{
-        .figure = "Npc/temoin",
-        .point = {static_cast<float>(column) + 0.5F, static_cast<float>(row) + 0.5F}};
+        .figure = std::string{hmi::FX_DIRECTORY},
+        .clip = "temoin",
+        .point = {static_cast<float>(column) + 0.5F, static_cast<float>(row) + 0.5F},
+        .effect = true};
 }
 
 /// Le nombre de pixels de @p image que @p matches reconnaît.

@@ -64,7 +64,7 @@ ScreenPage {
     ]
 
     title: qsTr("Groupe")
-    material: "dark"
+    material: "parchment"
 
     ColumnLayout {
         anchors.fill: parent
@@ -74,6 +74,7 @@ ScreenPage {
         PanelFrame {
             Layout.fillWidth: true
             Layout.preferredHeight: 392 * Tokens.uiScale
+            material: "parchment"
             subpanel: true
 
             SectionBanner {
@@ -81,7 +82,7 @@ ScreenPage {
 
                 anchors.left: parent.left
                 anchors.right: parent.right
-                material: "dark"
+                material: "parchment"
                 text: qsTr("Ordre de marche")
             }
 
@@ -109,8 +110,8 @@ ScreenPage {
 
                         width: (profiles.width - (root.maxSize - 1) * profiles.spacing) / root.maxSize
                         height: 300 * Tokens.uiScale
-                        color: profile.current ? Tokens.panelRaised : "transparent"
-                        border.color: profile.current ? Tokens.goldLight : Tokens.panelEdge
+                        color: profile.current ? Tokens.surfaceAlt : "transparent"
+                        border.color: profile.current ? Tokens.gem : Tokens.border
                         border.width: Tokens.strokeWidth
 
                         // Une place vide : la case a prendre.
@@ -118,7 +119,7 @@ ScreenPage {
                             anchors.centerIn: parent
                             visible: !profile.filled
                             text: qsTr("Place libre")
-                            color: Tokens.textOnPanelMuted
+                            color: Tokens.textMuted
                             font.family: Tokens.loreFamily
                             font.italic: true
                             font.pixelSize: Tokens.fontBody
@@ -143,7 +144,7 @@ ScreenPage {
                             Text {
                                 width: parent.width
                                 text: profile.filled ? profile.member.label : ""
-                                color: Tokens.textOnPanel
+                                color: Tokens.text
                                 font.family: Tokens.titleFamily
                                 font.pixelSize: Tokens.fontBody
                                 font.bold: true
@@ -154,7 +155,7 @@ ScreenPage {
                             Text {
                                 width: parent.width
                                 text: profile.filled ? profile.member.species + " · " + profile.member.role + " " + profile.member.level : ""
-                                color: Tokens.textOnPanelMuted
+                                color: Tokens.textMuted
                                 font.family: Tokens.bodyFamily
                                 font.pixelSize: Tokens.fontCaption
                                 horizontalAlignment: Text.AlignHCenter
@@ -172,7 +173,7 @@ ScreenPage {
                             Text {
                                 width: parent.width
                                 text: profile.filled ? qsTr("CA %1 · Vitesse %2").arg(profile.member.armorClass).arg(profile.member.speed) : ""
-                                color: Tokens.textOnPanelMuted
+                                color: Tokens.textMuted
                                 font.family: Tokens.bodyFamily
                                 font.pixelSize: Tokens.fontCaption
                                 horizontalAlignment: Text.AlignHCenter
@@ -193,7 +194,7 @@ ScreenPage {
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter
                                     text: profile.leader ? qsTr("Meneur") : qsTr("Rang %1").arg(profile.index + 1)
-                                    color: profile.leader ? Tokens.goldLight : Tokens.textOnPanel
+                                    color: profile.leader ? Tokens.gem : Tokens.text
                                     font.family: Tokens.titleFamily
                                     font.pixelSize: Tokens.fontCaption
                                 }
@@ -208,6 +209,7 @@ ScreenPage {
         PanelFrame {
             Layout.fillWidth: true
             Layout.fillHeight: true
+            material: "parchment"
             subpanel: true
 
             SectionBanner {
@@ -215,7 +217,7 @@ ScreenPage {
 
                 anchors.left: parent.left
                 anchors.right: parent.right
-                material: "dark"
+                material: "parchment"
                 text: qsTr("Personnages")
             }
 
@@ -243,8 +245,8 @@ ScreenPage {
 
                         Rectangle {
                             anchors.fill: parent
-                            color: candidate.current ? Tokens.panelRaised : "transparent"
-                            border.color: candidate.current ? Tokens.panelEdge : "transparent"
+                            color: candidate.current ? Tokens.surfaceAlt : "transparent"
+                            border.color: candidate.current ? Tokens.gem : "transparent"
                             border.width: Tokens.strokeWidth
                         }
 
@@ -264,7 +266,7 @@ ScreenPage {
                             anchors.verticalCenter: parent.verticalCenter
                             width: 360 * Tokens.uiScale
                             text: candidate.modelData.name
-                            color: candidate.member ? Tokens.textOnPanel : Tokens.textOnPanelMuted
+                            color: candidate.member ? Tokens.text : Tokens.textMuted
                             font.family: Tokens.titleFamily
                             font.pixelSize: Tokens.fontBody
                             font.bold: candidate.member
@@ -278,7 +280,7 @@ ScreenPage {
                             anchors.verticalCenter: parent.verticalCenter
                             text: candidate.modelData.species + " · " + candidate.modelData.className + " " + candidate.modelData.level
                                   + " · " + qsTr("PV %1 · CA %2 · Vitesse %3").arg(candidate.modelData.value).arg(candidate.modelData.armorClass).arg(candidate.modelData.speed)
-                            color: Tokens.textOnPanelMuted
+                            color: Tokens.textMuted
                             font.family: Tokens.bodyFamily
                             font.pixelSize: Tokens.fontCaption
                             elide: Text.ElideRight
@@ -293,8 +295,8 @@ ScreenPage {
                             text: candidate.modelData.leader ? qsTr("Meneur")
                                   : (candidate.member ? qsTr("Rang %1").arg(candidate.modelData.rank + 1)
                                                       : qsTr("Disponible"))
-                            color: candidate.modelData.leader ? Tokens.goldLight
-                                   : (candidate.member ? Tokens.textOnPanel : Tokens.textOnPanelMuted)
+                            color: candidate.modelData.leader ? Tokens.gem
+                                   : (candidate.member ? Tokens.text : Tokens.textMuted)
                             font.family: Tokens.titleFamily
                             font.pixelSize: Tokens.fontCaption
                         }
@@ -386,7 +388,7 @@ ScreenPage {
         Text {
             Layout.fillWidth: true
             text: qsTr("Entrée : prendre ou laisser · M : mener · Page préc. / suiv. : avancer, reculer · F : fiche · Échap : fermer")
-            color: Tokens.textOnPanelMuted
+            color: Tokens.textMuted
             font.family: Tokens.bodyFamily
             font.pixelSize: Tokens.fontCaption
             wrapMode: Text.WordWrap

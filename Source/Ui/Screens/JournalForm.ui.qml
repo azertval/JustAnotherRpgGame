@@ -31,7 +31,7 @@ ScreenPage {
     }
 
     title: qsTr("Journal de quêtes")
-    material: "dark"
+    material: "parchment"
 
     RowLayout {
         anchors.fill: parent
@@ -41,7 +41,7 @@ ScreenPage {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredWidth: 1
-            material: "dark"
+            material: "parchment"
             title: qsTr("Quêtes")
             rows: root.quests
         }
@@ -55,6 +55,7 @@ ScreenPage {
             PanelFrame {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 360 * Tokens.uiScale
+                material: "parchment"
                 subpanel: true
 
                 SectionBanner {
@@ -62,7 +63,7 @@ ScreenPage {
 
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    material: "dark"
+                    material: "parchment"
                     text: qsTr("Détail")
                 }
 
@@ -73,7 +74,7 @@ ScreenPage {
                     anchors.bottom: parent.bottom
                     anchors.topMargin: Tokens.gapMedium
                     text: root.detail
-                    color: Tokens.textOnPanel
+                    color: Tokens.text
                     font.family: Tokens.loreFamily
                     font.italic: true
                     font.pixelSize: Tokens.fontBody
@@ -85,7 +86,7 @@ ScreenPage {
             LedgerList {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                material: "dark"
+                material: "parchment"
                 title: qsTr("Objectifs")
                 rows: root.objectives
             }

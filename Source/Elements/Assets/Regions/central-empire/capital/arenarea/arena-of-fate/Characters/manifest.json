@@ -4,23 +4,144 @@
     256,
     159
   ],
-  "comment": "Vide : les figurines de l'Arena of Fate (LOT-106, LOT-113).",
-  "frame": [
-    192,
-    256
+  "npcs": [
+    "bandit"
   ],
-  "wideFrame": [
-    384,
-    256
-  ],
-  "ground": 252,
-  "animations": [
-    "idle",
-    "walk",
-    "attack",
-    "hit",
-    "death",
-    "cast"
-  ],
-  "npcs": []
+  "models": {
+    "bandit": {
+      "model": "bandit/bandit.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.807,
+        1.901,
+        0.426
+      ],
+      "sha256": "f61062dc2cff2803e8516855e3a100ce717ec7cb56662b6b6100cb8f7949e888",
+      "source": {
+        "file": "Lies/bandit/bandit.glb",
+        "sha256": "f61062dc2cff2803e8516855e3a100ce717ec7cb56662b6b6100cb8f7949e888"
+      }
+    }
+  },
+  "sources": {
+    "arena-master/portrait.png": {
+      "file": "Personnages/arena-master/portraits/source.png",
+      "sha256": "b379f3df147c22a00a889945b966e46415ed828e679b812da69a4a7ecd78ee33"
+    },
+    "arena-master/token.png": {
+      "file": "Personnages/arena-master/portraits/source.png",
+      "sha256": "b379f3df147c22a00a889945b966e46415ed828e679b812da69a4a7ecd78ee33"
+    },
+    "bandit-archer/portrait.png": {
+      "file": "Personnages/bandit-archer/portraits/source.png",
+      "sha256": "a6c01d8f2021e069799a93deeae9423cc1400e187c534643964ab1074371eb80"
+    },
+    "bandit-archer/token.png": {
+      "file": "Personnages/bandit-archer/portraits/source.png",
+      "sha256": "a6c01d8f2021e069799a93deeae9423cc1400e187c534643964ab1074371eb80"
+    },
+    "bandit-captain/portrait.png": {
+      "file": "Personnages/bandit-captain/portraits/source.png",
+      "sha256": "ae005ea6cf94caee4ff773c8594ff98a990b5a2b17c800d76d1cde253aec51e1"
+    },
+    "bandit-captain/token.png": {
+      "file": "Personnages/bandit-captain/portraits/source.png",
+      "sha256": "ae005ea6cf94caee4ff773c8594ff98a990b5a2b17c800d76d1cde253aec51e1"
+    },
+    "bandit/portrait.png": {
+      "file": "Personnages/bandit/portraits/source.png",
+      "sha256": "a16696f07fe171ab463a4d15a44e63fe6bd3d74478c9a7a4c44f60c564aa822b"
+    },
+    "bandit/token.png": {
+      "file": "Personnages/bandit/portraits/source.png",
+      "sha256": "a16696f07fe171ab463a4d15a44e63fe6bd3d74478c9a7a4c44f60c564aa822b"
+    },
+    "berserker/portrait.png": {
+      "file": "Personnages/berserker/portraits/source.png",
+      "sha256": "554f41d6e2aef35f8fdc35b238578720e8e59f08788b969961259c6a81719f7a"
+    },
+    "berserker/token.png": {
+      "file": "Personnages/berserker/portraits/source.png",
+      "sha256": "554f41d6e2aef35f8fdc35b238578720e8e59f08788b969961259c6a81719f7a"
+    },
+    "combattant-de-l-arene/portrait.png": {
+      "file": "Personnages/arena-fighter/portraits/source.png",
+      "sha256": "9e0066dd1d7accb425a31be783046f0d34023e851e1b54c6673fafe46e5a0760"
+    },
+    "combattant-de-l-arene/token.png": {
+      "file": "Personnages/arena-fighter/portraits/source.png",
+      "sha256": "9e0066dd1d7accb425a31be783046f0d34023e851e1b54c6673fafe46e5a0760"
+    },
+    "gladiator/portrait.png": {
+      "file": "Personnages/gladiator/portraits/source.png",
+      "sha256": "063a1413e5d346ed4313ac731855ebf0444fd57f4cbd672ef440720f747faa19"
+    },
+    "gladiator/token.png": {
+      "file": "Personnages/gladiator/portraits/source.png",
+      "sha256": "063a1413e5d346ed4313ac731855ebf0444fd57f4cbd672ef440720f747faa19"
+    },
+    "lion/portrait.png": {
+      "file": "Personnages/lion/portraits/source.png",
+      "sha256": "6f19a67a782b983621a21f69628798d72cb203833346bac5224d7698f08098ef"
+    },
+    "lion/token.png": {
+      "file": "Personnages/lion/portraits/source.png",
+      "sha256": "6f19a67a782b983621a21f69628798d72cb203833346bac5224d7698f08098ef"
+    },
+    "skeleton/portrait.png": {
+      "file": "Personnages/skeleton/portraits/source.png",
+      "sha256": "9f9d9ba24e1dc948c38b47b67a2da90b41c5f801e55509ac72900ede093653d4"
+    },
+    "skeleton/token.png": {
+      "file": "Personnages/skeleton/portraits/source.png",
+      "sha256": "9f9d9ba24e1dc948c38b47b67a2da90b41c5f801e55509ac72900ede093653d4"
+    },
+    "thug/portrait.png": {
+      "file": "Personnages/thug/portraits/source.png",
+      "sha256": "59c91aa64994206c6454aac633c7005770e186fab7adc9ddd4d545bb32833e1e"
+    },
+    "thug/token.png": {
+      "file": "Personnages/thug/portraits/source.png",
+      "sha256": "59c91aa64994206c6454aac633c7005770e186fab7adc9ddd4d545bb32833e1e"
+    },
+    "veteran/portrait.png": {
+      "file": "Personnages/veteran/portraits/source.png",
+      "sha256": "4dd7aae5905ef6d486f063fa76740ef08a665cdbbbf0ec2fb0f38838a3001948"
+    },
+    "veteran/token.png": {
+      "file": "Personnages/veteran/portraits/source.png",
+      "sha256": "4dd7aae5905ef6d486f063fa76740ef08a665cdbbbf0ec2fb0f38838a3001948"
+    },
+    "wolf/portrait.png": {
+      "file": "Personnages/wolf/portraits/source.png",
+      "sha256": "0e820b08b59c33ce1a91c9ba6d8f32a7ae255ee3498082e585e94fbc3ff74730"
+    },
+    "wolf/token.png": {
+      "file": "Personnages/wolf/portraits/source.png",
+      "sha256": "0e820b08b59c33ce1a91c9ba6d8f32a7ae255ee3498082e585e94fbc3ff74730"
+    },
+    "zombie/portrait.png": {
+      "file": "Personnages/zombie/portraits/source.png",
+      "sha256": "21e4953f30accb821ebfb02dcb076642981844b4ef8b36cc543d753ea86f0bf7"
+    },
+    "zombie/token.png": {
+      "file": "Personnages/zombie/portraits/source.png",
+      "sha256": "21e4953f30accb821ebfb02dcb076642981844b4ef8b36cc543d753ea86f0bf7"
+    }
+  },
+  "portraits": [
+    "arena-master",
+    "bandit-archer",
+    "bandit-captain",
+    "berserker",
+    "combattant-de-l-arene",
+    "gladiator",
+    "lion",
+    "skeleton",
+    "thug",
+    "veteran",
+    "wolf",
+    "zombie"
+  ]
 }

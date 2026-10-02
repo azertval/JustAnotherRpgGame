@@ -884,23 +884,23 @@ Sauvegarder les touches d'éditeur préserve une section « jeu » déjà prése
 - Vérifie que `content.find("\"jeu\"")` diffère de `std::string::npos`.
 - Vérifie que `content.find("sauter")` diffère de `std::string::npos`.
 
-### EditorKeyBindingsTest.SavePreserveLaSectionManette
+### EditorKeyBindingsTest.SavePreserveLaSectionInconnue
 
 *Majeur · Unitaire · Editor Key Bindings* — `Source/Test/Unit/Editor/test_editor_key_bindings.cpp:162`
 
-Sauvegarder les touches d'editeur preserve une section manette deja presente.
+Sauvegarder les touches d'editeur preserve une section inconnue deja presente.
 
 **Étapes**
 
-1. Ecrire un fichier avec une section manette.
+1. Ecrire un fichier avec une section de métadonnées.
 2. Sauvegarder des touches d'editeur dessus.
 3. Relire le fichier.
 
 **Résultat attendu**
 
 - Vérifie que `bindings.save(path)` est vrai.
-- Vérifie que `content.find("\"manette\"")` diffère de `std::string::npos`.
-- Vérifie que `content.find("sauter")` diffère de `std::string::npos`.
+- Vérifie que `content.find("\"metadata\"")` diffère de `std::string::npos`.
+- Vérifie que `content.find("revision")` diffère de `std::string::npos`.
 
 ## test_editor_sidecar.cpp
 
@@ -2274,6 +2274,7 @@ Les figurines d'une carte viennent de ses niveaux.
 - Vérifie que `snapshot.figureDirectories.at("citizen")` vaut `"Regions/central-empire/capital/arenarea/Characters/citizen"`.
 - Vérifie que `snapshot.figureDirectories.at("Peoples/human/guard")` vaut `"Common/Characters/Peoples/human/guard"`.
 - Vérifie que `std::filesystem::is_regular_file(tree() / "Assets" / path)` est vrai.
+- Vérifie que `std::filesystem::is_regular_file(tree() / "Assets" / directory / "character.json")` est vrai.
 - Vérifie que `arena.figures.contains("anariel")` est vrai.
 - Vérifie que `arena.figures.contains("Peoples/human/guard")` est vrai.
 - Vérifie que `mart.figures.contains("anariel")` est faux.
@@ -2708,6 +2709,7 @@ Une table de correspondance mal formée est refusée.
 - Vérifie que `game.ensureResources(rhi.get())` est vrai.
 - Vérifie que `QSize(frame.width, frame.height)` vaut `editor.size()`.
 - Vérifie que `texture->create()` est vrai.
+- Vérifie que `depth->create()` est vrai.
 - Vérifie que `target->create()` est vrai.
 - Vérifie que `rhi->beginOffscreenFrame(&commands)` vaut `QRhi::FrameOpSuccess`.
 - Vérifie que `rhi->endOffscreenFrame()` vaut `QRhi::FrameOpSuccess`.
@@ -2716,7 +2718,7 @@ Une table de correspondance mal formée est refusée.
 
 ### MapRenderTest.UnePieceHauteNEstPasRognee
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:216`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:223`
 
 Le cadre de --render tient les pièces hautes.
 
@@ -2739,7 +2741,7 @@ Le cadre de --render tient les pièces hautes.
 
 ### MapRenderTest.LesBandesSeLisentParLeurNom
 
-*Mineur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:274`
+*Mineur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:281`
 
 --layers lit les bandes du canevas.
 
@@ -2755,7 +2757,7 @@ Le cadre de --render tient les pièces hautes.
 
 ### MapRenderTest.RenderEcritUneImageParCarte
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:291`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:298`
 
 --render écrit une image par carte.
 
@@ -2773,7 +2775,7 @@ Le cadre de --render tient les pièces hautes.
 
 ### MapRenderTest.LePlanCoucheLesBlocsEtLegende
 
-*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:319`
+*Majeur · Unitaire · Editeur · Sans fenetre* — `Source/Test/Unit/Editor/test_map_render.cpp:326`
 
 --plan couche les blocs et ajoute une legende.
 
@@ -2791,7 +2793,7 @@ Le cadre de --render tient les pièces hautes.
 
 ### MapRenderTest.UneCarteQuiPuiseDansQuatreNiveauxSeRend
 
-*Majeur · Unitaire · Editeur · Sans fenetre · Arborescence* — `Source/Test/Unit/Editor/test_map_render.cpp:350`
+*Majeur · Unitaire · Editeur · Sans fenetre · Arborescence* — `Source/Test/Unit/Editor/test_map_render.cpp:357`
 
 --render montre une carte qui puise dans quatre niveaux.
 

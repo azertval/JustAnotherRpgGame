@@ -3,7 +3,7 @@ id = "LOT-1006"
 titre = "Le squelette commun et le mannequin"
 version = "0.0.2.5"
 filiere = "pnj"
-statut = "a-faire"
+statut = "livre"
 taille = "L"
 resume = "Un squelette, six animations soignées, un mannequin et le premier personnage produit au standard : le socle commun de tous les personnages, installé dans le jeu — et plus une seule bande de figurine."
 prerequis = ["LOT-1005"]
@@ -101,6 +101,38 @@ de déformation se lira à la couleur.
 Ce qui reste à ce lot : les lier au squelette, poser les clips, les installer. Le mannequin
 quadrupède arrive avant son squelette, que le standard place au
 [LOT-1009](LOT-1009-les-quatre-heros.md).
+## Décisions de réalisation
+
+Livré le 2 octobre 2026, **PR #171**. Les six animations, jouées par le mannequin et le bandit,
+et le visage du bandit à 100 px par case sont approuvés par l'auteur le même jour.
+
+Ce qui est livré :
+
+- le mannequin humanoïde lié au squelette et installé ; le retrait des 132 bandes de figurine et
+  de leur lecture (moteur, galerie, outils, données d'essai) ; `EX-REN-012` retirée au profit de
+  `EX-REN-051` ; le kit `Common@7` publié et verrouillé ;
+- le **premier personnage au standard** : le **bandit**, généré depuis une vue de face, mains
+  vides (`Tools/Assets3D/Personnages/bandit/reference/face-mains-libres.png`), lié par sa seule
+  fiche de liaison — estimée par le script, sans volume rigide —, installé dans sa zone
+  (`Regions/central-empire/capital/arenarea/arena-of-fate/Characters/bandit`). Relevé : 100 000
+  triangles, 1,81 × 1,90 × 0,43 m, 53 os, pénétration du sol de 0,64 mm au plus, glissement de
+  0,17 px à la marche ;
+- le **cas petit** de la conception : l'enfant de la démo (1,25 m), lié dans l'atelier, couvre la
+  case en 0,5 s (glissement 0,001 px) ; il n'est pas installé en modèle ;
+- le [standard des personnages](../../../../standards/personnages-3d.md) corrigé d'après ces
+  mesures : §3 (image de référence), §7 (clips), §9 (contrôles), §11 (constats de la preuve).
+
+Demandé par l'auteur le même jour, et livré dans la même PR :
+
+- les **portraits et jetons** des seize PNJ et créatures de la démo, par zone ; l'ordre
+  d'initiative montre le jeton d'une créature ;
+- la quête de la démo exige les **cinq combats** de l'arène, gagnés à la suite, avec un niveau et
+  un repos entre deux ;
+- la révision de l'interface : la manette est retirée.
+
+Les modèles liés des autres personnages de la démo attendent dans l'atelier
+(`Tools/Assets3D/Lies/`) : les héros sont au [LOT-1009](LOT-1009-les-quatre-heros.md).
+
 ## Risques et questions ouvertes
 
 - **La pose neutre n'a jamais été générée.** Si Meshy rend un personnage moins fidèle depuis une

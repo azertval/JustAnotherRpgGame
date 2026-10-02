@@ -17,6 +17,7 @@ ColumnLayout {
     property string title: "Section"
     property string iconKey: ""
     property var lines: []
+    property string material: "dark"
 
     spacing: Tokens.gapSmall
 
@@ -54,7 +55,7 @@ ColumnLayout {
         Text {
             Layout.fillWidth: true
             text: root.title
-            color: Tokens.goldLight
+            color: root.material === "parchment" ? Tokens.gem : Tokens.goldLight
             font.family: Tokens.titleFamily
             font.pixelSize: Tokens.fontSectionTitle
             font.weight: Font.DemiBold
@@ -85,7 +86,7 @@ ColumnLayout {
                 Layout.preferredWidth: 42
                 Layout.alignment: Qt.AlignTop
                 text: creditLine.modelData.role
-                color: Tokens.textOnPanel
+                color: root.material === "parchment" ? Tokens.text : Tokens.textOnPanel
                 font.family: Tokens.bodyFamily
                 font.pixelSize: Tokens.fontBody
                 wrapMode: Text.WordWrap
@@ -96,7 +97,7 @@ ColumnLayout {
                 Layout.preferredWidth: 58
                 Layout.alignment: Qt.AlignTop
                 text: creditLine.modelData.names
-                color: Tokens.textOnPanel
+                color: root.material === "parchment" ? Tokens.text : Tokens.textOnPanel
                 font.family: Tokens.bodyFamily
                 font.pixelSize: Tokens.fontBody
                 wrapMode: Text.WordWrap

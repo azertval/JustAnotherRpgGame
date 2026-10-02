@@ -6,6 +6,52 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1006 — Le squelette commun et le mannequin.** Tout personnage paraît par son modèle ou
+  par le mannequin de sa silhouette : il ne reste aucune bande de figurine.
+  - Le mannequin humanoïde est lié au squelette commun (`Common/Characters/Mannequins/humanoid/`,
+    fiche `character.json`) et joue ses six clips ; le brawler s'affiche par son modèle de la
+    preuve, les trois autres héros par le mannequin, et tous gardent portrait et jeton.
+  - `hmi::FigureResolver` ne connaît plus qu'une forme de figurine, le modèle ; la lecture d'une
+    bande de figurine (cellule, ligne de sol, suffixes d'orientation) quitte
+    `hmi::WorldSceneComposer`, `hmi::WorldSceneRenderer` et la galerie de débug, qui montre chaque
+    modèle de personnage, clip par clip.
+  - Les 132 bandes de figurine et leurs `.anim.json` sont retirées de `Common/Characters`, ainsi
+    que celles des données d'essai, remplacées par un modèle d'essai. Les 24 bandes d'effets de
+    `Common/Fx/` restent.
+  - `check_hd_assets.py` et `install_hd_asset.py` connaissent squelettes et modèles de personnage
+    et n'ont plus de règle de bande de figurine ; `render_character_strips.py` et ses tests sont
+    supprimés.
+  - `EX-REN-012` (bandes de figurine) est retirée, `EX-REN-051` la remplace : une figurine est un
+    modèle. Guide du rendu, guide des données et cahier de test suivent.
+  - Le kit `Common` est republié et verrouillé (`Common@7`, 35 fichiers) : sans bande de figurine,
+    avec le mannequin lié et le modèle du brawler.
+  - Le **bandit** est le premier personnage produit au standard : généré depuis une vue de face,
+    mains vides, lié par sa seule fiche de liaison et installé dans sa zone
+    (`arena-of-fate/Characters/bandit`). `install_hd_asset.py` lie un personnage de zone au
+    squelette du monde. Le standard des personnages en reçoit les mesures (image de référence,
+    clips, contrôles, constats de la preuve).
+  - **Portraits et jetons des PNJ et des créatures de la démo** : seize personnages (adversaires
+    de l'arène, maître d'arène, mère, enfant, garde Ironhand), rangés par zone. L'ordre
+    d'initiative montre le jeton d'une créature, même quand un mannequin la dessine
+    (`hmi::ResolvedFigure::named`) ; `core::resolveFigures` lit aussi la liste `portraits` des
+    manifestes. Les PNJ des cartes nomment leur personnage (`figure`).
+
+- **La quête de la démo exige les cinq combats de l'arène.** L'enfant n'est libéré qu'après les
+  cinq combats du jugement — bandits, gladiateurs, morts du sable, vétéran, capitaine —, gagnés à
+  la suite ; le maître d'arène donne un niveau et un repos entre deux combats (niveaux 1 à 5), et
+  une défaite renvoie au début de la partie. L'étape `victoire` de la quête attend
+  `encounter/arene-capitaine/won` ; chaque marqueur de combat ne paraît qu'après la récompense du
+  précédent (`arene/recompense-N`), pour qu'aucun combat ni aucune montée de niveau ne se saute.
+  Le champion reste un sixième combat, pour la gloire. Les répliques du maître et le journal de
+  quête suivent, en français et en anglais.
+
+- **Révision de l'interface : la manette est retirée.** Le jeu se joue au clavier et à la souris.
+  `EX-CTRL-002` et la chaîne d'entrées de la manette quittent le code (`hmi::GamepadPoller`,
+  `hmi::GamepadNavigator`, `hmi::InputState`, `hmi::ButtonRepeat`, `hmi::GamepadButton`) ; les
+  touches de l'éditeur gardent leur énumération (`hmi::Key`). Les formulaires du combat, du
+  groupe, du journal, des options, des crédits, de la carte du monde et des écrans de fin sont
+  retouchés ; spécification des contrôles, guide des entrées et manuel suivent.
+
 - **Menus du mercenaire et HUD.** Menu principal en codex illustré, fiche d'identité ornementée,
   capacités de classe et grimoire réunis, compétences et équipement sur leurs propres pages.
   Recherche dans les sorts, capacités et objets, comparaison avant équipement et confirmation

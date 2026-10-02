@@ -7,7 +7,7 @@
 #include <cstddef>
 #include <filesystem>
 
-#include "HMI/Input/InputState.h"
+#include "HMI/Input/Key.h"
 
 /**
  * @file Editor/Logic/EditorKeyBindings.h

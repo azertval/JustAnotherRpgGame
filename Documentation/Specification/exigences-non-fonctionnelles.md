@@ -55,7 +55,7 @@
 - **EX-NFR-041** — Les ressources (mémoire, ressources GPU) doivent être gérées en **RAII** (libération garantie).
 - **EX-NFR-042** — Une **version publiée** doit produire une **trace exploitable**
   d'exécution : journal écrit dans un fichier à côté de l'exécutable, contenant au minimum la
-  version, la configuration de build et le contexte matériel (adaptateur graphique, manette). Le
+  version, la configuration de build et le contexte matériel (adaptateur graphique). Le
   volume est **borné** (taille maximale et rotation), la trace reste **locale** — aucun envoi réseau,
   aucune donnée personnelle — et un dossier inaccessible dégrade la journalisation, jamais le jeu
   (`EX-NFR-040`). Sans cela, un défaut signalé par un joueur n'est accompagné d'aucun élément.

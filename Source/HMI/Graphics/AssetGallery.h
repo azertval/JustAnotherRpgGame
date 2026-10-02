@@ -29,7 +29,7 @@ inline constexpr int ASSET_GALLERY_CELL_PIXELS = 100;
 inline constexpr double ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS = 0.6;
 
 /**
- * @brief Une forme d'un modèle : un clip d'une figure, une variante de texture, une pièce.
+ * @brief Une forme d'un modèle : un clip d'un personnage, une variante de texture, une pièce.
  *
  * Tout ce qui sert à la disposer est lu dans les manifestes : la galerie place un asset sans
  * charger sa texture, c'est ce qui lui permet de ne charger que ce qui est à l'écran.
@@ -61,6 +61,14 @@ struct AssetGalleryEntry {
     /// Largeur d'une case, en pixels d'art : le losange que déclare le manifeste (`tile`) ; 0 s'il
     /// n'en déclare pas, et la forme se suppose d'une case de large (`tileWidthPixels`).
     int tilePixels = 0;
+    /// Vrai pour un **modèle de personnage** (`LOT-1006`) : @ref path est son `.glb`, dessiné en
+    /// volume sous la caméra du jeu ; `frameWidth` et `frameHeight` ne disent que la place qu'il
+    /// prend dans la galerie.
+    bool mesh = false;
+    /// Le clip joué par un modèle (`idle`, `walk`…) ; vide : sa pose de liaison.
+    std::string clip;
+    /// La durée du clip, en secondes, telle que le squelette la déclare ; `loop` dit s'il boucle.
+    double clipDuration = 0.0;
 
     /// @return La largeur d'une case en pixels d'art, jamais nulle.
     [[nodiscard]] int tileWidthPixels() const noexcept {
@@ -89,19 +97,18 @@ struct AssetGalleryFamily {
  * @brief L'inventaire de la galerie, lu dans les manifestes des assets livrés.
  *
  * Familles lues, dans cet ordre, chacune seulement si elle existe :
- * - `Npc/manifest.json` : chaque PNJ × chaque animation, d'après son `.anim.json`, et son portrait
- * ;
- * - `Monsters/manifest.json` : les figurines de l'atelier des monstres (LOT-93), de même forme ;
- *   une bête sans sort n'a pas de `cast`, et une Grande a ses cellules de 96 × 96 ;
- * - `Coliseum/manifest.json` : héros × animations, gladiateurs, puis les pièces de la planche ;
+ * - `Npc/manifest.json` : chaque PNJ — son **modèle**, une forme par clip que son squelette
+ *   déclare (`character.json`, `skeleton.json`, `LOT-1006`), puis son portrait et son jeton ;
+ * - `Monsters/manifest.json` : les personnages de l'atelier des monstres (LOT-93), de même forme ;
  * - `Scene/<disposition>/manifest.json` : les textures de l'atelier (LOT-92), par classe ;
  * - l'arborescence par niveaux (LOT-102), où la chaîne HD installe (LOT-104) : chaque
  *   `manifest.json` sous `Common/` et `Regions/`, dans l'ordre de son chemin — les `textures` d'un
  *   dossier `Scene/` en une famille titrée par son lieu (« Scène · central-empire/capital/arenarea
- * »), les PNJ d'un dossier `Characters/` en une famille « Figurines · » suivie du dossier.
+ * »), les personnages d'un dossier `Characters/` en une famille « Figurines · » suivie du
+ *   dossier.
  *
- * Tout asset livré doit y paraître (`EX-CNT-042`) : `hmi::assetGalleryUnlisted` nomme ceux qui n'y
- * sont pas, et un test l'exige vide.
+ * Tout asset livré doit y paraître (`EX-CNT-042`), images et modèles : `hmi::assetGalleryUnlisted`
+ * nomme ceux qui n'y sont pas, et un test l'exige vide.
  *
  * Un manifeste illisible est une erreur **nommée**, jamais un arrêt : la galerie montre le reste.
  */
@@ -130,8 +137,8 @@ struct AssetGalleryCatalog {
 [[nodiscard]] bool assetGalleryExcludes(std::string_view path) noexcept;
 
 /**
- * @brief Les images livrées (PNG, JPEG) que la galerie ne montre pas et qu'aucune exclusion ne
- *        couvre : ce que `EX-CNT-042` interdit.
+ * @brief Les images (PNG, JPEG) et les modèles (`.glb`) livrés que la galerie ne montre pas et
+ *        qu'aucune exclusion ne couvre : ce que `EX-CNT-042` interdit.
  * @return Chemins relatifs à @p assetsRoot, triés ; vide quand la galerie est complète.
  */
 [[nodiscard]] std::vector<std::string> assetGalleryUnlisted(const std::filesystem::path& assetsRoot,
@@ -206,6 +213,14 @@ inline constexpr double ASSET_GALLERY_RING_CELLS = 3.0;
 [[nodiscard]] AssetGalleryVisibility assetGalleryVisibility(
     const AssetGalleryBloc& bloc, const AssetGalleryView& view,
     double ringCells = ASSET_GALLERY_RING_CELLS) noexcept;
+
+/**
+ * @brief L'instant du clip d'un modèle au temps @p seconds : ramené dans le clip s'il boucle,
+ *        sinon joué une fois puis tenu `ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS` sur sa fin avant de
+ *        reprendre. 0 pour une forme sans clip.
+ */
+[[nodiscard]] double assetGalleryClipSeconds(const AssetGalleryEntry& entry,
+                                             double seconds) noexcept;
 
 /**
  * @brief L'image jouée au temps @p seconds : en boucle, ou jouée une fois puis tenue

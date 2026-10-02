@@ -114,10 +114,12 @@ TEST(CanvasSceneTest, LaCarteDEssaiSeComposeCommeDansLeJeu) {
     const hmi::WorldFigureSnapshot hero = game.figures.back();
     game.figures.pop_back();  // le héros : le jeu le pose, l'éditeur non.
     game.figureDirectories.erase(hero.figure);
-    // Les figurines du jeu portent le temps (elles respirent, LOT-118) ; celles de l'éditeur sont
-    // figées à leur première image. Tout le reste doit être identique.
+    // Les figurines du jeu portent le temps (elles respirent, LOT-118) et le modèle que le
+    // résolveur leur a trouvé ; celles de l'éditeur sont figées à leur première image, et leur
+    // modèle se lit à la fiche de leur dossier, au rendu. Tout le reste doit être identique.
     for (hmi::WorldFigureSnapshot& figure : game.figures) {
         figure.seconds = -1.0F;
+        figure.model.clear();
     }
 
     EXPECT_EQ(editor.place, "bourg");
@@ -126,9 +128,7 @@ TEST(CanvasSceneTest, LaCarteDEssaiSeComposeCommeDansLeJeu) {
 
     // La même liste, dans le même ordre : le jeu n'a en plus que la figurine du héros.
     std::vector<std::string> paths = hmi::worldTexturePaths(editor);
-    for (const char* clip : {"idle", "walk"}) {
-        paths.push_back(hmi::figureStripPath(hero.figure, clip));
-    }
+    paths.push_back(hmi::figureMarkerPath(hero.figure));
     const FakeTextures fake(paths);
     const core::IsoProjection projection(editor.columns, editor.rows);
     const hmi::ComposedScene fromEditor = hmi::composeWorldScene(editor, projection, fake.textures);
