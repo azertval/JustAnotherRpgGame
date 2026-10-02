@@ -46,7 +46,7 @@ var searchData=
   ['revival_43',['revival',['../structcore_1_1ArenaSpell.html#a4b2dd885d0f5e031700bd7a5dc1a2a32',1,'core::ArenaSpell']]],
   ['revives_44',['revives',['../structcore_1_1Spell.html#adcc69cf1b8ffda86270e0cf6e636303f',1,'core::Spell']]],
   ['rhi_45',['rhi',['../structhmi_1_1RhiContext.html#a07d6fe0b31c50e6573bb261c369120ab',1,'hmi::RhiContext']]],
-  ['rig_46',['rig',['../structcore_1_1MeshData.html#a96bb2b0033133b43752b470198d4ad60',1,'core::MeshData::rig'],['../structhmi_1_1SceneFigureModel.html#acda4a9f43a1e72534b711177cb3ae21b',1,'hmi::SceneFigureModel::rig']]],
+  ['rig_46',['rig',['../structcore_1_1MeshData.html#a96bb2b0033133b43752b470198d4ad60',1,'core::MeshData::rig'],['../structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html#a504ffad2ed406e2a2cbd7f05b8b97882',1,'hmi::AssetGalleryRenderer::CachedModel::rig'],['../structhmi_1_1SceneFigureModel.html#acda4a9f43a1e72534b711177cb3ae21b',1,'hmi::SceneFigureModel::rig']]],
   ['rise_47',['rise',['../structhmi_1_1PolyQuad.html#a3d95df9844b5e56ea1674dbdd9d5dba2',1,'hmi::PolyQuad']]],
   ['ritual_48',['ritual',['../structcore_1_1Spell.html#a72fc45028d262c6abacce401e30ff917',1,'core::Spell']]],
   ['role_49',['role',['../structhmi_1_1VerdictCell.html#a38e195bddfa1fa45b71ec27affef3734',1,'hmi::VerdictCell::role'],['../structhmi_1_1FlagUse.html#aab54368f86ccc141323ad2a2e0952ef8',1,'hmi::FlagUse::role'],['../structhmi_1_1CreditLine.html#abbb1c94f4b710ebaa7d4d62488afe38f',1,'hmi::CreditLine::role']]],

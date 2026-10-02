@@ -14,72 +14,13 @@
   <div class="links"><a class="active" href="../index.html">Documentation</a><a href="../planning/">Planification</a><a href="../qualite/">Qualité</a></div>
 </header>
 <div class="shell with-sidebar">
-<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="recette-manuelle.html">Recette manuelle</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="couverture-exigences.html">Couverture des exigences</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1 active" href="hmi-input.html">HMI · Input</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-button-repeatcpp">test_button_repeat.cpp</a><a class="toc depth-2" href="#test-gamepad-probecpp">test_gamepad_probe.cpp</a><a class="toc depth-2" href="#test-input-statecpp">test_input_state.cpp</a><a class="toc depth-2" href="#test-qt-key-mapcpp">test_qt_key_map.cpp</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
+<aside class="sidebar"><h4>Cahier de test</h4><a class="depth-0" href="index.html">Cahier de test</a><a class="depth-1" href="recette-manuelle.html">Recette manuelle</a><a class="depth-1" href="core.html">Core</a><a class="depth-1" href="core-combat.html">Core · Combat</a><a class="depth-1" href="couverture-exigences.html">Couverture des exigences</a><a class="depth-1" href="core-data.html">Core · Data</a><a class="depth-1" href="core-diagnostics.html">Core · Diagnostics</a><a class="depth-1" href="core-ecs.html">Core · Ecs</a><a class="depth-1" href="core-gameplay.html">Core · Gameplay</a><a class="depth-1" href="core-levels.html">Core · Levels</a><a class="depth-1" href="core-math.html">Core · Math</a><a class="depth-1" href="core-resources.html">Core · Resources</a><a class="depth-1" href="core-rpg.html">Core · Rpg</a><a class="depth-1" href="core-time.html">Core · Time</a><a class="depth-1" href="core-world.html">Core · World</a><a class="depth-1" href="editor.html">Editor</a><a class="depth-1" href="hmi-audio.html">HMI · Audio</a><a class="depth-1" href="hmi-game.html">HMI · Game</a><a class="depth-1" href="hmi-graphics.html">HMI · Graphics</a><a class="depth-1 active" href="hmi-input.html">HMI · Input</a><a class="toc depth-2" href="#ce-que-cette-page-couvre">Ce que cette page couvre</a><a class="toc depth-2" href="#test-qt-key-mapcpp">test_qt_key_map.cpp</a><a class="depth-1" href="hmi-interface.html">HMI · Interface</a><a class="depth-1" href="hmi-localization.html">HMI · Localization</a><a class="depth-1" href="hmi-platform.html">HMI · Platform</a><a class="depth-1" href="hmi-presentation.html">HMI · Presentation</a><a class="depth-1" href="hmi-runtime.html">HMI · Runtime</a><a class="depth-1" href="integration.html">Tests d&#x27;intégration</a><a class="depth-1" href="systeme.html">Tests système</a></aside>
 <main>
-<article class="prose"><h1 id="hmi-input">HMI · Input</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">13 cas</span></div>
-<p>Tests unitaires — <strong>13 cas</strong> (1 bloquant, 3 critiques, 7 majeurs, 2 mineurs). <a href="index.html">Retour à la synthèse</a>.</p>
+<article class="prose"><h1 id="hmi-input">HMI · Input</h1><div class="filters" data-filter-cases><input type="search" placeholder="Filtrer les cas…" aria-label="Filtrer les cas de test"><select><option value="">Toutes les criticités</option><option>Bloquant</option><option>Critique</option><option>Majeur</option><option>Mineur</option></select><span class="count">5 cas</span></div>
+<p>Tests unitaires — <strong>5 cas</strong> (1 bloquant, 3 majeurs, 1 mineur). <a href="index.html">Retour à la synthèse</a>.</p>
 <h2 id="ce-que-cette-page-couvre">Ce que cette page couvre</h2>
-<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-button-repeatcpp"><code>test_button_repeat.cpp</code></a></td><td>1</td><td>-</td><td>1</td><td>-</td><td>-</td></tr><tr><td><a href="#test-gamepad-probecpp"><code>test_gamepad_probe.cpp</code></a></td><td>3</td><td>-</td><td>2</td><td>1</td><td>-</td></tr><tr><td><a href="#test-input-statecpp"><code>test_input_state.cpp</code></a></td><td>4</td><td>-</td><td>-</td><td>3</td><td>1</td></tr><tr><td><a href="#test-qt-key-mapcpp"><code>test_qt_key_map.cpp</code></a></td><td>5</td><td>1</td><td>-</td><td>3</td><td>1</td></tr></tbody></table></div>
-<h2 id="test-button-repeatcpp">test_button_repeat.cpp</h2>
-<section class="case" data-crit="Critique"><h3 id="buttonrepeattestunappuipuisunerepetitionreguliere">ButtonRepeatTest.UnAppuiPuisUneRepetitionReguliere</h3>
-<p><em>Critique · Unitaire · IHM</em> — <code>Source/Test/Unit/HMI/Input/test_button_repeat.cpp:18</code></p>
-<p>La croix de la manette tenue deplace le curseur d'une case a l'appui, puis se repete apres le delai, a intervalle regulier ; relachee, elle s'arrete, et un nouvel appui repart du debut.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Appuyer a t = 0, tenir jusqu'a 600 ms en sondant toutes les 16 ms.</li><li>Relacher, puis rappuyer.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>pas</code> vaut <code>(std::vector&lt;long long&gt;{0, 352, 464, 576})</code>.</li><li>Vérifie que <code>bouton.update(false, debut + 620ms)</code> est faux.</li><li>Vérifie que <code>bouton.update(false, debut + 700ms)</code> est faux.</li><li>Vérifie que <code>bouton.update(true, debut + 716ms)</code> est vrai.</li><li>Vérifie que <code>bouton.update(true, debut + 732ms)</code> est faux.</li></ul>
-</section><h2 id="test-gamepad-probecpp">test_gamepad_probe.cpp</h2>
-<section class="case" data-crit="Critique"><h3 id="gamepadprobetestmanetteconnecteesondeeachaqueappel">GamepadProbeTest.ManetteConnecteeSondeeAChaqueAppel</h3>
-<p><em>Critique · Unitaire · Manette</em> — <code>Source/Test/Unit/HMI/Input/test_gamepad_probe.cpp:19</code></p>
-<p>Une manette connectee est sondee a chaque appel.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Demander la decision avec une manette connectee et un delai nul.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>hmi::gamepadProbeDue(/*wasConnected=*/true, 0ms)</code> est vrai.</li><li>Vérifie que <code>hmi::gamepadProbeDue(/*wasConnected=*/true, 1ms)</code> est vrai.</li></ul>
-</section><section class="case" data-crit="Critique"><h3 id="gamepadprobetestmanetteabsenteresondeeapresledelai">GamepadProbeTest.ManetteAbsenteReSondeeApresLeDelai</h3>
-<p><em>Critique · Unitaire · Manette</em> — <code>Source/Test/Unit/HMI/Input/test_gamepad_probe.cpp:34</code></p>
-<p>Une manette absente n'est re-sondee qu'apres le delai d'anti-saccade.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Demander la decision juste avant le delai, puis juste apres.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>hmi::gamepadProbeDue(/*wasConnected=*/false, 0ms)</code> est faux.</li><li>Vérifie que <code>hmi::gamepadProbeDue(/*wasConnected=*/false, hmi::GAMEPAD_DISCONNECTED_PROBE_PERIOD - 1ms)</code> est faux.</li><li>Vérifie que <code>hmi::gamepadProbeDue(/*wasConnected=*/false, hmi::GAMEPAD_DISCONNECTED_PROBE_PERIOD)</code> est vrai.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="gamepadprobetestdelaiindependantdelacadencedappel">GamepadProbeTest.DelaiIndependantDeLaCadenceDAppel</h3>
-<p><em>Majeur · Unitaire · Manette</em> — <code>Source/Test/Unit/HMI/Input/test_gamepad_probe.cpp:53</code></p>
-<p>Le delai de detection ne depend pas de la cadence de l'appelant.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Simuler des appels espaces de 500 ms et compter ceux qui precedent le premier sondage du.</li><li>Recommencer avec des appels espaces de 16 ms (cadence de rendu).</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>firstDueAfter(500ms)</code> est inférieur ou égal à <code>hmi::GAMEPAD_DISCONNECTED_PROBE_PERIOD + 500ms</code>.</li><li>Vérifie que <code>firstDueAfter(16ms)</code> est inférieur ou égal à <code>hmi::GAMEPAD_DISCONNECTED_PROBE_PERIOD + 16ms</code>.</li></ul>
-</section><h2 id="test-input-statecpp">test_input_state.cpp</h2>
-<section class="case" data-crit="Mineur"><h3 id="inputstatetestgamepadconnectereecrasable">InputStateTest.GamepadConnecteReecrasable</h3>
-<p><em>Mineur · Unitaire · Input State</em> — <code>Source/Test/Unit/HMI/Input/test_input_state.cpp:15</code></p>
-<p><code>gamepadConnected</code> reflète le dernier <code>setGamepadConnected</code> appelé.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>input.gamepadConnected()</code> est faux.</li><li>Vérifie que <code>input.gamepadConnected()</code> est vrai.</li><li>Vérifie que <code>input.gamepadConnected()</code> est faux.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="inputstatetestfrontmontantboutonmanettebrut">InputStateTest.FrontMontantBoutonManetteBrut</h3>
-<p><em>Majeur · Unitaire · Input State</em> — <code>Source/Test/Unit/HMI/Input/test_input_state.cpp:36</code></p>
-<p>Un bouton manette est « pressé » exactement un relevé.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>input.gamepadButtonDown(hmi::GamepadButton::A)</code> est vrai.</li><li>Vérifie que <code>input.gamepadButtonPressed(hmi::GamepadButton::A)</code> est vrai.</li><li>Vérifie que <code>input.gamepadButtonDown(hmi::GamepadButton::A)</code> est vrai.</li><li>Vérifie que <code>input.gamepadButtonPressed(hmi::GamepadButton::A)</code> est faux.</li><li>Vérifie que <code>input.gamepadButtonDown(hmi::GamepadButton::A)</code> est faux.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="inputstatetestfrontdescendantboutonmanettebrut">InputStateTest.FrontDescendantBoutonManetteBrut</h3>
-<p><em>Majeur · Unitaire · Input State</em> — <code>Source/Test/Unit/HMI/Input/test_input_state.cpp:63</code></p>
-<p>Un bouton manette est « relâché » exactement un relevé.</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>input.gamepadButtonReleased(hmi::GamepadButton::X)</code> est faux.</li><li>Vérifie que <code>input.gamepadButtonReleased(hmi::GamepadButton::X)</code> est vrai.</li><li>Vérifie que <code>input.gamepadButtonReleased(hmi::GamepadButton::X)</code> est faux.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="inputstatetestrelachetoutsansfront">InputStateTest.RelacheToutSansFront</h3>
-<p><em>Majeur · Unitaire · Input State</em> — <code>Source/Test/Unit/HMI/Input/test_input_state.cpp:89</code></p>
-<p>releaseAll relâche tout sans produire de front « relâché ».</p>
-<p><strong>Étapes</strong></p>
-<ol><li>Maintenir deux boutons.</li><li>Appeler releaseAll et verifier qu'aucun n'est plus enfonce ni signale « relâché », a ce releve comme au suivant.</li></ol>
-<p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>input.gamepadButtonDown(hmi::GamepadButton::A)</code> est faux.</li><li>Vérifie que <code>input.gamepadButtonReleased(hmi::GamepadButton::A)</code> est faux.</li><li>Vérifie que <code>input.gamepadButtonDown(hmi::GamepadButton::Right)</code> est faux.</li><li>Vérifie que <code>input.gamepadButtonReleased(hmi::GamepadButton::Right)</code> est faux.</li><li>Vérifie que <code>input.gamepadButtonReleased(hmi::GamepadButton::A)</code> est faux.</li><li>Vérifie que <code>input.gamepadButtonPressed(hmi::GamepadButton::A)</code> est faux.</li></ul>
-</section><h2 id="test-qt-key-mapcpp">test_qt_key_map.cpp</h2>
+<div class="table-wrap"><table><thead><tr><th>Fichier de test</th><th>Cas</th><th>Bloquant</th><th>Critique</th><th>Majeur</th><th>Mineur</th></tr></thead><tbody><tr><td><a href="#test-qt-key-mapcpp"><code>test_qt_key_map.cpp</code></a></td><td>5</td><td>1</td><td>-</td><td>3</td><td>1</td></tr></tbody></table></div>
+<h2 id="test-qt-key-mapcpp">test_qt_key_map.cpp</h2>
 <section class="case" data-crit="Bloquant"><h3 id="qtkeymaptestallerretourexactsurtouteslestouches">QtKeyMapTest.AllerRetourExactSurToutesLesTouches</h3>
 <p><em>Bloquant · Unitaire · HMI Input</em> — <code>Source/Test/Unit/HMI/Input/test_qt_key_map.cpp:45</code></p>
 <p>Aller-retour hmi::Key -&gt; Qt -&gt; hmi::Key exact sur toutes les touches nommées.</p>
@@ -117,7 +58,7 @@
 <ul><li>Vérifie que <code>hmi::qtKeyToHmiKey(Qt::Key_F5).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::qtKeyToHmiKey(Qt::Key_Alt).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::qtKeyToHmiKey(Qt::Key_Home).has_value()</code> est faux.</li><li>Vérifie que <code>hmi::qtKeyToHmiKey(-1).has_value()</code> est faux.</li></ul></section></article><nav class="pager"><a class="prev" href="hmi-graphics.html"><span>Précédent</span>HMI · Graphics</a><a class="next" href="hmi-interface.html"><span>Suivant</span>HMI · Interface</a></nav><p class="source">Source : <code>Documentation/CahierTest/hmi-input.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-10-02 · <code>37e0286bc</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-10-02 · <code>090f5fc57</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

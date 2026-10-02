@@ -2845,7 +2845,7 @@ Variables</h2></td></tr>
 
 <p>Manière dont un clip se termine à la dernière image. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a71fba78b647ce3be2a8b78f79c84f522a89d7b10cb4238977d2b523dfd9ea7745" name="a71fba78b647ce3be2a8b78f79c84f522a89d7b10cb4238977d2b523dfd9ea7745"></a>Loop&#160;</td><td class="fielddoc"><p>Revient à la première image et continue (comportement historique, <span class="tt">EX-REN-012</span>). </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a71fba78b647ce3be2a8b78f79c84f522a89d7b10cb4238977d2b523dfd9ea7745" name="a71fba78b647ce3be2a8b78f79c84f522a89d7b10cb4238977d2b523dfd9ea7745"></a>Loop&#160;</td><td class="fielddoc"><p>Revient à la première image et continue (comportement historique, <span class="tt">EX-REN-005</span>). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a71fba78b647ce3be2a8b78f79c84f522ac7fc2ee61fad0e2bba6754efdee31481" name="a71fba78b647ce3be2a8b78f79c84f522ac7fc2ee61fad0e2bba6754efdee31481"></a>OneShot&#160;</td><td class="fielddoc"><p>S'arrête à la dernière image puis bascule sur <span class="tt"><a class="el" href="structcore_1_1AnimationClip.html#a508d5f46279f56ab33ec39cd1fceae13" title="Nom du clip suivant, consulté seulement si endMode == OneShot.">AnimationClip::nextClip</a></span>. </p>
 </td></tr>
@@ -5434,7 +5434,7 @@ La règle de départage</h2>
 </div><div class="memdoc">
 
 <p>La case que vise un personnage, d'après son orientation. </p>
-<p>L'orientation est un vecteur libre (<span class="tt">core::Actor::facing</span>) et la case visée est <b>la voisine</b> dans la direction dominante — jamais une diagonale. Un personnage qui regarde à 30° vise la case de droite, pas celle du coin : viser en diagonale rendrait la cible imprévisible sur une manette analogique, alors que le joueur doit savoir ce qu'il désigne avant d'appuyer.</p>
+<p>L'orientation est un vecteur libre (<span class="tt">core::Actor::facing</span>) et la case visée est <b>la voisine</b> dans la direction dominante — jamais une diagonale. Un personnage qui regarde à 30° vise la case de droite, pas celle du coin : viser en diagonale rendrait la cible imprévisible, alors que le joueur doit savoir ce qu'il désigne avant d'appuyer.</p>
 <p>Une orientation nulle ne vise rien et renvoie la case du personnage lui-même : c'est le cas d'un <span class="tt">facing</span> non initialisé, et rendre une voisine arbitraire ferait ouvrir un coffre que le joueur ne regarde pas. </p>
 
 </div>

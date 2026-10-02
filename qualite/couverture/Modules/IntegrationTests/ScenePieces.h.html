@@ -169,11 +169,24 @@ struct ScenePieceTextures {
     /// Les modÃ¨les des figurines, par chemin de leur `.glb` (`LOT-1005`).
     std::map&lt;std::string, SceneFigureModel, std::less&lt;&gt;&gt; figures;
 
+    /// Le modÃ¨le que dÃ©clare la fiche de chaque dossier de figurine dÃ©jÃ  lu (`LOT-1006`) : dossier
+    /// â chemin du `.glb` ; vide pour un dossier sans fiche, dont la figurine se dessine par son
+    /// marqueur.
+    std::map&lt;std::string, std::string, std::less&lt;&gt;&gt; figureModels;
+
     /// @return Le modÃ¨le de figurine de @p path, `nullptr` s'il n'est pas chargÃ©.
 <span style = "background-color:#dfd">    [[nodiscard]] const SceneFigureModel* findFigure(std::string_view path) const {
         const auto found = figures.find(path);
         return found != figures.end() &amp;&amp; found-&gt;second.mesh != nullptr ? &amp;found-&gt;second : nullptr;
     }</span>
+
+    /// @return Le modÃ¨le de la figurine du dossier @p directory, `nullptr` si sa fiche n'en
+    ///         dÃ©clare pas, ou s'il n'est pas chargÃ©.
+<span style = "background-color:#dfd">    [[nodiscard]] const SceneFigureModel* findFigureOf(std::string_view directory) const {
+        const auto found = figureModels.find(directory);
+        return found != figureModels.end() &amp;&amp; !found-&gt;second.empty() ? findFigure(found-&gt;second)</span>
+                                                                     : nullptr;
+<span style = "background-color:#dfd">    }</span>
     /// Damier de repli.
     SceneTexture missing;
     /// L'**aplat** : une texture blanche de 1 Ã 1, que les primitives de couleur du rendu de

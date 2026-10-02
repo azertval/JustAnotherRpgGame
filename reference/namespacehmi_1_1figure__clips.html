@@ -143,13 +143,13 @@ $(function(){initNavTree('namespacehmi_1_1figure__clips.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Les bandes d'une figurine (standard 2D HD, §5, et le tir du <span class="tt">LOT-136</span>) : ce qu'une figurine complète sait jouer, et ce qu'un combattant précharge (<span class="tt">LOT-118</span>).  
+<p>Les clips d'une figurine : ce que le squelette d'un personnage sait jouer (standard des personnages, §7), et le tir du <span class="tt">LOT-136</span>.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad4d345c0899afeb51e4fb86fd920e167" id="r_ad4d345c0899afeb51e4fb86fd920e167"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ad4d345c0899afeb51e4fb86fd920e167">fallbackOf</a> (std::string_view clip) noexcept</td></tr>
-<tr class="memdesc:ad4d345c0899afeb51e4fb86fd920e167"><td class="mdescLeft">&#160;</td><td class="mdescRight">La bande qu'une figurine joue à défaut de <code class="param">clip</code> : le tir sans bande de tir est une attaque ; les autres n'ont pas de repli (vide).  <br /></td></tr>
+<tr class="memdesc:ad4d345c0899afeb51e4fb86fd920e167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le clip qu'une figurine joue à défaut de <code class="param">clip</code> : le tir sans clip de tir est une attaque ; les autres n'ont pas de repli (vide).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -171,8 +171,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a4dcd03567bc0276e741e4c38a34d94c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toutes, dans l'ordre du standard.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Les bandes d'une figurine (standard 2D HD, §5, et le tir du <span class="tt">LOT-136</span>) : ce qu'une figurine complète sait jouer, et ce qu'un combattant précharge (<span class="tt">LOT-118</span>). </p>
-<p>Le repos et la marche <b>bouclent</b> ; les quatre autres se jouent une fois et se figent sur leur dernière image (<span class="tt"><a class="el" href="structhmi_1_1SceneTexture.html#a7394e953fdbd1fa85ec81e54cc23f9d6" title="Vrai si la bande boucle (repos, marche) ; faux si elle se joue une fois et se fige sur sa dernière im...">SceneTexture::loop</a></span>, lu dans le <span class="tt">.anim.json</span> de la bande). </p>
+<div class="textblock"><p>Les clips d'une figurine : ce que le squelette d'un personnage sait jouer (standard des personnages, §7), et le tir du <span class="tt">LOT-136</span>. </p>
+<p>Le repos et la marche <b>bouclent</b> ; les autres se jouent une fois et se figent sur leur fin — c'est le squelette qui le déclare (<span class="tt"><a class="el" href="structcore_1_1SkeletonClip.html#accaf51d2e794df31be0107e0a5ed4ea3" title="Vrai s&#39;il boucle (repos, marche) ; faux s&#39;il se joue une fois et se fige sur sa fin.">core::SkeletonClip::loop</a></span>). </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="ad4d345c0899afeb51e4fb86fd920e167" name="ad4d345c0899afeb51e4fb86fd920e167"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad4d345c0899afeb51e4fb86fd920e167">&#9670;&#160;</a></span>fallbackOf()</h2>
@@ -197,7 +197,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>La bande qu'une figurine joue à défaut de <code class="param">clip</code> : le tir sans bande de tir est une attaque ; les autres n'ont pas de repli (vide). </p>
+<p>Le clip qu'une figurine joue à défaut de <code class="param">clip</code> : le tir sans clip de tir est une attaque ; les autres n'ont pas de repli (vide). </p>
 
 </div>
 </div>
@@ -223,13 +223,13 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {<a class="code hl_variable" href="#ae32b43afe6206e30237ba1bcfae6f724">IDLE</a>, <a class="code hl_variable" href="#a41fa10121357be1d449dbde15e73e918">WALK</a>, <a class="code hl_variable" href="#a89105a8d4361791fa8c9174588706da9">ATTACK</a>, <a class="code hl_variable" href="#ad2b35214a0080c88eecfc21414ad0ddd">RANGED</a>,</div>
 <div class="line">                        <a class="code hl_variable" href="#ac3fac5359aef0f16361178db4a73821c">CAST</a>, <a class="code hl_variable" href="#a6945b3e99d97b537060eb38de45a7774">HIT</a>,  <a class="code hl_variable" href="#a10983e8d484be06fd85c312cf79dd9be">DEATH</a>}</div>
-<div class="ttc" id="anamespacehmi_1_1figure__clips_html_a10983e8d484be06fd85c312cf79dd9be"><div class="ttname"><a href="#a10983e8d484be06fd85c312cf79dd9be">hmi::figure_clips::DEATH</a></div><div class="ttdeci">constexpr std::string_view DEATH</div><div class="ttdoc">La chute, jouée une fois ; la dernière image reste.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:183</div></div>
-<div class="ttc" id="anamespacehmi_1_1figure__clips_html_a41fa10121357be1d449dbde15e73e918"><div class="ttname"><a href="#a41fa10121357be1d449dbde15e73e918">hmi::figure_clips::WALK</a></div><div class="ttdeci">constexpr std::string_view WALK</div><div class="ttdoc">La marche, en boucle.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:173</div></div>
-<div class="ttc" id="anamespacehmi_1_1figure__clips_html_a6945b3e99d97b537060eb38de45a7774"><div class="ttname"><a href="#a6945b3e99d97b537060eb38de45a7774">hmi::figure_clips::HIT</a></div><div class="ttdeci">constexpr std::string_view HIT</div><div class="ttdoc">Le coup encaissé, joué une fois.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:181</div></div>
-<div class="ttc" id="anamespacehmi_1_1figure__clips_html_a89105a8d4361791fa8c9174588706da9"><div class="ttname"><a href="#a89105a8d4361791fa8c9174588706da9">hmi::figure_clips::ATTACK</a></div><div class="ttdeci">constexpr std::string_view ATTACK</div><div class="ttdoc">L&#39;attaque au contact, jouée une fois.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:175</div></div>
-<div class="ttc" id="anamespacehmi_1_1figure__clips_html_ac3fac5359aef0f16361178db4a73821c"><div class="ttname"><a href="#ac3fac5359aef0f16361178db4a73821c">hmi::figure_clips::CAST</a></div><div class="ttdeci">constexpr std::string_view CAST</div><div class="ttdoc">L&#39;incantation, jouée une fois.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:177</div></div>
-<div class="ttc" id="anamespacehmi_1_1figure__clips_html_ad2b35214a0080c88eecfc21414ad0ddd"><div class="ttname"><a href="#ad2b35214a0080c88eecfc21414ad0ddd">hmi::figure_clips::RANGED</a></div><div class="ttdeci">constexpr std::string_view RANGED</div><div class="ttdoc">Le tir, joué une fois (LOT-136) ; une figurine qui n&#39;en a pas joue son attack.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:179</div></div>
-<div class="ttc" id="anamespacehmi_1_1figure__clips_html_ae32b43afe6206e30237ba1bcfae6f724"><div class="ttname"><a href="#ae32b43afe6206e30237ba1bcfae6f724">hmi::figure_clips::IDLE</a></div><div class="ttdeci">constexpr std::string_view IDLE</div><div class="ttdoc">Le repos, en boucle.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:171</div></div>
+<div class="ttc" id="anamespacehmi_1_1figure__clips_html_a10983e8d484be06fd85c312cf79dd9be"><div class="ttname"><a href="#a10983e8d484be06fd85c312cf79dd9be">hmi::figure_clips::DEATH</a></div><div class="ttdeci">constexpr std::string_view DEATH</div><div class="ttdoc">La chute, jouée une fois ; la dernière image reste.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:156</div></div>
+<div class="ttc" id="anamespacehmi_1_1figure__clips_html_a41fa10121357be1d449dbde15e73e918"><div class="ttname"><a href="#a41fa10121357be1d449dbde15e73e918">hmi::figure_clips::WALK</a></div><div class="ttdeci">constexpr std::string_view WALK</div><div class="ttdoc">La marche, en boucle.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:146</div></div>
+<div class="ttc" id="anamespacehmi_1_1figure__clips_html_a6945b3e99d97b537060eb38de45a7774"><div class="ttname"><a href="#a6945b3e99d97b537060eb38de45a7774">hmi::figure_clips::HIT</a></div><div class="ttdeci">constexpr std::string_view HIT</div><div class="ttdoc">Le coup encaissé, joué une fois.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:154</div></div>
+<div class="ttc" id="anamespacehmi_1_1figure__clips_html_a89105a8d4361791fa8c9174588706da9"><div class="ttname"><a href="#a89105a8d4361791fa8c9174588706da9">hmi::figure_clips::ATTACK</a></div><div class="ttdeci">constexpr std::string_view ATTACK</div><div class="ttdoc">L&#39;attaque au contact, jouée une fois.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:148</div></div>
+<div class="ttc" id="anamespacehmi_1_1figure__clips_html_ac3fac5359aef0f16361178db4a73821c"><div class="ttname"><a href="#ac3fac5359aef0f16361178db4a73821c">hmi::figure_clips::CAST</a></div><div class="ttdeci">constexpr std::string_view CAST</div><div class="ttdoc">L&#39;incantation, jouée une fois.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:150</div></div>
+<div class="ttc" id="anamespacehmi_1_1figure__clips_html_ad2b35214a0080c88eecfc21414ad0ddd"><div class="ttname"><a href="#ad2b35214a0080c88eecfc21414ad0ddd">hmi::figure_clips::RANGED</a></div><div class="ttdeci">constexpr std::string_view RANGED</div><div class="ttdoc">Le tir, joué une fois (LOT-136) ; une figurine qui n&#39;en a pas joue son attack.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:152</div></div>
+<div class="ttc" id="anamespacehmi_1_1figure__clips_html_ae32b43afe6206e30237ba1bcfae6f724"><div class="ttname"><a href="#ae32b43afe6206e30237ba1bcfae6f724">hmi::figure_clips::IDLE</a></div><div class="ttdeci">constexpr std::string_view IDLE</div><div class="ttdoc">Le repos, en boucle.</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:144</div></div>
 </div><!-- fragment -->
 <p>Toutes, dans l'ordre du standard. </p>
 

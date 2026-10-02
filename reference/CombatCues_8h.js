@@ -14,6 +14,5 @@ var CombatCues_8h =
       [ "hmi::CombatCueKind::Hit", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aebfe5e1791db03c4cd6ab95801e0977d", null ],
       [ "hmi::CombatCueKind::Death", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406a6097f89e3092d4ccd249c9d479785c1f", null ],
       [ "hmi::CombatCueKind::Effect", "namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406aa62d22910732d5343689f5117999abfa", null ]
-    ] ],
-    [ "hmi::FX_DIRECTORY", "namespacehmi.html#a4194f9c77255fd090763ac425476d7dc", null ]
+    ] ]
 ];

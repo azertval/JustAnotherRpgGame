@@ -16,16 +16,26 @@
 
 #include &lt;algorithm&gt;
 #include &lt;cmath&gt;
+#include &lt;memory&gt;
+#include &lt;numbers&gt;
 #include &lt;optional&gt;
 #include &lt;set&gt;
 #include &lt;utility&gt;
+#include &lt;vector&gt;
 
 #include &lt;rhi/qrhi.h&gt;
 
+#include "Core/Combat/IsoProjection.h"
+#include "Core/Resources/MeshFile.h"
+#include "Core/Resources/SkeletonPose.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/IsoView.h"
+#include "HMI/Graphics/MeshBatch.h"
 #include "HMI/Graphics/MissingTexture.h"
+#include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/Graphics/SpriteBatch.h"
 #include "HMI/Graphics/SpriteRenderer.h"
+#include "HMI/Graphics/WorldSceneComposer.h"
 
 namespace hmi {
 
@@ -147,12 +157,15 @@ AssetGalleryRenderer::AssetGalleryRenderer(std::filesystem::path assetsRoot)
             createTexture(context, checker.width, checker.height, checker.pixels)) {
 <span style = "background-color:#dfd">        _missing = std::move(*missing);
     }
+    _meshes = std::make_unique&lt;MeshBatch&gt;(rhi);
     _resources.setFrameUpdates(nullptr);
     return true;
 }</span>
 
 <span style = "background-color:#dfd">void AssetGalleryRenderer::release() noexcept {
     _composed.clear();
+    _models.clear();
+    _meshes.reset();
     _cache.clear();
     _white = LoadedTexture{};
     _missing = LoadedTexture{};
@@ -174,8 +187,34 @@ AssetGalleryRenderer::AssetGalleryRenderer(std::filesystem::path assetsRoot)
 
 <span style = "background-color:#dfd">    int uploads = 0;
     _loading = false;
-    for (const std::string&amp; path : wanted) {
-        const auto found = _cache.find(path);
+    for (const std::string&amp; path : wanted) {</span>
+        // Un modÃ¨le (LOT-1006) : lu une fois, gardÃ© jusqu'Ã  `release`.
+<span style = "background-color:#dfd">        if (core::isMeshPath(path)) {
+            if (_models.contains(path)) {
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            if (uploads &gt;= UPLOADS_PER_FRAME) {</span>
+<span style = "background-color:#fdd">                _loading = true;
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            ++uploads;
+            CachedModel model;
+            core::MeshFileResult read = core::readMeshFile(_root / path);
+            if (read.ok()) {
+                model.mesh = _meshes-&gt;create(context, read.mesh);
+                if (!read.mesh.skin.empty() &amp;&amp;</span>
+                    read.mesh.rig.joints.size() &lt;= MeshBatch::MAX_BONES) {
+<span style = "background-color:#dfd">                    model.rig = std::make_shared&lt;const core::MeshRig&gt;(std::move(read.mesh.rig));</span>
+                }
+            }
+<span style = "background-color:#dfd">            if (model.mesh == nullptr) {
+                GRAPHICS_LOG_WARNING("Galerie des assets : modele illisible, " + path + " (" +</span>
+                                     read.message + ")");
+            }
+<span style = "background-color:#dfd">            _models.emplace(path, std::move(model));
+            continue;</span>
+<span style = "background-color:#fdd">        }</span>
+<span style = "background-color:#dfd">        const auto found = _cache.find(path);
         if (found != _cache.end()) {
             found-&gt;second.unwantedSeconds = 0.0F;
             continue;</span>
@@ -205,6 +244,36 @@ AssetGalleryRenderer::AssetGalleryRenderer(std::filesystem::path assetsRoot)
     }
 }</span>
 
+void AssetGalleryRenderer::addModel(const AssetGalleryDrawnBloc&amp; bloc, float cell, float footprintX,
+<span style = "background-color:#dfd">                                    float footprintY, float footprintWidth, float footprintHeight) {
+    const auto found = _models.find(bloc.path);
+    if (found == _models.end() || found-&gt;second.mesh == nullptr) {
+        return;</span>
+    }
+    // La camÃ©ra du jeu, une case de la galerie pour un losange : le modÃ¨le a la taille qu'il a sur
+    // une carte. Il fait face Ã  la camÃ©ra, les pieds au milieu de son emprise.
+<span style = "background-color:#dfd">    const core::IsoProjection projection(1, 1, cell);
+    const IsoView view(projection);</span>
+    ViewTransform toView =
+<span style = "background-color:#dfd">        IsoView::turned(view.meshTransform({0.0F, 0.0F}, 0.0F),</span>
+                        (std::numbers::pi_v&lt;float&gt; / 2.0F) - FIGURE_HEADING_FRONT);
+<span style = "background-color:#dfd">    toView[3] = footprintX + (footprintWidth / 2.0F);
+    toView[7] = footprintY + footprintHeight - (projection.tileHeight() / 2.0F);
+    toView[11] = 0.0F;
+    const core::Rect bounds{</span>
+        {bloc.x, bloc.y},
+        {static_cast&lt;float&gt;(bloc.columns) * cell, static_cast&lt;float&gt;(bloc.rows) * cell}};
+<span style = "background-color:#dfd">    const CachedModel&amp; model = found-&gt;second;
+    if (model.rig == nullptr || model.rig-&gt;empty()) {</span>
+<span style = "background-color:#fdd">        _composed.addMesh(RenderLayer::Tile, model.mesh, toView, bounds);
+        return;</span>
+    }
+<span style = "background-color:#dfd">    static thread_local std::vector&lt;float&gt; pose;
+    pose.assign(model.rig-&gt;joints.size() * 16, 0.0F);
+    core::poseSkeleton(*model.rig, core::findClip(*model.rig, bloc.clip), bloc.clipSeconds, pose);
+    _composed.addMesh(RenderLayer::Tile, model.mesh, toView, bounds, 0, pose);
+}</span>
+
 <span style = "background-color:#dfd">void AssetGalleryRenderer::compose() {
     _composed.clear();
     const TextureHandle white = _white.handle();
@@ -231,7 +300,10 @@ AssetGalleryRenderer::AssetGalleryRenderer(std::filesystem::path assetsRoot)
                      footprintHeight, line, FOOTPRINT_EDGE);
         }
 
-<span style = "background-color:#dfd">        const auto cached = _cache.find(bloc.path);
+<span style = "background-color:#dfd">        if (bloc.mesh) {
+            addModel(bloc, cell, footprintX, footprintY, footprintWidth, footprintHeight);</span>
+        }
+<span style = "background-color:#dfd">        const auto cached = bloc.mesh ? _cache.end() : _cache.find(bloc.path);
         if (cached != _cache.end()) {
             const bool failed = cached-&gt;second.failed || cached-&gt;second.texture.texture == nullptr;
             const LoadedTexture&amp; texture = failed ? _missing : cached-&gt;second.texture;
@@ -271,7 +343,28 @@ void AssetGalleryRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTa
     sprites.beginFrame();
     submitComposedScene(sprites, screenProjectionMatrix(pixels.width(), pixels.height()),</span>
                         _composed);
-<span style = "background-color:#dfd">    sprites.submit(commandBuffer, target, updates, clear);
+    // Les modÃ¨les : la mÃªme surface, un pixel par unitÃ©, et la profondeur de la vue du jeu ramenÃ©e
+    // Ã  l'Ã©tendue du tampon.
+<span style = "background-color:#dfd">    PlaceCamera camera(std::max(1, pixels.width()), std::max(1, pixels.height()));
+    camera.setZoom(1.0F / PlaceCamera::PIXELS_PER_UNIT);
+    camera.setCenter(</span>
+        {static_cast&lt;float&gt;(pixels.width()) / 2.0F, static_cast&lt;float&gt;(pixels.height()) / 2.0F});
+<span style = "background-color:#dfd">    camera.setDepthRange(</span>
+        IsoView(core::IsoProjection(1, 1, std::max(1.0F, _frame.cellPixels))).depthRange());
+<span style = "background-color:#dfd">    _meshes-&gt;beginFrame();
+    for (const ComposedMesh&amp; mesh : _composed.meshes()) {
+        _meshes-&gt;draw(mesh.mesh, camera.meshMatrix(mesh.toView), mesh.opacity,</span>
+                      _composed.poseOf(mesh));
+<span style = "background-color:#dfd">    }</span>
+    // Une seule passe : la grille et les images d'abord, les modÃ¨les par-dessus -- ils se
+    // dÃ©partagent entre eux par la profondeur, que les images n'Ã©crivent pas.
+<span style = "background-color:#dfd">    QRhiResourceUpdateBatch* const uploads =</span>
+        _meshes-&gt;prepare(target, sprites.prepare(target, updates));
+<span style = "background-color:#dfd">    commandBuffer-&gt;beginPass(target, QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]),</span>
+                             {1.0F, 0}, uploads);
+<span style = "background-color:#dfd">    sprites.record(commandBuffer, target);
+    _meshes-&gt;record(commandBuffer, target);
+    commandBuffer-&gt;endPass();
     _resources.setFrameUpdates(nullptr);
 }</span>
 

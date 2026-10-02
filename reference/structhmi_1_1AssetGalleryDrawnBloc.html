@@ -169,10 +169,45 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a541d54f340743e9def03fec1e5e3df64" id="r_a541d54f340743e9def03fec1e5e3df64"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a541d54f340743e9def03fec1e5e3df64">selected</a> = false</td></tr>
 <tr class="memitem:aa4853c73f4237dc2b514592678970cbb" id="r_aa4853c73f4237dc2b514592678970cbb"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa4853c73f4237dc2b514592678970cbb">tilePixels</a> = 1</td></tr>
 <tr class="memdesc:aa4853c73f4237dc2b514592678970cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur d'une case en pixels d'art (<span class="tt"><a class="el" href="structhmi_1_1AssetGalleryEntry.html#a42cda529dee0b7c743ca3a3e272d568e">AssetGalleryEntry::tileWidthPixels</a></span>) : l'art s'y ramène à la case de la galerie.  <br /></td></tr>
+<tr class="memitem:a136f46b58ec2300fe3d5b369b96c6e83" id="r_a136f46b58ec2300fe3d5b369b96c6e83"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a136f46b58ec2300fe3d5b369b96c6e83">mesh</a> = false</td></tr>
+<tr class="memdesc:a136f46b58ec2300fe3d5b369b96c6e83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour un modèle de personnage (<span class="tt"><a class="el" href="structhmi_1_1AssetGalleryEntry.html#a1cb78119289aa05a5b7a58ca127ba591" title="Vrai pour un modèle de personnage (LOT-1006) : path est son .glb, dessiné en volume sous la caméra du...">AssetGalleryEntry::mesh</a></span>) : <a class="el" href="#a3fbbdaf475eed5262e602536374afcc9" title="path">path</a> est son <span class="tt">.glb</span>.  <br /></td></tr>
+<tr class="memitem:aac8c238e547811d22d6dccda56426d12" id="r_aac8c238e547811d22d6dccda56426d12"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aac8c238e547811d22d6dccda56426d12">clip</a></td></tr>
+<tr class="memdesc:aac8c238e547811d22d6dccda56426d12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le clip que joue le modèle, et l'instant où il en est (<span class="tt"><a class="el" href="namespacehmi.html#ae952285c3c9fbe9f19964ddd2b2a3e6a" title="L&#39;instant du clip d&#39;un modèle au temps seconds : ramené dans le clip s&#39;il boucle, sinon joué une fois...">assetGalleryClipSeconds</a></span>).  <br /></td></tr>
+<tr class="memitem:aaa648bfc156ea07b27aad6b789b1534b" id="r_aaa648bfc156ea07b27aad6b789b1534b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aaa648bfc156ea07b27aad6b789b1534b">clipSeconds</a> = 0.0f</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Un bloc à dessiner, déjà placé en pixels de la cible. </p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="aac8c238e547811d22d6dccda56426d12" name="aac8c238e547811d22d6dccda56426d12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac8c238e547811d22d6dccda56426d12">&#9670;&#160;</a></span>clip</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::AssetGalleryDrawnBloc::clip</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le clip que joue le modèle, et l'instant où il en est (<span class="tt"><a class="el" href="namespacehmi.html#ae952285c3c9fbe9f19964ddd2b2a3e6a" title="L&#39;instant du clip d&#39;un modèle au temps seconds : ramené dans le clip s&#39;il boucle, sinon joué une fois...">assetGalleryClipSeconds</a></span>). </p>
+
+</div>
+</div>
+<a id="aaa648bfc156ea07b27aad6b789b1534b" name="aaa648bfc156ea07b27aad6b789b1534b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa648bfc156ea07b27aad6b789b1534b">&#9670;&#160;</a></span>clipSeconds</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::AssetGalleryDrawnBloc::clipSeconds = 0.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af6a033b9790284b937895534d656fc31" name="af6a033b9790284b937895534d656fc31"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6a033b9790284b937895534d656fc31">&#9670;&#160;</a></span>columns</h2>
 
@@ -286,6 +321,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Taille d'une image de la bande ; 0 : la texture entière. </p>
+
+</div>
+</div>
+<a id="a136f46b58ec2300fe3d5b369b96c6e83" name="a136f46b58ec2300fe3d5b369b96c6e83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a136f46b58ec2300fe3d5b369b96c6e83">&#9670;&#160;</a></span>mesh</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryDrawnBloc::mesh = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai pour un modèle de personnage (<span class="tt"><a class="el" href="structhmi_1_1AssetGalleryEntry.html#a1cb78119289aa05a5b7a58ca127ba591" title="Vrai pour un modèle de personnage (LOT-1006) : path est son .glb, dessiné en volume sous la caméra du...">AssetGalleryEntry::mesh</a></span>) : <a class="el" href="#a3fbbdaf475eed5262e602536374afcc9" title="path">path</a> est son <span class="tt">.glb</span>. </p>
 
 </div>
 </div>

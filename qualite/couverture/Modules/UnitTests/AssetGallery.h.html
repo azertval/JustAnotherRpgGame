@@ -40,7 +40,7 @@ inline constexpr int ASSET_GALLERY_CELL_PIXELS = 100;
 inline constexpr double ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS = 0.6;
 
 /**
- * @brief Une forme d'un modÃ¨le : un clip d'une figure, une variante de texture, une piÃ¨ce.
+ * @brief Une forme d'un modÃ¨le : un clip d'un personnage, une variante de texture, une piÃ¨ce.
  *
  * Tout ce qui sert Ã  la disposer est lu dans les manifestes : la galerie place un asset sans
  * charger sa texture, c'est ce qui lui permet de ne charger que ce qui est Ã  l'Ã©cran.
@@ -55,23 +55,31 @@ struct AssetGalleryEntry {
     /// Chemin de la texture, relatif Ã  la racine des assets, sÃ©parateurs `/`.
     std::string path;
     /// Taille d'une image, en pixels. Une texture fixe n'a qu'une image, de sa taille entiÃ¨re.
-<span style = "background-color:#dfd">    int frameWidth = 0;
-    int frameHeight = 0;</span>
+    int frameWidth = 0;
+    int frameHeight = 0;
     /// Indices d'images dans la bande, dans l'ordre de lecture ; vide : l'image 0.
     std::vector&lt;int&gt; frames;
     /// DurÃ©e d'une image, en secondes ; 0 : figÃ©e.
-<span style = "background-color:#dfd">    double frameDuration = 0.0;</span>
+    double frameDuration = 0.0;
     /// BouclÃ©, ou jouÃ© une fois puis tenu (`ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS`).
-<span style = "background-color:#dfd">    bool loop = true;</span>
+    bool loop = true;
     /// Emprise au sol, en cases.
-<span style = "background-color:#dfd">    int footprintColumns = 1;
-    int footprintRows = 1;</span>
+    int footprintColumns = 1;
+    int footprintRows = 1;
     /// Ancre du manifeste des scÃ¨nes, en pixels de texture ; (-1, -1) si le manifeste n'en a pas.
-<span style = "background-color:#dfd">    int anchorX = -1;
-    int anchorY = -1;</span>
+    int anchorX = -1;
+    int anchorY = -1;
     /// Largeur d'une case, en pixels d'art : le losange que dÃ©clare le manifeste (`tile`) ; 0 s'il
     /// n'en dÃ©clare pas, et la forme se suppose d'une case de large (`tileWidthPixels`).
     int tilePixels = 0;
+    /// Vrai pour un **modÃ¨le de personnage** (`LOT-1006`) : @ref path est son `.glb`, dessinÃ© en
+    /// volume sous la camÃ©ra du jeu ; `frameWidth` et `frameHeight` ne disent que la place qu'il
+    /// prend dans la galerie.
+    bool mesh = false;
+    /// Le clip jouÃ© par un modÃ¨le (`idle`, `walk`â¦) ; vide : sa pose de liaison.
+    std::string clip;
+    /// La durÃ©e du clip, en secondes, telle que le squelette la dÃ©clare ; `loop` dit s'il boucle.
+    double clipDuration = 0.0;
 
     /// @return La largeur d'une case en pixels d'art, jamais nulle.
 <span style = "background-color:#dfd">    [[nodiscard]] int tileWidthPixels() const noexcept {
@@ -100,19 +108,18 @@ struct AssetGalleryFamily {
  * @brief L'inventaire de la galerie, lu dans les manifestes des assets livrÃ©s.
  *
  * Familles lues, dans cet ordre, chacune seulement si elle existe :
- * - `Npc/manifest.json` : chaque PNJ Ã chaque animation, d'aprÃ¨s son `.anim.json`, et son portrait
- * ;
- * - `Monsters/manifest.json` : les figurines de l'atelier des monstres (LOT-93), de mÃªme forme ;
- *   une bÃªte sans sort n'a pas de `cast`, et une Grande a ses cellules de 96 Ã 96 ;
- * - `Coliseum/manifest.json` : hÃ©ros Ã animations, gladiateurs, puis les piÃ¨ces de la planche ;
+ * - `Npc/manifest.json` : chaque PNJ â son **modÃ¨le**, une forme par clip que son squelette
+ *   dÃ©clare (`character.json`, `skeleton.json`, `LOT-1006`), puis son portrait et son jeton ;
+ * - `Monsters/manifest.json` : les personnages de l'atelier des monstres (LOT-93), de mÃªme forme ;
  * - `Scene/&lt;disposition&gt;/manifest.json` : les textures de l'atelier (LOT-92), par classe ;
  * - l'arborescence par niveaux (LOT-102), oÃ¹ la chaÃ®ne HD installe (LOT-104) : chaque
  *   `manifest.json` sous `Common/` et `Regions/`, dans l'ordre de son chemin â les `textures` d'un
  *   dossier `Scene/` en une famille titrÃ©e par son lieu (Â« ScÃ¨ne Â· central-empire/capital/arenarea
- * Â»), les PNJ d'un dossier `Characters/` en une famille Â« Figurines Â· Â» suivie du dossier.
+ * Â»), les personnages d'un dossier `Characters/` en une famille Â« Figurines Â· Â» suivie du
+ *   dossier.
  *
- * Tout asset livrÃ© doit y paraÃ®tre (`EX-CNT-042`) : `hmi::assetGalleryUnlisted` nomme ceux qui n'y
- * sont pas, et un test l'exige vide.
+ * Tout asset livrÃ© doit y paraÃ®tre (`EX-CNT-042`), images et modÃ¨les : `hmi::assetGalleryUnlisted`
+ * nomme ceux qui n'y sont pas, et un test l'exige vide.
  *
  * Un manifeste illisible est une erreur **nommÃ©e**, jamais un arrÃªt : la galerie montre le reste.
  */
@@ -141,8 +148,8 @@ struct AssetGalleryCatalog {
 [[nodiscard]] bool assetGalleryExcludes(std::string_view path) noexcept;
 
 /**
- * @brief Les images livrÃ©es (PNG, JPEG) que la galerie ne montre pas et qu'aucune exclusion ne
- *        couvre : ce que `EX-CNT-042` interdit.
+ * @brief Les images (PNG, JPEG) et les modÃ¨les (`.glb`) livrÃ©s que la galerie ne montre pas et
+ *        qu'aucune exclusion ne couvre : ce que `EX-CNT-042` interdit.
  * @return Chemins relatifs Ã  @p assetsRoot, triÃ©s ; vide quand la galerie est complÃ¨te.
  */
 [[nodiscard]] std::vector&lt;std::string&gt; assetGalleryUnlisted(const std::filesystem::path&amp; assetsRoot,
@@ -217,6 +224,14 @@ inline constexpr double ASSET_GALLERY_RING_CELLS = 3.0;
 [[nodiscard]] AssetGalleryVisibility assetGalleryVisibility(
     const AssetGalleryBloc&amp; bloc, const AssetGalleryView&amp; view,
     double ringCells = ASSET_GALLERY_RING_CELLS) noexcept;
+
+/**
+ * @brief L'instant du clip d'un modÃ¨le au temps @p seconds : ramenÃ© dans le clip s'il boucle,
+ *        sinon jouÃ© une fois puis tenu `ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS` sur sa fin avant de
+ *        reprendre. 0 pour une forme sans clip.
+ */
+[[nodiscard]] double assetGalleryClipSeconds(const AssetGalleryEntry&amp; entry,
+                                             double seconds) noexcept;
 
 /**
  * @brief L'image jouÃ©e au temps @p seconds : en boucle, ou jouÃ©e une fois puis tenue

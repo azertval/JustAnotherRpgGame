@@ -171,7 +171,7 @@ Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3AGestureTiming" id="r_hmi_3A_3AGestureTiming"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1GestureTiming.html">hmi::GestureTiming</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un geste dans le temps : ce qu'il dure, et l'instant où il porte.  <a href="structhmi_1_1GestureTiming.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AFigureTimings" id="r_hmi_3A_3AFigureTimings"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FigureTimings.html">hmi::FigureTimings</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les durées des gestes d'un combattant (<span class="tt">LOT-1005</span>) : celles de ses clips, si sa figurine est un modèle ; celles des bandes sinon.  <a href="structhmi_1_1FigureTimings.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les durées des gestes d'un combattant (<span class="tt">LOT-1005</span>) : celles des clips de son squelette ; celles par défaut s'il ne se lit pas.  <a href="structhmi_1_1FigureTimings.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ACombatCueTrack" id="r_hmi_3A_3ACombatCueTrack"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatCueTrack.html">hmi::CombatCueTrack</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La file des faits du combat, rejoués dans le temps par les figurines.  <a href="classhmi_1_1CombatCueTrack.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ACombatCueTrack_3A_3ARunning" id="r_hmi_3A_3ACombatCueTrack_3A_3ARunning"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CombatCueTrack_1_1Running.html">hmi::CombatCueTrack::Running</a></td></tr>
@@ -193,11 +193,6 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:af50d48ed1cc573c620ff2a1c420f7406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un combattant fait de visible.  <a href="namespacehmi.html#af50d48ed1cc573c620ff2a1c420f7406">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a4194f9c77255fd090763ac425476d7dc" id="r_a4194f9c77255fd090763ac425476d7dc"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a4194f9c77255fd090763ac425476d7dc">hmi::FX_DIRECTORY</a> = &quot;Common/Fx&quot;</td></tr>
-<tr class="memdesc:a4194f9c77255fd090763ac425476d7dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier des effets, depuis la racine des assets : une bande par effet (<span class="tt">LOT-136</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce que le combat <b>montre</b> après ce qu'il a décidé : les pas, les coups, les chutes, joués dans le temps par les figurines (<span class="tt">LOT-118</span>). </p>
@@ -208,7 +203,7 @@ Pourquoi une file</h2>
 <p>Elle ne connaît ni la session, ni les textures, ni Qt : des identifiants, des cases, des secondes. C'est ce qui la rend vérifiable sans fenêtre.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md92"></a>
 L'image clé (<span class="tt">LOT-1005</span>)</h2>
-<p>Un coup <b>porte</b> à un instant du geste : c'est là que commencent le touché et la chute de la cible, et qu'arrive le projectile. Pour une figurine en bandes, cet instant est le milieu de la bande (<span class="tt">IMPACT_FRACTION</span>). Pour un modèle, c'est l'<b>image clé</b> que son squelette déclare, clip par clip (<span class="tt"><a class="el" href="structcore_1_1SkeletonClip.html#a554c25343948a989883761447744f264" title="L&#39;instant de l&#39;impact, en secondes depuis le début ; absent pour un clip qui n&#39;en a pas.">core::SkeletonClip::key</a></span>), et le geste dure son clip : la file les reçoit par combattant (<span class="tt">setTimings</span>), et le journal, les dégâts et l'animation restent synchrones. </p>
+<p>Un coup <b>porte</b> à un instant du geste : c'est là que commencent le touché et la chute de la cible, et qu'arrive le projectile. C'est l'<b>image clé</b> que le squelette de la figurine déclare, clip par clip (<span class="tt"><a class="el" href="structcore_1_1SkeletonClip.html#a554c25343948a989883761447744f264" title="L&#39;instant de l&#39;impact, en secondes depuis le début ; absent pour un clip qui n&#39;en a pas.">core::SkeletonClip::key</a></span>), et le geste dure son clip : la file les reçoit par combattant (<span class="tt">setTimings</span>), et le journal, les dégâts et l'animation restent synchrones. Une figurine dont le squelette ne se lit pas — un marqueur — garde les durées par défaut (<span class="tt">ACTION_SECONDS</span>, l'impact à <span class="tt">IMPACT_FRACTION</span>). </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">

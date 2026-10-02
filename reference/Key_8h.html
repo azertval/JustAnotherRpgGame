@@ -17,7 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/GamepadNavigator.cpp File Reference</title>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/Key.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,7 +113,7 @@ $(function() { codefold.init(); });
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('GamepadNavigator_8cpp.html','',''); });
+$(function(){initNavTree('Key_8h.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -139,16 +139,57 @@ $(function(){initNavTree('GamepadNavigator_8cpp.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">GamepadNavigator.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">Key.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="GamepadNavigator_8h_source.html">HMI/Runtime/GamepadNavigator.h</a>&quot;</code><br />
-<code>#include &lt;chrono&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-</div><table class="memberdecls">
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+</div>
+<p><a href="Key_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a83c98e56e30eafa606048853f7962e48" id="r_a83c98e56e30eafa606048853f7962e48"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">hmi::Key</a> : std::uint16_t { <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef">hmi::Backspace</a> = 0x08
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413">hmi::Tab</a> = 0x09
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af1851d5600eae616ee802a31ac74701b">hmi::Enter</a> = 0x0D
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a825a3d98017bab11815ad2817201324c">hmi::Shift</a> = 0x10
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48aa1595abbb4c3a326636dd178757cd6c1">hmi::Control</a> = 0x11
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a013ec032d3460d4be4431c6ab1f8f224">hmi::Escape</a> = 0x1B
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ad511f8439ecde36647437fbba67a4394">hmi::Space</a> = 0x20
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a945d5e233cf7d6240f6b783b36a374ff">hmi::Left</a> = 0x25
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a258f49887ef8d14ac268c92b02503aaa">hmi::Up</a> = 0x26
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a92b09c7c48c520c3c55e497875da437c">hmi::Right</a> = 0x27
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a08a38277b0309070706f6652eeae9a53">hmi::Down</a> = 0x28
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a0e3e06c992d1ead056a6861bb46b28a8">hmi::D0</a> = 0x30
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a7fc56270e7a70fa81a5935b72eacbe29">hmi::A</a> = 0x41
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a0d61f8370cad1d412f80b84d143e1257">hmi::C</a> = 0x43
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af623e75af30e62bbd73d6df5b50bb7b5">hmi::D</a> = 0x44
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a3a3ea00cfc35332cedf6e5e9a32e94da">hmi::E</a> = 0x45
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a44c29edb103a2872f519ad0c9a0fdaaa">hmi::P</a> = 0x50
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48af09564c9ca56850d4cd6b3319e541aee">hmi::Q</a> = 0x51
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ae1e1d3d40573127e9ee0480caf1283d6">hmi::R</a> = 0x52
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5dbc98dcc983a70728bd082d1a47546e">hmi::S</a> = 0x53
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ab9ece18c950afbfa6b0fdbfa4ff731d3">hmi::T</a> = 0x54
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5206560a306a2e085a437fd258eb57ce">hmi::V</a> = 0x56
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a61e9c06ea9a85a5088a499df6458d276">hmi::W</a> = 0x57
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a57cec4137b614c87cb4e24a3d003a3e0">hmi::Y</a> = 0x59
+, <br />
+&#160;&#160;<a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48a21c2e59531c8710156d34a3c30ac81d5">hmi::Z</a> = 0x5A
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ae1dffc8709f31a4987c8a88334107e89">hmi::F1</a> = 0x70
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48afe5c3684dce76cdd9f7f42430868aa74">hmi::F2</a> = 0x71
+, <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a">hmi::F10</a> = 0x79
+<br />
+ }</td></tr>
+<tr class="memdesc:a83c98e56e30eafa606048853f7962e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clavier de l'editeur, identifie par les codes virtuels Win32.  <a href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48">More...</a><br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -163,7 +204,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_7eb0d0bc801e3eeb9c9e3cb238223789.html">Runtime</a></li><li class="navelem"><a href="GamepadNavigator_8cpp.html">GamepadNavigator.cpp</a></li>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_76d97c54a16374659ce0f27a302675ee.html">Input</a></li><li class="navelem"><a href="Key_8h.html">Key.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

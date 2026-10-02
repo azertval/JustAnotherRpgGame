@@ -1,7 +1,11 @@
 var searchData=
 [
-  ['layerkind_0',['LayerKind',['../namespacecore.html#ab0cf50b7ad0dce1357c85662e0fb7e5d',1,'core']]],
-  ['levelvalidationerror_1',['LevelValidationError',['../namespacecore.html#af2a63d18c9ef40479ebdc204e726e823',1,'core']]],
-  ['locomotion_2',['Locomotion',['../namespacecore.html#a764555c0509482c85a9aa71b8a9ec1ff',1,'core']]],
-  ['loglevel_3',['LogLevel',['../namespacecore.html#aa9b5a444ee11933c91d5e3235aa5b5e3',1,'core']]]
+  ['magicschool_0',['MagicSchool',['../namespacecore.html#acb09396acc95973b3ca488c497bbddb2',1,'core']]],
+  ['mapcheckseverity_1',['MapCheckSeverity',['../namespacehmi.html#a89e7b964e1125a35414c9694fad4fd64',1,'hmi']]],
+  ['mapstate_2',['MapState',['../namespacehmi.html#a5329d365328d797b903f9f92f964d564',1,'hmi']]],
+  ['maquettetokenkind_3',['MaquetteTokenKind',['../namespacehmi.html#a9dbe00de1bc58b0fc3cc63b38ec7569e',1,'hmi']]],
+  ['maquettetraceshape_4',['MaquetteTraceShape',['../namespacehmi.html#ac92a2fbe73cf9a4cb73991b10456e28c',1,'hmi']]],
+  ['meshfileerror_5',['MeshFileError',['../namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7e',1,'core']]],
+  ['mode_6',['Mode',['../structhmi_1_1EntityDrag.html#a463dfee789bb236f09b5de5ee9b254e6',1,'hmi::EntityDrag']]],
+  ['moveresult_7',['MoveResult',['../namespacecore.html#ac0c9dc39aafc4bad02c96a9659df0c1b',1,'core']]]
 ];

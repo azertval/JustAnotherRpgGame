@@ -27,8 +27,8 @@ namespace {
 // ligne le traverse, la profondeur n'etant plus lineaire d'un bord a l'autre.
 <span style = "background-color:#dfd">void drawSpriteInDepth(SpriteBatch&amp; batch, const ComposedQuad&amp; composed, const SceneDepth&amp; depth) {
     const SpriteQuad&amp; quad = composed.sprite;
-    if (composed.stance == QuadStance::Overlay) {</span>
-<span style = "background-color:#fdd">        batch.draw(quad, depth.overlayDepth(), depth.overlayDepth());
+    if (composed.stance == QuadStance::Overlay) {
+        batch.draw(quad, depth.overlayDepth(), depth.overlayDepth());
         return;</span>
     }
 <span style = "background-color:#dfd">    const float bias = depth.view.imageBias();

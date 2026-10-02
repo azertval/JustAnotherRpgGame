@@ -151,6 +151,8 @@ $(function(){initNavTree('classhmi_1_1AssetGalleryRenderer.html','','classhmi_1_
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:CachedTexture" id="r_CachedTexture"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryRenderer_1_1CachedTexture.html">CachedTexture</a></td></tr>
+<tr class="memitem:CachedModel" id="r_CachedModel"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html">CachedModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un modèle chargé : son maillage, son squelette et ses clips ; <span class="tt"><a class="el" href="structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html#a914919d4170fdc2c2ff20d4f0d7f4f15">mesh</a></span> nul s'il n'a pas pu se lire.  <a href="structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -170,6 +172,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a28a2aa93b231f8ec4b09cb2a7a03f205" id="r_a28a2aa93b231f8ec4b09cb2a7a03f205"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a28a2aa93b231f8ec4b09cb2a7a03f205">render</a> (QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target, float realDeltaSeconds, const float *clear)</td></tr>
 <tr class="memdesc:a28a2aa93b231f8ec4b09cb2a7a03f205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine l'image reçue sur <code class="param">target</code>, après avoir mis le cache à jour : au plus <span class="tt"><a class="el" href="#a278c3a154a2a3f62a34aeb9e57ad7cdd" title="Chargements de texture au plus par image.">UPLOADS_PER_FRAME</a></span> textures chargées, celles plus voulues depuis <span class="tt"><a class="el" href="#a53a4757f9e9ea0b09986c7271690a4ca" title="Délai avant de libérer une texture qui n&#39;est plus voulue.">EVICTION_SECONDS</a></span> libérées (<code class="param">realDeltaSeconds</code> les compte).  <br /></td></tr>
 <tr class="memitem:a807c85ffdf84b983c5b7151f6eaef7a8" id="r_a807c85ffdf84b983c5b7151f6eaef7a8"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a807c85ffdf84b983c5b7151f6eaef7a8">cachedTextureCount</a> () const noexcept</td></tr>
+<tr class="memitem:a104e0e483c3029d9003f4f16c7a00273" id="r_a104e0e483c3029d9003f4f16c7a00273"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a104e0e483c3029d9003f4f16c7a00273">cachedModelCount</a> () const noexcept</td></tr>
 <tr class="memitem:a0c52adee03770db5098d5136bcaf4ee5" id="r_a0c52adee03770db5098d5136bcaf4ee5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0c52adee03770db5098d5136bcaf4ee5">loading</a> () const noexcept</td></tr>
 <tr class="memitem:a9569997284b46fc3f9a7fef223d05d3c" id="r_a9569997284b46fc3f9a7fef223d05d3c"><td class="memItemLeft">const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9569997284b46fc3f9a7fef223d05d3c">composed</a> () const noexcept</td></tr>
 </table><table class="memberdecls">
@@ -184,6 +187,8 @@ Static Public Attributes</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a33a718a60f65a5d76283359eb5f49c61" id="r_a33a718a60f65a5d76283359eb5f49c61"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a33a718a60f65a5d76283359eb5f49c61">updateCache</a> (float deltaSeconds)</td></tr>
 <tr class="memitem:a6c9fbc8e216f7a09485a320aa4b6c831" id="r_a6c9fbc8e216f7a09485a320aa4b6c831"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6c9fbc8e216f7a09485a320aa4b6c831">compose</a> ()</td></tr>
+<tr class="memitem:a7957a90ad6f43fd37f69e1856d0982f7" id="r_a7957a90ad6f43fd37f69e1856d0982f7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7957a90ad6f43fd37f69e1856d0982f7">addModel</a> (const <a class="el" href="structhmi_1_1AssetGalleryDrawnBloc.html">AssetGalleryDrawnBloc</a> &amp;bloc, float cell, float footprintX, float footprintY, float footprintWidth, float footprintHeight)</td></tr>
+<tr class="memdesc:a7957a90ad6f43fd37f69e1856d0982f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute à la scène le modèle du bloc <code class="param">bloc</code>, posé sur son emprise (<code class="param">footprintX</code>, <code class="param">footprintY</code>, <code class="param">footprintWidth</code>, <code class="param">footprintHeight</code>, en pixels), une case valant <code class="param">cell</code>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -195,6 +200,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a8898a18cd45a032223a53b817681f474" id="r_a8898a18cd45a032223a53b817681f474"><td class="memItemLeft">QRhiResourceUpdateBatch *&#160;</td><td class="memItemRight"><a class="el" href="#a8898a18cd45a032223a53b817681f474">_pendingUploads</a> = nullptr</td></tr>
 <tr class="memitem:a111d91265f6818f2f3fad4f3ffa424fc" id="r_a111d91265f6818f2f3fad4f3ffa424fc"><td class="memItemLeft"><a class="el" href="classhmi_1_1SceneResources.html">SceneResources</a>&#160;</td><td class="memItemRight"><a class="el" href="#a111d91265f6818f2f3fad4f3ffa424fc">_resources</a></td></tr>
 <tr class="memitem:abf81f89f6d42cfeeafcba447fa5bb91d" id="r_abf81f89f6d42cfeeafcba447fa5bb91d"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structhmi_1_1AssetGalleryRenderer_1_1CachedTexture.html">CachedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abf81f89f6d42cfeeafcba447fa5bb91d">_cache</a></td></tr>
+<tr class="memitem:ad801f53a7295da6241f5066c40017733" id="r_ad801f53a7295da6241f5066c40017733"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1MeshBatch.html">MeshBatch</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad801f53a7295da6241f5066c40017733">_meshes</a></td></tr>
+<tr class="memdesc:ad801f53a7295da6241f5066c40017733"><td class="mdescLeft">&#160;</td><td class="mdescRight">La passe de maillages et les modèles déjà lus, par chemin.  <br /></td></tr>
+<tr class="memitem:abb8d0a82d7dab0bf4595e4320c15a96d" id="r_abb8d0a82d7dab0bf4595e4320c15a96d"><td class="memItemLeft">std::map&lt; std::string, <a class="el" href="structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html">CachedModel</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abb8d0a82d7dab0bf4595e4320c15a96d">_models</a></td></tr>
 <tr class="memitem:a08f94cfaec8903bf0252c0a76a04b559" id="r_a08f94cfaec8903bf0252c0a76a04b559"><td class="memItemLeft"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#a08f94cfaec8903bf0252c0a76a04b559">_white</a></td></tr>
 <tr class="memitem:a83b02d1c49782706e15d03ff61caa402" id="r_a83b02d1c49782706e15d03ff61caa402"><td class="memItemLeft"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a>&#160;</td><td class="memItemRight"><a class="el" href="#a83b02d1c49782706e15d03ff61caa402">_missing</a></td></tr>
 </table>
@@ -203,6 +211,9 @@ Private Attributes</h2></td></tr>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md95"></a>
 Le cache</h2>
 <p>Une texture voulue et absente est chargée, au plus <span class="tt"><a class="el" href="#a278c3a154a2a3f62a34aeb9e57ad7cdd" title="Chargements de texture au plus par image.">UPLOADS_PER_FRAME</a></span> par image : un grand saut de caméra étale ses chargements au lieu de figer une image. Une texture qui n'est plus voulue est libérée après <span class="tt"><a class="el" href="#a53a4757f9e9ea0b09986c7271690a4ca" title="Délai avant de libérer une texture qui n&#39;est plus voulue.">EVICTION_SECONDS</a></span>, pour qu'un aller-retour de la vue ne la recharge pas. Un fichier illisible est retenu comme tel et dessiné en damier, sans nouvel essai à chaque image.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md96"></a>
+Les modèles (<span class="tt">LOT-1006</span>)</h2>
+<p>Un bloc dont la forme est un modèle de personnage se dessine en volume, par <span class="tt"><a class="el" href="classhmi_1_1MeshBatch.html" title="Dessine des maillages texturés au travers de QRhi : sommets, normales, coordonnées de texture ; profo...">hmi::MeshBatch</a></span>, sous la caméra du jeu et face à elle, à l'échelle de sa case : un mètre du modèle occupe ce qu'il occupe sur une carte. Son clip avance avec le temps de la galerie. Un modèle chargé reste en mémoire jusqu'à <span class="tt"><a class="el" href="#acc9f68287cca7a48d9fcd2e20182b106" title="Libère toutes les ressources GPU, textures du cache comprises.">release</a></span> : la passe de maillages ne libère pas un maillage seul.</p>
 <p>Même cycle de vie que <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span> : <span class="tt"><a class="el" href="#abaa47bce790e37485885888b08ef40f2" title="Crée les ressources sur rhi, ou les recrée s&#39;il a changé.">ensureResources</a></span> depuis <span class="tt">initialize()</span>, <span class="tt"><a class="el" href="#acf5cf200df12641ed1d6eed10ec80456" title="Reçoit l&#39;image à dessiner : des valeurs, remises depuis synchronize().">setFrame</a></span> depuis <span class="tt">synchronize()</span>, <span class="tt"><a class="el" href="#a28a2aa93b231f8ec4b09cb2a7a03f205" title="Dessine l&#39;image reçue sur target, après avoir mis le cache à jour : au plus UPLOADS_PER_FRAME texture...">render</a></span> depuis <span class="tt"><a class="el" href="#a28a2aa93b231f8ec4b09cb2a7a03f205" title="Dessine l&#39;image reçue sur target, après avoir mis le cache à jour : au plus UPLOADS_PER_FRAME texture...">render()</a></span>. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4247fbacdadc0cbd7ec49d611ed65cc4" name="a4247fbacdadc0cbd7ec49d611ed65cc4"></a>
@@ -281,6 +292,83 @@ Le cache</h2>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a7957a90ad6f43fd37f69e1856d0982f7" name="a7957a90ad6f43fd37f69e1856d0982f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7957a90ad6f43fd37f69e1856d0982f7">&#9670;&#160;</a></span>addModel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::AssetGalleryRenderer::addModel </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1AssetGalleryDrawnBloc.html">AssetGalleryDrawnBloc</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>bloc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>cell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>footprintX</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>footprintY</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>footprintWidth</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>footprintHeight</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ajoute à la scène le modèle du bloc <code class="param">bloc</code>, posé sur son emprise (<code class="param">footprintX</code>, <code class="param">footprintY</code>, <code class="param">footprintWidth</code>, <code class="param">footprintHeight</code>, en pixels), une case valant <code class="param">cell</code>. </p>
+
+</div>
+</div>
+<a id="a104e0e483c3029d9003f4f16c7a00273" name="a104e0e483c3029d9003f4f16c7a00273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a104e0e483c3029d9003f4f16c7a00273">&#9670;&#160;</a></span>cachedModelCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t hmi::AssetGalleryRenderer::cachedModelCount </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le nombre de modèles lus (chargés ou retenus illisibles). </dd></dl>
+
+</div>
+</div>
 <a id="a807c85ffdf84b983c5b7151f6eaef7a8" name="a807c85ffdf84b983c5b7151f6eaef7a8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a807c85ffdf84b983c5b7151f6eaef7a8">&#9670;&#160;</a></span>cachedTextureCount()</h2>
 
@@ -675,6 +763,30 @@ Le cache</h2>
 
 </div>
 </div>
+<a id="ad801f53a7295da6241f5066c40017733" name="ad801f53a7295da6241f5066c40017733"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad801f53a7295da6241f5066c40017733">&#9670;&#160;</a></span>_meshes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1MeshBatch.html">MeshBatch</a>&gt; hmi::AssetGalleryRenderer::_meshes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La passe de maillages et les modèles déjà lus, par chemin. </p>
+
+</div>
+</div>
 <a id="a83b02d1c49782706e15d03ff61caa402" name="a83b02d1c49782706e15d03ff61caa402"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a83b02d1c49782706e15d03ff61caa402">&#9670;&#160;</a></span>_missing</h2>
 
@@ -686,6 +798,28 @@ Le cache</h2>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> hmi::AssetGalleryRenderer::_missing</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb8d0a82d7dab0bf4595e4320c15a96d" name="abb8d0a82d7dab0bf4595e4320c15a96d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb8d0a82d7dab0bf4595e4320c15a96d">&#9670;&#160;</a></span>_models</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, <a class="el" href="structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html">CachedModel</a>&gt; hmi::AssetGalleryRenderer::_models</td>
         </tr>
       </table>
   </td>

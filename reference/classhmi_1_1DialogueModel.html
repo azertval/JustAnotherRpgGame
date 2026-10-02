@@ -180,7 +180,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:accb369cdc434a0987f9df2c41b0c8e14" id="r_accb369cdc434a0987f9df2c41b0c8e14"><td class="memItemLeft">Q_INVOKABLE bool&#160;</td><td class="memItemRight"><a class="el" href="#accb369cdc434a0987f9df2c41b0c8e14">selectVoice</a> (const QString &amp;characterId)</td></tr>
 <tr class="memdesc:accb369cdc434a0987f9df2c41b0c8e14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait parler <code class="param">characterId</code> pour le groupe : ses langues, ses jets.  <br /></td></tr>
 <tr class="memitem:a5b852aed5d2d74fa09297e1c6974ec5a" id="r_a5b852aed5d2d74fa09297e1c6974ec5a"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a5b852aed5d2d74fa09297e1c6974ec5a">cycleVoice</a> (int step)</td></tr>
-<tr class="memdesc:a5b852aed5d2d74fa09297e1c6974ec5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne la parole au suivant (<code class="param">step</code> = 1) ou au précédent (-1) : <span class="tt">Tab</span>, la manette.  <br /></td></tr>
+<tr class="memdesc:a5b852aed5d2d74fa09297e1c6974ec5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne la parole au suivant (<code class="param">step</code> = 1) ou au précédent (-1) : <span class="tt">Tab</span> ou Maj+Tab.  <br /></td></tr>
 <tr class="memitem:a3cb792a72e33b34e9d8f3271d83f8f62" id="r_a3cb792a72e33b34e9d8f3271d83f8f62"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3cb792a72e33b34e9d8f3271d83f8f62">attitude</a> () const</td></tr>
 <tr class="memitem:adb7ff43722d893b9912cfe78bd25fe56" id="r_adb7ff43722d893b9912cfe78bd25fe56"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#adb7ff43722d893b9912cfe78bd25fe56">line</a> () const</td></tr>
 <tr class="memitem:a7fd2026f6d06834369a764f6d97d4a74" id="r_a7fd2026f6d06834369a764f6d97d4a74"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a7fd2026f6d06834369a764f6d97d4a74">checkOutcome</a> () const</td></tr>
@@ -250,10 +250,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'écran de dialogue : elle tient un <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html" title="La machine à états qui joue un dialogue.">core::DialogueRunner</a></span> et rien d'autre ne décide. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md121"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md122"></a>
 Ce qu'elle tient</h2>
 <p>Le catalogue des dialogues (<span class="tt">Source/Elements/World/dialogues</span>), l'échelle des degrés de difficulté, le membre du groupe <b>qui parle</b> comme interlocuteur (<span class="tt"><a class="el" href="classcore_1_1CharacterListener.html" title="Un personnage, sa fiche et son sac, comme interlocuteur d&#39;un PNJ.">core::CharacterListener</a></span>, <span class="tt">LOT-138</span>) et une conversation en cours. Le joueur choisit qui parle, dans le menu du bas (D-28) : c'est lui qui jette, avec ses modificateurs. Le meneur parle à l'ouverture. Chaque réponse cliquée devient <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html#aaafa292cb3538efff82c7aed7424de71" title="Donne la réponse choiceId, puis avance jusqu&#39;à la réplique suivante ou la fin.">core::DialogueRunner::choose</a></span>, et ce que l'écran affiche est relu par <span class="tt"><a class="el" href="namespacehmi.html#af12483a48d0fd35f0f44e94c201c3893" title="Traduit l&#39;état d&#39;un runner en valeurs affichables.">hmi::dialogueScreenValues</a></span> après chaque geste.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md122"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md123"></a>
 Ce qui est un échafaudage, et le dit</h2>
 <p>Il n'existe ni partie ni sauvegarde (<span class="tt">LOT-17</span>) : les <b>drapeaux de monde</b> de la conversation vivent donc le temps du processus, partagés par toutes les instances de ce modèle — rouvrir l'écran retrouve le héraut qui vous a déjà vu. L'interlocuteur est le personnage de démonstration, rechargé à chaque écran : un objet qu'un PNJ lui donne ne survit pas à la fermeture. Le jour où une partie fournira ses drapeaux et son groupe, c'est ce fichier qui change, pas le runner ni le formulaire. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -561,7 +561,7 @@ Ce qui est un échafaudage, et le dit</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Donne la parole au suivant (<code class="param">step</code> = 1) ou au précédent (-1) : <span class="tt">Tab</span>, la manette. </p>
+<p>Donne la parole au suivant (<code class="param">step</code> = 1) ou au précédent (-1) : <span class="tt">Tab</span> ou Maj+Tab. </p>
 
 </div>
 </div>

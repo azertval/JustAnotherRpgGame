@@ -117,10 +117,10 @@ public:
         return _figures.resolve(figure, {}, _appearance);
     }
 
-    /// @return L'orientation du hÃ©ros ; `None` si sa figurine n'a pas de bandes orientÃ©es.
-<span style = "background-color:#dfd">    [[nodiscard]] FigureFacing heroFacing() const noexcept {
-        return _hero.oriented ? _heroFacing : FigureFacing::None;
-    }</span>
+    /// @return Le cap du hÃ©ros (`hmi::figureHeadingFor`) : il le garde Ã  l'arrÃªt.
+    [[nodiscard]] float heroHeading() const noexcept {
+        return _heroHeading;
+    }
 
     /// @return La figurine du hÃ©ros telle qu'elle se dessine : la sienne, ou son mannequin.
 <span style = "background-color:#dfd">    [[nodiscard]] const ResolvedFigure&amp; heroResolved() const noexcept {
@@ -179,14 +179,12 @@ private:
     /// La figurine du hÃ©ros rÃ©solue : son dossier, ses orientations. Relue quand elle change ou
     /// que le lieu change, pas Ã  chaque image.
     ResolvedFigure _hero;
-    /// DerniÃ¨re orientation du hÃ©ros : il la garde Ã  l'arrÃªt.
-<span style = "background-color:#dfd">    FigureFacing _heroFacing = FigureFacing::SouthEast;</span>
-    /// Son cap, pour un modÃ¨le, qui s'oriente librement (`LOT-1005`).
+    /// Le cap du hÃ©ros (`LOT-1005`) : il le garde Ã  l'arrÃªt. Au dÃ©part, vers les colonnes
+    /// croissantes.
 <span style = "background-color:#dfd">    float _heroHeading = 0.0F;</span>
     /// Un suiveur du groupe (`LOT-138`) : sa figurine, et ce qui choisit sa bande.
     struct Follower {
         ResolvedFigure figure;
-        FigureFacing facing = FigureFacing::SouthEast;
         float heading = 0.0F;
         bool walking = false;
         core::CellPoint point{};

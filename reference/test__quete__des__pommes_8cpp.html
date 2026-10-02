@@ -146,6 +146,7 @@ $(function(){initNavTree('test__quete__des__pommes_8cpp.html','',''); });
 <p>Test d'intégration : la quête de la démo, « Des pommes pour l'arène », jouée sans fenêtre sur le <b>contenu livré</b> — les quatre cartes de principe (<span class="tt">LOT-146</span>), la quête, ses quatre dialogues et sa rencontre (<span class="tt">LOT-120</span>) —, par ses trois issues, à graine fixée.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
@@ -346,8 +347,9 @@ Functions</h2></td></tr>
  1. Jusqu'au garde ; convaincre avec un jet qui echoue, puis endosser.<br  />
 2. L'escalier de l'arene : on arrive au vestiaire A, et la porte du couloir arrete le pas.<br  />
 3. La porte du triomphe : le sable ; le maitre d'arene engage la rencontre ; la jouer a la premiere graine qui la gagne.<br  />
-4. Redescendre, passer la porte ouverte, revenir a l'etal.<br  />
- <b>Resultat attendu :</b> <span class="tt">persuasion-echouee</span> puis <span class="tt">condamne</span> ; le portail du -1 arrive au vestiaire ; la porte bloque sous <span class="tt">condamne</span> et s'ouvre apres ; la victoire pose <span class="tt">enfant-libere</span> ; la demo se clot par la voie <span class="tt">arene</span>. </p>
+4. Reparler au maitre apres chaque victoire, jusqu'au capitaine : quatre combats de plus.<br  />
+5. Redescendre, passer la porte ouverte, revenir a l'etal.<br  />
+ <b>Resultat attendu :</b> <span class="tt">persuasion-echouee</span> puis <span class="tt">condamne</span> ; le portail du -1 arrive au vestiaire ; la porte bloque sous <span class="tt">condamne</span> et s'ouvre apres ; la cinquieme victoire, et elle seule, pose <span class="tt">enfant-libere</span> ; la demo se clot par la voie <span class="tt">arene</span>. </p>
 
 </div>
 </div>

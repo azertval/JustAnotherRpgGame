@@ -145,7 +145,8 @@ $(function(){initNavTree('test__combat__cues_8cpp.html','',''); });
 
 <p>Tests de la file des mouvements du combat (<span class="tt">LOT-118</span>) : une marche se joue case par case à la vitesse du monde, un coup porte au milieu de son geste, un mort reste à terre.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;numbers&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="CombatCues_8h_source.html">HMI/Game/CombatCues.h</a>&quot;</code><br />
 </div><table class="memberdecls">
@@ -224,7 +225,7 @@ Functions</h2></td></tr>
  1. Donner au heros les durees d'un squelette dont l'attaque dure 1,0 s et porte a 0,7 s, et au rat un touche de 0,3 s.<br  />
 2. Pousser une attaque du heros sur le rat et le touche du rat.<br  />
 3. Avancer a 0,6 s, a 0,75 s, a 0,95 s, puis a 1,05 s.<br  />
- <b>Resultat attendu :</b> A 0,6 s le heros attaque et le rat est au repos : le coup n'a pas porte, alors qu'une bande l'aurait fait porter a 0,32 s. A 0,75 s le rat encaisse, depuis 0,05 s. A 0,95 s il n'a pas fini (0,25 s sur 0,3), le heros attaque encore. A 1,05 s tous deux sont au repos : le geste a dure son clip. Le cap du heros est celui de sa cible. </p>
+ <b>Resultat attendu :</b> A 0,6 s le heros attaque et le rat est au repos : le coup n'a pas porte, alors qu'une duree par defaut l'aurait fait porter a 0,32 s. A 0,75 s le rat encaisse, depuis 0,05 s. A 0,95 s il n'a pas fini (0,25 s sur 0,3), le heros attaque encore. A 1,05 s tous deux sont au repos : le geste a dure son clip. Le cap du heros est celui de sa cible. </p>
 
 </div>
 </div>

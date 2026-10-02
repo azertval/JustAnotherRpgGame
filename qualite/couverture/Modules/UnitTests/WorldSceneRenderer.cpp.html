@@ -93,16 +93,19 @@ PlaceCamera worldCamera(const core::IsoProjection&amp; projection, core::Vector2
         right = std::max(right, bounds.position.x + bounds.size.x);
         bottom = std::max(bottom, bounds.position.y + bounds.size.y);
     }
-    for (const ComposedMesh&amp; mesh : scene.meshes()) {</span>
-<span style = "background-color:#fdd">        left = std::min(left, mesh.bounds.position.x);
+    for (const ComposedMesh&amp; mesh : scene.meshes()) {
+        left = std::min(left, mesh.bounds.position.x);
         top = std::min(top, mesh.bounds.position.y);
         right = std::max(right, mesh.bounds.position.x + mesh.bounds.size.x);
         bottom = std::max(bottom, mesh.bounds.position.y + mesh.bounds.size.y);
-    }</span>
-<span style = "background-color:#dfd">    return core::Rect{{left, top}, {right - left, bottom - top}};
+    }
+    return core::Rect{{left, top}, {right - left, bottom - top}};
 }</span>
 
 namespace {
+
+/// Ce qui termine le chemin du marqueur d'une figurine (`hmi::figureMarkerPath`).
+constexpr std::string_view FIGURE_MARKER_SUFFIX = "/@marker";
 
 /// Ce que pese une texture `RGBA8` de @p width x @p height en memoire graphique ; lissee, elle
 /// porte en plus sa chaine de mipmaps, un tiers de sa taille.
@@ -228,7 +231,29 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">    }
 }</span>
 
-<span style = "background-color:#dfd">void WorldSceneRenderer::ensureFigureModels(const std::vector&lt;std::string&gt;&amp; paths) {
+<span style = "background-color:#dfd">void WorldSceneRenderer::ensureFigureModels(std::span&lt;const WorldFigureSnapshot&gt; figures) {
+    std::vector&lt;std::string&gt; paths = worldFigureModelPaths(figures);</span>
+    // Une figurine qui ne nomme pas son modele : la fiche de son dossier le dit (LOT-1006). Un
+    // dossier se lit une fois ; sans fiche, il est retenu comme tel et sa figurine prend son
+    // marqueur.
+<span style = "background-color:#dfd">    for (const WorldFigureSnapshot&amp; figure : figures) {
+        if (figure.effect || figure.figure.empty() || !figure.model.empty()) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::string directory = worldFigureDirectory(*_scene, figure.figure);
+        auto known = _textures.figureModels.find(directory);
+        if (known == _textures.figureModels.end()) {
+            const core::CharacterSheetFileResult sheet = core::readCharacterSheetFile(</span>
+                _directory / std::filesystem::path(directory) / core::CHARACTER_SHEET_FILE);
+<span style = "background-color:#dfd">            known = _textures.figureModels</span>
+                        .emplace(directory,
+                                 sheet.ok() ? directory + "/" + sheet.sheet.model : std::string{})
+                        .first;
+<span style = "background-color:#dfd">        }
+        if (!known-&gt;second.empty()) {
+            paths.push_back(known-&gt;second);</span>
+        }
+<span style = "background-color:#dfd">    }
     for (const std::string&amp; path : paths) {</span>
         // Ni deja tente : un modele absent ne se redemande pas a chaque image.
 <span style = "background-color:#dfd">        if (!_requested.insert(path).second) {
@@ -236,8 +261,7 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
         }
 <span style = "background-color:#dfd">        core::MeshFileResult read = core::readMeshFile(_directory / path);
         if (!read.ok()) {</span>
-            // La composition retombe sur les bandes de la figurine, donc sur le damier : un modele
-            // manquant se voit, sans planter.
+            // Rien ne se dessine a sa place : un modele manquant est dit, sans planter.
 <span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING("Lieu : le modele '" + path + "' ne se charge pas (" +</span>
                                  read.message + ").");
 <span style = "background-color:#fdd">            continue;</span>
@@ -290,16 +314,17 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 
 <span style = "background-color:#dfd">std::optional&lt;LoadedTexture&gt; WorldSceneRenderer::figureMarker(const std::string&amp; path) {
     const std::string cle = figureMarkerKey(path);
-    if (cle.empty()) {
-        return std::nullopt;</span>
+    if (cle.empty()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
     }
 <span style = "background-color:#dfd">    const core::MarkerImage image =</span>
         core::assetMarker(cle, FIGURE_MARKER_WIDTH_PIXELS, FIGURE_MARKER_HEIGHT_PIXELS);
 <span style = "background-color:#dfd">    if (image.isEmpty()) {</span>
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle + " n'a pas d'image, son marqueur la remplace.");
-    return createTexture(_resources.context(), image.width, image.height, markerPixelsRgba8(image));
+<span style = "background-color:#dfd">    GRAPHICS_LOG_INFO("Lieu : la figurine " + cle +</span>
+                      " n'a pas de modele, son marqueur la remplace.");
+<span style = "background-color:#dfd">    return createTexture(_resources.context(), image.width, image.height, markerPixelsRgba8(image));
 }</span>
 
 <span style = "background-color:#dfd">void WorldSceneRenderer::ensureTextures(const std::vector&lt;std::string&gt;&amp; paths) {</span>
@@ -310,6 +335,24 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
         if (!_requested.insert(path).second) {
             continue;</span>
         }
+        // Le marqueur d'une figurine n'est pas un fichier non plus : il se peint, et seulement si
+        // la fiche de son dossier ne lui a pas donne de modele (LOT-1006). Une case de large.
+<span style = "background-color:#dfd">        if (path.ends_with(FIGURE_MARKER_SUFFIX)) {
+            const std::string directory = path.substr(0, path.size() - FIGURE_MARKER_SUFFIX.size());
+            if (_textures.findFigureOf(directory) != nullptr) {
+                _requested.erase(path);  // son modele est la : le marqueur reste a peindre un jour
+                continue;</span>
+            }
+<span style = "background-color:#dfd">            if (std::optional&lt;LoadedTexture&gt; marqueur = figureMarker(path)) {
+                _textures.byPath[path] = SceneTexture{.texture = marqueur-&gt;handle(),</span>
+                                                      .width = marqueur-&gt;width,
+                                                      .height = marqueur-&gt;height,
+                                                      .frameWidth = marqueur-&gt;width};
+<span style = "background-color:#dfd">                _textureBytes += textureWeight(marqueur-&gt;width, marqueur-&gt;height, false);
+                _loaded.push_back(std::move(*marqueur));
+            }
+            continue;</span>
+<span style = "background-color:#fdd">        }</span>
         // Un jeton n'est pas un fichier : il se peint (LOT-128, decision D2). La meme image, au
         // pixel pres, que celle que l'editeur dessine.
 <span style = "background-color:#dfd">        if (const core::MarkerImage token = maquetteTokenImage(path, MAQUETTE_TOKEN_SIZE_PIXELS);
@@ -346,17 +389,6 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
                 : std::nullopt;
 <span style = "background-color:#dfd">        decoded[index].reset();  // les pixels sont copies dans le lot : on les rend tout de suite
         if (!texture.has_value()) {</span>
-            // Une figurine sans image se dessine par son marqueur (LOT-39, LOT-96) : la
-            // sentinelle se voit avant que l'atelier ne l'ait dessinee. Une case de large.
-<span style = "background-color:#dfd">            if (std::optional&lt;LoadedTexture&gt; marqueur = figureMarker(path)) {
-                _textures.byPath[path] = SceneTexture{.texture = marqueur-&gt;handle(),</span>
-                                                      .width = marqueur-&gt;width,
-                                                      .height = marqueur-&gt;height,
-                                                      .frameWidth = marqueur-&gt;width};
-<span style = "background-color:#dfd">                _textureBytes += textureWeight(marqueur-&gt;width, marqueur-&gt;height, false);
-                _loaded.push_back(std::move(*marqueur));
-                continue;
-            }</span>
             // La composition retombe sur le damier : une piece manquante se voit, sans planter.
 <span style = "background-color:#dfd">            GRAPHICS_LOG_WARNING(missingTextureWarning(path));
             continue;</span>
@@ -382,6 +414,7 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
     _textures.byPath.clear();
     _textures.meshes.clear();
     _textures.figures.clear();
+    _textures.figureModels.clear();
     _skeletons.clear();
     _meshes.reset();
     _textures.missing = SceneTexture{};
@@ -430,17 +463,20 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#dfd">void WorldSceneRenderer::refresh(const core::IsoProjection&amp; projection) {</span>
     // La carte : ses textures et sa composition, une fois par carte. Ce sont ses pieces qui disent
     // quoi charger, et la carte change au passage d'un portail.
-<span style = "background-color:#dfd">    if (_sceneDirty) {
+<span style = "background-color:#dfd">    if (_sceneDirty) {</span>
+        // Les modeles avant les textures : un marqueur ne se peint que pour une figurine sans
+        // modele.
+<span style = "background-color:#dfd">        ensureFigureModels(_scene-&gt;figures);
         ensureTextures(worldTexturePaths(*_scene));
         ensureMeshes(worldMeshPaths(*_scene));
-        ensureFigureModels(worldFigureModelPaths(_scene-&gt;figures));
         _statics.build(*_scene, projection, _textures, _composeOptions);
         _sceneDirty = false;</span>
     }
-    // Les figurines : leurs bandes, quand elles changent (une figurine neuve, une autre bande).
+    // Les figurines : leurs modeles, leurs marqueurs et les bandes des effets, quand elles
+    // changent.
 <span style = "background-color:#dfd">    if (_figuresDirty) {
+        ensureFigureModels(_figures);
         ensureTextures(worldFigureTexturePaths(*_scene, _figures));
-        ensureFigureModels(worldFigureModelPaths(_figures));
         _figuresDirty = false;</span>
     }
 <span style = "background-color:#dfd">}</span>

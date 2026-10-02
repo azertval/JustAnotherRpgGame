@@ -171,10 +171,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a217d5f0ac54cef93b5435b73f9a6d394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toute image livrée paraît dans la galerie, ou relève d'une exclusion nommée (<span class="tt">EX-CNT-042</span>).  <br /></td></tr>
 <tr class="memitem:a63ef2c2da92a6aff057bcb49d1dcacf3" id="r_a63ef2c2da92a6aff057bcb49d1dcacf3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a63ef2c2da92a6aff057bcb49d1dcacf3">TEST</a> (AssetGalleryTest, ArborescenceParNiveaux)</td></tr>
 <tr class="memdesc:a63ef2c2da92a6aff057bcb49d1dcacf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'arborescence par niveaux paraît dans la galerie : un dossier <span class="tt">Scene/</span> de zone est une famille nommée par son lieu, et un manifeste encore vide n'en fait pas (LOT-104).  <br /></td></tr>
-<tr class="memitem:a2be843154aabf3dd5680a730677072da" id="r_a2be843154aabf3dd5680a730677072da"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2be843154aabf3dd5680a730677072da">TEST</a> (AssetGalleryTest, FigurinesDeMonstres)</td></tr>
-<tr class="memdesc:a2be843154aabf3dd5680a730677072da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines de monstres forment leur famille, au gabarit que dit chaque <span class="tt">.anim.json</span>, et une bête sans sort n'a pas d'entrée <span class="tt">cast</span> (LOT-93).  <br /></td></tr>
-<tr class="memitem:affebaa5b26189b422ba3394463411723" id="r_affebaa5b26189b422ba3394463411723"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#affebaa5b26189b422ba3394463411723">TEST</a> (AssetGalleryTest, UnHerosOrienteRangeParClasse)</td></tr>
-<tr class="memdesc:affebaa5b26189b422ba3394463411723"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un heros range par classe parait dans la galerie, une entree par orientation, avec son portrait et son jeton (<span class="tt">LOT-112</span>, <span class="tt">EX-CNT-042</span>).  <br /></td></tr>
+<tr class="memitem:ad70abf26cf8b19174559e79861127b5c" id="r_ad70abf26cf8b19174559e79861127b5c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad70abf26cf8b19174559e79861127b5c">TEST</a> (AssetGalleryTest, LesPersonnagesParaissentEnModeles)</td></tr>
+<tr class="memdesc:ad70abf26cf8b19174559e79861127b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un personnage paraît par son <b>modèle</b>, une forme par clip que son squelette déclare ; un modèle inscrit sans fiche paraît dans sa pose ; ce qui n'a pas de modèle ne paraît pas (<span class="tt">LOT-1006</span>).  <br /></td></tr>
+<tr class="memitem:a7bbda1bd20426ee31025a3339c1e4cc2" id="r_a7bbda1bd20426ee31025a3339c1e4cc2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7bbda1bd20426ee31025a3339c1e4cc2">TEST</a> (AssetGalleryTest, UnHerosEnModeleRangeParClasse)</td></tr>
+<tr class="memdesc:a7bbda1bd20426ee31025a3339c1e4cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un heros range par classe parait dans la galerie par son modele, clip par clip, avec son portrait et son jeton ; son <span class="tt">.glb</span> compte parmi les assets a montrer (<span class="tt">LOT-1006</span>, <span class="tt">EX-CNT-042</span>).  <br /></td></tr>
 <tr class="memitem:a22a9cb101143188f562fda1146fbbb20" id="r_a22a9cb101143188f562fda1146fbbb20"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a22a9cb101143188f562fda1146fbbb20">TEST</a> (AssetGalleryTest, UnEffetSeJoueDansLaGalerie)</td></tr>
 <tr class="memdesc:a22a9cb101143188f562fda1146fbbb20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un effet de <span class="tt">Common/Fx</span> se joue dans la galerie : sa bande se decoupe par son <span class="tt">.anim.json</span> (<span class="tt">LOT-136</span>, <span class="tt">EX-CNT-042</span>).  <br /></td></tr>
 </table>
@@ -235,7 +235,7 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. Lire le catalogue de la racine d'essai.<br  />
- <b>Resultat attendu :</b> Aucune erreur ; PNJ avec attaque de 96 px en 8 images jouée une fois ; monstres et lieu présents ; toutes les textures existent. </p>
+ <b>Resultat attendu :</b> Aucune erreur ; le PNJ est un modèle, dont l'attaque dure 0,8 s et se joue une fois ; monstres et lieu présents ; tous les fichiers existent. </p>
 
 </div>
 </div>
@@ -268,37 +268,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2be843154aabf3dd5680a730677072da" name="a2be843154aabf3dd5680a730677072da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2be843154aabf3dd5680a730677072da">&#9670;&#160;</a></span>TEST() <span class="overload">[4/11]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">AssetGalleryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FigurinesDeMonstres</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Les figurines de monstres forment leur famille, au gabarit que dit chaque <span class="tt">.anim.json</span>, et une bête sans sort n'a pas d'entrée <span class="tt">cast</span> (LOT-93). </p>
-<p><b>Cas de test :</b> <b>Une figurine Grande sans sort paraît dans la galerie.</b><br  />
- <b>Categorie :</b> Unitaire · Galerie des assets<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Écrire un dossier Monsters/ : un manifeste qui nomme idle et cast, un lion qui n'a que idle, en cellules de 96 × 96. 2. Lire le catalogue.<br  />
- <b>Resultat attendu :</b> Une famille « Monstres » ; le idle du lion en 96 × 96 et 6 images ; aucune entrée cast, aucune erreur. </p>
-
-</div>
-</div>
 <a id="a11647301f5295d431dd8ed3a1ce19cea" name="a11647301f5295d431dd8ed3a1ce19cea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11647301f5295d431dd8ed3a1ce19cea">&#9670;&#160;</a></span>TEST() <span class="overload">[5/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a11647301f5295d431dd8ed3a1ce19cea">&#9670;&#160;</a></span>TEST() <span class="overload">[4/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -327,7 +298,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a3f9a0e7894d28c3283380f6fb5e4be6f" name="a3f9a0e7894d28c3283380f6fb5e4be6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f9a0e7894d28c3283380f6fb5e4be6f">&#9670;&#160;</a></span>TEST() <span class="overload">[6/11]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f9a0e7894d28c3283380f6fb5e4be6f">&#9670;&#160;</a></span>TEST() <span class="overload">[5/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -352,6 +323,35 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Demander l'image d'un clip bouclé et d'un clip joué une fois à plusieurs instants.<br  />
  <b>Resultat attendu :</b> Boucle : 1 puis 0 ; une fois : 3, tenue sur 3, puis 0. </p>
+
+</div>
+</div>
+<a id="ad70abf26cf8b19174559e79861127b5c" name="ad70abf26cf8b19174559e79861127b5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad70abf26cf8b19174559e79861127b5c">&#9670;&#160;</a></span>TEST() <span class="overload">[6/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">AssetGalleryTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesPersonnagesParaissentEnModeles</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un personnage paraît par son <b>modèle</b>, une forme par clip que son squelette déclare ; un modèle inscrit sans fiche paraît dans sa pose ; ce qui n'a pas de modèle ne paraît pas (<span class="tt">LOT-1006</span>). </p>
+<p><b>Cas de test :</b> <b>Les personnages paraissent en modeles, clip par clip.</b><br  />
+ <b>Categorie :</b> Unitaire · Galerie des assets<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Écrire un dossier Monsters/ : un lion avec sa fiche, son modèle et un squelette à deux clips ; un tigre inscrit au manifeste (<span class="tt">models</span>) sans fiche ; un fantôme dont la fiche nomme un fichier absent ; un vestige qui n'a qu'une bande d'images. 2. Lire le catalogue.<br  />
+ <b>Resultat attendu :</b> Une famille « Monstres » de trois formes : le lion en <span class="tt">idle</span> (boucle, 1 s) et <span class="tt">attack</span> (une fois, 0,8 s), le tigre en <span class="tt">model</span>, sans clip ; rien pour le fantôme ni pour le vestige ; aucune erreur. </p>
 
 </div>
 </div>
@@ -380,7 +380,7 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
  1. Lire le catalogue de Source/Elements/Assets. 2. Parcourir toutes les images livrées.<br  />
- <b>Resultat attendu :</b> Chaque PNG ou JPEG est une forme de la galerie, ou une planche source, une image d'interface, une carte plein écran ou une police ; les portraits de PNJ y sont. </p>
+ <b>Resultat attendu :</b> Chaque PNG, JPEG ou modèle <span class="tt">.glb</span> est une forme de la galerie, ou une planche source, une image d'interface, une carte plein écran ou une police ; les portraits de PNJ y sont. </p>
 
 </div>
 </div>
@@ -444,8 +444,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="affebaa5b26189b422ba3394463411723" name="affebaa5b26189b422ba3394463411723"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affebaa5b26189b422ba3394463411723">&#9670;&#160;</a></span>TEST() <span class="overload">[10/11]</span></h2>
+<a id="a7bbda1bd20426ee31025a3339c1e4cc2" name="a7bbda1bd20426ee31025a3339c1e4cc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bbda1bd20426ee31025a3339c1e4cc2">&#9670;&#160;</a></span>TEST() <span class="overload">[10/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -458,22 +458,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UnHerosOrienteRangeParClasse</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">UnHerosEnModeleRangeParClasse</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un heros range par classe parait dans la galerie, une entree par orientation, avec son portrait et son jeton (<span class="tt">LOT-112</span>, <span class="tt">EX-CNT-042</span>). </p>
-<p><b>Cas de test :</b> <b>Les bandes orientees du heros et son jeton paraissent dans la galerie.</b><br  />
+<p>Un heros range par classe parait dans la galerie par son modele, clip par clip, avec son portrait et son jeton ; son <span class="tt">.glb</span> compte parmi les assets a montrer (<span class="tt">LOT-1006</span>, <span class="tt">EX-CNT-042</span>). </p>
+<p><b>Cas de test :</b> <b>Le modele du heros, son portrait et son jeton paraissent dans la galerie.</b><br  />
  <b>Categorie :</b> Unitaire · Galerie des assets<br  />
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
- 1. Ecrire <span class="tt">Common/Characters/manifest.json</span>, qui nomme <span class="tt">Heroes/brawler</span> dans <span class="tt">npcs</span>, et deux bandes de marche orientees, un portrait et un jeton.<br  />
+ 1. Ecrire <span class="tt">Common/Characters/manifest.json</span>, qui nomme <span class="tt">Heroes/brawler</span> dans <span class="tt">npcs</span>, sa fiche, son modele, le squelette humanoide a deux clips, un portrait et un jeton ; a cote, un modele que rien n'inscrit.<br  />
 2. Lire le catalogue.<br  />
-</p><ol type="1">
-<li>Chercher les images non listees.<br  />
- <b>Resultat attendu :</b> Le modele <span class="tt">Heroes/brawler</span> a ses entrees <span class="tt">walk-se</span> et <span class="tt">walk-sw</span>, en 192 x 256 et huit images, son portrait et son jeton ; aucune image non listee, aucune erreur. </li>
-</ol>
+3. Chercher les assets non listes.<br  />
+ <b>Resultat attendu :</b> Le modele <span class="tt">Heroes/brawler</span> a ses entrees <span class="tt">idle</span> et <span class="tt">walk</span>, son portrait et son jeton ; le seul asset non liste est le modele que rien n'inscrit ; aucune erreur. </p>
 
 </div>
 </div>

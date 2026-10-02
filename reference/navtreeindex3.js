@@ -1,16 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"WorldState_8cpp.html":[4,0,0,3,0,71],
-"WorldState_8h.html":[4,0,0,3,0,72],
-"WorldState_8h_source.html":[4,0,0,3,0,72],
-"WorldTravel_8cpp.html":[4,0,0,2,10,20],
-"WorldTravel_8h.html":[4,0,0,2,10,21],
-"WorldTravel_8h_source.html":[4,0,0,2,10,21],
-"WorldViewportItem_8cpp.html":[4,0,0,6,7,46],
-"WorldViewportItem_8h.html":[4,0,0,6,7,47],
-"WorldViewportItem_8h_source.html":[4,0,0,6,7,47],
-"World_8cpp.html":[4,0,0,2,3,10],
-"World_8h.html":[4,0,0,2,3,11],
 "World_8h_source.html":[4,0,0,2,3,11],
 "annotated.html":[3,0],
 "bench__canvas_8cpp.html":[4,0,0,1,0],
@@ -249,5 +238,16 @@ var NAVTREEINDEX3 =
 "classcore_1_1BattleGrid.html#a0c816b168810ff9052c1f41225f44186":[2,0,1,22,32],
 "classcore_1_1BattleGrid.html#a0c816b168810ff9052c1f41225f44186":[3,0,0,22,32],
 "classcore_1_1BattleGrid.html#a240ddd200a9497878959f5db6bc73caa":[2,0,1,22,19],
-"classcore_1_1BattleGrid.html#a240ddd200a9497878959f5db6bc73caa":[3,0,0,22,19]
+"classcore_1_1BattleGrid.html#a240ddd200a9497878959f5db6bc73caa":[3,0,0,22,19],
+"classcore_1_1BattleGrid.html#a27b9d17fd8c8a7399622ce8037b758e6":[2,0,1,22,27],
+"classcore_1_1BattleGrid.html#a27b9d17fd8c8a7399622ce8037b758e6":[3,0,0,22,27],
+"classcore_1_1BattleGrid.html#a2ab4363b9ad5e7a87285f4e3fbf860b3":[2,0,1,22,36],
+"classcore_1_1BattleGrid.html#a2ab4363b9ad5e7a87285f4e3fbf860b3":[3,0,0,22,36],
+"classcore_1_1BattleGrid.html#a31889408e785ac672e553a7d52246993":[2,0,1,22,23],
+"classcore_1_1BattleGrid.html#a31889408e785ac672e553a7d52246993":[3,0,0,22,23],
+"classcore_1_1BattleGrid.html#a3f8b1a66e091a5db66010da34721bfc7":[2,0,1,22,30],
+"classcore_1_1BattleGrid.html#a3f8b1a66e091a5db66010da34721bfc7":[3,0,0,22,30],
+"classcore_1_1BattleGrid.html#a44455571fe0dd82a1262f39af39b1e65":[2,0,1,22,28],
+"classcore_1_1BattleGrid.html#a44455571fe0dd82a1262f39af39b1e65":[3,0,0,22,28],
+"classcore_1_1BattleGrid.html#a48b304db624d384b40ae4a6f34dd532b":[2,0,1,22,4]
 };

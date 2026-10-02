@@ -164,8 +164,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a0224a94a7c0446c843cd3f02a8773501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charger depuis un fichier absent renvoie les valeurs par défaut, sans erreur.  <br /></td></tr>
 <tr class="memitem:a6cb75a39791bf68ed8ac4684756032ce" id="r_a6cb75a39791bf68ed8ac4684756032ce"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6cb75a39791bf68ed8ac4684756032ce">TEST</a> (EditorKeyBindingsTest, SavePreserveLaSectionJeu)</td></tr>
 <tr class="memdesc:a6cb75a39791bf68ed8ac4684756032ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarder les touches d'éditeur préserve une section « jeu » déjà présente.  <br /></td></tr>
-<tr class="memitem:a3a722edf1d290b997e13fdf94dea93d7" id="r_a3a722edf1d290b997e13fdf94dea93d7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3a722edf1d290b997e13fdf94dea93d7">TEST</a> (EditorKeyBindingsTest, SavePreserveLaSectionManette)</td></tr>
-<tr class="memdesc:a3a722edf1d290b997e13fdf94dea93d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarder les touches d'éditeur préserve une section « manette » déjà présente (symétrique de <span class="tt">SavePreserveLaSectionJeu</span>).  <br /></td></tr>
+<tr class="memitem:a8bba20fb831431d20224c47ca16a8fe1" id="r_a8bba20fb831431d20224c47ca16a8fe1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8bba20fb831431d20224c47ca16a8fe1">TEST</a> (EditorKeyBindingsTest, SavePreserveLaSectionInconnue)</td></tr>
+<tr class="memdesc:a8bba20fb831431d20224c47ca16a8fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sauvegarder les touches d'éditeur préserve une section inconnue déjà présente (symétrique de <span class="tt">SavePreserveLaSectionJeu</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tests unitaires du remappage des touches de l'éditeur (<span class="tt">EditorKeyBindings</span>, <span class="tt">EX-CTRL-012</span>). </p>
@@ -260,8 +260,39 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8bba20fb831431d20224c47ca16a8fe1" name="a8bba20fb831431d20224c47ca16a8fe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bba20fb831431d20224c47ca16a8fe1">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">EditorKeyBindingsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SavePreserveLaSectionInconnue</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sauvegarder les touches d'éditeur préserve une section inconnue déjà présente (symétrique de <span class="tt">SavePreserveLaSectionJeu</span>). </p>
+<p><b>Cas de test :</b> <b>Sauvegarder les touches d'editeur preserve une section inconnue deja presente.</b><br  />
+ <b>Categorie :</b> Unitaire · Editor Key Bindings<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Ecrire un fichier avec une section de métadonnées.<br  />
+2. Sauvegarder des touches d'editeur dessus.<br  />
+3. Relire le fichier.<br  />
+ <b>Resultat attendu :</b> La section et son contenu sont toujours presents. </p>
+
+</div>
+</div>
 <a id="a6cb75a39791bf68ed8ac4684756032ce" name="a6cb75a39791bf68ed8ac4684756032ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cb75a39791bf68ed8ac4684756032ce">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cb75a39791bf68ed8ac4684756032ce">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -287,37 +318,6 @@ Functions</h2></td></tr>
  1. Mettre en place le contexte du test (arrangement).<br  />
 2. Executer le scenario et verifier les assertions.<br  />
  <b>Resultat attendu :</b> Sauvegarder les touches d'éditeur préserve une section « jeu » déjà présente. </p>
-
-</div>
-</div>
-<a id="a3a722edf1d290b997e13fdf94dea93d7" name="a3a722edf1d290b997e13fdf94dea93d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a722edf1d290b997e13fdf94dea93d7">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TEST </td>
-          <td>(</td>
-          <td class="paramtype">EditorKeyBindingsTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SavePreserveLaSectionManette</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sauvegarder les touches d'éditeur préserve une section « manette » déjà présente (symétrique de <span class="tt">SavePreserveLaSectionJeu</span>). </p>
-<p><b>Cas de test :</b> <b>Sauvegarder les touches d'editeur preserve une section manette deja presente.</b><br  />
- <b>Categorie :</b> Unitaire · Editor Key Bindings<br  />
- <b>Criticite :</b> Majeur<br  />
- <b>Etapes :</b><br  />
- 1. Ecrire un fichier avec une section manette.<br  />
-2. Sauvegarder des touches d'editeur dessus.<br  />
-3. Relire le fichier.<br  />
- <b>Resultat attendu :</b> La section manette et son contenu sont toujours presents. </p>
 
 </div>
 </div>

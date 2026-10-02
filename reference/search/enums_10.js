@@ -1,14 +1,10 @@
 var searchData=
 [
-  ['saveeffect_0',['SaveEffect',['../namespacecore.html#a66591e3012ab5919cc621550ff6720e1',1,'core']]],
-  ['scenepiececlass_1',['ScenePieceClass',['../namespacecore.html#a4a3860a249c1a2e07497950f57f4d461',1,'core']]],
-  ['scenepiecemanifesterror_2',['ScenePieceManifestError',['../namespacecore.html#a79edc6fa3ed0d05e7bad4f1756e2fbcc',1,'core']]],
-  ['screen_3',['Screen',['../classhmi_1_1ScreenRouter.html#a82f878c3ef3a0d8b924af7bbca4b37f7',1,'hmi::ScreenRouter']]],
-  ['screenevent_4',['ScreenEvent',['../namespacehmi.html#a964211f19cf43757eaaa80c3c29b0e90',1,'hmi']]],
-  ['screenid_5',['ScreenId',['../namespacehmi.html#a168b24f798c2e6d06beb9472a071528d',1,'hmi']]],
-  ['shapegestureaction_6',['ShapeGestureAction',['../namespacehmi.html#a89e362f40fcd08bc4c65661aff7fff62',1,'hmi']]],
-  ['spelleffectkind_7',['SpellEffectKind',['../namespacecore.html#a949e652a2fd4c81697cb49b39cd45a99',1,'core']]],
-  ['spellmechanism_8',['SpellMechanism',['../namespacecore.html#a6eee9bc9a9ca2edde9d16a7a6281144b',1,'core']]],
-  ['spelltarget_9',['SpellTarget',['../namespacecore.html#ae0c0027156a24e64ca36dcb6e379b3ec',1,'core']]],
-  ['startcontent_10',['StartContent',['../classhmi_1_1EditorViewport.html#ac34150056be14016dd3afb032a281739',1,'hmi::EditorViewport']]]
+  ['tacticalissuecode_0',['TacticalIssueCode',['../namespacecore.html#a81dfcf1ac21704e4f64a7780ec772910',1,'core']]],
+  ['targetcheck_1',['TargetCheck',['../namespacecore.html#a1c2689aacd9707ef3d8c556e9f2bf840',1,'core']]],
+  ['terrain_2',['Terrain',['../classcore_1_1BattleGrid.html#afa362bf2c8a692ba969b6a319c7a987f',1,'core::BattleGrid']]],
+  ['texturefiltering_3',['TextureFiltering',['../namespacehmi.html#a30e21236d068bfdc0078d392e42b752d',1,'hmi']]],
+  ['tiletype_4',['TileType',['../namespacecore.html#ace99a1be913e6294e42e9ebb145eb875',1,'core']]],
+  ['travelresult_5',['TravelResult',['../namespacecore.html#a2375e547c47a4b8a313cc967bdcac487',1,'core']]],
+  ['turnaction_6',['TurnAction',['../namespacecore.html#a004daf868d7dad4026ff9b7d3d75a11d',1,'core']]]
 ];

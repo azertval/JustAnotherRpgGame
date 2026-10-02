@@ -5,7 +5,7 @@ var classhmi_1_1WorldSceneRenderer =
     [ "WorldSceneRenderer", "classhmi_1_1WorldSceneRenderer.html#a2b5b96d0104c88b3fb25b9c6b8ac29eb", null ],
     [ "composed", "classhmi_1_1WorldSceneRenderer.html#a83e800ebffc8614f304d885d208af073", null ],
     [ "created", "classhmi_1_1WorldSceneRenderer.html#a4dfef69bdd871d6ca41447ab840f238a", null ],
-    [ "ensureFigureModels", "classhmi_1_1WorldSceneRenderer.html#abfa7945e5883064ddac3910d9f0e4bbe", null ],
+    [ "ensureFigureModels", "classhmi_1_1WorldSceneRenderer.html#a150efb8ec5acdd302294797d4b6842a1", null ],
     [ "ensureMeshes", "classhmi_1_1WorldSceneRenderer.html#aa1f8c78651b1fa484a307a8934159b9b", null ],
     [ "ensureResources", "classhmi_1_1WorldSceneRenderer.html#a79799fc66af87ee0b4407f54c5c87bdd", null ],
     [ "ensureTextures", "classhmi_1_1WorldSceneRenderer.html#ae28a3765bdefd7b8fd594e5451c8f6cd", null ],

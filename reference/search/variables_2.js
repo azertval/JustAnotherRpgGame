@@ -33,10 +33,8 @@ var searchData=
   ['brush_30',['brush',['../structhmi_1_1LevelStatusInfo.html#af7a683c327b50588af07ffeb31952c45',1,'hmi::LevelStatusInfo::brush'],['../structhmi_1_1GestureState.html#af94b840eef71b2eb85eaf1e0567667bb',1,'hmi::GestureState::brush'],['../structhmi_1_1PickedBrush.html#a0f42adc4762d5b0be4f089a91373dfb5',1,'hmi::PickedBrush::brush']]],
   ['bucket_5ftiles_31',['BUCKET_TILES',['../classhmi_1_1StaticWorldScene.html#a1df7c684830767e99f904ba0fd892cd1',1,'hmi::StaticWorldScene']]],
   ['burrow_32',['burrow',['../structcore_1_1CreatureSpeed.html#a279a2e0ca9c7dacec5321ca51777d61d',1,'core::CreatureSpeed']]],
-  ['button_5frepeat_5fdelay_33',['BUTTON_REPEAT_DELAY',['../namespacehmi.html#a9ab13e58906fc19eaceaa84921d13f32',1,'hmi']]],
-  ['button_5frepeat_5finterval_34',['BUTTON_REPEAT_INTERVAL',['../namespacehmi.html#a19c4e889b587eee63318fd97be53024d',1,'hmi']]],
-  ['bx_35',['bx',['../structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22',1,'hmi::LineQuad']]],
-  ['by_36',['by',['../structcore_1_1MaskedScenePiece.html#a4ccf948fe25f7ad0d4f3650f93ccc58d',1,'core::MaskedScenePiece::by'],['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad::by']]],
-  ['bypassedby_37',['bypassedBy',['../structcore_1_1DamageAffinity.html#aee4369403d75f62d22159671ceb8a216',1,'core::DamageAffinity']]],
-  ['bypath_38',['byPath',['../structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f',1,'hmi::ScenePieceTextures']]]
+  ['bx_33',['bx',['../structhmi_1_1LineQuad.html#a203b268e3040f841fa7089fc58391d22',1,'hmi::LineQuad']]],
+  ['by_34',['by',['../structcore_1_1MaskedScenePiece.html#a4ccf948fe25f7ad0d4f3650f93ccc58d',1,'core::MaskedScenePiece::by'],['../structhmi_1_1LineQuad.html#aea263b042537c77e3ffbebe64b772a27',1,'hmi::LineQuad::by']]],
+  ['bypassedby_35',['bypassedBy',['../structcore_1_1DamageAffinity.html#aee4369403d75f62d22159671ceb8a216',1,'core::DamageAffinity']]],
+  ['bypath_36',['byPath',['../structhmi_1_1ScenePieceTextures.html#a34f4bb97c124acb80a4a73e0a348c53f',1,'hmi::ScenePieceTextures']]]
 ];

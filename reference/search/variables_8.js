@@ -4,7 +4,7 @@ var searchData=
   ['happened_1',['happened',['../structcore_1_1InteractionOutcome.html#a6d95d93846ceb674281e9c4713b63fe4',1,'core::InteractionOutcome']]],
   ['hascitymap_2',['hasCityMap',['../structhmi_1_1MapPlaceView.html#a2dcb90e00d727e549d8f9a3fa56f45b0',1,'hmi::MapPlaceView']]],
   ['hash_3',['hash',['../structhmi_1_1FileFingerprint.html#a5f6ad711c63621874fb5d5b5f679d38b',1,'hmi::FileFingerprint']]],
-  ['heading_4',['heading',['../structhmi_1_1FigureMotion.html#a4dfcba38722cfdbb2ef088ea3a324b0c',1,'hmi::FigureMotion::heading'],['../structhmi_1_1WorldPlay_1_1Follower.html#a270a4553b760edb70d5dbdfbfafd348a',1,'hmi::WorldPlay::Follower::heading'],['../structhmi_1_1WorldFigureSnapshot.html#a7fbc66f94737d24741b78b204bbd1e53',1,'hmi::WorldFigureSnapshot::heading']]],
+  ['heading_4',['heading',['../structhmi_1_1FigureMotion.html#a4dfcba38722cfdbb2ef088ea3a324b0c',1,'hmi::FigureMotion::heading'],['../structhmi_1_1WorldPlay_1_1Follower.html#a270a4553b760edb70d5dbdfbfafd348a',1,'hmi::WorldPlay::Follower::heading'],['../structhmi_1_1WorldFigureSnapshot.html#ae1994edb86ebaf6ad1af2e65a9b211ff',1,'hmi::WorldFigureSnapshot::heading']]],
   ['healing_5',['healing',['../structcore_1_1ArenaSpell.html#a9cdc58664012609ffa082efab4997621',1,'core::ArenaSpell::healing'],['../structcore_1_1Spell.html#a34117030ae56809aee2a61a0963bf4d6',1,'core::Spell::healing']]],
   ['heavilyencumberedgramsperstrength_6',['heavilyEncumberedGramsPerStrength',['../structcore_1_1EncumbranceRules.html#aa0ba2b93262161da8432df45d2555c72',1,'core::EncumbranceRules']]],
   ['heavilyencumberedspeedpenaltymeters_7',['heavilyEncumberedSpeedPenaltyMeters',['../structcore_1_1EncumbranceRules.html#af6e135349610aa4225b81cb988d3c2cd',1,'core::EncumbranceRules']]],

@@ -327,13 +327,13 @@
 <ol><li>Mettre en place le contexte du test (arrangement).</li><li>Executer le scenario et verifier les assertions.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>bindings.save(path)</code> est vrai.</li><li>Vérifie que <code>content.find(&quot;\&quot;jeu\&quot;&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>content.find(&quot;sauter&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
-</section><section class="case" data-crit="Majeur"><h3 id="editorkeybindingstestsavepreservelasectionmanette">EditorKeyBindingsTest.SavePreserveLaSectionManette</h3>
+</section><section class="case" data-crit="Majeur"><h3 id="editorkeybindingstestsavepreservelasectioninconnue">EditorKeyBindingsTest.SavePreserveLaSectionInconnue</h3>
 <p><em>Majeur · Unitaire · Editor Key Bindings</em> — <code>Source/Test/Unit/Editor/test_editor_key_bindings.cpp:162</code></p>
-<p>Sauvegarder les touches d'editeur preserve une section manette deja presente.</p>
+<p>Sauvegarder les touches d'editeur preserve une section inconnue deja presente.</p>
 <p><strong>Étapes</strong></p>
-<ol><li>Ecrire un fichier avec une section manette.</li><li>Sauvegarder des touches d'editeur dessus.</li><li>Relire le fichier.</li></ol>
+<ol><li>Ecrire un fichier avec une section de métadonnées.</li><li>Sauvegarder des touches d'editeur dessus.</li><li>Relire le fichier.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>bindings.save(path)</code> est vrai.</li><li>Vérifie que <code>content.find(&quot;\&quot;manette\&quot;&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>content.find(&quot;sauter&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
+<ul><li>Vérifie que <code>bindings.save(path)</code> est vrai.</li><li>Vérifie que <code>content.find(&quot;\&quot;metadata\&quot;&quot;)</code> diffère de <code>std::string::npos</code>.</li><li>Vérifie que <code>content.find(&quot;revision&quot;)</code> diffère de <code>std::string::npos</code>.</li></ul>
 </section><h2 id="test-editor-sidecarcpp">test_editor_sidecar.cpp</h2>
 <section class="case" data-crit="Majeur"><h3 id="editorsidecartestlannexevitacotedelacarte">EditorSidecarTest.LAnnexeVitACoteDeLaCarte</h3>
 <p><em>Majeur · Unitaire · Notes d'auteur</em> — <code>Source/Test/Unit/Editor/test_editor_sidecar.cpp:52</code></p>
@@ -827,7 +827,7 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Tirer l'instantane de l'Arenarea avec ses PNJ, puis les chemins de leurs bandes.</li><li>Faire le contexte des references pour l'Arenarea, puis pour le Martpart.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>map.ok()</code> est vrai.</li><li>Vérifie que <code>table.ok()</code> est vrai.</li><li>Vérifie que <code>snapshot.figures.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>snapshot.figureDirectories.at(&quot;anariel&quot;)</code> vaut <code>&quot;Regions/central-empire/capital/arenarea/Characters/anariel&quot;</code>.</li><li>Vérifie que <code>snapshot.figureDirectories.at(&quot;citizen&quot;)</code> vaut <code>&quot;Regions/central-empire/capital/arenarea/Characters/citizen&quot;</code>.</li><li>Vérifie que <code>snapshot.figureDirectories.at(&quot;Peoples/human/guard&quot;)</code> vaut <code>&quot;Common/Characters/Peoples/human/guard&quot;</code>.</li><li>Vérifie que <code>std::filesystem::is_regular_file(tree() / &quot;Assets&quot; / path)</code> est vrai.</li><li>Vérifie que <code>arena.figures.contains(&quot;anariel&quot;)</code> est vrai.</li><li>Vérifie que <code>arena.figures.contains(&quot;Peoples/human/guard&quot;)</code> est vrai.</li><li>Vérifie que <code>mart.figures.contains(&quot;anariel&quot;)</code> est faux.</li><li>Vérifie que <code>mart.figures.contains(&quot;citizen&quot;)</code> est vrai.</li><li>Vérifie que <code>mart.figures.contains(&quot;Peoples/human/guard&quot;)</code> est vrai.</li></ul>
+<ul><li>Vérifie que <code>map.ok()</code> est vrai.</li><li>Vérifie que <code>table.ok()</code> est vrai.</li><li>Vérifie que <code>snapshot.figures.size()</code> vaut <code>3U</code>.</li><li>Vérifie que <code>snapshot.figureDirectories.at(&quot;anariel&quot;)</code> vaut <code>&quot;Regions/central-empire/capital/arenarea/Characters/anariel&quot;</code>.</li><li>Vérifie que <code>snapshot.figureDirectories.at(&quot;citizen&quot;)</code> vaut <code>&quot;Regions/central-empire/capital/arenarea/Characters/citizen&quot;</code>.</li><li>Vérifie que <code>snapshot.figureDirectories.at(&quot;Peoples/human/guard&quot;)</code> vaut <code>&quot;Common/Characters/Peoples/human/guard&quot;</code>.</li><li>Vérifie que <code>std::filesystem::is_regular_file(tree() / &quot;Assets&quot; / path)</code> est vrai.</li><li>Vérifie que <code>std::filesystem::is_regular_file(tree() / &quot;Assets&quot; / directory / &quot;character.json&quot;)</code> est vrai.</li><li>Vérifie que <code>arena.figures.contains(&quot;anariel&quot;)</code> est vrai.</li><li>Vérifie que <code>arena.figures.contains(&quot;Peoples/human/guard&quot;)</code> est vrai.</li><li>Vérifie que <code>mart.figures.contains(&quot;anariel&quot;)</code> est faux.</li><li>Vérifie que <code>mart.figures.contains(&quot;citizen&quot;)</code> est vrai.</li><li>Vérifie que <code>mart.figures.contains(&quot;Peoples/human/guard&quot;)</code> est vrai.</li></ul>
 </section><h2 id="test-map-documentscpp">test_map_documents.cpp</h2>
 <section class="case" data-crit="Majeur"><h3 id="cartesenongletsunongletditsacarteetsesmodifications">CartesEnOnglets.UnOngletDitSaCarteEtSesModifications</h3>
 <p><em>Majeur · Unitaire · Le monde</em> — <code>Source/Test/Unit/Editor/test_map_documents.cpp:16</code></p>
@@ -985,37 +985,37 @@
 <p><strong>Étapes</strong></p>
 <ol><li>Rendre la Place et le donjon par <a class="ref" href="../reference/namespacehmi.html#a3c843b87b8612e61a4c7b1747f90f229"><code>hmi::renderMap</code></a>, au quart de l'echelle.</li><li>Rendre chacune comme le jeu : son instantane (<a class="ref" href="../reference/namespacehmi.html#a8e3a1dcd14a5132e99f15be875c38936"><code>hmi::snapshotWorldScene</code></a>) donne a un <a class="ref" href="../reference/classhmi_1_1WorldSceneRenderer.html"><code>hmi::WorldSceneRenderer</code></a>, dessine dans une cible hors ecran a lui, sur une interface QRhi a lui, avec le cadre que <a class="ref" href="../reference/namespacehmi.html#a51708f03902af8e6f04911b5c9e4a862"><code>hmi::mapRenderFrame</code></a> donne.</li></ol>
 <p><strong>Résultat attendu</strong></p>
-<ul><li>Vérifie que <code>table.ok()</code> est vrai.</li><li>Vérifie que <code>carte.ok()</code> est vrai.</li><li>Vérifie que <code>editor.isNull()</code> est faux.</li><li>Vérifie que <code>game.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>QSize(frame.width, frame.height)</code> vaut <code>editor.size()</code>.</li><li>Vérifie que <code>texture-&gt;create()</code> est vrai.</li><li>Vérifie que <code>target-&gt;create()</code> est vrai.</li><li>Vérifie que <code>rhi-&gt;beginOffscreenFrame(&amp;commands)</code> vaut <code>QRhi::FrameOpSuccess</code>.</li><li>Vérifie que <code>rhi-&gt;endOffscreenFrame()</code> vaut <code>QRhi::FrameOpSuccess</code>.</li><li>Vérifie que <code>played.size()</code> vaut <code>editor.size()</code>.</li><li>Vérifie que <code>differing</code> vaut <code>0</code>.</li></ul>
+<ul><li>Vérifie que <code>table.ok()</code> est vrai.</li><li>Vérifie que <code>carte.ok()</code> est vrai.</li><li>Vérifie que <code>editor.isNull()</code> est faux.</li><li>Vérifie que <code>game.ensureResources(rhi.get())</code> est vrai.</li><li>Vérifie que <code>QSize(frame.width, frame.height)</code> vaut <code>editor.size()</code>.</li><li>Vérifie que <code>texture-&gt;create()</code> est vrai.</li><li>Vérifie que <code>depth-&gt;create()</code> est vrai.</li><li>Vérifie que <code>target-&gt;create()</code> est vrai.</li><li>Vérifie que <code>rhi-&gt;beginOffscreenFrame(&amp;commands)</code> vaut <code>QRhi::FrameOpSuccess</code>.</li><li>Vérifie que <code>rhi-&gt;endOffscreenFrame()</code> vaut <code>QRhi::FrameOpSuccess</code>.</li><li>Vérifie que <code>played.size()</code> vaut <code>editor.size()</code>.</li><li>Vérifie que <code>differing</code> vaut <code>0</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="maprendertestunepiecehautenestpasrognee">MapRenderTest.UnePieceHauteNEstPasRognee</h3>
-<p><em>Majeur · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_map_render.cpp:216</code></p>
+<p><em>Majeur · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_map_render.cpp:223</code></p>
 <p>Le cadre de --render tient les pièces hautes.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Écrire un lieu HD d'une seule pièce, une tour rouge de 256 × 1024.</li><li>La poser sur la case (0, 0) d'une carte de 3 × 3, la plus haute à l'écran.</li><li>Rendre la carte au demi.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>ground &amp;&amp; decor</code> est vrai.</li><li>Vérifie que <code>draft.setLayerProperty(*ground, std::string{hmi::SCENE_PLACE_PROPERTY}, &quot;haut&quot;)</code> est vrai.</li><li>Vérifie que <code>draft.placePiece(*decor, {.column = 0, .row = 0}, &quot;tower&quot;, core::TileType::Wall)</code> est vrai.</li><li>Vérifie que <code>level.ok()</code> est vrai.</li><li>Vérifie que <code>image.isNull()</code> est faux.</li><li>Vérifie que <code>static_cast&lt;double&gt;(tower)</code> est strictement supérieur à <code>0.9 * expected</code>.</li><li>Vérifie que <code>static_cast&lt;double&gt;(tower)</code> est strictement inférieur à <code>1.1 * expected</code>.</li><li>Vérifie que <code>onEdge</code> vaut <code>0U</code>.</li></ul>
 </section><section class="case" data-crit="Mineur"><h3 id="maprendertestlesbandesselisentparleurnom">MapRenderTest.LesBandesSeLisentParLeurNom</h3>
-<p><em>Mineur · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_map_render.cpp:274</code></p>
+<p><em>Mineur · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_map_render.cpp:281</code></p>
 <p>--layers lit les bandes du canevas.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Lire <code>floors,collision</code>, puis <code>floors,toit</code>.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>bands.has_value()</code> est vrai.</li><li>Vérifie que <code>*bands</code> vaut <code>(hmi::IsoBandOpacity{ .floors = 1.0F, .relief = 0.0F, .figures = 0.0F, .collision = 1.0F})</code>.</li><li>Vérifie que <code>hmi::parseRenderLayers(&quot;floors,toit&quot;).has_value()</code> est faux.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="maprendertestrenderecrituneimageparcarte">MapRenderTest.RenderEcritUneImageParCarte</h3>
-<p><em>Majeur · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_map_render.cpp:291</code></p>
+<p><em>Majeur · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_map_render.cpp:298</code></p>
 <p>--render écrit une image par carte.</p>
 <p><strong>Étapes</strong></p>
 <ol><li><code>--render bourg/place donjon --scale 0.125 --output &lt;dossier&gt;</code>.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>code.has_value()</code> est vrai.</li><li>Vérifie que <code>*code</code> vaut <code>0</code>.</li><li>Vérifie que <code>std::filesystem::exists(dossier / &quot;bourg-place.png&quot;)</code> est vrai.</li><li>Vérifie que <code>std::filesystem::exists(dossier / &quot;donjon.png&quot;)</code> est vrai.</li><li>Vérifie que <code>hmi::runRenderCommand({&quot;--check&quot;}, {}, sortie).has_value()</code> est faux.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="maprendertestleplancouchelesblocsetlegende">MapRenderTest.LePlanCoucheLesBlocsEtLegende</h3>
-<p><em>Majeur · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_map_render.cpp:319</code></p>
+<p><em>Majeur · Unitaire · Editeur · Sans fenetre</em> — <code>Source/Test/Unit/Editor/test_map_render.cpp:326</code></p>
 <p>--plan couche les blocs et ajoute une legende.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Rendre une carte de maquette, une fois ordinairement, une fois en plan.</li></ol>
 <p><strong>Résultat attendu</strong></p>
 <ul><li>Vérifie que <code>carte.ok()</code> est vrai.</li><li>Vérifie que <code>plan.isNull()</code> est faux.</li><li>Vérifie que <code>plan.size()</code> vaut <code>ordinaire.size()</code>.</li><li>Vérifie que <code>plan</code> diffère de <code>ordinaire</code>.</li><li>Vérifie que <code>peinte(plan.copy(coin), options.background)</code> est strictement supérieur à <code>peinte(ordinaire.copy(coin), options.background)</code>.</li></ul>
 </section><section class="case" data-crit="Majeur"><h3 id="maprendertestunecartequipuisedansquatreniveauxserend">MapRenderTest.UneCarteQuiPuiseDansQuatreNiveauxSeRend</h3>
-<p><em>Majeur · Unitaire · Editeur · Sans fenetre · Arborescence</em> — <code>Source/Test/Unit/Editor/test_map_render.cpp:350</code></p>
+<p><em>Majeur · Unitaire · Editeur · Sans fenetre · Arborescence</em> — <code>Source/Test/Unit/Editor/test_map_render.cpp:357</code></p>
 <p>--render montre une carte qui puise dans quatre niveaux.</p>
 <p><strong>Étapes</strong></p>
 <ol><li>Rendre l'Arenarea de la racine LevelTree a l'echelle 1.</li></ol>
@@ -1594,7 +1594,7 @@
 <ul><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {})</code> vaut <code>&quot;from-place&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;bourg/place&quot;, {&quot;from-place&quot;})</code> vaut <code>&quot;from-place-2&quot;</code>.</li><li>Vérifie que <code>hmi::arrivalNameFrom(&quot;donjon&quot;, {&quot;from-donjon&quot;, &quot;from-donjon-2&quot;})</code> vaut <code>&quot;from-donjon-3&quot;</code>.</li></ul></section></article><nav class="pager"><a class="prev" href="core-world.html"><span>Précédent</span>Core · World</a><a class="next" href="hmi-audio.html"><span>Suivant</span>HMI · Audio</a></nav><p class="source">Source : <code>Documentation/CahierTest/editor.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Documentation/</code> le 2026-10-02 · <code>37e0286bc</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Documentation/</code> le 2026-10-02 · <code>090f5fc57</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 <script src="../assets/docs.js"></script>
 </body>

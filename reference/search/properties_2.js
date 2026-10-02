@@ -20,9 +20,8 @@ var searchData=
   ['clearcolor_17',['clearColor',['../classhmi_1_1AssetGalleryItem.html#ada82be0aab4a7466f67cacd3970b894d',1,'hmi::AssetGalleryItem::clearColor'],['../classhmi_1_1GameViewportItem.html#a127c42d7f8e5427edd5524401727fda9',1,'hmi::GameViewportItem::clearColor'],['../classhmi_1_1WorldViewportItem.html#ad53fd20fad0cc665d0b02db9920e7bc8',1,'hmi::WorldViewportItem::clearColor']]],
   ['column_18',['column',['../classhmi_1_1CreditsModel.html#ac32e49e3c58599f9004eb3bb6a69ba3e',1,'hmi::CreditsModel']]],
   ['columns_19',['columns',['../classhmi_1_1WorldModel.html#a0edb35d3899752ac9a686a872c935e6e',1,'hmi::WorldModel']]],
-  ['connected_20',['connected',['../classhmi_1_1GamepadNavigator.html#ab04ee136a3e4440ecee3d83329008045',1,'hmi::GamepadNavigator']]],
-  ['currentrpgscreen_21',['currentRpgScreen',['../classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730',1,'hmi::ScreenRouter']]],
-  ['currentscreen_22',['currentScreen',['../classhmi_1_1ScreenRouter.html#a952acb7772fad83498dfacac20ec1953',1,'hmi::ScreenRouter']]],
-  ['cursorcolumn_23',['cursorColumn',['../classhmi_1_1CombatModel.html#aa86af5af2fc310b86a15b61af7fc3166',1,'hmi::CombatModel']]],
-  ['cursorrow_24',['cursorRow',['../classhmi_1_1CombatModel.html#aede325d57cb27c7f3d6cb2b37aab6657',1,'hmi::CombatModel']]]
+  ['currentrpgscreen_20',['currentRpgScreen',['../classhmi_1_1ScreenRouter.html#a68efd81277570018b5f1043310abb730',1,'hmi::ScreenRouter']]],
+  ['currentscreen_21',['currentScreen',['../classhmi_1_1ScreenRouter.html#a952acb7772fad83498dfacac20ec1953',1,'hmi::ScreenRouter']]],
+  ['cursorcolumn_22',['cursorColumn',['../classhmi_1_1CombatModel.html#aa86af5af2fc310b86a15b61af7fc3166',1,'hmi::CombatModel']]],
+  ['cursorrow_23',['cursorRow',['../classhmi_1_1CombatModel.html#aede325d57cb27c7f3d6cb2b37aab6657',1,'hmi::CombatModel']]]
 ];

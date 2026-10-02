@@ -152,6 +152,7 @@ $(function(){initNavTree('WorldSceneRenderer_8h.html','',''); });
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;set&gt;</code><br />
+<code>#include &lt;span&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
@@ -195,18 +196,18 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Le rendu QRhi d'un <b>lieu qu'on parcourt</b> (<span class="tt">LOT-09</span>) ; depuis le <span class="tt">LOT-118</span>, celui du combat aussi. </p>
 <p>Le découpage vaut pour une raison : tout ce qui peut casser — l'ordre de création, l'ordre de libération, la recréation sur une autre interface QRhi — vit ici, où un test hors écran le fait tourner sur un vrai <span class="tt">QRhi</span> sans fenêtre. L'élément Qt Quick (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante, posée dans la vue de jeu.">hmi::WorldViewportItem</a></span>) ne relaie que trois appels.</p>
 <p><b>Les textures ne sont pas connues d'avance</b> : un lieu a les pièces de sa carte, et la carte change au passage d'un portail. Les textures se chargent donc quand une carte arrive — décodées sur tous les cœurs, créées sur le fil de rendu, dans le lot de l'image.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md109"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md110"></a>
 Ce qu'une image refait, et ce qu'elle ne refait pas</h2>
 <p>La carte (<span class="tt">setScene</span>) ne change qu'en entrant ou quand un drapeau fait paraître ou disparaître quelque chose : elle se compose <b>une fois</b>, dans une <span class="tt"><a class="el" href="classhmi_1_1StaticWorldScene.html" title="La partie fixe d&#39;une carte : composée une fois, triée, indexée par seaux, puis découpée au cadrage à ...">hmi::StaticWorldScene</a></span>. Une image ne prend que ce que la caméra montre, et y fusionne les figurines (<span class="tt">setFigures</span>) — le héros qui marche, les PNJ qui respirent. Le coût d'une image dépend donc de ce qu'on voit, pas de la taille de la carte (audit de l'affichage d'un lieu, <span class="tt">Planning/standards/audit-affichage-lieu.md</span>).</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md110"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md111"></a>
 Le rendu de l'éditeur aussi (<span class="tt">LOT-1002</span>)</h2>
 <p>Le canevas de l'éditeur, <span class="tt">LevelEditor --render</span> et les vignettes passent par cette classe : il n'y a qu'un rendu d'un lieu. Ce que l'éditeur demande en plus tient en trois réglages, sans effet tant qu'on ne les touche pas : un <b>cadrage imposé</b> (<span class="tt">setFraming</span>, le zoom et le défilement du canevas, le cadre d'une image hors écran), une <b>opacité par primitive</b> (<span class="tt">setQuadOpacity</span>, les calques masqués ou grisés, les reliefs en transparence) et les options de composition (<span class="tt">setComposeOptions</span>, le plan de principe). <span class="tt">prepare</span> et <span class="tt">paintedBounds</span> composent la carte <b>avant</b> l'image : le cadre d'un rendu se mesure sur ce qui sera dessiné.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md111"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md112"></a>
 Les volumes (<span class="tt">LOT-1003</span>)</h2>
 <p>Une pièce dont le manifeste cite un maillage se charge par <span class="tt"><a class="el" href="namespacecore.html#a469880653f9c41cdb8fca5a6a8d87a4a" title="Lit le fichier .glb path ; un fichier absent est une erreur du résultat.">core::readMeshFile</a></span> et se dessine par <span class="tt"><a class="el" href="classhmi_1_1MeshBatch.html" title="Dessine des maillages texturés au travers de QRhi : sommets, normales, coordonnées de texture ; profo...">hmi::MeshBatch</a></span>, <b>dans la même passe</b> que les images et avant elles : les maillages écrivent la profondeur, les images la testent sans l'écrire et gardent entre elles l'ordre du peintre. La caméra est la même (<span class="tt"><a class="el" href="classhmi_1_1PlaceCamera.html" title="Caméra orthographique d&#39;un lieu : du repère de la vue (hmi::IsoView) à l&#39;écran.">hmi::PlaceCamera</a></span>) ; elle ramène alors la profondeur de la vue (<span class="tt"><a class="el" href="classhmi_1_1IsoView.html" title="La vue en volume d&#39;une grille projetée par core::IsoProjection.">hmi::IsoView</a></span>) à l'étendue du tampon.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md112"></a>
-Les figurines en modèle (<span class="tt">LOT-1005</span>)</h2>
-<p>Une figurine dont l'instantané nomme un modèle (<span class="tt">WorldFigureSnapshot::model</span>) se charge de même — son <span class="tt">.glb</span>, la fiche de son dossier, la description du squelette qu'elle cite — et se dessine par la même passe, avec la pose que la composition a calculée pour l'image. Une figurine en bandes garde son chemin d'avant.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md113"></a>
+Les figurines (<span class="tt">LOT-1005</span>, <span class="tt">LOT-1006</span>)</h2>
+<p>Une figurine est un <b>modèle</b> : celui que son instantané nomme (<span class="tt">WorldFigureSnapshot::model</span>), à défaut celui que déclare la fiche de son dossier (<span class="tt">character.json</span>). Il se charge comme un maillage — son <span class="tt">.glb</span>, sa fiche, la description du squelette qu'elle cite — et se dessine par la même passe, avec la pose que la composition a calculée pour l'image. Une figurine sans modèle se dessine par son <b>marqueur</b>, peint ; seuls les effets (<span class="tt">Common/Fx/</span>) restent des bandes.</p>
 <p>Tout cela n'a lieu que si l'image <b>a</b> un maillage. Sans lui — toutes les cartes livrées à l'ouverture du lot —, le pipeline, les sommets et la matrice sont ceux d'avant : l'image est la même au pixel. La cible doit avoir un tampon de profondeur dès qu'une carte pose un volume ; les surfaces du jeu et de l'éditeur en ont un, <span class="tt"><a class="el" href="classhmi_1_1OffscreenRhi.html" title="Une interface QRhi sans fenêtre, la cible où elle dessine, et les rendus qu&#39;elle garde.">hmi::OffscreenRhi</a></span> aussi. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

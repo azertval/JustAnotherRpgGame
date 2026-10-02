@@ -1,9 +1,12 @@
 var classhmi_1_1AssetGalleryRenderer =
 [
     [ "CachedTexture", "structhmi_1_1AssetGalleryRenderer_1_1CachedTexture.html", "structhmi_1_1AssetGalleryRenderer_1_1CachedTexture" ],
+    [ "CachedModel", "structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html", "structhmi_1_1AssetGalleryRenderer_1_1CachedModel" ],
     [ "AssetGalleryRenderer", "classhmi_1_1AssetGalleryRenderer.html#a4247fbacdadc0cbd7ec49d611ed65cc4", null ],
     [ "~AssetGalleryRenderer", "classhmi_1_1AssetGalleryRenderer.html#a43d8b339f5d8ec692920c22e97a6fb3e", null ],
     [ "AssetGalleryRenderer", "classhmi_1_1AssetGalleryRenderer.html#a8e411aa6108dd6b4af5211cb8fe36680", null ],
+    [ "addModel", "classhmi_1_1AssetGalleryRenderer.html#a7957a90ad6f43fd37f69e1856d0982f7", null ],
+    [ "cachedModelCount", "classhmi_1_1AssetGalleryRenderer.html#a104e0e483c3029d9003f4f16c7a00273", null ],
     [ "cachedTextureCount", "classhmi_1_1AssetGalleryRenderer.html#a807c85ffdf84b983c5b7151f6eaef7a8", null ],
     [ "compose", "classhmi_1_1AssetGalleryRenderer.html#a6c9fbc8e216f7a09485a320aa4b6c831", null ],
     [ "composed", "classhmi_1_1AssetGalleryRenderer.html#a9569997284b46fc3f9a7fef223d05d3c", null ],
@@ -20,7 +23,9 @@ var classhmi_1_1AssetGalleryRenderer =
     [ "_composed", "classhmi_1_1AssetGalleryRenderer.html#aff137a7dd064a78aeff0de508519c0e1", null ],
     [ "_frame", "classhmi_1_1AssetGalleryRenderer.html#a1fd19ac98f356327612512d7b3736b67", null ],
     [ "_loading", "classhmi_1_1AssetGalleryRenderer.html#a77cf4805e16398281c3bc3192394be7c", null ],
+    [ "_meshes", "classhmi_1_1AssetGalleryRenderer.html#ad801f53a7295da6241f5066c40017733", null ],
     [ "_missing", "classhmi_1_1AssetGalleryRenderer.html#a83b02d1c49782706e15d03ff61caa402", null ],
+    [ "_models", "classhmi_1_1AssetGalleryRenderer.html#abb8d0a82d7dab0bf4595e4320c15a96d", null ],
     [ "_pendingUploads", "classhmi_1_1AssetGalleryRenderer.html#a8898a18cd45a032223a53b817681f474", null ],
     [ "_resources", "classhmi_1_1AssetGalleryRenderer.html#a111d91265f6818f2f3fad4f3ffa424fc", null ],
     [ "_rhi", "classhmi_1_1AssetGalleryRenderer.html#a6d312f2d5634808b45e40544f3884c17", null ],

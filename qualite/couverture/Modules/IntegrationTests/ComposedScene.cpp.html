@@ -146,8 +146,8 @@ bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32
 // Ajoute un maillage place a la scene, s'il est visible (LOT-1003).
 bool ComposedScene::addMesh(RenderLayer layer, MeshHandle mesh, const ViewTransform&amp; toView,
 <span style = "background-color:#dfd">                            const core::Rect&amp; bounds, int storey, std::span&lt;const float&gt; pose) {
-    if (mesh == nullptr || !isVisible(bounds)) {</span>
-<span style = "background-color:#fdd">        return false;</span>
+    if (mesh == nullptr || !isVisible(bounds)) {
+        return false;</span>
     }
     ComposedMesh placed{
 <span style = "background-color:#dfd">        .layer = layer, .mesh = mesh, .toView = toView, .bounds = bounds, .storey = storey};</span>

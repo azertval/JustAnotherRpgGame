@@ -17,7 +17,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/ButtonRepeat.h File Reference</title>
+<title>JustAnotherRpgGame: hmi::AssetGalleryRenderer::CachedModel Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -113,7 +113,7 @@ $(function() { codefold.init(); });
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('ButtonRepeat_8h.html','',''); });
+$(function(){initNavTree('structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html','','structhmi_1_1AssetGalleryRenderer_1_1CachedModel-members'); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -139,36 +139,53 @@ $(function(){initNavTree('ButtonRepeat_8h.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">ButtonRepeat.h File Reference</div></div>
+  <div class="headertitle"><div class="title">hmi::AssetGalleryRenderer::CachedModel Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>La répétition d'un bouton tenu : un pas à l'appui, puis un pas régulier après un délai (<span class="tt">LOT-24</span>).  
-<a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;chrono&gt;</code><br />
-</div>
-<p><a href="ButtonRepeat_8h_source.html">Go to the source code of this file.</a></p>
+<p>Un modèle chargé : son maillage, son squelette et ses clips ; <span class="tt"><a class="el" href="#a914919d4170fdc2c2ff20d4f0d7f4f15">mesh</a></span> nul s'il n'a pas pu se lire.  
+ <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:hmi_3A_3AButtonRepeat" id="r_hmi_3A_3AButtonRepeat"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ButtonRepeat.html">hmi::ButtonRepeat</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compteur de répétition d'un bouton tenu : un pas à l'appui, puis un pas tous les <span class="tt"><a class="el" href="namespacehmi.html#a19c4e889b587eee63318fd97be53024d" title="Intervalle entre deux répétitions.">BUTTON_REPEAT_INTERVAL</a></span> une fois <span class="tt"><a class="el" href="namespacehmi.html#a9ab13e58906fc19eaceaa84921d13f32" title="Délai avant la première répétition d&#39;un bouton tenu.">BUTTON_REPEAT_DELAY</a></span> écoulé.  <a href="classhmi_1_1ButtonRepeat.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a9ab13e58906fc19eaceaa84921d13f32" id="r_a9ab13e58906fc19eaceaa84921d13f32"><td class="memItemLeft">constexpr std::chrono::milliseconds&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a9ab13e58906fc19eaceaa84921d13f32">hmi::BUTTON_REPEAT_DELAY</a> {350}</td></tr>
-<tr class="memdesc:a9ab13e58906fc19eaceaa84921d13f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Délai avant la première répétition d'un bouton tenu.  <br /></td></tr>
-<tr class="memitem:a19c4e889b587eee63318fd97be53024d" id="r_a19c4e889b587eee63318fd97be53024d"><td class="memItemLeft">constexpr std::chrono::milliseconds&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a19c4e889b587eee63318fd97be53024d">hmi::BUTTON_REPEAT_INTERVAL</a> {110}</td></tr>
-<tr class="memdesc:a19c4e889b587eee63318fd97be53024d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intervalle entre deux répétitions.  <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a914919d4170fdc2c2ff20d4f0d7f4f15" id="r_a914919d4170fdc2c2ff20d4f0d7f4f15"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#a914919d4170fdc2c2ff20d4f0d7f4f15">mesh</a> = nullptr</td></tr>
+<tr class="memitem:a504ffad2ed406e2a2cbd7f05b8b97882" id="r_a504ffad2ed406e2a2cbd7f05b8b97882"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structcore_1_1MeshRig.html">core::MeshRig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a504ffad2ed406e2a2cbd7f05b8b97882">rig</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>La répétition d'un bouton tenu : un pas à l'appui, puis un pas régulier après un délai (<span class="tt">LOT-24</span>). </p>
-<p>Un curseur de ciblage qu'on déplace à la croix de la manette doit avancer d'une case par appui, et traverser une salle si l'on tient la croix — comme une touche fléchée tenue au clavier, que le système répète déjà. XInput ne répète rien : c'est ce compteur, sans horloge à lui, qui le fait. Le temps lui est donné, ce qui le rend testable sans attendre. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Un modèle chargé : son maillage, son squelette et ses clips ; <span class="tt"><a class="el" href="#a914919d4170fdc2c2ff20d4f0d7f4f15">mesh</a></span> nul s'il n'a pas pu se lire. </p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a914919d4170fdc2c2ff20d4f0d7f4f15" name="a914919d4170fdc2c2ff20d4f0d7f4f15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a914919d4170fdc2c2ff20d4f0d7f4f15">&#9670;&#160;</a></span>mesh</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a> hmi::AssetGalleryRenderer::CachedModel::mesh = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a504ffad2ed406e2a2cbd7f05b8b97882" name="a504ffad2ed406e2a2cbd7f05b8b97882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a504ffad2ed406e2a2cbd7f05b8b97882">&#9670;&#160;</a></span>rig</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;const <a class="el" href="structcore_1_1MeshRig.html">core::MeshRig</a>&gt; hmi::AssetGalleryRenderer::CachedModel::rig</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="AssetGalleryRenderer_8h_source.html">AssetGalleryRenderer.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -181,7 +198,7 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_76d97c54a16374659ce0f27a302675ee.html">Input</a></li><li class="navelem"><a href="ButtonRepeat_8h.html">ButtonRepeat.h</a></li>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1AssetGalleryRenderer.html">AssetGalleryRenderer</a></li><li class="navelem"><a href="structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html">CachedModel</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

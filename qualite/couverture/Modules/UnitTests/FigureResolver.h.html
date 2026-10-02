@@ -17,7 +17,7 @@
 /**
  * @file HMI/Game/FigureResolver.h
  * @brief Que dessiner pour ce personnage ? La figurine nommÃ©e si elle existe, sinon le mannequin
- *        de sa silhouette (`LOT-145`).
+ *        de sa silhouette (`LOT-145`, `EX-REN-051`).
  *
  * ## La rÃ¨gle, en trois temps
  *
@@ -28,17 +28,12 @@
  * 3. Sinon le mannequin humanoÃ¯de ; et s'il manque lui aussi, la figurine nommÃ©e telle quelle : le
  *    rendu lui donnera son marqueur d'asset, comme avant ce lot.
  *
- * ## Deux formes de figurine, le temps d'un lot (`LOT-1005`)
+ * ## Ce qu'est une figurine (`LOT-1006`)
  *
- * Une figurine **existe** sous l'une de deux formes :
- *
- * - un **modÃ¨le** : son dossier porte une fiche (`character.json`, `core::CharacterSheetFile`)
- *   qui nomme un `.glb` prÃ©sent et le squelette auquel il est liÃ©. C'est la forme cherchÃ©e
- *   d'abord, pour la figurine nommÃ©e (dans son dossier) comme pour le mannequin
- *   (`hmi::mannequinFigureDirectory`) ;
- * - des **bandes** : sa bande de repos existe (`idle-se.png` : elle est orientÃ©e ; Ã  dÃ©faut
- *   `idle.png`), dans son dossier ou dans celui du mannequin en bandes
- *   (`hmi::placeholderFigureDirectory`). Le `LOT-1006` retire cette forme.
+ * Une figurine **existe** si son dossier porte une fiche (`character.json`,
+ * `core::CharacterSheetFile`) qui nomme un `.glb` prÃ©sent et le squelette auquel il est liÃ© : c'est
+ * un **modÃ¨le**, et le rÃ©solveur ne connaÃ®t pas d'autre forme. Le mannequin d'une silhouette en est
+ * un aussi (`hmi::mannequinFigureDirectory`).
  *
  * Le disque ne se relit pas Ã  chaque image : la rÃ©ponse se retient par figurine, et s'oublie
  * quand la carte change (`clear`) â une figurine installÃ©e pendant la partie se verra Ã  la carte
@@ -62,15 +57,16 @@ struct ResolvedFigure {
     /// Le dossier de la figurine, relatif au dossier des assets : ce que `WorldFigureSnapshot`
     /// nomme (un chemin, jamais un slug â la table du lieu a dÃ©jÃ  rÃ©pondu).
     std::string directory;
-    /// Vrai si la figurine a ses bandes orientÃ©es (`idle-se.png`â¦).
-    bool oriented = false;
     /// Vrai si c'est un mannequin qui tient la place de la figurine nommÃ©e.
     bool placeholder = false;
+    /// Le dossier de la figurine **nommÃ©e**, mÃªme quand un mannequin tient sa place : son portrait
+    /// et son jeton y sont (`portrait.png`, `token.png`). Vide si rien n'est nommÃ©.
+    std::string named;
     /// Le modÃ¨le de la figurine (`LOT-1005`) : le chemin de son `.glb`, relatif au dossier des
-    /// assets. Vide : elle se dessine par ses bandes.
+    /// assets. Vide : rien n'est installÃ©, elle se dessine par son marqueur.
     std::string model;
-    /// Ce que dÃ©clare le squelette du modÃ¨le â durÃ©e, boucle et image clÃ© de ses clips ; nul pour
-    /// des bandes, ou si la description ne se lit pas.
+    /// Ce que dÃ©clare le squelette du modÃ¨le â durÃ©e, boucle et image clÃ© de ses clips ; nul sans
+    /// modÃ¨le, ou si la description ne se lit pas.
     std::shared_ptr&lt;const core::SkeletonDescription&gt; skeleton;
 
     [[nodiscard]] bool operator==(const ResolvedFigure&amp;) const = default;
@@ -80,8 +76,8 @@ struct ResolvedFigure {
  * @brief RÃ©sout la figurine Ã  dessiner pour un personnage, et retient la rÃ©ponse le temps d'une
  *        carte (`LOT-145`).
  *
- * Applique la rÃ¨gle en trois temps de l'en-tÃªte : la figurine nommÃ©e si sa bande de repos existe,
- * sinon le mannequin de sa silhouette, sinon le mannequin humanoÃ¯de. Le disque n'est lu qu'Ã  la
+ * Applique la rÃ¨gle en trois temps de l'en-tÃªte : la figurine nommÃ©e si son modÃ¨le existe, sinon
+ * le mannequin de sa silhouette, sinon le mannequin humanoÃ¯de. Le disque n'est lu qu'Ã  la
  * premiÃ¨re demande par figurine ; `clear` oublie tout quand la carte change.
  */
 class FigureResolver {
@@ -110,9 +106,6 @@ public:
      * @return Vrai si le dossier est celui d'un personnage en modÃ¨le.
      */
     [[nodiscard]] bool hasModel(std::string_view directory, ResolvedFigure&amp; resolved);
-
-    /// @return Vrai si la bande de repos de @p directory existe, orientÃ©e ou non.
-    [[nodiscard]] bool hasIdleStrip(std::string_view directory, bool&amp; oriented) const;
 
 private:
     std::filesystem::path _assetsDirectory;

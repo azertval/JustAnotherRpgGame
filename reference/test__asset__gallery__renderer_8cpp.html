@@ -162,13 +162,15 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7586c1a467e067efae302bddfbba9c14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une texture voulue est chargée et dessinée ; plus voulue, elle est libérée après délai.  <br /></td></tr>
 <tr class="memitem:a854872e5b4f97f22500960900e2788a0" id="r_a854872e5b4f97f22500960900e2788a0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a854872e5b4f97f22500960900e2788a0">TEST</a> (AssetGalleryRendererTest, ChargementsEtalesEtFichierAbsent)</td></tr>
 <tr class="memdesc:a854872e5b4f97f22500960900e2788a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un grand saut étale ses chargements ; un fichier absent est retenu, dessiné en damier.  <br /></td></tr>
+<tr class="memitem:a606bad4622cca096f7aa0267b6564ed7" id="r_a606bad4622cca096f7aa0267b6564ed7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a606bad4622cca096f7aa0267b6564ed7">TEST</a> (AssetGalleryRendererTest, UnModeleSeDessineEtSAnime)</td></tr>
+<tr class="memdesc:a606bad4622cca096f7aa0267b6564ed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un modèle de personnage se charge et se dessine en volume, et son clip le fait bouger (<span class="tt">LOT-1006</span>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le rendu de la galerie des assets <b>hors écran</b> : ne charger que ce qui est voulu, étaler les chargements, libérer le reste après son délai. </p>
 <p>Se saute proprement si la machine n'offre aucune interface QRhi. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a7586c1a467e067efae302bddfbba9c14" name="a7586c1a467e067efae302bddfbba9c14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7586c1a467e067efae302bddfbba9c14">&#9670;&#160;</a></span>TEST() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7586c1a467e067efae302bddfbba9c14">&#9670;&#160;</a></span>TEST() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,13 +193,13 @@ Functions</h2></td></tr>
  <b>Categorie :</b> Unitaire · Galerie des assets (rendu)<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. Dessiner la figure au repos d'un PNJ. 2. Ne plus rien vouloir, 1 s puis 1,5 s.<br  />
+ 1. Dessiner le portrait d'un PNJ. 2. Ne plus rien vouloir, 1 s puis 1,5 s.<br  />
  <b>Resultat attendu :</b> Une texture en mémoire et des pixels peints ; gardée à 1 s ; libérée à 2,5 s. </p>
 
 </div>
 </div>
 <a id="a854872e5b4f97f22500960900e2788a0" name="a854872e5b4f97f22500960900e2788a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a854872e5b4f97f22500960900e2788a0">&#9670;&#160;</a></span>TEST() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a854872e5b4f97f22500960900e2788a0">&#9670;&#160;</a></span>TEST() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,6 +224,38 @@ Functions</h2></td></tr>
  <b>Etapes :</b><br  />
  1. Vouloir 30 textures d'un coup. 2. Dessiner une texture absente.<br  />
  <b>Resultat attendu :</b> 24 chargées puis 30 ; la texture absente est retenue et peint quand même. </p>
+
+</div>
+</div>
+<a id="a606bad4622cca096f7aa0267b6564ed7" name="a606bad4622cca096f7aa0267b6564ed7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a606bad4622cca096f7aa0267b6564ed7">&#9670;&#160;</a></span>TEST() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">AssetGalleryRendererTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnModeleSeDessineEtSAnime</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un modèle de personnage se charge et se dessine en volume, et son clip le fait bouger (<span class="tt">LOT-1006</span>). </p>
+<p><b>Cas de test :</b> <b>La galerie dessine un modele de personnage, anime par son clip.</b><br  />
+ <b>Categorie :</b> Unitaire · Galerie des assets (rendu)<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Dessiner le modèle du PNJ d'essai au début de son attaque, puis à son image clé.<br  />
+</p><ol type="1">
+<li>Dessiner un modèle absent.<br  />
+ <b>Resultat attendu :</b> Un modèle en mémoire, aucune texture ; des pixels peints, du vert du pantin ; l'image à l'image clé diffère de celle du début. Le modèle absent est retenu, ne peint rien et ne plante rien. </li>
+</ol>
 
 </div>
 </div>

@@ -13,6 +13,7 @@ var AssetGallery_8h =
       [ "hmi::AssetGalleryVisibility::Unloaded", "namespacehmi.html#a9bcda977efbe65c2ab28905feb685040aa5ae20aa7fda5bd38bf0dce98e65bd2d", null ]
     ] ],
     [ "hmi::assetGalleryBlocShape", "namespacehmi.html#a83debe99d4ca04cebc854c1407f3a39e", null ],
+    [ "hmi::assetGalleryClipSeconds", "namespacehmi.html#ae952285c3c9fbe9f19964ddd2b2a3e6a", null ],
     [ "hmi::assetGalleryExcludes", "namespacehmi.html#a11b4cbe2fcfcc3f152293f1bdf5c7f8d", null ],
     [ "hmi::assetGalleryFrameRank", "namespacehmi.html#aab46d733154ad31db3d8fa8af5afd259", null ],
     [ "hmi::assetGalleryUnlisted", "namespacehmi.html#a3256818dab3b1990ebe3f4da0aed8a34", null ],

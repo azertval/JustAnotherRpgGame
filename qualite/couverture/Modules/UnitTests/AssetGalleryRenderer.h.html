@@ -17,9 +17,11 @@
 #include &lt;cstddef&gt;
 #include &lt;filesystem&gt;
 #include &lt;map&gt;
+#include &lt;memory&gt;
 #include &lt;string&gt;
 #include &lt;vector&gt;
 
+#include "Core/Resources/MeshFile.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/SceneResources.h"
 #include "HMI/Graphics/TextureLoader.h"
@@ -35,6 +37,8 @@ class QRhiResourceUpdateBatch;
  */
 
 namespace hmi {
+
+class MeshBatch;
 
 /// Un bloc Ã  dessiner, dÃ©jÃ  placÃ© en pixels de la cible.
 struct AssetGalleryDrawnBloc {
@@ -58,6 +62,11 @@ struct AssetGalleryDrawnBloc {
     /// Largeur d'une case en pixels d'art (`AssetGalleryEntry::tileWidthPixels`) : l'art s'y
     /// ramÃ¨ne Ã  la case de la galerie.
     int tilePixels = 1;
+    /// Vrai pour un modÃ¨le de personnage (`AssetGalleryEntry::mesh`) : @ref path est son `.glb`.
+    bool mesh = false;
+    /// Le clip que joue le modÃ¨le, et l'instant oÃ¹ il en est (`assetGalleryClipSeconds`).
+    std::string clip;
+    float clipSeconds = 0.0f;
 };
 
 /**
@@ -88,6 +97,13 @@ struct AssetGalleryFrame {
  * de camÃ©ra Ã©tale ses chargements au lieu de figer une image. Une texture qui n'est plus voulue
  * est libÃ©rÃ©e aprÃ¨s `EVICTION_SECONDS`, pour qu'un aller-retour de la vue ne la recharge pas. Un
  * fichier illisible est retenu comme tel et dessinÃ© en damier, sans nouvel essai Ã  chaque image.
+ *
+ * ## Les modÃ¨les (`LOT-1006`)
+ *
+ * Un bloc dont la forme est un modÃ¨le de personnage se dessine en volume, par `hmi::MeshBatch`,
+ * sous la camÃ©ra du jeu et face Ã  elle, Ã  l'Ã©chelle de sa case : un mÃ¨tre du modÃ¨le occupe ce
+ * qu'il occupe sur une carte. Son clip avance avec le temps de la galerie. Un modÃ¨le chargÃ© reste
+ * en mÃ©moire jusqu'Ã  `release` : la passe de maillages ne libÃ¨re pas un maillage seul.
  *
  * MÃªme cycle de vie que `hmi::WorldSceneRenderer` : `ensureResources` depuis `initialize()`,
  * `setFrame` depuis `synchronize()`, `render` depuis `render()`.
@@ -137,6 +153,11 @@ public:
         return _cache.size();
     }</span>
 
+    /// @return Le nombre de modÃ¨les lus (chargÃ©s ou retenus illisibles).
+<span style = "background-color:#dfd">    [[nodiscard]] std::size_t cachedModelCount() const noexcept {
+        return _models.size();
+    }</span>
+
     /// @return Vrai si une texture voulue attend encore son chargement.
 <span style = "background-color:#dfd">    [[nodiscard]] bool loading() const noexcept {
         return _loading;
@@ -153,9 +174,19 @@ private:
         float unwantedSeconds = 0.0f;
         bool failed = false;
     };
+    /// Un modÃ¨le chargÃ© : son maillage, son squelette et ses clips ; `mesh` nul s'il n'a pas pu
+    /// se lire.
+    struct CachedModel {
+        MeshHandle mesh = nullptr;
+        std::shared_ptr&lt;const core::MeshRig&gt; rig;
+    };
 
     void updateCache(float deltaSeconds);
     void compose();
+    /// Ajoute Ã  la scÃ¨ne le modÃ¨le du bloc @p bloc, posÃ© sur son emprise (@p footprintX,
+    /// @p footprintY, @p footprintWidth, @p footprintHeight, en pixels), une case valant @p cell.
+    void addModel(const AssetGalleryDrawnBloc&amp; bloc, float cell, float footprintX, float footprintY,
+                  float footprintWidth, float footprintHeight);
 
     std::filesystem::path _root;
     AssetGalleryFrame _frame;
@@ -167,6 +198,9 @@ private:
     // AprÃ¨s les ressources : les textures meurent avant la grappe qui porte le pipeline.
     SceneResources _resources;
     std::map&lt;std::string, CachedTexture&gt; _cache;
+    /// La passe de maillages et les modÃ¨les dÃ©jÃ  lus, par chemin.
+    std::unique_ptr&lt;MeshBatch&gt; _meshes;
+    std::map&lt;std::string, CachedModel&gt; _models;
     LoadedTexture _white;
     LoadedTexture _missing;
 };

@@ -153,15 +153,13 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a46023823e82a90da915cab00c624a98b" id="r_a46023823e82a90da915cab00c624a98b"><td class="memItemLeft"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a46023823e82a90da915cab00c624a98b">point</a> {}</td></tr>
 <tr class="memdesc:a46023823e82a90da915cab00c624a98b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Position <b>continue</b>, en cases de la grille : <span class="tt">{1.5, 2.5}</span> est le centre de la case (1, 2).  <br /></td></tr>
 <tr class="memitem:a2d7942748d62e7bc151c6a55272a14e1" id="r_a2d7942748d62e7bc151c6a55272a14e1"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a2d7942748d62e7bc151c6a55272a14e1">clip</a> = <a class="el" href="namespacehmi_1_1figure__clips.html#ae32b43afe6206e30237ba1bcfae6f724">figure_clips::IDLE</a></td></tr>
-<tr class="memdesc:a2d7942748d62e7bc151c6a55272a14e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">La bande en cours (<span class="tt"><a class="el" href="namespacehmi_1_1figure__clips.html" title="Les bandes d&#39;une figurine (standard 2D HD, §5, et le tir du LOT-136) : ce qu&#39;une figurine complète sa...">hmi::figure_clips</a></span>).  <br /></td></tr>
-<tr class="memitem:a7872742a2597576377ec20ca9c9ced1c" id="r_a7872742a2597576377ec20ca9c9ced1c"><td class="memItemLeft"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7872742a2597576377ec20ca9c9ced1c">facing</a> = <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a></td></tr>
-<tr class="memdesc:a7872742a2597576377ec20ca9c9ced1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">La diagonale vers laquelle elle regarde.  <br /></td></tr>
-<tr class="memitem:a4dfcba38722cfdbb2ef088ea3a324b0c" id="r_a4dfcba38722cfdbb2ef088ea3a324b0c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a4dfcba38722cfdbb2ef088ea3a324b0c">heading</a> = 0.0F</td></tr>
-<tr class="memdesc:a4dfcba38722cfdbb2ef088ea3a324b0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Son cap (<span class="tt"><a class="el" href="namespacehmi.html#a860cbbc037b925a5a58d443e483c72ac" title="Le cap d&#39;une figurine en modèle (LOT-1005) : l&#39;angle, en radians, de la direction où elle regarde dan...">hmi::figureHeadingOf</a></span>) : où regarde un modèle, qui s'oriente librement — vers son pas, vers sa cible (<span class="tt">LOT-1005</span>).  <br /></td></tr>
+<tr class="memdesc:a2d7942748d62e7bc151c6a55272a14e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le clip en cours (<span class="tt"><a class="el" href="namespacehmi_1_1figure__clips.html" title="Les clips d&#39;une figurine : ce que le squelette d&#39;un personnage sait jouer (standard des personnages,...">hmi::figure_clips</a></span>).  <br /></td></tr>
+<tr class="memitem:a4dfcba38722cfdbb2ef088ea3a324b0c" id="r_a4dfcba38722cfdbb2ef088ea3a324b0c"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a4dfcba38722cfdbb2ef088ea3a324b0c">heading</a> = <a class="el" href="namespacehmi.html#a0433122fa5ba5dada6793da372fd6177">FIGURE_HEADING_FRONT</a></td></tr>
+<tr class="memdesc:a4dfcba38722cfdbb2ef088ea3a324b0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Son cap (<span class="tt"><a class="el" href="namespacehmi.html#ac64452b3239caa3f7c4ff9cf237b6d5d">hmi::figureHeadingFor</a></span>) : où elle regarde — vers son pas, vers sa cible (<span class="tt">LOT-1005</span>).  <br /></td></tr>
 <tr class="memitem:a5076ae8c9940a892fc7a149ea9eb92dc" id="r_a5076ae8c9940a892fc7a149ea9eb92dc"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a5076ae8c9940a892fc7a149ea9eb92dc">clipSeconds</a> = 0.0F</td></tr>
-<tr class="memdesc:a5076ae8c9940a892fc7a149ea9eb92dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps écoulé depuis le début de la bande, en secondes.  <br /></td></tr>
+<tr class="memdesc:a5076ae8c9940a892fc7a149ea9eb92dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temps écoulé depuis le début du clip, en secondes.  <br /></td></tr>
 <tr class="memitem:a033ebdd18b1561b8bbc5b45ad0a8c021" id="r_a033ebdd18b1561b8bbc5b45ad0a8c021"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a033ebdd18b1561b8bbc5b45ad0a8c021">dead</a> = false</td></tr>
-<tr class="memdesc:a033ebdd18b1561b8bbc5b45ad0a8c021"><td class="mdescLeft">&#160;</td><td class="mdescRight">À terre : sa bande de mort reste sur sa dernière image, et rien ne la relève.  <br /></td></tr>
+<tr class="memdesc:a033ebdd18b1561b8bbc5b45ad0a8c021"><td class="mdescLeft">&#160;</td><td class="mdescRight">À terre : son clip de mort reste sur sa fin, et rien ne la relève.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce qu'une figurine montre à cet instant. </p>
@@ -178,7 +176,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>La bande en cours (<span class="tt"><a class="el" href="namespacehmi_1_1figure__clips.html" title="Les bandes d&#39;une figurine (standard 2D HD, §5, et le tir du LOT-136) : ce qu&#39;une figurine complète sa...">hmi::figure_clips</a></span>). </p>
+<p>Le clip en cours (<span class="tt"><a class="el" href="namespacehmi_1_1figure__clips.html" title="Les clips d&#39;une figurine : ce que le squelette d&#39;un personnage sait jouer (standard des personnages,...">hmi::figure_clips</a></span>). </p>
 
 </div>
 </div>
@@ -194,7 +192,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Temps écoulé depuis le début de la bande, en secondes. </p>
+<p>Temps écoulé depuis le début du clip, en secondes. </p>
 
 </div>
 </div>
@@ -210,23 +208,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>À terre : sa bande de mort reste sur sa dernière image, et rien ne la relève. </p>
-
-</div>
-</div>
-<a id="a7872742a2597576377ec20ca9c9ced1c" name="a7872742a2597576377ec20ca9c9ced1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7872742a2597576377ec20ca9c9ced1c">&#9670;&#160;</a></span>facing</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> hmi::FigureMotion::facing = <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>La diagonale vers laquelle elle regarde. </p>
+<p>À terre : son clip de mort reste sur sa fin, et rien ne la relève. </p>
 
 </div>
 </div>
@@ -237,12 +219,12 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float hmi::FigureMotion::heading = 0.0F</td>
+          <td class="memname">float hmi::FigureMotion::heading = <a class="el" href="namespacehmi.html#a0433122fa5ba5dada6793da372fd6177">FIGURE_HEADING_FRONT</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Son cap (<span class="tt"><a class="el" href="namespacehmi.html#a860cbbc037b925a5a58d443e483c72ac" title="Le cap d&#39;une figurine en modèle (LOT-1005) : l&#39;angle, en radians, de la direction où elle regarde dan...">hmi::figureHeadingOf</a></span>) : où regarde un modèle, qui s'oriente librement — vers son pas, vers sa cible (<span class="tt">LOT-1005</span>). </p>
+<p>Son cap (<span class="tt"><a class="el" href="namespacehmi.html#ac64452b3239caa3f7c4ff9cf237b6d5d">hmi::figureHeadingFor</a></span>) : où elle regarde — vers son pas, vers sa cible (<span class="tt">LOT-1005</span>). </p>
 
 </div>
 </div>

@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['magicschool_0',['MagicSchool',['../namespacecore.html#acb09396acc95973b3ca488c497bbddb2',1,'core']]],
-  ['mapcheckseverity_1',['MapCheckSeverity',['../namespacehmi.html#a89e7b964e1125a35414c9694fad4fd64',1,'hmi']]],
-  ['mapstate_2',['MapState',['../namespacehmi.html#a5329d365328d797b903f9f92f964d564',1,'hmi']]],
-  ['maquettetokenkind_3',['MaquetteTokenKind',['../namespacehmi.html#a9dbe00de1bc58b0fc3cc63b38ec7569e',1,'hmi']]],
-  ['maquettetraceshape_4',['MaquetteTraceShape',['../namespacehmi.html#ac92a2fbe73cf9a4cb73991b10456e28c',1,'hmi']]],
-  ['meshfileerror_5',['MeshFileError',['../namespacecore.html#a3044e9e0cc082011e2c2d5fbe2548e7e',1,'core']]],
-  ['mode_6',['Mode',['../structhmi_1_1EntityDrag.html#a463dfee789bb236f09b5de5ee9b254e6',1,'hmi::EntityDrag']]],
-  ['moveresult_7',['MoveResult',['../namespacecore.html#ac0c9dc39aafc4bad02c96a9659df0c1b',1,'core']]]
+  ['panelid_0',['PanelId',['../namespacehmi.html#aaa32928dac1bf321cd65435b9a0b0726',1,'hmi']]],
+  ['partychange_1',['PartyChange',['../namespacecore.html#a77cd56d7668dd1f9e53f577524c62489',1,'core']]],
+  ['piecetactical_2',['PieceTactical',['../namespacecore.html#a096c9cc059de39edb20ccea06d18f252',1,'core']]],
+  ['placeappearanceerror_3',['PlaceAppearanceError',['../namespacehmi.html#a8d47401595625329c52d918c550d2957',1,'hmi']]],
+  ['placementresult_4',['PlacementResult',['../namespacecore.html#a56ee2c3f69200e700ac0f1b65dc413b4',1,'core']]],
+  ['portallinkstatus_5',['PortalLinkStatus',['../namespacecore.html#af11c258a9c6ef53d57b7f409006e48df',1,'core']]],
+  ['presenceissue_6',['PresenceIssue',['../namespacecore.html#ae537d1e1e860c43127bcc7831ecc4fdc',1,'core']]]
 ];

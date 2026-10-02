@@ -143,7 +143,7 @@ $(function(){initNavTree('structhmi_1_1AssetGalleryEntry.html','','structhmi_1_1
 </div><!--header-->
 <div class="contents">
 
-<p>Une forme d'un modèle : un clip d'une figure, une variante de texture, une pièce.  
+<p>Une forme d'un modèle : un clip d'un personnage, une variante de texture, une pièce.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="AssetGallery_8h_source.html">AssetGallery.h</a>&gt;</code></p>
@@ -180,9 +180,15 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a8400f5306937f900ea70f16655ea98bd" id="r_a8400f5306937f900ea70f16655ea98bd"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8400f5306937f900ea70f16655ea98bd">anchorY</a> = -1</td></tr>
 <tr class="memitem:aef097ef678e1b769342127e4957fec0b" id="r_aef097ef678e1b769342127e4957fec0b"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aef097ef678e1b769342127e4957fec0b">tilePixels</a> = 0</td></tr>
 <tr class="memdesc:aef097ef678e1b769342127e4957fec0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur d'une case, en pixels d'art : le losange que déclare le manifeste (<span class="tt">tile</span>) ; 0 s'il n'en déclare pas, et la forme se suppose d'une case de large (<span class="tt"><a class="el" href="#a42cda529dee0b7c743ca3a3e272d568e">tileWidthPixels</a></span>).  <br /></td></tr>
+<tr class="memitem:a1cb78119289aa05a5b7a58ca127ba591" id="r_a1cb78119289aa05a5b7a58ca127ba591"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1cb78119289aa05a5b7a58ca127ba591">mesh</a> = false</td></tr>
+<tr class="memdesc:a1cb78119289aa05a5b7a58ca127ba591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai pour un <b>modèle de personnage</b> (<span class="tt">LOT-1006</span>) : <a class="el" href="#a2018ae100660977f4904f255e74f8208" title="path">path</a> est son <span class="tt">.glb</span>, dessiné en volume sous la caméra du jeu ; <span class="tt"><a class="el" href="#a31ef5ef294e8cadbcf3a5ec9c0b45ac5" title="Taille d&#39;une image, en pixels. Une texture fixe n&#39;a qu&#39;une image, de sa taille entière.">frameWidth</a></span> et <span class="tt"><a class="el" href="#a96bb336e24e92f9bd50fbc27c19c48e9">frameHeight</a></span> ne disent que la place qu'il prend dans la galerie.  <br /></td></tr>
+<tr class="memitem:a83f754a8de2fd9932c8fd4064ae80867" id="r_a83f754a8de2fd9932c8fd4064ae80867"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a83f754a8de2fd9932c8fd4064ae80867">clip</a></td></tr>
+<tr class="memdesc:a83f754a8de2fd9932c8fd4064ae80867"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le clip joué par un modèle (<span class="tt">idle</span>, <span class="tt">walk</span>…) ; vide : sa pose de liaison.  <br /></td></tr>
+<tr class="memitem:ab0888c76949132966abe8f3de34d454b" id="r_ab0888c76949132966abe8f3de34d454b"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ab0888c76949132966abe8f3de34d454b">clipDuration</a> = 0.0</td></tr>
+<tr class="memdesc:ab0888c76949132966abe8f3de34d454b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La durée du clip, en secondes, telle que le squelette la déclare ; <span class="tt"><a class="el" href="#aa4d2426411bc8acec5871654a4cfa5f8" title="Bouclé, ou joué une fois puis tenu (ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS).">loop</a></span> dit s'il boucle.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Une forme d'un modèle : un clip d'une figure, une variante de texture, une pièce. </p>
+<div class="textblock"><p>Une forme d'un modèle : un clip d'un personnage, une variante de texture, une pièce. </p>
 <p>Tout ce qui sert à la disposer est lu dans les manifestes : la galerie place un asset sans charger sa texture, c'est ce qui lui permet de ne charger que ce qui est à l'écran. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a207b84ad72b9617788d62401a5a4f80f" name="a207b84ad72b9617788d62401a5a4f80f"></a>
@@ -265,6 +271,38 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83f754a8de2fd9932c8fd4064ae80867" name="a83f754a8de2fd9932c8fd4064ae80867"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83f754a8de2fd9932c8fd4064ae80867">&#9670;&#160;</a></span>clip</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::AssetGalleryEntry::clip</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le clip joué par un modèle (<span class="tt">idle</span>, <span class="tt">walk</span>…) ; vide : sa pose de liaison. </p>
+
+</div>
+</div>
+<a id="ab0888c76949132966abe8f3de34d454b" name="ab0888c76949132966abe8f3de34d454b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0888c76949132966abe8f3de34d454b">&#9670;&#160;</a></span>clipDuration</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double hmi::AssetGalleryEntry::clipDuration = 0.0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La durée du clip, en secondes, telle que le squelette la déclare ; <span class="tt"><a class="el" href="#aa4d2426411bc8acec5871654a4cfa5f8" title="Bouclé, ou joué une fois puis tenu (ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS).">loop</a></span> dit s'il boucle. </p>
 
 </div>
 </div>
@@ -405,6 +443,22 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Bouclé, ou joué une fois puis tenu (<span class="tt"><a class="el" href="namespacehmi.html#ab31c52802e91a9594d93c236912b4ffe" title="Temps de tenue, en secondes, d&#39;un clip joué une fois sur sa dernière image avant de reprendre.">ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS</a></span>). </p>
+
+</div>
+</div>
+<a id="a1cb78119289aa05a5b7a58ca127ba591" name="a1cb78119289aa05a5b7a58ca127ba591"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cb78119289aa05a5b7a58ca127ba591">&#9670;&#160;</a></span>mesh</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::AssetGalleryEntry::mesh = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vrai pour un <b>modèle de personnage</b> (<span class="tt">LOT-1006</span>) : <a class="el" href="#a2018ae100660977f4904f255e74f8208" title="path">path</a> est son <span class="tt">.glb</span>, dessiné en volume sous la caméra du jeu ; <span class="tt"><a class="el" href="#a31ef5ef294e8cadbcf3a5ec9c0b45ac5" title="Taille d&#39;une image, en pixels. Une texture fixe n&#39;a qu&#39;une image, de sa taille entière.">frameWidth</a></span> et <span class="tt"><a class="el" href="#a96bb336e24e92f9bd50fbc27c19c48e9">frameHeight</a></span> ne disent que la place qu'il prend dans la galerie. </p>
 
 </div>
 </div>

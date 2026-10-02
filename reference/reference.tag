@@ -2934,7 +2934,7 @@
     <name>EditorKeyBindings.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
     <filename>EditorKeyBindings_8h.html</filename>
-    <includes id="InputState_8h" name="InputState.h" local="yes" import="no" module="no" objc="no">HMI/Input/InputState.h</includes>
+    <includes id="Key_8h" name="Key.h" local="yes" import="no" module="no" objc="no">HMI/Input/Key.h</includes>
     <class kind="class">hmi::EditorKeyBindings</class>
     <namespace>hmi</namespace>
   </compound>
@@ -4615,6 +4615,7 @@
     <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
     <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
     <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
     <includes id="AnimationCatalog_8h" name="AnimationCatalog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/AnimationCatalog.h</includes>
     <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
     <namespace>hmi</namespace>
@@ -4637,16 +4638,24 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>AssetGalleryRenderer_8cpp.html</filename>
     <includes id="AssetGalleryRenderer_8h" name="AssetGalleryRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/AssetGalleryRenderer.h</includes>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <includes id="SkeletonPose_8h" name="SkeletonPose.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonPose.h</includes>
     <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
+    <includes id="MeshBatch_8h" name="MeshBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MeshBatch.h</includes>
     <includes id="MissingTexture_8h" name="MissingTexture.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MissingTexture.h</includes>
+    <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
     <includes id="SpriteBatch_8h" name="SpriteBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteBatch.h</includes>
     <includes id="SpriteRenderer_8h" name="SpriteRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteRenderer.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
     <name>AssetGalleryRenderer.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>AssetGalleryRenderer_8h.html</filename>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="SceneResources_8h" name="SceneResources.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneResources.h</includes>
     <includes id="TextureLoader_8h" name="TextureLoader.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureLoader.h</includes>
@@ -4654,6 +4663,7 @@
     <class kind="struct">hmi::AssetGalleryFrame</class>
     <class kind="class">hmi::AssetGalleryRenderer</class>
     <class kind="struct">hmi::AssetGalleryRenderer::CachedTexture</class>
+    <class kind="struct">hmi::AssetGalleryRenderer::CachedModel</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5234,48 +5244,9 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>ButtonRepeat.h</name>
+    <name>Key.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/</path>
-    <filename>ButtonRepeat_8h.html</filename>
-    <class kind="class">hmi::ButtonRepeat</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>GamepadButton.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/</path>
-    <filename>GamepadButton_8h.html</filename>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>GamepadPoller.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/</path>
-    <filename>GamepadPoller_8cpp.html</filename>
-    <includes id="GamepadPoller_8h" name="GamepadPoller.h" local="yes" import="no" module="no" objc="no">HMI/Input/GamepadPoller.h</includes>
-    <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
-    <includes id="GamepadButton_8h" name="GamepadButton.h" local="yes" import="no" module="no" objc="no">HMI/Input/GamepadButton.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>GamepadPoller.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/</path>
-    <filename>GamepadPoller_8h.html</filename>
-    <includes id="InputState_8h" name="InputState.h" local="yes" import="no" module="no" objc="no">HMI/Input/InputState.h</includes>
-    <class kind="class">hmi::GamepadPoller</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>InputState.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/</path>
-    <filename>InputState_8cpp.html</filename>
-    <includes id="InputState_8h" name="InputState.h" local="yes" import="no" module="no" objc="no">HMI/Input/InputState.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>InputState.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/</path>
-    <filename>InputState_8h.html</filename>
-    <includes id="GamepadButton_8h" name="GamepadButton.h" local="yes" import="no" module="no" objc="no">HMI/Input/GamepadButton.h</includes>
-    <class kind="class">hmi::InputState</class>
+    <filename>Key_8h.html</filename>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5289,7 +5260,7 @@
     <name>QtKeyMap.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/</path>
     <filename>QtKeyMap_8h.html</filename>
-    <includes id="InputState_8h" name="InputState.h" local="yes" import="no" module="no" objc="no">HMI/Input/InputState.h</includes>
+    <includes id="Key_8h" name="Key.h" local="yes" import="no" module="no" objc="no">HMI/Input/Key.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5751,24 +5722,6 @@
     <class kind="class">hmi::EncounterModel</class>
     <class kind="struct">hmi::EncounterModel::Binding</class>
     <class kind="struct">hmi::EncounterModel::Member</class>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>GamepadNavigator.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
-    <filename>GamepadNavigator_8cpp.html</filename>
-    <includes id="GamepadNavigator_8h" name="GamepadNavigator.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/GamepadNavigator.h</includes>
-    <namespace>hmi</namespace>
-  </compound>
-  <compound kind="file">
-    <name>GamepadNavigator.h</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Runtime/</path>
-    <filename>GamepadNavigator_8h.html</filename>
-    <includes id="ButtonRepeat_8h" name="ButtonRepeat.h" local="yes" import="no" module="no" objc="no">HMI/Input/ButtonRepeat.h</includes>
-    <includes id="GamepadButton_8h" name="GamepadButton.h" local="yes" import="no" module="no" objc="no">HMI/Input/GamepadButton.h</includes>
-    <includes id="GamepadPoller_8h" name="GamepadPoller.h" local="yes" import="no" module="no" objc="no">HMI/Input/GamepadPoller.h</includes>
-    <includes id="InputState_8h" name="InputState.h" local="yes" import="no" module="no" objc="no">HMI/Input/InputState.h</includes>
-    <class kind="class">hmi::GamepadNavigator</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -9954,6 +9907,13 @@
       <anchor>aa9e1d6f3ad12292e40389628f74fc1b3</anchor>
       <arglist>(ScenePlaceTest, LesFiguresDUnLieuViennentDeSesNiveaux)</arglist>
     </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__place_8cpp.html</anchorfile>
+      <anchor>abddb996b217e205983478de0f564d740</anchor>
+      <arglist>(ScenePlaceTest, UnPortraitDAttenteEstUneFigurineNommee)</arglist>
+    </member>
   </compound>
   <compound kind="file">
     <name>test_skeleton.cpp</name>
@@ -11820,8 +11780,8 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__editor__key__bindings_8cpp.html</anchorfile>
-      <anchor>a3a722edf1d290b997e13fdf94dea93d7</anchor>
-      <arglist>(EditorKeyBindingsTest, SavePreserveLaSectionManette)</arglist>
+      <anchor>a8bba20fb831431d20224c47ca16a8fe1</anchor>
+      <arglist>(EditorKeyBindingsTest, SavePreserveLaSectionInconnue)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13399,8 +13359,8 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__figure__resolver_8cpp.html</anchorfile>
-      <anchor>a1e98196f0dc44ccef10f1b3a9a334fca</anchor>
-      <arglist>(FigureResolverTest, UnPersonnageEnModeleEtSonMannequin)</arglist>
+      <anchor>a727a88696980c56ee53643b4c609aaef</anchor>
+      <arglist>(FigureResolverTest, UneFigurineEstUnModele)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13570,15 +13530,15 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__asset__gallery_8cpp.html</anchorfile>
-      <anchor>a2be843154aabf3dd5680a730677072da</anchor>
-      <arglist>(AssetGalleryTest, FigurinesDeMonstres)</arglist>
+      <anchor>ad70abf26cf8b19174559e79861127b5c</anchor>
+      <arglist>(AssetGalleryTest, LesPersonnagesParaissentEnModeles)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>TEST</name>
       <anchorfile>test__asset__gallery_8cpp.html</anchorfile>
-      <anchor>affebaa5b26189b422ba3394463411723</anchor>
-      <arglist>(AssetGalleryTest, UnHerosOrienteRangeParClasse)</arglist>
+      <anchor>a7bbda1bd20426ee31025a3339c1e4cc2</anchor>
+      <arglist>(AssetGalleryTest, UnHerosEnModeleRangeParClasse)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -13606,6 +13566,13 @@
       <anchorfile>test__asset__gallery__renderer_8cpp.html</anchorfile>
       <anchor>a854872e5b4f97f22500960900e2788a0</anchor>
       <arglist>(AssetGalleryRendererTest, ChargementsEtalesEtFichierAbsent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__asset__gallery__renderer_8cpp.html</anchorfile>
+      <anchor>a606bad4622cca096f7aa0267b6564ed7</anchor>
+      <arglist>(AssetGalleryRendererTest, UnModeleSeDessineEtSAnime)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13753,8 +13720,15 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__figure__model_8cpp.html</anchorfile>
-      <anchor>a4377ad07db763a37305e9f3fef0d2a1c</anchor>
-      <arglist>(FigureModelTest, UneFigurineEnModeleSeComposeEnMaillage)</arglist>
+      <anchor>a0d1b4542ec96f4756b04accf7840c002</anchor>
+      <arglist>(FigureModelTest, UneFigurineSeComposeEnMaillage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__model_8cpp.html</anchorfile>
+      <anchor>aa15db21442bcdc2b08fc2f35c045ebb9</anchor>
+      <arglist>(FigureModelTest, LaFicheDuDossierDonneLeModele)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -13774,8 +13748,8 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__figure__model_8cpp.html</anchorfile>
-      <anchor>ad94c6c4723fc4846f16394938289fb23</anchor>
-      <arglist>(FigureModelTest, UnModeleAbsentLaisseVoirLeDamier)</arglist>
+      <anchor>ac150359eb69355cb968922ab44273491</anchor>
+      <arglist>(FigureModelTest, UnModeleAbsentNeDessineRien)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -13785,6 +13759,7 @@
     <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
     <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="SkeletonPose_8h" name="SkeletonPose.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonPose.h</includes>
     <includes id="OffscreenRender_8h" name="OffscreenRender.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/OffscreenRender.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
@@ -13816,6 +13791,13 @@
       <anchorfile>test__figure__model__render_8cpp.html</anchorfile>
       <anchor>aae577aee2e2e0415720356f764ae5784</anchor>
       <arglist>(FigureModelRenderTest, LeMannequinDEssaiMarche)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__figure__model__render_8cpp.html</anchorfile>
+      <anchor>aaa0e6e38b8126318e373260b42d64d0f</anchor>
+      <arglist>(FigureModelRenderTest, UnModeleDeLAtelierSeRendClipParClip)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14771,22 +14753,15 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
-      <anchor>ab52ac43bc6139598c360f8978a13dac3</anchor>
-      <arglist>(WorldSceneComposerTest, UneFigurineSeTourneVersLUneDesQuatreDiagonales)</arglist>
+      <anchor>a30a18e6f5c43c584922c8ba052253fa3</anchor>
+      <arglist>(WorldSceneComposerTest, LeCapDUneFigurineSuitSonDeplacement)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>TEST</name>
       <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
-      <anchor>a6319428e187457c01d6ba155e821bebe</anchor>
-      <arglist>(WorldSceneComposerTest, UneFigurineOrienteeLitLaBandeDeSonOrientation)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
-      <anchor>aba9b2babea2a0e1ccd484abce668e1ed</anchor>
-      <arglist>(WorldSceneComposerTest, LesPiedsDuHerosTombentAuCentreDeSaCase)</arglist>
+      <anchor>ad028c76d53163471a0da8f859e422087</anchor>
+      <arglist>(WorldSceneComposerTest, LaLigneDeSolDUnEffetTombeAuCentreDeSaCase)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -14799,8 +14774,8 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
-      <anchor>a92a1444dd46ad643454829760cc23347</anchor>
-      <arglist>(WorldSceneComposerTest, UnHerosLitLEchelleEtLeSolDeSonAtelier)</arglist>
+      <anchor>a44dc567b3ce0cfcf29d58c021a4d0b81</anchor>
+      <arglist>(WorldSceneComposerTest, UnEffetLitLEchelleEtLeSolDeSonDossier)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -14813,8 +14788,8 @@
       <type></type>
       <name>TEST</name>
       <anchorfile>test__world__scene__composer_8cpp.html</anchorfile>
-      <anchor>ac012fdf5789b35bcf597f6696be741d3</anchor>
-      <arglist>(WorldSceneComposerTest, UnCombattantPrechargeSesSeptBandes)</arglist>
+      <anchor>a899b585d78f02ceb961ebc1f2678971f</anchor>
+      <arglist>(WorldSceneComposerTest, UneFigurineNeDemandePlusAucuneBande)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -14953,84 +14928,10 @@
     </member>
   </compound>
   <compound kind="file">
-    <name>test_button_repeat.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Input/</path>
-    <filename>test__button__repeat_8cpp.html</filename>
-    <includes id="ButtonRepeat_8h" name="ButtonRepeat.h" local="yes" import="no" module="no" objc="no">HMI/Input/ButtonRepeat.h</includes>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__button__repeat_8cpp.html</anchorfile>
-      <anchor>a9164b8917fd5b733cdb242a7deb987a6</anchor>
-      <arglist>(ButtonRepeatTest, UnAppuiPuisUneRepetitionReguliere)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
-    <name>test_gamepad_probe.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Input/</path>
-    <filename>test__gamepad__probe_8cpp.html</filename>
-    <includes id="GamepadPoller_8h" name="GamepadPoller.h" local="yes" import="no" module="no" objc="no">HMI/Input/GamepadPoller.h</includes>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__gamepad__probe_8cpp.html</anchorfile>
-      <anchor>a8791ddd7f6f622a0abafe9885e38f550</anchor>
-      <arglist>(GamepadProbeTest, ManetteConnecteeSondeeAChaqueAppel)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__gamepad__probe_8cpp.html</anchorfile>
-      <anchor>ae16382a36aef62e2d7cbbf70375a5eba</anchor>
-      <arglist>(GamepadProbeTest, ManetteAbsenteReSondeeApresLeDelai)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__gamepad__probe_8cpp.html</anchorfile>
-      <anchor>af70b2c51bf69a9677846c59134cf2e26</anchor>
-      <arglist>(GamepadProbeTest, DelaiIndependantDeLaCadenceDAppel)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
-    <name>test_input_state.cpp</name>
-    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Input/</path>
-    <filename>test__input__state_8cpp.html</filename>
-    <includes id="InputState_8h" name="InputState.h" local="yes" import="no" module="no" objc="no">HMI/Input/InputState.h</includes>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a3512d9ab97fdf0700f1ea9234f2f4ef3</anchor>
-      <arglist>(InputStateTest, GamepadConnecteReecrasable)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a1d14a5636e572dc508004a875b1ab60a</anchor>
-      <arglist>(InputStateTest, FrontMontantBoutonManetteBrut)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a86f7359d38d8eed9cd0ce1118aebf948</anchor>
-      <arglist>(InputStateTest, FrontDescendantBoutonManetteBrut)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__input__state_8cpp.html</anchorfile>
-      <anchor>a8d8b26cac3ac268359ec15eb1ab327cf</anchor>
-      <arglist>(InputStateTest, RelacheToutSansFront)</arglist>
-    </member>
-  </compound>
-  <compound kind="file">
     <name>test_qt_key_map.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Input/</path>
     <filename>test__qt__key__map_8cpp.html</filename>
-    <includes id="InputState_8h" name="InputState.h" local="yes" import="no" module="no" objc="no">HMI/Input/InputState.h</includes>
+    <includes id="Key_8h" name="Key.h" local="yes" import="no" module="no" objc="no">HMI/Input/Key.h</includes>
     <includes id="QtKeyMap_8h" name="QtKeyMap.h" local="yes" import="no" module="no" objc="no">HMI/Input/QtKeyMap.h</includes>
     <member kind="function">
       <type></type>
@@ -17393,6 +17294,27 @@
       <anchor>aa4853c73f4237dc2b514592678970cbb</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>mesh</name>
+      <anchorfile>structhmi_1_1AssetGalleryDrawnBloc.html</anchorfile>
+      <anchor>a136f46b58ec2300fe3d5b369b96c6e83</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>clip</name>
+      <anchorfile>structhmi_1_1AssetGalleryDrawnBloc.html</anchorfile>
+      <anchor>aac8c238e547811d22d6dccda56426d12</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>clipSeconds</name>
+      <anchorfile>structhmi_1_1AssetGalleryDrawnBloc.html</anchorfile>
+      <anchor>aaa648bfc156ea07b27aad6b789b1534b</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::AssetGalleryEntry</name>
@@ -17507,6 +17429,27 @@
       <name>tilePixels</name>
       <anchorfile>structhmi_1_1AssetGalleryEntry.html</anchorfile>
       <anchor>aef097ef678e1b769342127e4957fec0b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>mesh</name>
+      <anchorfile>structhmi_1_1AssetGalleryEntry.html</anchorfile>
+      <anchor>a1cb78119289aa05a5b7a58ca127ba591</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>clip</name>
+      <anchorfile>structhmi_1_1AssetGalleryEntry.html</anchorfile>
+      <anchor>a83f754a8de2fd9932c8fd4064ae80867</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>double</type>
+      <name>clipDuration</name>
+      <anchorfile>structhmi_1_1AssetGalleryEntry.html</anchorfile>
+      <anchor>ab0888c76949132966abe8f3de34d454b</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -18335,6 +18278,7 @@
     <name>hmi::AssetGalleryRenderer</name>
     <filename>classhmi_1_1AssetGalleryRenderer.html</filename>
     <class kind="struct">hmi::AssetGalleryRenderer::CachedTexture</class>
+    <class kind="struct">hmi::AssetGalleryRenderer::CachedModel</class>
     <member kind="function">
       <type></type>
       <name>AssetGalleryRenderer</name>
@@ -18413,6 +18357,13 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
+      <type>std::size_t</type>
+      <name>cachedModelCount</name>
+      <anchorfile>classhmi_1_1AssetGalleryRenderer.html</anchorfile>
+      <anchor>a104e0e483c3029d9003f4f16c7a00273</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>bool</type>
       <name>loading</name>
       <anchorfile>classhmi_1_1AssetGalleryRenderer.html</anchorfile>
@@ -18453,6 +18404,13 @@
       <anchorfile>classhmi_1_1AssetGalleryRenderer.html</anchorfile>
       <anchor>a6c9fbc8e216f7a09485a320aa4b6c831</anchor>
       <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>addModel</name>
+      <anchorfile>classhmi_1_1AssetGalleryRenderer.html</anchorfile>
+      <anchor>a7957a90ad6f43fd37f69e1856d0982f7</anchor>
+      <arglist>(const AssetGalleryDrawnBloc &amp;bloc, float cell, float footprintX, float footprintY, float footprintWidth, float footprintHeight)</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>std::filesystem::path</type>
@@ -18508,6 +18466,20 @@
       <name>_cache</name>
       <anchorfile>classhmi_1_1AssetGalleryRenderer.html</anchorfile>
       <anchor>abf81f89f6d42cfeeafcba447fa5bb91d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; MeshBatch &gt;</type>
+      <name>_meshes</name>
+      <anchorfile>classhmi_1_1AssetGalleryRenderer.html</anchorfile>
+      <anchor>ad801f53a7295da6241f5066c40017733</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::map&lt; std::string, CachedModel &gt;</type>
+      <name>_models</name>
+      <anchorfile>classhmi_1_1AssetGalleryRenderer.html</anchorfile>
+      <anchor>abb8d0a82d7dab0bf4595e4320c15a96d</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -19981,13 +19953,6 @@
     </member>
     <member kind="variable">
       <type>bool</type>
-      <name>oriented</name>
-      <anchorfile>structhmi_1_1EncounterModel_1_1Binding.html</anchorfile>
-      <anchor>a23f9a23bdd430f9abe543bf936a6744e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
       <name>hero</name>
       <anchorfile>structhmi_1_1EncounterModel_1_1Binding.html</anchorfile>
       <anchor>a273aecc49435eb704b12b89658e4744d</anchor>
@@ -19998,6 +19963,13 @@
       <name>model</name>
       <anchorfile>structhmi_1_1EncounterModel_1_1Binding.html</anchorfile>
       <anchor>af2604693ed2105defae9753528e6a58c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>named</name>
+      <anchorfile>structhmi_1_1EncounterModel_1_1Binding.html</anchorfile>
+      <anchor>ac21cb507ccbc8c7264747c61a8cb0e15</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -20044,28 +20016,21 @@
       <arglist></arglist>
     </member>
   </compound>
-  <compound kind="class">
-    <name>hmi::ButtonRepeat</name>
-    <filename>classhmi_1_1ButtonRepeat.html</filename>
-    <member kind="function">
-      <type>bool</type>
-      <name>update</name>
-      <anchorfile>classhmi_1_1ButtonRepeat.html</anchorfile>
-      <anchor>a10b368f76e0ed47a7898ca02045b1494</anchor>
-      <arglist>(bool down, std::chrono::steady_clock::time_point now) noexcept</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>bool</type>
-      <name>_held</name>
-      <anchorfile>classhmi_1_1ButtonRepeat.html</anchorfile>
-      <anchor>a09ad0739cb975e3552da5bc8f6e0fe64</anchor>
+  <compound kind="struct">
+    <name>hmi::AssetGalleryRenderer::CachedModel</name>
+    <filename>structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html</filename>
+    <member kind="variable">
+      <type>MeshHandle</type>
+      <name>mesh</name>
+      <anchorfile>structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html</anchorfile>
+      <anchor>a914919d4170fdc2c2ff20d4f0d7f4f15</anchor>
       <arglist></arglist>
     </member>
-    <member kind="variable" protection="private">
-      <type>std::chrono::steady_clock::time_point</type>
-      <name>_next</name>
-      <anchorfile>classhmi_1_1ButtonRepeat.html</anchorfile>
-      <anchor>a21ae1fc2a266dd5a7896fe092538d3e4</anchor>
+    <member kind="variable">
+      <type>std::shared_ptr&lt; const core::MeshRig &gt;</type>
+      <name>rig</name>
+      <anchorfile>structhmi_1_1AssetGalleryRenderer_1_1CachedModel.html</anchorfile>
+      <anchor>a504ffad2ed406e2a2cbd7f05b8b97882</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -22443,8 +22408,8 @@
       <type>void</type>
       <name>place</name>
       <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
-      <anchor>a5845b0a48c9a4c1b50f97a5b9f58abec</anchor>
-      <arglist>(core::CombatantId actor, core::GridPosition cell, FigureFacing facing=FigureFacing::SouthEast)</arglist>
+      <anchor>a9b6997c2c81d17446690483b8a1dbb1d</anchor>
+      <arglist>(core::CombatantId actor, core::GridPosition cell, float heading=FIGURE_HEADING_FRONT)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -22511,9 +22476,9 @@
     </member>
     <member kind="function" static="yes">
       <type>static FigureTimings</type>
-      <name>stripTimings</name>
+      <name>defaultTimings</name>
       <anchorfile>classhmi_1_1CombatCueTrack.html</anchorfile>
-      <anchor>a82a77ccfc829e53531315636235d4538</anchor>
+      <anchor>ab3b2eb4cc88d1966be0a025da30a68ef</anchor>
       <arglist>() noexcept</arglist>
     </member>
     <member kind="function" static="yes">
@@ -31823,13 +31788,6 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>FigureFacing</type>
-      <name>facing</name>
-      <anchorfile>structhmi_1_1FigureMotion.html</anchorfile>
-      <anchor>a7872742a2597576377ec20ca9c9ced1c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>float</type>
       <name>heading</name>
       <anchorfile>structhmi_1_1FigureMotion.html</anchorfile>
@@ -31881,13 +31839,6 @@
       <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
       <anchor>a68bcce654dbed80cf2c3a39b24893410</anchor>
       <arglist>(std::string_view directory, ResolvedFigure &amp;resolved)</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>hasIdleStrip</name>
-      <anchorfile>classhmi_1_1FigureResolver.html</anchorfile>
-      <anchor>a0a9d37b5c6e6bc87e29153d21e4a5d83</anchor>
-      <arglist>(std::string_view directory, bool &amp;oriented) const</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>std::filesystem::path</type>
@@ -32253,13 +32204,6 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>FigureFacing</type>
-      <name>facing</name>
-      <anchorfile>structhmi_1_1WorldPlay_1_1Follower.html</anchorfile>
-      <anchor>a124ddf5a2403419ce9f29955defb160c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>float</type>
       <name>heading</name>
       <anchorfile>structhmi_1_1WorldPlay_1_1Follower.html</anchorfile>
@@ -32448,140 +32392,6 @@
       <name>levelDirectories</name>
       <anchorfile>structhmi_1_1GameLaunchOptions.html</anchorfile>
       <anchor>ae6a63e80c4b3be63993b7cda74246351</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>hmi::GamepadNavigator</name>
-    <filename>classhmi_1_1GamepadNavigator.html</filename>
-    <member kind="signal">
-      <type>void</type>
-      <name>activeChanged</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>a0d2ddc24e3c24f1a78ffda7ee75c5db3</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="signal">
-      <type>void</type>
-      <name>connectedChanged</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>ab83d6d303653b1e8e277239eb9857e32</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="signal">
-      <type>void</type>
-      <name>pressed</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>a606a19adffd393d7be494d83735dc533</anchor>
-      <arglist>(const QString &amp;button)</arglist>
-    </member>
-    <member kind="function">
-      <type></type>
-      <name>GamepadNavigator</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>aed17b939f160ef226a2cc6df177cef23</anchor>
-      <arglist>(QObject *parent=nullptr)</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>active</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>a674528eb424130f642ec7df236b0e5a0</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>setActive</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>a903cb5de2ee9466f5e1aa3f6a8194294</anchor>
-      <arglist>(bool active)</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>connected</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>ade796e49715f667ea04f44e788f8f162</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="property">
-      <type>QML_ELEMENTbool</type>
-      <name>active</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>acd34e9981b8874642ce40919f9ca70e1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="property">
-      <type>bool</type>
-      <name>connected</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>ab04ee136a3e4440ecee3d83329008045</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="function" protection="private">
-      <type>void</type>
-      <name>poll</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>a5fdcd9f43e147350f87683884b3487e4</anchor>
-      <arglist>()</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>QTimer</type>
-      <name>_timer</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>a85873fbd9b536ca81bd059d92cd0643a</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>GamepadPoller</type>
-      <name>_poller</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>aea704228df8121b9e58ff9282d770db3</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>InputState</type>
-      <name>_input</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>a2ea20fcea993b8ca80452d3139123c11</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::array&lt; ButtonRepeat, 4 &gt;</type>
-      <name>_directions</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>a3ae011550116a2df7d9a596f350e4ca8</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>bool</type>
-      <name>_connected</name>
-      <anchorfile>classhmi_1_1GamepadNavigator.html</anchorfile>
-      <anchor>afc162bb8847b8c6e9612fc4014c8503c</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>hmi::GamepadPoller</name>
-    <filename>classhmi_1_1GamepadPoller.html</filename>
-    <member kind="function">
-      <type>void</type>
-      <name>poll</name>
-      <anchorfile>classhmi_1_1GamepadPoller.html</anchorfile>
-      <anchor>a1ba7adb75dea62a30fca7a207dc79868</anchor>
-      <arglist>(InputState &amp;input)</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>bool</type>
-      <name>_wasConnected</name>
-      <anchorfile>classhmi_1_1GamepadPoller.html</anchorfile>
-      <anchor>a50ff27e4cacca8e5627fe8a0079e1cd1</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::chrono::steady_clock::time_point</type>
-      <name>_lastProbe</name>
-      <anchorfile>classhmi_1_1GamepadPoller.html</anchorfile>
-      <anchor>ae33c922e03ea961b2b1a3bc5630f47f1</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -33377,101 +33187,6 @@
       <name>name</name>
       <anchorfile>structcore_1_1InitiativeMarker.html</anchorfile>
       <anchor>aef75d4d331e8ba6e35f1896553990886</anchor>
-      <arglist></arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>hmi::InputState</name>
-    <filename>classhmi_1_1InputState.html</filename>
-    <member kind="function">
-      <type></type>
-      <name>InputState</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a2e64870c1d2ac0640668fcfdca3cb9ad</anchor>
-      <arglist>()=default</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>beginFrame</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a16d213c75c334aaaa040979aa2a116ab</anchor>
-      <arglist>() noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>releaseAll</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>ac8240ed247a3fa2e503be9e593713a87</anchor>
-      <arglist>() noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>onGamepadButtonDown</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>ab6bbe08c414da65a29ceae2ca23d2224</anchor>
-      <arglist>(GamepadButton button) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>onGamepadButtonUp</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a6e1b62169f76272dca1090ec9e800dc4</anchor>
-      <arglist>(GamepadButton button) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
-      <name>setGamepadConnected</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>ab6e92b0e87cef4fcbacfa6c729bfb8f8</anchor>
-      <arglist>(bool connected) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>gamepadConnected</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a833fa9bf0471616d04f6ab95568e90f4</anchor>
-      <arglist>() const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>gamepadButtonDown</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a3ce30e4669945efe5db386ea42f9abe5</anchor>
-      <arglist>(GamepadButton button) const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>gamepadButtonPressed</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a5b38fccaac8b028b0d53ea192292649c</anchor>
-      <arglist>(GamepadButton button) const noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>bool</type>
-      <name>gamepadButtonReleased</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a241024415a5f5e786f341fb655fcfa06</anchor>
-      <arglist>(GamepadButton button) const noexcept</arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::array&lt; bool, GAMEPAD_BUTTON_COUNT &gt;</type>
-      <name>_gamepadButtonsCurrent</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>aaed158198271f71d960e5ad34be5b370</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>std::array&lt; bool, GAMEPAD_BUTTON_COUNT &gt;</type>
-      <name>_gamepadButtonsPrevious</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a751949d554b36318ae4677b639b95723</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>bool</type>
-      <name>_gamepadConnected</name>
-      <anchorfile>classhmi_1_1InputState.html</anchorfile>
-      <anchor>a7153659001b4a27a1288bd4cf435caad</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -44554,16 +44269,16 @@
     </member>
     <member kind="variable">
       <type>bool</type>
-      <name>oriented</name>
-      <anchorfile>structhmi_1_1ResolvedFigure.html</anchorfile>
-      <anchor>aa8c70d040a3e77d11f587b4c3476c876</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>bool</type>
       <name>placeholder</name>
       <anchorfile>structhmi_1_1ResolvedFigure.html</anchorfile>
       <anchor>a60916348b00f029cbd0fa2f18a0b3f89</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>named</name>
+      <anchorfile>structhmi_1_1ResolvedFigure.html</anchorfile>
+      <anchor>a3e05928d78e662e8a4145c741012724b</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -45282,6 +44997,13 @@
       <arglist>(std::string_view path) const</arglist>
     </member>
     <member kind="function">
+      <type>const SceneFigureModel *</type>
+      <name>findFigureOf</name>
+      <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
+      <anchor>a99b10f456da9e7900f66d7d6b63c1064</anchor>
+      <arglist>(std::string_view directory) const</arglist>
+    </member>
+    <member kind="function">
       <type>const SceneTexture &amp;</type>
       <name>resolve</name>
       <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
@@ -45314,6 +45036,13 @@
       <name>figures</name>
       <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
       <anchor>acdee0a5fa3a1e9641482c1a9d8567eb8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::map&lt; std::string, std::string, std::less&lt;&gt; &gt;</type>
+      <name>figureModels</name>
+      <anchorfile>structhmi_1_1ScenePieceTextures.html</anchorfile>
+      <anchor>aaa3ea2cee4c9f95a3ed1182b0ce6568e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -49431,13 +49160,6 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>FigureFacing</type>
-      <name>facing</name>
-      <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
-      <anchor>a4664bdd4c3b2d290c04650416ad10d90</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>float</type>
       <name>seconds</name>
       <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
@@ -49466,10 +49188,17 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>std::optional&lt; float &gt;</type>
+      <type>float</type>
       <name>heading</name>
       <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
-      <anchor>a7fbc66f94737d24741b78b204bbd1e53</anchor>
+      <anchor>ae1994edb86ebaf6ad1af2e65a9b211ff</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>effect</name>
+      <anchorfile>structhmi_1_1WorldFigureSnapshot.html</anchorfile>
+      <anchor>a86be615b8cd8eb0dc5f6aa3ea30fb162</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -51356,10 +51085,10 @@
       <arglist>(std::string_view figure) const</arglist>
     </member>
     <member kind="function">
-      <type>FigureFacing</type>
-      <name>heroFacing</name>
+      <type>float</type>
+      <name>heroHeading</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
-      <anchor>ab359b28cfd1ae307fc8a93ef215e6f04</anchor>
+      <anchor>a6a23613291095ef2d8f35834dd20615a</anchor>
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
@@ -51486,13 +51215,6 @@
       <name>_hero</name>
       <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
       <anchor>ae67e2d06524e8c80b53efabfaa650aeb</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable" protection="private">
-      <type>FigureFacing</type>
-      <name>_heroFacing</name>
-      <anchorfile>classhmi_1_1WorldPlay.html</anchorfile>
-      <anchor>a0729d639a27a4412f44f3b68caa21da1</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -51847,8 +51569,8 @@
       <type>void</type>
       <name>ensureFigureModels</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
-      <anchor>abfa7945e5883064ddac3910d9f0e4bbe</anchor>
-      <arglist>(const std::vector&lt; std::string &gt; &amp;paths)</arglist>
+      <anchor>a150efb8ec5acdd302294797d4b6842a1</anchor>
+      <arglist>(std::span&lt; const WorldFigureSnapshot &gt; figures)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>void</type>
@@ -57178,9 +56900,6 @@
     <class kind="struct">hmi::WorldHeroPlacement</class>
     <class kind="struct">hmi::WorldFraming</class>
     <class kind="class">hmi::WorldSceneRenderer</class>
-    <class kind="class">hmi::ButtonRepeat</class>
-    <class kind="class">hmi::GamepadPoller</class>
-    <class kind="class">hmi::InputState</class>
     <class kind="class">hmi::Localization</class>
     <class kind="struct">hmi::CharacterSheetContext</class>
     <class kind="struct">hmi::CreditLine</class>
@@ -57221,7 +56940,6 @@
     <class kind="struct">hmi::Voix</class>
     <class kind="class">hmi::DialogueModel</class>
     <class kind="class">hmi::EncounterModel</class>
-    <class kind="class">hmi::GamepadNavigator</class>
     <class kind="class">hmi::GameViewportItem</class>
     <class kind="class">hmi::InventoryModel</class>
     <class kind="class">hmi::MapLauncherModel</class>
@@ -57652,41 +57370,12 @@
     </member>
     <member kind="enumeration">
       <type></type>
-      <name>FigureFacing</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>ac35af7f8a75d64ff0600ed46bb08ea2d</anchor>
-      <arglist></arglist>
-      <enumvalue file="namespacehmi.html" anchor="ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">None</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">SouthEast</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="ac35af7f8a75d64ff0600ed46bb08ea2dae8eaf797b01fdb4246ed54904368b592">SouthWest</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="ac35af7f8a75d64ff0600ed46bb08ea2da7254edb19370d28e3466c971d2f8a03e">NorthEast</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="ac35af7f8a75d64ff0600ed46bb08ea2da142cbe82227bdec147eff3a629dd366b">NorthWest</enumvalue>
-    </member>
-    <member kind="enumeration">
-      <type></type>
       <name>MaquetteTraceShape</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ac92a2fbe73cf9a4cb73991b10456e28c</anchor>
       <arglist></arglist>
       <enumvalue file="namespacehmi.html" anchor="ac92a2fbe73cf9a4cb73991b10456e28ca606b51cc1c9d0b4af394419a22f2ff1f">Outline</enumvalue>
       <enumvalue file="namespacehmi.html" anchor="ac92a2fbe73cf9a4cb73991b10456e28caac70412e939d72a9234cdebb1af5867b">Path</enumvalue>
-    </member>
-    <member kind="enumeration">
-      <type></type>
-      <name>GamepadButton</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a7bd1f14c12b142d5227ad2560e7c5e88</anchor>
-      <arglist></arglist>
-      <enumvalue file="namespacehmi.html" anchor="a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa">Up</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53">Down</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a7bd1f14c12b142d5227ad2560e7c5e88a945d5e233cf7d6240f6b783b36a374ff">Left</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c">Right</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a7bd1f14c12b142d5227ad2560e7c5e88a7fc56270e7a70fa81a5935b72eacbe29">A</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a7bd1f14c12b142d5227ad2560e7c5e88a9d5ed678fe57bcca610140957afab571">B</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a7bd1f14c12b142d5227ad2560e7c5e88a02129bb861061d1a052c592e2dc6b383">X</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0">Y</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a7bd1f14c12b142d5227ad2560e7c5e88a36131cbdc50218d923d0bcb0d9870e1c">LeftShoulder</enumvalue>
-      <enumvalue file="namespacehmi.html" anchor="a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354">RightShoulder</enumvalue>
     </member>
     <member kind="enumeration">
       <type></type>
@@ -59342,6 +59031,13 @@
       <arglist>(const AssetGalleryBloc &amp;bloc, const AssetGalleryView &amp;view, double ringCells) noexcept</arglist>
     </member>
     <member kind="function">
+      <type>double</type>
+      <name>assetGalleryClipSeconds</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ae952285c3c9fbe9f19964ddd2b2a3e6a</anchor>
+      <arglist>(const AssetGalleryEntry &amp;entry, double seconds) noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>int</type>
       <name>assetGalleryFrameRank</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -59749,13 +59445,6 @@
     </member>
     <member kind="function">
       <type>std::string</type>
-      <name>placeholderFigureDirectory</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a511785bc30ed0e18c4894a5d73f54920</anchor>
-      <arglist>(std::string_view silhouette)</arglist>
-    </member>
-    <member kind="function">
-      <type>std::string</type>
       <name>mannequinFigureDirectory</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a0ed268fdf11d77e308058243732fc1ac</anchor>
@@ -59791,38 +59480,31 @@
     </member>
     <member kind="function">
       <type>float</type>
-      <name>figureHeadingOf</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a860cbbc037b925a5a58d443e483c72ac</anchor>
-      <arglist>(FigureFacing facing) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>float</type>
       <name>figureHeadingFor</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>ac64452b3239caa3f7c4ff9cf237b6d5d</anchor>
       <arglist>(core::Vector2 move, float previous) noexcept</arglist>
     </member>
     <member kind="function">
-      <type>std::string_view</type>
-      <name>figureFacingSuffix</name>
+      <type>std::string</type>
+      <name>worldFigureDirectory</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>adff4a6359d340fc8a1811857e49ac036</anchor>
-      <arglist>(FigureFacing facing) noexcept</arglist>
-    </member>
-    <member kind="function">
-      <type>FigureFacing</type>
-      <name>figureFacingFor</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a42508ae8f53d38fa43dc350b10ab0553</anchor>
-      <arglist>(core::Vector2 move, FigureFacing previous) noexcept</arglist>
+      <anchor>ab46729590ea189e2bc56cc93fb7d7884</anchor>
+      <arglist>(const WorldSceneSnapshot &amp;snapshot, std::string_view figure)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
-      <name>figureStripPath</name>
+      <name>figureMarkerPath</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a193118424306eba40e5743a9e8e70dc2</anchor>
-      <arglist>(std::string_view figure, std::string_view clip, FigureFacing facing=FigureFacing::None)</arglist>
+      <anchor>aec5a040b30b5d156f9a59631d2de88cd</anchor>
+      <arglist>(std::string_view figure)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>effectStripPath</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ae1029c15753b5b99acce398c8eaf50fc</anchor>
+      <arglist>(std::string_view effect)</arglist>
     </member>
     <member kind="function">
       <type>std::string</type>
@@ -59928,13 +59610,6 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a20c3945e5c8e719d1588de9fbc5d931b</anchor>
       <arglist>(const ComposedScene &amp;scene, const core::Rect &amp;base)</arglist>
-    </member>
-    <member kind="function">
-      <type>constexpr bool</type>
-      <name>gamepadProbeDue</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>aa68d5419b15fd65eb0cbe477f135f642</anchor>
-      <arglist>(bool wasConnected, std::chrono::steady_clock::duration sinceLastProbe) noexcept</arglist>
     </member>
     <member kind="function">
       <type>std::optional&lt; hmi::Key &gt;</type>
@@ -60497,13 +60172,6 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>constexpr std::string_view</type>
-      <name>FX_DIRECTORY</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a4194f9c77255fd090763ac425476d7dc</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
       <type>constexpr char</type>
       <name>LAUNCH_LIST_SEPARATOR</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -60679,6 +60347,20 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>constexpr float</type>
+      <name>FIGURE_HEADING_FRONT</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a0433122fa5ba5dada6793da372fd6177</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>FX_DIRECTORY</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a4194f9c77255fd090763ac425476d7dc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>constexpr std::string_view</type>
       <name>DEFAULT_SILHOUETTE</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -60690,34 +60372,6 @@
       <name>SILHOUETTE_PROPERTY</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a97a3d73038cd8b88626f97aad58b5a95</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr std::chrono::milliseconds</type>
-      <name>BUTTON_REPEAT_DELAY</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a9ab13e58906fc19eaceaa84921d13f32</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr std::chrono::milliseconds</type>
-      <name>BUTTON_REPEAT_INTERVAL</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a19c4e889b587eee63318fd97be53024d</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr int</type>
-      <name>GAMEPAD_BUTTON_COUNT</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>aab59d64d595ba17a55cc07311285ba14</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="variable">
-      <type>constexpr std::chrono::milliseconds</type>
-      <name>GAMEPAD_DISCONNECTED_PROBE_PERIOD</name>
-      <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>a2a20dc2308d9f364b3d764c4443ef799</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -61579,12 +61233,7 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Input/</path>
     <filename>dir_76d97c54a16374659ce0f27a302675ee.html</filename>
-    <file>ButtonRepeat.h</file>
-    <file>GamepadButton.h</file>
-    <file>GamepadPoller.cpp</file>
-    <file>GamepadPoller.h</file>
-    <file>InputState.cpp</file>
-    <file>InputState.h</file>
+    <file>Key.h</file>
     <file>QtKeyMap.cpp</file>
     <file>QtKeyMap.h</file>
   </compound>
@@ -61592,9 +61241,6 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Input</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Input/</path>
     <filename>dir_de30a5e97846502980314378552e8c47.html</filename>
-    <file>test_button_repeat.cpp</file>
-    <file>test_gamepad_probe.cpp</file>
-    <file>test_input_state.cpp</file>
     <file>test_qt_key_map.cpp</file>
   </compound>
   <compound kind="dir">
@@ -61937,8 +61583,6 @@
     <file>DialogueModel.h</file>
     <file>EncounterModel.cpp</file>
     <file>EncounterModel.h</file>
-    <file>GamepadNavigator.cpp</file>
-    <file>GamepadNavigator.h</file>
     <file>GameViewportItem.cpp</file>
     <file>GameViewportItem.h</file>
     <file>InventoryModel.cpp</file>

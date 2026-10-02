@@ -155,9 +155,9 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1b02c9fea434f1d7a4b32e703f56cb20" id="r_a1b02c9fea434f1d7a4b32e703f56cb20"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1b02c9fea434f1d7a4b32e703f56cb20">setTimings</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor, const <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> &amp;<a class="el" href="#a602be75a81af7f15d6ad9ba2622c878a">timings</a>)</td></tr>
-<tr class="memdesc:a1b02c9fea434f1d7a4b32e703f56cb20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne à <code class="param">actor</code> les durées de ses gestes ; sans elles, celles des bandes.  <br /></td></tr>
-<tr class="memitem:a5845b0a48c9a4c1b50f97a5b9f58abec" id="r_a5845b0a48c9a4c1b50f97a5b9f58abec"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5845b0a48c9a4c1b50f97a5b9f58abec">place</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell, <a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing=<a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a>)</td></tr>
-<tr class="memdesc:a5845b0a48c9a4c1b50f97a5b9f58abec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose <code class="param">actor</code> au repos en <code class="param">cell</code>, tout de suite (montage, rejeu, repli).  <br /></td></tr>
+<tr class="memdesc:a1b02c9fea434f1d7a4b32e703f56cb20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne à <code class="param">actor</code> les durées de ses gestes ; sans elles, celles par défaut.  <br /></td></tr>
+<tr class="memitem:a9b6997c2c81d17446690483b8a1dbb1d" id="r_a9b6997c2c81d17446690483b8a1dbb1d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9b6997c2c81d17446690483b8a1dbb1d">place</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell, float heading=<a class="el" href="namespacehmi.html#a0433122fa5ba5dada6793da372fd6177">FIGURE_HEADING_FRONT</a>)</td></tr>
+<tr class="memdesc:a9b6997c2c81d17446690483b8a1dbb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose <code class="param">actor</code> au repos en <code class="param">cell</code>, tout de suite (montage, rejeu, repli).  <br /></td></tr>
 <tr class="memitem:a924fb983c66452c64e943ae4f423275a" id="r_a924fb983c66452c64e943ae4f423275a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a924fb983c66452c64e943ae4f423275a">remove</a> (<a class="el" href="namespacecore.html#a91235fd72a18c305c494723774630841">core::CombatantId</a> actor)</td></tr>
 <tr class="memdesc:a924fb983c66452c64e943ae4f423275a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retire <code class="param">actor</code> : il est sorti du combat.  <br /></td></tr>
 <tr class="memitem:ad8833d40491f43b045a9d71f68053d92" id="r_ad8833d40491f43b045a9d71f68053d92"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad8833d40491f43b045a9d71f68053d92">push</a> (<a class="el" href="structhmi_1_1CombatCue.html">CombatCue</a> cue)</td></tr>
@@ -175,7 +175,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a82a77ccfc829e53531315636235d4538" id="r_a82a77ccfc829e53531315636235d4538"><td class="memItemLeft">static <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a>&#160;</td><td class="memItemRight"><a class="el" href="#a82a77ccfc829e53531315636235d4538">stripTimings</a> () noexcept</td></tr>
+<tr class="memitem:ab3b2eb4cc88d1966be0a025da30a68ef" id="r_ab3b2eb4cc88d1966be0a025da30a68ef"><td class="memItemLeft">static <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab3b2eb4cc88d1966be0a025da30a68ef">defaultTimings</a> () noexcept</td></tr>
 <tr class="memitem:ab8d08c62faea414a3fe55627c176b80d" id="r_ab8d08c62faea414a3fe55627c176b80d"><td class="memItemLeft">static <a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab8d08c62faea414a3fe55627c176b80d">timingsOf</a> (const <a class="el" href="structcore_1_1SkeletonDescription.html">core::SkeletonDescription</a> *skeleton)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
@@ -183,9 +183,9 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:a5fd46f6bc9c924e710b7c54412301ee0" id="r_a5fd46f6bc9c924e710b7c54412301ee0"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a5fd46f6bc9c924e710b7c54412301ee0">WALK_CELLS_PER_SECOND</a> = 2.0F</td></tr>
 <tr class="memdesc:a5fd46f6bc9c924e710b7c54412301ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">La marche du combat est celle du monde : deux cases par seconde (<span class="tt">LOT-112</span>, D5).  <br /></td></tr>
 <tr class="memitem:ac838aa510aa11e1d6256337e85026600" id="r_ac838aa510aa11e1d6256337e85026600"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#ac838aa510aa11e1d6256337e85026600">ACTION_SECONDS</a> = 0.64F</td></tr>
-<tr class="memdesc:ac838aa510aa11e1d6256337e85026600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une action ponctuelle dure sa bande : huit images à 80 ms (<span class="tt">LOT-112</span>).  <br /></td></tr>
+<tr class="memdesc:ac838aa510aa11e1d6256337e85026600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que dure une action ponctuelle dont le squelette ne dit rien (<span class="tt">LOT-112</span>).  <br /></td></tr>
 <tr class="memitem:afd0414c9c8565543290b89aa58a7d098" id="r_afd0414c9c8565543290b89aa58a7d098"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#afd0414c9c8565543290b89aa58a7d098">IMPACT_FRACTION</a> = 0.5F</td></tr>
-<tr class="memdesc:afd0414c9c8565543290b89aa58a7d098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le coup <b>porte</b> au milieu de la bande d'attaque : le touché et la chute de la cible commencent là, pas quand l'attaquant a fini son geste.  <br /></td></tr>
+<tr class="memdesc:afd0414c9c8565543290b89aa58a7d098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où le coup <b>porte</b> dans un geste sans image clé déclarée : en son milieu.  <br /></td></tr>
 <tr class="memitem:aca7ea23ea75bf334fa558758fb52e61e" id="r_aca7ea23ea75bf334fa558758fb52e61e"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#aca7ea23ea75bf334fa558758fb52e61e">EFFECT_SECONDS</a> = 0.8F</td></tr>
 <tr class="memdesc:aca7ea23ea75bf334fa558758fb52e61e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un effet dure sa bande : huit images, une petite seconde (<span class="tt">LOT-136</span>).  <br /></td></tr>
 </table><table class="memberdecls">
@@ -306,6 +306,32 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Oublie tout : la fin du combat. </p>
+
+</div>
+</div>
+<a id="ab3b2eb4cc88d1966be0a025da30a68ef" name="ab3b2eb4cc88d1966be0a025da30a68ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3b2eb4cc88d1966be0a025da30a68ef">&#9670;&#160;</a></span>defaultTimings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> hmi::CombatCueTrack::defaultTimings </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les durées par défaut : <span class="tt"><a class="el" href="#ac838aa510aa11e1d6256337e85026600" title="Ce que dure une action ponctuelle dont le squelette ne dit rien (LOT-112).">ACTION_SECONDS</a></span>, l'impact à <span class="tt"><a class="el" href="#afd0414c9c8565543290b89aa58a7d098" title="Où le coup porte dans un geste sans image clé déclarée : en son milieu.">IMPACT_FRACTION</a></span>. </dd></dl>
 
 </div>
 </div>
@@ -432,8 +458,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a5845b0a48c9a4c1b50f97a5b9f58abec" name="a5845b0a48c9a4c1b50f97a5b9f58abec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5845b0a48c9a4c1b50f97a5b9f58abec">&#9670;&#160;</a></span>place()</h2>
+<a id="a9b6997c2c81d17446690483b8a1dbb1d" name="a9b6997c2c81d17446690483b8a1dbb1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b6997c2c81d17446690483b8a1dbb1d">&#9670;&#160;</a></span>place()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -451,7 +477,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a></td>          <td class="paramname"><span class="paramname"><em>facing</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacehmi.html#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">FigureFacing::SouthEast</a></span>&#160;)</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>heading</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespacehmi.html#a0433122fa5ba5dada6793da372fd6177">FIGURE_HEADING_FRONT</a></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -517,7 +543,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Donne à <code class="param">actor</code> les durées de ses gestes ; sans elles, celles des bandes. </p>
+<p>Donne à <code class="param">actor</code> les durées de ses gestes ; sans elles, celles par défaut. </p>
 
 </div>
 </div>
@@ -545,32 +571,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Démarre le fait suivant, et ceux qui l'accompagnent. </p>
-
-</div>
-</div>
-<a id="a82a77ccfc829e53531315636235d4538" name="a82a77ccfc829e53531315636235d4538"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82a77ccfc829e53531315636235d4538">&#9670;&#160;</a></span>stripTimings()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a> hmi::CombatCueTrack::stripTimings </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les durées d'une figurine en bandes : <span class="tt"><a class="el" href="#ac838aa510aa11e1d6256337e85026600" title="Une action ponctuelle dure sa bande : huit images à 80 ms (LOT-112).">ACTION_SECONDS</a></span>, l'impact à <span class="tt"><a class="el" href="#afd0414c9c8565543290b89aa58a7d098" title="Le coup porte au milieu de la bande d&#39;attaque : le touché et la chute de la cible commencent là,...">IMPACT_FRACTION</a></span>. </dd></dl>
 
 </div>
 </div>
@@ -622,7 +622,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les durées des clips que <code class="param">skeleton</code> déclare ; celles des bandes pour un clip qu'il ne déclare pas, et pour un squelette nul. Un clip sans image clé porte à <span class="tt"><a class="el" href="#afd0414c9c8565543290b89aa58a7d098" title="Le coup porte au milieu de la bande d&#39;attaque : le touché et la chute de la cible commencent là,...">IMPACT_FRACTION</a></span> de sa durée ; le tir sans clip de tir est une attaque. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les durées des clips que <code class="param">skeleton</code> déclare ; celles par défaut pour un clip qu'il ne déclare pas, et pour un squelette nul. Un clip sans image clé porte à <span class="tt"><a class="el" href="#afd0414c9c8565543290b89aa58a7d098" title="Où le coup porte dans un geste sans image clé déclarée : en son milieu.">IMPACT_FRACTION</a></span> de sa durée ; le tir sans clip de tir est une attaque. </dd></dl>
 
 </div>
 </div>
@@ -735,7 +735,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Une action ponctuelle dure sa bande : huit images à 80 ms (<span class="tt">LOT-112</span>). </p>
+<p>Ce que dure une action ponctuelle dont le squelette ne dit rien (<span class="tt">LOT-112</span>). </p>
 
 </div>
 </div>
@@ -783,7 +783,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Le coup <b>porte</b> au milieu de la bande d'attaque : le touché et la chute de la cible commencent là, pas quand l'attaquant a fini son geste. </p>
+<p>Où le coup <b>porte</b> dans un geste sans image clé déclarée : en son milieu. </p>
 
 </div>
 </div>

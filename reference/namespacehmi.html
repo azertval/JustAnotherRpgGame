@@ -146,7 +146,7 @@ $(function(){initNavTree('namespacehmi.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:figure_5Fclips" id="r_figure_5Fclips"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi_1_1figure__clips.html">figure_clips</a></td></tr>
-<tr class="memdesc:namespacehmi_1_1figure__clips"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les bandes d'une figurine (standard 2D HD, §5, et le tir du <span class="tt">LOT-136</span>) : ce qu'une figurine complète sait jouer, et ce qu'un combattant précharge (<span class="tt">LOT-118</span>). <br /></td></tr>
+<tr class="memdesc:namespacehmi_1_1figure__clips"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les clips d'une figurine : ce que le squelette d'un personnage sait jouer (standard des personnages, §7), et le tir du <span class="tt">LOT-136</span>. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -370,7 +370,7 @@ Classes</h2></td></tr>
 <tr class="memitem:GestureTiming" id="r_GestureTiming"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1GestureTiming.html">GestureTiming</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un geste dans le temps : ce qu'il dure, et l'instant où il porte.  <a href="structhmi_1_1GestureTiming.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FigureTimings" id="r_FigureTimings"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1FigureTimings.html">FigureTimings</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les durées des gestes d'un combattant (<span class="tt">LOT-1005</span>) : celles de ses clips, si sa figurine est un modèle ; celles des bandes sinon.  <a href="structhmi_1_1FigureTimings.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les durées des gestes d'un combattant (<span class="tt">LOT-1005</span>) : celles des clips de son squelette ; celles par défaut s'il ne se lit pas.  <a href="structhmi_1_1FigureTimings.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CombatCueTrack" id="r_CombatCueTrack"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CombatCueTrack.html">CombatCueTrack</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La file des faits du combat, rejoués dans le temps par les figurines.  <a href="classhmi_1_1CombatCueTrack.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DebugOption" id="r_DebugOption"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DebugOption.html">DebugOption</a></td></tr>
@@ -400,7 +400,7 @@ Classes</h2></td></tr>
 <tr class="memitem:AssetValidation" id="r_AssetValidation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetValidation.html">AssetValidation</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verdict de validation d'un asset, avec son message exploitable.  <a href="structhmi_1_1AssetValidation.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AssetGalleryEntry" id="r_AssetGalleryEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une forme d'un modèle : un clip d'une figure, une variante de texture, une pièce.  <a href="structhmi_1_1AssetGalleryEntry.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une forme d'un modèle : un clip d'un personnage, une variante de texture, une pièce.  <a href="structhmi_1_1AssetGalleryEntry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AssetGalleryFamily" id="r_AssetGalleryFamily"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryFamily.html">AssetGalleryFamily</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une famille : une bande de la galerie.  <a href="structhmi_1_1AssetGalleryFamily.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AssetGalleryCatalog" id="r_AssetGalleryCatalog"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a></td></tr>
@@ -490,7 +490,7 @@ Classes</h2></td></tr>
 <tr class="memitem:LoadedTexture" id="r_LoadedTexture"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture GPU chargée (RAII).  <a href="structhmi_1_1LoadedTexture.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldFigureSnapshot" id="r_WorldFigureSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine à dessiner sur la carte : sa planche, son image, où elle est.  <a href="structhmi_1_1WorldFigureSnapshot.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine à dessiner sur la carte : son modèle, son clip, où elle est et où elle regarde — ou un <b>effet</b> (<span class="tt"><a class="el" href="structhmi_1_1WorldFigureSnapshot.html#a86be615b8cd8eb0dc5f6aa3ea30fb162" title="Vrai pour un effet (LOT-136) : la bande clip de Common/Fx/, posée à plat sur point.">effect</a></span>), qui reste une bande d'images.  <a href="structhmi_1_1WorldFigureSnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MaquetteTokenSnapshot" id="r_MaquetteTokenSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteTokenSnapshot.html">MaquetteTokenSnapshot</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un <b>jeton</b> posé sur une case : ce qui tient lieu de figurine tant qu'il n'y en a pas (<span class="tt">LOT-128</span>, décision D3).  <a href="structhmi_1_1MaquetteTokenSnapshot.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MaquetteTraceSnapshot" id="r_MaquetteTraceSnapshot"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MaquetteTraceSnapshot.html">MaquetteTraceSnapshot</a></td></tr>
@@ -511,12 +511,6 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un cadrage <b>imposé</b> (<span class="tt">LOT-1002</span>) : ce que montre le canevas de l'éditeur, ou le cadre d'une image hors écran.  <a href="structhmi_1_1WorldFraming.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldSceneRenderer" id="r_WorldSceneRenderer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1WorldSceneRenderer.html">WorldSceneRenderer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène composée.  <a href="classhmi_1_1WorldSceneRenderer.html#details">More...</a><br /></td></tr>
-<tr class="memitem:ButtonRepeat" id="r_ButtonRepeat"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1ButtonRepeat.html">ButtonRepeat</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compteur de répétition d'un bouton tenu : un pas à l'appui, puis un pas tous les <span class="tt"><a class="el" href="#a19c4e889b587eee63318fd97be53024d" title="Intervalle entre deux répétitions.">BUTTON_REPEAT_INTERVAL</a></span> une fois <span class="tt"><a class="el" href="#a9ab13e58906fc19eaceaa84921d13f32" title="Délai avant la première répétition d&#39;un bouton tenu.">BUTTON_REPEAT_DELAY</a></span> écoulé.  <a href="classhmi_1_1ButtonRepeat.html#details">More...</a><br /></td></tr>
-<tr class="memitem:GamepadPoller" id="r_GamepadPoller"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GamepadPoller.html">GamepadPoller</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sonde la manette (XInput, joueur 0) et verse son état dans un <span class="tt"><a class="el" href="classhmi_1_1InputState.html" title="État des boutons de la manette à un relevé, avec détection des fronts (pressé / relâché).">InputState</a></span>.  <a href="classhmi_1_1GamepadPoller.html#details">More...</a><br /></td></tr>
-<tr class="memitem:InputState" id="r_InputState"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1InputState.html">InputState</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">État des boutons de la manette à un relevé, avec détection des fronts (pressé / relâché).  <a href="classhmi_1_1InputState.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Localization" id="r_Localization"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1Localization.html">Localization</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Catalogue de traduction (i18n) : associe des <b>clés</b> stables à des chaînes selon la <b>langue active</b>, avec repli sur la langue par défaut.  <a href="classhmi_1_1Localization.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CharacterSheetContext" id="r_CharacterSheetContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CharacterSheetContext.html">CharacterSheetContext</a></td></tr>
@@ -596,8 +590,6 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue-modèle de l'écran de dialogue : elle tient un <span class="tt"><a class="el" href="classcore_1_1DialogueRunner.html" title="La machine à états qui joue un dialogue.">core::DialogueRunner</a></span> et rien d'autre ne décide.  <a href="classhmi_1_1DialogueModel.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EncounterModel" id="r_EncounterModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1EncounterModel.html">EncounterModel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue-modèle du combat sur la carte.  <a href="classhmi_1_1EncounterModel.html#details">More...</a><br /></td></tr>
-<tr class="memitem:GamepadNavigator" id="r_GamepadNavigator"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GamepadNavigator.html">GamepadNavigator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La manette pour un écran Qt Quick : chaque appui devient un signal nommé (<span class="tt">LOT-24</span>).  <a href="classhmi_1_1GamepadNavigator.html#details">More...</a><br /></td></tr>
 <tr class="memitem:GameViewportItem" id="r_GameViewportItem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1GameViewportItem.html">GameViewportItem</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface QRhi du jeu, composée avec le reste de l'interface QML.  <a href="classhmi_1_1GameViewportItem.html#details">More...</a><br /></td></tr>
 <tr class="memitem:InventoryModel" id="r_InventoryModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1InventoryModel.html">InventoryModel</a></td></tr>
@@ -911,36 +903,10 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="memdesc:a71e0c7e2c54951699d44b5c6f88f63ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rang d'une pièce dans une même profondeur : le relief, la figurine posée dessus, puis les étages de la case, du premier au dernier (<span class="tt">LOT-129</span>) — le rang de l'étage <span class="tt">n</span> est <span class="tt">Storey + n - 1</span>.  <a href="#a71e0c7e2c54951699d44b5c6f88f63ca">More...</a><br /></td></tr>
-<tr class="memitem:ac35af7f8a75d64ff0600ed46bb08ea2d" id="r_ac35af7f8a75d64ff0600ed46bb08ea2d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190">SouthEast</a>
-, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2dae8eaf797b01fdb4246ed54904368b592">SouthWest</a>
-, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da7254edb19370d28e3466c971d2f8a03e">NorthEast</a>
-, <br />
-&#160;&#160;<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da142cbe82227bdec147eff3a629dd366b">NorthWest</a>
-<br />
- }</td></tr>
-<tr class="memdesc:ac35af7f8a75d64ff0600ed46bb08ea2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'orientation d'une figurine : l'une des quatre diagonales de l'isométrie (<span class="tt">LOT-112</span>).  <a href="#ac35af7f8a75d64ff0600ed46bb08ea2d">More...</a><br /></td></tr>
 <tr class="memitem:ac92a2fbe73cf9a4cb73991b10456e28c" id="r_ac92a2fbe73cf9a4cb73991b10456e28c"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ac92a2fbe73cf9a4cb73991b10456e28c">MaquetteTraceShape</a> { <a class="el" href="#ac92a2fbe73cf9a4cb73991b10456e28ca606b51cc1c9d0b4af394419a22f2ff1f">Outline</a>
 , <a class="el" href="#ac92a2fbe73cf9a4cb73991b10456e28caac70412e939d72a9234cdebb1af5867b">Path</a>
  }</td></tr>
 <tr class="memdesc:ac92a2fbe73cf9a4cb73991b10456e28c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un tracé de maquette dessine.  <a href="#ac92a2fbe73cf9a4cb73991b10456e28c">More...</a><br /></td></tr>
-<tr class="memitem:a7bd1f14c12b142d5227ad2560e7c5e88" id="r_a7bd1f14c12b142d5227ad2560e7c5e88"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88">GamepadButton</a> { <br />
-&#160;&#160;<a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa">Up</a>
-, <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53">Down</a>
-, <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a945d5e233cf7d6240f6b783b36a374ff">Left</a>
-, <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c">Right</a>
-, <br />
-&#160;&#160;<a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a7fc56270e7a70fa81a5935b72eacbe29">A</a>
-, <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a9d5ed678fe57bcca610140957afab571">B</a>
-, <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a02129bb861061d1a052c592e2dc6b383">X</a>
-, <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0">Y</a>
-, <br />
-&#160;&#160;<a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a36131cbdc50218d923d0bcb0d9870e1c">LeftShoulder</a>
-, <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354">RightShoulder</a>
-<br />
- }</td></tr>
-<tr class="memdesc:a7bd1f14c12b142d5227ad2560e7c5e88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bouton (ou direction) manette remappable à une action de jeu (<span class="tt">EX-CTRL-002</span>).  <a href="#a7bd1f14c12b142d5227ad2560e7c5e88">More...</a><br /></td></tr>
 <tr class="memitem:a83c98e56e30eafa606048853f7962e48" id="r_a83c98e56e30eafa606048853f7962e48"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a83c98e56e30eafa606048853f7962e48">Key</a> : std::uint16_t { <br />
 &#160;&#160;<a class="el" href="#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef">Backspace</a> = 0x08
 , <a class="el" href="#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413">Tab</a> = 0x09
@@ -978,7 +944,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a83c98e56e30eafa606048853f7962e48ab213ce22ca6ad4eda8db82966b9b6e5a">F10</a> = 0x79
 <br />
  }</td></tr>
-<tr class="memdesc:a83c98e56e30eafa606048853f7962e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Touche du clavier, identifiée par son <b>code virtuel Win32</b>.  <a href="#a83c98e56e30eafa606048853f7962e48">More...</a><br /></td></tr>
+<tr class="memdesc:a83c98e56e30eafa606048853f7962e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clavier de l'editeur, identifie par les codes virtuels Win32.  <a href="#a83c98e56e30eafa606048853f7962e48">More...</a><br /></td></tr>
 <tr class="memitem:a874cdf4b3785a41ee4cfc4ae882c2df5" id="r_a874cdf4b3785a41ee4cfc4ae882c2df5"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a874cdf4b3785a41ee4cfc4ae882c2df5">ItemFamily</a> { <br />
 &#160;&#160;<a class="el" href="#a874cdf4b3785a41ee4cfc4ae882c2df5ab1c94ca2fbc3e78fc30069c8d0f01680">All</a>
 , <a class="el" href="#a874cdf4b3785a41ee4cfc4ae882c2df5a9ccda2d50a1ee1b73ee1f048eb397aa8">Equipment</a>
@@ -1381,11 +1347,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a11b4cbe2fcfcc3f152293f1bdf5c7f8d" id="r_a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a11b4cbe2fcfcc3f152293f1bdf5c7f8d">assetGalleryExcludes</a> (std::string_view path) noexcept</td></tr>
 <tr class="memdesc:a11b4cbe2fcfcc3f152293f1bdf5c7f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images livrées qui ne sont pas des assets à montrer, par règle nommée : l'interface (<span class="tt">UI/</span>), les cartes plein écran de l'écran « Carte » (<span class="tt">Maps/</span>, que cet écran montre déjà une à une, et les cartes rendues des zones, dans le <span class="tt">Map/</span> de chacune sous <span class="tt">Regions/</span>, <span class="tt">LOT-121</span>) et les polices (<span class="tt">Fonts/</span>).  <br /></td></tr>
 <tr class="memitem:a3256818dab3b1990ebe3f4da0aed8a34" id="r_a3256818dab3b1990ebe3f4da0aed8a34"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3256818dab3b1990ebe3f4da0aed8a34">assetGalleryUnlisted</a> (const std::filesystem::path &amp;assetsRoot, const <a class="el" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a> &amp;catalog)</td></tr>
-<tr class="memdesc:a3256818dab3b1990ebe3f4da0aed8a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images livrées (PNG, JPEG) que la galerie ne montre pas et qu'aucune exclusion ne couvre : ce que <span class="tt">EX-CNT-042</span> interdit.  <br /></td></tr>
+<tr class="memdesc:a3256818dab3b1990ebe3f4da0aed8a34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les images (PNG, JPEG) et les modèles (<span class="tt">.glb</span>) livrés que la galerie ne montre pas et qu'aucune exclusion ne couvre : ce que <span class="tt">EX-CNT-042</span> interdit.  <br /></td></tr>
 <tr class="memitem:a83debe99d4ca04cebc854c1407f3a39e" id="r_a83debe99d4ca04cebc854c1407f3a39e"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a>&#160;</td><td class="memItemRight"><a class="el" href="#a83debe99d4ca04cebc854c1407f3a39e">assetGalleryBlocShape</a> (const <a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> &amp;entry)</td></tr>
 <tr class="memitem:aa873ff843c8cc02b063bb5f908cd92fd" id="r_aa873ff843c8cc02b063bb5f908cd92fd"><td class="memItemLeft"><a class="el" href="structhmi_1_1AssetGalleryLayout.html">AssetGalleryLayout</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa873ff843c8cc02b063bb5f908cd92fd">layoutAssetGallery</a> (const <a class="el" href="structhmi_1_1AssetGalleryCatalog.html">AssetGalleryCatalog</a> &amp;catalog, int maximumColumns=40)</td></tr>
 <tr class="memdesc:aa873ff843c8cc02b063bb5f908cd92fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispose le catalogue : une bande par famille, une ligne par modèle, et au-delà de <code class="param">maximumColumns</code> cases une ligne continue la suivante.  <br /></td></tr>
 <tr class="memitem:a321807271cf7156d657e478bb442d8a8" id="r_a321807271cf7156d657e478bb442d8a8"><td class="memItemLeft"><a class="el" href="#a9bcda977efbe65c2ab28905feb685040">AssetGalleryVisibility</a>&#160;</td><td class="memItemRight"><a class="el" href="#a321807271cf7156d657e478bb442d8a8">assetGalleryVisibility</a> (const <a class="el" href="structhmi_1_1AssetGalleryBloc.html">AssetGalleryBloc</a> &amp;bloc, const <a class="el" href="structhmi_1_1AssetGalleryView.html">AssetGalleryView</a> &amp;view, double ringCells) noexcept</td></tr>
+<tr class="memitem:ae952285c3c9fbe9f19964ddd2b2a3e6a" id="r_ae952285c3c9fbe9f19964ddd2b2a3e6a"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ae952285c3c9fbe9f19964ddd2b2a3e6a">assetGalleryClipSeconds</a> (const <a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> &amp;entry, double seconds) noexcept</td></tr>
+<tr class="memdesc:ae952285c3c9fbe9f19964ddd2b2a3e6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'instant du clip d'un modèle au temps <code class="param">seconds</code> : ramené dans le clip s'il boucle, sinon joué une fois puis tenu <span class="tt"><a class="el" href="#ab31c52802e91a9594d93c236912b4ffe" title="Temps de tenue, en secondes, d&#39;un clip joué une fois sur sa dernière image avant de reprendre.">ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS</a></span> sur sa fin avant de reprendre.  <br /></td></tr>
 <tr class="memitem:aab46d733154ad31db3d8fa8af5afd259" id="r_aab46d733154ad31db3d8fa8af5afd259"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aab46d733154ad31db3d8fa8af5afd259">assetGalleryFrameRank</a> (const <a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> &amp;entry, double seconds) noexcept</td></tr>
 <tr class="memdesc:aab46d733154ad31db3d8fa8af5afd259"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'image jouée au temps <code class="param">seconds</code> : en boucle, ou jouée une fois puis tenue <span class="tt"><a class="el" href="#ab31c52802e91a9594d93c236912b4ffe" title="Temps de tenue, en secondes, d&#39;un clip joué une fois sur sa dernière image avant de reprendre.">ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS</a></span> avant de reprendre.  <br /></td></tr>
 <tr class="memitem:a1f8eaf007494e0de0c7bc1e70c2db3b2" id="r_a1f8eaf007494e0de0c7bc1e70c2db3b2"><td class="memItemLeft"><a class="el" href="structhmi_1_1CityBlockFraming.html">CityBlockFraming</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1f8eaf007494e0de0c7bc1e70c2db3b2">cityBlockFraming</a> (const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection, const <a class="el" href="structcore_1_1CityBlock.html">core::CityBlock</a> &amp;block, float maximumRise, float tilePixels=<a class="el" href="#ac5685001ff877c46a20353b7ab1581cc">CITY_BLOCK_TILE_PIXELS</a>)</td></tr>
@@ -1493,10 +1461,8 @@ Functions</h2></td></tr>
 <tr class="memitem:abbf2a2d38ba582981388654fde028bae" id="r_abbf2a2d38ba582981388654fde028bae"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#abbf2a2d38ba582981388654fde028bae">scenePlaceOf</a> (const <a class="el" href="classcore_1_1Level.html">core::Level</a> &amp;level)</td></tr>
 <tr class="memitem:a47c8f35619d5e7fa59cd899a158c9361" id="r_a47c8f35619d5e7fa59cd899a158c9361"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a47c8f35619d5e7fa59cd899a158c9361">maquetteMarks</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, bool maquette, std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures={})</td></tr>
 <tr class="memdesc:a47c8f35619d5e7fa59cd899a158c9361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les marques que <code class="param">entities</code> méritent.  <br /></td></tr>
-<tr class="memitem:a511785bc30ed0e18c4894a5d73f54920" id="r_a511785bc30ed0e18c4894a5d73f54920"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a511785bc30ed0e18c4894a5d73f54920">placeholderFigureDirectory</a> (std::string_view silhouette)</td></tr>
-<tr class="memdesc:a511785bc30ed0e18c4894a5d73f54920"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier d'un mannequin de remplacement, par silhouette (<span class="tt">LOT-145</span>) : ce que dessine un personnage sans figurine.  <br /></td></tr>
 <tr class="memitem:a0ed268fdf11d77e308058243732fc1ac" id="r_a0ed268fdf11d77e308058243732fc1ac"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0ed268fdf11d77e308058243732fc1ac">mannequinFigureDirectory</a> (std::string_view silhouette)</td></tr>
-<tr class="memdesc:a0ed268fdf11d77e308058243732fc1ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier du mannequin <b>en modèle</b> d'une silhouette (<span class="tt">LOT-1005</span>) : un maillage neutre lié au squelette de la silhouette, et sa fiche.  <br /></td></tr>
+<tr class="memdesc:a0ed268fdf11d77e308058243732fc1ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier du <b>mannequin</b> d'une silhouette (<span class="tt">LOT-145</span>, en modèle depuis le <span class="tt">LOT-1005</span>) : un maillage neutre lié au squelette de la silhouette, et sa fiche — ce que dessine un personnage sans modèle.  <br /></td></tr>
 <tr class="memitem:af4b383c877918f88e8a772b02f424e9c" id="r_af4b383c877918f88e8a772b02f424e9c"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af4b383c877918f88e8a772b02f424e9c">npcFigures</a> (const std::vector&lt; <a class="el" href="structcore_1_1MapEntity.html">core::MapEntity</a> &gt; &amp;entities, int frame, bool placeholders=false)</td></tr>
 <tr class="memdesc:af4b383c877918f88e8a772b02f424e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines des PNJ d'une carte, dans l'ordre des entités.  <br /></td></tr>
 <tr class="memitem:ab66963a68c69c0957d096fbab448d6a4" id="r_ab66963a68c69c0957d096fbab448d6a4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab66963a68c69c0957d096fbab448d6a4">scenePlaceOf</a> (const std::vector&lt; <a class="el" href="structcore_1_1TileLayer.html">core::TileLayer</a> &gt; &amp;layers)</td></tr>
@@ -1504,16 +1470,14 @@ Functions</h2></td></tr>
 <tr class="memdesc:a8e3a1dcd14a5132e99f15be875c38936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comme ci-dessus, pour une carte validée.  <br /></td></tr>
 <tr class="memitem:abc96b05b9f94854936ee3d8541390286" id="r_abc96b05b9f94854936ee3d8541390286"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#abc96b05b9f94854936ee3d8541390286">snapshotWorldScene</a> (const <a class="el" href="structhmi_1_1WorldSceneSource.html">WorldSceneSource</a> &amp;source, const <a class="el" href="classhmi_1_1PlaceAppearance.html">PlaceAppearance</a> &amp;appearance, std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures)</td></tr>
 <tr class="memdesc:abc96b05b9f94854936ee3d8541390286"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tire de <code class="param">level</code> l'instantané que la composition dessine.  <br /></td></tr>
-<tr class="memitem:a860cbbc037b925a5a58d443e483c72ac" id="r_a860cbbc037b925a5a58d443e483c72ac"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a860cbbc037b925a5a58d443e483c72ac">figureHeadingOf</a> (<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing) noexcept</td></tr>
-<tr class="memdesc:a860cbbc037b925a5a58d443e483c72ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>cap</b> d'une figurine en modèle (<span class="tt">LOT-1005</span>) : l'angle, en radians, de la direction où elle regarde dans le plan de la grille — 0 vers les colonnes croissantes (sud-est à l'écran), π/2 vers les lignes croissantes (sud-ouest).  <br /></td></tr>
 <tr class="memitem:ac64452b3239caa3f7c4ff9cf237b6d5d" id="r_ac64452b3239caa3f7c4ff9cf237b6d5d"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ac64452b3239caa3f7c4ff9cf237b6d5d">figureHeadingFor</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> move, float previous) noexcept</td></tr>
-<tr class="memitem:adff4a6359d340fc8a1811857e49ac036" id="r_adff4a6359d340fc8a1811857e49ac036"><td class="memItemLeft">std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#adff4a6359d340fc8a1811857e49ac036">figureFacingSuffix</a> (<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing) noexcept</td></tr>
-<tr class="memitem:a42508ae8f53d38fa43dc350b10ab0553" id="r_a42508ae8f53d38fa43dc350b10ab0553"><td class="memItemLeft"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a>&#160;</td><td class="memItemRight"><a class="el" href="#a42508ae8f53d38fa43dc350b10ab0553">figureFacingFor</a> (<a class="el" href="structcore_1_1Vector2.html">core::Vector2</a> move, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> previous) noexcept</td></tr>
-<tr class="memdesc:a42508ae8f53d38fa43dc350b10ab0553"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'orientation d'une figurine qui se déplace de <code class="param">move</code>, en cases.  <br /></td></tr>
-<tr class="memitem:a193118424306eba40e5743a9e8e70dc2" id="r_a193118424306eba40e5743a9e8e70dc2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a193118424306eba40e5743a9e8e70dc2">figureStripPath</a> (std::string_view figure, std::string_view clip, <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> facing=<a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">FigureFacing::None</a>)</td></tr>
-<tr class="memdesc:a193118424306eba40e5743a9e8e70dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin d'une bande de figurine, relatif au dossier des assets.  <br /></td></tr>
+<tr class="memitem:ab46729590ea189e2bc56cc93fb7d7884" id="r_ab46729590ea189e2bc56cc93fb7d7884"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ab46729590ea189e2bc56cc93fb7d7884">worldFigureDirectory</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, std::string_view figure)</td></tr>
+<tr class="memdesc:ab46729590ea189e2bc56cc93fb7d7884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier de la figurine <code class="param">figure</code>, relatif au dossier des assets : celui que <code class="param">snapshot</code> lui donne (<span class="tt">figureDirectories</span>), à défaut elle-même.  <br /></td></tr>
+<tr class="memitem:aec5a040b30b5d156f9a59631d2de88cd" id="r_aec5a040b30b5d156f9a59631d2de88cd"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aec5a040b30b5d156f9a59631d2de88cd">figureMarkerPath</a> (std::string_view figure)</td></tr>
+<tr class="memdesc:aec5a040b30b5d156f9a59631d2de88cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le chemin sous lequel le rendu range le <b>marqueur</b> de la figurine <code class="param">figure</code> : un nom, pas un fichier — le marqueur se peint (<span class="tt">&lt;dossier&gt;/@marker</span>).  <br /></td></tr>
+<tr class="memitem:ae1029c15753b5b99acce398c8eaf50fc" id="r_ae1029c15753b5b99acce398c8eaf50fc"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ae1029c15753b5b99acce398c8eaf50fc">effectStripPath</a> (std::string_view effect)</td></tr>
 <tr class="memitem:a1c839cebf18adf167ae9ac5452d179b6" id="r_a1c839cebf18adf167ae9ac5452d179b6"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a1c839cebf18adf167ae9ac5452d179b6">figureMarkerKey</a> (std::string_view path)</td></tr>
-<tr class="memdesc:a1c839cebf18adf167ae9ac5452d179b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé du marqueur d'une figurine qui n'a pas d'image (<span class="tt">LOT-39</span>, <span class="tt">LOT-96</span>).  <br /></td></tr>
+<tr class="memdesc:a1c839cebf18adf167ae9ac5452d179b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">La clé du marqueur d'une figurine qui n'a pas de modèle (<span class="tt">LOT-39</span>, <span class="tt">LOT-96</span>).  <br /></td></tr>
 <tr class="memitem:a2f3d83ca010accd2a3d552ae2b6b97c0" id="r_a2f3d83ca010accd2a3d552ae2b6b97c0"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2f3d83ca010accd2a3d552ae2b6b97c0">worldFigureTexturePaths</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures)</td></tr>
 <tr class="memitem:ab0a22153ca04392816f4bd25a3660328" id="r_ab0a22153ca04392816f4bd25a3660328"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab0a22153ca04392816f4bd25a3660328">worldFigureModelPaths</a> (std::span&lt; const <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt; figures)</td></tr>
 <tr class="memitem:a07929611bf03ab59a2de588feb90ad7d" id="r_a07929611bf03ab59a2de588feb90ad7d"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a07929611bf03ab59a2de588feb90ad7d">worldTexturePaths</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot)</td></tr>
@@ -1537,12 +1501,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a324743e1e258c36d42746b83bf5f1156" id="r_a324743e1e258c36d42746b83bf5f1156"><td class="memItemLeft"><a class="el" href="classhmi_1_1PlaceCamera.html">PlaceCamera</a>&#160;</td><td class="memItemRight"><a class="el" href="#a324743e1e258c36d42746b83bf5f1156">framedCamera</a> (const <a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> &amp;framing, int pixelWidth, int pixelHeight)</td></tr>
 <tr class="memitem:a20c3945e5c8e719d1588de9fbc5d931b" id="r_a20c3945e5c8e719d1588de9fbc5d931b"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a20c3945e5c8e719d1588de9fbc5d931b">composedSceneBounds</a> (const <a class="el" href="classhmi_1_1ComposedScene.html">ComposedScene</a> &amp;scene, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;base)</td></tr>
 <tr class="memdesc:a20c3945e5c8e719d1588de9fbc5d931b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le rectangle qu'occupe <code class="param">scene</code>, réuni à <code class="param">base</code> : chaque primitive et chaque maillage compte, reliefs et figurines qui montent au-dessus de leur case compris.  <br /></td></tr>
-<tr class="memitem:aa68d5419b15fd65eb0cbe477f135f642" id="r_aa68d5419b15fd65eb0cbe477f135f642"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#aa68d5419b15fd65eb0cbe477f135f642">gamepadProbeDue</a> (bool wasConnected, std::chrono::steady_clock::duration sinceLastProbe) noexcept</td></tr>
-<tr class="memdesc:aa68d5419b15fd65eb0cbe477f135f642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Faut-il re-sonder XInput maintenant ?  <br /></td></tr>
 <tr class="memitem:a1b53de392afb0dfdf5cdef4543fb672d" id="r_a1b53de392afb0dfdf5cdef4543fb672d"><td class="memItemLeft">std::optional&lt; <a class="el" href="#a83c98e56e30eafa606048853f7962e48">hmi::Key</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d">qtKeyToHmiKey</a> (int qtKey)</td></tr>
-<tr class="memdesc:a1b53de392afb0dfdf5cdef4543fb672d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit un code <span class="tt">Qt::Key</span> en <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span>.  <br /></td></tr>
+<tr class="memdesc:a1b53de392afb0dfdf5cdef4543fb672d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit un code <span class="tt">Qt::Key</span> en <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a></span>.  <br /></td></tr>
 <tr class="memitem:a807ca4b0d189a41995531913a247a3c9" id="r_a807ca4b0d189a41995531913a247a3c9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a807ca4b0d189a41995531913a247a3c9">hmiKeyToQtKey</a> (<a class="el" href="#a83c98e56e30eafa606048853f7962e48">hmi::Key</a> key)</td></tr>
-<tr class="memdesc:a807ca4b0d189a41995531913a247a3c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit un <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span> en code <span class="tt">Qt::Key</span>, inverse de <span class="tt"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d" title="Traduit un code Qt::Key en hmi::Key.">qtKeyToHmiKey</a></span>.  <br /></td></tr>
+<tr class="memdesc:a807ca4b0d189a41995531913a247a3c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traduit un <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a></span> en code <span class="tt">Qt::Key</span>, inverse de <span class="tt"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d" title="Traduit un code Qt::Key en hmi::Key.">qtKeyToHmiKey</a></span>.  <br /></td></tr>
 <tr class="memitem:a0c06cbf1bf3c8f1d58a5c581e17e3666" id="r_a0c06cbf1bf3c8f1d58a5c581e17e3666"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0c06cbf1bf3c8f1d58a5c581e17e3666">crashDumpFileName</a> (std::string_view application, std::string_view version, const std::tm &amp;localTime)</td></tr>
 <tr class="memdesc:a0c06cbf1bf3c8f1d58a5c581e17e3666"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nom du fichier d'un minidump : <span class="tt">&lt;application&gt;_&lt;version&gt;_&lt;AAAAMMJJ_HHMMSS&gt;.dmp</span>.  <br /></td></tr>
 <tr class="memitem:a1acfbf8f1ffce943900246a61f336bf7" id="r_a1acfbf8f1ffce943900246a61f336bf7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1acfbf8f1ffce943900246a61f336bf7">writeMiniDump</a> (const std::filesystem::path &amp;path, _EXCEPTION_POINTERS *exception)</td></tr>
@@ -1692,8 +1654,6 @@ Variables</h2></td></tr>
 <tr class="memdesc:a8419e0bc52afdaf288a539da747b1577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de commandes, déclaré au plus près de l'énumération qu'il compte.  <br /></td></tr>
 <tr class="memitem:aeb0082433e6f2272d8c1d754ee3d499a" id="r_aeb0082433e6f2272d8c1d754ee3d499a"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aeb0082433e6f2272d8c1d754ee3d499a">MAP_RENDER_MAX_SIDE</a> = 8192</td></tr>
 <tr class="memdesc:aeb0082433e6f2272d8c1d754ee3d499a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus grand côté d'une image de <span class="tt">--render</span> par défaut, en pixels (<span class="tt">LOT-125</span>).  <br /></td></tr>
-<tr class="memitem:a4194f9c77255fd090763ac425476d7dc" id="r_a4194f9c77255fd090763ac425476d7dc"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a4194f9c77255fd090763ac425476d7dc">FX_DIRECTORY</a> = &quot;Common/Fx&quot;</td></tr>
-<tr class="memdesc:a4194f9c77255fd090763ac425476d7dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier des effets, depuis la racine des assets : une bande par effet (<span class="tt">LOT-136</span>).  <br /></td></tr>
 <tr class="memitem:a61e621d3e0a60687c0d09c07971eda7f" id="r_a61e621d3e0a60687c0d09c07971eda7f"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="#a61e621d3e0a60687c0d09c07971eda7f">LAUNCH_LIST_SEPARATOR</a> = ','</td></tr>
 <tr class="memdesc:a61e621d3e0a60687c0d09c07971eda7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Séparateur des drapeaux de <span class="tt">--flags=</span>, et des coordonnées de <span class="tt">--at=</span>.  <br /></td></tr>
 <tr class="memitem:a67fe9f0437e8a901912c4e2cfaf2a4fe" id="r_a67fe9f0437e8a901912c4e2cfaf2a4fe"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="#a67fe9f0437e8a901912c4e2cfaf2a4fe">LAUNCH_PATH_SEPARATOR</a> = ';'</td></tr>
@@ -1744,18 +1704,14 @@ Variables</h2></td></tr>
 <tr class="memdesc:a344f40841fd17a0ce2a36213b84514c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marge basse d'une figurine, en hauteurs de losange — la même que dans l'arène.  <br /></td></tr>
 <tr class="memitem:a2048c2024daad5842f0d26bbde67482b" id="r_a2048c2024daad5842f0d26bbde67482b"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a2048c2024daad5842f0d26bbde67482b">SCENE_PLACE_PROPERTY</a> = &quot;scene&quot;</td></tr>
 <tr class="memdesc:a2048c2024daad5842f0d26bbde67482b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété de couche qui nomme le <b>lieu</b> dont la carte porte les planches.  <br /></td></tr>
+<tr class="memitem:a0433122fa5ba5dada6793da372fd6177" id="r_a0433122fa5ba5dada6793da372fd6177"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a0433122fa5ba5dada6793da372fd6177">FIGURE_HEADING_FRONT</a> = std::numbers::pi_v&lt;float&gt; / 4.0F</td></tr>
+<tr class="memdesc:a0433122fa5ba5dada6793da372fd6177"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le <b>cap</b> d'une figurine (<span class="tt">LOT-1005</span>) : l'angle, en radians, de la direction où elle regarde dans le plan de la grille — 0 vers les colonnes croissantes (sud-est à l'écran), π/2 vers les lignes croissantes (sud-ouest).  <br /></td></tr>
+<tr class="memitem:a4194f9c77255fd090763ac425476d7dc" id="r_a4194f9c77255fd090763ac425476d7dc"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a4194f9c77255fd090763ac425476d7dc">FX_DIRECTORY</a> = &quot;Common/Fx&quot;</td></tr>
+<tr class="memdesc:a4194f9c77255fd090763ac425476d7dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier des effets, depuis la racine des assets : une bande par effet (<span class="tt">LOT-136</span>).  <br /></td></tr>
 <tr class="memitem:af4a217ed5ea8e0e9fe3c9be3864c630e" id="r_af4a217ed5ea8e0e9fe3c9be3864c630e"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#af4a217ed5ea8e0e9fe3c9be3864c630e">DEFAULT_SILHOUETTE</a> = &quot;humanoid&quot;</td></tr>
 <tr class="memdesc:af4a217ed5ea8e0e9fe3c9be3864c630e"><td class="mdescLeft">&#160;</td><td class="mdescRight">La silhouette par défaut d'un personnage qui n'en déclare pas.  <br /></td></tr>
 <tr class="memitem:a97a3d73038cd8b88626f97aad58b5a95" id="r_a97a3d73038cd8b88626f97aad58b5a95"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a97a3d73038cd8b88626f97aad58b5a95">SILHOUETTE_PROPERTY</a> = &quot;silhouette&quot;</td></tr>
 <tr class="memdesc:a97a3d73038cd8b88626f97aad58b5a95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'entité <span class="tt">npc</span> et de fiche de créature qui nomme la silhouette (<span class="tt">LOT-145</span>).  <br /></td></tr>
-<tr class="memitem:a9ab13e58906fc19eaceaa84921d13f32" id="r_a9ab13e58906fc19eaceaa84921d13f32"><td class="memItemLeft">constexpr std::chrono::milliseconds&#160;</td><td class="memItemRight"><a class="el" href="#a9ab13e58906fc19eaceaa84921d13f32">BUTTON_REPEAT_DELAY</a> {350}</td></tr>
-<tr class="memdesc:a9ab13e58906fc19eaceaa84921d13f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Délai avant la première répétition d'un bouton tenu.  <br /></td></tr>
-<tr class="memitem:a19c4e889b587eee63318fd97be53024d" id="r_a19c4e889b587eee63318fd97be53024d"><td class="memItemLeft">constexpr std::chrono::milliseconds&#160;</td><td class="memItemRight"><a class="el" href="#a19c4e889b587eee63318fd97be53024d">BUTTON_REPEAT_INTERVAL</a> {110}</td></tr>
-<tr class="memdesc:a19c4e889b587eee63318fd97be53024d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intervalle entre deux répétitions.  <br /></td></tr>
-<tr class="memitem:aab59d64d595ba17a55cc07311285ba14" id="r_aab59d64d595ba17a55cc07311285ba14"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#aab59d64d595ba17a55cc07311285ba14">GAMEPAD_BUTTON_COUNT</a> = 10</td></tr>
-<tr class="memdesc:aab59d64d595ba17a55cc07311285ba14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre de boutons manette remappables (<span class="tt"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span>).  <br /></td></tr>
-<tr class="memitem:a2a20dc2308d9f364b3d764c4443ef799" id="r_a2a20dc2308d9f364b3d764c4443ef799"><td class="memItemLeft">constexpr std::chrono::milliseconds&#160;</td><td class="memItemRight"><a class="el" href="#a2a20dc2308d9f364b3d764c4443ef799">GAMEPAD_DISCONNECTED_PROBE_PERIOD</a> {2000}</td></tr>
-<tr class="memdesc:a2a20dc2308d9f364b3d764c4443ef799"><td class="mdescLeft">&#160;</td><td class="mdescRight">Délai minimal entre deux sondages XInput d'un slot resté <b>déconnecté</b> (anti-saccade).  <br /></td></tr>
 <tr class="memitem:a71b3644be39aea9fcff1d4ffdf126963" id="r_a71b3644be39aea9fcff1d4ffdf126963"><td class="memItemLeft">constexpr unsigned long&#160;</td><td class="memItemRight"><a class="el" href="#a71b3644be39aea9fcff1d4ffdf126963">kFatalErrorExceptionCode</a> = 0xE04A4447UL</td></tr>
 <tr class="memdesc:a71b3644be39aea9fcff1d4ffdf126963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Code de l'exception levée pour transformer une fin anormale (std::terminate, appel virtuel pur, paramètre invalide de la CRT) en exception structurée, que le filtre sait écrire : « JADG ».  <br /></td></tr>
 <tr class="memitem:a9df788d7b4dc601bd5e26a42a1517666" id="r_a9df788d7b4dc601bd5e26a42a1517666"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a9df788d7b4dc601bd5e26a42a1517666">kMiniDumpAttemptCount</a> = 4</td></tr>
@@ -2434,38 +2390,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ac35af7f8a75d64ff0600ed46bb08ea2d" name="ac35af7f8a75d64ff0600ed46bb08ea2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac35af7f8a75d64ff0600ed46bb08ea2d">&#9670;&#160;</a></span>FigureFacing</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">hmi::FigureFacing</a> : std::uint8_t</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>L'orientation d'une figurine : l'une des quatre diagonales de l'isométrie (<span class="tt">LOT-112</span>). </p>
-<p>Une case de la grille se voit en losange : avancer d'une colonne descend vers le <b>sud-est</b> de l'écran, avancer d'une ligne vers le <b>sud-ouest</b>. Les quatre directions de la grille sont donc les quatre diagonales de l'écran, et une figurine en a une bande peinte chacune (<span class="tt">walk-se.png</span>…). <span class="tt">None</span> : la figurine n'a qu'une bande par animation (<span class="tt">walk.png</span>). </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754" name="ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190" name="ac35af7f8a75d64ff0600ed46bb08ea2da865a51dff69223f0cf5ad630e5ada190"></a>SouthEast&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac35af7f8a75d64ff0600ed46bb08ea2dae8eaf797b01fdb4246ed54904368b592" name="ac35af7f8a75d64ff0600ed46bb08ea2dae8eaf797b01fdb4246ed54904368b592"></a>SouthWest&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac35af7f8a75d64ff0600ed46bb08ea2da7254edb19370d28e3466c971d2f8a03e" name="ac35af7f8a75d64ff0600ed46bb08ea2da7254edb19370d28e3466c971d2f8a03e"></a>NorthEast&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ac35af7f8a75d64ff0600ed46bb08ea2da142cbe82227bdec147eff3a629dd366b" name="ac35af7f8a75d64ff0600ed46bb08ea2da142cbe82227bdec147eff3a629dd366b"></a>NorthWest&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
 <a id="a4350019842cd36fa23fbb37b22b8d4a6" name="a4350019842cd36fa23fbb37b22b8d4a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4350019842cd36fa23fbb37b22b8d4a6">&#9670;&#160;</a></span>FlagUseRole</h2>
 
@@ -2494,43 +2418,6 @@ Variables</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a4350019842cd36fa23fbb37b22b8d4a6a7bfbb99d58d228eb5654119e75060999" name="a4350019842cd36fa23fbb37b22b8d4a6a7bfbb99d58d228eb5654119e75060999"></a>Writes&#160;</td><td class="fielddoc"><p>Un effet, une action, un déclencheur le pose. </p>
 </td></tr>
-</table>
-
-</div>
-</div>
-<a id="a7bd1f14c12b142d5227ad2560e7c5e88" name="a7bd1f14c12b142d5227ad2560e7c5e88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bd1f14c12b142d5227ad2560e7c5e88">&#9670;&#160;</a></span>GamepadButton</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88">hmi::GamepadButton</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Bouton (ou direction) manette remappable à une action de jeu (<span class="tt">EX-CTRL-002</span>). </p>
-<p><span class="tt">Up</span>/<span class="tt">Down</span>/<span class="tt">Left</span>/<span class="tt">Right</span> fusionnent le D-pad et le stick gauche en une seule notion logique par direction — le joueur ne perçoit pas la différence entre les deux, et <span class="tt"><a class="el" href="classhmi_1_1GamepadPoller.html" title="Sonde la manette (XInput, joueur 0) et verse son état dans un InputState.">hmi::GamepadPoller</a></span> les a toujours traités comme équivalents. <span class="tt">Start</span>/<span class="tt">Back</span>, les clics de stick et les gâchettes analogiques ne sont pas représentés : conventions globales ou hors périmètre (voir l'épic du lot). </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa" name="a7bd1f14c12b142d5227ad2560e7c5e88a258f49887ef8d14ac268c92b02503aaa"></a>Up&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53" name="a7bd1f14c12b142d5227ad2560e7c5e88a08a38277b0309070706f6652eeae9a53"></a>Down&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a945d5e233cf7d6240f6b783b36a374ff" name="a7bd1f14c12b142d5227ad2560e7c5e88a945d5e233cf7d6240f6b783b36a374ff"></a>Left&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c" name="a7bd1f14c12b142d5227ad2560e7c5e88a92b09c7c48c520c3c55e497875da437c"></a>Right&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a7fc56270e7a70fa81a5935b72eacbe29" name="a7bd1f14c12b142d5227ad2560e7c5e88a7fc56270e7a70fa81a5935b72eacbe29"></a>A&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a9d5ed678fe57bcca610140957afab571" name="a7bd1f14c12b142d5227ad2560e7c5e88a9d5ed678fe57bcca610140957afab571"></a>B&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a02129bb861061d1a052c592e2dc6b383" name="a7bd1f14c12b142d5227ad2560e7c5e88a02129bb861061d1a052c592e2dc6b383"></a>X&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0" name="a7bd1f14c12b142d5227ad2560e7c5e88a57cec4137b614c87cb4e24a3d003a3e0"></a>Y&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a36131cbdc50218d923d0bcb0d9870e1c" name="a7bd1f14c12b142d5227ad2560e7c5e88a36131cbdc50218d923d0bcb0d9870e1c"></a>LeftShoulder&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354" name="a7bd1f14c12b142d5227ad2560e7c5e88a27a5390f2d1b44a43f74d57703f8d354"></a>RightShoulder&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -2628,8 +2515,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Touche du clavier, identifiée par son <b>code virtuel Win32</b>. </p>
-<p>Les valeurs coïncident volontairement avec les codes <span class="tt">VK_*</span> de Win32 : c'est le code brut que le fichier des raccourcis de l'éditeur enregistre (<span class="tt"><a class="el" href="classhmi_1_1EditorKeyBindings.html" title="Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012).">hmi::EditorKeyBindings</a></span>), et que <span class="tt"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d" title="Traduit un code Qt::Key en hmi::Key.">hmi::qtKeyToHmiKey</a></span> / <span class="tt"><a class="el" href="#a807ca4b0d189a41995531913a247a3c9" title="Traduit un hmi::Key en code Qt::Key, inverse de qtKeyToHmiKey.">hmi::hmiKeyToQtKey</a></span> traduisent depuis et vers <span class="tt">Qt::Key</span>. Seules les touches utiles sont nommées ; ajouter une touche revient à ajouter un énumérateur. Le jeu Qt Quick, lui, lit ses touches par les événements de ses éléments (<span class="tt">Keys.onPressed</span>) et ne passe pas par cette énumération. </p>
+<p>Clavier de l'editeur, identifie par les codes virtuels Win32. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef" name="a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef"></a>Backspace&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413" name="a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413"></a>Tab&#160;</td><td class="fielddoc"></td></tr>
@@ -4111,6 +3997,38 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ae952285c3c9fbe9f19964ddd2b2a3e6a" name="ae952285c3c9fbe9f19964ddd2b2a3e6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae952285c3c9fbe9f19964ddd2b2a3e6a">&#9670;&#160;</a></span>assetGalleryClipSeconds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double hmi::assetGalleryClipSeconds </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1AssetGalleryEntry.html">AssetGalleryEntry</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>entry</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>seconds</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'instant du clip d'un modèle au temps <code class="param">seconds</code> : ramené dans le clip s'il boucle, sinon joué une fois puis tenu <span class="tt"><a class="el" href="#ab31c52802e91a9594d93c236912b4ffe" title="Temps de tenue, en secondes, d&#39;un clip joué une fois sur sa dernière image avant de reprendre.">ASSET_GALLERY_ONE_SHOT_HOLD_SECONDS</a></span> sur sa fin avant de reprendre. </p>
+<p>0 pour une forme sans clip. </p>
+
+</div>
+</div>
 <a id="a11b4cbe2fcfcc3f152293f1bdf5c7f8d" name="a11b4cbe2fcfcc3f152293f1bdf5c7f8d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a11b4cbe2fcfcc3f152293f1bdf5c7f8d">&#9670;&#160;</a></span>assetGalleryExcludes()</h2>
 
@@ -4203,7 +4121,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Les images livrées (PNG, JPEG) que la galerie ne montre pas et qu'aucune exclusion ne couvre : ce que <span class="tt">EX-CNT-042</span> interdit. </p>
+<p>Les images (PNG, JPEG) et les modèles (<span class="tt">.glb</span>) livrés que la galerie ne montre pas et qu'aucune exclusion ne couvre : ce que <span class="tt">EX-CNT-042</span> interdit. </p>
 <dl class="section return"><dt>Returns</dt><dd>Chemins relatifs à <code class="param">assetsRoot</code>, triés ; vide quand la galerie est complète. </dd></dl>
 
 </div>
@@ -6488,6 +6406,32 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="ae1029c15753b5b99acce398c8eaf50fc" name="ae1029c15753b5b99acce398c8eaf50fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1029c15753b5b99acce398c8eaf50fc">&#9670;&#160;</a></span>effectStripPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::effectStripPath </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>effect</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le chemin de la bande de l'effet <code class="param">effect</code>, relatif au dossier des assets : <span class="tt">Common/Fx/&lt;effet&gt;.png</span>. </dd></dl>
+
+</div>
+</div>
 <a id="ae4e98112a456615557383e9b5d0d6252" name="ae4e98112a456615557383e9b5d0d6252"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae4e98112a456615557383e9b5d0d6252">&#9670;&#160;</a></span>encodeImageFile()</h2>
 
@@ -7019,64 +6963,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a42508ae8f53d38fa43dc350b10ab0553" name="a42508ae8f53d38fa43dc350b10ab0553"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42508ae8f53d38fa43dc350b10ab0553">&#9670;&#160;</a></span>figureFacingFor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a> hmi::figureFacingFor </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structcore_1_1Vector2.html">core::Vector2</a></td>          <td class="paramname"><span class="paramname"><em>move</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a></td>          <td class="paramname"><span class="paramname"><em>previous</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>L'orientation d'une figurine qui se déplace de <code class="param">move</code>, en cases. </p>
-<p>L'axe dominant l'emporte. À égalité — deux touches enfoncées, un pas droit vers le bas de l'écran —, deux diagonales conviennent : la figurine <b>garde</b> <code class="param">previous</code> si elle en est une, plutôt que de basculer d'une image à l'autre ; sinon, la première des deux dans l'ordre sud-est, sud-ouest, nord-est, nord-ouest. Un déplacement nul rend <code class="param">previous</code>. </p>
-
-</div>
-</div>
-<a id="adff4a6359d340fc8a1811857e49ac036" name="adff4a6359d340fc8a1811857e49ac036"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adff4a6359d340fc8a1811857e49ac036">&#9670;&#160;</a></span>figureFacingSuffix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string_view hmi::figureFacingSuffix </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a></td>          <td class="paramname"><span class="paramname"><em>facing</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Le suffixe de fichier de <code class="param">facing</code> (<span class="tt">se</span>, <span class="tt">sw</span>, <span class="tt">ne</span>, <span class="tt">nw</span>), vide pour <span class="tt">None</span>. </dd></dl>
-
-</div>
-</div>
 <a id="ac64452b3239caa3f7c4ff9cf237b6d5d" name="ac64452b3239caa3f7c4ff9cf237b6d5d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac64452b3239caa3f7c4ff9cf237b6d5d">&#9670;&#160;</a></span>figureHeadingFor()</h2>
 
@@ -7107,34 +6993,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a860cbbc037b925a5a58d443e483c72ac" name="a860cbbc037b925a5a58d443e483c72ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a860cbbc037b925a5a58d443e483c72ac">&#9670;&#160;</a></span>figureHeadingOf()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float hmi::figureHeadingOf </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a></td>          <td class="paramname"><span class="paramname"><em>facing</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Le <b>cap</b> d'une figurine en modèle (<span class="tt">LOT-1005</span>) : l'angle, en radians, de la direction où elle regarde dans le plan de la grille — 0 vers les colonnes croissantes (sud-est à l'écran), π/2 vers les lignes croissantes (sud-ouest). </p>
-<p>Un modèle s'oriente librement : il n'a pas de table de quatre orientations. </p><dl class="section return"><dt>Returns</dt><dd>Le cap de la diagonale <code class="param">facing</code> ; pour <span class="tt">None</span>, face à la caméra (π/4). </dd></dl>
-
-</div>
-</div>
 <a id="a1c839cebf18adf167ae9ac5452d179b6" name="a1c839cebf18adf167ae9ac5452d179b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1c839cebf18adf167ae9ac5452d179b6">&#9670;&#160;</a></span>figureMarkerKey()</h2>
 
@@ -7158,15 +7016,48 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>La clé du marqueur d'une figurine qui n'a pas d'image (<span class="tt">LOT-39</span>, <span class="tt">LOT-96</span>). </p>
-<p>Une figurine nommée par une carte avant que son atelier (<span class="tt">LOT-91</span>, <span class="tt">LOT-93</span>) ne l'ait produite se dessine par son <b>marqueur</b>, comme toute clé d'asset sans image (<span class="tt">EX-CNT-041</span>) : on la voit, on lui parle, et on ne la prend pas pour une illustration.</p>
+<p>La clé du marqueur d'une figurine qui n'a pas de modèle (<span class="tt">LOT-39</span>, <span class="tt">LOT-96</span>). </p>
+<p>Une figurine nommée par une carte avant que son atelier ne l'ait produite se dessine par son <b>marqueur</b>, comme toute clé d'asset sans image (<span class="tt">EX-CNT-041</span>).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>Un chemin de bande de figurine, tel que la composition l'écrit (<span class="tt">Npc/&lt;slug&gt;/idle.png</span>, <span class="tt">Monsters/&lt;slug&gt;/idle.png</span>, <span class="tt">Common/Characters/Heroes/brawler/idle-se.png</span>). </td></tr>
+    <tr><td class="paramname">path</td><td>Le chemin du marqueur d'une figurine (<span class="tt"><a class="el" href="#aec5a040b30b5d156f9a59631d2de88cd" title="Le chemin sous lequel le rendu range le marqueur de la figurine figure : un nom, pas un fichier — le ...">figureMarkerPath</a></span>). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">npc/&lt;slug&gt;</span>, <span class="tt">monsters/&lt;slug&gt;</span>, <span class="tt">characters/&lt;dossier&gt;</span> (<span class="tt">characters/heroes/brawler</span>), ou une chaîne vide si <code class="param">path</code> n'est pas celui d'une figurine. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">npc/&lt;slug&gt;</span>, <span class="tt">monsters/&lt;slug&gt;</span>, <span class="tt">characters/&lt;dossier&gt;</span> (<span class="tt">characters/heroes/brawler</span>), ou une chaîne vide si <code class="param">path</code> n'est pas celui d'un marqueur de figurine. </dd></dl>
+
+</div>
+</div>
+<a id="aec5a040b30b5d156f9a59631d2de88cd" name="aec5a040b30b5d156f9a59631d2de88cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec5a040b30b5d156f9a59631d2de88cd">&#9670;&#160;</a></span>figureMarkerPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::figureMarkerPath </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>figure</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le chemin sous lequel le rendu range le <b>marqueur</b> de la figurine <code class="param">figure</code> : un nom, pas un fichier — le marqueur se peint (<span class="tt">&lt;dossier&gt;/@marker</span>). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">figure</td><td>Le dossier de la figurine, relatif à <span class="tt">Assets/</span>, ou un slug seul, cherché à plat. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -7224,51 +7115,6 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a193118424306eba40e5743a9e8e70dc2" name="a193118424306eba40e5743a9e8e70dc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a193118424306eba40e5743a9e8e70dc2">&#9670;&#160;</a></span>figureStripPath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string hmi::figureStripPath </td>
-          <td>(</td>
-          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>figure</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>clip</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2d">FigureFacing</a></td>          <td class="paramname"><span class="paramname"><em>facing</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#ac35af7f8a75d64ff0600ed46bb08ea2da6adf97f83acf6453d4a6a4b1070f3754">FigureFacing::None</a></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Le chemin d'une bande de figurine, relatif au dossier des assets. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">figure</td><td>Le dossier de la figurine, relatif à <span class="tt">Assets/</span> (<span class="tt">Regions/…/Characters/&lt;slug&gt;</span>, <span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a25c57aae364b65363a53154edfa93262" title="Le dossier, relatif à Assets/, de la figurine figure : cherchée dans les Characters/ du lieu et de se...">hmi::PlaceAppearance::figureDirectory</a></span>), ou un slug seul, cherché à plat (<span class="tt"><a class="el" href="namespacecore.html#aed05eea4a2732d4c5a29181733d80f08" title="Le dossier, relatif à Assets/, de la figurine figure : celui que figures lui donne ; à défaut,...">core::figureDirectory</a></span>). </td></tr>
-    <tr><td class="paramname">clip</td><td>La bande (<span class="tt">idle</span>, <span class="tt">walk</span>) ; vide : <span class="tt">idle</span>. </td></tr>
-    <tr><td class="paramname">facing</td><td>L'orientation ; <span class="tt">None</span> : la bande sans suffixe. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">&lt;dossier&gt;/&lt;clip&gt;.png</span> ; <span class="tt">&lt;clip&gt;-se.png</span>… pour une figurine orientée. </dd></dl>
 
 </div>
 </div>
@@ -7837,46 +7683,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aa68d5419b15fd65eb0cbe477f135f642" name="aa68d5419b15fd65eb0cbe477f135f642"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa68d5419b15fd65eb0cbe477f135f642">&#9670;&#160;</a></span>gamepadProbeDue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool hmi::gamepadProbeDue </td>
-          <td>(</td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>wasConnected</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::chrono::steady_clock::duration</td>          <td class="paramname"><span class="paramname"><em>sinceLastProbe</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Faut-il re-sonder XInput maintenant ? </p>
-<p><span class="tt">XInputGetState</span> est notablement coûteux sur un slot vide (le pilote énumère les périphériques à chaque appel) : sonder sans relâche une manette absente provoque des micro-saccades chez un joueur clavier. L'espacement est donc décidé <b>en temps réel</b>, jamais en nombre d'appels : le sondage est déclenché tantôt par la boucle de rendu (une fois par image), tantôt par un temporisateur d'interface (150 ms pour la navigation de menu, 500 ms pour l'onglet des options). Un compteur d'appels ferait dépendre le délai de détection de l'appelant, dans un rapport de plus de cent entre le plus rapide et le plus lent : c'est la cadence en secondes qui doit être garantie, pas un nombre de tours.</p>
-<p>Fonction <b>pure</b> (<span class="tt">EX-NFR-010</span>) : décidée ici, testable sans manette ni fenêtre. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">wasConnected</td><td>État de connexion du dernier sondage effectif. </td></tr>
-    <tr><td class="paramname">sinceLastProbe</td><td>Temps écoulé depuis ce sondage. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><span class="tt">true</span> si le sondage doit avoir lieu : toujours quand une manette est présente, sinon une fois par <span class="tt"><a class="el" href="#a2a20dc2308d9f364b3d764c4443ef799" title="Délai minimal entre deux sondages XInput d&#39;un slot resté déconnecté (anti-saccade).">hmi::GAMEPAD_DISCONNECTED_PROBE_PERIOD</a></span>. </dd></dl>
-
-</div>
-</div>
 <a id="a4d88ae02088595f068f5f247b8489c72" name="a4d88ae02088595f068f5f247b8489c72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d88ae02088595f068f5f247b8489c72">&#9670;&#160;</a></span>handleAt()</h2>
 
@@ -7992,7 +7798,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Traduit un <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span> en code <span class="tt">Qt::Key</span>, inverse de <span class="tt"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d" title="Traduit un code Qt::Key en hmi::Key.">qtKeyToHmiKey</a></span>. </p>
+<p>Traduit un <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a></span> en code <span class="tt">Qt::Key</span>, inverse de <span class="tt"><a class="el" href="#a1b53de392afb0dfdf5cdef4543fb672d" title="Traduit un code Qt::Key en hmi::Key.">qtKeyToHmiKey</a></span>. </p>
 <p>Sert à faire refléter un remappage (<span class="tt"><a class="el" href="classhmi_1_1EditorKeyBindings.html" title="Association action d&#39;éditeur -&gt; touche, avec persistance JSON (EX-CTRL-012).">EditorKeyBindings</a></span>) sur le raccourci effectif d'un <span class="tt">QAction</span> (<span class="tt"><a class="el" href="classhmi_1_1EditorActions.html#aecec8147666b37e0712ca31c459cb10b" title="Fait refléter bindings sur le raccourci effectif de chaque commande remappable, puis refait les infob...">hmi::EditorActions::applyShortcuts</a></span>). Comme l'aller, les lettres et chiffres partagent déjà la même valeur entre Qt et Win32 — conversion directe pour tout code non explicitement nommé. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td>Touche à traduire. </td></tr>
@@ -9247,7 +9053,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Le dossier du mannequin <b>en modèle</b> d'une silhouette (<span class="tt">LOT-1005</span>) : un maillage neutre lié au squelette de la silhouette, et sa fiche. </p>
+<p>Le dossier du <b>mannequin</b> d'une silhouette (<span class="tt">LOT-145</span>, en modèle depuis le <span class="tt">LOT-1005</span>) : un maillage neutre lié au squelette de la silhouette, et sa fiche — ce que dessine un personnage sans modèle. </p>
 
 </div>
 </div>
@@ -10421,10 +10227,10 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Les figurines des PNJ d'une carte, dans l'ordre des entités. </p>
-<p>Un PNJ sans propriété <span class="tt">figure</span> ne se dessine pas, sauf si <code class="param">placeholders</code> est vrai : il prend alors le mannequin de sa silhouette (<span class="tt"><a class="el" href="#a511785bc30ed0e18c4894a5d73f54920" title="Le dossier d&#39;un mannequin de remplacement, par silhouette (LOT-145) : ce que dessine un personnage sa...">placeholderFigureDirectory</a></span>, <span class="tt">LOT-145</span>), et c'est le résolveur de figurines du jeu qui dira ensuite si ce mannequin existe. Le jeu y ajoute le héros (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html#acbef06d44780edb3de38785805e3a10c">hmi::WorldPlay::figures</a></span>) ; l'éditeur les montre telles quelles, jetons compris. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Un PNJ sans propriété <span class="tt">figure</span> ne se dessine pas, sauf si <code class="param">placeholders</code> est vrai : il prend alors le mannequin de sa silhouette (<span class="tt"><a class="el" href="#a0ed268fdf11d77e308058243732fc1ac" title="Le dossier du mannequin d&#39;une silhouette (LOT-145, en modèle depuis le LOT-1005) : un maillage neutre...">mannequinFigureDirectory</a></span>, <span class="tt">LOT-145</span>), et c'est le résolveur de figurines du jeu qui dira ensuite si ce mannequin existe. Le jeu y ajoute le héros (<span class="tt"><a class="el" href="classhmi_1_1WorldPlay.html#acbef06d44780edb3de38785805e3a10c">hmi::WorldPlay::figures</a></span>) ; l'éditeur les montre telles quelles, jetons compris. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">entities</td><td>Les entités de la carte. </td></tr>
-    <tr><td class="paramname">frame</td><td>L'image des bandes (0 pour une image fixe). </td></tr>
+    <tr><td class="paramname">frame</td><td>Le rang d'image des clips (0 pour une image fixe). </td></tr>
     <tr><td class="paramname">placeholders</td><td>Vrai pour donner un mannequin aux PNJ sans figurine. </td></tr>
   </table>
   </dd>
@@ -11364,33 +11170,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a511785bc30ed0e18c4894a5d73f54920" name="a511785bc30ed0e18c4894a5d73f54920"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a511785bc30ed0e18c4894a5d73f54920">&#9670;&#160;</a></span>placeholderFigureDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string hmi::placeholderFigureDirectory </td>
-          <td>(</td>
-          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>silhouette</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Le dossier d'un mannequin de remplacement, par silhouette (<span class="tt">LOT-145</span>) : ce que dessine un personnage sans figurine. </p>
-
-</div>
-</div>
 <a id="ac87779e65c2849bfdc39e93d4a96f578" name="ac87779e65c2849bfdc39e93d4a96f578"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac87779e65c2849bfdc39e93d4a96f578">&#9670;&#160;</a></span>placeWorldHero()</h2>
 
@@ -12172,7 +11951,7 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Traduit un code <span class="tt">Qt::Key</span> en <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span>. </p>
+<p>Traduit un code <span class="tt">Qt::Key</span> en <span class="tt"><a class="el" href="#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a></span>. </p>
 <p>Les lettres/chiffres/espace partagent déjà la même valeur entre Qt et Win32 (<span class="tt">Qt::Key_A == VK 'A' == 0x41</span>) ; seules les touches spéciales (flèches, Échap, Tab, Maj, Ctrl, F1/F2/F10) passent par une correspondance explicite. <span class="tt">nullopt</span> pour une touche non suivie. </p>
 
 </div>
@@ -13205,7 +12984,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md138"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md137"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/checks/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -14966,6 +14745,37 @@ template&lt;typename Drop&gt; </div>
 
 </div>
 </div>
+<a id="ab46729590ea189e2bc56cc93fb7d7884" name="ab46729590ea189e2bc56cc93fb7d7884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab46729590ea189e2bc56cc93fb7d7884">&#9670;&#160;</a></span>worldFigureDirectory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::worldFigureDirectory </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>snapshot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>figure</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le dossier de la figurine <code class="param">figure</code>, relatif au dossier des assets : celui que <code class="param">snapshot</code> lui donne (<span class="tt">figureDirectories</span>), à défaut elle-même. </p>
+
+</div>
+</div>
 <a id="ab0a22153ca04392816f4bd25a3660328" name="ab0a22153ca04392816f4bd25a3660328"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab0a22153ca04392816f4bd25a3660328">&#9670;&#160;</a></span>worldFigureModelPaths()</h2>
 
@@ -14988,7 +14798,7 @@ template&lt;typename Drop&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les fichiers de modèle (<span class="tt">.glb</span>) des figurines <code class="param">figures</code> qui en ont un, sans doublon, triés (<span class="tt">LOT-1005</span>). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Les fichiers de modèle (<span class="tt">.glb</span>) que les figurines <code class="param">figures</code> nomment elles-mêmes, sans doublon, triés (<span class="tt">LOT-1005</span>). </dd></dl>
 
 </div>
 </div>
@@ -15018,8 +14828,7 @@ template&lt;typename Drop&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Les chemins de texture des figurines <code class="param">figures</code> — leurs bandes <span class="tt">idle</span> et <span class="tt">walk</span> —, sans doublon, triés ; leur dossier se lit dans <code class="param">snapshot</code>.</dd></dl>
-<p>Ce que le rendu doit charger quand seules les figurines changent : la carte, elle, a déjà ses textures. </p>
+<dl class="section return"><dt>Returns</dt><dd>Les chemins de texture que les figurines <code class="param">figures</code> demandent, sans doublon, triés : la bande d'un effet, le marqueur d'une figurine qui ne nomme pas son modèle — le rendu ne le peint que si la fiche de son dossier n'en donne pas non plus. </dd></dl>
 
 </div>
 </div>
@@ -15561,54 +15370,6 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
-<a id="a9ab13e58906fc19eaceaa84921d13f32" name="a9ab13e58906fc19eaceaa84921d13f32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ab13e58906fc19eaceaa84921d13f32">&#9670;&#160;</a></span>BUTTON_REPEAT_DELAY</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::chrono::milliseconds hmi::BUTTON_REPEAT_DELAY {350}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Délai avant la première répétition d'un bouton tenu. </p>
-
-</div>
-</div>
-<a id="a19c4e889b587eee63318fd97be53024d" name="a19c4e889b587eee63318fd97be53024d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19c4e889b587eee63318fd97be53024d">&#9670;&#160;</a></span>BUTTON_REPEAT_INTERVAL</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::chrono::milliseconds hmi::BUTTON_REPEAT_INTERVAL {110}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Intervalle entre deux répétitions. </p>
-
-</div>
-</div>
 <a id="a1135a39f5fbbc5c19b881d5f0f981453" name="a1135a39f5fbbc5c19b881d5f0f981453"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1135a39f5fbbc5c19b881d5f0f981453">&#9670;&#160;</a></span>CITY_BLOCK_KEY_PREFIX</h2>
 
@@ -16046,6 +15807,32 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
+<a id="a0433122fa5ba5dada6793da372fd6177" name="a0433122fa5ba5dada6793da372fd6177"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0433122fa5ba5dada6793da372fd6177">&#9670;&#160;</a></span>FIGURE_HEADING_FRONT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::FIGURE_HEADING_FRONT = std::numbers::pi_v&lt;float&gt; / 4.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le <b>cap</b> d'une figurine (<span class="tt">LOT-1005</span>) : l'angle, en radians, de la direction où elle regarde dans le plan de la grille — 0 vers les colonnes croissantes (sud-est à l'écran), π/2 vers les lignes croissantes (sud-ouest). </p>
+<p>Un modèle s'oriente librement : il n'a pas de table de quatre orientations.</p>
+<p>Le cap d'une figurine qui fait <b>face à la caméra</b> : le bas de l'écran. </p>
+
+</div>
+</div>
 <a id="ad62487d1ec9ecc1772ed1ea86fafbb38" name="ad62487d1ec9ecc1772ed1ea86fafbb38"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad62487d1ec9ecc1772ed1ea86fafbb38">&#9670;&#160;</a></span>FIGURE_MARKER_HEIGHT_PIXELS</h2>
 
@@ -16141,54 +15928,6 @@ template&lt;class Map&gt; </div>
 </div><div class="memdoc">
 
 <p>Le dossier des effets, depuis la racine des assets : une bande par effet (<span class="tt">LOT-136</span>). </p>
-
-</div>
-</div>
-<a id="aab59d64d595ba17a55cc07311285ba14" name="aab59d64d595ba17a55cc07311285ba14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab59d64d595ba17a55cc07311285ba14">&#9670;&#160;</a></span>GAMEPAD_BUTTON_COUNT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int hmi::GAMEPAD_BUTTON_COUNT = 10</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Nombre de boutons manette remappables (<span class="tt"><a class="el" href="#a7bd1f14c12b142d5227ad2560e7c5e88" title="Bouton (ou direction) manette remappable à une action de jeu (EX-CTRL-002).">GamepadButton</a></span>). </p>
-
-</div>
-</div>
-<a id="a2a20dc2308d9f364b3d764c4443ef799" name="a2a20dc2308d9f364b3d764c4443ef799"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a20dc2308d9f364b3d764c4443ef799">&#9670;&#160;</a></span>GAMEPAD_DISCONNECTED_PROBE_PERIOD</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::chrono::milliseconds hmi::GAMEPAD_DISCONNECTED_PROBE_PERIOD {2000}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Délai minimal entre deux sondages XInput d'un slot resté <b>déconnecté</b> (anti-saccade). </p>
 
 </div>
 </div>
@@ -16841,7 +16580,7 @@ template&lt;class Map&gt; </div>
 <b>Initial value:</b><div class="fragment"><div class="line">                                            =</div>
 <div class="line"><span class="keyword">static_cast&lt;</span>std::int32_t<span class="keyword">&gt;</span>(<a class="code hl_enumvalue" href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">WorldDepthSlot::Storey</a>) + <a class="code hl_variable" href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb">core::MAX_STOREY_FLOOR</a></div>
 <div class="ttc" id="anamespacecore_html_a71ba5ff46298b3aa173af1f1071ae3eb"><div class="ttname"><a href="namespacecore.html#a71ba5ff46298b3aa173af1f1071ae3eb">core::MAX_STOREY_FLOOR</a></div><div class="ttdeci">constexpr int MAX_STOREY_FLOOR</div><div class="ttdoc">Le plus haut étage qu&#39;une couche de décor peut occuper (EX-LVL-025, LOT-129).</div><div class="ttdef"><b>Definition</b> TileLayer.h:22</div></div>
-<div class="ttc" id="anamespacehmi_html_a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301"><div class="ttname"><a href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">hmi::WorldDepthSlot::Storey</a></div><div class="ttdeci">@ Storey</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:78</div></div>
+<div class="ttc" id="anamespacehmi_html_a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301"><div class="ttname"><a href="#a71e0c7e2c54951699d44b5c6f88f63caa190b2c94697be51be2c2d36750e36301">hmi::WorldDepthSlot::Storey</a></div><div class="ttdeci">@ Storey</div><div class="ttdef"><b>Definition</b> WorldSceneComposer.h:79</div></div>
 </div><!-- fragment -->
 <p>Nombre de rangs par profondeur : le relief, la figurine, et un rang par étage. </p>
 

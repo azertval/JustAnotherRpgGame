@@ -206,8 +206,8 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path&amp; asset
                 break;</span>
             }
         }
-<span style = "background-color:#dfd">        if (owner == relative.parent_path() &amp;&amp; candidate != nullptr) {</span>
-<span style = "background-color:#fdd">            manifest = candidate;  // le dossier de l'image, Ã  dÃ©faut : figurines, sols.</span>
+<span style = "background-color:#dfd">        if (owner == relative.parent_path() &amp;&amp; candidate != nullptr) {
+            manifest = candidate;  // le dossier de l'image, Ã  dÃ©faut : figurines, sols.</span>
         }
 <span style = "background-color:#dfd">    }
     if (manifest != nullptr) {
@@ -221,16 +221,16 @@ SceneTextureTraits readSceneTextureTraits(const std::filesystem::path&amp; asset
 <span style = "background-color:#dfd">        traits.storeyHeight = manifestLength(manifest-&gt;root, "storey");</span>
     }
     // Les ancÃªtres se remontent dans le chemin RELATIF : la lecture ne sort jamais de la racine.
-<span style = "background-color:#dfd">    std::filesystem::path ancestor = std::filesystem::path(path).parent_path().parent_path();
-    for (; traits.artTile.x &lt;= 0.0F &amp;&amp; !ancestor.empty(); ancestor = ancestor.parent_path()) {
+<span style = "background-color:#dfd">    std::filesystem::path ancestor = std::filesystem::path(path).parent_path().parent_path();</span>
+<span style = "background-color:#fdd">    for (; traits.artTile.x &lt;= 0.0F &amp;&amp; !ancestor.empty(); ancestor = ancestor.parent_path()) {
         if (const IndexedManifest* const above = cache.find(assetsDirectory / ancestor)) {
             traits.artTile = manifestArtTile(above-&gt;root);
             if (!traits.groundLine) {
                 traits.groundLine = manifestGroundLine(above-&gt;root);</span>
             }
         }
-<span style = "background-color:#dfd">    }
-    return traits;
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    return traits;
 }</span>
 
 <span style = "background-color:#dfd">void applySceneTextureTraits(SceneTexture&amp; texture, const SceneTextureTraits&amp; traits) {

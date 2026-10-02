@@ -167,21 +167,53 @@ $(function(){initNavTree('test__figure__model_8cpp.html','',''); });
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4377ad07db763a37305e9f3fef0d2a1c" id="r_a4377ad07db763a37305e9f3fef0d2a1c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4377ad07db763a37305e9f3fef0d2a1c">TEST</a> (FigureModelTest, UneFigurineEnModeleSeComposeEnMaillage)</td></tr>
-<tr class="memdesc:a4377ad07db763a37305e9f3fef0d2a1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine en modèle se compose en maillage placé avec la pose de son clip ; une figurine en bandes, à côté, reste une image.  <br /></td></tr>
+<tr class="memitem:a0d1b4542ec96f4756b04accf7840c002" id="r_a0d1b4542ec96f4756b04accf7840c002"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0d1b4542ec96f4756b04accf7840c002">TEST</a> (FigureModelTest, UneFigurineSeComposeEnMaillage)</td></tr>
+<tr class="memdesc:a0d1b4542ec96f4756b04accf7840c002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine en modèle se compose en maillage placé avec la pose de son clip ; un effet, à côté, reste une image ; une figurine sans modèle prend son marqueur.  <br /></td></tr>
+<tr class="memitem:aa15db21442bcdc2b08fc2f35c045ebb9" id="r_aa15db21442bcdc2b08fc2f35c045ebb9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa15db21442bcdc2b08fc2f35c045ebb9">TEST</a> (FigureModelTest, LaFicheDuDossierDonneLeModele)</td></tr>
+<tr class="memdesc:aa15db21442bcdc2b08fc2f35c045ebb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine qui ne nomme pas son modèle prend celui que la fiche de son dossier déclare : c'est ainsi que l'éditeur, qui ne résout rien, montre les mêmes modèles.  <br /></td></tr>
 <tr class="memitem:acaaf99c87cdb34a7f854c50f0e97e72b" id="r_acaaf99c87cdb34a7f854c50f0e97e72b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acaaf99c87cdb34a7f854c50f0e97e72b">TEST</a> (FigureModelTest, UnClipBoucleOuSeFige)</td></tr>
 <tr class="memdesc:acaaf99c87cdb34a7f854c50f0e97e72b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La boucle et la fin d'un clip sont des données du squelette : la marche revient à son début, la chute se fige, et un clip que le modèle n'a pas retombe sur son repos.  <br /></td></tr>
 <tr class="memitem:a02afc86451af6c80f4d7685501caa935" id="r_a02afc86451af6c80f4d7685501caa935"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a02afc86451af6c80f4d7685501caa935">TEST</a> (FigureModelTest, UnModeleFaitFaceASonCap)</td></tr>
 <tr class="memdesc:a02afc86451af6c80f4d7685501caa935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un modèle s'oriente librement : il fait face à son cap, quel qu'il soit, et à défaut à la diagonale de son orientation.  <br /></td></tr>
-<tr class="memitem:ad94c6c4723fc4846f16394938289fb23" id="r_ad94c6c4723fc4846f16394938289fb23"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad94c6c4723fc4846f16394938289fb23">TEST</a> (FigureModelTest, UnModeleAbsentLaisseVoirLeDamier)</td></tr>
-<tr class="memdesc:ad94c6c4723fc4846f16394938289fb23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un modèle nommé mais pas chargé ne plante rien : la figurine retombe sur ses bandes, donc sur le damier.  <br /></td></tr>
+<tr class="memitem:ac150359eb69355cb968922ab44273491" id="r_ac150359eb69355cb968922ab44273491"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac150359eb69355cb968922ab44273491">TEST</a> (FigureModelTest, UnModeleAbsentNeDessineRien)</td></tr>
+<tr class="memdesc:ac150359eb69355cb968922ab44273491"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un modèle nommé mais pas chargé ne plante rien : rien ne se dessine à sa place.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une figurine en <b>modèle</b>, de l'instantané à la scène composée, sans GPU (<span class="tt">LOT-1005</span>). </p>
-<p>Le pantin de la carte d'essai (<span class="tt">Fixtures/Meshes</span>) : la composition en fait un maillage placé, tourné vers son cap, avec la pose de ses os à l'instant de son clip. Une figurine en bandes garde son chemin : la même carte en porte une de chaque forme. </p>
+<p>Le pantin de la carte d'essai (<span class="tt">Fixtures/Meshes</span>) : la composition en fait un maillage placé, tourné vers son cap, avec la pose de ses os à l'instant de son clip. Depuis le <span class="tt">LOT-1006</span> une figurine n'a pas d'autre forme : sans modèle elle prend son marqueur, et seul un effet reste une bande d'images. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aa15db21442bcdc2b08fc2f35c045ebb9" name="aa15db21442bcdc2b08fc2f35c045ebb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa15db21442bcdc2b08fc2f35c045ebb9">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">FigureModelTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaFicheDuDossierDonneLeModele</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une figurine qui ne nomme pas son modèle prend celui que la fiche de son dossier déclare : c'est ainsi que l'éditeur, qui ne résout rien, montre les mêmes modèles. </p>
+<p><b>Cas de test :</b> <b>Sans modele nomme, la fiche du dossier de la figurine le donne.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Squelette<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer la figurine <span class="tt">pantin</span>, sans modele nomme, le rendu ayant lu la fiche de son dossier.<br  />
+2. La composer pour un dossier dont la fiche ne donne rien.<br  />
+ <b>Resultat attendu :</b> 1 : un maillage, celui du pantin, et aucune primitive. 2 : aucun maillage ; le marqueur n'etant pas peint, rien. </p>
+
+</div>
+</div>
 <a id="acaaf99c87cdb34a7f854c50f0e97e72b" name="acaaf99c87cdb34a7f854c50f0e97e72b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acaaf99c87cdb34a7f854c50f0e97e72b">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acaaf99c87cdb34a7f854c50f0e97e72b">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -213,8 +245,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4377ad07db763a37305e9f3fef0d2a1c" name="a4377ad07db763a37305e9f3fef0d2a1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4377ad07db763a37305e9f3fef0d2a1c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<a id="a0d1b4542ec96f4756b04accf7840c002" name="a0d1b4542ec96f4756b04accf7840c002"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d1b4542ec96f4756b04accf7840c002">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -227,26 +259,24 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UneFigurineEnModeleSeComposeEnMaillage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">UneFigurineSeComposeEnMaillage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Une figurine en modèle se compose en maillage placé avec la pose de son clip ; une figurine en bandes, à côté, reste une image. </p>
-<p><b>Cas de test :</b> <b>Une figurine en modele se compose en maillage, avec la pose de son clip.</b><br  />
+<p>Une figurine en modèle se compose en maillage placé avec la pose de son clip ; un effet, à côté, reste une image ; une figurine sans modèle prend son marqueur. </p>
+<p><b>Cas de test :</b> <b>Une figurine se compose en maillage ; un effet en image ; sans modele, son marqueur.</b><br  />
  <b>Categorie :</b> Unitaire · Rendu d'un lieu · Squelette<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. Composer le pantin a 0,4 s de son attaque et la figurine temoin, en bandes.<br  />
-</p><ol type="1">
-<li>Lire la scene composee.<br  />
- <b>Resultat attendu :</b> Un maillage sur le calque des figurines, avec une pose de trois os ou le sommet du crane est penche de 60 degres ; une primitive pour la figurine en bandes ; les chemins de texture demandes ne citent aucune bande du pantin, son modele est demande a part. </li>
-</ol>
+ 1. Composer le pantin a 0,4 s de son attaque, un effet et une figurine dont aucun modele n'est charge.<br  />
+2. Lire la scene composee et les chemins demandes.<br  />
+ <b>Resultat attendu :</b> Un maillage sur le calque des figurines, avec une pose de trois os ou le sommet du crane est penche de 60 degres ; deux primitives, la bande de l'effet et le marqueur. Les textures demandees sont la bande de l'effet et le marqueur de la figurine qui ne nomme pas son modele &ndash; aucune bande de figurine ; le modele du pantin est demande a part. </p>
 
 </div>
 </div>
-<a id="ad94c6c4723fc4846f16394938289fb23" name="ad94c6c4723fc4846f16394938289fb23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad94c6c4723fc4846f16394938289fb23">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<a id="ac150359eb69355cb968922ab44273491" name="ac150359eb69355cb968922ab44273491"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac150359eb69355cb968922ab44273491">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,23 +289,23 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UnModeleAbsentLaisseVoirLeDamier</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+          <td class="paramtype">UnModeleAbsentNeDessineRien</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Un modèle nommé mais pas chargé ne plante rien : la figurine retombe sur ses bandes, donc sur le damier. </p>
-<p><b>Cas de test :</b> <b>Un modele qui ne s'est pas charge laisse voir le damier.</b><br  />
+<p>Un modèle nommé mais pas chargé ne plante rien : rien ne se dessine à sa place. </p>
+<p><b>Cas de test :</b> <b>Un modele qui ne s'est pas charge ne dessine rien.</b><br  />
  <b>Categorie :</b> Unitaire · Rendu d'un lieu · Squelette<br  />
  <b>Criticite :</b> Majeur<br  />
  <b>Etapes :</b><br  />
  1. Composer une figurine dont le modele n'est pas parmi ceux du rendu.<br  />
- <b>Resultat attendu :</b> Aucun maillage ; une primitive, sur le damier. </p>
+ <b>Resultat attendu :</b> Aucun maillage, aucune primitive : le rendu a dit le modele manquant. </p>
 
 </div>
 </div>
 <a id="a02afc86451af6c80f4d7685501caa935" name="a02afc86451af6c80f4d7685501caa935"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02afc86451af6c80f4d7685501caa935">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a02afc86451af6c80f4d7685501caa935">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -299,9 +329,11 @@ Functions</h2></td></tr>
  <b>Criticite :</b> Critique<br  />
  <b>Etapes :</b><br  />
  1. Composer le pantin avec un cap vers les colonnes croissantes, vers les lignes croissantes, puis a 30 degres entre les deux.<br  />
-2. Le composer sans cap, oriente au nord-ouest.<br  />
-3. Lire ou sa pose dans la vue met un point situe un metre devant lui.<br  />
- <b>Resultat attendu :</b> Le point devant lui tombe a l'ecran ou tombe le point de la grille situe un metre plus loin dans la direction du cap ; le pied reste sur sa position dans tous les cas ; le cap de 30 degres n'est aucune des quatre diagonales. </p>
+2. Le composer sans cap.<br  />
+</p><ol type="1">
+<li>Lire ou sa pose dans la vue met un point situe un metre devant lui.<br  />
+ <b>Resultat attendu :</b> Le point devant lui tombe a l'ecran ou tombe le point de la grille situe un metre plus loin dans la direction du cap ; le pied reste sur sa position dans tous les cas ; un cap de 30 degres se tient comme un autre. </li>
+</ol>
 
 </div>
 </div>

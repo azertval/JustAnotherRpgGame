@@ -37,7 +37,7 @@ struct SceneDepth {
 
     /// @return La profondeur d'une marque (`QuadStance::Overlay`) : juste derriÃ¨re le plan le
     ///         plus proche, donc devant tout volume.
-<span style = "background-color:#fdd">    [[nodiscard]] float overlayDepth() const noexcept {
+<span style = "background-color:#dfd">    [[nodiscard]] float overlayDepth() const noexcept {
         return range.nearest + ((range.farthest - range.nearest) * OVERLAY_FRACTION);
     }</span>
 

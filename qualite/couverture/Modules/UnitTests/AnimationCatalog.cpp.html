@@ -112,7 +112,7 @@ struct ClipParseResult {
 <span style = "background-color:#dfd">        clip.frameDuration = clipJson[FIELD_FRAME_DURATION].get&lt;float&gt;();</span>
     }
 
-    // Absent : boucle (comportement historique, EX-REN-012). Present mais pas un booleen : donnee
+    // Absent : boucle (comportement historique, EX-REN-005). Present mais pas un booleen : donnee
     // invalide, jamais devinee.
 <span style = "background-color:#dfd">    bool loop = true;
     if (clipJson.contains(FIELD_LOOP)) {

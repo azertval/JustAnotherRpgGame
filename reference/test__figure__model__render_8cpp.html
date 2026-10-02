@@ -147,8 +147,10 @@ $(function(){initNavTree('test__figure__model__render_8cpp.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QColor&gt;</code><br />
 <code>#include &lt;QImage&gt;</code><br />
+<code>#include &lt;QPainter&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
@@ -160,6 +162,7 @@ $(function(){initNavTree('test__figure__model__render_8cpp.html','',''); });
 <code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SkeletonPose_8h_source.html">Core/Resources/SkeletonPose.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="OffscreenRender_8h_source.html">HMI/Graphics/OffscreenRender.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
@@ -175,13 +178,15 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2b716b8642f0f78cb36793ac0b5bdfe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une figurine en bandes et un modèle tiennent sur la même carte ; sans modèle, la carte se rend comme avant le lot.  <br /></td></tr>
 <tr class="memitem:aae577aee2e2e0415720356f764ae5784" id="r_aae577aee2e2e0415720356f764ae5784"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aae577aee2e2e0415720356f764ae5784">TEST</a> (FigureModelRenderTest, LeMannequinDEssaiMarche)</td></tr>
 <tr class="memdesc:aae577aee2e2e0415720356f764ae5784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le mannequin d'essai — 53 os, lié par la chaîne de l'atelier — marche sur la carte d'essai : il se charge, se pose à chaque instant et se dessine.  <br /></td></tr>
+<tr class="memitem:aaa0e6e38b8126318e373260b42d64d0f" id="r_aaa0e6e38b8126318e373260b42d64d0f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaa0e6e38b8126318e373260b42d64d0f">TEST</a> (FigureModelRenderTest, UnModeleDeLAtelierSeRendClipParClip)</td></tr>
+<tr class="memdesc:aaa0e6e38b8126318e373260b42d64d0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un modèle de l'atelier — jamais suivi par Git — se rend sous la caméra du jeu, clip par clip, pour que l'auteur le juge à la taille du jeu.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une figurine en modèle, animée par ses os, rendue hors écran (<span class="tt">LOT-1005</span>). </p>
 <p>Le pantin de la carte d'essai (<span class="tt">Fixtures/Meshes</span>) — trois blocs verts, trois os, six clips — posé sur la carte d'essai en maillages et rendu par le rendu du jeu, sur un <span class="tt">QRhi</span> sans fenêtre. Rien d'autre n'y est vert : ce que l'image montre de lui se compte et se mesure, pixel par pixel. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a2b716b8642f0f78cb36793ac0b5bdfe1" name="a2b716b8642f0f78cb36793ac0b5bdfe1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b716b8642f0f78cb36793ac0b5bdfe1">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b716b8642f0f78cb36793ac0b5bdfe1">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +220,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aae577aee2e2e0415720356f764ae5784" name="aae577aee2e2e0415720356f764ae5784"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae577aee2e2e0415720356f764ae5784">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aae577aee2e2e0415720356f764ae5784">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,7 +250,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a67b28d346b623b9fca2527114c457148" name="a67b28d346b623b9fca2527114c457148"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67b28d346b623b9fca2527114c457148">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a67b28d346b623b9fca2527114c457148">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,8 +283,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aaa0e6e38b8126318e373260b42d64d0f" name="aaa0e6e38b8126318e373260b42d64d0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa0e6e38b8126318e373260b42d64d0f">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">FigureModelRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnModeleDeLAtelierSeRendClipParClip</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un modèle de l'atelier — jamais suivi par Git — se rend sous la caméra du jeu, clip par clip, pour que l'auteur le juge à la taille du jeu. </p>
+<p><b>Cas de test :</b> <b>Un modele de l'atelier se rend clip par clip, a la taille du jeu.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu QRhi d'un lieu · Squelette<br  />
+ <b>Criticite :</b> Mineur<br  />
+ <b>Etapes :</b><br  />
+ 1. Désigner un <span class="tt">.glb</span> lié par la variable d'environnement <span class="tt">JADG_FIGURE_MODEL</span>.<br  />
+</p><ol type="1">
+<li>Le rendre sur la carte d'essai, une case à 100 px puis à 200 px, à quatre instants de chacun de ses clips, face à la caméra puis de dos.<br  />
+ <b>Resultat attendu :</b> Le modèle se charge avec son squelette ; une planche par échelle est écrite dans les captures (<span class="tt">modele-&lt;nom&gt;-100.png</span>, <span class="tt">-200.png</span>). Sans la variable, le test est passé. </li>
+</ol>
+
+</div>
+</div>
 <a id="a4129e5efacf7c332492302899f069505" name="a4129e5efacf7c332492302899f069505"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4129e5efacf7c332492302899f069505">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4129e5efacf7c332492302899f069505">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

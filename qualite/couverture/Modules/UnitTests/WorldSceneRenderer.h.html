@@ -21,6 +21,7 @@
 #include &lt;memory&gt;
 #include &lt;optional&gt;
 #include &lt;set&gt;
+#include &lt;span&gt;
 #include &lt;string&gt;
 #include &lt;vector&gt;
 
@@ -81,12 +82,13 @@ class QRhiResourceUpdateBatch;
  * camÃ©ra est la mÃªme (`hmi::PlaceCamera`) ; elle ramÃ¨ne alors la profondeur de la vue
  * (`hmi::IsoView`) Ã  l'Ã©tendue du tampon.
  *
- * ## Les figurines en modÃ¨le (`LOT-1005`)
+ * ## Les figurines (`LOT-1005`, `LOT-1006`)
  *
- * Une figurine dont l'instantanÃ© nomme un modÃ¨le (`WorldFigureSnapshot::model`) se charge de mÃªme
- * â son `.glb`, la fiche de son dossier, la description du squelette qu'elle cite â et se dessine
- * par la mÃªme passe, avec la pose que la composition a calculÃ©e pour l'image. Une figurine en
- * bandes garde son chemin d'avant.
+ * Une figurine est un **modÃ¨le** : celui que son instantanÃ© nomme (`WorldFigureSnapshot::model`),
+ * Ã  dÃ©faut celui que dÃ©clare la fiche de son dossier (`character.json`). Il se charge comme un
+ * maillage â son `.glb`, sa fiche, la description du squelette qu'elle cite â et se dessine par la
+ * mÃªme passe, avec la pose que la composition a calculÃ©e pour l'image. Une figurine sans modÃ¨le
+ * se dessine par son **marqueur**, peint ; seuls les effets (`Common/Fx/`) restent des bandes.
  *
  * Tout cela n'a lieu que si l'image **a** un maillage. Sans lui â toutes les cartes livrÃ©es Ã 
  * l'ouverture du lot â, le pipeline, les sommets et la matrice sont ceux d'avant : l'image est la
@@ -297,9 +299,10 @@ private:
     void ensureTextures(const std::vector&lt;std::string&gt;&amp; paths);
     /// Charge les maillages de @p paths qui manquent encore (`LOT-1003`). Sur le fil de rendu.
     void ensureMeshes(const std::vector&lt;std::string&gt;&amp; paths);
-    /// Charge les modÃ¨les de figurine de @p paths qui manquent encore (`LOT-1005`) : le maillage,
+    /// Charge les modÃ¨les des figurines @p figures qui manquent encore (`LOT-1005`) â celui que
+    /// la figurine nomme, Ã  dÃ©faut celui de la fiche de son dossier (`LOT-1006`) : le maillage,
     /// son squelette, et ce que le squelette de sa fiche dÃ©clare. Sur le fil de rendu.
-    void ensureFigureModels(const std::vector&lt;std::string&gt;&amp; paths);
+    void ensureFigureModels(std::span&lt;const WorldFigureSnapshot&gt; figures);
     /// Ce qui est pÃ©rimÃ© â textures de la carte et des figurines, composition â est refait. Le lot
     /// de tÃ©lÃ©versements de l'appelant est dÃ©jÃ  dÃ©clarÃ© (`SceneResources::setFrameUpdates`).
     void refresh(const core::IsoProjection&amp; projection);

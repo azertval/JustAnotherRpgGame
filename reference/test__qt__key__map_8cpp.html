@@ -149,13 +149,13 @@ $(function(){initNavTree('test__qt__key__map_8cpp.html','',''); });
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
 <code>#include &lt;qnamespace.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="InputState_8h_source.html">HMI/Input/InputState.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Key_8h_source.html">HMI/Input/Key.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="QtKeyMap_8h_source.html">HMI/Input/QtKeyMap.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8e7f2366b785801dd6e114bbc4b4b3ac" id="r_a8e7f2366b785801dd6e114bbc4b4b3ac"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8e7f2366b785801dd6e114bbc4b4b3ac">TEST</a> (QtKeyMapTest, AllerRetourExactSurToutesLesTouches)</td></tr>
-<tr class="memdesc:a8e7f2366b785801dd6e114bbc4b4b3ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'aller-retour <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span> -&gt; <span class="tt">Qt::Key</span> -&gt; <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span> rend exactement la touche de départ, pour <b>toutes</b> les touches nommées.  <br /></td></tr>
+<tr class="memdesc:a8e7f2366b785801dd6e114bbc4b4b3ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'aller-retour <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a></span> -&gt; <span class="tt">Qt::Key</span> -&gt; <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a></span> rend exactement la touche de départ, pour <b>toutes</b> les touches nommées.  <br /></td></tr>
 <tr class="memitem:af6968e7b0e37aa46c59558ee5a3e92c3" id="r_af6968e7b0e37aa46c59558ee5a3e92c3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af6968e7b0e37aa46c59558ee5a3e92c3">TEST</a> (QtKeyMapTest, TouchesSpecialesTraduitesExplicitement)</td></tr>
 <tr class="memdesc:af6968e7b0e37aa46c59558ee5a3e92c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les touches spéciales sont traduites vers le bon code Qt, et non par la conversion directe qui vaut pour les lettres et les chiffres.  <br /></td></tr>
 <tr class="memitem:a94d30646a596a189ef20ed614df5e0e3" id="r_a94d30646a596a189ef20ed614df5e0e3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a94d30646a596a189ef20ed614df5e0e3">TEST</a> (QtKeyMapTest, LettresEtChiffresConvertisDirectement)</td></tr>
@@ -188,12 +188,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>L'aller-retour <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span> -&gt; <span class="tt">Qt::Key</span> -&gt; <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span> rend exactement la touche de départ, pour <b>toutes</b> les touches nommées. </p>
-<p>C'est l'invariant dont dépend le remappage : une touche choisie par l'utilisateur traverse un raccourci de <span class="tt">QAction</span> puis revient. Une seule touche qui ne reviendrait pas identique rendrait son remappage silencieusement inopérant. <b>Cas de test :</b> <b>Aller-retour <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a> -&gt; Qt -&gt; <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a> exact sur toutes les touches nommées.</b><br  />
+<p>L'aller-retour <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a></span> -&gt; <span class="tt">Qt::Key</span> -&gt; <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a></span> rend exactement la touche de départ, pour <b>toutes</b> les touches nommées. </p>
+<p>C'est l'invariant dont dépend le remappage : une touche choisie par l'utilisateur traverse un raccourci de <span class="tt">QAction</span> puis revient. Une seule touche qui ne reviendrait pas identique rendrait son remappage silencieusement inopérant. <b>Cas de test :</b> <b>Aller-retour <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a> -&gt; Qt -&gt; <a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a> exact sur toutes les touches nommées.</b><br  />
  <b>Categorie :</b> Unitaire · HMI Input<br  />
  <b>Criticite :</b> Bloquant<br  />
  <b>Etapes :</b><br  />
- 1. Pour chaque touche de <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span>, appliquer <span class="tt">hmiKeyToQtKey</span> puis <span class="tt">qtKeyToHmiKey</span>.<br  />
+ 1. Pour chaque touche de <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a></span>, appliquer <span class="tt">hmiKeyToQtKey</span> puis <span class="tt">qtKeyToHmiKey</span>.<br  />
  <b>Resultat attendu :</b> La touche obtenue est identique à la touche de départ, pour les 28 touches. </p>
 
 </div>
@@ -247,7 +247,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p><span class="tt">Qt::Key_Backtab</span> et <span class="tt">Qt::Key_Enter</span> sont des <b>synonymes d'entrée</b> : ils rejoignent <span class="tt">Tab</span> et <span class="tt">Enter</span>, dont le retour est la forme canonique (<span class="tt">Key_Tab</span>, <span class="tt">Key_Return</span>). </p>
-<p>L'aller-retour depuis Qt n'est donc volontairement pas l'identité pour ces deux codes — le remappage, lui, part toujours d'un <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Touche du clavier, identifiée par son code virtuel Win32.">hmi::Key</a></span>, où l'aller-retour reste exact. <b>Cas de test :</b> <b>Backtab et Enter du pavé rejoignent la forme canonique.</b><br  />
+<p>L'aller-retour depuis Qt n'est donc volontairement pas l'identité pour ces deux codes — le remappage, lui, part toujours d'un <span class="tt"><a class="el" href="namespacehmi.html#a83c98e56e30eafa606048853f7962e48" title="Clavier de l&#39;editeur, identifie par les codes virtuels Win32.">hmi::Key</a></span>, où l'aller-retour reste exact. <b>Cas de test :</b> <b>Backtab et Enter du pavé rejoignent la forme canonique.</b><br  />
  <b>Categorie :</b> Unitaire · HMI Input<br  />
  <b>Criticite :</b> Mineur<br  />
  <b>Etapes :</b><br  />

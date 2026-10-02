@@ -136,16 +136,6 @@ void composeMeshPiece(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; sn
                   IsoView::projectedBounds(toView, mesh.minimum, mesh.maximum), storey);
 <span style = "background-color:#dfd">}</span>
 
-// Le dossier d'une figurine, sous le niveau qui la range (LOT-124), a defaut elle-meme.
-[[nodiscard]] std::string figureDirectoryIn(const WorldSceneSnapshot&amp; snapshot,
-<span style = "background-color:#dfd">                                            std::string_view figure) {
-    if (const auto found = snapshot.figureDirectories.find(figure);
-        found != snapshot.figureDirectories.end()) {
-        return found-&gt;second;
-    }
-    return std::string{figure};
-}</span>
-
 // Rend : La premiere couche de role `kind` au rez, ou `nullptr` si la carte n'en declare pas.
 <span style = "background-color:#dfd">[[nodiscard]] const core::TileLayer* layerOf(const WorldSceneSource&amp; source, core::LayerKind kind) {
     for (const core::TileLayer&amp; couche : source.layers) {
@@ -556,15 +546,17 @@ std::optional&lt;float&gt; composeRelief(ComposedScene&amp; scene, const WorldSc
                                 -std::numeric_limits&lt;float&gt;::infinity());
 <span style = "background-color:#dfd">}</span>
 
-// Une figurine posee : sa texture, son image, son rang de dessin.
+// Une image de figurine posee -- un effet, ou un marqueur : sa texture, son image, son rang.
 struct FigurePlacement {
     TextureHandle texture = nullptr;
     SpriteQuad quad{};
     std::int32_t sortOrder = 0;
-    /// La ligne ou elle se dresse dans la scene en volume : ses pieds, au centre de sa position.
+    /// La ligne ou elle se dresse dans la scene en volume : au centre de sa position.
     float standingY = 0.0F;
 };
 
+// La bande d'un effet, ou le marqueur d'une figurine sans modele ; rien si la texture n'est pas
+// chargee -- un effet inconnu ne se dessine pas, et un marqueur ne se peint que sans modele.
 [[nodiscard]] std::optional&lt;FigurePlacement&gt; placeFigure(const WorldSceneSnapshot&amp; snapshot,
                                                          const core::IsoProjection&amp; projection,
                                                          const ScenePieceTextures&amp; textures,
@@ -572,19 +564,13 @@ struct FigurePlacement {
     if (figure.figure.empty()) {</span>
 <span style = "background-color:#fdd">        return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    const std::string directory = figureDirectoryIn(snapshot, figure.figure);
-    const SceneTexture* strip =</span>
-        &amp;textures.resolve(figureStripPath(directory, figure.clip, figure.facing));
-    // Une figurine sans la bande demandee joue celle qui la remplace : un archer peint sans tir
-    // tire avec son attaque (`LOT-136`).
-<span style = "background-color:#dfd">    if (const std::string_view repli = figure_clips::fallbackOf(figure.clip);
-        strip-&gt;texture == nullptr &amp;&amp; !repli.empty()) {</span>
-<span style = "background-color:#fdd">        strip = &amp;textures.resolve(figureStripPath(directory, repli, figure.facing));</span>
+<span style = "background-color:#dfd">    const SceneTexture* const found = textures.find(</span>
+        figure.effect ? effectStripPath(figure.clip)
+                      : figureMarkerPath(worldFigureDirectory(snapshot, figure.figure)));
+<span style = "background-color:#dfd">    if (found == nullptr || found-&gt;texture == nullptr) {
+        return std::nullopt;</span>
     }
-<span style = "background-color:#dfd">    const SceneTexture&amp; texture = *strip;
-    if (texture.texture == nullptr) {</span>
-<span style = "background-color:#fdd">        return std::nullopt;</span>
-    }
+<span style = "background-color:#dfd">    const SceneTexture&amp; texture = *found;</span>
     // La bande dit sa propre decoupe : sa cellule, et avec sa largeur totale son nombre d'images.
     // Une image hors bande est ramenee dedans plutot que de lire a cote de la texture. Sa cadence
     // aussi, quand elle la dit et que l'instantane porte le temps.
@@ -592,8 +578,8 @@ struct FigurePlacement {
     const int rang = figure.seconds &gt;= 0.0F &amp;&amp; texture.frameDuration &gt; 0.0F</span>
                          ? static_cast&lt;int&gt;(figure.seconds / texture.frameDuration)
                          : figure.frame;
-    // Une bande jouee une fois (attaque, touche, mort) se fige sur sa derniere image : un mort ne
-    // se releve pas parce que le temps passe (`LOT-118`). Une bande qui boucle est ramenee dedans.
+    // Une bande jouee une fois se fige sur sa derniere image ; une bande qui boucle est ramenee
+    // dedans.
 <span style = "background-color:#dfd">    const int frame = texture.loop ? ((rang % frameCount) + frameCount) % frameCount</span>
                                    : std::clamp(rang, 0, frameCount - 1);
 
@@ -602,9 +588,8 @@ struct FigurePlacement {
         projection
             .gridToWorld(gridPoint(figure.point.x + CELL_CENTER, figure.point.y + CELL_CENTER))
             .y;
-    // Une figurine qui declare sa ligne de sol la pose au CENTRE du losange de sa position : c'est
-    // la que la maquette du LOT-101 met les pieds. Sans elle, l'ancienne marge : le bas de la
-    // cellule un peu au-dessus de la pointe sud.
+    // Une bande qui declare sa ligne de sol la pose au CENTRE du losange de sa position. Sans
+    // elle -- un marqueur --, le bas de l'image un peu au-dessus de la pointe sud.
 <span style = "background-color:#dfd">    const float bottomY =</span>
         texture.groundLine
             ? center.y + ((static_cast&lt;float&gt;(frameHeightOf(texture)) - *texture.groundLine) *
@@ -622,7 +607,7 @@ struct FigurePlacement {
 constexpr float MODEL_DEPTH_LEAD = 2.0F;
 
 // La cadence d'une figurine dont l'instantane ne porte pas le temps : son rang d'image, en
-// secondes -- celle des bandes de l'exploration.
+// secondes.
 constexpr float MODEL_FRAME_SECONDS = 0.15F;
 
 // Un modele pose : son maillage, sa pose dans la vue, ce qu'il occupe a l'ecran.
@@ -636,21 +621,27 @@ struct ModelPlacement {
     std::int32_t sortOrder = 0;
 };
 
-// Le modele charge de `figure`, pose sur sa position et tourne vers son cap ; rien si la figurine
-// n'en nomme pas, ou s'il ne s'est pas charge.
-[[nodiscard]] std::optional&lt;ModelPlacement&gt; placeModel(const core::IsoProjection&amp; projection,
+// Le modele charge de `figure` -- celui qu'elle nomme, a defaut celui de la fiche de son dossier
+// --, pose sur sa position et tourne vers son cap ; rien pour un effet, ou si aucun modele ne
+// s'est charge.
+[[nodiscard]] std::optional&lt;ModelPlacement&gt; placeModel(const WorldSceneSnapshot&amp; snapshot,
+                                                       const core::IsoProjection&amp; projection,
                                                        const ScenePieceTextures&amp; textures,
 <span style = "background-color:#dfd">                                                       const WorldFigureSnapshot&amp; figure) {
-    const SceneFigureModel* const model =</span>
-        figure.model.empty() ? nullptr : textures.findFigure(figure.model);
+    if (figure.effect || figure.figure.empty()) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const SceneFigureModel* const model =</span>
+        !figure.model.empty()
+            ? textures.findFigure(figure.model)
+            : textures.findFigureOf(worldFigureDirectory(snapshot, figure.figure));
 <span style = "background-color:#dfd">    if (model == nullptr) {
         return std::nullopt;</span>
     }
 <span style = "background-color:#dfd">    const IsoView view(projection);</span>
     // Un modele regarde vers +Z, les lignes croissantes : le cap se compte depuis +X.
-<span style = "background-color:#dfd">    const float heading = figure.heading.value_or(figureHeadingOf(figure.facing));
-    ViewTransform toView = IsoView::turned(view.meshTransform(figure.point, 0.0F),</span>
-                                           (std::numbers::pi_v&lt;float&gt; / 2.0F) - heading);
+<span style = "background-color:#dfd">    ViewTransform toView = IsoView::turned(view.meshTransform(figure.point, 0.0F),</span>
+                                           (std::numbers::pi_v&lt;float&gt; / 2.0F) - figure.heading);
 <span style = "background-color:#dfd">    toView[11] -= MODEL_DEPTH_LEAD * view.imageBias();
     const float height = std::max(model-&gt;maximum[1], 0.1F);
     float radius = height;
@@ -717,7 +708,8 @@ void composeFigure(ComposedScene&amp; scene, const WorldSceneSnapshot&amp; snaps
                    const core::IsoProjection&amp; projection, const ScenePieceTextures&amp; textures,
 <span style = "background-color:#dfd">                   const WorldFigureSnapshot&amp; figure) {</span>
     // Un modele (LOT-1005) : un maillage anime, sans rang de dessin -- la profondeur le departage.
-<span style = "background-color:#dfd">    if (const std::optional&lt;ModelPlacement&gt; model = placeModel(projection, textures, figure)) {
+<span style = "background-color:#dfd">    if (const std::optional&lt;ModelPlacement&gt; model =
+            placeModel(snapshot, projection, textures, figure)) {
         composeModel(scene, *model, figure);
         return;</span>
     }
@@ -908,11 +900,6 @@ MaquetteMarks maquetteMarks(const std::vector&lt;core::MapEntity&gt;&amp; entiti
     return marks;
 }</span>
 
-<span style = "background-color:#dfd">std::string placeholderFigureDirectory(std::string_view silhouette) {
-    return "Common/Characters/Placeholders/" +</span>
-           std::string{silhouette.empty() ? DEFAULT_SILHOUETTE : silhouette};
-<span style = "background-color:#dfd">}</span>
-
 <span style = "background-color:#dfd">std::string mannequinFigureDirectory(std::string_view silhouette) {
     std::string directory{"Common/Characters/Mannequins/"};
     directory.append(silhouette.empty() ? DEFAULT_SILHOUETTE : silhouette);
@@ -933,7 +920,7 @@ std::vector&lt;WorldFigureSnapshot&gt; npcFigures(const std::vector&lt;core::Map
             }
             // Le mannequin de sa silhouette tient la place (LOT-145) : un PNJ se voit et s'anime
             // avant que l'atelier ne l'ait dessine.
-<span style = "background-color:#dfd">            figure = placeholderFigureDirectory(textProperty(entity, SILHOUETTE_PROPERTY));</span>
+<span style = "background-color:#dfd">            figure = mannequinFigureDirectory(textProperty(entity, SILHOUETTE_PROPERTY));</span>
         }
 <span style = "background-color:#dfd">        figures.push_back(</span>
             WorldFigureSnapshot{.figure = std::move(figure),
@@ -1150,75 +1137,31 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource&amp; source,
     return snapshot;
 }</span>
 
-<span style = "background-color:#dfd">float figureHeadingOf(FigureFacing facing) noexcept {
-    constexpr float QUARTER = std::numbers::pi_v&lt;float&gt; / 2.0F;
-    switch (facing) {</span>
-        case FigureFacing::SouthEast:
-<span style = "background-color:#dfd">            return 0.0F;</span>
-        case FigureFacing::SouthWest:
-<span style = "background-color:#dfd">            return QUARTER;</span>
-        case FigureFacing::NorthWest:
-<span style = "background-color:#dfd">            return 2.0F * QUARTER;</span>
-        case FigureFacing::NorthEast:
-<span style = "background-color:#fdd">            return -QUARTER;</span>
-        case FigureFacing::None:
-            break;
-    }
-    // Sans orientation : face a la camera, le bas de l'ecran.
-<span style = "background-color:#dfd">    return QUARTER / 2.0F;
-}</span>
-
 <span style = "background-color:#dfd">float figureHeadingFor(core::Vector2 move, float previous) noexcept {
     return move.x == 0.0F &amp;&amp; move.y == 0.0F ? previous : std::atan2(move.y, move.x);
 }</span>
 
-<span style = "background-color:#dfd">std::string_view figureFacingSuffix(FigureFacing facing) noexcept {
-    switch (facing) {</span>
-        case FigureFacing::SouthEast:
-<span style = "background-color:#dfd">            return "se";</span>
-        case FigureFacing::SouthWest:
-<span style = "background-color:#dfd">            return "sw";</span>
-        case FigureFacing::NorthEast:
-<span style = "background-color:#dfd">            return "ne";</span>
-        case FigureFacing::NorthWest:
-<span style = "background-color:#dfd">            return "nw";</span>
-        case FigureFacing::None:
-            break;
+<span style = "background-color:#dfd">std::string worldFigureDirectory(const WorldSceneSnapshot&amp; snapshot, std::string_view figure) {</span>
+    // Sous le niveau qui la range (LOT-124), a defaut elle-meme : un dossier depuis la racine des
+    // assets, ou un slug seul, cherche a plat.
+<span style = "background-color:#dfd">    if (const auto found = snapshot.figureDirectories.find(figure);
+        found != snapshot.figureDirectories.end()) {
+        return found-&gt;second;
     }
-<span style = "background-color:#fdd">    return {};</span>
-<span style = "background-color:#dfd">}</span>
-
-<span style = "background-color:#dfd">FigureFacing figureFacingFor(core::Vector2 move, FigureFacing previous) noexcept {
-    const float enX = std::abs(move.x);
-    const float enY = std::abs(move.y);
-    if (enX == 0.0F &amp;&amp; enY == 0.0F) {
-        return previous;</span>
-    }
-    // Colonne : sud-est en avancant, nord-ouest en reculant. Ligne : sud-ouest, nord-est.
-<span style = "background-color:#dfd">    const FigureFacing parX = move.x &gt; 0.0F ? FigureFacing::SouthEast : FigureFacing::NorthWest;
-    const FigureFacing parY = move.y &gt; 0.0F ? FigureFacing::SouthWest : FigureFacing::NorthEast;</span>
-    // Une egalite a l'arrondi pres : une diagonale normalisee n'a pas deux composantes
-    // rigoureusement egales apres une division par sa longueur.
-<span style = "background-color:#dfd">    constexpr float EGALITE = 1.0e-4F;
-    if (std::abs(enX - enY) &lt;= EGALITE * std::max(enX, enY)) {
-        if (previous == parX || previous == parY) {
-            return previous;</span>
-        }
-<span style = "background-color:#dfd">        return std::min(parX, parY);</span>
-    }
-<span style = "background-color:#dfd">    return enX &gt; enY ? parX : parY;
+    return core::figureDirectory({}, figure);
 }</span>
 
-<span style = "background-color:#dfd">std::string figureStripPath(std::string_view figure, std::string_view clip, FigureFacing facing) {</span>
-    // Un dossier depuis la racine des assets ; un slug seul se cherche a plat.
-<span style = "background-color:#dfd">    std::string path = core::figureDirectory({}, figure);
+<span style = "background-color:#dfd">std::string figureMarkerPath(std::string_view figure) {
+    std::string path = core::figureDirectory({}, figure);
+    path.append("/@marker");
+    return path;
+}</span>
+
+<span style = "background-color:#dfd">std::string effectStripPath(std::string_view effect) {
+    std::string path{FX_DIRECTORY};
     path.push_back('/');
-    path.append(clip.empty() ? std::string_view{"idle"} : clip);
-    if (facing != FigureFacing::None) {
-        path.push_back('-');
-        path.append(figureFacingSuffix(facing));</span>
-    }
-<span style = "background-color:#dfd">    path.append(".png");
+    path.append(effect);
+    path.append(".png");
     return path;
 }</span>
 
@@ -1266,27 +1209,16 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource&amp; source,
 std::vector&lt;std::string&gt; worldFigureTexturePaths(const WorldSceneSnapshot&amp; snapshot,
 <span style = "background-color:#dfd">                                                 std::span&lt;const WorldFigureSnapshot&gt; figures) {
     std::set&lt;std::string&gt; uniques;
-    for (const WorldFigureSnapshot&amp; figure : figures) {</span>
-        // Une figurine en modele (LOT-1005) n'a pas de bande : son fichier se charge a part
-        // (`worldFigureModelPaths`).
-<span style = "background-color:#dfd">        if (figure.figure.empty() || !figure.model.empty()) {
-            continue;</span>
+    for (const WorldFigureSnapshot&amp; figure : figures) {
+        if (figure.figure.empty()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
         }
-        // Les deux bandes d'une figurine : elle marche et elle attend, et le rendu ne doit pas
-        // charger une texture au milieu d'une image. Un combattant precharge toutes ses bandes : un
-        // coup ne doit pas non plus attendre sa texture (LOT-118).
-<span style = "background-color:#dfd">        const std::string directory = figureDirectoryIn(snapshot, figure.figure);
-        uniques.insert(figureStripPath(directory, figure_clips::IDLE, figure.facing));
-        uniques.insert(figureStripPath(directory, figure_clips::WALK, figure.facing));
-        if (figure.combatant) {
-            for (const std::string_view clip : figure_clips::ALL) {
-                uniques.insert(figureStripPath(directory, clip, figure.facing));
-            }</span>
-        }
-        // La bande en cours, quelle qu'elle soit : elle se dessine a cette image.
-<span style = "background-color:#dfd">        uniques.insert(figureStripPath(directory, figure.clip, figure.facing));
-        if (const std::string_view repli = figure_clips::fallbackOf(figure.clip); !repli.empty()) {
-            uniques.insert(figureStripPath(directory, repli, figure.facing));</span>
+<span style = "background-color:#dfd">        if (figure.effect) {
+            uniques.insert(effectStripPath(figure.clip));
+        } else if (figure.model.empty()) {</span>
+            // Le marqueur d'une figurine qui ne nomme pas son modele : le rendu ne le peint que
+            // si la fiche de son dossier n'en donne pas non plus.
+<span style = "background-color:#dfd">            uniques.insert(figureMarkerPath(worldFigureDirectory(snapshot, figure.figure)));</span>
         }
 <span style = "background-color:#dfd">    }
     return {uniques.begin(), uniques.end()};
@@ -1295,7 +1227,7 @@ std::vector&lt;std::string&gt; worldFigureTexturePaths(const WorldSceneSnapshot&
 <span style = "background-color:#dfd">std::vector&lt;std::string&gt; worldFigureModelPaths(std::span&lt;const WorldFigureSnapshot&gt; figures) {
     std::set&lt;std::string&gt; uniques;
     for (const WorldFigureSnapshot&amp; figure : figures) {
-        if (!figure.model.empty()) {
+        if (!figure.effect &amp;&amp; !figure.model.empty()) {
             uniques.insert(figure.model);</span>
         }
 <span style = "background-color:#dfd">    }
@@ -1351,7 +1283,8 @@ std::optional&lt;WorldHeroPlacement&gt; placeWorldHero(const WorldSceneSnapshot&
         if (!figure.hero) {
             continue;</span>
         }
-<span style = "background-color:#dfd">        if (const std::optional&lt;ModelPlacement&gt; model = placeModel(projection, textures, figure)) {</span>
+<span style = "background-color:#dfd">        if (const std::optional&lt;ModelPlacement&gt; model =
+                placeModel(snapshot, projection, textures, figure)) {</span>
 <span style = "background-color:#fdd">            hero = WorldHeroPlacement{.bounds = model-&gt;body, .sortOrder = model-&gt;sortOrder};
             continue;</span>
         }

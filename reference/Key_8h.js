@@ -1,6 +1,5 @@
-var InputState_8h =
+var Key_8h =
 [
-    [ "hmi::InputState", "classhmi_1_1InputState.html", "classhmi_1_1InputState" ],
     [ "hmi::Key", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48", [
       [ "hmi::Key::Backspace", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48acd7d13ceea728b08555f7c818cfb13ef", null ],
       [ "hmi::Key::Tab", "namespacehmi.html#a83c98e56e30eafa606048853f7962e48a5c6ba25104401c9ee0650230fc6ba413", null ],

@@ -75,8 +75,6 @@ var NAVTREEINDEX0 =
 "BrushGesture_8h_source.html":[4,0,0,3,0,3],
 "BuildConfig_8h.html":[4,0,0,2,11],
 "BuildConfig_8h_source.html":[4,0,0,2,11],
-"ButtonRepeat_8h.html":[4,0,0,6,3,0],
-"ButtonRepeat_8h_source.html":[4,0,0,6,3,0],
 "CanvasPicking_8cpp.html":[4,0,0,3,0,4],
 "CanvasPicking_8h.html":[4,0,0,3,0,5],
 "CanvasPicking_8h_source.html":[4,0,0,3,0,5],
@@ -249,5 +247,7 @@ var NAVTREEINDEX0 =
 "EncounterDifficulty_8cpp.html":[4,0,0,2,0,22],
 "EncounterDifficulty_8h.html":[4,0,0,2,0,23],
 "EncounterDifficulty_8h_source.html":[4,0,0,2,0,23],
-"EncounterModel_8cpp.html":[4,0,0,6,7,18]
+"EncounterModel_8cpp.html":[4,0,0,6,7,18],
+"EncounterModel_8h.html":[4,0,0,6,7,19],
+"EncounterModel_8h_source.html":[4,0,0,6,7,19]
 };

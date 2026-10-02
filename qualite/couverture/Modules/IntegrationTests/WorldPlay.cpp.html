@@ -104,12 +104,11 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
         }
 <span style = "background-color:#fdd">        if (walking) {
             const core::Vector2 direction = _session.followerFacing(rang);
-            const FigureFacing facing = figureFacingFor(direction, suiveur.facing);
-            if (facing != suiveur.facing) {
-                suiveur.facing = facing;
+            const float heading = figureHeadingFor(direction, suiveur.heading);
+            if (heading != suiveur.heading) {
+                suiveur.heading = heading;
                 changed = true;</span>
             }
-<span style = "background-color:#fdd">            suiveur.heading = figureHeadingFor(direction, suiveur.heading);</span>
         }
 <span style = "background-color:#fdd">        suiveur.point = point;
     }</span>
@@ -143,12 +142,11 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
         result.figuresChanged = true;</span>
     }
 <span style = "background-color:#dfd">    if (walking) {
-        const FigureFacing facing = figureFacingFor(intent.move, _heroFacing);
-        if (facing != _heroFacing) {
-            _heroFacing = facing;
+        const float heading = figureHeadingFor(intent.move, _heroHeading);
+        if (heading != _heroHeading) {
+            _heroHeading = heading;
             result.figuresChanged = true;</span>
         }
-<span style = "background-color:#dfd">        _heroHeading = figureHeadingFor(intent.move, _heroHeading);</span>
     }
 <span style = "background-color:#dfd">    if (followFollowers()) {</span>
 <span style = "background-color:#fdd">        result.figuresChanged = true;</span>
@@ -232,7 +230,6 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
             _figures.resolve(figure.figure, nom != nullptr ? *nom : std::string{}, _appearance);
 <span style = "background-color:#dfd">        figure.figure = resolue.directory;
         figure.model = resolue.model;
-        figure.facing = resolue.oriented ? FigureFacing::SouthEast : FigureFacing::None;
         figure.seconds = _elapsed + (static_cast&lt;float&gt;(rang) * NPC_BREATH_OFFSET_SECONDS);
     }</span>
     // Les suiveurs du groupe (LOT-138), derriere le meneur : a egalite de profondeur, il passe
@@ -243,24 +240,24 @@ WorldPlay::WorldPlay(core::WorldTravel::MapLoader loader, std::filesystem::path 
             .clip = std::string{suiveur.walking ? figure_clips::WALK : figure_clips::IDLE},
             .point = {suiveur.point.column, suiveur.point.row},
             .frame = frame,
-            .facing = suiveur.figure.oriented ? suiveur.facing : FigureFacing::None,
             .seconds = _elapsed,
             .hero = false,
             .combatant = false,
             .model = suiveur.figure.model,
-            .heading = suiveur.heading});
+            .heading = suiveur.heading,
+            .effect = false});
 <span style = "background-color:#fdd">    }</span>
 <span style = "background-color:#dfd">    figures.push_back(</span>
         WorldFigureSnapshot{.figure = _hero.directory,
                             .clip = std::string{_walking ? figure_clips::WALK : figure_clips::IDLE},
                             .point = {_session.heroPoint().column, _session.heroPoint().row},
                             .frame = frame,
-                            .facing = heroFacing(),
                             .seconds = _elapsed,
                             .hero = true,
                             .combatant = false,
                             .model = _hero.model,
-                            .heading = _heroHeading});
+                            .heading = _heroHeading,
+                            .effect = false});
 <span style = "background-color:#dfd">    return figures;
 }</span>
 

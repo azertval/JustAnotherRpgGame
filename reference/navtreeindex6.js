@@ -1,16 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"classcore_1_1ExplorationSession.html#a401dd38b295e1dcd339da557ea5c49c3":[2,0,1,258,34],
-"classcore_1_1ExplorationSession.html#a401dd38b295e1dcd339da557ea5c49c3":[3,0,0,258,34],
-"classcore_1_1ExplorationSession.html#a46e681a1725375612d92d31bebc05fd5":[2,0,1,258,23],
-"classcore_1_1ExplorationSession.html#a46e681a1725375612d92d31bebc05fd5":[3,0,0,258,23],
-"classcore_1_1ExplorationSession.html#a49155fcde6f429fbf253a55ec8b1afd2":[2,0,1,258,28],
-"classcore_1_1ExplorationSession.html#a49155fcde6f429fbf253a55ec8b1afd2":[3,0,0,258,28],
-"classcore_1_1ExplorationSession.html#a5400b1f5b9fc27c552f225e0ec4ce569":[2,0,1,258,16],
-"classcore_1_1ExplorationSession.html#a5400b1f5b9fc27c552f225e0ec4ce569":[3,0,0,258,16],
-"classcore_1_1ExplorationSession.html#a61a51d1501e6ffc4b5bbd230ee851d16":[2,0,1,258,48],
-"classcore_1_1ExplorationSession.html#a61a51d1501e6ffc4b5bbd230ee851d16":[3,0,0,258,48],
-"classcore_1_1ExplorationSession.html#a656c99045430e47cb75d3432c7771af7":[2,0,1,258,46],
 "classcore_1_1ExplorationSession.html#a656c99045430e47cb75d3432c7771af7":[3,0,0,258,46],
 "classcore_1_1ExplorationSession.html#a6781bd6415f58cae52d3698168a9060e":[2,0,1,258,15],
 "classcore_1_1ExplorationSession.html#a6781bd6415f58cae52d3698168a9060e":[3,0,0,258,15],
@@ -249,5 +238,16 @@ var NAVTREEINDEX6 =
 "classcore_1_1Level.html#ae35449d33bf4e7caa6c2a5bfb7516540":[2,0,1,126,2],
 "classcore_1_1Level.html#ae35449d33bf4e7caa6c2a5bfb7516540":[3,0,0,126,2],
 "classcore_1_1Level.html#ae6faff5815b1f2b4b2c8434b76b6b40e":[2,0,1,126,0],
-"classcore_1_1Level.html#ae6faff5815b1f2b4b2c8434b76b6b40e":[3,0,0,126,0]
+"classcore_1_1Level.html#ae6faff5815b1f2b4b2c8434b76b6b40e":[3,0,0,126,0],
+"classcore_1_1Level.html#aee9b7a56e28c3185ead06c35bbcb77de":[2,0,1,126,9],
+"classcore_1_1Level.html#aee9b7a56e28c3185ead06c35bbcb77de":[3,0,0,126,9],
+"classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef":[2,0,1,126,11],
+"classcore_1_1Level.html#af42df8d6a33bdaa7aedf5b2aafd728ef":[3,0,0,126,11],
+"classcore_1_1LevelDraft.html":[2,0,1,127],
+"classcore_1_1LevelDraft.html":[3,0,0,127],
+"classcore_1_1LevelDraft.html#a0017cadc8caea0b43ba08b120ce76bb0":[2,0,1,127,65],
+"classcore_1_1LevelDraft.html#a0017cadc8caea0b43ba08b120ce76bb0":[3,0,0,127,65],
+"classcore_1_1LevelDraft.html#a003ed4fa8fab2d4d6dc0f60e12ea670e":[2,0,1,127,2],
+"classcore_1_1LevelDraft.html#a003ed4fa8fab2d4d6dc0f60e12ea670e":[3,0,0,127,2],
+"classcore_1_1LevelDraft.html#a00ca9003b47f9e9aa47adb784018ce61":[2,0,1,127,20]
 };

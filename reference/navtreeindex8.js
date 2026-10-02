@@ -1,16 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"classcore_1_1Party.html#a20df81b2b4e0c64c67b357579949de7e":[2,0,1,224,12],
-"classcore_1_1Party.html#a20df81b2b4e0c64c67b357579949de7e":[3,0,0,224,12],
-"classcore_1_1Party.html#a3e10686bb21889a5876b4ca34aeaecec":[2,0,1,224,7],
-"classcore_1_1Party.html#a3e10686bb21889a5876b4ca34aeaecec":[3,0,0,224,7],
-"classcore_1_1Party.html#a4b0a1080e064efaf5f9039b980b91255":[2,0,1,224,5],
-"classcore_1_1Party.html#a4b0a1080e064efaf5f9039b980b91255":[3,0,0,224,5],
-"classcore_1_1Party.html#a54738c009dfbacd448f0f0ff5a70112f":[2,0,1,224,14],
-"classcore_1_1Party.html#a54738c009dfbacd448f0f0ff5a70112f":[3,0,0,224,14],
-"classcore_1_1Party.html#a94fef3257dc81043649e96a329f7b459":[2,0,1,224,2],
-"classcore_1_1Party.html#a94fef3257dc81043649e96a329f7b459":[3,0,0,224,2],
-"classcore_1_1Party.html#a9579916b113b7ff22e1c570dd84d791c":[2,0,1,224,13],
 "classcore_1_1Party.html#a9579916b113b7ff22e1c570dd84d791c":[3,0,0,224,13],
 "classcore_1_1Party.html#a9781568e9478adf625e20e012ac60379":[2,0,1,224,8],
 "classcore_1_1Party.html#a9781568e9478adf625e20e012ac60379":[3,0,0,224,8],
@@ -249,5 +238,16 @@ var NAVTREEINDEX8 =
 "classcore_1_1World.html#ad3b759b0967b0ca1a82f3462281a278d":[2,0,1,106,10],
 "classcore_1_1World.html#ad3b759b0967b0ca1a82f3462281a278d":[3,0,0,106,10],
 "classcore_1_1WorldFlags.html":[2,0,1,122],
-"classcore_1_1WorldFlags.html":[3,0,0,122]
+"classcore_1_1WorldFlags.html":[3,0,0,122],
+"classcore_1_1WorldFlags.html#a01d2b4b40b963acf540d029c3bd786ce":[2,0,1,122,9],
+"classcore_1_1WorldFlags.html#a01d2b4b40b963acf540d029c3bd786ce":[3,0,0,122,9],
+"classcore_1_1WorldFlags.html#a04c9fb35647f10ac89cb463b11181993":[2,0,1,122,11],
+"classcore_1_1WorldFlags.html#a04c9fb35647f10ac89cb463b11181993":[3,0,0,122,11],
+"classcore_1_1WorldFlags.html#a0ac0d9d875997794ed47dac010bb176d":[2,0,1,122,4],
+"classcore_1_1WorldFlags.html#a0ac0d9d875997794ed47dac010bb176d":[3,0,0,122,4],
+"classcore_1_1WorldFlags.html#a0fd00022ca39e40658084862fd4d5d4a":[2,0,1,122,6],
+"classcore_1_1WorldFlags.html#a0fd00022ca39e40658084862fd4d5d4a":[3,0,0,122,6],
+"classcore_1_1WorldFlags.html#a2524c2ca8b67f866631463f75cca1de9":[2,0,1,122,14],
+"classcore_1_1WorldFlags.html#a2524c2ca8b67f866631463f75cca1de9":[3,0,0,122,14],
+"classcore_1_1WorldFlags.html#a3797e8a077be4135863da9d417985327":[2,0,1,122,12]
 };
