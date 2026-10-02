@@ -160,6 +160,25 @@ public:
                              raisedDepth(origin.y, rise)};
     }
 
+    /**
+     * @brief Tourne un maillage posé autour de sa verticale (`LOT-1005`) : la pose @p transform,
+     *        précédée d'une rotation de @p yaw radians qui amène l'axe +Z du maillage vers son
+     *        axe +X. Un modèle regarde vers +Z : tourné de `yaw`, il regarde vers
+     *        (sin yaw, 0, cos yaw).
+     */
+    [[nodiscard]] static ViewTransform turned(const ViewTransform& transform, float yaw) noexcept {
+        const float cosine = std::cos(yaw);
+        const float sine = std::sin(yaw);
+        ViewTransform out = transform;
+        for (std::size_t row = 0; row < 3; ++row) {
+            const float alongX = transform[row * 4];
+            const float alongZ = transform[(row * 4) + 2];
+            out[row * 4] = (alongX * cosine) - (alongZ * sine);
+            out[(row * 4) + 2] = (alongX * sine) + (alongZ * cosine);
+        }
+        return out;
+    }
+
     /// @return Le point de la vue où @p transform met le point (@p x, @p y, @p z) du maillage.
     [[nodiscard]] static std::array<float, 3> apply(const ViewTransform& transform, float x,
                                                     float y, float z) noexcept {

@@ -47,8 +47,8 @@ qui rend la production stable — les quatre marches peintes du brawler avaient 
 | 1. **Peindre** le portrait, puis l'image de référence ([§3](#3-limage-de-référence)) | le générateur d'images, sur commande de Claude ; l'auteur valide | deux images, dans l'atelier |
 | 2. **Générer** le maillage, puis sa texture ([§4](#4-la-génération)) | Meshy, lancé par l'auteur | un `.glb` texturé, déposé par l'auteur dans l'atelier |
 | 3. **Juger la forme** en matériau neutre, puis texturée : face, profil, dos, gros plan du visage | l'auteur | un verdict — un maillage refusé se **régénère**, il ne se retouche pas |
-| 4. **Lier** au squelette et poser les clips ([§5](#5-le-squelette), [§6](#6-la-liaison), [§7](#7-les-clips)) | Blender sans fenêtre, par script, d'après la fiche de liaison | un `.glb` autonome : maillage, texture, squelette, clips |
-| 5. **Contrôler** l'export ([§9](#9-les-contrôles)) | script | un relevé, conservé avec le modèle |
+| 4. **Lier** au squelette et poser les clips ([§5](#5-le-squelette), [§6](#6-la-liaison), [§7](#7-les-clips)) | `scripts/assetsGeneration/rig_character.py`, d'après la fiche de liaison (depuis le LOT-1005 : un calcul, sans Blender) | un `.glb` autonome : maillage, texture, squelette, clips ; et `skeleton.json` |
+| 5. **Contrôler** l'export ([§9](#9-les-contrôles)), et le **montrer** | `scripts/checks/check_character_model.py` ; `scripts/assetsGeneration/render_character_review.py` rend chaque clip en huit poses sous la caméra du jeu | un relevé, conservé avec le modèle ; les planches que l'auteur juge |
 | 6. **Installer** et **publier** le kit | `install_hd_asset.py`, `publish_asset_kit.py` | l'asset dans le jeu, le kit verrouillé |
 
 Jusqu'au [LOT-1006](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1006-corps-de-reference.md), le
@@ -95,8 +95,8 @@ Les réglages **mesurés** au LOT-1000, sur deux personnages validés par l'aute
 | Export | `.glb` texturé, téléchargé **par l'auteur** (le navigateur piloté ne reçoit pas le fichier) | — |
 
 Soit **30 crédits par personnage**. Les copies exportées font 102 894 et 102 988 triangles ; elles
-ne sont pas réduites davantage ([budget](style-3d.md#3-le-poids-dun-modèle), ouvert jusqu'au
-LOT-1005).
+ne sont pas réduites davantage ([budget](style-3d.md#3-le-poids-dun-modèle) : 100 000 triangles
+et 2048 px de texture au plus, fixé au LOT-1005).
 
 > **Décision de l'auteur, 2 octobre 2026 — la réduction se fait par script.** Le maître téléchargé
 > de Meshy (de 10 000 à 2,6 millions de triangles, mesuré sur les 44 modèles de la démo) passe par
@@ -181,9 +181,14 @@ Les animations sont posées **une fois**, sur le squelette, et rejouées par tou
   tous les maillages liés au squelette.
 - **Le contact au sol** se corrige par clip : la hauteur de la racine est recalée sur la surface
   évaluée du maillage, image par image.
-- **L'image clé** d'un clip — l'instant de l'impact — est une donnée du clip ; le
-  [LOT-1005](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1005-squelette-et-animations.md) fixe
-  où elle s'écrit.
+- **L'image clé** d'un clip — l'instant de l'impact — est une donnée du clip. Depuis le
+  [LOT-1005](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1005-squelette-et-animations.md) elle
+  s'écrit, avec la durée et la boucle, dans la **description du squelette**
+  (`Common/Characters/Skeletons/<silhouette>/skeleton.json`, champ `key`, en secondes) : le combat
+  y accroche le touché de la cible. Les courbes sont dans le `.glb` de chaque personnage, posées
+  sur ses propres articulations ; le script de liaison écrit les deux d'une même source.
+- **La fiche du personnage** (`character.json`, dans son dossier) nomme son modèle et son
+  squelette : c'est elle que le moteur lit pour savoir qu'un personnage est un modèle.
 - Les quatre clips « pose simple » et `cast` sont **repris** au LOT-1006, qui les soumet à
   l'auteur comme la marche l'a été.
 

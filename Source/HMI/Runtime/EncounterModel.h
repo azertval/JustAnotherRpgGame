@@ -196,6 +196,8 @@ private:
         std::string directory;
         bool oriented = false;
         bool hero = false;
+        /// Le modèle de la figurine (`LOT-1005`), vide pour des bandes.
+        std::string model;
     };
 
     /// Lit les catalogues à la première rencontre ; @return faux s'il manque l'essentiel.

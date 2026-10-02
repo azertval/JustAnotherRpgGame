@@ -1,14 +1,14 @@
 # HMI · Game
 
-Tests unitaires — **21 cas** (7 critiques, 10 majeurs, 4 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **23 cas** (9 critiques, 10 majeurs, 4 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
-| [`test_combat_cues.cpp`](#test-combat-cuescpp) | 5 | - | 2 | 2 | 1 |
+| [`test_combat_cues.cpp`](#test-combat-cuescpp) | 6 | - | 3 | 2 | 1 |
 | [`test_debug_commands.cpp`](#test-debug-commandscpp) | 4 | - | 1 | 2 | 1 |
-| [`test_figure_resolver.cpp`](#test-figure-resolvercpp) | 2 | - | 1 | 1 | - |
+| [`test_figure_resolver.cpp`](#test-figure-resolvercpp) | 3 | - | 2 | 1 | - |
 | [`test_launch_options.cpp`](#test-launch-optionscpp) | 6 | - | 1 | 3 | 2 |
 | [`test_level_scan.cpp`](#test-level-scancpp) | 4 | - | 2 | 2 | - |
 
@@ -147,6 +147,40 @@ Un trait de feu vers la gauche de l'ecran joue `fire-bolt-left`.
 - Vérifie que `file.effects()[0].point.y` vaut `3.5F`, à `1e-4F` près.
 - Vérifie que `file.effects().empty()` est vrai.
 
+### CombatCuesTest.LesSignauxPartentALImageCleDuClip
+
+*Critique · Unitaire · Combat sur la carte · Squelette* — `Source/Test/Unit/HMI/Game/test_combat_cues.cpp:266`
+
+Les signaux du combat partent a l'image cle du clip.
+
+**Étapes**
+
+1. Donner au heros les durees d'un squelette dont l'attaque dure 1,0 s et porte a 0,7 s, et au rat un touche de 0,3 s.
+2. Pousser une attaque du heros sur le rat et le touche du rat.
+3. Avancer a 0,6 s, a 0,75 s, a 0,95 s, puis a 1,05 s.
+
+**Résultat attendu**
+
+- Vérifie que `durees.attack` vaut `(hmi::GestureTiming{.seconds = 1.0F, .impact = 0.7F})`.
+- Vérifie que `durees.ranged` vaut `durees.attack`.
+- Vérifie que `durees.cast` vaut `(hmi::GestureTiming{.seconds = 0.6F, .impact = 0.3F})`.
+- Vérifie que `durees.hit` vaut `0.3F` (comparaison flottante).
+- Vérifie que `durees.death` vaut `hmi::CombatCueTrack::ACTION_SECONDS` (comparaison flottante).
+- Vérifie que `hmi::CombatCueTrack::timingsOf(nullptr)` vaut `hmi::CombatCueTrack::stripTimings()`.
+- Vérifie que `heros` diffère de `nullptr`.
+- Vérifie que `rat` diffère de `nullptr`.
+- Vérifie que `heros->clip` vaut `hmi::figure_clips::ATTACK`.
+- Vérifie que `heros->clipSeconds` vaut `0.6F`, à `1e-4F` près.
+- Vérifie que `heros->heading` vaut `hmi::figureHeadingOf(hmi::FigureFacing::SouthWest)`, à `1e-4F` près.
+- Vérifie que `rat->clip` vaut `hmi::figure_clips::IDLE`.
+- Vérifie que `rat->clip` vaut `hmi::figure_clips::HIT`.
+- Vérifie que `rat->clipSeconds` vaut `0.05F`, à `1e-4F` près.
+- Vérifie que `rat->clip` vaut `hmi::figure_clips::HIT`.
+- Vérifie que `heros->clip` vaut `hmi::figure_clips::ATTACK`.
+- Vérifie que `rat->clip` vaut `hmi::figure_clips::IDLE`.
+- Vérifie que `heros->clip` vaut `hmi::figure_clips::IDLE`.
+- Vérifie que `file.busy()` est faux.
+
 ## test_debug_commands.cpp
 
 ### DebugCommands.LeCatalogueSuitLesSourcesDuJeu
@@ -269,6 +303,39 @@ Le resolveur retient ce qu'il a trouve jusqu'a ce qu'on l'oublie.
 - Vérifie que `resolveur.resolve("Npc/guard", {}, table).placeholder` est vrai.
 - Vérifie que `propre.placeholder` est faux.
 - Vérifie que `propre.directory` vaut `"Npc/guard"`.
+
+### FigureResolverTest.UnPersonnageEnModeleEtSonMannequin
+
+*Critique · Unitaire · Mannequins · Squelette* — `Source/Test/Unit/HMI/Game/test_figure_resolver.cpp:118`
+
+Le resolveur reconnait un personnage en modele, et son mannequin.
+
+**Étapes**
+
+1. Resoudre le pantin de la carte d'essai, qui a une fiche et un modele.
+2. Resoudre la figurine temoin de la meme racine, qui n'a que des bandes.
+3. Dans un dossier d'essai, installer un mannequin humanoide en modele a cote du mannequin en bandes, et resoudre un garde absent.
+4. Y poser une fiche dont le modele manque, et resoudre ce personnage.
+
+**Résultat attendu**
+
+- Vérifie que `pantin.directory` vaut `"Npc/pantin"`.
+- Vérifie que `pantin.model` vaut `"Npc/pantin/pantin.glb"`.
+- Vérifie que `pantin.oriented` est vrai.
+- Vérifie que `pantin.placeholder` est faux.
+- Vérifie que `pantin.skeleton` diffère de `nullptr`.
+- Vérifie que `attaque` diffère de `nullptr`.
+- Vérifie que `attaque->key.has_value()` est vrai.
+- Vérifie que `*attaque->key` vaut `0.4F` (comparaison flottante).
+- Vérifie que `temoin.directory` vaut `"Npc/temoin"`.
+- Vérifie que `temoin.model.empty()` est vrai.
+- Vérifie que `temoin.skeleton` vaut `nullptr`.
+- Vérifie que `garde.directory` vaut `mannequin`.
+- Vérifie que `garde.model` vaut `mannequin + "/humanoid.glb"`.
+- Vérifie que `garde.placeholder` est vrai.
+- Vérifie que `garde.skeleton` vaut `nullptr`.
+- Vérifie que `fantome.placeholder` est vrai.
+- Vérifie que `fantome.directory` vaut `mannequin`.
 
 ## test_launch_options.cpp
 

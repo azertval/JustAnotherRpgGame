@@ -70,6 +70,13 @@ class QRhiResourceUpdateBatch;
  * caméra est la même (`hmi::PlaceCamera`) ; elle ramène alors la profondeur de la vue
  * (`hmi::IsoView`) à l'étendue du tampon.
  *
+ * ## Les figurines en modèle (`LOT-1005`)
+ *
+ * Une figurine dont l'instantané nomme un modèle (`WorldFigureSnapshot::model`) se charge de même
+ * — son `.glb`, la fiche de son dossier, la description du squelette qu'elle cite — et se dessine
+ * par la même passe, avec la pose que la composition a calculée pour l'image. Une figurine en
+ * bandes garde son chemin d'avant.
+ *
  * Tout cela n'a lieu que si l'image **a** un maillage. Sans lui — toutes les cartes livrées à
  * l'ouverture du lot —, le pipeline, les sommets et la matrice sont ceux d'avant : l'image est la
  * même au pixel. La cible doit avoir un tampon de profondeur dès qu'une carte pose un volume ; les
@@ -279,6 +286,9 @@ private:
     void ensureTextures(const std::vector<std::string>& paths);
     /// Charge les maillages de @p paths qui manquent encore (`LOT-1003`). Sur le fil de rendu.
     void ensureMeshes(const std::vector<std::string>& paths);
+    /// Charge les modèles de figurine de @p paths qui manquent encore (`LOT-1005`) : le maillage,
+    /// son squelette, et ce que le squelette de sa fiche déclare. Sur le fil de rendu.
+    void ensureFigureModels(const std::vector<std::string>& paths);
     /// Ce qui est périmé — textures de la carte et des figurines, composition — est refait. Le lot
     /// de téléversements de l'appelant est déjà déclaré (`SceneResources::setFrameUpdates`).
     void refresh(const core::IsoProjection& projection);
@@ -308,6 +318,8 @@ private:
     std::set<std::string> _requested;
     /// Les manifestes des lieux, lus une fois pour toutes les textures (audit, A6).
     ManifestCache _manifests;
+    /// Les descriptions de squelette déjà lues, par silhouette ; nulle pour une qui ne se lit pas.
+    std::map<std::string, std::shared_ptr<const core::SkeletonDescription>, std::less<>> _skeletons;
 
     QRhi* _rhi = nullptr;
     QRhiResourceUpdateBatch* _pendingUploads = nullptr;

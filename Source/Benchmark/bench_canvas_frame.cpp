@@ -29,8 +29,13 @@
 #include <QColor>
 #include <QImage>
 #include <QSize>
+#include <algorithm>
+#include <cstdlib>
 #include <filesystem>
 #include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 #include <benchmark/benchmark.h>
 
@@ -139,3 +144,118 @@ static void CanvasTravelArenareaZoomedOut(benchmark::State& state) {
     travelArenarea(state, 25.0F);
 }
 BENCHMARK(CanvasTravelArenareaZoomedOut)->Unit(benchmark::kMillisecond);
+
+namespace {
+
+/// Les modèles à mesurer : les huit premiers `.glb` du dossier que désigne la variable
+/// d'environnement `JADG_FIGURE_MODELS` (les modèles de l'atelier, jamais suivis par Git), à défaut
+/// le mannequin d'essai, huit fois.
+std::vector<std::string> figureModels() {
+    std::vector<std::string> models;
+    char* value = nullptr;
+    std::size_t size = 0;
+    if (_dupenv_s(&value, &size, "JADG_FIGURE_MODELS") == 0 && value != nullptr) {
+        std::error_code error;
+        for (const auto& entry :
+             std::filesystem::recursive_directory_iterator(std::filesystem::path(value), error)) {
+            if (entry.is_regular_file(error) && entry.path().extension() == ".glb") {
+                models.push_back(entry.path().generic_string());
+            }
+        }
+        std::free(value);  // NOLINT(cppcoreguidelines-no-malloc) : allouee par _dupenv_s
+        std::ranges::sort(models);
+    }
+    const std::string fixture =
+        (std::filesystem::path(JADG_CHARACTER_FIXTURE_DIR) / "Assets" / "Common" / "Characters" /
+         "Mannequins" / "humanoid" / "humanoid.glb")
+            .generic_string();
+    for (std::size_t rank = models.size(); rank < 8; ++rank) {
+        models.push_back(models.empty() ? fixture : models[rank % models.size()]);
+    }
+    models.resize(8);
+    return models;
+}
+
+/// Une image du jeu à 1080p sur Arenarea, cadrée sur l'avenue, avec @p modelCount modèles animés
+/// (0 : la figurine en bandes seule, la référence).
+void worldFrame(benchmark::State& state, std::size_t modelCount) {
+    const std::filesystem::path elements(JADG_ELEMENTS_DIR);
+    const core::LevelLoadResult map = core::LevelLoader::loadFromFile(elements / "Levels" / MAP);
+    const hmi::PlaceAppearanceResult appearance =
+        hmi::PlaceAppearance::loadForPlace(elements / "Assets", PLACE);
+    const std::shared_ptr<hmi::OffscreenRhi> offscreen = hmi::OffscreenRhi::shared();
+    if (!map.ok() || !appearance.ok() || !offscreen) {
+        state.SkipWithError("carte d'Arenarea illisible, ou aucune interface QRhi");
+        return;
+    }
+    const std::vector<std::string> models = figureModels();
+    std::vector<hmi::WorldFigureSnapshot> figures;
+    for (std::size_t rank = 0; rank < std::max<std::size_t>(modelCount, 1); ++rank) {
+        hmi::WorldFigureSnapshot figure{.figure = "Common/Characters/Heroes/brawler",
+                                        .clip = "walk",
+                                        .point = {58.5F + (1.5F * static_cast<float>(rank % 4)),
+                                                  41.5F + (2.0F * static_cast<float>(rank / 4))},
+                                        .facing = hmi::FigureFacing::SouthEast,
+                                        .seconds = 0.0F,
+                                        .hero = rank == 0};
+        if (modelCount > 0) {
+            // Un chemin absolu : le rendu le lit tel quel, hors du dossier des assets.
+            figure.model = models[rank];
+            figure.heading = 0.4F * static_cast<float>(rank);
+        }
+        figures.push_back(std::move(figure));
+    }
+    hmi::WorldSceneSnapshot snapshot =
+        hmi::snapshotWorldScene(*map.level, appearance.appearance, figures);
+    const core::IsoProjection projection(snapshot.columns, snapshot.rows,
+                                         core::ARENA_TILE_WIDTH_UNITS, snapshot.diamondRatio);
+    hmi::WorldSceneRenderer renderer(elements / "Assets");
+    if (!renderer.ensureResources(offscreen->rhi())) {
+        state.SkipWithError("les ressources du rendu ne se creent pas");
+        return;
+    }
+    renderer.setSnapshot(std::move(snapshot));
+    const QSize size(1920, 1080);
+    const QColor background(24, 26, 30);
+    const hmi::WorldFraming framing{
+        .center = projection.gridToWorld({60.5F, 42.5F}),
+        .pixelsPerUnit = hmi::worldTilePixels(1080) / projection.tileWidth()};
+    // Une première image chauffe : modèles lus, textures téléversées, pipelines créés.
+    benchmark::DoNotOptimize(offscreen->render(renderer, size, framing, background));
+    float seconds = 0.0F;
+    for (auto _ : state) {
+        seconds += 1.0F / 60.0F;
+        for (std::size_t rank = 0; rank < figures.size(); ++rank) {
+            figures[rank].seconds = seconds + (0.07F * static_cast<float>(rank));
+        }
+        renderer.setFigures(figures);
+        const QImage image = offscreen->render(renderer, size, framing, background);
+        benchmark::DoNotOptimize(image.constBits());
+    }
+    state.counters["primitives"] = static_cast<double>(renderer.composed().size());
+    state.counters["modeles"] = static_cast<double>(renderer.textures().figures.size());
+    state.counters["maillages"] = static_cast<double>(renderer.composed().meshes().size());
+    state.counters["Mio"] = static_cast<double>(renderer.textureBytes()) / (1024.0 * 1024.0);
+    renderer.release();
+}
+
+}  // namespace
+
+/// L'image du jeu à 1080p, le héros en bandes : la référence d'avant le `LOT-1005`.
+static void WorldFrameStrips1080p(benchmark::State& state) {
+    worldFrame(state, 0);
+}
+BENCHMARK(WorldFrameStrips1080p)->Unit(benchmark::kMillisecond);
+
+/// La même image avec un, puis huit modèles animés à l'écran (`LOT-1005`) : la pose de leurs os, et
+/// leur dessin par la carte graphique. `JADG_FIGURE_MODELS` désigne les modèles de l'atelier pour
+/// mesurer le budget d'un modèle livré ; sans elle, le mannequin d'essai.
+static void WorldFrameOneModel1080p(benchmark::State& state) {
+    worldFrame(state, 1);
+}
+BENCHMARK(WorldFrameOneModel1080p)->Unit(benchmark::kMillisecond);
+
+static void WorldFrameEightModels1080p(benchmark::State& state) {
+    worldFrame(state, 8);
+}
+BENCHMARK(WorldFrameEightModels1080p)->Unit(benchmark::kMillisecond);

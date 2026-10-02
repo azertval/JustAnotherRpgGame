@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "silhouette": "pantin",
+  "comment": "Le squelette du pantin d'essai (LOT-1005), écrit par scripts/assetsGeneration/build_mesh_fixture.py, jamais à la main.",
+  "bones": [
+    {
+      "name": "Root",
+      "parent": ""
+    },
+    {
+      "name": "spine_01",
+      "parent": "Root"
+    },
+    {
+      "name": "head",
+      "parent": "spine_01"
+    }
+  ],
+  "clips": [
+    {
+      "name": "idle",
+      "duration": 1.0,
+      "loop": true
+    },
+    {
+      "name": "walk",
+      "duration": 0.5,
+      "loop": true
+    },
+    {
+      "name": "attack",
+      "duration": 0.8,
+      "loop": false,
+      "key": 0.4
+    },
+    {
+      "name": "cast",
+      "duration": 0.6,
+      "loop": false,
+      "key": 0.3
+    },
+    {
+      "name": "hit",
+      "duration": 0.4,
+      "loop": false
+    },
+    {
+      "name": "death",
+      "duration": 0.8,
+      "loop": false
+    }
+  ]
+}

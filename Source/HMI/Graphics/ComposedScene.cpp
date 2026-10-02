@@ -13,6 +13,7 @@ namespace hmi {
 void ComposedScene::clear() noexcept {
     _quads.clear();
     _meshes.clear();
+    _poses.clear();
     _textureOrder.clear();
     _textureRanks.clear();
     _considered = 0;
@@ -133,12 +134,19 @@ bool ComposedScene::addPoly(RenderLayer layer, TextureHandle texture, std::int32
 
 // Ajoute un maillage place a la scene, s'il est visible (LOT-1003).
 bool ComposedScene::addMesh(RenderLayer layer, MeshHandle mesh, const ViewTransform& toView,
-                            const core::Rect& bounds, int storey) {
+                            const core::Rect& bounds, int storey, std::span<const float> pose) {
     if (mesh == nullptr || !isVisible(bounds)) {
         return false;
     }
-    _meshes.push_back(ComposedMesh{
-        .layer = layer, .mesh = mesh, .toView = toView, .bounds = bounds, .storey = storey});
+    ComposedMesh placed{
+        .layer = layer, .mesh = mesh, .toView = toView, .bounds = bounds, .storey = storey};
+    // La pose d'un maillage anime (LOT-1005) est recopiee : la scene se suffit, comme pour un quad.
+    if (!pose.empty()) {
+        placed.poseOffset = static_cast<std::uint32_t>(_poses.size());
+        placed.poseFloats = static_cast<std::uint32_t>(pose.size());
+        _poses.insert(_poses.end(), pose.begin(), pose.end());
+    }
+    _meshes.push_back(placed);
     return true;
 }
 

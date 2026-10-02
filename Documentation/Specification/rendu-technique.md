@@ -40,6 +40,11 @@ la façon dont une figurine se pose sur sa case, et le facteur d'affichage dédu
   jamais dans le code (`EX-EXP-011`). Depuis le `LOT-1000`, une bande n'est plus peinte : elle est
   **rendue depuis le modèle** du personnage, sous la caméra du jeu, et s'installe telle quelle.
   Cette exigence vit jusqu'au `LOT-1006`, où le moteur anime le modèle lui-même (`EX-VIS-008`).
+  > **Mise en œuvre par étapes** (`LOT-1005`). Le moteur sait animer un modèle : un personnage
+  > dont le dossier porte une fiche (`character.json`) est un maillage lié à un squelette, déformé
+  > par ses os, qui joue les clips de son `.glb` et s'oriente librement. La durée, la boucle et
+  > l'**image clé** de chaque clip sont des données du squelette (`skeleton.json`, `EX-REN-005`).
+  > Les personnages livrés restent en bandes jusqu'au `LOT-1006`.
 - **EX-REN-005** — Les **animations** doivent être décrites par des **données**
   (clip nommé, suite d'images, durée par image, bouclé ou joué une fois) et non codées en dur. Un
   asset sans description d'animation est affiché comme une **image fixe**.

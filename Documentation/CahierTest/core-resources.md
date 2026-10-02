@@ -1,6 +1,6 @@
 # Core · Resources
 
-Tests unitaires — **27 cas** (8 bloquants, 6 critiques, 12 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **33 cas** (12 bloquants, 6 critiques, 14 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -10,6 +10,7 @@ Tests unitaires — **27 cas** (8 bloquants, 6 critiques, 12 majeurs, 1 mineur).
 | [`test_mesh_file.cpp`](#test-mesh-filecpp) | 7 | 3 | - | 3 | 1 |
 | [`test_scene_piece_manifest.cpp`](#test-scene-piece-manifestcpp) | 3 | 2 | - | 1 | - |
 | [`test_scene_place.cpp`](#test-scene-placecpp) | 8 | 3 | - | 5 | - |
+| [`test_skeleton.cpp`](#test-skeletoncpp) | 6 | 4 | - | 2 | - |
 
 ## test_asset_keys.cpp
 
@@ -592,3 +593,164 @@ Les figurines d'un lieu viennent de ses niveaux.
 - Vérifie que `core::figureDirectory({}, "Monsters/lion")` vaut `"Monsters/lion"`.
 - Vérifie que `core::figureDirectory({}, "figurant")` vaut `"Npc/figurant"`.
 - Vérifie que `core::figureDirectory({}, "")` vaut `""`.
+
+## test_skeleton.cpp
+
+### SkeletonTest.LeChargeurLitLeSqueletteEtLesClips
+
+*Bloquant · Unitaire · Maillages · Squelette* — `Source/Test/Unit/Core/Resources/test_skeleton.cpp:75`
+
+Le chargeur lit le squelette et les clips d'un modele lie.
+
+**Étapes**
+
+1. Lire le pantin de la carte d'essai.
+
+**Résultat attendu**
+
+- Vérifie que `mesh.skinned` est vrai.
+- Vérifie que `mesh.rig.joints.size()` vaut `3U`.
+- Vérifie que `mesh.rig.joints[0].name` vaut `"Root"`.
+- Vérifie que `mesh.rig.joints[1].name` vaut `"spine_01"`.
+- Vérifie que `mesh.rig.joints[2].name` vaut `"head"`.
+- Vérifie que `mesh.rig.joints[0].parent` vaut `-1`.
+- Vérifie que `mesh.rig.joints[1].parent` vaut `0`.
+- Vérifie que `mesh.rig.joints[2].parent` vaut `1`.
+- Vérifie que `mesh.rig.order` vaut `(std::vector<std::uint16_t>{0, 1, 2})`.
+- Vérifie que `mesh.rig.joints[2].translation[1]` vaut `0.6F`, à `TOLERANCE` près.
+- Vérifie que `mesh.rig.joints[2].inverseBind[13]` vaut `-1.5F`, à `TOLERANCE` près.
+- Vérifie que `mesh.skin.size()` vaut `mesh.vertices.size()`.
+- Vérifie que `mesh.skin[index].joints[0]` est strictement inférieur à `3U`.
+- Vérifie que `mesh.skin[index].weights[0]` vaut `1.0F` (comparaison flottante).
+- Vérifie que `mesh.skin[index].joints[0]` vaut `2U`.
+- Vérifie que `mesh.skin[index].joints[0]` vaut `0U`.
+- Vérifie que `mesh.rig.clips.size()` vaut `6U`.
+- Vérifie que `walk` diffère de `nullptr`.
+- Vérifie que `walk->duration` vaut `0.5F` (comparaison flottante).
+- Vérifie que `walk->tracks.size()` vaut `3U`.
+- Vérifie que `walk->tracks[1].rotation.times.size()` vaut `4U`.
+- Vérifie que `walk->tracks[0].rotation.empty()` est vrai.
+- Vérifie que `death` diffère de `nullptr`.
+- Vérifie que `death->duration` vaut `0.8F` (comparaison flottante).
+- Vérifie que `death->tracks[0].translation.times.size()` vaut `2U`.
+- Vérifie que `core::findClip(mesh.rig, "dance")` vaut `nullptr`.
+
+### SkeletonTest.LaPoseDUnOsAUnInstant
+
+*Bloquant · Unitaire · Maillages · Squelette* — `Source/Test/Unit/Core/Resources/test_skeleton.cpp:131`
+
+La pose d'un os a un instant d'un clip.
+
+**Étapes**
+
+1. Poser le pantin au repos.
+2. Le poser a 0,4 s de son attaque (le buste penche de 60 degres autour de la hanche, a 0,9 m), puis a 0,2 s (30 degres).
+3. Le poser a la fin de sa chute (la racine basculee de 90 degres en arriere, soulevee de 0,2 m).
+
+**Résultat attendu**
+
+- Au repos, chaque point reste ou il est. A 0,4 s, le sommet du crane (0 ; 1,8 ; 0) est en (0 ; 1,35 ; 0,7794) et les pieds n'ont pas bouge ; a 0,2 s, la rotation est a mi-chemin. A la fin de la chute, le sommet du crane est en (0 ; 0,2 ; -1,8).
+
+### SkeletonTest.LInstantDUnClip
+
+*Majeur · Unitaire · Maillages · Squelette* — `Source/Test/Unit/Core/Resources/test_skeleton.cpp:171`
+
+L'instant d'un clip : ramene s'il boucle, fige sinon.
+
+**Étapes**
+
+1. Demander l'instant d'un clip de 0,5 s a 1,7 s, en boucle puis joue une fois.
+2. Demander un instant negatif, et un clip sans duree.
+
+**Résultat attendu**
+
+- Vérifie que `core::clipTime(1.7F, 0.5F, true)` vaut `0.2F`, à `TOLERANCE` près.
+- Vérifie que `core::clipTime(1.7F, 0.5F, false)` vaut `0.5F` (comparaison flottante).
+- Vérifie que `core::clipTime(-0.1F, 0.5F, true)` vaut `0.4F`, à `TOLERANCE` près.
+- Vérifie que `core::clipTime(-0.1F, 0.5F, false)` vaut `0.0F` (comparaison flottante).
+- Vérifie que `core::clipTime(3.0F, 0.0F, true)` vaut `0.0F` (comparaison flottante).
+
+### SkeletonTest.LaDescriptionDUnSqueletteSeLit
+
+*Bloquant · Unitaire · Maillages · Squelette* — `Source/Test/Unit/Core/Resources/test_skeleton.cpp:190`
+
+La description d'un squelette se lit, et ses defauts sont dits.
+
+**Étapes**
+
+1. Lire la description du squelette du pantin.
+2. Lire cinq descriptions fautives : un os dont le parent n'est pas declare avant lui, un os declare deux fois, un clip sans duree, une image cle hors du clip, une version inconnue.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `read.skeleton.silhouette` vaut `"pantin"`.
+- Vérifie que `read.skeleton.bones.size()` vaut `3U`.
+- Vérifie que `read.skeleton.bones[2]` vaut `(core::SkeletonBone{.name = "head", .parent = "spine_01"})`.
+- Vérifie que `read.skeleton.clips.size()` vaut `6U`.
+- Vérifie que `walk` diffère de `nullptr`.
+- Vérifie que `walk->loop` est vrai.
+- Vérifie que `walk->duration` vaut `0.5F` (comparaison flottante).
+- Vérifie que `walk->key.has_value()` est faux.
+- Vérifie que `attack` diffère de `nullptr`.
+- Vérifie que `attack->loop` est faux.
+- Vérifie que `attack->duration` vaut `0.8F` (comparaison flottante).
+- Vérifie que `attack->key.has_value()` est vrai.
+- Vérifie que `*attack->key` vaut `0.4F` (comparaison flottante).
+- Vérifie que `read.skeleton.clip("dance")` vaut `nullptr`.
+- Vérifie que `broken(root, R"({"name":"idle","duration":1.0,"loop":true})").ok()` est vrai.
+- Vérifie que `broken(R"({"name":"head","parent":"spine"})", "").ok()` est faux.
+- Vérifie que `broken(root + "," + root, "").ok()` est faux.
+- Vérifie que `broken(root, R"({"name":"idle","loop":true})").ok()` est faux.
+- Vérifie que `broken(root, R"({"name":"attack","duration":0.5,"key":0.9})").ok()` est faux.
+- Vérifie que `broken(root, "", 2).ok()` est faux.
+- Vérifie que `core::readSkeletonDescription("pas du json").ok()` est faux.
+- Vérifie que `core::readSkeletonFile(assets() / "absent.json").ok()` est faux.
+
+### SkeletonTest.LaFicheDUnPersonnage
+
+*Majeur · Unitaire · Maillages · Squelette* — `Source/Test/Unit/Core/Resources/test_skeleton.cpp:241`
+
+La fiche d'un personnage nomme son modele et son squelette.
+
+**Étapes**
+
+1. Lire la fiche du pantin.
+2. Lire une fiche sans modele, une fiche sans squelette, une fiche dont le modele est un chemin.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `read.sheet` vaut `(core::CharacterSheetFile{.model = "pantin.glb", .skeleton = "pantin"})`.
+- Vérifie que `core::readCharacterSheet(R"({"version":1,"skeleton":"humanoid"})").ok()` est faux.
+- Vérifie que `core::readCharacterSheet(R"({"version":1,"model":"a.glb"})").ok()` est faux.
+- Vérifie que `core::readCharacterSheet(R"({"version":1,"model":"../a.glb","skeleton":"humanoid"})").ok()` est faux.
+
+### SkeletonTest.LeModeleDEssaiPorteLeSqueletteCommun
+
+*Bloquant · Unitaire · Maillages · Squelette* — `Source/Test/Unit/Core/Resources/test_skeleton.cpp:265`
+
+Le modele d'essai porte les 53 os et les six clips du squelette commun.
+
+**Étapes**
+
+1. Lire le mannequin d'essai et la description du squelette humanoide.
+2. Comparer os et clips.
+3. Poser le modele a huit instants de chaque clip et deformer tous ses sommets.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `declared.ok()` est vrai.
+- Vérifie que `mesh.rig.joints.size()` vaut `53U`.
+- Vérifie que `skeleton.bones.size()` vaut `53U`.
+- Vérifie que `mesh.skin.size()` vaut `mesh.vertices.size()`.
+- Vérifie que `found` diffère de `mesh.rig.joints.end()`.
+- Vérifie que `parent` vaut `bone.parent`.
+- Vérifie que `skeleton.clips.size()` vaut `6U`.
+- Vérifie que `mesh.rig.clips.size()` vaut `6U`.
+- Vérifie que `curves` diffère de `nullptr`.
+- Vérifie que `curves->duration` vaut `clip.duration`, à `1e-3F` près.
+- Vérifie que `std::isfinite(point[0]) && std::isfinite(point[1]) && std::isfinite(point[2])` est vrai.
+- Vérifie que `lowest` est strictement supérieur à `-0.005F`.
+- Vérifie que `lowest` est strictement inférieur à `0.02F`.

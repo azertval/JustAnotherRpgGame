@@ -110,6 +110,10 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_mesh_composition.cpp
     # Le chargeur de maillages `.glb` (LOT-1003).
     Unit/Core/Resources/test_mesh_file.cpp
+    # Le squelette d'un modèle animé (LOT-1005) : os, clips, pose à un instant, fiches.
+    Unit/Core/Resources/test_skeleton.cpp
+    # Une figurine en modèle, de sa fiche à la scène composée, sans GPU (LOT-1005).
+    Unit/HMI/Graphics/test_figure_model.cpp
     Unit/HMI/Graphics/test_procedural_atlas.cpp
     Unit/HMI/Graphics/test_tile_visuals.cpp
     Unit/HMI/Graphics/test_texture_atlas.cpp
@@ -216,6 +220,8 @@ if(Qt6_FOUND)
         Unit/HMI/Graphics/test_offscreen_render.cpp
         # La passe de maillages et le tampon de profondeur, sur la carte d'essai (LOT-1003).
         Unit/HMI/Graphics/test_mesh_render.cpp
+        # Le pantin d'essai animé par ses os, hors écran (LOT-1005).
+        Unit/HMI/Graphics/test_figure_model_render.cpp
         ../HMI/Graphics/MeshBatch.cpp
         ../HMI/Graphics/OffscreenRender.cpp
         # Un ilot de murs du kit sur deux etages, coiffe d'un toit : le heros se voit a travers
@@ -256,6 +262,7 @@ if(Qt6_FOUND)
             ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.vert
             ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.frag
             ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.vert
+            ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh_skinned.vert
             ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.frag
     )
 else()
@@ -313,6 +320,9 @@ target_compile_definitions(UnitTests PRIVATE
     # La carte d'essai en maillages (LOT-1003) : un îlot de murs, un sol, un toit, des `.glb`
     # engendrés par script. Voir Fixtures/Meshes/README.md.
     JADG_MESH_FIXTURE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/Meshes"
+    # Le modèle d'essai animé (LOT-1005) : le mannequin humanoïde réduit, lié aux 53 os du
+    # squelette commun, et la description de ce squelette. Voir Fixtures/Characters/README.md.
+    JADG_CHARACTER_FIXTURE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/Characters"
     JADG_MOCKUP_REFERENCE_DIR="${PROJECT_SOURCE_DIR}/Planning/versions/v0.1.0/v0.0.1-demo/maquettes"
     JADG_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     JADG_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"

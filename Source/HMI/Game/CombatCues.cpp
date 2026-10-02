@@ -31,9 +31,6 @@ constexpr std::size_t MAX_FINISH_STEPS = 4096;
     return kind == CombatCueKind::Hit || kind == CombatCueKind::Death;
 }
 
-// Le temps de vol d'un projectile : il arrive quand le coup porte.
-constexpr float FLIGHT_SECONDS = CombatCueTrack::ACTION_SECONDS * CombatCueTrack::IMPACT_FRACTION;
-
 // Le suffixe d'un projectile qui vole vers la gauche de l'ecran : ses bandes sont peintes vers la
 // droite, et `build_fx.py` en pose le miroir (`<effet>-left`). En isometrique, l'ecran va vers la
 // droite quand la colonne croit plus que la rangee.
@@ -53,6 +50,8 @@ bool applyWalk(FigureMotion& figure, const std::vector<core::GridPosition>& path
         const core::Vector2 avant = path.size() >= 2 ? centerOf(path[path.size() - 2]) : start;
         figure.point = centerOf(path.back());
         figure.facing = facingTowards(avant, figure.point, figure.facing);
+        figure.heading = figureHeadingFor(
+            core::Vector2{figure.point.x - avant.x, figure.point.y - avant.y}, figure.heading);
         figure.clip = figure_clips::IDLE;
         figure.clipSeconds = 0.0F;
         return true;
@@ -65,17 +64,78 @@ bool applyWalk(FigureMotion& figure, const std::vector<core::GridPosition>& path
     figure.point =
         core::Vector2{from.x + ((to.x - from.x) * fraction), from.y + ((to.y - from.y) * fraction)};
     figure.facing = facingTowards(from, to, figure.facing);
+    figure.heading = figureHeadingFor(core::Vector2{to.x - from.x, to.y - from.y}, figure.heading);
     figure.clip = figure_clips::WALK;
     figure.clipSeconds = std::max(0.0F, elapsed);
     return false;
 }
 
+// Les durees d'un clip declare : ce qu'il dure, et son image cle -- a defaut le milieu du geste.
+[[nodiscard]] GestureTiming gestureFrom(const core::SkeletonClip& clip) noexcept {
+    return GestureTiming{
+        .seconds = clip.duration,
+        .impact = clip.key.value_or(clip.duration * CombatCueTrack::IMPACT_FRACTION)};
+}
+
 }  // namespace
+
+FigureTimings CombatCueTrack::stripTimings() noexcept {
+    const GestureTiming gesture{.seconds = ACTION_SECONDS,
+                                .impact = ACTION_SECONDS * IMPACT_FRACTION};
+    return FigureTimings{.attack = gesture,
+                         .ranged = gesture,
+                         .cast = gesture,
+                         .hit = ACTION_SECONDS,
+                         .death = ACTION_SECONDS};
+}
+
+FigureTimings CombatCueTrack::timingsOf(const core::SkeletonDescription* skeleton) {
+    FigureTimings timings = stripTimings();
+    if (skeleton == nullptr) {
+        return timings;
+    }
+    if (const core::SkeletonClip* const clip = skeleton->clip(figure_clips::ATTACK)) {
+        timings.attack = gestureFrom(*clip);
+        timings.ranged = timings.attack;
+    }
+    if (const core::SkeletonClip* const clip = skeleton->clip(figure_clips::RANGED)) {
+        timings.ranged = gestureFrom(*clip);
+    }
+    if (const core::SkeletonClip* const clip = skeleton->clip(figure_clips::CAST)) {
+        timings.cast = gestureFrom(*clip);
+    }
+    if (const core::SkeletonClip* const clip = skeleton->clip(figure_clips::HIT)) {
+        timings.hit = clip->duration;
+    }
+    if (const core::SkeletonClip* const clip = skeleton->clip(figure_clips::DEATH)) {
+        timings.death = clip->duration;
+    }
+    return timings;
+}
+
+void CombatCueTrack::setTimings(core::CombatantId actor, const FigureTimings& timings) {
+    _timings[actor] = timings;
+}
+
+const FigureTimings& CombatCueTrack::timings(core::CombatantId actor) const {
+    static const FigureTimings strips = stripTimings();
+    const auto found = _timings.find(actor);
+    return found != _timings.end() ? found->second : strips;
+}
+
+GestureTiming CombatCueTrack::gestureOf(const CombatCue& cue) const {
+    const FigureTimings& known = timings(cue.actor);
+    if (cue.kind == CombatCueKind::Cast) {
+        return known.cast;
+    }
+    return cue.ranged ? known.ranged : known.attack;
+}
 
 void CombatCueTrack::place(core::CombatantId actor, core::GridPosition cell, FigureFacing facing) {
     FigureMotion& figure = _figures[actor];
     figure.point = centerOf(cell);
     figure.facing = facing;
+    figure.heading = figureHeadingOf(facing);
     if (!figure.dead) {
         figure.clip = figure_clips::IDLE;
         figure.clipSeconds = 0.0F;
@@ -84,6 +144,7 @@ void CombatCueTrack::place(core::CombatantId actor, core::GridPosition cell, Fig
 
 void CombatCueTrack::remove(core::CombatantId actor) {
     _figures.erase(actor);
+    _timings.erase(actor);
     std::erase_if(_running, [actor](const Running& r) { return r.cue.actor == actor; });
     std::erase_if(_queue, [actor](const CombatCue& cue) { return cue.actor == actor; });
 }
@@ -101,6 +162,7 @@ void CombatCueTrack::push(CombatCue cue) {
 
 void CombatCueTrack::clear() noexcept {
     _figures.clear();
+    _timings.clear();
     _queue.clear();
     _running.clear();
 }
@@ -114,7 +176,8 @@ std::vector<EffectMotion> CombatCueTrack::effects() const {
         }
         const core::Vector2 cible = centerOf(*running.cue.target);
         if (running.cue.travels) {
-            const float t = std::min(1.0F, running.elapsed / FLIGHT_SECONDS);
+            const float t =
+                running.flight > 0.0F ? std::min(1.0F, running.elapsed / running.flight) : 1.0F;
             effets.push_back(EffectMotion{
                 .effect = projectileStrip(running.cue.effect, running.from, cible),
                 .point = core::Vector2{running.from.x + ((cible.x - running.from.x) * t),
@@ -139,33 +202,37 @@ void CombatCueTrack::startNext() {
     }
     CombatCue next = std::move(_queue.front());
     _queue.pop_front();
-    Running running{.cue = std::move(next), .elapsed = 0.0F, .from = {}};
+    Running running{.cue = std::move(next), .elapsed = 0.0F, .from = {}, .flight = 0.0F};
     if (const FigureMotion* figure = motionOf(running.cue.actor)) {
         running.from = figure->point;
     }
     const bool strike =
         running.cue.kind == CombatCueKind::Attack || running.cue.kind == CombatCueKind::Cast;
     const core::CombatantId attacker = running.cue.actor;
+    // L'instant ou le coup porte : l'image cle du geste de l'attaquant (LOT-1005).
+    const float impact = strike ? gestureOf(running.cue).impact : ACTION_SECONDS * IMPACT_FRACTION;
+    running.flight = impact;
     _running.push_back(std::move(running));
     if (!strike) {
         return;
     }
-    // Le coup porte au milieu du geste : les touches et les chutes qui le suivent immediatement
-    // -- ceux d'AUTRES combattants -- demarrent a cet instant, pas apres le geste entier. Les
-    // effets l'accompagnent aussi : un projectile part avec le geste, le reste parait a l'impact.
+    // Le coup porte a l'image cle du geste : les touches et les chutes qui le suivent
+    // immediatement -- ceux d'AUTRES combattants -- demarrent a cet instant, pas apres le geste
+    // entier. Les effets l'accompagnent aussi : un projectile part avec le geste, le reste parait
+    // a l'impact.
     while (!_queue.empty()) {
         CombatCue& suivant = _queue.front();
         if (suivant.kind == CombatCueKind::Effect) {
-            const float depart = suivant.travels ? 0.0F : -ACTION_SECONDS * IMPACT_FRACTION;
-            Running effet{.cue = std::move(suivant), .elapsed = depart, .from = {}};
+            const float depart = suivant.travels ? 0.0F : -impact;
+            Running effet{
+                .cue = std::move(suivant), .elapsed = depart, .from = {}, .flight = impact};
             if (const FigureMotion* figure = motionOf(effet.cue.actor)) {
                 effet.from = figure->point;
             }
             _running.push_back(std::move(effet));
         } else if (isVictimCue(suivant.kind) && suivant.actor != attacker) {
-            _running.push_back(Running{.cue = std::move(suivant),
-                                       .elapsed = -ACTION_SECONDS * IMPACT_FRACTION,
-                                       .from = {}});
+            _running.push_back(
+                Running{.cue = std::move(suivant), .elapsed = -impact, .from = {}, .flight = 0.0F});
         } else {
             break;
         }
@@ -186,10 +253,13 @@ bool CombatCueTrack::apply(Running& running) {
         case CombatCueKind::Attack:
         case CombatCueKind::Cast: {
             if (running.cue.target.has_value()) {
-                figure.facing =
-                    facingTowards(figure.point, centerOf(*running.cue.target), figure.facing);
+                const core::Vector2 cible = centerOf(*running.cue.target);
+                figure.facing = facingTowards(figure.point, cible, figure.facing);
+                figure.heading = figureHeadingFor(
+                    core::Vector2{cible.x - figure.point.x, cible.y - figure.point.y},
+                    figure.heading);
             }
-            if (elapsed >= ACTION_SECONDS) {
+            if (elapsed >= gestureOf(running.cue).seconds) {
                 figure.clip = figure_clips::IDLE;
                 figure.clipSeconds = 0.0F;
                 return true;
@@ -209,7 +279,7 @@ bool CombatCueTrack::apply(Running& running) {
             if (figure.dead) {
                 return true;  // un mort n'encaisse plus rien de visible
             }
-            if (elapsed >= ACTION_SECONDS) {
+            if (elapsed >= timings(running.cue.actor).hit) {
                 figure.clip = figure_clips::IDLE;
                 figure.clipSeconds = 0.0F;
                 return true;
@@ -219,7 +289,7 @@ bool CombatCueTrack::apply(Running& running) {
             return false;
         }
         case CombatCueKind::Effect:
-            return elapsed >= (running.cue.travels ? FLIGHT_SECONDS : EFFECT_SECONDS);
+            return elapsed >= (running.cue.travels ? running.flight : EFFECT_SECONDS);
         case CombatCueKind::Death: {
             if (elapsed < 0.0F) {
                 return false;
@@ -229,7 +299,7 @@ bool CombatCueTrack::apply(Running& running) {
             // La bande de mort ne revient jamais au repos : ses secondes continuent de courir, et
             // le rendu la fige sur sa derniere image (`SceneTexture::loop`).
             figure.clipSeconds = elapsed;
-            return elapsed >= ACTION_SECONDS;
+            return elapsed >= timings(running.cue.actor).death;
         }
     }
     return true;

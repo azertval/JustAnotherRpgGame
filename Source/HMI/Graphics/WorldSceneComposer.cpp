@@ -9,10 +9,12 @@
 #include <cmath>
 #include <cstddef>
 #include <limits>
+#include <numbers>
 #include <optional>
 #include <set>
 #include <utility>
 #include <variant>
+#include <vector>
 
 #include "Core/Combat/Arena.h"
 #include "Core/Combat/CombatTransition.h"
@@ -23,6 +25,7 @@
 #include "Core/Levels/TileMap.h"
 #include "Core/Resources/MeshFile.h"
 #include "Core/Resources/ScenePlace.h"
+#include "Core/Resources/SkeletonPose.h"
 #include "Core/Rpg/Dialogue.h"
 #include "Core/World/CityBlock.h"
 #include "Core/World/CombatZone.h"
@@ -603,9 +606,110 @@ struct FigurePlacement {
         .standingY = center.y};
 }
 
+// Ce dont un modele passe devant sa profondeur calculee, en biais d'image (`IsoView::imageBias`) :
+// un sol en image passe deja devant la sienne, et rognerait les semelles posees dessus.
+constexpr float MODEL_DEPTH_LEAD = 2.0F;
+
+// La cadence d'une figurine dont l'instantane ne porte pas le temps : son rang d'image, en
+// secondes -- celle des bandes de l'exploration.
+constexpr float MODEL_FRAME_SECONDS = 0.15F;
+
+// Un modele pose : son maillage, sa pose dans la vue, ce qu'il occupe a l'ecran.
+struct ModelPlacement {
+    const SceneFigureModel* model = nullptr;
+    ViewTransform toView{};
+    /// Le rectangle de sa pose de liaison : ce qu'un etage masque du heros.
+    core::Rect body{};
+    /// Un rectangle large, qui contient aussi le geste d'une attaque et le corps couche.
+    core::Rect reach{};
+    std::int32_t sortOrder = 0;
+};
+
+// Le modele charge de `figure`, pose sur sa position et tourne vers son cap ; rien si la figurine
+// n'en nomme pas, ou s'il ne s'est pas charge.
+[[nodiscard]] std::optional<ModelPlacement> placeModel(const core::IsoProjection& projection,
+                                                       const ScenePieceTextures& textures,
+                                                       const WorldFigureSnapshot& figure) {
+    const SceneFigureModel* const model =
+        figure.model.empty() ? nullptr : textures.findFigure(figure.model);
+    if (model == nullptr) {
+        return std::nullopt;
+    }
+    const IsoView view(projection);
+    // Un modele regarde vers +Z, les lignes croissantes : le cap se compte depuis +X.
+    const float heading = figure.heading.value_or(figureHeadingOf(figure.facing));
+    ViewTransform toView = IsoView::turned(view.meshTransform(figure.point, 0.0F),
+                                           (std::numbers::pi_v<float> / 2.0F) - heading);
+    toView[11] -= MODEL_DEPTH_LEAD * view.imageBias();
+    const float height = std::max(model->maximum[1], 0.1F);
+    float radius = height;
+    for (const std::size_t axis : {std::size_t{0}, std::size_t{2}}) {
+        radius = std::max({radius, std::abs(model->minimum[axis]), std::abs(model->maximum[axis])});
+    }
+    const float footY =
+        projection
+            .gridToWorld(gridPoint(figure.point.x + CELL_CENTER, figure.point.y + CELL_CENTER))
+            .y;
+    return ModelPlacement{
+        .model = model,
+        .toView = toView,
+        .body = IsoView::projectedBounds(toView, model->minimum, model->maximum),
+        .reach = IsoView::projectedBounds(toView, {-radius, -0.25F * height, -radius},
+                                          {radius, 1.25F * height, radius}),
+        .sortOrder = worldDepthSortOrder(footY, WorldDepthSlot::Figure)};
+}
+
+// Le clip que joue un modele : celui que la figurine demande, a defaut celui qui le remplace (le
+// tir sans clip de tir est une attaque), a defaut le repos ; rien si le fichier n'a aucun des
+// trois.
+[[nodiscard]] const core::MeshClip* modelClip(const core::MeshRig& rig, std::string_view clip) {
+    if (const core::MeshClip* const found = core::findClip(rig, clip)) {
+        return found;
+    }
+    if (const std::string_view repli = figure_clips::fallbackOf(clip); !repli.empty()) {
+        if (const core::MeshClip* const found = core::findClip(rig, repli)) {
+            return found;
+        }
+    }
+    return core::findClip(rig, figure_clips::IDLE);
+}
+
+void composeModel(ComposedScene& scene, const ModelPlacement& placed,
+                  const WorldFigureSnapshot& figure) {
+    const SceneFigureModel& model = *placed.model;
+    if (model.rig == nullptr || model.rig->empty()) {
+        scene.addMesh(RenderLayer::Player, model.mesh, placed.toView, placed.body);
+        return;
+    }
+    const core::MeshRig& rig = *model.rig;
+    const core::MeshClip* const clip = modelClip(rig, figure.clip);
+    float seconds = 0.0F;
+    if (clip != nullptr) {
+        // La boucle est une donnee du squelette ; un clip qu'il ne declare pas boucle, comme une
+        // bande sans `.anim.json`. Un clip joue une fois se fige sur sa fin : un mort ne se releve
+        // pas parce que le temps passe.
+        const core::SkeletonClip* const declared =
+            model.skeleton != nullptr ? model.skeleton->clip(clip->name) : nullptr;
+        const float elapsed = figure.seconds >= 0.0F
+                                  ? figure.seconds
+                                  : static_cast<float>(figure.frame) * MODEL_FRAME_SECONDS;
+        seconds = core::clipTime(elapsed, clip->duration, declared == nullptr || declared->loop);
+    }
+    // Un tampon par fil : la pose est recopiee dans la scene, il ne sert que le temps de l'appel.
+    static thread_local std::vector<float> pose;
+    pose.assign(rig.joints.size() * 16, 0.0F);
+    core::poseSkeleton(rig, clip, seconds, pose);
+    scene.addMesh(RenderLayer::Player, model.mesh, placed.toView, placed.reach, 0, pose);
+}
+
 void composeFigure(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                    const core::IsoProjection& projection, const ScenePieceTextures& textures,
                    const WorldFigureSnapshot& figure) {
+    // Un modele (LOT-1005) : un maillage anime, sans rang de dessin -- la profondeur le departage.
+    if (const std::optional<ModelPlacement> model = placeModel(projection, textures, figure)) {
+        composeModel(scene, *model, figure);
+        return;
+    }
     if (const std::optional<FigurePlacement> placed =
             placeFigure(snapshot, projection, textures, figure)) {
         scene.addSprite(RenderLayer::Player, placed->texture, placed->sortOrder, placed->quad, 0,
@@ -796,6 +900,12 @@ MaquetteMarks maquetteMarks(const std::vector<core::MapEntity>& entities, bool m
 std::string placeholderFigureDirectory(std::string_view silhouette) {
     return "Common/Characters/Placeholders/" +
            std::string{silhouette.empty() ? DEFAULT_SILHOUETTE : silhouette};
+}
+
+std::string mannequinFigureDirectory(std::string_view silhouette) {
+    std::string directory{"Common/Characters/Mannequins/"};
+    directory.append(silhouette.empty() ? DEFAULT_SILHOUETTE : silhouette);
+    return directory;
 }
 
 std::vector<WorldFigureSnapshot> npcFigures(const std::vector<core::MapEntity>& entities, int frame,
@@ -1029,6 +1139,28 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
     return snapshot;
 }
 
+float figureHeadingOf(FigureFacing facing) noexcept {
+    constexpr float QUARTER = std::numbers::pi_v<float> / 2.0F;
+    switch (facing) {
+        case FigureFacing::SouthEast:
+            return 0.0F;
+        case FigureFacing::SouthWest:
+            return QUARTER;
+        case FigureFacing::NorthWest:
+            return 2.0F * QUARTER;
+        case FigureFacing::NorthEast:
+            return -QUARTER;
+        case FigureFacing::None:
+            break;
+    }
+    // Sans orientation : face a la camera, le bas de l'ecran.
+    return QUARTER / 2.0F;
+}
+
+float figureHeadingFor(core::Vector2 move, float previous) noexcept {
+    return move.x == 0.0F && move.y == 0.0F ? previous : std::atan2(move.y, move.x);
+}
+
 std::string_view figureFacingSuffix(FigureFacing facing) noexcept {
     switch (facing) {
         case FigureFacing::SouthEast:
@@ -1124,7 +1256,9 @@ std::vector<std::string> worldFigureTexturePaths(const WorldSceneSnapshot& snaps
                                                  std::span<const WorldFigureSnapshot> figures) {
     std::set<std::string> uniques;
     for (const WorldFigureSnapshot& figure : figures) {
-        if (figure.figure.empty()) {
+        // Une figurine en modele (LOT-1005) n'a pas de bande : son fichier se charge a part
+        // (`worldFigureModelPaths`).
+        if (figure.figure.empty() || !figure.model.empty()) {
             continue;
         }
         // Les deux bandes d'une figurine : elle marche et elle attend, et le rendu ne doit pas
@@ -1142,6 +1276,16 @@ std::vector<std::string> worldFigureTexturePaths(const WorldSceneSnapshot& snaps
         uniques.insert(figureStripPath(directory, figure.clip, figure.facing));
         if (const std::string_view repli = figure_clips::fallbackOf(figure.clip); !repli.empty()) {
             uniques.insert(figureStripPath(directory, repli, figure.facing));
+        }
+    }
+    return {uniques.begin(), uniques.end()};
+}
+
+std::vector<std::string> worldFigureModelPaths(std::span<const WorldFigureSnapshot> figures) {
+    std::set<std::string> uniques;
+    for (const WorldFigureSnapshot& figure : figures) {
+        if (!figure.model.empty()) {
+            uniques.insert(figure.model);
         }
     }
     return {uniques.begin(), uniques.end()};
@@ -1194,6 +1338,10 @@ std::optional<WorldHeroPlacement> placeWorldHero(const WorldSceneSnapshot& snaps
     std::optional<WorldHeroPlacement> hero;
     for (const WorldFigureSnapshot& figure : figures) {
         if (!figure.hero) {
+            continue;
+        }
+        if (const std::optional<ModelPlacement> model = placeModel(projection, textures, figure)) {
+            hero = WorldHeroPlacement{.bounds = model->body, .sortOrder = model->sortOrder};
             continue;
         }
         if (const std::optional<FigurePlacement> placed =

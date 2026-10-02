@@ -259,3 +259,71 @@ TEST(CombatCuesTest, UnProjectileVersLaGaucheEstLeMiroir) {
     file.finishAll();
     EXPECT_TRUE(file.effects().empty());
 }
+
+/**
+ * @brief Les gestes d'un modèle durent ses clips et portent à leur image clé (`LOT-1005`) : le
+ *        touché de la cible part à l'image clé de l'attaque, pas au milieu de la bande.
+ * \castest{<b>Les signaux du combat partent a l'image cle du clip.</b><br/>
+ * \tcat Unitaire · Combat sur la carte · Squelette<br/>
+ * \tcrit Critique<br/>
+ * \tetapes 1. Donner au heros les durees d'un squelette dont l'attaque dure 1,0 s et porte a
+ * 0,7 s, et au rat un touche de 0,3 s.<br/>2. Pousser une attaque du heros sur le rat et le
+ * touche du rat.<br/>3. Avancer a 0,6 s, a 0,75 s, a 0,95 s, puis a 1,05 s.<br/>
+ * \tattendu A 0,6 s le heros attaque et le rat est au repos : le coup n'a pas porte, alors qu'une
+ * bande l'aurait fait porter a 0,32 s. A 0,75 s le rat encaisse, depuis 0,05 s. A 0,95 s il n'a
+ * pas fini (0,25 s sur 0,3), le heros attaque encore. A 1,05 s tous deux sont au repos : le geste
+ * a dure son clip. Le cap du heros est celui de sa cible.
+ * }
+ */
+TEST(CombatCuesTest, LesSignauxPartentALImageCleDuClip) {
+    core::SkeletonDescription squelette;
+    squelette.silhouette = "essai";
+    squelette.clips = {
+        core::SkeletonClip{.name = "attack", .duration = 1.0F, .loop = false, .key = 0.7F},
+        core::SkeletonClip{.name = "hit", .duration = 0.3F, .loop = false, .key = std::nullopt},
+        core::SkeletonClip{.name = "cast", .duration = 0.6F, .loop = false, .key = std::nullopt},
+    };
+    const hmi::FigureTimings durees = hmi::CombatCueTrack::timingsOf(&squelette);
+    EXPECT_EQ(durees.attack, (hmi::GestureTiming{.seconds = 1.0F, .impact = 0.7F}));
+    EXPECT_EQ(durees.ranged, durees.attack) << "le tir sans clip de tir est une attaque";
+    EXPECT_EQ(durees.cast, (hmi::GestureTiming{.seconds = 0.6F, .impact = 0.3F}))
+        << "sans image cle, le milieu du geste";
+    EXPECT_FLOAT_EQ(durees.hit, 0.3F);
+    EXPECT_FLOAT_EQ(durees.death, hmi::CombatCueTrack::ACTION_SECONDS) << "non declare : la bande";
+    EXPECT_EQ(hmi::CombatCueTrack::timingsOf(nullptr), hmi::CombatCueTrack::stripTimings());
+
+    hmi::CombatCueTrack file;
+    file.place(HEROS, {.column = 0, .row = 0});
+    file.place(RAT, {.column = 0, .row = 1});
+    file.setTimings(HEROS, durees);
+    file.setTimings(RAT, durees);
+    file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Attack,
+                             .actor = HEROS,
+                             .path = {},
+                             .target = core::GridPosition{.column = 0, .row = 1}});
+    file.push(hmi::CombatCue{.kind = hmi::CombatCueKind::Hit, .actor = RAT});
+
+    file.advance(0.6F);
+    const hmi::FigureMotion* heros = file.motionOf(HEROS);
+    const hmi::FigureMotion* rat = file.motionOf(RAT);
+    ASSERT_NE(heros, nullptr);
+    ASSERT_NE(rat, nullptr);
+    EXPECT_EQ(heros->clip, hmi::figure_clips::ATTACK);
+    EXPECT_NEAR(heros->clipSeconds, 0.6F, 1e-4F);
+    EXPECT_NEAR(heros->heading, hmi::figureHeadingOf(hmi::FigureFacing::SouthWest), 1e-4F)
+        << "tourne vers sa cible, une ligne plus bas";
+    EXPECT_EQ(rat->clip, hmi::figure_clips::IDLE) << "le coup n'a pas encore porte";
+
+    file.advance(0.15F);
+    EXPECT_EQ(rat->clip, hmi::figure_clips::HIT);
+    EXPECT_NEAR(rat->clipSeconds, 0.05F, 1e-4F);
+
+    file.advance(0.2F);
+    EXPECT_EQ(rat->clip, hmi::figure_clips::HIT);
+    EXPECT_EQ(heros->clip, hmi::figure_clips::ATTACK);
+
+    file.advance(0.1F);
+    EXPECT_EQ(rat->clip, hmi::figure_clips::IDLE);
+    EXPECT_EQ(heros->clip, hmi::figure_clips::IDLE);
+    EXPECT_FALSE(file.busy());
+}
