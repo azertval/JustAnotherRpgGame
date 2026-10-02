@@ -90,8 +90,8 @@ TEST_F(BlenderRetouch, LesFichiersSeDeduisentDeLaFiche) {
     EXPECT_EQ(deduits.sheet, atelier / "Personnages" / "bandit" / "liaison.json");
     EXPECT_EQ(deduits.retouch, atelier / "Personnages" / "bandit" / "retouche.json");
     EXPECT_EQ(deduits.blend, atelier / "Lies" / "bandit" / "bandit.blend");
-    EXPECT_EQ(deduits.skeleton, depot / "Source" / "Elements" / "Assets" / "Common" /
-                                    "Characters" / "Skeletons" / "humanoid" / "skeleton.json");
+    EXPECT_EQ(deduits.skeleton, depot / "Source" / "Elements" / "Assets" / "Common" / "Characters" /
+                                    "Skeletons" / "humanoid" / "skeleton.json");
 
     hmi::CharacterDraft fiche = bandit();
     fiche.workshop.retouch = "Retouches/bandit.json";
@@ -114,17 +114,14 @@ TEST_F(BlenderRetouch, LesFichiersSeDeduisentDeLaFiche) {
  * }
  */
 TEST_F(BlenderRetouch, CeQuiManqueEstDitAvantDOuvrirBlender) {
-    EXPECT_NE(hmi::retouchReadiness(hmi::RetouchFiles{}).find("linked model"),
-              std::string::npos);
-    EXPECT_NE(hmi::retouchReadiness(fichiers()).find("linked model not found"),
-              std::string::npos);
+    EXPECT_NE(hmi::retouchReadiness(hmi::RetouchFiles{}).find("linked model"), std::string::npos);
+    EXPECT_NE(hmi::retouchReadiness(fichiers()).find("linked model not found"), std::string::npos);
     poser("atelier/Lies/bandit/bandit.glb");
     EXPECT_NE(hmi::retouchReadiness(fichiers()).find("received model"), std::string::npos);
     poser("atelier/Standard/bandit/recu.glb");
     EXPECT_NE(hmi::retouchReadiness(fichiers()).find("liaison sheet"), std::string::npos);
     poser("atelier/Personnages/bandit/liaison.json");
-    EXPECT_NE(hmi::retouchReadiness(fichiers()).find("skeleton not installed"),
-              std::string::npos);
+    EXPECT_NE(hmi::retouchReadiness(fichiers()).find("skeleton not installed"), std::string::npos);
     poser("Source/Elements/Assets/Common/Characters/Skeletons/humanoid/skeleton.json");
     EXPECT_EQ(hmi::retouchReadiness(fichiers()), "");
 }
@@ -180,21 +177,32 @@ TEST_F(BlenderRetouch, LesDeuxCommandesPortentCeQueLeScriptAttend) {
     const hmi::RetouchFiles files = fichiers();
     const hmi::ProcessCommand ouvrir = hmi::openInBlenderCommand(outils, files);
     EXPECT_EQ(ouvrir.program, "python-essai");
-    const std::vector<std::string> ouvertureAttendue = {
-        outils.script.generic_string(), "open",       files.model.generic_string(),
-        "--blend",                      files.blend.generic_string(),
-        "--skeleton",                   files.skeleton.generic_string(),
-        "--blender",                    blender};
+    const std::vector<std::string> ouvertureAttendue = {outils.script.generic_string(),
+                                                        "open",
+                                                        files.model.generic_string(),
+                                                        "--blend",
+                                                        files.blend.generic_string(),
+                                                        "--skeleton",
+                                                        files.skeleton.generic_string(),
+                                                        "--blender",
+                                                        blender};
     EXPECT_EQ(ouvrir.arguments, ouvertureAttendue);
 
     const hmi::ProcessCommand importer = hmi::importFromBlenderCommand(outils, files);
-    const std::vector<std::string> importAttendu = {
-        outils.script.generic_string(), "import",     files.blend.generic_string(),
-        "--sheet",                      files.sheet.generic_string(),
-        "--retouch",                    files.retouch.generic_string(),
-        "--source",                     files.received.generic_string(),
-        "--output",                     files.model.generic_string(),
-        "--skeleton",                   files.skeleton.generic_string(),
-        "--blender",                    blender};
+    const std::vector<std::string> importAttendu = {outils.script.generic_string(),
+                                                    "import",
+                                                    files.blend.generic_string(),
+                                                    "--sheet",
+                                                    files.sheet.generic_string(),
+                                                    "--retouch",
+                                                    files.retouch.generic_string(),
+                                                    "--source",
+                                                    files.received.generic_string(),
+                                                    "--output",
+                                                    files.model.generic_string(),
+                                                    "--skeleton",
+                                                    files.skeleton.generic_string(),
+                                                    "--blender",
+                                                    blender};
     EXPECT_EQ(importer.arguments, importAttendu);
 }

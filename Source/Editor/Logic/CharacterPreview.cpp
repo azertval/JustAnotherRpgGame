@@ -15,7 +15,8 @@ namespace hmi {
 
 namespace {
 
-// Ce que le cadrage réserve, en mètres : un personnage de 2 m sous la caméra du jeu, une marge au-dessus et le sol devant.
+// Ce que le cadrage réserve, en mètres : un personnage de 2 m sous la caméra du jeu, une marge
+// au-dessus et le sol devant.
 constexpr float FRAMED_METRES = 2.4F;
 // La case fait 1,5 m de côté : sa diagonale, la largeur du losange, en mètres.
 constexpr float TILE_DIAGONAL_METRES = 1.5F * std::numbers::sqrt2_v<float>;

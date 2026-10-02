@@ -281,8 +281,8 @@ CharacterDraftResult readCharacterDraft(std::string_view json) {
         return result;
     }
     if (field(document, "format") != CHARACTER_SCRIPT_FORMAT) {
-        result.error = "not a character sheet (\"format\": \"" +
-                       std::string{CHARACTER_SCRIPT_FORMAT} + "\")";
+        result.error =
+            "not a character sheet (\"format\": \"" + std::string{CHARACTER_SCRIPT_FORMAT} + "\")";
         return result;
     }
     if (const auto version = document.find("version");
@@ -292,7 +292,7 @@ CharacterDraftResult readCharacterDraft(std::string_view json) {
         return result;
     }
     static constexpr std::array<std::string_view, 11> KNOWN = {
-        "format",   "version", "root",     "level", "name",    "skeleton",
+        "format",         "version", "root",     "level", "name",    "skeleton",
         "skeletonSource", "model",   "portrait", "token", "workshop"};
     for (const auto& [key, value] : document.items()) {
         if (std::ranges::find(KNOWN, std::string_view{key}) == KNOWN.end()) {
@@ -466,8 +466,8 @@ CharacterInstallPlan planCharacter(const std::filesystem::path& dataRoot,
         if (!bytes) {
             return refuse("model not found: " + draft.model);
         }
-        const core::MeshFileResult read = core::readMeshFromGlb(std::as_bytes(
-            std::span<const char>(bytes->data(), bytes->size())));
+        const core::MeshFileResult read = core::readMeshFromGlb(
+            std::as_bytes(std::span<const char>(bytes->data(), bytes->size())));
         if (!read.ok()) {
             return refuse(draft.model + ": " + read.message);
         }
@@ -524,8 +524,7 @@ CharacterInstallPlan planCharacter(const std::filesystem::path& dataRoot,
         !fault.empty()) {
         return refuse(std::move(fault));
     }
-    if (std::string fault =
-            image(draft.token, CHARACTER_TOKEN_FILE, CHARACTER_TOKEN_SIDE, "token");
+    if (std::string fault = image(draft.token, CHARACTER_TOKEN_FILE, CHARACTER_TOKEN_SIDE, "token");
         !fault.empty()) {
         return refuse(std::move(fault));
     }
@@ -722,11 +721,11 @@ std::vector<MapCheckFinding> checkCharacters(const std::filesystem::path& dataRo
         }
         auto known = skeletons.find(sheet.sheet.skeleton);
         if (known == skeletons.end()) {
-            known = skeletons
-                        .emplace(sheet.sheet.skeleton,
-                                 core::readSkeletonFile(
-                                     skeletonFileOf(dataRoot, sheet.sheet.skeleton)))
-                        .first;
+            known =
+                skeletons
+                    .emplace(sheet.sheet.skeleton,
+                             core::readSkeletonFile(skeletonFileOf(dataRoot, sheet.sheet.skeleton)))
+                    .first;
         }
         if (!known->second.ok()) {
             error("unknown skeleton \"" + sheet.sheet.skeleton + "\"");
@@ -768,8 +767,7 @@ std::vector<MapCheckFinding> checkCharacters(const std::filesystem::path& dataRo
 }
 
 std::optional<int> runCharacterCommand(const std::vector<std::string>& arguments,
-                                       const std::filesystem::path& dataRoot,
-                                       std::string& output) {
+                                       const std::filesystem::path& dataRoot, std::string& output) {
     // `--apply <fiche> [fiche…]` : les fichiers qui suivent, jusqu'à l'option suivante.
     std::vector<std::filesystem::path> files;
     for (std::size_t index = 0; index < arguments.size(); ++index) {

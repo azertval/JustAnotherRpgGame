@@ -234,10 +234,10 @@ QWidget* AssetWorkshop::buildSheetColumn() {
     form->addRow(QStringLiteral("Name"), _w->name);
     form->addRow(QStringLiteral("Skeleton"), _w->skeleton);
     sheetRows->addLayout(form);
-    _w->model = addFileRow(sheetRows, QStringLiteral("Linked model"),
-                           QStringLiteral("Models (*.glb)"));
-    _w->portrait = addFileRow(sheetRows, QStringLiteral("Portrait (512)"),
-                              QStringLiteral("Images (*.png)"));
+    _w->model =
+        addFileRow(sheetRows, QStringLiteral("Linked model"), QStringLiteral("Models (*.glb)"));
+    _w->portrait =
+        addFileRow(sheetRows, QStringLiteral("Portrait (512)"), QStringLiteral("Images (*.png)"));
     _w->token =
         addFileRow(sheetRows, QStringLiteral("Token (128)"), QStringLiteral("Images (*.png)"));
     for (QLineEdit* const edit : {_w->model, _w->portrait, _w->token}) {
@@ -248,8 +248,8 @@ QWidget* AssetWorkshop::buildSheetColumn() {
 
     auto* const blender = new QGroupBox(QStringLiteral("Blender round trip"), column);
     auto* const blenderRows = new QVBoxLayout(blender);
-    _w->received = addFileRow(blenderRows, QStringLiteral("Received model"),
-                              QStringLiteral("Models (*.glb)"));
+    _w->received =
+        addFileRow(blenderRows, QStringLiteral("Received model"), QStringLiteral("Models (*.glb)"));
     _w->liaison = addFileRow(blenderRows, QStringLiteral("Liaison sheet"),
                              QStringLiteral("Liaison sheets (*.json)"));
     auto* const blenderButtons = new QHBoxLayout;
@@ -268,8 +268,7 @@ QWidget* AssetWorkshop::buildSheetColumn() {
     blenderRows->addWidget(hint);
     rows->addWidget(blender);
     connect(_w->editInBlender, &QPushButton::clicked, this, &AssetWorkshop::editInBlender);
-    connect(_w->importFromBlender, &QPushButton::clicked, this,
-            &AssetWorkshop::importFromBlender);
+    connect(_w->importFromBlender, &QPushButton::clicked, this, &AssetWorkshop::importFromBlender);
 
     _w->install = new QPushButton(QStringLiteral("Install in the game"), column);
     rows->addWidget(_w->install);
@@ -428,9 +427,9 @@ bool AssetWorkshop::openSheet(const std::filesystem::path& file) {
 }
 
 void AssetWorkshop::chooseSheet() {
-    const QString chosen = QFileDialog::getOpenFileName(
-        this, QStringLiteral("Open character sheet"), text(baseDirectory()),
-        QString::fromLatin1(SHEET_FILTER));
+    const QString chosen =
+        QFileDialog::getOpenFileName(this, QStringLiteral("Open character sheet"),
+                                     text(baseDirectory()), QString::fromLatin1(SHEET_FILTER));
     if (!chosen.isEmpty()) {
         static_cast<void>(openSheet(path(chosen)));
     }
@@ -488,9 +487,9 @@ void AssetWorkshop::checkInstalled() {
     for (const MapCheckFinding& finding : findings) {
         log(text(formatFinding(finding)));
     }
-    log(findings.empty() ? QStringLiteral("Installed characters: no problem found.")
-                         : QStringLiteral("Installed characters: %1 finding(s).")
-                               .arg(findings.size()));
+    log(findings.empty()
+            ? QStringLiteral("Installed characters: no problem found.")
+            : QStringLiteral("Installed characters: %1 finding(s).").arg(findings.size()));
 }
 
 void AssetWorkshop::run(const ProcessCommand& command, const QString& what,
@@ -557,11 +556,11 @@ void AssetWorkshop::editInBlender() {
     }
     run(openInBlenderCommand(tools, files), QStringLiteral("Opening the model in Blender"),
         [this, files](int code) {
-            log(code == 0 ? QStringLiteral("Blender is open on %1. Save it there (Ctrl+S), then "
-                                           "\"Import from Blender\".")
-                                .arg(text(files.blend))
-                          : QStringLiteral("error: Blender did not open (exit code %1).")
-                                .arg(code));
+            log(code == 0
+                    ? QStringLiteral("Blender is open on %1. Save it there (Ctrl+S), then "
+                                     "\"Import from Blender\".")
+                          .arg(text(files.blend))
+                    : QStringLiteral("error: Blender did not open (exit code %1).").arg(code));
         });
 }
 

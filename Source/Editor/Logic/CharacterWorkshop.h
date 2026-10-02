@@ -141,7 +141,8 @@ struct CharacterDraftResult {
 /// @brief Lit une fiche d'atelier depuis le texte de son fichier.
 [[nodiscard]] CharacterDraftResult readCharacterDraft(std::string_view json);
 
-/// @return Le texte canonique de @p draft : ce que la fenêtre enregistre, et que `readCharacterDraft`
+/// @return Le texte canonique de @p draft : ce que la fenêtre enregistre, et que
+/// `readCharacterDraft`
 ///         relit à l'identique. Les champs vides ne s'écrivent pas.
 [[nodiscard]] std::string characterDraftText(const CharacterDraft& draft);
 

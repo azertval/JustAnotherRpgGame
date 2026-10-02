@@ -89,8 +89,7 @@ TEST(CharacterPreviewTest, LaSceneEstUnDamierEtUnPersonnageAuCentre) {
     EXPECT_FLOAT_EQ(figure.seconds, 0.4F);
     EXPECT_FLOAT_EQ(figure.point.x, 1.5F);
     EXPECT_FLOAT_EQ(figure.point.y, 1.5F);
-    EXPECT_FLOAT_EQ(figure.heading,
-                    hmi::FIGURE_HEADING_FRONT + (std::numbers::pi_v<float> / 2.0F));
+    EXPECT_FLOAT_EQ(figure.heading, hmi::FIGURE_HEADING_FRONT + (std::numbers::pi_v<float> / 2.0F));
 
     EXPECT_TRUE(hmi::characterPreviewScene({}).figures.empty());
 }
@@ -143,8 +142,8 @@ TEST(CharacterPreviewRenderTest, LeRenduDuJeuDessineLePersonnage) {
     hmi::WorldSceneRenderer renderer(personnages());
     const auto rendre = [&](const hmi::CharacterPreviewView& vue) {
         renderer.setSnapshot(hmi::characterPreviewScene(vue));
-        const QImage image = offscreen->render(
-            renderer, TAILLE, hmi::characterPreviewFraming(TAILLE.height()), FOND);
+        const QImage image = offscreen->render(renderer, TAILLE,
+                                               hmi::characterPreviewFraming(TAILLE.height()), FOND);
         EXPECT_EQ(image.size(), TAILLE);
         return image;
     };
@@ -161,9 +160,8 @@ TEST(CharacterPreviewRenderTest, LeRenduDuJeuDessineLePersonnage) {
     EXPECT_NE(tourne, repos);
     // La pose que l'aperçu tient à la fin de la chute, pour un modèle sans fiche à côté de lui.
     const core::SkeletonClip chute{.name = "death", .duration = 1.2F, .loop = false, .key = {}};
-    const QImage couche = rendre({.model = MODELE,
-                                  .clip = "death",
-                                  .seconds = hmi::characterPreviewSeconds(&chute, 1.5F)});
+    const QImage couche = rendre(
+        {.model = MODELE, .clip = "death", .seconds = hmi::characterPreviewSeconds(&chute, 1.5F)});
     EXPECT_GT(sommet(couche, vide), sommetDebout + (TAILLE.height() / 8))
         << "couche, son sommet est plus bas";
 }

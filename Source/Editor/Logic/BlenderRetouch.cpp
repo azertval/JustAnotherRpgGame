@@ -24,8 +24,7 @@ constexpr const char* DEFAULT_BLENDER = "D:/Blender Foundation/Blender 5.2/blend
 }  // namespace
 
 RetouchFiles retouchFiles(const std::filesystem::path& dataRoot,
-                          const std::filesystem::path& baseDirectory,
-                          const CharacterDraft& draft) {
+                          const std::filesystem::path& baseDirectory, const CharacterDraft& draft) {
     const std::filesystem::path root = (baseDirectory / draft.root).lexically_normal();
     const auto resolve = [&root](const std::string& written) {
         return written.empty() ? std::filesystem::path{} : (root / written).lexically_normal();
@@ -135,21 +134,19 @@ void appendTools(ProcessCommand& command, const RetouchTools& tools, const Retou
 
 ProcessCommand openInBlenderCommand(const RetouchTools& tools, const RetouchFiles& files) {
     ProcessCommand command = scriptCommand(tools, "open");
-    command.arguments.insert(command.arguments.end(),
-                             {files.model.generic_string(), "--blend",
-                              files.blend.generic_string()});
+    command.arguments.insert(command.arguments.end(), {files.model.generic_string(), "--blend",
+                                                       files.blend.generic_string()});
     appendTools(command, tools, files);
     return command;
 }
 
 ProcessCommand importFromBlenderCommand(const RetouchTools& tools, const RetouchFiles& files) {
     ProcessCommand command = scriptCommand(tools, "import");
-    command.arguments.insert(command.arguments.end(),
-                             {files.blend.generic_string(), "--sheet",
-                              files.sheet.generic_string(), "--retouch",
-                              files.retouch.generic_string(), "--source",
-                              files.received.generic_string(), "--output",
-                              files.model.generic_string()});
+    command.arguments.insert(
+        command.arguments.end(),
+        {files.blend.generic_string(), "--sheet", files.sheet.generic_string(), "--retouch",
+         files.retouch.generic_string(), "--source", files.received.generic_string(), "--output",
+         files.model.generic_string()});
     appendTools(command, tools, files);
     return command;
 }

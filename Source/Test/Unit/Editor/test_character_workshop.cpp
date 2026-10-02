@@ -178,9 +178,8 @@ TEST_F(CharacterWorkshop, LaFicheInstalleLePersonnageEtRendLesFichiersAttendus) 
           "Assets/Regions/terre/bourg/Characters/garde/character.json"}) {
         EXPECT_EQ(lire(racine / fichier), lire(attendu / fichier)) << fichier;
     }
-    const std::filesystem::path sources =
-        std::filesystem::path(JADG_TEST_FIXTURES_DIR) / "Characters" / "Assets" / "Common" /
-        "Characters";
+    const std::filesystem::path sources = std::filesystem::path(JADG_TEST_FIXTURES_DIR) /
+                                          "Characters" / "Assets" / "Common" / "Characters";
     EXPECT_EQ(lire(bourg() / "garde" / "garde.glb"),
               lire(sources / "Mannequins" / "humanoid" / "humanoid.glb"));
     EXPECT_EQ(lire(racine / "Assets" / "Common" / "Characters" / "Skeletons" / "humanoid" /
@@ -384,8 +383,7 @@ TEST_F(CharacterWorkshop, LeControleNommeCeQuiManque) {
         const bool trouve = std::ranges::any_of(constats, [cause](const auto& c) {
             return c.severity == hmi::MapCheckSeverity::Error &&
                    c.mapId == "Regions/terre/bourg/Characters" &&
-                   c.message.starts_with("garde: ") &&
-                   c.message.find(cause) != std::string::npos;
+                   c.message.starts_with("garde: ") && c.message.find(cause) != std::string::npos;
         });
         EXPECT_TRUE(trouve) << cause << " absent de " << constats.size() << " constat(s)";
     };
@@ -394,9 +392,8 @@ TEST_F(CharacterWorkshop, LeControleNommeCeQuiManque) {
     constat("token missing");
     ecrire(dossier / "portrait.png", lire(fixtures() / "petit.png"));
     constat("64 x 64");
-    ecrire(dossier / "garde.glb",
-           lire(std::filesystem::path(JADG_TEST_FIXTURES_DIR) / "Meshes" / "Assets" / "Scene" /
-                "ilot" / "wall.glb"));
+    ecrire(dossier / "garde.glb", lire(std::filesystem::path(JADG_TEST_FIXTURES_DIR) / "Meshes" /
+                                       "Assets" / "Scene" / "ilot" / "wall.glb"));
     constat("not bound to a skeleton");
     std::filesystem::remove(dossier / "garde.glb");
     constat("model missing");
