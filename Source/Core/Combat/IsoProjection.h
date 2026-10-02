@@ -13,7 +13,7 @@
  * Elles sont portées de l'ancienne scène QML du Colisée (celle du `LOT-50`, retirée depuis), qui
  * les appliquait en pixels d'élément. Ici, elles s'expriment en **unités monde**
  * (`EX-ARCH-021`) : le cadrage — centrer la scène, la faire tenir dans la surface — n'est plus
- * l'affaire de la projection mais celle de la caméra (`hmi::Camera2D`), qui ne fait que déplacer
+ * l'affaire de la projection mais celle de la caméra (`hmi::PlaceCamera`), qui ne fait que déplacer
  * et agrandir, en aval, des points déjà projetés.
  *
  * ## Le repère

@@ -32,6 +32,9 @@ set(JADG_FUZZ_SEEDS_json "${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Json;${PROJ
 # de carte depuis la table rase (LOT-102). libFuzzer parcourt les sous-dossiers de chaque amorce, et
 # refuse de démarrer si l'une manque.
 set(JADG_FUZZ_SEEDS_level "${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/GameData/Levels;${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Levels")
+# Les trois maillages de la carte d'essai (LOT-1003) : des `.glb` valides et minuscules, d'ou le
+# fuzzer derive ses entrees plutot que de buter sur l'en-tete binaire.
+set(JADG_FUZZ_SEEDS_mesh "${PROJECT_SOURCE_DIR}/Source/Test/Fixtures/Meshes/Assets/Scene/ilot")
 set(JADG_FUZZ_SEEDS_dialogue "${PROJECT_SOURCE_DIR}/Source/Elements/World/dialogues")
 set(JADG_FUZZ_SEEDS_localization "${PROJECT_SOURCE_DIR}/Source/Elements/Localization")
 
@@ -54,5 +57,6 @@ endfunction()
 
 jadg_add_fuzzer(json Core)
 jadg_add_fuzzer(level Core)
+jadg_add_fuzzer(mesh Core)
 jadg_add_fuzzer(dialogue Core)
 jadg_add_fuzzer(localization HmiLib)

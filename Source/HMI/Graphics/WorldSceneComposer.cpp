@@ -21,12 +21,14 @@
 #include "Core/Levels/MapEntity.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
+#include "Core/Resources/MeshFile.h"
 #include "Core/Resources/ScenePlace.h"
 #include "Core/Rpg/Dialogue.h"
 #include "Core/World/CityBlock.h"
 #include "Core/World/CombatZone.h"
 #include "Core/World/EntityKinds.h"
 #include "Core/World/EntityPresence.h"
+#include "HMI/Graphics/IsoView.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
 #include "HMI/Graphics/StaticWorldScene.h"
@@ -83,6 +85,41 @@ constexpr std::array<std::string_view, 2> FIGURE_DIRECTORIES = {"Npc/", "Monster
         return textures.resolve(found->second);
     }
     return textures.resolve(core::fallbackScenePiecePath(snapshot.place, piece));
+}
+
+// Le maillage d'une piece, si son fichier en est un et qu'il est charge (LOT-1003). Une piece en
+// maillage dont le fichier manque rend `nullptr` : elle se compose alors comme une image, et tombe
+// sur le damier -- une piece manquante se voit.
+[[nodiscard]] const SceneMesh* pieceMesh(const WorldSceneSnapshot& snapshot,
+                                         const ScenePieceTextures& textures,
+                                         std::string_view piece) {
+    if (textures.meshes.empty()) {
+        return nullptr;  // aucune piece en volume : le cas de toutes les cartes livrees
+    }
+    const auto found = snapshot.pieceFiles.find(piece);
+    return found != snapshot.pieceFiles.end() && core::isMeshPath(found->second)
+               ? textures.findMesh(found->second)
+               : nullptr;
+}
+
+// Pose le maillage d'une piece : son origine au centre de l'emprise, au sol ; sur une couche
+// d'etage, eleve de `storey` hauteurs d'etage. Aucun rang de tri : le tampon de profondeur le
+// departage des autres volumes et des images.
+void composeMeshPiece(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
+                      const core::IsoProjection& projection, const SceneMesh& mesh,
+                      core::GridPosition cell, std::string_view piece, RenderLayer layer,
+                      int storey) {
+    const auto emprise = snapshot.footprints.find(piece);
+    const core::PieceFootprint footprint =
+        emprise == snapshot.footprints.end() ? core::PieceFootprint{} : emprise->second;
+    const core::Vector2 centre{
+        static_cast<float>(cell.column) + (static_cast<float>(std::max(1, footprint.columns)) / 2),
+        static_cast<float>(cell.row) + (static_cast<float>(std::max(1, footprint.rows)) / 2)};
+    const float rise = static_cast<float>(storey) *
+                       mesh.storeyTiles.value_or(DEFAULT_STOREY_TILES) * projection.tileWidth();
+    const ViewTransform toView = IsoView(projection).meshTransform(centre, rise);
+    scene.addMesh(layer, mesh.mesh, toView,
+                  IsoView::projectedBounds(toView, mesh.minimum, mesh.maximum), storey);
 }
 
 // Le dossier d'une figurine, sous le niveau qui la range (LOT-124), a defaut elle-meme.
@@ -224,12 +261,14 @@ float composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& proj
     PolyQuad leftFace = tintedQuad(tint, BLOCK_LEFT_LIGHT);
     leftFace.x = {base.x[3], base.x[2], base.x[2], base.x[3]};
     leftFace.y = {base.y[3], base.y[2], raised(base.y[2]), raised(base.y[3])};
+    leftFace.rise = {elevation, elevation, elevation + height, elevation + height};
     scene.addPoly(RenderLayer::Object, textures.solid.texture, order, leftFace, storey, occlusion);
 
     // Face droite : bas -> arete droite.
     PolyQuad rightFace = tintedQuad(tint, BLOCK_RIGHT_LIGHT);
     rightFace.x = {base.x[2], base.x[1], base.x[1], base.x[2]};
     rightFace.y = {base.y[2], base.y[1], raised(base.y[1]), raised(base.y[2])};
+    rightFace.rise = leftFace.rise;
     scene.addPoly(RenderLayer::Object, textures.solid.texture, order, rightFace, storey, occlusion);
 
     // Dessus : le losange de la case, remonte d'une hauteur.
@@ -237,6 +276,7 @@ float composeMaquetteBlock(ComposedScene& scene, const core::IsoProjection& proj
     topFace.x = base.x;
     for (std::size_t i = 0; i < 4; ++i) {
         topFace.y[i] = raised(base.y[i]);
+        topFace.rise[i] = elevation + height;
     }
     scene.addPoly(RenderLayer::Object, textures.solid.texture, order, topFace, storey, occlusion);
     return footY;
@@ -390,6 +430,10 @@ void composeFloor(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
         composeMaquetteCell(scene, snapshot, projection, textures, cell, flatBlocks);
         return;
     }
+    if (const SceneMesh* const mesh = pieceMesh(snapshot, textures, piece)) {
+        composeMeshPiece(scene, snapshot, projection, *mesh, cell, piece, RenderLayer::Tile, 0);
+        return;
+    }
     const SceneTexture& texture = pieceTexture(snapshot, textures, piece);
     if (texture.texture == nullptr) {
         return;
@@ -410,6 +454,12 @@ std::optional<float> composeStandingPiece(ComposedScene& scene, const WorldScene
                                           const ScenePieceTextures& textures,
                                           core::GridPosition cell, std::string_view piece,
                                           int storey, float minimumFootY) {
+    // Un volume : pose, sans rang de tri ni pied a rendre -- rien ne se trie apres lui.
+    if (const SceneMesh* const mesh = pieceMesh(snapshot, textures, piece)) {
+        composeMeshPiece(scene, snapshot, projection, *mesh, cell, piece, RenderLayer::Object,
+                         storey);
+        return std::nullopt;
+    }
     const SceneTexture& texture = pieceTexture(snapshot, textures, piece);
     if (texture.texture == nullptr) {
         return std::nullopt;
@@ -422,13 +472,16 @@ std::optional<float> composeStandingPiece(ComposedScene& scene, const WorldScene
     const auto emprise = snapshot.footprints.find(piece);
     const core::GridPosition pied = core::footprintFootCorner(
         cell, emprise == snapshot.footprints.end() ? core::PieceFootprint{} : emprise->second);
-    const float footY = std::max(
-        minimumFootY, texture.depthOffset
-                          ? topVertex.y + ((*texture.depthOffset * projection.tileHeight()) / 2.0F)
-                          : projection
-                                .gridToWorld(gridPoint(static_cast<float>(pied.column),
-                                                       static_cast<float>(pied.row)))
-                                .y);
+    // Son propre pied : la ligne ou l'image se dresse dans la scene en volume (LOT-1003), avant
+    // que le tri ne le repousse derriere ce qui la porte.
+    const float ownFootY =
+        texture.depthOffset
+            ? topVertex.y + ((*texture.depthOffset * projection.tileHeight()) / 2.0F)
+            : projection
+                  .gridToWorld(
+                      gridPoint(static_cast<float>(pied.column), static_cast<float>(pied.row)))
+                  .y;
+    const float footY = std::max(minimumFootY, ownFootY);
     // Un etage s'eleve de la hauteur que le manifeste de son lieu declare, a l'echelle de l'art ;
     // son pied, lui, reste celui de sa case : il se trie avec elle (LOT-129).
     if (storey > 0) {
@@ -444,7 +497,7 @@ std::optional<float> composeStandingPiece(ComposedScene& scene, const WorldScene
     const WorldDepthSlot slot = storeyDepthSlot(storey);
     const std::int32_t sortOrder = worldDepthSortOrder(footY, slot);
     scene.addSprite(RenderLayer::Object, texture.texture, sortOrder, quad, storey,
-                    storey > 0 ? spriteQuadBounds(quad) : core::Rect{});
+                    storey > 0 ? spriteQuadBounds(quad) : core::Rect{}, ownFootY);
     return footY;
 }
 
@@ -494,6 +547,8 @@ struct FigurePlacement {
     TextureHandle texture = nullptr;
     SpriteQuad quad{};
     std::int32_t sortOrder = 0;
+    /// La ligne ou elle se dresse dans la scene en volume : ses pieds, au centre de sa position.
+    float standingY = 0.0F;
 };
 
 [[nodiscard]] std::optional<FigurePlacement> placeFigure(const WorldSceneSnapshot& snapshot,
@@ -544,7 +599,8 @@ struct FigurePlacement {
     return FigurePlacement{
         .texture = texture.texture,
         .quad = figureQuad(texture, frame, center.x, bottomY, projection.tileWidth()),
-        .sortOrder = worldDepthSortOrder(footY, WorldDepthSlot::Figure)};
+        .sortOrder = worldDepthSortOrder(footY, WorldDepthSlot::Figure),
+        .standingY = center.y};
 }
 
 void composeFigure(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
@@ -552,7 +608,8 @@ void composeFigure(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
                    const WorldFigureSnapshot& figure) {
     if (const std::optional<FigurePlacement> placed =
             placeFigure(snapshot, projection, textures, figure)) {
-        scene.addSprite(RenderLayer::Player, placed->texture, placed->sortOrder, placed->quad);
+        scene.addSprite(RenderLayer::Player, placed->texture, placed->sortOrder, placed->quad, 0,
+                        core::Rect{}, placed->standingY);
     }
 }
 
@@ -1098,8 +1155,12 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
     }
     for (const std::vector<std::string>* couche : couches) {
         for (const std::string& piece : *couche) {
-            if (!piece.empty()) {
-                uniques.insert(piecePath(snapshot, piece));
+            if (piece.empty()) {
+                continue;
+            }
+            // Un maillage n'est pas une texture : il se charge a part (`worldMeshPaths`).
+            if (std::string path = piecePath(snapshot, piece); !core::isMeshPath(path)) {
+                uniques.insert(std::move(path));
             }
         }
     }
@@ -1110,6 +1171,18 @@ std::vector<std::string> worldTexturePaths(const WorldSceneSnapshot& snapshot) {
     // de le charger (LOT-128, decision D2).
     for (const MaquetteTokenSnapshot& token : snapshot.marks.tokens) {
         uniques.insert(maquetteTokenPath(token.kind, token.letter));
+    }
+    return {uniques.begin(), uniques.end()};
+}
+
+std::vector<std::string> worldMeshPaths(const WorldSceneSnapshot& snapshot) {
+    // Le catalogue du cliche ne cite que les pieces posees : ses fichiers `.glb` sont exactement
+    // les maillages que la carte demande.
+    std::set<std::string> uniques;
+    for (const auto& [piece, file] : snapshot.pieceFiles) {
+        if (core::isMeshPath(file)) {
+            uniques.insert(file);
+        }
     }
     return {uniques.begin(), uniques.end()};
 }

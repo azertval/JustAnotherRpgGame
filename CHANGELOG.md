@@ -6,6 +6,25 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1003 — Maillages et profondeur.** Le moteur dessine des volumes : une pièce dont le
+  manifeste cite un maillage (`"mesh"`, un `.glb`) au lieu d'une image se dessine par une passe de
+  maillages (`hmi::MeshBatch` : sommets, normales, coordonnées de texture, couleur de base, sans
+  éclairage) et se départage par le **tampon de profondeur**, sans tri. La caméra du lieu devient
+  `hmi::PlaceCamera` — le cadrage de `Camera2D`, gardé au flottant près, et l'axe de la profondeur
+  — avec `hmi::IsoView` pour l'orientation (45°, élévation de sinus 0,62). Les images restent dans
+  la scène : un sol à plat, le reste dressé en plan vertical sur la ligne de son pied ; elles
+  testent la profondeur sans l'écrire et gardent entre elles l'ordre du peintre. Rien de cela n'a
+  lieu sans maillage dans l'image : les quatre cartes livrées se rendent **identiques au pixel**.
+  Le chargeur `.glb` (`core::readMeshFile`) est dans `Core`, sans bibliothèque nouvelle ni Qt
+  Quick 3D, éprouvé par une cible de fuzzing (`fuzz_mesh`) et sur les 48 exports Meshy de
+  l'atelier. Données d'essai : `Source/Test/Fixtures/Meshes` (un îlot de murs, un sol, un toit),
+  écrites par `scripts/assetsGeneration/build_mesh_fixture.py` ; l'éditeur les montre sans code
+  propre. Retiré : `hmi::Camera2D`. Les kits d'assets portent désormais les modèles `.glb` comme
+  les images, hors de Git ; `scripts/assetsGeneration/reduce_model.py` ramène un export Meshy au
+  standard (au sol, couleur de base seule, 100 000 triangles au plus, texture d'origine gardée), et
+  le kit `Common@6` reçoit les deux mannequins, humanoïde et quadrupède, en attente de leur
+  squelette (LOT-1006).
+
 - **LOT-1002 — Le canevas de l'éditeur sur le rendu du jeu.** Le canevas ne peint plus la scène par
   `QPainter` : il la fait dessiner par `hmi::WorldSceneRenderer`, le rendu du jeu, dans un
   `QRhiWidget` (`hmi::SceneSurface`) posé sous la `QGraphicsView`, qui garde le zoom, le défilement,

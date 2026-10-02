@@ -1,12 +1,13 @@
 # Core · Resources
 
-Tests unitaires — **20 cas** (5 bloquants, 6 critiques, 9 majeurs). [Retour à la synthèse](README.md).
+Tests unitaires — **27 cas** (8 bloquants, 6 critiques, 12 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
 | Fichier de test | Cas | Bloquant | Critique | Majeur | Mineur |
 |---|---|---|---|---|---|
 | [`test_asset_keys.cpp`](#test-asset-keyscpp) | 9 | - | 6 | 3 | - |
+| [`test_mesh_file.cpp`](#test-mesh-filecpp) | 7 | 3 | - | 3 | 1 |
 | [`test_scene_piece_manifest.cpp`](#test-scene-piece-manifestcpp) | 3 | 2 | - | 1 | - |
 | [`test_scene_place.cpp`](#test-scene-placecpp) | 8 | 3 | - | 5 | - |
 
@@ -189,6 +190,165 @@ Toute cle attendue obtient un marqueur.
 - Vérifie que `marqueur.isEmpty()` est faux.
 - Vérifie que `marqueur.width` vaut `famille->width`.
 - Vérifie que `peints` vaut `static_cast<int>(attendues.size())`.
+
+## test_mesh_file.cpp
+
+### MeshFileTest.UnMaillageDuStandardSeLitEnEntier
+
+*Bloquant · Unitaire · Chargeur de maillages* — `Source/Test/Unit/Core/Resources/test_mesh_file.cpp:114`
+
+Un maillage du standard se lit en entier.
+
+**Étapes**
+
+1. Lire `wall.glb`, le bloc de mur de la carte d'essai.
+2. Relever ses sommets, ses triangles, sa boîte et sa matière.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `mesh.vertices.size()` vaut `20U`.
+- Vérifie que `mesh.triangleCount()` vaut `10U`.
+- Vérifie que `mesh.minimum[0]` vaut `-0.75F`, à `TOLERANCE` près.
+- Vérifie que `mesh.maximum[0]` vaut `0.75F`, à `TOLERANCE` près.
+- Vérifie que `mesh.minimum[1]` vaut `0.0F`, à `TOLERANCE` près.
+- Vérifie que `mesh.maximum[1]` vaut `2.36573F`, à `1e-4F` près.
+- Vérifie que `mesh.minimum[2]` vaut `-0.75F`, à `TOLERANCE` près.
+- Vérifie que `mesh.maximum[2]` vaut `0.75F`, à `TOLERANCE` près.
+- Vérifie que `length` vaut `1.0F`, à `TOLERANCE` près.
+- Vérifie que `index` est strictement inférieur à `mesh.vertices.size()`.
+- Vérifie que `mesh.primitiveCount` vaut `1`.
+- Vérifie que `mesh.materialCount` vaut `1`.
+- Vérifie que `mesh.skinned` est faux.
+- Vérifie que `mesh.imageMimeType` vaut `"image/png"`.
+- Vérifie que `mesh.image.size()` est strictement supérieur à `8U`.
+- Vérifie que `std::to_integer<int>(mesh.image[1])` vaut `'P'`.
+- Vérifie que `mesh.baseColor[3]` vaut `1.0F` (comparaison flottante).
+
+### MeshFileTest.LaTransformationDuNoeudPorteLeMaillage
+
+*Majeur · Unitaire · Chargeur de maillages* — `Source/Test/Unit/Core/Resources/test_mesh_file.cpp:158`
+
+La transformation du noeud porte le maillage.
+
+**Étapes**
+
+1. Bâtir un triangle sans indices ni matière, porté par un nœud translaté de (10, 2, 0) et agrandi deux fois.
+2. Le lire.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `read.mesh.vertices.size()` vaut `3U`.
+- Vérifie que `read.mesh.triangleCount()` vaut `1U`.
+- Vérifie que `read.mesh.vertices[0].position[0]` vaut `10.0F`, à `TOLERANCE` près.
+- Vérifie que `read.mesh.vertices[0].position[1]` vaut `2.0F`, à `TOLERANCE` près.
+- Vérifie que `read.mesh.vertices[1].position[0]` vaut `12.0F`, à `TOLERANCE` près.
+- Vérifie que `read.mesh.vertices[2].position[2]` vaut `2.0F`, à `TOLERANCE` près.
+- Vérifie que `read.mesh.maximum[0]` vaut `12.0F`, à `TOLERANCE` près.
+- Vérifie que `read.mesh.image.empty()` est vrai.
+- Vérifie que `read.mesh.baseColor[0]` vaut `1.0F` (comparaison flottante).
+- Vérifie que `read.mesh.materialCount` vaut `1`.
+
+### MeshFileTest.LesNoeudsSEnchainentEtLesNormalesTournent
+
+*Majeur · Unitaire · Chargeur de maillages* — `Source/Test/Unit/Core/Resources/test_mesh_file.cpp:185`
+
+Les noeuds s'enchainent et les normales tournent.
+
+**Étapes**
+
+1. Bâtir un triangle du sol, de normale +Y, porté par un nœud enfant d'un parent tourné d'un quart de tour autour de X.
+2. Le lire.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `read.mesh.vertices.size()` vaut `3U`.
+- Vérifie que `read.mesh.vertices[0].normal[0]` vaut `0.0F`, à `TOLERANCE` près.
+- Vérifie que `read.mesh.vertices[0].normal[1]` vaut `0.0F`, à `TOLERANCE` près.
+- Vérifie que `read.mesh.vertices[0].normal[2]` vaut `1.0F`, à `TOLERANCE` près.
+
+### MeshFileTest.CeQuIlNeLitPasEstRefuseEtNomme
+
+*Bloquant · Unitaire · Chargeur de maillages* — `Source/Test/Unit/Core/Resources/test_mesh_file.cpp:218`
+
+Ce que le chargeur ne lit pas est refuse et nomme.
+
+**Étapes**
+
+1. Présenter des octets qui ne sont pas un `.glb`, un glTF 1, un fichier tronqué.
+2. Présenter un `.glb` valide qui exige une extension, un accesseur creux, un tampon hors du fichier.
+
+**Résultat attendu**
+
+- Vérifie que `core::readMeshFromGlb(junk).error` vaut `core::MeshFileError::ParseError`.
+- Vérifie que `core::readMeshFromGlb({}).error` vaut `core::MeshFileError::ParseError`.
+- Vérifie que `core::readMeshFromGlb(glb("{}", {}, 1)).error` vaut `core::MeshFileError::ParseError`.
+- Vérifie que `core::readMeshFromGlb(glb("[1, 2]")).error` vaut `core::MeshFileError::ParseError`.
+- Vérifie que `core::readMeshFromGlb(truncated).error` vaut `core::MeshFileError::ParseError`.
+- Vérifie que `draco.error` vaut `core::MeshFileError::Unsupported`.
+- Vérifie que `draco.message.find("KHR_draco_mesh_compression")` diffère de `std::string::npos`.
+- Vérifie que `external.error` vaut `core::MeshFileError::Unsupported`.
+- Vérifie que `sparse.error` vaut `core::MeshFileError::Unsupported`.
+
+### MeshFileTest.UnFichierIncoherentEstMalForme
+
+*Bloquant · Unitaire · Chargeur de maillages* — `Source/Test/Unit/Core/Resources/test_mesh_file.cpp:268`
+
+Un fichier incoherent est mal forme, sans lecture hors bornes.
+
+**Étapes**
+
+1. Présenter un accesseur qui dépasse sa vue, une vue qui dépasse le bloc binaire, un indice au-delà des sommets, un graphe de nœuds en boucle, une scène sans triangle.
+
+**Résultat attendu**
+
+- Vérifie que `withAccessor(R"({"bufferView": 0, "componentType": 5126, "count": 4, "type": "VEC3"})", R"({"buffer": 0, "byteLength": 36})") .error` vaut `core::MeshFileError::MalformedStructure`.
+- Vérifie que `withAccessor(R"({"bufferView": 0, "componentType": 5126, "count": 3, "type": "VEC3"})", R"({"buffer": 0, "byteLength": 4096})") .error` vaut `core::MeshFileError::MalformedStructure`.
+- Vérifie que `withAccessor(R"({"bufferView": 0, "componentType": 5126, "count": 18446744073709551615, "type": "VEC3"})", R"({"buffer": 0, "byteLength": 36})") .error` vaut `core::MeshFileError::MalformedStructure`.
+- Vérifie que `beyond.error` vaut `core::MeshFileError::MalformedStructure`.
+- Vérifie que `beyond.mesh.vertices.empty()` est vrai.
+- Vérifie que `loop.error` vaut `core::MeshFileError::MalformedStructure`.
+- Vérifie que `empty.error` vaut `core::MeshFileError::MalformedStructure`.
+
+### MeshFileTest.UnFichierAbsentEstUneErreur
+
+*Majeur · Unitaire · Chargeur de maillages* — `Source/Test/Unit/Core/Resources/test_mesh_file.cpp:339`
+
+Un fichier absent est une erreur, et un maillage se reconnait a son extension.
+
+**Étapes**
+
+1. Lire un fichier qui n'existe pas.
+2. Demander si des chemins sont des maillages.
+
+**Résultat attendu**
+
+- Vérifie que `missing.error` vaut `core::MeshFileError::FileNotFound`.
+- Vérifie que `missing.message.empty()` est faux.
+- Vérifie que `core::isMeshPath("Scene/ilot/wall.glb")` est vrai.
+- Vérifie que `core::isMeshPath("WALL.GLB")` est vrai.
+- Vérifie que `core::isMeshPath("Scene/ilot/paving.png")` est faux.
+- Vérifie que `core::isMeshPath("glb")` est faux.
+- Vérifie que `core::isMeshPath("")` est faux.
+
+### MeshFileTest.LesModelesReelsDeLAtelierSeLisent
+
+*Mineur · Unitaire · Chargeur de maillages* — `Source/Test/Unit/Core/Resources/test_mesh_file.cpp:363`
+
+Les modeles reels de l'atelier se lisent.
+
+**Étapes**
+
+1. Lire chaque `.glb` du dossier que nomme la variable `JADG_MESH_SAMPLES`.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `read.mesh.triangleCount()` est strictement supérieur à `0U`.
+- Vérifie que `read.mesh.image.empty()` est faux.
+- Vérifie que `count` est strictement supérieur à `0U`.
 
 ## test_scene_piece_manifest.cpp
 

@@ -104,7 +104,12 @@ add_executable(UnitTests
     Unit/HMI/Input/test_input_state.cpp
     Unit/HMI/Input/test_gamepad_probe.cpp
     Unit/HMI/Input/test_button_repeat.cpp
-    Unit/HMI/Graphics/test_camera2d.cpp
+    Unit/HMI/Graphics/test_place_camera.cpp
+    # La vue en volume et la composition des pièces en maillage, sans GPU (LOT-1003).
+    Unit/HMI/Graphics/test_iso_view.cpp
+    Unit/HMI/Graphics/test_mesh_composition.cpp
+    # Le chargeur de maillages `.glb` (LOT-1003).
+    Unit/Core/Resources/test_mesh_file.cpp
     Unit/HMI/Graphics/test_procedural_atlas.cpp
     Unit/HMI/Graphics/test_tile_visuals.cpp
     Unit/HMI/Graphics/test_texture_atlas.cpp
@@ -209,6 +214,9 @@ if(Qt6_FOUND)
         # les tests de rendu de l'editeur partagent avec le jeu -- cadrage impose, opacite des
         # calques, tuiles.
         Unit/HMI/Graphics/test_offscreen_render.cpp
+        # La passe de maillages et le tampon de profondeur, sur la carte d'essai (LOT-1003).
+        Unit/HMI/Graphics/test_mesh_render.cpp
+        ../HMI/Graphics/MeshBatch.cpp
         ../HMI/Graphics/OffscreenRender.cpp
         # Un ilot de murs du kit sur deux etages, coiffe d'un toit : le heros se voit a travers
         # (LOT-129).
@@ -247,6 +255,8 @@ if(Qt6_FOUND)
         FILES
             ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.vert
             ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.frag
+            ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.vert
+            ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.frag
     )
 else()
     message(STATUS
@@ -300,6 +310,9 @@ target_compile_definitions(UnitTests PRIVATE
     # La maquette du LOT-101 installee comme une zone livree, et ses deux images de reference :
     # le rendu HD du LOT-103 se juge contre elles (scripts/assetsGeneration/build_hd_mockup.py ecrit les deux).
     JADG_HD_MOCKUP_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/HdMockup"
+    # La carte d'essai en maillages (LOT-1003) : un îlot de murs, un sol, un toit, des `.glb`
+    # engendrés par script. Voir Fixtures/Meshes/README.md.
+    JADG_MESH_FIXTURE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/Fixtures/Meshes"
     JADG_MOCKUP_REFERENCE_DIR="${PROJECT_SOURCE_DIR}/Planning/versions/v0.1.0/v0.0.1-demo/maquettes"
     JADG_LEVELS_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Levels"
     JADG_LOCALIZATION_DIR="${PROJECT_SOURCE_DIR}/Source/Elements/Localization"

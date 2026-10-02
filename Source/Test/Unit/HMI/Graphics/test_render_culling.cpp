@@ -8,8 +8,8 @@
 
 #include <gtest/gtest.h>
 
-#include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/Graphics/QuadRecorder.h"
 
 namespace {
@@ -272,7 +272,7 @@ TEST(RenderCullingTest, MargeAppliqueeSurLesQuatreCotes) {
  * }
  */
 TEST(RenderCullingTest, CadrageDeLaCamera) {
-    hmi::Camera2D camera(320, 160);
+    hmi::PlaceCamera camera(320, 160);
     camera.setCenter(core::Vector2{10.0f, 5.0f});
     camera.setZoom(1.0f);
 

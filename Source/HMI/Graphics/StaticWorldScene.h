@@ -94,9 +94,9 @@ public:
         return _scene.size();
     }
 
-    /// @return Vrai si rien n'est composé.
+    /// @return Vrai si rien n'est composé, ni primitive ni maillage.
     [[nodiscard]] bool empty() const noexcept {
-        return _scene.size() == 0;
+        return _scene.size() == 0 && _scene.meshes().empty();
     }
 
     /// @return La projection de la dernière composition.

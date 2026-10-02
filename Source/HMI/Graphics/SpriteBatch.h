@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <array>
 #include <cstddef>
 #include <memory>
 #include <unordered_map>
@@ -56,6 +57,16 @@ namespace hmi {
  * La projection est portée **par lot** et non par image : le HUD (`EX-REN-047`) se dessine en
  * coordonnées écran dans la même image que le monde. Elle transite par un tampon uniforme adressé
  * à décalage dynamique, un emplacement par lot.
+ *
+ * **La profondeur (`LOT-1003`).** Un sommet porte une troisième coordonnée, la profondeur de la
+ * vue (`hmi::IsoView`), nulle par défaut. Elle n'est **testée** que si l'appelant le demande
+ * (`setDepthTest`), c'est-à-dire quand l'image a des maillages à croiser : les quads sont alors
+ * comparés au tampon de profondeur sans y écrire — leurs bords sont adoucis, et leur ordre reste
+ * celui du peintre. Sans cela, le pipeline est celui d'avant le lot, sans test ni écriture.
+ *
+ * Pour partager une passe avec un autre pipeline (`hmi::MeshBatch`), `submit` se découpe en
+ * `prepare` — les téléversements, hors de toute passe — et `record`, qui émet les appels de dessin
+ * dans la passe que l'appelant a ouverte.
  */
 class SpriteBatch {
 public:
@@ -88,24 +99,29 @@ public:
 
     /**
      * @brief Ajoute un quad au lot courant.
-     * @param quad Quad à dessiner (unités monde, UV normalisées, teinte).
+     * @param quad    Quad à dessiner (unités monde, UV normalisées, teinte).
+     * @param topDepth    Profondeur de ses deux sommets du haut (avant rotation).
+     * @param bottomDepth Profondeur de ses deux sommets du bas.
      */
-    void draw(const SpriteQuad& quad);
+    void draw(const SpriteQuad& quad, float topDepth = 0.0F, float bottomDepth = 0.0F);
 
     /**
      * @brief Ajoute un segment épais (orienté librement) au lot courant.
      * @param line Segment à dessiner (unités monde, UV normalisées, teinte). Sans effet si les
      *             deux extrémités coïncident (segment dégénéré).
+     * @param startDepth Profondeur de l'extrémité `a`.
+     * @param endDepth   Profondeur de l'extrémité `b`.
      */
-    void draw(const LineQuad& line);
+    void draw(const LineQuad& line, float startDepth = 0.0F, float endDepth = 0.0F);
 
     /**
      * @brief Ajoute un quadrilatère à quatre sommets libres au lot courant (`LOT-128`).
      * @param poly Quadrilatère à dessiner (unités monde, UV normalisées, teinte). Ses sommets sont
      *             repris tels quels : c'est à la composition de les donner dans l'ordre du
      *             pourtour.
+     * @param depths La profondeur de chacun de ses quatre sommets.
      */
-    void draw(const PolyQuad& poly);
+    void draw(const PolyQuad& poly, const std::array<float, 4>& depths = {});
 
     /// Termine le lot : fige la plage de quads enregistrée. Un lot vide n'émettra aucun dessin.
     void end();
@@ -125,11 +141,39 @@ public:
     void submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target,
                 QRhiResourceUpdateBatch* updates, const float* clear);
 
+    /**
+     * @brief Les quads de l'image testent-ils la profondeur (`LOT-1003`) ? Faux par défaut : le
+     *        pipeline d'avant le lot. À régler avant `prepare` ; la cible doit alors avoir un
+     *        tampon de profondeur.
+     */
+    void setDepthTest(bool enabled) noexcept {
+        _depthTest = enabled;
+    }
+
+    /**
+     * @brief Dépose dans un lot les téléversements de l'image enregistrée — sommets, projections,
+     *        et le tampon d'indices à sa première image —, **hors** de toute passe.
+     *
+     * @param target  Cible de rendu de l'image : le pipeline se crée pour sa passe.
+     * @param updates Lot à compléter ; `nullptr` : un lot est pris au besoin.
+     * @return Le lot à soumettre à l'ouverture de la passe (`beginPass`), `nullptr` s'il n'y a
+     *         rien à téléverser.
+     */
+    [[nodiscard]] QRhiResourceUpdateBatch* prepare(QRhiRenderTarget* target,
+                                                   QRhiResourceUpdateBatch* updates);
+
+    /**
+     * @brief Émet les appels de dessin de l'image préparée, dans la passe **ouverte** par
+     *        l'appelant. Sans effet si `prepare` n'a rien trouvé à dessiner.
+     */
+    void record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target);
+
 private:
-    /// Sommet envoyé au GPU : position monde (x, y), UV, couleur RVBA.
+    /// Sommet envoyé au GPU : position de la vue (x, y, profondeur), UV, couleur RVBA.
     struct Vertex {
         float x;
         float y;
+        float z;
         float u;
         float v;
         float r;
@@ -152,8 +196,11 @@ private:
     /// Nombre de quads couverts par le tampon d'indices, et donc par un seul appel de dessin.
     static constexpr std::size_t MAXIMUM_QUADS = 65536 / 4;
 
-    /// Crée (ou recrée) le pipeline pour la passe de rendu donnée. Idempotent.
+    /// Crée (ou recrée) les pipelines pour la passe de rendu donnée. Idempotent.
     bool ensurePipeline(QRhiRenderTarget* target);
+    /// Construit un pipeline pour @p pass, avec ou sans test de profondeur.
+    [[nodiscard]] std::unique_ptr<QRhiGraphicsPipeline> createPipeline(
+        QRhiRenderPassDescriptor* pass, bool depthTest);
     /// Redimensionne le tampon de sommets si l'image enregistrée n'y tient pas.
     bool ensureVertexCapacity(std::size_t quadCount);
     /// Redimensionne le tampon uniforme pour @p batchCount emplacements de projection.
@@ -172,6 +219,12 @@ private:
     /// Bilinéaire avec mipmaps : l'art peint (`TextureFiltering::Smooth`).
     std::unique_ptr<QRhiSampler> _smoothSampler;
     std::unique_ptr<QRhiGraphicsPipeline> _pipeline;
+    /// Le même pipeline, qui teste la profondeur sans l'écrire (`setDepthTest`) ; créé à la
+    /// première image qui le demande.
+    std::unique_ptr<QRhiGraphicsPipeline> _depthPipeline;
+    bool _depthTest = false;
+    /// L'image préparée a de quoi dessiner (`prepare`, lu par `record`).
+    bool _drawable = false;
     /// Descripteur de la passe pour laquelle `_pipeline` a été construit : un changement de cible
     /// (redimensionnement du widget, changement de fenêtre) impose de le reconstruire.
     QRhiRenderPassDescriptor* _pipelinePass = nullptr;

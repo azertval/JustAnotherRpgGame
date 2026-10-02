@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "disposition": "ilot",
+  "comment": "Le lieu d'essai en maillages du LOT-1003 : trois clés citent un maillage (\"mesh\"), une une image. Écrit par scripts/assetsGeneration/build_mesh_fixture.py, jamais à la main.",
+  "tile": [
+    64,
+    40
+  ],
+  "storey": 56,
+  "textures": {
+    "scene/ilot/floor": {
+      "mesh": "floor.glb",
+      "class": "floor",
+      "footprint": [
+        1,
+        1
+      ]
+    },
+    "scene/ilot/paving": {
+      "file": "paving.png",
+      "class": "floor",
+      "footprint": [
+        1,
+        1
+      ],
+      "size": [
+        64,
+        40
+      ],
+      "anchor": [
+        32,
+        0
+      ]
+    },
+    "scene/ilot/wall": {
+      "mesh": "wall.glb",
+      "class": "tall",
+      "footprint": [
+        1,
+        1
+      ],
+      "tactical": "solid"
+    },
+    "scene/ilot/roof": {
+      "mesh": "roof.glb",
+      "class": "wide",
+      "footprint": [
+        3,
+        3
+      ],
+      "tactical": "open"
+    }
+  }
+}

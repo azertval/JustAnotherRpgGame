@@ -10,9 +10,12 @@
 #include <rhi/qrhi.h>
 
 #include "Core/Resources/AssetMarker.h"
+#include "Core/Resources/MeshFile.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/IsoView.h"
 #include "HMI/Graphics/MaquetteTokens.h"
+#include "HMI/Graphics/MeshBatch.h"
 #include "HMI/Graphics/MissingTexture.h"
 #include "HMI/Graphics/SceneTextureTraits.h"
 #include "HMI/Graphics/SpriteBatch.h"
@@ -20,17 +23,17 @@
 
 namespace hmi {
 
-Camera2D worldCamera(const core::IsoProjection& projection, core::Vector2 focus, int pixelWidth,
-                     int pixelHeight, float tilePixels) {
+PlaceCamera worldCamera(const core::IsoProjection& projection, core::Vector2 focus, int pixelWidth,
+                        int pixelHeight, float tilePixels) {
     const int width = std::max(1, pixelWidth);
     const int height = std::max(1, pixelHeight);
-    Camera2D camera(width, height);
+    PlaceCamera camera(width, height);
 
     // Un facteur LIBRE, fixe par la definition (EX-REN-013) : une case occupe la hauteur de la vue
     // divisee par 10,8. L'art est toujours reduit, jamais agrandi, et filtre par mipmaps : aucune
     // grille de pixels n'est plus a proteger.
     const float onScreen = tilePixels > 0.0F ? tilePixels : worldTilePixels(height);
-    camera.setZoom(onScreen / (projection.tileWidth() * Camera2D::PIXELS_PER_UNIT));
+    camera.setZoom(onScreen / (projection.tileWidth() * PlaceCamera::PIXELS_PER_UNIT));
 
     // Le point suivi, ramene dans la scene : la vue ne montre pas le vide autour de la carte. Sur
     // un axe ou la scene est plus petite que la vue, elle reste centree. La scene occupe
@@ -48,9 +51,9 @@ Camera2D worldCamera(const core::IsoProjection& projection, core::Vector2 focus,
     return camera;
 }
 
-Camera2D framedCamera(const WorldFraming& framing, int pixelWidth, int pixelHeight) {
-    Camera2D camera(std::max(1, pixelWidth), std::max(1, pixelHeight));
-    camera.setZoom(framing.pixelsPerUnit / Camera2D::PIXELS_PER_UNIT);
+PlaceCamera framedCamera(const WorldFraming& framing, int pixelWidth, int pixelHeight) {
+    PlaceCamera camera(std::max(1, pixelWidth), std::max(1, pixelHeight));
+    camera.setZoom(framing.pixelsPerUnit / PlaceCamera::PIXELS_PER_UNIT);
     camera.setCenter(framing.center);
     return camera;
 }
@@ -77,6 +80,12 @@ core::Rect composedSceneBounds(const ComposedScene& scene, const core::Rect& bas
         top = std::min(top, bounds.position.y);
         right = std::max(right, bounds.position.x + bounds.size.x);
         bottom = std::max(bottom, bounds.position.y + bounds.size.y);
+    }
+    for (const ComposedMesh& mesh : scene.meshes()) {
+        left = std::min(left, mesh.bounds.position.x);
+        top = std::min(top, mesh.bounds.position.y);
+        right = std::max(right, mesh.bounds.position.x + mesh.bounds.size.x);
+        bottom = std::max(bottom, mesh.bounds.position.y + mesh.bounds.size.y);
     }
     return core::Rect{{left, top}, {right - left, bottom - top}};
 }
@@ -111,6 +120,19 @@ void applyQuadOpacity(std::vector<ComposedQuad>& quads, const WorldQuadOpacity& 
                 break;
         }
         return false;
+    });
+}
+
+/// La meme opacite pour les maillages : l'appelant la decide par calque et par etage, que la piece
+/// soit une image ou un volume. Elle lui est demandee sur une primitive qui n'en porte que cela.
+void applyMeshOpacity(std::vector<ComposedMesh>& meshes, const WorldQuadOpacity& opacity) {
+    std::erase_if(meshes, [&opacity](ComposedMesh& mesh) {
+        ComposedQuad proxy;
+        proxy.layer = mesh.layer;
+        proxy.storey = mesh.storey;
+        const float extra = opacity(proxy);
+        mesh.opacity *= extra;
+        return extra <= 0.0F;
     });
 }
 
@@ -153,9 +175,45 @@ bool WorldSceneRenderer::ensureResources(QRhi* rhi) {
         _textures.solid = SceneTexture{
             .texture = _solid.handle(), .width = _solid.width, .height = _solid.height};
     }
+    _meshes = std::make_unique<MeshBatch>(rhi);
     _resources.setFrameUpdates(nullptr);
     GRAPHICS_LOG_INFO("Lieu : ressources QRhi creees (" + std::string(rhi->backendName()) + ").");
     return true;
+}
+
+std::size_t WorldSceneRenderer::textureBytes() const noexcept {
+    return _textureBytes + (_meshes ? _meshes->bytes() : 0U);
+}
+
+void WorldSceneRenderer::ensureMeshes(const std::vector<std::string>& paths) {
+    for (const std::string& path : paths) {
+        // Ni deja tente : un maillage absent ne se redemande pas a chaque image.
+        if (!_requested.insert(path).second) {
+            continue;
+        }
+        const core::MeshFileResult read = core::readMeshFile(_directory / path);
+        if (!read.ok()) {
+            // La composition retombe sur le damier : une piece manquante se voit, sans planter.
+            GRAPHICS_LOG_WARNING("Lieu : le maillage '" + path + "' ne se charge pas (" +
+                                 read.message + ").");
+            continue;
+        }
+        const MeshHandle handle = _meshes->create(_resources.context(), read.mesh);
+        if (handle == nullptr) {
+            GRAPHICS_LOG_WARNING("Lieu : le maillage '" + path + "' ne se cree pas sur le GPU.");
+            continue;
+        }
+        // La hauteur d'un etage : ce que le manifeste de son dossier declare, rapporte a son
+        // losange (LOT-129) -- la meme lecture que pour une image.
+        const SceneTextureTraits traits = readSceneTextureTraits(_directory, path, &_manifests);
+        SceneMesh& loaded = _textures.meshes[path] =
+            SceneMesh{.mesh = handle, .minimum = read.mesh.minimum, .maximum = read.mesh.maximum};
+        if (traits.storeyHeight && traits.artTile.x > 0.0F) {
+            loaded.storeyTiles = *traits.storeyHeight / traits.artTile.x;
+        }
+        GRAPHICS_LOG_INFO("Lieu : maillage '" + path + "' charge (" +
+                          std::to_string(read.mesh.triangleCount()) + " triangles).");
+    }
 }
 
 std::optional<LoadedTexture> WorldSceneRenderer::figureMarker(const std::string& path) {
@@ -250,6 +308,8 @@ void WorldSceneRenderer::release() noexcept {
     _sceneDirty = true;
     _figuresDirty = true;
     _textures.byPath.clear();
+    _textures.meshes.clear();
+    _meshes.reset();
     _textures.missing = SceneTexture{};
     _textures.solid = SceneTexture{};
     _loaded.clear();
@@ -298,6 +358,7 @@ void WorldSceneRenderer::refresh(const core::IsoProjection& projection) {
     // quoi charger, et la carte change au passage d'un portail.
     if (_sceneDirty) {
         ensureTextures(worldTexturePaths(*_scene));
+        ensureMeshes(worldMeshPaths(*_scene));
         _statics.build(*_scene, projection, _textures, _composeOptions);
         _sceneDirty = false;
     }
@@ -350,9 +411,9 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
     refresh(projection);
 
     const QSize pixels = target->pixelSize();
-    const Camera2D camera = _framing ? framedCamera(*_framing, pixels.width(), pixels.height())
-                                     : worldCamera(projection, projection.gridToWorld(_focus),
-                                                   pixels.width(), pixels.height(), _tilePixels);
+    PlaceCamera camera = _framing ? framedCamera(*_framing, pixels.width(), pixels.height())
+                                  : worldCamera(projection, projection.gridToWorld(_focus),
+                                                pixels.width(), pixels.height(), _tilePixels);
 
     // L'image : ce que la camera montre de la carte, et les figurines.
     _composed.clear();
@@ -364,12 +425,41 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
         _composed.swapQuads(quads, 0, 0);
         applyQuadOpacity(quads, _opacity);
         _composed.swapQuads(quads, 0, 0);
+        std::vector<ComposedMesh> meshes;
+        _composed.swapMeshes(meshes);
+        applyMeshOpacity(meshes, _opacity);
+        _composed.swapMeshes(meshes);
+    }
+
+    // Les volumes (LOT-1003). Une image qui en a donne a chaque primitive sa profondeur, et la
+    // camera ramene celle de toute la scene a l'etendue du tampon ; une image qui n'en a pas se
+    // dessine comme avant le lot : profondeur nulle, ni test ni ecriture.
+    const bool volumes = !_composed.meshes().empty();
+    std::optional<SceneDepth> depth;
+    if (volumes) {
+        const IsoView view(projection);
+        camera.setDepthRange(view.depthRange());
+        depth = SceneDepth{.view = view, .range = camera.depthRange()};
     }
 
     SpriteBatch& sprites = _resources.sprites();
+    sprites.setDepthTest(volumes);
     sprites.beginFrame();
-    submitComposedScene(sprites, camera.projectionMatrix(), _composed);
-    sprites.submit(commandBuffer, target, updates, clear);
+    submitComposedScene(sprites, camera.projectionMatrix(), _composed, depth ? &*depth : nullptr);
+    _meshes->beginFrame();
+    for (const ComposedMesh& mesh : _composed.meshes()) {
+        _meshes->draw(mesh.mesh, camera.meshMatrix(mesh.toView), mesh.opacity);
+    }
+
+    // Une seule passe : les televersements d'abord, puis les maillages, qui ecrivent la profondeur,
+    // et les images, qui la testent dans l'ordre du peintre.
+    QRhiResourceUpdateBatch* const uploads =
+        _meshes->prepare(target, sprites.prepare(target, updates));
+    commandBuffer->beginPass(target, QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]),
+                             {1.0F, 0}, uploads);
+    _meshes->record(commandBuffer, target);
+    sprites.record(commandBuffer, target);
+    commandBuffer->endPass();
     _resources.setFrameUpdates(nullptr);
 }
 

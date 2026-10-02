@@ -99,10 +99,10 @@ std::size_t differingPixels(const QImage& a, const QImage& b) {
  */
 TEST(OffscreenRenderTest, UnCadrageImposeRemplaceLaCameraQuiSuitLeHeros) {
     const hmi::WorldFraming framing{.center = {12.5F, -3.0F}, .pixelsPerUnit = 24.0F};
-    const hmi::Camera2D camera = hmi::framedCamera(framing, 800, 600);
+    const hmi::PlaceCamera camera = hmi::framedCamera(framing, 800, 600);
     EXPECT_FLOAT_EQ(camera.center().x, 12.5F);
     EXPECT_FLOAT_EQ(camera.center().y, -3.0F);
-    EXPECT_FLOAT_EQ(camera.zoom() * hmi::Camera2D::PIXELS_PER_UNIT, 24.0F);
+    EXPECT_FLOAT_EQ(camera.zoom() * hmi::PlaceCamera::PIXELS_PER_UNIT, 24.0F);
     // Le centre du monde tombe au centre de la cible.
     EXPECT_FLOAT_EQ(camera.worldToScreen(framing.center).x, 400.0F);
     EXPECT_FLOAT_EQ(camera.worldToScreen(framing.center).y, 300.0F);

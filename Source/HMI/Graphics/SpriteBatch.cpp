@@ -18,6 +18,7 @@
 #include <rhi/qrhi.h>
 
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/RhiShaders.h"
 
 namespace hmi {
 
@@ -35,37 +36,8 @@ namespace {
     return true;
 }
 
-// Charge un shader precompile (.qsb) depuis les ressources de l'executable. Un shader absent est
-// une erreur de BUILD, pas un etat d'execution recuperable : la ressource est embarquee par
-// qt6_add_shaders, elle ne peut manquer que si la compilation n'a pas eu lieu.
-QShader loadShader(const char* resourcePath) {
-    QFile file(QString::fromLatin1(resourcePath));
-    if (!file.open(QIODevice::ReadOnly)) {
-        throw std::runtime_error(std::string("Shader introuvable dans les ressources : ") +
-                                 resourcePath);
-    }
-    const QShader shader = QShader::fromSerialized(file.readAll());
-    if (!shader.isValid()) {
-        throw std::runtime_error(std::string("Shader illisible : ") + resourcePath);
-    }
-    return shader;
-}
-
 // Taille d'un bloc de projection : une matrice 4x4 de flottants.
 constexpr int PROJECTION_BYTES = 16 * static_cast<int>(sizeof(float));
-
-// Convertit la matrice ligne-major de DirectXMath (convention `position * matrice`) en QMatrix4x4
-// (convention `matrice * position`, comme GLSL) : c'est exactement sa transposee. La correction
-// d'espace de clip de QRhi est appliquee par-dessus -- le shader ecrit en convention OpenGL, QRhi
-// la ramene a celle du backend (Direct3D 11 sous Windows).
-QMatrix4x4 toClipMatrix(QRhi* rhi, const DirectX::XMFLOAT4X4& projection) {
-    const QMatrix4x4 columnMajor(
-        projection(0, 0), projection(1, 0), projection(2, 0), projection(3, 0),  //
-        projection(0, 1), projection(1, 1), projection(2, 1), projection(3, 1),  //
-        projection(0, 2), projection(1, 2), projection(2, 2), projection(3, 2),  //
-        projection(0, 3), projection(1, 3), projection(2, 3), projection(3, 3));
-    return rhi->clipSpaceCorrMatrix() * columnMajor;
-}
 
 }  // namespace
 
@@ -191,10 +163,15 @@ QRhiShaderResourceBindings* SpriteBatch::bindingsFor(QRhiTexture* texture) {
     return raw;
 }
 
-// Cree (ou recree) le pipeline pour la passe de rendu donnee.
+// Cree (ou recree) les pipelines pour la passe de rendu donnee : celui de toujours, et celui qui
+// teste la profondeur si l'image le demande.
 bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
     QRhiRenderPassDescriptor* const pass = target->renderPassDescriptor();
-    if (_pipeline && _pipelinePass == pass) {
+    if (_pipelinePass != pass) {
+        _pipeline.reset();
+        _depthPipeline.reset();
+    }
+    if (_pipeline && (!_depthTest || _depthPipeline)) {
         return true;
     }
 
@@ -214,6 +191,18 @@ bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
         }
     }
 
+    if (!_pipeline) {
+        _pipeline = createPipeline(pass, false);
+    }
+    if (_depthTest && !_depthPipeline) {
+        _depthPipeline = createPipeline(pass, true);
+    }
+    _pipelinePass = pass;
+    return _pipeline && (!_depthTest || _depthPipeline);
+}
+
+std::unique_ptr<QRhiGraphicsPipeline> SpriteBatch::createPipeline(QRhiRenderPassDescriptor* pass,
+                                                                  bool depthTest) {
     auto pipeline = std::unique_ptr<QRhiGraphicsPipeline>(_rhi->newGraphicsPipeline());
     pipeline->setShaderStages({
         {QRhiShaderStage::Vertex, loadShader(":/shaders/sprite.vert.qsb")},
@@ -223,18 +212,21 @@ bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
     QRhiVertexInputLayout inputLayout;
     inputLayout.setBindings({{static_cast<quint32>(sizeof(Vertex))}});
     inputLayout.setAttributes({
-        {0, 0, QRhiVertexInputAttribute::Float2, 0},
-        {0, 1, QRhiVertexInputAttribute::Float2, 2 * sizeof(float)},
-        {0, 2, QRhiVertexInputAttribute::Float4, 4 * sizeof(float)},
+        {0, 0, QRhiVertexInputAttribute::Float3, 0},
+        {0, 1, QRhiVertexInputAttribute::Float2, 3 * sizeof(float)},
+        {0, 2, QRhiVertexInputAttribute::Float4, 5 * sizeof(float)},
     });
     pipeline->setVertexInputLayout(inputLayout);
     pipeline->setShaderResourceBindings(_layoutBindings.get());
     pipeline->setRenderPassDescriptor(pass);
     pipeline->setTopology(QRhiGraphicsPipeline::Triangles);
     // Rendu 2D : les quads peuvent etre vus des deux cotes (un segment oriente peut « retourner »
-    // son quadrilatere), et il n'y a ni profondeur ni pochoir a ecrire.
+    // son quadrilatere), et il n'y a ni profondeur ni pochoir a ecrire. Quand l'image a des
+    // maillages (LOT-1003), les quads TESTENT la profondeur qu'ils ont ecrite, sans l'ecrire :
+    // leurs bords sont adoucis, et entre eux l'ordre du peintre decide toujours.
     pipeline->setCullMode(QRhiGraphicsPipeline::None);
-    pipeline->setDepthTest(false);
+    pipeline->setDepthTest(depthTest);
+    pipeline->setDepthOp(QRhiGraphicsPipeline::LessOrEqual);
     pipeline->setDepthWrite(false);
 
     // Fusion alpha PREMULTIPLIE (EX-VIS-008) : toute texture l'est au televersement, et le shader
@@ -251,11 +243,9 @@ bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
 
     if (!pipeline->create()) {
         GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation du pipeline graphique");
-        return false;
+        return nullptr;
     }
-    _pipeline = std::move(pipeline);
-    _pipelinePass = pass;
-    return true;
+    return pipeline;
 }
 
 // Ouvre l'enregistrement d'une image.
@@ -264,6 +254,7 @@ void SpriteBatch::beginFrame() {
     _batches.clear();
     _projections.clear();
     _recording = false;
+    _drawable = false;
 }
 
 // Demarre un lot : fixe la texture echantillonnee et la projection.
@@ -295,7 +286,7 @@ void SpriteBatch::closeBatch() {
 }
 
 // Ajoute un quad au lot courant.
-void SpriteBatch::draw(const SpriteQuad& quad) {
+void SpriteBatch::draw(const SpriteQuad& quad, float topDepth, float bottomDepth) {
     const float halfWidth = quad.width * 0.5F;
     const float halfHeight = quad.height * 0.5F;
     const float centerX = quad.x + halfWidth;
@@ -311,11 +302,13 @@ void SpriteBatch::draw(const SpriteQuad& quad) {
     const std::array<float, 4> offsetsY = {-halfHeight, -halfHeight, halfHeight, halfHeight};
     const std::array<float, 4> us = {quad.u0, quad.u1, quad.u1, quad.u0};
     const std::array<float, 4> vs = {quad.v0, quad.v0, quad.v1, quad.v1};
+    const std::array<float, 4> depths = {topDepth, topDepth, bottomDepth, bottomDepth};
     for (std::size_t i = 0; i < 4; ++i) {
         const float x = centerX + (offsetsX[i] * cosR) - (offsetsY[i] * sinR);
         const float y = centerY + (offsetsX[i] * sinR) + (offsetsY[i] * cosR);
         _vertices.push_back(Vertex{.x = x,
                                    .y = y,
+                                   .z = depths[i],
                                    .u = us[i],
                                    .v = vs[i],
                                    .r = quad.r,
@@ -326,7 +319,7 @@ void SpriteBatch::draw(const SpriteQuad& quad) {
 }
 
 // Ajoute un segment epais (oriente librement) au lot courant.
-void SpriteBatch::draw(const LineQuad& line) {
+void SpriteBatch::draw(const LineQuad& line, float startDepth, float endDepth) {
     const float dx = line.bx - line.ax;
     const float dy = line.by - line.ay;
     const float length = std::sqrt((dx * dx) + (dy * dy));
@@ -342,6 +335,7 @@ void SpriteBatch::draw(const LineQuad& line) {
     // convexe coherent, peu importe son orientation) : a+n, b+n, b-n, a-n.
     _vertices.push_back(Vertex{.x = line.ax + nx,
                                .y = line.ay + ny,
+                               .z = startDepth,
                                .u = line.u0,
                                .v = line.v0,
                                .r = line.r,
@@ -350,6 +344,7 @@ void SpriteBatch::draw(const LineQuad& line) {
                                .a = line.a});
     _vertices.push_back(Vertex{.x = line.bx + nx,
                                .y = line.by + ny,
+                               .z = endDepth,
                                .u = line.u1,
                                .v = line.v0,
                                .r = line.r,
@@ -358,6 +353,7 @@ void SpriteBatch::draw(const LineQuad& line) {
                                .a = line.a});
     _vertices.push_back(Vertex{.x = line.bx - nx,
                                .y = line.by - ny,
+                               .z = endDepth,
                                .u = line.u1,
                                .v = line.v1,
                                .r = line.r,
@@ -366,6 +362,7 @@ void SpriteBatch::draw(const LineQuad& line) {
                                .a = line.a});
     _vertices.push_back(Vertex{.x = line.ax - nx,
                                .y = line.ay - ny,
+                               .z = startDepth,
                                .u = line.u0,
                                .v = line.v1,
                                .r = line.r,
@@ -381,12 +378,13 @@ void SpriteBatch::draw(const LineQuad& line) {
 // draw(LineQuad) lui fournit deja pour un segment oriente. Les UV suivent le meme tour que les
 // coins d'un SpriteQuad (u0v0, u1v0, u1v1, u0v1) : avec l'aplat blanc, elles ne servent qu'a
 // rester coherentes avec les deux autres primitives.
-void SpriteBatch::draw(const PolyQuad& poly) {
+void SpriteBatch::draw(const PolyQuad& poly, const std::array<float, 4>& depths) {
     const std::array<float, 4> us = {poly.u0, poly.u1, poly.u1, poly.u0};
     const std::array<float, 4> vs = {poly.v0, poly.v0, poly.v1, poly.v1};
     for (std::size_t i = 0; i < 4; ++i) {
         _vertices.push_back(Vertex{.x = poly.x[i],
                                    .y = poly.y[i],
+                                   .z = depths[i],
                                    .u = us[i],
                                    .v = vs[i],
                                    .r = poly.r,
@@ -404,9 +402,18 @@ void SpriteBatch::end() {
 // Televerse l'image enregistree et l'emet en une passe de rendu.
 void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target,
                          QRhiResourceUpdateBatch* updates, const float* clear) {
+    updates = prepare(target, updates);
+    const QColor clearColor = QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]);
+    commandBuffer->beginPass(target, clearColor, {1.0F, 0}, updates);
+    record(commandBuffer, target);
+    commandBuffer->endPass();
+}
+
+// Depose les televersements de l'image enregistree dans un lot, hors de toute passe.
+QRhiResourceUpdateBatch* SpriteBatch::prepare(QRhiRenderTarget* target,
+                                              QRhiResourceUpdateBatch* updates) {
     closeBatch();
 
-    const QColor clearColor = QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]);
     const std::size_t quadCount = _vertices.size() / 4;
 
     // Le lot de televersement du tampon d'indices n'a pas encore ete soumis (premiere image) :
@@ -420,9 +427,9 @@ void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* tar
         _pendingIndexUpload = nullptr;
     }
 
-    const bool drawable = quadCount > 0 && ensureVertexCapacity(quadCount) &&
-                          ensureUniformCapacity(_projections.size()) && ensurePipeline(target);
-    if (drawable) {
+    _drawable = quadCount > 0 && ensureVertexCapacity(quadCount) &&
+                ensureUniformCapacity(_projections.size()) && ensurePipeline(target);
+    if (_drawable) {
         if (updates == nullptr) {
             updates = _rhi->nextResourceUpdateBatch();
         }
@@ -438,10 +445,14 @@ void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* tar
         }
     }
 
-    commandBuffer->beginPass(target, clearColor, {1.0F, 0}, updates);
-    if (drawable) {
+    return updates;
+}
+
+// Emet les appels de dessin de l'image preparee, dans la passe ouverte par l'appelant.
+void SpriteBatch::record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target) {
+    if (_drawable) {
         const QSize pixelSize = target->pixelSize();
-        commandBuffer->setGraphicsPipeline(_pipeline.get());
+        commandBuffer->setGraphicsPipeline(_depthTest ? _depthPipeline.get() : _pipeline.get());
         commandBuffer->setViewport({0.0F, 0.0F, static_cast<float>(pixelSize.width()),
                                     static_cast<float>(pixelSize.height())});
         for (const Batch& batch : _batches) {
@@ -466,7 +477,6 @@ void SpriteBatch::submit(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* tar
             }
         }
     }
-    commandBuffer->endPass();
 }
 
 }  // namespace hmi

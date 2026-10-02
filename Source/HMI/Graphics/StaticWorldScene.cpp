@@ -239,6 +239,21 @@ void StaticWorldScene::compose(ComposedScene& out, std::span<const WorldFigureSn
     const auto considered = static_cast<int>(statics.size());
     const int culled = considered - static_cast<int>(_visible.size());
     out.swapQuads(_merged, considered, culled);
+
+    // Les maillages de la carte que le cadrage montre (LOT-1003), a la suite de ceux que
+    // l'appelant avait deja. Aucun ordre a tenir : le tampon de profondeur les departage.
+    if (!_scene.meshes().empty()) {
+        std::vector<ComposedMesh> meshes;
+        out.swapMeshes(meshes);
+        const bool culling = out.isCullingEnabled();
+        const core::Rect visible = out.cullingBounds();
+        for (const ComposedMesh& mesh : _scene.meshes()) {
+            if (!culling || visible.intersects(mesh.bounds)) {
+                meshes.push_back(mesh);
+            }
+        }
+        out.swapMeshes(meshes);
+    }
 }
 
 }  // namespace hmi

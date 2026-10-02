@@ -26,7 +26,7 @@ inline constexpr std::string_view ENTITY_MARKER_FAMILY = "marker";
 ///        vide, ou fait uniquement de ponctuation) : `marker/inconnu`.
 inline constexpr std::string_view ENTITY_MARKER_UNKNOWN_ID = "inconnu";
 
-/// @brief Côté d'un marqueur d'entité, en pixels : **une case** (`Camera2D::PIXELS_PER_UNIT`).
+/// @brief Côté d'un marqueur d'entité, en pixels : **une case** (`PlaceCamera::PIXELS_PER_UNIT`).
 ///        Le marqueur occupe exactement la case de l'entité, comme une tuile.
 inline constexpr int ENTITY_MARKER_SIZE_PIXELS = 16;
 

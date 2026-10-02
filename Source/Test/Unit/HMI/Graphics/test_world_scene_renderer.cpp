@@ -31,8 +31,8 @@
 #include "Core/Levels/LevelDraft.h"
 #include "Core/Levels/LevelLoader.h"
 #include "Core/World/WorldTravel.h"
-#include "HMI/Graphics/Camera2D.h"
 #include "HMI/Graphics/PlaceAppearance.h"
+#include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/Graphics/WorldSceneRenderer.h"
 
@@ -259,11 +259,11 @@ TEST(WorldSceneRendererTest, UnLieuDevientDesPixels) {
 TEST(WorldSceneRendererTest, LaCameraSuitLeHerosSansSortirDeLaCarte) {
     const core::IsoProjection grande{40, 34};
     const core::Vector2 centre = grande.gridToWorld({20.0F, 17.0F});
-    const auto casesAlEcran = [](const hmi::Camera2D& camera, const core::IsoProjection& vue) {
-        return camera.zoom() * hmi::Camera2D::PIXELS_PER_UNIT * vue.tileWidth();
+    const auto casesAlEcran = [](const hmi::PlaceCamera& camera, const core::IsoProjection& vue) {
+        return camera.zoom() * hmi::PlaceCamera::PIXELS_PER_UNIT * vue.tileWidth();
     };
 
-    const hmi::Camera2D suivie = hmi::worldCamera(grande, centre, 1280, 720);
+    const hmi::PlaceCamera suivie = hmi::worldCamera(grande, centre, 1280, 720);
     EXPECT_NEAR(casesAlEcran(suivie, grande), 720.0F / 10.8F, 0.01F);
     EXPECT_NEAR(suivie.center().x, centre.x, 0.001F);
     EXPECT_NEAR(suivie.center().y, centre.y, 0.001F);
@@ -271,7 +271,7 @@ TEST(WorldSceneRendererTest, LaCameraSuitLeHerosSansSortirDeLaCarte) {
     // Le coin GAUCHE du losange -- la case (0, lignes - 1), celle qui touche le bord gauche de la
     // scene : la camera s'y arrete au bord, et ne montre pas le vide au-dela.
     const core::Vector2 coin = grande.gridToWorld({0.0F, 33.0F});
-    const hmi::Camera2D bornee = hmi::worldCamera(grande, coin, 1280, 720);
+    const hmi::PlaceCamera bornee = hmi::worldCamera(grande, coin, 1280, 720);
     EXPECT_GT(bornee.center().x, coin.x) << "la camera est ramenee dans la scene";
     EXPECT_GE(bornee.visibleBounds().position.x, -0.001F);
     EXPECT_LE(bornee.visibleBounds().position.x + bornee.visibleBounds().size.x,
@@ -279,14 +279,14 @@ TEST(WorldSceneRendererTest, LaCameraSuitLeHerosSansSortirDeLaCarte) {
 
     // Une carte plus petite que la vue reste centree.
     const core::IsoProjection petite{4, 3};
-    const hmi::Camera2D petiteVue =
+    const hmi::PlaceCamera petiteVue =
         hmi::worldCamera(petite, petite.gridToWorld({0.0F, 0.0F}), 1280, 1440);
     EXPECT_NEAR(petiteVue.center().x, petite.sceneSize().x / 2.0F, 0.001F);
     EXPECT_NEAR(petiteVue.center().y, petite.sceneSize().y / 2.0F, 0.001F);
 
     // 1080p et 2160p : 100 puis 200 pixels par case, et la meme etendue de monde.
-    const hmi::Camera2D hd = hmi::worldCamera(grande, centre, 1920, 1080);
-    const hmi::Camera2D uhd = hmi::worldCamera(grande, centre, 3840, 2160);
+    const hmi::PlaceCamera hd = hmi::worldCamera(grande, centre, 1920, 1080);
+    const hmi::PlaceCamera uhd = hmi::worldCamera(grande, centre, 3840, 2160);
     EXPECT_NEAR(casesAlEcran(hd, grande), 100.0F, 0.01F);
     EXPECT_NEAR(casesAlEcran(uhd, grande), 200.0F, 0.01F);
     EXPECT_NEAR(hd.visibleBounds().size.x, uhd.visibleBounds().size.x, 0.001F);

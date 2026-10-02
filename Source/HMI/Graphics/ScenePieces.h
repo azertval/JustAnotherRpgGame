@@ -4,6 +4,7 @@
 #pragma once
 
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -14,6 +15,7 @@
 #include "Core/Levels/GridPosition.h"
 #include "Core/Math/Rect.h"
 #include "Core/Math/Vector2.h"
+#include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/Quad.h"
 #include "HMI/Graphics/RenderLayer.h"
 
@@ -101,7 +103,22 @@ struct SceneTexture {
 }
 
 /**
- * @brief Les textures d'un lieu, adressées par leur **chemin** tel que la composition l'écrit.
+ * @brief Un maillage chargé (`LOT-1003`) : son identité, sa boîte, et ce que le manifeste de son
+ *        dossier dit de la hauteur d'un étage.
+ */
+struct SceneMesh {
+    MeshHandle mesh = nullptr;
+    /// La boîte du maillage dans son repère, en mètres (`core::MeshData`).
+    std::array<float, 3> minimum{};
+    std::array<float, 3> maximum{};
+    /// Hauteur d'un étage du lieu, en **largeurs de case** (`storey` du manifeste rapporté à son
+    /// losange, `LOT-129`) ; sans elle, `hmi::DEFAULT_STOREY_TILES`.
+    std::optional<float> storeyTiles{};
+};
+
+/**
+ * @brief Les textures d'un lieu, adressées par leur **chemin** tel que la composition l'écrit —
+ *        et, depuis le `LOT-1003`, ses maillages, adressés de même.
  *
  * La composition ne demande rien au GPU : elle résout un chemin en texture déjà chargée. Un chemin
  * absent tombe sur le damier (`EX-NFR-040`) ; si lui aussi manque, la pièce n'est pas composée.
@@ -109,6 +126,15 @@ struct SceneTexture {
 struct ScenePieceTextures {
     /// Comparateur transparent : la recherche se fait sans chaîne temporaire.
     std::map<std::string, SceneTexture, std::less<>> byPath;
+    /// Les maillages chargés, par chemin (`Scene/ilot/wall.glb`). Une pièce en maillage dont le
+    /// fichier ne s'est pas chargé n'y est pas : elle retombe sur le damier, comme une image.
+    std::map<std::string, SceneMesh, std::less<>> meshes;
+
+    /// @return Le maillage de @p path, `nullptr` s'il n'est pas chargé.
+    [[nodiscard]] const SceneMesh* findMesh(std::string_view path) const {
+        const auto found = meshes.find(path);
+        return found != meshes.end() && found->second.mesh != nullptr ? &found->second : nullptr;
+    }
     /// Damier de repli.
     SceneTexture missing;
     /// L'**aplat** : une texture blanche de 1 × 1, que les primitives de couleur du rendu de

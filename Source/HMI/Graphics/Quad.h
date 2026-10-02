@@ -66,6 +66,11 @@ struct SpriteQuad {
 struct PolyQuad {
     std::array<float, 4> x{};
     std::array<float, 4> y{};
+    /// L'**élévation** de chaque sommet au-dessus du sol, mesurée à l'écran en unités monde
+    /// (`LOT-1003`) : 0 pour un sommet posé au sol, la hauteur d'un bloc pour son dessus. Elle ne
+    /// déplace rien — `y` est déjà l'ordonnée du sommet élevé — et ne sert qu'à sa **profondeur**,
+    /// quand la scène a des maillages (`hmi::IsoView::raisedDepth`).
+    std::array<float, 4> rise{};
     float u0 = 0.0f;
     float v0 = 0.0f;
     float u1 = 1.0f;

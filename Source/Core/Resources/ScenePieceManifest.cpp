@@ -45,7 +45,13 @@ namespace {
     ScenePiece piece;
     piece.key = key;
     piece.name = std::string{scenePieceShortName(key)};
-    piece.file = value["file"].get<std::string>();
+    // Une clé de pièce cite une image (`file`) ou un maillage (`mesh`, LOT-1003).
+    if (const auto file = value.find("file"); file != value.end() && file->is_string()) {
+        piece.file = file->get<std::string>();
+    }
+    if (const auto mesh = value.find("mesh"); mesh != value.end() && mesh->is_string()) {
+        piece.mesh = mesh->get<std::string>();
+    }
     if (const auto found = value.find("class"); found != value.end() && found->is_string()) {
         piece.className = found->get<std::string>();
     }
@@ -212,8 +218,13 @@ ScenePieceManifestResult ScenePieceManifest::fromDocument(const JsonDocument& do
         result.manifest._tileHeight = height;
     }
     for (const auto& [key, value] : textures->items()) {
-        // Une entrée sans image est ignorée, pas fatale : les autres pièces restent utilisables.
-        if (!value.is_object() || !value.contains("file") || !value["file"].is_string()) {
+        // Une entrée sans image ni maillage est ignorée, pas fatale : les autres pièces restent
+        // utilisables.
+        const auto cites = [&value](const char* field) {
+            const auto found = value.find(field);
+            return found != value.end() && found->is_string() && !found->get<std::string>().empty();
+        };
+        if (!value.is_object() || (!cites("file") && !cites("mesh"))) {
             continue;
         }
         result.manifest._pieces.push_back(readPiece(key, value));

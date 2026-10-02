@@ -37,7 +37,8 @@ MAX_BYTES = 5 * 1024 * 1024
 SNIFF_BYTES = 8000
 GITATTRIBUTES = '.gitattributes'
 KITS_LOCK = 'Source/Elements/Assets/kits.lock.json'
-KIT_IMAGES = ('.png', '.jpg', '.jpeg')
+# Ce que porte l'archive d'un kit : ses images et, depuis le LOT-1003, ses modèles.
+KIT_IMAGES = ('.png', '.jpg', '.jpeg', '.glb')
 BINARY_PATTERN_RE = re.compile(r'^\*(\.[A-Za-z0-9]+)\s+(?:.*\s)?binary(?:\s|$)')
 
 

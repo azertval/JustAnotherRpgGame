@@ -81,6 +81,26 @@ les lit, et les portraits et jetons peints.
 - **Le modèle d'un personnage est une donnée de sa fiche**, pas de ses règles : rien de ce lot ne
   touche à `Core`.
 
+## Reçu de l'auteur (2 octobre 2026)
+
+Les deux mannequins sont générés par Meshy et déposés dans l'atelier
+(`Tools/Assets3D/Personnages/mannequin/`), chacun avec son image de référence, de face :
+
+| Mannequin | Référence | Maître | Copie au standard | Largeur × hauteur × profondeur |
+|---|---|---:|---:|---|
+| Humanoïde (`humain.png`) | pose neutre, bras le long du corps sur l'image | 103 261 triangles | 100 000 | 1,90 × 1,81 × 0,35 m — le maillage est en T, bras écartés |
+| Quadrupède (`quadripede.png`) | de face, quatre appuis | 102 949 triangles | 100 000 | 0,61 × 1,36 × 1,90 m |
+
+Les copies sont passées par `scripts/assetsGeneration/reduce_model.py` (au sol, couleur de base
+seule, 100 000 triangles au plus) et se lisent par le chargeur du moteur. Elles sont installées
+dans le kit `Common@6` (`Common/Characters/Mannequins/humanoid/humanoid.glb`,
+`…/quadruped/quadruped.glb`), inscrites au manifeste de `Common/Characters` sous `models`, sans
+squelette : rien ne les affiche encore. Chaque membre porte une teinte à lui : un défaut
+de déformation se lira à la couleur.
+
+Ce qui reste à ce lot : les lier au squelette, poser les clips, les installer. Le mannequin
+quadrupède arrive avant son squelette, que le standard place au
+[LOT-1009](LOT-1009-les-quatre-heros.md).
 ## Risques et questions ouvertes
 
 - **La pose neutre n'a jamais été générée.** Si Meshy rend un personnage moins fidèle depuis une

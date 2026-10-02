@@ -54,7 +54,7 @@ endif()
 # correct : aucune de ces sources n'a de `Q_OBJECT`.
 add_library(HmiLib STATIC
     # Graphismes : logique de rendu sans GPU (composition, catalogues, géométrie de caméra).
-    Graphics/Camera2D.cpp
+    Graphics/PlaceCamera.cpp
     Graphics/TileVisuals.cpp
     Graphics/ProceduralAtlas.cpp
     Graphics/TextureAtlasRegions.cpp

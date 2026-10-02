@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "frameWidth": 32,
+  "frameHeight": 48,
+  "clips": {
+    "idle": {
+      "frames": [
+        0
+      ],
+      "frameDuration": 0.5,
+      "loop": true
+    }
+  }
+}

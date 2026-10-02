@@ -60,7 +60,8 @@ std::vector<std::uint32_t> witnessPixels() {
 }
 
 /// Projection pixel : une unité monde = un pixel de la cible, origine en haut à gauche, Y vers le
-/// bas — même convention (ligne-major, `position * matrice`) que `hmi::Camera2D::projectionMatrix`.
+/// bas — même convention (ligne-major, `position * matrice`) que
+/// `hmi::PlaceCamera::projectionMatrix`.
 DirectX::XMFLOAT4X4 pixelProjection(int width, int height) {
     const float scaleX = 2.0f / static_cast<float>(width);
     const float scaleY = 2.0f / static_cast<float>(height);

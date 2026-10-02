@@ -59,6 +59,7 @@ qt_add_qml_module(JadgRuntime
         AssetGalleryItem.h AssetGalleryItem.cpp
         ../Graphics/AssetGalleryRenderer.cpp
         ../Graphics/SceneResources.cpp
+        ../Graphics/MeshBatch.cpp
         ../Graphics/SpriteBatch.cpp
         ../Graphics/SpriteRenderer.cpp
         ../Graphics/TextureLoader.cpp
@@ -92,6 +93,8 @@ qt6_add_shaders(JadgRuntime "jadg_runtime_shaders"
     FILES
         ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.vert
         ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/sprite.frag
+        ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.vert
+        ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.frag
 )
 
 target_include_directories(JadgRuntime
