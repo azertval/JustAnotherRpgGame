@@ -84,8 +84,8 @@ brawler en l'état ; la règle vaut pour les suivants.
 > 1,81 m d'envergure, 1,90 m de haut, 0,43 m de profondeur, 100 000 triangles après réduction. Sur
 > sa planche de liaison le buste et le visage sont de face, d'aplomb sur les pieds : le vrillage de
 > la preuve ne se reproduit pas. Il s'est lié par sa seule fiche de liaison, estimée par le script,
-> sans volume rigide (`rigid` vide). La lisibilité du visage à 100 px par case reste un
-> jugement de l'auteur, dans le jeu.
+> sans volume rigide (`rigid` vide). Le visage, à 100 px par case, est **accepté par
+> l'auteur** avec le lot, le 2 octobre 2026.
 
 ## 4. La génération
 
@@ -196,8 +196,8 @@ Ce sont les valeurs de `Common/Characters/Skeletons/humanoid/skeleton.json`, ins
 - **La fiche du personnage** (`character.json`, dans son dossier) nomme son modèle et son
   squelette : c'est elle que le moteur lit pour savoir qu'un personnage est un modèle.
 - Les six clips sont posés par le script de liaison depuis le LOT-1005 et joués dans le jeu
-  depuis le LOT-1006 par le mannequin, le brawler et le bandit ; leur **jugement par l'auteur**,
-  dans le jeu, est le critère de sortie du LOT-1006.
+  depuis le LOT-1006 par le mannequin, le brawler et le bandit ; ils sont **approuvés par
+  l'auteur**, dans le jeu, le 2 octobre 2026 (LOT-1006).
 - **Un personnage petit garde la règle de la marche.** L'enfant de la démo (1,25 m, jambe de
   0,58 m contre 0,88 m pour le bandit), lié au même squelette par sa fiche, couvre la case en
   0,5 s : glissement mesuré de 0,001 px d'art, pénétration du sol de 0,2 mm à la marche.
@@ -251,6 +251,6 @@ Présentés à l'auteur le 1er octobre 2026, acceptés pour le brawler, à lever
 | Constat | Ce que le standard en fait | Levé au |
 |---|---|---|
 | Buste vrillé d'environ 45° sur les pieds | image de référence de face ([§3](#3-limage-de-référence)) | **levé** au LOT-1006 : le bandit a le buste de face |
-| Visage peu lisible sous la caméra du jeu | même règle : un visage généré de face | généré de face au LOT-1006 ; sa lisibilité à 100 px par case reste au jugement de l'auteur |
+| Visage peu lisible sous la caméra du jeu | même règle : un visage généré de face | **levé** au LOT-1006 : visage du bandit accepté par l'auteur à 100 px par case |
 | Texture plus pâle que la figurine peinte | la texture se compare au portrait avant la liaison ; une texture trop pâle se **régénère** | au jugement de l'auteur, sur le bandit |
-| Quatre clips en poses simples, `cast` absent | les six clips sont posés ([§7](#7-les-clips)) | **levé** au LOT-1006 pour `cast` ; les six clips restent au jugement de l'auteur |
+| Quatre clips en poses simples, `cast` absent | les six clips sont posés ([§7](#7-les-clips)) | **levé** au LOT-1006 : six clips posés et approuvés par l'auteur |

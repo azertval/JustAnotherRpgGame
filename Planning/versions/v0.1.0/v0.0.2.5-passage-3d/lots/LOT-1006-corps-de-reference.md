@@ -3,7 +3,7 @@ id = "LOT-1006"
 titre = "Le squelette commun et le mannequin"
 version = "0.0.2.5"
 filiere = "pnj"
-statut = "en-cours"
+statut = "livre"
 taille = "L"
 resume = "Un squelette, six animations soignées, un mannequin et le premier personnage produit au standard : le socle commun de tous les personnages, installé dans le jeu — et plus une seule bande de figurine."
 prerequis = ["LOT-1005"]
@@ -101,9 +101,12 @@ de déformation se lira à la couleur.
 Ce qui reste à ce lot : les lier au squelette, poser les clips, les installer. Le mannequin
 quadrupède arrive avant son squelette, que le standard place au
 [LOT-1009](LOT-1009-les-quatre-heros.md).
-## État au 2 octobre 2026
+## Décisions de réalisation
 
-Fait (PR #171) :
+Livré le 2 octobre 2026, **PR #171**. Les six animations, jouées par le mannequin et le bandit,
+et le visage du bandit à 100 px par case sont approuvés par l'auteur le même jour.
+
+Ce qui est livré :
 
 - le mannequin humanoïde lié au squelette et installé ; le retrait des 132 bandes de figurine et
   de leur lecture (moteur, galerie, outils, données d'essai) ; `EX-REN-012` retirée au profit de
@@ -127,10 +130,8 @@ Demandé par l'auteur le même jour, et livré dans la même PR :
   un repos entre deux ;
 - la révision de l'interface : la manette est retirée.
 
-Reste dû, pour passer la fiche à `livre` : le **jugement de l'auteur**, dans le jeu, sur les six
-animations (mannequin et bandit) et sur le visage du bandit à 100 px par case. Les modèles liés des
-autres personnages de la démo attendent dans l'atelier (`Tools/Assets3D/Lies/`) : les héros sont
-au [LOT-1009](LOT-1009-les-quatre-heros.md).
+Les modèles liés des autres personnages de la démo attendent dans l'atelier
+(`Tools/Assets3D/Lies/`) : les héros sont au [LOT-1009](LOT-1009-les-quatre-heros.md).
 
 ## Risques et questions ouvertes
 
