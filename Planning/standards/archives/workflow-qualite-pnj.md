@@ -1,5 +1,7 @@
 # Workflow de qualité des PNJ générés
 
+> **Archivé le 1er octobre 2026 ([LOT-1001](../../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1001-standard-3d.md)).** Ce workflow réglait un défaut des marches **peintes** image par image ; un personnage est désormais un modèle animé par un squelette ([personnages 3D](../personnages-3d.md)), et les scripts qu'il cite (`check_figure_walk.py`) ont été supprimés. Il n'est plus en vigueur.
+
 La validation artistique d'une planche ne valide pas son mouvement en jeu. Le brawler
 livré sert de cas de régression signalé par l'auteur : ses huit images à 62,5 ms sont
 compatibles avec deux cases/s, mais cette cadence ne garantit ni les appuis ni la fluidité.

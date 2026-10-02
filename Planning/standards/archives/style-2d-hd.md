@@ -1,17 +1,19 @@
 # Le standard 2D HD
 
+> **Archivé le 1er octobre 2026 ([LOT-1001](../../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1001-standard-3d.md)).** Ce document n'est plus normatif : le jeu passe à la 3D ([D-29](../../vision/decisions.md)), et la règle en vigueur est le [standard 3D](../style-3d.md). Il reste la mémoire des lots livrés qui le citent, et la référence figée des **images tolérées** ([standard 3D, §7](../style-3d.md#7-les-images-tolérées)).
+
 Le jeu quitte le pixel art le 20 septembre 2026. Ce document fixe ce qui le remplace : **une scène
 isométrique peinte, en haute définition**, dont la référence est la planche
 `Tools/AssetsHD/Arenarea/arenarea-planche-reference-v2.png`.
 
-Il est **normatif** : le [LOT-101](../versions/v0.1.0/v0.0.1-demo/lots/LOT-101-standard-2d-hd.md)
-l'a confronté à une [maquette de huit cases sur huit](../versions/v0.1.0/v0.0.1-demo/maquettes/maquette-2d-hd-reperes.png),
+Il est **normatif** : le [LOT-101](../../versions/v0.1.0/v0.0.1-demo/lots/LOT-101-standard-2d-hd.md)
+l'a confronté à une [maquette de huit cases sur huit](../../versions/v0.1.0/v0.0.1-demo/maquettes/maquette-2d-hd-reperes.png),
 montée aux deux définitions où le jeu se joue, et en a réécrit les exigences `EX-VIS-008`,
 `EX-VIS-009` et `EX-REN-013`. Ce que la maquette a mesuré est au [§7](#7-ce-que-la-maquette-a-mesuré) ;
 ce qu'elle a appris à la commande d'images est dans [la consigne du générateur](consigne-2d-hd.md).
 
 > **Le standard est complet.** Sa dernière valeur ouverte — le nombre d'images par animation
-> (§5) — a été fixée par le [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md),
+> (§5) — a été fixée par le [LOT-112](../../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md),
 > sur la première figurine produite : **huit**.
 
 ## 1. La géométrie — ce qui ne change pas
@@ -32,10 +34,10 @@ ce qu'elle a appris à la commande d'images est dans [la consigne du générateu
 | Grande créature | cellule de **384 × 384** | |
 | Alpha | **continu** (8 bits), bords adoucis, **prémultiplié** au chargement | le détourage binaire est ce qui signe le pixel art |
 | Couleur | sRGB, 8 bits par canal, **pas de palette imposée** par image | la cohérence vient de la palette du lieu (§3), pas d'une quantification |
-| Filtrage | **bilinéaire + mipmaps** pour tout l'art de scène | c'est la révision du moteur que demande le [LOT-103](../versions/v0.1.0/v0.0.1-demo/lots/LOT-103-rendu-hd.md) |
+| Filtrage | **bilinéaire + mipmaps** pour tout l'art de scène | c'est la révision du moteur que demande le [LOT-103](../../versions/v0.1.0/v0.0.1-demo/lots/LOT-103-rendu-hd.md) |
 | Zoom | **libre**, et fixé par la définition : une case occupe **100 px à 1080p, 200 px à 2160p** | les deux définitions cadrent la **même étendue de monde** (§7) : un écran plus fin ne montre pas plus de jeu, il montre le même jeu plus finement |
 | Fichier | PNG 32 bits ; une pièce = un fichier ; **5 Mio au plus** (contrôle existant) ; planche d'animation ≤ 4096 px de côté | |
-| Planche d'animation | **8 px de marge** entre deux images, et autour de la planche | sans elle, le niveau de mipmap d'une image déborde sur sa voisine et la marche bave (risque relevé par le [LOT-103](../versions/v0.1.0/v0.0.1-demo/lots/LOT-103-rendu-hd.md)) |
+| Planche d'animation | **8 px de marge** entre deux images, et autour de la planche | sans elle, le niveau de mipmap d'une image déborde sur sa voisine et la marche bave (risque relevé par le [LOT-103](../../versions/v0.1.0/v0.0.1-demo/lots/LOT-103-rendu-hd.md)) |
 
 L'échelle de l'art devient une **donnée du lieu** : le manifeste d'une scène déclare
 `"tile": [256, 159]`, et le moteur en déduit l'échelle de chaque pièce. Un lieu pourrait demain
@@ -87,7 +89,7 @@ Relevée sur la planche. Chaque région aura la sienne, écrite dans son référ
 
 Les dix familles de la planche sont le **gabarit d'inventaire** d'une zone urbaine : un lot
 d'assets de zone les passe en revue une à une et dit, pour chacune, ce qu'il prend au **commun**
-et ce qu'il produit en **propre** (voir l'[arborescence](arborescence-assets.md)).
+et ce qu'il produit en **propre** (voir l'[arborescence](../arborescence-assets.md)).
 
 | # | Famille | Emprise type | Exemples |
 |---|---|---|---|
@@ -114,7 +116,7 @@ tout le champ. Les deux sols de la planche de référence sont des panneaux : il
 |---|---|
 | Orientations | **quatre** (les diagonales de l'isométrie), comme aujourd'hui |
 | Animations | repos, marche, attaque, sort, touché, mort |
-| Images par animation | **huit**, pour toutes les animations. Tranché par le [LOT-112](../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) : la même marche commandée deux fois, à six et à huit images, et jugée sur la maquette à la vitesse du jeu. À six, la planche décollait de 8 px et dérivait de 12 px d'une image à l'autre ; à huit, le générateur a tenu le même personnage, les pieds au sol. Le quart de coût en plus sur chaque PNJ est accepté |
+| Images par animation | **huit**, pour toutes les animations. Tranché par le [LOT-112](../../versions/v0.1.0/v0.0.1-demo/lots/LOT-112-heros-de-la-demo.md) : la même marche commandée deux fois, à six et à huit images, et jugée sur la maquette à la vitesse du jeu. À six, la planche décollait de 8 px et dérivait de 12 px d'une image à l'autre ; à huit, le générateur a tenu le même personnage, les pieds au sol. Le quart de coût en plus sur chaque PNJ est accepté |
 | Cadence | un cycle de marche couvre **une case** ; à 2 cases par seconde il dure une demi-seconde, soit **62 ms par image**. La durée est écrite dans le `.anim.json` de chaque bande, jamais dans le code |
 | Fichiers | une bande par animation **et par orientation** : `walk-se.png`, `walk-sw.png`, `walk-ne.png`, `walk-nw.png`, chacune avec son `.anim.json` ; une animation orientée l'est dans les quatre sens |
 | Ligne de sol | **252** dans la cellule de 256, déclarée par le manifeste `Characters/` (`"ground"`) ; le moteur la pose au centre du losange de la position |
@@ -133,7 +135,7 @@ tout le champ. Les deux sols de la planche de référence sont des panneaux : il
 La maquette du `LOT-101` monte huit cases sur huit d'Arenarea — sol, deux façades, une colonnade, la
 fontaine, un lampadaire, un banc — à l'échelle du standard, et les cadre aux deux définitions. Elle
 se reconstruit par `python scripts/assetsGeneration/build_hd_mockup.py`, et vit dans
-[`maquettes/`](../versions/v0.1.0/v0.0.1-demo/maquettes/) :
+[`maquettes/`](../../versions/v0.1.0/v0.0.1-demo/maquettes/) :
 
 | Image | Ce qu'elle montre |
 |---|---|

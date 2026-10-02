@@ -795,13 +795,23 @@ jobs:
         run: python3 scripts/checks/check_map_assets.py
 
       # Assets HD installés (LOT-104) : sous Common/ et Regions/, tout fichier cité par un manifeste
-      # existe, toute image est citée (EX-CNT-042), chaque pièce tient dans les bornes du standard
-      # 2D HD ; le poids de chaque zone s'écrit dans le résumé du job, sans budget (décision de
+      # existe, toute image est citée (EX-CNT-042), chaque image tient dans les bornes du standard
+      # (style-3d.md, §7) ; le poids de chaque zone s'écrit dans le résumé du job, sans budget (décision de
       # l'auteur, 24 septembre 2026). Les sources ne sont pas sur le runner : c'est l'installé qu'on contrôle. Sans dépendance.
       - name: Assets HD conformes a leur manifeste et au standard (EX-CNT-042)
         id: hd_assets
         if: ${{ !cancelled() }}
         run: python3 scripts/checks/check_hd_assets.py
+
+      # Pas d'asset mort, pas de script sans appelant (LOT-1001, décision D-32) : tout fichier sous
+      # Source/Elements/Assets/ est cité par un manifeste ou une fiche, toute entrée citée existe, et
+      # tout script de scripts/ est appelé par la CI, un hook, un document en vigueur ou un script
+      # appelé. Un lot qui remplace quelque chose le supprime dans sa PR : c'est ce contrôle qui le
+      # fait tenir. Il lit le disque, donc après les kits. Sans dépendance.
+      - name: Ni asset ni script orphelin (D-32)
+        id: orphans
+        if: ${{ !cancelled() }}
+        run: python3 scripts/checks/check_orphans.py
 
       # Les cles d'assets d'ENTITE (LOT-39). Ce controle echoue sur une cle orpheline -- une
       # derogation malformee, ou qui nomme une famille inconnue (EX-CNT-040) -- mais se contente de
@@ -908,6 +918,7 @@ jobs:
             Illustrations et manifeste=${{ steps.ui_assets.outcome }}
             Cartes, manifeste et atlas=${{ steps.map_assets.outcome }}
             Assets HD et manifestes=${{ steps.hd_assets.outcome }}
+            Assets et scripts orphelins=${{ steps.orphans.outcome }}
             Clés d'assets d'entité=${{ steps.asset_keys.outcome }}
             Catalogues RPG=${{ steps.rpg_data.outcome }}
             Cahier des assets=${{ steps.assets_brief.outcome }}

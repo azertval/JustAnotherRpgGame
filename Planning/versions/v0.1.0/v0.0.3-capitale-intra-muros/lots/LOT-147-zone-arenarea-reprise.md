@@ -12,7 +12,7 @@ livrables = [
   "Les compléments du commun de la Capitale (postes C) relus de même, sans retoucher les pièces validées du `LOT-105`.",
   "`Levels/central-empire/capital/arenarea.json` : la carte du quartier entier, reprise sur les pièces refaites, dessinée **dans l'éditeur** ; elle remplace la carte de principe du `LOT-146` sous le même identifiant, et garde ses arrivées et ses zones nommées.",
   "L'image de la zone pour l'onglet « Carte », peinte par l'auteur, sous `capital/arenarea/Map/`.",
-  "Le relevé de ce qui n'était pas au standard dans les deux livraisons, versé au [standard](../../../../standards/style-2d-hd.md) ou à la [consigne de production](../../../../standards/consigne-2d-hd.md) : ce qu'une zone ne doit plus livrer.",
+  "Le relevé de ce qui n'était pas au standard dans les deux livraisons, versé au [standard](../../../../standards/style-3d.md) ou à la [consigne de production](../../../../standards/style-3d.md) : ce qu'une zone ne doit plus livrer.",
 ]
 criteres = [
   "L'auteur valide la zone sur la galerie **et** sur le rendu du moteur, à 1080p et 2160p, comme au standard du jeu final — pas « en l'état ».",
@@ -49,7 +49,7 @@ façade se coordonne avec ce lot —, les intérieurs, les animaux.
 
 Ce qui est repris se décide **sur pièce**, à la relecture : une pièce qui tient le standard se
 garde, une pièce qui ne le tient pas se refait, jamais « on refait tout » par principe. La
-production suit la [consigne](../../../../standards/consigne-2d-hd.md) et le
+production suit la [consigne](../../../../standards/style-3d.md) et le
 [gabarit de commande](../../../../standards/gabarit-commande-zone.md), comme toute zone. La carte
 reprend le tracé du `LOT-109` — le quartier entier, ses lieux nommés, ses portails condamnés vers
 les cartes qui n'existent pas encore — sur les pièces refaites.

@@ -11,7 +11,7 @@ livrables = [
   "`Common/Characters/Heroes/brawler/` : la figurine du héros (repos, marche, attaque, touché, mort ; quatre orientations), portrait, jeton.",
   "Sa fiche de niveau 1, `Rpg/characters/heros-brawler.json` : la fiche pré-tirée du Brawler (*Player's Guide to Tanares*, p. 195), reprise telle quelle ; elle remplace le personnage de démonstration.",
   "Le gabarit de figurine HD, qui sert ensuite à tous les PNJ.",
-  "Le **nombre d'images par animation**, tranché sur un essai de marche en six et en huit images, puis écrit au [§5 du standard](../../../../standards/style-2d-hd.md) (déféré par le LOT-101, D-101-8).",
+  "Le **nombre d'images par animation**, tranché sur un essai de marche en six et en huit images, puis écrit au [§5 du standard](../../../../standards/archives/style-2d-hd.md) (déféré par le LOT-101, D-101-8).",
 ]
 criteres = [
   "Le héros marche sur la maquette du LOT-101 sans glisser ni flotter : ancre et sol justes aux quatre orientations.",
@@ -39,7 +39,7 @@ ouverte : une cadence se juge sur une figurine, à côté de son ancre et de son
 vide. L'écart de coût est d'**un quart sur chaque PNJ du jeu**, sur chaque animation et chaque
 orientation — d'où l'essai sur pièces plutôt que le raisonnement.
 
-La commande prend le bloc A de [la consigne](../../../../standards/consigne-2d-hd.md) inchangé, le
+La commande prend le bloc A de [la consigne](../../../../standards/archives/consigne-2d-hd.md) inchangé, le
 bloc B dans sa variante **planche d'animation**, et ce bloc C envoyé **deux fois** — rien d'autre ne
 change que le nombre d'images :
 

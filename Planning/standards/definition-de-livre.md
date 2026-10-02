@@ -14,9 +14,9 @@ les conditions de sa filière le sont. Un lot « presque fini » est `en-cours`.
 
 | Filière | Conditions |
 |---|---|
-| **Assets HD** | chaque image est au [standard](style-2d-hd.md), citée par un manifeste, visible dans la galerie de débug ; aucune n'est une image du corpus ; les sources sont rangées dans `Tools/AssetsHD/` sous le même arbre ; le kit est **publié et verrouillé** (`publish_asset_kit.py`, [le stockage](arborescence-assets.md#le-stockage)), pas seulement installé |
+| **Assets** | chaque pièce est au [standard 3D](style-3d.md) — un maillage, ou une [image tolérée](style-3d.md#7-les-images-tolérées) —, citée par un manifeste, visible dans la galerie de débug ; aucune ne vient d'une image du corpus ; les sources, scripts et relevés sont rangés dans l'atelier (`Tools/AssetsHD/`, `Tools/Assets3D/`) ; ce que le lot remplace est **supprimé dans sa PR** (`check_orphans.py`, [D-32](../vision/decisions.md)) ; le kit est **publié et verrouillé** (`publish_asset_kit.py`, [le stockage](arborescence-assets.md#le-stockage)), pas seulement installé |
 | **Cartes** | dessinée dans l'éditeur ; `LevelEditor --check` passe ; aucune case inatteignable ; le rendu de la carte est joint à la PR ; l'image de l'onglet « Carte » existe |
-| **PNJ** | figurine, portrait et jeton ; une fiche quand le PNJ peut combattre ; placé sur sa carte ; ses textes en français et en anglais |
+| **PNJ** | son **modèle** au [standard des personnages](personnages-3d.md) — maillage lié au squelette commun, contrôles de l'export tenus, jugé par l'auteur dans le jeu —, portrait et jeton peints ; une fiche de règles quand le PNJ peut combattre ; placé sur sa carte ; ses textes en français et en anglais |
 | **Quêtes et dialogues** | chaque issue se joue en test, sans fenêtre, à graine fixée ; aucun drapeau lu sans être posé ; textes dans les deux langues |
 | **Moteur** | tests unitaires et d'intégration ; pas de régression des mesures de performance ; la spécification dit ce que le code fait |
 | **Règles et données** | chaque valeur vient d'une page citée ; schéma validé ; un test recalcule les valeurs dérivées ; les écarts au livre sont écrits |

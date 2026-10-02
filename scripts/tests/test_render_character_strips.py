@@ -55,7 +55,7 @@ def test_un_corps_de_1_80_m_mesure_la_hauteur_du_standard():
 @pytest.mark.parametrize('facing, attendu', [('se', (1, 1)), ('sw', (-1, 1)), ('ne', (1, -1)), ('nw', (-1, -1))])
 def test_chaque_orientation_regarde_ou_le_moteur_la_fait_marcher(facing, attendu):
     # Le personnage est modelé face à -Y ; tourné, son avant doit aller vers `attendu` à l'écran
-    # (les signes de `check_figure_walk.FACINGS`).
+    # (se = droite et bas, sw = gauche et bas, ne = droite et haut, nw = gauche et haut).
     a = R.lacet_orientation(facing)
     avant = (math.sin(a), -math.cos(a), 0.0)
     x, y = ecran(avant)

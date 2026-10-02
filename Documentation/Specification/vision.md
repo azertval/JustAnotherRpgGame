@@ -47,36 +47,39 @@ leur **rôle** : la scène est du monde, et son échelle est celle du lieu ; l'i
 joueur, et son échelle est celle de la fenêtre. La frontière entre les deux est écrite, pas laissée
 à l'œil.
 
-- **EX-VIS-008** — La **scène** — sols, murs, objets du monde et figurines —
-  doit être **peinte en isométrie haute définition** : losange de sol de **256 × 159 pixels d'art**
-  (rapport 0,62, celui d'`core::IsoProjection`), figurine humanoïde de **170 px** dans une cellule
-  de **192 × 256** dont la ligne de sol est à `y = 252` (cellule large **384 × 256** pour l'attaque
-  et le sort), grande créature en **384 × 384**. L'échelle de l'art est une **donnée du lieu** — le
-  champ `"tile"` de son manifeste de pièces — et non une constante du rendu : un lieu peut être
-  livré plus fin ou plus grossier sans toucher au code. Les images sont en sRGB, à **alpha continu**
-  prémultiplié au chargement, sans palette imposée par image, et échantillonnées en **bilinéaire
-  avec mipmaps** (`EX-ARCH-022`). Le style est **écrit** et non laissé au générateur : le standard
-  2D HD (`Planning/standards/style-2d-hd.md`) et la consigne du générateur
-  (`Planning/standards/consigne-2d-hd.md`), tirés de la **planche de référence approuvée par
-  l'auteur** (`Tools/AssetsHD/Arenarea/arenarea-planche-reference-v2.png`), fixent le trait (un
-  contour sombre et fin, bronze foncé, jamais noir pur), la lumière (clé douce en haut à gauche,
-  ombre propre peinte, **aucune ombre portée** dans la pièce), la projection orthographique, la
-  palette du lieu et les **dix familles de pièces** dont une zone fait l'inventaire. Une pièce
-  **tient seule** : fond transparent, pas de sol sous un mur, pas de décor autour d'un meuble.
-  Les figurines de l'atelier des PNJ (`LOT-91`) sont de la scène, à l'échelle de son sol.
-  > **Tranché au `LOT-112`.** Une animation compte **huit images** — l'essai de marche en six et
-  > en huit l'a décidé —, une bande par diagonale isométrique, et la marche va à deux cases par
-  > seconde (`EX-REN-012`, `EX-EXP-011`). Aucune figurine ne se produit hors de ce gabarit.
+- **EX-VIS-008** — La **scène** — sols, murs, objets du monde et personnages —
+  doit être **modelée en trois dimensions** et vue par une **caméra isométrique fixe**
+  (`EX-REN-013`) : le décor d'architecture est fait de **maillages**, un personnage est un
+  **modèle animé par un squelette commun**. L'unité est le **mètre**, une case fait **1,5 m** ; un
+  modèle est un fichier `.glb` autonome, à une seule matière peinte, sans ombre dans sa texture —
+  la lumière vient du moteur. Le style est **écrit** et non laissé au générateur : le standard 3D
+  (`Planning/standards/style-3d.md`) et celui des personnages
+  (`Planning/standards/personnages-3d.md`) fixent le repère, le format, les matières, la palette
+  du lieu, les **dix familles de pièces** dont une zone fait l'inventaire, le squelette et les
+  clips. Chacune de leurs valeurs est **mesurée** sur une preuve ou **décidée et datée** par
+  l'auteur ; ce qui n'est ni l'un ni l'autre y est écrit comme ouvert, avec le lot qui le tranche.
+  Restent des **images**, et elles seules gardent le losange de **256 × 159 pixels d'art**
+  (rapport 0,62, celui d'`core::IsoProjection`), l'alpha continu prémultiplié et le filtrage
+  bilinéaire avec mipmaps (`EX-ARCH-022`) : le mobilier et les pièces maîtresses **tolérés
+  jusqu'à la `0.0.3`**, les effets, les portraits et les jetons. L'échelle de ces images reste
+  une **donnée du lieu** — le champ `"tile"` de son manifeste. Une pièce **tient seule** : pas de
+  sol sous un mur, pas de décor autour d'un meuble.
+  > **Mise en œuvre par étapes** (`LOT-1001`). Ce texte dit la cible de la `0.0.2.5`. Le moteur
+  > dessine des maillages à partir du `LOT-1003` et anime un modèle à partir du `LOT-1005` ;
+  > jusque-là il affiche des images, et un personnage paraît par les **bandes rendues depuis son
+  > modèle** (`EX-REN-012`), huit images par diagonale. Aucune figurine ne se **commande** plus en
+  > bandes peintes.
 - **EX-VIS-009** — L'**interface** — écrans, panneaux, HUD, et tout ce qui
   **renseigne le joueur par-dessus la scène** (curseur, chemin, portées, texte ancré) — doit porter
   la **charte v2** (`EX-IHM-070`) : images produites à 1080p et échantillonnées à tout facteur,
-  polices vectorielles embarquées (`EX-REN-032`). Aucun élément de l'interface n'est de l'art de
-  scène et aucun élément du monde ne porte la charte : pas de filet d'or ni de `Cinzel` dans la
-  scène, pas de pièce isométrique ni de palette de lieu dans les écrans. Les deux couches se
-  **mesurent** différemment, et c'est là que la frontière se vérifie : une pièce de scène se met à
-  l'échelle du **lieu** (`EX-VIS-008`), une image d'interface à celle de la **fenêtre**. Le seul
-  point de contact est le **viewport** de la scène, qu'un écran de l'interface encadre sans le
-  peindre.
+  polices vectorielles embarquées (`EX-REN-032`). Aucun élément de l'interface n'est de la scène et
+  aucun élément du monde ne porte la charte : pas de filet d'or ni de `Cinzel` dans la scène, pas
+  de maillage, de pièce isométrique ni de palette de lieu dans les écrans. Les **portraits** et
+  les **jetons** d'un personnage sont de l'interface : ils restent **peints**, quand son corps est
+  un modèle (`EX-VIS-008`). Les deux couches se **mesurent** différemment, et c'est là que la
+  frontière se vérifie : une pièce de scène se mesure en **mètres**, à l'échelle du **lieu**, une
+  image d'interface à celle de la **fenêtre**. Le seul point de contact est le **viewport** de la
+  scène, qu'un écran de l'interface encadre sans le peindre.
 
 ## Boucle de gameplay
 

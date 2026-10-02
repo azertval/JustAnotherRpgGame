@@ -9,10 +9,10 @@ resume = "Le style qui remplace le pixel art est écrit, chiffré et éprouvé s
 prerequis = ["LOT-100"]
 reprend = ["LOT-92 (style de scène)", "LOT-66 (charte visuelle, pour la scène)"]
 livrables = [
-  "[`standards/style-2d-hd.md`](../../../../standards/style-2d-hd.md) passé de « proposé » à « normatif », avec ce que la maquette a mesuré.",
+  "[`standards/archives/style-2d-hd.md`](../../../../standards/archives/style-2d-hd.md) passé de « proposé » à « normatif », avec ce que la maquette a mesuré.",
   "Une **maquette de validation** : huit cases sur huit d'Arenarea (sol, deux façades, une colonnade, la fontaine, un lampadaire, un banc), montée à l'échelle du standard et cadrée à 1080p et à 2160p — [`maquettes/`](../maquettes/), montée par `scripts/assetsGeneration/build_hd_mockup.py`.",
   "`EX-VIS-008`, `EX-VIS-009` et `EX-REN-013` réécrites pour la 2D HD.",
-  "La consigne de style du générateur en trois blocs : [`standards/consigne-2d-hd.md`](../../../../standards/consigne-2d-hd.md), avec la planche de référence d'Arenarea pour ancre, et son cadrage de planche d'animation.",
+  "La consigne de style du générateur en trois blocs : [`standards/archives/consigne-2d-hd.md`](../../../../standards/archives/consigne-2d-hd.md), avec la planche de référence d'Arenarea pour ancre, et son cadrage de planche d'animation.",
 ]
 criteres = [
   "L'auteur approuve la maquette aux deux définitions : lisible à 1080p, nette à 2160p.",
@@ -37,7 +37,7 @@ figurine, la lumière, l'alpha, la palette.
 
 ## Conception
 
-Les valeurs proposées sont dans [le standard](../../../../standards/style-2d-hd.md) : losange de 256 × 159 px,
+Les valeurs proposées sont dans [le standard](../../../../standards/archives/style-2d-hd.md) : losange de 256 × 159 px,
 rapport 0,62 conservé, figurine de 170 px dans une cellule de 192 × 256, alpha continu, filtrage
 bilinéaire avec mipmaps, zoom libre. La maquette sert à les **contredire** : si une case de 256 px
 est trop lourde ou trop pauvre, c'est ici qu'on le voit, pas au vingtième quartier.
@@ -101,7 +101,7 @@ composition se lit à 100 px de case, l'emprise est bonne, et la mollesse du tra
 de la planche agrandie, pas celle du standard (D-101-2).
 
 Une réserve, et elle est reportée : le sol répété dessine un treillis sur tout l'écran. La règle des
-trois variantes ([§4 du standard](../../../../standards/style-2d-hd.md)) ne suffisait pas à la porter
+trois variantes ([§4 du standard](../../../../standards/archives/style-2d-hd.md)) ne suffisait pas à la porter
 — elle est désormais un **risque nommé et un critère** du [LOT-108](LOT-108-assets-hd-arenarea.md),
 qui produit les sols d'Arenarea : douze cases sur douze sans motif régulier.
 

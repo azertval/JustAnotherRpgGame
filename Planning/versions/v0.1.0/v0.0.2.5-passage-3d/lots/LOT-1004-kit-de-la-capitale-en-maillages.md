@@ -14,6 +14,7 @@ livrables = [
   "`check_hd_assets.py` et `install_hd_asset.py` connaissent les maillages ; la galerie de débug les montre (`EX-CNT-042`).",
   "Les kits republiés et verrouillés (`publish_asset_kit.py`).",
   "Le rendu des quatre cartes livrées, avant et après, joint à la PR.",
+  "Le [standard 3D](../../../../standards/style-3d.md) complété de ce que ce lot mesure et tranche : la **forme** (maillage ou image) de chaque pièce des familles laissées « à classer », le **budget** d'un maillage de décor, la hauteur d'étage en mètres, et le verdict de l'auteur sur le **contour sombre**, jugé sur le kit rendu avec et sans ([D-40](../../../../vision/decisions.md)) ; le chemin d'un maillage de décor écrit dans le [gabarit de commande](../../../../standards/gabarit-commande-zone.md).",
 ]
 criteres = [
   "Les quatre cartes livrées se chargent sans retouche et `LevelEditor --check` passe : aucune clé de pièce n'a changé.",
@@ -22,6 +23,7 @@ criteres = [
   "Plus aucun PNG ne reste dans les dossiers `floors/`, `walls/`, `balustrades/`, `stairs/` et `roofs/` du kit ; `check_hd_assets.py` refuse une pièce en image posée sur une couche d'étage.",
   "`git grep -n \"occlusion\\|FLOOR_SEAM_OVERLAP\" Source/HMI` ne trouve plus le mécanisme d'étage 2D ni le recouvrement des dalles.",
   "Le poids du kit de la Capitale est publié, avant et après.",
+  "Le standard 3D n'a plus de ligne ouverte « LOT-1004 » : contour, formes et budget de décor y sont écrits, datés.",
 ]
 +++
 
@@ -84,3 +86,5 @@ du [LOT-1007](LOT-1007-eclairage-et-cycle-jour-nuit.md).
 - **Les familles « à classer »** peuvent faire grossir le lot : au-delà de la taille L, elles
   partent au [LOT-151](../../v0.0.3-capitale-intra-muros/lots/LOT-151-kit-commun-intra-muros.md).
 - Ne pas repartir des anciens calibrages V3 : la référence reste la V4 après reprise du relief.
+- **Le contour sombre**, s'il est gardé, demande une passe de rendu que le LOT-1003 n'a pas
+  prévue : elle entre alors dans ce lot, ou dans un lot de moteur à part si elle le fait déborder.

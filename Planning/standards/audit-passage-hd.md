@@ -33,7 +33,7 @@ qui lit `width`, `height` et l'ancre dans les données — il porte même un cha
 que le C++ ne lit pas. **C'est le crochet naturel** : l'échelle de l'art devient une donnée du lieu.
 
 Le rapport du losange (0,62, `IsoProjection.h:49`) peut rester : la planche de référence
-d'Arenarea le respecte. Le [standard 2D HD](style-2d-hd.md) le garde.
+d'Arenarea le respecte. Le [standard 2D HD](archives/style-2d-hd.md) le garde.
 
 ## 2. Ce que la suppression casse
 
@@ -73,7 +73,7 @@ nouvelle arborescence.
 
 | Dossier | Contenu | Usage |
 |---|---|---|
-| `Arenarea/arenarea-planche-reference-v2.png` | planche de **référence** (1536 × 1024) : scène, palette de huit teintes, quatre matières, dix familles de pièces | la **bible de style** du [standard 2D HD](style-2d-hd.md) — pas une planche de production |
+| `Arenarea/arenarea-planche-reference-v2.png` | planche de **référence** (1536 × 1024) : scène, palette de huit teintes, quatre matières, dix familles de pièces | la **bible de style** du [standard 2D HD](archives/style-2d-hd.md) — pas une planche de production |
 | `Colisee/Sols/` | deux planches de 1254 px : sable, pavé, deux bordures | sols de la pré-carte ; franges de détourage à nettoyer |
 | `Colisee/Murs/` | mur en U et en V (avec et sans usure), angle rentrant, angle sortant, 1254 px | l'enceinte de l'arène |
 | `Colisee/Decors/` | deux bandes de foule (1983 × 793), deux gardiens (1024 × 1536) | gradins et entrée ; les bandes de foule sont encore en **pixel art** — à refaire |

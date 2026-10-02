@@ -93,7 +93,7 @@ en moins d'une seconde.
 L'alpha du générateur porte un voile de 1 à 16 autour de la pièce et un intérieur à 252-254 : il est
 étiré entre 16 et 248, les îlots de moins de 0,5 % de l'art sont effacés, et la réduction se fait en
 **alpha prémultiplié**, pour que le bord ne tire pas vers le noir du fond transparent. Aucune
-décontamination de couleur : le contour bronze foncé est voulu par [la consigne](../../../../standards/consigne-2d-hd.md),
+décontamination de couleur : le contour bronze foncé est voulu par [la consigne](../../../../standards/archives/consigne-2d-hd.md),
 et le « redresser » l'effacerait. Une dalle est étirée au losange exact du lieu (256 × 159) : l'écart
 de rapport du générateur, jusqu'à 8 % en hauteur, ne se voit pas une fois le sol posé.
 

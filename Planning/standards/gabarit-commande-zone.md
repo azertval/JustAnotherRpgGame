@@ -1,10 +1,18 @@
 # Gabarit de la commande d'une zone
 
 Un lot d'assets de zone commence par **sa commande** : une page qui passe en revue les dix familles
-du [standard](style-2d-hd.md#4-les-familles-de-pièces-dun-lieu), dit pour chacune ce qui vient du
+du [standard](style-3d.md#6-les-familles-de-pièces-dun-lieu), dit pour chacune ce qui vient du
 **commun** et ce que la zone produit en **propre** (voir l'[arborescence](arborescence-assets.md)),
-et suit chaque pièce de la commande d'image à l'asset installé. Livrée par le
+et suit chaque pièce de la commande à l'asset installé. Livrée par le
 [LOT-104](../versions/v0.1.0/v0.0.1-demo/lots/LOT-104-chaine-de-production-hd.md).
+
+> **Depuis le `LOT-1001`, une pièce est un maillage ou une image.** L'inventaire ci-dessous vaut
+> pour les deux. Le chemin et le descripteur décrits ensuite sont ceux d'une **image tolérée**
+> ([standard 3D, §7](style-3d.md#7-les-images-tolérées)) — mobilier, pièces maîtresses, kits non
+> encore repris. Le chemin d'un **maillage** de décor (sa source, son script, son entrée `"mesh"`)
+> s'écrit au [LOT-1004](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1004-kit-de-la-capitale-en-maillages.md),
+> sur le kit de la Capitale : cette page le recevra alors. Les lots de zone de la `0.0.3` se
+> réécrivent à la recette de la `0.0.2.5` ([D-35](../vision/decisions.md)).
 
 ## Où elle vit
 
@@ -14,11 +22,11 @@ et suit chaque pièce de la commande d'image à l'asset installé. Livrée par l
 (décision de l'auteur, 23 septembre 2026, qui retire l'exception du LOT-104). Le dossier
 `Tools/AssetsHD/Colisee/`, antérieur à la règle, garde son nom : son descripteur dit où il installe.
 
-## Le chemin d'une pièce
+## Le chemin d'une pièce en image
 
 | Étape | Qui | Ce qui en sort |
 |---|---|---|
-| 1. **Commander** | Claude écrit le bloc C, avec les blocs A et B de [la consigne](consigne-2d-hd.md) | la commande, dans la page |
+| 1. **Commander** | Claude écrit le bloc C, avec les blocs A et B de [la consigne archivée](archives/consigne-2d-hd.md), figés | la commande, dans la page |
 | 2. **Générer** | l'auteur l'envoie au générateur, avec la planche de référence | la source, dans le dossier de la zone |
 | 3. **Décrire** | Claude ajoute la pièce au descripteur : nom, famille, emprise, type tactique | une entrée d'`install.json` |
 | 4. **Installer** | `python scripts/assetsGeneration/install_hd_asset.py <dossier>/install.json` | l'image et son entrée de manifeste, dans `Source/Elements/Assets/…/Scene/` |
@@ -66,21 +74,22 @@ Direction artistique : <lien vers le référentiel>.
 
 ## Inventaire
 
-| # | Famille | Du commun | Propre | État |
-|---|---|---|---|---|
-| 01 | Sols | `capital/Common` : pavage de fond | sable ×3 (dalle de fond), bordures | commandé |
-| 02 | Façades | | | |
-| 03 | Colonnes | | | |
-| 04 | Accès | | | |
-| 05 | Balustrades | | | |
-| 06 | Pièces maîtresses | | | |
-| 07 | Végétal | | *néant : écarté, et pourquoi* | écarté |
-| 08 | Mobilier | | | |
-| 09 | Bâtiments | | | |
-| 10 | Seuils | | | |
+| # | Famille | Forme | Du commun | Propre | État |
+|---|---|---|---|---|---|
+| 01 | Sols | maillage | `capital/Common` : pavage de fond | sable ×3 (dalle de fond), bordures | commandé |
+| 02 | Façades | | | | |
+| 03 | Colonnes | | | | |
+| 04 | Accès | | | | |
+| 05 | Balustrades | maillage | | | |
+| 06 | Pièces maîtresses | image tolérée | | | |
+| 07 | Végétal | | | *néant : écarté, et pourquoi* | écarté |
+| 08 | Mobilier | image tolérée | | | |
+| 09 | Bâtiments | | | | |
+| 10 | Seuils | | | | |
 
 Une famille ne reste jamais vide : elle est remplie, prise au commun, ou **écartée avec sa
-raison**. La famille 01 livre d'abord sa dalle de fond répétable, en trois variantes au moins.
+raison**. La colonne « Forme » dit `maillage` ou `image tolérée` ; une pièce d'architecture en
+image est une dette, nommée avec le lot qui la retire. La famille 01 livre d'abord sa dalle de fond répétable, en trois variantes au moins.
 
 ## Commandes
 

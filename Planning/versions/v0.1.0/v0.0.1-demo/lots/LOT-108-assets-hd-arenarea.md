@@ -53,7 +53,7 @@ Le détail du quartier — texte du livre et lieux nommés sur le plan — est d
 La maquette du [LOT-101](LOT-101-standard-2d-hd.md) a montré le poste qui coûte : répétée sur tout
 l'écran, la dalle bordée de la planche de référence dessine un **treillis** sombre qui n'existe dans
 aucune ville. Le sol se produit donc en premier et se juge en premier — d'abord une dalle de fond
-sans bordure en trois variantes au moins (règle du [§4 du standard](../../../../standards/style-2d-hd.md)),
+sans bordure en trois variantes au moins (règle du [§4 du standard](../../../../standards/archives/style-2d-hd.md)),
 les panneaux bordés seulement ensuite, pour border une place ou tracer une allée. Le critère
 ci-dessus se vérifie à l'œil, sur douze cases sur douze : c'est là que le moiré se voit, pas sur
 quatre.

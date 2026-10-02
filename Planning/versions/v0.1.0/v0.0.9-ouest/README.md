@@ -6,7 +6,7 @@ La montagne, le monastère, les plaines de l'ouest.
 
 Un lot de zone livre les **trois** choses que la zone demande, dans cet ordre :
 
-1. **Assets HD** — les dix familles du [standard](../../../standards/style-2d-hd.md) passées en revue : ce qui vient
+1. **Assets HD** — les dix familles du [standard](../../../standards/style-3d.md) passées en revue : ce qui vient
    du commun, ce qui est propre à la zone ; installés sous `Regions/central-empire/…/<zone>/Scene/`.
 2. **PNJ** — nommés (à leur place), neutres (archétypes du commun, proportions du livre), hostiles ;
    figurines, portraits, fiches, placements.

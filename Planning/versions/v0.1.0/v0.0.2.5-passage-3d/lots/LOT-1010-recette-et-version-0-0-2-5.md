@@ -40,7 +40,7 @@ précédent, et le bilan le nomme.
 | `git grep -n "ScenePainter\|SceneImages"` | rien (LOT-1002) |
 | `git ls-files "Source/Elements/Assets/**/Characters/**/*.anim.json"` | rien (LOT-1006) |
 | `git grep -n "\"portraits\"" Source scripts` | rien (LOT-1009) |
-| `git grep -ln "2D HD\|style-2d-hd" -- . ":!Planning/standards/archives" ":!Planning/versions/v0.0.0" ":!CHANGELOG.md"` | seulement des fiches **livrées** et les décisions datées |
+| `git grep -ln "2D HD\|style-2d-hd" -- . ":!Planning/standards/archives" ":!Planning/versions/v0.0.0" ":!CHANGELOG.md"` | seulement des fiches **livrées**, les décisions datées et les textes remplacés d'`exigences-retirees.md` |
 | PNG sous `floors/`, `walls/`, `balustrades/`, `stairs/`, `roofs/` du kit de la Capitale | rien (LOT-1004) |
 | Scripts de `scripts/` sans appelant | rien (`check_orphans.py`) |
 | Tests désactivés ou références d'image que plus aucun test ne lit | rien |

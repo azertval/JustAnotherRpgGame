@@ -35,7 +35,7 @@ def lot_sort_key(lot_id):
 
 FILIERES = {
     'standard': 'Standard et outillage',
-    'assets': 'Assets HD',
+    'assets': 'Assets',
     'cartes': 'Cartes',
     'pnj': 'PNJ',
     'quete': 'Quêtes et dialogues',

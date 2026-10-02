@@ -15,7 +15,7 @@ la main :
 2. **Découper.** Une source peut être une **planche** (les sols du Colisée en portent six) : chaque
    morceau d'un seul tenant est une pièce, dans l'ordre de lecture, et le descripteur les nomme
    toutes — un compte qui ne tombe pas juste est une erreur, jamais une affectation au hasard.
-3. **Réduire.** À l'échelle du standard (`Planning/standards/style-2d-hd.md`), en alpha prémultiplié
+3. **Réduire.** À l'échelle des images tolérées (`Planning/standards/style-3d.md`, §7), en alpha prémultiplié
    pour que le bord ne tire pas vers le noir du fond transparent. L'art est **toujours réduit,
    jamais agrandi** : une source trop petite est refusée.
 4. **Ancrer.** Une dalle de sol devient exactement le losange du lieu. Une pièce debout se mesure à
@@ -1334,7 +1334,7 @@ def main_figures(args: argparse.Namespace, descriptor: Descriptor) -> int:
         return 0
     if descriptor.preview_only:
         print(f"install_hd_asset : {args.descriptor} est un essai (`previewOnly`) : il se mesure "
-              "(--measure) et s'aperçoit (preview_figure_walk.py), il ne s'installe pas", file=sys.stderr)
+              "(--measure), il ne s'installe pas", file=sys.stderr)
         return 1
     write_figures(descriptor, ready)
     print(f"{len(ready)} figurine(s) installée(s) dans {descriptor.target}")

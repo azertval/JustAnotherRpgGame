@@ -13,7 +13,7 @@ Sources consultées :
 - [Référentiel de la Capitale](../referentiels/central-empire/capitale.md), notamment Arenarea et l’Arena of Fate.
 - Texte extrait de la double page imprimée 98–99 et image de la carte imprimée 96–97 du Sourcebook, déjà disponibles dans `Tools/AssetsHD/Regions/central-empire/capital/Common/Extension105/ReferenceReview/`. Les pages originales servent au contenu et à la géographie, jamais à fabriquer les images.
 - Planche artistique `Tools/AssetsHD/Arenarea/arenarea-planche-reference-v2.png`, examinée visuellement.
-- [Standard HD](style-2d-hd.md), [consigne de production](consigne-2d-hd.md), [arborescence](arborescence-assets.md), [audit de l’extension du commun](audit-capital-lot105-extension.md).
+- [Standard HD](archives/style-2d-hd.md), [consigne de production](archives/consigne-2d-hd.md), [arborescence](arborescence-assets.md), [audit de l’extension du commun](audit-capital-lot105-extension.md).
 - README V4 après reprise du relief, README et assemblage moteur de l’extension 105 ; manifests installés du commun, de la région, d’Arenarea et de l’Arena of Fate.
 - [LOT-108](../versions/v0.1.0/v0.0.1-demo/lots/LOT-108-assets-hd-arenarea.md), commande locale d’Arenarea, [LOT-109](../versions/v0.1.0/v0.0.1-demo/lots/LOT-109-carte-arenarea.md), [LOT-106](../versions/v0.1.0/v0.0.3-capitale-intra-muros/lots/LOT-106-assets-hd-arena-of-fate.md), [LOT-129](../versions/v0.1.0/v0.0.1-demo/lots/LOT-129-etages-et-toits.md), plan de principe et quête de la démo.
 

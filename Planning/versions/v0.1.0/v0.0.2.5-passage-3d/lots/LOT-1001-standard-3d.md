@@ -3,13 +3,13 @@ id = "LOT-1001"
 titre = "Le standard 3D"
 version = "0.0.2.5"
 filiere = "standard"
-statut = "a-faire"
+statut = "livre"
 taille = "M"
 resume = "Une seule règle écrite pour tout ce qui se modèle : unités, format, squelette, corps, pièces, matières, lumière — et le standard 2D HD cesse d'être normatif."
 prerequis = ["LOT-1000", "LOT-142"]
 livrables = [
   "`Planning/standards/style-3d.md` : unités et repère (1 case = 1,5 m), caméra (orthographique, 45° / 38,3°), format d'échange (`.glb`), budget de triangles, matières et textures, lumière, et le chapitre « images tolérées » qui garde les seules règles 2D encore utiles.",
-  "`Planning/standards/personnages-3d.md` : le squelette humanoïde (os nommés, pose de liaison), les **huit corps** (homme, femme × maigre, normal, musclé, gros) et leur contrat commun, les emplacements de pièces, la commande de texture au générateur d'images, la fiche d'un personnage.",
+  "`Planning/standards/personnages-3d.md` : le squelette humanoïde (os nommés, pose de liaison), **un maillage par personnage** et sa fiche de liaison (D-38, qui remplace les huit corps), l'image de référence commandée au générateur d'images, la génération, les clips, ce qui se tient en main, les contrôles de l'export.",
   "`Planning/standards/arborescence-assets.md`, `gabarit-commande-zone.md` et `definition-de-livre.md` mis à jour : filières « Assets » et « PNJ » en 3D.",
   "Les exigences réécrites dans `Documentation/Specification/` : `EX-VIS-008`, `EX-VIS-009`, `EX-REN-013`, `EX-REN-014`, `EX-REN-018` ; les textes remplacés rangés dans `exigences-retirees.md`.",
   "`AGENTS.md` : la consigne « Lots d'assets 2D HD » remplacée par celle des lots d'assets 3D.",
@@ -70,6 +70,48 @@ Décisions déjà prises, que le standard écrit sans les rouvrir :
 ## Risques et questions ouvertes
 
 - Le contour sombre du standard 2D n'existe pas en 3D sans une passe dédiée : à décider ici — le
-  garder (coût au LOT-1003) ou l'abandonner.
+  garder (coût au LOT-1003) ou l'abandonner. **Reporté par l'auteur au LOT-1004** (ci-dessous).
 - Les non-humanoïdes : un squelette vaut pour une morphologie. Le standard nomme les silhouettes
   (`humanoid`, `quadruped`, `flying`) sans les produire ; elles viennent avec leurs créatures.
+
+## Décisions de réalisation
+
+Les décisions de l'auteur, le 1er octobre 2026 — écrites en
+[D-38 à D-42](../../../../vision/decisions.md) :
+
+- **Un maillage Meshy par personnage** (D-38). La fiche prévoyait d'écrire le contrat des huit
+  corps ; la preuve les a fait refuser. Le standard écrit ce qui reste commun — squelette de 53 os,
+  clips, contrôles — et ce qui devient propre : le maillage et sa fiche de liaison. Les fiches des
+  LOT-1005, 1006, 1008 et 1009 et le `README.md` de la version sont amendés.
+- **L'image de référence est une vue de face en pose neutre** (D-39). Non mesuré : la première
+  série (LOT-1009) l'éprouve.
+- **Les modèles se génèrent sans arme** (D-42). L'auteur avait d'abord demandé des modèles avec
+  leurs armes (D-41), puis y renonce le même jour : des mains vides sont plus simples à animer.
+  Ce que le personnage tient à l'écran reste à trancher ; aucun lot ne produit d'arme. Le
+  LOT-1005 n'a plus de critère « changer d'arme », le LOT-1008 plus de vue Piece.
+- **Le budget d'un modèle se fixe au LOT-1005**, sur la mesure du moteur (D-40). Le standard donne
+  les valeurs de la preuve — 103 000 triangles, texture de 4096 px, 53 os, 15 Mio — comme un
+  plafond provisoire, pas comme un budget.
+- **Le contour sombre se tranche au LOT-1004** (D-40), sur le kit rendu avec et sans.
+
+Ce que le lot a tranché seul :
+
+- **Les anciens textes des exigences** vont dans `exigences-retirees.md` sous une rubrique
+  « textes remplacés », en citation : les cinq numéros vivent encore, une seconde puce les
+  déclarerait deux fois (`lint_exigences.py`). `EX-REN-012` (bandes de figurine) est seulement
+  précisée ; son retrait est écrit au LOT-1006.
+- **Les exigences réécrites disent la cible**, avec une note « mise en œuvre » qui nomme le lot :
+  le moteur ne dessine pas encore de maillage, et une spécification qui le tairait mentirait.
+- **La consigne 2D archivée reste lue** par `prepare_envois_scene.py`, pour les seules images
+  tolérées : ses blocs sont figés, plus rien ne s'y ajoute.
+- **`check_orphans.py`** lit le disque, après `fetch_assets.py`. Un fichier est cité par un JSON de
+  l'arbre (chemin relatif à son dossier), par l'atlas `world-maps.json`, ou — manifestes et
+  polices — par le code qui le charge ; un dossier de personnage cite son contenu, dont le détail
+  reste à `check_hd_assets.py` ; une provenance (`source`) ne cite rien. Un script est appelé par
+  la CI, un hook, le build, un document en vigueur ou un script appelé ; **un test n'est pas un
+  appelant**, et l'histoire (`CHANGELOG.md`, fiches, archives) non plus. À sa première exécution :
+  aucun orphelin, une fois les cinq fichiers de la chaîne de figurines supprimés.
+- **La filière « Assets HD » devient « Assets »** dans le site du planning.
+
+Reste à l'auteur, hors dépôt : archiver `Tools/AssetHd/NPC/ManequinNpc/PROMPT-finir-humanoide.md`
+et les `prompts` de figurines de l'atelier local.

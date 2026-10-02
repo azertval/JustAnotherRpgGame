@@ -20,7 +20,7 @@ import numpy as np  # noqa: E402
 
 import build_hd_mockup as M  # noqa: E402
 
-STANDARD = 'Planning/standards/style-2d-hd.md'
+STANDARD = 'Planning/standards/archives/style-2d-hd.md'
 
 
 def test_les_valeurs_du_montage_sont_celles_du_standard(root):
@@ -127,7 +127,7 @@ def test_les_maquettes_deposees_sont_sous_la_limite_du_depot(root):
 
 def test_la_consigne_du_generateur_porte_ses_trois_blocs(root):
     """Le style est écrit : trois blocs, dont deux figés, et la planche pour ancre."""
-    texte = (root / 'Planning/standards/consigne-2d-hd.md').read_text(encoding='utf-8')
+    texte = (root / 'Planning/standards/archives/consigne-2d-hd.md').read_text(encoding='utf-8')
     for titre in ('## Bloc A', '## Bloc B', '## Bloc C'):
         assert titre in texte
     assert 'arenarea-planche-reference-v2.png' in texte

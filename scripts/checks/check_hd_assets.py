@@ -9,7 +9,7 @@ rend impossible l'écart SILENCIEUX entre les deux :
 
 - une entrée de manifeste qui cite un fichier absent ;
 - une image que son manifeste ne cite pas — déposée à la main, ou restée d'une pièce renommée ;
-- une pièce hors des bornes du standard (`Planning/standards/style-2d-hd.md`) : PNG 32 bits, taille
+- une image hors des bornes du standard (`Planning/standards/style-3d.md`, §7) : PNG 32 bits, taille
   égale à celle que le manifeste déclare, 4096 px de côté au plus, une dalle de sol exactement au
   losange du lieu, une ancre dans l'image, un losange de lieu égal à celui de sa région.
 
