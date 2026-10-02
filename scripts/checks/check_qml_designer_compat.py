@@ -69,7 +69,6 @@ ALLOWED_FORM_IMPORTS = {
 FORBIDDEN_IN_FORMS = (
     (re.compile(r"\bfunction\s+\w+\s*\("), "une fonction JavaScript"),
     (re.compile(r"\bComponent\.onCompleted\b"), "un Component.onCompleted"),
-    (re.compile(r"^\s*Connections\s*\{", re.M), "un bloc Connections"),
     (re.compile(r"^\s*Timer\s*\{", re.M), "un Timer"),
     (re.compile(r"\bconsole\.(log|warn|error|debug)\b"), "un appel a console"),
     (re.compile(r"\bQt\.callLater\b"), "un Qt.callLater"),
@@ -100,6 +99,33 @@ BLOCK_COMMENT = re.compile(r"/\*.*?\*/", re.S)
 def strip_comments(text: str) -> str:
     """Le QML sans ses commentaires, de ligne comme de bloc."""
     return LINE_COMMENT.sub("", BLOCK_COMMENT.sub("", text))
+
+
+CONNECTIONS_OPEN = re.compile(r"\bConnections\s*\{")
+
+
+def strip_connections(text: str) -> str:
+    """Le QML sans ses objets `Connections`, accolades appariees.
+
+    Un `Connections { target: ... ; function onClicked() { ... } }` est la forme que Qt Design
+    Studio ecrit lui-meme pour un gestionnaire de signal, et qu'il garde a l'enregistrement : la
+    refonte des menus du 2 octobre 2026 y a range tous les appels des formulaires (avertissement
+    M222 du designer : pas d'appel de fonction hors d'un `Connections`). Ses gestionnaires
+    `function on<Signal>()` ne sont donc pas des fonctions JavaScript libres ; hors de lui, une
+    fonction reste interdite.
+    """
+    out = []
+    position = 0
+    while (match := CONNECTIONS_OPEN.search(text, position)) is not None:
+        out.append(text[position:match.start()])
+        depth = 1
+        index = match.end()
+        while index < len(text) and depth > 0:
+            depth += {"{": 1, "}": -1}.get(text[index], 0)
+            index += 1
+        position = index
+    out.append(text[position:])
+    return "".join(out)
 
 
 def strip_cmake_comments(text: str) -> str:
@@ -168,8 +194,10 @@ def check_form_imports_and_patterns(failures: list[str]) -> int:
                     f"{rel(path)} : import de « {module} ». Un formulaire n'importe que ce que "
                     f"Design Studio resout sans le jeu : {', '.join(sorted(ALLOWED_FORM_IMPORTS))}."
                 )
+        # Les gestionnaires de signal ranges dans un `Connections` sont admis.
+        scanned = strip_connections(body)
         for pattern, what in FORBIDDEN_IN_FORMS:
-            if pattern.search(body):
+            if pattern.search(scanned):
                 failures.append(
                     f"{rel(path)} : un formulaire contient {what}. Design Studio le perdrait a "
                     f"l'enregistrement -- la logique va dans le jumeau `.qml` de Jadg.App."

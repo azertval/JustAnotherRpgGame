@@ -17,9 +17,9 @@ namespace hmi {
 
 /// Une ligne : ce qu'elle désigne, comment on l'appelle, ce qu'elle vaut.
 struct SheetRow {
-    QString id;     ///< Identifiant stable (`strength`, `athletics`) — clé de traduction.
-    QString label;  ///< Libellé lisible, tel que le catalogue de règles le donne.
-    QString value;  ///< Valeur **déjà formatée** par la couche pure (« 16 (+3) », « +5 »).
+    QString id;           ///< Identifiant stable (`strength`, `athletics`) — clé de traduction.
+    QString label;        ///< Libellé lisible, tel que le catalogue de règles le donne.
+    QString value;        ///< Valeur **déjà formatée** par la couche pure (« 16 (+3) », « +5 »).
     bool marked = false;  ///< Ligne marquée : la pastille pleine d'une compétence maîtrisée.
 };
 

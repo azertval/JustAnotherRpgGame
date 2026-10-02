@@ -1823,12 +1823,12 @@ Une image rendue par tuiles est la meme image.
 
 - Vérifie que `whole.size()` vaut `size`.
 - Vérifie que `tiled.size()` vaut `size`.
-- Vérifie que `differing` est strictement inférieur à `static_cast<std::size_t>(size.width() * size.height() / 1000)`.
-- Vérifie que `worst` est inférieur ou égal à `2`.
+- Vérifie que `differing` est strictement inférieur à `pixels / 100`.
+- Vérifie que `beyondRounding` est inférieur ou égal à `pixels / 100000`.
 
 ### OffscreenRenderTest.UneCarteSansAucuneImageSeVoit
 
-*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_offscreen_render.cpp:345`
+*Bloquant · Unitaire · Rendu de maquette* — `Source/Test/Unit/HMI/Graphics/test_offscreen_render.cpp:355`
 
 Exigences : `EX-EXP-005`
 

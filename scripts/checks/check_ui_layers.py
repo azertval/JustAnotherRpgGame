@@ -94,7 +94,6 @@ ALLOWED_QML_IMPORTS = {
 IMPERATIVE_PATTERNS = (
     (re.compile(r"\bfunction\b"), "une fonction JavaScript"),
     (re.compile(r"\bComponent\.onCompleted\b"), "un Component.onCompleted"),
-    (re.compile(r"^\s*Connections\s*\{", re.MULTILINE), "un bloc Connections"),
     (re.compile(r"\bconsole\.(log|warn|error|debug)\b"), "un appel a console"),
     (re.compile(r"\bQt\.callLater\b"), "un Qt.callLater"),
     (re.compile(r"^\s*Timer\s*\{", re.MULTILINE), "un Timer"),
@@ -116,6 +115,33 @@ def strip_comments(text: str) -> str:
     """Retire commentaires de bloc et de ligne : leur contenu explique souvent la regle elle-meme,
     et le controle se declencherait sur sa propre justification."""
     return LINE_COMMENT.sub("", BLOCK_COMMENT.sub("", text))
+
+
+CONNECTIONS_OPEN = re.compile(r"\bConnections\s*\{")
+
+
+def strip_connections(text: str) -> str:
+    """Le QML sans ses objets `Connections`, accolades appariees.
+
+    Un `Connections { target: ... ; function onClicked() { ... } }` est la forme que Qt Design
+    Studio ecrit lui-meme pour un gestionnaire de signal, et qu'il garde a l'enregistrement : la
+    refonte des menus du 2 octobre 2026 y a range tous les appels des formulaires (avertissement
+    M222 du designer : pas d'appel de fonction hors d'un `Connections`). Ses gestionnaires
+    `function on<Signal>()` ne sont donc pas des fonctions JavaScript libres ; hors de lui, une
+    fonction reste interdite.
+    """
+    out = []
+    position = 0
+    while (match := CONNECTIONS_OPEN.search(text, position)) is not None:
+        out.append(text[position:match.start()])
+        depth = 1
+        index = match.end()
+        while index < len(text) and depth > 0:
+            depth += {"{": 1, "}": -1}.get(text[index], 0)
+            index += 1
+        position = index
+    out.append(text[position:])
+    return "".join(out)
 
 
 def read(path: Path) -> str:
@@ -219,6 +245,8 @@ def check_design_files_are_forms(failures: list[str]) -> int:
                         f"{relative(twin)}."
                     )
             body = strip_comments(read(path))
+            # Les gestionnaires de signal ranges dans un `Connections` sont admis.
+            body = strip_connections(body)
             for pattern, what in IMPERATIVE_PATTERNS:
                 if pattern.search(body):
                     failures.append(

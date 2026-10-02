@@ -19,6 +19,14 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
   compétence quitte le texte de sa valeur (« +5 • ») : clé `sheet.skill.<id>.proficient` et rôle
   `marked` de `SheetRowModel`.
 
+- **CI remise au vert.** Les contrôles des formulaires (`check_ui_layers.py`,
+  `check_qml_designer_compat.py`) admettent les gestionnaires de signal rangés dans un objet
+  `Connections` — la forme que Qt Design Studio écrit et garde, adoptée par la refonte des menus ;
+  une fonction hors d'un `Connections` reste refusée. Le test du rendu par tuiles
+  (`OffscreenRenderTest`) est étalonné sur les deux rendus : sous le rendu logiciel de la CI,
+  1 132 pixels s'écartent d'un ou deux niveaux et un seul bascule de couverture, sans couture.
+  Deux fichiers de la refonte des menus sont remis au format.
+
 - **LOT-1005 — Squelette et animations.** Le moteur anime un modèle par son squelette. Le chargeur
   `.glb` lit les os, la liaison de chaque sommet (quatre os, quatre poids) et les clips ; la pose
   d'un squelette à un instant se calcule sans GPU (`core::poseSkeleton`), et `hmi::MeshBatch`

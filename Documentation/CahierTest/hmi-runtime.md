@@ -508,7 +508,7 @@ La taille du HUD est bornee et survit a un rechargement.
 
 ### InventoryModelTest.EquipmentSurvivesReopeningAndCombatRecords
 
-*Majeur · Unitaire · Inventaire* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:62`
+*Majeur · Unitaire · Inventaire* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:64`
 
 L'equipement survit a la reouverture de l'ecran et au combat.
 
@@ -532,7 +532,7 @@ L'equipement survit a la reouverture de l'ecran et au combat.
 
 ### InventoryModelTest.RestPreservesEquipmentAndClearsSpentResources
 
-*Majeur · Unitaire · Registre du groupe* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:116`
+*Majeur · Unitaire · Registre du groupe* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:118`
 
 Un repos garde l'equipement et rend les ressources depensees.
 
@@ -551,7 +551,7 @@ Un repos garde l'equipement et rend les ressources depensees.
 
 ### ScreenRouterTest.CodexAndOptionsReturnToOngoingCombat
 
-*Majeur · Unitaire · Routeur d'ecrans* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:144`
+*Majeur · Unitaire · Routeur d'ecrans* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:147`
 
 Le codex et les options ramenent au combat en cours.
 

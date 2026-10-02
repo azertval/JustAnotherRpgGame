@@ -20,10 +20,11 @@
  * \tcat Unitaire · Options<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Isoler les preferences dans un dossier temporaire.<br/>
- *          2. Regler la taille du HUD a 120, puis a 1000 et a -1 ; relire par un second modele.<br/>
+ *          2. Regler la taille du HUD a 120, puis a 1000 et a -1 ; relire par un second
+ * modele.<br/>
  *          3. Ecrire une valeur hors bornes dans les preferences et recharger.<br/>
- * \tattendu 120 est relu tel quel ; 1000 est ramene a 130, -1 a 75 ; le defaut vaut 100 ; une valeur
- *           enregistree hors bornes est ramenee a 130 au chargement.
+ * \tattendu 120 est relu tel quel ; 1000 est ramene a 130, -1 a 75 ; le defaut vaut 100 ; une
+ * valeur enregistree hors bornes est ramenee a 130 au chargement.
  * }
  */
 TEST(UiPreferencesTest, HudSizeIsBoundedAndSurvivesReload) {
@@ -58,7 +59,8 @@ TEST(UiPreferencesTest, HudSizeIsBoundedAndSurvivesReload) {
 
 // Equipment changes must remain on the shown mercenary when the screen is reopened.
 /**
- * @brief Un changement d'équipement reste sur le mercenaire affiché quand l'écran se rouvre, et après un relevé de combat.
+ * @brief Un changement d'équipement reste sur le mercenaire affiché quand l'écran se rouvre, et
+ * après un relevé de combat.
  * \castest{<b>L'equipement survit a la reouverture de l'ecran et au combat.</b><br/>
  * \tcat Unitaire · Inventaire<br/>
  * \tcrit Majeur<br/>
@@ -66,9 +68,9 @@ TEST(UiPreferencesTest, HudSizeIsBoundedAndSurvivesReload) {
  *          2. Rouvrir l'inventaire.<br/>
  *          3. Enregistrer un releve de combat pour ce mercenaire, rééquiper la piece, rouvrir.<br/>
  *          4. Chercher un objet qui n'existe pas.<br/>
- * \tattendu A la reouverture, la piece est dans le sac et son emplacement est vide ; le releve de combat
- *           garde l'inventaire ; la piece reequipee est a son emplacement ; la recherche sans
- *           resultat ne montre aucune case.
+ * \tattendu A la reouverture, la piece est dans le sac et son emplacement est vide ; le releve de
+ * combat garde l'inventaire ; la piece reequipee est a son emplacement ; la recherche sans resultat
+ * ne montre aucune case.
  * }
  */
 TEST(InventoryModelTest, EquipmentSurvivesReopeningAndCombatRecords) {
@@ -116,10 +118,11 @@ TEST(InventoryModelTest, EquipmentSurvivesReopeningAndCombatRecords) {
  * \castest{<b>Un repos garde l'equipement et rend les ressources depensees.</b><br/>
  * \tcat Unitaire · Registre du groupe<br/>
  * \tcrit Majeur<br/>
- * \tetapes 1. Ecrire au registre un mercenaire blesse, un sort depense, une bourse de 123 pieces.<br/>
+ * \tetapes 1. Ecrire au registre un mercenaire blesse, un sort depense, une bourse de 123
+ * pieces.<br/>
  *          2. Le faire se reposer.<br/>
- * \tattendu Les points de vie et les lancers depenses sont oublies ; l'inventaire et sa bourse de 123
- *           pieces sont gardes.
+ * \tattendu Les points de vie et les lancers depenses sont oublies ; l'inventaire et sa bourse de
+ * 123 pieces sont gardes.
  * }
  */
 TEST(InventoryModelTest, RestPreservesEquipmentAndClearsSpentResources) {
@@ -147,8 +150,8 @@ TEST(InventoryModelTest, RestPreservesEquipmentAndClearsSpentResources) {
  * \tetapes 1. Ouvrir le jeu, puis le HUD de combat.<br/>
  *          2. Ouvrir un onglet du codex, puis l'inventaire, et fermer.<br/>
  *          3. Ouvrir puis fermer les options ; fermer enfin l'ecran de combat.<br/>
- * \tattendu L'onglet demande est retenu ; fermer l'inventaire puis les options rend le HUD de combat ;
- *           le fermer rend le jeu.
+ * \tattendu L'onglet demande est retenu ; fermer l'inventaire puis les options rend le HUD de
+ * combat ; le fermer rend le jeu.
  * }
  */
 TEST(ScreenRouterTest, CodexAndOptionsReturnToOngoingCombat) {
