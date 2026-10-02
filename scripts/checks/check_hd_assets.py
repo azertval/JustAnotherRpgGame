@@ -339,6 +339,11 @@ def check_characters(directory: Path, manifest: dict, root: Path, report: Report
         if name in npcs:
             report.fail(f"{where} : {name} est à la fois dans `npcs` et dans `portraits`")
             continue
+        # Les quatre héros ont leur modèle (LOT-1009) : un héros n'attend plus.
+        if name.startswith("Heroes/"):
+            report.fail(f"{where} : {name} est un héros sans modèle ; les héros sont des modèles "
+                        "(LOT-1009)")
+            continue
         if not (directory / name / "portrait.png").is_file():
             report.fail(f"{relative(directory / name, root)} : portrait d'attente sans `portrait.png`")
         if (directory / name / SHEET).is_file():

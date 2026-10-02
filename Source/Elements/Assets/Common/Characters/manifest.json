@@ -6,6 +6,9 @@
   ],
   "npcs": [
     "Heroes/brawler",
+    "Heroes/mage",
+    "Heroes/priest",
+    "Heroes/scoundrel",
     "Mannequins/humanoid"
   ],
   "sources": {
@@ -58,6 +61,51 @@
         "sha256": "a3cac2c8547ad55c431b3d99f6810bf3b043e1d8d24da522337661827323709b"
       }
     },
+    "Heroes/mage": {
+      "model": "Heroes/mage/mage.glb",
+      "skeleton": "humanoid",
+      "triangles": 99999,
+      "size": [
+        1.762,
+        1.903,
+        0.534
+      ],
+      "sha256": "86a0db5c6df1deb0b15029ab77b64b5da10a8e282354ae5ceda4026405681dd1",
+      "source": {
+        "file": "Lies/mage/mage.glb",
+        "sha256": "86a0db5c6df1deb0b15029ab77b64b5da10a8e282354ae5ceda4026405681dd1"
+      }
+    },
+    "Heroes/priest": {
+      "model": "Heroes/priest/priest.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.904,
+        1.851,
+        0.601
+      ],
+      "sha256": "cc6eddebab6b52674fe67f72ac2a25306d5910b34aa1c0c1918b8487ac93fa88",
+      "source": {
+        "file": "Lies/priest/priest.glb",
+        "sha256": "cc6eddebab6b52674fe67f72ac2a25306d5910b34aa1c0c1918b8487ac93fa88"
+      }
+    },
+    "Heroes/scoundrel": {
+      "model": "Heroes/scoundrel/scoundrel.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.75,
+        1.902,
+        0.434
+      ],
+      "sha256": "20f4b7c5db7adc1d9ae51aa3ca9017410dfaa8d9b64939892cda787d33e7e1d9",
+      "source": {
+        "file": "Lies/scoundrel/scoundrel.glb",
+        "sha256": "20f4b7c5db7adc1d9ae51aa3ca9017410dfaa8d9b64939892cda787d33e7e1d9"
+      }
+    },
     "Mannequins/humanoid": {
       "model": "Mannequins/humanoid/humanoid.glb",
       "skeleton": "humanoid",
@@ -89,11 +137,6 @@
       }
     }
   },
-  "portraits": [
-    "Heroes/mage",
-    "Heroes/priest",
-    "Heroes/scoundrel"
-  ],
   "skeletons": {
     "humanoid": {
       "file": "Skeletons/humanoid/skeleton.json",

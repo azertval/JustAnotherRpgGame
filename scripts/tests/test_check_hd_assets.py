@@ -254,35 +254,42 @@ def test_un_modele_lie_absent_des_pnj_echoue(assets):
 
 
 def test_un_portrait_d_attente_cite_son_visage_et_rien_d_autre(assets):
-    """LOT-145 : un héros qui a son portrait avant son modèle. `portraits` cite le portrait et le
-    jeton ; une bande posée là est une erreur ; un portrait manquant, une fiche, ou un nom dans les
-    deux listes, échouent."""
+    """LOT-145 : un personnage qui a son portrait avant son modèle. `portraits` cite le portrait et
+    le jeton ; une bande posée là est une erreur ; un portrait manquant, une fiche, ou un nom dans
+    les deux listes, échouent. Un héros n'attend plus (LOT-1009) : `Heroes/…` y est refusé."""
     root, _, _ = assets
     folder = heros(root)
     characters = folder.parent.parent
+    lion = characters / 'lion'
+    lion.mkdir()
+    png(lion / 'portrait.png', 512, 512)
+    png(lion / 'token.png', 128, 128)
+    manifest = json.loads((characters / 'manifest.json').read_text(encoding='utf-8'))
+    manifest['portraits'] = ['lion']
+    write(characters / 'manifest.json', manifest)
+    assert errors(root) == []
+
+    png(lion / 'idle-se.png', 8 * 192, 256)
+    assert any('lion/idle-se.png' in e for e in errors(root))
+    (lion / 'idle-se.png').unlink()
+
+    (lion / 'portrait.png').unlink()
+    assert any('sans `portrait.png`' in e for e in errors(root))
+    png(lion / 'portrait.png', 512, 512)
+
+    write(lion / 'character.json', {'version': 1, 'model': 'lion.glb', 'skeleton': 'quadruped'})
+    assert any("n'a pas de fiche" in e for e in errors(root))
+    (lion / 'character.json').unlink()
+
+    write(characters / 'manifest.json', {**manifest, 'portraits': ['lion', 'Heroes/brawler']})
+    assert any('à la fois' in e for e in errors(root))
+
     mage = characters / 'Heroes' / 'mage'
     mage.mkdir()
     png(mage / 'portrait.png', 512, 512)
     png(mage / 'token.png', 128, 128)
-    manifest = json.loads((characters / 'manifest.json').read_text(encoding='utf-8'))
-    manifest['portraits'] = ['Heroes/mage']
-    write(characters / 'manifest.json', manifest)
-    assert errors(root) == []
-
-    png(mage / 'idle-se.png', 8 * 192, 256)
-    assert any('mage/idle-se.png' in e for e in errors(root))
-    (mage / 'idle-se.png').unlink()
-
-    (mage / 'portrait.png').unlink()
-    assert any('sans `portrait.png`' in e for e in errors(root))
-    png(mage / 'portrait.png', 512, 512)
-
-    write(mage / 'character.json', {'version': 1, 'model': 'mage.glb', 'skeleton': 'humanoid'})
-    assert any("n'a pas de fiche" in e for e in errors(root))
-    (mage / 'character.json').unlink()
-
-    write(characters / 'manifest.json', {**manifest, 'portraits': ['Heroes/mage', 'Heroes/brawler']})
-    assert any('à la fois' in e for e in errors(root))
+    write(characters / 'manifest.json', {**manifest, 'portraits': ['lion', 'Heroes/mage']})
+    assert any('héros sans modèle' in e for e in errors(root))
 
 
 def test_un_dossier_scene_sans_manifeste_echoue(assets):
