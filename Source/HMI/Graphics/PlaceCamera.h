@@ -27,9 +27,10 @@ namespace hmi {
  * (`EX-ARCH-022`, `EX-REN-013`) ; l'origine de l'écran est en haut à gauche, l'axe Y vers le bas.
  *
  * Elle remplace la caméra 2D d'avant le lot, dont elle garde le cadrage au flottant près : la
- * matrice des deux premiers axes est la même, et une image posée dans le plan occupe les mêmes pixels. Ce qu'elle y
- * ajoute est le troisième axe — la profondeur de la vue, ramenée de `depthRange()` à l'étendue du
- * tampon de profondeur — et la matrice d'un maillage posé (`meshMatrix`).
+ * matrice des deux premiers axes est la même, et une image posée dans le plan occupe les mêmes
+ * pixels. Ce qu'elle y ajoute est le troisième axe — la profondeur de la vue, ramenée de
+ * `depthRange()` à l'étendue du tampon de profondeur — et la matrice d'un maillage posé
+ * (`meshMatrix`).
  *
  * Objet de **présentation** : elle lit des positions, elle ne modifie jamais la simulation.
  */

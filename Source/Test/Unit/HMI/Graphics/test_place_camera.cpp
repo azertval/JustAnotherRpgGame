@@ -14,8 +14,8 @@
 #include <DirectXMath.h>
 #include <gtest/gtest.h>
 
-#include "Core/Math/Vector2.h"
 #include "Core/Combat/IsoProjection.h"
+#include "Core/Math/Vector2.h"
 #include "HMI/Graphics/IsoView.h"
 #include "HMI/Graphics/PlaceCamera.h"
 
@@ -259,9 +259,9 @@ TEST(PlaceCameraTest, SansProfondeurLaMatriceEstCelleDeLaCamera2D) {
     EXPECT_EQ(m(3, 2), 0.0f);
     EXPECT_FALSE(std::signbit(m(3, 2)));
     EXPECT_EQ(m(3, 3), 1.0f);
-    for (const auto [row, column] : {std::pair{0, 1}, std::pair{0, 2}, std::pair{0, 3},
-                                     std::pair{1, 0}, std::pair{1, 2}, std::pair{1, 3},
-                                     std::pair{2, 0}, std::pair{2, 1}, std::pair{2, 3}}) {
+    for (const auto [row, column] :
+         {std::pair{0, 1}, std::pair{0, 2}, std::pair{0, 3}, std::pair{1, 0}, std::pair{1, 2},
+          std::pair{1, 3}, std::pair{2, 0}, std::pair{2, 1}, std::pair{2, 3}}) {
         EXPECT_EQ(m(static_cast<std::size_t>(row), static_cast<std::size_t>(column)), 0.0f);
     }
 }
@@ -293,9 +293,9 @@ TEST(PlaceCameraTest, LEtendueDeProfondeurSeRameneEntreLesDeuxPlans) {
     const auto project = [](const hmi::PlaceCamera& from, float x, float y, float z) {
         const DirectX::XMFLOAT4X4 projection = from.projectionMatrix();
         DirectX::XMFLOAT4 result;
-        DirectX::XMStoreFloat4(&result, DirectX::XMVector4Transform(
-                                            DirectX::XMVectorSet(x, y, z, 1.0f),
-                                            DirectX::XMLoadFloat4x4(&projection)));
+        DirectX::XMStoreFloat4(&result,
+                               DirectX::XMVector4Transform(DirectX::XMVectorSet(x, y, z, 1.0f),
+                                                           DirectX::XMLoadFloat4x4(&projection)));
         return result;
     };
     EXPECT_NEAR(project(camera, 3.0f, 4.0f, range.nearest).z, -1.0f, TOLERANCE);
@@ -337,16 +337,15 @@ TEST(PlaceCameraTest, LaMatriceDUnMaillageComposeLaPoseEtLaProjection) {
     const DirectX::XMFLOAT4X4 projection = camera.projectionMatrix();
     const auto transform = [](const DirectX::XMFLOAT4X4& matrix, float x, float y, float z) {
         DirectX::XMFLOAT4 result;
-        DirectX::XMStoreFloat4(&result, DirectX::XMVector4Transform(
-                                            DirectX::XMVectorSet(x, y, z, 1.0f),
-                                            DirectX::XMLoadFloat4x4(&matrix)));
+        DirectX::XMStoreFloat4(&result,
+                               DirectX::XMVector4Transform(DirectX::XMVectorSet(x, y, z, 1.0f),
+                                                           DirectX::XMLoadFloat4x4(&matrix)));
         return result;
     };
-    for (const auto& point : {std::array<float, 3>{0.0f, 0.0f, 0.0f},
-                              std::array<float, 3>{0.75f, 2.37f, -0.75f},
-                              std::array<float, 3>{-2.0f, 0.5f, 3.0f}}) {
-        const std::array<float, 3> inView =
-            hmi::IsoView::apply(pose, point[0], point[1], point[2]);
+    for (const auto& point :
+         {std::array<float, 3>{0.0f, 0.0f, 0.0f}, std::array<float, 3>{0.75f, 2.37f, -0.75f},
+          std::array<float, 3>{-2.0f, 0.5f, 3.0f}}) {
+        const std::array<float, 3> inView = hmi::IsoView::apply(pose, point[0], point[1], point[2]);
         const DirectX::XMFLOAT4 direct = transform(mesh, point[0], point[1], point[2]);
         const DirectX::XMFLOAT4 chained = transform(projection, inView[0], inView[1], inView[2]);
         EXPECT_NEAR(direct.x, chained.x, 1e-4f);

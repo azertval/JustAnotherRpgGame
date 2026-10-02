@@ -69,10 +69,14 @@ DirectX::XMFLOAT4X4 PlaceCamera::projectionMatrix() const {
     // clip.x =  scaleX * (x - cx) ; clip.y = -scaleY * (y - cy) ; clip.z = profondeur ramenee ;
     // clip.w = 1. Les deux premiers axes sont ceux de la camera 2D d'avant le LOT-1003, au
     // flottant pres : une image posee dans le plan occupe les memes pixels.
-    return {scaleX,     0.0F,       0.0F,            0.0F,  //
-            0.0F,       -scaleY,    0.0F,            0.0F,  //
-            0.0F,       0.0F,       depth.scale,     0.0F,  //
-            translateX, translateY, depth.translate, 1.0F};
+    return {scaleX,     0.0F,       0.0F,
+            0.0F,  //
+            0.0F,       -scaleY,    0.0F,
+            0.0F,  //
+            0.0F,       0.0F,       depth.scale,
+            0.0F,  //
+            translateX, translateY, depth.translate,
+            1.0F};
 }
 
 // Matrice maillage -> clip : la pose du maillage dans la vue, puis la projection.

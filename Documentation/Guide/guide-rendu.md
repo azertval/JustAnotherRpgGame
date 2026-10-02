@@ -167,7 +167,7 @@ projet, la même que celle des cartes.
 
 C'est la **caméra du lieu** : depuis le `LOT-1003` elle porte un troisième axe, la profondeur de la
 vue, que `setDepthRange` ramène à l'étendue du tampon de profondeur, et `meshMatrix` donne la
-matrice d'un maillage posé ([les volumes](#les-volumes--hmiisoview-et-hmimeshbatch)). Sans étendue
+matrice d'un maillage posé ([les volumes](#les-volumes-hmiisoview-et-hmimeshbatch)). Sans étendue
 fixée, sa matrice est celle de la caméra plane qu'elle remplace, coefficient pour coefficient.
 
 ### Cadrer une scène : `fitZoom` et `worldCamera`
@@ -1056,7 +1056,7 @@ fait que relayer :
    `submitComposedScene`, puis l'unique passe de l'image — les téléversements d'abord
    (`SpriteBatch::prepare`, `MeshBatch::prepare`), puis les maillages et les quads
    (`MeshBatch::record`, `SpriteBatch::record`), dans cet ordre
-   ([les volumes](#les-volumes--hmiisoview-et-hmimeshbatch)).
+   ([les volumes](#les-volumes-hmiisoview-et-hmimeshbatch)).
 
 ![Une image du jeu Qt Quick : le fil graphique simule et prend un instantané en valeurs, synchronize() le fait traverser, le fil de rendu enchaîne ensureResources, setSnapshot, la composition pure puis la soumission au GPU](figures/rendu-pipeline-image.svg)
 
