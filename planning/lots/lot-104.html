@@ -33,7 +33,7 @@
 <h3 id="d4-une-planche-se-découpe-et-chaque-morceau-se-nomme">D4 — Une planche se découpe, et chaque morceau se nomme</h3>
 <p>Les deux sources de sol du Colisée portent six dalles chacune. Chaque morceau d'un seul tenant est une pièce, dans l'ordre de lecture ; le descripteur les nomme toutes (<code>sheet</code>), et un compte qui ne tombe pas juste est une erreur, jamais une affectation au hasard. L'étiquetage se fait sur une grille de 4 px, en Python seul : scipy n'est pas sur le poste, et une planche de 1254 px se découpe en moins d'une seconde.</p>
 <h3 id="d5-le-détourage-ne-touche-pas-la-couleur">D5 — Le détourage ne touche pas la couleur</h3>
-<p>L'alpha du générateur porte un voile de 1 à 16 autour de la pièce et un intérieur à 252-254 : il est étiré entre 16 et 248, les îlots de moins de 0,5 % de l'art sont effacés, et la réduction se fait en <strong>alpha prémultiplié</strong>, pour que le bord ne tire pas vers le noir du fond transparent. Aucune décontamination de couleur : le contour bronze foncé est voulu par <a href="../standards/consigne-2d-hd.html">la consigne</a>, et le « redresser » l'effacerait. Une dalle est étirée au losange exact du lieu (256 × 159) : l'écart de rapport du générateur, jusqu'à 8 % en hauteur, ne se voit pas une fois le sol posé.</p>
+<p>L'alpha du générateur porte un voile de 1 à 16 autour de la pièce et un intérieur à 252-254 : il est étiré entre 16 et 248, les îlots de moins de 0,5 % de l'art sont effacés, et la réduction se fait en <strong>alpha prémultiplié</strong>, pour que le bord ne tire pas vers le noir du fond transparent. Aucune décontamination de couleur : le contour bronze foncé est voulu par <a href="../standards/archives/consigne-2d-hd.html">la consigne</a>, et le « redresser » l'effacerait. Une dalle est étirée au losange exact du lieu (256 × 159) : l'écart de rapport du générateur, jusqu'à 8 % en hauteur, ne se voit pas une fois le sol posé.</p>
 <h3 id="d6-le-manifeste-garde-la-trace-de-la-source">D6 — Le manifeste garde la trace de la source</h3>
 <p>Chaque entrée installée porte sa <code>family</code> et sa <code>source</code> (chemin sous <code>Tools/AssetsHD/</code> et empreinte SHA-256). <code>install_hd_asset.py --check</code> rejoue l'installation et compare, pixel à pixel : une image retouchée à la main se voit. Ce contrôle demande les sources, donc il est local ; celui de la CI, <code>check_hd_assets.py</code>, n'en a pas besoin.</p>
 <h3 id="d7-le-budget-se-pèse-par-lieu-sous-zone-à-part">D7 — Le budget se pèse par lieu, sous-zone à part</h3>
@@ -53,7 +53,7 @@
 <ul><li><code>EX-CNT-072</code> — le contrôle des assets HD et l'installation par descripteur.</li></ul></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.1-demo/lots/LOT-104-chaine-de-production-hd.md</code></p>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-10-01 · <code>b80fae1af</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<footer>Engendré depuis <code>Planning/</code> le 2026-10-02 · <code>7e6915c50</code>. Rien ici ne s'édite : la source est le dossier.</footer>
 <script src="../assets/site.js"></script>
 </body>
 </html>

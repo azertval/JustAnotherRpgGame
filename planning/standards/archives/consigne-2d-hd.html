@@ -4,23 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>La consigne du générateur — 2D HD — Planification</title>
-<link rel="stylesheet" href="../assets/theme.css">
+<link rel="stylesheet" href="../../assets/theme.css">
 </head>
 <body>
 <header class="topbar">
-  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
-  <nav><a href="../index.html">Trajectoire</a><a href="../lots/index.html">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="index.html" class="active">Standards</a></nav>
-  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+  <a class="brand" href="../../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../../index.html">Trajectoire</a><a href="../../lots/index.html">Lots</a><a href="../../versions/index.html">Versions</a><a href="../../vision/index.html">Vision</a><a href="../../referentiels/index.html">Référentiels</a><a href="../index.html" class="active">Standards</a></nav>
+  <div class="links"><a href="../../../">Documentation</a><a class="active" href="../../index.html">Planification</a><a href="../../../qualite/">Qualité</a></div>
 </header>
 <div class="shell with-sidebar">
-<aside class="sidebar"><h4>Standards</h4><a class="depth-0" href="index.html">Standards</a><a class="depth-0" href="arborescence-assets.html">L&#x27;arborescence des assets</a><a class="depth-0" href="assets-hors-git-lot108.html">LOT-108 — Les assets livrés sortent de l&#x27;historique Git</a><a class="depth-0" href="audit-affichage-lieu.html">Audit : l&#x27;affichage d&#x27;un lieu qu&#x27;on parcourt</a><a class="depth-0" href="audit-capital-lot105-extension.html">LOT-105 — complément du commun de la Capitale</a><a class="depth-0" href="audit-editeur.html">Audit — l&#x27;éditeur face au planning : ce qu&#x27;il sait, ce qui lui manque</a><a class="depth-0" href="audit-passage-hd.html">Audit — quitter le pixel art : ce que ça casse, ce qu&#x27;il faut changer</a><a class="depth-0" href="checklist-lot108-arenarea.html">LOT-108 — Checklist complète d’Arenarea à valider</a><a class="depth-0 active" href="consigne-2d-hd.html">La consigne du générateur — 2D HD</a><a class="depth-0" href="definition-de-livre.html">Ce que « livré » veut dire</a><a class="depth-0" href="gabarit-commande-zone.html">Gabarit de la commande d&#x27;une zone</a><a class="depth-0" href="gabarit-lot.html">Gabarit d&#x27;une fiche de lot</a><a class="depth-0" href="production-lot108.html">LOT-108 — Production coordonnée</a><a class="depth-0" href="style-2d-hd.html">Le standard 2D HD</a><a class="depth-0" href="workflow-qualite-pnj.html">Workflow de qualité des PNJ générés</a></aside>
+<aside class="sidebar"><h4>Standards</h4><a class="depth-0" href="../index.html">Standards</a><a class="depth-0" href="../arborescence-assets.html">L&#x27;arborescence des assets</a><a class="depth-0" href="../assets-hors-git-lot108.html">LOT-108 — Les assets livrés sortent de l&#x27;historique Git</a><a class="depth-0" href="../audit-affichage-lieu.html">Audit : l&#x27;affichage d&#x27;un lieu qu&#x27;on parcourt</a><a class="depth-0" href="../audit-capital-lot105-extension.html">LOT-105 — complément du commun de la Capitale</a><a class="depth-0" href="../audit-editeur.html">Audit — l&#x27;éditeur face au planning : ce qu&#x27;il sait, ce qui lui manque</a><a class="depth-0" href="../audit-passage-hd.html">Audit — quitter le pixel art : ce que ça casse, ce qu&#x27;il faut changer</a><a class="depth-0" href="../checklist-lot108-arenarea.html">LOT-108 — Checklist complète d’Arenarea à valider</a><a class="depth-0" href="../definition-de-livre.html">Ce que « livré » veut dire</a><a class="depth-0" href="../gabarit-commande-zone.html">Gabarit de la commande d&#x27;une zone</a><a class="depth-0" href="../gabarit-lot.html">Gabarit d&#x27;une fiche de lot</a><a class="depth-0" href="../personnages-3d.html">Les personnages 3D</a><a class="depth-0" href="../production-lot108.html">LOT-108 — Production coordonnée</a><a class="depth-0" href="../style-3d.html">Le standard 3D</a><a class="depth-1 active" href="consigne-2d-hd.html">La consigne du générateur — 2D HD</a><a class="depth-1" href="style-2d-hd.html">Le standard 2D HD</a><a class="depth-1" href="workflow-qualite-pnj.html">Workflow de qualité des PNJ générés</a></aside>
 <main>
 <article class="prose"><h1 id="la-consigne-du-générateur-2d-hd">La consigne du générateur — 2D HD</h1>
-<p>Le style de la scène est <strong>écrit</strong>, pas laissé au générateur : c'est ce que dit <a href="../../Specification/vision.html"><code>EX-VIS-008</code></a>. Cette page est cette écriture. Elle remplace le bloc A de l'atelier des textures (<code>LOT-92</code>), qui décrivait du pixel art.</p>
+<blockquote><p><strong>Archivé le 1er octobre 2026 (<a href="../../lots/lot-1001.html">LOT-1001</a>).</strong> Ce document n'est plus normatif : le jeu passe à la 3D (<a href="../../vision/decisions.html">D-29</a>), et la règle en vigueur est le <a href="../style-3d.html">standard 3D</a>. Il reste la mémoire des lots livrés qui le citent, et la référence figée des <strong>images tolérées</strong> (<a href="../style-3d.html#7-les-images-tolérées">standard 3D, §7</a>).</p></blockquote>
+<p>Le style de la scène est <strong>écrit</strong>, pas laissé au générateur : c'est ce que dit <a href="../../../Specification/vision.html"><code>EX-VIS-008</code></a>. Cette page est cette écriture. Elle remplace le bloc A de l'atelier des textures (<code>LOT-92</code>), qui décrivait du pixel art.</p>
 <p>Une commande d'image se compose de <strong>trois blocs</strong>, toujours dans cet ordre, toujours en anglais — c'est la langue où les générateurs sont les plus dociles :</p>
 <div class="table-wrap"><table><thead><tr><th>Bloc</th><th>Ce qu'il dit</th><th>Qui l'écrit</th></tr></thead><tbody><tr><td><strong>A — le style</strong></td><td>la facture, la lumière, les matières, la palette, les interdits</td><td>figé ici, jamais réécrit à la main</td></tr><tr><td><strong>B — la vue</strong></td><td>la projection, l'échelle, l'emprise, le fond, le cadrage</td><td>figé ici, ses trous se remplissent</td></tr><tr><td><strong>C — la pièce</strong></td><td>l'objet demandé, ses matières, ses variantes</td><td>écrit à chaque commande</td></tr></tbody></table></div>
 <p>La <strong>planche de référence</strong> <code>Tools/AssetsHD/Arenarea/arenarea-planche-reference-v2.png</code> est jointe à chaque envoi comme image de référence : elle vaut mieux que trois paragraphes de plus.</p>
-<blockquote><p><strong>Le générateur reste un outil manuel.</strong> Aucune génération ne tourne en CI, et Claude ne dessine pas : il écrit la commande, l'auteur l'envoie, la chaîne du <a href="../lots/lot-104.html">LOT-104</a> installe le résultat. Règle du <code>LOT-91</code>, inchangée.</p></blockquote>
+<blockquote><p><strong>Le générateur reste un outil manuel.</strong> Aucune génération ne tourne en CI, et Claude ne dessine pas : il écrit la commande, l'auteur l'envoie, la chaîne du <a href="../../lots/lot-104.html">LOT-104</a> installe le résultat. Règle du <code>LOT-91</code>, inchangée.</p></blockquote>
 <h2 id="bloc-a-le-style">Bloc A — le style</h2>
 <p>Pour chaque prochain lot, intégrer aussi les <a href="style-2d-hd.html#critères-de-qualité-validés-par-lutilisateur">critères de qualité validés par l’utilisateur</a> : matières propres sans grain, relief lisible, volumes des balustres et buissons, grille exacte et continuité des modules jusque dans les angles. La référence acceptée est le LOT-105 V4 après sa reprise du relief. Ces contraintes complètent les blocs de commande ci-dessous et se vérifient dans une map rendue par le moteur.</p>
 <p>Invariant pour tout l'Empire central. Une autre région change <strong>la palette et les matières</strong>, rien d'autre.</p>
@@ -111,7 +112,7 @@ frame is the same size, evenly spaced, with 8 px of margin between frames and
 around the strip. No shadow, no base plate, no separating line, no frame
 number.</code></pre>
 <p>La marge de 8 px est celle du <a href="style-2d-hd.html">standard</a> : sans elle, le niveau de mipmap d'une image déborde sur sa voisine.</p>
-<p>L'essai de cadence du <a href="../lots/lot-112.html">LOT-112</a> a ajouté deux choses à cette variante. La phrase « Draw it as large as the canvas allows » se <strong>garde</strong> à la fin du cadrage : c'est la règle « réduit, jamais agrandi ». Et la ligne <code>OUTPUT</code> du bloc B, qui demande un canevas carré, devient :</p>
+<p>L'essai de cadence du <a href="../../lots/lot-112.html">LOT-112</a> a ajouté deux choses à cette variante. La phrase « Draw it as large as the canvas allows » se <strong>garde</strong> à la fin du cadrage : c'est la règle « réduit, jamais agrandi ». Et la ligne <code>OUTPUT</code> du bloc B, qui demande un canevas carré, devient :</p>
 <pre><code>OUTPUT: landscape canvas, as wide as available, PNG with alpha.</code></pre>
 <p>Une image de la bande doit sortir à 192 px de large au moins (384 pour l'attaque et le sort) : huit images demandent un canevas de 1600 px. Le standard fixe <strong>huit images</strong> par animation.</p>
 <h3 id="les-envois-qui-suivent-le-premier">Les envois qui suivent le premier</h3>
@@ -143,11 +144,11 @@ FAMILY: 06 — centrepiece, footprint 3 by 3.
 PLACE: Arenarea, the arena quarter of the Capital; accent burgundy.
 VARIANTS: none.</code></pre>
 <h2 id="ce-que-la-maquette-a-appris-à-la-consigne">Ce que la maquette a appris à la consigne</h2>
-<p>Trois règles ci-dessus ne viennent pas de la planche mais du montage de la maquette (<a href="../lots/lot-101.html">LOT-101</a>) :</p>
+<p>Trois règles ci-dessus ne viennent pas de la planche mais du montage de la maquette (<a href="../../lots/lot-101.html">LOT-101</a>) :</p>
 <ol><li><strong>« une pièce par image »</strong> — la planche livre ses pièces par panneaux de trois ou quatre ; les séparer ensuite coûte un détourage par pièce et laisse des franges.</li><li><strong>« pas de plaque de sol sous la pièce »</strong> — les sols de la planche sont des dalles <strong>avec leur épaisseur</strong> : posées côte à côte, elles se marchent dessus.</li><li><strong>« dessine-la aussi grande que possible »</strong> — les pièces de la planche tiennent dans un losange de 136 px, soit la moitié de ce que le standard demande.</li></ol></article>
 </main>
 </div>
-<footer>Engendré depuis <code>Planning/</code> le 2026-10-01 · <code>b80fae1af</code>. Rien ici ne s'édite : la source est le dossier.</footer>
-<script src="../assets/site.js"></script>
+<footer>Engendré depuis <code>Planning/</code> le 2026-10-02 · <code>7e6915c50</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../../assets/site.js"></script>
 </body>
 </html>

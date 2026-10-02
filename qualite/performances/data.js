@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1790823236182,
+  "lastUpdate": 1790930542842,
   "repoUrl": "https://github.com/azertval/JustAnotherRpgGame",
   "entries": {
     "Combat et niveaux (Release, windows-2022)": [
@@ -1784,6 +1784,100 @@ window.BENCHMARK_DATA = {
             "extra": "iterations: 389565\ncpu: 3.5295778624876464 us\nthreads: 1"
           }
         ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "b80fae1af8e11fa60b56fed6f54996eb6a8a7b97",
+          "message": "Merge pull request #166 from azertval/lot-1000-preuve-personnages\n\nLOT-1000 — La preuve de la chaîne de personnages",
+          "timestamp": "2026-10-01T13:30:14Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/b80fae1af8e11fa60b56fed6f54996eb6a8a7b97"
+        },
+        "date": 1790930534796,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "ReachableAreaDashing",
+            "value": 162544.67771639102,
+            "unit": "ns/iter",
+            "extra": "iterations: 8145\ncpu: 161141.80478821363 ns\nthreads: 1"
+          },
+          {
+            "name": "FindPathAcrossGrid",
+            "value": 224370.56250000253,
+            "unit": "ns/iter",
+            "extra": "iterations: 6400\ncpu: 224609.375 ns\nthreads: 1"
+          },
+          {
+            "name": "LineOfSightAcrossGrid",
+            "value": 22279.836941054687,
+            "unit": "ns/iter",
+            "extra": "iterations: 59733\ncpu: 22495.940267523813 ns\nthreads: 1"
+          },
+          {
+            "name": "CoverFromWithInterposed",
+            "value": 74497.2304065985,
+            "unit": "ns/iter",
+            "extra": "iterations: 18667\ncpu: 74496.43756361493 ns\nthreads: 1"
+          },
+          {
+            "name": "PlanTurnFourVersusFour",
+            "value": 1136715.6249999956,
+            "unit": "ns/iter",
+            "extra": "iterations: 1280\ncpu: 1135253.90625 ns\nthreads: 1"
+          },
+          {
+            "name": "LoadTestLevel",
+            "value": 2633241.9642857625,
+            "unit": "ns/iter",
+            "extra": "iterations: 448\ncpu: 2615792.410714286 ns\nthreads: 1"
+          },
+          {
+            "name": "ComposeTestMap",
+            "value": 623.676785714292,
+            "unit": "us/iter",
+            "extra": "iterations: 2240\ncpu: 620.8147321428571 us\nthreads: 1"
+          },
+          {
+            "name": "ArenareaSnapshot",
+            "value": 0.09160755437596932,
+            "unit": "ms/iter",
+            "extra": "iterations: 15448\ncpu: 0.09204265924391507 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaComposeWholeMap",
+            "value": 0.12703808035714154,
+            "unit": "ms/iter",
+            "extra": "iterations: 11200\ncpu: 0.126953125 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaTexturePaths",
+            "value": 0.06750649325718727,
+            "unit": "ms/iter",
+            "extra": "iterations: 20837\ncpu: 0.06673825406728416 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaBuildStaticScene",
+            "value": 0.1278886785714306,
+            "unit": "ms/iter",
+            "extra": "iterations: 11200\ncpu: 0.12834821428571427 ms\nthreads: 1"
+          },
+          {
+            "name": "ArenareaFrame1080p",
+            "value": 3.009191248974206,
+            "unit": "us/iter",
+            "extra": "iterations: 471579\ncpu: 3.015136382239243 us\nthreads: 1"
+          }
+        ]
       }
     ],
     "Peinture du canevas de l'editeur (Release, windows-2022)": [
@@ -2124,6 +2218,40 @@ window.BENCHMARK_DATA = {
             "value": 5.230198529411801,
             "unit": "ms/iter",
             "extra": "iterations: 272\ncpu: 5.227481617647059 ms\nthreads: 1"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "azertval",
+            "username": "azertval",
+            "email": "valentin.eloy@gmail.com"
+          },
+          "committer": {
+            "name": "GitHub",
+            "username": "web-flow",
+            "email": "noreply@github.com"
+          },
+          "id": "b80fae1af8e11fa60b56fed6f54996eb6a8a7b97",
+          "message": "Merge pull request #166 from azertval/lot-1000-preuve-personnages\n\nLOT-1000 — La preuve de la chaîne de personnages",
+          "timestamp": "2026-10-01T13:30:14Z",
+          "url": "https://github.com/azertval/JustAnotherRpgGame/commit/b80fae1af8e11fa60b56fed6f54996eb6a8a7b97"
+        },
+        "date": 1790930540913,
+        "tool": "googlecpp",
+        "benches": [
+          {
+            "name": "PaintHdMockup1080p",
+            "value": 12.965170535714268,
+            "unit": "ms/iter",
+            "extra": "iterations: 112\ncpu: 12.276785714285714 ms\nthreads: 1"
+          },
+          {
+            "name": "PaintHdMockupZoomedOut",
+            "value": 6.220559821428599,
+            "unit": "ms/iter",
+            "extra": "iterations: 224\ncpu: 6.34765625 ms\nthreads: 1"
           }
         ]
       }
