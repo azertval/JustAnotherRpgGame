@@ -23,6 +23,8 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
     supprimés.
   - `EX-REN-012` (bandes de figurine) est retirée, `EX-REN-051` la remplace : une figurine est un
     modèle. Guide du rendu, guide des données et cahier de test suivent.
+  - Le kit `Common` est republié et verrouillé (`Common@7`, 35 fichiers) : sans bande de figurine,
+    avec le mannequin lié et le modèle du brawler.
 
 - **Menus du mercenaire et HUD.** Menu principal en codex illustré, fiche d'identité ornementée,
   capacités de classe et grimoire réunis, compétences et équipement sur leurs propres pages.
