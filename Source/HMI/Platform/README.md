@@ -8,4 +8,4 @@ Intégration au système d'exploitation.
   `std::terminate`, appel virtuel pur, paramètre invalide de la CRT), lisible avec l'archive de
   symboles de la release. Installé par `App/Common/Bootstrap.cpp` pour les deux applications.
 
-Réf. specs : `EX-REN-001`, `EX-REN-003`, `EX-CTRL-002`.
+Réf. specs : `EX-REN-001`, `EX-REN-003`.

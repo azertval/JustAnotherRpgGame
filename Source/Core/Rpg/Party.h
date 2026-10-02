@@ -75,7 +75,7 @@ public:
     /**
      * @brief Passe la tête au suivant : le meneur va en queue, les autres avancent d'un rang.
      *
-     * C'est le geste du clavier et de la manette : répété, il fait le tour du groupe et revient au
+     * C'est le geste du clavier : répété, il fait le tour du groupe et revient au
      * premier, ce qu'un simple échange des deux premiers ne ferait pas.
      */
     PartyChange rotateLeader();

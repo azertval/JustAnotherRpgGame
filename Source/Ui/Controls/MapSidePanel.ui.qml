@@ -38,6 +38,7 @@ PanelFrame {
     signal entryChosen(int index)
     signal entryActivated(int index)
 
+    material: "parchment"
     subpanel: true
 
     Column {
@@ -51,7 +52,7 @@ PanelFrame {
         Text {
             width: parent.width
             text: root.title
-            color: Tokens.goldLight
+            color: Tokens.gem
             font.family: Tokens.titleFamily
             font.pixelSize: Tokens.fontSectionTitle
             font.weight: Font.DemiBold
@@ -64,7 +65,7 @@ PanelFrame {
             width: parent.width
             visible: root.lore !== ""
             text: root.lore
-            color: Tokens.textOnPanel
+            color: Tokens.text
             font.family: Tokens.loreFamily
             font.italic: true
             font.pixelSize: Tokens.fontCaption
@@ -81,7 +82,7 @@ PanelFrame {
 
                 width: header.width
                 text: modelData
-                color: Tokens.textOnPanelMuted
+                color: Tokens.textMuted
                 font.family: Tokens.bodyFamily
                 font.pixelSize: Tokens.fontCaption
                 elide: Text.ElideRight
@@ -119,7 +120,7 @@ PanelFrame {
                         anchors.verticalCenter: parent.verticalCenter
                         text: statistic.index < root.statisticLabels.length
                               ? root.statisticLabels[statistic.index] : ""
-                        color: Tokens.textOnPanel
+                        color: Tokens.text
                         font.family: Tokens.bodyFamily
                         font.pixelSize: Tokens.fontCaption
                         elide: Text.ElideRight
@@ -142,8 +143,8 @@ PanelFrame {
                                 height: 9 * Tokens.uiScale
                                 rotation: 45
                                 antialiasing: true
-                                color: index <= statistic.modelData ? Tokens.goldLight : "transparent"
-                                border.color: Tokens.panelEdge
+                                color: index <= statistic.modelData ? Tokens.gem : "transparent"
+                                border.color: Tokens.border
                                 border.width: 1
                             }
                         }
@@ -159,7 +160,7 @@ PanelFrame {
         Text {
             width: parent.width
             text: root.entriesTitle
-            color: Tokens.goldLight
+            color: Tokens.gem
             font.family: Tokens.titleFamily
             font.pixelSize: Tokens.fontBody
             font.weight: Font.DemiBold
@@ -191,9 +192,9 @@ PanelFrame {
 
             width: entryList.width
             height: Tokens.fontBody + Tokens.gapMedium
-            color: line.chosen ? Qt.rgba(Tokens.gemLight.r, Tokens.gemLight.g, Tokens.gemLight.b, 0.55)
+            color: line.chosen ? Tokens.surfaceAlt
                                : "transparent"
-            border.color: line.chosen ? Tokens.panelEdge : "transparent"
+            border.color: line.chosen ? Tokens.gem : "transparent"
             border.width: 1
 
             Text {
@@ -204,9 +205,9 @@ PanelFrame {
                 anchors.verticalCenter: parent.verticalCenter
                 text: (line.modelData.number > 0 ? line.modelData.number + " · " : "")
                       + line.modelData.name
-                color: line.chosen ? Tokens.goldLight
+                color: line.chosen ? Tokens.gem
                                    : line.modelData.placed && line.modelData.locked !== true
-                                     ? Tokens.textOnPanel : Tokens.textOnPanelMuted
+                                     ? Tokens.text : Tokens.textMuted
                 font.family: Tokens.bodyFamily
                 font.pixelSize: Tokens.fontBody
                 elide: Text.ElideRight
@@ -219,7 +220,7 @@ PanelFrame {
                 anchors.rightMargin: Tokens.gapSmall
                 anchors.verticalCenter: parent.verticalCenter
                 text: line.modelData.gateway ? "◈" : ""
-                color: Tokens.goldLight
+                color: Tokens.gem
                 font.pixelSize: Tokens.fontBody
             }
 
@@ -256,7 +257,7 @@ PanelFrame {
             width: parent.width
             height: 7 * (Tokens.fontCaption + 4 * Tokens.uiScale)
             text: root.description
-            color: Tokens.textOnPanel
+            color: Tokens.text
             font.family: Tokens.bodyFamily
             font.pixelSize: Tokens.fontCaption
             wrapMode: Text.WordWrap

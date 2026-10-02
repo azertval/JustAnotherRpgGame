@@ -78,13 +78,22 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: Tokens.panel
+        color: Tokens.frameEdge
+    }
+
+    PanelFrame {
+        anchors.fill: parent
+        anchors.margins: 14 * Tokens.uiScale
+        material: "parchment"
+        bound: true
+        padding: 0
     }
 
     Flickable {
         id: mapFlick
 
         anchors.fill: parent
+        anchors.margins: 24 * Tokens.uiScale
         contentWidth: root.mapWidth
         contentHeight: root.mapHeight
         leftMargin: root.leftInset

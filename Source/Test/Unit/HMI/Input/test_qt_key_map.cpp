@@ -15,7 +15,7 @@
 #include <gtest/gtest.h>
 #include <qnamespace.h>
 
-#include "HMI/Input/InputState.h"
+#include "HMI/Input/Key.h"
 #include "HMI/Input/QtKeyMap.h"
 
 namespace {

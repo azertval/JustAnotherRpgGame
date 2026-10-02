@@ -838,7 +838,7 @@ Ce que l'écran fait de la session est l'affaire d'autres pages ; en voici seule
 ne décide **rien** — chaque geste devient un appel à la session, et l'affichage est relu de la
 machine après chaque geste. Elle expose la grille (`fighters`, `reachableCells` — les PV d'un
 ennemi restent secrets : ensanglanté, à terre, ou rien), le curseur de ciblage et sa
-prévisualisation (`LOT-24`, clavier et manette), l'ordre d'initiative et le journal, et joue les
+prévisualisation (`LOT-24`, clavier et souris), l'ordre d'initiative et le journal, et joue les
 tours des combattants à profil par `core::playTurn`. La scène de combat seule et son renderer
 (`LOT-86`), écrits pour l'écran du Colisée, ont été retirés à la recette de la 0.0.1 avec cet écran
 (25 septembre 2026) : le combat se rend sur la carte, par `hmi::WorldSceneComposer` et

@@ -15,6 +15,5 @@ AssetGalleryViewport 1.0 AssetGalleryViewport.qml
 DialogueModel 1.0 DialogueModel.qml
 QuestJournalModel 1.0 QuestJournalModel.qml
 PartyModel 1.0 PartyModel.qml
-GamepadNavigator 1.0 GamepadNavigator.qml
 singleton DebugConsoleModel 1.0 DebugConsoleModel.qml
 MapLauncherModel 1.0 MapLauncherModel.qml

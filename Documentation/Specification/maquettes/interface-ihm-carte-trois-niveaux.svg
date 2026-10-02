@@ -52,9 +52,9 @@
 
   <rect x="20" y="284" width="840" height="30" fill="#25201a" stroke="#9a7420"/>
   <g font-size="11" fill="#fbf8f0">
-    <text x="32" y="303">← → : repère voisin</text><text x="180" y="303">↑ ↓ : liste des lieux</text><text x="330" y="303">Entrée / A : ouvrir</text><text x="470" y="303">Échap / B : remonter</text><text x="620" y="303">+ − : agrandir</text><text x="730" y="303">glisser : déplacer</text>
+    <text x="32" y="303">← → : repère voisin</text><text x="180" y="303">↑ ↓ : liste des lieux</text><text x="330" y="303">Entrée : ouvrir</text><text x="470" y="303">Échap : remonter</text><text x="620" y="303">+ − : agrandir</text><text x="730" y="303">glisser : déplacer</text>
   </g>
-  <text x="20" y="336" font-size="12" fill="#25201a">Une seule grammaire pour les trois niveaux, au clavier, à la manette et à la souris ; un niveau = un formulaire <tspan font-family="Consolas, monospace">.ui.qml</tspan> (EX-IHM-100).</text>
+  <text x="20" y="336" font-size="12" fill="#25201a">Une seule grammaire pour les trois niveaux, au clavier et à la souris ; un niveau = un formulaire <tspan font-family="Consolas, monospace">.ui.qml</tspan> (EX-IHM-100).</text>
 
   <g fill="#25201a" font-size="12">
     <text x="20" y="366" font-weight="600">Ce que la maquette impose</text>

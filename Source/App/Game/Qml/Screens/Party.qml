@@ -7,7 +7,7 @@ import Jadg.Runtime
 
     Chaque propriete du formulaire se lit de `PartyModel`, qui ne garde aucune composition : le
     groupe est a la partie (`WorldModel`), et chaque geste lui passe. Le personnage designe l'est au
-    clavier ou a la manette, et reste le meme personnage quand l'ordre de marche change.
+    clavier ou a la souris, et reste le meme personnage quand l'ordre de marche change.
 
     A « Nouvelle partie », l'ecran s'ouvre pour choisir le meneur (LOT-142) : son titre le dit, et
     le refermer clot le choix (`WorldModel.endLeaderChoice`).
@@ -15,8 +15,6 @@ import Jadg.Runtime
     Au clavier : `Haut` et `Bas` designent, `Entree` prend ou laisse, `M` fait mener, `Page
     precedente` et `Page suivante` avancent et reculent dans l'ordre de marche, `F` ouvre la
     fiche du designe (LOT-141 : `WorldModel.showCharacter`, puis l'ecran Fiche), `Echap` referme.
-    A la manette : la croix designe, `A` prend ou laisse, `X` fait mener, `LB` et `RB` avancent et
-    reculent, `Y` ouvre la fiche, `B` referme.
 */
 PartyForm {
     id: root
@@ -94,19 +92,4 @@ PartyForm {
         event.accepted = true
     }
 
-    GamepadNavigator {
-        active: root.visible
-        onPressed: (button) => {
-            switch (button) {
-            case "up": root.select(-1); break
-            case "down": root.select(1); break
-            case "a": root.toggle(); break
-            case "x": root.lead(); break
-            case "lb": root.move(-1); break
-            case "rb": root.move(1); break
-            case "y": root.openSheet(); break
-            case "b": root.close(); break
-            }
-        }
-    }
 }

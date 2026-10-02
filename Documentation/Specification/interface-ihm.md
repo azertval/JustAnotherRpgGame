@@ -70,7 +70,7 @@ les aides de grille (`EX-CBT-020`, `EX-CBT-021`). La cible montre ce que le joue
 
 - **EX-IHM-004** — Le jeu doit offrir un **écran de pause** suspendant
   réellement la simulation, sans consommer de pas de temps fixe, navigable au clavier, à la souris
-  et à la manette comme le reste de l'interface, et passant par le catalogue de traduction
+  et à la souris comme le reste de l'interface, et passant par le catalogue de traduction
   (`EX-REN-033`). Détaille `EX-REN-031` du côté de l'interface.
   > **Refondue au `LOT-67`.** Elle exigeait aussi un **écran de fin de niveau**, qui n'a plus
   > d'objet : un bac à sable n'a pas de tableau à terminer. L'écran de pause, lui, reste — et
@@ -91,7 +91,7 @@ les aides de grille (`EX-CBT-020`, `EX-CBT-021`). La cible montre ce que le joue
 ## 4. Menus, options, unification
 - **EX-IHM-040** — Le **menu principal** et l'écran **Options** (plein écran,
   volume, langue `EX-REN-033`) doivent être fournis en Qt Quick, navigables au clavier, à la souris
-  et à la manette.
+  et avec un focus visible.
 - **EX-IHM-041** — Chaque exécutable doit reposer sur **une seule technologie
   d'UI** — Qt Quick pour le jeu, Qt Widgets pour l'éditeur — et aucun écran ne se dessine à la main
   au `SpriteBatch`.
@@ -115,7 +115,7 @@ et des constantes locales à chaque widget.
   boîtes de dialogue standard — et non un sous-ensemble d'écrans. Ce thème distingue deux portées :
   une part **invariante**, qui porte l'identité visuelle du jeu (menu principal, Options, jeu), et une
   part **variable**, le châssis d'édition. L'état de **focus** doit rester visible en toute
-  circonstance : la navigation à la manette dans les menus repose sur le parcours de focus
+  circonstance : la navigation au clavier dans les menus repose sur le parcours de focus
   (`EX-IHM-040`), qu'un focus invisible rend inutilisable.
   > **Précisée au `LOT-EDITOR-01`.** L'éditeur n'est plus dans sa portée : outil interne, il prend
   > le style Fusion de Qt tel quel. `EX-IHM-051` à `053` et `EX-IHM-082` ne visent plus, eux aussi,
@@ -167,12 +167,13 @@ l'écran, ne distingue le menu d'un jeu du panneau d'un outil de travail.
 Les titres sont fixés à 32 pt et les entrées de menu à 16 pt quelle que soit la taille de la
 fenêtre, ce qui donne une interface visiblement petite dès qu'on dépasse la définition d'un
 ordinateur portable. Et le focus n'est signalé que par un changement de teinte — suffisant à la
-souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en est.
+souris, insuffisant au clavier quand le pointeur ne désigne pas l'élément courant.
 
 - **EX-IHM-070** — Les écrans du **jeu** doivent porter la **charte v2** du
-  [LOT-87](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-87-charte-v2.md), qui tient en **deux matières** : des **panneaux sombres** cerclés d'un filet
-  d'or (menu principal, options, crédits, carte, HUD) et le **parchemin de Tanares** (fiche de
-  personnage, inventaire, équipe, compétences, dialogue, marchand). Le **grenat** et l'**or** en sont
+  [LOT-87](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-87-charte-v2.md), qui tient en **deux matières** : le **parchemin de Tanares**
+  pour les pages du codex (menu, options, crédits, fiche, inventaire, équipe, compétences, journal,
+  groupe, dialogue, marchand), et les **panneaux sombres** pour les commandes et le HUD posés sur la
+  scène. L'écran Carte conserve sa carte peinte, encadrée de parchemin. Le **grenat** et l'**or** en sont
   les accents communs. Les titres se composent en `Cinzel`, le corps et les citations en
   `IM Fell English` — deux polices **embarquées** avec l'application (repli sur une famille générique
   si elle est absente, `EX-IHM-052`).
@@ -192,6 +193,10 @@ souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en
   > factures mais deux **échelles** — une pièce de scène se mesure au lieu, une image d'interface à
   > la fenêtre — et le facteur **entier** du viewport disparaît avec le pixel art (`EX-REN-013`).
   >
+  > **Précisée le 2 octobre 2026.** La présentation en codex clair du menu, de la fiche et de
+  > l'inventaire s'étend aux crédits, aux options, au journal, au groupe et au dialogue. La carte
+  > peinte reste visible au centre de sa page.
+  >
   > **Refondue au `LOT-87`.** Elle décrivait le seul parchemin, en polices pixel (`Pixelify Sans`,
   > `Press Start 2P`), agrandi d'un facteur **entier** : à 1,5×, le trait et le filet d'un
   > encadrement tracé s'arrondissaient tous deux à la même épaisseur et la réserve de parchemin qui
@@ -208,8 +213,8 @@ souris, insuffisant à la manette, qui n'a pas de pointeur pour dire où elle en
   > illustration peinte à 300 ppp ne cohabitent pas. Le [LOT-01](../../Planning/versions/v0.0.0/v0.0.0-fondation/lots/LOT-01-fork-purge.md) avait délibérément
   > conservé l'atelier pixel art ; ce renversement est assumé, pas subi.
 - **EX-IHM-071** — L'élément **focalisé** d'un écran du jeu doit être signalé par
-  une **marque explicite** (curseur), et non par la seule teinte : la navigation à la manette
-  (`EX-IHM-040`) repose entièrement sur le parcours de focus, qu'une simple nuance de couleur rend
+  une **marque explicite** (curseur), et non par la seule teinte : la navigation au clavier
+  (`EX-IHM-040`) repose sur le parcours de focus, qu'une simple nuance de couleur rend
   difficile à suivre — et impossible pour un joueur qui distingue mal les couleurs. Une feuille de
   style ne sachant pas ajouter de contenu, cette marque est nécessairement peinte par le contrôle.
 - **EX-IHM-072** — Aucun écran ne doit exposer de réglage **inopérant**. Un
@@ -356,15 +361,14 @@ qui se règle dans Qt Design Studio.
   (`Source/Ui/Screens/*Form.ui.qml`) posé dans la pile d'écrans (`ScreenStack`) quand le routeur
   le désigne (`hmi::ScreenRouter::openRpgScreen`), et refermé sur l'écran d'où il a été ouvert —
   menu, jeu ou pause —, provenance que la table de transitions retient (`rpgReturnTo`). Ils
-  partagent le même parcours de focus à la manette (`EX-IHM-071`) et leurs textes passent par le
+  partagent le même parcours de focus au clavier (`EX-IHM-071`) et leurs textes passent par le
   catalogue de traduction (`EX-REN-033`). Le C++ ne connaît d'eux que leur nom
   (`hmi::RpgScreenId`) : ajouter un écran, c'est un formulaire, son jumeau de câblage et une
   valeur de cette énumération, jamais une retouche des autres.
   > **Précisée le 25 septembre 2026.** L'ossature en données de chaque écran (`hmi::rpgScreens`)
   > et le cycle d'un écran à l'autre aux gâchettes (`nextRpgScreen`/`previousRpgScreen`), écrits
   > au `LOT-68` pour un rendu générique par widgets, sont retirés : depuis le `LOT-86`, la mise en
-  > page vit dans les formulaires, et LB/RB servent aux onglets de la carte du monde et aux
-  > actions du combat.
+  > page vit dans les formulaires. Le jeu se parcourt désormais au clavier et à la souris.
 - **EX-IHM-091** — Ce qu'un écran fait de la **simulation** quand il recouvre la carte
   doit tenir à un **seul mécanisme**, jamais à une décision prise au point d'appel : la vue de jeu
   (`GameView.qml`) relâche les directions tenues dès qu'un écran lui prend le focus — le héros
@@ -506,7 +510,7 @@ de la Capitale impériale et de Fisherman's Wharf —, en 1 920 × 1 080 et **sa
   le plan d'une ville — et l'on passe de l'un à l'autre par un **repère** : une région sur le monde,
   une ville à plan sur sa région. On ne s'y **déplace** pas et l'on n'y voyage pas : la carte sert à
   s'orienter, le déplacement se fait sur les cartes de niveau. Les **mêmes commandes** valent aux
-  trois niveaux, au clavier, à la manette et à la souris : choisir le repère voisin, parcourir la
+  trois niveaux, au clavier et à la souris : choisir le repère voisin, parcourir la
   liste des lieux, ouvrir, remonter, agrandir, déplacer la carte. Chaque niveau est un formulaire
   (`EX-IHM-100`) et a sa capture de référence.
 - **EX-IHM-107** — Une carte ne porte **aucun nom peint** : tout nom est posé

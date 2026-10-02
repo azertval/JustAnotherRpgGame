@@ -6,7 +6,7 @@ import Jadg.Ui
 /*!
     Bouton de la charte v2 : entree de menu, action, validation, retour (LOT-87, T2.7).
 
-    Un `Button` de Qt restyle, et non un dessin qui imiterait un bouton : le clavier, la manette,
+    Un `Button` de Qt restyle, et non un dessin qui imiterait un bouton : le clavier,
     le pointeur et l'accessibilite viennent avec, et le jumeau branche `clicked` comme sur tout
     bouton. Sept pieces du cahier (`ui/button/<kind>`), une propriete pour choisir.
 
@@ -15,7 +15,7 @@ import Jadg.Ui
     la galerie -- et a l'atelier, ou l'on ne survole rien -- de montrer chaque etat cote a cote.
 
     Entree de menu (`kind: "menu"`) : l'etat `active` est l'entree COURANTE (`highlighted`), celle
-    que le clavier ou la manette designe, et non celle qu'on enfonce. Les autres boutons n'ont pas
+    que le clavier designe, et non celle qu'on enfonce. Les autres boutons n'ont pas
     d'entree courante ; `highlighted` y vaut un survol, pour que le focus au clavier se voie.
 */
 Button {

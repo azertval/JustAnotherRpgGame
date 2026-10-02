@@ -149,7 +149,7 @@ public:
     /// @brief Le clic ou la confirmation sur une case : attaquer l'ennemi qui l'occupe, sinon s'y
     ///        déplacer (`LOT-24`).
     Q_INVOKABLE void tapCell(int column, int row);
-    /// @brief Déplace le curseur de ciblage de @p columns et @p rows cases (clavier, manette).
+    /// @brief Déplace le curseur de ciblage de @p columns et @p rows cases (clavier).
     Q_INVOKABLE void moveCursor(int columns, int rows);
     /// @brief Pose le curseur sur une case (survol de la souris) ; hors grille, rien.
     Q_INVOKABLE void pointCursor(int column, int row);

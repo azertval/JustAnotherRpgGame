@@ -11,7 +11,7 @@ import Jadg.Ui
 
     `sceneHost` recoit la scene (le jumeau y pose la surface de rendu de la carte gelee) ; dans
     l'atelier, un aplat sombre en tient lieu. Les deux boutons sont exposes pour que le jumeau y
-    branche le survol et le clic ; `currentIndex` dit lequel le clavier ou la manette designe, et
+    branche le survol et le clic ; `currentIndex` dit lequel le clavier designe, et
     la marque du focus le signale -- jamais la seule teinte.
 */
 Item {

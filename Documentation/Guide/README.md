@@ -63,7 +63,7 @@ affiche. Cette frontière est ce qui rend le moteur analysable domaine par domai
 
 ### La présentation (`HMI`)
 
-- [Entrées et actions logiques](guide-entrees.md) — clavier, souris, manette, et leur traduction en **actions**.
+- [Entrées et actions logiques](guide-entrees.md) — clavier, souris et leur traduction en **actions**.
 - [Rendu 2D : de la scène à l'écran](guide-rendu.md) — QRhi, lot de sprites, atlas, caméra, composition de scène isométrique.
 - [Écrans, navigation et boucle de jeu](guide-ecrans.md) — table de transitions, routeur et pile d'écrans QML, pause.
 - [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) — le jeu en Qt Quick, l'éditeur en Widgets, les vues-modèles.

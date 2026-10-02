@@ -292,7 +292,7 @@ Fichier : [`Interaction.h`](../../Source/Core/Gameplay/Interaction.h) (`LOT-10`)
 
 **`core::aimedCell(from, facing)`** — la case que vise un personnage : la **voisine dans la
 direction dominante**, jamais une diagonale. Un personnage qui regarde à 30° vise la case de
-droite ; viser en diagonale rendrait la cible imprévisible à la manette analogique, alors que le
+droite ; viser en diagonale rendrait la cible imprévisible, alors que le
 joueur doit savoir ce qu'il désigne **avant** d'appuyer. À égalité exacte, l'horizontale l'emporte
 (il faut un départ, et celui-là est écrit). Une orientation nulle rend la case du personnage
 lui-même : rendre une voisine arbitraire ferait ouvrir un coffre qu'il ne regarde pas.
@@ -1029,7 +1029,7 @@ drapeaux, sans Qt, en `hmi::QuestJournalValues` : les quêtes commencées (`ques
 marquée `›`, l'entrée de sa dernière étape atteinte (`detail`), et ses étapes (`objectives`), `✓`
 pour les franchies, l'issue pour la dernière ; `hmi::neighbourQuest` donne la voisine dans la
 liste, sans en sortir. `hmi::QuestJournalModel` ([IHM Qt](guide-ihm-qt.md)) le relit à
-l'ouverture et à chaque `questAdvanced` de `hmi::WorldModel`. Au clavier et à la manette :
+l'ouverture et à chaque `questAdvanced` de `hmi::WorldModel`. Au clavier :
 <kbd>Haut</kbd>, <kbd>Bas</kbd> changent de quête, <kbd>Échap</kbd> referme.
 
 ## La bascule vers le combat : `core::CombatZone`

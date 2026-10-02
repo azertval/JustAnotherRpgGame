@@ -12,11 +12,7 @@ import Jadg.Runtime
     (`WorldModel.endGame`), si bien que « Nouvelle partie » repart de la porte de la ville. Les
     credits se referment sur le menu.
 
-    | Geste | Clavier | Manette |
-    |---|---|---|
-    | Changer de bouton | fleches gauche, droite | croix ou stick |
-    | Valider | Entree | A |
-    | Menu | Echap | B |
+    Fleches gauche/droite pour choisir, Entree pour valider, Echap pour le menu.
 */
 DemoEndForm {
     id: root
@@ -46,18 +42,6 @@ DemoEndForm {
             ScreenRouter.openCredits();
         } else {
             ScreenRouter.openMenu();
-        }
-    }
-
-    GamepadNavigator {
-        active: root.visible
-        onPressed: (button) => {
-            switch (button) {
-            case "left": root.currentIndex = 0; break
-            case "right": root.currentIndex = 1; break
-            case "a": root.activate(); break
-            case "b": root.choose(1); break
-            }
         }
     }
 

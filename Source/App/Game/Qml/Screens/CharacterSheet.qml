@@ -18,7 +18,7 @@ import Jadg.Runtime
     LA FICHE DE CHACUN (LOT-141). La fiche ouverte est celle du personnage que la partie désigne
     (`WorldModel.shownCharacterId` : celui de l'écran de groupe, sinon le meneur) ; `Tab` passe
     au membre suivant, `Maj+Tab` au précédent. Les trois onglets de la colonne droite se
-    parcourent par `Page suiv.` / `Page préc.` (manette : `RB` / `LB`) ; dans l'onglet Classe ou
+    parcourent par `Page suiv.` / `Page préc.` ; dans l'onglet Classe ou
     Sorts, `Haut` / `Bas` (croix) font défiler la liste. `Échap` (`B`) referme.
 */
 CharacterSheetForm {
@@ -180,20 +180,6 @@ CharacterSheetForm {
         default: return
         }
         event.accepted = true
-    }
-
-    GamepadNavigator {
-        active: root.visible
-        onPressed: (button) => {
-            switch (button) {
-            case "rb": root.cycleTab(1); break
-            case "lb": root.cycleTab(-1); break
-            case "x": root.cycleMember(1); break
-            case "down": root.scroll(1); break
-            case "up": root.scroll(-1); break
-            case "b": ScreenRouter.closeRpgScreen(); break
-            }
-        }
     }
 
 }

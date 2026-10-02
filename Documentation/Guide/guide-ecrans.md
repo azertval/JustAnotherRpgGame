@@ -310,7 +310,7 @@ fixe](guide-boucle.md).
   `hmi::RpgScreenId`.
 - [IHM Qt — deux applications, deux technologies](guide-ihm-qt.md) — le socle Qt Quick : modules
   QML, vues-modèles, surface de rendu QRhi.
-- [Entrées et actions logiques](guide-entrees.md) — le clavier et la manette dans les écrans.
+- [Entrées et actions logiques](guide-entrees.md) — le clavier et la souris dans les écrans.
 - [Monde et exploration](guide-monde.md) — la session d'exploration, les portails, les dialogues.
 - [Outils de développement du jeu](guide-outils-developpement.md) — le menu <kbd>F9</kbd>, le
   sélecteur, toutes les options de la ligne de commande en une table.

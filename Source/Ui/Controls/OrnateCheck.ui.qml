@@ -14,6 +14,7 @@ CheckBox {
 
     /// Etat impose (`checked`, `unchecked`, `disabled`), ou vide pour le deduire.
     property string forcedState: ""
+    property string material: "dark"
 
     readonly property string visualState: root.forcedState.length > 0 ? root.forcedState
                                           : (!root.enabled ? "disabled" : (root.checked ? "checked" : "unchecked"))
@@ -55,7 +56,9 @@ CheckBox {
     contentItem: Text {
         leftPadding: root.indicator.width + root.spacing
         text: root.text
-        color: root.visualState === "disabled" ? Tokens.textOnPanelMuted : Tokens.textOnPanel
+        color: root.material === "parchment"
+               ? (root.visualState === "disabled" ? Tokens.textMuted : Tokens.text)
+               : (root.visualState === "disabled" ? Tokens.textOnPanelMuted : Tokens.textOnPanel)
         font.family: Tokens.bodyFamily
         font.pixelSize: Tokens.fontBody
         verticalAlignment: Text.AlignVCenter

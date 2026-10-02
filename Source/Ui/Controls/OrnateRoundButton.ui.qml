@@ -7,7 +7,7 @@ import Jadg.Ui
 
     Piece `ui/button/round` (etats `normal`, `hover`, `pressed`, `disabled`), affichee a 64 px, et
     son icone (`ui/icon/nav/<entree>`). Un `Button` de Qt restyle, comme `OrnateButton` : le jumeau
-    branche `clicked`, et le clavier, la manette et l'accessibilite viennent avec.
+    branche `clicked`, et le clavier et l'accessibilite viennent avec.
 
     Nomme `OrnateRoundButton` et non `RoundButton` : ce nom est deja celui d'un type de
     `QtQuick.Controls`, que l'import de ce module masquerait ou que ce type masquerait.

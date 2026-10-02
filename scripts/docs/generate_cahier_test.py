@@ -561,7 +561,7 @@ def render_readme(domains):
               '## Ce que les tests ne remplacent pas', '',
               'La [recette manuelle](recette-manuelle.md) est la seule page du cahier écrite à la main : '
               'les contrôles qu\'un humain fait avant de dire « livré » — fluidité, lisibilité, son, '
-              'manette — avec, pour chacun, ce qu\'on regarde et ce qui doit se voir.', '',
+              'clavier et souris — avec, pour chacun, ce qu\'on regarde et ce qui doit se voir.', '',
               '## Lancer les tests', '',
               '```', 'powershell -File scripts/build.ps1      # compile (préréglage ninja)',
               'ctest --preset ninja                     # exécute tous les cas',

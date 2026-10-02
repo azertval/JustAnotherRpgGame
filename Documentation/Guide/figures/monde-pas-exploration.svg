@@ -19,7 +19,7 @@
   <text x="32" y="74" font-weight="600" fill="#25201a">ExplorationIntent</text>
   <text x="32" y="96" font-family="Consolas, monospace" font-size="12" fill="#25201a">move : Vector2 (|v| ≤ 1)</text>
   <text x="32" y="114" font-family="Consolas, monospace" font-size="12" fill="#25201a">interact : bool</text>
-  <text x="32" y="138" font-size="12" fill="#6a6152">clavier ou manette, déjà normalisé</text>
+  <text x="32" y="138" font-size="12" fill="#6a6152">clavier, déjà normalisé</text>
 
   <!-- Gardes -->
   <rect x="20" y="168" width="160" height="80" rx="8" fill="#fbf8f0" stroke="#8a2233"/>

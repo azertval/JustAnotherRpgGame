@@ -6,10 +6,8 @@ import Jadg.Ui
 /*!
     Credits -- FORMULAIRE, cote conception (LOT-87, T3.3 ; maquette 07).
 
-    Transcrit de la maquette `07_Credit_Mockup.png` (1672 x 941), cotes ramenees a 1920 x 1080 puis
-    multipliees par `Tokens.uiScale` : la scene du menu, le logotype en haut a gauche, le grand
-    panneau sombre coiffe de sa plaque « Credits », deux colonnes de sections, la citation au pied du
-    panneau, le bouton Retour en bas a gauche et la version en bas a droite.
+    Reprend les deux colonnes de la maquette `07_Credit_Mockup.png` sur la page claire du codex :
+    titre grenat, panneau de parchemin, citation au pied, Retour en bas a droite et version a gauche.
 
     **Aucun nom propre ici.** Les attributions sont des donnees (`Source/Elements/Credits/credits.json`,
     lues par `CreditsModel`) : le jumeau pose les sections de chaque colonne dans `leftSections` et
@@ -32,29 +30,29 @@ Item {
     width: 1920
     height: 1080
 
-    // --- Le fond : la scene du menu, et son repli -------------------------------------------------
     Rectangle {
         anchors.fill: parent
-        color: Tokens.panel
+        color: Tokens.frameEdge
     }
 
-    // Tant que la scene n'est pas livree, l'aplat `panel` ci-dessus en tient lieu : plus aucune
-    // image du corpus ne sert de repli (LOT-94, EX-IHM-076).
-    CoverArt {
-        id: sceneArt
-
+    PanelFrame {
         anchors.fill: parent
-        key: "ui/background/menu-scene"
+        anchors.margins: 14 * Tokens.uiScale
+        material: "parchment"
+        bound: true
+        padding: 0
     }
 
     // --- Panneau des credits (maquette : 385, 170 -> 1285, 825) ------------------------------------
     PanelFrame {
         id: creditsPanel
 
-        x: 442 * Tokens.uiScale
-        y: 195 * Tokens.uiScale
-        width: 1034 * Tokens.uiScale
+        x: 90 * Tokens.uiScale
+        y: 226 * Tokens.uiScale
+        width: 1740 * Tokens.uiScale
         height: 752 * Tokens.uiScale
+        material: "parchment"
+        subpanel: true
         padding: 0
 
         // Les sections defilent quand elles depassent le panneau : la barre se loge dans la marge
@@ -102,6 +100,7 @@ Item {
                             title: modelData.title
                             iconKey: modelData.iconKey
                             lines: modelData.lines
+                            material: "parchment"
                         }
                     }
                 }
@@ -122,6 +121,7 @@ Item {
                             title: modelData.title
                             iconKey: modelData.iconKey
                             lines: modelData.lines
+                            material: "parchment"
                         }
                     }
                 }
@@ -136,7 +136,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 48 * Tokens.uiScale
             text: qsTr("« Une grande aventure ne se fait jamais seul. »")
-            color: Tokens.textOnPanel
+            color: Tokens.textMuted
             font.family: Tokens.loreFamily
             font.italic: true
             font.pixelSize: Tokens.fontBody
@@ -146,39 +146,37 @@ Item {
     // La plaque de titre chevauche le bord haut du panneau (maquette : 620, 110 -> 1050, 205).
     TitlePlate {
         anchors.horizontalCenter: creditsPanel.horizontalCenter
-        y: 126 * Tokens.uiScale
+        y: 16 * Tokens.uiScale
+        width: 1170 * Tokens.uiScale
         material: "garnet"
         text: qsTr("Crédits")
     }
 
-    // --- Logotype (maquette : 90, 5 -> 530, 285) --------------------------------------------------
-    LogoPlate {
-        x: 103 * Tokens.uiScale
-        y: 12 * Tokens.uiScale
-        width: 450 * Tokens.uiScale
+    FixedArt {
+        x: 36 * Tokens.uiScale
+        y: 20 * Tokens.uiScale
+        width: 112 * Tokens.uiScale
+        height: 180 * Tokens.uiScale
+        key: "ui/ornament/crest-pennant"
     }
 
     // --- Retour (maquette : 40, 775 -> 300, 840) ---------------------------------------------------
     OrnateButton {
         id: backControl
 
-        x: 46 * Tokens.uiScale
-        y: 890 * Tokens.uiScale
+        x: 1580 * Tokens.uiScale
+        y: 1000 * Tokens.uiScale
         kind: "back"
         text: qsTr("Retour")
     }
 
     // --- Version ------------------------------------------------------------------------------------
     Text {
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.rightMargin: Tokens.gapLarge
-        anchors.bottomMargin: Tokens.gapLarge
+        x: 130 * Tokens.uiScale
+        y: 1000 * Tokens.uiScale
         text: "v" + root.version
-        color: Tokens.textOnPanel
+        color: Tokens.text
         font.family: Tokens.bodyFamily
-        font.pixelSize: Tokens.fontCaption
-        style: Text.Outline
-        styleColor: Tokens.panel
+        font.pixelSize: Tokens.fontBody
     }
 }

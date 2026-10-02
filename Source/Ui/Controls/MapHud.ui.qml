@@ -56,6 +56,7 @@ Item {
         y: 24 * Tokens.uiScale
         width: 600 * Tokens.uiScale
         height: 128 * Tokens.uiScale
+        material: "parchment"
         subpanel: true
 
         FixedArt {
@@ -77,7 +78,7 @@ Item {
             Text {
                 width: parent.width
                 text: root.title
-                color: Tokens.goldLight
+                color: Tokens.gem
                 font.family: Tokens.titleFamily
                 font.pixelSize: Tokens.fontScreenTitle
                 font.weight: Font.DemiBold
@@ -87,7 +88,7 @@ Item {
             Text {
                 width: parent.width
                 text: root.trail
-                color: Tokens.textOnPanel
+                color: Tokens.text
                 font.family: Tokens.loreFamily
                 font.italic: true
                 font.pixelSize: Tokens.fontBody
@@ -102,6 +103,7 @@ Item {
         y: 24 * Tokens.uiScale
         width: 496 * Tokens.uiScale
         height: 128 * Tokens.uiScale
+        material: "parchment"
         subpanel: true
         padding: Tokens.gapSmall
 
@@ -126,7 +128,7 @@ Item {
             Text {
                 width: parent.width
                 text: root.characterName + "  ·  " + root.levelText
-                color: Tokens.textOnPanel
+                color: Tokens.text
                 font.family: Tokens.bodyFamily
                 font.pixelSize: Tokens.fontBody
                 elide: Text.ElideRight
@@ -309,6 +311,7 @@ Item {
         y: root.height - 120 * Tokens.uiScale
         width: 566 * Tokens.uiScale
         height: 100 * Tokens.uiScale
+        material: "parchment"
         subpanel: true
         padding: Tokens.gapSmall
 

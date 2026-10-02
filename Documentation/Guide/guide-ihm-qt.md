@@ -11,7 +11,7 @@ logique de présentation pure), `Source/HMI/Platform/`, `Source/HMI/Localization
 `Source/HMI/HmiLog.h`. La navigation (`ScreenFlow.h`, `RpgScreens.h`, `ScreenRouter.h`) est
 détaillée en [Écrans, navigation et boucle de jeu](guide-ecrans.md) ; les surfaces de rendu
 (`WorldViewportItem`, `GameViewportItem`, `AssetGalleryItem`,
-`CityBlockImageProvider`) en [Rendu 2D](guide-rendu.md) ; `GamepadNavigator` en [Entrées et actions
+`CityBlockImageProvider`) en [Rendu 2D](guide-rendu.md) ; les entrées en [Entrées et actions
 logiques](guide-entrees.md).
 
 ## Pourquoi deux binaires
