@@ -1,6 +1,6 @@
 # Cahier de test
 
-**1174 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
+**1175 cas de test**, un par test automatisé du dépôt. Le cahier est **engendré** depuis les blocs `\castest{…}` écrits au-dessus de chaque test par `scripts/docs/generate_cahier_test.py` : il ne s'édite pas — on corrige le commentaire du test, puis on relance le script. La CI refuse un cahier périmé, et refuse un test sans bloc. Seule la [recette manuelle](recette-manuelle.md) s'écrit à la main.
 
 ## Lire une fiche
 
@@ -32,7 +32,7 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [Editor](editor.md) | Tests unitaires | 218 | 28 | 48 | 113 | 29 |
 | [HMI · Audio](hmi-audio.md) | Tests unitaires | 3 | — | 1 | 1 | 1 |
 | [HMI · Game](hmi-game.md) | Tests unitaires | 23 | — | 9 | 10 | 4 |
-| [HMI · Graphics](hmi-graphics.md) | Tests unitaires | 186 | 44 | 51 | 86 | 5 |
+| [HMI · Graphics](hmi-graphics.md) | Tests unitaires | 187 | 46 | 52 | 83 | 6 |
 | [HMI · Input](hmi-input.md) | Tests unitaires | 13 | 1 | 3 | 7 | 2 |
 | [HMI · Interface](hmi-interface.md) | Tests unitaires | 23 | 2 | 8 | 12 | 1 |
 | [HMI · Localization](hmi-localization.md) | Tests unitaires | 9 | — | — | 9 | — |
@@ -41,7 +41,7 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [HMI · Runtime](hmi-runtime.md) | Tests unitaires | 19 | 3 | 8 | 7 | 1 |
 | [Tests d'intégration](integration.md) | Tests d'intégration | 17 | 3 | 9 | 5 | — |
 | [Tests système](systeme.md) | Tests système | 5 | — | 5 | — | — |
-| **Total** | | **1174** | **135** | **399** | **560** | **80** |
+| **Total** | | **1175** | **137** | **400** | **557** | **81** |
 
 ## Trois étages de vérification
 

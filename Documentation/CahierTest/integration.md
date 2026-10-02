@@ -43,7 +43,7 @@ Une carte du disque se charge et se compose.
 - Vérifie que `snapshot.figures.empty()` est faux.
 - Vérifie que `snapshot.figures.back().hero` est vrai.
 - Vérifie que `snapshot.figures.back().figure` vaut `play.heroResolved().directory`.
-- Vérifie que `play.heroResolved().directory` vaut `hmi::placeholderFigureDirectory("humanoid")`.
+- Vérifie que `play.heroResolved().directory` vaut `hmi::mannequinFigureDirectory("humanoid")`.
 - Vérifie que `play.heroResolved().placeholder` est vrai.
 
 ### ExplorationCarteIntegration.LeHerosMarcheSurUneCarte

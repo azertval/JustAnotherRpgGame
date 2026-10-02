@@ -97,7 +97,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-CNT-032` | [Contenu et données](../Specification/contenu.md) | [`CharacterOptionsTest.LesClassesProvisoiresNeSontReferenceesParRien`](core-rpg.md#characteroptionstestlesclassesprovisoiresnesontreferenceesparrien) |
 | `EX-CNT-040` | [Contenu et données](../Specification/contenu.md) | — |
 | `EX-CNT-041` | [Contenu et données](../Specification/contenu.md) | — |
-| `EX-CNT-042` | [Contenu et données](../Specification/contenu.md) | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](hmi-graphics.md#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosOrienteRangeParClasse`](hmi-graphics.md#assetgallerytestunherosorienterangeparclasse), [`AssetGalleryTest.UnEffetSeJoueDansLaGalerie`](hmi-graphics.md#assetgallerytestuneffetsejouedanslagalerie) |
+| `EX-CNT-042` | [Contenu et données](../Specification/contenu.md) | [`AssetGalleryTest.ToutAssetLivreEstDansLaGalerie`](hmi-graphics.md#assetgallerytesttoutassetlivreestdanslagalerie), [`AssetGalleryTest.UnHerosEnModeleRangeParClasse`](hmi-graphics.md#assetgallerytestunherosenmodelerangeparclasse), [`AssetGalleryTest.UnEffetSeJoueDansLaGalerie`](hmi-graphics.md#assetgallerytestuneffetsejouedanslagalerie) |
 | `EX-CNT-050` | [Contenu et données](../Specification/contenu.md) | — |
 | `EX-CNT-060` | [Contenu et données](../Specification/contenu.md) | — |
 | `EX-CNT-061` | [Contenu et données](../Specification/contenu.md) | — |
@@ -363,7 +363,6 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-REN-007` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-010` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-011` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
-| `EX-REN-012` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-013` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-014` | [Rendu & cible technique](../Specification/rendu-technique.md) | [`TriParProfondeurTest.LaProfondeurNeDebordePasDeSaBande`](hmi-graphics.md#triparprofondeurtestlaprofondeurnedebordepasdesabande), [`QuadRecorderTest.OrdonnancementDeclare`](hmi-graphics.md#quadrecordertestordonnancementdeclare) |
 | `EX-REN-018` | [Rendu & cible technique](../Specification/rendu-technique.md) | [`TriParProfondeurTest.TroisPrimitivesSortentParPiedCroissant`](hmi-graphics.md#triparprofondeurtesttroisprimitivessortentparpiedcroissant), [`TriParProfondeurTest.PersonnageEntreDeuxObjets`](hmi-graphics.md#triparprofondeurtestpersonnageentredeuxobjets), [`TriParProfondeurTest.PiedEgalConserveLOrdreDeComposition`](hmi-graphics.md#triparprofondeurtestpiedegalconservelordredecomposition), [`TriParProfondeurTest.QuantificationAuPixel`](hmi-graphics.md#triparprofondeurtestquantificationaupixel) |
@@ -382,6 +381,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-REN-047` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-048` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-050` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
+| `EX-REN-051` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 
 ### `EX-RPG`
 

@@ -587,7 +587,7 @@ Les figurines d'un lieu viennent de ses niveaux.
 - Vérifie que `core::figureDirectory(arena, "anariel")` vaut `"Regions/central-empire/capital/arenarea/Characters/anariel"`.
 - Vérifie que `core::figureDirectory(arena, "citizen")` vaut `"Regions/central-empire/capital/arenarea/Characters/citizen"`.
 - Vérifie que `core::figureDirectory(arena, "Peoples/human/guard")` vaut `"Common/Characters/Peoples/human/guard"`.
-- Vérifie que `std::filesystem::is_regular_file(treeAssets() / directory / "idle.png")` est vrai.
+- Vérifie que `std::filesystem::is_regular_file(treeAssets() / directory / "character.json")` est vrai.
 - Vérifie que `core::figureDirectory(mart, "citizen")` vaut `"Regions/central-empire/capital/Common/Characters/citizen"`.
 - Vérifie que `mart.contains("anariel")` est faux.
 - Vérifie que `core::figureDirectory({}, "Monsters/lion")` vaut `"Monsters/lion"`.

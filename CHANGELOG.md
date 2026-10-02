@@ -6,6 +6,24 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1006 — Le squelette commun et le mannequin.** Tout personnage paraît par son modèle ou
+  par le mannequin de sa silhouette : il ne reste aucune bande de figurine.
+  - Le mannequin humanoïde est lié au squelette commun (`Common/Characters/Mannequins/humanoid/`,
+    fiche `character.json`) et joue ses six clips ; le brawler s'affiche par son modèle de la
+    preuve, les trois autres héros par le mannequin, et tous gardent portrait et jeton.
+  - `hmi::FigureResolver` ne connaît plus qu'une forme de figurine, le modèle ; la lecture d'une
+    bande de figurine (cellule, ligne de sol, suffixes d'orientation) quitte
+    `hmi::WorldSceneComposer`, `hmi::WorldSceneRenderer` et la galerie de débug, qui montre chaque
+    modèle de personnage, clip par clip.
+  - Les 132 bandes de figurine et leurs `.anim.json` sont retirées de `Common/Characters`, ainsi
+    que celles des données d'essai, remplacées par un modèle d'essai. Les 24 bandes d'effets de
+    `Common/Fx/` restent.
+  - `check_hd_assets.py` et `install_hd_asset.py` connaissent squelettes et modèles de personnage
+    et n'ont plus de règle de bande de figurine ; `render_character_strips.py` et ses tests sont
+    supprimés.
+  - `EX-REN-012` (bandes de figurine) est retirée, `EX-REN-051` la remplace : une figurine est un
+    modèle. Guide du rendu, guide des données et cahier de test suivent.
+
 - **Menus du mercenaire et HUD.** Menu principal en codex illustré, fiche d'identité ornementée,
   capacités de classe et grimoire réunis, compétences et équipement sur leurs propres pages.
   Recherche dans les sorts, capacités et objets, comparaison avant équipement et confirmation
