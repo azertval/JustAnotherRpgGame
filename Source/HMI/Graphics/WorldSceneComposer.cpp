@@ -24,13 +24,16 @@
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileMap.h"
 #include "Core/Resources/MeshFile.h"
+#include "Core/Resources/ScenePieceManifest.h"
 #include "Core/Resources/ScenePlace.h"
 #include "Core/Resources/SkeletonPose.h"
 #include "Core/Rpg/Dialogue.h"
+#include "Core/Rpg/Scale.h"
 #include "Core/World/CityBlock.h"
 #include "Core/World/CombatZone.h"
 #include "Core/World/EntityKinds.h"
 #include "Core/World/EntityPresence.h"
+#include "Core/World/LightSource.h"
 #include "HMI/Graphics/IsoView.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/PlaceAppearance.h"
@@ -489,8 +492,11 @@ std::optional<float> composeStandingPiece(ComposedScene& scene, const WorldScene
                                         projection.tileHeight() / projection.tileWidth());
     const WorldDepthSlot slot = storeyDepthSlot(storey);
     const std::int32_t sortOrder = worldDepthSortOrder(footY, slot);
+    // Ce qu'elle garde de son eclat quand le lieu s'assombrit : une flamme, un vitrail (LOT-1007).
+    const auto glow = snapshot.glows.find(piece);
     scene.addSprite(RenderLayer::Object, texture.texture, sortOrder, quad, storey,
-                    storey > 0 ? spriteQuadBounds(quad) : core::Rect{}, ownFootY);
+                    storey > 0 ? spriteQuadBounds(quad) : core::Rect{}, ownFootY,
+                    glow == snapshot.glows.end() ? 0.0F : glow->second);
     return footY;
 }
 
@@ -704,8 +710,10 @@ void composeFigure(ComposedScene& scene, const WorldSceneSnapshot& snapshot,
     }
     if (const std::optional<FigurePlacement> placed =
             placeFigure(snapshot, projection, textures, figure)) {
+        // Un effet est une lumiere : il garde son eclat la nuit (LOT-1007). Un marqueur, lui,
+        // tient la place d'un personnage et prend la lumiere du lieu.
         scene.addSprite(RenderLayer::Player, placed->texture, placed->sortOrder, placed->quad, 0,
-                        core::Rect{}, placed->standingY);
+                        core::Rect{}, placed->standingY, figure.effect ? 1.0F : 0.0F);
     }
 }
 
@@ -1094,6 +1102,143 @@ void recordFiles(WorldSceneSnapshot& snapshot, const PlaceAppearance& appearance
     }
 }
 
+// --- L'eclairage (LOT-1007) -------------------------------------------------------------------
+
+// La hauteur d'un etage, en metres, pour la base d'une boite d'ombre : celle que les kits
+// declarent (224 px d'art, a 94,7 px par metre de hauteur).
+constexpr float SHADOW_STOREY_METRES = 2.4F;
+// La hauteur d'un bloc de maquette, en metres : un etage.
+constexpr float SHADOW_BLOCK_METRES = SHADOW_STOREY_METRES;
+// En dessous, une piece ne jette pas d'ombre qui vaille : une bordure, un tapis.
+constexpr float SHADOW_MINIMUM_METRES = 0.4F;
+// La part de son emprise qu'une piece etroite occupe au moins : un mat reste une ombre visible.
+constexpr float SHADOW_MINIMUM_SPAN = 0.12F;
+// Le losange d'art d'un kit qui ne dit pas le sien.
+constexpr float SHADOW_DEFAULT_ART_TILE = 256.0F;
+// Ce que le sommet d'une piece qui n'est pas de l'architecture garde de sa base : une fontaine,
+// une statue, un etal, un arbre se resserrent vers le haut, et leur ombre avec eux.
+constexpr float SHADOW_TAPERED_TOP = 0.3F;
+
+// Vrai si `piece` monte droit : l'architecture -- murs (02), colonnes (03), acces (04),
+// balustrades (05), batiments (09), seuils (10) -- et toute piece sans famille. Le mobilier (08),
+// le vegetal (07) et les pieces maitresses (06) se resserrent.
+[[nodiscard]] bool standsStraight(const core::ScenePiece& piece) {
+    return piece.family != "06" && piece.family != "07" && piece.family != "08";
+}
+
+// La boite d'ombre de `piece` ancree en `cell`, a l'etage `storey` ; rien pour un sol, un
+// maillage -- il jette son ombre lui-meme --, ou une piece trop basse.
+//
+// La hauteur vient de l'image : l'ancre est le sommet haut du losange de l'emprise, et ce que
+// l'image porte au-dessus est la hauteur de la piece, vue sous l'elevation de la camera. Sa
+// largeur aussi : une image plus etroite que le losange de son emprise -- un lampadaire -- donne
+// une boite plus etroite, centree.
+[[nodiscard]] std::optional<WorldShadowBox> shadowBoxOf(const core::ScenePieceManifest& manifest,
+                                                        const core::ScenePiece& piece,
+                                                        core::GridPosition cell, int storey,
+                                                        float diamondRatio) {
+    if (piece.isMesh() || piece.pieceClass == core::ScenePieceClass::Floor || piece.height <= 0) {
+        return std::nullopt;
+    }
+    const float artTile = manifest.tileWidth() > 0 ? static_cast<float>(manifest.tileWidth())
+                                                   : SHADOW_DEFAULT_ART_TILE;
+    const float ratio = std::clamp(diamondRatio, 0.05F, 0.99F);
+    const auto columns = static_cast<float>(std::max(1, piece.footprintColumns));
+    const auto rows = static_cast<float>(std::max(1, piece.footprintRows));
+    // Le losange de l'emprise, en pixels d'art : sa largeur et sa hauteur.
+    const float diamondWidth = (columns + rows) / 2.0F * artTile;
+    const float diamondHeight = diamondWidth * ratio;
+    const float risePixels = piece.anchorY >= 0
+                                 ? static_cast<float>(piece.anchorY)
+                                 : std::max(0.0F, static_cast<float>(piece.height) - diamondHeight);
+    // Un metre de hauteur a l'ecran : la diagonale d'une case de 1,5 m fait la largeur du
+    // losange, et la camera le voit sous le cosinus de son elevation.
+    const float pixelsPerMetre =
+        artTile /
+        (core::METERS_PER_TILE * std::numbers::sqrt2_v<float>)*std::sqrt(1.0F - (ratio * ratio));
+    const float height = risePixels / pixelsPerMetre;
+    if (height < SHADOW_MINIMUM_METRES) {
+        return std::nullopt;
+    }
+    const float span = piece.width > 0 ? std::clamp(static_cast<float>(piece.width) / diamondWidth,
+                                                    SHADOW_MINIMUM_SPAN, 1.0F)
+                                       : 1.0F;
+    return WorldShadowBox{
+        .column = static_cast<float>(cell.column) + (columns * (1.0F - span) / 2.0F),
+        .row = static_cast<float>(cell.row) + (rows * (1.0F - span) / 2.0F),
+        .columns = columns * span,
+        .rows = rows * span,
+        .base = static_cast<float>(storey) * SHADOW_STOREY_METRES,
+        .height = height,
+        .top = standsStraight(piece) ? 1.0F : SHADOW_TAPERED_TOP};
+}
+
+// Releve ce que la piece `name` ancree en `cell` donne a l'eclairage : sa lumiere, son eclat, sa
+// boite d'ombre.
+void recordPieceLighting(WorldSceneSnapshot& snapshot, const core::ScenePieceManifest* manifest,
+                         std::string_view name, core::GridPosition cell, int storey) {
+    const core::ScenePiece* const piece = manifest != nullptr ? manifest->find(name) : nullptr;
+    if (piece == nullptr) {
+        return;
+    }
+    if (piece->glow > 0.0F) {
+        snapshot.glows.insert_or_assign(std::string{name}, piece->glow);
+    }
+    if (piece->light) {
+        core::LightEmission emission = *piece->light;
+        emission.height += static_cast<float>(storey) * SHADOW_STOREY_METRES;
+        // Du centre de son emprise.
+        snapshot.lights.push_back(core::LightSource{
+            .column = static_cast<float>(cell.column) +
+                      (static_cast<float>(std::max(1, piece->footprintColumns)) / 2.0F),
+            .row = static_cast<float>(cell.row) +
+                   (static_cast<float>(std::max(1, piece->footprintRows)) / 2.0F),
+            .emission = emission});
+    }
+    if (const std::optional<WorldShadowBox> box =
+            shadowBoxOf(*manifest, *piece, cell, storey, snapshot.diamondRatio)) {
+        snapshot.shadowBoxes.push_back(*box);
+    }
+}
+
+// L'eclairage du cliche : les pieces du rez et des etages, les blocs de maquette, puis les
+// entites `light`. A appeler quand le cliche a ses cases, ses pieces d'entite et ses etages.
+void recordLighting(WorldSceneSnapshot& snapshot, const std::vector<core::MapEntity>& entities,
+                    const PlaceAppearance& appearance) {
+    const core::ScenePieceManifest* const manifest = appearance.pieceManifest();
+    for (int row = 0; row < snapshot.rows; ++row) {
+        for (int column = 0; column < snapshot.columns; ++column) {
+            const core::GridPosition cell{.column = column, .row = row};
+            const std::size_t index = indexOf(cell, snapshot.columns);
+            if (!snapshot.relief[index].empty()) {
+                recordPieceLighting(snapshot, manifest, snapshot.relief[index], cell, 0);
+            } else if (maquetteExtrudes(snapshot.reliefTypes[index]) ||
+                       (snapshot.floors[index].empty() &&
+                        maquetteExtrudes(snapshot.types[index]))) {
+                // Un bloc de maquette : sa case, haute d'un etage.
+                snapshot.shadowBoxes.push_back(WorldShadowBox{.column = static_cast<float>(column),
+                                                              .row = static_cast<float>(row),
+                                                              .columns = 1.0F,
+                                                              .rows = 1.0F,
+                                                              .base = 0.0F,
+                                                              .height = SHADOW_BLOCK_METRES,
+                                                              .top = 1.0F});
+            }
+            for (const WorldStoreySnapshot& storey : snapshot.storeys) {
+                if (!storey.relief[index].empty()) {
+                    recordPieceLighting(snapshot, manifest, storey.relief[index], cell,
+                                        storey.floor);
+                }
+            }
+        }
+    }
+    for (const core::MapEntity& entity : entities) {
+        if (const std::optional<core::LightSource> source = core::lightSourceOf(entity)) {
+            snapshot.lights.push_back(*source);
+        }
+    }
+}
+
 }  // namespace
 
 WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
@@ -1123,6 +1268,7 @@ WorldSceneSnapshot snapshotWorldScene(const WorldSceneSource& source,
     applyPieceEntities(snapshot, source.entities, appearance);
     applyStoreys(snapshot, source.layers, appearance);
     recordFiles(snapshot, appearance);
+    recordLighting(snapshot, source.entities, appearance);
     return snapshot;
 }
 

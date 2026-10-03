@@ -5,6 +5,7 @@
 
 #include <QAction>
 #include <QApplication>
+#include <QCheckBox>
 #include <QCloseEvent>
 #include <QDateTime>
 #include <QDialog>
@@ -28,6 +29,7 @@
 #include <QScreen>
 #include <QSettings>
 #include <QSignalBlocker>
+#include <QSlider>
 #include <QSpinBox>
 #include <QStandardPaths>
 #include <QStatusBar>
@@ -38,6 +40,7 @@
 #include <QToolBar>
 #include <QVBoxLayout>
 #include <algorithm>
+#include <cmath>
 #include <filesystem>
 #include <fstream>
 #include <iterator>
@@ -45,6 +48,7 @@
 #include <variant>
 
 #include "Core/World/EntityKinds.h"
+#include "Core/World/WorldClock.h"
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/Autosave.h"
 #include "Editor/Logic/CityView.h"
@@ -88,6 +92,11 @@ namespace {
 // Version de la disposition sérialisée : à incrémenter si l'ensemble des docks change, pour
 // invalider proprement une disposition sauvegardée devenue incompatible (`restoreState`).
 constexpr int LAYOUT_VERSION = 14;  // 14 : le panneau « Quests » (LOT-144)
+
+// Le curseur d'heure du canevas (LOT-1007) : un cran par quart d'heure, midi au depart.
+constexpr int HOUR_SLIDER_MINUTES = 15;
+constexpr int HOUR_SLIDER_STEPS = 24 * 60 / HOUR_SLIDER_MINUTES;
+constexpr int HOUR_SLIDER_NOON = 12 * 60 / HOUR_SLIDER_MINUTES;
 
 // Clés de persistance (portée application ; l'organisation/appli sont fixées dans `main`).
 constexpr const char* GEOMETRY_KEY = "mainWindow/geometry";
@@ -352,6 +361,29 @@ bool MainWindow::openMap(const std::filesystem::path& path, bool reuseCurrent) {
     return true;
 }
 
+void MainWindow::applyLightHour() {
+    if (_viewport == nullptr || _lightingCheck == nullptr) {
+        return;
+    }
+    const auto minutes = static_cast<float>(_hourSlider->value() * HOUR_SLIDER_MINUTES);
+    _hourLabel->setText(_lightingCheck->isChecked()
+                            ? QString::fromStdString(core::formatClockTime(minutes))
+                            : QString{});
+    _viewport->setLightHour(_lightingCheck->isChecked() ? std::optional<float>{minutes}
+                                                        : std::nullopt);
+}
+
+void MainWindow::showLightHour(float minutes) {
+    if (_lightingCheck == nullptr) {
+        return;
+    }
+    _hourSlider->setValue(
+        std::clamp(static_cast<int>(std::lround(minutes / static_cast<float>(HOUR_SLIDER_MINUTES))),
+                   0, HOUR_SLIDER_STEPS - 1));
+    _lightingCheck->setChecked(true);
+    applyLightHour();
+}
+
 void MainWindow::unbindViewport() {
     for (const QMetaObject::Connection& connection : _viewportConnections) {
         QObject::disconnect(connection);
@@ -374,6 +406,8 @@ void MainWindow::bindViewport(EditorViewport* view) {
     const auto keep = [this](const QMetaObject::Connection& connection) {
         _viewportConnections.push_back(connection);
     };
+    // L'heure de la barre d'outils vaut pour le canevas qu'on regarde.
+    applyLightHour();
 
     // La pipette a pris un pinceau : la palette le montre, sans le réémettre.
     keep(connect(view, &EditorViewport::brushPicked, this, [this](const CanvasBrush& brush) {
@@ -468,6 +502,30 @@ void MainWindow::buildUi() {
     _toolBar->setMovable(false);
     _toolBar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     _actions->populateToolBar(*_toolBar);
+
+    // L'heure du canevas (LOT-1007) : decochee, la carte se montre telle que ses pieces sont
+    // peintes ; cochee, elle est eclairee comme le jeu l'eclaire a l'heure du curseur -- un quart
+    // d'heure par cran --, et l'essai en part.
+    _toolBar->addSeparator();
+    _lightingCheck = new QCheckBox(QStringLiteral("Lighting"), _toolBar);
+    _lightingCheck->setToolTip(QStringLiteral(
+        "Light the map as the game does at the chosen hour: sun, shadows, night lights."));
+    _hourSlider = new QSlider(Qt::Horizontal, _toolBar);
+    _hourSlider->setRange(0, HOUR_SLIDER_STEPS - 1);
+    _hourSlider->setValue(HOUR_SLIDER_NOON);
+    _hourSlider->setFixedWidth(180);
+    _hourSlider->setEnabled(false);
+    _hourSlider->setToolTip(QStringLiteral("The hour the map is shown at."));
+    _hourLabel = new QLabel(_toolBar);
+    _hourLabel->setMinimumWidth(48);
+    _toolBar->addWidget(_lightingCheck);
+    _toolBar->addWidget(_hourSlider);
+    _toolBar->addWidget(_hourLabel);
+    connect(_lightingCheck, &QCheckBox::toggled, this, [this](bool lit) {
+        _hourSlider->setEnabled(lit);
+        applyLightHour();
+    });
+    connect(_hourSlider, &QSlider::valueChanged, this, [this] { applyLightHour(); });
 
     _palette = new PalettePanel;
     _levels = new LevelBrowserPanel(hmi::editorDataRoot() / "Levels");
@@ -1149,6 +1207,7 @@ void MainWindow::openMapPropertiesDialog() {
     };
     const MapPropertiesChoice current{.region = text(core::MAP_REGION_PROPERTY),
                                       .ambience = text(core::MAP_AMBIENCE_PROPERTY),
+                                      .hour = text(core::MAP_HOUR_PROPERTY),
                                       .state = _viewport->sidecar().state};
     const std::optional<MapPropertiesChoice> chosen = askMapProperties(
         this, QString::fromStdString(_viewport->mapId()),
@@ -1158,7 +1217,8 @@ void MainWindow::openMapPropertiesDialog() {
     }
     // La région et l'ambiance sont dans la carte : un pas d'annulation, enregistré avec elle.
     _viewport->setMapProperties({{std::string{core::MAP_REGION_PROPERTY}, chosen->region},
-                                 {std::string{core::MAP_AMBIENCE_PROPERTY}, chosen->ambience}});
+                                 {std::string{core::MAP_AMBIENCE_PROPERTY}, chosen->ambience},
+                                 {std::string{core::MAP_HOUR_PROPERTY}, chosen->hour}});
     // Où en est la carte est une note d'auteur : l'annexe s'écrit tout de suite, et seulement
     // pour une carte qui a un fichier.
     if (!_viewport->mapId().empty() && chosen->state != current.state) {

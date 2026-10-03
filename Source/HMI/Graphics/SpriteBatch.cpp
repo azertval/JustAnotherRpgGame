@@ -18,6 +18,7 @@
 #include <rhi/qrhi.h>
 
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/LightingBlock.h"
 #include "HMI/Graphics/RhiShaders.h"
 
 namespace hmi {
@@ -87,6 +88,10 @@ SpriteBatch::SpriteBatch(QRhi* rhi) : _rhi(rhi) {
         throw std::runtime_error("SpriteBatch : echec de creation des echantillonneurs");
     }
 
+    // Le bloc d'eclairage neutre (LOT-1007) : les pipelines le lient tant que l'appelant n'en donne
+    // pas un autre, et dessinent alors comme avant le lot.
+    _ownLighting = std::make_unique<LightingBlock>(_rhi);
+
     _uniformStride = _rhi->ubufAligned(PROJECTION_BYTES);
     if (!ensureUniformCapacity(64)) {
         throw std::runtime_error("SpriteBatch : echec de creation du tampon uniforme");
@@ -100,6 +105,17 @@ SpriteBatch::SpriteBatch(QRhi* rhi) : _rhi(rhi) {
 }
 
 SpriteBatch::~SpriteBatch() = default;
+
+void SpriteBatch::setLighting(LightingBlock* lighting) {
+    if (lighting == _lighting) {
+        return;
+    }
+    _lighting = lighting;
+    // Les liaisons citent le tampon et la carte d'ombres du bloc : elles sont a refaire.
+    _bindings.clear();
+    _layoutBindings.reset();
+    _lightingRevision = this->lighting()->revision();
+}
 
 // Redimensionne le tampon uniforme pour `batchCount` emplacements de projection.
 bool SpriteBatch::ensureUniformCapacity(std::size_t batchCount) {
@@ -138,6 +154,11 @@ bool SpriteBatch::ensureVertexCapacity(std::size_t quadCount) {
 
 // Liaisons de ressources associees a une texture, creees a la premiere rencontre.
 QRhiShaderResourceBindings* SpriteBatch::bindingsFor(QRhiTexture* texture) {
+    // La carte d'ombres a change d'objet : les liaisons qui citaient l'ancienne sont caduques.
+    if (_lightingRevision != lighting()->revision()) {
+        _bindings.clear();
+        _lightingRevision = lighting()->revision();
+    }
     const auto found = _bindings.find(texture);
     if (found != _bindings.end()) {
         return found->second.get();
@@ -153,6 +174,8 @@ QRhiShaderResourceBindings* SpriteBatch::bindingsFor(QRhiTexture* texture) {
             0, QRhiShaderResourceBinding::VertexStage, _uniformBuffer.get(), PROJECTION_BYTES),
         QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
                                                   texture, sampler),
+        lighting()->uniformBinding(),
+        lighting()->shadowBinding(),
     });
     if (!bindings->create()) {
         GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation des liaisons de ressources");
@@ -187,6 +210,8 @@ bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
                 0, QRhiShaderResourceBinding::VertexStage, _uniformBuffer.get(), PROJECTION_BYTES),
             QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
                                                       nullptr, _sharpSampler.get()),
+            lighting()->uniformBinding(),
+            lighting()->shadowBinding(),
         });
         if (!_layoutBindings->create()) {
             GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation des liaisons de reference");
@@ -219,6 +244,7 @@ std::unique_ptr<QRhiGraphicsPipeline> SpriteBatch::createPipeline(QRhiRenderPass
         {0, 0, QRhiVertexInputAttribute::Float3, 0},
         {0, 1, QRhiVertexInputAttribute::Float2, 3 * sizeof(float)},
         {0, 2, QRhiVertexInputAttribute::Float4, 5 * sizeof(float)},
+        {0, 3, QRhiVertexInputAttribute::Float2, 9 * sizeof(float)},
     });
     pipeline->setVertexInputLayout(inputLayout);
     pipeline->setShaderResourceBindings(_layoutBindings.get());
@@ -260,6 +286,7 @@ void SpriteBatch::beginFrame() {
     _projections.clear();
     _recording = false;
     _drawable = false;
+    _shading = SpriteShading{};
 }
 
 // Demarre un lot : fixe la texture echantillonnee et la projection.
@@ -319,7 +346,9 @@ void SpriteBatch::draw(const SpriteQuad& quad, float topDepth, float bottomDepth
                                    .r = quad.r,
                                    .g = quad.g,
                                    .b = quad.b,
-                                   .a = quad.a});
+                                   .a = quad.a,
+                                   .lit = _shading.lit,
+                                   .shadowed = _shading.shadowed ? 1.0F : 0.0F});
     }
 }
 
@@ -346,7 +375,9 @@ void SpriteBatch::draw(const LineQuad& line, float startDepth, float endDepth) {
                                .r = line.r,
                                .g = line.g,
                                .b = line.b,
-                               .a = line.a});
+                               .a = line.a,
+                               .lit = _shading.lit,
+                               .shadowed = _shading.shadowed ? 1.0F : 0.0F});
     _vertices.push_back(Vertex{.x = line.bx + nx,
                                .y = line.by + ny,
                                .z = endDepth,
@@ -355,7 +386,9 @@ void SpriteBatch::draw(const LineQuad& line, float startDepth, float endDepth) {
                                .r = line.r,
                                .g = line.g,
                                .b = line.b,
-                               .a = line.a});
+                               .a = line.a,
+                               .lit = _shading.lit,
+                               .shadowed = _shading.shadowed ? 1.0F : 0.0F});
     _vertices.push_back(Vertex{.x = line.bx - nx,
                                .y = line.by - ny,
                                .z = endDepth,
@@ -364,7 +397,9 @@ void SpriteBatch::draw(const LineQuad& line, float startDepth, float endDepth) {
                                .r = line.r,
                                .g = line.g,
                                .b = line.b,
-                               .a = line.a});
+                               .a = line.a,
+                               .lit = _shading.lit,
+                               .shadowed = _shading.shadowed ? 1.0F : 0.0F});
     _vertices.push_back(Vertex{.x = line.ax - nx,
                                .y = line.ay - ny,
                                .z = startDepth,
@@ -373,7 +408,9 @@ void SpriteBatch::draw(const LineQuad& line, float startDepth, float endDepth) {
                                .r = line.r,
                                .g = line.g,
                                .b = line.b,
-                               .a = line.a});
+                               .a = line.a,
+                               .lit = _shading.lit,
+                               .shadowed = _shading.shadowed ? 1.0F : 0.0F});
 }
 
 // Ajoute un quadrilatere a quatre sommets libres au lot courant (LOT-128, decision D1).
@@ -395,7 +432,9 @@ void SpriteBatch::draw(const PolyQuad& poly, const std::array<float, 4>& depths)
                                    .r = poly.r,
                                    .g = poly.g,
                                    .b = poly.b,
-                                   .a = poly.a});
+                                   .a = poly.a,
+                                   .lit = _shading.lit,
+                                   .shadowed = _shading.shadowed ? 1.0F : 0.0F});
     }
 }
 
@@ -430,6 +469,15 @@ QRhiResourceUpdateBatch* SpriteBatch::prepare(QRhiRenderTarget* target,
             updates = _pendingIndexUpload;
         }
         _pendingIndexUpload = nullptr;
+    }
+    // De meme le bloc d'eclairage neutre, pose a la construction du bloc lie.
+    if (QRhiResourceUpdateBatch* const neutral = lighting()->takePendingUpload()) {
+        if (updates != nullptr) {
+            updates->merge(neutral);
+            neutral->release();
+        } else {
+            updates = neutral;
+        }
     }
 
     _drawable = quadCount > 0 && ensureVertexCapacity(quadCount) &&

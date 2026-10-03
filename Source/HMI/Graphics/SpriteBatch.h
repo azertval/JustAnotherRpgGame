@@ -5,6 +5,7 @@
 
 #include <array>
 #include <cstddef>
+#include <cstdint>
 #include <memory>
 #include <unordered_map>
 #include <vector>
@@ -24,6 +25,10 @@ class QRhiResourceUpdateBatch;
 class QRhiSampler;
 class QRhiShaderResourceBindings;
 class QRhiTexture;
+
+namespace hmi {
+class LightingBlock;
+}  // namespace hmi
 
 /**
  * @file HMI/Graphics/SpriteBatch.h
@@ -151,6 +156,22 @@ public:
     }
 
     /**
+     * @brief Ce que les quads **suivants** reçoivent de la lumière du lieu (`LOT-1007`).
+     *
+     * L'état d'usine — rien — est celui d'avant le lot : un quad garde son éclat, quel que soit
+     * le bloc d'éclairage lié. `beginFrame` y revient.
+     */
+    void setShading(SpriteShading shading) noexcept {
+        _shading = shading;
+    }
+
+    /**
+     * @brief Lie le bloc d'éclairage @p lighting aux pipelines ; `nullptr` : le bloc neutre du
+     *        lot. Le bloc doit vivre aussi longtemps qu'il est lié.
+     */
+    void setLighting(LightingBlock* lighting);
+
+    /**
      * @brief Dépose dans un lot les téléversements de l'image enregistrée — sommets, projections,
      *        et le tampon d'indices à sa première image —, **hors** de toute passe.
      *
@@ -169,7 +190,8 @@ public:
     void record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target);
 
 private:
-    /// Sommet envoyé au GPU : position de la vue (x, y, profondeur), UV, couleur RVBA.
+    /// Sommet envoyé au GPU : position de la vue (x, y, profondeur), UV, couleur RVBA, puis ce
+    /// qu'il reçoit de la lumière du lieu (`SpriteShading`).
     struct Vertex {
         float x;
         float y;
@@ -180,6 +202,8 @@ private:
         float g;
         float b;
         float a;
+        float lit;
+        float shadowed;
     };
 
     /// Un lot enregistré : une texture, une projection, une plage contiguë de quads.
@@ -211,7 +235,20 @@ private:
     /// Ferme le lot en cours d'enregistrement, s'il y en a un.
     void closeBatch();
 
+    /// @return Le bloc d'éclairage lié : celui de l'appelant, sinon le bloc neutre du lot.
+    [[nodiscard]] LightingBlock* lighting() const noexcept {
+        return _lighting != nullptr ? _lighting : _ownLighting.get();
+    }
+
     QRhi* _rhi;  // non possédé
+    /// Le bloc d'éclairage neutre du lot, lié tant que l'appelant n'en donne pas un autre.
+    std::unique_ptr<LightingBlock> _ownLighting;
+    /// Le bloc de l'appelant (`setLighting`), non possédé ; `nullptr` : le bloc neutre.
+    LightingBlock* _lighting = nullptr;
+    /// La révision du bloc lié pour laquelle les liaisons ont été faites.
+    std::uint64_t _lightingRevision = 0;
+    /// Ce que les prochains quads reçoivent de la lumière.
+    SpriteShading _shading{};
     std::unique_ptr<QRhiBuffer> _vertexBuffer;
     std::unique_ptr<QRhiBuffer> _indexBuffer;
     std::unique_ptr<QRhiBuffer> _uniformBuffer;

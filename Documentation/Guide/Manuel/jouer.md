@@ -135,8 +135,8 @@ ouvre les réglages puis revient au même tour.
 
 Accessible depuis le menu principal, la pause ou le bandeau. Trois onglets : **Général** (langue du
 jeu, journaux de session), **Graphismes** (plein écran, synchronisation verticale — appliquée au
-prochain lancement —, compteur de diagnostic, anticrénelage, définition du rendu, taille du HUD)
-et **Audio** (volume général). **Appliquer** retient
+prochain lancement —, compteur de diagnostic, anticrénelage, définition du rendu, ombres, taille
+du HUD) et **Audio** (volume général). **Appliquer** retient
 les réglages, **Annuler** les abandonne, **Par défaut** les rétablit.
 
 Dans **Graphismes > Interface en jeu**, **Taille du HUD** va de **75 % à 130 %**, par pas de 5 %.
@@ -151,6 +151,20 @@ Dans **Graphismes > Rendu**, deux réglages agissent sur l'image du lieu, dès *
 - **Définition du rendu** — **100 %**, **125 %**, **150 %** ou **200 %** : au-delà de 100 %, le
   lieu est dessiné plus grand que la fenêtre puis réduit à l'écran. L'image est plus fine, et
   demande davantage à la carte graphique. La valeur par défaut est **100 %**.
+- **Ombres** — **Désactivées**, **Basses**, **Moyennes** ou **Hautes** : la finesse des ombres
+  que le soleil et la lune font porter aux personnages et au décor. La valeur par défaut est
+  **Moyennes**.
+
+## Le jour et la nuit
+
+Le monde a une heure. Elle avance pendant qu'on explore — **une heure du monde par minute**, un
+jour entier en vingt-quatre minutes — et s'arrête pendant un dialogue ou un combat : la lumière ne
+change pas pendant qu'on vise. Une partie neuve commence à dix heures du matin.
+
+Le soleil se lève devant, passe à gauche à midi et se couche derrière le lieu : les ombres
+tournent et s'allongent. Au crépuscule, les lampadaires, les lanternes et les braseros
+s'allument ; la nuit, la lune éclaire assez pour lire la grille et les personnages. Certains lieux
+clos — le sous-sol de l'arène — gardent toujours la même heure.
 
 ![L'écran des options, onglet Général : la langue du jeu et le bouton « Enregistrer les journaux de session » ; en pied, « Par défaut », « Annuler » et « Appliquer », à 1280 × 720](../captures/jeu-options.jpg)
 

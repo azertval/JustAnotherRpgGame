@@ -10,7 +10,7 @@ prerequis = ["LOT-165"]
 reprend = ["LOT-42", "LOT-70 (horloge, en partie)"]
 livrables = [
   "Le voyage entre zones depuis la carte de région ; durée, rencontres de route.",
-  "L'horloge du monde (jour, nuit) — le calendrier lunaire attend la `0.2.0`.",
+  "Le temps de voyage, qui fait avancer l'horloge du monde — livrée au `LOT-1007` (D-45), elle n'est plus à faire ici ; le calendrier lunaire attend la `0.2.0`.",
 ]
 criteres = ["De la Capitale à Phantom Fortress et retour, par la route impériale."]
 +++

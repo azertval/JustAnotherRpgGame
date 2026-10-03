@@ -16,6 +16,7 @@
 #include <rhi/qrhi.h>
 
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/LightingBlock.h"
 #include "HMI/Graphics/RhiContext.h"
 #include "HMI/Graphics/RhiShaders.h"
 
@@ -26,7 +27,15 @@ namespace {
 // Le bloc uniforme d'un dessin (std140) : la matrice maillage -> clip, puis la teinte RVBA.
 constexpr int MATRIX_BYTES = 16 * static_cast<int>(sizeof(float));
 constexpr int TINT_BYTES = 4 * static_cast<int>(sizeof(float));
-constexpr int DRAW_BYTES = MATRIX_BYTES + TINT_BYTES;
+// Depuis le LOT-1007, deux matrices de plus : maillage -> vue, maillage -> clip de la carte
+// d'ombres. Le meme bloc sert a l'image et a la passe d'ombres.
+constexpr int VIEW_OFFSET = MATRIX_BYTES + TINT_BYTES;
+constexpr int SHADOW_OFFSET = VIEW_OFFSET + MATRIX_BYTES;
+constexpr int DRAW_BYTES = SHADOW_OFFSET + MATRIX_BYTES;
+// Le biais de la passe d'ombres : ce dont une face recule dans la carte, pour ne pas s'ombrer
+// elle-meme par l'arrondi de sa profondeur. Constant, et proportionnel a sa pente vue du soleil.
+constexpr int SHADOW_DEPTH_BIAS = 2;
+constexpr float SHADOW_SLOPE_BIAS = 2.0F;
 // Le bloc d'os d'un dessin anime (std140) : `MAX_BONES` matrices.
 constexpr std::size_t MATRIX_FLOATS = 16;
 constexpr std::size_t POSE_FLOATS = MeshBatch::MAX_BONES * MATRIX_FLOATS;
@@ -83,6 +92,8 @@ MeshBatch::MeshBatch(QRhi* rhi) : _rhi(rhi) {
     if (!_sampler->create()) {
         throw std::runtime_error("MeshBatch : echec de creation de l'echantillonneur");
     }
+    // Le bloc d'eclairage neutre (LOT-1007) : lie tant que l'appelant n'en donne pas un autre.
+    _ownLighting = std::make_unique<LightingBlock>(_rhi);
     _uniformStride = _rhi->ubufAligned(DRAW_BYTES);
     _boneStride = _rhi->ubufAligned(BONES_BYTES);
     if (!ensureUniformCapacity(16)) {
@@ -177,6 +188,44 @@ void MeshBatch::clear() noexcept {
     _bytes = 0;
 }
 
+void MeshBatch::destroy(MeshHandle mesh) noexcept {
+    const auto found = std::ranges::find_if(
+        _meshes, [mesh](const std::unique_ptr<GpuMesh>& known) { return known.get() == mesh; });
+    if (found == _meshes.end()) {
+        return;
+    }
+    // Un dessin enregistre le designerait encore.
+    _draws.clear();
+    _poses.clear();
+    _drawable = false;
+    _shadowDrawable = false;
+    _meshes.erase(found);
+}
+
+void MeshBatch::setLighting(LightingBlock* lighting) {
+    if (lighting == _lighting) {
+        return;
+    }
+    _lighting = lighting;
+    resetBindings(false);
+    _lightingRevision = this->lighting()->revision();
+}
+
+void MeshBatch::resetBindings(bool skinnedOnly) {
+    for (const std::unique_ptr<GpuMesh>& mesh : _meshes) {
+        if (!skinnedOnly) {
+            mesh->bindings.reset();
+        }
+        mesh->skinnedBindings.reset();
+    }
+    if (!skinnedOnly) {
+        _layoutBindings.reset();
+        _shadowBindings.reset();
+    }
+    _skinnedLayoutBindings.reset();
+    _skinnedShadowBindings.reset();
+}
+
 bool MeshBatch::ensureUniformCapacity(std::size_t drawCount) {
     if (drawCount <= _uniformSlots && _uniformBuffer) {
         return true;
@@ -191,12 +240,7 @@ bool MeshBatch::ensureUniformCapacity(std::size_t drawCount) {
     _uniformBuffer = std::move(buffer);
     _uniformSlots = slotCount;
     // Les liaisons referencent le tampon : elles deviennent caduques avec lui.
-    for (const std::unique_ptr<GpuMesh>& mesh : _meshes) {
-        mesh->bindings.reset();
-        mesh->skinnedBindings.reset();
-    }
-    _layoutBindings.reset();
-    _skinnedLayoutBindings.reset();
+    resetBindings(false);
     return true;
 }
 
@@ -213,10 +257,7 @@ bool MeshBatch::ensureBoneCapacity(std::size_t poseCount) {
     }
     _boneBuffer = std::move(buffer);
     _boneSlots = slotCount;
-    for (const std::unique_ptr<GpuMesh>& mesh : _meshes) {
-        mesh->skinnedBindings.reset();
-    }
-    _skinnedLayoutBindings.reset();
+    resetBindings(true);
     return true;
 }
 
@@ -233,6 +274,8 @@ QRhiShaderResourceBindings* MeshBatch::skinnedBindingsFor(GpuMesh& mesh) {
                                                   mesh.texture.texture.get(), _sampler.get()),
         QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
             2, QRhiShaderResourceBinding::VertexStage, _boneBuffer.get(), BONES_BYTES),
+        lighting()->uniformBinding(),
+        lighting()->shadowBinding(),
     });
     if (!bindings->create()) {
         GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des liaisons d'un maillage anime");
@@ -253,6 +296,8 @@ QRhiShaderResourceBindings* MeshBatch::bindingsFor(GpuMesh& mesh) {
             _uniformBuffer.get(), DRAW_BYTES),
         QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
                                                   mesh.texture.texture.get(), _sampler.get()),
+        lighting()->uniformBinding(),
+        lighting()->shadowBinding(),
     });
     if (!bindings->create()) {
         GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des liaisons d'un maillage");
@@ -262,46 +307,120 @@ QRhiShaderResourceBindings* MeshBatch::bindingsFor(GpuMesh& mesh) {
     return mesh.bindings.get();
 }
 
-bool MeshBatch::ensurePipeline(QRhiRenderTarget* target) {
+bool MeshBatch::ensureLayouts(bool skinned) {
+    // La carte d'ombres a change d'objet : les liaisons qui citaient l'ancienne sont caduques.
+    if (_lightingRevision != lighting()->revision()) {
+        resetBindings(false);
+        _lightingRevision = lighting()->revision();
+    }
+    const QRhiShaderResourceBinding::StageFlags drawStages =
+        QRhiShaderResourceBinding::VertexStage | QRhiShaderResourceBinding::FragmentStage;
+    // Liaisons de reference : jamais utilisees pour dessiner, seulement pour decrire la
+    // disposition attendue par le pipeline. Celles de la passe d'ombres, elles, dessinent : elles
+    // ne citent aucune texture, et valent donc pour tous les maillages.
+    if (!skinned && !_layoutBindings) {
+        _layoutBindings.reset(_rhi->newShaderResourceBindings());
+        _layoutBindings->setBindings({
+            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+                0, drawStages, _uniformBuffer.get(), DRAW_BYTES),
+            QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
+                                                      nullptr, _sampler.get()),
+            lighting()->uniformBinding(),
+            lighting()->shadowBinding(),
+        });
+        _shadowBindings.reset(_rhi->newShaderResourceBindings());
+        _shadowBindings->setBindings({
+            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+                0, drawStages, _uniformBuffer.get(), DRAW_BYTES),
+        });
+        if (!_layoutBindings->create() || !_shadowBindings->create()) {
+            GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des liaisons de reference");
+            _layoutBindings.reset();
+            _shadowBindings.reset();
+            return false;
+        }
+    }
+    if (skinned && !_skinnedLayoutBindings) {
+        _skinnedLayoutBindings.reset(_rhi->newShaderResourceBindings());
+        _skinnedLayoutBindings->setBindings({
+            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+                0, drawStages, _uniformBuffer.get(), DRAW_BYTES),
+            QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
+                                                      nullptr, _sampler.get()),
+            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+                2, QRhiShaderResourceBinding::VertexStage, _boneBuffer.get(), BONES_BYTES),
+            lighting()->uniformBinding(),
+            lighting()->shadowBinding(),
+        });
+        _skinnedShadowBindings.reset(_rhi->newShaderResourceBindings());
+        _skinnedShadowBindings->setBindings({
+            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+                0, drawStages, _uniformBuffer.get(), DRAW_BYTES),
+            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
+                2, QRhiShaderResourceBinding::VertexStage, _boneBuffer.get(), BONES_BYTES),
+        });
+        if (!_skinnedLayoutBindings->create() || !_skinnedShadowBindings->create()) {
+            GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des liaisons de reference animees");
+            _skinnedLayoutBindings.reset();
+            _skinnedShadowBindings.reset();
+            return false;
+        }
+    }
+    return true;
+}
+
+bool MeshBatch::ensurePipeline(Pipeline& kept, QRhiRenderTarget* target, bool skinned,
+                               bool shadow) {
     QRhiRenderPassDescriptor* const pass = target->renderPassDescriptor();
     // Le pipeline suit aussi le nombre d'echantillons de la cible : une cible multi-echantillonnee
     // refuse un pipeline qui ne l'est pas autant qu'elle.
     const int samples = target->sampleCount();
-    if (_pipeline && _pipelinePass == pass && _pipelineSamples == samples) {
-        return true;
+    const bool layouts = ensureLayouts(skinned);
+    if (!layouts) {
+        return false;
     }
-    // Liaisons de reference : jamais utilisees pour dessiner, seulement pour decrire la
-    // disposition attendue par le pipeline.
-    if (!_layoutBindings) {
-        _layoutBindings.reset(_rhi->newShaderResourceBindings());
-        _layoutBindings->setBindings({
-            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
-                0,
-                QRhiShaderResourceBinding::VertexStage | QRhiShaderResourceBinding::FragmentStage,
-                _uniformBuffer.get(), DRAW_BYTES),
-            QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
-                                                      nullptr, _sampler.get()),
-        });
-        if (!_layoutBindings->create()) {
-            GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des liaisons de reference");
-            return false;
-        }
+    if (kept.pipeline && kept.pass == pass && kept.samples == samples) {
+        return true;
     }
 
     auto pipeline = std::unique_ptr<QRhiGraphicsPipeline>(_rhi->newGraphicsPipeline());
+    const char* const vertex =
+        shadow ? (skinned ? ":/shaders/mesh_skinned_shadow.vert.qsb"
+                          : ":/shaders/mesh_shadow.vert.qsb")
+               : (skinned ? ":/shaders/mesh_skinned.vert.qsb" : ":/shaders/mesh.vert.qsb");
     pipeline->setShaderStages({
-        {QRhiShaderStage::Vertex, loadShader(":/shaders/mesh.vert.qsb")},
-        {QRhiShaderStage::Fragment, loadShader(":/shaders/mesh.frag.qsb")},
+        {QRhiShaderStage::Vertex, loadShader(vertex)},
+        {QRhiShaderStage::Fragment,
+         loadShader(shadow ? ":/shaders/shadow.frag.qsb" : ":/shaders/mesh.frag.qsb")},
     });
+    // Le sommet du chargeur, tel quel ; puis, pour un maillage anime, ses os et ses poids.
     QRhiVertexInputLayout inputLayout;
-    inputLayout.setBindings({{static_cast<quint32>(sizeof(core::MeshVertex))}});
-    inputLayout.setAttributes({
-        {0, 0, QRhiVertexInputAttribute::Float3, 0},
-        {0, 1, QRhiVertexInputAttribute::Float3, 3 * sizeof(float)},
-        {0, 2, QRhiVertexInputAttribute::Float2, 6 * sizeof(float)},
-    });
+    if (skinned) {
+        inputLayout.setBindings({{static_cast<quint32>(sizeof(core::MeshVertex))},
+                                 {static_cast<quint32>(SKIN_FLOATS * sizeof(float))}});
+        inputLayout.setAttributes({
+            {0, 0, QRhiVertexInputAttribute::Float3, 0},
+            {0, 1, QRhiVertexInputAttribute::Float3, 3 * sizeof(float)},
+            {0, 2, QRhiVertexInputAttribute::Float2, 6 * sizeof(float)},
+            {1, 3, QRhiVertexInputAttribute::Float4, 0},
+            {1, 4, QRhiVertexInputAttribute::Float4, 4 * sizeof(float)},
+        });
+    } else {
+        inputLayout.setBindings({{static_cast<quint32>(sizeof(core::MeshVertex))}});
+        inputLayout.setAttributes({
+            {0, 0, QRhiVertexInputAttribute::Float3, 0},
+            {0, 1, QRhiVertexInputAttribute::Float3, 3 * sizeof(float)},
+            {0, 2, QRhiVertexInputAttribute::Float2, 6 * sizeof(float)},
+        });
+    }
     pipeline->setVertexInputLayout(inputLayout);
-    pipeline->setShaderResourceBindings(_layoutBindings.get());
+    if (shadow) {
+        pipeline->setShaderResourceBindings(skinned ? _skinnedShadowBindings.get()
+                                                    : _shadowBindings.get());
+    } else {
+        pipeline->setShaderResourceBindings(skinned ? _skinnedLayoutBindings.get()
+                                                    : _layoutBindings.get());
+    }
     pipeline->setRenderPassDescriptor(pass);
     pipeline->setSampleCount(samples);
     pipeline->setTopology(QRhiGraphicsPipeline::Triangles);
@@ -310,97 +429,33 @@ bool MeshBatch::ensurePipeline(QRhiRenderTarget* target) {
     pipeline->setDepthTest(true);
     pipeline->setDepthWrite(true);
     pipeline->setDepthOp(QRhiGraphicsPipeline::Less);
-
-    // Le melange premultiplie des quads : a l'opacite 1, un maillage opaque remplace ce qu'il
-    // couvre ; au-dessous, il laisse voir le fond, pour les calques grises de l'editeur.
-    QRhiGraphicsPipeline::TargetBlend blend;
-    blend.enable = true;
-    blend.srcColor = QRhiGraphicsPipeline::One;
-    blend.dstColor = QRhiGraphicsPipeline::OneMinusSrcAlpha;
-    blend.opColor = QRhiGraphicsPipeline::Add;
-    blend.srcAlpha = QRhiGraphicsPipeline::One;
-    blend.dstAlpha = QRhiGraphicsPipeline::OneMinusSrcAlpha;
-    blend.opAlpha = QRhiGraphicsPipeline::Add;
-    pipeline->setTargetBlends({blend});
+    if (shadow) {
+        // La carte d'ombres n'a pas de couleur : seule la profondeur s'ecrit, un peu reculee.
+        pipeline->setDepthBias(SHADOW_DEPTH_BIAS);
+        pipeline->setSlopeScaledDepthBias(SHADOW_SLOPE_BIAS);
+    } else {
+        // Le melange premultiplie des quads : a l'opacite 1, un maillage opaque remplace ce qu'il
+        // couvre ; au-dessous, il laisse voir le fond, pour les calques grises de l'editeur.
+        QRhiGraphicsPipeline::TargetBlend blend;
+        blend.enable = true;
+        blend.srcColor = QRhiGraphicsPipeline::One;
+        blend.dstColor = QRhiGraphicsPipeline::OneMinusSrcAlpha;
+        blend.opColor = QRhiGraphicsPipeline::Add;
+        blend.srcAlpha = QRhiGraphicsPipeline::One;
+        blend.dstAlpha = QRhiGraphicsPipeline::OneMinusSrcAlpha;
+        blend.opAlpha = QRhiGraphicsPipeline::Add;
+        pipeline->setTargetBlends({blend});
+    }
 
     if (!pipeline->create()) {
-        GRAPHICS_LOG_WARNING("MeshBatch : echec de creation du pipeline graphique");
+        GRAPHICS_LOG_WARNING(
+            std::string("MeshBatch : echec de creation du pipeline des maillages") +
+            (skinned ? " animes" : "") + (shadow ? " (ombres)" : ""));
         return false;
     }
-    _pipeline = std::move(pipeline);
-    _pipelinePass = pass;
-    _pipelineSamples = samples;
-    return true;
-}
-
-bool MeshBatch::ensureSkinnedPipeline(QRhiRenderTarget* target) {
-    QRhiRenderPassDescriptor* const pass = target->renderPassDescriptor();
-    const int samples = target->sampleCount();
-    if (_skinnedPipeline && _skinnedPipelinePass == pass && _skinnedPipelineSamples == samples) {
-        return true;
-    }
-    if (!_skinnedLayoutBindings) {
-        _skinnedLayoutBindings.reset(_rhi->newShaderResourceBindings());
-        _skinnedLayoutBindings->setBindings({
-            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
-                0,
-                QRhiShaderResourceBinding::VertexStage | QRhiShaderResourceBinding::FragmentStage,
-                _uniformBuffer.get(), DRAW_BYTES),
-            QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
-                                                      nullptr, _sampler.get()),
-            QRhiShaderResourceBinding::uniformBufferWithDynamicOffset(
-                2, QRhiShaderResourceBinding::VertexStage, _boneBuffer.get(), BONES_BYTES),
-        });
-        if (!_skinnedLayoutBindings->create()) {
-            GRAPHICS_LOG_WARNING("MeshBatch : echec de creation des liaisons de reference animees");
-            return false;
-        }
-    }
-
-    auto pipeline = std::unique_ptr<QRhiGraphicsPipeline>(_rhi->newGraphicsPipeline());
-    pipeline->setShaderStages({
-        {QRhiShaderStage::Vertex, loadShader(":/shaders/mesh_skinned.vert.qsb")},
-        {QRhiShaderStage::Fragment, loadShader(":/shaders/mesh.frag.qsb")},
-    });
-    // Deux tampons : le sommet du chargeur, tel quel, puis ses os et ses poids.
-    QRhiVertexInputLayout inputLayout;
-    inputLayout.setBindings({{static_cast<quint32>(sizeof(core::MeshVertex))},
-                             {static_cast<quint32>(SKIN_FLOATS * sizeof(float))}});
-    inputLayout.setAttributes({
-        {0, 0, QRhiVertexInputAttribute::Float3, 0},
-        {0, 1, QRhiVertexInputAttribute::Float3, 3 * sizeof(float)},
-        {0, 2, QRhiVertexInputAttribute::Float2, 6 * sizeof(float)},
-        {1, 3, QRhiVertexInputAttribute::Float4, 0},
-        {1, 4, QRhiVertexInputAttribute::Float4, 4 * sizeof(float)},
-    });
-    pipeline->setVertexInputLayout(inputLayout);
-    pipeline->setShaderResourceBindings(_skinnedLayoutBindings.get());
-    pipeline->setRenderPassDescriptor(pass);
-    pipeline->setSampleCount(samples);
-    pipeline->setTopology(QRhiGraphicsPipeline::Triangles);
-    // Les memes regles que le pipeline des maillages fixes : aucune face ecartee, la profondeur
-    // testee et ecrite, le melange premultiplie.
-    pipeline->setCullMode(QRhiGraphicsPipeline::None);
-    pipeline->setDepthTest(true);
-    pipeline->setDepthWrite(true);
-    pipeline->setDepthOp(QRhiGraphicsPipeline::Less);
-    QRhiGraphicsPipeline::TargetBlend blend;
-    blend.enable = true;
-    blend.srcColor = QRhiGraphicsPipeline::One;
-    blend.dstColor = QRhiGraphicsPipeline::OneMinusSrcAlpha;
-    blend.opColor = QRhiGraphicsPipeline::Add;
-    blend.srcAlpha = QRhiGraphicsPipeline::One;
-    blend.dstAlpha = QRhiGraphicsPipeline::OneMinusSrcAlpha;
-    blend.opAlpha = QRhiGraphicsPipeline::Add;
-    pipeline->setTargetBlends({blend});
-
-    if (!pipeline->create()) {
-        GRAPHICS_LOG_WARNING("MeshBatch : echec de creation du pipeline des maillages animes");
-        return false;
-    }
-    _skinnedPipeline = std::move(pipeline);
-    _skinnedPipelinePass = pass;
-    _skinnedPipelineSamples = samples;
+    kept.pipeline = std::move(pipeline);
+    kept.pass = pass;
+    kept.samples = samples;
     return true;
 }
 
@@ -411,14 +466,18 @@ void MeshBatch::beginFrame() {
 }
 
 void MeshBatch::draw(MeshHandle mesh, const DirectX::XMFLOAT4X4& clip, float opacity,
-                     std::span<const float> bones) {
+                     std::span<const float> bones, const MeshLighting& lighting) {
     // L'identite est verifiee : une poignee d'avant `clear` ne doit pas etre suivie.
     const auto found = std::ranges::find_if(
         _meshes, [mesh](const std::unique_ptr<GpuMesh>& known) { return known.get() == mesh; });
     if (found == _meshes.end() || opacity <= 0.0F) {
         return;
     }
-    Draw draw{.mesh = found->get(), .clip = clip, .opacity = std::min(opacity, 1.0F), .pose = -1};
+    Draw draw{.mesh = found->get(),
+              .clip = clip,
+              .opacity = std::min(opacity, 1.0F),
+              .pose = -1,
+              .lighting = lighting};
     // Une pose ne vaut que pour le squelette du maillage : os pour os.
     const std::size_t boneCount = draw.mesh->boneCount;
     if (boneCount > 0 && bones.size() == boneCount * MATRIX_FLOATS) {
@@ -435,14 +494,25 @@ void MeshBatch::draw(MeshHandle mesh, const DirectX::XMFLOAT4X4& clip, float opa
 QRhiResourceUpdateBatch* MeshBatch::prepare(QRhiRenderTarget* target,
                                             QRhiResourceUpdateBatch* updates) {
     const std::size_t poseCount = _poses.size() / POSE_FLOATS;
-    _drawable = !_draws.empty() && ensureUniformCapacity(_draws.size()) && ensurePipeline(target);
+    _shadowDrawable = false;
+    _drawable = !_draws.empty() && ensureUniformCapacity(_draws.size()) &&
+                ensurePipeline(_pipeline, target, false, false);
     // Sans pipeline anime, les maillages lies se dessinent dans leur pose de liaison.
     if (_drawable && poseCount > 0 &&
-        !(ensureBoneCapacity(poseCount) && ensureSkinnedPipeline(target))) {
+        !(ensureBoneCapacity(poseCount) && ensurePipeline(_skinnedPipeline, target, true, false))) {
         for (Draw& draw : _draws) {
             draw.pose = -1;
         }
         _poses.clear();
+    }
+    // Le bloc d'eclairage neutre, pose a la construction du bloc lie, part avec la premiere image.
+    if (QRhiResourceUpdateBatch* const neutral = lighting()->takePendingUpload()) {
+        if (updates != nullptr) {
+            updates->merge(neutral);
+            neutral->release();
+        } else {
+            updates = neutral;
+        }
     }
     if (!_drawable) {
         return updates;
@@ -462,12 +532,31 @@ QRhiResourceUpdateBatch* MeshBatch::prepare(QRhiRenderTarget* target,
         const std::array<float, 4> tint = {draw.mesh->baseColor[0], draw.mesh->baseColor[1],
                                            draw.mesh->baseColor[2],
                                            draw.mesh->baseColor[3] * draw.opacity};
+        // La matrice vers la carte d'ombres recoit la meme correction de clip que celle de l'image.
+        const QMatrix4x4 shadowClip = _rhi->clipSpaceCorrMatrix() *
+                                      QMatrix4x4(draw.lighting.toShadowClip.data()).transposed();
         const auto offset = static_cast<quint32>(index * static_cast<std::size_t>(_uniformStride));
         updates->updateDynamicBuffer(_uniformBuffer.get(), offset, MATRIX_BYTES, clip.constData());
         updates->updateDynamicBuffer(_uniformBuffer.get(), offset + MATRIX_BYTES, TINT_BYTES,
                                      tint.data());
+        updates->updateDynamicBuffer(_uniformBuffer.get(), offset + VIEW_OFFSET, MATRIX_BYTES,
+                                     draw.lighting.toView.data());
+        updates->updateDynamicBuffer(_uniformBuffer.get(), offset + SHADOW_OFFSET, MATRIX_BYTES,
+                                     shadowClip.constData());
     }
     return updates;
+}
+
+bool MeshBatch::prepareShadow(QRhiRenderTarget* target) {
+    _shadowDrawable = false;
+    if (!_drawable || target == nullptr) {
+        return false;
+    }
+    const bool skinned =
+        std::ranges::any_of(_draws, [](const Draw& draw) { return draw.pose >= 0; });
+    _shadowDrawable = ensurePipeline(_shadowPipeline, target, false, true) &&
+                      (!skinned || ensurePipeline(_skinnedShadowPipeline, target, true, true));
+    return _shadowDrawable;
 }
 
 void MeshBatch::record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target) {
@@ -482,6 +571,10 @@ void MeshBatch::record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* targe
     const QRhiGraphicsPipeline* bound = nullptr;
     for (std::size_t index = 0; index < _draws.size(); ++index) {
         const Draw& draw = _draws[index];
+        // Une boite d'ombre ne parait pas a l'image.
+        if (draw.lighting.castsOnly) {
+            continue;
+        }
         GpuMesh& mesh = *draw.mesh;
         const bool skinned = draw.pose >= 0;
         QRhiShaderResourceBindings* const bindings =
@@ -489,7 +582,8 @@ void MeshBatch::record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* targe
         if (bindings == nullptr) {
             continue;
         }
-        QRhiGraphicsPipeline* const pipeline = skinned ? _skinnedPipeline.get() : _pipeline.get();
+        QRhiGraphicsPipeline* const pipeline =
+            skinned ? _skinnedPipeline.pipeline.get() : _pipeline.pipeline.get();
         if (pipeline != bound) {
             commandBuffer->setGraphicsPipeline(pipeline);
             commandBuffer->setViewport(viewport);
@@ -502,6 +596,47 @@ void MeshBatch::record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* targe
                 2, static_cast<quint32>(static_cast<std::size_t>(std::max(draw.pose, 0)) *
                                         static_cast<std::size_t>(_boneStride))}};
         commandBuffer->setShaderResources(bindings, skinned ? 2 : 1, offsets.data());
+        const std::array<QRhiCommandBuffer::VertexInput, 2> inputs{
+            QRhiCommandBuffer::VertexInput(mesh.vertices.get(), 0),
+            QRhiCommandBuffer::VertexInput(mesh.skin.get(), 0)};
+        commandBuffer->setVertexInput(0, skinned ? 2 : 1, inputs.data(), mesh.indices.get(), 0,
+                                      QRhiCommandBuffer::IndexUInt32);
+        commandBuffer->drawIndexed(static_cast<quint32>(mesh.indexCount));
+    }
+}
+
+void MeshBatch::recordShadow(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target) {
+    if (!_shadowDrawable) {
+        return;
+    }
+    const QSize pixelSize = target->pixelSize();
+    const QRhiViewport viewport{0.0F, 0.0F, static_cast<float>(pixelSize.width()),
+                                static_cast<float>(pixelSize.height())};
+    const QRhiGraphicsPipeline* bound = nullptr;
+    for (std::size_t index = 0; index < _draws.size(); ++index) {
+        const Draw& draw = _draws[index];
+        // Un maillage que l'editeur grise ne jette pas d'ombre pleine : il n'en jette pas.
+        if (draw.opacity < 1.0F && !draw.lighting.castsOnly) {
+            continue;
+        }
+        GpuMesh& mesh = *draw.mesh;
+        const bool skinned = draw.pose >= 0;
+        QRhiGraphicsPipeline* const pipeline =
+            skinned ? _skinnedShadowPipeline.pipeline.get() : _shadowPipeline.pipeline.get();
+        if (pipeline != bound) {
+            commandBuffer->setGraphicsPipeline(pipeline);
+            commandBuffer->setViewport(viewport);
+            bound = pipeline;
+        }
+        const std::array<QRhiCommandBuffer::DynamicOffset, 2> offsets{
+            QRhiCommandBuffer::DynamicOffset{
+                0, static_cast<quint32>(index * static_cast<std::size_t>(_uniformStride))},
+            QRhiCommandBuffer::DynamicOffset{
+                2, static_cast<quint32>(static_cast<std::size_t>(std::max(draw.pose, 0)) *
+                                        static_cast<std::size_t>(_boneStride))}};
+        commandBuffer->setShaderResources(
+            skinned ? _skinnedShadowBindings.get() : _shadowBindings.get(), skinned ? 2 : 1,
+            offsets.data());
         const std::array<QRhiCommandBuffer::VertexInput, 2> inputs{
             QRhiCommandBuffer::VertexInput(mesh.vertices.get(), 0),
             QRhiCommandBuffer::VertexInput(mesh.skin.get(), 0)};

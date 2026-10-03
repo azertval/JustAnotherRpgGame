@@ -13,6 +13,8 @@
 #include <QWidget>
 #include <utility>
 
+#include "Core/World/WorldClock.h"
+
 namespace hmi {
 
 namespace {
@@ -54,6 +56,13 @@ std::optional<MapPropertiesChoice> askMapProperties(QWidget* parent, const QStri
     ambience->setPlaceholderText(QStringLiteral("what plays here (LOT-28)"));
     form->addRow(QStringLiteral("Ambience"), ambience);
 
+    // L'heure fixe (LOT-1007) : un sous-sol reste dans sa nuit, quelle que soit l'heure du monde.
+    auto* const hour = new QLineEdit(QString::fromStdString(current.hour), &dialog);
+    hour->setPlaceholderText(QStringLiteral("HH:MM — empty: the hour of the world"));
+    hour->setToolTip(QStringLiteral(
+        "A map with a fixed hour is always lit as at that hour: a cellar, a shrine."));
+    form->addRow(QStringLiteral("Fixed hour"), hour);
+
     auto* const state = new QComboBox(&dialog);
     state->addItem(QString::fromLatin1(NOTHING));
     for (const MapState known : knownMapStates()) {
@@ -70,7 +79,17 @@ std::optional<MapPropertiesChoice> askMapProperties(QWidget* parent, const QStri
 
     auto* const buttons =
         new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
-    QObject::connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    // Une heure mal écrite ne ferme pas le dialogue : elle se corrige, ou s'efface.
+    QObject::connect(buttons, &QDialogButtonBox::accepted, &dialog, [&dialog, hour] {
+        const std::string text = hour->text().trimmed().toStdString();
+        if (text.empty() || core::parseClockTime(text).has_value()) {
+            dialog.accept();
+            return;
+        }
+        hour->setFocus();
+        hour->selectAll();
+        hour->setToolTip(QStringLiteral("Write the hour as HH:MM (00:00 to 23:59)."));
+    });
     QObject::connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
     layout->addWidget(buttons);
 
@@ -81,6 +100,7 @@ std::optional<MapPropertiesChoice> askMapProperties(QWidget* parent, const QStri
     return MapPropertiesChoice{
         .region = region->currentText().trimmed().toStdString(),
         .ambience = ambience->text().trimmed().toStdString(),
+        .hour = hour->text().trimmed().toStdString(),
         .state = chosen >= 0 && std::cmp_less(chosen, knownMapStates().size())
                      ? knownMapStates()[static_cast<std::size_t>(chosen)]
                      : MapState::Unset};

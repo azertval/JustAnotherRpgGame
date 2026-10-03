@@ -41,8 +41,11 @@
 
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/LevelLoader.h"
+#include "Core/World/DayLight.h"
+#include "Core/World/LightSource.h"
 #include "HMI/Graphics/OffscreenRender.h"
 #include "HMI/Graphics/PlaceAppearance.h"
+#include "HMI/Graphics/SceneLighting.h"
 #include "HMI/Graphics/WorldSceneComposer.h"
 #include "HMI/Graphics/WorldSceneRenderer.h"
 
@@ -176,9 +179,20 @@ std::vector<std::string> figureModels() {
     return models;
 }
 
+/// Ce qu'une image mesurée ajoute à la scène : rien, ou la lumière du `LOT-1007`.
+enum class FrameLight {
+    /// Sans éclairage : le rendu d'avant le lot.
+    None,
+    /// Le crépuscule, sans ombres : la teinte, le soleil sur les modèles, huit lumières de nuit.
+    Lamps,
+    /// Le même, avec la carte d'ombres de 2048 texels.
+    LampsAndShadows,
+};
+
 /// Une image du jeu à 1080p sur Arenarea, cadrée sur l'avenue, avec @p modelCount modèles animés
-/// (0 : la figurine en bandes seule, la référence).
-void worldFrame(benchmark::State& state, std::size_t modelCount) {
+/// (0 : la figurine en bandes seule, la référence), sous la lumière @p light.
+void worldFrame(benchmark::State& state, std::size_t modelCount,
+                FrameLight light = FrameLight::None) {
     const std::filesystem::path elements(JADG_ELEMENTS_DIR);
     const core::LevelLoadResult map = core::LevelLoader::loadFromFile(elements / "Levels" / MAP);
     const hmi::PlaceAppearanceResult appearance =
@@ -193,9 +207,8 @@ void worldFrame(benchmark::State& state, std::size_t modelCount) {
     for (std::size_t rank = 0; rank < std::max<std::size_t>(modelCount, 1); ++rank) {
         hmi::WorldFigureSnapshot figure{.figure = "Common/Characters/Heroes/brawler",
                                         .clip = "walk",
-                                        .point = {58.5F + (1.5F * static_cast<float>(rank % 4)),
-                                                  41.5F + (2.0F * static_cast<float>(rank / 4))},
-                                        .facing = hmi::FigureFacing::SouthEast,
+                                        .point = {7.5F + (1.5F * static_cast<float>(rank % 4)),
+                                                  4.5F + (2.0F * static_cast<float>(rank / 4))},
                                         .seconds = 0.0F,
                                         .hero = rank == 0};
         if (modelCount > 0) {
@@ -214,11 +227,31 @@ void worldFrame(benchmark::State& state, std::size_t modelCount) {
         state.SkipWithError("les ressources du rendu ne se creent pas");
         return;
     }
+    // Huit lumières de nuit autour du groupe (`LOT-1007`) : le critère du lot, toutes à l'écran.
+    if (light != FrameLight::None) {
+        for (int rank = 0; rank < 8; ++rank) {
+            snapshot.lights.push_back(
+                core::LightSource{.column = 5.5F + (2.0F * static_cast<float>(rank % 4)),
+                                  .row = 3.5F + (4.0F * static_cast<float>(rank / 4)),
+                                  .emission = {.color = core::LightEmission::DEFAULT_COLOR,
+                                               .radius = 7.5F,
+                                               .height = 2.9F,
+                                               .intensity = 1.0F,
+                                               .flicker = rank % 2 == 0,
+                                               .always = true}});
+        }
+        renderer.setLighting(
+            hmi::WorldLighting{.light = core::DayLightTable::factory().sample(19.0F * 60.0F),
+                               .shadows = light == FrameLight::LampsAndShadows,
+                               .shadowSize = 2048,
+                               .seconds = 0.0F});
+    }
     renderer.setSnapshot(std::move(snapshot));
     const QSize size(1920, 1080);
     const QColor background(24, 26, 30);
+    // Le milieu de la place : la carte fait 24 × 13 cases depuis sa refonte.
     const hmi::WorldFraming framing{
-        .center = projection.gridToWorld({60.5F, 42.5F}),
+        .center = projection.gridToWorld({9.5F, 5.5F}),
         .pixelsPerUnit = hmi::worldTilePixels(1080) / projection.tileWidth()};
     // Une première image chauffe : modèles lus, textures téléversées, pipelines créés.
     benchmark::DoNotOptimize(offscreen->render(renderer, size, framing, background));
@@ -259,3 +292,16 @@ static void WorldFrameEightModels1080p(benchmark::State& state) {
     worldFrame(state, 8);
 }
 BENCHMARK(WorldFrameEightModels1080p)->Unit(benchmark::kMillisecond);
+
+/// La même image à huit modèles, **éclairée** (`LOT-1007`) : le crépuscule et huit lumières de
+/// nuit à l'écran, sans puis avec la carte d'ombres — la passe d'ombres redessine les huit modèles
+/// et les boîtes du décor, vus du soleil.
+static void WorldFrameLitEightModels1080p(benchmark::State& state) {
+    worldFrame(state, 8, FrameLight::Lamps);
+}
+BENCHMARK(WorldFrameLitEightModels1080p)->Unit(benchmark::kMillisecond);
+
+static void WorldFrameShadowedEightModels1080p(benchmark::State& state) {
+    worldFrame(state, 8, FrameLight::LampsAndShadows);
+}
+BENCHMARK(WorldFrameShadowedEightModels1080p)->Unit(benchmark::kMillisecond);

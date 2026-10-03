@@ -13,7 +13,7 @@ import Jadg.Ui
     **Trois onglets, et non six.** `EX-IHM-072` retire tout reglage inoperant, et la decision du
     14 septembre 2026 l'a garde : seuls les onglets qui portent un reglage BRANCHE sont dessines --
     General (langue, journaux), Graphismes (plein ecran, synchronisation verticale, compteur de
-    diagnostic, anticrenelage, definition du rendu), Audio (volume). Jeu, Commandes et Accessibilite reviendront avec leurs reglages.
+    diagnostic, anticrenelage, definition du rendu, ombres), Audio (volume). Jeu, Commandes et Accessibilite reviendront avec leurs reglages.
 
     **Rien ne s'ecrit avant « Appliquer ».** Les controles tiennent les valeurs en attente ; le
     jumeau les ecrit dans `OptionsModel` a « Appliquer », les abandonne a « Annuler » (qui ferme
@@ -46,6 +46,7 @@ Item {
     property alias hudScaleSlider: hudScaleControl
     property alias antialiasingBox: antialiasingControl
     property alias renderScaleBox: renderScaleControl
+    property alias shadowsBox: shadowsControl
     property alias languageBox: languageControl
     property alias saveLogsButton: saveLogsControl
 
@@ -253,7 +254,7 @@ Item {
                 PanelFrame {
                     Layout.alignment: Qt.AlignTop
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 560 * Tokens.uiScale
+                    Layout.preferredHeight: 640 * Tokens.uiScale
                     material: "parchment"
                     subpanel: true
 
@@ -341,9 +342,29 @@ Item {
                             }
                         }
 
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: Tokens.gapMedium
+
+                            Text {
+                                Layout.fillWidth: true
+                                text: qsTr("Ombres")
+                                color: Tokens.text
+                                font.family: Tokens.bodyFamily
+                                font.pixelSize: Tokens.fontBody
+                            }
+
+                            OrnateCombo {
+                                id: shadowsControl
+                                objectName: "shadowsBox"
+                                Layout.preferredWidth: 240 * Tokens.uiScale
+                                Accessible.name: qsTr("Ombres")
+                            }
+                        }
+
                         Text {
                             Layout.fillWidth: true
-                            text: qsTr("L'anticrénelage adoucit le bord des personnages et du décor. Au-delà de 100 %, le lieu est dessiné plus grand puis réduit à l'écran : l'image est plus fine, et plus coûteuse.")
+                            text: qsTr("L'anticrénelage adoucit le bord des personnages et du décor. Au-delà de 100 %, le lieu est dessiné plus grand puis réduit à l'écran : l'image est plus fine, et plus coûteuse. Les ombres suivent le soleil au fil de la journée.")
                             color: Tokens.textMuted
                             font.family: Tokens.bodyFamily
                             font.pixelSize: Tokens.fontCaption

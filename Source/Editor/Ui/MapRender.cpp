@@ -25,6 +25,8 @@
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileTypeName.h"
+#include "Core/World/DayLight.h"
+#include "Core/World/WorldClock.h"
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/CanvasPicking.h"
 #include "Editor/Logic/LayerView.h"
@@ -339,6 +341,12 @@ MapRenderFrame mapRenderFrame(const core::Rect& painted, float tileWidth,
     return frame;
 }
 
+core::DayLightTable placeDayLight(const std::filesystem::path& assetsDirectory) {
+    const core::DayLightTableResult read =
+        core::readDayLightTableFile(assetsDirectory / core::DAYLIGHT_FILE);
+    return read.ok() ? read.table : core::DayLightTable::factory();
+}
+
 QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot,
                  const MapRenderOptions& options, MapImageGrid* grid) {
     const std::shared_ptr<OffscreenRhi> offscreen = OffscreenRhi::shared();
@@ -369,6 +377,16 @@ QImage renderMap(const core::Level& level, const std::filesystem::path& dataRoot
     WorldSceneRenderer& renderer = *kept;
     renderer.setComposeOptions(WorldComposeOptions{.flatBlocks = options.plan});
     renderer.setSnapshot(std::move(snapshot));
+    // L'eclairage se regle a chaque appel : le rendu garde, lui, garde celui de l'appel d'avant.
+    // Un plan de principe ne s'eclaire pas -- il dit ce que la carte contient, pas ce qu'on y voit.
+    renderer.setLighting(
+        options.hour && !options.plan
+            ? std::optional<WorldLighting>{WorldLighting{
+                  .light = placeDayLight(dataRoot / "Assets").sample(*options.hour),
+                  .shadows = true,
+                  .shadowSize = MAP_RENDER_SHADOW_SIZE,
+                  .seconds = 0.0F}}
+            : std::nullopt);
     const IsoBandOpacity& bands = options.bands;
     renderer.setQuadOpacity([bands](const ComposedQuad& quad) { return bandOpacity(bands, quad); });
 
@@ -461,6 +479,14 @@ void applyCanvasOption(RenderCommandLine& line, const std::string& size) {
     }
 }
 
+// `--hour <HH:MM>` : l'heure a laquelle la carte est eclairee.
+void applyHourOption(RenderCommandLine& line, const std::string& value) {
+    line.options.hour = core::parseClockTime(value);
+    if (!line.options.hour) {
+        line.error = "--hour takes a time written HH:MM";
+    }
+}
+
 // `--scale <n>` : l'échelle, dans ]0, 4].
 void applyScaleOption(RenderCommandLine& line, const std::string& value) {
     bool ok = false;
@@ -491,6 +517,8 @@ void applyScaleOption(RenderCommandLine& line, const std::string& value) {
             applyCanvasOption(line, arguments[++index]);
         } else if (argument == "--scale" && hasValue) {
             applyScaleOption(line, arguments[++index]);
+        } else if (argument == "--hour" && hasValue) {
+            applyHourOption(line, arguments[++index]);
         } else if (line.render && !argument.starts_with("--")) {
             line.targets.push_back(argument);
         }

@@ -36,6 +36,7 @@
 #include <vector>
 
 #include "App/Common/Bootstrap.h"
+#include "Core/World/WorldClock.h"
 #include "Editor/Logic/CharacterWorkshop.h"
 #include "Editor/Logic/DataRoot.h"
 #include "Editor/Logic/MapFormat.h"
@@ -134,6 +135,15 @@ int main(int argc, char** argv) {
         });
     }
     window.show();
+    // `--hour=<HH:MM>` allume l'éclairage du canevas à cette heure (LOT-1007) : une carte se
+    // capture de nuit sans toucher à la barre d'outils.
+    if (const auto hour = app::commandLineOption(argc, argv, "--hour=")) {
+        if (const std::optional<float> minutes = core::parseClockTime(*hour)) {
+            window.showLightHour(*minutes);
+        } else {
+            HMI_LOG_WARNING("--hour= attend <HH:MM> : le canevas reste sans eclairage.");
+        }
+    }
     // `--workshop` ouvre l'atelier des assets au démarrage ; `--workshop=<fiche>` sur une fiche.
     if (const auto workshop = app::commandLineOption(argc, argv, "--workshop")) {
         const std::string_view sheet = workshop->starts_with('=') ? workshop->substr(1) : "";

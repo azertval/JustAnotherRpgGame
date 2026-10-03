@@ -61,7 +61,7 @@ bool ComposedScene::isVisible(const core::Rect& bounds) const {
 // true si la primitive a ete conservee, false si le culling l'a ecartee.
 bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
                               const SpriteQuad& quad, int storey, const core::Rect& occlusion,
-                              std::optional<float> footY) {
+                              std::optional<float> footY, float glow) {
     ++_considered;
     if (!isVisible(spriteQuadBounds(quad))) {
         ++_culled;
@@ -79,6 +79,7 @@ bool ComposedScene::addSprite(RenderLayer layer, TextureHandle texture, std::int
     // Dressee, elle se tient sur la ligne de son pied ; a defaut, sur le bas de son rectangle.
     composed.stance = defaultStance(layer);
     composed.footY = footY.value_or(quad.y + quad.height);
+    composed.glow = std::clamp(glow, 0.0F, 1.0F);
     _quads.push_back(composed);
     return true;
 }

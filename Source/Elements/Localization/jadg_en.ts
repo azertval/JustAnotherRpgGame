@@ -1025,145 +1025,171 @@ Speed
 <context>
     <name>Options</name>
     <message>
-        <location filename="../../App/Game/Qml/Screens/Options.qml" line="47"/>
+        <location filename="../../App/Game/Qml/Screens/Options.qml" line="48"/>
         <source>Désactivé</source>
         <translation>Off</translation>
     </message>
     <message>
-        <location filename="../../App/Game/Qml/Screens/Options.qml" line="47"/>
+        <location filename="../../App/Game/Qml/Screens/Options.qml" line="48"/>
         <source>MSAA %1×</source>
         <translation>MSAA %1×</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/Options.qml" line="52"/>
+        <source>Désactivées</source>
+        <translation>Off</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/Options.qml" line="52"/>
+        <source>Basses</source>
+        <translation>Low</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/Options.qml" line="52"/>
+        <source>Moyennes</source>
+        <translation>Medium</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/Options.qml" line="52"/>
+        <source>Hautes</source>
+        <translation>High</translation>
     </message>
 </context>
 <context>
     <name>OptionsForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="145"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="146"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="102"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="103"/>
         <source>Général</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="112"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="113"/>
         <source>Graphismes</source>
         <translation>Graphics</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="122"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="123"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="184"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="185"/>
         <source>Langue</source>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="193"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="194"/>
         <source>Langue du jeu</source>
         <translation>Game language</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="223"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="224"/>
         <source>Journaux</source>
         <translation>Logs</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="231"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="232"/>
         <source>Enregistrer les journaux de session</source>
         <translation>Save session logs</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="267"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="268"/>
         <source>Affichage</source>
         <translation>Display</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="273"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="274"/>
         <source>Plein écran</source>
         <translation>Fullscreen</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="279"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="280"/>
         <source>Synchronisation verticale</source>
         <translation>Vertical sync</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="285"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="286"/>
         <source>Appliquée au prochain lancement.</source>
         <translation>Applied on next launch.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="295"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="296"/>
         <source>Compteur de diagnostic</source>
         <translation>Diagnostics counter</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="301"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="302"/>
         <source>Rendu</source>
         <translation>Rendering</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="310"/>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="320"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="311"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="321"/>
         <source>Anticrénelage</source>
         <translation>Anti-aliasing</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="330"/>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="340"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="331"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="341"/>
         <source>Définition du rendu</source>
         <translation>Render resolution</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="346"/>
-        <source>L&apos;anticrénelage adoucit le bord des personnages et du décor. Au-delà de 100 %, le lieu est dessiné plus grand puis réduit à l&apos;écran : l&apos;image est plus fine, et plus coûteuse.</source>
-        <translation>Anti-aliasing smooths the edges of characters and scenery. Above 100%, the place is drawn larger and then scaled down to the screen: the image is finer, and more demanding.</translation>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="351"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="361"/>
+        <source>Ombres</source>
+        <translation>Shadows</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="369"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="367"/>
+        <source>L&apos;anticrénelage adoucit le bord des personnages et du décor. Au-delà de 100 %, le lieu est dessiné plus grand puis réduit à l&apos;écran : l&apos;image est plus fine, et plus coûteuse. Les ombres suivent le soleil au fil de la journée.</source>
+        <translation>Anti-aliasing smooths the edges of characters and scenery. Above 100%, the place is drawn larger and then scaled down to the screen: the image is finer, and more demanding. Shadows follow the sun through the day.</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="390"/>
         <source>Interface en jeu</source>
         <translation>In-game interface</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="372"/>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="387"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="393"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="408"/>
         <source>Taille du HUD</source>
         <translation>HUD size</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="399"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="420"/>
         <source>Ajuste les portraits, commandes et informations en exploration et en combat. La taille du terrain et des menus reste inchangée.
 Prend effet avec Appliquer et reste enregistrée.</source>
         <translation>Adjusts portraits, controls and information in exploration and combat. Terrain and menu size stay the same.
 Takes effect with Apply and remains saved.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="428"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="449"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="436"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="457"/>
         <source>Volume général</source>
         <translation>Master volume</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="493"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="514"/>
         <source>Par défaut</source>
         <translation>Defaults</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="504"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="525"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="511"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="532"/>
         <source>Appliquer</source>
         <translation>Apply</translation>
     </message>
@@ -1967,18 +1993,18 @@ Takes effect with Apply and remains saved.</translation>
 <context>
     <name>hmi::OptionsModel</name>
     <message>
-        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="199"/>
+        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="220"/>
         <source>Journaux indisponibles (build Release).</source>
         <translation>Logs unavailable (Release build).</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="219"/>
-        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="227"/>
+        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="240"/>
+        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="248"/>
         <source>Échec de l&apos;enregistrement des journaux.</source>
         <translation>Failed to save the logs.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="230"/>
+        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="251"/>
         <source>Journaux enregistrés : %1</source>
         <translation>Logs saved: %1</translation>
     </message>
@@ -1991,27 +2017,27 @@ Takes effect with Apply and remains saved.</translation>
         <translation>The starting city will not open.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="256"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="283"/>
         <source>La carte « %1 » ne s&apos;ouvre pas.</source>
         <translation>The map “%1” does not open.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="304"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="331"/>
         <source>Parler</source>
         <translation>Talk</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="305"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="332"/>
         <source>Ouvrir</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="306"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="333"/>
         <source>Lire</source>
         <translation>Read</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/WorldModel.cpp" line="307"/>
+        <location filename="../../HMI/Runtime/WorldModel.cpp" line="334"/>
         <source>Interagir</source>
         <translation>Interact</translation>
     </message>

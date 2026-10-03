@@ -20,6 +20,7 @@ QtObject {
     readonly property real heroRow: 15.5
     property string heroFigure: "Common/Characters/Heroes/brawler"
     property bool frozen: false
+    readonly property string hour: "10:00"
     readonly property string cityLocation: "central-empire-the-capital-city"
     readonly property string districtId: "central-empire-the-capital-city-martpart"
     readonly property var visitedDistricts: ["central-empire-the-capital-city-martpart"]

@@ -29,6 +29,7 @@ constexpr const char* HUD_SCALE_KEY = "hud_scale_percent";
 constexpr const char* LANGUAGE_KEY = "language";
 constexpr const char* ANTIALIASING_KEY = "antialiasing_samples";
 constexpr const char* RENDER_SCALE_KEY = "render_scale_percent";
+constexpr const char* SHADOWS_KEY = "shadow_map_size";
 
 // Les valeurs d'usine : lues par le constructeur quand aucun réglage n'est enregistré, et publiées
 // telles quelles par defaults() pour le bouton « Par défaut » des options.
@@ -47,6 +48,10 @@ constexpr int DEFAULT_RENDER_SCALE = 100;
 // Les valeurs proposees : ce que l'ecran affiche, et ce que les mutateurs acceptent.
 constexpr std::array<int, 4> ANTIALIASING_LEVELS = {1, 2, 4, 8};
 constexpr std::array<int, 4> RENDER_SCALES = {100, 125, 150, 200};
+// La carte d'ombres (LOT-1007) : 0 l'eteint ; a 2048 texels, un texel couvre moins de trois
+// centimetres du lieu a 1080p.
+constexpr int DEFAULT_SHADOWS = 2048;
+constexpr std::array<int, 4> SHADOW_SIZES = {0, 1024, 2048, 4096};
 
 // La valeur enregistree si elle est proposee, sinon la valeur d'usine : un fichier de reglages
 // retouche a la main ne doit pas demander au rendu un tampon qu'il ne sait pas creer.
@@ -77,6 +82,7 @@ OptionsModel::OptionsModel(QObject* parent) : QObject(parent) {
         storedChoice(stored, ANTIALIASING_KEY, ANTIALIASING_LEVELS, DEFAULT_ANTIALIASING);
     _renderScalePercent =
         storedChoice(stored, RENDER_SCALE_KEY, RENDER_SCALES, DEFAULT_RENDER_SCALE);
+    _shadows = storedChoice(stored, SHADOWS_KEY, SHADOW_SIZES, DEFAULT_SHADOWS);
 }
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static) : lue par QML (Q_PROPERTY).
@@ -88,7 +94,8 @@ QVariantMap OptionsModel::defaults() const {
             {QStringLiteral("hudScalePercent"), DEFAULT_HUD_SCALE},
             {QStringLiteral("language"), QLatin1String(DEFAULT_LANGUAGE)},
             {QStringLiteral("antialiasing"), DEFAULT_ANTIALIASING},
-            {QStringLiteral("renderScalePercent"), DEFAULT_RENDER_SCALE}};
+            {QStringLiteral("renderScalePercent"), DEFAULT_RENDER_SCALE},
+            {QStringLiteral("shadows"), DEFAULT_SHADOWS}};
 }
 
 void OptionsModel::setSessionLog(core::MemoryLogSink* sessionLog) noexcept {
@@ -182,6 +189,20 @@ void OptionsModel::setRenderScalePercent(int percent) {
     _renderScalePercent = percent;
     settings().setValue(QLatin1String(RENDER_SCALE_KEY), percent);
     emit renderScaleChanged();
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static) : lue par QML (Q_PROPERTY).
+QList<int> OptionsModel::shadowSizes() const {
+    return {SHADOW_SIZES.begin(), SHADOW_SIZES.end()};
+}
+
+void OptionsModel::setShadows(int texels) {
+    if (_shadows == texels || std::ranges::find(SHADOW_SIZES, texels) == SHADOW_SIZES.end()) {
+        return;
+    }
+    _shadows = texels;
+    settings().setValue(QLatin1String(SHADOWS_KEY), texels);
+    emit shadowsChanged();
 }
 
 void OptionsModel::setHudScalePercent(int percent) {

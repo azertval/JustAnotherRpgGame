@@ -20,7 +20,10 @@ add_library(Core STATIC
     World/FollowTrail.cpp
     World/ExplorationReach.cpp
     World/CombatZone.cpp
+    World/DayLight.cpp
     World/EntityPresence.cpp
+    World/LightSource.cpp
+    World/WorldClock.cpp
     Gameplay/Interaction.cpp
     Gameplay/MapEntitySpawner.cpp
     Gameplay/WorldFlags.cpp

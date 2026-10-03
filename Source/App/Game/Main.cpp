@@ -34,6 +34,7 @@
 #include "Core/Core.h"
 #include "Core/Diagnostics/MemoryLogSink.h"
 #include "Core/Levels/GridPosition.h"
+#include "Core/World/WorldClock.h"
 #include "HMI/Audio/AudioEngine.h"
 #include "HMI/Game/LaunchOptions.h"
 #include "HMI/HmiLog.h"
@@ -287,6 +288,16 @@ void applyStartState(int argc, char** argv, hmi::WorldModel& world) {
         world.setStartFlags(poses);
         HMI_LOG_INFO("Drapeaux de monde poses au lancement : " + std::to_string(poses.size()) +
                      ".");
+    }
+    // `--hour=<HH:MM>` regle l'heure du monde et la fige (LOT-1007) : la carte se capture de
+    // nuit comme de jour, sans attendre que le soir tombe.
+    if (const std::optional<std::string_view> hour =
+            app::commandLineOption(argc, argv, "--hour=")) {
+        if (const std::optional<float> minutes = core::parseClockTime(*hour)) {
+            world.setStartHour(minutes);
+        } else if (*hour != "run") {
+            HMI_LOG_WARNING("--hour= attend <HH:MM> ou run : l'heure du monde suit son cours.");
+        }
     }
 }
 

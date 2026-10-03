@@ -11,6 +11,7 @@ Rectangle {
     property color clearColor: "transparent"
     property int sampleCount: 1
     property int renderScalePercent: 100
+    property int shadowSize: 2048
 
     readonly property real tileWidth: 64
     readonly property real tileHeight: 40

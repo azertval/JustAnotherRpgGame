@@ -194,6 +194,33 @@ void WorldModel::rebuildSession() {
                                         dataDirectory() / "Assets");
     installQuests();
     applyParty();
+    // L'heure imposee au lancement vaut pour chaque partie : la session neuve la reprend.
+    if (_startHour) {
+        _play->session().clock().setMinutes(*_startHour);
+        _play->session().clock().setRunning(false);
+    }
+}
+
+void WorldModel::setStartHour(std::optional<float> minutes) {
+    _startHour = minutes;
+    core::WorldClock& clock = _play->session().clock();
+    if (minutes) {
+        clock.setMinutes(*minutes);
+    }
+    clock.setRunning(!minutes.has_value());
+    if (const QString now = hour(); now != _shownHour) {
+        _shownHour = now;
+        emit hourChanged();
+    }
+    emit figuresChanged();  // la lumiere a change : l'image se redessine
+}
+
+float WorldModel::lightMinutes() const {
+    return _play->session().shownMinutes();
+}
+
+QString WorldModel::hour() const {
+    return QString::fromStdString(core::formatClockTime(_play->session().clock().minutes()));
 }
 
 void WorldModel::endGame() {
@@ -323,6 +350,11 @@ void WorldModel::step() {
 
     const auto previousFacing = _play->session().facing();
     const WorldPlayStep pas = _play->step(intention, seconds);
+    _lightSeconds += seconds;
+    if (const QString now = hour(); now != _shownHour) {
+        _shownHour = now;
+        emit hourChanged();
+    }
     if (!pas.heroMoved && previousFacing != _play->session().facing()) {
         emit interactionChanged();
     }

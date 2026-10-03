@@ -1,6 +1,6 @@
 # Core · World
 
-Tests unitaires — **67 cas** (1 bloquant, 33 critiques, 30 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **74 cas** (7 bloquants, 33 critiques, 31 majeurs, 3 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -16,6 +16,7 @@ Tests unitaires — **67 cas** (1 bloquant, 33 critiques, 30 majeurs, 3 mineurs)
 | [`test_exploration_session.cpp`](#test-exploration-sessioncpp) | 7 | - | 4 | 3 | - |
 | [`test_quest_map_features.cpp`](#test-quest-map-featurescpp) | 7 | - | 4 | 3 | - |
 | [`test_world_graph.cpp`](#test-world-graphcpp) | 10 | - | 5 | 4 | 1 |
+| [`test_world_light.cpp`](#test-world-lightcpp) | 7 | 6 | - | 1 | - |
 | [`test_world_travel.cpp`](#test-world-travelcpp) | 7 | - | 4 | 3 | - |
 
 ## Exigences vérifiées par cette page
@@ -1242,6 +1243,220 @@ Un dossier absent donne un graphe vide.
 - `EXPECT_NO_THROW(graphe = core::loadWorldGraph(dir / "inexistant"))`
 - Vérifie que `graphe.maps.empty()` est vrai.
 - Vérifie que `graphe.portals.empty()` est vrai.
+
+## test_world_light.cpp
+
+### WorldClockTest.LHeureAvancePasseMinuitEtSeFige
+
+*Bloquant · Unitaire · Monde · Heure* — `Source/Test/Unit/Core/World/test_world_light.cpp:35`
+
+L'heure du monde avance, passe minuit et se fige.
+
+**Étapes**
+
+1. Lire l'heure d'une horloge neuve.
+2. Faire passer soixante secondes, puis quatorze minutes réelles.
+3. Lui donner une durée négative, puis non finie.
+4. La figer, faire passer une heure réelle, la relancer.
+
+**Résultat attendu**
+
+- Vérifie que `clock.minutes()` vaut `600.0F` (comparaison flottante).
+- Vérifie que `clock.day()` vaut `0`.
+- Vérifie que `clock.hours()` vaut `11.0F` (comparaison flottante).
+- Vérifie que `clock.hours()` vaut `1.0F` (comparaison flottante).
+- Vérifie que `clock.day()` vaut `1`.
+- Vérifie que `clock.hours()` vaut `1.0F` (comparaison flottante).
+- Vérifie que `clock.hours()` vaut `1.0F` (comparaison flottante).
+- Vérifie que `clock.hours()` vaut `2.0F` (comparaison flottante).
+
+### WorldClockTest.UneHeureSEcritEtSeRelit
+
+*Majeur · Unitaire · Monde · Heure* — `Source/Test/Unit/Core/World/test_world_light.cpp:73`
+
+Une heure s'ecrit et se relit HH:MM.
+
+**Étapes**
+
+1. Lire `21:30`, `7:05`, `9`, puis `24:00`, `12:60`, `12:5`, `midi` et un texte vide.
+2. Écrire 1290 minutes, puis 1445 et −30.
+3. Régler une horloge à 1500 minutes.
+
+**Résultat attendu**
+
+- Vérifie que `core::parseClockTime("21:30")` vaut `std::optional<float>{1290.0F}`.
+- Vérifie que `core::parseClockTime("7:05")` vaut `std::optional<float>{425.0F}`.
+- Vérifie que `core::parseClockTime("9")` vaut `std::optional<float>{540.0F}`.
+- Vérifie que `core::parseClockTime(wrong).has_value()` est faux.
+- Vérifie que `core::formatClockTime(1290.0F)` vaut `"21:30"`.
+- Vérifie que `core::formatClockTime(1445.0F)` vaut `"00:05"`.
+- Vérifie que `core::formatClockTime(-30.0F)` vaut `"23:30"`.
+- Vérifie que `clock.hours()` vaut `1.0F` (comparaison flottante).
+- Vérifie que `clock.day()` vaut `0`.
+
+### DayLightTest.LaTableInterpoleEtPasseMinuit
+
+*Bloquant · Unitaire · Monde · Lumière du jour* — `Source/Test/Unit/Core/World/test_world_light.cpp:104`
+
+La table de lumiere interpole entre ses cles et passe minuit.
+
+**Étapes**
+
+1. Bâtir une table de deux clés : 06:00 (teinte noire, lampes à 1) et 18:00 (teinte blanche, lampes à 0).
+2. La lire à 06:00, 12:00, 18:00, puis à 00:00.
+3. Lire la table d'usine à midi et à minuit.
+4. Lire une table vide.
+
+**Résultat attendu**
+
+- Vérifie que `table.keys().size()` vaut `2U`.
+- Vérifie que `table.keys().front().minutes` vaut `360.0F` (comparaison flottante).
+- Vérifie que `table.sample(360.0F).tint.r` vaut `0.0F` (comparaison flottante).
+- Vérifie que `table.sample(1080.0F).tint.r` vaut `1.0F` (comparaison flottante).
+- Vérifie que `table.sample(720.0F).tint.r` vaut `0.5F`, à `1e-5F` près.
+- Vérifie que `table.sample(720.0F).lamps` vaut `0.5F`, à `1e-5F` près.
+- Vérifie que `table.sample(720.0F).shadow` vaut `0.2F`, à `1e-5F` près.
+- Vérifie que `table.sample(0.0F).tint.r` vaut `0.5F`, à `1e-5F` près.
+- Vérifie que `table.sample(1440.0F).tint.r` vaut `0.5F`, à `1e-5F` près.
+- Vérifie que `noon.tint` vaut `(core::LightColor{.r = 1.0F, .g = 1.0F, .b = 1.0F})`.
+- Vérifie que `noon.lamps` vaut `0.0F` (comparaison flottante).
+- Vérifie que `length(noon.toSun)` vaut `1.0F`, à `1e-5F` près.
+- Vérifie que `noon.toSun[1]` est strictement supérieur à `0.5F`.
+- Vérifie que `noon.toSun[0]` est strictement inférieur à `0.0F`.
+- Vérifie que `midnight.tint.r` est strictement inférieur à `0.6F`.
+- Vérifie que `midnight.tint.b` est strictement supérieur à `midnight.tint.r`.
+- Vérifie que `midnight.lamps` vaut `1.0F` (comparaison flottante).
+- Vérifie que `core::DayLightTable{}.sample(300.0F)` vaut `core::DayLight{}`.
+
+### DayLightTest.LaLumiereNeSautePas
+
+*Bloquant · Unitaire · Monde · Lumière du jour* — `Source/Test/Unit/Core/World/test_world_light.cpp:167`
+
+La lumiere du jour ne saute pas d'une minute a l'autre.
+
+**Étapes**
+
+1. Lire la table d'usine à chaque minute du jour, et à la minute suivante.
+2. Comparer la teinte, l'ambiance, l'allumage des lampes et la lumière dirigée que reçoit une face tournée vers le haut.
+
+**Résultat attendu**
+
+- Vérifie que `now.tint.r` vaut `next.tint.r`, à `0.04F` près.
+- Vérifie que `now.tint.b` vaut `next.tint.b`, à `0.04F` près.
+- Vérifie que `now.ambient.g` vaut `next.ambient.g`, à `0.04F` près.
+- Vérifie que `now.lamps` vaut `next.lamps`, à `0.04F` près.
+- Vérifie que `upward(now)` vaut `upward(next)`, à `0.04F` près.
+
+### DayLightTest.LaTableLivreeSeLitEtUneFausseEstRefusee
+
+*Bloquant · Unitaire · Monde · Lumière du jour* — `Source/Test/Unit/Core/World/test_world_light.cpp:194`
+
+La table livree se lit, et une table fausse est refusee.
+
+**Étapes**
+
+1. Lire `Assets/Common/Lighting/daylight.json`.
+2. Lire un fichier absent, une table sans clé, une clé sans heure, une couleur fausse, une élévation nulle, une ombre hors de [0, 1], deux clés à la même heure.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `read.table.keys().size()` vaut `expected.size()`.
+- Vérifie que `one.minutes` vaut `expected[index].minutes` (comparaison flottante).
+- Vérifie que `one.tint.r` vaut `expected[index].tint.r`, à `1e-5F` près.
+- Vérifie que `one.ambient.g` vaut `expected[index].ambient.g`, à `1e-5F` près.
+- Vérifie que `one.sun.b` vaut `expected[index].sun.b`, à `1e-5F` près.
+- Vérifie que `one.azimuth` vaut `expected[index].azimuth` (comparaison flottante).
+- Vérifie que `one.elevation` vaut `expected[index].elevation` (comparaison flottante).
+- Vérifie que `one.shadow` vaut `expected[index].shadow`, à `1e-5F` près.
+- Vérifie que `one.lamps` vaut `expected[index].lamps`, à `1e-5F` près.
+- Vérifie que `core::readDayLightTableFile("absent/daylight.json").ok()` est faux.
+- Vérifie que `table(R"({"time":"12:00",)" + good + "}").ok()` est vrai.
+- Vérifie que `core::readDayLightTable(R"({"version":1})").ok()` est faux.
+- Vérifie que `table("").ok()` est faux.
+- Vérifie que `table("{" + good + "}").ok()` est faux.
+- Vérifie que `table(R"({"time":"12:00","tint":"blanc","ambient":"#999999","sun":"#808080",)" R"("azimuth":45,"elevation":58,"shadow":0.3,"lamps":0})") .ok()` est faux.
+- Vérifie que `table(R"({"time":"12:00","tint":"#ffffff","ambient":"#999999","sun":"#808080",)" R"("azimuth":45,"elevation":0,"shadow":0.3,"lamps":0})") .ok()` est faux.
+- Vérifie que `table(R"({"time":"12:00","tint":"#ffffff","ambient":"#999999","sun":"#808080",)" R"("azimuth":45,"elevation":58,"shadow":1.5,"lamps":0})") .ok()` est faux.
+- Vérifie que `table(R"({"time":"12:00",)" + good + R"(},{"time":"12:00",)" + good + "}").ok()` est faux.
+- Vérifie que `core::readDayLightTable(R"({"version":99,"keys":[]})").ok()` est faux.
+
+### LightSourceTest.UneEntiteLightDonneUneSource
+
+*Bloquant · Unitaire · Monde · Sources de lumière* — `Source/Test/Unit/Core/World/test_world_light.cpp:248`
+
+Une entite light donne une source de lumiere.
+
+**Étapes**
+
+1. Lire la famille `light` de la table des familles d'entités.
+2. Poser une lumière en (4, 2) : couleur `#80c0ff`, portée 6 cases, hauteur 30 dm, intensité 150 %, tremblante, toujours allumée.
+3. En poser une sans propriété, puis une aux valeurs hors bornes et mal typées.
+4. Demander la source d'un coffre.
+
+**Résultat attendu**
+
+- Vérifie que `kind` diffère de `nullptr`.
+- Vérifie que `kind->shape` vaut `core::EntityShape::Point`.
+- Vérifie que `kind->find(key)` diffère de `nullptr`.
+- Vérifie que `source.has_value()` est vrai.
+- Vérifie que `source->column` vaut `4.5F` (comparaison flottante).
+- Vérifie que `source->row` vaut `2.5F` (comparaison flottante).
+- Vérifie que `source->emission.radius` vaut `9.0F` (comparaison flottante).
+- Vérifie que `source->emission.height` vaut `3.0F` (comparaison flottante).
+- Vérifie que `source->emission.intensity` vaut `1.5F` (comparaison flottante).
+- Vérifie que `source->emission.color.r` vaut `128.0F / 255.0F`, à `1e-5F` près.
+- Vérifie que `source->emission.color.b` vaut `1.0F` (comparaison flottante).
+- Vérifie que `source->emission.flicker` est vrai.
+- Vérifie que `source->emission.always` est vrai.
+- Vérifie que `bare.has_value()` est vrai.
+- Vérifie que `bare->emission.radius` vaut `6.0F` (comparaison flottante).
+- Vérifie que `bare->emission.height` vaut `2.2F` (comparaison flottante).
+- Vérifie que `bare->emission.intensity` vaut `1.0F` (comparaison flottante).
+- Vérifie que `bare->emission.flicker` est faux.
+- Vérifie que `bare->emission.always` est faux.
+- Vérifie que `wrong.has_value()` est vrai.
+- Vérifie que `wrong->emission.color` vaut `core::LightEmission::DEFAULT_COLOR`.
+- Vérifie que `wrong->emission.radius` vaut `24.0F` (comparaison flottante).
+- Vérifie que `wrong->emission.height` vaut `2.2F` (comparaison flottante).
+- Vérifie que `wrong->emission.intensity` vaut `0.1F` (comparaison flottante).
+- Vérifie que `core::lightSourceOf(core::MapEntity{.type = "chest", .position = {}}).has_value()` est faux.
+
+### LightSourceTest.UnePieceDuManifesteDeclareSaLumiere
+
+*Bloquant · Unitaire · Monde · Sources de lumière* — `Source/Test/Unit/Core/World/test_world_light.cpp:323`
+
+Une piece du manifeste declare sa lumiere et son eclat.
+
+**Étapes**
+
+1. Lire un manifeste de trois pièces : un lampadaire (`light` complet), un brasero (`light` vide, `glow` à 0,8), un mur (ni l'un ni l'autre).
+2. Lire un lampadaire dont la portée dépasse la borne et dont la couleur est fausse.
+
+**Résultat attendu**
+
+- Vérifie que `read.ok()` est vrai.
+- Vérifie que `lamppost` diffère de `nullptr`.
+- Vérifie que `lamppost->light.has_value()` est vrai.
+- Vérifie que `lamppost->light->radius` vaut `7.5F` (comparaison flottante).
+- Vérifie que `lamppost->light->height` vaut `3.2F` (comparaison flottante).
+- Vérifie que `lamppost->light->color.g` vaut `208.0F / 255.0F`, à `1e-5F` près.
+- Vérifie que `lamppost->light->flicker` est faux.
+- Vérifie que `lamppost->glow` vaut `0.0F` (comparaison flottante).
+- Vérifie que `brazier` diffère de `nullptr`.
+- Vérifie que `brazier->light.has_value()` est vrai.
+- Vérifie que `*brazier->light` vaut `core::LightEmission{}`.
+- Vérifie que `brazier->glow` vaut `0.8F` (comparaison flottante).
+- Vérifie que `wall` diffère de `nullptr`.
+- Vérifie que `wall->light.has_value()` est faux.
+- Vérifie que `wall->glow` vaut `0.0F` (comparaison flottante).
+- Vérifie que `beacon` diffère de `nullptr`.
+- Vérifie que `beacon->light.has_value()` est vrai.
+- Vérifie que `beacon->light->radius` vaut `24.0F` (comparaison flottante).
+- Vérifie que `beacon->light->color` vaut `core::LightEmission::DEFAULT_COLOR`.
+- Vérifie que `beacon->light->flicker` est vrai.
+- Vérifie que `beacon->light->always` est vrai.
+- Vérifie que `beacon->glow` vaut `1.0F` (comparaison flottante).
 
 ## test_world_travel.cpp
 

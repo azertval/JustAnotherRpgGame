@@ -31,6 +31,7 @@
 
 #include "Editor/Logic/CharacterPreview.h"
 #include "Editor/Logic/MapFormat.h"
+#include "Editor/Ui/MapRender.h"
 #include "Editor/Ui/SceneSurface.h"
 #include "HMI/HmiLog.h"
 
@@ -106,6 +107,8 @@ struct AssetWorkshop::Widgets {
     QVBoxLayout* previewHost = nullptr;
     QComboBox* clip = nullptr;
     QCheckBox* play = nullptr;
+    /// L'heure de l'aperçu (`LOT-1007`) : « Unlit », ou l'une des quatre heures du lot.
+    QComboBox* hour = nullptr;
 };
 
 AssetWorkshop::AssetWorkshop(std::filesystem::path dataRoot, QWidget* parent)
@@ -299,7 +302,20 @@ QWidget* AssetWorkshop::buildPreviewColumn() {
     controls->addWidget(_w->clip, 1);
     controls->addWidget(_w->play);
     controls->addWidget(turn);
+    // L'heure de l'aperçu (LOT-1007) : un modèle se juge éclairé, à midi comme de nuit. La
+    // donnée de chaque entrée est l'heure en minutes ; négative, l'aperçu est sans éclairage.
+    _w->hour = new QComboBox(column);
+    _w->hour->addItem(QStringLiteral("Noon"), 720.0);
+    _w->hour->addItem(QStringLiteral("Dawn"), 390.0);
+    _w->hour->addItem(QStringLiteral("Dusk"), 1140.0);
+    _w->hour->addItem(QStringLiteral("Night"), 0.0);
+    _w->hour->addItem(QStringLiteral("Unlit"), -1.0);
+    _w->hour->setToolTip(
+        QStringLiteral("The hour the preview is lit at, as the game lights the character."));
+    controls->addWidget(new QLabel(QStringLiteral("Light"), column));
+    controls->addWidget(_w->hour);
     rows->addLayout(controls);
+    connect(_w->hour, &QComboBox::currentIndexChanged, this, [this] { refreshPreview(); });
     connect(turn, &QPushButton::clicked, this, [this] {
         _quarterTurns = (_quarterTurns + 1) % 4;
         refreshPreview();
@@ -688,6 +704,15 @@ void AssetWorkshop::refreshPreview() {
                                     .seconds = characterPreviewSeconds(declared, _heldSeconds),
                                     .quarterTurns = _quarterTurns};
     _surface->renderer().setSnapshot(characterPreviewScene(view));
+    // La lumière de l'heure choisie, celle de la table du contenu (LOT-1007).
+    const auto minutes = static_cast<float>(_w->hour->currentData().toDouble());
+    _surface->renderer().setLighting(
+        minutes >= 0.0F ? std::optional<WorldLighting>{WorldLighting{
+                              .light = placeDayLight(_dataRoot / "Assets").sample(minutes),
+                              .shadows = true,
+                              .shadowSize = 2048,
+                              .seconds = _heldSeconds}}
+                        : std::nullopt);
     _surface->renderer().setFraming(characterPreviewFraming(_surface->height()));
     _surface->update();
 }

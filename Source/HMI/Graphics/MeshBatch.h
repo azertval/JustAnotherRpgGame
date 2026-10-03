@@ -5,6 +5,7 @@
 
 #include <array>
 #include <cstddef>
+#include <cstdint>
 #include <memory>
 #include <span>
 #include <vector>
@@ -13,6 +14,7 @@
 
 #include "Core/Resources/MeshFile.h"
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/SceneLighting.h"
 #include "HMI/Graphics/TextureLoader.h"
 
 class QRhi;
@@ -63,6 +65,22 @@ struct RhiContext;
  * un maillage lié reste dans sa pose de liaison, par le pipeline des maillages fixes. Un maillage
  * fixe ne passe jamais par le second pipeline : son image est celle d'avant le lot.
  */
+class LightingBlock;
+
+/**
+ * @brief Ce qu'un dessin donne à l'éclairage (`LOT-1007`). La valeur d'usine — des matrices
+ *        nulles, sous le bloc d'éclairage neutre — est le dessin d'avant le lot.
+ */
+struct MeshLighting {
+    /// Du repère du maillage à celui de la vue : la position et la normale éclairées.
+    LightMatrix toView{};
+    /// Du repère du maillage au clip de la carte d'ombres.
+    LightMatrix toShadowClip{};
+    /// Vrai : le maillage ne paraît pas à l'image, il n'y fait que porter son ombre — la boîte
+    /// d'une pièce de décor en image (`hmi::WorldShadowBox`).
+    bool castsOnly = false;
+};
+
 class MeshBatch {
 public:
     /// @param rhi Interface de rendu, non possédée ; doit survivre à l'objet.
@@ -90,6 +108,10 @@ public:
     /// Libère tous les maillages chargés ; leurs identités ne valent plus.
     void clear() noexcept;
 
+    /// @brief Libère le maillage @p mesh ; son identité ne vaut plus. Sans effet pour une identité
+    ///        nulle ou inconnue. À appeler hors de toute image enregistrée.
+    void destroy(MeshHandle mesh) noexcept;
+
     /// @return Les octets de mémoire graphique que tiennent les maillages chargés : tampons,
     ///         textures et leurs mipmaps.
     [[nodiscard]] std::size_t bytes() const noexcept {
@@ -107,9 +129,18 @@ public:
      * @param bones   La pose d'un maillage animé : seize flottants par os (`core::poseSkeleton`).
      *                Vide, ou d'une taille qui n'est pas celle du squelette du maillage : il se
      *                dessine dans sa pose de liaison.
+     * @param lighting Ce que le dessin donne à l'éclairage (`MeshLighting`) : sa pose dans la vue,
+     *                sa projection dans la carte d'ombres. La valeur d'usine, sous le bloc
+     *                d'éclairage neutre, est le dessin d'avant le `LOT-1007`.
      */
     void draw(MeshHandle mesh, const DirectX::XMFLOAT4X4& clip, float opacity = 1.0F,
-              std::span<const float> bones = {});
+              std::span<const float> bones = {}, const MeshLighting& lighting = {});
+
+    /**
+     * @brief Lie le bloc d'éclairage @p lighting aux pipelines (`LOT-1007`) ; `nullptr` : le bloc
+     *        neutre du lot. Le bloc doit vivre aussi longtemps qu'il est lié.
+     */
+    void setLighting(LightingBlock* lighting);
 
     /// @return Le nombre de dessins **animés** enregistrés pour l'image en cours.
     [[nodiscard]] std::size_t skinnedDrawCount() const noexcept {
@@ -131,7 +162,21 @@ public:
                                                    QRhiResourceUpdateBatch* updates);
 
     /// @brief Émet les appels de dessin de l'image préparée, dans la passe ouverte par l'appelant.
+    ///        Un dessin qui ne fait que porter une ombre (`MeshLighting::castsOnly`) n'y paraît
+    ///        pas.
     void record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target);
+
+    /**
+     * @brief Prépare la **passe d'ombres** (`LOT-1007`, `EX-REN-054`) de l'image enregistrée :
+     *        ses pipelines,
+     *        pour la cible @p target de la carte d'ombres. À appeler après `prepare`.
+     * @return Vrai s'il y a quelque chose à y dessiner.
+     */
+    [[nodiscard]] bool prepareShadow(QRhiRenderTarget* target);
+
+    /// @brief Émet les dessins de la passe d'ombres, dans la passe ouverte par l'appelant sur la
+    ///        carte d'ombres : chaque maillage enregistré, vu du soleil, profondeur seule.
+    void recordShadow(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target);
 
 private:
     /// Un maillage sur le GPU.
@@ -152,6 +197,14 @@ private:
         std::unique_ptr<QRhiShaderResourceBindings> skinnedBindings;
     };
 
+    /// Les quatre pipelines : fixe ou animé, à l'image ou à la carte d'ombres.
+    struct Pipeline {
+        std::unique_ptr<QRhiGraphicsPipeline> pipeline;
+        /// La passe et le nombre d'échantillons de la cible pour laquelle il a été construit.
+        QRhiRenderPassDescriptor* pass = nullptr;
+        int samples = 1;
+    };
+
     /// Un dessin enregistré : un maillage, sa matrice, sa teinte.
     struct Draw {
         GpuMesh* mesh = nullptr;
@@ -159,10 +212,21 @@ private:
         float opacity = 1.0F;
         /// Le rang de sa pose parmi les dessins animés de l'image ; -1 : pose de liaison.
         int pose = -1;
+        MeshLighting lighting{};
     };
 
-    bool ensurePipeline(QRhiRenderTarget* target);
-    bool ensureSkinnedPipeline(QRhiRenderTarget* target);
+    /// Garantit le pipeline @p kept pour la cible @p target : fixe ou animé (@p skinned), à
+    /// l'image ou à la carte d'ombres (@p shadow).
+    bool ensurePipeline(Pipeline& kept, QRhiRenderTarget* target, bool skinned, bool shadow);
+    /// Garantit les liaisons de référence et celles de la passe d'ombres.
+    bool ensureLayouts(bool skinned);
+    /// Oublie toutes les liaisons : le tampon uniforme, le bloc d'os ou le bloc d'éclairage
+    /// qu'elles citent a changé.
+    void resetBindings(bool skinnedOnly);
+    /// @return Le bloc d'éclairage lié : celui de l'appelant, sinon le bloc neutre du lot.
+    [[nodiscard]] LightingBlock* lighting() const noexcept {
+        return _lighting != nullptr ? _lighting : _ownLighting.get();
+    }
     bool ensureUniformCapacity(std::size_t drawCount);
     bool ensureBoneCapacity(std::size_t poseCount);
     QRhiShaderResourceBindings* bindingsFor(GpuMesh& mesh);
@@ -171,20 +235,28 @@ private:
     QRhi* _rhi;  // non possédé
     std::unique_ptr<QRhiSampler> _sampler;
     std::unique_ptr<QRhiBuffer> _uniformBuffer;
+    /// Le bloc d'éclairage neutre du lot, lié tant que l'appelant n'en donne pas un autre.
+    std::unique_ptr<LightingBlock> _ownLighting;
+    /// Le bloc de l'appelant (`setLighting`), non possédé ; `nullptr` : le bloc neutre.
+    LightingBlock* _lighting = nullptr;
+    /// La révision du bloc lié pour laquelle les liaisons ont été faites.
+    std::uint64_t _lightingRevision = 0;
     std::unique_ptr<QRhiShaderResourceBindings> _layoutBindings;
-    std::unique_ptr<QRhiGraphicsPipeline> _pipeline;
-    QRhiRenderPassDescriptor* _pipelinePass = nullptr;
-    /// Nombre d'échantillons de la cible pour laquelle `_pipeline` a été construit.
-    int _pipelineSamples = 1;
+    Pipeline _pipeline;
+    /// La passe d'ombres des maillages fixes : ses liaisons — le bloc du dessin, rien d'autre —
+    /// valent pour tous les maillages.
+    std::unique_ptr<QRhiShaderResourceBindings> _shadowBindings;
+    Pipeline _shadowPipeline;
     std::size_t _uniformSlots = 0;
     int _uniformStride = 0;
     /// Le pipeline des maillages animés, son tampon d'os (un bloc de `MAX_BONES` matrices par
     /// dessin animé) et ses liaisons de référence.
     std::unique_ptr<QRhiBuffer> _boneBuffer;
     std::unique_ptr<QRhiShaderResourceBindings> _skinnedLayoutBindings;
-    std::unique_ptr<QRhiGraphicsPipeline> _skinnedPipeline;
-    QRhiRenderPassDescriptor* _skinnedPipelinePass = nullptr;
-    int _skinnedPipelineSamples = 1;
+    Pipeline _skinnedPipeline;
+    /// La passe d'ombres des maillages animés : le bloc du dessin et le bloc d'os.
+    std::unique_ptr<QRhiShaderResourceBindings> _skinnedShadowBindings;
+    Pipeline _skinnedShadowPipeline;
     std::size_t _boneSlots = 0;
     int _boneStride = 0;
     /// Les poses de l'image : `MAX_BONES` matrices par dessin animé, l'identité au-delà du
@@ -195,6 +267,8 @@ private:
     std::size_t _bytes = 0;
     std::vector<Draw> _draws;
     bool _drawable = false;
+    /// La passe d'ombres a de quoi dessiner (`prepareShadow`, lu par `recordShadow`).
+    bool _shadowDrawable = false;
 };
 
 }  // namespace hmi

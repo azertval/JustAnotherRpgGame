@@ -1,0 +1,20 @@
+{
+    "version": 1,
+    "comment": "La lumiere du jour (LOT-1007) : une cle par heure remarquable, interpolee entre deux. tint : ce par quoi une image est multipliee ; ambient et sun : la lumiere d'un maillage ; azimuth et elevation : d'ou vient la lumiere dirigee, en degres (0 = gauche de l'ecran, 45 = haut a gauche, 90 = fond, -90 = devant) ; shadow : ce qu'une ombre portee retire a une image ; lamps : l'allumage des lumieres de nuit. La lumiere dirigee est le soleil de 05:31 a 20:30, la lune le reste du temps. Une face tournee vers le haut recoit la teinte des images : ambient + sun x (sin(elevation) + 0,3) / 1,3 = tint.",
+    "keys": [
+        {"time": "00:00", "tint": "#7684be", "ambient": "#5b699e", "sun": "#1f212c", "azimuth": -15, "elevation": 50, "shadow": 0.2, "lamps": 1.0},
+        {"time": "04:30", "tint": "#7684be", "ambient": "#606ea5", "sun": "#1f212c", "azimuth": 20, "elevation": 35, "shadow": 0.2, "lamps": 1.0},
+        {"time": "05:30", "tint": "#8e90ba", "ambient": "#8c90ba", "sun": "#000000", "azimuth": 30, "elevation": 25, "shadow": 0.0, "lamps": 1.0},
+        {"time": "05:31", "tint": "#8e90ba", "ambient": "#8c90ba", "sun": "#000000", "azimuth": -165, "elevation": 4, "shadow": 0.0, "lamps": 1.0},
+        {"time": "06:30", "tint": "#f4cdb4", "ambient": "#c4a99b", "sun": "#735c4b", "azimuth": -160, "elevation": 12, "shadow": 0.22, "lamps": 0.5},
+        {"time": "08:00", "tint": "#fff2e0", "ambient": "#aaa8a5", "sun": "#867968", "azimuth": -120, "elevation": 30, "shadow": 0.32, "lamps": 0.0},
+        {"time": "10:00", "tint": "#fffaf0", "ambient": "#999da2", "sun": "#867d70", "azimuth": -60, "elevation": 42, "shadow": 0.35, "lamps": 0.0},
+        {"time": "12:00", "tint": "#ffffff", "ambient": "#9199a5", "sun": "#868077", "azimuth": 0, "elevation": 48, "shadow": 0.36, "lamps": 0.0},
+        {"time": "16:00", "tint": "#fff6e6", "ambient": "#9c9d9d", "sun": "#867b6b", "azimuth": 50, "elevation": 40, "shadow": 0.34, "lamps": 0.0},
+        {"time": "18:30", "tint": "#ffd9a8", "ambient": "#c1a989", "sun": "#866c4e", "azimuth": 80, "elevation": 16, "shadow": 0.3, "lamps": 0.2},
+        {"time": "19:45", "tint": "#d8a6a4", "ambient": "#bc9498", "sun": "#4f3a35", "azimuth": 95, "elevation": 6, "shadow": 0.14, "lamps": 0.8},
+        {"time": "20:30", "tint": "#9a92bc", "ambient": "#9892bc", "sun": "#000000", "azimuth": 100, "elevation": 3, "shadow": 0.0, "lamps": 1.0},
+        {"time": "20:31", "tint": "#9a92bc", "ambient": "#9892bc", "sun": "#000000", "azimuth": -40, "elevation": 25, "shadow": 0.0, "lamps": 1.0},
+        {"time": "22:00", "tint": "#7684be", "ambient": "#5d6ba2", "sun": "#1f212c", "azimuth": -30, "elevation": 42, "shadow": 0.2, "lamps": 1.0}
+    ]
+}

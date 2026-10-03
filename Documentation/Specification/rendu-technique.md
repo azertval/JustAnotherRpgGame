@@ -130,6 +130,46 @@ avoir un mode où **rien** ne vient d'un fichier : ni sol, ni mur, ni figurine.
   rendu : il est remplacé par un **repli visible** (damier, ou marqueur généré pour une figurine) et
   journalisé une fois avec le **nom du fichier** (`EX-NFR-040`).
 
+### La lumière du lieu (`LOT-1007`)
+
+- **EX-REN-052** — Le lieu doit être **éclairé à l'heure du monde** (`EX-EXP-015`). Ce que
+  l'heure fait de la lumière se lit dans une **table en données**
+  (`Assets/Common/Lighting/daylight.json`, `core::DayLightTable`) : des clés d'heure, interpolées
+  en ligne droite, la dernière du jour rejoignant la première du lendemain. La lumière ne
+  **saute** pas : d'une minute à la suivante, aucune de ses composantes ne bouge de plus de
+  quatre centièmes. Un rendu auquel on ne règle **aucun éclairage** dessine comme avant le lot, au
+  pixel : c'est celui d'une vignette, d'un plan, d'un test qui ne s'occupe pas de lumière.
+- **EX-REN-053** — Un **maillage** reçoit une **ambiance** et une lumière **dirigée** — le
+  soleil le jour, la lune la nuit — selon sa normale ; une **image** de scène, qui n'a pas de
+  normale, est multipliée par la **teinte de l'heure** et garde la lumière qu'on lui a peinte. À
+  midi cette teinte est blanche : une image est alors telle que peinte, et la lumière **modèle**
+  un maillage sans changer sa teinte. La table tient `ambient + sun × (sin(élévation) + 0,3) / 1,3`
+  égal à `tint` : un sol en maillage et un sol en image posés côte à côte ont la même lumière.
+- **EX-REN-054** — La lumière dirigée jette des **ombres portées**, par une **carte
+  d'ombres** unique vue du soleil. Y portent leur ombre les **maillages** — personnages compris —
+  et, pour chaque pièce de décor en **image**, la **boîte** de son emprise, haute et large comme
+  son image (`hmi::WorldShadowBox`). La reçoivent les maillages et le **sol** ; une image dressée
+  ne la reçoit pas. Le centre de la carte est calé sur ses texels : les bords d'ombre ne frémissent
+  pas quand la caméra suit le héros. Le joueur règle sa finesse ou l'éteint (`EX-IHM-083`).
+- **EX-REN-055** — Les **lumières de nuit** éclairent autour d'elles, selon la distance, et un
+  maillage selon sa normale. Une source se déclare par la **pièce** qui la porte (champ `light` du
+  manifeste de son kit) ou par une **entité** `light` de la carte (`EX-EDIT-106`). Elles
+  s'allument avec le champ `lamps` de la table, sauf celles déclarées **toujours allumées** ; une
+  **flamme** tremble. Une image éclaire au plus **seize** sources, les plus proches de son centre.
+  Les lampes ne s'ajoutent pas à la lumière du jour : elles comblent ce qui lui manque, et un sol
+  clair sous deux lanternes ne brûle pas.
+- **EX-REN-056** — La lumière ne doit jamais coûter la **lisibilité** : une marque
+  d'interface, un jeton, une aide d'édition ne reçoivent ni teinte ni ombre ; un **effet** garde
+  son éclat ; une pièce peut déclarer ce qu'elle en garde (champ `glow`, une flamme). La luminance
+  moyenne d'une image de **nuit** dépasse le tiers de celle de midi.
+  > **Mise en œuvre (`LOT-1007`).** Tout se calcule dans le repère de la vue, qui est une rotation
+  > de celui du lieu : `hmi::buildSceneLighting` y amène le soleil, la verticale et les sources une
+  > fois par image, et remplit le bloc uniforme `Lighting` que lisent `sprite.frag` et `mesh.frag`
+  > (`hmi::LightingBlock`). Une passe d'ombres, profondeur seule, précède la passe de l'image
+  > (`hmi::MeshBatch::recordShadow`). Le décor de la `0.0.2.5` reste en images (D-43) : le soleil
+  > ne le modèle pas, il le teinte et lui fait jeter l'ombre de sa boîte ; le soleil sur
+  > l'architecture vient avec le kit repris en maillages, à la `0.0.3` (`LOT-151`).
+
 ## 3. Boucle & temps
 - **EX-REN-020** — Le jeu doit tourner à **60 images/seconde** cible.
 - **EX-REN-021** — La logique doit être mise à jour à **pas de temps fixe**

@@ -83,6 +83,7 @@ add_executable(UnitTests
     Unit/Core/Levels/test_level_draft_pieces.cpp
     Unit/Core/Levels/test_format_v4.cpp
     Unit/Core/World/test_world_graph.cpp
+    Unit/Core/World/test_world_light.cpp
     Unit/Core/World/test_world_travel.cpp
     Unit/Core/World/test_exploration_session.cpp
     Unit/Core/World/test_entity_presence.cpp
@@ -104,6 +105,7 @@ add_executable(UnitTests
     Unit/HMI/Graphics/test_place_camera.cpp
     # La vue en volume et la composition des pièces en maillage, sans GPU (LOT-1003).
     Unit/HMI/Graphics/test_iso_view.cpp
+    Unit/HMI/Graphics/test_scene_lighting.cpp
     Unit/HMI/Graphics/test_mesh_composition.cpp
     # Le chargeur de maillages `.glb` (LOT-1003).
     Unit/Core/Resources/test_mesh_file.cpp
@@ -220,9 +222,11 @@ if(Qt6_FOUND)
         # calques, tuiles.
         Unit/HMI/Graphics/test_offscreen_render.cpp
         # La passe de maillages et le tampon de profondeur, sur la carte d'essai (LOT-1003).
+        Unit/HMI/Graphics/test_lit_render.cpp
         Unit/HMI/Graphics/test_mesh_render.cpp
         # Le pantin d'essai animé par ses os, hors écran (LOT-1005).
         Unit/HMI/Graphics/test_figure_model_render.cpp
+        ../HMI/Graphics/LightingBlock.cpp
         ../HMI/Graphics/MeshBatch.cpp
         ../HMI/Graphics/OffscreenRender.cpp
         # Un ilot de murs du kit sur deux etages, coiffe d'un toit : le heros se voit a travers
@@ -267,6 +271,9 @@ if(Qt6_FOUND)
             ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.vert
             ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh_skinned.vert
             ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh.frag
+            ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh_shadow.vert
+            ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/mesh_skinned_shadow.vert
+            ${PROJECT_SOURCE_DIR}/Source/HMI/Graphics/Shaders/shadow.frag
     )
 else()
     message(STATUS

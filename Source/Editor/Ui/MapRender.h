@@ -13,6 +13,7 @@
 #include <vector>
 
 #include "Core/Math/Rect.h"
+#include "Core/World/DayLight.h"
 #include "Editor/Logic/CanvasScene.h"
 #include "Editor/Logic/Stamps.h"
 #include "HMI/Graphics/WorldSceneRenderer.h"
@@ -49,6 +50,14 @@ inline constexpr int MAP_RENDER_MAX_SIDE = 8192;
 [[nodiscard]] double renderPixelsPerUnit(double scale);
 
 /// @brief Les réglages d'un rendu.
+/// Le côté de la carte d'ombres d'un rendu éclairé (`--hour`), en texels : le plus fin que le
+/// jeu propose — une image écrite n'a pas d'image suivante à tenir.
+inline constexpr int MAP_RENDER_SHADOW_SIZE = 4096;
+
+/// @return La table de lumière du contenu (`Assets/Common/Lighting/daylight.json` sous
+///         @p assetsDirectory), à défaut celle d'usine : la même que le jeu lit.
+[[nodiscard]] core::DayLightTable placeDayLight(const std::filesystem::path& assetsDirectory);
+
 struct MapRenderOptions {
     /// Les bandes peintes ; par défaut, ce que le jeu montre, sans la collision.
     IsoBandOpacity bands;
@@ -65,6 +74,10 @@ struct MapRenderOptions {
     /// entière et centrée, quelle que soit l'échelle. C'est la forme des cartes de l'onglet
     /// « Carte » (1920 × 1080).
     std::optional<QSize> canvas;
+    /// **L'heure** (`--hour`, `LOT-1007`), en minutes depuis minuit : la carte est éclairée comme
+    /// le jeu l'éclaire à cette heure, ombres et lumières de nuit comprises. Sans elle, la carte
+    /// se rend sans éclairage, comme avant le lot.
+    std::optional<float> hour;
 };
 
 /**

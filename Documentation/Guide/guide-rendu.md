@@ -1049,7 +1049,7 @@ profondeurs quand on lui donne un `hmi::SceneDepth`, et soumet en deux rectangle
 que la ligne de son pied traverse.
 
 **La passe.** `hmi::MeshBatch` dessine les maillages — profondeur testée **et écrite**, couleur de
-base seule, sans éclairage (`LOT-1007`) —, puis `hmi::SpriteBatch` les quads, qui **testent** la
+base, éclairée par la normale depuis le `LOT-1007` —, puis `hmi::SpriteBatch` les quads, qui **testent** la
 profondeur sans l'écrire : leurs bords sont adoucis, et entre eux l'ordre du peintre décide
 toujours. L'opacité des calques de l'éditeur vaut pour les deux.
 
@@ -1059,6 +1059,104 @@ octet par octet par `scripts/assetsGeneration/build_mesh_fixture.py` (`--check` 
 est à jour). Les tests du chargeur, de la composition et de la passe la lisent, la cible de fuzzing
 `fuzz_mesh` s'y amorce, et l'éditeur l'ouvre :
 `LevelEditor --data Source/Test/Fixtures/Meshes --map=ilot`.
+
+## La lumière : `core::DayLight`, `hmi::SceneLighting` et la carte d'ombres
+
+Depuis le `LOT-1007`, le lieu est éclairé à l'**heure du monde** (`core::WorldClock`,
+`EX-EXP-015`). Quatre choses s'empilent, de la moins chère à la plus chère :
+
+| Niveau | Ce qu'on voit | Qui le fait |
+|---|---|---|
+| Teinte | l'image entière vire au bleu la nuit, à l'or au couchant | `sprite.frag` multiplie chaque image par `tint` |
+| Soleil | les faces d'un maillage s'éclairent selon l'heure | `mesh.frag`, par la normale |
+| Ombres portées | personnages et décor jettent une ombre qui tourne et s'allonge | une passe d'ombres, puis une lecture dans les deux shaders |
+| Lumières de nuit | lampadaires, lanternes, braseros éclairent autour d'eux | seize sources au plus, par pixel |
+
+### La table de l'heure
+
+Ce que l'heure fait de la lumière n'est pas dans le code : c'est une table,
+`Assets/Common/Lighting/daylight.json`, que `core::readDayLightTableFile` lit et que
+`core::DayLightTable::sample` interpole entre deux clés. Une clé dit la **teinte** des images,
+l'**ambiance** et la lumière **dirigée** des maillages, d'où vient cette lumière (azimut et
+élévation, en degrés), ce qu'une **ombre** retire à une image, et l'allumage des **lampes**.
+
+La lumière dirigée est le soleil de 05:31 à 20:30 et la **lune** le reste du temps ; elle est noire
+aux deux bascules, qui ne se voient donc pas. Régler la nuit — trop sombre pour lire un combat —
+se fait dans ce fichier, sans recompiler.
+
+Deux règles tiennent la table :
+
+- à **midi**, la teinte est blanche et le soleil vient de la **gauche de l'écran, au-dessus** :
+  c'est la lumière que le décor peint porte déjà, et une image y est telle que peinte ;
+- `ambient + sun × (sin(élévation) + 0,3) / 1,3 = tint`, à chaque clé : une face tournée vers le
+  haut reçoit exactement la teinte des images, si bien qu'un sol en maillage et un sol en image se
+  raccordent à toute heure.
+
+### Tout se calcule dans la vue
+
+`hmi::IsoView` fait de la caméra une rotation de l'espace du lieu : un sommet d'image porte déjà
+sa position dans la vue (x, y, profondeur), celle d'un maillage s'obtient par sa pose (`uView`).
+`hmi::buildSceneLighting` — **sans GPU**, donc testé sans GPU — y amène une fois par image le
+soleil, la verticale et les sources, choisit les seize lumières les plus proches du centre de
+l'image, et cadre la carte d'ombres. Il en sort le bloc uniforme `Lighting`
+(`hmi::LightingUniforms`), le même pour `sprite.frag` et `mesh.frag`, que `hmi::LightingBlock`
+téléverse.
+
+Un bloc **neutre** — celui de tout rendu auquel on ne règle pas d'éclairage
+(`hmi::WorldSceneRenderer::setLighting`) — rend les deux shaders à ce qu'ils faisaient avant le
+lot, au pixel : c'est ce que dessinent la galerie des assets, une vignette, un plan.
+
+### Qui reçoit quoi
+
+| | Un maillage | Une image |
+|---|---|---|
+| Ambiance et soleil | selon sa normale | — : elle garde la lumière qu'on lui a peinte |
+| Teinte de l'heure | — | multipliée |
+| Lumières de nuit | selon sa normale et la distance | selon la distance |
+| Ombres portées | portées et reçues | portées par sa **boîte** ; reçues au **sol** seulement |
+
+Chaque primitive dit ce qu'elle reçoit (`hmi::ComposedQuad::shading`) : une marque d'interface ou
+un jeton, rien ; un effet garde son éclat ; une pièce peut en garder une part (`glow` du manifeste
+— une flamme). Les lampes ne s'ajoutent pas à la lumière du jour : elles comblent ce qui lui
+manque pour arriver au plus clair, et un sol ivoire sous deux lanternes ne brûle pas.
+
+### La carte d'ombres
+
+Une seule carte, vue du soleil, en projection orthographique, couvrant ce que la caméra montre du
+sol. `hmi::MeshBatch::recordShadow` y dessine, profondeur seule, les maillages de l'image —
+personnages animés compris — et les **boîtes d'ombre** du décor en images
+(`hmi::WorldShadowBox`) : l'emprise de chaque pièce, haute de ce que son image porte au-dessus de
+son ancre, large comme elle, resserrée vers le haut pour le mobilier et le végétal. Les boîtes
+sont un seul maillage, refait quand la carte change, que seule cette passe voit.
+
+Son centre est **calé sur ses texels** : quand la caméra suit le héros, la carte glisse par pas
+entiers et les bords d'ombre ne frémissent pas. Chaque lecture en compare neuf texels, lissés par
+l'échantillonneur : le bord est doux. Son côté se règle (`hmi::WorldLighting::shadowSize`) — c'est
+le réglage *Ombres* des options.
+
+> **Attention** — QRhi impose à la source la convention de clip d'OpenGL : la profondeur va de
+> −1 à 1, et `QRhi::clipSpaceCorrMatrix` la ramène à celle de l'interface. La matrice de la passe
+> d'ombres est donc écrite dans cette convention, et celle de la lecture ramène la profondeur dans
+> [0, 1], ce que la carte a gardé. Les confondre décale toutes les ombres vers le fond du lieu.
+
+### Les sources
+
+Une lumière de nuit se déclare de deux façons, qui aboutissent à la même valeur
+(`core::LightEmission`, en mètres) :
+
+- par la **pièce** : le champ `light` de son entrée au manifeste du kit — toute carte qui pose un
+  lampadaire reçoit sa lumière ;
+- par une **entité** `light` de la carte, posée dans l'éditeur (`core::lightSourceOf`).
+
+`hmi::snapshotWorldScene` les relève une fois par carte, avec les boîtes d'ombre
+(`WorldSceneSnapshot::lights`, `shadowBoxes`, `glows`).
+
+### Ce que ça coûte
+
+Mesuré le 3 octobre 2026 (`CanvasBenchmarks`, Release, 1080p, huit modèles de 100 000 triangles,
+relecture de l'image comprise) : 6,18 ms sans éclairage, 6,24 ms avec la teinte, le soleil et huit
+lumières, 6,47 ms avec la carte d'ombres de 2048 texels — pour 16,7 ms disponibles. C'est
+pourquoi **rien n'est précalculé** : la fiche du `LOT-1007` détaille le choix.
 
 ## Assembler la frame complète
 

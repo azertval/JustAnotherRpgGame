@@ -6,6 +6,33 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1007 — Éclairage et cycle jour / nuit.** Le monde a une heure, et la lumière la suit.
+  - **L'heure du monde** (`core::WorldClock`) avance avec l'exploration — une heure du monde par
+    minute réelle — et se fige en dialogue et en combat. L'option de débug `--hour=<HH:MM|run>`
+    la règle et la fige, à la ligne de commande comme dans la console. Une carte peut déclarer
+    une **heure fixe** (propriété `hour`) : le sous-sol de l'arène reste dans sa nuit.
+  - **La lumière de l'heure** se lit dans une table en données
+    (`Assets/Common/Lighting/daylight.json`) : teinte des images, ambiance et lumière dirigée des
+    maillages — le soleil le jour, la lune la nuit —, ombres, allumage des lampes. La nuit se
+    règle là, sans recompiler.
+  - **Les personnages sont éclairés** par leur normale ; **les images** prennent la teinte de
+    l'heure et gardent la lumière qu'on leur a peinte. À midi, une image est telle que peinte.
+  - **Les ombres portées** tournent et s'allongent : une carte d'ombres vue du soleil, où les
+    personnages portent leur vraie silhouette et chaque pièce de décor en image la boîte de son
+    emprise.
+  - **Les lumières de nuit** s'allument au crépuscule : quatorze pièces du kit de la Capitale —
+    lampadaires, lanternes, braseros — déclarent la leur dans le manifeste (`light`, `glow`), et
+    la famille d'entité **light** se pose dans l'éditeur. Seize au plus par image.
+  - **Options › Graphismes › Rendu** gagne **Ombres** (désactivées, basses, moyennes, hautes).
+  - **L'éditeur** : la case **Lighting** et son curseur d'heure éclairent le canevas comme le
+    jeu, et l'essai part de cette heure ; *Map properties…* règle l'heure fixe ;
+    `--render --hour HH:MM` écrit l'image éclairée, `--hour=HH:MM` ouvre la fenêtre l'éclairage
+    allumé ; un scénario de gestes règle les propriétés de carte (`mapProperties`) ; l'aperçu de
+    l'atelier des assets choisit son heure (*Light*).
+  - Rien n'est précalculé : l'éclairage entier coûte 0,3 ms par image à 1080p, huit modèles de
+    100 000 triangles à l'écran (`WorldFrameShadowedEightModels1080p`, 6,47 ms contre 6,18).
+    L'étude est dans la fiche du lot (décision D-45).
+
 - **Rendu : anticrénelage et définition du rendu.** Les vues du lieu sont multi-échantillonnées
   (MSAA) : les pipelines des maillages et des images suivent le nombre d'échantillons de leur
   cible. Deux réglages s'ajoutent à **Options > Graphismes > Rendu** et s'appliquent aussitôt :

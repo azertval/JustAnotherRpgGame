@@ -33,6 +33,7 @@ OptionsForm {
            || Math.round(root.hudScaleSlider.value) !== OptionsModel.hudScalePercent
            || OptionsModel.antialiasingLevels[root.antialiasingBox.currentIndex] !== OptionsModel.antialiasing
            || OptionsModel.renderScales[root.renderScaleBox.currentIndex] !== OptionsModel.renderScalePercent
+           || OptionsModel.shadowSizes[root.shadowsBox.currentIndex] !== OptionsModel.shadows
            || OptionsModel.languages[root.languageBox.currentIndex] !== OptionsModel.language
 
     property string lastLogsMessage: ""
@@ -46,6 +47,10 @@ OptionsForm {
         root.antialiasingBox.model = OptionsModel.antialiasingLevels.map(
             (samples) => samples === 1 ? qsTr("Désactivé") : qsTr("MSAA %1×").arg(samples))
         root.renderScaleBox.model = OptionsModel.renderScales.map((percent) => percent + " %")
+        // Le cote de la carte d'ombres se lit par sa qualite : le joueur n'a pas a savoir ce
+        // qu'est un texel.
+        const shadowNames = [qsTr("Désactivées"), qsTr("Basses"), qsTr("Moyennes"), qsTr("Hautes")]
+        root.shadowsBox.model = OptionsModel.shadowSizes.map((size, rank) => shadowNames[rank])
         root.load(OptionsModel)
     }
 
@@ -59,6 +64,7 @@ OptionsForm {
         root.hudScaleSlider.value = values.hudScalePercent
         root.antialiasingBox.currentIndex = OptionsModel.antialiasingLevels.indexOf(values.antialiasing)
         root.renderScaleBox.currentIndex = OptionsModel.renderScales.indexOf(values.renderScalePercent)
+        root.shadowsBox.currentIndex = OptionsModel.shadowSizes.indexOf(values.shadows)
         root.languageBox.currentIndex = OptionsModel.languages.indexOf(values.language)
     }
 
@@ -70,6 +76,7 @@ OptionsForm {
         OptionsModel.hudScalePercent = Math.round(root.hudScaleSlider.value)
         OptionsModel.antialiasing = OptionsModel.antialiasingLevels[root.antialiasingBox.currentIndex]
         OptionsModel.renderScalePercent = OptionsModel.renderScales[root.renderScaleBox.currentIndex]
+        OptionsModel.shadows = OptionsModel.shadowSizes[root.shadowsBox.currentIndex]
         OptionsModel.language = OptionsModel.languages[root.languageBox.currentIndex]
     }
 

@@ -163,6 +163,7 @@ CombatHudForm {
         // Les reglages de rendu des options, qui atteignent ainsi le moteur (EX-IHM-083).
         sampleCount: OptionsModel.antialiasing
         renderScalePercent: OptionsModel.renderScalePercent
+        shadowSize: OptionsModel.shadows
     }
 
     onGridHovered: (x, y) => {

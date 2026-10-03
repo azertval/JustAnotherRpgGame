@@ -1,6 +1,6 @@
 # Couverture des exigences
 
-**46 exigences en vigueur sur 314** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
+**46 exigences en vigueur sur 322** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
 
 ## Par famille
 
@@ -11,18 +11,18 @@
 | `EX-CBT` | [Combat tactique](../Specification/combat.md) | 22 | 6 | 16 |
 | `EX-CNT` | [Contenu et données](../Specification/contenu.md) | 22 | 4 | 18 |
 | `EX-CTRL` | [Contrôles & entrées](../Specification/controles.md) | 5 | 0 | 5 |
-| `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 80 | 13 | 67 |
-| `EX-EXP` | [Exploration](../Specification/exploration.md) | 14 | 3 | 11 |
+| `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 82 | 13 | 69 |
+| `EX-EXP` | [Exploration](../Specification/exploration.md) | 15 | 3 | 12 |
 | `EX-GP` | [Gameplay](../Specification/gameplay.md) | 7 | 1 | 6 |
 | `EX-IHM` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | 34 | 4 | 30 |
 | `EX-INV` | [Inventaire et économie](../Specification/inventaire.md) | 8 | 0 | 8 |
 | `EX-LVL` | [Cartes & format](../Specification/niveaux.md) | 20 | 7 | 13 |
 | `EX-NFR` | [Exigences non fonctionnelles](../Specification/exigences-non-fonctionnelles.md) | 19 | 2 | 17 |
 | `EX-REG` | [Règles d20](../Specification/regles-d20.md) | 15 | 1 | 14 |
-| `EX-REN` | [Rendu & cible technique](../Specification/rendu-technique.md) | 26 | 4 | 22 |
+| `EX-REN` | [Rendu & cible technique](../Specification/rendu-technique.md) | 31 | 4 | 27 |
 | `EX-RPG` | [Personnage et progression](../Specification/rpg.md) | 19 | 1 | 18 |
 | `EX-VIS` | [Vision & périmètre](../Specification/vision.md) | 9 | 0 | 9 |
-| **Total** | | **314** | **46** | **268** |
+| **Total** | | **322** | **46** | **276** |
 
 ## Exigence par exigence
 
@@ -200,6 +200,8 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-EDIT-102` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`CharacterPreviewRenderTest.LeRenduDuJeuDessineLePersonnage`](editor.md#characterpreviewrendertestlerendudujeudessinelepersonnage), [`CharacterDraftTest.UneFicheSeLitEtSeReecritALIdentique`](editor.md#characterdrafttestuneficheselitetsereecritalidentique), [`CharacterWorkshop.LaFicheInstalleLePersonnageEtRendLesFichiersAttendus`](editor.md#characterworkshoplaficheinstallelepersonnageetrendlesfichiersattendus), [`CharacterWorkshop.UneFicheRefuseeNEcritRien`](editor.md#characterworkshopuneficherefuseenecritrien), [`CharacterWorkshop.UnPersonnageInstalleSeRouvreSansDifference`](editor.md#characterworkshopunpersonnageinstalleserouvresansdifference), [`CharacterWorkshopDelivered.LesPersonnagesLivresSeReenregistrentSansDifference`](editor.md#characterworkshopdeliveredlespersonnageslivressereenregistrentsansdifference) |
 | `EX-EDIT-103` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`BlenderRetouch.LesDeuxCommandesPortentCeQueLeScriptAttend`](editor.md#blenderretouchlesdeuxcommandesportentcequelescriptattend) |
 | `EX-EDIT-104` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`CharacterWorkshop.LeControleNommeCeQuiManque`](editor.md#characterworkshoplecontrolenommecequimanque) |
+| `EX-EDIT-105` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | — |
+| `EX-EDIT-106` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | — |
 
 ### `EX-EXP`
 
@@ -219,6 +221,7 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-EXP-012` | [Exploration](../Specification/exploration.md) | — |
 | `EX-EXP-013` | [Exploration](../Specification/exploration.md) | [`PartyTest.QuatreAuPlusJamaisVide`](core-rpg.md#partytestquatreauplusjamaisvide), [`PartyTest.LesQuatreFichesPreTireesFormentLeGroupeDeDepart`](core-rpg.md#partytestlesquatrefichespretireesformentlegroupededepart), [`ExplorationSessionTest.UnGroupeDeQuatrePasseLesAnglesSansResterCoince`](core-world.md#explorationsessiontestungroupedequatrepasselesanglessansrestercoince), [`ExplorationSessionTest.LesSuiveursSeRangentDansLeDosDuMeneur`](core-world.md#explorationsessiontestlessuiveursserangentdansledosdumeneur), [`PartyModelTest.LEcranDeGroupeCompose`](hmi-runtime.md#partymodeltestlecrandegroupecompose) |
 | `EX-EXP-014` | [Exploration](../Specification/exploration.md) | [`PartyTest.LeMeneurEstLePremierDeLOrdreDeMarche`](core-rpg.md#partytestlemeneurestlepremierdelordredemarche), [`PartyModelTest.ChangerDeMeneurChangeLaFigurineEtLePortrait`](hmi-runtime.md#partymodeltestchangerdemeneurchangelafigurineetleportrait), [`PartyModelTest.LeMeneurEstCeluiQuiCombat`](hmi-runtime.md#partymodeltestlemeneurestceluiquicombat) |
+| `EX-EXP-015` | [Exploration](../Specification/exploration.md) | — |
 
 ### `EX-GP`
 
@@ -383,6 +386,11 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-REN-048` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-050` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 | `EX-REN-051` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
+| `EX-REN-052` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
+| `EX-REN-053` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
+| `EX-REN-054` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
+| `EX-REN-055` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
+| `EX-REN-056` | [Rendu & cible technique](../Specification/rendu-technique.md) | — |
 
 ### `EX-RPG`
 

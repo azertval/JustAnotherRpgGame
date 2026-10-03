@@ -26,6 +26,9 @@ struct MapPropertiesChoice {
     std::string region;
     /// L'ambiance, telle que le `LOT-28` la jouera ; vide si la carte n'en déclare pas.
     std::string ambience;
+    /// L'heure fixe de la carte (`core::MAP_HOUR_PROPERTY`, `LOT-1007`), écrite `HH:MM` ; vide si
+    /// la carte suit l'heure du monde.
+    std::string hour;
     /// Où en est la carte : une note d'auteur, gardée dans l'annexe.
     MapState state = MapState::Unset;
 

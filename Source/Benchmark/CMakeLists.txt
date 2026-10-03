@@ -49,6 +49,7 @@ if(TARGET Qt6::Gui AND TARGET Qt6::GuiPrivate AND COMMAND qt6_add_shaders)
         ${_hmi_graphics}/WorldSceneRenderer.cpp
         ${_hmi_graphics}/OffscreenRender.cpp
         ${_hmi_graphics}/SceneResources.cpp
+        ${_hmi_graphics}/LightingBlock.cpp
         ${_hmi_graphics}/MeshBatch.cpp
         ${_hmi_graphics}/SpriteBatch.cpp
         ${_hmi_graphics}/SpriteRenderer.cpp
@@ -69,6 +70,9 @@ if(TARGET Qt6::Gui AND TARGET Qt6::GuiPrivate AND COMMAND qt6_add_shaders)
             ${_hmi_graphics}/Shaders/mesh.vert
             ${_hmi_graphics}/Shaders/mesh_skinned.vert
             ${_hmi_graphics}/Shaders/mesh.frag
+            ${_hmi_graphics}/Shaders/mesh_shadow.vert
+            ${_hmi_graphics}/Shaders/mesh_skinned_shadow.vert
+            ${_hmi_graphics}/Shaders/shadow.frag
     )
 else()
     message(STATUS "CanvasBenchmarks : Qt6 (Gui, GuiPrivate, ShaderTools) introuvable -- "

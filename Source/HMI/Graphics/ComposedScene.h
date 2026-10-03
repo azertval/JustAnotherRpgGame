@@ -97,6 +97,23 @@ struct ComposedQuad {
     /// L'ordonnée de la ligne du **pied** d'une primitive dressée, en unités monde : au-dessus, un
     /// plan vertical ; au-dessous, le sol. Sans objet pour les autres tenues.
     float footY = 0.0F;
+    /// Ce que la primitive garde de son éclat quand le lieu s'assombrit (`LOT-1007`), de 0 — elle
+    /// prend la lumière du lieu — à 1 — elle reste telle que peinte : un effet, une flamme.
+    float glow = 0.0F;
+
+    /// @return Ce que la primitive reçoit de la lumière du lieu : rien pour une marque, la
+    ///         lumière du lieu moins son éclat pour le reste, et les ombres portées au sol.
+    [[nodiscard]] SpriteShading shading() const noexcept {
+        if (stance == QuadStance::Overlay) {
+            return SpriteShading{};
+        }
+        // Un quadrilatere eleve -- une face de bloc de maquette -- est dans la boite d'ombre de
+        // son propre bloc : il ne la recoit pas. Seul ce qui est a plat au sol la recoit.
+        const bool raised = kind == QuadKind::Poly && (poly.rise[0] > 0.0F || poly.rise[1] > 0.0F ||
+                                                       poly.rise[2] > 0.0F || poly.rise[3] > 0.0F);
+        return SpriteShading{.lit = 1.0F - glow,
+                             .shadowed = stance == QuadStance::Ground && !raised};
+    }
 };
 
 /**
@@ -243,11 +260,13 @@ public:
      * @param occlusion Ce que la pièce masque, pour l'effacer devant le héros (`ComposedQuad`).
      * @param footY     La ligne du pied d'une primitive **dressée** (`ComposedQuad::footY`) ; sans
      *                  elle, le bas du rectangle. Sans effet sur un calque à plat ou d'interface.
+     * @param glow      Ce qu'elle garde de son éclat quand le lieu s'assombrit
+     *                  (`ComposedQuad::glow`).
      * @return `true` si la primitive a été conservée, `false` si le culling l'a écartée.
      */
     bool addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
                    const SpriteQuad& quad, int storey = 0, const core::Rect& occlusion = {},
-                   std::optional<float> footY = std::nullopt);
+                   std::optional<float> footY = std::nullopt, float glow = 0.0F);
 
     /**
      * @brief Ajoute un maillage placé à la scène, s'il est visible (`LOT-1003`).
