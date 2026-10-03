@@ -47,14 +47,21 @@ qui rend la production stable — les quatre marches peintes du brawler avaient 
 | 1. **Peindre** le portrait, puis l'image de référence ([§3](#3-limage-de-référence)) | le générateur d'images, sur commande de Claude ; l'auteur valide | deux images, dans l'atelier |
 | 2. **Générer** le maillage, puis sa texture ([§4](#4-la-génération)) | Meshy, lancé par l'auteur | un `.glb` texturé, déposé par l'auteur dans l'atelier |
 | 3. **Juger la forme** en matériau neutre, puis texturée : face, profil, dos, gros plan du visage | l'auteur | un verdict — un maillage refusé se **régénère**, il ne se retouche pas |
-| 4. **Lier** au squelette et poser les clips ([§5](#5-le-squelette), [§6](#6-la-liaison), [§7](#7-les-clips)) | `scripts/assetsGeneration/rig_character.py`, d'après la fiche de liaison (depuis le LOT-1005 : un calcul, sans Blender) | un `.glb` autonome : maillage, texture, squelette, clips ; et `skeleton.json` |
+| 4. **Lier** au squelette et poser les clips ([§5](#5-le-squelette), [§6](#6-la-liaison), [§7](#7-les-clips)) | `scripts/assetsGeneration/rig_character.py`, d'après la fiche de liaison (depuis le LOT-1005 : un calcul, sans Blender) et, s'il y en a une, la fiche de retouche | un `.glb` autonome : maillage, texture, squelette, clips ; et `skeleton.json` |
+| 4 bis. **Régler** à la souris, s'il le faut ([§6 bis](#6-bis-la-retouche-dans-blender)) | l'atelier des assets de l'éditeur, qui ouvre le modèle lié dans Blender puis relit ce que l'auteur y a réglé (`retouch_character.py`, décision D-44) | la fiche de liaison corrigée, la fiche de retouche `retouche.json` ; le modèle relié par l'étape 4 |
 | 5. **Contrôler** l'export ([§9](#9-les-contrôles)), et le **montrer** | `scripts/checks/check_character_model.py` ; `scripts/assetsGeneration/render_character_review.py` rend chaque clip en huit poses sous la caméra du jeu | un relevé, conservé avec le modèle ; les planches que l'auteur juge |
-| 6. **Installer** et **publier** le kit | `install_hd_asset.py`, `publish_asset_kit.py` | l'asset dans le jeu, le kit verrouillé |
+| 6. **Installer** et **publier** le kit | l'atelier des assets de l'éditeur — la fenêtre *Asset workshop*, ou `LevelEditor --apply <fiche d'atelier>` (LOT-1008) —, puis `publish_asset_kit.py` | l'asset dans le jeu, le kit verrouillé |
 
 Depuis le [LOT-1006](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1006-corps-de-reference.md)
 le moteur anime le modèle lui-même : l'étape 6 installe le `.glb` lié, sa fiche `character.json`
 et, une fois pour la silhouette, `skeleton.json`. Le rendu du modèle en bandes
-(LOT-1000, `Common@5`) n'existe plus.
+(LOT-1000, `Common@5`) n'existe plus. Depuis le
+[LOT-1008](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1008-atelier-des-assets-3d.md), c'est
+l'**atelier des assets** de l'éditeur qui écrit et installe la fiche d'un personnage — niveau,
+nom, silhouette, modèle lié, portrait, jeton — d'après une **fiche d'atelier** rangée avec ses
+sources (`<nom>.character.json`, format `jadg-editor-character`) ; l'installateur Python
+n'installe plus de personnage. Le portrait et le jeton se donnent déjà aux tailles du standard :
+l'atelier ne retaille rien.
 
 L'atelier est local (`Tools/Assets3D/`, jamais livré) : références, exports reçus, fiches de
 liaison, scripts Blender, relevés. La provenance d'un modèle — tâche Meshy, réglages, empreintes —
@@ -164,6 +171,32 @@ déforme pas.
 Aucune retouche de poids à la main. Un défaut de déformation se corrige dans la fiche — une
 articulation déplacée, un volume ajusté — et le script se rejoue.
 
+## 6 bis. La retouche dans Blender
+
+Décision de l'auteur, 2 octobre 2026 ([D-44](../vision/decisions.md)) : les articulations et les
+clips d'un personnage se règlent **à la souris, dans Blender**, par l'atelier des assets de
+l'éditeur (LOT-1008). Blender n'est que l'**instrument de saisie** ; ce qui en revient est une
+**donnée** que la chaîne rejoue, jamais un maillage ni un `.glb` exporté par lui.
+
+| Geste | Dans Blender | Ce qui revient | Où |
+|---|---|---|---|
+| *Edit in Blender* | le modèle lié s'ouvre : maillage, 53 os, une action par clip, à 60 images par seconde ; un **repère** de ce que Blender a lu est noté à côté du `.blend` | — | `retouch_character.py open` |
+| déplacer une articulation | mode Édition de l'armature, la tête de l'os | son déplacement, divisé par l'échelle de la fiche, dans `joints` ou `arms` ; le bout de la main suit le poignet | la **fiche de liaison** |
+| changer un clip | mode Pose, les clés de l'action du clip | ses rotations locales et la position du bassin, échantillonnées au pas de la chaîne (60 par seconde) ; durée, boucle et image clé restent celles de `skeleton.json` | la **fiche de retouche** `retouche.json`, à côté de la fiche de liaison |
+| *Import from Blender* | le `.blend` enregistré est relu et comparé au repère : seul ce qui a changé est retenu | le modèle relié (`rig_character.py --retouch`) et contrôlé (`check_character_model.py`) ; un écart au standard refuse l'import | `retouch_character.py import` |
+
+- Un clip retouché reçoit le même **recalage au sol** qu'un clip posé par cibles.
+- Une retouche se **rejoue** sur un autre personnage lié au même squelette : les rotations sont
+  locales aux os, dont l'orientation de repos est nulle pour tous ; la position du bassin se
+  rapporte à la longueur de jambe (`leg`, `pelvis_rest` de la fiche de retouche).
+- Ce que Blender ne sait pas dire au jeu est **signalé et ignoré** : un os translaté ou mis à
+  l'échelle dans un clip, un doigt ou la racine animés, un os ajouté. Un maillage sculpté ou
+  repeint n'est jamais relu : le maillage reste celui de la chaîne.
+- **Pourquoi pas le `.glb` de Blender.** Mesuré sur le bandit le 2 octobre 2026 : son export
+  arrondit les durées à l'image (attaque de 0,875 s pour 0,9 s), ajoute des canaux d'échelle et
+  une interpolation que le moteur ne lit pas, et enfonce le maillage de 2,9 mm dans le sol. Les
+  courbes que Blender *lit* du modèle, elles, sont exactes à 10⁻⁷ près : c'est cela qui est relu.
+
 ## 7. Les clips
 
 Les animations sont posées **une fois**, sur le squelette, et rejouées par tous les humanoïdes.
@@ -194,7 +227,10 @@ Ce sont les valeurs de `Common/Characters/Skeletons/humanoid/skeleton.json`, ins
   y accroche le touché de la cible. Les courbes sont dans le `.glb` de chaque personnage, posées
   sur ses propres articulations ; le script de liaison écrit les deux d'une même source.
 - **La fiche du personnage** (`character.json`, dans son dossier) nomme son modèle et son
-  squelette : c'est elle que le moteur lit pour savoir qu'un personnage est un modèle.
+  squelette : c'est elle que le moteur lit pour savoir qu'un personnage est un modèle. Elle
+  s'écrit par l'atelier des assets (LOT-1008), jamais à la main.
+- **Un clip réglé dans Blender** ([§6 bis](#6-bis-la-retouche-dans-blender)) remplace, pour ce
+  personnage, le clip posé par cibles ; il garde sa durée, sa boucle et son image clé.
 - Les six clips sont posés par le script de liaison depuis le LOT-1005 et joués dans le jeu
   depuis le LOT-1006 par le mannequin, le brawler et le bandit ; ils sont **approuvés par
   l'auteur**, dans le jeu, le 2 octobre 2026 (LOT-1006).

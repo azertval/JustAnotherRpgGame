@@ -6,6 +6,28 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1008 — L'atelier des assets, vue Character.** La fiche d'un personnage s'écrit dans
+  l'éditeur, sans ouvrir un fichier, et se règle dans Blender.
+  - La fenêtre **Asset workshop** (*Assets* › *Asset workshop…*) : les personnages installés, la
+    **fiche d'atelier** d'un personnage (niveau, nom, silhouette, modèle lié, portrait, jeton —
+    un JSON `jadg-editor-character` rangé avec ses sources), l'**aperçu** par le rendu du jeu
+    (damier de maquette, clip par clip, quart de tour), l'**installation** sous `Assets/` et au
+    manifeste, et le **contrôle** des personnages installés (`EX-EDIT-102`).
+  - **Sans fenêtre** : `LevelEditor --apply <fiche d'atelier>` installe le personnage, à l'octet
+    près comme la fenêtre ; `--check` contrôle les personnages installés — fiche, squelette,
+    modèle et ses clips, portrait et jeton aux tailles du standard (`EX-EDIT-104`) ; `--workshop`
+    ouvre l'atelier au démarrage.
+  - L'**aller-retour par Blender** (décision D-44, `EX-EDIT-103`) :
+    `scripts/assetsGeneration/retouch_character.py` ouvre le modèle lié dans Blender et relit ce
+    que l'auteur y a réglé — une articulation déplacée revient dans la fiche de liaison, un clip
+    modifié dans une fiche de retouche (`retouche.json`), que `rig_character.py --retouch` rejoue
+    — puis relie et contrôle. Rien ne revient de Blender qu'en données.
+  - Les trois fiches livrées (mannequin, brawler, bandit) se réenregistrent par l'atelier sans
+    différence ; la part « personnage » de `install_hd_asset.py` et ses tests sont retirés
+    (D-32) ; le standard des personnages (§6 bis) et `AGENTS.md` disent la règle de la retouche.
+  - La vue Scenery de l'atelier suit le kit en maillages à la `0.0.3` (D-43) ; l'heure du jour
+    de l'aperçu vient avec l'éclairage (LOT-1007).
+
 - **LOT-1004 — clos sans modification.** Le kit de la Capitale ne se convertit pas en maillages
   dans la `0.0.2.5` : l'auteur reprend l'intégralité des assets à la `0.0.3` (décision D-43). La
   fiche passe à `abandonne` ; ses livrables, ses suppressions et les questions que le standard 3D

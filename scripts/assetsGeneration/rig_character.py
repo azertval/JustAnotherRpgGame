@@ -19,6 +19,9 @@ que le moteur anime (`Planning/standards/personnages-3d.md`, §5 à §7) :
   fonctions animent tous les maillages. La marche couvre une case de 1,5 m en 0,5 s, sur place ;
   le pied posé recule exactement à 3 m/s. La hauteur du bassin est recalée, image par image, sur
   la surface évaluée du maillage : le point le plus bas touche le sol ;
+- **la retouche** : avec `--retouch`, les clips de la fiche de retouche (`retouche.json`, écrite
+  par `retouch_character.py` d'après ce que l'auteur a réglé dans Blender) remplacent les clips
+  posés par cibles ; ils gardent leur durée et reçoivent le même recalage au sol ;
 - **`skeleton.json`** : les os et les clips (durée, boucle, image clé), écrits depuis la même
   table que les animations.
 
@@ -29,7 +32,7 @@ sauf avec `--texture`, qui la ramène à la définition demandée (copie d'essai
 Usage :
     python scripts/assetsGeneration/rig_character.py SOURCE.glb SORTIE.glb
         [--sheet liaison.json] [--estimate] [--skeleton skeleton.json]
-        [--triangles N] [--texture PX] [--blender CHEMIN]
+        [--triangles N] [--texture PX] [--blender CHEMIN] [--retouch retouche.json]
 
 Dépendances : numpy, Pillow ; Blender 5.2 pour `--triangles` (outil de production, pas de CI).
 """
@@ -94,6 +97,7 @@ CLIPS = [
 # (une semelle qui s'enfonce), il ne le plaque pas au sol entre deux appuis.
 LIFT_ONLY = {"walk"}
 SHEET_VERSION = 1
+RETOUCH_VERSION = 1
 ARM_RADIUS = 0.17
 MAX_INFLUENCES = 4
 
@@ -942,20 +946,71 @@ def quaternion(matrix: np.ndarray) -> np.ndarray:
     return q / np.linalg.norm(q)
 
 
+def rotation_matrix(q) -> np.ndarray:
+    """La rotation d'un quaternion (x, y, z, w)."""
+    x, y, z, w = (float(value) for value in np.array(q, dtype=np.float64) / np.linalg.norm(q))
+    return np.array([
+        [1.0 - 2.0 * (y * y + z * z), 2.0 * (x * y - z * w), 2.0 * (x * z + y * w)],
+        [2.0 * (x * y + z * w), 1.0 - 2.0 * (x * x + z * z), 2.0 * (y * z - x * w)],
+        [2.0 * (x * z - y * w), 2.0 * (y * z + x * w), 1.0 - 2.0 * (x * x + y * y)]])
+
+
+def load_retouch(path: Path) -> dict:
+    """La fiche de retouche : les clips réglés dans Blender (`retouch_character.py`)."""
+    retouch = json.loads(path.read_text(encoding="utf-8"))
+    if retouch.get("version") != RETOUCH_VERSION:
+        raise SystemExit(f"fiche de retouche de version {retouch.get('version')}")
+    known = {clip["name"] for clip in CLIPS}
+    unknown = sorted(set(retouch.get("clips", {})) - known)
+    if unknown:
+        raise SystemExit("fiche de retouche : clip(s) inconnu(s) : " + ", ".join(unknown))
+    return retouch
+
+
+def retouched_poses(body: Body, clip: dict, retouch: dict):
+    """Les poses d'un clip retouché : rotations **monde** de chaque os et position du bassin.
+
+    La fiche donne des rotations locales et la position du bassin ; celle-ci est rapportée à la
+    jambe du personnage, pour qu'une retouche réglée sur l'un se rejoue sur un autre.
+    """
+    curves = retouch["clips"][clip["name"]]
+    count = round(clip["duration"] * SAMPLES_PER_SECOND)
+    if len(curves["times"]) != count + 1:
+        raise SystemExit(f"fiche de retouche : {clip['name']} a {len(curves['times'])} "
+                         f"échantillons, {count + 1} attendus")
+    missing = [name for name in ANIMATED if name not in curves["rotations"]]
+    if missing:
+        raise SystemExit(f"fiche de retouche : {clip['name']} sans " + ", ".join(missing))
+    ratio = body.leg / float(retouch["leg"])
+    origin = np.array(retouch["pelvis_rest"], dtype=np.float64)
+    for index in range(count + 1):
+        rotation = {"Root": np.eye(3)}
+        for name, parent in BONES[1:]:
+            rotation[name] = rotation[parent]
+            if name in curves["rotations"]:
+                rotation[name] = rotation[parent] @ rotation_matrix(
+                    curves["rotations"][name][index])
+        pelvis = body.joints["pelvis"] + (np.array(curves["pelvis"][index]) - origin) * ratio
+        yield index / SAMPLES_PER_SECOND, rotation, pelvis
+
+
 def bake_clips(body: Body, points: np.ndarray, joints_of: np.ndarray,
-               weights: np.ndarray) -> tuple[dict, dict]:
+               weights: np.ndarray, retouch: dict | None = None) -> tuple[dict, dict]:
     """Chaque clip en canaux : les rotations locales des os animés, la position du bassin.
 
     La hauteur du bassin est recalée image par image : le point le plus bas du maillage évalué
-    touche le sol. Rend aussi ce qui a été mesuré, clip par clip.
+    touche le sol. Un clip de la fiche de retouche remplace le clip posé par cibles, et reçoit le
+    même recalage. Rend aussi ce qui a été mesuré, clip par clip.
     """
     rest = np.stack([body.joints[name] for name, _ in BONES])
     baked, measured = {}, {}
     for clip in CLIPS:
         times, translations, lifts = [], [], []
         rotations_of = {name: [] for name in ANIMATED}
-        for time, pose in clip_poses(body, clip):
-            rotation, pelvis_position = solve_pose(body, pose)
+        retouched = retouch is not None and clip["name"] in retouch.get("clips", {})
+        solved = (retouched_poses(body, clip, retouch) if retouched else
+                  ((time, *solve_pose(body, pose)) for time, pose in clip_poses(body, clip)))
+        for time, rotation, pelvis_position in solved:
             position = joint_positions(body, rotation, pelvis_position)
             world = np.stack([rotation[name] for name, _ in BONES])
             where = np.stack([position[name] for name, _ in BONES])
@@ -983,7 +1038,7 @@ def bake_clips(body: Body, points: np.ndarray, joints_of: np.ndarray,
             "rotations": {name: np.array(values, dtype=np.float32)
                           for name, values in rotations_of.items()},
         }
-        measured[clip["name"]] = {"samples": len(times),
+        measured[clip["name"]] = {"samples": len(times), "retouched": retouched,
                                   "ground_shift_min_mm": round(min(lifts) * 1000.0, 2),
                                   "ground_shift_max_mm": round(max(lifts) * 1000.0, 2)}
     return baked, measured
@@ -1173,7 +1228,7 @@ def hanging_clearance(points: np.ndarray, weights: np.ndarray, joints: dict[str,
 
 def rig(source: Path, output: Path, sheet_path: Path, estimate: bool, triangles: int | None,
         texture: int | None, blender: str | None, skeleton: Path | None,
-        report: bool = True) -> dict:
+        report: bool = True, retouch: Path | None = None) -> dict:
     """Lie `source`, écrit `output`, et rend le relevé."""
     received = source.read_bytes()
     data = lighter_copy(source, triangles, blender)
@@ -1211,7 +1266,8 @@ def rig(source: Path, output: Path, sheet_path: Path, estimate: bool, triangles:
     arm = float(np.linalg.norm(joints["lowerarm_l"] - joints["upperarm_l"])
                 + np.linalg.norm(joints["hand_l"] - joints["lowerarm_l"]))
     body = Body(joints, hanging_clearance(points, full, joints, arm))
-    baked, measured = bake_clips(body, points, joints_of, weights)
+    retouched = load_retouch(retouch) if retouch is not None else None
+    baked, measured = bake_clips(body, points, joints_of, weights, retouched)
 
     image = mesh["image"]
     if image is not None and texture:
@@ -1246,6 +1302,9 @@ def rig(source: Path, output: Path, sheet_path: Path, estimate: bool, triangles:
                     if image is not None else None),
         "clips": [dict(clip, **measured[clip["name"]]) for clip in CLIPS],
     }
+    if retouch is not None:
+        statement["retouch"] = {"file": retouch.name,
+                                "sha256": hashlib.sha256(retouch.read_bytes()).hexdigest()}
     if report:
         output.with_name("releve.json").write_text(
             json.dumps(statement, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -1264,6 +1323,8 @@ def main() -> int:
     parser.add_argument("--triangles", type=int, help="réduire d'abord le maillage (Blender)")
     parser.add_argument("--texture", type=int, help="ramener la texture à ce côté, en pixels")
     parser.add_argument("--blender", help="blender.exe, pour --triangles")
+    parser.add_argument("--retouch", type=Path,
+                        help="la fiche de retouche : les clips réglés dans Blender")
     parser.add_argument("--no-report", action="store_true",
                         help="n'écrire ni releve.json ni liaison.png à côté de la sortie")
     arguments = parser.parse_args()
@@ -1272,7 +1333,7 @@ def main() -> int:
     sheet = arguments.sheet or arguments.output.with_name("liaison.json")
     statement = rig(arguments.source, arguments.output, sheet, arguments.estimate,
                     arguments.triangles, arguments.texture, arguments.blender, arguments.skeleton,
-                    not arguments.no_report)
+                    not arguments.no_report, arguments.retouch)
     print(f"{statement['model']} : {statement['triangles']} triangles, "
           f"{statement['bytes'] / 1048576:.1f} Mio, taille {statement['height']} m, "
           f"fiche {'estimée' if statement['sheet']['estimated'] else 'écrite'}")

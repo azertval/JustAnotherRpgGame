@@ -41,6 +41,9 @@ textes anglais, aucun formulaire `.ui` (`LOT-EDITOR-01`).
   `EX-EDIT-092`).
 - `RunInGameDialog` — l'essai complet : d'où l'on part, et les drapeaux de monde posés avant le
   premier pas (`EX-EDIT-094`).
+- `AssetWorkshop` — la fenêtre Asset workshop (`LOT-1008`) : la fiche d'un personnage, son
+  aperçu par le rendu du jeu (`SceneSurface`), l'aller-retour par Blender lancé en `QProcess`,
+  l'installation (`EX-EDIT-102`, `EX-EDIT-103`).
 - `LayersPanel` — couche active, visibilité, opacité, grisé, verrou, ajout, retrait, ordre et
   nom.
 - `EntityPanel` — famille à poser, liste filtrable des entités (identifiant, famille, étiquette,

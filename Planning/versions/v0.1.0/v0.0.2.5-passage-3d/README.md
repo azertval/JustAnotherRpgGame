@@ -99,7 +99,7 @@ reste « pour plus tard » sans être écrit dans la dette ci-dessous.
 | LOT-1005 | Déformation par os, clips d'animation | Rien d'installé : les bandes vivent un lot de plus, leur retrait est au LOT-1006 |
 | LOT-1006 | Un squelette, six animations, le mannequin, le premier personnage au standard | **Toutes** les bandes de figurine (132 images et leurs `.anim.json`) ; la cellule et les quatre orientations de figurine dans le rendu ; les bandes de figurine des données d'essai ; la suite 2D du LOT-145. Les 24 bandes d'effets de `Common/Fx/` et `AnimationCatalog`, qui les lit, **restent** |
 | LOT-1007 | Heure du monde, soleil, ombres, lumières de nuit | Rien d'installé : l'ombre propre cuite dans les textures du kit part avec le kit, à la `0.0.3` |
-| LOT-1008 | L'atelier à deux vues | La saisie à la main des manifestes de personnages ; le descripteur d'installation des portraits |
+| LOT-1008 | L'atelier, vue Character, et l'aller-retour par Blender (D-44) ; la vue Scenery suit le kit à la `0.0.3` | La saisie à la main des manifestes de personnages ; la part « personnage » de l'installateur Python ; le descripteur d'installation des portraits |
 | LOT-1009 | Les quatre héros, les PNJ de la quête, les adversaires et les fauves de l'arène, produits au standard ; le squelette `quadruped` | Le **portrait d'attente** (liste `portraits`) ; le brawler de la preuve |
 | LOT-1010 | Le contrôle des orphelins, la recette | Ce que le contrôle trouve encore ; les références d'image périmées |
 

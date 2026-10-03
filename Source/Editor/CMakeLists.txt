@@ -65,6 +65,12 @@ add_library(EditorLogic STATIC
     Logic/QuestEditing.cpp
     # L'essai complet dans le jeu (LOT-EDITOR-10) : le dossier des brouillons joués, et le jeu.
     Logic/GameLaunch.cpp
+    # L'atelier des assets (LOT-1008) : la fiche d'un personnage, son installation, son contrôle,
+    # son aperçu, et l'aller-retour par Blender.
+    Logic/Sha256.cpp
+    Logic/CharacterWorkshop.cpp
+    Logic/CharacterPreview.cpp
+    Logic/BlenderRetouch.cpp
 )
 target_include_directories(EditorLogic PUBLIC ${PROJECT_SOURCE_DIR}/Source)
 target_link_libraries(EditorLogic
@@ -133,6 +139,8 @@ add_executable(LevelEditor
     Ui/WorldStateEditor.cpp
     # Le mode Quêtes (LOT-144) : écrire une quête à côté des cartes qu'elle traverse.
     Ui/QuestsPanel.cpp
+    # L'atelier des assets (LOT-1008) : la vue Character, son aperçu par le rendu du jeu.
+    Ui/AssetWorkshop.cpp
 )
 
 target_link_libraries(LevelEditor PRIVATE

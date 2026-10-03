@@ -59,6 +59,7 @@
 #include "Editor/Logic/PieceCatalog.h"
 #include "Editor/Logic/Stamps.h"
 #include "Editor/Logic/WorldLinks.h"
+#include "Editor/Ui/AssetWorkshop.h"
 #include "Editor/Ui/EditorActions.h"
 #include "Editor/Ui/EditorViewport.h"
 #include "Editor/Ui/EntityPanel.h"
@@ -576,6 +577,11 @@ void MainWindow::buildMenus() {
     connect(properties, &QAction::triggered, this, &MainWindow::openMapPropertiesDialog);
     mapMenu->addSeparator();
     buildRefactorMenu(mapMenu);
+
+    // L'atelier des assets (LOT-1008) : la fiche d'un personnage, son aperçu, Blender.
+    QMenu* const assetsMenu = menuBar()->addMenu(QStringLiteral("&Assets"));
+    QAction* const workshop = assetsMenu->addAction(QStringLiteral("Asset workshop…"));
+    connect(workshop, &QAction::triggered, this, [this] { openAssetWorkshop(); });
 
     QMenu* const viewMenu = menuBar()->addMenu(QStringLiteral("&View"));
     viewMenu->addAction(_actions->action(EditorCommand::IsoView));
@@ -1246,6 +1252,24 @@ void MainWindow::runInGame(std::optional<core::GridPosition> at) {
                  arguments.join(QLatin1Char(' ')).toStdString());
     showTransientStatusMessage(
         QStringLiteral("Running %1 in the game…").arg(QString::fromStdString(options.mapId)), 5000);
+}
+
+void MainWindow::openAssetWorkshop(const std::filesystem::path& sheet) {
+    if (_workshop == nullptr) {
+        _workshop = new AssetWorkshop(editorDataRoot(), this);
+        // Un personnage installé est une figurine de plus à citer : les listes et le contrôle le
+        // relisent.
+        connect(_workshop, &AssetWorkshop::characterInstalled, this, [this] {
+            reloadEditorReferences();
+            runContentCheck();
+        });
+    }
+    if (!sheet.empty()) {
+        static_cast<void>(_workshop->openSheet(sheet));
+    }
+    _workshop->show();
+    _workshop->raise();
+    _workshop->activateWindow();
 }
 
 void MainWindow::openRunInGameDialog() {

@@ -21,8 +21,9 @@ rend impossible l'écart SILENCIEUX entre les deux :
 
 Une zone n'a **pas de budget de poids** (décision de l'auteur, 24 septembre 2026 : un jeu lourd
 mais riche plutôt que des kits bridés). Son poids s'affiche, et s'écrit dans le résumé du job quand `GITHUB_STEP_SUMMARY`
-est défini. Les assets installés s'écrivent par `scripts/assetsGeneration/install_hd_asset.py` ; ce contrôle n'a
-pas besoin des sources, qui ne sont pas versionnées.
+est défini. Les assets installés s'écrivent par `scripts/assetsGeneration/install_hd_asset.py`, les
+personnages par l'atelier des assets de l'éditeur (`LevelEditor --apply <fiche d'atelier>`, LOT-1008) ;
+ce contrôle n'a pas besoin des sources, qui ne sont pas versionnées.
 
 Aucune dépendance pour les images : l'en-tête PNG se lit à la main, comme dans
 `check_ui_assets.py`. Le contrôle d'un `.glb` de personnage demande numpy ; sans lui, ou sans le

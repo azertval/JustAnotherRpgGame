@@ -1,6 +1,6 @@
 # Couverture des exigences
 
-**43 exigences en vigueur sur 311** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
+**46 exigences en vigueur sur 314** sont citées par au moins un cas de test. Cette matrice est **engendrée** avec le reste du cahier : la colonne de gauche vient des déclarations des [spécifications](../Specification/README.md), celle de droite des identifiants `EX-…` que les tests citent dans leur commentaire ou leur corps. Une exigence sans cas est une exigence que **rien ne garde** : le cahier ne la cache pas, il la montre. Les exigences retirées ne sont pas comptées — aucun test ne doit les citer.
 
 ## Par famille
 
@@ -11,7 +11,7 @@
 | `EX-CBT` | [Combat tactique](../Specification/combat.md) | 22 | 6 | 16 |
 | `EX-CNT` | [Contenu et données](../Specification/contenu.md) | 22 | 4 | 18 |
 | `EX-CTRL` | [Contrôles & entrées](../Specification/controles.md) | 5 | 0 | 5 |
-| `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 77 | 10 | 67 |
+| `EX-EDIT` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | 80 | 13 | 67 |
 | `EX-EXP` | [Exploration](../Specification/exploration.md) | 14 | 3 | 11 |
 | `EX-GP` | [Gameplay](../Specification/gameplay.md) | 7 | 1 | 6 |
 | `EX-IHM` | [Interface utilisateur (IHM)](../Specification/interface-ihm.md) | 34 | 4 | 30 |
@@ -22,7 +22,7 @@
 | `EX-REN` | [Rendu & cible technique](../Specification/rendu-technique.md) | 26 | 4 | 22 |
 | `EX-RPG` | [Personnage et progression](../Specification/rpg.md) | 19 | 1 | 18 |
 | `EX-VIS` | [Vision & périmètre](../Specification/vision.md) | 9 | 0 | 9 |
-| **Total** | | **311** | **43** | **268** |
+| **Total** | | **314** | **46** | **268** |
 
 ## Exigence par exigence
 
@@ -197,6 +197,9 @@ Un cas se lit dans la page de son domaine ; le lien y mène. « — » : aucun c
 | `EX-EDIT-099` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | — |
 | `EX-EDIT-100` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`ModeQuetes.LaQueteDeLaDemoSeReecritOctetPourOctet`](integration.md#modequeteslaquetedelademosereecritoctetpouroctet), [`ModeQuetes.JouerAccepteeFaitParaitreLeGardeEtLEnfant`](integration.md#modequetesjoueraccepteefaitparaitrelegardeetlenfant), [`ContenuLivre.RenommerCondamneLaisseLeControleVert`](integration.md#contenulivrerenommercondamnelaisselecontrolevert), [`QuestWriting.UneQueteSeReecritOctetPourOctet`](editor.md#questwritingunequetesereecritoctetpouroctet), [`QuestWriting.UnLieuDEtapeSEcritCarteDiezeEntite`](editor.md#questwritingunlieudetapesecritcartediezeentite), [`ModeQuetesProjet.EnregistrerEcritLaQueteEtSesTextes`](editor.md#modequetesprojetenregistrerecritlaqueteetsestextes), [`ModeQuetesProjet.CeQueLeJeuRefuseraitNeSEnregistrePas`](editor.md#modequetesprojetcequelejeurefuseraitnesenregistrepas), [`ModeQuetesProjet.QuiSeSertDUneValeurDeDrapeau`](editor.md#modequetesprojetquisesertdunevaleurdedrapeau), [`ModeQuetesProjet.RenommerUneValeurLaSuitPartoutEtSeulementElle`](editor.md#modequetesprojetrenommerunevaleurlasuitpartoutetseulementelle), [`ModeQuetesProjet.RenommerUnDrapeauDeclare`](editor.md#modequetesprojetrenommerundrapeaudeclare), [`ModeQuetesProjet.RenommerPuisRetirerUneQuete`](editor.md#modequetesprojetrenommerpuisretirerunequete), [`ModeQuetesProjet.LEtatDePartieQuiAtteintUneEtape`](editor.md#modequetesprojetletatdepartiequiatteintuneetape), [`ModeQuetesProjet.LeLieuDUneEtapeSuitLEntite`](editor.md#modequetesprojetlelieuduneetapesuitlentite), [`ModeQuetesProjet.LeModeQuetesSansFenetre`](editor.md#modequetesprojetlemodequetessansfenetre), [`CatalogEntry.UneCleChangeASaPlace`](editor.md#catalogentryuneclechangeasaplace) |
 | `EX-EDIT-101` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`ContentCheckTest.UnGroupeQuiNeSeDeploiePasFaitEchouerLaCi`](editor.md#contentchecktestungroupequinesedeploiepasfaitechouerlaci), [`GestureScriptTest.LeSableDeLArenaOfFatePorteLeGroupeEtRougitReduit`](editor.md#gesturescripttestlesabledelarenaoffateportelegroupeetrougitreduit) |
+| `EX-EDIT-102` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`CharacterPreviewRenderTest.LeRenduDuJeuDessineLePersonnage`](editor.md#characterpreviewrendertestlerendudujeudessinelepersonnage), [`CharacterDraftTest.UneFicheSeLitEtSeReecritALIdentique`](editor.md#characterdrafttestuneficheselitetsereecritalidentique), [`CharacterWorkshop.LaFicheInstalleLePersonnageEtRendLesFichiersAttendus`](editor.md#characterworkshoplaficheinstallelepersonnageetrendlesfichiersattendus), [`CharacterWorkshop.UneFicheRefuseeNEcritRien`](editor.md#characterworkshopuneficherefuseenecritrien), [`CharacterWorkshop.UnPersonnageInstalleSeRouvreSansDifference`](editor.md#characterworkshopunpersonnageinstalleserouvresansdifference), [`CharacterWorkshopDelivered.LesPersonnagesLivresSeReenregistrentSansDifference`](editor.md#characterworkshopdeliveredlespersonnageslivressereenregistrentsansdifference) |
+| `EX-EDIT-103` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`BlenderRetouch.LesDeuxCommandesPortentCeQueLeScriptAttend`](editor.md#blenderretouchlesdeuxcommandesportentcequelescriptattend) |
+| `EX-EDIT-104` | [Éditeur de cartes](../Specification/editeur-niveaux.md) | [`CharacterWorkshop.LeControleNommeCeQuiManque`](editor.md#characterworkshoplecontrolenommecequimanque) |
 
 ### `EX-EXP`
 
