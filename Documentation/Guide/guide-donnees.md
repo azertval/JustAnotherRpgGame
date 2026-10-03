@@ -535,10 +535,10 @@ scripts, hors CI, tiennent la chaîne, et chacun dit dans son en-tête ce qu'il 
   clé ne change pas. Les **personnages** ne passent plus par lui (`LOT-1008`) : un descripteur
   dont la cible est un `Characters/` est refusé, leur fiche s'écrit et s'installe par l'atelier
   des assets de l'éditeur — la fenêtre *Asset workshop*, ou `LevelEditor --apply <fiche
-  d'atelier>` ([guide de l'éditeur](guide-editeur.md)). Un personnage **sans modèle** mais avec
-  un portrait est un **portrait d'attente** (`LOT-145`) : son nom est dans la liste `portraits`
-  du manifeste, pas dans `npcs`, le moteur le dessine par son mannequin, et `check_hd_assets.py`
-  ne cite pour lui que son portrait et son jeton ; le concept part avec le `LOT-1009`.
+  d'atelier>` ([guide de l'éditeur](guide-editeur.md)). Un personnage **sans modèle** n'existe
+  plus : le portrait d'attente du `LOT-145` (la liste `portraits` du manifeste) part avec le
+  `LOT-1011`, `check_hd_assets.py` refuse la clé et tout nom cité par `npcs` a sa fiche et son
+  modèle.
 - [`prepare_envois_scene.py`](../../scripts/assetsGeneration/prepare_envois_scene.py)
   (`LOT-105`) prépare les **envois** au générateur, qui reste un outil manuel : depuis la
   commande d'une zone (`Tools/AssetsHD/…/commande.md`, la source unique des textes), un dossier
