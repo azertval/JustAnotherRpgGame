@@ -409,6 +409,13 @@ bool ExplorationSession::isPresent(const MapEntity& entity) const {
     return isEntityPresent(entity, _flags);
 }
 
+float ExplorationSession::shownMinutes() const {
+    const Level* const current = map();
+    const std::optional<float> fixed =
+        current != nullptr ? mapFixedMinutes(current->properties()) : std::nullopt;
+    return fixed.value_or(_clock.minutes());
+}
+
 std::vector<ExplorationEvent> ExplorationSession::update(const ExplorationIntent& intent,
                                                          float seconds) {
     // Avant le gel : un dialogue ouvert a pu poser un drapeau, et la quete doit avancer meme si
@@ -417,6 +424,9 @@ std::vector<ExplorationEvent> ExplorationSession::update(const ExplorationIntent
     if (_frozen || map() == nullptr || seconds <= 0.0F) {
         return events;
     }
+    // L'heure du monde passe avec la marche (LOT-1007) : gelee comme elle pendant un dialogue ou
+    // un combat.
+    _clock.advance(seconds);
     walk(intent.move, seconds);
     // Les suiveurs mettent leurs pas dans ceux du heros : la trace s'allonge de ce qu'il vient de
     // faire, avant qu'un portail ne la remette a zero sur la carte d'arrivee.

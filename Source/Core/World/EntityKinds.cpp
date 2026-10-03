@@ -17,6 +17,7 @@
 #include "Core/World/CityBlock.h"
 #include "Core/World/CombatZone.h"
 #include "Core/World/EntityPresence.h"
+#include "Core/World/LightSource.h"
 
 namespace core {
 
@@ -80,6 +81,19 @@ constexpr std::string_view ENCOUNTER_RESPAWNS_PROPERTY = "respawns";
                               .required = required,
                               .defaultValue = minimum,
                               .minimum = minimum};
+}
+
+// Un entier requis, borne des deux cotes, qui vaut @p byDefault a la creation.
+[[nodiscard]] EntityPropertySpec between(std::string_view key, std::int64_t byDefault,
+                                         std::int64_t minimum, std::int64_t maximum) {
+    return EntityPropertySpec{.key = key,
+                              .kind = EntityPropertyKind::Integer,
+                              .source = EntityChoiceSource::Fixed,
+                              .fixedChoices = {},
+                              .required = true,
+                              .defaultValue = byDefault,
+                              .minimum = minimum,
+                              .maximum = maximum};
 }
 
 // Vrai si @p value a le type qu'attend @p kind.
@@ -226,6 +240,26 @@ const std::vector<EntityKind>& knownEntityKinds() {
                                                      .defaultValue = std::string{"allies"}},
                                   atLeast(ARENA_RANK_PROPERTY, 1)},
                    .labelProperty = ARENA_SIDE_PROPERTY},
+        // Source de lumiere (LOT-1007) : ce qu'aucune piece ne porte -- la lueur d'une fenetre, un
+        // feu. Des scalaires : la portee en cases, la hauteur en decimetres, l'intensite en pour
+        // cent (`core::lightSourceOf`).
+        EntityKind{
+            .type = LIGHT_ENTITY_TYPE,
+            .properties = {EntityPropertySpec{.key = LIGHT_COLOR_PROPERTY,
+                                              .kind = EntityPropertyKind::Text,
+                                              .source = EntityChoiceSource::Fixed,
+                                              .fixedChoices = {},
+                                              .required = true,
+                                              .defaultValue = std::string{LIGHT_COLOR_DEFAULT}},
+                           between(LIGHT_RADIUS_PROPERTY, LIGHT_RADIUS_CELLS_DEFAULT, 1,
+                                   LIGHT_RADIUS_CELLS_MAXIMUM),
+                           between(LIGHT_HEIGHT_PROPERTY, LIGHT_HEIGHT_DECIMETRES_DEFAULT, 0,
+                                   LIGHT_HEIGHT_DECIMETRES_MAXIMUM),
+                           between(LIGHT_INTENSITY_PROPERTY, LIGHT_INTENSITY_PERCENT_DEFAULT,
+                                   LIGHT_INTENSITY_PERCENT_MINIMUM,
+                                   LIGHT_INTENSITY_PERCENT_MAXIMUM),
+                           boolean(LIGHT_FLICKER_PROPERTY), boolean(LIGHT_ALWAYS_PROPERTY)},
+            .labelProperty = LIGHT_COLOR_PROPERTY},
     };
     return familles;
 }

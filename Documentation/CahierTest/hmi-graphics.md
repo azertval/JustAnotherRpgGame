@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **188 cas** (47 bloquants, 52 critiques, 83 majeurs, 6 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **198 cas** (56 bloquants, 52 critiques, 84 majeurs, 6 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -18,6 +18,7 @@ Tests unitaires — **188 cas** (47 bloquants, 52 critiques, 83 majeurs, 6 mineu
 | [`test_hd_mockup_render.cpp`](#test-hd-mockup-rendercpp) | 3 | 2 | - | - | 1 |
 | [`test_image_encode.cpp`](#test-image-encodecpp) | 5 | - | 1 | 4 | - |
 | [`test_iso_view.cpp`](#test-iso-viewcpp) | 6 | 3 | - | 3 | - |
+| [`test_lit_render.cpp`](#test-lit-rendercpp) | 4 | 4 | - | - | - |
 | [`test_maquette_tokens.cpp`](#test-maquette-tokenscpp) | 6 | - | 2 | 4 | - |
 | [`test_mesh_composition.cpp`](#test-mesh-compositioncpp) | 6 | 2 | - | 4 | - |
 | [`test_mesh_render.cpp`](#test-mesh-rendercpp) | 7 | 4 | - | 3 | - |
@@ -30,6 +31,7 @@ Tests unitaires — **188 cas** (47 bloquants, 52 critiques, 83 majeurs, 6 mineu
 | [`test_render_culling.cpp`](#test-render-cullingcpp) | 10 | - | 5 | 4 | 1 |
 | [`test_rhi_offscreen.cpp`](#test-rhi-offscreencpp) | 4 | 2 | 1 | 1 | - |
 | [`test_scene_folders.cpp`](#test-scene-folderscpp) | 2 | 2 | - | - | - |
+| [`test_scene_lighting.cpp`](#test-scene-lightingcpp) | 6 | 5 | - | 1 | - |
 | [`test_static_world_scene.cpp`](#test-static-world-scenecpp) | 3 | 2 | - | 1 | - |
 | [`test_texture_atlas.cpp`](#test-texture-atlascpp) | 1 | - | 1 | - | - |
 | [`test_world_scene_composer.cpp`](#test-world-scene-composercpp) | 35 | 4 | 16 | 15 | - |
@@ -1345,6 +1347,95 @@ L'etendue de profondeur contient la scene.
 - Vérifie que `bounds.size.x` vaut `tile.size.x`, à `TOLERANCE` près.
 - Vérifie que `bounds.position.y + bounds.size.y` vaut `tile.position.y + tile.size.y`, à `TOLERANCE` près.
 - Vérifie que `bounds.position.y` vaut `tile.position.y - view.riseOf(2.0F)`, à `TOLERANCE` près.
+
+## test_lit_render.cpp
+
+### LitRenderTest.LaCarteDEssaiSeRendAuxQuatreHeures
+
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Lumière* — `Source/Test/Unit/HMI/Graphics/test_lit_render.cpp:125`
+
+La carte d'essai se rend a l'aube, a midi, au crepuscule et la nuit.
+
+**Étapes**
+
+1. Rendre la carte d'essai et son mannequin sans éclairage.
+2. La rendre à 06:30, 12:00, 19:00 et 00:00, avec les ombres.
+
+**Résultat attendu**
+
+- Vérifie que `image.size()` vaut `SIZE`.
+- Vérifie que `unlit.isNull()` est faux.
+- Vérifie que `meanLuminance(dawn, everywhere)` est strictement inférieur à `noonLight`.
+- Vérifie que `meanLuminance(dusk, everywhere)` est strictement inférieur à `noonLight`.
+- Vérifie que `nightLight` est strictement inférieur à `meanLuminance(dawn, everywhere)`.
+- Vérifie que `nightLight` est strictement inférieur à `meanLuminance(dusk, everywhere)`.
+- Vérifie que `nightLight` est strictement supérieur à `noonLight / 3.0`.
+- Vérifie que `nightBlue / nightRed` est strictement supérieur à `noonBlue / noonRed`.
+- Vérifie que `duskRed / duskBlue` est strictement supérieur à `noonRed / noonBlue`.
+
+### LitRenderTest.AMidiLaLumiereNeChangePasLaFacture
+
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Lumière* — `Source/Test/Unit/HMI/Graphics/test_lit_render.cpp:188`
+
+A midi, la lumiere ne change pas la facture.
+
+**Étapes**
+
+1. Rendre la carte d'essai, sans mannequin, sans éclairage.
+2. La rendre à midi, sans ombres.
+
+**Résultat attendu**
+
+- Vérifie que `unlit.size()` vaut `SIZE`.
+- Vérifie que `noon.size()` vaut `SIZE`.
+- Vérifie que `same` est strictement supérieur à `static_cast<std::size_t>(SIZE.width() * SIZE.height()) / 2U`.
+- Vérifie que `unlitRoof` est strictement supérieur à `0.0`.
+- Vérifie que `noonRoof` est strictement supérieur à `0.0`.
+- Vérifie que `noonRoof / unlitRoof` vaut `1.0`, à `0.2` près.
+- Vérifie que `redToBlue(noon) / redToBlue(unlit)` vaut `1.0`, à `0.1` près.
+
+### LitRenderTest.LesMaillagesJettentUneOmbreQueLeReglageRetire
+
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Lumière* — `Source/Test/Unit/HMI/Graphics/test_lit_render.cpp:253`
+
+Les maillages jettent une ombre, que le reglage retire.
+
+**Étapes**
+
+1. Rendre la carte d'essai et son mannequin à 16:00, ombres éteintes.
+2. La rendre à la même heure, ombres allumées, à 2048 puis à 512 texels.
+3. La rendre de nouveau ombres éteintes.
+
+**Résultat attendu**
+
+- Vérifie que `flat.size()` vaut `SIZE`.
+- Vérifie que `fine` est strictement supérieur à `2000U`.
+- Vérifie que `brighter` vaut `0U`.
+- Vérifie que `static_cast<double>(rough)` vaut `static_cast<double>(fine)`, à `static_cast<double>(fine) / 5.0` près.
+- Vérifie que `again` vaut `flat`.
+
+### LitRenderTest.UneLumiereDeNuitEclaireAutourDElle
+
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Lumière* — `Source/Test/Unit/HMI/Graphics/test_lit_render.cpp:312`
+
+Une lumiere de nuit eclaire autour d'elle, la nuit.
+
+**Étapes**
+
+1. Rendre la carte d'essai à minuit, sans source.
+2. Y poser une lanterne en (2, 6), de 4,5 m de portée, et la rendre à minuit.
+3. La rendre à midi ; puis à midi, la lanterne toujours allumée.
+
+**Résultat attendu**
+
+- Vérifie que `lamp.size()` vaut `SIZE`.
+- Vérifie que `QRect(QPoint(0, 0), SIZE).contains(under)` est vrai.
+- Vérifie que `meanLuminance(lamp, around)` est strictement supérieur à `meanLuminance(dark, around) * 1.4`.
+- Vérifie que `warm.red() - warm.blue()` est strictement supérieur à `cold.red() - cold.blue()`.
+- Vérifie que `QRect(QPoint(0, 0), SIZE).contains(away)` est vrai.
+- Vérifie que `lamp.pixel(away)` vaut `dark.pixel(away)`.
+- Vérifie que `lampAtNoon` vaut `noon`.
+- Vérifie que `alwaysAtNoon` diffère de `noon`.
 
 ## test_maquette_tokens.cpp
 
@@ -2747,6 +2838,192 @@ L'ancre d'une piece rangee se lit dans le manifeste du lieu.
 - Vérifie que `traits.artTile.x` vaut `256.0F` (comparaison flottante).
 - Vérifie que `traits.storeyHeight.has_value()` est vrai.
 - Vérifie que `*traits.storeyHeight` vaut `224.0F` (comparaison flottante).
+
+## test_scene_lighting.cpp
+
+### SceneLightingTest.LeBlocEstNeutreParDefautEtDitLaLumiereDeLHeure
+
+*Bloquant · Unitaire · Rendu d'un lieu · Lumière* — `Source/Test/Unit/HMI/Graphics/test_scene_lighting.cpp:165`
+
+Le bloc d'eclairage est neutre par defaut, et dit la lumiere de l'heure.
+
+**Étapes**
+
+1. Lire un bloc `LightingUniforms` d'usine.
+2. Bâtir l'éclairage de midi sur le cadrage d'essai.
+3. Le bâtir sans ombres, puis à une heure où la lumière dirigée est noire (20:30).
+
+**Résultat attendu**
+
+- Vérifie que `neutral.tint[3]` vaut `0.0F` (comparaison flottante).
+- Vérifie que `neutral.sun[3]` vaut `0.0F` (comparaison flottante).
+- Vérifie que `neutral.up[3]` vaut `0.0F` (comparaison flottante).
+- Vérifie que `noon.uniforms.tint[3]` vaut `1.0F` (comparaison flottante).
+- Vérifie que `noon.uniforms.tint[0]` vaut `1.0F` (comparaison flottante).
+- Vérifie que `length(noon.uniforms.toSun)` vaut `1.0F`, à `1e-4F` près.
+- Vérifie que `length(noon.uniforms.up)` vaut `1.0F`, à `1e-4F` près.
+- Vérifie que `noon.uniforms.up[1]` est strictement inférieur à `0.0F`.
+- Vérifie que `noon.shadows` est vrai.
+- Vérifie que `noon.uniforms.sun[3]` vaut `1.0F` (comparaison flottante).
+- Vérifie que `noon.uniforms.toSun[3]` vaut `1.0F / 2048.0F` (comparaison flottante).
+- Vérifie que `noon.uniforms.ambient[3]` vaut `lightingAt(720.0F).light.shadow` (comparaison flottante).
+- Vérifie que `flat.shadows` est faux.
+- Vérifie que `flat.uniforms.sun[3]` vaut `0.0F` (comparaison flottante).
+- Vérifie que `flat.uniforms.tint[3]` vaut `1.0F` (comparaison flottante).
+- Vérifie que `dark.shadows` est faux.
+
+### SceneLightingTest.LaCarteDOmbresCouvreLImageEtGlisseParTexels
+
+*Bloquant · Unitaire · Rendu d'un lieu · Lumière* — `Source/Test/Unit/HMI/Graphics/test_scene_lighting.cpp:213`
+
+La carte d'ombres couvre l'image et glisse par texels entiers.
+
+**Étapes**
+
+1. Bâtir l'éclairage de midi et amener dans la carte d'ombres le point du sol au centre de l'image, ses quatre coins, et le centre élevé de deux mètres.
+2. Décaler le cadrage de quelques centièmes d'unité, cent fois, et relever à chaque fois où tombe un même point du lieu.
+
+**Résultat attendu**
+
+- Vérifie que `frame.shadows` est vrai.
+- Vérifie que `centre[0]` vaut `0.5F`, à `2.0F * texel` près.
+- Vérifie que `centre[1]` vaut `0.5F`, à `2.0F * texel` près.
+- Vérifie que `centre[2]` est strictement supérieur à `0.0F`.
+- Vérifie que `centre[2]` est strictement inférieur à `1.0F`.
+- Vérifie que `corner[0]` est strictement supérieur à `0.0F`.
+- Vérifie que `corner[0]` est strictement inférieur à `1.0F`.
+- Vérifie que `corner[1]` est strictement supérieur à `0.0F`.
+- Vérifie que `corner[1]` est strictement inférieur à `1.0F`.
+- Vérifie que `corner[2]` est strictement supérieur à `0.0F`.
+- Vérifie que `corner[2]` est strictement inférieur à `1.0F`.
+- Vérifie que `raised[2]` est strictement inférieur à `centre[2]`.
+- Vérifie que `metres[1]` vaut `0.0F`, à `1e-3F` près.
+- Vérifie que `(clip[0] * 0.5F) + 0.5F` vaut `centre[0]`, à `1e-4F` près.
+- Vérifie que `(clip[2] * 0.5F) + 0.5F` vaut `centre[2]`, à `1e-4F` près.
+- Vérifie que `texelsX` vaut `std::round(texelsX)`, à `0.02F` près.
+- Vérifie que `texelsY` vaut `std::round(texelsY)`, à `0.02F` près.
+
+### SceneLightingTest.LesLumieresDeNuitSontChoisiesPourLImage
+
+*Bloquant · Unitaire · Rendu d'un lieu · Lumière* — `Source/Test/Unit/HMI/Graphics/test_scene_lighting.cpp:289`
+
+Les lumieres de nuit sont choisies pour l'image.
+
+**Étapes**
+
+1. Donner deux sources, dont une toujours allumée, à midi puis à minuit.
+2. Donner une source hors de l'image, au-delà de sa portée.
+3. Donner quarante sources en ligne, de plus en plus loin du centre.
+4. Donner une flamme et lire sa couleur à cent instants.
+
+**Résultat attendu**
+
+- Vérifie que `middle.has_value()` est vrai.
+- Vérifie que `noon.uniforms.up[3]` vaut `1.0F` (comparaison flottante).
+- Vérifie que `midnight.uniforms.up[3]` vaut `2.0F` (comparaison flottante).
+- Vérifie que `midnight.uniforms.lightPosition[0][3]` vaut `6.0F * view.unitsPerMetre()`, à `1e-3F` près.
+- Vérifie que `midnight.uniforms.lightColor[0][0]` vaut `1.0F`, à `1e-4F` près.
+- Vérifie que `midnight.uniforms.lightColor[0][2]` vaut `0.6F`, à `1e-4F` près.
+- Vérifie que `hmi::buildSceneLighting(view, shown, lightingAt(0.0F), far, true).uniforms.up[3]` vaut `0.0F` (comparaison flottante).
+- Vérifie que `crowded.uniforms.up[3]` vaut `static_cast<float>(hmi::MAXIMUM_SCENE_LIGHTS)` (comparaison flottante).
+- Vérifie que `crowded.uniforms.lightPosition[index][0]` est strictement inférieur à `beyond[0]`.
+- Vérifie que `highest` est inférieur ou égal à `1.0F + 1e-4F`.
+- Vérifie que `lowest` est supérieur ou égal à `0.8F`.
+- Vérifie que `highest - lowest` est strictement supérieur à `0.03F`.
+
+### SceneLightingTest.LesMatricesSInversentEtSeComposent
+
+*Majeur · Unitaire · Rendu d'un lieu · Lumière* — `Source/Test/Unit/HMI/Graphics/test_scene_lighting.cpp:361`
+
+Les matrices de l'eclairage s'inversent et se composent.
+
+**Étapes**
+
+1. Prendre la matrice qui amène le lieu en mètres dans la vue, et son inverse.
+2. Amener trois points dans la vue, puis les ramener.
+3. Comparer la vue du point de grille (3, 2) à celle de sa projection.
+
+**Résultat attendu**
+
+- Vérifie que `back[0]` vaut `point[0]`, à `1e-3F` près.
+- Vérifie que `back[1]` vaut `point[1]`, à `1e-3F` près.
+- Vérifie que `back[2]` vaut `point[2]`, à `1e-3F` près.
+- Vérifie que `identity[index]` vaut `index % 5 == 0 ? 1.0F : 0.0F`, à `1e-4F` près.
+- Vérifie que `seen[0]` vaut `projected.x`, à `1e-3F` près.
+- Vérifie que `seen[1]` vaut `projected.y`, à `1e-3F` près.
+- Vérifie que `seen[2]` vaut `view.groundDepth(projected.y)`, à `1e-3F` près.
+
+### SceneLightingTest.UneCarteReleveSesLumieresEtSesBoitesDOmbre
+
+*Bloquant · Unitaire · Rendu d'un lieu · Lumière* — `Source/Test/Unit/HMI/Graphics/test_scene_lighting.cpp:398`
+
+Une carte releve ses lumieres, ses eclats et ses boites d'ombre.
+
+**Étapes**
+
+1. Écrire un lieu d'essai : un mur, un lampadaire qui éclaire, un brasero qui éclaire et garde son éclat, un tapis, un dallage.
+2. Composer une carte de 4 × 4 : le mur en (0, 0) et à l'étage au-dessus, le lampadaire en (1, 1), le brasero en (2, 2), le tapis en (3, 3), une entité `light` en (3, 0).
+
+**Résultat attendu**
+
+- Vérifie que `appearance.pieceManifest()` diffère de `nullptr`.
+- Vérifie que `snapshot.lights.size()` vaut `3U`.
+- Vérifie que `lamppost.column` vaut `1.5F` (comparaison flottante).
+- Vérifie que `lamppost.row` vaut `1.5F` (comparaison flottante).
+- Vérifie que `lamppost.emission.height` vaut `3.0F` (comparaison flottante).
+- Vérifie que `lamppost.emission.radius` vaut `7.5F` (comparaison flottante).
+- Vérifie que `lamppost.emission.flicker` est faux.
+- Vérifie que `snapshot.lights[1].emission.flicker` est vrai.
+- Vérifie que `snapshot.lights[1].column` vaut `2.5F` (comparaison flottante).
+- Vérifie que `snapshot.lights[2].emission.always` est vrai.
+- Vérifie que `snapshot.lights[2].column` vaut `3.5F` (comparaison flottante).
+- Vérifie que `snapshot.lights[2].row` vaut `0.5F` (comparaison flottante).
+- Vérifie que `snapshot.glows.size()` vaut `1U`.
+- Vérifie que `snapshot.glows.at("brazier")` vaut `0.8F` (comparaison flottante).
+- Vérifie que `snapshot.shadowBoxes.size()` vaut `4U`.
+- Vérifie que `wall.column` vaut `0.0F` (comparaison flottante).
+- Vérifie que `wall.columns` vaut `1.0F` (comparaison flottante).
+- Vérifie que `wall.base` vaut `0.0F` (comparaison flottante).
+- Vérifie que `wall.height` vaut `227.0F / pixelsPerMetre`, à `1e-3F` près.
+- Vérifie que `wall.height` vaut `2.4F`, à `0.05F` près.
+- Vérifie que `wall.top` vaut `1.0F` (comparaison flottante).
+- Vérifie que `upper.column` vaut `0.0F` (comparaison flottante).
+- Vérifie que `upper.base` vaut `2.4F` (comparaison flottante).
+- Vérifie que `pole.columns` vaut `0.25F`, à `1e-4F` près.
+- Vérifie que `pole.column` vaut `1.375F`, à `1e-4F` près.
+- Vérifie que `pole.height` vaut `3.0F`, à `0.05F` près.
+- Vérifie que `pole.top` est strictement inférieur à `1.0F`.
+- Vérifie que `snapshot.shadowBoxes[3].column` vaut `2.25F`, à `1e-4F` près.
+
+### SceneLightingTest.ChaquePrimitiveDitCeQuElleRecoit
+
+*Bloquant · Unitaire · Rendu d'un lieu · Lumière* — `Source/Test/Unit/HMI/Graphics/test_scene_lighting.cpp:466`
+
+Chaque primitive dit ce qu'elle recoit de la lumiere.
+
+**Étapes**
+
+1. Composer un sol, une pièce dressée, une pièce dressée d'éclat 0,8, un effet (éclat 1), une marque d'interface, une face de bloc de maquette élevée et son losange à plat.
+2. Lire ce que chacune reçoit (`ComposedQuad::shading`).
+
+**Résultat attendu**
+
+- Vérifie que `scene.addSprite(hmi::RenderLayer::Tile, texture, 0, quad)` est vrai.
+- Vérifie que `scene.addSprite(hmi::RenderLayer::Object, texture, 1, quad)` est vrai.
+- Vérifie que `scene.addSprite(hmi::RenderLayer::Object, texture, 2, quad, 0, {}, std::nullopt, 0.8F)` est vrai.
+- Vérifie que `scene.addSprite(hmi::RenderLayer::Player, texture, 3, quad, 0, {}, std::nullopt, 1.0F)` est vrai.
+- Vérifie que `scene.addSprite(hmi::RenderLayer::UI, texture, 4, quad)` est vrai.
+- Vérifie que `scene.addPoly(hmi::RenderLayer::Tile, texture, 5, raised)` est vrai.
+- Vérifie que `scene.addPoly(hmi::RenderLayer::Tile, texture, 6, flat)` est vrai.
+- Vérifie que `quads.size()` vaut `7U`.
+- Vérifie que `quads[0].shading()` vaut `(hmi::SpriteShading{.lit = 1.0F, .shadowed = true})`.
+- Vérifie que `quads[1].shading()` vaut `(hmi::SpriteShading{.lit = 1.0F, .shadowed = false})`.
+- Vérifie que `quads[2].shading().lit` vaut `0.2F`, à `1e-5F` près.
+- Vérifie que `quads[2].shading().shadowed` est faux.
+- Vérifie que `quads[3].shading().lit` vaut `0.0F` (comparaison flottante).
+- Vérifie que `quads[4].shading()` vaut `hmi::SpriteShading{}`.
+- Vérifie que `quads[5].shading()` vaut `(hmi::SpriteShading{.lit = 1.0F, .shadowed = false})`.
+- Vérifie que `quads[6].shading()` vaut `(hmi::SpriteShading{.lit = 1.0F, .shadowed = true})`.
 
 ## test_static_world_scene.cpp
 

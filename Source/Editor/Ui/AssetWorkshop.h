@@ -46,7 +46,8 @@ class SceneSurface;
  *   sources du personnage (*Save sheet*) ; *Install* écrit le personnage sous `Assets/`
  *   (`hmi::planCharacter`), exactement comme `LevelEditor --apply <fiche>`.
  * - À droite, l'**aperçu** : le modèle, dessiné par le rendu du jeu, clip par clip, avec le quart
- *   de tour. L'heure du jour viendra avec l'éclairage (`LOT-1007`).
+ *   de tour, à l'heure choisie : midi, l'aube, le crépuscule, la nuit, ou sans éclairage
+ *   (`LOT-1007`).
  * - *Edit in Blender* ouvre le modèle lié dans Blender ; *Import from Blender* relit ce qui y a
  *   été réglé, relie le modèle et le contrôle (`hmi::importFromBlenderCommand`). Le compte rendu
  *   des deux s'affiche sous la fiche.

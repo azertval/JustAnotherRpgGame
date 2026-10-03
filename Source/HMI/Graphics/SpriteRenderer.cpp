@@ -79,7 +79,7 @@ void drawInDepth(SpriteBatch& batch, const ComposedQuad& composed, const SceneDe
 
 // Soumet une scene composee au pipeline de dessin, une passe par groupe de texture.
 void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projection,
-                         const ComposedScene& scene, const SceneDepth* depth) {
+                         const ComposedScene& scene, const SceneDepth* depth, bool lit) {
     const std::vector<ComposedQuad>& quads = scene.quads();
     TextureHandle current = nullptr;
     bool open = false;
@@ -97,6 +97,9 @@ void submitComposedScene(SpriteBatch& batch, const DirectX::XMFLOAT4X4& projecti
             batch.begin(projection, composed.texture);
             current = composed.texture;
             open = true;
+        }
+        if (lit) {
+            batch.setShading(composed.shading());
         }
         if (depth != nullptr) {
             drawInDepth(batch, composed, *depth);

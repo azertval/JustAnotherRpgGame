@@ -4,6 +4,7 @@
 #include "Core/Resources/ScenePieceManifest.h"
 
 #include <algorithm>
+#include <cmath>
 #include <system_error>
 #include <tuple>
 #include <utility>
@@ -41,6 +42,41 @@ namespace {
     return {(*found)[0].get<int>(), (*found)[1].get<int>()};
 }
 
+// Le nombre fini du champ `key`, ramene dans [low, high] ; `fallback` s'il manque.
+[[nodiscard]] float boundedNumber(const nlohmann::json& object, const char* key, float fallback,
+                                  float low, float high) {
+    const auto found = object.find(key);
+    if (found == object.end() || !found->is_number()) {
+        return fallback;
+    }
+    const auto value = found->get<float>();
+    return std::isfinite(value) ? std::clamp(value, low, high) : fallback;
+}
+
+// La lumiere d'une piece (LOT-1007), en metres. Un champ absent ou faux vaut ce que vaut une
+// lanterne : une piece mal ecrite eclaire quand meme, et `check_hd_assets` dit ce qui est faux.
+[[nodiscard]] LightEmission readEmission(const nlohmann::json& value) {
+    LightEmission emission;
+    if (const auto color = value.find("color"); color != value.end() && color->is_string()) {
+        emission.color =
+            parseLightColor(color->get<std::string>()).value_or(LightEmission::DEFAULT_COLOR);
+    }
+    emission.radius = boundedNumber(value, "radius", LightEmission::DEFAULT_RADIUS_METRES, 0.5F,
+                                    LightEmission::MAXIMUM_RADIUS_METRES);
+    emission.height = boundedNumber(value, "height", LightEmission::DEFAULT_HEIGHT_METRES, 0.0F,
+                                    LightEmission::MAXIMUM_HEIGHT_METRES);
+    emission.intensity =
+        boundedNumber(value, "intensity", 1.0F, 0.1F, LightEmission::MAXIMUM_INTENSITY);
+    if (const auto flicker = value.find("flicker");
+        flicker != value.end() && flicker->is_boolean()) {
+        emission.flicker = flicker->get<bool>();
+    }
+    if (const auto always = value.find("always"); always != value.end() && always->is_boolean()) {
+        emission.always = always->get<bool>();
+    }
+    return emission;
+}
+
 [[nodiscard]] ScenePiece readPiece(const std::string& key, const nlohmann::json& value) {
     ScenePiece piece;
     piece.key = key;
@@ -56,6 +92,9 @@ namespace {
         piece.className = found->get<std::string>();
     }
     piece.pieceClass = parseScenePieceClass(piece.className);
+    if (const auto family = value.find("family"); family != value.end() && family->is_string()) {
+        piece.family = family->get<std::string>();
+    }
     const auto [columns, rows] = intPair(value, "footprint", {1, 1});
     piece.footprintColumns = std::max(1, columns);
     piece.footprintRows = std::max(1, rows);
@@ -71,6 +110,12 @@ namespace {
     if (const auto tactical = value.find("tactical");
         tactical != value.end() && tactical->is_string()) {
         piece.tactical = parsePieceTactical(tactical->get<std::string>()).value_or(piece.tactical);
+    }
+    if (const auto light = value.find("light"); light != value.end() && light->is_object()) {
+        piece.light = readEmission(*light);
+    }
+    if (const auto glow = value.find("glow"); glow != value.end() && glow->is_number()) {
+        piece.glow = std::clamp(glow->get<float>(), 0.0F, 1.0F);
     }
     if (const auto aliases = value.find("aliases"); aliases != value.end() && aliases->is_array()) {
         for (const nlohmann::json& alias : *aliases) {

@@ -42,6 +42,7 @@
 #include "Editor/Logic/MapFormat.h"
 #include "Editor/Logic/WorldState.h"
 #include "Editor/Ui/DraftRenderer.h"
+#include "Editor/Ui/MapRender.h"
 #include "Editor/Ui/SceneSurface.h"
 #include "HMI/Game/WorldPlay.h"
 #include "HMI/Graphics/EntityMarkers.h"
@@ -51,6 +52,11 @@
 #include "HMI/Platform/ExecutableDirectory.h"
 
 namespace hmi {
+
+namespace {
+/// Le côté de la carte d'ombres du canevas, en texels : celui du jeu par défaut.
+constexpr int CANVAS_SHADOW_SIZE = 2048;
+}  // namespace
 
 namespace {
 
@@ -253,6 +259,7 @@ EditorViewport::EditorViewport(StartContent content, QWidget* parent)
       _draft(core::LevelDraft::empty("New map", 24, 14)),
       _snapshot(std::make_shared<const WorldSceneSnapshot>()),
       _mapId(_draft.name()) {
+    _lightTable = placeDayLight(assetsDirectory());
     _canvasScene->addItem(_item);
     setScene(_canvasScene);
     // La scène est dessinée dessous, par la surface (LOT-1002) : la vue n'a pas de fond, et ne
@@ -590,8 +597,31 @@ void EditorViewport::ensureIsoScene() {
     WorldSceneRenderer& renderer = _surface->renderer();
     renderer.setScene(_snapshot);
     renderer.setFigures(_snapshot->figures);
+    applyLighting();
     measureIsoScene();
     _surface->update();
+}
+
+void EditorViewport::setLightHour(std::optional<float> minutes) {
+    if (_lightHour == minutes) {
+        return;
+    }
+    _lightHour = minutes;
+    applyLighting();
+    _surface->update();
+}
+
+void EditorViewport::applyLighting() {
+    // L'essai est le jeu : toujours eclaire, a l'heure de sa session. Le canevas ne l'est qu'a
+    // l'heure que l'auteur choisit.
+    const std::optional<float> minutes =
+        _play ? std::optional<float>{_play->session().shownMinutes()} : _lightHour;
+    _surface->renderer().setLighting(minutes ? std::optional<WorldLighting>{WorldLighting{
+                                                   .light = _lightTable.sample(*minutes),
+                                                   .shadows = true,
+                                                   .shadowSize = CANVAS_SHADOW_SIZE,
+                                                   .seconds = _play ? _playSeconds : 0.0F}}
+                                             : std::nullopt);
 }
 
 void EditorViewport::measureIsoScene() {
@@ -1185,6 +1215,7 @@ void EditorViewport::stepPlaytest() {
                                              .interact = _interactRequested};
         _interactRequested = false;
         const WorldPlayStep result = _play->step(intent, _timestep.fixedDeltaSeconds());
+        _playSeconds += _timestep.fixedDeltaSeconds();
         _playSceneDirty =
             _playSceneDirty || result.sceneChanged || result.figuresChanged || result.heroMoved;
         for (const core::ExplorationEvent& event : result.events) {
@@ -1233,6 +1264,7 @@ void EditorViewport::stepPlaytest() {
         renderer.setScene(map);
     }
     // L'image : les figurines de l'instant, et la caméra sur le héros (`hmi::worldCamera`).
+    applyLighting();
     renderer.setFigures(_play->figures());
     const core::CellPoint hero = _play->session().heroPoint();
     renderer.setFocus({hero.column, hero.row});
@@ -1332,6 +1364,11 @@ void EditorViewport::startPlaytest(std::optional<core::GridPosition> from) {
         return;
     }
     _play = std::move(play);
+    _playSeconds = 0.0F;
+    // L'essai part de l'heure du canevas, quand l'auteur en a choisi une.
+    if (_lightHour) {
+        _play->session().clock().setMinutes(*_lightHour);
+    }
     _playMap.reset();
     _playSceneDirty = true;
     _heldKeys.clear();
@@ -1367,6 +1404,7 @@ void EditorViewport::stopPlaytest() {
     _play.reset();
     _playMap.reset();
     _heldKeys.clear();
+    applyLighting();
     // Le rendu retrouve le brouillon, et la vue son cadrage d'édition, qui n'a pas bougé.
     _surface->setClearColor(EDIT_BACKGROUND);
     _isoSceneDirty = true;

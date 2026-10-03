@@ -515,9 +515,10 @@ Les reglages de rendu ne prennent que les valeurs proposees.
 **Étapes**
 
 1. Isoler les preferences dans un dossier temporaire.
-2. Lire les valeurs d'usine, puis regler 8 echantillons et 150 % ; relire par un second modele.
-3. Demander 3 echantillons et 137 %, que l'ecran ne propose pas.
-4. Ecrire des valeurs non proposees dans les preferences et recharger.
+2. Lire les valeurs d'usine, puis regler 8 echantillons, 150 % et des ombres de 4096 texels ; relire par un second modele.
+3. Demander 3 echantillons, 137 % et 3000 texels, que l'ecran ne propose pas.
+4. Eteindre les ombres (0).
+5. Ecrire des valeurs non proposees dans les preferences et recharger.
 
 **Résultat attendu**
 
@@ -528,18 +529,26 @@ Les reglages de rendu ne prennent que les valeurs proposees.
 - Vérifie que `options.defaults().value("renderScalePercent").toInt()` vaut `100`.
 - Vérifie que `options.antialiasingLevels()` vaut `(QList<int>{1, 2, 4, 8})`.
 - Vérifie que `options.renderScales()` vaut `(QList<int>{100, 125, 150, 200})`.
+- Vérifie que `options.shadows()` vaut `2048`.
+- Vérifie que `options.defaults().value("shadows").toInt()` vaut `2048`.
+- Vérifie que `options.shadowSizes()` vaut `(QList<int>{0, 1024, 2048, 4096})`.
+- Vérifie que `options.shadows()` vaut `4096`.
+- Vérifie que `shadowChanges` vaut `1`.
+- Vérifie que `hmi::OptionsModel{}.shadows()` vaut `4096`.
+- Vérifie que `options.shadows()` vaut `0`.
 - Vérifie que `reloaded.antialiasing()` vaut `8`.
 - Vérifie que `reloaded.renderScalePercent()` vaut `150`.
 - Vérifie que `options.antialiasing()` vaut `8`.
 - Vérifie que `options.renderScalePercent()` vaut `150`.
 - Vérifie que `antialiasingChanges` vaut `1`.
 - Vérifie que `renderScaleChanges` vaut `1`.
+- Vérifie que `invalidStored.shadows()` vaut `2048`.
 - Vérifie que `invalidStored.antialiasing()` vaut `4`.
 - Vérifie que `invalidStored.renderScalePercent()` vaut `100`.
 
 ### InventoryModelTest.EquipmentSurvivesReopeningAndCombatRecords
 
-*Majeur · Unitaire · Inventaire* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:129`
+*Majeur · Unitaire · Inventaire* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:145`
 
 L'equipement survit a la reouverture de l'ecran et au combat.
 
@@ -563,7 +572,7 @@ L'equipement survit a la reouverture de l'ecran et au combat.
 
 ### InventoryModelTest.RestPreservesEquipmentAndClearsSpentResources
 
-*Majeur · Unitaire · Registre du groupe* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:183`
+*Majeur · Unitaire · Registre du groupe* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:199`
 
 Un repos garde l'equipement et rend les ressources depensees.
 
@@ -582,7 +591,7 @@ Un repos garde l'equipement et rend les ressources depensees.
 
 ### ScreenRouterTest.CodexAndOptionsReturnToOngoingCombat
 
-*Majeur · Unitaire · Routeur d'ecrans* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:212`
+*Majeur · Unitaire · Routeur d'ecrans* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:228`
 
 Le codex et les options ramenent au combat en cours.
 

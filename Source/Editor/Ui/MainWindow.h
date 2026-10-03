@@ -22,11 +22,13 @@
 #include "Editor/Ui/RunInGameDialog.h"
 
 class QAction;
+class QCheckBox;
 class QDockWidget;
 class QFileSystemWatcher;
 class QLabel;
 class QMenu;
 class QProcess;
+class QSlider;
 class QTabWidget;
 class QTimer;
 class QToolBar;
@@ -290,6 +292,22 @@ private:
     std::shared_ptr<OffscreenRhi> _offscreen;
     EditorActions* _actions = nullptr;
     QToolBar* _toolBar = nullptr;
+    /// L'heure du canevas (`LOT-1007`) : la case qui allume l'éclairage, le curseur de l'heure
+    /// et son étiquette, dans la barre d'outils.
+    QCheckBox* _lightingCheck = nullptr;
+    QSlider* _hourSlider = nullptr;
+    QLabel* _hourLabel = nullptr;
+    /// Donne au canevas courant l'heure que la barre d'outils montre.
+    void applyLightHour();
+
+public:
+    /**
+     * @brief Allume l'éclairage du canevas à l'heure @p minutes (`--hour=`, `LOT-1007`), comme
+     *        la case et le curseur de la barre d'outils le feraient ; arrondie au quart d'heure.
+     */
+    void showLightHour(float minutes);
+
+private:
     QAction* _resizeAction = nullptr;
     QAction* _resetLayoutAction = nullptr;
     QByteArray _defaultState;                 ///< Disposition par défaut (pour « Reset layout »).

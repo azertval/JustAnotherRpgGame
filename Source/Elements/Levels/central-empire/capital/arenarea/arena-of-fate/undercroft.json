@@ -3,7 +3,7 @@
   "name": "map.central-empire.capital.arenarea.arena-of-fate.undercroft.name",
   "width": 15,
   "height": 6,
-  "nextEntityId": 6,
+  "nextEntityId": 9,
   "tiles": [
     {"x": 0, "y": 0, "type": "wall"},
     {"x": 1, "y": 0, "type": "wall"},
@@ -221,6 +221,43 @@
       "requiresFlag": "",
       "sealed": false,
       "targetMap": "central-empire/capital/arenarea"
+    },
+    {
+      "id": "e6",
+      "type": "light",
+      "x": 2,
+      "y": 2,
+      "always": true,
+      "color": "#ff9a4a",
+      "flicker": true,
+      "height": 18,
+      "intensity": 100,
+      "radius": 5
+    },
+    {
+      "id": "e7",
+      "type": "light",
+      "x": 8,
+      "y": 3,
+      "always": true,
+      "color": "#ff9a4a",
+      "flicker": true,
+      "height": 18,
+      "intensity": 100,
+      "radius": 5
+    },
+    {
+      "id": "e8",
+      "type": "light",
+      "x": 12,
+      "y": 3,
+      "always": true,
+      "color": "#ff9a4a",
+      "flicker": true,
+      "height": 18,
+      "intensity": 100,
+      "radius": 4
     }
-  ]
+  ],
+  "hour": "22:00"
 }

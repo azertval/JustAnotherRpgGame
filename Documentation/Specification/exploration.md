@@ -156,3 +156,14 @@ La sauvegarde n'aura que lui à écrire.
   de la même chose — un compteur d'étape et les drapeaux — divergent au premier rechargement, et
   c'est celle qu'on n'a pas sauvegardée qui gagne. Un effet d'étape peut en atteindre une autre :
   l'avancement se rejoue jusqu'au repos, et termine parce qu'une étape ne s'atteint qu'une fois.
+
+## 5. L'heure du monde
+
+- **EX-EXP-015** — Le monde a une **heure du jour** (`core::WorldClock`, `LOT-1007`). Elle
+  avance avec l'exploration, d'**une heure du monde par minute réelle** — un jour en vingt-quatre
+  minutes —, et **se fige** quand la carte est gelée : pendant un dialogue, pendant un combat. Une
+  partie neuve commence à 10 h. Une carte peut déclarer une **heure fixe** (propriété de carte
+  `hour`, `HH:MM`) : elle se montre toujours à cette heure, l'horloge continuant d'avancer. Dans
+  cette version, l'heure n'a qu'un lecteur, la lumière du lieu (`EX-REN-052`) : ni la présence
+  d'un PNJ, ni une boutique, ni une rencontre n'en dépendent. Elle se lit et se règle par l'option
+  de débug `--hour=<HH:MM|run>`, à la ligne de commande comme dans la console.

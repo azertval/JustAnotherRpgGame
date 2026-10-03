@@ -28,6 +28,7 @@
 #include "Core/Levels/TileType.h"
 #include "Core/Time/FixedTimestep.h"
 #include "Core/World/CombatZone.h"
+#include "Core/World/DayLight.h"
 #include "Core/World/EntityKinds.h"
 #include "Editor/Logic/BrushGesture.h"
 #include "Editor/Logic/CanvasPicking.h"
@@ -201,6 +202,20 @@ public:
      *             de la carte ou qui arrête le pas est refusée.
      */
     void startPlaytest(std::optional<core::GridPosition> from = std::nullopt);
+
+    /**
+     * @brief L'heure à laquelle le canevas montre la carte (`LOT-1007`, `EX-EDIT-105`), en
+     *        minutes depuis minuit : le lieu est éclairé comme le jeu l'éclaire à cette heure —
+     *        soleil, ombres, lumières de nuit —, et l'essai en part.
+     *
+     * Vide — l'état d'usine — : le canevas montre la carte **sans éclairage**, telle que ses
+     * pièces sont peintes, et l'essai part de l'heure d'une partie neuve. L'essai, lui, est
+     * toujours éclairé : c'est le jeu.
+     */
+    void setLightHour(std::optional<float> minutes);
+    [[nodiscard]] const std::optional<float>& lightHour() const noexcept {
+        return _lightHour;
+    }
     /// Joue le brouillon depuis la case survolée ; depuis l'entrée s'il n'y en a pas.
     void startPlaytestHere();
 
@@ -594,6 +609,14 @@ private:
     // --- Essai immédiat : la carte jouée par le moteur du jeu ---
     std::unique_ptr<WorldPlay> _play;
     QTimer _playTimer;
+    /// L'heure du canevas (`setLightHour`), et la table de lumière du contenu.
+    std::optional<float> _lightHour;
+    core::DayLightTable _lightTable;
+    /// Le temps écoulé de l'essai en cours, en secondes : ce qui fait trembler une flamme.
+    float _playSeconds = 0.0F;
+    /// Donne au rendu la lumière de l'instant : celle de l'essai s'il tourne, sinon celle de
+    /// l'heure du canevas, ou aucune.
+    void applyLighting();
     Clock::time_point _previousFrame;
     core::FixedTimestep _timestep;
     /// La carte jouée, partagée avec le moteur (`hmi::WorldPlay::scene`) et donnée au rendu, qui

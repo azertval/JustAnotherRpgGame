@@ -77,6 +77,8 @@ class WorldModel : public QObject {
     Q_PROPERTY(QString heroFigure READ heroFigure WRITE setHeroFigure NOTIFY changed)
     /// Vrai quand la carte est gelée : un dialogue ou un combat est à l'écran.
     Q_PROPERTY(bool frozen READ frozen WRITE setFrozen NOTIFY changed)
+    /// L'heure du monde, écrite `HH:MM` (`LOT-1007`) ; annoncée à chaque minute qui passe.
+    Q_PROPERTY(QString hour READ hour NOTIFY hourChanged)
     /// La fiche d'atlas de la ville qu'on parcourt, qui est aussi la clé de son plan
     /// (`world-maps.json`) ; vide si la ville n'a pas pu être lue (`LOT-96`).
     Q_PROPERTY(QString cityLocation READ cityLocation CONSTANT)
@@ -168,6 +170,25 @@ public:
      *        la carte telle qu'elle est **après** une quête, sans avoir à la jouer.
      */
     void setStartFlags(const QStringList& flags);
+
+    /**
+     * @brief L'heure du monde imposée (`--hour=`, `LOT-1007`) : l'horloge y est réglée et
+     *        **figée**, pour cette partie et les suivantes. Vide : elle reprend son cours.
+     */
+    void setStartHour(std::optional<float> minutes);
+
+    /// @return L'heure à laquelle la carte courante se montre, en minutes depuis minuit
+    ///         (`core::ExplorationSession::shownMinutes`) : ce que la lumière du lieu lit.
+    [[nodiscard]] float lightMinutes() const;
+
+    /// @return Le temps écoulé depuis l'ouverture du jeu, en secondes : ce qui fait trembler une
+    ///         flamme. Il passe aussi en combat et en dialogue, où l'heure, elle, est figée.
+    [[nodiscard]] float lightSeconds() const noexcept {
+        return _lightSeconds;
+    }
+
+    /// @return L'heure du monde, écrite `HH:MM`.
+    [[nodiscard]] QString hour() const;
 
     /// @return La carte du quartier @p districtId de la ville, vide s'il n'en a pas (`LOT-96`).
     [[nodiscard]] Q_INVOKABLE QString mapOfDistrict(const QString& districtId) const;
@@ -368,6 +389,8 @@ public:
 signals:
     /// La carte, son nom, son état : tout ce que l'écran relit d'un coup.
     void changed();
+    /// L'heure du monde a passé une minute, ou a été réglée (`LOT-1007`).
+    void hourChanged();
     /// Le héros a bougé : la caméra suit, la scène se redessine.
     void heroMoved();
     /// Les figurines ou la carte ont changé sans que le héros bouge — il s'arrête, se tourne, un
@@ -431,6 +454,12 @@ private:
     std::vector<std::filesystem::path> _levelDirectories;
     /// Les drapeaux de `--flags=` : reposés à chaque partie neuve (`endGame`).
     QStringList _startFlags;
+    /// L'heure de `--hour=`, absente sinon : reposée et figée à chaque partie neuve.
+    std::optional<float> _startHour;
+    /// Le temps écoulé depuis l'ouverture du jeu, en secondes (`lightSeconds`).
+    float _lightSeconds = 0.0F;
+    /// L'heure du monde telle qu'annoncée la dernière fois (`hourChanged`).
+    QString _shownHour;
     /// Les personnages qu'on peut prendre, lus une fois (`Rpg/characters/`, `LOT-138`).
     std::vector<core::PartyCandidate> _candidates;
     /// Le groupe de la partie : les quatre fiches pré-tirées au départ.

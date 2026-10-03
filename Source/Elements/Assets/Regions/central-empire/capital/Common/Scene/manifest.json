@@ -555,6 +555,11 @@
       "source": {
         "file": "Regions/central-empire/capital/Common/V4/Calibres/prop-lamppost.png",
         "sha256": "5a229937c0b0d8a28833793b1427e0ca7a89b929dce0f8276d158cba537af93f"
+      },
+      "light": {
+        "color": "#ffcf8f",
+        "radius": 7.5,
+        "height": 2.9
       }
     },
     "scene/capital/prop-bench-u": {
@@ -15273,6 +15278,11 @@
       "source": {
         "file": "Regions/central-empire/capital/Common/Extension105/Calibres/prop-lantern-bracket.png",
         "sha256": "6e06f97e871de173971a62931706cd5ed3a6e7c26f7f14050aee1b013c6d471c"
+      },
+      "light": {
+        "color": "#ffcf8f",
+        "radius": 4.5,
+        "height": 2.2
       }
     },
     "scene/capital/prop-noticeboard": {
@@ -19805,6 +19815,11 @@
       "source": {
         "file": "Tools/AssetsHD/Regions/central-empire/capital/arenarea/Production108/architecture/Calibres/wall-lantern-u.png",
         "sha256": "54ae4c066e4bd2c6e6625d5931433b1a40dc85daa1ed9c04fd0f16fff509fce2"
+      },
+      "light": {
+        "color": "#ffcf8f",
+        "radius": 5.5,
+        "height": 2.0
       }
     },
     "scene/capital/wall-shop-lantern-u": {
@@ -19827,6 +19842,11 @@
       "source": {
         "file": "Tools/AssetsHD/Regions/central-empire/capital/arenarea/Production108/architecture/Calibres/wall-shop-lantern-u.png",
         "sha256": "37922d2653baea672e378650ac5ddde65aaf5c0eef2c38624687a3d272186c36"
+      },
+      "light": {
+        "color": "#ffcf8f",
+        "radius": 5.5,
+        "height": 2.0
       }
     },
     "scene/capital/wall-rear-shutter-v-1": {
@@ -19959,6 +19979,11 @@
       "source": {
         "file": "Tools/AssetsHD/Regions/central-empire/capital/arenarea/Production108/architecture/Calibres/wall-lantern-v.png",
         "sha256": "6d955cd638eb46e72360647034a36717db2501beb9b7278265a2e3c50379af78"
+      },
+      "light": {
+        "color": "#ffcf8f",
+        "radius": 5.5,
+        "height": 2.0
       }
     },
     "scene/capital/wall-shop-lantern-v": {
@@ -19981,6 +20006,11 @@
       "source": {
         "file": "Tools/AssetsHD/Regions/central-empire/capital/arenarea/Production108/architecture/Calibres/wall-shop-lantern-v.png",
         "sha256": "43135b21b67c3477b9de2ff80a23b0535a9800d0e1b4321e69b77eb7e6633da6"
+      },
+      "light": {
+        "color": "#ffcf8f",
+        "radius": 5.5,
+        "height": 2.0
       }
     },
     "scene/capital/wall-manor-ivy-sparse-corner-n": {
@@ -23303,6 +23333,12 @@
       "source": {
         "file": "Regions/central-empire/capital/arenarea/Production108/commerces-mobilier/Sources/prop-lamppost-double.png",
         "sha256": "8562661e89cbf968d76b6f5a11fb4827a38224d83acbb59001e0d69f538fc863"
+      },
+      "light": {
+        "color": "#ffcf8f",
+        "radius": 9.0,
+        "height": 2.9,
+        "intensity": 1.2
       }
     },
     "scene/capital/prop-brazier-lit": {
@@ -23325,7 +23361,14 @@
       "source": {
         "file": "Regions/central-empire/capital/arenarea/Production108/commerces-mobilier/Sources/prop-brazier-lit.png",
         "sha256": "f58e960cac23a8bffb721450e05fc30cfac2467331ab4636f6467ebc418698b1"
-      }
+      },
+      "light": {
+        "color": "#ff9a4a",
+        "radius": 6.5,
+        "height": 1.2,
+        "flicker": true
+      },
+      "glow": 0.4
     },
     "scene/capital/prop-luxury-stall-perfumer-v": {
       "file": "props/prop-luxury-stall-perfumer-v.png",
@@ -23589,7 +23632,14 @@
       "source": {
         "file": "Regions/central-empire/capital/arenarea/Production108/commerces-mobilier/Sources/prop-brazier-wall-u.png",
         "sha256": "38266e2f1cf7b4c5ad3bc07ae7ec36f509616d21239944060d74c829971f3533"
-      }
+      },
+      "light": {
+        "color": "#ff9a4a",
+        "radius": 5.5,
+        "height": 1.6,
+        "flicker": true
+      },
+      "glow": 0.4
     },
     "scene/capital/prop-bottle-crate": {
       "file": "props/prop-bottle-crate.png",
@@ -23831,7 +23881,14 @@
       "source": {
         "file": "Regions/central-empire/capital/arenarea/Production108/commerces-mobilier/Sources/prop-brazier-wall-v.png",
         "sha256": "a10f876ba7062bc8e075016e785b25d682a7e87b842cf8e677e4af9bfcd060a8"
-      }
+      },
+      "light": {
+        "color": "#ff9a4a",
+        "radius": 5.5,
+        "height": 1.6,
+        "flicker": true
+      },
+      "glow": 0.4
     },
     "scene/capital/prop-brazier-wall-back-u": {
       "file": "props/prop-brazier-wall-back-u.png",
@@ -23853,7 +23910,14 @@
       "source": {
         "file": "Regions/central-empire/capital/arenarea/Production108/commerces-mobilier/Sources/prop-brazier-wall-back-u.png",
         "sha256": "7f51b27204fb6cca1ed0b9d8fe526fc8c7afef2ddf3ef601a4347c3db7179e8f"
-      }
+      },
+      "light": {
+        "color": "#ff9a4a",
+        "radius": 5.5,
+        "height": 1.6,
+        "flicker": true
+      },
+      "glow": 0.4
     },
     "scene/capital/prop-brazier-wall-back-v": {
       "file": "props/prop-brazier-wall-back-v.png",
@@ -23875,7 +23939,14 @@
       "source": {
         "file": "Regions/central-empire/capital/arenarea/Production108/commerces-mobilier/Sources/prop-brazier-wall-back-v.png",
         "sha256": "5e12b06a81a1298f679f5f37363c4f87512bc13abb17fa77c86096210a96080e"
-      }
+      },
+      "light": {
+        "color": "#ff9a4a",
+        "radius": 5.5,
+        "height": 1.6,
+        "flicker": true
+      },
+      "glow": 0.4
     },
     "scene/capital/prop-noticeboard-lectern-v": {
       "file": "props/prop-noticeboard-lectern-v.png",
@@ -36051,7 +36122,14 @@
       ],
       "tactical": "solid",
       "class": "tall",
-      "file": "walls/wall-brazier-lit-u.png"
+      "file": "walls/wall-brazier-lit-u.png",
+      "light": {
+        "color": "#ff9a4a",
+        "radius": 6.5,
+        "height": 1.8,
+        "flicker": true
+      },
+      "glow": 0.25
     },
     "scene/capital/wall-brazier-lit-v": {
       "family": "02",
@@ -36069,7 +36147,14 @@
       ],
       "tactical": "solid",
       "class": "tall",
-      "file": "walls/wall-brazier-lit-v.png"
+      "file": "walls/wall-brazier-lit-v.png",
+      "light": {
+        "color": "#ff9a4a",
+        "radius": 6.5,
+        "height": 1.8,
+        "flicker": true
+      },
+      "glow": 0.25
     },
     "scene/capital/wall-brazier-off-u": {
       "family": "02",

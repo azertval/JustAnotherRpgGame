@@ -143,6 +143,7 @@ GameViewForm {
         // Les reglages de rendu des options, qui atteignent ainsi le moteur (EX-IHM-083).
         sampleCount: OptionsModel.antialiasing
         renderScalePercent: OptionsModel.renderScalePercent
+        shadowSize: OptionsModel.shadows
     }
 
     // --- Le deplacement : un etat de touches, releve a chaque appui et a chaque relachement -----

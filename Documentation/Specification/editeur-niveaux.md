@@ -577,6 +577,22 @@ des données écrites à la main.
   standard ; chaque constat porte le niveau du personnage. Sur une base dont les kits sont
   verrouillés mais pas installés, les binaires ne se contrôlent pas et un avertissement le dit.
 
+- **EX-EDIT-105** — Le canevas montre la carte **à l'heure que l'auteur choisit**
+  (`LOT-1007`) : la case **Lighting** de la barre d'outils allume l'éclairage du jeu — soleil,
+  ombres, lumières de nuit (`EX-REN-052` à `EX-REN-055`) —, son curseur règle l'heure par quart
+  d'heure, et l'**essai** part de cette heure. Décochée, la carte se montre **sans éclairage**,
+  telle que ses pièces sont peintes. Sans fenêtre, `LevelEditor --render <carte> --hour HH:MM`
+  écrit l'image éclairée, et `--hour=HH:MM` ouvre la fenêtre l'éclairage allumé. Rien n'est
+  précalculé ni enregistré : l'éclairage se recalcule à chaque image, dans l'éditeur comme dans
+  le jeu.
+- **EX-EDIT-106** — Une **source de lumière** se pose comme une entité : la famille `light`
+  (`core::knownEntityKinds`), ponctuelle, déclare sa couleur (`#rrggbb`), sa portée en cases, sa
+  hauteur en décimètres, son intensité en pour cent, si elle tremble et si elle reste allumée de
+  jour (`core::lightSourceOf`). L'**heure fixe** d'une carte (`hour`, `HH:MM`) est une propriété
+  de carte : *Map* › *Map properties…* la règle, comme le geste `mapProperties` d'un scénario
+  (`--apply`) ; une carte qui la porte se montre toujours à cette heure — un sous-sol dans sa
+  nuit.
+
 ## Exigences retirées {#edit-retirees}
 
 > Ancres conservées, jamais renumérotées : les lots livrés s'y réfèrent. Chacune servait un

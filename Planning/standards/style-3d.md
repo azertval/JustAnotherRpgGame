@@ -85,7 +85,19 @@ sur le kit de la Capitale (le LOT-1004, qui devait le faire, est clos sans modif
 - **La lumière vient du moteur**, plus de la texture
   ([LOT-1007](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1007-eclairage-et-cycle-jour-nuit.md)) :
   une texture ne porte **ni ombre portée, ni ombre propre marquée, ni reflet de lumière orientée**.
-  Jusqu'au LOT-1007 le shader n'éclaire pas ; un modèle se juge alors à sa seule couleur de base.
+  Depuis le LOT-1007 le shader éclaire un modèle par sa **normale** — ambiance, soleil ou lune,
+  lumières de nuit — et lui fait porter et recevoir des ombres : un modèle se juge **éclairé**, à
+  midi et de nuit (`LevelEditor --render <carte> --hour HH:MM`).
+- **Une pièce qui éclaire le dit dans son manifeste** (LOT-1007, D-45, 3 octobre 2026) : le champ
+  `light` donne sa couleur (`#rrggbb`), sa portée et sa hauteur en mètres, et si elle tremble
+  (`flicker`) ou reste allumée de jour (`always`) ; le champ `glow`, de 0 à 1, ce que son image
+  garde de son éclat quand le lieu s'assombrit — une flamme. Valeurs posées sur le kit de la
+  Capitale et jugées sur captures : un lampadaire porte à **7,5 m** depuis **2,9 m** de haut, un
+  brasero à **6,5 m** depuis **1,2 m**, tremblant, d'éclat **0,4**. Une variante éteinte (`-off`)
+  ne déclare rien.
+- **Une image tolérée jette l'ombre de sa boîte** (§7) : son emprise, haute de ce que l'image
+  porte au-dessus de son **ancre**, large comme elle. Une ancre fausse donne donc une ombre
+  fausse — raison de plus de la mesurer.
 - **sRGB, 8 bits par canal**, sans palette imposée par image ; la cohérence vient de la palette du
   lieu ci-dessous.
 - **Le contour sombre** du standard 2D n'existe pas en 3D sans une passe de rendu de plus. Il n'est
@@ -191,7 +203,8 @@ Les règles qu'elles gardent :
 | Agrandissement | jamais : une image trop petite se refait |
 
 Une image tolérée se **dresse face à la caméra** : sous une caméra orthographique fixe elle occupe
-exactement les pixels qu'elle occupait. Elle reçoit la teinte de l'heure, pas le soleil. Elle se
+exactement les pixels qu'elle occupait. Elle reçoit la teinte de l'heure et les lumières de nuit,
+pas le soleil : ses faces gardent la lumière qu'on leur a peinte (LOT-1007). Elle se
 commande toujours par les blocs de la [consigne archivée](archives/consigne-2d-hd.md), figée :
 plus rien ne s'y ajoute.
 

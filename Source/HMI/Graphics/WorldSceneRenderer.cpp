@@ -4,6 +4,8 @@
 #include "HMI/Graphics/WorldSceneRenderer.h"
 
 #include <algorithm>
+#include <array>
+#include <cstdint>
 #include <optional>
 #include <utility>
 
@@ -12,9 +14,11 @@
 #include "Core/Resources/AssetMarker.h"
 #include "Core/Resources/MeshFile.h"
 #include "Core/Resources/SkeletonFile.h"
+#include "Core/Rpg/Scale.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/IsoView.h"
+#include "HMI/Graphics/LightingBlock.h"
 #include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MeshBatch.h"
 #include "HMI/Graphics/MissingTexture.h"
@@ -180,6 +184,11 @@ bool WorldSceneRenderer::ensureResources(QRhi* rhi) {
             .texture = _solid.handle(), .width = _solid.width, .height = _solid.height};
     }
     _meshes = std::make_unique<MeshBatch>(rhi);
+    // Un seul bloc d'eclairage pour les deux pipelines (LOT-1007) : neutre tant qu'aucune lumiere
+    // n'est reglee.
+    _lightingBlock = std::make_unique<LightingBlock>(rhi);
+    _resources.sprites().setLighting(_lightingBlock.get());
+    _meshes->setLighting(_lightingBlock.get());
     _resources.setFrameUpdates(nullptr);
     GRAPHICS_LOG_INFO("Lieu : ressources QRhi creees (" + std::string(rhi->backendName()) + ").");
     return true;
@@ -406,6 +415,7 @@ void WorldSceneRenderer::release() noexcept {
     _textures.figureModels.clear();
     _skeletons.clear();
     _meshes.reset();
+    _shadowBoxes = nullptr;
     _textures.missing = SceneTexture{};
     _textures.solid = SceneTexture{};
     _loaded.clear();
@@ -418,6 +428,8 @@ void WorldSceneRenderer::release() noexcept {
         _pendingUploads = nullptr;
     }
     _resources.release();
+    // Le bloc d'eclairage apres les deux pipelines qui le lient.
+    _lightingBlock.reset();
     _rhi = nullptr;
 }
 
@@ -449,6 +461,43 @@ core::IsoProjection WorldSceneRenderer::sceneProjection() const {
     return {_scene->columns, _scene->rows, core::ARENA_TILE_WIDTH_UNITS, _scene->diamondRatio};
 }
 
+void WorldSceneRenderer::rebuildShadowBoxes() {
+    _meshes->destroy(std::exchange(_shadowBoxes, nullptr));
+    if (_scene->shadowBoxes.empty()) {
+        return;
+    }
+    // Une boite par piece, dans le repere du lieu en metres : X le long des colonnes, Z des
+    // lignes, Y vers le haut. Douze triangles ; la normale et les coordonnees de texture ne
+    // servent pas -- la passe d'ombres n'ecrit que la profondeur.
+    static constexpr std::array<std::array<int, 3>, 8> CORNERS{
+        {{0, 0, 0}, {1, 0, 0}, {1, 0, 1}, {0, 0, 1}, {0, 1, 0}, {1, 1, 0}, {1, 1, 1}, {0, 1, 1}}};
+    static constexpr std::array<std::uint32_t, 36> FACES{0, 2, 1, 0, 3, 2, 4, 5, 6, 4, 6, 7,
+                                                         0, 1, 5, 0, 5, 4, 1, 2, 6, 1, 6, 5,
+                                                         2, 3, 7, 2, 7, 6, 3, 0, 4, 3, 4, 7};
+    core::MeshData boxes;
+    boxes.vertices.reserve(_scene->shadowBoxes.size() * CORNERS.size());
+    boxes.indices.reserve(_scene->shadowBoxes.size() * FACES.size());
+    for (const WorldShadowBox& box : _scene->shadowBoxes) {
+        const auto first = static_cast<std::uint32_t>(boxes.vertices.size());
+        for (const std::array<int, 3>& corner : CORNERS) {
+            core::MeshVertex vertex{};
+            // Le sommet de la boite se resserre autour de son centre (`WorldShadowBox::top`).
+            const float keep = corner[1] == 0 ? 1.0F : std::clamp(box.top, 0.0F, 1.0F);
+            const float along = 0.5F + ((static_cast<float>(corner[0]) - 0.5F) * keep);
+            const float across = 0.5F + ((static_cast<float>(corner[2]) - 0.5F) * keep);
+            vertex.position = {(box.column + (along * box.columns)) * core::METERS_PER_TILE,
+                               box.base + (static_cast<float>(corner[1]) * box.height),
+                               (box.row + (across * box.rows)) * core::METERS_PER_TILE};
+            vertex.normal = {0.0F, 1.0F, 0.0F};
+            boxes.vertices.push_back(vertex);
+        }
+        for (const std::uint32_t index : FACES) {
+            boxes.indices.push_back(first + index);
+        }
+    }
+    _shadowBoxes = _meshes->create(_resources.context(), boxes);
+}
+
 void WorldSceneRenderer::refresh(const core::IsoProjection& projection) {
     // La carte : ses textures et sa composition, une fois par carte. Ce sont ses pieces qui disent
     // quoi charger, et la carte change au passage d'un portail.
@@ -459,6 +508,7 @@ void WorldSceneRenderer::refresh(const core::IsoProjection& projection) {
         ensureTextures(worldTexturePaths(*_scene));
         ensureMeshes(worldMeshPaths(*_scene));
         _statics.build(*_scene, projection, _textures, _composeOptions);
+        rebuildShadowBoxes();
         _sceneDirty = false;
     }
     // Les figurines : leurs modeles, leurs marqueurs et les bandes des effets, quand elles
@@ -534,29 +584,73 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
 
     // Les volumes (LOT-1003). Une image qui en a donne a chaque primitive sa profondeur, et la
     // camera ramene celle de toute la scene a l'etendue du tampon ; une image qui n'en a pas se
-    // dessine comme avant le lot : profondeur nulle, ni test ni ecriture.
+    // dessine comme avant le lot : profondeur nulle, ni test ni ecriture. Une image eclairee
+    // (LOT-1007) donne aussi sa profondeur a chaque primitive : c'est sa position dans la vue que
+    // la lumiere lit.
     const bool volumes = !_composed.meshes().empty();
+    const bool lit = _lighting.has_value();
+    const IsoView view(projection);
     std::optional<SceneDepth> depth;
-    if (volumes) {
-        const IsoView view(projection);
+    if (volumes || lit) {
         camera.setDepthRange(view.depthRange());
         depth = SceneDepth{.view = view, .range = camera.depthRange()};
     }
 
+    // L'eclairage de l'image : le bloc des shaders, et la carte d'ombres si le soleil en jette.
+    _lightFrame = lit ? buildSceneLighting(view, camera.visibleBounds(), *_lighting, _scene->lights,
+                                           !_rhi->isYUpInFramebuffer())
+                      : SceneLightFrame{};
+    QRhiTextureRenderTarget* const shadowTarget =
+        _lightFrame.shadows ? _lightingBlock->ensureShadowMap(_lighting->shadowSize) : nullptr;
+    if (shadowTarget == nullptr) {
+        _lightFrame.shadows = false;
+        _lightFrame.uniforms.sun[3] = 0.0F;
+    }
+    _lightingBlock->upload(updates, _lightFrame.uniforms);
+
     SpriteBatch& sprites = _resources.sprites();
     sprites.setDepthTest(volumes);
     sprites.beginFrame();
-    submitComposedScene(sprites, camera.projectionMatrix(), _composed, depth ? &*depth : nullptr);
+    submitComposedScene(sprites, camera.projectionMatrix(), _composed, depth ? &*depth : nullptr,
+                        lit);
     _meshes->beginFrame();
+    // Du repere de la vue a celui du lieu en metres, puis au clip de la carte d'ombres.
+    const LightMatrix metresToViewMatrix = metresToView(view);
+    const LightMatrix viewToShadowClip =
+        multiplied(_lightFrame.metresToShadowClip, invertedAffine(metresToViewMatrix));
     for (const ComposedMesh& mesh : _composed.meshes()) {
+        MeshLighting lighting;
+        if (lit) {
+            lighting.toView = toLightMatrix(mesh.toView);
+            lighting.toShadowClip = multiplied(viewToShadowClip, lighting.toView);
+        }
         _meshes->draw(mesh.mesh, camera.meshMatrix(mesh.toView), mesh.opacity,
-                      _composed.poseOf(mesh));
+                      _composed.poseOf(mesh), lighting);
+    }
+    // Les boites du decor en images : dans la carte d'ombres seulement.
+    if (_lightFrame.shadows && _shadowBoxes != nullptr) {
+        _meshes->draw(_shadowBoxes, DirectX::XMFLOAT4X4{}, 1.0F, {},
+                      MeshLighting{.toView = metresToViewMatrix,
+                                   .toShadowClip = _lightFrame.metresToShadowClip,
+                                   .castsOnly = true});
     }
 
-    // Une seule passe : les televersements d'abord, puis les maillages, qui ecrivent la profondeur,
-    // et les images, qui la testent dans l'ordre du peintre.
-    QRhiResourceUpdateBatch* const uploads =
-        _meshes->prepare(target, sprites.prepare(target, updates));
+    QRhiResourceUpdateBatch* uploads = _meshes->prepare(target, sprites.prepare(target, updates));
+    // La passe d'ombres (LOT-1007) : les maillages et les boites du decor, vus du soleil. Elle
+    // s'ouvre meme sans rien a y dessiner -- la carte doit etre effacee, pas gardee de l'image
+    // d'avant.
+    if (shadowTarget != nullptr) {
+        const bool casters = _meshes->prepareShadow(shadowTarget);
+        commandBuffer->beginPass(shadowTarget, Qt::black, {1.0F, 0},
+                                 std::exchange(uploads, nullptr));
+        if (casters) {
+            _meshes->recordShadow(commandBuffer, shadowTarget);
+        }
+        commandBuffer->endPass();
+    }
+
+    // La passe de l'image : les televersements d'abord, puis les maillages, qui ecrivent la
+    // profondeur, et les images, qui la testent dans l'ordre du peintre.
     commandBuffer->beginPass(target, QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]),
                              {1.0F, 0}, uploads);
     _meshes->record(commandBuffer, target);

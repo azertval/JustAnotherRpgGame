@@ -109,4 +109,20 @@ struct LineQuad {
     [[nodiscard]] bool operator==(const LineQuad&) const = default;
 };
 
+/**
+ * @brief Ce qu'une primitive reçoit de la **lumière du lieu** (`LOT-1007`).
+ *
+ * La valeur d'usine — rien — est celle d'avant le lot : la primitive garde son éclat. C'est celle
+ * d'une marque d'interface, d'un jeton, d'un effet lumineux.
+ */
+struct SpriteShading {
+    /// La part de la lumière du lieu qu'elle prend, de 0 (elle garde son éclat) à 1 (elle prend
+    /// la teinte de l'heure et les lumières de nuit comme le reste du décor).
+    float lit = 0.0F;
+    /// Vrai si elle reçoit les ombres portées : le sol.
+    bool shadowed = false;
+
+    [[nodiscard]] bool operator==(const SpriteShading&) const = default;
+};
+
 }  // namespace hmi

@@ -517,6 +517,7 @@ moteur audio, la fenêtre et les traducteurs.
 | compteur de diagnostic | `Controls/DiagnosticsOverlay.ui.qml`, posé sur la fenêtre | immédiatement |
 | anticrénelage | `sampleCount` des `WorldViewport`, par **liaison** dans les écrans du lieu | immédiatement |
 | définition du rendu | `renderScalePercent` des `WorldViewport`, par **liaison** | immédiatement |
+| ombres | `shadowSize` des `WorldViewport`, par **liaison** : le côté de la carte d'ombres, 0 pour l'éteindre (`LOT-1007`) | immédiatement |
 | synchronisation verticale | `QSurfaceFormat::setDefaultFormat` | **au prochain lancement** |
 
 La dernière ligne est dite **à l'écran** et non tue : `EX-IHM-083` exige qu'un réglage exposé

@@ -148,7 +148,11 @@ un terminal à la racine du dépôt :
 ```
 build\ninja\bin\LevelEditor.exe --check
 build\ninja\bin\LevelEditor.exe --render echoppe --scale 0.5 --output echoppe.png
+build\ninja\bin\LevelEditor.exe --render echoppe --hour 21:30 --output echoppe-nuit.png
 ```
+
+`--hour HH:MM` éclaire le rendu comme le jeu l'éclaire à cette heure ; sans elle, la carte se rend
+sans éclairage. `LevelEditor --map=echoppe --hour=21:30` ouvre la fenêtre l'éclairage allumé.
 
 `--check` contrôle **toutes** les cartes — format, pièces, collision, identifiants, puis ce qui se
 joue : références des entités, rencontres, cases utiles hors d'atteinte, portails sans retour,
@@ -231,9 +235,20 @@ sans fenêtre : `--rename-map`, `--rename-arrival`, `--rename-id`, `--who-cites`
   quartiers, leur nom ; un quartier tireté n'a pas (encore) sa carte, ou n'est qu'une porte
   gardée. Double-cliquer un quartier ouvre sa carte dans son onglet.
 - **Dire ce qu'est une carte.** *Map* › **Map properties…** montre son lieu (la planche ; en
-  changer, c'est *Change sheet…*), et édite sa **région**, son **ambiance** — deux propriétés de
-  la carte, enregistrées avec elle, que le jeu lira — et son **état** : générée, retouchée, finie.
-  L'état est une note d'auteur : il va dans l'annexe `<carte>.editor.json`.
+  changer, c'est *Change sheet…*), et édite sa **région**, son **ambiance**, son **heure fixe** —
+  trois propriétés de la carte, enregistrées avec elle — et son **état** : générée, retouchée,
+  finie. L'état est une note d'auteur : il va dans l'annexe `<carte>.editor.json`. L'heure fixe
+  (*Fixed hour*, écrite `HH:MM`) montre toujours la carte à cette heure, quelle que soit celle du
+  monde : un sous-sol reste dans la nuit de ses torches. Vide, la carte suit l'heure du monde.
+- **Voir la carte de nuit.** Dans la barre d'outils, cocher **Lighting** éclaire le canevas comme
+  le jeu l'éclaire — soleil, ombres, lumières de nuit —, et le curseur à côté règle l'heure, par
+  quart d'heure. Décochée, la carte se montre telle que ses pièces sont peintes. **Playtest** part
+  de l'heure du curseur ; l'essai, lui, est toujours éclairé.
+- **Poser une lumière.** Un lampadaire, une lanterne, un brasero éclairent d'eux-mêmes : leur
+  pièce le déclare. Pour ce qu'aucune pièce ne porte — la lueur d'une fenêtre, un feu —, l'outil
+  **Entité** pose la famille **light** : sa couleur (`#rrggbb`), sa portée en cases (*radius*), sa
+  hauteur en décimètres (*height*), son intensité en pour cent, si elle tremble (*flicker*) et si
+  elle reste allumée en plein jour (*always*). Elle ne s'allume qu'au crépuscule, sauf *always*.
 - **Voir où en est le monde.** Dans la liste des cartes, l'état paraît à côté du nom, le menu
   déroulant filtre par état, et **Thumbnails** montre chaque carte en vignette — le même rendu que
   `--render`.
@@ -293,7 +308,8 @@ fenêtre à part de la carte, en trois colonnes :
   le modèle n'a pas).
 - **L'aperçu**, à droite : le modèle, dessiné par le rendu du jeu sur un damier de maquette, clip
   par clip (*Clip*), **Play** le fait tourner, **Quarter turn** le fait pivoter. Ce qu'on y voit
-  est ce qu'on jouera. L'heure du jour viendra avec l'éclairage (`LOT-1007`).
+  est ce qu'on jouera. **Light** choisit l'heure à laquelle il est éclairé — midi, l'aube, le
+  crépuscule, la nuit — ou l'éteint (*Unlit*) : un modèle se juge éclairé (`LOT-1007`).
 
 **Régler le squelette et les clips dans Blender** (décision D-44). Le groupe *Blender round trip*
 demande le maillage **reçu** (celui que la chaîne lie) et la **fiche de liaison** du personnage.

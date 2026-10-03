@@ -64,7 +64,9 @@ class LevelDraft;
  * connaît pas), `kind` (la famille d'entité à poser ; `""` : l'outil ne fait que sélectionner),
  * `select` (des identifiants d'entité), `prefab` (un préfabriqué de la bibliothèque du lieu, qui
  * devient le tampon à poser), `partyLevel` (le niveau du groupe du budget des rencontres, 1 par
- * défaut). Un geste sans `tool` ne fait qu'armer. Ce qui est armé le
+ * défaut), `mapProperties` (les propriétés de la carte, comme le dialogue « Map properties… » :
+ * `{"hour": "22:00"}` ; une chaîne vide retire la propriété). Un geste sans `tool` ne fait
+ * qu'armer. Ce qui est armé le
  * reste pour les gestes suivants, comme dans la fenêtre.
  *
  * | `tool` | champs | ce que fait la main |

@@ -50,6 +50,9 @@ class WorldViewportItem : public QQuickRhiItem {
     /// le suréchantillonnage. L'anticrénelage, lui, est le `sampleCount` hérité de `QQuickRhiItem`.
     Q_PROPERTY(int renderScalePercent READ renderScalePercent WRITE setRenderScalePercent NOTIFY
                    renderScalePercentChanged)
+    /// Le côté de la carte d'ombres, en texels (`LOT-1007`) ; 0 : aucune ombre portée. Le lieu,
+    /// lui, est toujours éclairé à l'heure de son modèle.
+    Q_PROPERTY(int shadowSize READ shadowSize WRITE setShadowSize NOTIFY shadowSizeChanged)
 
     // --- Le cadrage, en unités d'élément -------------------------------------------------------
     /// Largeur du losange d'une case.
@@ -79,6 +82,11 @@ public:
     /// Bornée à [100, 200] : le rendu ne se dessine jamais plus petit que l'écran.
     void setRenderScalePercent(int percent);
 
+    [[nodiscard]] int shadowSize() const noexcept {
+        return _shadowSize;
+    }
+    void setShadowSize(int texels);
+
     [[nodiscard]] qreal tileWidth() const;
     [[nodiscard]] qreal tileHeight() const;
     [[nodiscard]] qreal originX() const;
@@ -94,6 +102,7 @@ signals:
     void modelChanged();
     void clearColorChanged();
     void renderScalePercentChanged();
+    void shadowSizeChanged();
     void framingChanged();
 
 protected:
@@ -117,6 +126,7 @@ private:
     QMetaObject::Connection _modelDestroyedConnection;
     QColor _clearColor{0x10, 0x0d, 0x0a};  ///< Nuit de pierre, jusqu'à ce que le QML en décide.
     int _renderScalePercent = 100;
+    int _shadowSize = 2048;
 };
 
 }  // namespace hmi

@@ -150,6 +150,7 @@ chaud.
 | `--flags=<a>,<b>,<c=valeur>` | pose des drapeaux de monde avant le premier pas : la carte **après** une quête, sans la jouer (`hmi::parseWorldFlags`, `LOT-116`) | développement |
 | `--levels=<dossier>;<dossier>` | sert ces dossiers de cartes **devant** celles du binaire, dans l'ordre — l'essai complet de l'éditeur (`LOT-EDITOR-10`) ; séparateur `;` (`hmi::LAUNCH_PATH_SEPARATOR`) | développement |
 | `--hero-figure=<dossier>` | remplace la figurine du héros, par un dossier depuis `Assets/` — voir une figurine de l'atelier marcher | développement |
+| `--hour=<HH:MM\|run>` | règle l'**heure du monde** et la **fige** (`hmi::WorldModel::setStartHour`, `LOT-1007`) : une carte se capture de nuit sans attendre le soir ; `run` la laisse reprendre son cours | développement |
 | `--data=<racine>` | lit **tout le contenu** — cartes, assets, monde, dialogues, rencontres, créatures, libellés — sous cette racine (`hmi::dataDirectory`), comme `LevelEditor --data` (`LOT-118`) ; à lire **avant** tout modèle, donc posée en tête de `main` | développement |
 | `--map-region=`, `--map-city=`, `--map-district=`, `--map-block=` | ouvrent l'écran « Carte » sur la région, la ville, le quartier ou l'îlot nommé, chaque niveau supposant le précédent (`LOT-96`) | tous |
 

@@ -45,6 +45,7 @@ namespace hmi {
  * | synchronisation verticale | le format de surface, **au prochain lancement** |
  * | anticrénelage | le tampon multi-échantillonné des vues du lieu, **immédiatement** |
  * | définition du rendu | la taille du tampon des vues du lieu, **immédiatement** |
+ * | ombres | la carte d'ombres des vues du lieu, **immédiatement** |
  * | compteur de diagnostic | l'affichage tête haute, quand il existera |
  *
  * Les deux dernières lignes sont dites à l'écran, et non tues : un réglage qui s'applique plus tard
@@ -79,6 +80,10 @@ class OptionsModel : public QObject {
     /// de leurs listes : une seule table, lue par le modèle qui valide et par l'écran qui affiche.
     Q_PROPERTY(QList<int> antialiasingLevels READ antialiasingLevels CONSTANT)
     Q_PROPERTY(QList<int> renderScales READ renderScales CONSTANT)
+    /// Le côté de la carte d'ombres des vues du lieu, en texels (`LOT-1007`) : 0 (aucune ombre
+    /// portée), 1024, 2048 ou 4096. C'est le `shadowSize` de `hmi::WorldViewportItem`.
+    Q_PROPERTY(int shadows READ shadows WRITE setShadows NOTIFY shadowsChanged)
+    Q_PROPERTY(QList<int> shadowSizes READ shadowSizes CONSTANT)
 
     /// Les langues que le jeu propose, par leur **code** (`fr`, `en`). Constantes : une langue
     /// s'ajoute avec son catalogue, donc par une construction, jamais à l'exécution.
@@ -134,6 +139,10 @@ public:
     }
     [[nodiscard]] QList<int> antialiasingLevels() const;
     [[nodiscard]] QList<int> renderScales() const;
+    [[nodiscard]] int shadows() const noexcept {
+        return _shadows;
+    }
+    [[nodiscard]] QList<int> shadowSizes() const;
     [[nodiscard]] QStringList languages() const;
     [[nodiscard]] QStringList languageNames() const;
     [[nodiscard]] bool logsAvailable() const noexcept {
@@ -151,6 +160,8 @@ public:
     void setAntialiasing(int samples);
     /// Une valeur hors de `renderScales` est ignorée.
     void setRenderScalePercent(int percent);
+    /// Une valeur hors de `shadowSizes` est ignorée.
+    void setShadows(int texels);
 
     /**
      * @brief Écrit les journaux de la session dans un fichier horodaté, à côté de l'exécutable.
@@ -169,6 +180,7 @@ signals:
     void languageChanged();
     void antialiasingChanged();
     void renderScaleChanged();
+    void shadowsChanged();
 
 private:
     core::MemoryLogSink* _sessionLog = nullptr;
@@ -180,6 +192,7 @@ private:
     QString _language;
     int _antialiasing = 4;
     int _renderScalePercent = 100;
+    int _shadows = 2048;
 };
 
 }  // namespace hmi

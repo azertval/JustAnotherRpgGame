@@ -58,19 +58,20 @@ TEST(UiPreferencesTest, HudSizeIsBoundedAndSurvivesReload) {
 }
 
 /**
- * @brief L'anticrénelage et la définition du rendu ne prennent que les valeurs proposées, et
- *        survivent à un rechargement.
+ * @brief L'anticrénelage, la définition du rendu et les ombres ne prennent que les valeurs
+ *        proposées, et survivent à un rechargement.
  * \castest{<b>Les reglages de rendu ne prennent que les valeurs proposees.</b><br/>
  * \tcat Unitaire · Options<br/>
  * \tcrit Majeur<br/>
  * \tetapes 1. Isoler les preferences dans un dossier temporaire.<br/>
- *          2. Lire les valeurs d'usine, puis regler 8 echantillons et 150 % ; relire par un second
- * modele.<br/>
- *          3. Demander 3 echantillons et 137 %, que l'ecran ne propose pas.<br/>
- *          4. Ecrire des valeurs non proposees dans les preferences et recharger.<br/>
- * \tattendu L'usine vaut 4 echantillons et 100 % ; 8 et 150 sont relus tels quels et annonces
- * une fois chacun ; 3 et 137 sont ignores sans annonce ; des valeurs enregistrees non proposees
- * rendent celles d'usine au chargement.
+ *          2. Lire les valeurs d'usine, puis regler 8 echantillons, 150 % et des ombres de 4096
+ * texels ; relire par un second modele.<br/>
+ *          3. Demander 3 echantillons, 137 % et 3000 texels, que l'ecran ne propose pas.<br/>
+ *          4. Eteindre les ombres (0).<br/>
+ *          5. Ecrire des valeurs non proposees dans les preferences et recharger.<br/>
+ * \tattendu L'usine vaut 4 echantillons, 100 % et 2048 texels ; 8, 150 et 4096 sont relus tels
+ * quels et annonces une fois chacun ; 3, 137 et 3000 sont ignores sans annonce ; 0 eteint les
+ * ombres ; des valeurs enregistrees non proposees rendent celles d'usine au chargement.
  * }
  */
 TEST(UiPreferencesTest, RenderSettingsTakeOnlyOfferedValues) {
@@ -91,6 +92,19 @@ TEST(UiPreferencesTest, RenderSettingsTakeOnlyOfferedValues) {
         EXPECT_EQ(options.defaults().value("renderScalePercent").toInt(), 100);
         EXPECT_EQ(options.antialiasingLevels(), (QList<int>{1, 2, 4, 8}));
         EXPECT_EQ(options.renderScales(), (QList<int>{100, 125, 150, 200}));
+        EXPECT_EQ(options.shadows(), 2048);
+        EXPECT_EQ(options.defaults().value("shadows").toInt(), 2048);
+        EXPECT_EQ(options.shadowSizes(), (QList<int>{0, 1024, 2048, 4096}));
+        int shadowChanges = 0;
+        QObject::connect(&options, &hmi::OptionsModel::shadowsChanged,
+                         [&shadowChanges] { ++shadowChanges; });
+        options.setShadows(4096);
+        options.setShadows(3000);
+        EXPECT_EQ(options.shadows(), 4096);
+        EXPECT_EQ(shadowChanges, 1);
+        EXPECT_EQ(hmi::OptionsModel{}.shadows(), 4096);
+        options.setShadows(0);
+        EXPECT_EQ(options.shadows(), 0);
 
         int antialiasingChanges = 0;
         int renderScaleChanges = 0;
@@ -113,7 +127,9 @@ TEST(UiPreferencesTest, RenderSettingsTakeOnlyOfferedValues) {
 
         QSettings().setValue("antialiasing_samples", 64);
         QSettings().setValue("render_scale_percent", 9999);
+        QSettings().setValue("shadow_map_size", 123);
         hmi::OptionsModel invalidStored;
+        EXPECT_EQ(invalidStored.shadows(), 2048);
         EXPECT_EQ(invalidStored.antialiasing(), 4);
         EXPECT_EQ(invalidStored.renderScalePercent(), 100);
     }

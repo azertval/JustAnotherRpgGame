@@ -15,6 +15,7 @@
 #include "Core/Diagnostics/LogLevelParse.h"
 #include "Core/Diagnostics/Logger.h"
 #include "Core/World/ExplorationSession.h"
+#include "Core/World/WorldClock.h"
 #include "HMI/Game/DebugCommands.h"
 #include "HMI/Game/LaunchOptions.h"
 #include "HMI/HmiLog.h"
@@ -194,6 +195,23 @@ void DebugConsoleModel::applyImmediate(std::string_view name, const std::string&
         }
     } else if (name == "--screenshot=") {
         emit screenshotRequested(versQt(value));
+    } else if (name == "--hour=") {
+        // L'heure du monde (LOT-1007) : reglee et figee, ou rendue a son cours.
+        WorldModel* const world = WorldModel::current();
+        const std::optional<float> minutes = core::parseClockTime(value);
+        if (world == nullptr) {
+            _transcript.push_back(
+                QStringLiteral("Aucune partie : le modele du monde n'existe pas."));
+        } else if (value == "run") {
+            world->setStartHour(std::nullopt);
+            _transcript.push_back(
+                QStringLiteral("Heure : %1, elle reprend son cours.").arg(world->hour()));
+        } else if (minutes) {
+            world->setStartHour(minutes);
+            _transcript.push_back(QStringLiteral("Heure : %1, figee.").arg(world->hour()));
+        } else {
+            _transcript.push_back(QStringLiteral("--hour= attend <HH:MM> ou run."));
+        }
     } else if (name == "--log-level=") {
         if (const std::optional<core::LogLevel> niveau = core::parseLogLevel(value)) {
             core::defaultLogger().setMinimumLevel(*niveau);

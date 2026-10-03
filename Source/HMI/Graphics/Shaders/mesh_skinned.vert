@@ -18,10 +18,15 @@ layout(location = 4) in vec4 weights;
 
 layout(location = 0) out vec2 vUv;
 layout(location = 1) out vec3 vNormal;
+layout(location = 2) out vec3 vView;
 
 layout(std140, binding = 0) uniform Draw {
     mat4 uClip;
     vec4 uTint;
+    // Du repere du maillage a celui de la vue (LOT-1007) : la position et la normale eclairees.
+    mat4 uView;
+    // Du repere du maillage au clip de la carte d'ombres : lu par la passe d'ombres seule.
+    mat4 uShadowClip;
 };
 
 // Le plus d'os qu'un squelette dessine peut porter : `hmi::MeshBatch::MAX_BONES`.
@@ -32,7 +37,9 @@ layout(std140, binding = 2) uniform Bones {
 void main() {
     mat4 skin = weights.x * uBones[int(joints.x)] + weights.y * uBones[int(joints.y)] +
                 weights.z * uBones[int(joints.z)] + weights.w * uBones[int(joints.w)];
+    vec4 posed = skin * vec4(position, 1.0);
     vUv = uv;
-    vNormal = mat3(skin) * normal;
-    gl_Position = uClip * (skin * vec4(position, 1.0));
+    vNormal = mat3(uView) * (mat3(skin) * normal);
+    vView = (uView * posed).xyz;
+    gl_Position = uClip * posed;
 }

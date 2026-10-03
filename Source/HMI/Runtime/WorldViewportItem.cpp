@@ -11,6 +11,7 @@
 #include <rhi/qrhi.h>
 
 #include "Core/Combat/IsoProjection.h"
+#include "Core/World/DayLight.h"
 #include "HMI/Graphics/PlaceCamera.h"
 #include "HMI/Graphics/WorldSceneRenderer.h"
 #include "HMI/HmiLog.h"
@@ -28,7 +29,18 @@ constexpr int MAXIMUM_SCALED_SIDE = 8192;
 // Il ne partage aucun état avec l'élément : tout lui est remis par copie dans `synchronize()`.
 class WorldViewportRenderer : public QQuickRhiItemRenderer {
 public:
-    WorldViewportRenderer() : _world(dataDirectory() / "Assets") {}
+    WorldViewportRenderer()
+        : _world(dataDirectory() / "Assets"), _lightTable(core::DayLightTable::factory()) {
+        // La table de lumiere du contenu (LOT-1007) ; sans elle, celle d'usine -- et c'est dit.
+        const core::DayLightTableResult read =
+            core::readDayLightTableFile(dataDirectory() / "Assets" / core::DAYLIGHT_FILE);
+        if (read.ok()) {
+            _lightTable = read.table;
+        } else {
+            HMI_LOG_WARNING("Viewport du lieu : la table de lumiere ne se lit pas (" +
+                            read.message + "), celle d'usine la remplace.");
+        }
+    }
 
     void initialize(QRhiCommandBuffer* commandBuffer) override;
     void synchronize(QQuickRhiItem* item) override;
@@ -36,6 +48,7 @@ public:
 
 private:
     WorldSceneRenderer _world;
+    core::DayLightTable _lightTable;
     // Numéros de la carte et des figurines reprises : 0 tant que rien n'a été pris.
     quint64 _sceneRevision = 0;
     quint64 _figuresRevision = 0;
@@ -62,8 +75,15 @@ void WorldViewportRenderer::synchronize(QQuickRhiItem* item) {
         _sceneRevision = 0;
         _figuresRevision = 0;
         _world.setSnapshot(WorldSceneSnapshot{});
+        _world.setLighting(std::nullopt);
         return;
     }
+    // La lumiere de l'heure (LOT-1007) : deux flottants a chaque image, la table est ici.
+    const int shadowSize = viewport->shadowSize();
+    _world.setLighting(WorldLighting{.light = _lightTable.sample(model->lightMinutes()),
+                                     .shadows = shadowSize > 0,
+                                     .shadowSize = shadowSize,
+                                     .seconds = model->lightSeconds()});
     // Le point suivi traverse à chaque image : la caméra suit le héros entre deux changements de
     // scène, et c'est une paire de flottants, pas une scène à recomposer.
     _world.setFocus(
@@ -113,6 +133,16 @@ void WorldViewportItem::setRenderScalePercent(int percent) {
     _renderScalePercent = clamped;
     applyRenderScale();
     emit renderScalePercentChanged();
+}
+
+void WorldViewportItem::setShadowSize(int texels) {
+    const int clamped = std::max(0, texels);
+    if (_shadowSize == clamped) {
+        return;
+    }
+    _shadowSize = clamped;
+    emit shadowSizeChanged();
+    update();
 }
 
 void WorldViewportItem::itemChange(ItemChange change, const ItemChangeData& value) {
