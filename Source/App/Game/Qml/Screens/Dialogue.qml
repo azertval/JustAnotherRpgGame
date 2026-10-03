@@ -49,6 +49,8 @@ DialogueForm {
     }
 
     speakerName: conversation.speakerName
+    // Le visage de l'interlocuteur (LOT-1011) : le portrait de la figurine que le PNJ nomme.
+    portraitSource: conversation.speakerPortrait
     // Le joueur choisit qui parle pour le groupe, et jette (LOT-138, D-28) : le menu du bas, `Tab`.
     voiceName: conversation.partyVoice
     voices: conversation.voices

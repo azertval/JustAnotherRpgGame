@@ -6,6 +6,32 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1011 — Les fauves de l'arène : le squelette `quadruped`.** Le lion et le loup du Colisée
+  marchent sur quatre appuis ; plus aucun personnage de la démo n'est un portrait d'attente.
+  - Le squelette **`quadruped`** (29 os : tronc, queue, deux pattes avant de cinq os, deux pattes
+    arrière de quatre) et ses **cinq clips** — repos, marche au **trot** (appuis diagonaux,
+    3 m/s, pas de `cast`), attaque en bond, touché, chute sur le flanc —, écrits dans
+    `scripts/assetsGeneration/rig_quadruped.py` ; `rig_character.py` lie une silhouette ou
+    l'autre (`--silhouette`, ou le champ `silhouette` de la fiche de liaison), et sa fiche
+    quadrupède porte le **cap** du maillage reçu (un fauve généré de trois quarts arrive en
+    diagonale), tous les os et le bout des appuis. Le recalage au sol évalue aussi le maillage
+    entre deux images, comme le moteur l'interpole.
+  - Le **lion**, le **loup** et le **mannequin quadrupède** sont liés et installés par l'atelier
+    (`LevelEditor --apply`), `Common/Characters/Skeletons/quadruped/skeleton.json` avec eux ;
+    leurs fiches de règles nomment leur silhouette. `check_character_model.py` contrôle les deux
+    silhouettes (os, clips et appuis d'après le squelette du fichier) ; `retouch_character.py`
+    ouvre un quadrupède dans Blender avec ses 29 os. Kits republiés et verrouillés : `Common@9`,
+    `arena-of-fate@5`.
+  - **Fin du portrait d'attente** (D-32) : la liste `portraits` quitte les manifestes
+    `Characters/`, et sa prise en charge quitte `check_hd_assets.py` (qui la refuse désormais),
+    `check_orphans.py`, `core::resolveFigures`, `hmi::AssetGallery`, l'atelier et leurs tests.
+  - Le **portrait de l'interlocuteur** paraît dans l'écran de dialogue : le monde lit la figurine
+    que le PNJ nomme sur la carte à l'interaction (`WorldModel::interlocutorPortrait`),
+    `DialogueModel.speakerPortrait` l'expose, `Dialogue.qml` le lie au cadre — absent depuis le
+    LOT-15.
+  - Le standard des personnages dit le squelette quadrupède (§5 bis), sa fiche (§6), ses clips
+    (§7) et ses relevés (§9) ; le trot reste à approuver par l'auteur dans le jeu.
+
 - **LOT-1009 — Les personnages de la démo.** Les dix-huit humanoïdes de la démo — les quatre
   héros refaits, la mère, l'enfant, le garde Ironhand, le maître d'arène et les neuf adversaires de
   l'arène — sont des modèles liés au squelette commun, installés par l'atelier des assets

@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "silhouette": "quadruped",
+  "bones": [
+    {
+      "name": "Root",
+      "parent": ""
+    },
+    {
+      "name": "pelvis",
+      "parent": "Root"
+    },
+    {
+      "name": "spine_01",
+      "parent": "pelvis"
+    },
+    {
+      "name": "spine_02",
+      "parent": "spine_01"
+    },
+    {
+      "name": "spine_03",
+      "parent": "spine_02"
+    },
+    {
+      "name": "neck_01",
+      "parent": "spine_03"
+    },
+    {
+      "name": "neck_02",
+      "parent": "neck_01"
+    },
+    {
+      "name": "head",
+      "parent": "neck_02"
+    },
+    {
+      "name": "tail_01",
+      "parent": "pelvis"
+    },
+    {
+      "name": "tail_02",
+      "parent": "tail_01"
+    },
+    {
+      "name": "tail_03",
+      "parent": "tail_02"
+    },
+    {
+      "name": "clavicle_l",
+      "parent": "spine_03"
+    },
+    {
+      "name": "upperarm_l",
+      "parent": "clavicle_l"
+    },
+    {
+      "name": "lowerarm_l",
+      "parent": "upperarm_l"
+    },
+    {
+      "name": "hand_l",
+      "parent": "lowerarm_l"
+    },
+    {
+      "name": "forepaw_l",
+      "parent": "hand_l"
+    },
+    {
+      "name": "thigh_l",
+      "parent": "pelvis"
+    },
+    {
+      "name": "calf_l",
+      "parent": "thigh_l"
+    },
+    {
+      "name": "foot_l",
+      "parent": "calf_l"
+    },
+    {
+      "name": "hindpaw_l",
+      "parent": "foot_l"
+    },
+    {
+      "name": "clavicle_r",
+      "parent": "spine_03"
+    },
+    {
+      "name": "upperarm_r",
+      "parent": "clavicle_r"
+    },
+    {
+      "name": "lowerarm_r",
+      "parent": "upperarm_r"
+    },
+    {
+      "name": "hand_r",
+      "parent": "lowerarm_r"
+    },
+    {
+      "name": "forepaw_r",
+      "parent": "hand_r"
+    },
+    {
+      "name": "thigh_r",
+      "parent": "pelvis"
+    },
+    {
+      "name": "calf_r",
+      "parent": "thigh_r"
+    },
+    {
+      "name": "foot_r",
+      "parent": "calf_r"
+    },
+    {
+      "name": "hindpaw_r",
+      "parent": "foot_r"
+    }
+  ],
+  "clips": [
+    {
+      "name": "idle",
+      "duration": 1.0,
+      "loop": true
+    },
+    {
+      "name": "walk",
+      "duration": 0.5,
+      "loop": true
+    },
+    {
+      "name": "attack",
+      "duration": 0.9,
+      "loop": false,
+      "key": 0.4
+    },
+    {
+      "name": "hit",
+      "duration": 0.6,
+      "loop": false
+    },
+    {
+      "name": "death",
+      "duration": 1.2,
+      "loop": false
+    }
+  ]
+}

@@ -117,13 +117,10 @@ bool readAnimatedEntry(AssetGalleryEntry& entry, const std::filesystem::path& de
             models.push_back(item.path().filename().string());
         }
     }
-    // Les PNJ rangés plus bas, et les portraits d'attente (`LOT-145`) : un héros qui a son visage
-    // avant son modèle.
-    for (const char* list : {"npcs", "portraits"}) {
-        for (const std::string& npc : stringList(manifest, list)) {
-            if (npc.find('/') != std::string::npos) {
-                models.push_back(npc);
-            }
+    // Les PNJ rangés plus bas (`Heroes/brawler`).
+    for (const std::string& npc : stringList(manifest, "npcs")) {
+        if (npc.find('/') != std::string::npos) {
+            models.push_back(npc);
         }
     }
     // Les modèles que le manifeste inscrit (`models`, `LOT-1003`) : un mannequin sans squelette y
@@ -318,7 +315,7 @@ void readScenes(const std::filesystem::path& root, AssetGalleryCatalog& catalog)
 //        l'ordre de son chemin.
 //
 // Un manifeste qui déclare des `textures` est un dossier `Scene/` ; un manifeste qui déclare des
-// personnages (`npcs`, `portraits`, `models`) est un dossier `Characters/`, dont les PNJ ont la
+// personnages (`npcs`, `models`) est un dossier `Characters/`, dont les PNJ ont la
 // forme de l'atelier (`readFigures`). Les manifestes des niveaux encore vides n'ajoutent aucune
 // famille.
 void readTree(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
@@ -354,8 +351,7 @@ void readTree(const std::filesystem::path& root, AssetGalleryCatalog& catalog) {
                 place.erase(0, std::string_view("Regions/").size());
             }
             readSceneFamily(root, relative, "Scène · " + place, catalog);
-        } else if (document.root.contains("npcs") || document.root.contains("portraits") ||
-                   document.root.contains("models")) {
+        } else if (document.root.contains("npcs") || document.root.contains("models")) {
             readFigures(root, relative, "Figurines · " + relative, catalog);
         }
     }

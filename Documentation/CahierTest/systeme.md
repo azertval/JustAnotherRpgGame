@@ -13,7 +13,7 @@ Tests système — **5 cas** (5 critiques). [Retour à la synthèse](README.md).
 
 ### DemoDeBoutEnBout.LaFinParLaParole
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:411`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:417`
 
 Nouvelle partie, puis la demo jusqu'a sa fin par la parole.
 
@@ -39,7 +39,7 @@ Nouvelle partie, puis la demo jusqu'a sa fin par la parole.
 
 ### DemoDeBoutEnBout.LaDemoSeRejoueAvecLeMeneurChoisi
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:443`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:449`
 
 Nouvelle partie avec le Scoundrel pour meneur, puis la demo jusqu'a sa fin par la parole.
 
@@ -62,7 +62,7 @@ Nouvelle partie avec le Scoundrel pour meneur, puis la demo jusqu'a sa fin par l
 
 ### DemoDeBoutEnBout.LaFinParLArene
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:470`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:476`
 
 Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.
 
@@ -113,7 +113,7 @@ Nouvelle partie, puis la demo jusqu'a sa fin par l'arene.
 
 ### DemoDeBoutEnBout.LaMortSurLeSable
 
-*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:585`
+*Critique · Systeme · Demo* — `Source/Test/Systeme/test_demo_de_bout_en_bout.cpp:591`
 
 Nouvelle partie, puis la demo jusqu'a la mort sur le sable.
 

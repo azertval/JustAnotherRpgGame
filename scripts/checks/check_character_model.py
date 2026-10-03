@@ -7,13 +7,16 @@ Ce qu'un `.glb` de personnage doit tenir avant de s'installer, vérifié sans Bl
 lecteur écrit à part de celui qui l'a produit (`rig_character.py`) :
 
 - **structure** : un maillage, une primitive, une matière, une texture incorporée, des indices
-  valides ; un squelette de 53 os aux noms du standard ; les six clips, en canaux de translation et
-  de rotation seulement, interpolés linéairement ;
+  valides ; le squelette de sa silhouette — 53 os pour `humanoid`, 29 pour `quadruped`, aux noms
+  du standard, la silhouette étant celle que nomme le squelette du fichier ; ses clips (six pour
+  l'humanoïde, cinq pour le quadrupède, qui ne lance pas de sort), en canaux de translation et de
+  rotation seulement, interpolés linéairement ;
 - **poids** : quatre os au plus par sommet, somme à 1 ;
 - **géométrie évaluée** : sur huit poses par clip, aucune coordonnée non finie ;
 - **sol** : le maillage évalué ne s'enfonce pas de plus de 1,3 mm ;
 - **marche** : le pied posé ne glisse pas de plus de 0,53 px d'art (à 120,7 px par mètre), mesuré
-  sur l'os de la plante, pour un cycle qui couvre une case de 1,5 m ;
+  sur l'os de la plante (les quatre appuis d'un quadrupède), pour un cycle qui couvre une case
+  de 1,5 m ;
 - avec `--skeleton`, l'accord avec `skeleton.json` : mêmes os, mêmes parents, mêmes durées.
 
 Ces contrôles ne remplacent pas le jugement de l'auteur sur les planches de revue.
@@ -34,8 +37,6 @@ from pathlib import Path
 
 import numpy as np
 
-CLIPS = ("idle", "walk", "attack", "cast", "hit", "death")
-BONE_COUNT = 53
 POSES = 8
 GROUND_TOLERANCE = 0.0013          # m : la pénétration relevée à la preuve
 SLIP_TOLERANCE = 0.53              # px d'art : le glissement relevé à la preuve
@@ -58,6 +59,27 @@ def bone_names() -> list[str]:
                   for finger in ("thumb", "index", "middle", "ring", "pinky")
                   for phalanx in ("01", "02", "03")]
     return names
+
+
+def quadruped_bone_names() -> list[str]:
+    """Les 29 os du squelette quadrupède (standard, §5, LOT-1011)."""
+    names = ["Root", "pelvis", "spine_01", "spine_02", "spine_03", "neck_01", "neck_02", "head",
+             "tail_01", "tail_02", "tail_03"]
+    for side in ("l", "r"):
+        names += [f"{part}_{side}" for part in ("clavicle", "upperarm", "lowerarm", "hand",
+                                                "forepaw", "thigh", "calf", "foot", "hindpaw")]
+    return names
+
+
+# Par silhouette : ses os, ses clips, et les os d'appui dont la marche mesure le glissement.
+SILHOUETTES = {
+    "humanoid": {"bones": bone_names(),
+                 "clips": ("idle", "walk", "attack", "cast", "hit", "death"),
+                 "feet": ("ball_l", "ball_r")},
+    "quadruped": {"bones": quadruped_bone_names(),
+                  "clips": ("idle", "walk", "attack", "hit", "death"),
+                  "feet": ("forepaw_l", "forepaw_r", "hindpaw_l", "hindpaw_r")},
+}
 
 
 class Model:
@@ -234,9 +256,16 @@ def inspect(data: bytes, skeleton: dict | None = None) -> dict:
     if len(indices) % 3 or (len(indices) and int(indices.max()) >= len(positions)):
         faults.append("indices invalides")
 
-    # Le squelette.
-    expected = bone_names()
-    if len(rig.names) != BONE_COUNT or sorted(rig.names) != sorted(expected):
+    # Le squelette : celui de la silhouette que le fichier nomme.
+    silhouette = model.document["skins"][0].get("name", "")
+    measures["silhouette"] = silhouette
+    if silhouette not in SILHOUETTES:
+        faults.append(f"silhouette « {silhouette} » inconnue : "
+                      + ", ".join(sorted(SILHOUETTES)))
+        return measures
+    expected = SILHOUETTES[silhouette]["bones"]
+    CLIPS = SILHOUETTES[silhouette]["clips"]
+    if len(rig.names) != len(expected) or sorted(rig.names) != sorted(expected):
         faults.append(f"{len(rig.names)} os, ou des noms hors du standard : "
                       + ", ".join(sorted(set(rig.names) ^ set(expected))[:6]))
     measures["bones"] = len(rig.names)
@@ -313,8 +342,9 @@ def inspect(data: bytes, skeleton: dict | None = None) -> dict:
     worlds = [rig.pose("walk", time) for time in times]
     slip = 0.0
     stance = {}
-    for side in ("l", "r"):
-        ball = rig.names.index(f"ball_{side}")
+    for foot in SILHOUETTES[silhouette]["feet"]:
+        side = foot.split("_", 1)[1] if silhouette == "humanoid" else foot
+        ball = rig.names.index(foot)
         track = np.array([world[ball, :3, 3] for world in worlds])
         planted = track[:, 1] <= track[:, 1].min() + PLANTED
         stance[side] = round(float(planted.mean()), 3)

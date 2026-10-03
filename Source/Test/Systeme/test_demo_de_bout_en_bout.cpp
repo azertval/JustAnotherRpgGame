@@ -20,6 +20,7 @@
 #include <QObject>
 #include <QString>
 #include <QThread>
+#include <QUrl>
 #include <QVariant>
 #include <QVariantMap>
 #include <algorithm>
@@ -377,6 +378,11 @@ void jusquAuParvis(Jeu& jeu) {
     EXPECT_EQ(jeu.valeur(), "inconnue");
 
     ASSERT_EQ(jeu.parler(DEVANT_LA_MERE), "mere");
+    // Le visage de l'interlocuteur (LOT-1011) : le portrait de la figurine que l'entite nomme.
+    ASSERT_NE(jeu.dialogue, nullptr);
+    EXPECT_TRUE(jeu.dialogue->speakerPortrait().toLocalFile().endsWith(
+        QStringLiteral("/Characters/mother/portrait.png")))
+        << jeu.dialogue->speakerPortrait().toString().toStdString();
     ASSERT_NO_FATAL_FAILURE(jeu.repondre({"accepter", "continue"}));
     ASSERT_TRUE(pomper([&jeu] { return !jeu.etapes.empty(); }, 1000));
     EXPECT_EQ(jeu.etapes, (std::vector<std::string>{"pommes/acceptee"}));
