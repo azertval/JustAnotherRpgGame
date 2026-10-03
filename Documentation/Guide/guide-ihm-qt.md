@@ -515,11 +515,21 @@ moteur audio, la fenêtre et les traducteurs.
 | volume | `hmi::AudioEngine::setVolume` (pour cent → `[0, 1]`) | immédiatement |
 | langue | le `QTranslator` puis `QQmlEngine::retranslate()` | immédiatement |
 | compteur de diagnostic | `Controls/DiagnosticsOverlay.ui.qml`, posé sur la fenêtre | immédiatement |
+| anticrénelage | `sampleCount` des `WorldViewport`, par **liaison** dans les écrans du lieu | immédiatement |
+| définition du rendu | `renderScalePercent` des `WorldViewport`, par **liaison** | immédiatement |
 | synchronisation verticale | `QSurfaceFormat::setDefaultFormat` | **au prochain lancement** |
 
 La dernière ligne est dite **à l'écran** et non tue : `EX-IHM-083` exige qu'un réglage exposé
 atteigne le moteur, et il l'atteint — mais l'utilisateur doit savoir quand. Elle se pose sur le
 format de surface, donc avant la fenêtre.
+
+L'anticrénelage est le multi-échantillonnage (MSAA) de `QQuickRhiItem` : 1, 2, 4 ou 8 échantillons
+par pixel, quatre par défaut. Les pipelines de `hmi::MeshBatch` et de `hmi::SpriteBatch` prennent le
+nombre d'échantillons de la cible qu'on leur donne, et se reconstruisent quand il change. La
+définition du rendu (100, 125, 150 ou 200 %) fixe la taille du tampon de couleur de la vue
+(`fixedColorBufferWidth` et `fixedColorBufferHeight`) : au-delà de 100 %, le lieu est dessiné plus
+grand, puis réduit par Qt Quick à la composition. Le cadrage publié par `WorldViewportItem` reste
+en unités d'élément : le calque d'interface et le pointeur ne voient pas la différence.
 
 Trois pièges consignés là où ils se posent :
 

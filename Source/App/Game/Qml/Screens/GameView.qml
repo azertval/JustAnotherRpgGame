@@ -140,6 +140,9 @@ GameViewForm {
         model: WorldModel
         // Le vide autour du lieu n'est pas du parchemin : c'est la nuit hors des murs.
         clearColor: Tokens.panel
+        // Les reglages de rendu des options, qui atteignent ainsi le moteur (EX-IHM-083).
+        sampleCount: OptionsModel.antialiasing
+        renderScalePercent: OptionsModel.renderScalePercent
     }
 
     // --- Le deplacement : un etat de touches, releve a chaque appui et a chaque relachement -----

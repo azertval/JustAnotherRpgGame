@@ -167,7 +167,10 @@ QRhiShaderResourceBindings* SpriteBatch::bindingsFor(QRhiTexture* texture) {
 // teste la profondeur si l'image le demande.
 bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
     QRhiRenderPassDescriptor* const pass = target->renderPassDescriptor();
-    if (_pipelinePass != pass) {
+    // Les pipelines suivent aussi le nombre d'echantillons de la cible : une cible
+    // multi-echantillonnee refuse un pipeline qui ne l'est pas autant qu'elle.
+    const int samples = target->sampleCount();
+    if (_pipelinePass != pass || _pipelineSamples != samples) {
         _pipeline.reset();
         _depthPipeline.reset();
     }
@@ -192,17 +195,18 @@ bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
     }
 
     if (!_pipeline) {
-        _pipeline = createPipeline(pass, false);
+        _pipeline = createPipeline(pass, samples, false);
     }
     if (_depthTest && !_depthPipeline) {
-        _depthPipeline = createPipeline(pass, true);
+        _depthPipeline = createPipeline(pass, samples, true);
     }
     _pipelinePass = pass;
+    _pipelineSamples = samples;
     return _pipeline && (!_depthTest || _depthPipeline);
 }
 
 std::unique_ptr<QRhiGraphicsPipeline> SpriteBatch::createPipeline(QRhiRenderPassDescriptor* pass,
-                                                                  bool depthTest) {
+                                                                  int samples, bool depthTest) {
     auto pipeline = std::unique_ptr<QRhiGraphicsPipeline>(_rhi->newGraphicsPipeline());
     pipeline->setShaderStages({
         {QRhiShaderStage::Vertex, loadShader(":/shaders/sprite.vert.qsb")},
@@ -219,6 +223,7 @@ std::unique_ptr<QRhiGraphicsPipeline> SpriteBatch::createPipeline(QRhiRenderPass
     pipeline->setVertexInputLayout(inputLayout);
     pipeline->setShaderResourceBindings(_layoutBindings.get());
     pipeline->setRenderPassDescriptor(pass);
+    pipeline->setSampleCount(samples);
     pipeline->setTopology(QRhiGraphicsPipeline::Triangles);
     // Rendu 2D : les quads peuvent etre vus des deux cotes (un segment oriente peut « retourner »
     // son quadrilatere), et il n'y a ni profondeur ni pochoir a ecrire. Quand l'image a des

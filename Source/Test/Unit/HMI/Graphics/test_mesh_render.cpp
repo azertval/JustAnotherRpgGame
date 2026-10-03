@@ -18,11 +18,13 @@
 #include <iostream>
 #include <memory>
 #include <optional>
+#include <set>
 #include <string>
 #include <utility>
 #include <vector>
 
 #include <gtest/gtest.h>
+#include <rhi/qrhi.h>
 
 #include "Core/Combat/IsoProjection.h"
 #include "Core/Levels/Level.h"
@@ -395,4 +397,56 @@ TEST(MeshRenderTest, LePointageDUneCaseEstCeluiDAvant) {
     }
     EXPECT_EQ(checked, static_cast<std::size_t>(projection.columns()) *
                            static_cast<std::size_t>(projection.rows()) * 5U);
+}
+
+/**
+ * @brief Une cible multi-échantillonnée reçoit le même lieu, ses bords adoucis.
+ * \castest{<b>L'anticrenelage adoucit le bord des maillages.</b><br/>
+ * \tcat Unitaire · Rendu QRhi d'un lieu · Maillages<br/>
+ * \tcrit Bloquant<br/>
+ * \tetapes 1. Rendre la carte d'essai à un échantillon par pixel.<br/>
+ *          2. La rendre à quatre échantillons, résolus dans la même image.<br/>
+ * \tattendu Les deux images ont la taille demandée : les pipelines des maillages et des images
+ *           suivent le nombre d'échantillons de la cible. Les murs et le toit couvrent la même
+ *           surface à un dixième près ; les deux images diffèrent, et celle à quatre échantillons
+ *           porte plus de teintes — celles, intermédiaires, des bords. Les captures sont écrites
+ *           pour l'œil.
+ * }
+ */
+TEST(MeshRenderTest, LAnticrenelageAdoucitLeBordDesMaillages) {
+    const std::shared_ptr<hmi::OffscreenRhi> offscreen = hmi::OffscreenRhi::shared();
+    if (!offscreen) {
+        GTEST_SKIP() << "Aucune interface QRhi disponible sur cette machine.";
+    }
+    if (!offscreen->rhi()->supportedSampleCounts().contains(4)) {
+        GTEST_SKIP() << "L'interface QRhi ne sait pas faire quatre échantillons par pixel.";
+    }
+    hmi::WorldSceneRenderer renderer(assets());
+    const hmi::WorldSceneSnapshot snapshot = ilot();
+    renderer.setSnapshot(snapshot);
+    const QImage plain = offscreen->render(renderer, SIZE, framing(snapshot), BACKGROUND);
+    const QImage smooth = offscreen->render(renderer, SIZE, framing(snapshot), BACKGROUND,
+                                            hmi::OFFSCREEN_TILE_SIDE, 4);
+    ASSERT_EQ(plain.size(), SIZE);
+    ASSERT_EQ(smooth.size(), SIZE);
+    capture(plain, "ilot-anticrenelage-1.png");
+    capture(smooth, "ilot-anticrenelage-4.png");
+
+    const auto walls = static_cast<double>(countPixels(plain, isWall));
+    const auto roof = static_cast<double>(countPixels(plain, isRoof));
+    EXPECT_NEAR(static_cast<double>(countPixels(smooth, isWall)), walls, walls / 10.0);
+    EXPECT_NEAR(static_cast<double>(countPixels(smooth, isRoof)), roof, roof / 10.0);
+
+    std::size_t different = 0;
+    std::set<QRgb> plainTints;
+    std::set<QRgb> smoothTints;
+    for (int y = 0; y < SIZE.height(); ++y) {
+        for (int x = 0; x < SIZE.width(); ++x) {
+            different += plain.pixel(x, y) != smooth.pixel(x, y) ? 1U : 0U;
+            plainTints.insert(plain.pixel(x, y));
+            smoothTints.insert(smooth.pixel(x, y));
+        }
+    }
+    EXPECT_GT(different, 500U) << "les bords des maillages sont adoucis";
+    EXPECT_GT(smoothTints.size(), plainTints.size()) << "les bords portent des teintes mêlées";
 }

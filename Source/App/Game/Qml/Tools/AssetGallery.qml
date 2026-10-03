@@ -221,6 +221,8 @@ Rectangle {
             id: gallery
             anchors.fill: parent
             clearColor: Tokens.panel
+            // L'anticrenelage des options : un asset se juge ici comme il parait en jeu.
+            sampleCount: OptionsModel.antialiasing
         }
 
         Repeater {

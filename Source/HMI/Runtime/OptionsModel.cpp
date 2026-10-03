@@ -27,6 +27,8 @@ constexpr const char* DIAGNOSTICS_KEY = "diagnostics_overlay";
 constexpr const char* VOLUME_KEY = "volume";
 constexpr const char* HUD_SCALE_KEY = "hud_scale_percent";
 constexpr const char* LANGUAGE_KEY = "language";
+constexpr const char* ANTIALIASING_KEY = "antialiasing_samples";
+constexpr const char* RENDER_SCALE_KEY = "render_scale_percent";
 
 // Les valeurs d'usine : lues par le constructeur quand aucun réglage n'est enregistré, et publiées
 // telles quelles par defaults() pour le bouton « Par défaut » des options.
@@ -36,6 +38,24 @@ constexpr bool DEFAULT_DIAGNOSTICS = false;
 constexpr int DEFAULT_VOLUME = 100;
 constexpr int DEFAULT_HUD_SCALE = 100;
 constexpr const char* DEFAULT_LANGUAGE = "fr";
+// Quatre echantillons : le reglage que Qt nomme « MSAA normal ». Un maillage de 100 000 triangles
+// tient dans une soixantaine de pixels de haut a 1080p : sans anticrenelage, ses bords sont en
+// escalier et scintillent au moindre mouvement.
+constexpr int DEFAULT_ANTIALIASING = 4;
+constexpr int DEFAULT_RENDER_SCALE = 100;
+
+// Les valeurs proposees : ce que l'ecran affiche, et ce que les mutateurs acceptent.
+constexpr std::array<int, 4> ANTIALIASING_LEVELS = {1, 2, 4, 8};
+constexpr std::array<int, 4> RENDER_SCALES = {100, 125, 150, 200};
+
+// La valeur enregistree si elle est proposee, sinon la valeur d'usine : un fichier de reglages
+// retouche a la main ne doit pas demander au rendu un tampon qu'il ne sait pas creer.
+template <std::size_t N>
+[[nodiscard]] int storedChoice(const QSettings& stored, const char* key,
+                               const std::array<int, N>& choices, int fallback) {
+    const int value = stored.value(QLatin1String(key), fallback).toInt();
+    return std::ranges::find(choices, value) != choices.end() ? value : fallback;
+}
 
 [[nodiscard]] QSettings settings() {
     return QSettings();
@@ -53,6 +73,10 @@ OptionsModel::OptionsModel(QObject* parent) : QObject(parent) {
         std::clamp(stored.value(QLatin1String(HUD_SCALE_KEY), DEFAULT_HUD_SCALE).toInt(), 75, 130);
     _language =
         stored.value(QLatin1String(LANGUAGE_KEY), QLatin1String(DEFAULT_LANGUAGE)).toString();
+    _antialiasing =
+        storedChoice(stored, ANTIALIASING_KEY, ANTIALIASING_LEVELS, DEFAULT_ANTIALIASING);
+    _renderScalePercent =
+        storedChoice(stored, RENDER_SCALE_KEY, RENDER_SCALES, DEFAULT_RENDER_SCALE);
 }
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static) : lue par QML (Q_PROPERTY).
@@ -62,7 +86,9 @@ QVariantMap OptionsModel::defaults() const {
             {QStringLiteral("diagnostics"), DEFAULT_DIAGNOSTICS},
             {QStringLiteral("volume"), DEFAULT_VOLUME},
             {QStringLiteral("hudScalePercent"), DEFAULT_HUD_SCALE},
-            {QStringLiteral("language"), QLatin1String(DEFAULT_LANGUAGE)}};
+            {QStringLiteral("language"), QLatin1String(DEFAULT_LANGUAGE)},
+            {QStringLiteral("antialiasing"), DEFAULT_ANTIALIASING},
+            {QStringLiteral("renderScalePercent"), DEFAULT_RENDER_SCALE}};
 }
 
 void OptionsModel::setSessionLog(core::MemoryLogSink* sessionLog) noexcept {
@@ -126,6 +152,36 @@ void OptionsModel::setLanguage(const QString& code) {
     _language = code;
     settings().setValue(QLatin1String(LANGUAGE_KEY), code);
     emit languageChanged();
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static) : lue par QML (Q_PROPERTY).
+QList<int> OptionsModel::antialiasingLevels() const {
+    return {ANTIALIASING_LEVELS.begin(), ANTIALIASING_LEVELS.end()};
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static) : lue par QML (Q_PROPERTY).
+QList<int> OptionsModel::renderScales() const {
+    return {RENDER_SCALES.begin(), RENDER_SCALES.end()};
+}
+
+void OptionsModel::setAntialiasing(int samples) {
+    if (_antialiasing == samples ||
+        std::ranges::find(ANTIALIASING_LEVELS, samples) == ANTIALIASING_LEVELS.end()) {
+        return;
+    }
+    _antialiasing = samples;
+    settings().setValue(QLatin1String(ANTIALIASING_KEY), samples);
+    emit antialiasingChanged();
+}
+
+void OptionsModel::setRenderScalePercent(int percent) {
+    if (_renderScalePercent == percent ||
+        std::ranges::find(RENDER_SCALES, percent) == RENDER_SCALES.end()) {
+        return;
+    }
+    _renderScalePercent = percent;
+    settings().setValue(QLatin1String(RENDER_SCALE_KEY), percent);
+    emit renderScaleChanged();
 }
 
 void OptionsModel::setHudScalePercent(int percent) {

@@ -174,6 +174,8 @@ private:
     std::unique_ptr<QRhiShaderResourceBindings> _layoutBindings;
     std::unique_ptr<QRhiGraphicsPipeline> _pipeline;
     QRhiRenderPassDescriptor* _pipelinePass = nullptr;
+    /// Nombre d'échantillons de la cible pour laquelle `_pipeline` a été construit.
+    int _pipelineSamples = 1;
     std::size_t _uniformSlots = 0;
     int _uniformStride = 0;
     /// Le pipeline des maillages animés, son tampon d'os (un bloc de `MAX_BONES` matrices par
@@ -182,6 +184,7 @@ private:
     std::unique_ptr<QRhiShaderResourceBindings> _skinnedLayoutBindings;
     std::unique_ptr<QRhiGraphicsPipeline> _skinnedPipeline;
     QRhiRenderPassDescriptor* _skinnedPipelinePass = nullptr;
+    int _skinnedPipelineSamples = 1;
     std::size_t _boneSlots = 0;
     int _boneStride = 0;
     /// Les poses de l'image : `MAX_BONES` matrices par dessin animé, l'identité au-delà du

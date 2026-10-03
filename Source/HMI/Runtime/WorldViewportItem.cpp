@@ -19,6 +19,10 @@
 namespace hmi {
 namespace {
 
+// Le plus grand cote d'un tampon surechantillonne, en pixels : la limite de texture que garantit
+// Direct3D 11 pour un materiel de niveau 10. Un ecran 2160p a 200 % (7680 px) y tient.
+constexpr int MAXIMUM_SCALED_SIDE = 8192;
+
 // Le peintre du lieu, côté **fil de rendu**.
 //
 // Il ne partage aucun état avec l'élément : tout lui est remis par copie dans `synchronize()`.
@@ -97,6 +101,44 @@ WorldViewportItem::WorldViewportItem(QQuickItem* parent) : QQuickRhiItem(parent)
             &WorldViewportItem::framingChanged);
     connect(this, &QQuickItem::widthChanged, this, &WorldViewportItem::framingChanged);
     connect(this, &QQuickItem::heightChanged, this, &WorldViewportItem::framingChanged);
+    connect(this, &QQuickItem::widthChanged, this, &WorldViewportItem::applyRenderScale);
+    connect(this, &QQuickItem::heightChanged, this, &WorldViewportItem::applyRenderScale);
+}
+
+void WorldViewportItem::setRenderScalePercent(int percent) {
+    const int clamped = std::clamp(percent, 100, 200);
+    if (_renderScalePercent == clamped) {
+        return;
+    }
+    _renderScalePercent = clamped;
+    applyRenderScale();
+    emit renderScalePercentChanged();
+}
+
+void WorldViewportItem::itemChange(ItemChange change, const ItemChangeData& value) {
+    QQuickRhiItem::itemChange(change, value);
+    // Le tampon suit la densite de l'ecran : l'element change de fenetre, ou la fenetre d'ecran.
+    if (change == ItemSceneChange || change == ItemDevicePixelRatioHasChanged) {
+        applyRenderScale();
+    }
+}
+
+void WorldViewportItem::applyRenderScale() {
+    // A 100 %, une taille nulle rend la main a `QQuickRhiItem` : le tampon suit l'element.
+    QSize pixels(0, 0);
+    if (_renderScalePercent > 100 && width() > 0.0 && height() > 0.0) {
+        const qreal ratio = window() != nullptr ? window()->effectiveDevicePixelRatio() : 1.0;
+        qreal scale = ratio * _renderScalePercent / 100.0;
+        // Le plus grand cote borne l'echelle : les proportions de la vue sont gardees.
+        scale = std::min(scale, MAXIMUM_SCALED_SIDE / std::max(width(), height()));
+        pixels = QSize(std::max(1, qRound(width() * scale)), std::max(1, qRound(height() * scale)));
+    }
+    if (pixels.width() != fixedColorBufferWidth()) {
+        setFixedColorBufferWidth(pixels.width());
+    }
+    if (pixels.height() != fixedColorBufferHeight()) {
+        setFixedColorBufferHeight(pixels.height());
+    }
 }
 
 WorldViewportItem::Framing WorldViewportItem::framing() const {

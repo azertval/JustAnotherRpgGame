@@ -13,7 +13,7 @@ import Jadg.Ui
     **Trois onglets, et non six.** `EX-IHM-072` retire tout reglage inoperant, et la decision du
     14 septembre 2026 l'a garde : seuls les onglets qui portent un reglage BRANCHE sont dessines --
     General (langue, journaux), Graphismes (plein ecran, synchronisation verticale, compteur de
-    diagnostic), Audio (volume). Jeu, Commandes et Accessibilite reviendront avec leurs reglages.
+    diagnostic, anticrenelage, definition du rendu), Audio (volume). Jeu, Commandes et Accessibilite reviendront avec leurs reglages.
 
     **Rien ne s'ecrit avant « Appliquer ».** Les controles tiennent les valeurs en attente ; le
     jumeau les ecrit dans `OptionsModel` a « Appliquer », les abandonne a « Annuler » (qui ferme
@@ -44,6 +44,8 @@ Item {
     property alias diagnosticsCheck: diagnosticsControl
     property alias volumeSlider: volumeControl
     property alias hudScaleSlider: hudScaleControl
+    property alias antialiasingBox: antialiasingControl
+    property alias renderScaleBox: renderScaleControl
     property alias languageBox: languageControl
     property alias saveLogsButton: saveLogsControl
 
@@ -251,7 +253,7 @@ Item {
                 PanelFrame {
                     Layout.alignment: Qt.AlignTop
                     Layout.fillWidth: true
-                    Layout.preferredHeight: 300 * Tokens.uiScale
+                    Layout.preferredHeight: 560 * Tokens.uiScale
                     material: "parchment"
                     subpanel: true
 
@@ -291,6 +293,61 @@ Item {
                             id: diagnosticsControl
                             material: "parchment"
                             text: qsTr("Compteur de diagnostic")
+                        }
+
+                        SectionBanner {
+                            Layout.fillWidth: true
+                            material: "parchment"
+                            text: qsTr("Rendu")
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: Tokens.gapMedium
+
+                            Text {
+                                Layout.fillWidth: true
+                                text: qsTr("Anticrénelage")
+                                color: Tokens.text
+                                font.family: Tokens.bodyFamily
+                                font.pixelSize: Tokens.fontBody
+                            }
+
+                            OrnateCombo {
+                                id: antialiasingControl
+                                objectName: "antialiasingBox"
+                                Layout.preferredWidth: 240 * Tokens.uiScale
+                                Accessible.name: qsTr("Anticrénelage")
+                            }
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: Tokens.gapMedium
+
+                            Text {
+                                Layout.fillWidth: true
+                                text: qsTr("Définition du rendu")
+                                color: Tokens.text
+                                font.family: Tokens.bodyFamily
+                                font.pixelSize: Tokens.fontBody
+                            }
+
+                            OrnateCombo {
+                                id: renderScaleControl
+                                objectName: "renderScaleBox"
+                                Layout.preferredWidth: 240 * Tokens.uiScale
+                                Accessible.name: qsTr("Définition du rendu")
+                            }
+                        }
+
+                        Text {
+                            Layout.fillWidth: true
+                            text: qsTr("L'anticrénelage adoucit le bord des personnages et du décor. Au-delà de 100 %, le lieu est dessiné plus grand puis réduit à l'écran : l'image est plus fine, et plus coûteuse.")
+                            color: Tokens.textMuted
+                            font.family: Tokens.bodyFamily
+                            font.pixelSize: Tokens.fontCaption
+                            wrapMode: Text.WordWrap
                         }
 
                         Item { Layout.fillHeight: true }

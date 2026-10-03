@@ -6,6 +6,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Rendu : anticrénelage et définition du rendu.** Les vues du lieu sont multi-échantillonnées
+  (MSAA) : les pipelines des maillages et des images suivent le nombre d'échantillons de leur
+  cible. Deux réglages s'ajoutent à **Options > Graphismes > Rendu** et s'appliquent aussitôt :
+  **Anticrénelage** (désactivé, 2×, 4×, 8× ; 4× par défaut) et **Définition du rendu** (100, 125,
+  150, 200 % ; 100 % par défaut — au-delà, le lieu est dessiné plus grand puis réduit à l'écran).
+  Le rendu hors écran (`hmi::OffscreenRhi::render`) accepte un nombre d'échantillons.
+
 - **LOT-1009 — Les personnages de la démo.** Les dix-huit humanoïdes de la démo — les quatre
   héros refaits, la mère, l'enfant, le garde Ironhand, le maître d'arène et les neuf adversaires de
   l'arène — sont des modèles liés au squelette commun, installés par l'atelier des assets

@@ -57,6 +57,71 @@ TEST(UiPreferencesTest, HudSizeIsBoundedAndSurvivesReload) {
     QCoreApplication::setApplicationName(application);
 }
 
+/**
+ * @brief L'anticrénelage et la définition du rendu ne prennent que les valeurs proposées, et
+ *        survivent à un rechargement.
+ * \castest{<b>Les reglages de rendu ne prennent que les valeurs proposees.</b><br/>
+ * \tcat Unitaire · Options<br/>
+ * \tcrit Majeur<br/>
+ * \tetapes 1. Isoler les preferences dans un dossier temporaire.<br/>
+ *          2. Lire les valeurs d'usine, puis regler 8 echantillons et 150 % ; relire par un second
+ * modele.<br/>
+ *          3. Demander 3 echantillons et 137 %, que l'ecran ne propose pas.<br/>
+ *          4. Ecrire des valeurs non proposees dans les preferences et recharger.<br/>
+ * \tattendu L'usine vaut 4 echantillons et 100 % ; 8 et 150 sont relus tels quels et annonces
+ * une fois chacun ; 3 et 137 sont ignores sans annonce ; des valeurs enregistrees non proposees
+ * rendent celles d'usine au chargement.
+ * }
+ */
+TEST(UiPreferencesTest, RenderSettingsTakeOnlyOfferedValues) {
+    QTemporaryDir directory;
+    ASSERT_TRUE(directory.isValid());
+    const QString organization = QCoreApplication::organizationName();
+    const QString application = QCoreApplication::applicationName();
+    const QSettings::Format format = QSettings::defaultFormat();
+    QCoreApplication::setOrganizationName("JadgUiTests");
+    QCoreApplication::setApplicationName("RenderSettings");
+    QSettings::setDefaultFormat(QSettings::IniFormat);
+    QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, directory.path());
+    {
+        hmi::OptionsModel options;
+        EXPECT_EQ(options.antialiasing(), 4);
+        EXPECT_EQ(options.renderScalePercent(), 100);
+        EXPECT_EQ(options.defaults().value("antialiasing").toInt(), 4);
+        EXPECT_EQ(options.defaults().value("renderScalePercent").toInt(), 100);
+        EXPECT_EQ(options.antialiasingLevels(), (QList<int>{1, 2, 4, 8}));
+        EXPECT_EQ(options.renderScales(), (QList<int>{100, 125, 150, 200}));
+
+        int antialiasingChanges = 0;
+        int renderScaleChanges = 0;
+        QObject::connect(&options, &hmi::OptionsModel::antialiasingChanged,
+                         [&antialiasingChanges] { ++antialiasingChanges; });
+        QObject::connect(&options, &hmi::OptionsModel::renderScaleChanged,
+                         [&renderScaleChanges] { ++renderScaleChanges; });
+        options.setAntialiasing(8);
+        options.setRenderScalePercent(150);
+        hmi::OptionsModel reloaded;
+        EXPECT_EQ(reloaded.antialiasing(), 8);
+        EXPECT_EQ(reloaded.renderScalePercent(), 150);
+
+        options.setAntialiasing(3);
+        options.setRenderScalePercent(137);
+        EXPECT_EQ(options.antialiasing(), 8);
+        EXPECT_EQ(options.renderScalePercent(), 150);
+        EXPECT_EQ(antialiasingChanges, 1);
+        EXPECT_EQ(renderScaleChanges, 1);
+
+        QSettings().setValue("antialiasing_samples", 64);
+        QSettings().setValue("render_scale_percent", 9999);
+        hmi::OptionsModel invalidStored;
+        EXPECT_EQ(invalidStored.antialiasing(), 4);
+        EXPECT_EQ(invalidStored.renderScalePercent(), 100);
+    }
+    QSettings::setDefaultFormat(format);
+    QCoreApplication::setOrganizationName(organization);
+    QCoreApplication::setApplicationName(application);
+}
+
 // Equipment changes must remain on the shown mercenary when the screen is reopened.
 /**
  * @brief Un changement d'équipement reste sur le mercenaire affiché quand l'écran se rouvre, et
