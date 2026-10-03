@@ -323,6 +323,11 @@ void DialogueModel::loadVoices() {
     }
 }
 
+QUrl DialogueModel::speakerPortrait() const {
+    const WorldModel* const partie = WorldModel::current();
+    return partie != nullptr ? partie->interlocutorPortrait() : QUrl{};
+}
+
 QString DialogueModel::partyVoice() const {
     return toQt(_session->voices[_session->voice].sheet.name);
 }

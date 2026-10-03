@@ -40,8 +40,7 @@
  * zone, un archétype dans le `Common/Characters/` de sa ville ou de sa région, un héros ou un
  * peuple générique dans `Common/Characters/` du monde. Une carte nomme la figurine par son
  * **slug**, relatif au dossier `Characters/` qui la range (`citizen`, `Heroes/brawler`) ;
- * `core::resolveFigures` la cherche du plus propre au monde, par les listes `npcs` et `portraits`
- * des manifestes.
+ * `core::resolveFigures` la cherche du plus propre au monde, par la liste `npcs` des manifestes.
  *
  * Logique pure : ce fichier ne lit pas le disque, sauf `scenePlaces` et `resolveFigures`.
  */

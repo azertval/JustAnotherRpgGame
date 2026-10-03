@@ -13,7 +13,7 @@ la règle lot après lot : il échoue sur ce qu'un remplacement laisse derrière
   zone depuis la racine des assets), ou — pour un manifeste, une fiche ou une police, que rien
   d'autre ne peut citer — par le code qui le charge ;
 - toute **entrée citée existe** : un chemin écrit sous une clé de fichier (`file`, `mesh`…) ou un
-  dossier de personnage (`npcs`, `portraits`) désigne quelque chose sur le disque.
+  dossier de personnage (`npcs`) désigne quelque chose sur le disque.
 
 Un dossier de personnage cite tout ce qu'il contient : le détail de ses bandes est l'affaire de
 `check_hd_assets.py`, qui connaît leur gabarit. Les provenances (`source`, `sources`) nomment des
@@ -44,7 +44,7 @@ ROOT = Path(__file__).resolve().parents[2]
 # Les clés dont la valeur est le chemin d'un fichier d'asset, relatif au dossier du JSON.
 FILE_KEYS = ("file", "mesh", "model", "texture", "portrait", "token")
 # Les clés dont les valeurs sont des dossiers de personnage : ils citent leur contenu.
-FOLDER_KEYS = ("npcs", "portraits")
+FOLDER_KEYS = ("npcs",)
 # Les provenances : des chemins de l'atelier local (`Tools/`), jamais des fichiers du dépôt.
 PROVENANCE_KEYS = ("source", "sources")
 # Ce qui accompagne les assets sans en être.

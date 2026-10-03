@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 # SPDX-FileCopyrightText: 2026 Valentin Eloy
 # SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
-"""Lie un modèle de personnage au squelette humanoïde commun et lui pose les six clips.
+"""Lie un modèle de personnage au squelette commun de sa silhouette et lui pose ses clips.
 
 Un personnage arrive de Meshy en maillage statique, bras en croix, puis passe par
 `reduce_model.py` (au sol, une matière, 100 000 triangles). Ce script en fait le `.glb` autonome
 que le moteur anime (`Planning/standards/personnages-3d.md`, §5 à §7) :
 
-- **le squelette** : les 53 os du `game_engine` de MPFB — leurs noms et leur hiérarchie seulement,
-  écrits ici ; le fichier n'emporte rien de MPFB. Chaque os a une orientation de repos nulle : la
-  pose de liaison est la pose du maillage reçu ;
+- **le squelette** : pour la silhouette `humanoid`, les 53 os du `game_engine` de MPFB — leurs
+  noms et leur hiérarchie seulement, écrits ici ; le fichier n'emporte rien de MPFB. Chaque os a
+  une orientation de repos nulle : la pose de liaison est la pose du maillage reçu. La silhouette
+  `quadruped` (lion, loup : 29 os, cinq clips, une marche au trot) est écrite dans
+  `rig_quadruped.py` ; ce script la lit par `--silhouette quadruped`, ou par le champ
+  `silhouette` de la fiche de liaison ;
 - **la liaison** : la position des articulations dans **ce** maillage se lit dans sa fiche
   (`liaison.json`). Sans fiche, elle est estimée d'après la géométrie et **écrite** : c'est la
   fiche écrite qui fait foi et se rejoue, corrigée à la main s'il le faut — jamais le maillage ;
@@ -31,8 +34,9 @@ sauf avec `--texture`, qui la ramène à la définition demandée (copie d'essai
 
 Usage :
     python scripts/assetsGeneration/rig_character.py SOURCE.glb SORTIE.glb
-        [--sheet liaison.json] [--estimate] [--skeleton skeleton.json]
-        [--triangles N] [--texture PX] [--blender CHEMIN] [--retouch retouche.json]
+        [--sheet liaison.json] [--estimate] [--silhouette humanoid|quadruped]
+        [--skeleton skeleton.json] [--triangles N] [--texture PX] [--blender CHEMIN]
+        [--retouch retouche.json]
 
 Dépendances : numpy, Pillow ; Blender 5.2 pour `--triangles` (outil de production, pas de CI).
 """
@@ -51,6 +55,52 @@ from pathlib import Path
 import numpy as np
 
 import reduce_model
+
+
+# --- Une silhouette --------------------------------------------------------------------------------
+class Silhouette:
+    """Ce qui distingue une silhouette : ses os, ses clips, et les fonctions qui lisent un maillage,
+    le pèsent et le posent. La cuisson des clips, l'écriture du `.glb` et le relevé sont communs."""
+
+    def __init__(self, name: str, bones: list[tuple[str, str]], animated: list[str],
+                 clips: list[dict], lift_only: set[str], estimate_sheet, rest_skeleton,
+                 compute_weights, make_body, clip_poses, solve_pose, drawn):
+        self.name = name
+        self.bones = bones
+        self.bone_index = {bone: index for index, (bone, _) in enumerate(bones)}
+        self.parent = {bone: parent for bone, parent in bones}
+        self.animated = animated
+        self.clips = clips
+        self.lift_only = lift_only
+        self.estimate_sheet = estimate_sheet
+        self.rest_skeleton = rest_skeleton
+        self.compute_weights = compute_weights
+        self.make_body = make_body
+        self.clip_poses = clip_poses
+        self.solve_pose = solve_pose
+        self.drawn = drawn    # os tracés sur la planche de liaison
+
+    def document(self) -> dict:
+        """Ce que le moteur lit du squelette : ses os, parents avant enfants, et ses clips."""
+        return {"version": 1, "silhouette": self.name,
+                "bones": [{"name": name, "parent": parent} for name, parent in self.bones],
+                "clips": [dict(clip) for clip in self.clips]}
+
+
+def silhouette_named(name: str) -> Silhouette:
+    """La silhouette d'un nom : `humanoid` est ici, `quadruped` dans `rig_quadruped.py`."""
+    if name == SILHOUETTE:
+        return HUMANOID
+    if name == "quadruped":
+        import rig_quadruped
+        return rig_quadruped.QUADRUPED
+    raise SystemExit(f"silhouette inconnue : {name}")
+
+
+def silhouette_of(skeleton: dict) -> Silhouette:
+    """La silhouette que nomme un `skeleton.json` (sans nom : l'humanoïde)."""
+    return silhouette_named(skeleton.get("silhouette", SILHOUETTE))
+
 
 # --- Le squelette ----------------------------------------------------------------------------------
 SILHOUETTE = "humanoid"
@@ -102,11 +152,9 @@ ARM_RADIUS = 0.17
 MAX_INFLUENCES = 4
 
 
-def skeleton_document() -> dict:
+def skeleton_document(silhouette: Silhouette | None = None) -> dict:
     """Ce que le moteur lit du squelette : ses os, parents avant enfants, et ses clips."""
-    return {"version": 1, "silhouette": SILHOUETTE,
-            "bones": [{"name": name, "parent": parent} for name, parent in BONES],
-            "clips": [dict(clip) for clip in CLIPS]}
+    return (silhouette or HUMANOID).document()
 
 
 # --- Le maillage reçu ------------------------------------------------------------------------------
@@ -301,6 +349,18 @@ def estimate_sheet(positions: np.ndarray) -> dict:
 
 
 # --- Le squelette de repos, à l'échelle du personnage ----------------------------------------------
+def model_points(positions: np.ndarray, sheet: dict, scale: float,
+                 origin: np.ndarray) -> np.ndarray:
+    """Les sommets du modèle écrit : le fichier reçu recentré sur `origin`, tourné de `heading`
+    (le cap du corps dans le fichier reçu, en degrés depuis +Z vers +X ; nul pour un humanoïde),
+    puis mis à l'échelle."""
+    moved = positions - origin
+    heading = float(sheet.get("heading", 0.0))
+    if heading:
+        moved = moved @ rot_y(-math.radians(heading)).T
+    return moved * scale
+
+
 def rest_skeleton(sheet: dict) -> tuple[dict[str, np.ndarray], float, np.ndarray]:
     """Les articulations dans le repère du modèle écrit, son échelle et son décalage.
 
@@ -438,7 +498,8 @@ def compute_weights(points: np.ndarray, joints: dict[str, np.ndarray], sheet: di
     return weights
 
 
-def top_influences(weights: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def top_influences(weights: np.ndarray,
+                   silhouette: "Silhouette | None" = None) -> tuple[np.ndarray, np.ndarray]:
     """Les quatre os les plus lourds de chaque sommet, normalisés : somme à 1."""
     order = np.argsort(-weights, axis=1)[:, :MAX_INFLUENCES]
     kept = np.take_along_axis(weights, order, axis=1)
@@ -446,7 +507,7 @@ def top_influences(weights: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     total = kept.sum(axis=1, keepdims=True)
     orphan = total[:, 0] <= 0.0
     kept[orphan, 0] = 1.0
-    order[orphan, 0] = BONE_INDEX["pelvis"]
+    order[orphan, 0] = (silhouette or HUMANOID).bone_index["pelvis"]
     total[orphan] = 1.0
     kept = (kept / total).astype(np.float32)
     # La somme se referme en simple précision sur la première influence.
@@ -557,6 +618,11 @@ class Body:
         # Ce dont un poignet pendant s'écarte de l'épaule pour ne pas entrer dans la hanche, en
         # longueurs de bras.
         self.clearance = clearance
+
+    def measures(self) -> dict:
+        """Ce que le relevé écrit du corps."""
+        return {"leg": round(self.leg, 4), "arm": round(self.arm, 4),
+                "stance_share": round(stance_share(self), 4)}
 
 
 def default_pose(body: Body) -> dict:
@@ -671,11 +737,14 @@ def solve_pose(body: Body, pose: dict) -> tuple[dict[str, np.ndarray], np.ndarra
     return rotation, pelvis_position
 
 
-def joint_positions(body: Body, rotation: dict[str, np.ndarray],
-                    pelvis_position: np.ndarray) -> dict[str, np.ndarray]:
+def joint_positions(body, rotation: dict[str, np.ndarray], pelvis_position: np.ndarray,
+                    bones: list[tuple[str, str]] = BONES) -> dict[str, np.ndarray]:
+    """Les articulations **monde** d'une pose : la racine à l'origine, le bassin placé, le reste
+    par la chaîne des parents (`bones` les donne parents avant enfants)."""
     position = {"Root": np.zeros(3), "pelvis": pelvis_position}
-    for name, parent in BONES[2:]:
-        position[name] = position[parent] + rotation[parent] @ body.offset[name]
+    for name, parent in bones:
+        if name not in position:
+            position[name] = position[parent] + rotation[parent] @ body.offset[name]
     return position
 
 
@@ -955,37 +1024,38 @@ def rotation_matrix(q) -> np.ndarray:
         [2.0 * (x * z - y * w), 2.0 * (y * z + x * w), 1.0 - 2.0 * (x * x + y * y)]])
 
 
-def load_retouch(path: Path) -> dict:
+def load_retouch(path: Path, silhouette: "Silhouette | None" = None) -> dict:
     """La fiche de retouche : les clips réglés dans Blender (`retouch_character.py`)."""
     retouch = json.loads(path.read_text(encoding="utf-8"))
     if retouch.get("version") != RETOUCH_VERSION:
         raise SystemExit(f"fiche de retouche de version {retouch.get('version')}")
-    known = {clip["name"] for clip in CLIPS}
+    known = {clip["name"] for clip in (silhouette or HUMANOID).clips}
     unknown = sorted(set(retouch.get("clips", {})) - known)
     if unknown:
         raise SystemExit("fiche de retouche : clip(s) inconnu(s) : " + ", ".join(unknown))
     return retouch
 
 
-def retouched_poses(body: Body, clip: dict, retouch: dict):
+def retouched_poses(body, clip: dict, retouch: dict, silhouette: "Silhouette | None" = None):
     """Les poses d'un clip retouché : rotations **monde** de chaque os et position du bassin.
 
     La fiche donne des rotations locales et la position du bassin ; celle-ci est rapportée à la
     jambe du personnage, pour qu'une retouche réglée sur l'un se rejoue sur un autre.
     """
+    silhouette = silhouette or HUMANOID
     curves = retouch["clips"][clip["name"]]
     count = round(clip["duration"] * SAMPLES_PER_SECOND)
     if len(curves["times"]) != count + 1:
         raise SystemExit(f"fiche de retouche : {clip['name']} a {len(curves['times'])} "
                          f"échantillons, {count + 1} attendus")
-    missing = [name for name in ANIMATED if name not in curves["rotations"]]
+    missing = [name for name in silhouette.animated if name not in curves["rotations"]]
     if missing:
         raise SystemExit(f"fiche de retouche : {clip['name']} sans " + ", ".join(missing))
     ratio = body.leg / float(retouch["leg"])
     origin = np.array(retouch["pelvis_rest"], dtype=np.float64)
     for index in range(count + 1):
         rotation = {"Root": np.eye(3)}
-        for name, parent in BONES[1:]:
+        for name, parent in silhouette.bones[1:]:
             rotation[name] = rotation[parent]
             if name in curves["rotations"]:
                 rotation[name] = rotation[parent] @ rotation_matrix(
@@ -994,43 +1064,66 @@ def retouched_poses(body: Body, clip: dict, retouch: dict):
         yield index / SAMPLES_PER_SECOND, rotation, pelvis
 
 
-def bake_clips(body: Body, points: np.ndarray, joints_of: np.ndarray,
-               weights: np.ndarray, retouch: dict | None = None) -> tuple[dict, dict]:
+def bake_clips(body, points: np.ndarray, joints_of: np.ndarray, weights: np.ndarray,
+               retouch: dict | None = None,
+               silhouette: "Silhouette | None" = None) -> tuple[dict, dict]:
     """Chaque clip en canaux : les rotations locales des os animés, la position du bassin.
 
     La hauteur du bassin est recalée image par image : le point le plus bas du maillage évalué
-    touche le sol. Un clip de la fiche de retouche remplace le clip posé par cibles, et reçoit le
-    même recalage. Rend aussi ce qui a été mesuré, clip par clip.
+    touche le sol. Le moteur interpole linéairement entre deux images : le maillage y est évalué
+    aussi, à mi-chemin, et les deux images voisines remontent de ce qui s'y enfonce. Un clip de
+    la fiche de retouche remplace le clip posé par cibles, et reçoit le même recalage. Rend aussi
+    ce qui a été mesuré, clip par clip.
     """
-    rest = np.stack([body.joints[name] for name, _ in BONES])
+    silhouette = silhouette or HUMANOID
+    bones, animated = silhouette.bones, silhouette.animated
+    rest = np.stack([body.joints[name] for name, _ in bones])
     baked, measured = {}, {}
-    for clip in CLIPS:
+
+    def lowest_point(rotation: dict, pelvis_position: np.ndarray) -> float:
+        position = joint_positions(body, rotation, pelvis_position, bones)
+        world = np.stack([rotation[name] for name, _ in bones])
+        where = np.stack([position[name] for name, _ in bones])
+        return float(skin_points(points, joints_of, weights, rest, world, where)[:, 1].min())
+
+    for clip in silhouette.clips:
         times, translations, lifts = [], [], []
-        rotations_of = {name: [] for name in ANIMATED}
+        rotations_of = {name: [] for name in animated}
         retouched = retouch is not None and clip["name"] in retouch.get("clips", {})
-        solved = (retouched_poses(body, clip, retouch) if retouched else
-                  ((time, *solve_pose(body, pose)) for time, pose in clip_poses(body, clip)))
+        solved = (retouched_poses(body, clip, retouch, silhouette) if retouched else
+                  ((time, *silhouette.solve_pose(body, pose))
+                   for time, pose in silhouette.clip_poses(body, clip)))
         for time, rotation, pelvis_position in solved:
-            position = joint_positions(body, rotation, pelvis_position)
-            world = np.stack([rotation[name] for name, _ in BONES])
-            where = np.stack([position[name] for name, _ in BONES])
-            lowest = float(skin_points(points, joints_of, weights, rest, world, where)[:, 1].min())
-            lift = max(-lowest, 0.0) if clip["name"] in LIFT_ONLY else -lowest
+            lowest = lowest_point(rotation, pelvis_position)
+            lift = max(-lowest, 0.0) if clip["name"] in silhouette.lift_only else -lowest
             lifts.append(lift)
-            pelvis_position = pelvis_position + np.array([0.0, lift, 0.0])
             times.append(time)
-            translations.append(pelvis_position)
-            for name in ANIMATED:
-                local = rotation[PARENT[name]].T @ rotation[name]
+            translations.append(pelvis_position + np.array([0.0, lift, 0.0]))
+            for name in animated:
+                local = rotation[silhouette.parent[name]].T @ rotation[name]
                 q = quaternion(local)
                 previous = rotations_of[name][-1] if rotations_of[name] else None
                 if previous is not None and float(np.dot(previous, q)) < 0.0:
                     q = -q
                 rotations_of[name].append(q)
+        # Entre deux images, telles que le moteur les interpole.
+        for index in range(len(times) - 1):
+            rotation = {"Root": np.eye(3)}
+            for name, parent in bones[1:]:
+                rotation[name] = rotation[parent]
+                if name in rotations_of:
+                    between = rotations_of[name][index] + rotations_of[name][index + 1]
+                    rotation[name] = rotation[parent] @ rotation_matrix(between)
+            pelvis_position = (translations[index] + translations[index + 1]) / 2.0
+            extra = max(-lowest_point(rotation, pelvis_position), 0.0)
+            if extra > 1e-5:
+                for neighbour in (index, index + 1):
+                    lifts[neighbour] += extra
+                    translations[neighbour] = translations[neighbour] + np.array([0.0, extra, 0.0])
         if clip["loop"]:
             # Une boucle se referme : la dernière pose est la première, au bit près.
             translations[-1] = translations[0]
-            for name in ANIMATED:
+            for name in animated:
                 rotations_of[name][-1] = rotations_of[name][0]
         baked[clip["name"]] = {
             "times": np.array(times, dtype=np.float32),
@@ -1074,8 +1167,13 @@ class _Buffer:
 
 
 def build_glb(mesh: dict, points: np.ndarray, joints_of: np.ndarray, weights: np.ndarray,
-              body: Body, baked: dict, image: tuple[bytes, str] | None, name: str) -> bytes:
-    """Le `.glb` autonome : un maillage, un squelette de 53 os, six animations, une texture."""
+              body, baked: dict, image: tuple[bytes, str] | None, name: str,
+              silhouette: "Silhouette | None" = None) -> bytes:
+    """Le `.glb` autonome : un maillage, le squelette de la silhouette, ses animations, une
+    texture."""
+    silhouette = silhouette or HUMANOID
+    BONES, BONE_INDEX, CLIPS, ANIMATED = (silhouette.bones, silhouette.bone_index,
+                                          silhouette.clips, silhouette.animated)
     buffer = _Buffer()
     attributes = {
         "POSITION": buffer.accessor(points.astype(np.float32), "VEC3", 5126, 34962, bounds=True),
@@ -1131,7 +1229,7 @@ def build_glb(mesh: dict, points: np.ndarray, joints_of: np.ndarray, weights: np
         "nodes": nodes,
         "meshes": [{"name": name, "primitives": [
             {"attributes": attributes, "indices": indices, "material": 0, "mode": 4}]}],
-        "skins": [{"name": SILHOUETTE, "joints": list(range(len(BONES))),
+        "skins": [{"name": silhouette.name, "joints": list(range(len(BONES))),
                    "skeleton": BONE_INDEX["Root"], "inverseBindMatrices": inverse_bind}],
         "animations": animations,
         "materials": [{"name": "base-color", "pbrMetallicRoughness": {
@@ -1151,13 +1249,17 @@ def build_glb(mesh: dict, points: np.ndarray, joints_of: np.ndarray, weights: np
 
 # --- La planche de liaison -------------------------------------------------------------------------
 def liaison_board(points: np.ndarray, joints_of: np.ndarray, weights: np.ndarray,
-                  joints: dict[str, np.ndarray], path: Path) -> None:
+                  joints: dict[str, np.ndarray], path: Path,
+                  silhouette: "Silhouette | None" = None) -> None:
     """Face et profil du maillage, teinté par son os dominant, le squelette par-dessus : ce qui
     se relit pour corriger une fiche."""
     from PIL import Image, ImageDraw
 
+    silhouette = silhouette or HUMANOID
+    BONES = silhouette.bones
     size, margin = 900, 30
-    span = max(float(np.ptp(points[:, 0])), float(points[:, 1].max()), 0.1)
+    span = max(float(np.ptp(points[:, 0])), float(np.ptp(points[:, 2])),
+               float(points[:, 1].max()), 0.1)
     scale = (size - 2 * margin) / span
     palette = np.array([[(37 * i) % 200 + 40, (91 * i) % 200 + 40, (53 * i) % 200 + 40]
                         for i in range(len(BONES))], dtype=np.uint8)
@@ -1174,7 +1276,7 @@ def liaison_board(points: np.ndarray, joints_of: np.ndarray, weights: np.ndarray
         tile = Image.fromarray(image)
         draw = ImageDraw.Draw(tile)
         for bone, parent in BONES:
-            if bone.startswith(FINGERS):
+            if not silhouette.drawn(bone):
                 continue
             a = joints[bone]
             px = size / 2 + (a[0] if axis == 0 else -a[2]) * scale
@@ -1226,11 +1328,33 @@ def hanging_clearance(points: np.ndarray, weights: np.ndarray, joints: dict[str,
     return float(np.clip((widest + 0.07 - abs(shoulder[0])) / arm, 0.14, 0.55))
 
 
+def humanoid_body(joints: dict[str, np.ndarray], points: np.ndarray,
+                  weights: np.ndarray) -> Body:
+    """Le corps humanoïde que les poses lisent : ses longueurs, et l'écart du poignet pendant."""
+    arm = float(np.linalg.norm(joints["lowerarm_l"] - joints["upperarm_l"])
+                + np.linalg.norm(joints["hand_l"] - joints["lowerarm_l"]))
+    return Body(joints, hanging_clearance(points, weights, joints, arm))
+
+
+HUMANOID = Silhouette(SILHOUETTE, BONES, ANIMATED, CLIPS, LIFT_ONLY, estimate_sheet,
+                      rest_skeleton, compute_weights, humanoid_body, clip_poses, solve_pose,
+                      lambda bone: not bone.startswith(FINGERS))
+
+
 def rig(source: Path, output: Path, sheet_path: Path, estimate: bool, triangles: int | None,
         texture: int | None, blender: str | None, skeleton: Path | None,
-        report: bool = True, retouch: Path | None = None) -> dict:
-    """Lie `source`, écrit `output`, et rend le relevé."""
+        report: bool = True, retouch: Path | None = None,
+        silhouette: Silhouette | None = None) -> dict:
+    """Lie `source`, écrit `output`, et rend le relevé.
+
+    La silhouette est celle demandée, sinon celle que nomme la fiche de liaison (`silhouette`),
+    sinon l'humanoïde ; une fiche estimée l'écrit.
+    """
     received = source.read_bytes()
+    if silhouette is None and sheet_path.is_file() and not estimate:
+        silhouette = silhouette_named(json.loads(sheet_path.read_text(encoding="utf-8")).get(
+            "silhouette", SILHOUETTE))
+    silhouette = silhouette or HUMANOID
     data = lighter_copy(source, triangles, blender)
     mesh = read_static_mesh(data)
     if triangles is not None:
@@ -1244,7 +1368,7 @@ def rig(source: Path, output: Path, sheet_path: Path, estimate: bool, triangles:
             (original[:, 2].min() + original[:, 2].max() - copy[:, 2].min() - copy[:, 2].max()) / 2])
     if estimate or not sheet_path.is_file():
         # L'estimation lit le fichier reçu, pas sa copie allégée : une fiche vaut pour les deux.
-        sheet = estimate_sheet(read_static_mesh(received)["positions"])
+        sheet = silhouette.estimate_sheet(read_static_mesh(received)["positions"])
         sheet["source"] = source.name
         if sheet_path.is_file():
             previous = json.loads(sheet_path.read_text(encoding="utf-8"))
@@ -1257,33 +1381,38 @@ def rig(source: Path, output: Path, sheet_path: Path, estimate: bool, triangles:
     sheet = json.loads(sheet_path.read_text(encoding="utf-8"))
     if sheet.get("version") != SHEET_VERSION:
         raise SystemExit(f"fiche de liaison de version {sheet.get('version')}")
+    if sheet.get("silhouette", SILHOUETTE) != silhouette.name:
+        raise SystemExit(f"la fiche de liaison est de silhouette "
+                         f"{sheet.get('silhouette', SILHOUETTE)}, pas {silhouette.name}")
 
-    joints, scale, _ = rest_skeleton(sheet)
-    points = (mesh["positions"] - np.array([sheet["center_x"], sheet["ground"], 0.0])) * scale
-    joints_of, weights = top_influences(compute_weights(points, joints, sheet, scale))
-    full = np.zeros((len(points), len(BONES)))
+    joints, scale, origin = silhouette.rest_skeleton(sheet)
+    points = model_points(mesh["positions"], sheet, scale, origin)
+    joints_of, weights = top_influences(
+        silhouette.compute_weights(points, joints, sheet, scale), silhouette)
+    full = np.zeros((len(points), len(silhouette.bones)))
     np.add.at(full, (np.arange(len(points))[:, None], joints_of), weights)
-    arm = float(np.linalg.norm(joints["lowerarm_l"] - joints["upperarm_l"])
-                + np.linalg.norm(joints["hand_l"] - joints["lowerarm_l"]))
-    body = Body(joints, hanging_clearance(points, full, joints, arm))
-    retouched = load_retouch(retouch) if retouch is not None else None
-    baked, measured = bake_clips(body, points, joints_of, weights, retouched)
+    body = silhouette.make_body(joints, points, full)
+    retouched = load_retouch(retouch, silhouette) if retouch is not None else None
+    baked, measured = bake_clips(body, points, joints_of, weights, retouched, silhouette)
 
     image = mesh["image"]
     if image is not None and texture:
         image = smaller_image(image, texture)
     name = output.stem
-    written = build_glb(mesh, points, joints_of, weights, body, baked, image, name)
+    written = build_glb(mesh, points, joints_of, weights, body, baked, image, name, silhouette)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_bytes(written)
     if report:
-        liaison_board(points, joints_of, weights, joints, output.with_name("liaison.png"))
+        liaison_board(points, joints_of, weights, joints, output.with_name("liaison.png"),
+                      silhouette)
     if skeleton is not None:
         skeleton.parent.mkdir(parents=True, exist_ok=True)
-        skeleton.write_text(json.dumps(skeleton_document(), indent=2) + "\n", encoding="utf-8")
+        skeleton.write_text(json.dumps(silhouette.document(), indent=2) + "\n",
+                            encoding="utf-8")
 
     statement = {
         "model": output.name,
+        "silhouette": silhouette.name,
         "sha256": hashlib.sha256(written).hexdigest(),
         "bytes": len(written),
         "source": {"file": source.name, "sha256": hashlib.sha256(received).hexdigest()},
@@ -1291,17 +1420,15 @@ def rig(source: Path, output: Path, sheet_path: Path, estimate: bool, triangles:
                   "sha256": hashlib.sha256(sheet_path.read_bytes()).hexdigest()},
         "triangles": int(len(mesh["indices"]) // 3),
         "vertices": int(len(points)),
-        "bones": len(BONES),
+        "bones": len(silhouette.bones),
         "scale": round(scale, 5),
         "height": round(float(scale * (sheet["head_top"] - sheet["ground"])), 4),
         "size": [round(float(v), 3) for v in np.ptp(points, axis=0)],
-        "leg": round(body.leg, 4),
-        "arm": round(body.arm, 4),
-        "stance_share": round(stance_share(body), 4),
         "texture": ({"mime": image[1], "bytes": len(image[0]), "kept": not texture}
                     if image is not None else None),
-        "clips": [dict(clip, **measured[clip["name"]]) for clip in CLIPS],
+        "clips": [dict(clip, **measured[clip["name"]]) for clip in silhouette.clips],
     }
+    statement.update(body.measures())
     if retouch is not None:
         statement["retouch"] = {"file": retouch.name,
                                 "sha256": hashlib.sha256(retouch.read_bytes()).hexdigest()}
@@ -1319,6 +1446,8 @@ def main() -> int:
                         help="la fiche de liaison (défaut : liaison.json à côté de la sortie)")
     parser.add_argument("--estimate", action="store_true",
                         help="réestimer les articulations et réécrire la fiche")
+    parser.add_argument("--silhouette", choices=("humanoid", "quadruped"),
+                        help="la silhouette à lier (défaut : celle de la fiche, sinon humanoid)")
     parser.add_argument("--skeleton", type=Path, help="écrire aussi skeleton.json ici")
     parser.add_argument("--triangles", type=int, help="réduire d'abord le maillage (Blender)")
     parser.add_argument("--texture", type=int, help="ramener la texture à ce côté, en pixels")
@@ -1331,10 +1460,11 @@ def main() -> int:
     if not arguments.source.is_file():
         raise SystemExit(f"source introuvable : {arguments.source}")
     sheet = arguments.sheet or arguments.output.with_name("liaison.json")
+    silhouette = silhouette_named(arguments.silhouette) if arguments.silhouette else None
     statement = rig(arguments.source, arguments.output, sheet, arguments.estimate,
                     arguments.triangles, arguments.texture, arguments.blender, arguments.skeleton,
-                    not arguments.no_report, arguments.retouch)
-    print(f"{statement['model']} : {statement['triangles']} triangles, "
+                    not arguments.no_report, arguments.retouch, silhouette)
+    print(f"{statement['model']} ({statement['silhouette']}) : {statement['triangles']} triangles, "
           f"{statement['bytes'] / 1048576:.1f} Mio, taille {statement['height']} m, "
           f"fiche {'estimée' if statement['sheet']['estimated'] else 'écrite'}")
     return 0

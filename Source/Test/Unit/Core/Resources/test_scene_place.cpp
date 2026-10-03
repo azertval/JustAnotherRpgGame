@@ -305,29 +305,3 @@ TEST(ScenePlaceTest, LesFiguresDUnLieuViennentDeSesNiveaux) {
     EXPECT_EQ(core::figureDirectory({}, "figurant"), "Npc/figurant");
     EXPECT_EQ(core::figureDirectory({}, ""), "");
 }
-
-/**
- * @brief Un portrait d'attente est une figurine nommée : son dossier se trouve, même sans modèle
- *        (`LOT-1006`).
- * \castest{<b>Un personnage sans modele garde son dossier.</b><br/>
- * \tcat Unitaire · Arborescence<br/>
- * \tcrit Majeur<br/>
- * \tetapes 1. Ecrire le manifeste d'un dossier Characters/ du monde : un modele sous `npcs`, un
- *          portrait d'attente sous `portraits`.<br/>
- *          2. Resoudre les figurines.<br/>
- * \tattendu Les deux slugs rendent leur dossier : le portrait et le jeton du second s'y lisent.
- * }
- */
-TEST(ScenePlaceTest, UnPortraitDAttenteEstUneFigurineNommee) {
-    const std::filesystem::path racine =
-        std::filesystem::temp_directory_path() / "jadg_scene_place_portraits";
-    std::filesystem::remove_all(racine);
-    std::filesystem::create_directories(racine / "Common" / "Characters");
-    std::ofstream{racine / "Common" / "Characters" / "manifest.json"}
-        << R"({"version":1,"npcs":["bandit"],"portraits":["thug"]})";
-
-    const core::FigureDirectories figures = core::resolveFigures(racine, "");
-    EXPECT_EQ(core::figureDirectory(figures, "bandit"), "Common/Characters/bandit");
-    EXPECT_EQ(core::figureDirectory(figures, "thug"), "Common/Characters/thug");
-    std::filesystem::remove_all(racine);
-}

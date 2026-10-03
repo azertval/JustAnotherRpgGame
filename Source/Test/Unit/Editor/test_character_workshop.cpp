@@ -158,7 +158,7 @@ TEST(CharacterDraftTest, UneFicheSeLitEtSeReecritALIdentique) {
  *             `attendu/`, et le modèle, le portrait, le jeton et le squelette à leurs sources.<br/>
  *          3. Rejouer la commande.<br/>
  * \tattendu Code 0. Les trois fichiers lisibles sont ceux de `attendu/`, octet pour octet : le
- *           garde quitte les portraits d'attente pour les modèles, le commentaire « Vide » part,
+ *           garde entre dans `npcs` et dans les modèles, le commentaire « Vide » part,
  *           le squelette est inscrit au commun. Les binaires installés sont leurs sources. La
  *           seconde fois, rien n'est réécrit et la commande le dit.
  * }

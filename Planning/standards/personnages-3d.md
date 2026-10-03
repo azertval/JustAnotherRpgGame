@@ -31,8 +31,8 @@ a mesuré sur le brawler et le scoundrel, et d'après les décisions datées de 
 | Élément | Combien | Partagé ou propre |
 |---|---|---|
 | Maillage texturé, vêtements et coiffure compris, **sans arme** | **1 par personnage**, généré d'après son image de référence | propre |
-| Squelette `humanoid` (53 os) | 1 pour tous les humanoïdes | partagé |
-| Clips d'animation | 1 jeu pour tous les humanoïdes | partagé |
+| Squelette de sa silhouette : `humanoid` (53 os), `quadruped` (29 os) | 1 par silhouette | partagé |
+| Clips d'animation | 1 jeu par silhouette | partagé |
 | Fiche de liaison : où sont les articulations dans **ce** maillage | 1 par personnage | propre |
 | Portrait (512 × 512) et jeton (128 × 128), **peints** | 1 par personnage | propre |
 
@@ -125,9 +125,9 @@ nouvelle.
 
 ## 5. Le squelette
 
-Un squelette par **silhouette**. La seule produite est `humanoid` ; `quadruped` se construit au
-[LOT-1011](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1011-les-fauves-de-l-arene.md), avec le lion et le loup de l'arène,
-d'après une image de trois quarts — rien n'en est encore mesuré ; `flying` est nommée et viendra
+Un squelette par **silhouette**. Deux sont produites : `humanoid`, et `quadruped` depuis le
+[LOT-1011](../versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1011-les-fauves-de-l-arene.md) (le lion
+et le loup de l'arène, [§5 bis](#5-bis-le-squelette-quadruped)) ; `flying` est nommée et viendra
 avec ses créatures ([D-34](../vision/decisions.md)).
 
 Le squelette `humanoid` est le `game_engine` de MPFB : **53 os**, une racine, noms fixes —
@@ -149,6 +149,35 @@ c'est par eux que les clips, la fiche de liaison et le moteur se retrouvent.
   la pose en A.
 - **Les doigts** gardent la pose sculptée : aucun clip ne les anime.
 
+## 5 bis. Le squelette `quadruped`
+
+Construit au LOT-1011 (3 octobre 2026) d'après le lion de l'arène, rejoué par le loup et par le
+mannequin quadrupède, par leur seule fiche de liaison. **29 os**, une racine, noms fixes — ceux de
+l'humanoïde quand l'os y correspond, pour que l'atelier et la retouche dans Blender s'y
+retrouvent ; aucun doigt, tous les os sont animés. Décision de ce lot (les os d'un quadrupède ne
+sont pas ceux du `game_engine` de MPFB).
+
+| Chaîne | Os |
+|---|---|
+| Tronc | `Root`, `pelvis`, `spine_01`, `spine_02`, `spine_03`, `neck_01`, `neck_02`, `head` |
+| Queue | `tail_01`, `tail_02`, `tail_03` |
+| Patte avant (× `_l`, `_r`) | `clavicle` (l'omoplate), `upperarm`, `lowerarm`, `hand` (le canon), `forepaw` |
+| Patte arrière (× `_l`, `_r`) | `thigh`, `calf`, `foot` (le canon), `hindpaw` |
+
+- **L'image de référence** d'un fauve est de **trois quarts**, sur quatre pattes séparées (§3).
+  Mesuré sur les deux fauves de la démo : Meshy reproduit la vue, le maillage arrive **en
+  diagonale** — le lion à −46°, le loup à −60° de l'axe +Z. La fiche de liaison porte ce **cap**
+  (`heading`) et le point de rotation (`center_x`, `center_z`) ; le script remet le corps dans
+  l'axe, la tête vers +Z, et parle ensuite dans ce repère. Les deux étaient aussi pris **à
+  mi-pas** (l'appui arrière droit du lion 26 cm devant le gauche) : l'estimation suit chaque
+  patte de son côté et met en commun les hauteurs des articulations.
+- **La hauteur** est celle du maillage (`head_top` : la crinière du lion, 1,43 m ; le loup,
+  1,57 m), sans normalisation tant que `height` n'est pas donné.
+- **Ce qui est mesuré sur les deux fauves** : hanche–jarret 0,70 m (lion) et 0,76 m (loup),
+  épaule–carpe 0,68 m et 0,79 m ; la hanche est estimée à 55 % de la hauteur du dos au-dessus du
+  ventre, l'épaule à 42 %, le jarret est la tranche la plus en arrière de la patte, le grasset
+  la plus en avant, le coude la plus en arrière, avec un pli d'au moins 10 % de la chaîne.
+
 ## 6. La liaison
 
 Le squelette est commun, **sa position dans le maillage ne l'est pas** : chaque personnage a sa
@@ -163,6 +192,11 @@ passés par le même script, seules leurs fiches diffèrent.
 | `arms` | les quatre points de chaque bras : épaule, coude, poignet, bout de la main |
 | `arm_radius` | le rayon de la peau qui suit un bras |
 | `weapons` | les volumes — boîtes ou capsules — de ce qui suit **rigidement** un os |
+
+Pour un quadrupède (`silhouette: quadruped`) : `heading`, `center_x`, `center_z` remplacent le
+seul `center_x` ; `joints` porte **tous** les os (il n'y a pas d'`arms`) ; `tips` donne le bout
+de chaque appui, du museau et de la queue ; `leg_radius` et `tail_radius` les rayons de la peau
+qui suit une patte et la queue (la touffe en élargit le bout).
 
 Les poids sont calculés par le script, puis **normalisés** : quatre os au plus par sommet, somme
 égale à 1. Une arme, un fourreau ou une pièce rigide est pesé à **1 sur un seul os** : il ne se
@@ -199,7 +233,8 @@ l'éditeur (LOT-1008). Blender n'est que l'**instrument de saisie** ; ce qui en 
 
 ## 7. Les clips
 
-Les animations sont posées **une fois**, sur le squelette, et rejouées par tous les humanoïdes.
+Les animations sont posées **une fois**, sur le squelette de chaque silhouette, et rejouées par
+tous ses personnages.
 
 | Clip | Durée | Boucle | Image clé | État au LOT-1006 |
 |---|---:|---|---:|---|
@@ -211,6 +246,25 @@ Les animations sont posées **une fois**, sur le squelette, et rejouées par tou
 | `death` | 1,2 s | non | — | posé |
 
 Ce sont les valeurs de `Common/Characters/Skeletons/humanoid/skeleton.json`, installé au LOT-1006.
+
+Le squelette `quadruped` a **cinq clips** — les mêmes durées, sans `cast` : un fauve ne lance pas
+de sort, et le moteur retombe sur `idle` pour un clip absent. Posés au LOT-1011 sur le lion :
+
+| Clip | Ce qu'il fait |
+|---|---|
+| `idle` | respiration, la tête qui veille, la queue qui bat |
+| `walk` | un **trot** : les appuis vont par paires diagonales ; chacun est posé 0,8 × (hanche–jarret) / 1,5 m du cycle (37 % pour le lion, 41 % pour le loup, entre 28 et 46 %), et recule à 3 m/s ; entre deux diagonales, une courte suspension. Le pas n'est pas un amble : **à faire approuver par l'auteur** dans le jeu |
+| `attack` | le fauve se ramasse sur l'arrière, se cabre les antérieurs levés, porte la gueule en avant à 0,4 s |
+| `hit` | recul, tassement, la tête se détourne |
+| `death` | les pattes cèdent, le corps bascule sur le flanc droit, les pattes repliées |
+
+- Les cibles d'un quadrupède : un appui à placer par patte (deux os résolus jusqu'au jarret ou
+  au carpe, le canon orienté), le bassin qui descend juste assez pour les arrières, le thorax qui
+  s'abaisse par l'échine juste assez pour les avants.
+- **Entre deux images**, le moteur interpole linéairement : depuis le LOT-1011 le recalage au
+  sol évalue aussi le maillage à mi-chemin de chaque paire d'images et remonte les deux images
+  voisines d'autant — pour toutes les silhouettes (sur l'humanoïde, 1,2 mm au plus, 192 valeurs
+  du bandit ; les humanoïdes installés ne sont pas réinstallés).
 
 - **La marche tient la règle du moteur** : un cycle couvre **une case de 1,5 m en 0,5 s**, soit
   deux cases par seconde. Le pied posé recule exactement à cette vitesse ; le bassin descend juste
@@ -258,7 +312,7 @@ Ce qu'un modèle doit tenir avant de s'installer, et ce que la preuve a relevé 
 
 | Contrôle | Seuil | Relevé au LOT-1000 | Relevé au LOT-1006 |
 |---|---|---|---|
-| Structure du `.glb` : un maillage, 53 os, les clips attendus, texture incorporée, indices valides | exact | conforme, les deux | conforme : mannequin, brawler, bandit |
+| Structure du `.glb` : un maillage, les os et les clips de sa silhouette (53 os et six clips ; 29 os et cinq clips), texture incorporée, indices valides | exact | conforme, les deux | conforme : mannequin, brawler, bandit |
 | Poids | somme à 1, quatre os au plus | écart < 3 × 10⁻⁸ | écart < 1,2 × 10⁻⁷ |
 | Géométrie évaluée, sur huit poses par clip | aucune coordonnée non finie | 40 poses par personnage, toutes finies | toutes finies, six clips |
 | Pénétration du sol | pas plus que la preuve : **1,3 mm** | 1,3 mm (brawler), moins de 0,1 mm (scoundrel) | 0,70 mm (mannequin), 0,64 mm (bandit), 0,42 mm (brawler) |
@@ -266,7 +320,11 @@ Ce qu'un modèle doit tenir avant de s'installer, et ce que la preuve a relevé 
 
 Le contrôle du cadrage des bandes rendues part avec les bandes (LOT-1006). Les relevés du LOT-1006
 sont ceux de `scripts/checks/check_character_model.py`, conservés avec chaque modèle
-(`releve.json`).
+(`releve.json`). Le contrôle lit la silhouette au nom du squelette du fichier ; pour un
+quadrupède, le glissement se mesure sur les quatre appuis.
+
+Relevé au LOT-1011 (3 octobre 2026) : lion, loup et mannequin quadrupède, pénétration de 0,005 mm
+au plus, glissement de 0,02 à 0,05 px d'art.
 
 Ces contrôles **ne remplacent pas** le jugement de l'auteur : les semelles, les vêtements en
 mouvement et la lisibilité du visage se jugent **dans le jeu**, à 100 px par case.
@@ -276,9 +334,12 @@ mouvement et la lisibilité du visage se jugent **dans le jeu**, à 100 px par c
 - **Portrait et jeton restent peints** ([D-30](../vision/decisions.md)), aux tailles du
   [standard](style-3d.md#7-les-images-tolérées). Le portrait se peint **avant** l'image de
   référence : c'est lui qui fixe le visage.
-- **Le mannequin** tient la place de tout humanoïde sans modèle : un maillage neutre, lié au même
-  squelette (LOT-1006). La règle de repli (`hmi::FigureResolver`, propriété `silhouette`) désigne
-  un squelette.
+- **Le mannequin** tient la place de tout personnage sans modèle : un maillage neutre par
+  silhouette, lié à son squelette (`Mannequins/humanoid` au LOT-1006, `Mannequins/quadruped` au
+  LOT-1011). La règle de repli (`hmi::FigureResolver`, propriété `silhouette`) désigne un
+  squelette. Le **portrait d'attente** — un personnage sans modèle porté par la liste
+  `portraits` d'un manifeste — n'existe plus depuis le LOT-1011 : un personnage cité a son
+  modèle.
 
 ## 11. Constats ouverts de la preuve
 

@@ -51,6 +51,9 @@ class DialogueModel : public QObject {
     /// Le dialogue à jouer, par identifiant. L'écrire ouvre la conversation.
     Q_PROPERTY(QString dialogueId READ dialogueId WRITE setDialogueId NOTIFY changed)
     Q_PROPERTY(QString speakerName READ speakerName NOTIFY changed)
+    /// Le portrait de l'interlocuteur (`LOT-1011`) : celui de la figurine que le PNJ nomme sur la
+    /// carte, lu par le monde à l'interaction ; vide sans PNJ (zone, menu de développement).
+    Q_PROPERTY(QUrl speakerPortrait READ speakerPortrait NOTIFY changed)
     /// Qui parle pour le groupe et jette les dés : celui que le joueur **choisit** dans le menu
     /// du bas (`LOT-138`, D-28) ; le meneur à l'ouverture.
     Q_PROPERTY(QString partyVoice READ partyVoice NOTIFY changed)
@@ -91,6 +94,7 @@ public:
     [[nodiscard]] QString dialogueId() const;
     void setDialogueId(const QString& id);
     [[nodiscard]] QString speakerName() const;
+    [[nodiscard]] QUrl speakerPortrait() const;
     [[nodiscard]] QString partyVoice() const;
     [[nodiscard]] QString voiceId() const;
     [[nodiscard]] QUrl voicePortrait() const;

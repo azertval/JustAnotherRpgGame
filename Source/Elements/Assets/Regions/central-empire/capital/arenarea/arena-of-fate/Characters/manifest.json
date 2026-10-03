@@ -12,9 +12,11 @@
     "berserker",
     "combattant-de-l-arene",
     "gladiator",
+    "lion",
     "skeleton",
     "thug",
     "veteran",
+    "wolf",
     "zombie"
   ],
   "models": {
@@ -123,6 +125,21 @@
         "sha256": "8b7765fbad137d8133a9e5b24efa20fb3385e609406937d499a560a546987dcd"
       }
     },
+    "lion": {
+      "model": "lion/lion.glb",
+      "skeleton": "quadruped",
+      "triangles": 100000,
+      "size": [
+        0.804,
+        1.429,
+        2.432
+      ],
+      "sha256": "5e1416d892589f76290e77bc9f693801aac1935761c1e391eee5890139789013",
+      "source": {
+        "file": "Lies/lion/lion.glb",
+        "sha256": "5e1416d892589f76290e77bc9f693801aac1935761c1e391eee5890139789013"
+      }
+    },
     "skeleton": {
       "model": "skeleton/skeleton.glb",
       "skeleton": "humanoid",
@@ -166,6 +183,21 @@
       "source": {
         "file": "Lies/veteran/veteran.glb",
         "sha256": "e8796a62722cc965de0b148c9281261624abf1099534b888bb58cc8088145041"
+      }
+    },
+    "wolf": {
+      "model": "wolf/wolf.glb",
+      "skeleton": "quadruped",
+      "triangles": 99999,
+      "size": [
+        0.819,
+        1.572,
+        2.164
+      ],
+      "sha256": "4c6b75c1ecd23cac81eff87022ea1c5b8ef47d29b466d7a0074a010360d7ad66",
+      "source": {
+        "file": "Lies/wolf/wolf.glb",
+        "sha256": "4c6b75c1ecd23cac81eff87022ea1c5b8ef47d29b466d7a0074a010360d7ad66"
       }
     },
     "zombie": {
@@ -289,9 +321,5 @@
       "file": "Personnages/zombie/portraits/source.png",
       "sha256": "21e4953f30accb821ebfb02dcb076642981844b4ef8b36cc543d753ea86f0bf7"
     }
-  },
-  "portraits": [
-    "lion",
-    "wolf"
-  ]
+  }
 }

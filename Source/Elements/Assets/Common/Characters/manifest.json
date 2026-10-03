@@ -9,7 +9,8 @@
     "Heroes/mage",
     "Heroes/priest",
     "Heroes/scoundrel",
-    "Mannequins/humanoid"
+    "Mannequins/humanoid",
+    "Mannequins/quadruped"
   ],
   "sources": {
     "Heroes/brawler/portrait.png": {
@@ -123,17 +124,17 @@
     },
     "Mannequins/quadruped": {
       "model": "Mannequins/quadruped/quadruped.glb",
-      "silhouette": "quadruped",
+      "skeleton": "quadruped",
       "triangles": 100000,
       "size": [
         0.607,
         1.359,
         1.903
       ],
-      "sha256": "c576d884ff6ea7cac7f42d583a626ec07991ee57d9d121ab9e5c8bca4fae2754",
+      "sha256": "4bee8fc755eae7270216cf71d51f9c115d510bd1e1d6949edbc80b71d9cd6345",
       "source": {
-        "file": "Personnages/mannequin/Meshy_AI_Chromatic_Sentinel_1002134654_texture.glb",
-        "sha256": "e3489629a8e621ac8c72f784a4f469fb6f0298ccce989db952b5722a4a071a7f"
+        "file": "Lies/mannequin-quadruped/quadruped.glb",
+        "sha256": "4bee8fc755eae7270216cf71d51f9c115d510bd1e1d6949edbc80b71d9cd6345"
       }
     }
   },
@@ -144,6 +145,14 @@
       "source": {
         "file": "Lies/skeleton.json",
         "sha256": "1b32c6bedcd686a333df592d148df26c5e118250dd30a333294ae64e94e60020"
+      }
+    },
+    "quadruped": {
+      "file": "Skeletons/quadruped/skeleton.json",
+      "sha256": "87c1823a2c629b4ca10365aadd3296352fadf714fd146581b143335a0ba07ae2",
+      "source": {
+        "file": "Lies/quadruped.json",
+        "sha256": "87c1823a2c629b4ca10365aadd3296352fadf714fd146581b143335a0ba07ae2"
       }
     }
   }
