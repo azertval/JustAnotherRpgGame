@@ -1,5 +1,7 @@
 var dir_81129cf20409270d9237df2d6b07b076 =
 [
+    [ "AssetWorkshop.cpp", "AssetWorkshop_8cpp.html", "AssetWorkshop_8cpp" ],
+    [ "AssetWorkshop.h", "AssetWorkshop_8h.html", "AssetWorkshop_8h" ],
     [ "CityMapView.cpp", "CityMapView_8cpp.html", null ],
     [ "CityMapView.h", "CityMapView_8h.html", "CityMapView_8h" ],
     [ "DraftRenderer.cpp", "DraftRenderer_8cpp.html", null ],

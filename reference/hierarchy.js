@@ -70,11 +70,17 @@ var hierarchy =
     [ "hmi::CellRect", "structhmi_1_1CellRect.html", null ],
     [ "core::ChallengeExperience", "structcore_1_1ChallengeExperience.html", null ],
     [ "core::CharacterCreationRules", "structcore_1_1CharacterCreationRules.html", null ],
+    [ "hmi::CharacterDraft", "structhmi_1_1CharacterDraft.html", null ],
+    [ "hmi::CharacterDraftResult", "structhmi_1_1CharacterDraftResult.html", null ],
+    [ "hmi::CharacterFileWrite", "structhmi_1_1CharacterFileWrite.html", null ],
+    [ "hmi::CharacterInstallPlan", "structhmi_1_1CharacterInstallPlan.html", null ],
     [ "core::CharacterOptions", "structcore_1_1CharacterOptions.html", null ],
+    [ "hmi::CharacterPreviewView", "structhmi_1_1CharacterPreviewView.html", null ],
     [ "core::CharacterSheet", "structcore_1_1CharacterSheet.html", null ],
     [ "hmi::CharacterSheetContext", "structhmi_1_1CharacterSheetContext.html", null ],
     [ "core::CharacterSheetFile", "structcore_1_1CharacterSheetFile.html", null ],
     [ "core::CharacterSheetFileResult", "structcore_1_1CharacterSheetFileResult.html", null ],
+    [ "hmi::CharacterWorkshopFiles", "structhmi_1_1CharacterWorkshopFiles.html", null ],
     [ "core::CheckResult", "structcore_1_1CheckResult.html", null ],
     [ "hmi::Citation", "structhmi_1_1Citation.html", null ],
     [ "core::CityBlock", "structcore_1_1CityBlock.html", null ],
@@ -244,6 +250,7 @@ var hierarchy =
     [ "hmi::IndexedManifest", "structhmi_1_1IndexedManifest.html", null ],
     [ "core::InitiativeEntry", "structcore_1_1InitiativeEntry.html", null ],
     [ "core::InitiativeMarker", "structcore_1_1InitiativeMarker.html", null ],
+    [ "hmi::InstalledCharacter", "structhmi_1_1InstalledCharacter.html", null ],
     [ "core::Interactable", "structcore_1_1Interactable.html", null ],
     [ "core::InteractableKind", "structcore_1_1InteractableKind.html", null ],
     [ "core::InteractionCandidate", "structcore_1_1InteractionCandidate.html", null ],
@@ -373,10 +380,14 @@ var hierarchy =
     [ "hmi::PalettePanel::PrefabItem", "structhmi_1_1PalettePanel_1_1PrefabItem.html", null ],
     [ "core::PresenceRead", "structcore_1_1PresenceRead.html", null ],
     [ "hmi::ProceduralAtlasImage", "structhmi_1_1ProceduralAtlasImage.html", null ],
+    [ "hmi::ProcessCommand", "structhmi_1_1ProcessCommand.html", null ],
     [ "hmi::ProjectEdit", "structhmi_1_1ProjectEdit.html", null ],
     [ "core::ProvisionalStatus", "structcore_1_1ProvisionalStatus.html", null ],
     [ "QAbstractListModel", null, [
       [ "hmi::SheetRowModel", "classhmi_1_1SheetRowModel.html", null ]
+    ] ],
+    [ "QDialog", null, [
+      [ "hmi::AssetWorkshop", "classhmi_1_1AssetWorkshop.html", null ]
     ] ],
     [ "QGraphicsItem", null, [
       [ "hmi::EditorViewport::CanvasItem", "classhmi_1_1EditorViewport_1_1CanvasItem.html", null ]
@@ -453,6 +464,8 @@ var hierarchy =
     [ "core::RegionSpeciesShare", "structcore_1_1RegionSpeciesShare.html", null ],
     [ "core::RegionStatistic", "structcore_1_1RegionStatistic.html", null ],
     [ "hmi::ResolvedFigure", "structhmi_1_1ResolvedFigure.html", null ],
+    [ "hmi::RetouchFiles", "structhmi_1_1RetouchFiles.html", null ],
+    [ "hmi::RetouchTools", "structhmi_1_1RetouchTools.html", null ],
     [ "hmi::RhiContext", "structhmi_1_1RhiContext.html", null ],
     [ "core::RolledDamage", "structcore_1_1RolledDamage.html", null ],
     [ "core::RpgActor", "structcore_1_1RpgActor.html", null ],
@@ -526,6 +539,7 @@ var hierarchy =
     [ "core::View&lt; Components &gt;", "classcore_1_1View.html", null ],
     [ "hmi::Voix", "structhmi_1_1Voix.html", null ],
     [ "core::Weapon", "structcore_1_1Weapon.html", null ],
+    [ "hmi::AssetWorkshop::Widgets", "structhmi_1_1AssetWorkshop_1_1Widgets.html", null ],
     [ "hmi::EntityPanel::Widgets", "structhmi_1_1EntityPanel_1_1Widgets.html", null ],
     [ "hmi::LayersPanel::Widgets", "structhmi_1_1LayersPanel_1_1Widgets.html", null ],
     [ "hmi::LevelBrowserPanel::Widgets", "structhmi_1_1LevelBrowserPanel_1_1Widgets.html", null ],

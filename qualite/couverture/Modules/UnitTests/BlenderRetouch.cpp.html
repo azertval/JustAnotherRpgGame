@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>BlenderRetouch.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/BlenderRetouch.h"
+
+#include &lt;system_error&gt;
+
+#include "Core/Resources/SkeletonFile.h"
+
+namespace hmi {
+
+namespace {
+
+constexpr const char* SCRIPT = "scripts/assetsGeneration/retouch_character.py";
+constexpr const char* RETOUCH_FILE = "retouche.json";
+// L'emplacement de Blender sur le poste de production : celui de `reduce_model.py`.
+constexpr const char* DEFAULT_BLENDER = "D:/Blender Foundation/Blender 5.2/blender.exe";
+
+<span style = "background-color:#dfd">[[nodiscard]] bool isFile(const std::filesystem::path&amp; path) {
+    std::error_code error;
+    return std::filesystem::is_regular_file(path, error);
+}</span>
+
+}  // namespace
+
+RetouchFiles retouchFiles(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                          const std::filesystem::path&amp; baseDirectory, const CharacterDraft&amp; draft) {
+    const std::filesystem::path root = (baseDirectory / draft.root).lexically_normal();
+    const auto resolve = [&amp;root](const std::string&amp; written) {
+        return written.empty() ? std::filesystem::path{} : (root / written).lexically_normal();
+    };
+    RetouchFiles files;
+    files.model = resolve(draft.model);
+    files.received = resolve(draft.workshop.received);
+    files.sheet = resolve(draft.workshop.sheet);
+    files.retouch = resolve(draft.workshop.retouch);
+    if (files.retouch.empty() &amp;&amp; !files.sheet.empty()) {
+        files.retouch = files.sheet.parent_path() / RETOUCH_FILE;</span>
+    }
+<span style = "background-color:#dfd">    files.blend = resolve(draft.workshop.blend);
+    if (files.blend.empty() &amp;&amp; !files.model.empty()) {
+        files.blend = std::filesystem::path(files.model).replace_extension(".blend");</span>
+    }
+<span style = "background-color:#dfd">    if (!draft.skeleton.empty()) {
+        files.skeleton =</span>
+            dataRoot / "Assets" / std::filesystem::path(core::skeletonFilePath(draft.skeleton));
+    }
+<span style = "background-color:#dfd">    return files;
+}</span>
+
+<span style = "background-color:#dfd">std::string retouchReadiness(const RetouchFiles&amp; files) {
+    if (files.model.empty()) {
+        return "name the linked model first";</span>
+    }
+<span style = "background-color:#dfd">    if (!isFile(files.model)) {
+        return "linked model not found: " + files.model.generic_string();</span>
+    }
+<span style = "background-color:#dfd">    if (files.received.empty() || !isFile(files.received)) {
+        return "name the received model (workshop): the import links it again";</span>
+    }
+<span style = "background-color:#dfd">    if (files.sheet.empty() || !isFile(files.sheet)) {
+        return "name the liaison sheet (workshop): moved joints are written to it";</span>
+    }
+<span style = "background-color:#dfd">    if (!isFile(files.skeleton)) {
+        return "skeleton not installed: " + files.skeleton.generic_string();</span>
+    }
+<span style = "background-color:#dfd">    return {};
+}</span>
+
+RetouchTools findRetouchTools(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                              const EnvironmentLookup&amp; environment, std::string&amp; error) {
+    RetouchTools tools;
+    error.clear();</span>
+    // Le script : Ã  la racine du dÃ©pÃ´t, que la racine des donnÃ©es a pour ancÃªtre.
+<span style = "background-color:#dfd">    std::error_code ignored;
+    std::filesystem::path folder = std::filesystem::weakly_canonical(dataRoot, ignored);
+    if (ignored) {</span>
+<span style = "background-color:#fdd">        folder = dataRoot;</span>
+    }
+<span style = "background-color:#dfd">    while (true) {
+        if (isFile(folder / SCRIPT)) {
+            tools.script = folder / SCRIPT;
+            break;</span>
+        }
+<span style = "background-color:#dfd">        const std::filesystem::path parent = folder.parent_path();
+        if (parent.empty() || parent == folder) {
+            break;</span>
+        }
+<span style = "background-color:#dfd">        folder = parent;
+    }
+    if (const std::optional&lt;std::string&gt; python = environment("JADG_PYTHON");
+        python &amp;&amp; !python-&gt;empty()) {
+        tools.python = *python;
+    } else {</span>
+#ifdef _WIN32
+<span style = "background-color:#dfd">        tools.python = "py";
+        tools.pythonArguments = {"-3"};</span>
+#else
+        tools.python = "python3";
+#endif
+<span style = "background-color:#dfd">    }
+    if (const std::optional&lt;std::string&gt; blender = environment("BLENDER");
+        blender &amp;&amp; !blender-&gt;empty()) {
+        tools.blender = *blender;</span>
+<span style = "background-color:#fdd">    } else if (isFile(DEFAULT_BLENDER)) {
+        tools.blender = DEFAULT_BLENDER;</span>
+<span style = "background-color:#dfd">    }
+    if (tools.script.empty()) {
+        error = std::string{"script not found above the data root: "} + SCRIPT;
+    } else if (tools.blender.empty() || !isFile(tools.blender)) {
+        error = "Blender not found: set the BLENDER environment variable to blender.exe";</span>
+    }
+<span style = "background-color:#dfd">    return tools;
+}</span>
+
+namespace {
+
+<span style = "background-color:#dfd">[[nodiscard]] ProcessCommand scriptCommand(const RetouchTools&amp; tools, const char* verb) {
+    ProcessCommand command;
+    command.program = tools.python;
+    command.arguments = tools.pythonArguments;
+    command.arguments.push_back(tools.script.generic_string());
+    command.arguments.emplace_back(verb);
+    return command;
+}</span>
+
+<span style = "background-color:#dfd">void appendTools(ProcessCommand&amp; command, const RetouchTools&amp; tools, const RetouchFiles&amp; files) {
+    command.arguments.insert(command.arguments.end(),</span>
+                             {"--skeleton", files.skeleton.generic_string(), "--blender",
+                              tools.blender.generic_string()});
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">ProcessCommand openInBlenderCommand(const RetouchTools&amp; tools, const RetouchFiles&amp; files) {
+    ProcessCommand command = scriptCommand(tools, "open");
+    command.arguments.insert(command.arguments.end(), {files.model.generic_string(), "--blend",</span>
+                                                       files.blend.generic_string()});
+<span style = "background-color:#dfd">    appendTools(command, tools, files);
+    return command;
+}</span>
+
+<span style = "background-color:#dfd">ProcessCommand importFromBlenderCommand(const RetouchTools&amp; tools, const RetouchFiles&amp; files) {
+    ProcessCommand command = scriptCommand(tools, "import");
+    command.arguments.insert(</span>
+        command.arguments.end(),
+        {files.blend.generic_string(), "--sheet", files.sheet.generic_string(), "--retouch",
+         files.retouch.generic_string(), "--source", files.received.generic_string(), "--output",
+         files.model.generic_string()});
+<span style = "background-color:#dfd">    appendTools(command, tools, files);
+    return command;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -32,6 +32,7 @@ var classhmi_1_1MainWindow =
     [ "linkMaps", "classhmi_1_1MainWindow.html#a30829a0bd77305efc186112fb943e9bf", null ],
     [ "offerRecovery", "classhmi_1_1MainWindow.html#aa28e8e28e6d9ee14ea3bd4c76700090a", null ],
     [ "offerRecoveryFor", "classhmi_1_1MainWindow.html#a9c9274dc9abbc1c76f6978f59a84c49d", null ],
+    [ "openAssetWorkshop", "classhmi_1_1MainWindow.html#a41b7d598449b1c44c3e159a67370faed", null ],
     [ "openDocuments", "classhmi_1_1MainWindow.html#a4831bf2cadbae48e5eea255e4d96a2c2", null ],
     [ "openMap", "classhmi_1_1MainWindow.html#afce00287835527ce6456eee989ff9901", null ],
     [ "openMapPropertiesDialog", "classhmi_1_1MainWindow.html#aa67430d76b05a861aa300ab23965578d", null ],
@@ -107,5 +108,6 @@ var classhmi_1_1MainWindow =
     [ "_userPickedTab", "classhmi_1_1MainWindow.html#a324f91fcd0352eb34be747deb6beb0d3", null ],
     [ "_viewport", "classhmi_1_1MainWindow.html#ad74bf30c7bc994b07bfd93e4c39b5a93", null ],
     [ "_viewportConnections", "classhmi_1_1MainWindow.html#ac7119a7a009ff4857fd2b800b080ed7d", null ],
-    [ "_watcher", "classhmi_1_1MainWindow.html#a9e89ff49e801603f1e390c30071d2f4a", null ]
+    [ "_watcher", "classhmi_1_1MainWindow.html#a9e89ff49e801603f1e390c30071d2f4a", null ],
+    [ "_workshop", "classhmi_1_1MainWindow.html#a23d99be4eb485f40c5858a14a9ccf395", null ]
 ];

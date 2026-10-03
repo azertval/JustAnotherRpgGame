@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CharacterWorkshop.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Editor/Logic/MapFormat.h"
+
+/**
+ * @file Editor/Logic/CharacterWorkshop.h
+ * @brief L'**atelier des assets**, vue *Character* (`LOT-1008`, `EX-EDIT-102` Ã  `EX-EDIT-104`) :
+ *        Ã©crire la fiche d'un personnage sans ouvrir un fichier.
+ *
+ * Un personnage est une fiche qui lie un modÃ¨le, son portrait et son jeton
+ * (`Planning/standards/personnages-3d.md`). Ce que l'auteur choisit dans la fenÃªtre *Asset
+ * workshop* tient dans une **fiche d'atelier** (`hmi::CharacterDraft`), un fichier JSON rangÃ© avec
+ * les sources du personnage ; l'installer Ã©crit, sous `Assets/&lt;niveau&gt;/&lt;nom&gt;/`, le modÃ¨le, la
+ * fiche `character.json`, le portrait et le jeton, et inscrit le personnage au manifeste de son
+ * niveau. Logique **pure** : la fenÃªtre l'appelle, `LevelEditor --apply` la rejoue sans fenÃªtre,
+ * et les deux Ã©crivent les mÃªmes octets.
+ *
+ * ## La fiche d'atelier
+ *
+ * @code{.json}
+ * {
+ *   "format": "jadg-editor-character",
+ *   "version": 1,
+ *   "root": "..",
+ *   "level": "Regions/central-empire/capital/arenarea/arena-of-fate/Characters",
+ *   "name": "bandit",
+ *   "skeleton": "humanoid",
+ *   "model": "Lies/bandit/bandit.glb",
+ *   "portrait": "Personnages/bandit/portraits/portrait.png",
+ *   "token": "Personnages/bandit/portraits/token.png",
+ *   "workshop": {
+ *     "received": "Standard/Personnages/bandit/bandit.glb",
+ *     "sheet": "Personnages/bandit/liaison.json",
+ *     "retouch": "Personnages/bandit/retouche.json",
+ *     "blend": "Lies/bandit/bandit.blend"
+ *   }
+ * }
+ * @endcode
+ *
+ * - `root` : le dossier, relatif Ã  la fiche d'atelier, d'oÃ¹ partent tous ses chemins (dÃ©faut : le
+ *   dossier de la fiche). Les chemins s'inscrivent au manifeste **tels qu'ils sont Ã©crits** : c'est
+ *   la provenance de l'asset, lisible sur un autre poste.
+ * - `level` : le dossier `Characters` du niveau, relatif Ã  `Assets/` ; `name` : le personnage dans
+ *   ce dossier (`bandit`, `Heroes/brawler`).
+ * - `skeleton` : la silhouette Ã  laquelle le modÃ¨le est liÃ© ; sa description est celle du monde
+ *   (`Common/Characters/Skeletons/&lt;silhouette&gt;/skeleton.json`). `skeletonSource` l'installe ou la
+ *   rafraÃ®chit d'abord, depuis le fichier que la chaÃ®ne de liaison a Ã©crit.
+ * - `model`, `portrait`, `token` : ce qu'on installe. Un champ **absent** garde ce qui est
+ *   installÃ© ; un personnage sans modÃ¨le installÃ© doit en nommer un.
+ * - `workshop` : ce dont l'aller-retour par Blender a besoin (`hmi::retouchFiles`,
+ *   `Editor/Logic/BlenderRetouch.h`) ; l'installation ne le lit pas.
+ *
+ * ## Ce que l'installation vÃ©rifie
+ *
+ * Le modÃ¨le se lit, porte un squelette, et **chaque clip que sa silhouette dÃ©clare** ; le portrait
+ * fait 512 Ã 512, le jeton 128 Ã 128 (`style-3d.md`, Â§7) â l'atelier ne retaille rien, il range ce
+ * qui est au standard. Tout est vÃ©rifiÃ© avant la premiÃ¨re Ã©criture : une fiche refusÃ©e n'Ã©crit
+ * rien.
+ *
+ * ## Le contrÃ´le
+ *
+ * `hmi::checkCharacters` relit ce qui est installÃ© : c'est ce que `LevelEditor --check` ajoute au
+ * contrÃ´le des cartes, et ce que montre le panneau *Problems*.
+ */
+
+namespace hmi {
+
+/// Le format d'une fiche d'atelier, Ã©crit dans le fichier.
+inline constexpr std::string_view CHARACTER_SCRIPT_FORMAT = "jadg-editor-character";
+/// Sa version, et la plus Ã©levÃ©e qui soit lue.
+inline constexpr int CHARACTER_SCRIPT_VERSION = 1;
+/// Le cÃ´tÃ© d'un portrait et d'un jeton installÃ©s, en pixels (`style-3d.md`, Â§7).
+inline constexpr int CHARACTER_PORTRAIT_SIDE = 512;
+inline constexpr int CHARACTER_TOKEN_SIDE = 128;
+/// Les fichiers d'image d'un personnage, dans son dossier.
+inline constexpr std::string_view CHARACTER_PORTRAIT_FILE = "portrait.png";
+inline constexpr std::string_view CHARACTER_TOKEN_FILE = "token.png";
+
+/// @brief Les fichiers de l'atelier local dont l'aller-retour par Blender a besoin, relatifs Ã  la
+///        racine de la fiche ; vides tant que l'auteur ne les a pas nommÃ©s.
+struct CharacterWorkshopFiles {
+    /// Le maillage reÃ§u, dÃ©jÃ  rÃ©duit au standard : ce que `rig_character.py` lie.
+    std::string received;
+    /// La fiche de liaison (`liaison.json`).
+    std::string sheet;
+    /// La fiche de retouche (`retouche.json`) ; Ã  dÃ©faut, Ã  cÃ´tÃ© de la fiche de liaison.
+    std::string retouch;
+    /// Le fichier Blender ; Ã  dÃ©faut, Ã  cÃ´tÃ© du modÃ¨le liÃ©.
+    std::string blend;
+
+    [[nodiscard]] bool operator==(const CharacterWorkshopFiles&amp;) const = default;
+};
+
+/// @brief La fiche d'atelier d'un personnage : ce que la vue *Character* Ã©dite.
+struct CharacterDraft {
+    /// Le dossier d'oÃ¹ partent les chemins, relatif Ã  la fiche d'atelier (`.` par dÃ©faut).
+    std::string root = ".";
+    /// Le dossier `Characters` du niveau, relatif Ã  `Assets/`.
+    std::string level;
+    /// Le personnage dans ce dossier (`bandit`, `Heroes/brawler`).
+    std::string name;
+    /// La silhouette du squelette (`humanoid`).
+    std::string skeleton;
+    /// La description du squelette Ã  installer avec lui ; vide : celle du monde vaut.
+    std::string skeletonSource;
+    /// Le modÃ¨le liÃ© (`.glb`) ; vide : celui qui est installÃ© reste.
+    std::string model;
+    /// Le portrait, 512 Ã 512 ; vide : celui qui est installÃ© reste.
+    std::string portrait;
+    /// Le jeton, 128 Ã 128 ; vide : celui qui est installÃ© reste.
+    std::string token;
+    CharacterWorkshopFiles workshop;
+
+    [[nodiscard]] bool operator==(const CharacterDraft&amp;) const = default;
+};
+
+/// @brief Une fiche d'atelier lue, ou ce qui l'a refusÃ©e.
+struct CharacterDraftResult {
+    CharacterDraft draft;
+    /// Message d'Ã©chec (anglais, comme toute sortie de l'Ã©diteur), vide en cas de succÃ¨s.
+    std::string error;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return error.empty();
+    }</span>
+};
+
+/// @return Vrai si @p json est une fiche d'atelier (`"format": "jadg-editor-character"`) : ce qui
+///         distingue, pour `--apply`, un personnage d'un scÃ©nario de gestes.
+[[nodiscard]] bool isCharacterScript(std::string_view json);
+
+/// @brief Lit une fiche d'atelier depuis le texte de son fichier.
+[[nodiscard]] CharacterDraftResult readCharacterDraft(std::string_view json);
+
+/// @return Le texte canonique de @p draft : ce que la fenÃªtre enregistre, et que
+/// `readCharacterDraft`
+///         relit Ã  l'identique. Les champs vides ne s'Ã©crivent pas.
+[[nodiscard]] std::string characterDraftText(const CharacterDraft&amp; draft);
+
+/// @brief Un fichier que l'installation Ã©crit.
+struct CharacterFileWrite {
+    /// Son chemin, absolu.
+    std::filesystem::path file;
+    std::string bytes;
+
+    [[nodiscard]] bool operator==(const CharacterFileWrite&amp;) const = default;
+};
+
+/// @brief Ce que l'installation d'un personnage fera, calculÃ© sans rien Ã©crire.
+struct CharacterInstallPlan {
+    /// Ce qui s'Ã©crit, dans l'ordre : le squelette, les fichiers du personnage, les manifestes.
+    std::vector&lt;CharacterFileWrite&gt; writes;
+    /// Ce qui part du dossier du personnage : un ancien modÃ¨le, une image que rien ne cite plus.
+    std::vector&lt;std::filesystem::path&gt; removals;
+    /// Le compte rendu, une ligne par fichier (anglais).
+    std::string log;
+    /// Message d'Ã©chec, vide si le plan est exÃ©cutable.
+    std::string error;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return error.empty();
+    }</span>
+};
+
+/**
+ * @brief Calcule l'installation de @p draft : ce qu'elle Ã©crit et ce qu'elle retire.
+ *
+ * Un fichier dont les octets installÃ©s sont dÃ©jÃ  ceux du plan n'est pas rÃ©Ã©crit : rÃ©enregistrer
+ * une fiche qui n'a pas changÃ© ne touche Ã  rien.
+ *
+ * @param dataRoot      La racine des donnÃ©es (`Source/Elements`) : les assets sont sous `Assets/`.
+ * @param baseDirectory Le dossier de la fiche d'atelier, d'oÃ¹ part sa racine (`root`).
+ * @param draft         La fiche d'atelier.
+ */
+[[nodiscard]] CharacterInstallPlan planCharacter(const std::filesystem::path&amp; dataRoot,
+                                                 const std::filesystem::path&amp; baseDirectory,
+                                                 const CharacterDraft&amp; draft);
+
+/// @brief ExÃ©cute @p plan. @return Ce qui a empÃªchÃ© l'Ã©criture, vide si tout est Ã©crit.
+[[nodiscard]] std::string writeCharacter(const CharacterInstallPlan&amp; plan);
+
+/// @brief Un personnage installÃ©, tel que les manifestes le dÃ©clarent.
+struct InstalledCharacter {
+    /// Le dossier `Characters` de son niveau, relatif Ã  `Assets/`.
+    std::string level;
+    std::string name;
+
+    [[nodiscard]] bool operator==(const InstalledCharacter&amp;) const = default;
+};
+
+/// @return Les dossiers `Characters` qui portent un manifeste sous `&lt;dataRoot&gt;/Assets`, relatifs Ã 
+///         `Assets/`, triÃ©s : `Common/Characters`, puis ceux de `Regions/`.
+[[nodiscard]] std::vector&lt;std::string&gt; characterLevels(const std::filesystem::path&amp; dataRoot);
+
+/// @return Les personnages en modÃ¨le (`npcs`) de tous les niveaux, triÃ©s par niveau puis par nom.
+[[nodiscard]] std::vector&lt;InstalledCharacter&gt; installedCharacters(
+    const std::filesystem::path&amp; dataRoot);
+
+/**
+ * @brief La fiche d'atelier d'un personnage **installÃ©** : ce que la fenÃªtre montre en le rouvrant.
+ *
+ * Le squelette vient de sa fiche `character.json`, les sources du manifeste de son niveau
+ * (`models`, `sources`). Une source que @p workshopRoot ne contient plus est laissÃ©e vide : ce qui
+ * est installÃ© reste.
+ *
+ * @param dataRoot     La racine des donnÃ©es.
+ * @param workshopRoot La racine de l'atelier local, oÃ¹ les sources du manifeste se cherchent.
+ * @param character    Le personnage.
+ */
+[[nodiscard]] CharacterDraftResult draftOfInstalledCharacter(
+    const std::filesystem::path&amp; dataRoot, const std::filesystem::path&amp; workshopRoot,
+    const InstalledCharacter&amp; character);
+
+/**
+ * @brief ContrÃ´le les personnages installÃ©s (`EX-EDIT-104`).
+ *
+ * Pour chaque personnage en modÃ¨le : sa fiche se lit, son squelette est connu, son modÃ¨le est lÃ ,
+ * porte un squelette et chaque clip de sa silhouette, son portrait et son jeton sont lÃ , aux
+ * tailles du standard â sauf pour un mannequin (`Mannequins/â¦`), qui n'en a pas. Les constats
+ * portent le niveau du personnage en guise de carte.
+ *
+ * Les binaires des kits ne sont pas dans Git (`scripts/fetch_assets.py`) : sur une base dont les
+ * kits sont verrouillÃ©s (`Assets/kits.lock.json`) mais pas installÃ©s (`Assets/.kits/`), seules les
+ * fiches et les squelettes se contrÃ´lent, et un avertissement le dit.
+ */
+[[nodiscard]] std::vector&lt;MapCheckFinding&gt; checkCharacters(const std::filesystem::path&amp; dataRoot);
+
+/**
+ * @brief L'atelier **sans fenÃªtre** : `--apply &lt;fiche d'atelier&gt;` installe le personnage.
+ *
+ * Ne prend la main que si le fichier de `--apply` est une fiche d'atelier (`isCharacterScript`) :
+ * un scÃ©nario de gestes reste Ã  `hmi::runMapCommand`. Une fiche refusÃ©e n'Ã©crit rien et sort en 1.
+ *
+ * @return Le code de sortie (0, 1 en cas de refus, 2 si la ligne de commande est fausse), ou
+ *         `std::nullopt` si la commande n'est pas pour l'atelier.
+ */
+[[nodiscard]] std::optional&lt;int&gt; runCharacterCommand(const std::vector&lt;std::string&gt;&amp; arguments,
+                                                     const std::filesystem::path&amp; dataRoot,
+                                                     std::string&amp; output);
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

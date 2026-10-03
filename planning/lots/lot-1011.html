@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOT-1011 — Les fauves de l&#x27;arène : le squelette quadruped — Planification</title>
+<link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Planification</a>
+  <nav><a href="../index.html">Trajectoire</a><a href="index.html" class="active">Lots</a><a href="../versions/index.html">Versions</a><a href="../vision/index.html">Vision</a><a href="../referentiels/index.html">Référentiels</a><a href="../standards/index.html">Standards</a></nav>
+  <div class="links"><a href="../../">Documentation</a><a class="active" href="../index.html">Planification</a><a href="../../qualite/">Qualité</a></div>
+</header>
+<div class="shell">
+
+<main>
+<p class="crumb"><a href="index.html">Lots</a> › <a href="../versions/v0-0-2-5.html">0.0.2.5 — Passage à la 3D</a></p><h1><span class="vid">LOT-1011</span> Les fauves de l&#x27;arène : le squelette quadruped</h1><p class="lede">Le lion et le loup du Colisée marchent sur quatre appuis : un second squelette, ses clips, et la fin des portraits d'attente.</p><dl class="facts"><div><dt>État</dt><dd><span class="badge etat-pret">prêt</span></dd></div><div><dt>Filière</dt><dd><span class="filiere f-pnj">PNJ</span></dd></div><div><dt>Taille</dt><dd>L</dd></div><div><dt>Ordre calculé</dt><dd>2</dd></div><div><dt>Prérequis</dt><dd><a class="ref" href="lot-1009.html">LOT-1009</a></dd></div><div><dt>Débloque</dt><dd><a class="ref" href="lot-1010.html">LOT-1010</a></dd></div><div><dt>Reprend</dt><dd>—</dd></div></dl><section><h2>Livrables</h2><ul class=""><li>Le squelette <strong><code>quadruped</code></strong> et ses clips (repos, marche, attaque, touché, mort), sous <code>Common/Characters/Skeletons/quadruped/</code>, construits d'après le lion et rejoués par le loup ; <code>rig_character.py</code> sait lier une silhouette à quatre pattes (estimation des articulations, poids, poses par cibles, contact des quatre appuis).</li><li>Le <strong>lion</strong> et le <strong>loup</strong>, liés et installés par l'atelier des assets (<code>LevelEditor --apply</code>) dans <code>arena-of-fate/Characters/</code> ; le mannequin <code>quadruped</code> lié au même squelette ; leurs fiches de règles nomment leur silhouette.</li><li>Le <a href="../standards/personnages-3d.html">standard des personnages</a> complété de ce que les fauves mesurent : l'image de référence de trois quarts, les articulations d'un quadrupède, la marche à quatre appuis.</li><li>La <strong>fin du portrait d'attente</strong> : la liste <code>portraits</code> quitte les manifestes <code>Characters/</code>, et sa prise en charge quitte <code>check_hd_assets.py</code>, <code>core::resolveFigures</code>, <code>hmi::AssetGallery</code> et <code>check_orphans.py</code>.</li><li>Les kits republiés et verrouillés.</li></ul></section><section><h2>Critères d'acceptation</h2><ul class="checks"><li>Le lion et le loup marchent sur quatre appuis sans glissement ni traversée, jouent leurs cinq clips, et se reconnaissent à côté de leur jeton (jugement de l'auteur).</li><li><code>git grep -n &quot;portraits&quot; Source scripts</code> ne trouve plus la liste d'attente ; <code>check_hd_assets.py</code> refuse un personnage cité sans modèle.</li><li>La rencontre <code>colisee-fauves</code> se joue avec les deux modèles.</li></ul></section><section class="prose"><h2 id="pourquoi">Pourquoi</h2>
+<p>Le <a href="lot-1009.html">LOT-1009</a> a installé les dix-huit humanoïdes de la démo ; les deux fauves restent des portraits d'attente, dessinés par le mannequin humanoïde, parce que le squelette <code>quadruped</code> n'existe pas : ni description, ni clips, ni chaîne de liaison pour quatre pattes. La fiche du LOT-1009 le prévoyait — « s'il déborde, il devient un lot à part » — et il a débordé. Ce lot ouvre la seconde silhouette du standard et retire le dernier repli.</p>
+<h2 id="périmètre">Périmètre</h2>
+<p>Dedans : le squelette, ses clips, la liaison d'un quadrupède, les deux fauves, le mannequin quadrupède, le retrait du portrait d'attente.</p>
+<p>Dehors, nommément : la silhouette <code>flying</code>, qui viendra avec ses créatures (D-34) ; toute règle de créature.</p>
+<h2 id="à-supprimer">À supprimer</h2>
+<div class="table-wrap"><table><thead><tr><th>Quoi</th><th>Où</th><th>Pourquoi maintenant</th></tr></thead><tbody><tr><td>Le <strong>portrait d'attente</strong> : un personnage sans modèle, porté par la liste <code>portraits</code></td><td>les manifestes <code>Characters/</code> (lion, loup) ; <code>check_hd_assets.py</code>, <code>check_orphans.py</code>, <code>core::resolveFigures</code>, <code>hmi::AssetGallery</code>, et leurs tests</td><td>les deux derniers cas reçoivent leur modèle ; le concept (<code>LOT-145</code>) n'a plus de cas</td></tr><tr><td>Le mannequin <code>quadruped</code> statique, sans fiche</td><td><code>Common/Characters/Mannequins/quadruped/</code> : <strong>remplacé</strong> par le mannequin lié</td><td>il attendait son squelette depuis le LOT-1006</td></tr></tbody></table></div>
+<h2 id="conception">Conception</h2>
+<ul><li><strong>Le lion fixe, le loup prouve.</strong> Les clips se posent par cibles sur le lion ; le loup, lié par sa seule fiche, doit les rejouer sans retouche : c'est ce qui dit que le squelette est commun.</li><li><strong>La marche à quatre appuis</strong> garde la règle du moteur : une case de 1,5 m en 0,5 s ; les appuis posés reculent à 3 m/s. Le pas est à écrire — amble ou trot — et à faire approuver.</li><li><strong>L'image de référence</strong> d'un fauve est de trois quarts, sur quatre pattes séparées (<code>personnages-3d.md</code>, §5) ; les deux existent déjà dans l'atelier local, avec leurs maillages Meshy réduits (<code>Tools/Assets3D/Standard/Personnages/{lion,wolf}/</code>).</li><li><strong>Le réglage dans Blender</strong> vaut pour un quadrupède comme pour un humanoïde (D-44, <code>retouch_character.py</code>) : la table des os animés vient de <code>skeleton.json</code>.</li></ul>
+<h2 id="risques-et-questions-ouvertes">Risques et questions ouvertes</h2>
+<ul><li>Les os d'un quadrupède ne sont pas ceux du <code>game_engine</code> de MPFB : leurs noms et leur hiérarchie sont une décision de ce lot, à écrire au standard.</li><li>Si les fauves débordent encore, la version se livre avec deux jetons : le LOT-1010 le note au bilan, et le lot glisse à la <code>0.0.3</code>.</li></ul></section><p class="source">Source : <code>Planning/versions/v0.1.0/v0.0.2.5-passage-3d/lots/LOT-1011-les-fauves-de-l-arene.md</code></p>
+</main>
+</div>
+<footer>Engendré depuis <code>Planning/</code> le 2026-10-03 · <code>823c75735</code>. Rien ici ne s'édite : la source est le dossier.</footer>
+<script src="../assets/site.js"></script>
+</body>
+</html>

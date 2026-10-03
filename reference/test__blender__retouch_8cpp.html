@@ -1,0 +1,286 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/test_blender_retouch.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__blender__retouch_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_blender_retouch.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>L'aller-retour par Blender, côté éditeur (<span class="tt">LOT-1008</span>, <span class="tt">EX-EDIT-103</span>) : où sont les fichiers et les outils, et les deux lignes de commande que la fenêtre lance.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;system_error&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="BlenderRetouch_8h_source.html">Editor/Logic/BlenderRetouch.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="CharacterWorkshop_8h_source.html">Editor/Logic/CharacterWorkshop.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a995ffe834443a96b9d67fbd967413c22" id="r_a995ffe834443a96b9d67fbd967413c22"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a995ffe834443a96b9d67fbd967413c22">TEST_F</a> (BlenderRetouch, LesFichiersSeDeduisentDeLaFiche)</td></tr>
+<tr class="memdesc:a995ffe834443a96b9d67fbd967413c22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les fichiers de l'aller-retour se déduisent de la fiche d'atelier : la retouche à côté de la fiche de liaison, le fichier Blender à côté du modèle lié.  <br /></td></tr>
+<tr class="memitem:abd40ee6b66667c32214d9a392c395c44" id="r_abd40ee6b66667c32214d9a392c395c44"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abd40ee6b66667c32214d9a392c395c44">TEST_F</a> (BlenderRetouch, CeQuiManqueEstDitAvantDOuvrirBlender)</td></tr>
+<tr class="memdesc:abd40ee6b66667c32214d9a392c395c44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blender ne s'ouvre pas sur un personnage que l'import ne pourrait pas relier.  <br /></td></tr>
+<tr class="memitem:a8cf2867bf2c0b8955b78d2067a4d1ce3" id="r_a8cf2867bf2c0b8955b78d2067a4d1ce3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8cf2867bf2c0b8955b78d2067a4d1ce3">TEST_F</a> (BlenderRetouch, LesDeuxCommandesPortentCeQueLeScriptAttend)</td></tr>
+<tr class="memdesc:a8cf2867bf2c0b8955b78d2067a4d1ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les outils se trouvent : le script en remontant jusqu'au dépôt, Python et Blender par l'environnement ; et les deux commandes portent tout ce que le script attend (<span class="tt">EX-EDIT-103</span>).  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>L'aller-retour par Blender, côté éditeur (<span class="tt">LOT-1008</span>, <span class="tt">EX-EDIT-103</span>) : où sont les fichiers et les outils, et les deux lignes de commande que la fenêtre lance. </p>
+<p>Blender lui-même n'est pas lancé ici : ce que le script en relit se vérifie, sans Blender, dans <span class="tt">scripts/tests/test_retouch_character.py</span>. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="abd40ee6b66667c32214d9a392c395c44" name="abd40ee6b66667c32214d9a392c395c44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd40ee6b66667c32214d9a392c395c44">&#9670;&#160;</a></span>TEST_F() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">BlenderRetouch</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">CeQuiManqueEstDitAvantDOuvrirBlender</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Blender ne s'ouvre pas sur un personnage que l'import ne pourrait pas relier. </p>
+<p><b>Cas de test :</b> <b>L'aller-retour dit ce qui lui manque avant d'ouvrir Blender.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Atelier des assets<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander si l'aller-retour est prêt, en posant un à un le modèle lié, le maillage reçu, la fiche de liaison et le squelette installé.<br  />
+ <b>Resultat attendu :</b> Tant qu'un fichier manque, le message le nomme (le modèle lié, le maillage reçu, la fiche de liaison, le squelette) ; les quatre posés, il est vide. </p>
+
+</div>
+</div>
+<a id="a8cf2867bf2c0b8955b78d2067a4d1ce3" name="a8cf2867bf2c0b8955b78d2067a4d1ce3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cf2867bf2c0b8955b78d2067a4d1ce3">&#9670;&#160;</a></span>TEST_F() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">BlenderRetouch</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesDeuxCommandesPortentCeQueLeScriptAttend</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les outils se trouvent : le script en remontant jusqu'au dépôt, Python et Blender par l'environnement ; et les deux commandes portent tout ce que le script attend (<span class="tt">EX-EDIT-103</span>). </p>
+<p><b>Cas de test :</b> <b>L'editeur compose les deux commandes de l'aller-retour par Blender.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Atelier des assets<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Chercher les outils sans script dans le dépôt, puis avec, Blender étant nommé par <span class="tt">BLENDER</span> et Python par <span class="tt">JADG_PYTHON</span> ; puis avec un Blender qui n'existe pas.<br  />
+</p><ol type="1">
+<li>Composer la commande d'ouverture et celle d'import.<br  />
+ <b>Resultat attendu :</b> Sans script, l'erreur le nomme ; avec un Blender absent, elle nomme <span class="tt">BLENDER</span>. Les outils trouvés, la commande d'ouverture est <span class="tt">python script open &lt;modèle&gt; --blend …
+           --skeleton … --blender …</span>, celle d'import <span class="tt">python script import &lt;blend&gt; --sheet …
+           --retouch … --source &lt;reçu&gt; --output &lt;modèle&gt; --skeleton … --blender …</span>. </li>
+</ol>
+
+</div>
+</div>
+<a id="a995ffe834443a96b9d67fbd967413c22" name="a995ffe834443a96b9d67fbd967413c22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a995ffe834443a96b9d67fbd967413c22">&#9670;&#160;</a></span>TEST_F() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST_F </td>
+          <td>(</td>
+          <td class="paramtype">BlenderRetouch</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesFichiersSeDeduisentDeLaFiche</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les fichiers de l'aller-retour se déduisent de la fiche d'atelier : la retouche à côté de la fiche de liaison, le fichier Blender à côté du modèle lié. </p>
+<p><b>Cas de test :</b> <b>Les fichiers de l'aller-retour se deduisent de la fiche d'atelier.</b><br  />
+ <b>Categorie :</b> Unitaire · Editeur · Atelier des assets<br  />
+ <b>Criticite :</b> Critique<br  />
+ <b>Etapes :</b><br  />
+ 1. Demander les fichiers d'une fiche dont la racine remonte d'un dossier et qui ne nomme ni retouche ni fichier Blender.<br  />
+</p><ol type="1">
+<li>Nommer les deux, et redemander.<br  />
+ <b>Resultat attendu :</b> Les chemins partent de la racine de la fiche. Par défaut la retouche est <span class="tt">retouche.json</span> à côté de la fiche de liaison, le fichier Blender porte le nom du modèle lié ; nommés, ils sont pris tels quels. Le squelette est celui du monde. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_72f94039b203173a88806b7e5cad74af.html">Editor</a></li><li class="navelem"><a href="test__blender__retouch_8cpp.html">test_blender_retouch.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

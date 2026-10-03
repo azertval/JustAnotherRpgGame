@@ -1,0 +1,856 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>CharacterWorkshop.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/CharacterWorkshop.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cmath&gt;
+#include &lt;cstddef&gt;
+#include &lt;fstream&gt;
+#include &lt;map&gt;
+#include &lt;set&gt;
+#include &lt;span&gt;
+#include &lt;sstream&gt;
+#include &lt;system_error&gt;
+#include &lt;tuple&gt;
+#include &lt;utility&gt;
+
+#include &lt;nlohmann/json.hpp&gt;
+
+#include "Core/Resources/MeshFile.h"
+#include "Core/Resources/SkeletonFile.h"
+#include "Core/Resources/SkeletonPose.h"
+#include "Editor/Logic/Sha256.h"
+
+namespace hmi {
+
+namespace {
+
+using Json = nlohmann::ordered_json;
+
+constexpr std::string_view MANIFEST_FILE = "manifest.json";
+constexpr std::string_view COMMON_LEVEL = "Common/Characters";
+constexpr std::string_view LEVEL_FOLDER = "Characters";
+constexpr std::string_view MANNEQUIN_PREFIX = "Mannequins/";
+
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;std::string&gt; readBytes(const std::filesystem::path&amp; file) {
+    std::ifstream input(file, std::ios::binary);
+    if (!input) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    std::ostringstream text;
+    text &lt;&lt; input.rdbuf();
+    return std::move(text).str();
+}</span>
+
+// Le texte d'un fichier JSON du dÃ©pÃ´t : deux espaces, LF, une fin de ligne â ce qu'Ã©crivait
+// l'installateur, et ce que `check_json_files.py` attend.
+<span style = "background-color:#dfd">[[nodiscard]] std::string jsonText(const Json&amp; json) {
+    return json.dump(2) + "\n";
+}</span>
+
+// Un chemin tel qu'il s'Ã©crit dans une fiche ou un manifeste : des `/`, sans `./` ni `a/../`.
+<span style = "background-color:#dfd">[[nodiscard]] std::string writtenPath(std::string_view path) {
+    return std::filesystem::path(path).lexically_normal().generic_string();
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool validSegment(std::string_view segment) {
+    return !segment.empty() &amp;&amp; segment != "." &amp;&amp; segment != ".." &amp;&amp;
+           std::ranges::all_of(segment, [](char c) {
+               return (c &gt;= 'a' &amp;&amp; c &lt;= 'z') || (c &gt;= 'A' &amp;&amp; c &lt;= 'Z') || (c &gt;= '0' &amp;&amp; c &lt;= '9') ||</span>
+                      c == '-' || c == '_';
+<span style = "background-color:#dfd">           });
+}</span>
+
+// Un chemin relatif fait de segments simples : `bandit`, `Heroes/brawler`.
+<span style = "background-color:#dfd">[[nodiscard]] bool validRelative(std::string_view path) {
+    std::size_t start = 0;
+    while (start &lt;= path.size()) {
+        const std::size_t end = std::min(path.find('/', start), path.size());
+        if (!validSegment(path.substr(start, end - start))) {
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        start = end + 1;
+    }
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string lastSegment(std::string_view path) {
+    const std::size_t slash = path.rfind('/');
+    return std::string{slash == std::string_view::npos ? path : path.substr(slash + 1)};
+}</span>
+
+// La largeur et la hauteur d'un PNG, lues dans son en-tÃªte ; rien si ce n'en est pas un.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;std::pair&lt;int, int&gt;&gt; pngSize(std::string_view bytes) {</span>
+    static constexpr std::string_view SIGNATURE = "\x89PNG\r\n\x1a\n";
+<span style = "background-color:#dfd">    if (bytes.size() &lt; 24 || bytes.substr(0, 8) != SIGNATURE || bytes.substr(12, 4) != "IHDR") {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const auto number = [bytes](std::size_t offset) {
+        int value = 0;
+        for (std::size_t index = 0; index &lt; 4; ++index) {
+            value = (value &lt;&lt; 8) | static_cast&lt;unsigned char&gt;(bytes[offset + index]);
+        }
+        return value;
+    };
+    return std::pair{number(16), number(20)};
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string field(const Json&amp; json, std::string_view key) {
+    const auto found = json.find(key);
+    return found != json.end() &amp;&amp; found-&gt;is_string() ? found-&gt;get&lt;std::string&gt;() : std::string{};
+}</span>
+
+// Un objet JSON dont les clÃ©s sont triÃ©es : l'ordre des tables d'un manifeste.
+<span style = "background-color:#dfd">[[nodiscard]] Json sortedObject(const Json&amp; object) {
+    std::map&lt;std::string, Json&gt; ordered;
+    if (object.is_object()) {
+        for (const auto&amp; [key, value] : object.items()) {
+            ordered.emplace(key, value);
+        }</span>
+    }
+<span style = "background-color:#dfd">    Json sorted = Json::object();
+    for (auto&amp; [key, value] : ordered) {
+        sorted[key] = std::move(value);
+    }
+    return sorted;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::set&lt;std::string&gt; names(const Json&amp; manifest, std::string_view key) {
+    std::set&lt;std::string&gt; found;
+    if (const auto list = manifest.find(key); list != manifest.end() &amp;&amp; list-&gt;is_array()) {
+        for (const Json&amp; item : *list) {
+            if (item.is_string()) {
+                found.insert(item.get&lt;std::string&gt;());
+            }
+        }
+    }
+    return found;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] Json sourceEntry(std::string_view written, std::string_view bytes) {
+    Json entry = Json::object();
+    entry["file"] = writtenPath(written);
+    entry["sha256"] = sha256Hex(bytes);
+    return entry;
+}</span>
+
+// Ce qu'un modÃ¨le doit Ã  sa silhouette : un squelette, ses os, ses clips. Vide s'il s'y tient.
+[[nodiscard]] std::string modelFault(const core::MeshData&amp; mesh,
+<span style = "background-color:#dfd">                                     const core::SkeletonDescription&amp; skeleton) {
+    if (!mesh.skinned || mesh.rig.empty()) {
+        return "the model is not bound to a skeleton (scripts/assetsGeneration/rig_character.py)";</span>
+    }
+<span style = "background-color:#dfd">    std::set&lt;std::string_view&gt; joints;
+    for (const core::MeshJoint&amp; joint : mesh.rig.joints) {
+        joints.insert(joint.name);
+    }
+    for (const core::SkeletonBone&amp; bone : skeleton.bones) {
+        if (!joints.contains(bone.name)) {
+            return "the model has no bone \"" + bone.name + "\" of skeleton \"" +</span>
+                   skeleton.silhouette + "\"";
+        }
+<span style = "background-color:#dfd">    }
+    for (const core::SkeletonClip&amp; clip : skeleton.clips) {
+        if (core::findClip(mesh.rig, clip.name) == nullptr) {</span>
+<span style = "background-color:#fdd">            return "the model has no clip \"" + clip.name + "\" of skeleton \"" +</span>
+                   skeleton.silhouette + "\"";
+        }
+<span style = "background-color:#dfd">    }
+    return {};
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string sizeFault(std::string_view bytes, int side, std::string_view what) {
+    const std::optional&lt;std::pair&lt;int, int&gt;&gt; size = pngSize(bytes);
+    if (!size) {</span>
+<span style = "background-color:#fdd">        return std::string{what} + " is not a PNG file";</span>
+    }
+<span style = "background-color:#dfd">    if (size-&gt;first != side || size-&gt;second != side) {
+        return std::string{what} + " is " + std::to_string(size-&gt;first) + " x " +</span>
+               std::to_string(size-&gt;second) + " px, " + std::to_string(side) + " x " +
+               std::to_string(side) + " expected";
+    }
+<span style = "background-color:#dfd">    return {};
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::filesystem::path assetsOf(const std::filesystem::path&amp; dataRoot) {
+    return dataRoot / "Assets";
+}</span>
+
+[[nodiscard]] std::filesystem::path skeletonFileOf(const std::filesystem::path&amp; dataRoot,
+<span style = "background-color:#dfd">                                                   std::string_view silhouette) {
+    return assetsOf(dataRoot) / std::filesystem::path(core::skeletonFilePath(silhouette));
+}</span>
+
+// Les binaires des kits ne sont pas dans Git : une base verrouillÃ©e sans kit installÃ© n'en a pas.
+<span style = "background-color:#dfd">[[nodiscard]] bool kitsMissing(const std::filesystem::path&amp; dataRoot) {
+    std::error_code error;
+    const std::filesystem::path assets = assetsOf(dataRoot);
+    return std::filesystem::exists(assets / "kits.lock.json", error) &amp;&amp;</span>
+           !std::filesystem::is_directory(assets / ".kits", error);
+<span style = "background-color:#dfd">}</span>
+
+// Les manifestes que le plan modifie, chacun lu une fois : celui du niveau et celui du commun
+// peuvent Ãªtre le mÃªme fichier.
+class Manifests {
+public:
+<span style = "background-color:#dfd">    [[nodiscard]] Json* open(const std::filesystem::path&amp; file, std::string&amp; error) {
+        const std::string key = file.lexically_normal().generic_string();
+        if (const auto known = _documents.find(key); known != _documents.end()) {</span>
+<span style = "background-color:#fdd">            return &amp;known-&gt;second.json;</span>
+<span style = "background-color:#dfd">        }
+        const std::optional&lt;std::string&gt; text = readBytes(file);
+        if (!text) {
+            error = "no manifest at " + file.generic_string() +</span>
+                    " (the level folder is created with its zone)";
+<span style = "background-color:#dfd">            return nullptr;</span>
+        }
+<span style = "background-color:#dfd">        Json json = Json::parse(*text, nullptr, /*allow_exceptions=*/false);
+        if (!json.is_object()) {</span>
+<span style = "background-color:#fdd">            error = file.generic_string() + " is not a JSON object";
+            return nullptr;</span>
+        }
+<span style = "background-color:#dfd">        _order.push_back(key);
+        Document&amp; document = _documents[key];
+        document.file = file;
+        document.before = *text;
+        document.json = std::move(json);
+        return &amp;document.json;
+    }</span>
+
+<span style = "background-color:#dfd">    void appendWrites(CharacterInstallPlan&amp; plan) const {
+        for (const std::string&amp; key : _order) {
+            const Document&amp; document = _documents.at(key);
+            std::string text = jsonText(document.json);
+            if (text != document.before) {
+                plan.log += "  manifest " + document.file.generic_string() + "\n";
+                plan.writes.push_back(CharacterFileWrite{document.file, std::move(text)});</span>
+            }
+<span style = "background-color:#dfd">        }
+    }</span>
+
+private:
+    struct Document {
+        std::filesystem::path file;
+        std::string before;
+        Json json;
+    };
+    std::map&lt;std::string, Document&gt; _documents;
+    std::vector&lt;std::string&gt; _order;
+};
+
+void planFile(CharacterInstallPlan&amp; plan, const std::filesystem::path&amp; file, std::string bytes,
+<span style = "background-color:#dfd">              std::string_view label) {
+    if (readBytes(file) == std::optional&lt;std::string&gt;{bytes}) {
+        return;</span>
+    }
+<span style = "background-color:#dfd">    plan.log += "  " + std::string{label} + " " + file.generic_string() + "\n";
+    plan.writes.push_back(CharacterFileWrite{file, std::move(bytes)});
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] std::string sheetText(std::string_view model, std::string_view skeleton) {
+    Json sheet = Json::object();
+    sheet["version"] = core::SKELETON_FORMAT_VERSION;
+    sheet["model"] = model;
+    sheet["skeleton"] = skeleton;
+    return jsonText(sheet);
+}</span>
+
+[[nodiscard]] MapCheckFinding finding(MapCheckSeverity severity, std::string level,
+<span style = "background-color:#dfd">                                      std::string message) {
+    return MapCheckFinding{.severity = severity,</span>
+                           .mapId = std::move(level),
+                           .cell = std::nullopt,
+                           .message = std::move(message),
+                           .entityId = {}};
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">bool isCharacterScript(std::string_view json) {
+    const Json document = Json::parse(json, nullptr, /*allow_exceptions=*/false);
+    return document.is_object() &amp;&amp; field(document, "format") == CHARACTER_SCRIPT_FORMAT;
+}</span>
+
+<span style = "background-color:#dfd">CharacterDraftResult readCharacterDraft(std::string_view json) {
+    CharacterDraftResult result;
+    const Json document = Json::parse(json, nullptr, /*allow_exceptions=*/false);
+    if (!document.is_object()) {</span>
+<span style = "background-color:#fdd">        result.error = "not a JSON object";
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    if (field(document, "format") != CHARACTER_SCRIPT_FORMAT) {</span>
+<span style = "background-color:#fdd">        result.error =</span>
+            "not a character sheet (\"format\": \"" + std::string{CHARACTER_SCRIPT_FORMAT} + "\")";
+<span style = "background-color:#fdd">        return result;</span>
+    }
+<span style = "background-color:#dfd">    if (const auto version = document.find("version");
+        version == document.end() || !version-&gt;is_number_integer() ||</span>
+        version-&gt;get&lt;int&gt;() != CHARACTER_SCRIPT_VERSION) {
+<span style = "background-color:#dfd">        result.error = "unsupported character sheet version";
+        return result;
+    }</span>
+    static constexpr std::array&lt;std::string_view, 11&gt; KNOWN = {
+        "format",         "version", "root",     "level", "name",    "skeleton",
+        "skeletonSource", "model",   "portrait", "token", "workshop"};
+<span style = "background-color:#dfd">    for (const auto&amp; [key, value] : document.items()) {
+        if (std::ranges::find(KNOWN, std::string_view{key}) == KNOWN.end()) {
+            result.error = "unknown field \"" + key + "\"";
+            return result;</span>
+        }
+<span style = "background-color:#dfd">        if (key != "version" &amp;&amp; key != "workshop" &amp;&amp; !value.is_string()) {</span>
+<span style = "background-color:#fdd">            result.error = "field \"" + key + "\" must be a string";
+            return result;</span>
+<span style = "background-color:#dfd">        }
+    }
+    CharacterDraft&amp; draft = result.draft;
+    if (document.contains("root")) {</span>
+<span style = "background-color:#fdd">        draft.root = field(document, "root");</span>
+    }
+<span style = "background-color:#dfd">    draft.level = field(document, "level");
+    draft.name = field(document, "name");
+    draft.skeleton = field(document, "skeleton");
+    draft.skeletonSource = field(document, "skeletonSource");
+    draft.model = field(document, "model");
+    draft.portrait = field(document, "portrait");
+    draft.token = field(document, "token");
+    if (const auto workshop = document.find("workshop"); workshop != document.end()) {
+        if (!workshop-&gt;is_object()) {</span>
+<span style = "background-color:#fdd">            result.error = "field \"workshop\" must be an object";
+            return result;</span>
+        }
+        static constexpr std::array&lt;std::string_view, 4&gt; FILES = {"received", "sheet", "retouch",
+                                                                  "blend"};
+<span style = "background-color:#dfd">        for (const auto&amp; [key, value] : workshop-&gt;items()) {
+            if (std::ranges::find(FILES, std::string_view{key}) == FILES.end() ||</span>
+                !value.is_string()) {
+<span style = "background-color:#fdd">                result.error = "unknown or malformed field \"workshop." + key + "\"";
+                return result;</span>
+<span style = "background-color:#dfd">            }
+        }
+        draft.workshop.received = field(*workshop, "received");
+        draft.workshop.sheet = field(*workshop, "sheet");
+        draft.workshop.retouch = field(*workshop, "retouch");
+        draft.workshop.blend = field(*workshop, "blend");
+    }
+    return result;
+}</span>
+
+<span style = "background-color:#dfd">std::string characterDraftText(const CharacterDraft&amp; draft) {
+    Json document = Json::object();
+    document["format"] = CHARACTER_SCRIPT_FORMAT;
+    document["version"] = CHARACTER_SCRIPT_VERSION;
+    const auto put = [](Json&amp; target, std::string_view key, const std::string&amp; value) {
+        if (!value.empty()) {
+            target[std::string{key}] = value;</span>
+        }
+<span style = "background-color:#dfd">    };
+    if (draft.root != ".") {</span>
+<span style = "background-color:#fdd">        put(document, "root", draft.root);</span>
+    }
+<span style = "background-color:#dfd">    put(document, "level", draft.level);
+    put(document, "name", draft.name);
+    put(document, "skeleton", draft.skeleton);
+    put(document, "skeletonSource", draft.skeletonSource);
+    put(document, "model", draft.model);
+    put(document, "portrait", draft.portrait);
+    put(document, "token", draft.token);
+    Json workshop = Json::object();
+    put(workshop, "received", draft.workshop.received);
+    put(workshop, "sheet", draft.workshop.sheet);
+    put(workshop, "retouch", draft.workshop.retouch);
+    put(workshop, "blend", draft.workshop.blend);
+    if (!workshop.empty()) {
+        document["workshop"] = std::move(workshop);</span>
+    }
+<span style = "background-color:#dfd">    return jsonText(document);
+}</span>
+
+CharacterInstallPlan planCharacter(const std::filesystem::path&amp; dataRoot,
+                                   const std::filesystem::path&amp; baseDirectory,
+<span style = "background-color:#dfd">                                   const CharacterDraft&amp; draft) {
+    CharacterInstallPlan plan;
+    const auto refuse = [&amp;plan](std::string message) {
+        plan.writes.clear();
+        plan.removals.clear();
+        plan.log.clear();
+        plan.error = std::move(message);
+        return plan;
+    };
+    if (!validRelative(draft.level) || lastSegment(draft.level) != LEVEL_FOLDER) {</span>
+<span style = "background-color:#fdd">        return refuse("\"level\" must name a Characters folder under Assets/ (\"" + draft.level +</span>
+                      "\")");
+    }
+<span style = "background-color:#dfd">    if (!validRelative(draft.name)) {
+        return refuse("\"name\" must be made of letters, digits, '-' and '_' (\"" + draft.name +</span>
+                      "\")");
+    }
+<span style = "background-color:#dfd">    if (!validSegment(draft.skeleton)) {</span>
+<span style = "background-color:#fdd">        return refuse("\"skeleton\" must name a silhouette (\"" + draft.skeleton + "\")");</span>
+    }
+<span style = "background-color:#dfd">    const std::filesystem::path assets = assetsOf(dataRoot);
+    const std::filesystem::path levelFolder = assets / std::filesystem::path(draft.level);
+    const std::filesystem::path folder = levelFolder / std::filesystem::path(draft.name);
+    const std::filesystem::path root = (baseDirectory / draft.root).lexically_normal();
+    plan.log = draft.level + "/" + draft.name + "\n";</span>
+
+<span style = "background-color:#dfd">    Manifests manifests;
+    std::string error;
+    Json* const manifest = manifests.open(levelFolder / MANIFEST_FILE, error);
+    if (manifest == nullptr) {
+        return refuse(std::move(error));</span>
+    }
+
+    // Le squelette : celui que la fiche apporte, Ã  dÃ©faut celui du monde.
+<span style = "background-color:#dfd">    core::SkeletonDescription skeleton;
+    if (!draft.skeletonSource.empty()) {
+        std::optional&lt;std::string&gt; text = readBytes(root / draft.skeletonSource);
+        if (!text) {</span>
+<span style = "background-color:#fdd">            return refuse("skeleton source not found: " + draft.skeletonSource);</span>
+        }
+        // La source vient d'un script : ses fins de ligne sont ramenÃ©es Ã  celles du dÃ©pÃ´t, et
+        // c'est ce texte que son empreinte signe â la mÃªme sur tout poste, quel que soit son
+        // rÃ©glage des fins de ligne.
+<span style = "background-color:#dfd">        std::string normalised;
+        normalised.reserve(text-&gt;size());
+        for (std::size_t index = 0; index &lt; text-&gt;size(); ++index) {
+            if ((*text)[index] == '\r' &amp;&amp; index + 1 &lt; text-&gt;size() &amp;&amp; (*text)[index + 1] == '\n') {</span>
+<span style = "background-color:#fdd">                continue;</span>
+            }
+<span style = "background-color:#dfd">            normalised.push_back((*text)[index]);
+        }
+        core::SkeletonFileResult read = core::readSkeletonDescription(normalised);
+        if (!read.ok()) {</span>
+<span style = "background-color:#fdd">            return refuse(draft.skeletonSource + ": " + read.message);</span>
+        }
+<span style = "background-color:#dfd">        if (read.skeleton.silhouette != draft.skeleton) {</span>
+<span style = "background-color:#fdd">            return refuse(draft.skeletonSource + " describes \"" + read.skeleton.silhouette +</span>
+                          "\", not \"" + draft.skeleton + "\"");
+        }
+<span style = "background-color:#dfd">        skeleton = std::move(read.skeleton);
+        Json* const common =</span>
+            manifests.open(assets / std::filesystem::path(COMMON_LEVEL) / MANIFEST_FILE, error);
+<span style = "background-color:#dfd">        if (common == nullptr) {</span>
+<span style = "background-color:#fdd">            return refuse(std::move(error));</span>
+        }
+<span style = "background-color:#dfd">        const std::string file = "Skeletons/" + draft.skeleton + "/skeleton.json";
+        Json entry = Json::object();
+        entry["file"] = file;
+        entry["sha256"] = sha256Hex(normalised);
+        entry["source"] = sourceEntry(draft.skeletonSource, normalised);
+        Json declared = common-&gt;value("skeletons", Json::object());
+        declared[draft.skeleton] = std::move(entry);
+        (*common)["skeletons"] = sortedObject(declared);
+        planFile(plan, skeletonFileOf(dataRoot, draft.skeleton), std::move(normalised), "skeleton");
+    } else {
+        core::SkeletonFileResult read =</span>
+            core::readSkeletonFile(skeletonFileOf(dataRoot, draft.skeleton));
+<span style = "background-color:#dfd">        if (!read.ok()) {
+            return refuse("unknown skeleton \"" + draft.skeleton +</span>
+                          "\": neither installed nor given (\"skeletonSource\")");
+        }
+<span style = "background-color:#dfd">        skeleton = std::move(read.skeleton);
+    }</span>
+
+    // Le modÃ¨le : celui que la fiche nomme, Ã  dÃ©faut celui qui est installÃ©.
+<span style = "background-color:#dfd">    const core::CharacterSheetFileResult installed =</span>
+        core::readCharacterSheetFile(folder / core::CHARACTER_SHEET_FILE);
+<span style = "background-color:#dfd">    std::string modelFile = lastSegment(draft.name) + ".glb";
+    Json models = manifest-&gt;value("models", Json::object());
+    if (!draft.model.empty()) {
+        if (!draft.model.ends_with(".glb")) {</span>
+<span style = "background-color:#fdd">            return refuse("\"model\" must be a .glb file (\"" + draft.model + "\")");</span>
+        }
+<span style = "background-color:#dfd">        std::optional&lt;std::string&gt; bytes = readBytes(root / draft.model);
+        if (!bytes) {</span>
+<span style = "background-color:#fdd">            return refuse("model not found: " + draft.model);</span>
+        }
+<span style = "background-color:#dfd">        const core::MeshFileResult read = core::readMeshFromGlb(</span>
+            std::as_bytes(std::span&lt;const char&gt;(bytes-&gt;data(), bytes-&gt;size())));
+<span style = "background-color:#dfd">        if (!read.ok()) {</span>
+<span style = "background-color:#fdd">            return refuse(draft.model + ": " + read.message);</span>
+        }
+<span style = "background-color:#dfd">        if (std::string fault = modelFault(read.mesh, skeleton); !fault.empty()) {
+            return refuse(draft.model + ": " + fault);
+        }
+        Json entry = Json::object();
+        entry["model"] = draft.name + "/" + modelFile;
+        entry["skeleton"] = draft.skeleton;
+        entry["triangles"] = read.mesh.triangleCount();
+        Json size = Json::array();
+        for (std::size_t axis = 0; axis &lt; 3; ++axis) {
+            const double extent = static_cast&lt;double&gt;(read.mesh.maximum[axis]) -</span>
+                                  static_cast&lt;double&gt;(read.mesh.minimum[axis]);
+<span style = "background-color:#dfd">            size.push_back(std::round(extent * 1000.0) / 1000.0);
+        }
+        entry["size"] = std::move(size);
+        entry["sha256"] = sha256Hex(*bytes);
+        entry["source"] = sourceEntry(draft.model, *bytes);
+        models[draft.name] = std::move(entry);
+        planFile(plan, folder / modelFile, std::move(*bytes), "model");
+    } else {
+        if (!installed.ok()) {
+            return refuse("no model named, and none installed for " + draft.name);</span>
+        }
+<span style = "background-color:#dfd">        modelFile = installed.sheet.model;
+        if (const auto entry = models.find(draft.name); entry != models.end()) {
+            (*entry)["skeleton"] = draft.skeleton;
+        }</span>
+    }
+<span style = "background-color:#dfd">    planFile(plan, folder / core::CHARACTER_SHEET_FILE, sheetText(modelFile, draft.skeleton),</span>
+             "sheet");
+
+    // Le portrait et le jeton : rangÃ©s tels quels, s'ils sont au standard.
+<span style = "background-color:#dfd">    Json sources = manifest-&gt;value("sources", Json::object());
+    const auto image = [&amp;](const std::string&amp; written, std::string_view file, int side,
+                           std::string_view what) -&gt; std::string {
+        if (written.empty()) {
+            return {};</span>
+        }
+<span style = "background-color:#dfd">        std::optional&lt;std::string&gt; bytes = readBytes(root / written);
+        if (!bytes) {</span>
+<span style = "background-color:#fdd">            return std::string{what} + " not found: " + written;</span>
+        }
+<span style = "background-color:#dfd">        if (std::string fault = sizeFault(*bytes, side, what); !fault.empty()) {
+            return written + ": " + fault + " (the workshop never resizes art)";
+        }
+        sources[draft.name + "/" + std::string{file}] = sourceEntry(written, *bytes);
+        planFile(plan, folder / file, std::move(*bytes), what);
+        return {};
+    };
+    if (std::string fault =</span>
+            image(draft.portrait, CHARACTER_PORTRAIT_FILE, CHARACTER_PORTRAIT_SIDE, "portrait");
+<span style = "background-color:#dfd">        !fault.empty()) {
+        return refuse(std::move(fault));
+    }
+    if (std::string fault = image(draft.token, CHARACTER_TOKEN_FILE, CHARACTER_TOKEN_SIDE, "token");
+        !fault.empty()) {</span>
+<span style = "background-color:#fdd">        return refuse(std::move(fault));</span>
+<span style = "background-color:#dfd">    }</span>
+
+    // Ce que le dossier porte en trop : un ancien modÃ¨le, une image d'avant.
+<span style = "background-color:#dfd">    const std::set&lt;std::string&gt; kept = {modelFile, std::string{core::CHARACTER_SHEET_FILE},</span>
+                                        std::string{CHARACTER_PORTRAIT_FILE},
+                                        std::string{CHARACTER_TOKEN_FILE}};
+<span style = "background-color:#dfd">    std::error_code ignored;
+    if (std::filesystem::is_directory(folder, ignored)) {
+        for (const std::filesystem::directory_entry&amp; entry :
+             std::filesystem::directory_iterator(folder, ignored)) {
+            const std::string file = entry.path().filename().generic_string();
+            if (entry.is_regular_file(ignored) &amp;&amp; !kept.contains(file)) {</span>
+<span style = "background-color:#fdd">                plan.removals.push_back(entry.path());
+                sources.erase(draft.name + "/" + file);</span>
+            }
+<span style = "background-color:#dfd">        }
+        std::ranges::sort(plan.removals);
+        for (const std::filesystem::path&amp; removed : plan.removals) {</span>
+<span style = "background-color:#fdd">            plan.log += "  removed " + removed.generic_string() + "\n";
+        }</span>
+    }
+
+    // Le manifeste du niveau : le personnage y est en modÃ¨le, plus en portrait d'attente.
+<span style = "background-color:#dfd">    std::set&lt;std::string&gt; npcs = names(*manifest, "npcs");
+    npcs.insert(draft.name);
+    (*manifest)["npcs"] = npcs;
+    std::set&lt;std::string&gt; portraits = names(*manifest, "portraits");
+    portraits.erase(draft.name);
+    if (portraits.empty()) {
+        manifest-&gt;erase("portraits");
+    } else {
+        (*manifest)["portraits"] = portraits;</span>
+    }
+<span style = "background-color:#dfd">    if (!models.empty()) {
+        (*manifest)["models"] = sortedObject(models);</span>
+    }
+<span style = "background-color:#dfd">    (*manifest)["sources"] = sortedObject(sources);</span>
+    // Le commentaire d'un dossier crÃ©Ã© vide (Â« Vide : â¦ Â») ne dit plus vrai.
+<span style = "background-color:#dfd">    if (field(*manifest, "comment").starts_with("Vide")) {
+        manifest-&gt;erase("comment");</span>
+    }
+<span style = "background-color:#dfd">    manifests.appendWrites(plan);
+    if (plan.writes.empty() &amp;&amp; plan.removals.empty()) {
+        plan.log += "  nothing to write: already installed\n";</span>
+    }
+<span style = "background-color:#dfd">    return plan;
+}</span>
+
+<span style = "background-color:#dfd">std::string writeCharacter(const CharacterInstallPlan&amp; plan) {
+    if (!plan.ok()) {
+        return plan.error;</span>
+    }
+<span style = "background-color:#dfd">    std::error_code error;
+    for (const CharacterFileWrite&amp; write : plan.writes) {
+        std::filesystem::create_directories(write.file.parent_path(), error);
+        if (error) {</span>
+<span style = "background-color:#fdd">            return "cannot create " + write.file.parent_path().generic_string() + ": " +</span>
+                   error.message();
+        }
+<span style = "background-color:#dfd">        std::ofstream output(write.file, std::ios::binary | std::ios::trunc);
+        output &lt;&lt; write.bytes;
+        if (!output) {</span>
+<span style = "background-color:#fdd">            return "cannot write " + write.file.generic_string();</span>
+        }
+<span style = "background-color:#dfd">    }
+    for (const std::filesystem::path&amp; removed : plan.removals) {</span>
+<span style = "background-color:#fdd">        std::filesystem::remove(removed, error);
+        if (error) {
+            return "cannot remove " + removed.generic_string() + ": " + error.message();</span>
+        }
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    return {};
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;std::string&gt; characterLevels(const std::filesystem::path&amp; dataRoot) {
+    std::vector&lt;std::string&gt; levels;
+    const std::filesystem::path assets = assetsOf(dataRoot);
+    std::error_code error;
+    for (const char* const top : {"Common", "Regions"}) {
+        const std::filesystem::path start = assets / top;
+        if (!std::filesystem::is_directory(start, error)) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (std::filesystem::recursive_directory_iterator walk(start, error), end;
+             !error &amp;&amp; walk != end; walk.increment(error)) {
+            if (!walk-&gt;is_directory(error) || walk-&gt;path().filename() != LEVEL_FOLDER) {
+                continue;</span>
+            }
+            // Un dossier `Characters` ne contient pas d'autre niveau.
+<span style = "background-color:#dfd">            walk.disable_recursion_pending();
+            if (std::filesystem::exists(walk-&gt;path() / MANIFEST_FILE, error)) {
+                levels.push_back(walk-&gt;path().lexically_relative(assets).generic_string());
+            }
+        }
+    }
+    std::ranges::sort(levels);
+    return levels;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;InstalledCharacter&gt; installedCharacters(const std::filesystem::path&amp; dataRoot) {
+    std::vector&lt;InstalledCharacter&gt; characters;
+    for (const std::string&amp; level : characterLevels(dataRoot)) {
+        const std::optional&lt;std::string&gt; text =</span>
+            readBytes(assetsOf(dataRoot) / std::filesystem::path(level) / MANIFEST_FILE);
+<span style = "background-color:#dfd">        if (!text) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        const Json manifest = Json::parse(*text, nullptr, /*allow_exceptions=*/false);
+        if (!manifest.is_object()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const std::string&amp; name : names(manifest, "npcs")) {
+            characters.push_back(InstalledCharacter{level, name});
+        }
+    }
+    return characters;
+}</span>
+
+CharacterDraftResult draftOfInstalledCharacter(const std::filesystem::path&amp; dataRoot,
+                                               const std::filesystem::path&amp; workshopRoot,
+<span style = "background-color:#dfd">                                               const InstalledCharacter&amp; character) {
+    CharacterDraftResult result;
+    const std::filesystem::path levelFolder =</span>
+        assetsOf(dataRoot) / std::filesystem::path(character.level);
+<span style = "background-color:#dfd">    const core::CharacterSheetFileResult sheet = core::readCharacterSheetFile(</span>
+        levelFolder / std::filesystem::path(character.name) / core::CHARACTER_SHEET_FILE);
+<span style = "background-color:#dfd">    if (!sheet.ok()) {</span>
+<span style = "background-color:#fdd">        result.error = character.name + ": " + sheet.message;
+        return result;</span>
+    }
+<span style = "background-color:#dfd">    CharacterDraft&amp; draft = result.draft;
+    draft.level = character.level;
+    draft.name = character.name;
+    draft.skeleton = sheet.sheet.skeleton;
+    const std::optional&lt;std::string&gt; text = readBytes(levelFolder / MANIFEST_FILE);
+    const Json manifest =</span>
+        text ? Json::parse(*text, nullptr, /*allow_exceptions=*/false) : Json::object();
+<span style = "background-color:#dfd">    if (!manifest.is_object()) {</span>
+<span style = "background-color:#fdd">        return result;</span>
+    }
+    // Une source que l'atelier local a encore : la fiche la nomme, et la rÃ©installer ne change
+    // rien. Sinon le champ reste vide : ce qui est installÃ© reste.
+<span style = "background-color:#dfd">    const auto present = [&amp;workshopRoot](const Json&amp; entry) -&gt; std::string {
+        if (!entry.is_object()) {</span>
+<span style = "background-color:#fdd">            return {};</span>
+        }
+<span style = "background-color:#dfd">        const std::string file = field(entry, "file");
+        std::error_code error;
+        return !file.empty() &amp;&amp; std::filesystem::is_regular_file(workshopRoot / file, error)</span>
+                   ? file
+                   : std::string{};
+<span style = "background-color:#dfd">    };
+    if (const auto models = manifest.find("models"); models != manifest.end()) {
+        if (const auto entry = models-&gt;find(character.name); entry != models-&gt;end()) {
+            draft.model = present(entry-&gt;value("source", Json::object()));
+        }
+    }
+    if (const auto sources = manifest.find("sources"); sources != manifest.end()) {
+        const auto source = [&amp;](std::string_view file) {
+            const auto entry = sources-&gt;find(character.name + "/" + std::string{file});
+            return entry != sources-&gt;end() ? present(*entry) : std::string{};
+        };
+        draft.portrait = source(CHARACTER_PORTRAIT_FILE);
+        draft.token = source(CHARACTER_TOKEN_FILE);
+    }
+    return result;
+}</span>
+
+<span style = "background-color:#dfd">std::vector&lt;MapCheckFinding&gt; checkCharacters(const std::filesystem::path&amp; dataRoot) {
+    std::vector&lt;MapCheckFinding&gt; findings;
+    const bool binaries = !kitsMissing(dataRoot);
+    const std::vector&lt;InstalledCharacter&gt; characters = installedCharacters(dataRoot);
+    if (!binaries &amp;&amp; !characters.empty()) {
+        findings.push_back(finding(MapCheckSeverity::Warning, "Assets",</span>
+                                   "asset kits are locked but not installed: models, portraits "
+                                   "and tokens were not checked (scripts/fetch_assets.py)"));
+    }
+<span style = "background-color:#dfd">    std::map&lt;std::string, core::SkeletonFileResult&gt; skeletons;
+    for (const InstalledCharacter&amp; character : characters) {
+        const auto error = [&amp;findings, &amp;character](std::string message) {
+            findings.push_back(finding(MapCheckSeverity::Error, character.level,</span>
+                                       character.name + ": " + std::move(message)));
+<span style = "background-color:#dfd">        };
+        const std::filesystem::path folder = assetsOf(dataRoot) /</span>
+                                             std::filesystem::path(character.level) /
+                                             std::filesystem::path(character.name);
+<span style = "background-color:#dfd">        const core::CharacterSheetFileResult sheet =</span>
+            core::readCharacterSheetFile(folder / core::CHARACTER_SHEET_FILE);
+<span style = "background-color:#dfd">        if (!sheet.ok()) {</span>
+<span style = "background-color:#fdd">            error("character sheet unreadable (" + sheet.message + ")");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        auto known = skeletons.find(sheet.sheet.skeleton);
+        if (known == skeletons.end()) {
+            known =</span>
+                skeletons
+                    .emplace(sheet.sheet.skeleton,
+                             core::readSkeletonFile(skeletonFileOf(dataRoot, sheet.sheet.skeleton)))
+                    .first;
+        }
+<span style = "background-color:#dfd">        if (!known-&gt;second.ok()) {
+            error("unknown skeleton \"" + sheet.sheet.skeleton + "\"");
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        if (!binaries) {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        const std::filesystem::path model = folder / sheet.sheet.model;
+        std::error_code ignored;
+        if (!std::filesystem::is_regular_file(model, ignored)) {
+            error("model missing (" + sheet.sheet.model + ")");
+        } else {
+            const core::MeshFileResult read = core::readMeshFile(model);
+            if (!read.ok()) {</span>
+<span style = "background-color:#fdd">                error("model unreadable (" + read.message + ")");</span>
+<span style = "background-color:#dfd">            } else if (std::string fault = modelFault(read.mesh, known-&gt;second.skeleton);
+                       !fault.empty()) {
+                error(std::move(fault));
+            }
+        }</span>
+        // Un mannequin tient la place d'un personnage sans modÃ¨le : il n'a ni portrait ni jeton,
+        // l'interface montre ceux du personnage qu'il remplace (`hmi::ResolvedFigure::named`).
+<span style = "background-color:#dfd">        if (character.name.starts_with(MANNEQUIN_PREFIX)) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const auto&amp; [file, side, what] :
+             {std::tuple{CHARACTER_PORTRAIT_FILE, CHARACTER_PORTRAIT_SIDE, "portrait"},
+              std::tuple{CHARACTER_TOKEN_FILE, CHARACTER_TOKEN_SIDE, "token"}}) {
+            const std::optional&lt;std::string&gt; bytes = readBytes(folder / file);
+            if (!bytes) {
+                error(std::string{what} + " missing");
+            } else if (std::string fault = sizeFault(*bytes, side, what); !fault.empty()) {
+                error(std::move(fault));
+            }
+        }
+    }
+    return findings;
+}</span>
+
+std::optional&lt;int&gt; runCharacterCommand(const std::vector&lt;std::string&gt;&amp; arguments,
+<span style = "background-color:#dfd">                                       const std::filesystem::path&amp; dataRoot, std::string&amp; output) {</span>
+    // `--apply &lt;fiche&gt; [ficheâ¦]` : les fichiers qui suivent, jusqu'Ã  l'option suivante.
+<span style = "background-color:#dfd">    std::vector&lt;std::filesystem::path&gt; files;
+    for (std::size_t index = 0; index &lt; arguments.size(); ++index) {
+        if (arguments[index] != "--apply") {
+            continue;</span>
+        }
+<span style = "background-color:#dfd">        while (index + 1 &lt; arguments.size() &amp;&amp; !arguments[index + 1].starts_with("--")) {
+            files.emplace_back(arguments[++index]);
+        }
+    }
+    if (files.empty()) {
+        return std::nullopt;</span>
+    }
+    // Un scÃ©nario de gestes est pour `runMapCommand` : seul le format dÃ©cide.
+<span style = "background-color:#dfd">    std::vector&lt;std::string&gt; texts;
+    std::size_t sheets = 0;
+    for (const std::filesystem::path&amp; file : files) {
+        std::optional&lt;std::string&gt; text = readBytes(file);
+        sheets += text &amp;&amp; isCharacterScript(*text) ? 1U : 0U;
+        texts.push_back(std::move(text).value_or(std::string{}));
+    }
+    if (sheets == 0) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    if (sheets != files.size()) {
+        output += "usage: --apply takes character sheets or one gesture script, not both\n";
+        return 2;</span>
+    }
+    // Fiche par fiche, dans l'ordre : chacune est vÃ©rifiÃ©e entiÃ¨re avant sa premiÃ¨re Ã©criture, et
+    // une fiche refusÃ©e arrÃªte la commande. Celles d'avant sont installÃ©es, le compte rendu le dit.
+<span style = "background-color:#dfd">    std::vector&lt;CharacterInstallPlan&gt; plans;
+    for (std::size_t index = 0; index &lt; files.size(); ++index) {
+        const CharacterDraftResult draft = readCharacterDraft(texts[index]);
+        if (!draft.ok()) {</span>
+<span style = "background-color:#fdd">            output += "error: " + files[index].generic_string() + ": " + draft.error +</span>
+                      "\nnothing written for this sheet\n";
+<span style = "background-color:#fdd">            return 1;</span>
+        }
+<span style = "background-color:#dfd">        CharacterInstallPlan plan = planCharacter(</span>
+            dataRoot, std::filesystem::absolute(files[index]).parent_path(), draft.draft);
+<span style = "background-color:#dfd">        if (!plan.ok()) {</span>
+<span style = "background-color:#fdd">            output += "error: " + files[index].generic_string() + ": " + plan.error +</span>
+                      "\nnothing written for this sheet\n";
+<span style = "background-color:#fdd">            return 1;</span>
+        }
+        // Le plan suivant doit voir ce que celui-ci Ã©crit : deux personnages d'un mÃªme niveau
+        // partagent leur manifeste.
+<span style = "background-color:#dfd">        if (const std::string error = writeCharacter(plan); !error.empty()) {</span>
+<span style = "background-color:#fdd">            output += "error: " + error + "\n";
+            return 1;</span>
+<span style = "background-color:#dfd">        }
+        output += plan.log;
+        plans.push_back(std::move(plan));
+    }
+    output += "installed " + std::to_string(plans.size()) + " character" +</span>
+              (plans.size() == 1 ? "" : "s") + "\n";
+<span style = "background-color:#dfd">    return 0;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

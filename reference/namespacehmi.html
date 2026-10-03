@@ -154,6 +154,12 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un brouillon sauvegardé automatiquement.  <a href="structhmi_1_1AutosaveRecord.html#details">More...</a><br /></td></tr>
 <tr class="memitem:AutosaveStore" id="r_AutosaveStore"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AutosaveStore.html">AutosaveStore</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier des brouillons sauvegardés automatiquement.  <a href="classhmi_1_1AutosaveStore.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RetouchFiles" id="r_RetouchFiles"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les fichiers de l'aller-retour d'un personnage, en chemins absolus.  <a href="structhmi_1_1RetouchFiles.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RetouchTools" id="r_RetouchTools"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1RetouchTools.html">RetouchTools</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les outils de l'aller-retour : l'interpréteur Python, Blender et le script de la chaîne.  <a href="structhmi_1_1RetouchTools.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ProcessCommand" id="r_ProcessCommand"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1ProcessCommand.html">ProcessCommand</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un programme et ses arguments, prêts pour <span class="tt">QProcess</span>.  <a href="structhmi_1_1ProcessCommand.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CanvasBrush" id="r_CanvasBrush"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le pinceau armé.  <a href="structhmi_1_1CanvasBrush.html#details">More...</a><br /></td></tr>
 <tr class="memitem:BrushResult" id="r_BrushResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1BrushResult.html">BrushResult</a></td></tr>
@@ -162,6 +168,20 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un rectangle de cases, bornes <b>incluses</b> ; vide si <span class="tt"><a class="el" href="structhmi_1_1CellRange.html#abfadb34d360c1d2d238889c8981cee88" title="Dernière colonne couverte, incluse.">lastColumn</a> &lt; <a class="el" href="structhmi_1_1CellRange.html#a99e14bcb9085456e9a2c6e60f73cb06b" title="Première colonne couverte.">firstColumn</a></span>.  <a href="structhmi_1_1CellRange.html#details">More...</a><br /></td></tr>
 <tr class="memitem:IsoBandOpacity" id="r_IsoBandOpacity"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'opacité de chaque bande de la scène iso ; 0 : la bande n'est pas peinte.  <a href="structhmi_1_1IsoBandOpacity.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CharacterPreviewView" id="r_CharacterPreviewView"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CharacterPreviewView.html">CharacterPreviewView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'aperçu montre.  <a href="structhmi_1_1CharacterPreviewView.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CharacterWorkshopFiles" id="r_CharacterWorkshopFiles"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CharacterWorkshopFiles.html">CharacterWorkshopFiles</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les fichiers de l'atelier local dont l'aller-retour par Blender a besoin, relatifs à la racine de la fiche ; vides tant que l'auteur ne les a pas nommés.  <a href="structhmi_1_1CharacterWorkshopFiles.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CharacterDraft" id="r_CharacterDraft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CharacterDraft.html">CharacterDraft</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche d'atelier d'un personnage : ce que la vue <em>Character</em> édite.  <a href="structhmi_1_1CharacterDraft.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CharacterDraftResult" id="r_CharacterDraftResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CharacterDraftResult.html">CharacterDraftResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une fiche d'atelier lue, ou ce qui l'a refusée.  <a href="structhmi_1_1CharacterDraftResult.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CharacterFileWrite" id="r_CharacterFileWrite"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CharacterFileWrite.html">CharacterFileWrite</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un fichier que l'installation écrit.  <a href="structhmi_1_1CharacterFileWrite.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CharacterInstallPlan" id="r_CharacterInstallPlan"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CharacterInstallPlan.html">CharacterInstallPlan</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'installation d'un personnage fera, calculé sans rien écrire.  <a href="structhmi_1_1CharacterInstallPlan.html#details">More...</a><br /></td></tr>
+<tr class="memitem:InstalledCharacter" id="r_InstalledCharacter"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1InstalledCharacter.html">InstalledCharacter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un personnage installé, tel que les manifestes le déclarent.  <a href="structhmi_1_1InstalledCharacter.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CityDistrictView" id="r_CityDistrictView"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CityDistrictView.html">CityDistrictView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un quartier, tel que la vue de ville le montre.  <a href="structhmi_1_1CityDistrictView.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CityView" id="r_CityView"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1CityView.html">CityView</a></td></tr>
@@ -310,6 +330,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entrée d'état lue : le drapeau, et sa valeur s'il en porte une.  <a href="structhmi_1_1WorldStateEntry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldStateFlags" id="r_WorldStateFlags"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldStateFlags.html">WorldStateFlags</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Des drapeaux, et les entrées qu'ils ont refusées.  <a href="structhmi_1_1WorldStateFlags.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AssetWorkshop" id="r_AssetWorkshop"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1AssetWorkshop.html">AssetWorkshop</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'atelier des assets : choisir le modèle, le portrait, le jeton et la silhouette d'un personnage, le voir animé par le rendu du jeu, le régler dans Blender, l'installer.  <a href="classhmi_1_1AssetWorkshop.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CityMapView" id="r_CityMapView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1CityMapView.html">CityMapView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint une <span class="tt"><a class="el" href="structhmi_1_1CityView.html" title="Une ville jouable, prête à peindre.">hmi::CityView</a></span> sur le plan de sa ville.  <a href="classhmi_1_1CityMapView.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DraftEntityOverlay" id="r_DraftEntityOverlay"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1DraftEntityOverlay.html">DraftEntityOverlay</a></td></tr>
@@ -619,6 +641,8 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a734edac038d880d3d3a5064a782246dd" id="r_a734edac038d880d3d3a5064a782246dd"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a734edac038d880d3d3a5064a782246dd">EnvironmentLookup</a> = std::function&lt;std::optional&lt;std::string&gt;(const std::string&amp;)&gt;</td></tr>
+<tr class="memdesc:a734edac038d880d3d3a5064a782246dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une variable d'environnement ; rien si elle n'est pas définie.  <br /></td></tr>
 <tr class="memitem:ad45953c7acf96290259f1333570fda4d" id="r_ad45953c7acf96290259f1333570fda4d"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> = std::optional&lt;std::size_t&gt;</td></tr>
 <tr class="memdesc:ad45953c7acf96290259f1333570fda4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Désignation d'une couche dans l'éditeur : un rang de <span class="tt"><a class="el" href="classcore_1_1LevelDraft.html#a6532974328bb6e474d5b91d93f34c373">core::LevelDraft::layers()</a></span>, ou <span class="tt">std::nullopt</span> pour la grille racine — la collision, ou la grille unique d'une carte sans couche visuelle.  <br /></td></tr>
 <tr class="memitem:a0769b06e818f591ce4d215f139e55d0b" id="r_a0769b06e818f591ce4d215f139e55d0b"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a0769b06e818f591ce4d215f139e55d0b">TranslationCatalogs</a></td></tr>
@@ -1012,6 +1036,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a0625cc9867f43b9c6d96b5e3caf178f4" id="r_a0625cc9867f43b9c6d96b5e3caf178f4"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0625cc9867f43b9c6d96b5e3caf178f4">autosaveFileName</a> (std::string_view mapId)</td></tr>
 <tr class="memitem:a56c5b6549bc4c578e51653d440e05524" id="r_a56c5b6549bc4c578e51653d440e05524"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a56c5b6549bc4c578e51653d440e05524">serializeAutosave</a> (const <a class="el" href="structhmi_1_1AutosaveRecord.html">AutosaveRecord</a> &amp;record)</td></tr>
 <tr class="memitem:a0d80288d000d8b9b3f83556c37deeaca" id="r_a0d80288d000d8b9b3f83556c37deeaca"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1AutosaveRecord.html">AutosaveRecord</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0d80288d000d8b9b3f83556c37deeaca">parseAutosave</a> (std::string_view text)</td></tr>
+<tr class="memitem:a53463b47dceacdd92d4434b99af659c4" id="r_a53463b47dceacdd92d4434b99af659c4"><td class="memItemLeft"><a class="el" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a>&#160;</td><td class="memItemRight"><a class="el" href="#a53463b47dceacdd92d4434b99af659c4">retouchFiles</a> (const std::filesystem::path &amp;dataRoot, const std::filesystem::path &amp;baseDirectory, const <a class="el" href="structhmi_1_1CharacterDraft.html">CharacterDraft</a> &amp;draft)</td></tr>
+<tr class="memdesc:a53463b47dceacdd92d4434b99af659c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les fichiers de l'aller-retour de <code class="param">draft</code>.  <br /></td></tr>
+<tr class="memitem:a91943cc58f3da25b164f3943fa56247d" id="r_a91943cc58f3da25b164f3943fa56247d"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a91943cc58f3da25b164f3943fa56247d">retouchReadiness</a> (const <a class="el" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a> &amp;files)</td></tr>
+<tr class="memitem:a81d77258bea83b86b2b052809df4c950" id="r_a81d77258bea83b86b2b052809df4c950"><td class="memItemLeft"><a class="el" href="structhmi_1_1RetouchTools.html">RetouchTools</a>&#160;</td><td class="memItemRight"><a class="el" href="#a81d77258bea83b86b2b052809df4c950">findRetouchTools</a> (const std::filesystem::path &amp;dataRoot, const <a class="el" href="#a734edac038d880d3d3a5064a782246dd">EnvironmentLookup</a> &amp;environment, std::string &amp;error)</td></tr>
+<tr class="memdesc:a81d77258bea83b86b2b052809df4c950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cherche les outils de l'aller-retour.  <br /></td></tr>
+<tr class="memitem:a6fdedf00e5050d80cfd4cd1979f5dbc1" id="r_a6fdedf00e5050d80cfd4cd1979f5dbc1"><td class="memItemLeft"><a class="el" href="structhmi_1_1ProcessCommand.html">ProcessCommand</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6fdedf00e5050d80cfd4cd1979f5dbc1">openInBlenderCommand</a> (const <a class="el" href="structhmi_1_1RetouchTools.html">RetouchTools</a> &amp;tools, const <a class="el" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a> &amp;files)</td></tr>
+<tr class="memitem:a88cbff601570c527e735bb9de442084a" id="r_a88cbff601570c527e735bb9de442084a"><td class="memItemLeft"><a class="el" href="structhmi_1_1ProcessCommand.html">ProcessCommand</a>&#160;</td><td class="memItemRight"><a class="el" href="#a88cbff601570c527e735bb9de442084a">importFromBlenderCommand</a> (const <a class="el" href="structhmi_1_1RetouchTools.html">RetouchTools</a> &amp;tools, const <a class="el" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a> &amp;files)</td></tr>
 <tr class="memitem:a0e0956e7e96a74928e44f3f75a32061b" id="r_a0e0956e7e96a74928e44f3f75a32061b"><td class="memItemLeft"><a class="el" href="structhmi_1_1BrushResult.html">BrushResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0e0956e7e96a74928e44f3f75a32061b">paintTypeBlock</a> (<a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, <a class="el" href="#ad45953c7acf96290259f1333570fda4d">LayerSlot</a> active, const <a class="el" href="classhmi_1_1LayerViewState.html">LayerViewState</a> &amp;view, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> origin, const std::vector&lt; std::vector&lt; <a class="el" href="namespacecore.html#ace99a1be913e6294e42e9ebb145eb875">core::TileType</a> &gt; &gt; &amp;block)</td></tr>
 <tr class="memdesc:a0e0956e7e96a74928e44f3f75a32061b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peint un bloc de types (<span class="tt">[ligne][colonne]</span>) à partir de <code class="param">origin</code> sur la couche active, en un pas : le rectangle du pinceau et le collage.  <br /></td></tr>
 <tr class="memitem:a8cb1b5d7bb160648c402da03dc262732" id="r_a8cb1b5d7bb160648c402da03dc262732"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a8cb1b5d7bb160648c402da03dc262732">brushLabel</a> (const <a class="el" href="structhmi_1_1CanvasBrush.html">CanvasBrush</a> &amp;brush)</td></tr>
@@ -1040,6 +1071,27 @@ Functions</h2></td></tr>
 <tr class="memdesc:a191e62e067f4684ef2f0d66f57a397ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les figurines de la formation d'une rencontre (<span class="tt">LOT-EDITOR-05</span>) : chaque combattant sur sa case, par la figurine de l'atelier des monstres qui porte l'identifiant de sa créature (<span class="tt">Monsters/&lt;créature&gt;</span>, <span class="tt">LOT-93</span>, <span class="tt">EX-EDIT-071</span>).  <br /></td></tr>
 <tr class="memitem:a271254d23a253fefeed273ecba888f0c" id="r_a271254d23a253fefeed273ecba888f0c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a271254d23a253fefeed273ecba888f0c">cellPieces</a> (const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &amp;snapshot, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell)</td></tr>
 <tr class="memdesc:a271254d23a253fefeed273ecba888f0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les pièces d'une case, pour la barre d'état : <span class="tt">street · wall-left</span>, <span class="tt">street</span>, ou rien.  <br /></td></tr>
+<tr class="memitem:a9193cb5b81b7e77304c89bbe45b3770d" id="r_a9193cb5b81b7e77304c89bbe45b3770d"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9193cb5b81b7e77304c89bbe45b3770d">characterPreviewScene</a> (const <a class="el" href="structhmi_1_1CharacterPreviewView.html">CharacterPreviewView</a> &amp;view)</td></tr>
+<tr class="memitem:a0008c725388c5e229f379380086aa4e7" id="r_a0008c725388c5e229f379380086aa4e7"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0008c725388c5e229f379380086aa4e7">characterPreviewFraming</a> (int pixelHeight)</td></tr>
+<tr class="memdesc:a0008c725388c5e229f379380086aa4e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadrage qui tient un personnage de 2 m, debout au centre du damier, dans une cible de <code class="param">pixelHeight</code> pixels de haut.  <br /></td></tr>
+<tr class="memitem:a65d0a316a9a14015150dbd598a13e16a" id="r_a65d0a316a9a14015150dbd598a13e16a"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a65d0a316a9a14015150dbd598a13e16a">characterPreviewSeconds</a> (const <a class="el" href="structcore_1_1SkeletonClip.html">core::SkeletonClip</a> *clip, float elapsed)</td></tr>
+<tr class="memdesc:a65d0a316a9a14015150dbd598a13e16a"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'instant d'un clip pour <code class="param">elapsed</code> secondes d'aperçu.  <br /></td></tr>
+<tr class="memitem:aafd0a5247952c55e83f9be29a9b06c6c" id="r_aafd0a5247952c55e83f9be29a9b06c6c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aafd0a5247952c55e83f9be29a9b06c6c">isCharacterScript</a> (std::string_view json)</td></tr>
+<tr class="memitem:a2ef31297ee601148e684c509dde6cb56" id="r_a2ef31297ee601148e684c509dde6cb56"><td class="memItemLeft"><a class="el" href="structhmi_1_1CharacterDraftResult.html">CharacterDraftResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2ef31297ee601148e684c509dde6cb56">readCharacterDraft</a> (std::string_view json)</td></tr>
+<tr class="memdesc:a2ef31297ee601148e684c509dde6cb56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lit une fiche d'atelier depuis le texte de son fichier.  <br /></td></tr>
+<tr class="memitem:a47a8a7beeb7f239d3c7070f74da5bb1c" id="r_a47a8a7beeb7f239d3c7070f74da5bb1c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a47a8a7beeb7f239d3c7070f74da5bb1c">characterDraftText</a> (const <a class="el" href="structhmi_1_1CharacterDraft.html">CharacterDraft</a> &amp;draft)</td></tr>
+<tr class="memitem:a46fdb992164f1f731ee31420c67b0843" id="r_a46fdb992164f1f731ee31420c67b0843"><td class="memItemLeft"><a class="el" href="structhmi_1_1CharacterInstallPlan.html">CharacterInstallPlan</a>&#160;</td><td class="memItemRight"><a class="el" href="#a46fdb992164f1f731ee31420c67b0843">planCharacter</a> (const std::filesystem::path &amp;dataRoot, const std::filesystem::path &amp;baseDirectory, const <a class="el" href="structhmi_1_1CharacterDraft.html">CharacterDraft</a> &amp;draft)</td></tr>
+<tr class="memdesc:a46fdb992164f1f731ee31420c67b0843"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calcule l'installation de <code class="param">draft</code> : ce qu'elle écrit et ce qu'elle retire.  <br /></td></tr>
+<tr class="memitem:a0b387136e0ea80dea4879ad33df747d2" id="r_a0b387136e0ea80dea4879ad33df747d2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a0b387136e0ea80dea4879ad33df747d2">writeCharacter</a> (const <a class="el" href="structhmi_1_1CharacterInstallPlan.html">CharacterInstallPlan</a> &amp;plan)</td></tr>
+<tr class="memdesc:a0b387136e0ea80dea4879ad33df747d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exécute <code class="param">plan</code>.  <br /></td></tr>
+<tr class="memitem:ab39bfd284845f10321523a4443f2a7c7" id="r_ab39bfd284845f10321523a4443f2a7c7"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab39bfd284845f10321523a4443f2a7c7">characterLevels</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memitem:a3dfa98aa6b921bb599a8a2753230109f" id="r_a3dfa98aa6b921bb599a8a2753230109f"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1InstalledCharacter.html">InstalledCharacter</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3dfa98aa6b921bb599a8a2753230109f">installedCharacters</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memitem:a471b43a88bfb2ca085dddd8d5aa6ec27" id="r_a471b43a88bfb2ca085dddd8d5aa6ec27"><td class="memItemLeft"><a class="el" href="structhmi_1_1CharacterDraftResult.html">CharacterDraftResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a471b43a88bfb2ca085dddd8d5aa6ec27">draftOfInstalledCharacter</a> (const std::filesystem::path &amp;dataRoot, const std::filesystem::path &amp;workshopRoot, const <a class="el" href="structhmi_1_1InstalledCharacter.html">InstalledCharacter</a> &amp;character)</td></tr>
+<tr class="memdesc:a471b43a88bfb2ca085dddd8d5aa6ec27"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche d'atelier d'un personnage <b>installé</b> : ce que la fenêtre montre en le rouvrant.  <br /></td></tr>
+<tr class="memitem:adafafddae0e19b0eece784e0dfb8cca6" id="r_adafafddae0e19b0eece784e0dfb8cca6"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adafafddae0e19b0eece784e0dfb8cca6">checkCharacters</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
+<tr class="memdesc:adafafddae0e19b0eece784e0dfb8cca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contrôle les personnages installés (<span class="tt">EX-EDIT-104</span>).  <br /></td></tr>
+<tr class="memitem:aa544e8bb42487079b6b6d833b5d5ca49" id="r_aa544e8bb42487079b6b6d833b5d5ca49"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa544e8bb42487079b6b6d833b5d5ca49">runCharacterCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;dataRoot, std::string &amp;output)</td></tr>
+<tr class="memdesc:aa544e8bb42487079b6b6d833b5d5ca49"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'atelier <b>sans fenêtre</b> : <span class="tt">--apply &lt;fiche d'atelier&gt;</span> installe le personnage.  <br /></td></tr>
 <tr class="memitem:ade4a849a07f0577e54928661c593c29a" id="r_ade4a849a07f0577e54928661c593c29a"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ade4a849a07f0577e54928661c593c29a">worldRegionIds</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
 <tr class="memitem:ad38ac238160280f89e62790c282b93f5" id="r_ad38ac238160280f89e62790c282b93f5"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad38ac238160280f89e62790c282b93f5">cityIds</a> (const std::filesystem::path &amp;dataRoot)</td></tr>
 <tr class="memitem:a2260aca2587c6891a4b11dc46bdfc68a" id="r_a2260aca2587c6891a4b11dc46bdfc68a"><td class="memItemLeft"><a class="el" href="structhmi_1_1CityView.html">CityView</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2260aca2587c6891a4b11dc46bdfc68a">buildCityView</a> (const std::filesystem::path &amp;dataRoot, std::string_view cityId)</td></tr>
@@ -1250,6 +1302,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab774f4d0883cf6c42054057be4a4b76a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le lieu des étapes (<span class="tt">at</span>, <span class="tt">carte#id</span>) suit une entité ou une carte renommée (<span class="tt">LOT-EDITOR-14</span>) : chaque étape dont <code class="param">rename</code> rend une valeur est citée dans <code class="param">plan</code>, et, si <code class="param">write</code>, sa quête récrite.  <br /></td></tr>
 <tr class="memitem:a6d7164fde1156b810c531edb2cf18f86" id="r_a6d7164fde1156b810c531edb2cf18f86"><td class="memItemLeft">std::optional&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6d7164fde1156b810c531edb2cf18f86">runQuestCommand</a> (const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;dataRoot, std::string &amp;output)</td></tr>
 <tr class="memdesc:a6d7164fde1156b810c531edb2cf18f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'entrée sans fenêtre du mode Quêtes :  <br /></td></tr>
+<tr class="memitem:a7cbb9c9727d86977a1846ca36387c05c" id="r_a7cbb9c9727d86977a1846ca36387c05c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a7cbb9c9727d86977a1846ca36387c05c">sha256Hex</a> (std::string_view bytes)</td></tr>
 <tr class="memitem:a86891f5de291d0a457c7dee889e9e9ed" id="r_a86891f5de291d0a457c7dee889e9e9ed"><td class="memItemLeft"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a>&#160;</td><td class="memItemRight"><a class="el" href="#a86891f5de291d0a457c7dee889e9e9ed">cutStamp</a> (const <a class="el" href="classcore_1_1LevelDraft.html">core::LevelDraft</a> &amp;draft, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> first, <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> last)</td></tr>
 <tr class="memdesc:a86891f5de291d0a457c7dee889e9e9ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Découpe le rectangle [<code class="param">first</code>, <code class="param">last</code>] (bornes incluses, dans n'importe quel ordre) de <code class="param">draft</code>, agrandi jusqu'à contenir l'emprise de chaque pièce prise (voir l'en-tête).  <br /></td></tr>
 <tr class="memitem:acb773e916d7cf8cdaefb9c5f89a68279" id="r_acb773e916d7cf8cdaefb9c5f89a68279"><td class="memItemLeft"><a class="el" href="structhmi_1_1Stamp.html">Stamp</a>&#160;</td><td class="memItemRight"><a class="el" href="#acb773e916d7cf8cdaefb9c5f89a68279">mirrorStamp</a> (const <a class="el" href="structhmi_1_1Stamp.html">Stamp</a> &amp;stamp, const <a class="el" href="classcore_1_1ScenePieceManifest.html">core::ScenePieceManifest</a> *manifest)</td></tr>
@@ -1612,6 +1665,20 @@ Variables</h2></td></tr>
 <tr class="memdesc:ad13c35694489a3dca1d74146d3acad66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité des reliefs <b>en transparence</b> : on voit à travers un mur ce qu'on pointe.  <br /></td></tr>
 <tr class="memitem:a7db4df00da7f255b63a60212bdddea07" id="r_a7db4df00da7f255b63a60212bdddea07"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a7db4df00da7f255b63a60212bdddea07">COLLISION_MASK_OPACITY</a> = 0.3F</td></tr>
 <tr class="memdesc:a7db4df00da7f255b63a60212bdddea07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opacité du masque de collision en iso, relative à celle de la couche : la moitié de la vue à plat, pour que les murs gardent leur image sous la teinte.  <br /></td></tr>
+<tr class="memitem:a647eb2cf147d85ec265a5e0f6fed1afb" id="r_a647eb2cf147d85ec265a5e0f6fed1afb"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a647eb2cf147d85ec265a5e0f6fed1afb">CHARACTER_PREVIEW_CELLS</a> = 3</td></tr>
+<tr class="memdesc:a647eb2cf147d85ec265a5e0f6fed1afb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le côté du damier de l'aperçu, en cases ; le personnage se tient au centre.  <br /></td></tr>
+<tr class="memitem:a362d2fb448b148842e888e52fe0f0d1c" id="r_a362d2fb448b148842e888e52fe0f0d1c"><td class="memItemLeft">constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a362d2fb448b148842e888e52fe0f0d1c">CHARACTER_PREVIEW_HOLD</a> = 0.8F</td></tr>
+<tr class="memdesc:a362d2fb448b148842e888e52fe0f0d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le temps, en secondes, où un clip joué une fois reste sur sa dernière pose avant de reprendre.  <br /></td></tr>
+<tr class="memitem:ac5f29a60a5b973ec2ae04d5e4efe3400" id="r_ac5f29a60a5b973ec2ae04d5e4efe3400"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#ac5f29a60a5b973ec2ae04d5e4efe3400">CHARACTER_SCRIPT_FORMAT</a> = &quot;jadg-editor-character&quot;</td></tr>
+<tr class="memdesc:ac5f29a60a5b973ec2ae04d5e4efe3400"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le format d'une fiche d'atelier, écrit dans le fichier.  <br /></td></tr>
+<tr class="memitem:a21b194cda8baa264ab7e895f1ba043f8" id="r_a21b194cda8baa264ab7e895f1ba043f8"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a21b194cda8baa264ab7e895f1ba043f8">CHARACTER_SCRIPT_VERSION</a> = 1</td></tr>
+<tr class="memdesc:a21b194cda8baa264ab7e895f1ba043f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sa version, et la plus élevée qui soit lue.  <br /></td></tr>
+<tr class="memitem:a12cbd47b6ecf891e43f512deeab5b307" id="r_a12cbd47b6ecf891e43f512deeab5b307"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a12cbd47b6ecf891e43f512deeab5b307">CHARACTER_PORTRAIT_SIDE</a> = 512</td></tr>
+<tr class="memdesc:a12cbd47b6ecf891e43f512deeab5b307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le côté d'un portrait et d'un jeton installés, en pixels (<span class="tt">style-3d.md</span>, §7).  <br /></td></tr>
+<tr class="memitem:a5bc073b58bac25a7b043bce7ae36d8e4" id="r_a5bc073b58bac25a7b043bce7ae36d8e4"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a5bc073b58bac25a7b043bce7ae36d8e4">CHARACTER_TOKEN_SIDE</a> = 128</td></tr>
+<tr class="memitem:a8bba0118e5c5780434aedacd68631056" id="r_a8bba0118e5c5780434aedacd68631056"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a8bba0118e5c5780434aedacd68631056">CHARACTER_PORTRAIT_FILE</a> = &quot;portrait.png&quot;</td></tr>
+<tr class="memdesc:a8bba0118e5c5780434aedacd68631056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les fichiers d'image d'un personnage, dans son dossier.  <br /></td></tr>
+<tr class="memitem:a41d88d3b2c7a3c4353e18b530404a34c" id="r_a41d88d3b2c7a3c4353e18b530404a34c"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="#a41d88d3b2c7a3c4353e18b530404a34c">CHARACTER_TOKEN_FILE</a> = &quot;token.png&quot;</td></tr>
 <tr class="memitem:af2f4a1af04682540c1b84611a24aa42c" id="r_af2f4a1af04682540c1b84611a24aa42c"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#af2f4a1af04682540c1b84611a24aa42c">EDITOR_ACTION_COUNT</a> = 9</td></tr>
 <tr class="memdesc:af2f4a1af04682540c1b84611a24aa42c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre d'actions d'éditeur remappables (<span class="tt"><a class="el" href="#aa4f5968d7b564d555f29fdc5d2fc9585" title="Action d&#39;éditeur logique, remappable indépendamment de la touche physique.">EditorAction</a></span>).  <br /></td></tr>
 <tr class="memitem:a1f839ead2efea40ebbae87f2015d39de" id="r_a1f839ead2efea40ebbae87f2015d39de"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a1f839ead2efea40ebbae87f2015d39de">EDITOR_STATUS_ZONE_COUNT</a> = 5</td></tr>
@@ -1724,6 +1791,22 @@ Variables</h2></td></tr>
 <tr class="memdesc:ae685f3bbb2403ff14aed68781f718fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plus grand facteur admis.  <br /></td></tr>
 </table>
 <a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="a734edac038d880d3d3a5064a782246dd" name="a734edac038d880d3d3a5064a782246dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a734edac038d880d3d3a5064a782246dd">&#9670;&#160;</a></span>EnvironmentLookup</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="#a734edac038d880d3d3a5064a782246dd">hmi::EnvironmentLookup</a> = std::function&lt;std::optional&lt;std::string&gt;(const std::string&amp;)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lit une variable d'environnement ; rien si elle n'est pas définie. </p>
+
+</div>
+</div>
 <a id="ad45953c7acf96290259f1333570fda4d" name="ad45953c7acf96290259f1333570fda4d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad45953c7acf96290259f1333570fda4d">&#9670;&#160;</a></span>LayerSlot</h2>
 
@@ -4604,6 +4687,150 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a47a8a7beeb7f239d3c7070f74da5bb1c" name="a47a8a7beeb7f239d3c7070f74da5bb1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47a8a7beeb7f239d3c7070f74da5bb1c">&#9670;&#160;</a></span>characterDraftText()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::characterDraftText </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1CharacterDraft.html">CharacterDraft</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>draft</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le texte canonique de <code class="param">draft</code> : ce que la fenêtre enregistre, et que <span class="tt"><a class="el" href="#a2ef31297ee601148e684c509dde6cb56" title="Lit une fiche d&#39;atelier depuis le texte de son fichier.">readCharacterDraft</a></span> relit à l'identique. Les champs vides ne s'écrivent pas. </dd></dl>
+
+</div>
+</div>
+<a id="ab39bfd284845f10321523a4443f2a7c7" name="ab39bfd284845f10321523a4443f2a7c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab39bfd284845f10321523a4443f2a7c7">&#9670;&#160;</a></span>characterLevels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; hmi::characterLevels </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les dossiers <span class="tt">Characters</span> qui portent un manifeste sous <span class="tt">&lt;dataRoot&gt;/Assets</span>, relatifs à <span class="tt">Assets/</span>, triés : <span class="tt">Common/Characters</span>, puis ceux de <span class="tt">Regions/</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a0008c725388c5e229f379380086aa4e7" name="a0008c725388c5e229f379380086aa4e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0008c725388c5e229f379380086aa4e7">&#9670;&#160;</a></span>characterPreviewFraming()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1WorldFraming.html">WorldFraming</a> hmi::characterPreviewFraming </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>pixelHeight</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le cadrage qui tient un personnage de 2 m, debout au centre du damier, dans une cible de <code class="param">pixelHeight</code> pixels de haut. </p>
+
+</div>
+</div>
+<a id="a9193cb5b81b7e77304c89bbe45b3770d" name="a9193cb5b81b7e77304c89bbe45b3770d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9193cb5b81b7e77304c89bbe45b3770d">&#9670;&#160;</a></span>characterPreviewScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> hmi::characterPreviewScene </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1CharacterPreviewView.html">CharacterPreviewView</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>view</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La scène de l'aperçu de <code class="param">view</code> : le damier, et le personnage tourné de ses quarts de tour. </dd></dl>
+
+</div>
+</div>
+<a id="a65d0a316a9a14015150dbd598a13e16a" name="a65d0a316a9a14015150dbd598a13e16a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65d0a316a9a14015150dbd598a13e16a">&#9670;&#160;</a></span>characterPreviewSeconds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::characterPreviewSeconds </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structcore_1_1SkeletonClip.html">core::SkeletonClip</a> *</td>          <td class="paramname"><span class="paramname"><em>clip</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>elapsed</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'instant d'un clip pour <code class="param">elapsed</code> secondes d'aperçu. </p>
+<p>Un clip en boucle tourne ; un clip joué une fois va à sa fin, y reste <span class="tt"><a class="el" href="#a362d2fb448b148842e888e52fe0f0d1c" title="Le temps, en secondes, où un clip joué une fois reste sur sa dernière pose avant de reprendre.">CHARACTER_PREVIEW_HOLD</a></span> secondes — le temps de juger sa dernière pose —, puis reprend.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clip</td><td>Ce que le squelette déclare du clip ; <span class="tt">nullptr</span> : rien n'est su, il boucle sur une seconde. </td></tr>
+    <tr><td class="paramname">elapsed</td><td>Le temps d'aperçu écoulé, en secondes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ad2b3435349dd004d6768a14a49f5dacc" name="ad2b3435349dd004d6768a14a49f5dacc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad2b3435349dd004d6768a14a49f5dacc">&#9670;&#160;</a></span>characterSheetValues()</h2>
 
@@ -4654,6 +4881,35 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Contrôle toutes les cartes de <span class="tt">&lt;dataRoot&gt;/Levels</span>, sous-dossiers compris, puis les références entre elles. </p>
+
+</div>
+</div>
+<a id="adafafddae0e19b0eece784e0dfb8cca6" name="adafafddae0e19b0eece784e0dfb8cca6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adafafddae0e19b0eece784e0dfb8cca6">&#9670;&#160;</a></span>checkCharacters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1MapCheckFinding.html">MapCheckFinding</a> &gt; hmi::checkCharacters </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Contrôle les personnages installés (<span class="tt">EX-EDIT-104</span>). </p>
+<p>Pour chaque personnage en modèle : sa fiche se lit, son squelette est connu, son modèle est là, porte un squelette et chaque clip de sa silhouette, son portrait et son jeton sont là, aux tailles du standard — sauf pour un mannequin (<span class="tt">Mannequins/…</span>), qui n'en a pas. Les constats portent le niveau du personnage en guise de carte.</p>
+<p>Les binaires des kits ne sont pas dans Git (<span class="tt">scripts/fetch_assets.py</span>) : sur une base dont les kits sont verrouillés (<span class="tt">Assets/kits.lock.json</span>) mais pas installés (<span class="tt">Assets/.kits/</span>), seules les fiches et les squelettes se contrôlent, et un avertissement le dit. </p>
 
 </div>
 </div>
@@ -6192,6 +6448,51 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a471b43a88bfb2ca085dddd8d5aa6ec27" name="a471b43a88bfb2ca085dddd8d5aa6ec27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a471b43a88bfb2ca085dddd8d5aa6ec27">&#9670;&#160;</a></span>draftOfInstalledCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1CharacterDraftResult.html">CharacterDraftResult</a> hmi::draftOfInstalledCharacter </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>workshopRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1InstalledCharacter.html">InstalledCharacter</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>character</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La fiche d'atelier d'un personnage <b>installé</b> : ce que la fenêtre montre en le rouvrant. </p>
+<p>Le squelette vient de sa fiche <span class="tt">character.json</span>, les sources du manifeste de son niveau (<span class="tt">models</span>, <span class="tt">sources</span>). Une source que <code class="param">workshopRoot</code> ne contient plus est laissée vide : ce qui est installé reste.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataRoot</td><td>La racine des données. </td></tr>
+    <tr><td class="paramname">workshopRoot</td><td>La racine de l'atelier local, où les sources du manifeste se cherchent. </td></tr>
+    <tr><td class="paramname">character</td><td>Le personnage. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a0a372480a8c4bb2d1af4b9b17874eb72" name="a0a372480a8c4bb2d1af4b9b17874eb72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0a372480a8c4bb2d1af4b9b17874eb72">&#9670;&#160;</a></span>dragEntities()</h2>
 
@@ -7208,6 +7509,55 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a81d77258bea83b86b2b052809df4c950" name="a81d77258bea83b86b2b052809df4c950"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81d77258bea83b86b2b052809df4c950">&#9670;&#160;</a></span>findRetouchTools()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1RetouchTools.html">RetouchTools</a> hmi::findRetouchTools </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#a734edac038d880d3d3a5064a782246dd">EnvironmentLookup</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>environment</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>error</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cherche les outils de l'aller-retour. </p>
+<ul>
+<li>le <b>script</b> : <span class="tt">scripts/assetsGeneration/retouch_character.py</span>, en remontant depuis <code class="param">dataRoot</code> jusqu'à la racine du dépôt ;</li>
+<li><b>Python</b> : la variable <span class="tt">JADG_PYTHON</span>, à défaut le lanceur <span class="tt">py -3</span> sous Windows, <span class="tt">python3</span> ailleurs ;</li>
+<li><b>Blender</b> : la variable <span class="tt">BLENDER</span>, à défaut son emplacement par défaut sur le poste — le même ordre que <span class="tt">reduce_model.find_blender</span>.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataRoot</td><td>La racine des données. </td></tr>
+    <tr><td class="paramname">environment</td><td>Lit l'environnement ; injecté pour les tests. </td></tr>
+    <tr><td class="paramname">error</td><td>Reçoit ce qui manque (anglais), vide si tout est trouvé. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ab32c2b7569b2dd624b5195deffa3ddd0" name="ab32c2b7569b2dd624b5195deffa3ddd0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab32c2b7569b2dd624b5195deffa3ddd0">&#9670;&#160;</a></span>fingerprintFile()</h2>
 
@@ -7886,6 +8236,36 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a88cbff601570c527e735bb9de442084a" name="a88cbff601570c527e735bb9de442084a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88cbff601570c527e735bb9de442084a">&#9670;&#160;</a></span>importFromBlenderCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1ProcessCommand.html">ProcessCommand</a> hmi::importFromBlenderCommand </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RetouchTools.html">RetouchTools</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>tools</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>files</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La commande qui relit Blender, relie le modèle et le contrôle (<span class="tt">retouch_character.py import … --source … --output …</span>). </dd></dl>
+
+</div>
+</div>
 <a id="aabf51fbbdb0a8cdb119dc1c28fa88980" name="aabf51fbbdb0a8cdb119dc1c28fa88980"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aabf51fbbdb0a8cdb119dc1c28fa88980">&#9670;&#160;</a></span>installCrashDumpWriter()</h2>
 
@@ -7924,6 +8304,32 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a3dfa98aa6b921bb599a8a2753230109f" name="a3dfa98aa6b921bb599a8a2753230109f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dfa98aa6b921bb599a8a2753230109f">&#9670;&#160;</a></span>installedCharacters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="structhmi_1_1InstalledCharacter.html">InstalledCharacter</a> &gt; hmi::installedCharacters </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les personnages en modèle (<span class="tt">npcs</span>) de tous les niveaux, triés par niveau puis par nom. </dd></dl>
+
+</div>
+</div>
 <a id="a4810fe71383c48ab7f7c445521b954d4" name="a4810fe71383c48ab7f7c445521b954d4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4810fe71383c48ab7f7c445521b954d4">&#9670;&#160;</a></span>inventoryValues()</h2>
 
@@ -7947,6 +8353,32 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les valeurs de l'inventaire, prêtes à être publiées par <span class="tt"><a class="el" href="classhmi_1_1InventoryModel.html" title="Vue-modèle de l&#39;inventaire : emplacements, grille filtrée, sélection, charge, bourse.">hmi::InventoryModel</a></span>. Un contexte sans inventaire rend une table <b>vide</b> : l'écran garde alors ses tirets. </dd></dl>
+
+</div>
+</div>
+<a id="aafd0a5247952c55e83f9be29a9b06c6c" name="aafd0a5247952c55e83f9be29a9b06c6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd0a5247952c55e83f9be29a9b06c6c">&#9670;&#160;</a></span>isCharacterScript()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::isCharacterScript </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>json</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si <code class="param">json</code> est une fiche d'atelier (<span class="tt">"format": "jadg-editor-character"</span>) : ce qui distingue, pour <span class="tt">--apply</span>, un personnage d'un scénario de gestes. </dd></dl>
 
 </div>
 </div>
@@ -10238,6 +10670,36 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a6fdedf00e5050d80cfd4cd1979f5dbc1" name="a6fdedf00e5050d80cfd4cd1979f5dbc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fdedf00e5050d80cfd4cd1979f5dbc1">&#9670;&#160;</a></span>openInBlenderCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1ProcessCommand.html">ProcessCommand</a> hmi::openInBlenderCommand </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RetouchTools.html">RetouchTools</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>tools</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>files</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La commande qui ouvre <code class="param">files</code> dans Blender (<span class="tt">retouch_character.py open</span>). </dd></dl>
+
+</div>
+</div>
 <a id="ada2a18a45109679e891c69b3afdcdcf1" name="ada2a18a45109679e891c69b3afdcdcf1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ada2a18a45109679e891c69b3afdcdcf1">&#9670;&#160;</a></span>paintArea()</h2>
 
@@ -11255,6 +11717,51 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a46fdb992164f1f731ee31420c67b0843" name="a46fdb992164f1f731ee31420c67b0843"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46fdb992164f1f731ee31420c67b0843">&#9670;&#160;</a></span>planCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1CharacterInstallPlan.html">CharacterInstallPlan</a> hmi::planCharacter </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>baseDirectory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1CharacterDraft.html">CharacterDraft</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>draft</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Calcule l'installation de <code class="param">draft</code> : ce qu'elle écrit et ce qu'elle retire. </p>
+<p>Un fichier dont les octets installés sont déjà ceux du plan n'est pas réécrit : réenregistrer une fiche qui n'a pas changé ne touche à rien.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataRoot</td><td>La racine des données (<span class="tt">Source/Elements</span>) : les assets sont sous <span class="tt">Assets/</span>. </td></tr>
+    <tr><td class="paramname">baseDirectory</td><td>Le dossier de la fiche d'atelier, d'où part sa racine (<span class="tt">root</span>). </td></tr>
+    <tr><td class="paramname">draft</td><td>La fiche d'atelier. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ad84c006ee3d8fd23d8bf797eed839542" name="ad84c006ee3d8fd23d8bf797eed839542"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad84c006ee3d8fd23d8bf797eed839542">&#9670;&#160;</a></span>planDeleteQuest()</h2>
 
@@ -12119,6 +12626,33 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2ef31297ee601148e684c509dde6cb56" name="a2ef31297ee601148e684c509dde6cb56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ef31297ee601148e684c509dde6cb56">&#9670;&#160;</a></span>readCharacterDraft()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1CharacterDraftResult.html">CharacterDraftResult</a> hmi::readCharacterDraft </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>json</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lit une fiche d'atelier depuis le texte de son fichier. </p>
+
+</div>
+</div>
 <a id="a45a16f6daf05b3e3e37dbe025a9006a6" name="a45a16f6daf05b3e3e37dbe025a9006a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a45a16f6daf05b3e3e37dbe025a9006a6">&#9670;&#160;</a></span>readCredits()</h2>
 
@@ -12934,6 +13468,76 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a53463b47dceacdd92d4434b99af659c4" name="a53463b47dceacdd92d4434b99af659c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53463b47dceacdd92d4434b99af659c4">&#9670;&#160;</a></span>retouchFiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a> hmi::retouchFiles </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>baseDirectory</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1CharacterDraft.html">CharacterDraft</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>draft</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les fichiers de l'aller-retour de <code class="param">draft</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataRoot</td><td>La racine des données, où le squelette installé se lit. </td></tr>
+    <tr><td class="paramname">baseDirectory</td><td>Le dossier de la fiche d'atelier, d'où part sa racine. </td></tr>
+    <tr><td class="paramname">draft</td><td>La fiche d'atelier. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a91943cc58f3da25b164f3943fa56247d" name="a91943cc58f3da25b164f3943fa56247d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91943cc58f3da25b164f3943fa56247d">&#9670;&#160;</a></span>retouchReadiness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::retouchReadiness </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>files</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Ce qui manque à <code class="param">files</code> pour ouvrir Blender (anglais), vide si rien : le modèle lié, le maillage reçu et la fiche de liaison doivent exister — sans eux l'import ne pourrait pas relier. </dd></dl>
+
+</div>
+</div>
 <a id="a43aae33901e755c2e97ed296ccf308d8" name="a43aae33901e755c2e97ed296ccf308d8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a43aae33901e755c2e97ed296ccf308d8">&#9670;&#160;</a></span>routeCrtReportsToStderr()</h2>
 
@@ -12984,7 +13588,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Nom lisible d'un terme de règle — caractéristique, emplacement d'équipement, condition. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md137"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md140"></a>
 Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 <p>La chrome des écrans (« Points de vie », « Nouvelle partie ») s'écrit en français <b>dans le fichier QML</b>, et Qt la traduit par sa source. Ces libellés-ci ne le peuvent pas : leur clé est <b>calculée</b> (<span class="tt">rpg.ability.</span> + l'identifiant que le modèle rend), et <span class="tt">qsTr</span> exige une chaîne littérale — c'est ce qui permet à <span class="tt">lupdate</span> de l'extraire sans exécuter le programme.</p>
 <p>Ce n'est pas qu'une contrainte technique. Ces termes sont un <b>lexique</b> : <span class="tt">rpg.glossary.csv</span> garantit une seule traduction par terme de règle dans tout le jeu, et <span class="tt">scripts/checks/check_glossary.py</span> le vérifie. Les disperser en littéraux dans les écrans casserait précisément cette garantie.</p>
@@ -12996,6 +13600,44 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Le libellé traduit ; la <b>clé elle-même</b> si le catalogue ne la porte pas — jamais une chaîne vide, qui donnerait un écran troué sans dire pourquoi. </dd></dl>
+
+</div>
+</div>
+<a id="aa544e8bb42487079b6b6d833b5d5ca49" name="aa544e8bb42487079b6b6d833b5d5ca49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa544e8bb42487079b6b6d833b5d5ca49">&#9670;&#160;</a></span>runCharacterCommand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; int &gt; hmi::runCharacterCommand </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>arguments</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dataRoot</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>output</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'atelier <b>sans fenêtre</b> : <span class="tt">--apply &lt;fiche d'atelier&gt;</span> installe le personnage. </p>
+<p>Ne prend la main que si le fichier de <span class="tt">--apply</span> est une fiche d'atelier (<span class="tt"><a class="el" href="#aafd0a5247952c55e83f9be29a9b06c6c">isCharacterScript</a></span>) : un scénario de gestes reste à <span class="tt"><a class="el" href="#a75e0715b710f1ffbe1d6392719cb07c2" title="L&#39;entrée sans fenêtre de l&#39;éditeur (décision D9) : --check, --migrate et --apply (--render,...">hmi::runMapCommand</a></span>. Une fiche refusée n'écrit rien et sort en 1.</p>
+<dl class="section return"><dt>Returns</dt><dd>Le code de sortie (0, 1 en cas de refus, 2 si la ligne de commande est fausse), ou <span class="tt">std::nullopt</span> si la commande n'est pas pour l'atelier. </dd></dl>
 
 </div>
 </div>
@@ -13514,6 +14156,32 @@ Pourquoi ceux-là ne passent pas par <span class="tt">qsTr</span></h2>
 
 <p>Écrit la note de <code class="param">cell</code> ; un texte vide (ou fait d'espaces) la retire. </p>
 <dl class="section return"><dt>Returns</dt><dd>Vrai si l'annexe a changé. </dd></dl>
+
+</div>
+</div>
+<a id="a7cbb9c9727d86977a1846ca36387c05c" name="a7cbb9c9727d86977a1846ca36387c05c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cbb9c9727d86977a1846ca36387c05c">&#9670;&#160;</a></span>sha256Hex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::sha256Hex </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>bytes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'empreinte SHA-256 de <code class="param">bytes</code>, en 64 chiffres hexadécimaux minuscules. </dd></dl>
 
 </div>
 </div>
@@ -15140,6 +15808,34 @@ template&lt;class Map&gt; </div>
 
 </div>
 </div>
+<a id="a0b387136e0ea80dea4879ad33df747d2" name="a0b387136e0ea80dea4879ad33df747d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b387136e0ea80dea4879ad33df747d2">&#9670;&#160;</a></span>writeCharacter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string hmi::writeCharacter </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1CharacterInstallPlan.html">CharacterInstallPlan</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>plan</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Exécute <code class="param">plan</code>. </p>
+<dl class="section return"><dt>Returns</dt><dd>Ce qui a empêché l'écriture, vide si tout est écrit. </dd></dl>
+
+</div>
+</div>
 <a id="ad05eb30edadbbf1334bc6c0057c0cbb2" name="ad05eb30edadbbf1334bc6c0057c0cbb2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad05eb30edadbbf1334bc6c0057c0cbb2">&#9670;&#160;</a></span>writeDraftMaps()</h2>
 
@@ -15367,6 +16063,194 @@ template&lt;class Map&gt; </div>
 
 <p>Version du format des fichiers de reprise. </p>
 <p>Un fichier d'une autre version est ignoré, jamais effacé : il reste lisible à la main. </p>
+
+</div>
+</div>
+<a id="a8bba0118e5c5780434aedacd68631056" name="a8bba0118e5c5780434aedacd68631056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bba0118e5c5780434aedacd68631056">&#9670;&#160;</a></span>CHARACTER_PORTRAIT_FILE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::CHARACTER_PORTRAIT_FILE = &quot;portrait.png&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les fichiers d'image d'un personnage, dans son dossier. </p>
+
+</div>
+</div>
+<a id="a12cbd47b6ecf891e43f512deeab5b307" name="a12cbd47b6ecf891e43f512deeab5b307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12cbd47b6ecf891e43f512deeab5b307">&#9670;&#160;</a></span>CHARACTER_PORTRAIT_SIDE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::CHARACTER_PORTRAIT_SIDE = 512</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le côté d'un portrait et d'un jeton installés, en pixels (<span class="tt">style-3d.md</span>, §7). </p>
+
+</div>
+</div>
+<a id="a647eb2cf147d85ec265a5e0f6fed1afb" name="a647eb2cf147d85ec265a5e0f6fed1afb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a647eb2cf147d85ec265a5e0f6fed1afb">&#9670;&#160;</a></span>CHARACTER_PREVIEW_CELLS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::CHARACTER_PREVIEW_CELLS = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le côté du damier de l'aperçu, en cases ; le personnage se tient au centre. </p>
+
+</div>
+</div>
+<a id="a362d2fb448b148842e888e52fe0f0d1c" name="a362d2fb448b148842e888e52fe0f0d1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a362d2fb448b148842e888e52fe0f0d1c">&#9670;&#160;</a></span>CHARACTER_PREVIEW_HOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::CHARACTER_PREVIEW_HOLD = 0.8F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le temps, en secondes, où un clip joué une fois reste sur sa dernière pose avant de reprendre. </p>
+
+</div>
+</div>
+<a id="ac5f29a60a5b973ec2ae04d5e4efe3400" name="ac5f29a60a5b973ec2ae04d5e4efe3400"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5f29a60a5b973ec2ae04d5e4efe3400">&#9670;&#160;</a></span>CHARACTER_SCRIPT_FORMAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::CHARACTER_SCRIPT_FORMAT = &quot;jadg-editor-character&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le format d'une fiche d'atelier, écrit dans le fichier. </p>
+
+</div>
+</div>
+<a id="a21b194cda8baa264ab7e895f1ba043f8" name="a21b194cda8baa264ab7e895f1ba043f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21b194cda8baa264ab7e895f1ba043f8">&#9670;&#160;</a></span>CHARACTER_SCRIPT_VERSION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::CHARACTER_SCRIPT_VERSION = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sa version, et la plus élevée qui soit lue. </p>
+
+</div>
+</div>
+<a id="a41d88d3b2c7a3c4353e18b530404a34c" name="a41d88d3b2c7a3c4353e18b530404a34c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41d88d3b2c7a3c4353e18b530404a34c">&#9670;&#160;</a></span>CHARACTER_TOKEN_FILE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view hmi::CHARACTER_TOKEN_FILE = &quot;token.png&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5bc073b58bac25a7b043bce7ae36d8e4" name="a5bc073b58bac25a7b043bce7ae36d8e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bc073b58bac25a7b043bce7ae36d8e4">&#9670;&#160;</a></span>CHARACTER_TOKEN_SIDE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::CHARACTER_TOKEN_SIDE = 128</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Sha256.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Editor/Logic/Sha256.h"
+
+#include &lt;array&gt;
+#include &lt;bit&gt;
+#include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
+
+namespace hmi {
+
+namespace {
+
+// Les constantes de ronde de SHA-256 (FIPS 180-4, Â§4.2.2).
+constexpr std::array&lt;std::uint32_t, 64&gt; ROUNDS = {
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2};
+
+<span style = "background-color:#dfd">void compress(std::array&lt;std::uint32_t, 8&gt;&amp; state, const unsigned char* block) {
+    std::array&lt;std::uint32_t, 64&gt; words{};
+    for (std::size_t index = 0; index &lt; 16; ++index) {
+        words[index] = (static_cast&lt;std::uint32_t&gt;(block[index * 4]) &lt;&lt; 24U) |</span>
+                       (static_cast&lt;std::uint32_t&gt;(block[(index * 4) + 1]) &lt;&lt; 16U) |
+                       (static_cast&lt;std::uint32_t&gt;(block[(index * 4) + 2]) &lt;&lt; 8U) |
+                       static_cast&lt;std::uint32_t&gt;(block[(index * 4) + 3]);
+<span style = "background-color:#dfd">    }
+    for (std::size_t index = 16; index &lt; 64; ++index) {
+        const std::uint32_t low = std::rotr(words[index - 15], 7) ^</span>
+                                  std::rotr(words[index - 15], 18) ^ (words[index - 15] &gt;&gt; 3U);
+<span style = "background-color:#dfd">        const std::uint32_t high = std::rotr(words[index - 2], 17) ^</span>
+                                   std::rotr(words[index - 2], 19) ^ (words[index - 2] &gt;&gt; 10U);
+<span style = "background-color:#dfd">        words[index] = words[index - 16] + low + words[index - 7] + high;
+    }
+    std::array&lt;std::uint32_t, 8&gt; v = state;
+    for (std::size_t index = 0; index &lt; 64; ++index) {
+        const std::uint32_t sum1 = std::rotr(v[4], 6) ^ std::rotr(v[4], 11) ^ std::rotr(v[4], 25);
+        const std::uint32_t choice = (v[4] &amp; v[5]) ^ (~v[4] &amp; v[6]);
+        const std::uint32_t first = v[7] + sum1 + choice + ROUNDS[index] + words[index];
+        const std::uint32_t sum0 = std::rotr(v[0], 2) ^ std::rotr(v[0], 13) ^ std::rotr(v[0], 22);
+        const std::uint32_t majority = (v[0] &amp; v[1]) ^ (v[0] &amp; v[2]) ^ (v[1] &amp; v[2]);
+        const std::uint32_t second = sum0 + majority;
+        v = {first + second, v[0], v[1], v[2], v[3] + first, v[4], v[5], v[6]};
+    }
+    for (std::size_t index = 0; index &lt; 8; ++index) {
+        state[index] += v[index];
+    }
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::string sha256Hex(std::string_view bytes) {
+    std::array&lt;std::uint32_t, 8&gt; state = {0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+                                          0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19};
+    const auto* const data = reinterpret_cast&lt;const unsigned char*&gt;(bytes.data());
+    const std::size_t whole = bytes.size() / 64;
+    for (std::size_t block = 0; block &lt; whole; ++block) {
+        compress(state, data + (block * 64));
+    }</span>
+    // Le reste, le bit de fin, puis la longueur en bits sur les huit derniers octets.
+<span style = "background-color:#dfd">    std::array&lt;unsigned char, 128&gt; tail{};
+    const std::size_t rest = bytes.size() - (whole * 64);
+    for (std::size_t index = 0; index &lt; rest; ++index) {
+        tail[index] = data[(whole * 64) + index];
+    }
+    tail[rest] = 0x80;
+    const std::size_t padded = rest &lt; 56 ? 64 : 128;
+    const std::uint64_t bits = static_cast&lt;std::uint64_t&gt;(bytes.size()) * 8U;
+    for (std::size_t index = 0; index &lt; 8; ++index) {
+        tail[padded - 1 - index] = static_cast&lt;unsigned char&gt;((bits &gt;&gt; (index * 8U)) &amp; 0xFFU);
+    }
+    compress(state, tail.data());
+    if (padded == 128) {
+        compress(state, tail.data() + 64);</span>
+    }
+    static constexpr std::string_view DIGITS = "0123456789abcdef";
+<span style = "background-color:#dfd">    std::string hex;
+    hex.reserve(64);
+    for (const std::uint32_t word : state) {
+        for (int shift = 28; shift &gt;= 0; shift -= 4) {
+            hex.push_back(DIGITS[(word &gt;&gt; static_cast&lt;unsigned&gt;(shift)) &amp; 0xFU]);
+        }
+    }
+    return hex;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

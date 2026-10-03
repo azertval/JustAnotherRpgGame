@@ -73,13 +73,13 @@ namespace {
 <span style = "background-color:#fdd">            break;</span>
         case QuadKind::Poly: {
             // Chaque sommet dit son elevation : le sol sous lui, puis ce dont il s'en eleve.
-<span style = "background-color:#fdd">            std::array&lt;float, 4&gt; depths{};
+<span style = "background-color:#dfd">            std::array&lt;float, 4&gt; depths{};
             for (std::size_t i = 0; i &lt; depths.size(); ++i) {
                 const float rise = composed.poly.rise[i];
                 depths[i] = overlay</span>
                                 ? depth.overlayDepth()
                                 : depth.view.raisedDepth(composed.poly.y[i] + rise, rise) - bias;
-<span style = "background-color:#fdd">            }
+<span style = "background-color:#dfd">            }
             batch.draw(composed.poly, depths);</span>
             break;
         }

@@ -169,14 +169,14 @@ Namespaces</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Que dessiner pour ce personnage ? </p>
 <p>La figurine nommée si elle existe, sinon le mannequin de sa silhouette (<span class="tt">LOT-145</span>, <span class="tt">EX-REN-051</span>).</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md93"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md96"></a>
 La règle, en trois temps</h2>
 <ol type="1">
 <li>La figurine nommée — la propriété <span class="tt">figure</span> d'un PNJ, le slug d'une créature, la figurine du héros — se cherche par la table du lieu (<span class="tt"><a class="el" href="classhmi_1_1PlaceAppearance.html#a25c57aae364b65363a53154edfa93262" title="Le dossier, relatif à Assets/, de la figurine figure : cherchée dans les Characters/ du lieu et de se...">hmi::PlaceAppearance::figureDirectory</a></span>, <span class="tt">LOT-124</span>). Si elle existe, c'est elle.</li>
 <li>Sinon, le mannequin de sa silhouette, s'il est installé.</li>
 <li>Sinon le mannequin humanoïde ; et s'il manque lui aussi, la figurine nommée telle quelle : le rendu lui donnera son marqueur d'asset, comme avant ce lot.</li>
 </ol>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md94"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md97"></a>
 Ce qu'est une figurine (<span class="tt">LOT-1006</span>)</h2>
 <p>Une figurine <b>existe</b> si son dossier porte une fiche (<span class="tt">character.json</span>, <span class="tt"><a class="el" href="structcore_1_1CharacterSheetFile.html" title="La fiche d&#39;un personnage : son modèle et son squelette.">core::CharacterSheetFile</a></span>) qui nomme un <span class="tt">.glb</span> présent et le squelette auquel il est lié : c'est un <b>modèle</b>, et le résolveur ne connaît pas d'autre forme. Le mannequin d'une silhouette en est un aussi (<span class="tt"><a class="el" href="namespacehmi.html#a0ed268fdf11d77e308058243732fc1ac" title="Le dossier du mannequin d&#39;une silhouette (LOT-145, en modèle depuis le LOT-1005) : un maillage neutre...">hmi::mannequinFigureDirectory</a></span>).</p>
 <p>Le disque ne se relit pas à chaque image : la réponse se retient par figurine, et s'oublie quand la carte change (<span class="tt">clear</span>) — une figurine installée pendant la partie se verra à la carte suivante, pas à l'image suivante, et c'est un prix acceptable pour ne pas toucher au disque soixante fois par seconde. </p>

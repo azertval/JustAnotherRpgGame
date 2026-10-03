@@ -120,7 +120,7 @@ var searchData=
   ['localization_117',['Localization',['../classhmi_1_1Localization.html#aa549c7438b65314c5e0b8bd90996e310',1,'hmi::Localization']]],
   ['localizationdirectory_118',['localizationDirectory',['../namespacehmi.html#a5b9f2de86068618da8115de956d81bfa',1,'hmi']]],
   ['lockrequested_119',['lockRequested',['../classhmi_1_1LayersPanel.html#a19f65588e2a76e603936ee8682f88da8',1,'hmi::LayersPanel']]],
-  ['log_120',['log',['../classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2',1,'core::Logger']]],
+  ['log_120',['log',['../classcore_1_1Logger.html#a1aeae4c7813133be7e1dc64490839bf2',1,'core::Logger::log()'],['../classhmi_1_1AssetWorkshop.html#a1fe8fc76914b5c39052b153378a3518e',1,'hmi::AssetWorkshop::log()']]],
   ['logger_121',['Logger',['../classcore_1_1Logger.html#a9fcf9b06e1d98a1be5e3a8d423ad0327',1,'core::Logger::Logger()=default'],['../classcore_1_1Logger.html#ae2ef4918898cb336d755cd0b657ba40e',1,'core::Logger::Logger(const Logger &amp;)=delete']]],
   ['logsavailable_122',['logsAvailable',['../classhmi_1_1OptionsModel.html#a11cf5c63f2f53adc2dcc833087916a60',1,'hmi::OptionsModel']]],
   ['longrest_123',['longRest',['../namespacecore.html#acc56dba7c8697d70382843a7c746d64c',1,'core']]],

@@ -56,7 +56,7 @@ var searchData=
   ['district_53',['district',['../structhmi_1_1MapCityPointView.html#aed5bb7e2a56442b2385ff7791d6d4852',1,'hmi::MapCityPointView']]],
   ['districts_54',['districts',['../structcore_1_1CityPlan.html#aabd74854b3292a625c7977b70f8bfbd0',1,'core::CityPlan::districts'],['../structhmi_1_1CityView.html#aa174537bd4f1baf7bea18b22fa4512af',1,'hmi::CityView::districts'],['../structhmi_1_1CityMap.html#a643857b704bef4e7f384989e871d8b92',1,'hmi::CityMap::districts']]],
   ['dodgewhenthreatened_55',['dodgeWhenThreatened',['../structcore_1_1BehaviorProfile.html#a73d047ae8a5ef120e86867fa6ac2f3f8',1,'core::BehaviorProfile']]],
-  ['draft_56',['draft',['../structhmi_1_1QuestDraftLoad.html#aa5c6f678bfa4e886d5053a4e838e4163',1,'hmi::QuestDraftLoad']]],
+  ['draft_56',['draft',['../structhmi_1_1CharacterDraftResult.html#a3de970a403616671f499ca85ae0a0011',1,'hmi::CharacterDraftResult::draft'],['../structhmi_1_1QuestDraftLoad.html#aa5c6f678bfa4e886d5053a4e838e4163',1,'hmi::QuestDraftLoad::draft']]],
   ['draftjson_57',['draftJson',['../structhmi_1_1AutosaveRecord.html#ab293f6a9a9244e43467fd7469995d142',1,'hmi::AutosaveRecord']]],
   ['drawn_58',['drawn',['../structhmi_1_1AssetGalleryFrame.html#a89b2649772ed2a910f02f660f097736c',1,'hmi::AssetGalleryFrame']]],
   ['duplicatebutton_59',['duplicateButton',['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aeb72381be7ebb77de59d4f5dcbc414b8',1,'hmi::LevelBrowserPanel::Widgets']]],

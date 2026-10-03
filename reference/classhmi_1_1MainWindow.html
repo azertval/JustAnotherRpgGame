@@ -160,6 +160,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9217cc93491089761355a98056939638" id="r_a9217cc93491089761355a98056939638"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9217cc93491089761355a98056939638">~MainWindow</a> () override</td></tr>
 <tr class="memitem:afce00287835527ce6456eee989ff9901" id="r_afce00287835527ce6456eee989ff9901"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afce00287835527ce6456eee989ff9901">openMap</a> (const std::filesystem::path &amp;path, bool reuseCurrent=false)</td></tr>
 <tr class="memdesc:afce00287835527ce6456eee989ff9901"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la carte <code class="param">path</code> dans un onglet (<span class="tt">LOT-EDITOR-09</span>).  <br /></td></tr>
+<tr class="memitem:a41b7d598449b1c44c3e159a67370faed" id="r_a41b7d598449b1c44c3e159a67370faed"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a41b7d598449b1c44c3e159a67370faed">openAssetWorkshop</a> (const std::filesystem::path &amp;sheet={})</td></tr>
+<tr class="memdesc:a41b7d598449b1c44c3e159a67370faed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la fenêtre « Asset workshop » (<span class="tt">LOT-1008</span>, <span class="tt">EX-EDIT-102</span>), sur la fiche d'atelier <code class="param">sheet</code> si elle est donnée.  <br /></td></tr>
 <tr class="memitem:ab4c8e259baea81d2f887f07b47582e19" id="r_ab4c8e259baea81d2f887f07b47582e19"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab4c8e259baea81d2f887f07b47582e19">MainWindow</a> (const MainWindow &amp;)=delete</td></tr>
 <tr class="memitem:ab6940837dc62d495d934ae0d0e4e4284" id="r_ab6940837dc62d495d934ae0d0e4e4284"><td class="memItemLeft"><a class="el" href="#ad5314276368d312f8f32bc9e3bed3db2">MainWindow</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab6940837dc62d495d934ae0d0e4e4284">operator=</a> (const <a class="el" href="#ad5314276368d312f8f32bc9e3bed3db2">MainWindow</a> &amp;)=delete</td></tr>
 </table><table class="memberdecls">
@@ -323,6 +325,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aaf3fd467aa48568de39975fe72cfe8de" id="r_aaf3fd467aa48568de39975fe72cfe8de"><td class="memItemLeft">std::map&lt; std::string, QPixmap &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aaf3fd467aa48568de39975fe72cfe8de">_prefabThumbnails</a></td></tr>
 <tr class="memitem:a63e1c1cd752453cb2d1b80986d0d94ba" id="r_a63e1c1cd752453cb2d1b80986d0d94ba"><td class="memItemLeft">QProcess *&#160;</td><td class="memItemRight"><a class="el" href="#a63e1c1cd752453cb2d1b80986d0d94ba">_game</a> = nullptr</td></tr>
 <tr class="memdesc:a63e1c1cd752453cb2d1b80986d0d94ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'essai complet en cours, s'il y en a un (<span class="tt">LOT-EDITOR-10</span>) : un seul à la fois.  <br /></td></tr>
+<tr class="memitem:a23d99be4eb485f40c5858a14a9ccf395" id="r_a23d99be4eb485f40c5858a14a9ccf395"><td class="memItemLeft"><a class="el" href="classhmi_1_1AssetWorkshop.html">AssetWorkshop</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a23d99be4eb485f40c5858a14a9ccf395">_workshop</a> = nullptr</td></tr>
+<tr class="memdesc:a23d99be4eb485f40c5858a14a9ccf395"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'atelier des assets, créé à sa première ouverture (<span class="tt">LOT-1008</span>).  <br /></td></tr>
 <tr class="memitem:ac34b14871777893b6f02885d2215e1e9" id="r_ac34b14871777893b6f02885d2215e1e9"><td class="memItemLeft"><a class="el" href="structhmi_1_1RunInGameChoice.html">RunInGameChoice</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac34b14871777893b6f02885d2215e1e9">_runChoice</a></td></tr>
 <tr class="memdesc:ac34b14871777893b6f02885d2215e1e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que le dernier « Run in game… » a choisi : repris tel quel par les essais suivants.  <br /></td></tr>
 <tr class="memitem:ab2141c7b628e5c668a5bf45283862087" id="r_ab2141c7b628e5c668a5bf45283862087"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab2141c7b628e5c668a5bf45283862087">_statePreview</a> = false</td></tr>
@@ -1236,6 +1240,25 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Propose la reprise d'un unique brouillon (offerRecovery, un par cycle de boucle). </p>
+
+</div>
+</div>
+<a id="a41b7d598449b1c44c3e159a67370faed" name="a41b7d598449b1c44c3e159a67370faed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41b7d598449b1c44c3e159a67370faed">&#9670;&#160;</a></span>openAssetWorkshop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::openAssetWorkshop </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>sheet</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ouvre la fenêtre « Asset workshop » (<span class="tt">LOT-1008</span>, <span class="tt">EX-EDIT-102</span>), sur la fiche d'atelier <code class="param">sheet</code> si elle est donnée. </p>
 
 </div>
 </div>
@@ -3125,6 +3148,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a23d99be4eb485f40c5858a14a9ccf395" name="a23d99be4eb485f40c5858a14a9ccf395"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23d99be4eb485f40c5858a14a9ccf395">&#9670;&#160;</a></span>_workshop</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1AssetWorkshop.html">AssetWorkshop</a>* hmi::MainWindow::_workshop = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'atelier des assets, créé à sa première ouverture (<span class="tt">LOT-1008</span>). </p>
 
 </div>
 </div>

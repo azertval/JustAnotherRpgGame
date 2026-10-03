@@ -1,0 +1,251 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/BlenderRetouch.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('BlenderRetouch_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">BlenderRetouch.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="BlenderRetouch_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="CharacterWorkshop_8h.html">Editor/Logic/CharacterWorkshop.h</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchFiles.html">   33</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchFiles.html#ae41c0dce18d4c81ea4fd6a5932aea4c0">   35</a></span>    std::filesystem::path <a class="code hl_variable" href="structhmi_1_1RetouchFiles.html#ae41c0dce18d4c81ea4fd6a5932aea4c0">model</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchFiles.html#ab192cf434ed04ed35f1ab7111ec39896">   37</a></span>    std::filesystem::path <a class="code hl_variable" href="structhmi_1_1RetouchFiles.html#ab192cf434ed04ed35f1ab7111ec39896">received</a>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchFiles.html#a5f0df0466d7399aa6fbbeced5ac524c3">   39</a></span>    std::filesystem::path <a class="code hl_variable" href="structhmi_1_1RetouchFiles.html#a5f0df0466d7399aa6fbbeced5ac524c3">sheet</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchFiles.html#a62cd2bc83d2543862b1cb1af459dda01">   41</a></span>    std::filesystem::path <a class="code hl_variable" href="structhmi_1_1RetouchFiles.html#a62cd2bc83d2543862b1cb1af459dda01">retouch</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchFiles.html#a753df4db47d9d83c6c30d2729a471968">   43</a></span>    std::filesystem::path <a class="code hl_variable" href="structhmi_1_1RetouchFiles.html#a753df4db47d9d83c6c30d2729a471968">blend</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchFiles.html#a0a2d95759ce474793cfa81078d4aaa9c">   45</a></span>    std::filesystem::path <a class="code hl_variable" href="structhmi_1_1RetouchFiles.html#a0a2d95759ce474793cfa81078d4aaa9c">skeleton</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchFiles.html#af36e13ea95eb4f900f30154416cc21ba">   47</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1RetouchFiles.html#af36e13ea95eb4f900f30154416cc21ba">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a> <a class="code hl_function" href="namespacehmi.html#a53463b47dceacdd92d4434b99af659c4">retouchFiles</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                                        <span class="keyword">const</span> std::filesystem::path&amp; baseDirectory,</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                                        <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1CharacterDraft.html">CharacterDraft</a>&amp; draft);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>[[nodiscard]] std::string <a class="code hl_function" href="namespacehmi.html#a91943cc58f3da25b164f3943fa56247d">retouchReadiness</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a>&amp; files);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="};">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchTools.html">   66</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1RetouchTools.html">RetouchTools</a> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchTools.html#a119daff90053d819920660597e00e37f">   68</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1RetouchTools.html#a119daff90053d819920660597e00e37f">python</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchTools.html#a53dd206d9327c9b746006a15290e4a51">   69</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structhmi_1_1RetouchTools.html#a53dd206d9327c9b746006a15290e4a51">pythonArguments</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchTools.html#aa6c300efd149e6d41e8c8257091eea7e">   70</a></span>    std::filesystem::path <a class="code hl_variable" href="structhmi_1_1RetouchTools.html#aa6c300efd149e6d41e8c8257091eea7e">blender</a>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchTools.html#ac2b3daba145e8d8844929c1b1295b239">   71</a></span>    std::filesystem::path <a class="code hl_variable" href="structhmi_1_1RetouchTools.html#ac2b3daba145e8d8844929c1b1295b239">script</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="structhmi_1_1RetouchTools.html#a2ce6d33280d122611016bd0d2ba3ef92">   73</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1RetouchTools.html#a2ce6d33280d122611016bd0d2ba3ef92">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1RetouchTools.html">RetouchTools</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>};</div>
+</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="namespacehmi.html#a734edac038d880d3d3a5064a782246dd">   77</a></span><span class="keyword">using </span><a class="code hl_typedef" href="namespacehmi.html#a734edac038d880d3d3a5064a782246dd">EnvironmentLookup</a> = std::function&lt;std::optional&lt;std::string&gt;(<span class="keyword">const</span> std::string&amp;)&gt;;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1RetouchTools.html">RetouchTools</a> <a class="code hl_function" href="namespacehmi.html#a81d77258bea83b86b2b052809df4c950">findRetouchTools</a>(<span class="keyword">const</span> std::filesystem::path&amp; dataRoot,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                                            <span class="keyword">const</span> <a class="code hl_typedef" href="namespacehmi.html#a734edac038d880d3d3a5064a782246dd">EnvironmentLookup</a>&amp; environment,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                                            std::string&amp; error);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span></div>
+<div class="foldopen" id="foldopen00098" data-start="{" data-end="};">
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="structhmi_1_1ProcessCommand.html">   98</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structhmi_1_1ProcessCommand.html">ProcessCommand</a> {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="structhmi_1_1ProcessCommand.html#aa9eee5d0a910187200eda90e1b180049">   99</a></span>    std::string <a class="code hl_variable" href="structhmi_1_1ProcessCommand.html#aa9eee5d0a910187200eda90e1b180049">program</a>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="structhmi_1_1ProcessCommand.html#acfa82483f71ee90e29f98042e340d42e">  100</a></span>    std::vector&lt;std::string&gt; <a class="code hl_variable" href="structhmi_1_1ProcessCommand.html#acfa82483f71ee90e29f98042e340d42e">arguments</a>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="structhmi_1_1ProcessCommand.html#a7d69789c4808871978e0959a86c5e89e">  102</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structhmi_1_1ProcessCommand.html#a7d69789c4808871978e0959a86c5e89e">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1ProcessCommand.html">ProcessCommand</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>};</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1ProcessCommand.html">ProcessCommand</a> <a class="code hl_function" href="namespacehmi.html#a6fdedf00e5050d80cfd4cd1979f5dbc1">openInBlenderCommand</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1RetouchTools.html">RetouchTools</a>&amp; tools,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                                                  <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a>&amp; files);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>[[nodiscard]] <a class="code hl_struct" href="structhmi_1_1ProcessCommand.html">ProcessCommand</a> <a class="code hl_function" href="namespacehmi.html#a88cbff601570c527e735bb9de442084a">importFromBlenderCommand</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1RetouchTools.html">RetouchTools</a>&amp; tools,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                                                      <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1RetouchFiles.html">RetouchFiles</a>&amp; files);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aCharacterWorkshop_8h_html"><div class="ttname"><a href="CharacterWorkshop_8h.html">CharacterWorkshop.h</a></div><div class="ttdoc">L&#39;atelier des assets, vue Character (LOT-1008, EX-EDIT-102 à EX-EDIT-104) : écrire la fiche d&#39;un pers...</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="anamespacehmi_html_a53463b47dceacdd92d4434b99af659c4"><div class="ttname"><a href="namespacehmi.html#a53463b47dceacdd92d4434b99af659c4">hmi::retouchFiles</a></div><div class="ttdeci">RetouchFiles retouchFiles(const std::filesystem::path &amp;dataRoot, const std::filesystem::path &amp;baseDirectory, const CharacterDraft &amp;draft)</div><div class="ttdoc">Les fichiers de l&#39;aller-retour de draft.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.cpp:26</div></div>
+<div class="ttc" id="anamespacehmi_html_a6fdedf00e5050d80cfd4cd1979f5dbc1"><div class="ttname"><a href="namespacehmi.html#a6fdedf00e5050d80cfd4cd1979f5dbc1">hmi::openInBlenderCommand</a></div><div class="ttdeci">ProcessCommand openInBlenderCommand(const RetouchTools &amp;tools, const RetouchFiles &amp;files)</div><div class="ttdef"><b>Definition</b> BlenderRetouch.cpp:135</div></div>
+<div class="ttc" id="anamespacehmi_html_a734edac038d880d3d3a5064a782246dd"><div class="ttname"><a href="namespacehmi.html#a734edac038d880d3d3a5064a782246dd">hmi::EnvironmentLookup</a></div><div class="ttdeci">std::function&lt; std::optional&lt; std::string &gt;(const std::string &amp;)&gt; EnvironmentLookup</div><div class="ttdoc">Lit une variable d&#39;environnement ; rien si elle n&#39;est pas définie.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:77</div></div>
+<div class="ttc" id="anamespacehmi_html_a81d77258bea83b86b2b052809df4c950"><div class="ttname"><a href="namespacehmi.html#a81d77258bea83b86b2b052809df4c950">hmi::findRetouchTools</a></div><div class="ttdeci">RetouchTools findRetouchTools(const std::filesystem::path &amp;dataRoot, const EnvironmentLookup &amp;environment, std::string &amp;error)</div><div class="ttdoc">Cherche les outils de l&#39;aller-retour.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.cpp:70</div></div>
+<div class="ttc" id="anamespacehmi_html_a88cbff601570c527e735bb9de442084a"><div class="ttname"><a href="namespacehmi.html#a88cbff601570c527e735bb9de442084a">hmi::importFromBlenderCommand</a></div><div class="ttdeci">ProcessCommand importFromBlenderCommand(const RetouchTools &amp;tools, const RetouchFiles &amp;files)</div><div class="ttdef"><b>Definition</b> BlenderRetouch.cpp:143</div></div>
+<div class="ttc" id="anamespacehmi_html_a91943cc58f3da25b164f3943fa56247d"><div class="ttname"><a href="namespacehmi.html#a91943cc58f3da25b164f3943fa56247d">hmi::retouchReadiness</a></div><div class="ttdeci">std::string retouchReadiness(const RetouchFiles &amp;files)</div><div class="ttdef"><b>Definition</b> BlenderRetouch.cpp:51</div></div>
+<div class="ttc" id="astructhmi_1_1CharacterDraft_html"><div class="ttname"><a href="structhmi_1_1CharacterDraft.html">hmi::CharacterDraft</a></div><div class="ttdoc">La fiche d&#39;atelier d&#39;un personnage : ce que la vue Character édite.</div><div class="ttdef"><b>Definition</b> CharacterWorkshop.h:104</div></div>
+<div class="ttc" id="astructhmi_1_1ProcessCommand_html"><div class="ttname"><a href="structhmi_1_1ProcessCommand.html">hmi::ProcessCommand</a></div><div class="ttdoc">Un programme et ses arguments, prêts pour QProcess.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:98</div></div>
+<div class="ttc" id="astructhmi_1_1ProcessCommand_html_a7d69789c4808871978e0959a86c5e89e"><div class="ttname"><a href="structhmi_1_1ProcessCommand.html#a7d69789c4808871978e0959a86c5e89e">hmi::ProcessCommand::operator==</a></div><div class="ttdeci">bool operator==(const ProcessCommand &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1ProcessCommand_html_aa9eee5d0a910187200eda90e1b180049"><div class="ttname"><a href="structhmi_1_1ProcessCommand.html#aa9eee5d0a910187200eda90e1b180049">hmi::ProcessCommand::program</a></div><div class="ttdeci">std::string program</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:99</div></div>
+<div class="ttc" id="astructhmi_1_1ProcessCommand_html_acfa82483f71ee90e29f98042e340d42e"><div class="ttname"><a href="structhmi_1_1ProcessCommand.html#acfa82483f71ee90e29f98042e340d42e">hmi::ProcessCommand::arguments</a></div><div class="ttdeci">std::vector&lt; std::string &gt; arguments</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:100</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchFiles_html"><div class="ttname"><a href="structhmi_1_1RetouchFiles.html">hmi::RetouchFiles</a></div><div class="ttdoc">Les fichiers de l&#39;aller-retour d&#39;un personnage, en chemins absolus.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:33</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchFiles_html_a0a2d95759ce474793cfa81078d4aaa9c"><div class="ttname"><a href="structhmi_1_1RetouchFiles.html#a0a2d95759ce474793cfa81078d4aaa9c">hmi::RetouchFiles::skeleton</a></div><div class="ttdeci">std::filesystem::path skeleton</div><div class="ttdoc">La description du squelette installé : les os et les clips que le modèle doit tenir.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:45</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchFiles_html_a5f0df0466d7399aa6fbbeced5ac524c3"><div class="ttname"><a href="structhmi_1_1RetouchFiles.html#a5f0df0466d7399aa6fbbeced5ac524c3">hmi::RetouchFiles::sheet</a></div><div class="ttdeci">std::filesystem::path sheet</div><div class="ttdoc">La fiche de liaison.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:39</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchFiles_html_a62cd2bc83d2543862b1cb1af459dda01"><div class="ttname"><a href="structhmi_1_1RetouchFiles.html#a62cd2bc83d2543862b1cb1af459dda01">hmi::RetouchFiles::retouch</a></div><div class="ttdeci">std::filesystem::path retouch</div><div class="ttdoc">La fiche de retouche : à défaut, retouche.json à côté de la fiche de liaison.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:41</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchFiles_html_a753df4db47d9d83c6c30d2729a471968"><div class="ttname"><a href="structhmi_1_1RetouchFiles.html#a753df4db47d9d83c6c30d2729a471968">hmi::RetouchFiles::blend</a></div><div class="ttdeci">std::filesystem::path blend</div><div class="ttdoc">Le fichier Blender : à défaut, à côté du modèle lié, à son nom.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:43</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchFiles_html_ab192cf434ed04ed35f1ab7111ec39896"><div class="ttname"><a href="structhmi_1_1RetouchFiles.html#ab192cf434ed04ed35f1ab7111ec39896">hmi::RetouchFiles::received</a></div><div class="ttdeci">std::filesystem::path received</div><div class="ttdoc">Le maillage reçu, que l&#39;import relie.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:37</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchFiles_html_ae41c0dce18d4c81ea4fd6a5932aea4c0"><div class="ttname"><a href="structhmi_1_1RetouchFiles.html#ae41c0dce18d4c81ea4fd6a5932aea4c0">hmi::RetouchFiles::model</a></div><div class="ttdeci">std::filesystem::path model</div><div class="ttdoc">Le modèle lié : ce que Blender ouvre, et ce que l&#39;import réécrit.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:35</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchFiles_html_af36e13ea95eb4f900f30154416cc21ba"><div class="ttname"><a href="structhmi_1_1RetouchFiles.html#af36e13ea95eb4f900f30154416cc21ba">hmi::RetouchFiles::operator==</a></div><div class="ttdeci">bool operator==(const RetouchFiles &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchTools_html"><div class="ttname"><a href="structhmi_1_1RetouchTools.html">hmi::RetouchTools</a></div><div class="ttdoc">Les outils de l&#39;aller-retour : l&#39;interpréteur Python, Blender et le script de la chaîne.</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:66</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchTools_html_a119daff90053d819920660597e00e37f"><div class="ttname"><a href="structhmi_1_1RetouchTools.html#a119daff90053d819920660597e00e37f">hmi::RetouchTools::python</a></div><div class="ttdeci">std::string python</div><div class="ttdoc">L&#39;interpréteur, et les arguments qui le précisent (py, -3).</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:68</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchTools_html_a2ce6d33280d122611016bd0d2ba3ef92"><div class="ttname"><a href="structhmi_1_1RetouchTools.html#a2ce6d33280d122611016bd0d2ba3ef92">hmi::RetouchTools::operator==</a></div><div class="ttdeci">bool operator==(const RetouchTools &amp;) const =default</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchTools_html_a53dd206d9327c9b746006a15290e4a51"><div class="ttname"><a href="structhmi_1_1RetouchTools.html#a53dd206d9327c9b746006a15290e4a51">hmi::RetouchTools::pythonArguments</a></div><div class="ttdeci">std::vector&lt; std::string &gt; pythonArguments</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:69</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchTools_html_aa6c300efd149e6d41e8c8257091eea7e"><div class="ttname"><a href="structhmi_1_1RetouchTools.html#aa6c300efd149e6d41e8c8257091eea7e">hmi::RetouchTools::blender</a></div><div class="ttdeci">std::filesystem::path blender</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:70</div></div>
+<div class="ttc" id="astructhmi_1_1RetouchTools_html_ac2b3daba145e8d8844929c1b1295b239"><div class="ttname"><a href="structhmi_1_1RetouchTools.html#ac2b3daba145e8d8844929c1b1295b239">hmi::RetouchTools::script</a></div><div class="ttdeci">std::filesystem::path script</div><div class="ttdef"><b>Definition</b> BlenderRetouch.h:71</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_b26507eead720464ba2ac6bbc6dcec5f.html">Editor</a></li><li class="navelem"><a href="dir_772c1d7d11cd878bc340037b824a0fc7.html">Logic</a></li><li class="navelem"><a href="BlenderRetouch_8h.html">BlenderRetouch.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['weapon_0',['Weapon',['../structcore_1_1Weapon.html',1,'core']]],
-  ['widgets_1',['Widgets',['../structhmi_1_1EntityPanel_1_1Widgets.html',1,'hmi::EntityPanel::Widgets'],['../structhmi_1_1LayersPanel_1_1Widgets.html',1,'hmi::LayersPanel::Widgets'],['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html',1,'hmi::LevelBrowserPanel::Widgets']]],
+  ['widgets_1',['Widgets',['../structhmi_1_1AssetWorkshop_1_1Widgets.html',1,'hmi::AssetWorkshop::Widgets'],['../structhmi_1_1EntityPanel_1_1Widgets.html',1,'hmi::EntityPanel::Widgets'],['../structhmi_1_1LayersPanel_1_1Widgets.html',1,'hmi::LayersPanel::Widgets'],['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html',1,'hmi::LevelBrowserPanel::Widgets']]],
   ['world_2',['World',['../classcore_1_1World.html',1,'core']]],
   ['worldcomposeoptions_3',['WorldComposeOptions',['../structhmi_1_1WorldComposeOptions.html',1,'hmi']]],
   ['worldfiguresnapshot_4',['WorldFigureSnapshot',['../structhmi_1_1WorldFigureSnapshot.html',1,'hmi']]],

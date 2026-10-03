@@ -35,6 +35,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/App/Editor/</path>
     <filename>Editor_2Main_8cpp.html</filename>
     <includes id="Bootstrap_8h" name="Bootstrap.h" local="yes" import="no" module="no" objc="no">App/Common/Bootstrap.h</includes>
+    <includes id="CharacterWorkshop_8h" name="CharacterWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterWorkshop.h</includes>
     <includes id="DataRoot_8h" name="DataRoot.h" local="yes" import="no" module="no" objc="no">Editor/Logic/DataRoot.h</includes>
     <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
     <includes id="MapRefactor_8h" name="MapRefactor.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapRefactor.h</includes>
@@ -2752,6 +2753,24 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>BlenderRetouch.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>BlenderRetouch_8cpp.html</filename>
+    <includes id="BlenderRetouch_8h" name="BlenderRetouch.h" local="yes" import="no" module="no" objc="no">Editor/Logic/BlenderRetouch.h</includes>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>BlenderRetouch.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>BlenderRetouch_8h.html</filename>
+    <includes id="CharacterWorkshop_8h" name="CharacterWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterWorkshop.h</includes>
+    <class kind="struct">hmi::RetouchFiles</class>
+    <class kind="struct">hmi::RetouchTools</class>
+    <class kind="struct">hmi::ProcessCommand</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>BrushGesture.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
     <filename>BrushGesture_8cpp.html</filename>
@@ -2816,6 +2835,49 @@
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <class kind="struct">hmi::IsoBandOpacity</class>
     <namespace>core</namespace>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>CharacterPreview.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>CharacterPreview_8cpp.html</filename>
+    <includes id="CharacterPreview_8h" name="CharacterPreview.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterPreview.h</includes>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>CharacterPreview.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>CharacterPreview_8h.html</filename>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
+    <class kind="struct">hmi::CharacterPreviewView</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>CharacterWorkshop.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>CharacterWorkshop_8cpp.html</filename>
+    <includes id="CharacterWorkshop_8h" name="CharacterWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterWorkshop.h</includes>
+    <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
+    <includes id="SkeletonPose_8h" name="SkeletonPose.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonPose.h</includes>
+    <includes id="Sha256_8h" name="Sha256.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Sha256.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>CharacterWorkshop.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>CharacterWorkshop_8h.html</filename>
+    <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
+    <class kind="struct">hmi::CharacterWorkshopFiles</class>
+    <class kind="struct">hmi::CharacterDraft</class>
+    <class kind="struct">hmi::CharacterDraftResult</class>
+    <class kind="struct">hmi::CharacterFileWrite</class>
+    <class kind="struct">hmi::CharacterInstallPlan</class>
+    <class kind="struct">hmi::InstalledCharacter</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -3217,6 +3279,7 @@
     <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
     <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
+    <includes id="CharacterWorkshop_8h" name="CharacterWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterWorkshop.h</includes>
     <includes id="ContentCheck_8h" name="ContentCheck.h" local="yes" import="no" module="no" objc="no">Editor/Logic/ContentCheck.h</includes>
     <includes id="EditorSidecar_8h" name="EditorSidecar.h" local="yes" import="no" module="no" objc="no">Editor/Logic/EditorSidecar.h</includes>
     <includes id="GestureScript_8h" name="GestureScript.h" local="yes" import="no" module="no" objc="no">Editor/Logic/GestureScript.h</includes>
@@ -3715,6 +3778,19 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>Sha256.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>Sha256_8cpp.html</filename>
+    <includes id="Sha256_8h" name="Sha256.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Sha256.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>Sha256.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
+    <filename>Sha256_8h.html</filename>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>Stamps.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Logic/</path>
     <filename>Stamps_8cpp.html</filename>
@@ -3841,6 +3917,28 @@
     <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
     <class kind="struct">hmi::WorldStateEntry</class>
     <class kind="struct">hmi::WorldStateFlags</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>AssetWorkshop.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
+    <filename>AssetWorkshop_8cpp.html</filename>
+    <includes id="AssetWorkshop_8h" name="AssetWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Ui/AssetWorkshop.h</includes>
+    <includes id="CharacterPreview_8h" name="CharacterPreview.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterPreview.h</includes>
+    <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
+    <includes id="SceneSurface_8h" name="SceneSurface.h" local="yes" import="no" module="no" objc="no">Editor/Ui/SceneSurface.h</includes>
+    <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
+    <class kind="struct">hmi::AssetWorkshop::Widgets</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>AssetWorkshop.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
+    <filename>AssetWorkshop_8h.html</filename>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
+    <includes id="BlenderRetouch_8h" name="BlenderRetouch.h" local="yes" import="no" module="no" objc="no">Editor/Logic/BlenderRetouch.h</includes>
+    <includes id="CharacterWorkshop_8h" name="CharacterWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterWorkshop.h</includes>
+    <class kind="class">hmi::AssetWorkshop</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4061,6 +4159,7 @@
     <includes id="PieceCatalog_8h" name="PieceCatalog.h" local="yes" import="no" module="no" objc="no">Editor/Logic/PieceCatalog.h</includes>
     <includes id="Stamps_8h" name="Stamps.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Stamps.h</includes>
     <includes id="WorldLinks_8h" name="WorldLinks.h" local="yes" import="no" module="no" objc="no">Editor/Logic/WorldLinks.h</includes>
+    <includes id="AssetWorkshop_8h" name="AssetWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Ui/AssetWorkshop.h</includes>
     <includes id="EditorActions_8h" name="EditorActions.h" local="yes" import="no" module="no" objc="no">Editor/Ui/EditorActions.h</includes>
     <includes id="EditorViewport_8h" name="EditorViewport.h" local="yes" import="no" module="no" objc="no">Editor/Ui/EditorViewport.h</includes>
     <includes id="EntityPanel_8h" name="EntityPanel.h" local="yes" import="no" module="no" objc="no">Editor/Ui/EntityPanel.h</includes>
@@ -11449,6 +11548,34 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_blender_retouch.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
+    <filename>test__blender__retouch_8cpp.html</filename>
+    <includes id="BlenderRetouch_8h" name="BlenderRetouch.h" local="yes" import="no" module="no" objc="no">Editor/Logic/BlenderRetouch.h</includes>
+    <includes id="CharacterWorkshop_8h" name="CharacterWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterWorkshop.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__blender__retouch_8cpp.html</anchorfile>
+      <anchor>a995ffe834443a96b9d67fbd967413c22</anchor>
+      <arglist>(BlenderRetouch, LesFichiersSeDeduisentDeLaFiche)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__blender__retouch_8cpp.html</anchorfile>
+      <anchor>abd40ee6b66667c32214d9a392c395c44</anchor>
+      <arglist>(BlenderRetouch, CeQuiManqueEstDitAvantDOuvrirBlender)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__blender__retouch_8cpp.html</anchorfile>
+      <anchor>a8cf2867bf2c0b8955b78d2067a4d1ce3</anchor>
+      <arglist>(BlenderRetouch, LesDeuxCommandesPortentCeQueLeScriptAttend)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_brush_gesture.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
     <filename>test__brush__gesture_8cpp.html</filename>
@@ -11606,6 +11733,100 @@
       <anchorfile>test__canvas__scene_8cpp.html</anchorfile>
       <anchor>a35a186a3283c3a1c507889d25c50e60a</anchor>
       <arglist>(CanvasSceneTest, LesPiecesDUneCaseSeLisent)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_character_preview.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
+    <filename>test__character__preview_8cpp.html</filename>
+    <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
+    <includes id="CharacterPreview_8h" name="CharacterPreview.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterPreview.h</includes>
+    <includes id="OffscreenRender_8h" name="OffscreenRender.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/OffscreenRender.h</includes>
+    <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__character__preview_8cpp.html</anchorfile>
+      <anchor>a14440bde237f3c05e82e4fc0e6b672b9</anchor>
+      <arglist>(CharacterPreviewTest, LaSceneEstUnDamierEtUnPersonnageAuCentre)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__character__preview_8cpp.html</anchorfile>
+      <anchor>a5504f9f40778ce85fcb1b14f47f26380</anchor>
+      <arglist>(CharacterPreviewTest, UnClipJoueUneFoisTientSaDernierePose)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__character__preview_8cpp.html</anchorfile>
+      <anchor>a9a4e24a4c2e59508e3580480ba28095a</anchor>
+      <arglist>(CharacterPreviewRenderTest, LeRenduDuJeuDessineLePersonnage)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_character_workshop.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
+    <filename>test__character__workshop_8cpp.html</filename>
+    <includes id="CharacterWorkshop_8h" name="CharacterWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterWorkshop.h</includes>
+    <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
+    <includes id="Sha256_8h" name="Sha256.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Sha256.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__character__workshop_8cpp.html</anchorfile>
+      <anchor>ab41ab769b21e6f8b9b3a0fb3d069eab4</anchor>
+      <arglist>(Sha256Test, LEmpreinteEstCelleDeLaNorme)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__character__workshop_8cpp.html</anchorfile>
+      <anchor>afdd6bedecd1e0f49e817a56669fd3358</anchor>
+      <arglist>(CharacterDraftTest, UneFicheSeLitEtSeReecritALIdentique)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__character__workshop_8cpp.html</anchorfile>
+      <anchor>a802c766f71e9c91767e00b8dcfeb72fa</anchor>
+      <arglist>(CharacterWorkshop, LaFicheInstalleLePersonnageEtRendLesFichiersAttendus)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__character__workshop_8cpp.html</anchorfile>
+      <anchor>a01710e5e750da3bfd56fcdd2ad4d1bdb</anchor>
+      <arglist>(CharacterWorkshop, LesGestesRestentALaCommandeDesCartes)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__character__workshop_8cpp.html</anchorfile>
+      <anchor>a46bcac13130e6baab942ec191e125b2d</anchor>
+      <arglist>(CharacterWorkshop, UneFicheRefuseeNEcritRien)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__character__workshop_8cpp.html</anchorfile>
+      <anchor>aff1fa2c1b20c878b9994bb876d7412b8</anchor>
+      <arglist>(CharacterWorkshop, UnPersonnageInstalleSeRouvreSansDifference)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__character__workshop_8cpp.html</anchorfile>
+      <anchor>afe689b6c3fa18ef97bb609837765a6be</anchor>
+      <arglist>(CharacterWorkshopDelivered, LesPersonnagesLivresSeReenregistrentSansDifference)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST_F</name>
+      <anchorfile>test__character__workshop_8cpp.html</anchorfile>
+      <anchor>a37766d6b68c58c3c26e743c39ddaefb7</anchor>
+      <arglist>(CharacterWorkshop, LeControleNommeCeQuiManque)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -18572,6 +18793,319 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="class">
+    <name>hmi::AssetWorkshop</name>
+    <filename>classhmi_1_1AssetWorkshop.html</filename>
+    <class kind="struct">hmi::AssetWorkshop::Widgets</class>
+    <member kind="signal">
+      <type>void</type>
+      <name>characterInstalled</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a3b06cedbb10fe4ba3eb0559811748a8c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>AssetWorkshop</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a369de2cd7f3b1ede5905a20b2879d5eb</anchor>
+      <arglist>(std::filesystem::path dataRoot, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~AssetWorkshop</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>ad1ad3a9d4a263e880e5c856cb541d323</anchor>
+      <arglist>() override</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>AssetWorkshop</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a5b3e3b534bc8ed15b9335af7055f6250</anchor>
+      <arglist>(const AssetWorkshop &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>AssetWorkshop &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>af75e7652bfa6076c93543f86788ccc6e</anchor>
+      <arglist>(const AssetWorkshop &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>openSheet</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a1bbdc5c60483054ea54fb072626b27a9</anchor>
+      <arglist>(const std::filesystem::path &amp;file)</arglist>
+    </member>
+    <member kind="function">
+      <type>CharacterDraft</type>
+      <name>draft</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a18c570541a0db219c51be93240c2d7f7</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>bool</type>
+      <name>eventFilter</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a242dc729e71cb0abbac1698b28a97767</anchor>
+      <arglist>(QObject *watched, QEvent *event) override</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>buildUi</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a63df993fe4224c7e61111c93b02ec972</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QWidget *</type>
+      <name>buildSheetColumn</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a8c68954938dd9dd8663b9bd5ee84d315</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QWidget *</type>
+      <name>buildPreviewColumn</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a1f5906f608706c011763d98c94002348</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QLineEdit *</type>
+      <name>addFileRow</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>aeb0c67c849ac32de05008db0709c048d</anchor>
+      <arglist>(QVBoxLayout *column, const QString &amp;label, const QString &amp;filter)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>reloadInstalled</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>ad265831bd6b0a3ce537435984d59b913</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>showDraft</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a4cbba0ab0e67b967a83e56a7bfbf70fa</anchor>
+      <arglist>(const CharacterDraft &amp;draft)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>openInstalled</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a5341b212ce0220e8fa59b96a1d827623</anchor>
+      <arglist>(const InstalledCharacter &amp;character)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>newSheet</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a48f465f592ce5b47bce74984d48e778d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>chooseSheet</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a5a3455ff77c640502734c1bd5ec3b611</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>saveSheet</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>ab2454a2620c3a7fed89559fb20b19ccb</anchor>
+      <arglist>(bool askName)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>install</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a2e0f20ad95e8f5f21e70de8ba045dd83</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>checkInstalled</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>afae96db323a71a056699f30a295c02c4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>editInBlender</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a54f62126d453cef5cef429edda53c04a</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>importFromBlender</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>adb5906670653a8577bad286be9cb6b6f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>run</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a3690f8f35dfec521b4dc02c04ea0ccad</anchor>
+      <arglist>(const ProcessCommand &amp;command, const QString &amp;what, std::function&lt; void(int)&gt; done)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>reloadPreview</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>adeb06ebd7215ca031d9afdd84f1a1e68</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>refreshPreview</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a9dbea4e922f6f5d35acb093e56d4aa6d</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>log</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a1fe8fc76914b5c39052b153378a3518e</anchor>
+      <arglist>(const QString &amp;text)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>std::filesystem::path</type>
+      <name>baseDirectory</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a08f5de562dd2eaa12e290fe5f2ddb3d1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>std::filesystem::path</type>
+      <name>sheetRoot</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a896520453a19ea58e62880b9ebac5f6e</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>QString</type>
+      <name>written</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a62e2fe4f532c5c03eb8e475f0736ba30</anchor>
+      <arglist>(const QString &amp;file) const</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::filesystem::path</type>
+      <name>_dataRoot</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a303d924c35833e08e01677693e483aa1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::filesystem::path</type>
+      <name>_workshopRoot</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a06f7e9c4ba4b177942ce6536edb86475</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::filesystem::path</type>
+      <name>_sheetFile</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a11659fe21e9c4c412012b4208bbebf94</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::string</type>
+      <name>_root</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a654964933b45df6916845d6eec6b966f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>CharacterWorkshopFiles</type>
+      <name>_workshopExtras</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a92dd3dd4246b9a82f40bc5298e512d46</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::string</type>
+      <name>_skeletonSource</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>ab982c6c5009e2a92b0aaff15f0271361</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::optional&lt; core::SkeletonDescription &gt;</type>
+      <name>_skeleton</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a4be69e2b081a77d4e6f01a03a047fc0d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>Widgets *</type>
+      <name>_w</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a3b14a1df13b171229757b193f446f1c6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>SceneSurface *</type>
+      <name>_surface</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a9009a3d68ef922e2e08b0d1a6a83c45b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QProcess *</type>
+      <name>_process</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a29a66ab6c95eedd695829c3736c2c482</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QTimer *</type>
+      <name>_clock</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a2ba1f4a86323ce6039ffeb33fe7f0ea2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QElapsedTimer</type>
+      <name>_elapsed</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a176968b98bf16450d9e94cb8c117a961</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::string</type>
+      <name>_previewModel</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a5b83ff9f02cec1260e50e45de55a8b0b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_quarterTurns</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a16aafffb072809a13309efecd6424f40</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_heldSeconds</name>
+      <anchorfile>classhmi_1_1AssetWorkshop.html</anchorfile>
+      <anchor>a83b26ac208937b9056289bf82d1eacc5</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="struct">
     <name>core::Atlas</name>
     <filename>structcore_1_1Atlas.html</filename>
@@ -20530,6 +21064,169 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>hmi::CharacterDraft</name>
+    <filename>structhmi_1_1CharacterDraft.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1CharacterDraft.html</anchorfile>
+      <anchor>a38201921302d8cb793968bb140b1641c</anchor>
+      <arglist>(const CharacterDraft &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>root</name>
+      <anchorfile>structhmi_1_1CharacterDraft.html</anchorfile>
+      <anchor>aced8f62e2a1d884221675bf1763e41c7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>level</name>
+      <anchorfile>structhmi_1_1CharacterDraft.html</anchorfile>
+      <anchor>af8f4c5969f7524576a242b6b27513e5a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structhmi_1_1CharacterDraft.html</anchorfile>
+      <anchor>a29a28e65aa5d51fa72c6903bf1cafa0c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>skeleton</name>
+      <anchorfile>structhmi_1_1CharacterDraft.html</anchorfile>
+      <anchor>a181486ea090609cf1c47e1ce9b2cc2ef</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>skeletonSource</name>
+      <anchorfile>structhmi_1_1CharacterDraft.html</anchorfile>
+      <anchor>a5235b2e25a064d7953d8287c58aef572</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>model</name>
+      <anchorfile>structhmi_1_1CharacterDraft.html</anchorfile>
+      <anchor>a020689e3c55db98bea56323adaa012eb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>portrait</name>
+      <anchorfile>structhmi_1_1CharacterDraft.html</anchorfile>
+      <anchor>a9b1f2ecf522da6fea3dd7cbaa9e14c06</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>token</name>
+      <anchorfile>structhmi_1_1CharacterDraft.html</anchorfile>
+      <anchor>a88810d1a01d8f4548d3b5e5284260217</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>CharacterWorkshopFiles</type>
+      <name>workshop</name>
+      <anchorfile>structhmi_1_1CharacterDraft.html</anchorfile>
+      <anchor>ade1daac19f0d8a3dcd8be5bfb53d63c4</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::CharacterDraftResult</name>
+    <filename>structhmi_1_1CharacterDraftResult.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>ok</name>
+      <anchorfile>structhmi_1_1CharacterDraftResult.html</anchorfile>
+      <anchor>aece6c233def9320d6a521c79ba352cfa</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>CharacterDraft</type>
+      <name>draft</name>
+      <anchorfile>structhmi_1_1CharacterDraftResult.html</anchorfile>
+      <anchor>a3de970a403616671f499ca85ae0a0011</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>error</name>
+      <anchorfile>structhmi_1_1CharacterDraftResult.html</anchorfile>
+      <anchor>a3a90835f84c1035e9d3f204656e0588f</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::CharacterFileWrite</name>
+    <filename>structhmi_1_1CharacterFileWrite.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1CharacterFileWrite.html</anchorfile>
+      <anchor>a4e201f2d52d4d01e260bac8b3836a61c</anchor>
+      <arglist>(const CharacterFileWrite &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>file</name>
+      <anchorfile>structhmi_1_1CharacterFileWrite.html</anchorfile>
+      <anchor>a67fad65a81fe92568beea6b36e43cc0f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>bytes</name>
+      <anchorfile>structhmi_1_1CharacterFileWrite.html</anchorfile>
+      <anchor>a81f66d0b6f5dc83d0a750fa8eefe880d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::CharacterInstallPlan</name>
+    <filename>structhmi_1_1CharacterInstallPlan.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>ok</name>
+      <anchorfile>structhmi_1_1CharacterInstallPlan.html</anchorfile>
+      <anchor>a41f3906cf8fb9408a54ae2c1ed9410c3</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; CharacterFileWrite &gt;</type>
+      <name>writes</name>
+      <anchorfile>structhmi_1_1CharacterInstallPlan.html</anchorfile>
+      <anchor>a11da64395db40177e983a774e5b3fe50</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::filesystem::path &gt;</type>
+      <name>removals</name>
+      <anchorfile>structhmi_1_1CharacterInstallPlan.html</anchorfile>
+      <anchor>a223ee1f3960256f2becf0f342ab8992e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>log</name>
+      <anchorfile>structhmi_1_1CharacterInstallPlan.html</anchorfile>
+      <anchor>a5ac12a1d18890d652bf30d7a9d87ce5b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>error</name>
+      <anchorfile>structhmi_1_1CharacterInstallPlan.html</anchorfile>
+      <anchor>ab5107e7ea56a8e0eb142196e8e12472b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="class">
     <name>core::CharacterListener</name>
     <filename>classcore_1_1CharacterListener.html</filename>
@@ -20669,6 +21366,45 @@
       <name>errors</name>
       <anchorfile>structcore_1_1CharacterOptions.html</anchorfile>
       <anchor>a0c2d28dc92e70b5e66c18903435fd189</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::CharacterPreviewView</name>
+    <filename>structhmi_1_1CharacterPreviewView.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1CharacterPreviewView.html</anchorfile>
+      <anchor>a4b82d434dd4ddb7eb9b34db3d1795858</anchor>
+      <arglist>(const CharacterPreviewView &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>model</name>
+      <anchorfile>structhmi_1_1CharacterPreviewView.html</anchorfile>
+      <anchor>aefef59cd507ee9c72bec6aec1130d3aa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>clip</name>
+      <anchorfile>structhmi_1_1CharacterPreviewView.html</anchorfile>
+      <anchor>a969ff60eee0c17ba6f26ef4c8c9061aa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>seconds</name>
+      <anchorfile>structhmi_1_1CharacterPreviewView.html</anchorfile>
+      <anchor>a07a3dc82177dbe29b2bc956e9a2bf29e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>quarterTurns</name>
+      <anchorfile>structhmi_1_1CharacterPreviewView.html</anchorfile>
+      <anchor>aca54e81c97951fb1d0f7d4d5e429383b</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -21347,6 +22083,45 @@
       <name>_attacks</name>
       <anchorfile>classhmi_1_1CharacterSheetModel.html</anchorfile>
       <anchor>aed7e1fe57ee50d9986dc016c21608918</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::CharacterWorkshopFiles</name>
+    <filename>structhmi_1_1CharacterWorkshopFiles.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1CharacterWorkshopFiles.html</anchorfile>
+      <anchor>afe9d9bb1f9e8b50971c2d9d40080f863</anchor>
+      <arglist>(const CharacterWorkshopFiles &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>received</name>
+      <anchorfile>structhmi_1_1CharacterWorkshopFiles.html</anchorfile>
+      <anchor>a00fe5b02b5265e942e0f7b781b09e178</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>sheet</name>
+      <anchorfile>structhmi_1_1CharacterWorkshopFiles.html</anchorfile>
+      <anchor>a73a58f5e39c431f078e89381a098b62b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>retouch</name>
+      <anchorfile>structhmi_1_1CharacterWorkshopFiles.html</anchorfile>
+      <anchor>a01e27295e80b6dd3bb15bb587a5782fa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>blend</name>
+      <anchorfile>structhmi_1_1CharacterWorkshopFiles.html</anchorfile>
+      <anchor>aefb9d583b1be90180462f39675202e88</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -33191,6 +33966,31 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::InstalledCharacter</name>
+    <filename>structhmi_1_1InstalledCharacter.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1InstalledCharacter.html</anchorfile>
+      <anchor>a55a6477dde1b9b56bb3351215be2b395</anchor>
+      <arglist>(const InstalledCharacter &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>level</name>
+      <anchorfile>structhmi_1_1InstalledCharacter.html</anchorfile>
+      <anchor>a1964dc8e313db28fcefe43d0553f1dc4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>name</name>
+      <anchorfile>structhmi_1_1InstalledCharacter.html</anchorfile>
+      <anchor>a1455d435fae8fe11f07bd782be0b7271</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::Interactable</name>
     <filename>structcore_1_1Interactable.html</filename>
     <member kind="function">
@@ -36993,6 +37793,13 @@
       <arglist>(const std::filesystem::path &amp;path, bool reuseCurrent=false)</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>openAssetWorkshop</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a41b7d598449b1c44c3e159a67370faed</anchor>
+      <arglist>(const std::filesystem::path &amp;sheet={})</arglist>
+    </member>
+    <member kind="function">
       <type></type>
       <name>MainWindow</name>
       <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
@@ -37662,6 +38469,13 @@
       <name>_game</name>
       <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
       <anchor>a63e1c1cd752453cb2d1b80986d0d94ba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>AssetWorkshop *</type>
+      <name>_workshop</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a23d99be4eb485f40c5858a14a9ccf395</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -42668,6 +43482,31 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::ProcessCommand</name>
+    <filename>structhmi_1_1ProcessCommand.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1ProcessCommand.html</anchorfile>
+      <anchor>a7d69789c4808871978e0959a86c5e89e</anchor>
+      <arglist>(const ProcessCommand &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>program</name>
+      <anchorfile>structhmi_1_1ProcessCommand.html</anchorfile>
+      <anchor>aa9eee5d0a910187200eda90e1b180049</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>arguments</name>
+      <anchorfile>structhmi_1_1ProcessCommand.html</anchorfile>
+      <anchor>acfa82483f71ee90e29f98042e340d42e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::ProjectEdit</name>
     <filename>structhmi_1_1ProjectEdit.html</filename>
     <member kind="variable">
@@ -44293,6 +45132,98 @@
       <name>skeleton</name>
       <anchorfile>structhmi_1_1ResolvedFigure.html</anchorfile>
       <anchor>ab9cf62a082425206167a5d2f2143bcc3</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::RetouchFiles</name>
+    <filename>structhmi_1_1RetouchFiles.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1RetouchFiles.html</anchorfile>
+      <anchor>af36e13ea95eb4f900f30154416cc21ba</anchor>
+      <arglist>(const RetouchFiles &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>model</name>
+      <anchorfile>structhmi_1_1RetouchFiles.html</anchorfile>
+      <anchor>ae41c0dce18d4c81ea4fd6a5932aea4c0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>received</name>
+      <anchorfile>structhmi_1_1RetouchFiles.html</anchorfile>
+      <anchor>ab192cf434ed04ed35f1ab7111ec39896</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>sheet</name>
+      <anchorfile>structhmi_1_1RetouchFiles.html</anchorfile>
+      <anchor>a5f0df0466d7399aa6fbbeced5ac524c3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>retouch</name>
+      <anchorfile>structhmi_1_1RetouchFiles.html</anchorfile>
+      <anchor>a62cd2bc83d2543862b1cb1af459dda01</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>blend</name>
+      <anchorfile>structhmi_1_1RetouchFiles.html</anchorfile>
+      <anchor>a753df4db47d9d83c6c30d2729a471968</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>skeleton</name>
+      <anchorfile>structhmi_1_1RetouchFiles.html</anchorfile>
+      <anchor>a0a2d95759ce474793cfa81078d4aaa9c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::RetouchTools</name>
+    <filename>structhmi_1_1RetouchTools.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1RetouchTools.html</anchorfile>
+      <anchor>a2ce6d33280d122611016bd0d2ba3ef92</anchor>
+      <arglist>(const RetouchTools &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>python</name>
+      <anchorfile>structhmi_1_1RetouchTools.html</anchorfile>
+      <anchor>a119daff90053d819920660597e00e37f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>pythonArguments</name>
+      <anchorfile>structhmi_1_1RetouchTools.html</anchorfile>
+      <anchor>a53dd206d9327c9b746006a15290e4a51</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>blender</name>
+      <anchorfile>structhmi_1_1RetouchTools.html</anchorfile>
+      <anchor>aa6c300efd149e6d41e8c8257091eea7e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::filesystem::path</type>
+      <name>script</name>
+      <anchorfile>structhmi_1_1RetouchTools.html</anchorfile>
+      <anchor>ac2b3daba145e8d8844929c1b1295b239</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -48713,6 +49644,136 @@
       <name>rangeLong</name>
       <anchorfile>structcore_1_1Weapon.html</anchorfile>
       <anchor>abafc87e5b8b54b956fc4d11a141b7a2b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::AssetWorkshop::Widgets</name>
+    <filename>structhmi_1_1AssetWorkshop_1_1Widgets.html</filename>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>workshop</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>aa615ab645169dc95bfbbe28f2c44fc5d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QListWidget *</type>
+      <name>installed</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>ac454fb1ece85eed9b58911de31dc9c3b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLabel *</type>
+      <name>sheetFile</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>ae198afb4bf76c092b0562d43ca0be252</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QComboBox *</type>
+      <name>level</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>a2b34c9de68132005fb17dd6a3cfd7748</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>name</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>acc54771a18bec29d39ed35bd2da57171</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QComboBox *</type>
+      <name>skeleton</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>ac3f14a141771be227e2fed3d5540c428</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>model</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>a0c3f4baed88223481fcfdf3baa687497</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>portrait</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>adc320005acbd5ff74351772432f34b63</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>token</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>aa0d80dd8ec0a0378fef25c3ad3af8a5a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>received</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>a7fa54a15b70120b7f416970afc7d0277</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QLineEdit *</type>
+      <name>liaison</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>ab9f4631a3e3fb0446801af6f24bc8506</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>editInBlender</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>a5e8caf5a491031deca26cc9090df6a3d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>importFromBlender</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>aac694630a174aacd3bf6904dc1120029</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPushButton *</type>
+      <name>install</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>ac46fbc3e1066a1b2e07342fac7509202</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QPlainTextEdit *</type>
+      <name>log</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>ac14138a97cde1cc9eed58d735f9d0abb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QVBoxLayout *</type>
+      <name>previewHost</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>af4b90a0e88149c20c5a8e512b600a6a0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QComboBox *</type>
+      <name>clip</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>ac2f761f7378cacb0f53b717479466177</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QCheckBox *</type>
+      <name>play</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>a981935e53b6192d852fe2b4d1e13c777</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -56721,10 +57782,20 @@
     <namespace>hmi::figure_clips</namespace>
     <class kind="struct">hmi::AutosaveRecord</class>
     <class kind="class">hmi::AutosaveStore</class>
+    <class kind="struct">hmi::RetouchFiles</class>
+    <class kind="struct">hmi::RetouchTools</class>
+    <class kind="struct">hmi::ProcessCommand</class>
     <class kind="struct">hmi::CanvasBrush</class>
     <class kind="struct">hmi::BrushResult</class>
     <class kind="struct">hmi::CellRange</class>
     <class kind="struct">hmi::IsoBandOpacity</class>
+    <class kind="struct">hmi::CharacterPreviewView</class>
+    <class kind="struct">hmi::CharacterWorkshopFiles</class>
+    <class kind="struct">hmi::CharacterDraft</class>
+    <class kind="struct">hmi::CharacterDraftResult</class>
+    <class kind="struct">hmi::CharacterFileWrite</class>
+    <class kind="struct">hmi::CharacterInstallPlan</class>
+    <class kind="struct">hmi::InstalledCharacter</class>
     <class kind="struct">hmi::CityDistrictView</class>
     <class kind="struct">hmi::CityView</class>
     <class kind="struct">hmi::ContentContext</class>
@@ -56799,6 +57870,7 @@
     <class kind="struct">hmi::MapLink</class>
     <class kind="struct">hmi::WorldStateEntry</class>
     <class kind="struct">hmi::WorldStateFlags</class>
+    <class kind="class">hmi::AssetWorkshop</class>
     <class kind="class">hmi::CityMapView</class>
     <class kind="struct">hmi::DraftEntityOverlay</class>
     <class kind="class">hmi::DraftRenderer</class>
@@ -56953,6 +58025,13 @@
     <class kind="class">hmi::WorldMapModel</class>
     <class kind="class">hmi::WorldModel</class>
     <class kind="class">hmi::WorldViewportItem</class>
+    <member kind="typedef">
+      <type>std::function&lt; std::optional&lt; std::string &gt;(const std::string &amp;)&gt;</type>
+      <name>EnvironmentLookup</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a734edac038d880d3d3a5064a782246dd</anchor>
+      <arglist></arglist>
+    </member>
     <member kind="typedef">
       <type>std::optional&lt; std::size_t &gt;</type>
       <name>LayerSlot</name>
@@ -57505,6 +58584,41 @@
       <arglist>(std::string_view text)</arglist>
     </member>
     <member kind="function">
+      <type>RetouchFiles</type>
+      <name>retouchFiles</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a53463b47dceacdd92d4434b99af659c4</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, const std::filesystem::path &amp;baseDirectory, const CharacterDraft &amp;draft)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>retouchReadiness</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a91943cc58f3da25b164f3943fa56247d</anchor>
+      <arglist>(const RetouchFiles &amp;files)</arglist>
+    </member>
+    <member kind="function">
+      <type>RetouchTools</type>
+      <name>findRetouchTools</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a81d77258bea83b86b2b052809df4c950</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, const EnvironmentLookup &amp;environment, std::string &amp;error)</arglist>
+    </member>
+    <member kind="function">
+      <type>ProcessCommand</type>
+      <name>openInBlenderCommand</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a6fdedf00e5050d80cfd4cd1979f5dbc1</anchor>
+      <arglist>(const RetouchTools &amp;tools, const RetouchFiles &amp;files)</arglist>
+    </member>
+    <member kind="function">
+      <type>ProcessCommand</type>
+      <name>importFromBlenderCommand</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a88cbff601570c527e735bb9de442084a</anchor>
+      <arglist>(const RetouchTools &amp;tools, const RetouchFiles &amp;files)</arglist>
+    </member>
+    <member kind="function">
       <type>BrushResult</type>
       <name>paintTypeBlock</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -57622,6 +58736,97 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a271254d23a253fefeed273ecba888f0c</anchor>
       <arglist>(const WorldSceneSnapshot &amp;snapshot, core::GridPosition cell)</arglist>
+    </member>
+    <member kind="function">
+      <type>WorldSceneSnapshot</type>
+      <name>characterPreviewScene</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a9193cb5b81b7e77304c89bbe45b3770d</anchor>
+      <arglist>(const CharacterPreviewView &amp;view)</arglist>
+    </member>
+    <member kind="function">
+      <type>WorldFraming</type>
+      <name>characterPreviewFraming</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a0008c725388c5e229f379380086aa4e7</anchor>
+      <arglist>(int pixelHeight)</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>characterPreviewSeconds</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a65d0a316a9a14015150dbd598a13e16a</anchor>
+      <arglist>(const core::SkeletonClip *clip, float elapsed)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isCharacterScript</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>aafd0a5247952c55e83f9be29a9b06c6c</anchor>
+      <arglist>(std::string_view json)</arglist>
+    </member>
+    <member kind="function">
+      <type>CharacterDraftResult</type>
+      <name>readCharacterDraft</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a2ef31297ee601148e684c509dde6cb56</anchor>
+      <arglist>(std::string_view json)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>characterDraftText</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a47a8a7beeb7f239d3c7070f74da5bb1c</anchor>
+      <arglist>(const CharacterDraft &amp;draft)</arglist>
+    </member>
+    <member kind="function">
+      <type>CharacterInstallPlan</type>
+      <name>planCharacter</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a46fdb992164f1f731ee31420c67b0843</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, const std::filesystem::path &amp;baseDirectory, const CharacterDraft &amp;draft)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>writeCharacter</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a0b387136e0ea80dea4879ad33df747d2</anchor>
+      <arglist>(const CharacterInstallPlan &amp;plan)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; std::string &gt;</type>
+      <name>characterLevels</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ab39bfd284845f10321523a4443f2a7c7</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; InstalledCharacter &gt;</type>
+      <name>installedCharacters</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a3dfa98aa6b921bb599a8a2753230109f</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot)</arglist>
+    </member>
+    <member kind="function">
+      <type>CharacterDraftResult</type>
+      <name>draftOfInstalledCharacter</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a471b43a88bfb2ca085dddd8d5aa6ec27</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot, const std::filesystem::path &amp;workshopRoot, const InstalledCharacter &amp;character)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::vector&lt; MapCheckFinding &gt;</type>
+      <name>checkCharacters</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>adafafddae0e19b0eece784e0dfb8cca6</anchor>
+      <arglist>(const std::filesystem::path &amp;dataRoot)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; int &gt;</type>
+      <name>runCharacterCommand</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>aa544e8bb42487079b6b6d833b5d5ca49</anchor>
+      <arglist>(const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;dataRoot, std::string &amp;output)</arglist>
     </member>
     <member kind="function">
       <type>std::vector&lt; std::string &gt;</type>
@@ -58595,6 +59800,13 @@
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a6d7164fde1156b810c531edb2cf18f86</anchor>
       <arglist>(const std::vector&lt; std::string &gt; &amp;arguments, const std::filesystem::path &amp;dataRoot, std::string &amp;output)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>sha256Hex</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a7cbb9c9727d86977a1846ca36387c05c</anchor>
+      <arglist>(std::string_view bytes)</arglist>
     </member>
     <member kind="function">
       <type>Stamp</type>
@@ -60026,6 +61238,62 @@
     </member>
     <member kind="variable">
       <type>constexpr int</type>
+      <name>CHARACTER_PREVIEW_CELLS</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a647eb2cf147d85ec265a5e0f6fed1afb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr float</type>
+      <name>CHARACTER_PREVIEW_HOLD</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a362d2fb448b148842e888e52fe0f0d1c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>CHARACTER_SCRIPT_FORMAT</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ac5f29a60a5b973ec2ae04d5e4efe3400</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>CHARACTER_SCRIPT_VERSION</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a21b194cda8baa264ab7e895f1ba043f8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>CHARACTER_PORTRAIT_SIDE</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a12cbd47b6ecf891e43f512deeab5b307</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>CHARACTER_TOKEN_SIDE</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a5bc073b58bac25a7b043bce7ae36d8e4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>CHARACTER_PORTRAIT_FILE</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a8bba0118e5c5780434aedacd68631056</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>CHARACTER_TOKEN_FILE</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a41d88d3b2c7a3c4353e18b530404a34c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
       <name>EDITOR_ACTION_COUNT</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>af2f4a1af04682540c1b84611a24aa42c</anchor>
@@ -60994,9 +62262,12 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Editor/</path>
     <filename>dir_72f94039b203173a88806b7e5cad74af.html</filename>
     <file>test_autosave.cpp</file>
+    <file>test_blender_retouch.cpp</file>
     <file>test_brush_gesture.cpp</file>
     <file>test_canvas_picking.cpp</file>
     <file>test_canvas_scene.cpp</file>
+    <file>test_character_preview.cpp</file>
+    <file>test_character_workshop.cpp</file>
     <file>test_city_view.cpp</file>
     <file>test_content_check.cpp</file>
     <file>test_disk_guard.cpp</file>
@@ -61326,12 +62597,18 @@
     <filename>dir_772c1d7d11cd878bc340037b824a0fc7.html</filename>
     <file>Autosave.cpp</file>
     <file>Autosave.h</file>
+    <file>BlenderRetouch.cpp</file>
+    <file>BlenderRetouch.h</file>
     <file>BrushGesture.cpp</file>
     <file>BrushGesture.h</file>
     <file>CanvasPicking.cpp</file>
     <file>CanvasPicking.h</file>
     <file>CanvasScene.cpp</file>
     <file>CanvasScene.h</file>
+    <file>CharacterPreview.cpp</file>
+    <file>CharacterPreview.h</file>
+    <file>CharacterWorkshop.cpp</file>
+    <file>CharacterWorkshop.h</file>
     <file>CityView.cpp</file>
     <file>CityView.h</file>
     <file>ContentCheck.cpp</file>
@@ -61385,6 +62662,8 @@
     <file>PieceCatalog.h</file>
     <file>QuestEditing.cpp</file>
     <file>QuestEditing.h</file>
+    <file>Sha256.cpp</file>
+    <file>Sha256.h</file>
     <file>Stamps.cpp</file>
     <file>Stamps.h</file>
     <file>ThumbnailGeometry.cpp</file>
@@ -61677,6 +62956,8 @@
     <name>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
     <filename>dir_81129cf20409270d9237df2d6b07b076.html</filename>
+    <file>AssetWorkshop.cpp</file>
+    <file>AssetWorkshop.h</file>
     <file>CityMapView.cpp</file>
     <file>CityMapView.h</file>
     <file>DraftRenderer.cpp</file>

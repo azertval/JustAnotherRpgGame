@@ -1,9 +1,12 @@
 var dir_72f94039b203173a88806b7e5cad74af =
 [
     [ "test_autosave.cpp", "test__autosave_8cpp.html", "test__autosave_8cpp" ],
+    [ "test_blender_retouch.cpp", "test__blender__retouch_8cpp.html", "test__blender__retouch_8cpp" ],
     [ "test_brush_gesture.cpp", "test__brush__gesture_8cpp.html", "test__brush__gesture_8cpp" ],
     [ "test_canvas_picking.cpp", "test__canvas__picking_8cpp.html", "test__canvas__picking_8cpp" ],
     [ "test_canvas_scene.cpp", "test__canvas__scene_8cpp.html", "test__canvas__scene_8cpp" ],
+    [ "test_character_preview.cpp", "test__character__preview_8cpp.html", "test__character__preview_8cpp" ],
+    [ "test_character_workshop.cpp", "test__character__workshop_8cpp.html", "test__character__workshop_8cpp" ],
     [ "test_city_view.cpp", "test__city__view_8cpp.html", "test__city__view_8cpp" ],
     [ "test_content_check.cpp", "test__content__check_8cpp.html", "test__content__check_8cpp" ],
     [ "test_disk_guard.cpp", "test__disk__guard_8cpp.html", "test__disk__guard_8cpp" ],

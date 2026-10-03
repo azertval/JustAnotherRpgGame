@@ -10,10 +10,12 @@ var searchData=
   ['regionspeciesshare_7',['RegionSpeciesShare',['../structcore_1_1RegionSpeciesShare.html',1,'core']]],
   ['regionstatistic_8',['RegionStatistic',['../structcore_1_1RegionStatistic.html',1,'core']]],
   ['resolvedfigure_9',['ResolvedFigure',['../structhmi_1_1ResolvedFigure.html',1,'hmi']]],
-  ['rhicontext_10',['RhiContext',['../structhmi_1_1RhiContext.html',1,'hmi']]],
-  ['rolleddamage_11',['RolledDamage',['../structcore_1_1RolledDamage.html',1,'core']]],
-  ['rpgactor_12',['RpgActor',['../structcore_1_1RpgActor.html',1,'core']]],
-  ['rpgcatalogs_13',['RpgCatalogs',['../structtest__support_1_1RpgCatalogs.html',1,'test_support']]],
-  ['runingamechoice_14',['RunInGameChoice',['../structhmi_1_1RunInGameChoice.html',1,'hmi']]],
-  ['running_15',['Running',['../structhmi_1_1CombatCueTrack_1_1Running.html',1,'hmi::CombatCueTrack']]]
+  ['retouchfiles_10',['RetouchFiles',['../structhmi_1_1RetouchFiles.html',1,'hmi']]],
+  ['retouchtools_11',['RetouchTools',['../structhmi_1_1RetouchTools.html',1,'hmi']]],
+  ['rhicontext_12',['RhiContext',['../structhmi_1_1RhiContext.html',1,'hmi']]],
+  ['rolleddamage_13',['RolledDamage',['../structcore_1_1RolledDamage.html',1,'core']]],
+  ['rpgactor_14',['RpgActor',['../structcore_1_1RpgActor.html',1,'core']]],
+  ['rpgcatalogs_15',['RpgCatalogs',['../structtest__support_1_1RpgCatalogs.html',1,'test_support']]],
+  ['runingamechoice_16',['RunInGameChoice',['../structhmi_1_1RunInGameChoice.html',1,'hmi']]],
+  ['running_17',['Running',['../structhmi_1_1CombatCueTrack_1_1Running.html',1,'hmi::CombatCueTrack']]]
 ];
