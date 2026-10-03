@@ -16,6 +16,7 @@ Rectangle {
     property bool playing: true
     property real speed: 1
     property color clearColor: "transparent"
+    property int sampleCount: 1
 
     property int selectedIndex: -1
     readonly property var selected: ({})

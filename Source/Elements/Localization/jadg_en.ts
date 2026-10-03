@@ -41,172 +41,172 @@
 <context>
     <name>CharacterSheetForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="95"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="154"/>
         <source>FOR</source>
         <translation>STR</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="96"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="163"/>
         <source>DEX</source>
         <translation>DEX</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="97"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="172"/>
         <source>CON</source>
         <translation>CON</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="98"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="181"/>
         <source>INT</source>
         <translation>INT</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="99"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="190"/>
         <source>SAG</source>
         <translation>WIS</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="100"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="199"/>
         <source>CHA</source>
         <translation>CHA</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="128"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="248"/>
         <source>Nom</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="130"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="262"/>
         <source>Classe</source>
         <translation>Class</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="131"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="269"/>
         <source>Niveau</source>
         <translation>Level</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="133"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="283"/>
         <source>Origine</source>
         <translation>Background</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="129"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="255"/>
         <source>Espèce</source>
         <translation>Species</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="65"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="82"/>
         <source>Fiche d’identité</source>
         <translation>Identity record</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="65"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="83"/>
         <source>Capacités de classe</source>
         <translation>Class features</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="111"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="214"/>
         <source>Armure  %1</source>
         <translation>Armor  %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="112"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="220"/>
         <source>Initiative  %1</source>
         <translation>Initiative  %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="132"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="276"/>
         <source>Historique</source>
         <translation>Background</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="134"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="290"/>
         <source>Matricule</source>
         <translation>Registration</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="135"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="297"/>
         <source>Points de vie</source>
         <translation>Hit Points</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="137"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="309"/>
         <source>Expérience</source>
         <translation>Experience</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="165"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="363"/>
         <source>Capacités</source>
         <translation>Features</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="166"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="376"/>
         <source>Grimoire</source>
         <translation>Spellbook</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="171"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="390"/>
         <source>Niveau %1</source>
         <translation>Level %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="186"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="406"/>
         <source>Rechercher un sort…</source>
         <translation>Search spells…</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="186"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="406"/>
         <source>Rechercher une capacité…</source>
         <translation>Search features…</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="263"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="553"/>
         <source>Aucun résultat.</source>
         <translation>No results.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="263"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="554"/>
         <source>Ce personnage ne connaît aucun sort.</source>
         <translation>This character knows no spells.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="263"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="554"/>
         <source>Aucune capacité disponible.</source>
         <translation>No features available.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="289"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="582"/>
         <source>Choisissez un sort</source>
         <translation>Choose a spell</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="289"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="584"/>
         <source>Choisissez une capacité</source>
         <translation>Choose a feature</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="320"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="623"/>
         <source>Lancers restants : %1</source>
         <translation>Casts remaining: %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="321"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="626"/>
         <source>Récupération : repos long</source>
         <translation>Recovery: long rest</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="341"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="647"/>
         <source>Maîtrise %1 · Perception passive %2</source>
         <translation>Proficiency %1 · Passive Perception %2</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="373"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="689"/>
         <source>Retour au jeu</source>
         <translation>Return to game</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="65"/>
+        <location filename="../../Ui/Screens/CharacterSheetForm.ui.qml" line="84"/>
         <source>Compétences</source>
         <translation>Skills</translation>
     </message>
@@ -232,17 +232,17 @@
         <translation>Character</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/CodexTabs.ui.qml" line="11"/>
+        <location filename="../../Ui/Controls/CodexTabs.ui.qml" line="12"/>
         <source>Capacités de classe</source>
         <translation>Class features</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/CodexTabs.ui.qml" line="12"/>
+        <location filename="../../Ui/Controls/CodexTabs.ui.qml" line="14"/>
         <source>Compétences</source>
         <translation>Skills</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/CodexTabs.ui.qml" line="13"/>
+        <location filename="../../Ui/Controls/CodexTabs.ui.qml" line="16"/>
         <source>Équipement</source>
         <translation>Equipment</translation>
     </message>
@@ -250,82 +250,82 @@
 <context>
     <name>CombatHudForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="566"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="612"/>
         <source>Victoire</source>
         <translation>Victory</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="566"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="612"/>
         <source>Vous avez pris la fuite</source>
         <translation>You fled</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="566"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="612"/>
         <source>Vous êtes mort</source>
         <translation>You are dead</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="217"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="230"/>
         <source>Round %1</source>
         <translation>Round %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="317"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="330"/>
         <source>Action %1 / %2   ·   Bonus %3 / %4   ·   Déplacement %5</source>
         <translation>Action %1 / %2   ·   Bonus %3 / %4   ·   Movement %5</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="330"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="343"/>
         <source>Toutes</source>
         <translation>All</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="330"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="343"/>
         <source>Actions</source>
         <translation>Actions</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="330"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="343"/>
         <source>Sorts</source>
         <translation>Spells</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="390"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="416"/>
         <source>Fin du tour</source>
         <translation>End turn</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="401"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="435"/>
         <source>Espace · Fin du tour</source>
         <translation>Space · End turn</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="470"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="505"/>
         <source>Masquer les détails</source>
         <translation>Hide details</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="470"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="505"/>
         <source>Détails du calcul</source>
         <translation>Calculation details</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="490"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="530"/>
         <source>Dégâts moyens : %1</source>
         <translation>Average damage: %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="504"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="544"/>
         <source>Action en cours…</source>
         <translation>Action in progress…</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="523"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="564"/>
         <source>Historique</source>
         <translation>History</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="581"/>
+        <location filename="../../Ui/Screens/CombatHudForm.ui.qml" line="628"/>
         <source>Reprendre l’exploration</source>
         <translation>Resume exploration</translation>
     </message>
@@ -482,12 +482,12 @@
         <translation>“No great adventure is ever undertaken alone.”</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CreditsForm.ui.qml" line="151"/>
+        <location filename="../../Ui/Screens/CreditsForm.ui.qml" line="152"/>
         <source>Crédits</source>
         <translation>Credits</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/CreditsForm.ui.qml" line="168"/>
+        <location filename="../../Ui/Screens/CreditsForm.ui.qml" line="170"/>
         <source>Retour</source>
         <translation>Back</translation>
     </message>
@@ -566,12 +566,12 @@
         <translation>Attitude</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="218"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="227"/>
         <source>Parle pour le groupe :</source>
         <translation>Speaking for the party:</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="274"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="289"/>
         <source>Tab : changer</source>
         <translation>Tab: switch</translation>
     </message>
@@ -581,7 +581,7 @@
         <translation>Line</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="203"/>
+        <location filename="../../Ui/Screens/DialogueForm.ui.qml" line="205"/>
         <source>Réponses</source>
         <translation>Replies</translation>
     </message>
@@ -630,42 +630,42 @@
         <translation>Map</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="141"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="142"/>
         <source>Objectif suivi</source>
         <translation>Tracked objective</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="219"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="231"/>
         <source>Tab · Changer de meneur</source>
         <translation>Tab · Change leader</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="246"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="258"/>
         <source>Personnage</source>
         <translation>Character</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="253"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="265"/>
         <source>Équipement</source>
         <translation>Equipment</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="260"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="272"/>
         <source>Journal</source>
         <translation>Journal</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="267"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="279"/>
         <source>Groupe</source>
         <translation>Party</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="273"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="285"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="273"/>
+        <location filename="../../Ui/Controls/HudFrame.ui.qml" line="285"/>
         <source>Menu</source>
         <translation>Menu</translation>
     </message>
@@ -673,13 +673,13 @@
 <context>
     <name>InventoryForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="147"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="155"/>
         <source>Tous</source>
         <translation>All</translation>
     </message>
     <message>
         <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="57"/>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="148"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="156"/>
         <source>Équipement</source>
         <translation>Equipment</translation>
     </message>
@@ -764,12 +764,12 @@
         <translation>Trinket</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="74"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="82"/>
         <source>Équipement porté</source>
         <translation>Equipped items</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="81"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="89"/>
         <source>Armure
 %1
 
@@ -782,112 +782,112 @@ Speed
 %2</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="130"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="138"/>
         <source>Sac</source>
         <translation>Backpack</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="137"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="145"/>
         <source>Rechercher un objet…</source>
         <translation>Search items…</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="149"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="157"/>
         <source>Matériel</source>
         <translation>Gear</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="150"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="158"/>
         <source>Outils</source>
         <translation>Tools</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="178"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="186"/>
         <source>Aucun objet.</source>
         <translation>No items.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="182"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="190"/>
         <source>Poids : %1 / %2</source>
         <translation>Weight: %1 / %2</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="188"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="196"/>
         <source>po</source>
         <translation>gp</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="197"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="205"/>
         <source>Choisissez un objet</source>
         <translation>Choose an item</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="216"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="224"/>
         <source>Remplace : %1</source>
         <translation>Replaces: %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="220"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="228"/>
         <source>Avant → Après</source>
         <translation>Before → After</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="220"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="228"/>
         <source>CA : %1 → %2</source>
         <translation>AC: %1 → %2</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="221"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="229"/>
         <source>Dés de l’arme : %1 → %2</source>
         <translation>Weapon dice: %1 → %2</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="227"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="235"/>
         <source>L’équipement se change hors combat.</source>
         <translation>Equipment can be changed outside combat.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="189"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="197"/>
         <source>Trier</source>
         <translation>Sort</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="213"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="221"/>
         <source>Poids : %1</source>
         <translation>Weight: %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="235"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="243"/>
         <source>Retirer</source>
         <translation>Unequip</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="235"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="243"/>
         <source>Équiper</source>
         <translation>Equip</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="236"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="244"/>
         <source>Jeter un exemplaire</source>
         <translation>Drop one</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="239"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="247"/>
         <source>Retour au jeu</source>
         <translation>Return to game</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="255"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="265"/>
         <source>Jeter un exemplaire de « %1 » ?</source>
         <translation>Drop one “%1”?</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="258"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="268"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="259"/>
+        <location filename="../../Ui/Screens/InventoryForm.ui.qml" line="270"/>
         <source>Jeter</source>
         <translation>Drop</translation>
     </message>
@@ -905,12 +905,12 @@ Speed
         <translation>Quests</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/JournalForm.ui.qml" line="66"/>
+        <location filename="../../Ui/Screens/JournalForm.ui.qml" line="67"/>
         <source>Détail</source>
         <translation>Details</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/JournalForm.ui.qml" line="89"/>
+        <location filename="../../Ui/Screens/JournalForm.ui.qml" line="90"/>
         <source>Objectifs</source>
         <translation>Objectives</translation>
     </message>
@@ -969,27 +969,27 @@ Speed
 <context>
     <name>MapHud.ui</name>
     <message>
-        <location filename="../../Ui/Controls/MapHud.ui.qml" line="300"/>
+        <location filename="../../Ui/Controls/MapHud.ui.qml" line="327"/>
         <source>Carte</source>
         <translation>Map</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/MapHud.ui.qml" line="309"/>
+        <location filename="../../Ui/Controls/MapHud.ui.qml" line="337"/>
         <source>Quêtes</source>
         <translation>Quests</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/MapHud.ui.qml" line="318"/>
+        <location filename="../../Ui/Controls/MapHud.ui.qml" line="352"/>
         <source>Sac</source>
         <translation>Bag</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/MapHud.ui.qml" line="327"/>
+        <location filename="../../Ui/Controls/MapHud.ui.qml" line="367"/>
         <source>Équipe</source>
         <translation>Company</translation>
     </message>
     <message>
-        <location filename="../../Ui/Controls/MapHud.ui.qml" line="336"/>
+        <location filename="../../Ui/Controls/MapHud.ui.qml" line="382"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
@@ -1023,112 +1023,147 @@ Speed
     </message>
 </context>
 <context>
+    <name>Options</name>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/Options.qml" line="47"/>
+        <source>Désactivé</source>
+        <translation>Off</translation>
+    </message>
+    <message>
+        <location filename="../../App/Game/Qml/Screens/Options.qml" line="47"/>
+        <source>MSAA %1×</source>
+        <translation>MSAA %1×</translation>
+    </message>
+</context>
+<context>
     <name>OptionsForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="135"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="145"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="92"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="102"/>
         <source>Général</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="102"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="112"/>
         <source>Graphismes</source>
         <translation>Graphics</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="112"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="122"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="172"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="184"/>
         <source>Langue</source>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="181"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="193"/>
         <source>Langue du jeu</source>
         <translation>Game language</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="210"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="223"/>
         <source>Journaux</source>
         <translation>Logs</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="218"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="231"/>
         <source>Enregistrer les journaux de session</source>
         <translation>Save session logs</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="253"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="267"/>
         <source>Affichage</source>
         <translation>Display</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="258"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="273"/>
         <source>Plein écran</source>
         <translation>Fullscreen</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="263"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="279"/>
         <source>Synchronisation verticale</source>
         <translation>Vertical sync</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="269"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="285"/>
         <source>Appliquée au prochain lancement.</source>
         <translation>Applied on next launch.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="278"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="295"/>
         <source>Compteur de diagnostic</source>
         <translation>Diagnostics counter</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="296"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="301"/>
+        <source>Rendu</source>
+        <translation>Rendering</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="310"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="320"/>
+        <source>Anticrénelage</source>
+        <translation>Anti-aliasing</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="330"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="340"/>
+        <source>Définition du rendu</source>
+        <translation>Render resolution</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="346"/>
+        <source>L&apos;anticrénelage adoucit le bord des personnages et du décor. Au-delà de 100 %, le lieu est dessiné plus grand puis réduit à l&apos;écran : l&apos;image est plus fine, et plus coûteuse.</source>
+        <translation>Anti-aliasing smooths the edges of characters and scenery. Above 100%, the place is drawn larger and then scaled down to the screen: the image is finer, and more demanding.</translation>
+    </message>
+    <message>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="369"/>
         <source>Interface en jeu</source>
         <translation>In-game interface</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="299"/>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="314"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="372"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="387"/>
         <source>Taille du HUD</source>
         <translation>HUD size</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="326"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="399"/>
         <source>Ajuste les portraits, commandes et informations en exploration et en combat. La taille du terrain et des menus reste inchangée.
 Prend effet avec Appliquer et reste enregistrée.</source>
         <translation>Adjusts portraits, controls and information in exploration and combat. Terrain and menu size stay the same.
 Takes effect with Apply and remains saved.</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="354"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="428"/>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="362"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="436"/>
         <source>Volume général</source>
         <translation>Master volume</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="419"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="493"/>
         <source>Par défaut</source>
         <translation>Defaults</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="430"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="504"/>
         <source>Annuler</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="437"/>
+        <location filename="../../Ui/Screens/OptionsForm.ui.qml" line="511"/>
         <source>Appliquer</source>
         <translation>Apply</translation>
     </message>
@@ -1136,22 +1171,22 @@ Takes effect with Apply and remains saved.</translation>
 <context>
     <name>Party</name>
     <message>
-        <location filename="../../App/Game/Qml/Screens/Party.qml" line="30"/>
+        <location filename="../../App/Game/Qml/Screens/Party.qml" line="28"/>
         <source>Choisissez votre meneur</source>
         <translation>Choose your leader</translation>
     </message>
     <message>
-        <location filename="../../App/Game/Qml/Screens/Party.qml" line="30"/>
+        <location filename="../../App/Game/Qml/Screens/Party.qml" line="28"/>
         <source>Groupe</source>
         <translation>Party</translation>
     </message>
     <message>
-        <location filename="../../App/Game/Qml/Screens/Party.qml" line="35"/>
+        <location filename="../../App/Game/Qml/Screens/Party.qml" line="33"/>
         <source>Laisser</source>
         <translation>Leave out</translation>
     </message>
     <message>
-        <location filename="../../App/Game/Qml/Screens/Party.qml" line="35"/>
+        <location filename="../../App/Game/Qml/Screens/Party.qml" line="33"/>
         <source>Prendre</source>
         <translation>Take</translation>
     </message>
@@ -1169,69 +1204,69 @@ Takes effect with Apply and remains saved.</translation>
         <translation>Party</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="85"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="86"/>
         <source>Ordre de marche</source>
         <translation>Marching order</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="195"/>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="293"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="196"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="295"/>
         <source>Meneur</source>
         <translation>Leader</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="219"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="221"/>
         <source>Personnages</source>
         <translation>Characters</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="280"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="282"/>
         <source>PV %1 · CA %2 · Vitesse %3</source>
         <translation>HP %1 · AC %2 · Speed %3</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="195"/>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="294"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="196"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="296"/>
         <source>Rang %1</source>
         <translation>Rank %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="120"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="121"/>
         <source>Place libre</source>
         <translation>Free slot</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="174"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="175"/>
         <source>CA %1 · Vitesse %2</source>
         <translation>AC %1 · Speed %2</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="295"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="297"/>
         <source>Disponible</source>
         <translation>Available</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="324"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="339"/>
         <source>Mener</source>
         <translation>Lead</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="331"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="352"/>
         <source>Avancer</source>
         <translation>Move up</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="338"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="365"/>
         <source>Reculer</source>
         <translation>Move down</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="345"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="378"/>
         <source>Fiche</source>
         <translation>Sheet</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="352"/>
+        <location filename="../../Ui/Screens/PartyForm.ui.qml" line="390"/>
         <source>Entrée : prendre ou laisser · M : mener · Page préc. / suiv. : avancer, reculer · F : fiche · Échap : fermer</source>
         <translation>Enter: take or leave · M: lead · Page Up / Down: move up, move down · F: sheet · Esc: close</translation>
     </message>
@@ -1323,7 +1358,7 @@ Takes effect with Apply and remains saved.</translation>
 <context>
     <name>ScreenPage.ui</name>
     <message>
-        <location filename="../../Ui/Controls/ScreenPage.ui.qml" line="81"/>
+        <location filename="../../Ui/Controls/ScreenPage.ui.qml" line="91"/>
         <source>Écran dessiné, données à venir</source>
         <translation>Screen designed, data to come</translation>
     </message>
@@ -1357,22 +1392,22 @@ Takes effect with Apply and remains saved.</translation>
 <context>
     <name>WorldMapForm.ui</name>
     <message>
-        <location filename="../../Ui/Screens/WorldMapForm.ui.qml" line="113"/>
+        <location filename="../../Ui/Screens/WorldMapForm.ui.qml" line="114"/>
         <source>Lieux : %1</source>
         <translation>Places: %1</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/WorldMapForm.ui.qml" line="121"/>
+        <location filename="../../Ui/Screens/WorldMapForm.ui.qml" line="122"/>
         <source>Entrée ou clic : ouvrir la région</source>
         <translation>Enter or click: open the region</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/WorldMapForm.ui.qml" line="133"/>
+        <location filename="../../Ui/Screens/WorldMapForm.ui.qml" line="134"/>
         <source>Tanares</source>
         <translation>Tanares</translation>
     </message>
     <message>
-        <location filename="../../Ui/Screens/WorldMapForm.ui.qml" line="134"/>
+        <location filename="../../Ui/Screens/WorldMapForm.ui.qml" line="135"/>
         <source>Le monde connu</source>
         <translation>The known world</translation>
     </message>
@@ -1784,7 +1819,7 @@ Takes effect with Apply and remains saved.</translation>
         <location filename="../../HMI/Runtime/CombatModel.cpp" line="1012"/>
         <location filename="../../HMI/Runtime/CombatModel.cpp" line="1046"/>
         <source>L&apos;action de ce tour est deja depensee.</source>
-        <translation>This turn's action is already spent.</translation>
+        <translation>This turn&apos;s action is already spent.</translation>
     </message>
     <message>
         <location filename="../../HMI/Runtime/CombatModel.cpp" line="1015"/>
@@ -1851,72 +1886,72 @@ Takes effect with Apply and remains saved.</translation>
 <context>
     <name>hmi::EncounterModel</name>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="281"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="288"/>
         <source>Un combat est deja engage.</source>
         <translation>A fight is already under way.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="287"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="294"/>
         <source>Aucune carte ou engager le combat.</source>
         <translation>No map to fight on.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="294"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="301"/>
         <source>Aucun membre du groupe n&apos;a de fiche : rien a engager.</source>
         <translation>No member of the party has a sheet: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="300"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="307"/>
         <source>Rencontre inconnue : %1</source>
         <translation>Unknown encounter: %1</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="438"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="451"/>
         <source> Un camp est vide apres le montage : rien a engager.</source>
         <translation> One side is empty after mounting: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="466"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="479"/>
         <source> Aucun membre du groupe n&apos;est monte : rien a engager.</source>
         <translation> No member of the party was mounted: nothing to fight.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="708"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="724"/>
         <source>Le combat n&apos;est pas fini.</source>
         <translation>The fight is not over.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="921"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="937"/>
         <source>mort</source>
         <translation>dead</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="924"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="940"/>
         <source>a terre</source>
         <translation>down</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="927"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="943"/>
         <source>ensanglante</source>
         <translation>bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="936"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="952"/>
         <source> m</source>
         <translation> m</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="947"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="963"/>
         <source>Ensanglante</source>
         <translation>Bloodied</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="950"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="966"/>
         <source>Esquive</source>
         <translation>Dodging</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="952"/>
+        <location filename="../../HMI/Runtime/EncounterModel.cpp" line="968"/>
         <source>Aucun</source>
         <translation>None</translation>
     </message>
@@ -1932,18 +1967,18 @@ Takes effect with Apply and remains saved.</translation>
 <context>
     <name>hmi::OptionsModel</name>
     <message>
-        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="143"/>
+        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="199"/>
         <source>Journaux indisponibles (build Release).</source>
         <translation>Logs unavailable (Release build).</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="163"/>
-        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="171"/>
+        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="219"/>
+        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="227"/>
         <source>Échec de l&apos;enregistrement des journaux.</source>
         <translation>Failed to save the logs.</translation>
     </message>
     <message>
-        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="174"/>
+        <location filename="../../HMI/Runtime/OptionsModel.cpp" line="230"/>
         <source>Journaux enregistrés : %1</source>
         <translation>Logs saved: %1</translation>
     </message>

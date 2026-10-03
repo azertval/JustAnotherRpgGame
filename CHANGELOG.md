@@ -6,6 +6,13 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **Rendu : anticrénelage et définition du rendu.** Les vues du lieu sont multi-échantillonnées
+  (MSAA) : les pipelines des maillages et des images suivent le nombre d'échantillons de leur
+  cible. Deux réglages s'ajoutent à **Options > Graphismes > Rendu** et s'appliquent aussitôt :
+  **Anticrénelage** (désactivé, 2×, 4×, 8× ; 4× par défaut) et **Définition du rendu** (100, 125,
+  150, 200 % ; 100 % par défaut — au-delà, le lieu est dessiné plus grand puis réduit à l'écran).
+  Le rendu hors écran (`hmi::OffscreenRhi::render`) accepte un nombre d'échantillons.
+
 - **LOT-1011 — Les fauves de l'arène : le squelette `quadruped`.** Le lion et le loup du Colisée
   marchent sur quatre appuis ; plus aucun personnage de la démo n'est un portrait d'attente.
   - Le squelette **`quadruped`** (29 os : tronc, queue, deux pattes avant de cinq os, deux pattes

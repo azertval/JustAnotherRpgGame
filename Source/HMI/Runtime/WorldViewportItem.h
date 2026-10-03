@@ -45,6 +45,11 @@ class WorldViewportItem : public QQuickRhiItem {
     Q_PROPERTY(hmi::WorldModel* model READ model WRITE setModel NOTIFY modelChanged)
     /// Couleur d'effacement, qui vient de `Tokens.qml` comme le reste de l'identité du jeu.
     Q_PROPERTY(QColor clearColor READ clearColor WRITE setClearColor NOTIFY clearColorChanged)
+    /// Définition du rendu, en pourcentage de celle de l'élément à l'écran (100 à 200). Au-delà de
+    /// 100, la scène est dessinée dans un tampon plus grand, que Qt Quick réduit en le composant :
+    /// le suréchantillonnage. L'anticrénelage, lui, est le `sampleCount` hérité de `QQuickRhiItem`.
+    Q_PROPERTY(int renderScalePercent READ renderScalePercent WRITE setRenderScalePercent NOTIFY
+                   renderScalePercentChanged)
 
     // --- Le cadrage, en unités d'élément -------------------------------------------------------
     /// Largeur du losange d'une case.
@@ -68,6 +73,12 @@ public:
     }
     void setClearColor(const QColor& color);
 
+    [[nodiscard]] int renderScalePercent() const noexcept {
+        return _renderScalePercent;
+    }
+    /// Bornée à [100, 200] : le rendu ne se dessine jamais plus petit que l'écran.
+    void setRenderScalePercent(int percent);
+
     [[nodiscard]] qreal tileWidth() const;
     [[nodiscard]] qreal tileHeight() const;
     [[nodiscard]] qreal originX() const;
@@ -82,7 +93,11 @@ public:
 signals:
     void modelChanged();
     void clearColorChanged();
+    void renderScalePercentChanged();
     void framingChanged();
+
+protected:
+    void itemChange(ItemChange change, const ItemChangeData& value) override;
 
 private:
     /// Le cadrage courant, et le passage des unités d'élément aux pixels de la texture.
@@ -91,6 +106,9 @@ private:
 
     /// La scène a changé : une nouvelle image est demandée.
     void onSceneChanged();
+    /// Recale la taille du tampon de couleur sur celle de l'élément, sa fenêtre et
+    /// `renderScalePercent`. À 100 %, le tampon suit l'élément de lui-même.
+    void applyRenderScale();
 
     QPointer<WorldModel> _model;
     QMetaObject::Connection _modelChangedConnection;
@@ -98,6 +116,7 @@ private:
     QMetaObject::Connection _modelFiguresConnection;
     QMetaObject::Connection _modelDestroyedConnection;
     QColor _clearColor{0x10, 0x0d, 0x0a};  ///< Nuit de pierre, jusqu'à ce que le QML en décide.
+    int _renderScalePercent = 100;
 };
 
 }  // namespace hmi

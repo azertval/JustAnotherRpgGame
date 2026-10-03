@@ -135,13 +135,22 @@ ouvre les réglages puis revient au même tour.
 
 Accessible depuis le menu principal, la pause ou le bandeau. Trois onglets : **Général** (langue du
 jeu, journaux de session), **Graphismes** (plein écran, synchronisation verticale — appliquée au
-prochain lancement —, compteur de diagnostic, taille du HUD) et **Audio** (volume général). **Appliquer** retient
+prochain lancement —, compteur de diagnostic, anticrénelage, définition du rendu, taille du HUD)
+et **Audio** (volume général). **Appliquer** retient
 les réglages, **Annuler** les abandonne, **Par défaut** les rétablit.
 
 Dans **Graphismes > Interface en jeu**, **Taille du HUD** va de **75 % à 130 %**, par pas de 5 %.
 Le réglage agrandit ou réduit les portraits, commandes et informations d'exploration et de combat.
 Il prend effet avec **Appliquer** et se retrouve au lancement suivant. Le terrain et les menus
 gardent leur taille. La valeur par défaut est **100 %**.
+
+Dans **Graphismes > Rendu**, deux réglages agissent sur l'image du lieu, dès **Appliquer** :
+
+- **Anticrénelage** — **Désactivé**, **MSAA 2×**, **4×** ou **8×** : adoucit le bord des
+  personnages et du décor en volume. La valeur par défaut est **MSAA 4×**.
+- **Définition du rendu** — **100 %**, **125 %**, **150 %** ou **200 %** : au-delà de 100 %, le
+  lieu est dessiné plus grand que la fenêtre puis réduit à l'écran. L'image est plus fine, et
+  demande davantage à la carte graphique. La valeur par défaut est **100 %**.
 
 ![L'écran des options, onglet Général : la langue du jeu et le bouton « Enregistrer les journaux de session » ; en pied, « Par défaut », « Annuler » et « Appliquer », à 1280 × 720](../captures/jeu-options.jpg)
 

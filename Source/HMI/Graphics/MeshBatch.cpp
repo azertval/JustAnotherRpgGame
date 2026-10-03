@@ -264,7 +264,10 @@ QRhiShaderResourceBindings* MeshBatch::bindingsFor(GpuMesh& mesh) {
 
 bool MeshBatch::ensurePipeline(QRhiRenderTarget* target) {
     QRhiRenderPassDescriptor* const pass = target->renderPassDescriptor();
-    if (_pipeline && _pipelinePass == pass) {
+    // Le pipeline suit aussi le nombre d'echantillons de la cible : une cible multi-echantillonnee
+    // refuse un pipeline qui ne l'est pas autant qu'elle.
+    const int samples = target->sampleCount();
+    if (_pipeline && _pipelinePass == pass && _pipelineSamples == samples) {
         return true;
     }
     // Liaisons de reference : jamais utilisees pour dessiner, seulement pour decrire la
@@ -300,6 +303,7 @@ bool MeshBatch::ensurePipeline(QRhiRenderTarget* target) {
     pipeline->setVertexInputLayout(inputLayout);
     pipeline->setShaderResourceBindings(_layoutBindings.get());
     pipeline->setRenderPassDescriptor(pass);
+    pipeline->setSampleCount(samples);
     pipeline->setTopology(QRhiGraphicsPipeline::Triangles);
     // Aucune face ecartee : la profondeur decide (voir la classe).
     pipeline->setCullMode(QRhiGraphicsPipeline::None);
@@ -325,12 +329,14 @@ bool MeshBatch::ensurePipeline(QRhiRenderTarget* target) {
     }
     _pipeline = std::move(pipeline);
     _pipelinePass = pass;
+    _pipelineSamples = samples;
     return true;
 }
 
 bool MeshBatch::ensureSkinnedPipeline(QRhiRenderTarget* target) {
     QRhiRenderPassDescriptor* const pass = target->renderPassDescriptor();
-    if (_skinnedPipeline && _skinnedPipelinePass == pass) {
+    const int samples = target->sampleCount();
+    if (_skinnedPipeline && _skinnedPipelinePass == pass && _skinnedPipelineSamples == samples) {
         return true;
     }
     if (!_skinnedLayoutBindings) {
@@ -370,6 +376,7 @@ bool MeshBatch::ensureSkinnedPipeline(QRhiRenderTarget* target) {
     pipeline->setVertexInputLayout(inputLayout);
     pipeline->setShaderResourceBindings(_skinnedLayoutBindings.get());
     pipeline->setRenderPassDescriptor(pass);
+    pipeline->setSampleCount(samples);
     pipeline->setTopology(QRhiGraphicsPipeline::Triangles);
     // Les memes regles que le pipeline des maillages fixes : aucune face ecartee, la profondeur
     // testee et ecrite, le melange premultiplie.
@@ -393,6 +400,7 @@ bool MeshBatch::ensureSkinnedPipeline(QRhiRenderTarget* target) {
     }
     _skinnedPipeline = std::move(pipeline);
     _skinnedPipelinePass = pass;
+    _skinnedPipelineSamples = samples;
     return true;
 }
 

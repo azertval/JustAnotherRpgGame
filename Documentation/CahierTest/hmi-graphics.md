@@ -1,6 +1,6 @@
 # HMI · Graphics
 
-Tests unitaires — **187 cas** (46 bloquants, 52 critiques, 83 majeurs, 6 mineurs). [Retour à la synthèse](README.md).
+Tests unitaires — **188 cas** (47 bloquants, 52 critiques, 83 majeurs, 6 mineurs). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -20,7 +20,7 @@ Tests unitaires — **187 cas** (46 bloquants, 52 critiques, 83 majeurs, 6 mineu
 | [`test_iso_view.cpp`](#test-iso-viewcpp) | 6 | 3 | - | 3 | - |
 | [`test_maquette_tokens.cpp`](#test-maquette-tokenscpp) | 6 | - | 2 | 4 | - |
 | [`test_mesh_composition.cpp`](#test-mesh-compositioncpp) | 6 | 2 | - | 4 | - |
-| [`test_mesh_render.cpp`](#test-mesh-rendercpp) | 6 | 3 | - | 3 | - |
+| [`test_mesh_render.cpp`](#test-mesh-rendercpp) | 7 | 4 | - | 3 | - |
 | [`test_missing_texture.cpp`](#test-missing-texturecpp) | 5 | - | 2 | 3 | - |
 | [`test_offscreen_render.cpp`](#test-offscreen-rendercpp) | 5 | 3 | - | 2 | - |
 | [`test_place_camera.cpp`](#test-place-cameracpp) | 13 | 2 | - | 10 | 1 |
@@ -1600,7 +1600,7 @@ Le lieu compose une fois garde ses maillages et les cadre.
 
 ### MeshRenderTest.LaCarteDEssaiSeRendEnMaillages
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:118`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:120`
 
 La carte d'essai se rend en maillages.
 
@@ -1623,7 +1623,7 @@ La carte d'essai se rend en maillages.
 
 ### MeshRenderTest.UneFigurinePasseDevantPuisDerriereUnMur
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:159`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:161`
 
 Une figurine passe devant puis derriere un mur en maillage.
 
@@ -1647,7 +1647,7 @@ Une figurine passe devant puis derriere un mur en maillage.
 
 ### MeshRenderTest.LOpaciteDesCalquesVautPourLesMaillages
 
-*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:220`
+*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:222`
 
 L'opacite des calques vaut pour les maillages.
 
@@ -1669,7 +1669,7 @@ L'opacite des calques vaut pour les maillages.
 
 ### MeshRenderTest.UneCarteEnMaillagesRendueParTuilesEstLaMemeImage
 
-*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:270`
+*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:272`
 
 Une carte en maillages rendue par tuiles est la meme image.
 
@@ -1685,7 +1685,7 @@ Une carte en maillages rendue par tuiles est la meme image.
 
 ### MeshRenderTest.UnFichierDeMaillageAbsentLaisseVoirLeDamier
 
-*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:304`
+*Majeur · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:306`
 
 Un fichier de maillage absent laisse voir le damier.
 
@@ -1706,7 +1706,7 @@ Un fichier de maillage absent laisse voir le damier.
 
 ### MeshRenderTest.LePointageDUneCaseEstCeluiDAvant
 
-*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:342`
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:344`
 
 Le pointage d'une case au sol est celui d'avant, sur toute la carte d'Arenarea.
 
@@ -1726,6 +1726,26 @@ Le pointage d'une case au sol est celui d'avant, sur toute la carte d'Arenarea.
 - Vérifie que `picked.has_value()` est vrai.
 - Vérifie que `*picked` vaut `cell`.
 - Vérifie que `checked` vaut `static_cast<std::size_t>(projection.columns()) * static_cast<std::size_t>(projection.rows()) * 5U`.
+
+### MeshRenderTest.LAnticrenelageAdoucitLeBordDesMaillages
+
+*Bloquant · Unitaire · Rendu QRhi d'un lieu · Maillages* — `Source/Test/Unit/HMI/Graphics/test_mesh_render.cpp:404`
+
+L'anticrenelage adoucit le bord des maillages.
+
+**Étapes**
+
+1. Rendre la carte d'essai à un échantillon par pixel.
+2. La rendre à quatre échantillons, résolus dans la même image.
+
+**Résultat attendu**
+
+- Vérifie que `plain.size()` vaut `SIZE`.
+- Vérifie que `smooth.size()` vaut `SIZE`.
+- Vérifie que `static_cast<double>(countPixels(smooth, isWall))` vaut `walls`, à `walls / 10.0` près.
+- Vérifie que `static_cast<double>(countPixels(smooth, isRoof))` vaut `roof`, à `roof / 10.0` près.
+- Vérifie que `different` est strictement supérieur à `500U`.
+- Vérifie que `smoothTints.size()` est strictement supérieur à `plainTints.size()`.
 
 ## test_missing_texture.cpp
 

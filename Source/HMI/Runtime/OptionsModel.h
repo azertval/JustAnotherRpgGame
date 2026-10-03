@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <QList>
 #include <QObject>
 #include <QString>
 #include <QStringList>
@@ -42,6 +43,8 @@ namespace hmi {
  * | volume | le moteur audio, **immédiatement** |
  * | langue | les traducteurs et le QML, **immédiatement** |
  * | synchronisation verticale | le format de surface, **au prochain lancement** |
+ * | anticrénelage | le tampon multi-échantillonné des vues du lieu, **immédiatement** |
+ * | définition du rendu | la taille du tampon des vues du lieu, **immédiatement** |
  * | compteur de diagnostic | l'affichage tête haute, quand il existera |
  *
  * Les deux dernières lignes sont dites à l'écran, et non tues : un réglage qui s'applique plus tard
@@ -65,6 +68,17 @@ class OptionsModel : public QObject {
     Q_PROPERTY(
         int hudScalePercent READ hudScalePercent WRITE setHudScalePercent NOTIFY hudScaleChanged)
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged)
+    /// Échantillons par pixel des vues du lieu : 1 (aucun anticrénelage), 2, 4 ou 8. C'est le
+    /// `sampleCount` de `hmi::WorldViewportItem`, que le QML lie à ce réglage.
+    Q_PROPERTY(int antialiasing READ antialiasing WRITE setAntialiasing NOTIFY antialiasingChanged)
+    /// Définition du rendu du lieu, en pourcentage de celle de la fenêtre (100 à 200) : au-delà
+    /// de 100, la scène est dessinée plus grande puis réduite à l'écran (suréchantillonnage).
+    Q_PROPERTY(int renderScalePercent READ renderScalePercent WRITE setRenderScalePercent NOTIFY
+                   renderScaleChanged)
+    /// Les valeurs que l'écran propose pour `antialiasing` et `renderScalePercent`, dans l'ordre
+    /// de leurs listes : une seule table, lue par le modèle qui valide et par l'écran qui affiche.
+    Q_PROPERTY(QList<int> antialiasingLevels READ antialiasingLevels CONSTANT)
+    Q_PROPERTY(QList<int> renderScales READ renderScales CONSTANT)
 
     /// Les langues que le jeu propose, par leur **code** (`fr`, `en`). Constantes : une langue
     /// s'ajoute avec son catalogue, donc par une construction, jamais à l'exécution.
@@ -112,6 +126,14 @@ public:
     [[nodiscard]] QString language() const {
         return _language;
     }
+    [[nodiscard]] int antialiasing() const noexcept {
+        return _antialiasing;
+    }
+    [[nodiscard]] int renderScalePercent() const noexcept {
+        return _renderScalePercent;
+    }
+    [[nodiscard]] QList<int> antialiasingLevels() const;
+    [[nodiscard]] QList<int> renderScales() const;
     [[nodiscard]] QStringList languages() const;
     [[nodiscard]] QStringList languageNames() const;
     [[nodiscard]] bool logsAvailable() const noexcept {
@@ -125,6 +147,10 @@ public:
     void setVolume(int percent);
     void setHudScalePercent(int percent);
     void setLanguage(const QString& code);
+    /// Une valeur hors de `antialiasingLevels` est ignorée.
+    void setAntialiasing(int samples);
+    /// Une valeur hors de `renderScales` est ignorée.
+    void setRenderScalePercent(int percent);
 
     /**
      * @brief Écrit les journaux de la session dans un fichier horodaté, à côté de l'exécutable.
@@ -141,6 +167,8 @@ signals:
     void volumeChanged();
     void hudScaleChanged();
     void languageChanged();
+    void antialiasingChanged();
+    void renderScaleChanged();
 
 private:
     core::MemoryLogSink* _sessionLog = nullptr;
@@ -150,6 +178,8 @@ private:
     int _volume = 100;
     int _hudScalePercent = 100;
     QString _language;
+    int _antialiasing = 4;
+    int _renderScalePercent = 100;
 };
 
 }  // namespace hmi

@@ -1,6 +1,6 @@
 # HMI · Runtime
 
-Tests unitaires — **19 cas** (3 bloquants, 8 critiques, 7 majeurs, 1 mineur). [Retour à la synthèse](README.md).
+Tests unitaires — **20 cas** (3 bloquants, 8 critiques, 8 majeurs, 1 mineur). [Retour à la synthèse](README.md).
 
 ## Ce que cette page couvre
 
@@ -9,7 +9,7 @@ Tests unitaires — **19 cas** (3 bloquants, 8 critiques, 7 majeurs, 1 mineur). 
 | [`test_character_sheet_model.cpp`](#test-character-sheet-modelcpp) | 2 | 1 | 1 | - | - |
 | [`test_encounter_model.cpp`](#test-encounter-modelcpp) | 8 | 1 | 4 | 3 | - |
 | [`test_party_model.cpp`](#test-party-modelcpp) | 5 | 1 | 3 | - | 1 |
-| [`test_ui_preferences_and_inventory.cpp`](#test-ui-preferences-and-inventorycpp) | 4 | - | - | 4 | - |
+| [`test_ui_preferences_and_inventory.cpp`](#test-ui-preferences-and-inventorycpp) | 5 | - | - | 5 | - |
 
 ## Exigences vérifiées par cette page
 
@@ -506,9 +506,40 @@ La taille du HUD est bornee et survit a un rechargement.
 - Vérifie que `options.defaults().value("hudScalePercent").toInt()` vaut `100`.
 - Vérifie que `invalidStored.hudScalePercent()` vaut `130`.
 
+### UiPreferencesTest.RenderSettingsTakeOnlyOfferedValues
+
+*Majeur · Unitaire · Options* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:63`
+
+Les reglages de rendu ne prennent que les valeurs proposees.
+
+**Étapes**
+
+1. Isoler les preferences dans un dossier temporaire.
+2. Lire les valeurs d'usine, puis regler 8 echantillons et 150 % ; relire par un second modele.
+3. Demander 3 echantillons et 137 %, que l'ecran ne propose pas.
+4. Ecrire des valeurs non proposees dans les preferences et recharger.
+
+**Résultat attendu**
+
+- Vérifie que `directory.isValid()` est vrai.
+- Vérifie que `options.antialiasing()` vaut `4`.
+- Vérifie que `options.renderScalePercent()` vaut `100`.
+- Vérifie que `options.defaults().value("antialiasing").toInt()` vaut `4`.
+- Vérifie que `options.defaults().value("renderScalePercent").toInt()` vaut `100`.
+- Vérifie que `options.antialiasingLevels()` vaut `(QList<int>{1, 2, 4, 8})`.
+- Vérifie que `options.renderScales()` vaut `(QList<int>{100, 125, 150, 200})`.
+- Vérifie que `reloaded.antialiasing()` vaut `8`.
+- Vérifie que `reloaded.renderScalePercent()` vaut `150`.
+- Vérifie que `options.antialiasing()` vaut `8`.
+- Vérifie que `options.renderScalePercent()` vaut `150`.
+- Vérifie que `antialiasingChanges` vaut `1`.
+- Vérifie que `renderScaleChanges` vaut `1`.
+- Vérifie que `invalidStored.antialiasing()` vaut `4`.
+- Vérifie que `invalidStored.renderScalePercent()` vaut `100`.
+
 ### InventoryModelTest.EquipmentSurvivesReopeningAndCombatRecords
 
-*Majeur · Unitaire · Inventaire* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:64`
+*Majeur · Unitaire · Inventaire* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:129`
 
 L'equipement survit a la reouverture de l'ecran et au combat.
 
@@ -532,7 +563,7 @@ L'equipement survit a la reouverture de l'ecran et au combat.
 
 ### InventoryModelTest.RestPreservesEquipmentAndClearsSpentResources
 
-*Majeur · Unitaire · Registre du groupe* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:118`
+*Majeur · Unitaire · Registre du groupe* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:183`
 
 Un repos garde l'equipement et rend les ressources depensees.
 
@@ -551,7 +582,7 @@ Un repos garde l'equipement et rend les ressources depensees.
 
 ### ScreenRouterTest.CodexAndOptionsReturnToOngoingCombat
 
-*Majeur · Unitaire · Routeur d'ecrans* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:147`
+*Majeur · Unitaire · Routeur d'ecrans* — `Source/Test/Unit/HMI/Runtime/test_ui_preferences_and_inventory.cpp:212`
 
 Le codex et les options ramenent au combat en cours.
 

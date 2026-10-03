@@ -198,9 +198,10 @@ private:
 
     /// Crée (ou recrée) les pipelines pour la passe de rendu donnée. Idempotent.
     bool ensurePipeline(QRhiRenderTarget* target);
-    /// Construit un pipeline pour @p pass, avec ou sans test de profondeur.
+    /// Construit un pipeline pour @p pass et @p samples échantillons, avec ou sans test de
+    /// profondeur.
     [[nodiscard]] std::unique_ptr<QRhiGraphicsPipeline> createPipeline(
-        QRhiRenderPassDescriptor* pass, bool depthTest);
+        QRhiRenderPassDescriptor* pass, int samples, bool depthTest);
     /// Redimensionne le tampon de sommets si l'image enregistrée n'y tient pas.
     bool ensureVertexCapacity(std::size_t quadCount);
     /// Redimensionne le tampon uniforme pour @p batchCount emplacements de projection.
@@ -228,6 +229,8 @@ private:
     /// Descripteur de la passe pour laquelle `_pipeline` a été construit : un changement de cible
     /// (redimensionnement du widget, changement de fenêtre) impose de le reconstruire.
     QRhiRenderPassDescriptor* _pipelinePass = nullptr;
+    /// Nombre d'échantillons de la cible pour laquelle les pipelines ont été construits.
+    int _pipelineSamples = 1;
     /// Liaisons par texture, gardées d'une image à l'autre : les recréer à chaque lot allouerait
     /// des ressources GPU des centaines de fois par seconde.
     std::unordered_map<QRhiTexture*, std::unique_ptr<QRhiShaderResourceBindings>> _bindings;

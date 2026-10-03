@@ -31,6 +31,8 @@ OptionsForm {
            || root.diagnosticsCheck.checked !== OptionsModel.diagnostics
            || Math.round(root.volumeSlider.value) !== OptionsModel.volume
            || Math.round(root.hudScaleSlider.value) !== OptionsModel.hudScalePercent
+           || OptionsModel.antialiasingLevels[root.antialiasingBox.currentIndex] !== OptionsModel.antialiasing
+           || OptionsModel.renderScales[root.renderScaleBox.currentIndex] !== OptionsModel.renderScalePercent
            || OptionsModel.languages[root.languageBox.currentIndex] !== OptionsModel.language
 
     property string lastLogsMessage: ""
@@ -39,6 +41,11 @@ OptionsForm {
         // Le NOM s'affiche, le CODE se pose : les deux listes ont le meme ordre, et c'est le rang
         // choisi qui fait le lien entre elles.
         root.languageBox.model = OptionsModel.languageNames
+        // Les libelles suivent les valeurs du modele, rang pour rang : 1 echantillon se lit
+        // « Désactivé », les autres par leur nombre.
+        root.antialiasingBox.model = OptionsModel.antialiasingLevels.map(
+            (samples) => samples === 1 ? qsTr("Désactivé") : qsTr("MSAA %1×").arg(samples))
+        root.renderScaleBox.model = OptionsModel.renderScales.map((percent) => percent + " %")
         root.load(OptionsModel)
     }
 
@@ -50,6 +57,8 @@ OptionsForm {
         root.diagnosticsCheck.checked = values.diagnostics
         root.volumeSlider.value = values.volume
         root.hudScaleSlider.value = values.hudScalePercent
+        root.antialiasingBox.currentIndex = OptionsModel.antialiasingLevels.indexOf(values.antialiasing)
+        root.renderScaleBox.currentIndex = OptionsModel.renderScales.indexOf(values.renderScalePercent)
         root.languageBox.currentIndex = OptionsModel.languages.indexOf(values.language)
     }
 
@@ -59,6 +68,8 @@ OptionsForm {
         OptionsModel.diagnostics = root.diagnosticsCheck.checked
         OptionsModel.volume = Math.round(root.volumeSlider.value)
         OptionsModel.hudScalePercent = Math.round(root.hudScaleSlider.value)
+        OptionsModel.antialiasing = OptionsModel.antialiasingLevels[root.antialiasingBox.currentIndex]
+        OptionsModel.renderScalePercent = OptionsModel.renderScales[root.renderScaleBox.currentIndex]
         OptionsModel.language = OptionsModel.languages[root.languageBox.currentIndex]
     }
 

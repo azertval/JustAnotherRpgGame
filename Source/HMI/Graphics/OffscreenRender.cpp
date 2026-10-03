@@ -76,23 +76,40 @@ WorldSceneRenderer* OffscreenRhi::renderer(const std::filesystem::path& assetsDi
     return kept->ensureResources(_rhi.get()) ? kept.get() : nullptr;
 }
 
-bool OffscreenRhi::ensureTarget(QSize size) {
-    if (_target && _texture && _texture->pixelSize() == size) {
+bool OffscreenRhi::ensureTarget(QSize size, int samples) {
+    if (_target && _texture && _texture->pixelSize() == size && _samples == samples) {
         return true;
     }
     _target.reset();
     _pass.reset();
+    _multisample.reset();
+    _samples = samples;
     _texture.reset(_rhi->newTexture(QRhiTexture::RGBA8, size, 1,
                                     QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
     // Le tampon de profondeur (LOT-1003) : les maillages d'un lieu s'y departagent, et ses images
     // s'y comparent. Une carte sans volume ne le lit ni ne l'ecrit.
-    _depth.reset(_rhi->newRenderBuffer(QRhiRenderBuffer::DepthStencil, size));
+    _depth.reset(_rhi->newRenderBuffer(QRhiRenderBuffer::DepthStencil, size, samples));
     if (!_texture->create() || !_depth->create()) {
         _texture.reset();
         _depth.reset();
         return false;
     }
-    QRhiTextureRenderTargetDescription description{{_texture.get()}};
+    // A plusieurs echantillons, la passe dessine dans un tampon multi-echantillonne et le resout
+    // dans la texture relue : c'est le montage de `QQuickRhiItem`, donc celui du jeu.
+    QRhiColorAttachment color(_texture.get());
+    if (samples > 1) {
+        _multisample.reset(
+            _rhi->newRenderBuffer(QRhiRenderBuffer::Color, size, samples, {}, QRhiTexture::RGBA8));
+        if (!_multisample->create()) {
+            _multisample.reset();
+            _texture.reset();
+            _depth.reset();
+            return false;
+        }
+        color = QRhiColorAttachment(_multisample.get());
+        color.setResolveTexture(_texture.get());
+    }
+    QRhiTextureRenderTargetDescription description{color};
     description.setDepthStencilBuffer(_depth.get());
     _target.reset(_rhi->newTextureRenderTarget(description));
     _pass.reset(_target->newCompatibleRenderPassDescriptor());
@@ -100,6 +117,7 @@ bool OffscreenRhi::ensureTarget(QSize size) {
     if (!_target->create()) {
         _target.reset();
         _pass.reset();
+        _multisample.reset();
         _texture.reset();
         _depth.reset();
         return false;
@@ -108,7 +126,7 @@ bool OffscreenRhi::ensureTarget(QSize size) {
 }
 
 QImage OffscreenRhi::render(WorldSceneRenderer& renderer, QSize size, const WorldFraming& framing,
-                            const QColor& clear, int tileSide) {
+                            const QColor& clear, int tileSide, int samples) {
     if (size.isEmpty() || framing.pixelsPerUnit <= 0.0F || !renderer.ensureResources(_rhi.get())) {
         return {};
     }
@@ -117,7 +135,14 @@ QImage OffscreenRhi::render(WorldSceneRenderer& renderer, QSize size, const Worl
     // d'un coup, dans une cible a sa taille.
     const int side = std::max(1, tileSide);
     const QSize tile(std::min(size.width(), side), std::min(size.height(), side));
-    if (!ensureTarget(tile)) {
+    // Le plus grand nombre d'echantillons que l'interface sait faire, sans depasser la demande.
+    int supported = 1;
+    for (const int count : _rhi->supportedSampleCounts()) {
+        if (count <= samples) {
+            supported = std::max(supported, count);
+        }
+    }
+    if (!ensureTarget(tile, supported)) {
         GRAPHICS_LOG_WARNING("Rendu hors ecran : la cible de rendu ne se cree pas.");
         return {};
     }
