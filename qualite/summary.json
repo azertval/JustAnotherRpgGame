@@ -1,11 +1,11 @@
 {
-  "generated": "2026-10-03 10:27 UTC",
-  "commit": "823c75735",
-  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/37116452207",
+  "generated": "2026-10-03 11:58 UTC",
+  "commit": "8dbd61293",
+  "run_url": "https://github.com/azertval/JustAnotherRpgGame/actions/runs/37119635051",
   "coverage": {
-    "percent": 91.27,
-    "covered": 51556,
-    "valid": 56487,
+    "percent": 91.26,
+    "covered": 51533,
+    "valid": 56467,
     "files": 287,
     "areas": [
       {
@@ -58,9 +58,9 @@
       },
       {
         "name": "Core/Resources",
-        "covered": 1420,
-        "valid": 1600,
-        "percent": 88.75
+        "covered": 1417,
+        "valid": 1598,
+        "percent": 88.67
       },
       {
         "name": "Core/Rpg",
@@ -82,9 +82,9 @@
       },
       {
         "name": "Editor/Logic",
-        "covered": 6215,
-        "valid": 7026,
-        "percent": 88.46
+        "covered": 6209,
+        "valid": 7020,
+        "percent": 88.45
       },
       {
         "name": "Editor/Ui",
@@ -106,8 +106,8 @@
       },
       {
         "name": "HMI/Graphics",
-        "covered": 3862,
-        "valid": 4237,
+        "covered": 3860,
+        "valid": 4235,
         "percent": 91.15
       },
       {

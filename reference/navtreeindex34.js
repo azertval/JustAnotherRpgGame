@@ -1,5 +1,15 @@
 var NAVTREEINDEX34 =
 {
+"structcore_1_1AnimationClip.html#a4d3c673e04630c780aeceb031707a127":[2,0,1,91,2],
+"structcore_1_1AnimationClip.html#a4d3c673e04630c780aeceb031707a127":[3,0,0,91,2],
+"structcore_1_1AnimationClip.html#a508d5f46279f56ab33ec39cd1fceae13":[2,0,1,91,4],
+"structcore_1_1AnimationClip.html#a508d5f46279f56ab33ec39cd1fceae13":[3,0,0,91,4],
+"structcore_1_1AnimationClip.html#a816a1ce26647a4bb356e0f18a1761226":[2,0,1,91,1],
+"structcore_1_1AnimationClip.html#a816a1ce26647a4bb356e0f18a1761226":[3,0,0,91,1],
+"structcore_1_1AnimationClip.html#af55e08189f4ff0bfe3a6bca47e4b9aa0":[2,0,1,91,0],
+"structcore_1_1AnimationClip.html#af55e08189f4ff0bfe3a6bca47e4b9aa0":[3,0,0,91,0],
+"structcore_1_1AreaOfEffect.html":[2,0,1,2],
+"structcore_1_1AreaOfEffect.html":[3,0,0,2],
 "structcore_1_1AreaOfEffect.html#a5fd3598ebbe1d013b3f291f395ace3e3":[2,0,1,2,0],
 "structcore_1_1AreaOfEffect.html#a5fd3598ebbe1d013b3f291f395ace3e3":[3,0,0,2,0],
 "structcore_1_1AreaOfEffect.html#a89bc6f2ef0ec8fcf171d8fdc233467e9":[2,0,1,2,1],
@@ -239,15 +249,5 @@ var NAVTREEINDEX34 =
 "structcore_1_1AttackOutcome.html#a92144a357860544f1d22c734ec761d15":[2,0,1,19,3],
 "structcore_1_1AttackOutcome.html#a92144a357860544f1d22c734ec761d15":[3,0,0,19,3],
 "structcore_1_1AttackOutcome.html#a92fa3556e6fe981e561be4d8e896318f":[2,0,1,19,2],
-"structcore_1_1AttackOutcome.html#a92fa3556e6fe981e561be4d8e896318f":[3,0,0,19,2],
-"structcore_1_1AttackOutcome.html#ab0969d0c7ca522d8bb90a10149a71750":[2,0,1,19,0],
-"structcore_1_1AttackOutcome.html#ab0969d0c7ca522d8bb90a10149a71750":[3,0,0,19,0],
-"structcore_1_1AttackOutcome.html#af0266e4f1dfc56d47cec37fb0dc6fad1":[2,0,1,19,5],
-"structcore_1_1AttackOutcome.html#af0266e4f1dfc56d47cec37fb0dc6fad1":[3,0,0,19,5],
-"structcore_1_1AttackPreview.html":[2,0,1,26],
-"structcore_1_1AttackPreview.html":[3,0,0,26],
-"structcore_1_1AttackPreview.html#a06a9af404fb5a101cab8548476a13033":[2,0,1,26,15],
-"structcore_1_1AttackPreview.html#a06a9af404fb5a101cab8548476a13033":[3,0,0,26,15],
-"structcore_1_1AttackPreview.html#a0f42e64ab43941c9f9c548ae4a9fb5de":[2,0,1,26,9],
-"structcore_1_1AttackPreview.html#a0f42e64ab43941c9f9c548ae4a9fb5de":[3,0,0,26,9]
+"structcore_1_1AttackOutcome.html#a92fa3556e6fe981e561be4d8e896318f":[3,0,0,19,2]
 };

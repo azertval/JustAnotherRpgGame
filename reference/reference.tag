@@ -10006,13 +10006,6 @@
       <anchor>aa9e1d6f3ad12292e40389628f74fc1b3</anchor>
       <arglist>(ScenePlaceTest, LesFiguresDUnLieuViennentDeSesNiveaux)</arglist>
     </member>
-    <member kind="function">
-      <type></type>
-      <name>TEST</name>
-      <anchorfile>test__scene__place_8cpp.html</anchorfile>
-      <anchor>abddb996b217e205983478de0f564d740</anchor>
-      <arglist>(ScenePlaceTest, UnPortraitDAttenteEstUneFigurineNommee)</arglist>
-    </member>
   </compound>
   <compound kind="file">
     <name>test_skeleton.cpp</name>
@@ -26890,6 +26883,13 @@
       <arglist>() const</arglist>
     </member>
     <member kind="function">
+      <type>QUrl</type>
+      <name>speakerPortrait</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>afe6955dfbcd412682fdfeb38c1739af6</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
       <type>QString</type>
       <name>partyVoice</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
@@ -27062,6 +27062,13 @@
       <name>speakerName</name>
       <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
       <anchor>a5be7ee1780c414a9cf0768e408fdb26d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QUrl</type>
+      <name>speakerPortrait</name>
+      <anchorfile>classhmi_1_1DialogueModel.html</anchorfile>
+      <anchor>a27e372969f4b5044af66b317f9848190</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -51595,6 +51602,13 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
+      <type>QUrl</type>
+      <name>interlocutorPortrait</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>af546dcc0d0a3593ae72849d11630526d</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>const WorldPlay &amp;</type>
       <name>play</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -51903,6 +51917,13 @@
       <arglist>(const core::PartyCandidate &amp;candidate) const</arglist>
     </member>
     <member kind="function" protection="private">
+      <type>QUrl</type>
+      <name>portraitOfNpcAt</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>aa0d72a489bad58bb82882c73313708c5</anchor>
+      <arglist>(core::GridPosition cell, const std::string &amp;dialogueId) const</arglist>
+    </member>
+    <member kind="function" protection="private">
       <type>void</type>
       <name>releaseInput</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
@@ -52068,6 +52089,13 @@
       <name>_lastInteractionCell</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a61f5d9eff14da9a4e2e7d554392fe6fe</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QUrl</type>
+      <name>_interlocutorPortrait</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a3313dde91e230624bbe22febd0ee8d4b</anchor>
       <arglist></arglist>
     </member>
   </compound>

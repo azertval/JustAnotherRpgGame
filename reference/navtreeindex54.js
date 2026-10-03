@@ -1,5 +1,15 @@
 var NAVTREEINDEX54 =
 {
+"structhmi_1_1SpriteBatch_1_1Batch.html":[2,0,2,176,1],
+"structhmi_1_1SpriteBatch_1_1Batch.html":[3,0,1,175,1],
+"structhmi_1_1SpriteBatch_1_1Batch.html#a243537f76d52247b6918db4e9a19d6e4":[2,0,2,176,1,0],
+"structhmi_1_1SpriteBatch_1_1Batch.html#a243537f76d52247b6918db4e9a19d6e4":[3,0,1,175,1,0],
+"structhmi_1_1SpriteBatch_1_1Batch.html#a84e20dc04c9ec6ef209d002e224ee5cc":[2,0,2,176,1,1],
+"structhmi_1_1SpriteBatch_1_1Batch.html#a84e20dc04c9ec6ef209d002e224ee5cc":[3,0,1,175,1,1],
+"structhmi_1_1SpriteBatch_1_1Batch.html#aafa1ab2883c41ca1bc963ab9134803cd":[2,0,2,176,1,3],
+"structhmi_1_1SpriteBatch_1_1Batch.html#aafa1ab2883c41ca1bc963ab9134803cd":[3,0,1,175,1,3],
+"structhmi_1_1SpriteBatch_1_1Batch.html#acf82789fe7fff48fa14a8a497a3d3c4a":[2,0,2,176,1,2],
+"structhmi_1_1SpriteBatch_1_1Batch.html#acf82789fe7fff48fa14a8a497a3d3c4a":[3,0,1,175,1,2],
 "structhmi_1_1SpriteBatch_1_1Vertex.html":[2,0,2,176,0],
 "structhmi_1_1SpriteBatch_1_1Vertex.html":[3,0,1,175,0],
 "structhmi_1_1SpriteBatch_1_1Vertex.html#a159fa9be9305ea7dcf1e051c61649762":[2,0,2,176,0,2],
@@ -239,15 +249,5 @@ var NAVTREEINDEX54 =
 "structhmi_1_1WorldGraphLayoutEdge.html#ae956baad48608b41a46fa2bce9e8f790":[2,0,2,84,3],
 "structhmi_1_1WorldGraphLayoutEdge.html#ae956baad48608b41a46fa2bce9e8f790":[3,0,1,83,3],
 "structhmi_1_1WorldGraphLayoutEdge.html#af97a014a89781a07ddc582ef69c72b7c":[2,0,2,84,0],
-"structhmi_1_1WorldGraphLayoutEdge.html#af97a014a89781a07ddc582ef69c72b7c":[3,0,1,83,0],
-"structhmi_1_1WorldGraphLayoutNode.html":[2,0,2,83],
-"structhmi_1_1WorldGraphLayoutNode.html":[3,0,1,82],
-"structhmi_1_1WorldGraphLayoutNode.html#a091c52db55b16b858ddb478f97452b00":[2,0,2,83,0],
-"structhmi_1_1WorldGraphLayoutNode.html#a091c52db55b16b858ddb478f97452b00":[3,0,1,82,0],
-"structhmi_1_1WorldGraphLayoutNode.html#a3c3a59bfc8687ee2f660f183ae13401c":[2,0,2,83,3],
-"structhmi_1_1WorldGraphLayoutNode.html#a3c3a59bfc8687ee2f660f183ae13401c":[3,0,1,82,3],
-"structhmi_1_1WorldGraphLayoutNode.html#a658ecaab804ab15790666c6e74f2d498":[2,0,2,83,1],
-"structhmi_1_1WorldGraphLayoutNode.html#a658ecaab804ab15790666c6e74f2d498":[3,0,1,82,1],
-"structhmi_1_1WorldGraphLayoutNode.html#a6a7c7660733fb4a6923213039fdcc882":[2,0,2,83,4],
-"structhmi_1_1WorldGraphLayoutNode.html#a6a7c7660733fb4a6923213039fdcc882":[3,0,1,82,4]
+"structhmi_1_1WorldGraphLayoutEdge.html#af97a014a89781a07ddc582ef69c72b7c":[3,0,1,83,0]
 };

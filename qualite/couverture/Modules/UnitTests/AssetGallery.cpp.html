@@ -128,13 +128,10 @@ bool readAnimatedEntry(AssetGalleryEntry&amp; entry, const std::filesystem::path
             models.push_back(item.path().filename().string());
         }
     }</span>
-    // Les PNJ rangÃ©s plus bas, et les portraits d'attente (`LOT-145`) : un hÃ©ros qui a son visage
-    // avant son modÃ¨le.
-<span style = "background-color:#dfd">    for (const char* list : {"npcs", "portraits"}) {
-        for (const std::string&amp; npc : stringList(manifest, list)) {
-            if (npc.find('/') != std::string::npos) {
-                models.push_back(npc);
-            }
+    // Les PNJ rangÃ©s plus bas (`Heroes/brawler`).
+<span style = "background-color:#dfd">    for (const std::string&amp; npc : stringList(manifest, "npcs")) {
+        if (npc.find('/') != std::string::npos) {
+            models.push_back(npc);
         }
     }</span>
     // Les modÃ¨les que le manifeste inscrit (`models`, `LOT-1003`) : un mannequin sans squelette y
@@ -329,7 +326,7 @@ void readSceneFamily(const std::filesystem::path&amp; root, const std::string&am
 //        l'ordre de son chemin.
 //
 // Un manifeste qui dÃ©clare des `textures` est un dossier `Scene/` ; un manifeste qui dÃ©clare des
-// personnages (`npcs`, `portraits`, `models`) est un dossier `Characters/`, dont les PNJ ont la
+// personnages (`npcs`, `models`) est un dossier `Characters/`, dont les PNJ ont la
 // forme de l'atelier (`readFigures`). Les manifestes des niveaux encore vides n'ajoutent aucune
 // famille.
 <span style = "background-color:#dfd">void readTree(const std::filesystem::path&amp; root, AssetGalleryCatalog&amp; catalog) {
@@ -365,9 +362,8 @@ void readSceneFamily(const std::filesystem::path&amp; root, const std::string&am
                 place.erase(0, std::string_view("Regions/").size());</span>
             }
 <span style = "background-color:#dfd">            readSceneFamily(root, relative, "ScÃ¨ne Â· " + place, catalog);
-        } else if (document.root.contains("npcs") || document.root.contains("portraits") ||</span>
-                   document.root.contains("models")) {
-<span style = "background-color:#dfd">            readFigures(root, relative, "Figurines Â· " + relative, catalog);</span>
+        } else if (document.root.contains("npcs") || document.root.contains("models")) {
+            readFigures(root, relative, "Figurines Â· " + relative, catalog);</span>
         }
 <span style = "background-color:#dfd">    }
 }</span>

@@ -262,20 +262,16 @@ FigureDirectories resolveFigures(const std::filesystem::path&amp; assetsDirector
         if (!document.ok()) {</span>
 <span style = "background-color:#fdd">            continue;</span>
         }
-        // Les modÃ¨les (`npcs`), puis les portraits d'attente (`portraits`) : un personnage sans
-        // modÃ¨le a tout de mÃªme son dossier, oÃ¹ sont son portrait et son jeton.
-<span style = "background-color:#dfd">        for (const char* const list : {"npcs", "portraits"}) {
-            const auto slugs = document.root.find(list);
-            if (slugs == document.root.end() || !slugs-&gt;is_array()) {
-                continue;</span>
-            }
-<span style = "background-color:#dfd">            for (const nlohmann::json&amp; slug : *slugs) {
-                if (slug.is_string() &amp;&amp; !slug.get&lt;std::string&gt;().empty()) {</span>
-                    // Le plus propre gagne : un niveau plus commun ne remplace pas un slug dÃ©jÃ  vu.
-<span style = "background-color:#dfd">                    figures.try_emplace(slug.get&lt;std::string&gt;(),</span>
-                                        level.directory + "/" + slug.get&lt;std::string&gt;());
-<span style = "background-color:#dfd">                }
-            }
+<span style = "background-color:#dfd">        const auto slugs = document.root.find("npcs");
+        if (slugs == document.root.end() || !slugs-&gt;is_array()) {</span>
+<span style = "background-color:#fdd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        for (const nlohmann::json&amp; slug : *slugs) {
+            if (slug.is_string() &amp;&amp; !slug.get&lt;std::string&gt;().empty()) {</span>
+                // Le plus propre gagne : un niveau plus commun ne remplace pas un slug dÃ©jÃ  vu.
+<span style = "background-color:#dfd">                figures.try_emplace(slug.get&lt;std::string&gt;(),</span>
+                                    level.directory + "/" + slug.get&lt;std::string&gt;());
+<span style = "background-color:#dfd">            }
         }
     }
     return figures;

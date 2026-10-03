@@ -1,5 +1,15 @@
 var NAVTREEINDEX45 =
 {
+"structcore_1_1TurnSlot.html#adae84a4bce908ae66b5ed76adbf5cc35":[2,0,1,80,1],
+"structcore_1_1TurnSlot.html#adae84a4bce908ae66b5ed76adbf5cc35":[3,0,0,80,1],
+"structcore_1_1UnarmoredArmorClass.html":[2,0,1,194],
+"structcore_1_1UnarmoredArmorClass.html":[3,0,0,194],
+"structcore_1_1UnarmoredArmorClass.html#aad8ac75794b7fbbf49edbd35037fe753":[2,0,1,194,2],
+"structcore_1_1UnarmoredArmorClass.html#aad8ac75794b7fbbf49edbd35037fe753":[3,0,0,194,2],
+"structcore_1_1UnarmoredArmorClass.html#ab86960e91a60a2ce63059cd5cf8946ec":[2,0,1,194,0],
+"structcore_1_1UnarmoredArmorClass.html#ab86960e91a60a2ce63059cd5cf8946ec":[3,0,0,194,0],
+"structcore_1_1UnarmoredArmorClass.html#ada16958017ea9ef2d29b433b504c4769":[2,0,1,194,1],
+"structcore_1_1UnarmoredArmorClass.html#ada16958017ea9ef2d29b433b504c4769":[3,0,0,194,1],
 "structcore_1_1Vector2.html":[2,0,1,138],
 "structcore_1_1Vector2.html":[3,0,0,138],
 "structcore_1_1Vector2.html#a0a4b628adaba63b38778c6e2d463ddde":[2,0,1,138,6],
@@ -239,15 +249,5 @@ var NAVTREEINDEX45 =
 "structhmi_1_1AssetGalleryEntry.html#a8400f5306937f900ea70f16655ea98bd":[2,0,2,137,3],
 "structhmi_1_1AssetGalleryEntry.html#a8400f5306937f900ea70f16655ea98bd":[3,0,1,136,3],
 "structhmi_1_1AssetGalleryEntry.html#a861ab1a89667781dcb99e09ea55abadd":[2,0,2,137,6],
-"structhmi_1_1AssetGalleryEntry.html#a861ab1a89667781dcb99e09ea55abadd":[3,0,1,136,6],
-"structhmi_1_1AssetGalleryEntry.html#a96bb336e24e92f9bd50fbc27c19c48e9":[2,0,2,137,11],
-"structhmi_1_1AssetGalleryEntry.html#a96bb336e24e92f9bd50fbc27c19c48e9":[3,0,1,136,11],
-"structhmi_1_1AssetGalleryEntry.html#aa4d2426411bc8acec5871654a4cfa5f8":[2,0,2,137,14],
-"structhmi_1_1AssetGalleryEntry.html#aa4d2426411bc8acec5871654a4cfa5f8":[3,0,1,136,14],
-"structhmi_1_1AssetGalleryEntry.html#ab0888c76949132966abe8f3de34d454b":[2,0,2,137,5],
-"structhmi_1_1AssetGalleryEntry.html#ab0888c76949132966abe8f3de34d454b":[3,0,1,136,5],
-"structhmi_1_1AssetGalleryEntry.html#ab64f063437d25af635e30ead71108f5e":[2,0,2,137,8],
-"structhmi_1_1AssetGalleryEntry.html#ab64f063437d25af635e30ead71108f5e":[3,0,1,136,8],
-"structhmi_1_1AssetGalleryEntry.html#adf7e8c24be7133b4d9ece6f76e3b42ec":[2,0,2,137,7],
-"structhmi_1_1AssetGalleryEntry.html#adf7e8c24be7133b4d9ece6f76e3b42ec":[3,0,1,136,7]
+"structhmi_1_1AssetGalleryEntry.html#a861ab1a89667781dcb99e09ea55abadd":[3,0,1,136,6]
 };

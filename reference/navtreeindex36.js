@@ -1,5 +1,15 @@
 var NAVTREEINDEX36 =
 {
+"structcore_1_1CapacityEffect.html#a77d8103ea7afd6cb6db2057ba4377d2c":[2,0,1,191,2],
+"structcore_1_1CapacityEffect.html#a77d8103ea7afd6cb6db2057ba4377d2c":[3,0,0,191,2],
+"structcore_1_1CapacityEffect.html#a80a31ac675a287c75216f1b713082c3c":[2,0,1,191,9],
+"structcore_1_1CapacityEffect.html#a80a31ac675a287c75216f1b713082c3c":[3,0,0,191,9],
+"structcore_1_1CapacityEffect.html#aed0581569992d3173d084b81af941c63":[2,0,1,191,7],
+"structcore_1_1CapacityEffect.html#aed0581569992d3173d084b81af941c63":[3,0,0,191,7],
+"structcore_1_1CapacityEffect.html#af105e7ec61bd10396b172624aefbf012":[2,0,1,191,3],
+"structcore_1_1CapacityEffect.html#af105e7ec61bd10396b172624aefbf012":[3,0,0,191,3],
+"structcore_1_1CapacityEffect.html#af2309b538297ddd709da20b0f9b2ec6d":[2,0,1,191,4],
+"structcore_1_1CapacityEffect.html#af2309b538297ddd709da20b0f9b2ec6d":[3,0,0,191,4],
 "structcore_1_1CapacityEffect.html#af78551fd5a840d3577c57fc4fd4d614c":[2,0,1,191,11],
 "structcore_1_1CapacityEffect.html#af78551fd5a840d3577c57fc4fd4d614c":[3,0,0,191,11],
 "structcore_1_1CellPoint.html":[2,0,1,255],
@@ -239,15 +249,5 @@ var NAVTREEINDEX36 =
 "structcore_1_1CombatEvent.html#a97914f3398b74771f153eb64c622bf6b":[2,0,1,28,9],
 "structcore_1_1CombatEvent.html#a97914f3398b74771f153eb64c622bf6b":[3,0,0,28,9],
 "structcore_1_1CombatEvent.html#ab5ca5e21d721e18698b2f3971d6c9034":[2,0,1,28,2],
-"structcore_1_1CombatEvent.html#ab5ca5e21d721e18698b2f3971d6c9034":[3,0,0,28,2],
-"structcore_1_1CombatEvent.html#aca4ca7b9c011cd32b9ba814043162516":[2,0,1,28,8],
-"structcore_1_1CombatEvent.html#aca4ca7b9c011cd32b9ba814043162516":[3,0,0,28,8],
-"structcore_1_1CombatEvent.html#acafc1e4e3633c55e4d3c5b498b49ca8b":[2,0,1,28,1],
-"structcore_1_1CombatEvent.html#acafc1e4e3633c55e4d3c5b498b49ca8b":[3,0,0,28,1],
-"structcore_1_1CombatEvent.html#af766a48a133d30c5734e73c1d9414fe1":[2,0,1,28,5],
-"structcore_1_1CombatEvent.html#af766a48a133d30c5734e73c1d9414fe1":[3,0,0,28,5],
-"structcore_1_1CombatZone.html":[2,0,1,247],
-"structcore_1_1CombatZone.html":[3,0,0,247],
-"structcore_1_1CombatZone.html#a0d58e8d2d5871e5d4098f9682b1ae22d":[2,0,1,247,1],
-"structcore_1_1CombatZone.html#a0d58e8d2d5871e5d4098f9682b1ae22d":[3,0,0,247,1]
+"structcore_1_1CombatEvent.html#ab5ca5e21d721e18698b2f3971d6c9034":[3,0,0,28,2]
 };

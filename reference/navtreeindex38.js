@@ -1,5 +1,15 @@
 var NAVTREEINDEX38 =
 {
+"structcore_1_1DamageTraits.html":[2,0,1,43],
+"structcore_1_1DamageTraits.html":[3,0,0,43],
+"structcore_1_1DamageTraits.html#a88048f6a508849810f65de9e4897d6af":[2,0,1,43,1],
+"structcore_1_1DamageTraits.html#a88048f6a508849810f65de9e4897d6af":[3,0,0,43,1],
+"structcore_1_1DamageTraits.html#ac12264cba0a31747277669e59052a9da":[2,0,1,43,0],
+"structcore_1_1DamageTraits.html#ac12264cba0a31747277669e59052a9da":[3,0,0,43,0],
+"structcore_1_1DamageTraits.html#ae0615061f554b94d20979ed1985b4596":[2,0,1,43,2],
+"structcore_1_1DamageTraits.html#ae0615061f554b94d20979ed1985b4596":[3,0,0,43,2],
+"structcore_1_1DamageWork.html":[2,0,1,49],
+"structcore_1_1DamageWork.html":[3,0,0,49],
 "structcore_1_1DamageWork.html#a299961b8fab933cf5b7f3cb820fc57df":[2,0,1,49,6],
 "structcore_1_1DamageWork.html#a299961b8fab933cf5b7f3cb820fc57df":[3,0,0,49,6],
 "structcore_1_1DamageWork.html#a35390d8fbef6d72648a28c261d0d8bb3":[2,0,1,49,4],
@@ -239,15 +249,5 @@ var NAVTREEINDEX38 =
 "structcore_1_1EncounterCatalog.html#ae2d2c6b769155e1268b1ffe9e5a1cc0b":[2,0,1,55,0],
 "structcore_1_1EncounterCatalog.html#ae2d2c6b769155e1268b1ffe9e5a1cc0b":[3,0,0,55,0],
 "structcore_1_1EncounterCombatant.html":[2,0,1,53],
-"structcore_1_1EncounterCombatant.html":[3,0,0,53],
-"structcore_1_1EncounterCombatant.html#acfbd9c2b612e3e8e8d88445ee608b88b":[2,0,1,53,1],
-"structcore_1_1EncounterCombatant.html#acfbd9c2b612e3e8e8d88445ee608b88b":[3,0,0,53,1],
-"structcore_1_1EncounterCombatant.html#ad27bbb6021a231aaea9cc3d4c2f7e867":[2,0,1,53,0],
-"structcore_1_1EncounterCombatant.html#ad27bbb6021a231aaea9cc3d4c2f7e867":[3,0,0,53,0],
-"structcore_1_1EncounterCombatant.html#adee00c242215fb6f4bccfc875b6f583d":[2,0,1,53,2],
-"structcore_1_1EncounterCombatant.html#adee00c242215fb6f4bccfc875b6f583d":[3,0,0,53,2],
-"structcore_1_1EncounterDifficultyRules.html":[2,0,1,60],
-"structcore_1_1EncounterDifficultyRules.html":[3,0,0,60],
-"structcore_1_1EncounterDifficultyRules.html#a1457d0221c2f2d05c1b6350f18e51b59":[2,0,1,60,3],
-"structcore_1_1EncounterDifficultyRules.html#a1457d0221c2f2d05c1b6350f18e51b59":[3,0,0,60,3]
+"structcore_1_1EncounterCombatant.html":[3,0,0,53]
 };

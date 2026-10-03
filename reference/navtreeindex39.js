@@ -1,5 +1,15 @@
 var NAVTREEINDEX39 =
 {
+"structcore_1_1EncounterCombatant.html#acfbd9c2b612e3e8e8d88445ee608b88b":[2,0,1,53,1],
+"structcore_1_1EncounterCombatant.html#acfbd9c2b612e3e8e8d88445ee608b88b":[3,0,0,53,1],
+"structcore_1_1EncounterCombatant.html#ad27bbb6021a231aaea9cc3d4c2f7e867":[2,0,1,53,0],
+"structcore_1_1EncounterCombatant.html#ad27bbb6021a231aaea9cc3d4c2f7e867":[3,0,0,53,0],
+"structcore_1_1EncounterCombatant.html#adee00c242215fb6f4bccfc875b6f583d":[2,0,1,53,2],
+"structcore_1_1EncounterCombatant.html#adee00c242215fb6f4bccfc875b6f583d":[3,0,0,53,2],
+"structcore_1_1EncounterDifficultyRules.html":[2,0,1,60],
+"structcore_1_1EncounterDifficultyRules.html":[3,0,0,60],
+"structcore_1_1EncounterDifficultyRules.html#a1457d0221c2f2d05c1b6350f18e51b59":[2,0,1,60,3],
+"structcore_1_1EncounterDifficultyRules.html#a1457d0221c2f2d05c1b6350f18e51b59":[3,0,0,60,3],
 "structcore_1_1EncounterDifficultyRules.html#a1f6351dc085b6ea932d2a32aa74ca1c9":[2,0,1,60,4],
 "structcore_1_1EncounterDifficultyRules.html#a1f6351dc085b6ea932d2a32aa74ca1c9":[3,0,0,60,4],
 "structcore_1_1EncounterDifficultyRules.html#a315a4c29631bcd80606d428fd0b20957":[2,0,1,60,2],
@@ -239,15 +249,5 @@ var NAVTREEINDEX39 =
 "structcore_1_1ExplorationSnapshot.html":[2,0,1,39],
 "structcore_1_1ExplorationSnapshot.html":[3,0,0,39],
 "structcore_1_1ExplorationSnapshot.html#a63bd6e8bb5d82b721e711236677420d0":[2,0,1,39,2],
-"structcore_1_1ExplorationSnapshot.html#a63bd6e8bb5d82b721e711236677420d0":[3,0,0,39,2],
-"structcore_1_1ExplorationSnapshot.html#aa1c093bdc8294f3afb7cb55802c8a91d":[2,0,1,39,3],
-"structcore_1_1ExplorationSnapshot.html#aa1c093bdc8294f3afb7cb55802c8a91d":[3,0,0,39,3],
-"structcore_1_1ExplorationSnapshot.html#aa5d820019e101216aec7f2113d850f1e":[2,0,1,39,0],
-"structcore_1_1ExplorationSnapshot.html#aa5d820019e101216aec7f2113d850f1e":[3,0,0,39,0],
-"structcore_1_1ExplorationSnapshot.html#aed763efd480c62dac0fd4f5d960162a3":[2,0,1,39,1],
-"structcore_1_1ExplorationSnapshot.html#aed763efd480c62dac0fd4f5d960162a3":[3,0,0,39,1],
-"structcore_1_1ExtraDamagePreview.html":[2,0,1,25],
-"structcore_1_1ExtraDamagePreview.html":[3,0,0,25],
-"structcore_1_1ExtraDamagePreview.html#a00349ed04672e824d4f76ae57528b4d3":[2,0,1,25,3],
-"structcore_1_1ExtraDamagePreview.html#a00349ed04672e824d4f76ae57528b4d3":[3,0,0,25,3]
+"structcore_1_1ExplorationSnapshot.html#a63bd6e8bb5d82b721e711236677420d0":[3,0,0,39,2]
 };

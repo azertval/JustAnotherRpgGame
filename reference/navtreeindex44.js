@@ -1,5 +1,15 @@
 var NAVTREEINDEX44 =
 {
+"structcore_1_1SkillCatalog.html#a82416b1a90ae5d7675b6c0f1762a4c0b":[2,0,1,230,0],
+"structcore_1_1SkillCatalog.html#a82416b1a90ae5d7675b6c0f1762a4c0b":[3,0,0,230,0],
+"structcore_1_1SkillCatalog.html#af1a5f314ee5266ed330fb4ef5610d1d5":[2,0,1,230,1],
+"structcore_1_1SkillCatalog.html#af1a5f314ee5266ed330fb4ef5610d1d5":[3,0,0,230,1],
+"structcore_1_1SkillCheckModifier.html":[2,0,1,186],
+"structcore_1_1SkillCheckModifier.html":[3,0,0,186],
+"structcore_1_1SkillCheckModifier.html#a0031e06d33916dfdb6a653c8ac9e76b5":[2,0,1,186,1],
+"structcore_1_1SkillCheckModifier.html#a0031e06d33916dfdb6a653c8ac9e76b5":[3,0,0,186,1],
+"structcore_1_1SkillCheckModifier.html#ab7aba02abe8f184dcfebb04e3c0f39f6":[2,0,1,186,0],
+"structcore_1_1SkillCheckModifier.html#ab7aba02abe8f184dcfebb04e3c0f39f6":[3,0,0,186,0],
 "structcore_1_1SkillCheckModifier.html#abc3d0b280075c40dc8a2ae9e8b099785":[2,0,1,186,2],
 "structcore_1_1SkillCheckModifier.html#abc3d0b280075c40dc8a2ae9e8b099785":[3,0,0,186,2],
 "structcore_1_1SkillChoices.html":[2,0,1,175],
@@ -239,15 +249,5 @@ var NAVTREEINDEX44 =
 "structcore_1_1TurnSlot.html#ab41d3d66110ef3fbd71dc2fbe1fe39f8":[2,0,1,80,2],
 "structcore_1_1TurnSlot.html#ab41d3d66110ef3fbd71dc2fbe1fe39f8":[3,0,0,80,2],
 "structcore_1_1TurnSlot.html#ad5f940146319d7d76907df51ca595f70":[2,0,1,80,0],
-"structcore_1_1TurnSlot.html#ad5f940146319d7d76907df51ca595f70":[3,0,0,80,0],
-"structcore_1_1TurnSlot.html#adae84a4bce908ae66b5ed76adbf5cc35":[2,0,1,80,1],
-"structcore_1_1TurnSlot.html#adae84a4bce908ae66b5ed76adbf5cc35":[3,0,0,80,1],
-"structcore_1_1UnarmoredArmorClass.html":[2,0,1,194],
-"structcore_1_1UnarmoredArmorClass.html":[3,0,0,194],
-"structcore_1_1UnarmoredArmorClass.html#aad8ac75794b7fbbf49edbd35037fe753":[2,0,1,194,2],
-"structcore_1_1UnarmoredArmorClass.html#aad8ac75794b7fbbf49edbd35037fe753":[3,0,0,194,2],
-"structcore_1_1UnarmoredArmorClass.html#ab86960e91a60a2ce63059cd5cf8946ec":[2,0,1,194,0],
-"structcore_1_1UnarmoredArmorClass.html#ab86960e91a60a2ce63059cd5cf8946ec":[3,0,0,194,0],
-"structcore_1_1UnarmoredArmorClass.html#ada16958017ea9ef2d29b433b504c4769":[2,0,1,194,1],
-"structcore_1_1UnarmoredArmorClass.html#ada16958017ea9ef2d29b433b504c4769":[3,0,0,194,1]
+"structcore_1_1TurnSlot.html#ad5f940146319d7d76907df51ca595f70":[3,0,0,80,0]
 };

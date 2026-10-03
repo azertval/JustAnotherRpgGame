@@ -264,6 +264,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad66b926ac03cecb12fda3d957cd2f313" id="r_ad66b926ac03cecb12fda3d957cd2f313"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad66b926ac03cecb12fda3d957cd2f313">placeHero</a> (<a class="el" href="structcore_1_1CellPoint.html">core::CellPoint</a> point)</td></tr>
 <tr class="memdesc:ad66b926ac03cecb12fda3d957cd2f313"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pose le héros où le combat l'a laissé (<span class="tt">LOT-118</span>) ; la caméra suit.  <br /></td></tr>
 <tr class="memitem:a2fa6704ae8ccd49539e002644395cdfc" id="r_a2fa6704ae8ccd49539e002644395cdfc"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a2fa6704ae8ccd49539e002644395cdfc">lastInteractionCell</a> () const noexcept</td></tr>
+<tr class="memitem:af546dcc0d0a3593ae72849d11630526d" id="r_af546dcc0d0a3593ae72849d11630526d"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#af546dcc0d0a3593ae72849d11630526d">interlocutorPortrait</a> () const noexcept</td></tr>
 <tr class="memitem:a4863dc542f1781e3d5d7a35de1b28a4d" id="r_a4863dc542f1781e3d5d7a35de1b28a4d"><td class="memItemLeft">const <a class="el" href="classhmi_1_1WorldPlay.html">WorldPlay</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4863dc542f1781e3d5d7a35de1b28a4d">play</a> () const noexcept</td></tr>
 <tr class="memitem:accf15fd100d418948ceff091692180f0" id="r_accf15fd100d418948ceff091692180f0"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a>&#160;</td><td class="memItemRight"><a class="el" href="#accf15fd100d418948ceff091692180f0">snapshot</a> () const</td></tr>
 <tr class="memitem:a8ace752c0cf112e49b79142b3c85290b" id="r_a8ace752c0cf112e49b79142b3c85290b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a8ace752c0cf112e49b79142b3c85290b">diamondRatio</a> () const</td></tr>
@@ -348,6 +349,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:ad4c86942a2fbf0cd24b5851fc3b07eaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne au monde les figurines du groupe — le meneur, puis ses suiveurs — et l'annonce.  <br /></td></tr>
 <tr class="memitem:aaeb58e1332d119d05291e53bf5f02b75" id="r_aaeb58e1332d119d05291e53bf5f02b75"><td class="memItemLeft">const <a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aaeb58e1332d119d05291e53bf5f02b75">candidate</a> (std::string_view characterId) const</td></tr>
 <tr class="memitem:a8aa500a3950752f8257d3c827c383e71" id="r_a8aa500a3950752f8257d3c827c383e71"><td class="memItemLeft">QVariantMap&#160;</td><td class="memItemRight"><a class="el" href="#a8aa500a3950752f8257d3c827c383e71">candidateRow</a> (const <a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a> &amp;<a class="el" href="#aaeb58e1332d119d05291e53bf5f02b75">candidate</a>) const</td></tr>
+<tr class="memitem:aa0d72a489bad58bb82882c73313708c5" id="r_aa0d72a489bad58bb82882c73313708c5"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#aa0d72a489bad58bb82882c73313708c5">portraitOfNpcAt</a> (<a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> cell, const std::string &amp;dialogueId) const</td></tr>
+<tr class="memdesc:aa0d72a489bad58bb82882c73313708c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le portrait du PNJ posé en <code class="param">cell</code> dont le dialogue est <code class="param">dialogueId</code> ; vide sans PNJ, sans figurine nommée ou sans portrait.  <br /></td></tr>
 <tr class="memitem:a06a39edc9a1f4f20fea65226c2c16bcd" id="r_a06a39edc9a1f4f20fea65226c2c16bcd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a06a39edc9a1f4f20fea65226c2c16bcd">releaseInput</a> () noexcept</td></tr>
 <tr class="memdesc:a06a39edc9a1f4f20fea65226c2c16bcd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie la direction et l'interaction demandées : le héros s'arrête.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -391,6 +394,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:af4574787271f9e979c3d5f04fee4c0e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros de la grille pendant ce combat : ce que la caméra suit.  <br /></td></tr>
 <tr class="memitem:a61f5d9eff14da9a4e2e7d554392fe6fe" id="r_a61f5d9eff14da9a4e2e7d554392fe6fe"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a61f5d9eff14da9a4e2e7d554392fe6fe">_lastInteractionCell</a></td></tr>
 <tr class="memdesc:a61f5d9eff14da9a4e2e7d554392fe6fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case de la dernière interaction : d'où une rencontre engagée par un dialogue part.  <br /></td></tr>
+<tr class="memitem:a3313dde91e230624bbe22febd0ee8d4b" id="r_a3313dde91e230624bbe22febd0ee8d4b"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#a3313dde91e230624bbe22febd0ee8d4b">_interlocutorPortrait</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'exploration — <b>la partie en cours</b> : entrer sur une carte, marcher, parler, franchir. </p>
@@ -1276,6 +1280,32 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="af546dcc0d0a3593ae72849d11630526d" name="af546dcc0d0a3593ae72849d11630526d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af546dcc0d0a3593ae72849d11630526d">&#9670;&#160;</a></span>interlocutorPortrait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QUrl hmi::WorldModel::interlocutorPortrait </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le portrait du PNJ avec lequel le héros parle (<span class="tt">LOT-1011</span>) : celui du dossier de la figurine que l'entité nomme (<span class="tt">figure</span>), même si un mannequin la dessine ; vide sans PNJ (un dialogue ouvert par une zone, ou par le menu de développement) ou sans portrait installé. </dd></dl>
+
+</div>
+</div>
 <a id="a2fa6704ae8ccd49539e002644395cdfc" name="a2fa6704ae8ccd49539e002644395cdfc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2fa6704ae8ccd49539e002644395cdfc">&#9670;&#160;</a></span>lastInteractionCell()</h2>
 
@@ -1906,6 +1936,37 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Un portail est condamné (<span class="tt">LOT-126</span>) : il est là, il ne s'ouvre pas. </p>
+
+</div>
+</div>
+<a id="aa0d72a489bad58bb82882c73313708c5" name="aa0d72a489bad58bb82882c73313708c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0d72a489bad58bb82882c73313708c5">&#9670;&#160;</a></span>portraitOfNpcAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QUrl hmi::WorldModel::portraitOfNpcAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a></td>          <td class="paramname"><span class="paramname"><em>cell</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>dialogueId</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le portrait du PNJ posé en <code class="param">cell</code> dont le dialogue est <code class="param">dialogueId</code> ; vide sans PNJ, sans figurine nommée ou sans portrait. </p>
 
 </div>
 </div>
@@ -2775,6 +2836,28 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
       <table class="memname">
         <tr>
           <td class="memname">bool hmi::WorldModel::_interact = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3313dde91e230624bbe22febd0ee8d4b" name="a3313dde91e230624bbe22febd0ee8d4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3313dde91e230624bbe22febd0ee8d4b">&#9670;&#160;</a></span>_interlocutorPortrait</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QUrl hmi::WorldModel::_interlocutorPortrait</td>
         </tr>
       </table>
   </td>

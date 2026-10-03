@@ -173,6 +173,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5b3abb0445ed29d6fc01d9eee257de51" id="r_a5b3abb0445ed29d6fc01d9eee257de51"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5b3abb0445ed29d6fc01d9eee257de51">dialogueId</a> () const</td></tr>
 <tr class="memitem:a82645440644586364341bb798fba4c01" id="r_a82645440644586364341bb798fba4c01"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a82645440644586364341bb798fba4c01">setDialogueId</a> (const QString &amp;id)</td></tr>
 <tr class="memitem:a17e77a671b69bfb772eddfc08c7834c7" id="r_a17e77a671b69bfb772eddfc08c7834c7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a17e77a671b69bfb772eddfc08c7834c7">speakerName</a> () const</td></tr>
+<tr class="memitem:afe6955dfbcd412682fdfeb38c1739af6" id="r_afe6955dfbcd412682fdfeb38c1739af6"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#afe6955dfbcd412682fdfeb38c1739af6">speakerPortrait</a> () const</td></tr>
 <tr class="memitem:a3f46635ed06919479f0efdede804778d" id="r_a3f46635ed06919479f0efdede804778d"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3f46635ed06919479f0efdede804778d">partyVoice</a> () const</td></tr>
 <tr class="memitem:ae91ee4b472703a317c83f803b34c2807" id="r_ae91ee4b472703a317c83f803b34c2807"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae91ee4b472703a317c83f803b34c2807">voiceId</a> () const</td></tr>
 <tr class="memitem:aee0ac1a5a0fe8e6fceb563a25ccdcbf3" id="r_aee0ac1a5a0fe8e6fceb563a25ccdcbf3"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#aee0ac1a5a0fe8e6fceb563a25ccdcbf3">voicePortrait</a> () const</td></tr>
@@ -207,6 +208,8 @@ Properties</h2></td></tr>
 <tr class="memitem:a1c376e04d9cb74bb0030ae72dfe30480" id="r_a1c376e04d9cb74bb0030ae72dfe30480"><td class="memItemLeft">QML_ELEMENTQString&#160;</td><td class="memItemRight"><a class="el" href="#a1c376e04d9cb74bb0030ae72dfe30480">dialogueId</a></td></tr>
 <tr class="memdesc:a1c376e04d9cb74bb0030ae72dfe30480"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dialogue à jouer, par identifiant. L'écrire ouvre la conversation.  <br /></td></tr>
 <tr class="memitem:a5be7ee1780c414a9cf0768e408fdb26d" id="r_a5be7ee1780c414a9cf0768e408fdb26d"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5be7ee1780c414a9cf0768e408fdb26d">speakerName</a></td></tr>
+<tr class="memitem:a27e372969f4b5044af66b317f9848190" id="r_a27e372969f4b5044af66b317f9848190"><td class="memItemLeft">QUrl&#160;</td><td class="memItemRight"><a class="el" href="#a27e372969f4b5044af66b317f9848190">speakerPortrait</a></td></tr>
+<tr class="memdesc:a27e372969f4b5044af66b317f9848190"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le portrait de l'interlocuteur (<span class="tt">LOT-1011</span>) : celui de la figurine que le PNJ nomme sur la carte, lu par le monde à l'interaction ; vide sans PNJ (zone, menu de développement).  <br /></td></tr>
 <tr class="memitem:aa840860405f1f77c3d72543c7334ce94" id="r_aa840860405f1f77c3d72543c7334ce94"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa840860405f1f77c3d72543c7334ce94">partyVoice</a></td></tr>
 <tr class="memdesc:aa840860405f1f77c3d72543c7334ce94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qui parle pour le groupe et jette les dés : celui que le joueur <b>choisit</b> dans le menu du bas (<span class="tt">LOT-138</span>, D-28) ; le meneur à l'ouverture.  <br /></td></tr>
 <tr class="memitem:a16a9ea1f306d20a2266659aa55cb8044" id="r_a16a9ea1f306d20a2266659aa55cb8044"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a16a9ea1f306d20a2266659aa55cb8044">voiceId</a></td></tr>
@@ -969,6 +972,31 @@ Ce qui est un échafaudage, et le dit</h2>
 
 </div>
 </div>
+<a id="afe6955dfbcd412682fdfeb38c1739af6" name="afe6955dfbcd412682fdfeb38c1739af6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe6955dfbcd412682fdfeb38c1739af6">&#9670;&#160;</a></span>speakerPortrait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QUrl hmi::DialogueModel::speakerPortrait </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1a6c0babadcd43e9bf20541b8c549412" name="a1a6c0babadcd43e9bf20541b8c549412"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1a6c0babadcd43e9bf20541b8c549412">&#9670;&#160;</a></span>status()</h2>
 
@@ -1482,6 +1510,30 @@ Ce qui est un échafaudage, et le dit</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a27e372969f4b5044af66b317f9848190" name="a27e372969f4b5044af66b317f9848190"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27e372969f4b5044af66b317f9848190">&#9670;&#160;</a></span>speakerPortrait</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QUrl hmi::DialogueModel::speakerPortrait</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le portrait de l'interlocuteur (<span class="tt">LOT-1011</span>) : celui de la figurine que le PNJ nomme sur la carte, lu par le monde à l'interaction ; vide sans PNJ (zone, menu de développement). </p>
 
 </div>
 </div>

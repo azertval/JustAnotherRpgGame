@@ -7,6 +7,5 @@ var test__scene__place_8cpp =
     [ "TEST", "test__scene__place_8cpp.html#afc75db3ee8932de29d063543c9be135a", null ],
     [ "TEST", "test__scene__place_8cpp.html#ac1399cdce425b687c6cf4429e3b369e9", null ],
     [ "TEST", "test__scene__place_8cpp.html#ad347e64a80ce0ed4a759367da05c180d", null ],
-    [ "TEST", "test__scene__place_8cpp.html#ae2a82466111b3366e0bce4dd99d276f5", null ],
-    [ "TEST", "test__scene__place_8cpp.html#abddb996b217e205983478de0f564d740", null ]
+    [ "TEST", "test__scene__place_8cpp.html#ae2a82466111b3366e0bce4dd99d276f5", null ]
 ];

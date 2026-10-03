@@ -560,18 +560,11 @@ CharacterInstallPlan planCharacter(const std::filesystem::path&amp; dataRoot,
         }</span>
     }
 
-    // Le manifeste du niveau : le personnage y est en modÃ¨le, plus en portrait d'attente.
+    // Le manifeste du niveau : le personnage entre dans `npcs`.
 <span style = "background-color:#dfd">    std::set&lt;std::string&gt; npcs = names(*manifest, "npcs");
     npcs.insert(draft.name);
     (*manifest)["npcs"] = npcs;
-    std::set&lt;std::string&gt; portraits = names(*manifest, "portraits");
-    portraits.erase(draft.name);
-    if (portraits.empty()) {
-        manifest-&gt;erase("portraits");
-    } else {
-        (*manifest)["portraits"] = portraits;</span>
-    }
-<span style = "background-color:#dfd">    if (!models.empty()) {
+    if (!models.empty()) {
         (*manifest)["models"] = sortedObject(models);</span>
     }
 <span style = "background-color:#dfd">    (*manifest)["sources"] = sortedObject(sources);</span>

@@ -1,5 +1,15 @@
 var NAVTREEINDEX37 =
 {
+"structcore_1_1CombatEvent.html#aca4ca7b9c011cd32b9ba814043162516":[2,0,1,28,8],
+"structcore_1_1CombatEvent.html#aca4ca7b9c011cd32b9ba814043162516":[3,0,0,28,8],
+"structcore_1_1CombatEvent.html#acafc1e4e3633c55e4d3c5b498b49ca8b":[2,0,1,28,1],
+"structcore_1_1CombatEvent.html#acafc1e4e3633c55e4d3c5b498b49ca8b":[3,0,0,28,1],
+"structcore_1_1CombatEvent.html#af766a48a133d30c5734e73c1d9414fe1":[2,0,1,28,5],
+"structcore_1_1CombatEvent.html#af766a48a133d30c5734e73c1d9414fe1":[3,0,0,28,5],
+"structcore_1_1CombatZone.html":[2,0,1,247],
+"structcore_1_1CombatZone.html":[3,0,0,247],
+"structcore_1_1CombatZone.html#a0d58e8d2d5871e5d4098f9682b1ae22d":[2,0,1,247,1],
+"structcore_1_1CombatZone.html#a0d58e8d2d5871e5d4098f9682b1ae22d":[3,0,0,247,1],
 "structcore_1_1CombatZone.html#a7f293f75b8d8b317d6a68ebf1b689a41":[2,0,1,247,5],
 "structcore_1_1CombatZone.html#a7f293f75b8d8b317d6a68ebf1b689a41":[3,0,0,247,5],
 "structcore_1_1CombatZone.html#ab0b8311e086bbfb8e791299967926f7d":[2,0,1,247,0],
@@ -239,15 +249,5 @@ var NAVTREEINDEX37 =
 "structcore_1_1DamageStep.html#ad225f453e8e424a90702b9e46a640ec5":[2,0,1,47,1],
 "structcore_1_1DamageStep.html#ad225f453e8e424a90702b9e46a640ec5":[3,0,0,47,1],
 "structcore_1_1DamageStep.html#adeccc9878781be9356535be91369a111":[2,0,1,47,0],
-"structcore_1_1DamageStep.html#adeccc9878781be9356535be91369a111":[3,0,0,47,0],
-"structcore_1_1DamageTraits.html":[2,0,1,43],
-"structcore_1_1DamageTraits.html":[3,0,0,43],
-"structcore_1_1DamageTraits.html#a88048f6a508849810f65de9e4897d6af":[2,0,1,43,1],
-"structcore_1_1DamageTraits.html#a88048f6a508849810f65de9e4897d6af":[3,0,0,43,1],
-"structcore_1_1DamageTraits.html#ac12264cba0a31747277669e59052a9da":[2,0,1,43,0],
-"structcore_1_1DamageTraits.html#ac12264cba0a31747277669e59052a9da":[3,0,0,43,0],
-"structcore_1_1DamageTraits.html#ae0615061f554b94d20979ed1985b4596":[2,0,1,43,2],
-"structcore_1_1DamageTraits.html#ae0615061f554b94d20979ed1985b4596":[3,0,0,43,2],
-"structcore_1_1DamageWork.html":[2,0,1,49],
-"structcore_1_1DamageWork.html":[3,0,0,49]
+"structcore_1_1DamageStep.html#adeccc9878781be9356535be91369a111":[3,0,0,47,0]
 };

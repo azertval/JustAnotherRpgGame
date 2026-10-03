@@ -1,5 +1,15 @@
 var NAVTREEINDEX40 =
 {
+"structcore_1_1ExplorationSnapshot.html#aa1c093bdc8294f3afb7cb55802c8a91d":[2,0,1,39,3],
+"structcore_1_1ExplorationSnapshot.html#aa1c093bdc8294f3afb7cb55802c8a91d":[3,0,0,39,3],
+"structcore_1_1ExplorationSnapshot.html#aa5d820019e101216aec7f2113d850f1e":[2,0,1,39,0],
+"structcore_1_1ExplorationSnapshot.html#aa5d820019e101216aec7f2113d850f1e":[3,0,0,39,0],
+"structcore_1_1ExplorationSnapshot.html#aed763efd480c62dac0fd4f5d960162a3":[2,0,1,39,1],
+"structcore_1_1ExplorationSnapshot.html#aed763efd480c62dac0fd4f5d960162a3":[3,0,0,39,1],
+"structcore_1_1ExtraDamagePreview.html":[2,0,1,25],
+"structcore_1_1ExtraDamagePreview.html":[3,0,0,25],
+"structcore_1_1ExtraDamagePreview.html#a00349ed04672e824d4f76ae57528b4d3":[2,0,1,25,3],
+"structcore_1_1ExtraDamagePreview.html#a00349ed04672e824d4f76ae57528b4d3":[3,0,0,25,3],
 "structcore_1_1ExtraDamagePreview.html#ab44f4442eda8c4610e749cbf6f9d14f9":[2,0,1,25,0],
 "structcore_1_1ExtraDamagePreview.html#ab44f4442eda8c4610e749cbf6f9d14f9":[3,0,0,25,0],
 "structcore_1_1ExtraDamagePreview.html#ad49c2812ecbf746a2bda9ccccc48b27d":[2,0,1,25,1],
@@ -239,15 +249,5 @@ var NAVTREEINDEX40 =
 "structcore_1_1LevelData.html#a346a7cadd4d3753fa7e86a323db66a1f":[2,0,1,125,4],
 "structcore_1_1LevelData.html#a346a7cadd4d3753fa7e86a323db66a1f":[3,0,0,125,4],
 "structcore_1_1LevelData.html#a5871ca36b16a3d283d1b8b121e9f51f7":[2,0,1,125,0],
-"structcore_1_1LevelData.html#a5871ca36b16a3d283d1b8b121e9f51f7":[3,0,0,125,0],
-"structcore_1_1LevelData.html#a62d8fc26f11eb3238b326422abca7cb4":[2,0,1,125,7],
-"structcore_1_1LevelData.html#a62d8fc26f11eb3238b326422abca7cb4":[3,0,0,125,7],
-"structcore_1_1LevelData.html#a679608c27b5699b0bfe03ef7a97788cf":[2,0,1,125,1],
-"structcore_1_1LevelData.html#a679608c27b5699b0bfe03ef7a97788cf":[3,0,0,125,1],
-"structcore_1_1LevelData.html#a74f693819cc222aa9748bd56f697e7e6":[2,0,1,125,5],
-"structcore_1_1LevelData.html#a74f693819cc222aa9748bd56f697e7e6":[3,0,0,125,5],
-"structcore_1_1LevelData.html#aa1fa5536f5844015713e54fcc225a3b7":[2,0,1,125,3],
-"structcore_1_1LevelData.html#aa1fa5536f5844015713e54fcc225a3b7":[3,0,0,125,3],
-"structcore_1_1LevelData.html#aae5be5bb53eeb5dc8b02e00fd7af431f":[2,0,1,125,2],
-"structcore_1_1LevelData.html#aae5be5bb53eeb5dc8b02e00fd7af431f":[3,0,0,125,2]
+"structcore_1_1LevelData.html#a5871ca36b16a3d283d1b8b121e9f51f7":[3,0,0,125,0]
 };

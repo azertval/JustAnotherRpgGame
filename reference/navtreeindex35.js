@@ -1,5 +1,15 @@
 var NAVTREEINDEX35 =
 {
+"structcore_1_1AttackOutcome.html#ab0969d0c7ca522d8bb90a10149a71750":[2,0,1,19,0],
+"structcore_1_1AttackOutcome.html#ab0969d0c7ca522d8bb90a10149a71750":[3,0,0,19,0],
+"structcore_1_1AttackOutcome.html#af0266e4f1dfc56d47cec37fb0dc6fad1":[2,0,1,19,5],
+"structcore_1_1AttackOutcome.html#af0266e4f1dfc56d47cec37fb0dc6fad1":[3,0,0,19,5],
+"structcore_1_1AttackPreview.html":[2,0,1,26],
+"structcore_1_1AttackPreview.html":[3,0,0,26],
+"structcore_1_1AttackPreview.html#a06a9af404fb5a101cab8548476a13033":[2,0,1,26,15],
+"structcore_1_1AttackPreview.html#a06a9af404fb5a101cab8548476a13033":[3,0,0,26,15],
+"structcore_1_1AttackPreview.html#a0f42e64ab43941c9f9c548ae4a9fb5de":[2,0,1,26,9],
+"structcore_1_1AttackPreview.html#a0f42e64ab43941c9f9c548ae4a9fb5de":[3,0,0,26,9],
 "structcore_1_1AttackPreview.html#a391016c0310e8098c51376985908eb78":[2,0,1,26,12],
 "structcore_1_1AttackPreview.html#a391016c0310e8098c51376985908eb78":[3,0,0,26,12],
 "structcore_1_1AttackPreview.html#a3c225958e11fea40309d968a7fd74626":[2,0,1,26,4],
@@ -239,15 +249,5 @@ var NAVTREEINDEX35 =
 "structcore_1_1CapacityEffect.html#a2082ce1174f4357467b63cb4bfc88fa0":[2,0,1,191,10],
 "structcore_1_1CapacityEffect.html#a2082ce1174f4357467b63cb4bfc88fa0":[3,0,0,191,10],
 "structcore_1_1CapacityEffect.html#a6e770fcfc6bce46f4c92a41f1664ccd5":[2,0,1,191,8],
-"structcore_1_1CapacityEffect.html#a6e770fcfc6bce46f4c92a41f1664ccd5":[3,0,0,191,8],
-"structcore_1_1CapacityEffect.html#a77d8103ea7afd6cb6db2057ba4377d2c":[2,0,1,191,2],
-"structcore_1_1CapacityEffect.html#a77d8103ea7afd6cb6db2057ba4377d2c":[3,0,0,191,2],
-"structcore_1_1CapacityEffect.html#a80a31ac675a287c75216f1b713082c3c":[2,0,1,191,9],
-"structcore_1_1CapacityEffect.html#a80a31ac675a287c75216f1b713082c3c":[3,0,0,191,9],
-"structcore_1_1CapacityEffect.html#aed0581569992d3173d084b81af941c63":[2,0,1,191,7],
-"structcore_1_1CapacityEffect.html#aed0581569992d3173d084b81af941c63":[3,0,0,191,7],
-"structcore_1_1CapacityEffect.html#af105e7ec61bd10396b172624aefbf012":[2,0,1,191,3],
-"structcore_1_1CapacityEffect.html#af105e7ec61bd10396b172624aefbf012":[3,0,0,191,3],
-"structcore_1_1CapacityEffect.html#af2309b538297ddd709da20b0f9b2ec6d":[2,0,1,191,4],
-"structcore_1_1CapacityEffect.html#af2309b538297ddd709da20b0f9b2ec6d":[3,0,0,191,4]
+"structcore_1_1CapacityEffect.html#a6e770fcfc6bce46f4c92a41f1664ccd5":[3,0,0,191,8]
 };
