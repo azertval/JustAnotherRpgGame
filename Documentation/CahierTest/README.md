@@ -25,7 +25,7 @@ Chaque cas porte l'**identifiant GoogleTest** (`Suite.Nom`, retrouvable tel quel
 | [Core · Gameplay](core-gameplay.md) | Tests unitaires | 21 | — | 12 | 8 | 1 |
 | [Core · Levels](core-levels.md) | Tests unitaires | 122 | 1 | 24 | 80 | 17 |
 | [Core · Math](core-math.md) | Tests unitaires | 26 | 4 | — | 18 | 4 |
-| [Core · Resources](core-resources.md) | Tests unitaires | 34 | 12 | 6 | 15 | 1 |
+| [Core · Resources](core-resources.md) | Tests unitaires | 33 | 12 | 6 | 14 | 1 |
 | [Core · Rpg](core-rpg.md) | Tests unitaires | 106 | 3 | 62 | 39 | 2 |
 | [Core · Time](core-time.md) | Tests unitaires | 7 | — | 1 | 6 | — |
 | [Core · World](core-world.md) | Tests unitaires | 74 | 7 | 33 | 31 | 3 |

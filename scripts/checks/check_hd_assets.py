@@ -17,7 +17,8 @@ rend impossible l'écart SILENCIEUX entre les deux :
   que rien ne déclare, une description de squelette (`skeleton.json`) mal formée, un `.glb` installé
   qui ne passe pas les contrôles de l'export (`check_character_model.py`) — et **toute bande de
   figurine** restée sous un dossier `Characters/` : un personnage est un modèle, plus une suite
-  d'images.
+  d'images. Un visage sans modèle n'existe plus : la liste `portraits` du manifeste (le portrait
+  d'attente du LOT-145) est refusée depuis le LOT-1011.
 
 Une zone n'a **pas de budget de poids** (décision de l'auteur, 24 septembre 2026 : un jeu lourd
 mais riche plutôt que des kits bridés). Son poids s'affiche, et s'écrit dans le résumé du job quand `GITHUB_STEP_SUMMARY`
@@ -249,7 +250,7 @@ def check_sheet(folder: Path, models: dict, name: str, root: Path, report: Repor
     where = relative(folder / SHEET, root)
     if not (folder / SHEET).is_file():
         report.fail(f"{relative(folder, root)} : personnage sans fiche `{SHEET}` (un personnage est un "
-                    "modèle ; un visage sans modèle va dans `portraits`)")
+                    "modèle ; tout nom cité par `npcs` a le sien)")
         return
     sheet = read_json(folder / SHEET, report, root)
     if sheet is None:
@@ -308,6 +309,8 @@ def check_characters(directory: Path, manifest: dict, root: Path, report: Report
     for key in ("frame", "wideFrame", "ground", "animations"):
         if key in manifest:
             report.fail(f"{where} : `{key}` décrit des bandes de figurine, qui n'existent plus")
+    if "portraits" in manifest:
+        report.fail(f"{where} : clé `portraits` : le portrait d'attente n'existe plus (LOT-1011)")
     check_no_strip(directory, root, report)
     cited: dict[Path, set[str]] = {}
     for npc in npcs:
@@ -326,30 +329,6 @@ def check_characters(directory: Path, manifest: dict, root: Path, report: Report
     for path in sorted(directory.rglob("*.glb")):
         if path.relative_to(directory).as_posix() not in declared:
             report.fail(f"{relative(path, root)} : modèle que `models` du manifeste ne déclare pas")
-    # Les portraits d'attente (LOT-145) : un visage sans modèle, que le moteur dessine par le
-    # mannequin de sa silhouette. Seuls le portrait et le jeton sont cités.
-    portraits = manifest.get("portraits", [])
-    if not isinstance(portraits, list):
-        report.fail(f"{where} : `portraits` est une liste")
-        return cited
-    for name in portraits:
-        if not isinstance(name, str) or not (directory / name).is_dir():
-            report.fail(f"{where} : portrait d'attente {name!r} sans dossier")
-            continue
-        if name in npcs:
-            report.fail(f"{where} : {name} est à la fois dans `npcs` et dans `portraits`")
-            continue
-        # Les quatre héros ont leur modèle (LOT-1009) : un héros n'attend plus.
-        if name.startswith("Heroes/"):
-            report.fail(f"{where} : {name} est un héros sans modèle ; les héros sont des modèles "
-                        "(LOT-1009)")
-            continue
-        if not (directory / name / "portrait.png").is_file():
-            report.fail(f"{relative(directory / name, root)} : portrait d'attente sans `portrait.png`")
-        if (directory / name / SHEET).is_file():
-            report.fail(f"{relative(directory / name, root)} : un portrait d'attente n'a pas de fiche ; "
-                        "avec son modèle, il va dans `npcs`")
-        cited[directory / name] = set(CHARACTER_IMAGES)
     return cited
 
 

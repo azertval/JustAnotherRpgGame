@@ -9,8 +9,9 @@ Blender n'est que l'**instrument de saisie** : ce qui en revient est une **donn�
 maillage ni un `.glb` exporté par lui (son export arrondit les durées à l'image, ajoute des canaux
 d'échelle et une interpolation que le moteur ne lit pas — mesuré sur le bandit).
 
-- `open` : ouvre le modèle lié dans Blender — maillage, squelette de 53 os, une action par clip, à
-  60 images par seconde —, enregistre le `.blend` et, à côté, un **repère** : les articulations
+- `open` : ouvre le modèle lié dans Blender — maillage, squelette de sa silhouette (53 os pour
+  l'humanoïde, 29 pour le quadrupède), une action par clip, à 60 images par seconde —,
+  enregistre le `.blend` et, à côté, un **repère** : les articulations
   et les clips tels que Blender les lit avant toute retouche. Puis lance Blender sur ce fichier.
 - `import` : relit le `.blend` enregistré, le compare au repère, et n'en retient que ce que
   l'auteur a changé :
@@ -236,16 +237,26 @@ def _chain():
     return rig_character, reduce_model, check_character_model
 
 
-def _skeleton(path: Path | None, rig_character) -> dict:
+def _skeleton(path: Path | None, rig_character, model: Path | None = None) -> dict:
+    """Le squelette à tenir : `skeleton.json` s'il est donné, sinon celui de la silhouette que
+    nomme le squelette du modèle lié, sinon l'humanoïde."""
     if path is not None:
         return json.loads(path.read_text(encoding="utf-8"))
+    if model is not None:
+        import struct
+        data = model.read_bytes()
+        length = struct.unpack_from("<I", data, 12)[0]
+        skins = json.loads(data[20:20 + length]).get("skins", [])
+        if skins and skins[0].get("name"):
+            return rig_character.silhouette_named(skins[0]["name"]).document()
     return rig_character.skeleton_document()
 
 
 def _parameters(job: str, blend: Path, skeleton: dict, rig_character, result: Path) -> dict:
+    silhouette = rig_character.silhouette_of(skeleton)
     return {"job": job, "blend": str(blend), "result": str(result),
             "bones": skeleton["bones"], "clips": skeleton["clips"],
-            "animated": list(rig_character.ANIMATED),
+            "animated": list(silhouette.animated),
             "samples_per_second": rig_character.SAMPLES_PER_SECOND}
 
 
@@ -273,8 +284,8 @@ def open_in_blender(model: Path, blend: Path, skeleton: Path | None, blender: Pa
                     window: bool = True) -> dict:
     """Prépare le `.blend` et son repère ; lance Blender dessus si `window`."""
     rig_character, _, _ = _chain()
-    parameters = _parameters("open", blend, _skeleton(skeleton, rig_character), rig_character,
-                             Path())
+    parameters = _parameters("open", blend, _skeleton(skeleton, rig_character, model),
+                             rig_character, Path())
     parameters["model"] = str(model)
     blend.parent.mkdir(parents=True, exist_ok=True)
     extracted = _run_blender(blender, parameters)
@@ -302,8 +313,9 @@ def moved_joints(reference: dict, current: dict) -> dict[str, list[float]]:
 def apply_joints(sheet: dict, moved: dict[str, list[float]]) -> tuple[list[str], list[str]]:
     """Reporte les articulations déplacées dans la fiche de liaison ; rend (reportées, ignorées).
 
-    La fiche parle dans le repère du fichier reçu : un déplacement mesuré dans le modèle lié s'y
-    divise par l'échelle de la fiche. Les doigts et la racine ne sont pas dans la fiche.
+    La fiche parle dans le repère du fichier reçu (remis dans l'axe pour un quadrupède) : un
+    déplacement mesuré dans le modèle lié s'y divise par l'échelle de la fiche. Les doigts et la
+    racine ne sont pas dans la fiche ; le bout d'un appui ou d'une queue (`tips`) suit son os.
     """
     stature = sheet["head_top"] - sheet["ground"]
     scale = (sheet["height"] / stature) if sheet.get("height") else 1.0
@@ -314,7 +326,9 @@ def apply_joints(sheet: dict, moved: dict[str, list[float]]) -> tuple[list[str],
         stem, _, side = name.rpartition("_")
         if name in sheet["joints"]:
             targets = [sheet["joints"][name]]
-        elif stem in arm_points and side in sheet["arms"]:
+            if name in sheet.get("tips", {}):
+                targets.append(sheet["tips"][name])
+        elif stem in arm_points and side in sheet.get("arms", {}):
             targets = [sheet["arms"][side][arm_points[stem]]]
             if stem == "hand":
                 # Le bout de la main suit le poignet : les doigts s'en déduisent.

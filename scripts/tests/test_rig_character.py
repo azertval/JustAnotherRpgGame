@@ -95,7 +95,7 @@ def test_le_squelette_a_53_os_parents_avant_enfants():
 def test_skeleton_json_dit_les_clips_de_la_table():
     document = R.skeleton_document()
     assert document["version"] == 1 and document["silhouette"] == "humanoid"
-    assert [clip["name"] for clip in document["clips"]] == list(C.CLIPS)
+    assert [clip["name"] for clip in document["clips"]] == list(C.SILHOUETTES["humanoid"]["clips"])
     by_name = {clip["name"]: clip for clip in document["clips"]}
     assert by_name["walk"] == {"name": "walk", "duration": 0.5, "loop": True}
     assert 0.0 < by_name["attack"]["key"] < by_name["attack"]["duration"]
@@ -190,7 +190,7 @@ def test_le_glb_tient_le_contrat_du_moteur(linked):
     document, binary = reduce_model.read_glb(linked["data"])
     assert len(document["meshes"]) == 1 and len(document["skins"]) == 1
     assert len(document["skins"][0]["joints"]) == 53
-    assert [animation["name"] for animation in document["animations"]] == list(C.CLIPS)
+    assert [animation["name"] for animation in document["animations"]] == list(C.SILHOUETTES["humanoid"]["clips"])
     assert reduce_model.base_color_image(document, binary) == (b"\x89PNG-essai", "image/png")
     mesh_node = next(node for node in document["nodes"] if "mesh" in node)
     assert not {"translation", "rotation", "scale"} & set(mesh_node)

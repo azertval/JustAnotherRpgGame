@@ -5,6 +5,7 @@
   "size": "medium",
   "creatureType": "bête",
   "alignment": "sans alignement",
+  "silhouette": "quadruped",
   "abilities": {
     "strength": 12,
     "dexterity": 15,

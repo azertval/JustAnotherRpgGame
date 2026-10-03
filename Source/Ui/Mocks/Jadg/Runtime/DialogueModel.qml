@@ -15,6 +15,7 @@ QtObject {
     readonly property string partyVoice: "Grom Tranche-Écaille"
     readonly property string voiceId: "heros-brawler"
     readonly property url voicePortrait: ""
+    readonly property url speakerPortrait: ""
     readonly property var voices: [
         { id: "heros-brawler", name: "Grom Tranche-Écaille", portrait: "", current: true },
         { id: "heros-priest", name: "Helga Pierre-Sûre", portrait: "", current: false }

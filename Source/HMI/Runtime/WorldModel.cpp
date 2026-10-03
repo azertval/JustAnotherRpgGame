@@ -12,6 +12,7 @@
 #include <string>
 #include <system_error>
 #include <utility>
+#include <variant>
 
 #include "Core/Gameplay/Interaction.h"
 #include "Core/Levels/Level.h"
@@ -230,6 +231,7 @@ void WorldModel::endGame() {
     _clock.stop();
     _combatFigures.reset();
     _lastInteractionCell.reset();
+    _interlocutorPortrait.clear();
     _visitedDistricts.clear();
     _status.clear();
     _move = {};
@@ -292,6 +294,7 @@ bool WorldModel::enterMap(const QString& mapId, const QString& arrival) {
     _move = {};
     _interact = false;
     _lastInteractionCell.reset();
+    _interlocutorPortrait.clear();
     noteDistrictVisit();
     ++_sceneRevision;
     ++_figuresRevision;
@@ -383,6 +386,7 @@ void WorldModel::step() {
                 break;
             case core::ExplorationEventKind::Dialogue:
                 _lastInteractionCell = evenement.cell;
+                _interlocutorPortrait = portraitOfNpcAt(evenement.cell, evenement.value);
                 releaseInput();
                 emit dialogueRequested(QString::fromStdString(evenement.value));
                 break;
@@ -694,6 +698,43 @@ bool WorldModel::moveMember(const QString& characterId, int offset) {
     static_cast<void>(_party.swap(static_cast<std::size_t>(rang), static_cast<std::size_t>(cible)));
     applyParty();
     return true;
+}
+
+QUrl WorldModel::portraitOfNpcAt(core::GridPosition cell, const std::string& dialogueId) const {
+    const core::Level* const map = _play->session().map();
+    if (map == nullptr) {
+        return {};
+    }
+    for (const core::MapEntity& entite : map->entities()) {
+        const std::optional<core::DialogueTrigger> declencheur = core::dialogueTriggerFor(entite);
+        if (!declencheur.has_value() || declencheur->position != cell ||
+            declencheur->dialogueId != dialogueId) {
+            continue;
+        }
+        const auto figure = entite.properties.find(std::string{core::NPC_FIGURE_PROPERTY});
+        const std::string* nom =
+            figure != entite.properties.end() ? std::get_if<std::string>(&figure->second) : nullptr;
+        if (nom == nullptr || nom->empty()) {
+            return {};
+        }
+        const auto silhouette = entite.properties.find(std::string{SILHOUETTE_PROPERTY});
+        const std::string* forme = silhouette != entite.properties.end()
+                                       ? std::get_if<std::string>(&silhouette->second)
+                                       : nullptr;
+        // Le portrait est a cote de la figurine NOMMEE, meme quand un mannequin la dessine.
+        const std::string& dossier =
+            _play->resolveFigure(*nom, forme != nullptr ? *forme : std::string{}).named;
+        if (dossier.empty()) {
+            return {};
+        }
+        const std::filesystem::path portrait =
+            dataDirectory() / "Assets" / dossier / "portrait.png";
+        std::error_code erreur;
+        return std::filesystem::is_regular_file(portrait, erreur)
+                   ? QUrl::fromLocalFile(QString::fromStdString(portrait.string()))
+                   : QUrl{};
+    }
+    return {};
 }
 
 QVariantMap WorldModel::candidateRow(const core::PartyCandidate& candidate) const {

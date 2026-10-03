@@ -341,6 +341,13 @@ public:
     [[nodiscard]] std::optional<core::GridPosition> lastInteractionCell() const noexcept {
         return _lastInteractionCell;
     }
+    /// @return Le portrait du PNJ avec lequel le héros parle (`LOT-1011`) : celui du dossier de
+    ///         la figurine que l'entité nomme (`figure`), même si un mannequin la dessine ; vide
+    ///         sans PNJ (un dialogue ouvert par une zone, ou par le menu de développement) ou
+    ///         sans portrait installé.
+    [[nodiscard]] QUrl interlocutorPortrait() const noexcept {
+        return _interlocutorPortrait;
+    }
     /// @return La carte qu'on parcourt et sa mise en scène : ce que le combat sur la carte lit.
     [[nodiscard]] const WorldPlay& play() const noexcept {
         return *_play;
@@ -426,6 +433,10 @@ private:
     [[nodiscard]] const core::PartyCandidate* candidate(std::string_view characterId) const;
     /// @return La ligne QML d'un candidat (`partyMembers`, `partyCandidates`).
     [[nodiscard]] QVariantMap candidateRow(const core::PartyCandidate& candidate) const;
+    /// Le portrait du PNJ posé en @p cell dont le dialogue est @p dialogueId ; vide sans PNJ,
+    /// sans figurine nommée ou sans portrait.
+    [[nodiscard]] QUrl portraitOfNpcAt(core::GridPosition cell,
+                                       const std::string& dialogueId) const;
 
     /// La carte qu'on parcourt, et sa mise en scène — partagée avec l'essai de l'éditeur.
     std::unique_ptr<WorldPlay> _play;
@@ -475,6 +486,7 @@ private:
     core::Vector2 _combatHero{};
     /// La case de la dernière interaction : d'où une rencontre engagée par un dialogue part.
     std::optional<core::GridPosition> _lastInteractionCell;
+    QUrl _interlocutorPortrait;
 };
 
 }  // namespace hmi
