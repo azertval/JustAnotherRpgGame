@@ -108,6 +108,23 @@ struct ComposedQuad {
     /// L'ordonnÃ©e de la ligne du **pied** d'une primitive dressÃ©e, en unitÃ©s monde : au-dessus, un
     /// plan vertical ; au-dessous, le sol. Sans objet pour les autres tenues.
     float footY = 0.0F;
+    /// Ce que la primitive garde de son Ã©clat quand le lieu s'assombrit (`LOT-1007`), de 0 â elle
+    /// prend la lumiÃ¨re du lieu â Ã  1 â elle reste telle que peinte : un effet, une flamme.
+    float glow = 0.0F;
+
+    /// @return Ce que la primitive reÃ§oit de la lumiÃ¨re du lieu : rien pour une marque, la
+    ///         lumiÃ¨re du lieu moins son Ã©clat pour le reste, et les ombres portÃ©es au sol.
+<span style = "background-color:#dfd">    [[nodiscard]] SpriteShading shading() const noexcept {
+        if (stance == QuadStance::Overlay) {
+            return SpriteShading{};</span>
+        }
+        // Un quadrilatere eleve -- une face de bloc de maquette -- est dans la boite d'ombre de
+        // son propre bloc : il ne la recoit pas. Seul ce qui est a plat au sol la recoit.
+<span style = "background-color:#dfd">        const bool raised = kind == QuadKind::Poly &amp;&amp; (poly.rise[0] &gt; 0.0F || poly.rise[1] &gt; 0.0F ||</span>
+                                                       poly.rise[2] &gt; 0.0F || poly.rise[3] &gt; 0.0F);
+<span style = "background-color:#dfd">        return SpriteShading{.lit = 1.0F - glow,</span>
+                             .shadowed = stance == QuadStance::Ground &amp;&amp; !raised};
+<span style = "background-color:#dfd">    }</span>
 };
 
 /**
@@ -254,11 +271,13 @@ public:
      * @param occlusion Ce que la piÃ¨ce masque, pour l'effacer devant le hÃ©ros (`ComposedQuad`).
      * @param footY     La ligne du pied d'une primitive **dressÃ©e** (`ComposedQuad::footY`) ; sans
      *                  elle, le bas du rectangle. Sans effet sur un calque Ã  plat ou d'interface.
+     * @param glow      Ce qu'elle garde de son Ã©clat quand le lieu s'assombrit
+     *                  (`ComposedQuad::glow`).
      * @return `true` si la primitive a Ã©tÃ© conservÃ©e, `false` si le culling l'a Ã©cartÃ©e.
      */
     bool addSprite(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder,
                    const SpriteQuad&amp; quad, int storey = 0, const core::Rect&amp; occlusion = {},
-                   std::optional&lt;float&gt; footY = std::nullopt);
+                   std::optional&lt;float&gt; footY = std::nullopt, float glow = 0.0F);
 
     /**
      * @brief Ajoute un maillage placÃ© Ã  la scÃ¨ne, s'il est visible (`LOT-1003`).

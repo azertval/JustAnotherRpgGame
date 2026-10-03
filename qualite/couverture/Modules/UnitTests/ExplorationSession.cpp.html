@@ -420,6 +420,13 @@ namespace {
     return isEntityPresent(entity, _flags);
 }</span>
 
+<span style = "background-color:#fdd">float ExplorationSession::shownMinutes() const {
+    const Level* const current = map();
+    const std::optional&lt;float&gt; fixed =</span>
+        current != nullptr ? mapFixedMinutes(current-&gt;properties()) : std::nullopt;
+<span style = "background-color:#fdd">    return fixed.value_or(_clock.minutes());
+}</span>
+
 std::vector&lt;ExplorationEvent&gt; ExplorationSession::update(const ExplorationIntent&amp; intent,
 <span style = "background-color:#dfd">                                                         float seconds) {</span>
     // Avant le gel : un dialogue ouvert a pu poser un drapeau, et la quete doit avancer meme si
@@ -428,7 +435,10 @@ std::vector&lt;ExplorationEvent&gt; ExplorationSession::update(const Exploration
     if (_frozen || map() == nullptr || seconds &lt;= 0.0F) {
         return events;</span>
     }
-<span style = "background-color:#dfd">    walk(intent.move, seconds);</span>
+    // L'heure du monde passe avec la marche (LOT-1007) : gelee comme elle pendant un dialogue ou
+    // un combat.
+<span style = "background-color:#dfd">    _clock.advance(seconds);
+    walk(intent.move, seconds);</span>
     // Les suiveurs mettent leurs pas dans ceux du heros : la trace s'allonge de ce qu'il vient de
     // faire, avant qu'un portail ne la remette a zero sur la carte d'arrivee.
 <span style = "background-color:#dfd">    _trail.record(TrailPoint{_hero.column, _hero.row});

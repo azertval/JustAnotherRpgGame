@@ -181,6 +181,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a37330b8f96036726b4e3ea1030de098d" id="r_a37330b8f96036726b4e3ea1030de098d"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldFigureSnapshot.html">WorldFigureSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a37330b8f96036726b4e3ea1030de098d">figures</a></td></tr>
 <tr class="memitem:a575f623efd821f68adab02944b81eebf" id="r_a575f623efd821f68adab02944b81eebf"><td class="memItemLeft"><a class="el" href="structhmi_1_1MaquetteMarks.html">MaquetteMarks</a>&#160;</td><td class="memItemRight"><a class="el" href="#a575f623efd821f68adab02944b81eebf">marks</a></td></tr>
 <tr class="memdesc:a575f623efd821f68adab02944b81eebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les jetons et les tracés de maquette (<span class="tt">LOT-128</span>), déjà choisis par <span class="tt"><a class="el" href="namespacehmi.html#a47c8f35619d5e7fa59cd899a158c9361" title="Les marques que entities méritent.">maquetteMarks</a></span>.  <br /></td></tr>
+<tr class="memitem:aafd26607a1a3308950ce262d3967a87b" id="r_aafd26607a1a3308950ce262d3967a87b"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1LightSource.html">core::LightSource</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aafd26607a1a3308950ce262d3967a87b">lights</a></td></tr>
+<tr class="memdesc:aafd26607a1a3308950ce262d3967a87b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les sources de lumière du lieu (<span class="tt">LOT-1007</span>) : celles des pièces posées qui en déclarent une au manifeste, puis celles des entités <span class="tt">light</span> présentes.  <br /></td></tr>
+<tr class="memitem:a433b6c14b9ce8f047502c93122de5c0f" id="r_a433b6c14b9ce8f047502c93122de5c0f"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1WorldShadowBox.html">WorldShadowBox</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a433b6c14b9ce8f047502c93122de5c0f">shadowBoxes</a></td></tr>
+<tr class="memdesc:a433b6c14b9ce8f047502c93122de5c0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">La boîte que chaque pièce de décor <b>en image</b> oppose au soleil (<span class="tt"><a class="el" href="structhmi_1_1WorldShadowBox.html" title="La boîte qu&#39;une pièce de décor en image oppose au soleil (LOT-1007).">hmi::WorldShadowBox</a></span>).  <br /></td></tr>
+<tr class="memitem:a1aac6028d2955a80436dae48965ab79d" id="r_a1aac6028d2955a80436dae48965ab79d"><td class="memItemLeft">std::map&lt; std::string, float, std::less&lt;&gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1aac6028d2955a80436dae48965ab79d">glows</a></td></tr>
+<tr class="memdesc:a1aac6028d2955a80436dae48965ab79d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'image de chaque pièce citée garde de son éclat (<span class="tt"><a class="el" href="structcore_1_1ScenePiece.html#afaea89c28f89796d8062afd6bea4b259" title="Ce que l&#39;image de la pièce garde de son éclat quand le lieu s&#39;assombrit (glow), de 0 — elle prend la ...">core::ScenePiece::glow</a></span>) ; une pièce absente de la table n'en garde rien.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une carte <b>en valeurs</b>, telle que la composition la lit : sa grille, ses pièces par case, ses étages, ses figurines et où trouver leurs fichiers. </p>
@@ -403,6 +409,38 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a1aac6028d2955a80436dae48965ab79d" name="a1aac6028d2955a80436dae48965ab79d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aac6028d2955a80436dae48965ab79d">&#9670;&#160;</a></span>glows</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::map&lt;std::string, float, std::less&lt;&gt; &gt; hmi::WorldSceneSnapshot::glows</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que l'image de chaque pièce citée garde de son éclat (<span class="tt"><a class="el" href="structcore_1_1ScenePiece.html#afaea89c28f89796d8062afd6bea4b259" title="Ce que l&#39;image de la pièce garde de son éclat quand le lieu s&#39;assombrit (glow), de 0 — elle prend la ...">core::ScenePiece::glow</a></span>) ; une pièce absente de la table n'en garde rien. </p>
+
+</div>
+</div>
+<a id="aafd26607a1a3308950ce262d3967a87b" name="aafd26607a1a3308950ce262d3967a87b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafd26607a1a3308950ce262d3967a87b">&#9670;&#160;</a></span>lights</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structcore_1_1LightSource.html">core::LightSource</a>&gt; hmi::WorldSceneSnapshot::lights</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les sources de lumière du lieu (<span class="tt">LOT-1007</span>) : celles des pièces posées qui en déclarent une au manifeste, puis celles des entités <span class="tt">light</span> présentes. </p>
+
+</div>
+</div>
 <a id="a575f623efd821f68adab02944b81eebf" name="a575f623efd821f68adab02944b81eebf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a575f623efd821f68adab02944b81eebf">&#9670;&#160;</a></span>marks</h2>
 
@@ -510,6 +548,23 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a433b6c14b9ce8f047502c93122de5c0f" name="a433b6c14b9ce8f047502c93122de5c0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a433b6c14b9ce8f047502c93122de5c0f">&#9670;&#160;</a></span>shadowBoxes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="structhmi_1_1WorldShadowBox.html">WorldShadowBox</a>&gt; hmi::WorldSceneSnapshot::shadowBoxes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La boîte que chaque pièce de décor <b>en image</b> oppose au soleil (<span class="tt"><a class="el" href="structhmi_1_1WorldShadowBox.html" title="La boîte qu&#39;une pièce de décor en image oppose au soleil (LOT-1007).">hmi::WorldShadowBox</a></span>). </p>
+<p>Une pièce en maillage n'en a pas : elle jette son ombre elle-même. </p>
 
 </div>
 </div>

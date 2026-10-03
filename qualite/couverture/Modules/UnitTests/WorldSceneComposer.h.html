@@ -29,9 +29,11 @@
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileType.h"
 #include "Core/Math/Vector2.h"
+#include "Core/World/LightSource.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/MaquettePalette.h"
 #include "HMI/Graphics/MaquetteTokens.h"
+#include "HMI/Graphics/SceneLighting.h"
 #include "HMI/Graphics/ScenePieces.h"
 
 /**
@@ -353,6 +355,15 @@ struct WorldSceneSnapshot {
     std::vector&lt;WorldFigureSnapshot&gt; figures;
     /// Les jetons et les tracÃ©s de maquette (`LOT-128`), dÃ©jÃ  choisis par `maquetteMarks`.
     MaquetteMarks marks;
+    /// Les sources de lumiÃ¨re du lieu (`LOT-1007`) : celles des piÃ¨ces posÃ©es qui en dÃ©clarent
+    /// une au manifeste, puis celles des entitÃ©s `light` prÃ©sentes.
+    std::vector&lt;core::LightSource&gt; lights;
+    /// La boÃ®te que chaque piÃ¨ce de dÃ©cor **en image** oppose au soleil (`hmi::WorldShadowBox`).
+    /// Une piÃ¨ce en maillage n'en a pas : elle jette son ombre elle-mÃªme.
+    std::vector&lt;WorldShadowBox&gt; shadowBoxes;
+    /// Ce que l'image de chaque piÃ¨ce citÃ©e garde de son Ã©clat (`core::ScenePiece::glow`) ; une
+    /// piÃ¨ce absente de la table n'en garde rien.
+    std::map&lt;std::string, float, std::less&lt;&gt;&gt; glows;
 
     /// @return Le nom de la piÃ¨ce de sol de @p cell, vide hors grille ou sans piÃ¨ce.
     [[nodiscard]] std::string_view floorAt(core::GridPosition cell) const;

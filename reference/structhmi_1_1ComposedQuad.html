@@ -148,6 +148,10 @@ $(function(){initNavTree('structhmi_1_1ComposedQuad.html','','structhmi_1_1Compo
 
 <p><code>#include &lt;<a class="el" href="ComposedScene_8h_source.html">ComposedScene.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a7672d8cf9a2d3804b241a975e59608a4" id="r_a7672d8cf9a2d3804b241a975e59608a4"><td class="memItemLeft"><a class="el" href="structhmi_1_1SpriteShading.html">SpriteShading</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7672d8cf9a2d3804b241a975e59608a4">shading</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:af6d4eeb26df72fc862a647b8acaf813c" id="r_af6d4eeb26df72fc862a647b8acaf813c"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a>&#160;</td><td class="memItemRight"><a class="el" href="#af6d4eeb26df72fc862a647b8acaf813c">layer</a> = <a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919ac5457c5f3cfb4da8638ce7190f8e5152">RenderLayer::Tile</a></td></tr>
@@ -174,11 +178,40 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a264257dbc9ee32d5e00e52a72488b3c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comment la primitive se tient dans la scène en volume (<span class="tt">LOT-1003</span>).  <br /></td></tr>
 <tr class="memitem:a2ef2a5e645fee15467d36e8c4aaf38e2" id="r_a2ef2a5e645fee15467d36e8c4aaf38e2"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a2ef2a5e645fee15467d36e8c4aaf38e2">footY</a> = 0.0F</td></tr>
 <tr class="memdesc:a2ef2a5e645fee15467d36e8c4aaf38e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'ordonnée de la ligne du <b>pied</b> d'une primitive dressée, en unités monde : au-dessus, un plan vertical ; au-dessous, le sol.  <br /></td></tr>
+<tr class="memitem:a539cbff4db1703e70bdede9b6b82e9d7" id="r_a539cbff4db1703e70bdede9b6b82e9d7"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a539cbff4db1703e70bdede9b6b82e9d7">glow</a> = 0.0F</td></tr>
+<tr class="memdesc:a539cbff4db1703e70bdede9b6b82e9d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que la primitive garde de son éclat quand le lieu s'assombrit (<span class="tt">LOT-1007</span>), de 0 — elle prend la lumière du lieu — à 1 — elle reste telle que peinte : un effet, une flamme.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Une primitive prête à soumettre, avec tout ce qui détermine <b>quand</b> la dessiner. </p>
 <p>Les deux primitives possibles sont stockées côte à côte plutôt que dans une union ou un <span class="tt">std::variant</span> : la composition doit rester une simple liste ordonnée, parcourue en séquence par la soumission comme par les tests. Le surcoût mémoire (quelques dizaines d'octets par primitive, dans un tampon réutilisé d'une image à l'autre) est sans commune mesure avec la complexité qu'introduirait un accès polymorphe sur le chemin de dessin. </p>
-</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a7672d8cf9a2d3804b241a975e59608a4" name="a7672d8cf9a2d3804b241a975e59608a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7672d8cf9a2d3804b241a975e59608a4">&#9670;&#160;</a></span>shading()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1SpriteShading.html">SpriteShading</a> hmi::ComposedQuad::shading </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Ce que la primitive reçoit de la lumière du lieu : rien pour une marque, la lumière du lieu moins son éclat pour le reste, et les ombres portées au sol. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a2ef2a5e645fee15467d36e8c4aaf38e2" name="a2ef2a5e645fee15467d36e8c4aaf38e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ef2a5e645fee15467d36e8c4aaf38e2">&#9670;&#160;</a></span>footY</h2>
 
@@ -193,6 +226,22 @@ Public Attributes</h2></td></tr>
 
 <p>L'ordonnée de la ligne du <b>pied</b> d'une primitive dressée, en unités monde : au-dessus, un plan vertical ; au-dessous, le sol. </p>
 <p>Sans objet pour les autres tenues. </p>
+
+</div>
+</div>
+<a id="a539cbff4db1703e70bdede9b6b82e9d7" name="a539cbff4db1703e70bdede9b6b82e9d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a539cbff4db1703e70bdede9b6b82e9d7">&#9670;&#160;</a></span>glow</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::ComposedQuad::glow = 0.0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que la primitive garde de son éclat quand le lieu s'assombrit (<span class="tt">LOT-1007</span>), de 0 — elle prend la lumière du lieu — à 1 — elle reste telle que peinte : un effet, une flamme. </p>
 
 </div>
 </div>

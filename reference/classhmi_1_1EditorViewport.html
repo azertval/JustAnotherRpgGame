@@ -230,6 +230,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:acde2f77a3436465195e4f80a9ee5a09e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prend l'état actuel du fichier pour référence : l'auteur a choisi de garder son brouillon, le prochain enregistrement écrasera la version du disque (mise de côté par l'appelant).  <br /></td></tr>
 <tr class="memitem:a9f13d18b7e5c97c8ada215ece2745577" id="r_a9f13d18b7e5c97c8ada215ece2745577"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9f13d18b7e5c97c8ada215ece2745577">startPlaytest</a> (std::optional&lt; <a class="el" href="structcore_1_1GridPosition.html">core::GridPosition</a> &gt; from=std::nullopt)</td></tr>
 <tr class="memdesc:a9f13d18b7e5c97c8ada215ece2745577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue le brouillon avec le moteur du jeu (<span class="tt">EX-EDIT-008</span>, <span class="tt">EX-EDIT-055</span>).  <br /></td></tr>
+<tr class="memitem:aba4fb44174099cfd4ef0c5ea25be51c1" id="r_aba4fb44174099cfd4ef0c5ea25be51c1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aba4fb44174099cfd4ef0c5ea25be51c1">setLightHour</a> (std::optional&lt; float &gt; minutes)</td></tr>
+<tr class="memdesc:aba4fb44174099cfd4ef0c5ea25be51c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'heure à laquelle le canevas montre la carte (<span class="tt">LOT-1007</span>, <span class="tt">EX-EDIT-105</span>), en minutes depuis minuit : le lieu est éclairé comme le jeu l'éclaire à cette heure — soleil, ombres, lumières de nuit —, et l'essai en part.  <br /></td></tr>
+<tr class="memitem:a69ba074e59ac4446bee60559f448fdaa" id="r_a69ba074e59ac4446bee60559f448fdaa"><td class="memItemLeft">const std::optional&lt; float &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a69ba074e59ac4446bee60559f448fdaa">lightHour</a> () const noexcept</td></tr>
 <tr class="memitem:a0377cf0a2cc7721aa592cc26a237b721" id="r_a0377cf0a2cc7721aa592cc26a237b721"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0377cf0a2cc7721aa592cc26a237b721">startPlaytestHere</a> ()</td></tr>
 <tr class="memdesc:a0377cf0a2cc7721aa592cc26a237b721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Joue le brouillon depuis la case survolée ; depuis l'entrée s'il n'y en a pas.  <br /></td></tr>
 <tr class="memitem:a7b25e73ff4f739d1121c5686ed579d73" id="r_a7b25e73ff4f739d1121c5686ed579d73"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7b25e73ff4f739d1121c5686ed579d73">setWorldState</a> (std::vector&lt; std::string &gt; entries, bool preview)</td></tr>
@@ -427,6 +430,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a8ee8e497ca03b1bf974792ff0ef40aa8" id="r_a8ee8e497ca03b1bf974792ff0ef40aa8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8ee8e497ca03b1bf974792ff0ef40aa8">paintEntityVerdicts</a> (QPainter &amp;painter, bool iso)</td></tr>
 <tr class="memdesc:a8ee8e497ca03b1bf974792ff0ef40aa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les verdicts des entités (<span class="tt"><a class="el" href="namespacehmi.html#aa4edebfd3cfee6ae8c18b887a9ced0df" title="Le verdict de chaque entité qui en a un, dans l&#39;ordre des entités : les zones de combat (leur terrain...">hmi::entityVerdicts</a></span>) : la première ligne à côté de chacune, toutes les lignes et les cases marquées pour la sélectionnée — cases libres et pleines, entrées d'arène (<span class="tt">EX-EDIT-071</span>), formation adverse et places du groupe (<span class="tt">LOT-143</span>) —, recalculés sur l'aperçu pendant qu'on tire.  <br /></td></tr>
 <tr class="memitem:a44e7f1b24929d08333e8ced958c06f72" id="r_a44e7f1b24929d08333e8ced958c06f72"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a44e7f1b24929d08333e8ced958c06f72">hasVisualLayers</a> () const</td></tr>
+<tr class="memitem:a11e08a10ec027e0ce825f4a516edce90" id="r_a11e08a10ec027e0ce825f4a516edce90"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a11e08a10ec027e0ce825f4a516edce90">applyLighting</a> ()</td></tr>
+<tr class="memdesc:a11e08a10ec027e0ce825f4a516edce90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne au rendu la lumière de l'instant : celle de l'essai s'il tourne, sinon celle de l'heure du canevas, ou aucune.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -486,6 +491,11 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ab5a66117f642efc99164e8f4ae1e573a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadrage a été fixé pour ce contenu : un redimensionnement ne le refait pas.  <br /></td></tr>
 <tr class="memitem:a3323625302198de44032f1e6ee36135c" id="r_a3323625302198de44032f1e6ee36135c"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1WorldPlay.html">WorldPlay</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3323625302198de44032f1e6ee36135c">_play</a></td></tr>
 <tr class="memitem:a69e8e8563c25971d1c32c991e96f8ef6" id="r_a69e8e8563c25971d1c32c991e96f8ef6"><td class="memItemLeft">QTimer&#160;</td><td class="memItemRight"><a class="el" href="#a69e8e8563c25971d1c32c991e96f8ef6">_playTimer</a></td></tr>
+<tr class="memitem:ace74b62a8e01a4f0242127db1088c8b2" id="r_ace74b62a8e01a4f0242127db1088c8b2"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ace74b62a8e01a4f0242127db1088c8b2">_lightHour</a></td></tr>
+<tr class="memdesc:ace74b62a8e01a4f0242127db1088c8b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'heure du canevas (<span class="tt"><a class="el" href="#aba4fb44174099cfd4ef0c5ea25be51c1" title="L&#39;heure à laquelle le canevas montre la carte (LOT-1007, EX-EDIT-105), en minutes depuis minuit : le ...">setLightHour</a></span>), et la table de lumière du contenu.  <br /></td></tr>
+<tr class="memitem:a0dfb7adfc4c3d62dcfd9d2fe2bb8960c" id="r_a0dfb7adfc4c3d62dcfd9d2fe2bb8960c"><td class="memItemLeft"><a class="el" href="classcore_1_1DayLightTable.html">core::DayLightTable</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0dfb7adfc4c3d62dcfd9d2fe2bb8960c">_lightTable</a></td></tr>
+<tr class="memitem:a59a40a4362b5aaa4f20ed1e5f15df8b0" id="r_a59a40a4362b5aaa4f20ed1e5f15df8b0"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a59a40a4362b5aaa4f20ed1e5f15df8b0">_playSeconds</a> = 0.0F</td></tr>
+<tr class="memdesc:a59a40a4362b5aaa4f20ed1e5f15df8b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le temps écoulé de l'essai en cours, en secondes : ce qui fait trembler une flamme.  <br /></td></tr>
 <tr class="memitem:a8f3fedd127538dda37aec67c867d2888" id="r_a8f3fedd127538dda37aec67c867d2888"><td class="memItemLeft">Clock::time_point&#160;</td><td class="memItemRight"><a class="el" href="#a8f3fedd127538dda37aec67c867d2888">_previousFrame</a></td></tr>
 <tr class="memitem:af99b26c86b6ab66c0230dfded2c7b254" id="r_af99b26c86b6ab66c0230dfded2c7b254"><td class="memItemLeft"><a class="el" href="classcore_1_1FixedTimestep.html">core::FixedTimestep</a>&#160;</td><td class="memItemRight"><a class="el" href="#af99b26c86b6ab66c0230dfded2c7b254">_timestep</a></td></tr>
 <tr class="memitem:a3e63e953a888241d559e3273d088caa5" id="r_a3e63e953a888241d559e3273d088caa5"><td class="memItemLeft">std::shared_ptr&lt; const <a class="el" href="structhmi_1_1WorldSceneSnapshot.html">WorldSceneSnapshot</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3e63e953a888241d559e3273d088caa5">_playMap</a></td></tr>
@@ -819,6 +829,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Écrit le résultat d'un glisser d'entités, en un pas. </p>
+
+</div>
+</div>
+<a id="a11e08a10ec027e0ce825f4a516edce90" name="a11e08a10ec027e0ce825f4a516edce90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11e08a10ec027e0ce825f4a516edce90">&#9670;&#160;</a></span>applyLighting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::applyLighting </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Donne au rendu la lumière de l'instant : celle de l'essai s'il tourne, sinon celle de l'heure du canevas, ou aucune. </p>
 
 </div>
 </div>
@@ -2151,6 +2188,31 @@ Private Attributes</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69ba074e59ac4446bee60559f448fdaa" name="a69ba074e59ac4446bee60559f448fdaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69ba074e59ac4446bee60559f448fdaa">&#9670;&#160;</a></span>lightHour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::optional&lt; float &gt; &amp; hmi::EditorViewport::lightHour </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -4021,6 +4083,26 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aba4fb44174099cfd4ef0c5ea25be51c1" name="aba4fb44174099cfd4ef0c5ea25be51c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4fb44174099cfd4ef0c5ea25be51c1">&#9670;&#160;</a></span>setLightHour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::EditorViewport::setLightHour </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; float &gt;</td>          <td class="paramname"><span class="paramname"><em>minutes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'heure à laquelle le canevas montre la carte (<span class="tt">LOT-1007</span>, <span class="tt">EX-EDIT-105</span>), en minutes depuis minuit : le lieu est éclairé comme le jeu l'éclaire à cette heure — soleil, ombres, lumières de nuit —, et l'essai en part. </p>
+<p>Vide — l'état d'usine — : le canevas montre la carte <b>sans éclairage</b>, telle que ses pièces sont peintes, et l'essai part de l'heure d'une partie neuve. L'essai, lui, est toujours éclairé : c'est le jeu. </p>
+
+</div>
+</div>
 <a id="aff2c5ce800456e6f5d9b3dc935c13aa6" name="aff2c5ce800456e6f5d9b3dc935c13aa6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff2c5ce800456e6f5d9b3dc935c13aa6">&#9670;&#160;</a></span>setMapLayerDimmed()</h2>
 
@@ -5467,6 +5549,52 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ace74b62a8e01a4f0242127db1088c8b2" name="ace74b62a8e01a4f0242127db1088c8b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace74b62a8e01a4f0242127db1088c8b2">&#9670;&#160;</a></span>_lightHour</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; hmi::EditorViewport::_lightHour</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'heure du canevas (<span class="tt"><a class="el" href="#aba4fb44174099cfd4ef0c5ea25be51c1" title="L&#39;heure à laquelle le canevas montre la carte (LOT-1007, EX-EDIT-105), en minutes depuis minuit : le ...">setLightHour</a></span>), et la table de lumière du contenu. </p>
+
+</div>
+</div>
+<a id="a0dfb7adfc4c3d62dcfd9d2fe2bb8960c" name="a0dfb7adfc4c3d62dcfd9d2fe2bb8960c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dfb7adfc4c3d62dcfd9d2fe2bb8960c">&#9670;&#160;</a></span>_lightTable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1DayLightTable.html">core::DayLightTable</a> hmi::EditorViewport::_lightTable</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9c2170adab7584035c79b74d183933fa" name="a9c2170adab7584035c79b74d183933fa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9c2170adab7584035c79b74d183933fa">&#9670;&#160;</a></span>_manifest</h2>
 
@@ -5722,6 +5850,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>L'essai a bougé : le rendu reçoit carte, figurines et héros avant la prochaine image. </p>
+
+</div>
+</div>
+<a id="a59a40a4362b5aaa4f20ed1e5f15df8b0" name="a59a40a4362b5aaa4f20ed1e5f15df8b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59a40a4362b5aaa4f20ed1e5f15df8b0">&#9670;&#160;</a></span>_playSeconds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::EditorViewport::_playSeconds = 0.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le temps écoulé de l'essai en cours, en secondes : ce qui fait trembler une flamme. </p>
 
 </div>
 </div>

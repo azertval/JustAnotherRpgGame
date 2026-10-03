@@ -29,6 +29,7 @@
 #include &lt;rhi/qrhi.h&gt;
 
 #include "HMI/Graphics/GraphicsLog.h"
+#include "HMI/Graphics/LightingBlock.h"
 #include "HMI/Graphics/RhiShaders.h"
 
 namespace hmi {
@@ -98,6 +99,10 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
 <span style = "background-color:#fdd">        throw std::runtime_error("SpriteBatch : echec de creation des echantillonneurs");</span>
     }
 
+    // Le bloc d'eclairage neutre (LOT-1007) : les pipelines le lient tant que l'appelant n'en donne
+    // pas un autre, et dessinent alors comme avant le lot.
+<span style = "background-color:#dfd">    _ownLighting = std::make_unique&lt;LightingBlock&gt;(_rhi);</span>
+
 <span style = "background-color:#dfd">    _uniformStride = _rhi-&gt;ubufAligned(PROJECTION_BYTES);
     if (!ensureUniformCapacity(64)) {</span>
 <span style = "background-color:#fdd">        throw std::runtime_error("SpriteBatch : echec de creation du tampon uniforme");</span>
@@ -111,6 +116,17 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
 <span style = "background-color:#dfd">}</span>
 
 <span style = "background-color:#dfd">SpriteBatch::~SpriteBatch() = default;</span>
+
+<span style = "background-color:#dfd">void SpriteBatch::setLighting(LightingBlock* lighting) {
+    if (lighting == _lighting) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+<span style = "background-color:#dfd">    _lighting = lighting;</span>
+    // Les liaisons citent le tampon et la carte d'ombres du bloc : elles sont a refaire.
+<span style = "background-color:#dfd">    _bindings.clear();
+    _layoutBindings.reset();
+    _lightingRevision = this-&gt;lighting()-&gt;revision();
+}</span>
 
 // Redimensionne le tampon uniforme pour `batchCount` emplacements de projection.
 <span style = "background-color:#dfd">bool SpriteBatch::ensureUniformCapacity(std::size_t batchCount) {
@@ -148,8 +164,13 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
 }</span>
 
 // Liaisons de ressources associees a une texture, creees a la premiere rencontre.
-<span style = "background-color:#dfd">QRhiShaderResourceBindings* SpriteBatch::bindingsFor(QRhiTexture* texture) {
-    const auto found = _bindings.find(texture);
+<span style = "background-color:#dfd">QRhiShaderResourceBindings* SpriteBatch::bindingsFor(QRhiTexture* texture) {</span>
+    // La carte d'ombres a change d'objet : les liaisons qui citaient l'ancienne sont caduques.
+<span style = "background-color:#dfd">    if (_lightingRevision != lighting()-&gt;revision()) {
+        _bindings.clear();
+        _lightingRevision = lighting()-&gt;revision();</span>
+    }
+<span style = "background-color:#dfd">    const auto found = _bindings.find(texture);
     if (found != _bindings.end()) {
         return found-&gt;second.get();</span>
     }
@@ -164,6 +185,8 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
             0, QRhiShaderResourceBinding::VertexStage, _uniformBuffer.get(), PROJECTION_BYTES),
         QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
                                                   texture, sampler),
+        lighting()-&gt;uniformBinding(),
+        lighting()-&gt;shadowBinding(),
     });
 <span style = "background-color:#dfd">    if (!bindings-&gt;create()) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation des liaisons de ressources");
@@ -177,8 +200,11 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
 // Cree (ou recree) les pipelines pour la passe de rendu donnee : celui de toujours, et celui qui
 // teste la profondeur si l'image le demande.
 <span style = "background-color:#dfd">bool SpriteBatch::ensurePipeline(QRhiRenderTarget* target) {
-    QRhiRenderPassDescriptor* const pass = target-&gt;renderPassDescriptor();
-    if (_pipelinePass != pass) {
+    QRhiRenderPassDescriptor* const pass = target-&gt;renderPassDescriptor();</span>
+    // Les pipelines suivent aussi le nombre d'echantillons de la cible : une cible
+    // multi-echantillonnee refuse un pipeline qui ne l'est pas autant qu'elle.
+<span style = "background-color:#dfd">    const int samples = target-&gt;sampleCount();
+    if (_pipelinePass != pass || _pipelineSamples != samples) {
         _pipeline.reset();
         _depthPipeline.reset();</span>
     }
@@ -195,6 +221,8 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
                 0, QRhiShaderResourceBinding::VertexStage, _uniformBuffer.get(), PROJECTION_BYTES),
             QRhiShaderResourceBinding::sampledTexture(1, QRhiShaderResourceBinding::FragmentStage,
                                                       nullptr, _sharpSampler.get()),
+            lighting()-&gt;uniformBinding(),
+            lighting()-&gt;shadowBinding(),
         });
 <span style = "background-color:#dfd">        if (!_layoutBindings-&gt;create()) {</span>
 <span style = "background-color:#fdd">            GRAPHICS_LOG_WARNING("SpriteBatch : echec de creation des liaisons de reference");
@@ -203,17 +231,18 @@ constexpr int PROJECTION_BYTES = 16 * static_cast&lt;int&gt;(sizeof(float));
     }
 
 <span style = "background-color:#dfd">    if (!_pipeline) {
-        _pipeline = createPipeline(pass, false);</span>
+        _pipeline = createPipeline(pass, samples, false);</span>
     }
 <span style = "background-color:#dfd">    if (_depthTest &amp;&amp; !_depthPipeline) {
-        _depthPipeline = createPipeline(pass, true);</span>
+        _depthPipeline = createPipeline(pass, samples, true);</span>
     }
 <span style = "background-color:#dfd">    _pipelinePass = pass;
+    _pipelineSamples = samples;
     return _pipeline &amp;&amp; (!_depthTest || _depthPipeline);
 }</span>
 
 std::unique_ptr&lt;QRhiGraphicsPipeline&gt; SpriteBatch::createPipeline(QRhiRenderPassDescriptor* pass,
-<span style = "background-color:#dfd">                                                                  bool depthTest) {
+<span style = "background-color:#dfd">                                                                  int samples, bool depthTest) {
     auto pipeline = std::unique_ptr&lt;QRhiGraphicsPipeline&gt;(_rhi-&gt;newGraphicsPipeline());
     pipeline-&gt;setShaderStages({</span>
         {QRhiShaderStage::Vertex, loadShader(":/shaders/sprite.vert.qsb")},
@@ -226,10 +255,12 @@ std::unique_ptr&lt;QRhiGraphicsPipeline&gt; SpriteBatch::createPipeline(QRhiRend
         {0, 0, QRhiVertexInputAttribute::Float3, 0},
         {0, 1, QRhiVertexInputAttribute::Float2, 3 * sizeof(float)},
         {0, 2, QRhiVertexInputAttribute::Float4, 5 * sizeof(float)},
+        {0, 3, QRhiVertexInputAttribute::Float2, 9 * sizeof(float)},
     });
 <span style = "background-color:#dfd">    pipeline-&gt;setVertexInputLayout(inputLayout);
     pipeline-&gt;setShaderResourceBindings(_layoutBindings.get());
     pipeline-&gt;setRenderPassDescriptor(pass);
+    pipeline-&gt;setSampleCount(samples);
     pipeline-&gt;setTopology(QRhiGraphicsPipeline::Triangles);</span>
     // Rendu 2D : les quads peuvent etre vus des deux cotes (un segment oriente peut Â« retourner Â»
     // son quadrilatere), et il n'y a ni profondeur ni pochoir a ecrire. Quand l'image a des
@@ -266,6 +297,7 @@ std::unique_ptr&lt;QRhiGraphicsPipeline&gt; SpriteBatch::createPipeline(QRhiRend
     _projections.clear();
     _recording = false;
     _drawable = false;
+    _shading = SpriteShading{};
 }</span>
 
 // Demarre un lot : fixe la texture echantillonnee et la projection.
@@ -325,7 +357,9 @@ std::unique_ptr&lt;QRhiGraphicsPipeline&gt; SpriteBatch::createPipeline(QRhiRend
                                    .r = quad.r,
                                    .g = quad.g,
                                    .b = quad.b,
-                                   .a = quad.a});
+                                   .a = quad.a,
+                                   .lit = _shading.lit,
+                                   .shadowed = _shading.shadowed ? 1.0F : 0.0F});
 <span style = "background-color:#dfd">    }
 }</span>
 
@@ -352,7 +386,9 @@ std::unique_ptr&lt;QRhiGraphicsPipeline&gt; SpriteBatch::createPipeline(QRhiRend
                                .r = line.r,
                                .g = line.g,
                                .b = line.b,
-                               .a = line.a});
+                               .a = line.a,
+                               .lit = _shading.lit,
+                               .shadowed = _shading.shadowed ? 1.0F : 0.0F});
 <span style = "background-color:#fdd">    _vertices.push_back(Vertex{.x = line.bx + nx,</span>
                                .y = line.by + ny,
                                .z = endDepth,
@@ -361,7 +397,9 @@ std::unique_ptr&lt;QRhiGraphicsPipeline&gt; SpriteBatch::createPipeline(QRhiRend
                                .r = line.r,
                                .g = line.g,
                                .b = line.b,
-                               .a = line.a});
+                               .a = line.a,
+                               .lit = _shading.lit,
+                               .shadowed = _shading.shadowed ? 1.0F : 0.0F});
 <span style = "background-color:#fdd">    _vertices.push_back(Vertex{.x = line.bx - nx,</span>
                                .y = line.by - ny,
                                .z = endDepth,
@@ -370,7 +408,9 @@ std::unique_ptr&lt;QRhiGraphicsPipeline&gt; SpriteBatch::createPipeline(QRhiRend
                                .r = line.r,
                                .g = line.g,
                                .b = line.b,
-                               .a = line.a});
+                               .a = line.a,
+                               .lit = _shading.lit,
+                               .shadowed = _shading.shadowed ? 1.0F : 0.0F});
 <span style = "background-color:#fdd">    _vertices.push_back(Vertex{.x = line.ax - nx,</span>
                                .y = line.ay - ny,
                                .z = startDepth,
@@ -379,7 +419,9 @@ std::unique_ptr&lt;QRhiGraphicsPipeline&gt; SpriteBatch::createPipeline(QRhiRend
                                .r = line.r,
                                .g = line.g,
                                .b = line.b,
-                               .a = line.a});
+                               .a = line.a,
+                               .lit = _shading.lit,
+                               .shadowed = _shading.shadowed ? 1.0F : 0.0F});
 <span style = "background-color:#fdd">}</span>
 
 // Ajoute un quadrilatere a quatre sommets libres au lot courant (LOT-128, decision D1).
@@ -401,7 +443,9 @@ std::unique_ptr&lt;QRhiGraphicsPipeline&gt; SpriteBatch::createPipeline(QRhiRend
                                    .r = poly.r,
                                    .g = poly.g,
                                    .b = poly.b,
-                                   .a = poly.a});
+                                   .a = poly.a,
+                                   .lit = _shading.lit,
+                                   .shadowed = _shading.shadowed ? 1.0F : 0.0F});
 <span style = "background-color:#dfd">    }
 }</span>
 
@@ -436,6 +480,15 @@ QRhiResourceUpdateBatch* SpriteBatch::prepare(QRhiRenderTarget* target,
 <span style = "background-color:#fdd">            updates = _pendingIndexUpload;</span>
         }
 <span style = "background-color:#dfd">        _pendingIndexUpload = nullptr;</span>
+    }
+    // De meme le bloc d'eclairage neutre, pose a la construction du bloc lie.
+<span style = "background-color:#dfd">    if (QRhiResourceUpdateBatch* const neutral = lighting()-&gt;takePendingUpload()) {
+        if (updates != nullptr) {
+            updates-&gt;merge(neutral);
+            neutral-&gt;release();
+        } else {</span>
+<span style = "background-color:#fdd">            updates = neutral;</span>
+        }
     }
 
 <span style = "background-color:#dfd">    _drawable = quadCount &gt; 0 &amp;&amp; ensureVertexCapacity(quadCount) &amp;&amp;</span>

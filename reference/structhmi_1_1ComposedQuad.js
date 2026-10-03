@@ -1,6 +1,8 @@
 var structhmi_1_1ComposedQuad =
 [
+    [ "shading", "structhmi_1_1ComposedQuad.html#a7672d8cf9a2d3804b241a975e59608a4", null ],
     [ "footY", "structhmi_1_1ComposedQuad.html#a2ef2a5e645fee15467d36e8c4aaf38e2", null ],
+    [ "glow", "structhmi_1_1ComposedQuad.html#a539cbff4db1703e70bdede9b6b82e9d7", null ],
     [ "kind", "structhmi_1_1ComposedQuad.html#a11f80072d43177fd77c938bb6efaab02", null ],
     [ "layer", "structhmi_1_1ComposedQuad.html#af6d4eeb26df72fc862a647b8acaf813c", null ],
     [ "line", "structhmi_1_1ComposedQuad.html#a7e6bffe91fa5be8be3d80bda3f408d7b", null ],

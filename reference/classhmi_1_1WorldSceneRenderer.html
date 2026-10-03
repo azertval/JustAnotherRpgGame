@@ -180,6 +180,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a93db72ce993836a04875f6044de7310e"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'opacité par primitive de chaque image (<span class="tt">LOT-1002</span>) ; vide : 1 partout.  <br /></td></tr>
 <tr class="memitem:a11f3d2c9e7edc817672037c29ea26fc6" id="r_a11f3d2c9e7edc817672037c29ea26fc6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a11f3d2c9e7edc817672037c29ea26fc6">setComposeOptions</a> (<a class="el" href="structhmi_1_1WorldComposeOptions.html">WorldComposeOptions</a> options) noexcept</td></tr>
 <tr class="memdesc:a11f3d2c9e7edc817672037c29ea26fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les options de composition de la carte ; la carte sera recomposée si elles changent.  <br /></td></tr>
+<tr class="memitem:a18e173bbebfd58baa10914d88164250e" id="r_a18e173bbebfd58baa10914d88164250e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a18e173bbebfd58baa10914d88164250e">setLighting</a> (std::optional&lt; <a class="el" href="structhmi_1_1WorldLighting.html">WorldLighting</a> &gt; <a class="el" href="#ad53b0185df69cdcf4a45252ad8829c06">lighting</a>) noexcept</td></tr>
+<tr class="memdesc:a18e173bbebfd58baa10914d88164250e"><td class="mdescLeft">&#160;</td><td class="mdescRight">La lumière du lieu (<span class="tt">LOT-1007</span>) : celle de l'heure, et les réglages d'ombre.  <br /></td></tr>
+<tr class="memitem:ad53b0185df69cdcf4a45252ad8829c06" id="r_ad53b0185df69cdcf4a45252ad8829c06"><td class="memItemLeft">const std::optional&lt; <a class="el" href="structhmi_1_1WorldLighting.html">WorldLighting</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad53b0185df69cdcf4a45252ad8829c06">lighting</a> () const noexcept</td></tr>
+<tr class="memitem:a6da55f01f737e6588fddc51282b7f796" id="r_a6da55f01f737e6588fddc51282b7f796"><td class="memItemLeft">const <a class="el" href="structhmi_1_1SceneLightFrame.html">SceneLightFrame</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6da55f01f737e6588fddc51282b7f796">lightFrame</a> () const noexcept</td></tr>
 <tr class="memitem:a6559aaca06908411e90abdb1782a96c2" id="r_a6559aaca06908411e90abdb1782a96c2"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6559aaca06908411e90abdb1782a96c2">prepare</a> ()</td></tr>
 <tr class="memdesc:a6559aaca06908411e90abdb1782a96c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge les textures et compose la carte <b>maintenant</b>, sans dessiner (<span class="tt">LOT-1002</span>).  <br /></td></tr>
 <tr class="memitem:a5297e82fdf10c881f55121e39f6f0867" id="r_a5297e82fdf10c881f55121e39f6f0867"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5297e82fdf10c881f55121e39f6f0867">paintedBounds</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;base)</td></tr>
@@ -203,6 +207,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a55dfc11aadf454da5f305ee9b90314e7" id="r_a55dfc11aadf454da5f305ee9b90314e7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a55dfc11aadf454da5f305ee9b90314e7">refresh</a> (const <a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a> &amp;projection)</td></tr>
 <tr class="memdesc:a55dfc11aadf454da5f305ee9b90314e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qui est périmé — textures de la carte et des figurines, composition — est refait.  <br /></td></tr>
 <tr class="memitem:a8815860ac208e1a7f941d78a5a9dc7d3" id="r_a8815860ac208e1a7f941d78a5a9dc7d3"><td class="memItemLeft"><a class="el" href="classcore_1_1IsoProjection.html">core::IsoProjection</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8815860ac208e1a7f941d78a5a9dc7d3">sceneProjection</a> () const</td></tr>
+<tr class="memitem:acdb4d71571c32c291648f1c653d4d032" id="r_acdb4d71571c32c291648f1c653d4d032"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acdb4d71571c32c291648f1c653d4d032">rebuildShadowBoxes</a> ()</td></tr>
+<tr class="memdesc:acdb4d71571c32c291648f1c653d4d032"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refait le maillage des boîtes d'ombre de la carte (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html#a433b6c14b9ce8f047502c93122de5c0f" title="La boîte que chaque pièce de décor en image oppose au soleil (hmi::WorldShadowBox).">WorldSceneSnapshot::shadowBoxes</a></span>).  <br /></td></tr>
 <tr class="memitem:abe6d8325e53bf390059ab20353dffc17" id="r_abe6d8325e53bf390059ab20353dffc17"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1LoadedTexture.html">LoadedTexture</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abe6d8325e53bf390059ab20353dffc17">figureMarker</a> (const std::string &amp;path)</td></tr>
 <tr class="memdesc:abe6d8325e53bf390059ab20353dffc17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le marqueur d'une figurine sans image (<span class="tt"><a class="el" href="namespacehmi.html#a1c839cebf18adf167ae9ac5452d179b6" title="La clé du marqueur d&#39;une figurine qui n&#39;a pas de modèle (LOT-39, LOT-96).">hmi::figureMarkerKey</a></span>), rien pour une autre piece.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -243,6 +249,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a94b6b02e7c21596f49bdf93d78c62123" id="r_a94b6b02e7c21596f49bdf93d78c62123"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1MeshBatch.html">MeshBatch</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a94b6b02e7c21596f49bdf93d78c62123">_meshes</a></td></tr>
 <tr class="memdesc:a94b6b02e7c21596f49bdf93d78c62123"><td class="mdescLeft">&#160;</td><td class="mdescRight">La passe de maillages (<span class="tt">LOT-1003</span>) : créée avec les ressources, libérée avant elles.  <br /></td></tr>
 <tr class="memitem:a4b8adcaabf36c1c7ab71cd8d411eba99" id="r_a4b8adcaabf36c1c7ab71cd8d411eba99"><td class="memItemLeft"><a class="el" href="structhmi_1_1ScenePieceTextures.html">ScenePieceTextures</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4b8adcaabf36c1c7ab71cd8d411eba99">_textures</a></td></tr>
+<tr class="memitem:a6976bf5f15cb569572cd5ff64d8f672e" id="r_a6976bf5f15cb569572cd5ff64d8f672e"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1WorldLighting.html">WorldLighting</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6976bf5f15cb569572cd5ff64d8f672e">_lighting</a></td></tr>
+<tr class="memdesc:a6976bf5f15cb569572cd5ff64d8f672e"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'éclairage (<span class="tt">LOT-1007</span>) : ce que l'appelant règle, ce que la dernière image en a tiré, et le bloc que lisent les deux pipelines.  <br /></td></tr>
+<tr class="memitem:a84b3ea037e8f716603d7c6243abb8e38" id="r_a84b3ea037e8f716603d7c6243abb8e38"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneLightFrame.html">SceneLightFrame</a>&#160;</td><td class="memItemRight"><a class="el" href="#a84b3ea037e8f716603d7c6243abb8e38">_lightFrame</a></td></tr>
+<tr class="memitem:a8e6a5b5dc286e72637c1bbce09122cc9" id="r_a8e6a5b5dc286e72637c1bbce09122cc9"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1LightingBlock.html">LightingBlock</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8e6a5b5dc286e72637c1bbce09122cc9">_lightingBlock</a></td></tr>
+<tr class="memitem:ac25cc5b6cb35fc5f85171c5c8544e323" id="r_ac25cc5b6cb35fc5f85171c5c8544e323"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac25cc5b6cb35fc5f85171c5c8544e323">_shadowBoxes</a> = nullptr</td></tr>
+<tr class="memdesc:ac25cc5b6cb35fc5f85171c5c8544e323"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les boîtes d'ombre de la carte, en un maillage que seule la carte d'ombres voit ; nul si la carte n'en a pas.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène composée. </p>
@@ -577,6 +589,57 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a6da55f01f737e6588fddc51282b7f796" name="a6da55f01f737e6588fddc51282b7f796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6da55f01f737e6588fddc51282b7f796">&#9670;&#160;</a></span>lightFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structhmi_1_1SceneLightFrame.html">SceneLightFrame</a> &amp; hmi::WorldSceneRenderer::lightFrame </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'éclairage de la dernière image dessinée : ce que les shaders ont reçu. </dd></dl>
+
+</div>
+</div>
+<a id="ad53b0185df69cdcf4a45252ad8829c06" name="ad53b0185df69cdcf4a45252ad8829c06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad53b0185df69cdcf4a45252ad8829c06">&#9670;&#160;</a></span>lighting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::optional&lt; <a class="el" href="structhmi_1_1WorldLighting.html">WorldLighting</a> &gt; &amp; hmi::WorldSceneRenderer::lighting </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a489efac05f908ef5ca8232a463808f45" name="a489efac05f908ef5ca8232a463808f45"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a489efac05f908ef5ca8232a463808f45">&#9670;&#160;</a></span>operator=()</h2>
 
@@ -648,6 +711,33 @@ Private Attributes</h2></td></tr>
 <p>Charge les textures et compose la carte <b>maintenant</b>, sans dessiner (<span class="tt">LOT-1002</span>). </p>
 <p>Ce que <span class="tt"><a class="el" href="#a6aab3318c68d4afcb4ae3f9c72f03e9e" title="Dessine une image dans target : efface à clear, puis le lieu cadré sur le héros, ou par le cadrage im...">render</a></span> fait à sa première image, avancé : les téléversements attendent dans le lot que la prochaine image soumettra. Sans effet si rien n'a changé.</p>
 <dl class="section return"><dt>Returns</dt><dd><span class="tt">false</span> si les ressources n'existent pas encore (<span class="tt"><a class="el" href="#a79799fc66af87ee0b4407f54c5c87bdd" title="Garantit que les ressources existent sur rhi, et les recrée s&#39;il a changé.">ensureResources</a></span>). </dd></dl>
+
+</div>
+</div>
+<a id="acdb4d71571c32c291648f1c653d4d032" name="acdb4d71571c32c291648f1c653d4d032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdb4d71571c32c291648f1c653d4d032">&#9670;&#160;</a></span>rebuildShadowBoxes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldSceneRenderer::rebuildShadowBoxes </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Refait le maillage des boîtes d'ombre de la carte (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html#a433b6c14b9ce8f047502c93122de5c0f" title="La boîte que chaque pièce de décor en image oppose au soleil (hmi::WorldShadowBox).">WorldSceneSnapshot::shadowBoxes</a></span>). </p>
 
 </div>
 </div>
@@ -908,6 +998,34 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Impose le cadrage (<span class="tt">LOT-1002</span>) ; <span class="tt">std::nullopt</span> rend la caméra qui suit le héros. </p>
+
+</div>
+</div>
+<a id="a18e173bbebfd58baa10914d88164250e" name="a18e173bbebfd58baa10914d88164250e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18e173bbebfd58baa10914d88164250e">&#9670;&#160;</a></span>setLighting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldSceneRenderer::setLighting </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; <a class="el" href="structhmi_1_1WorldLighting.html">WorldLighting</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>lighting</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La lumière du lieu (<span class="tt">LOT-1007</span>) : celle de l'heure, et les réglages d'ombre. </p>
+<p><span class="tt">std::nullopt</span> — l'état d'usine — dessine le lieu <b>sans éclairage</b>, comme avant le lot : c'est ce que rendent un test qui ne s'occupe pas de lumière, une vignette, un plan. Les sources de lumière, elles, viennent de la carte (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html#aafd26607a1a3308950ce262d3967a87b" title="Les sources de lumière du lieu (LOT-1007) : celles des pièces posées qui en déclarent une au manifest...">WorldSceneSnapshot::lights</a></span>). </p>
 
 </div>
 </div>
@@ -1267,6 +1385,75 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a84b3ea037e8f716603d7c6243abb8e38" name="a84b3ea037e8f716603d7c6243abb8e38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84b3ea037e8f716603d7c6243abb8e38">&#9670;&#160;</a></span>_lightFrame</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1SceneLightFrame.html">SceneLightFrame</a> hmi::WorldSceneRenderer::_lightFrame</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6976bf5f15cb569572cd5ff64d8f672e" name="a6976bf5f15cb569572cd5ff64d8f672e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6976bf5f15cb569572cd5ff64d8f672e">&#9670;&#160;</a></span>_lighting</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structhmi_1_1WorldLighting.html">WorldLighting</a>&gt; hmi::WorldSceneRenderer::_lighting</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'éclairage (<span class="tt">LOT-1007</span>) : ce que l'appelant règle, ce que la dernière image en a tiré, et le bloc que lisent les deux pipelines. </p>
+<p>Le bloc meurt après eux. </p>
+
+</div>
+</div>
+<a id="a8e6a5b5dc286e72637c1bbce09122cc9" name="a8e6a5b5dc286e72637c1bbce09122cc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e6a5b5dc286e72637c1bbce09122cc9">&#9670;&#160;</a></span>_lightingBlock</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1LightingBlock.html">LightingBlock</a>&gt; hmi::WorldSceneRenderer::_lightingBlock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ace343b64de4fac12218d2c3962a130a5" name="ace343b64de4fac12218d2c3962a130a5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace343b64de4fac12218d2c3962a130a5">&#9670;&#160;</a></span>_loaded</h2>
 
@@ -1517,6 +1704,30 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>La carte a changé : ses textures et sa composition sont à refaire à la prochaine image. </p>
+
+</div>
+</div>
+<a id="ac25cc5b6cb35fc5f85171c5c8544e323" name="ac25cc5b6cb35fc5f85171c5c8544e323"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac25cc5b6cb35fc5f85171c5c8544e323">&#9670;&#160;</a></span>_shadowBoxes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a> hmi::WorldSceneRenderer::_shadowBoxes = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Les boîtes d'ombre de la carte, en un maillage que seule la carte d'ombres voit ; nul si la carte n'en a pas. </p>
 
 </div>
 </div>

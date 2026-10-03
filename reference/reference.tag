@@ -35,6 +35,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/App/Editor/</path>
     <filename>Editor_2Main_8cpp.html</filename>
     <includes id="Bootstrap_8h" name="Bootstrap.h" local="yes" import="no" module="no" objc="no">App/Common/Bootstrap.h</includes>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
     <includes id="CharacterWorkshop_8h" name="CharacterWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterWorkshop.h</includes>
     <includes id="DataRoot_8h" name="DataRoot.h" local="yes" import="no" module="no" objc="no">Editor/Logic/DataRoot.h</includes>
     <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
@@ -60,6 +61,7 @@
     <includes id="Core_8h" name="Core.h" local="yes" import="no" module="no" objc="no">Core/Core.h</includes>
     <includes id="MemoryLogSink_8h" name="MemoryLogSink.h" local="yes" import="no" module="no" objc="no">Core/Diagnostics/MemoryLogSink.h</includes>
     <includes id="GridPosition_8h" name="GridPosition.h" local="yes" import="no" module="no" objc="no">Core/Levels/GridPosition.h</includes>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
     <includes id="AudioEngine_8h" name="AudioEngine.h" local="yes" import="no" module="no" objc="no">HMI/Audio/AudioEngine.h</includes>
     <includes id="LaunchOptions_8h" name="LaunchOptions.h" local="yes" import="no" module="no" objc="no">HMI/Game/LaunchOptions.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
@@ -108,8 +110,11 @@
     <filename>bench__canvas__frame_8cpp.html</filename>
     <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="DayLight_8h" name="DayLight.h" local="yes" import="no" module="no" objc="no">Core/World/DayLight.h</includes>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
     <includes id="OffscreenRender_8h" name="OffscreenRender.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/OffscreenRender.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="SceneLighting_8h" name="SceneLighting.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneLighting.h</includes>
     <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
     <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
     <member kind="function" static="yes">
@@ -195,6 +200,34 @@
       <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
       <anchor>aa745c04c464e79322e23cb7d89dbcaa1</anchor>
       <arglist>(WorldFrameEightModels1080p) -&gt; Unit(benchmark::kMillisecond)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>WorldFrameLitEightModels1080p</name>
+      <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
+      <anchor>a59ba7ab702ca835a461c9ba78e278085</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
+      <anchor>a559176e0944ffcfa66650d45d2387182</anchor>
+      <arglist>(WorldFrameLitEightModels1080p) -&gt; Unit(benchmark::kMillisecond)</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static void</type>
+      <name>WorldFrameShadowedEightModels1080p</name>
+      <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
+      <anchor>a236e3c0683a5ff28029ee38932f872aa</anchor>
+      <arglist>(benchmark::State &amp;state)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>BENCHMARK</name>
+      <anchorfile>bench__canvas__frame_8cpp.html</anchorfile>
+      <anchor>af23fb56c264c3494055d7d8ecd1f2a2f</anchor>
+      <arglist>(WorldFrameShadowedEightModels1080p) -&gt; Unit(benchmark::kMillisecond)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -1750,6 +1783,7 @@
     <filename>ScenePieceManifest_8h.html</filename>
     <includes id="PieceFootprint_8h" name="PieceFootprint.h" local="yes" import="no" module="no" objc="no">Core/Levels/PieceFootprint.h</includes>
     <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
     <class kind="struct">core::ScenePiece</class>
     <class kind="struct">core::MaskedScenePiece</class>
     <class kind="class">core::ScenePieceManifest</class>
@@ -2585,6 +2619,26 @@
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
+    <name>DayLight.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
+    <filename>DayLight_8cpp.html</filename>
+    <includes id="DayLight_8h" name="DayLight.h" local="yes" import="no" module="no" objc="no">Core/World/DayLight.h</includes>
+    <includes id="JsonDocument_8h" name="JsonDocument.h" local="yes" import="no" module="no" objc="no">Core/Data/JsonDocument.h</includes>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>DayLight.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
+    <filename>DayLight_8h.html</filename>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
+    <class kind="struct">core::DayLightKey</class>
+    <class kind="struct">core::DayLight</class>
+    <class kind="class">core::DayLightTable</class>
+    <class kind="struct">core::DayLightTableResult</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
     <name>EntityKinds.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
     <filename>EntityKinds_8cpp.html</filename>
@@ -2596,6 +2650,7 @@
     <includes id="CityBlock_8h" name="CityBlock.h" local="yes" import="no" module="no" objc="no">Core/World/CityBlock.h</includes>
     <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
     <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -2670,6 +2725,7 @@
     <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
     <includes id="FollowTrail_8h" name="FollowTrail.h" local="yes" import="no" module="no" objc="no">Core/World/FollowTrail.h</includes>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
     <includes id="WorldTravel_8h" name="WorldTravel.h" local="yes" import="no" module="no" objc="no">Core/World/WorldTravel.h</includes>
     <class kind="struct">core::CellPoint</class>
     <class kind="struct">core::ExplorationIntent</class>
@@ -2690,6 +2746,39 @@
     <filename>FollowTrail_8h.html</filename>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
     <class kind="class">core::FollowTrail</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>LightSource.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
+    <filename>LightSource_8cpp.html</filename>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
+    <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>LightSource.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
+    <filename>LightSource_8h.html</filename>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <class kind="struct">core::LightColor</class>
+    <class kind="struct">core::LightEmission</class>
+    <class kind="struct">core::LightSource</class>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>WorldClock.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
+    <filename>WorldClock_8cpp.html</filename>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
+    <namespace>core</namespace>
+  </compound>
+  <compound kind="file">
+    <name>WorldClock.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/</path>
+    <filename>WorldClock_8h.html</filename>
+    <includes id="LevelProperties_8h" name="LevelProperties.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelProperties.h</includes>
+    <class kind="class">core::WorldClock</class>
     <namespace>core</namespace>
   </compound>
   <compound kind="file">
@@ -3926,6 +4015,7 @@
     <includes id="AssetWorkshop_8h" name="AssetWorkshop.h" local="yes" import="no" module="no" objc="no">Editor/Ui/AssetWorkshop.h</includes>
     <includes id="CharacterPreview_8h" name="CharacterPreview.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CharacterPreview.h</includes>
     <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
+    <includes id="MapRender_8h" name="MapRender.h" local="yes" import="no" module="no" objc="no">Editor/Ui/MapRender.h</includes>
     <includes id="SceneSurface_8h" name="SceneSurface.h" local="yes" import="no" module="no" objc="no">Editor/Ui/SceneSurface.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
     <class kind="struct">hmi::AssetWorkshop::Widgets</class>
@@ -4023,6 +4113,7 @@
     <includes id="MapFormat_8h" name="MapFormat.h" local="yes" import="no" module="no" objc="no">Editor/Logic/MapFormat.h</includes>
     <includes id="WorldState_8h" name="WorldState.h" local="yes" import="no" module="no" objc="no">Editor/Logic/WorldState.h</includes>
     <includes id="DraftRenderer_8h" name="DraftRenderer.h" local="yes" import="no" module="no" objc="no">Editor/Ui/DraftRenderer.h</includes>
+    <includes id="MapRender_8h" name="MapRender.h" local="yes" import="no" module="no" objc="no">Editor/Ui/MapRender.h</includes>
     <includes id="SceneSurface_8h" name="SceneSurface.h" local="yes" import="no" module="no" objc="no">Editor/Ui/SceneSurface.h</includes>
     <includes id="WorldPlay_8h" name="WorldPlay.h" local="yes" import="no" module="no" objc="no">HMI/Game/WorldPlay.h</includes>
     <includes id="EntityMarkers_8h" name="EntityMarkers.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/EntityMarkers.h</includes>
@@ -4047,6 +4138,7 @@
     <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
     <includes id="FixedTimestep_8h" name="FixedTimestep.h" local="yes" import="no" module="no" objc="no">Core/Time/FixedTimestep.h</includes>
     <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
+    <includes id="DayLight_8h" name="DayLight.h" local="yes" import="no" module="no" objc="no">Core/World/DayLight.h</includes>
     <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
     <includes id="BrushGesture_8h" name="BrushGesture.h" local="yes" import="no" module="no" objc="no">Editor/Logic/BrushGesture.h</includes>
     <includes id="CanvasPicking_8h" name="CanvasPicking.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CanvasPicking.h</includes>
@@ -4145,6 +4237,7 @@
     <filename>MainWindow_8cpp.html</filename>
     <includes id="MainWindow_8h" name="MainWindow.h" local="yes" import="no" module="no" objc="no">Editor/Ui/MainWindow.h</includes>
     <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
     <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
     <includes id="Autosave_8h" name="Autosave.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Autosave.h</includes>
     <includes id="CityView_8h" name="CityView.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CityView.h</includes>
@@ -4200,6 +4293,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
     <filename>MapPropertiesDialog_8cpp.html</filename>
     <includes id="MapPropertiesDialog_8h" name="MapPropertiesDialog.h" local="yes" import="no" module="no" objc="no">Editor/Ui/MapPropertiesDialog.h</includes>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -4220,6 +4314,8 @@
     <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
     <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
     <includes id="TileTypeName_8h" name="TileTypeName.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileTypeName.h</includes>
+    <includes id="DayLight_8h" name="DayLight.h" local="yes" import="no" module="no" objc="no">Core/World/DayLight.h</includes>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
     <includes id="WorldGraph_8h" name="WorldGraph.h" local="yes" import="no" module="no" objc="no">Core/World/WorldGraph.h</includes>
     <includes id="CanvasPicking_8h" name="CanvasPicking.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CanvasPicking.h</includes>
     <includes id="LayerView_8h" name="LayerView.h" local="yes" import="no" module="no" objc="no">Editor/Logic/LayerView.h</includes>
@@ -4239,6 +4335,7 @@
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Editor/Ui/</path>
     <filename>MapRender_8h.html</filename>
     <includes id="Rect_8h" name="Rect.h" local="yes" import="no" module="no" objc="no">Core/Math/Rect.h</includes>
+    <includes id="DayLight_8h" name="DayLight.h" local="yes" import="no" module="no" objc="no">Core/World/DayLight.h</includes>
     <includes id="CanvasScene_8h" name="CanvasScene.h" local="yes" import="no" module="no" objc="no">Editor/Logic/CanvasScene.h</includes>
     <includes id="Stamps_8h" name="Stamps.h" local="yes" import="no" module="no" objc="no">Editor/Logic/Stamps.h</includes>
     <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
@@ -4871,6 +4968,22 @@
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
+    <name>LightingBlock.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>LightingBlock_8cpp.html</filename>
+    <includes id="LightingBlock_8h" name="LightingBlock.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/LightingBlock.h</includes>
+    <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>LightingBlock.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>LightingBlock_8h.html</filename>
+    <includes id="SceneLighting_8h" name="SceneLighting.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneLighting.h</includes>
+    <class kind="class">hmi::LightingBlock</class>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
     <name>MaquettePalette.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>MaquettePalette_8h.html</filename>
@@ -4901,6 +5014,7 @@
     <filename>MeshBatch_8cpp.html</filename>
     <includes id="MeshBatch_8h" name="MeshBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MeshBatch.h</includes>
     <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
+    <includes id="LightingBlock_8h" name="LightingBlock.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/LightingBlock.h</includes>
     <includes id="RhiContext_8h" name="RhiContext.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RhiContext.h</includes>
     <includes id="RhiShaders_8h" name="RhiShaders.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RhiShaders.h</includes>
     <namespace>hmi</namespace>
@@ -4911,9 +5025,12 @@
     <filename>MeshBatch_8h.html</filename>
     <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="SceneLighting_8h" name="SceneLighting.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneLighting.h</includes>
     <includes id="TextureLoader_8h" name="TextureLoader.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/TextureLoader.h</includes>
+    <class kind="struct">hmi::MeshLighting</class>
     <class kind="class">hmi::MeshBatch</class>
     <class kind="struct">hmi::MeshBatch::GpuMesh</class>
+    <class kind="struct">hmi::MeshBatch::Pipeline</class>
     <class kind="struct">hmi::MeshBatch::Draw</class>
     <namespace>hmi</namespace>
   </compound>
@@ -5011,6 +5128,7 @@
     <class kind="struct">hmi::SpriteQuad</class>
     <class kind="struct">hmi::PolyQuad</class>
     <class kind="struct">hmi::LineQuad</class>
+    <class kind="struct">hmi::SpriteShading</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5045,6 +5163,28 @@
     <name>RhiShaders.h</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
     <filename>RhiShaders_8h.html</filename>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>SceneLighting.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>SceneLighting_8cpp.html</filename>
+    <includes id="SceneLighting_8h" name="SceneLighting.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneLighting.h</includes>
+    <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
+    <namespace>hmi</namespace>
+  </compound>
+  <compound kind="file">
+    <name>SceneLighting.h</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/</path>
+    <filename>SceneLighting_8h.html</filename>
+    <includes id="Rect_8h" name="Rect.h" local="yes" import="no" module="no" objc="no">Core/Math/Rect.h</includes>
+    <includes id="DayLight_8h" name="DayLight.h" local="yes" import="no" module="no" objc="no">Core/World/DayLight.h</includes>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
+    <class kind="struct">hmi::WorldShadowBox</class>
+    <class kind="struct">hmi::WorldLighting</class>
+    <class kind="struct">hmi::LightingUniforms</class>
+    <class kind="struct">hmi::SceneLightFrame</class>
     <namespace>hmi</namespace>
   </compound>
   <compound kind="file">
@@ -5108,6 +5248,7 @@
     <filename>SpriteBatch_8cpp.html</filename>
     <includes id="SpriteBatch_8h" name="SpriteBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SpriteBatch.h</includes>
     <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
+    <includes id="LightingBlock_8h" name="LightingBlock.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/LightingBlock.h</includes>
     <includes id="RhiShaders_8h" name="RhiShaders.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/RhiShaders.h</includes>
     <namespace>hmi</namespace>
   </compound>
@@ -5231,13 +5372,16 @@
     <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
     <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
     <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
     <includes id="ScenePlace_8h" name="ScenePlace.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePlace.h</includes>
     <includes id="SkeletonPose_8h" name="SkeletonPose.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonPose.h</includes>
     <includes id="Dialogue_8h" name="Dialogue.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Dialogue.h</includes>
+    <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
     <includes id="CityBlock_8h" name="CityBlock.h" local="yes" import="no" module="no" objc="no">Core/World/CityBlock.h</includes>
     <includes id="CombatZone_8h" name="CombatZone.h" local="yes" import="no" module="no" objc="no">Core/World/CombatZone.h</includes>
     <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
     <includes id="EntityPresence_8h" name="EntityPresence.h" local="yes" import="no" module="no" objc="no">Core/World/EntityPresence.h</includes>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
     <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
     <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
@@ -5254,9 +5398,11 @@
     <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
     <includes id="TileType_8h" name="TileType.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileType.h</includes>
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="MaquettePalette_8h" name="MaquettePalette.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquettePalette.h</includes>
     <includes id="MaquetteTokens_8h" name="MaquetteTokens.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquetteTokens.h</includes>
+    <includes id="SceneLighting_8h" name="SceneLighting.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneLighting.h</includes>
     <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
     <class kind="struct">hmi::WorldFigureSnapshot</class>
     <class kind="struct">hmi::MaquetteTokenSnapshot</class>
@@ -5279,9 +5425,11 @@
     <includes id="AssetMarker_8h" name="AssetMarker.h" local="yes" import="no" module="no" objc="no">Core/Resources/AssetMarker.h</includes>
     <includes id="MeshFile_8h" name="MeshFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/MeshFile.h</includes>
     <includes id="SkeletonFile_8h" name="SkeletonFile.h" local="yes" import="no" module="no" objc="no">Core/Resources/SkeletonFile.h</includes>
+    <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
     <includes id="EntityMarkers_8h" name="EntityMarkers.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/EntityMarkers.h</includes>
     <includes id="GraphicsLog_8h" name="GraphicsLog.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/GraphicsLog.h</includes>
     <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
+    <includes id="LightingBlock_8h" name="LightingBlock.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/LightingBlock.h</includes>
     <includes id="MaquetteTokens_8h" name="MaquetteTokens.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MaquetteTokens.h</includes>
     <includes id="MeshBatch_8h" name="MeshBatch.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MeshBatch.h</includes>
     <includes id="MissingTexture_8h" name="MissingTexture.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/MissingTexture.h</includes>
@@ -5298,6 +5446,7 @@
     <includes id="Vector2_8h" name="Vector2.h" local="yes" import="no" module="no" objc="no">Core/Math/Vector2.h</includes>
     <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
     <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
+    <includes id="SceneLighting_8h" name="SceneLighting.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneLighting.h</includes>
     <includes id="ScenePieces_8h" name="ScenePieces.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ScenePieces.h</includes>
     <includes id="SceneResources_8h" name="SceneResources.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneResources.h</includes>
     <includes id="SceneTextureTraits_8h" name="SceneTextureTraits.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneTextureTraits.h</includes>
@@ -5714,6 +5863,7 @@
     <includes id="LogLevelParse_8h" name="LogLevelParse.h" local="yes" import="no" module="no" objc="no">Core/Diagnostics/LogLevelParse.h</includes>
     <includes id="Logger_8h" name="Logger.h" local="yes" import="no" module="no" objc="no">Core/Diagnostics/Logger.h</includes>
     <includes id="ExplorationSession_8h" name="ExplorationSession.h" local="yes" import="no" module="no" objc="no">Core/World/ExplorationSession.h</includes>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
     <includes id="DebugCommands_8h" name="DebugCommands.h" local="yes" import="no" module="no" objc="no">HMI/Game/DebugCommands.h</includes>
     <includes id="LaunchOptions_8h" name="LaunchOptions.h" local="yes" import="no" module="no" objc="no">HMI/Game/LaunchOptions.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
@@ -6053,6 +6203,7 @@
     <filename>WorldViewportItem_8cpp.html</filename>
     <includes id="WorldViewportItem_8h" name="WorldViewportItem.h" local="yes" import="no" module="no" objc="no">HMI/Runtime/WorldViewportItem.h</includes>
     <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="DayLight_8h" name="DayLight.h" local="yes" import="no" module="no" objc="no">Core/World/DayLight.h</includes>
     <includes id="PlaceCamera_8h" name="PlaceCamera.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceCamera.h</includes>
     <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
     <includes id="HmiLog_8h" name="HmiLog.h" local="yes" import="no" module="no" objc="no">HMI/HmiLog.h</includes>
@@ -11435,6 +11586,66 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_world_light.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/World/</path>
+    <filename>test__world__light_8cpp.html</filename>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="ScenePieceManifest_8h" name="ScenePieceManifest.h" local="yes" import="no" module="no" objc="no">Core/Resources/ScenePieceManifest.h</includes>
+    <includes id="DayLight_8h" name="DayLight.h" local="yes" import="no" module="no" objc="no">Core/World/DayLight.h</includes>
+    <includes id="EntityKinds_8h" name="EntityKinds.h" local="yes" import="no" module="no" objc="no">Core/World/EntityKinds.h</includes>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__light_8cpp.html</anchorfile>
+      <anchor>a0af97a3eb9d109893e4c6ad35b560acf</anchor>
+      <arglist>(WorldClockTest, LHeureAvancePasseMinuitEtSeFige)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__light_8cpp.html</anchorfile>
+      <anchor>a1180fe0cc8f166d62e2960ea8b445276</anchor>
+      <arglist>(WorldClockTest, UneHeureSEcritEtSeRelit)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__light_8cpp.html</anchorfile>
+      <anchor>ab1e1bab01eeafbd361e0591489df46cc</anchor>
+      <arglist>(DayLightTest, LaTableInterpoleEtPasseMinuit)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__light_8cpp.html</anchorfile>
+      <anchor>a93b0e358a5ac0bcf9386be9e2bacc7ea</anchor>
+      <arglist>(DayLightTest, LaLumiereNeSautePas)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__light_8cpp.html</anchorfile>
+      <anchor>afa49a2cbcb38be680b96351a24b39127</anchor>
+      <arglist>(DayLightTest, LaTableLivreeSeLitEtUneFausseEstRefusee)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__light_8cpp.html</anchorfile>
+      <anchor>a702e5bd3af956ae0186b1bfec39b08e5</anchor>
+      <arglist>(LightSourceTest, UneEntiteLightDonneUneSource)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__world__light_8cpp.html</anchorfile>
+      <anchor>ad6eac19ea68092b95f6369e83ee7161a</anchor>
+      <arglist>(LightSourceTest, UnePieceDuManifesteDeclareSaLumiere)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_world_travel.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/World/</path>
     <filename>test__world__travel_8cpp.html</filename>
@@ -14136,6 +14347,50 @@
     </member>
   </compound>
   <compound kind="file">
+    <name>test_lit_render.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__lit__render_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="LevelLoader_8h" name="LevelLoader.h" local="yes" import="no" module="no" objc="no">Core/Levels/LevelLoader.h</includes>
+    <includes id="DayLight_8h" name="DayLight.h" local="yes" import="no" module="no" objc="no">Core/World/DayLight.h</includes>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
+    <includes id="WorldClock_8h" name="WorldClock.h" local="yes" import="no" module="no" objc="no">Core/World/WorldClock.h</includes>
+    <includes id="OffscreenRender_8h" name="OffscreenRender.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/OffscreenRender.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="SceneLighting_8h" name="SceneLighting.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneLighting.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <includes id="WorldSceneRenderer_8h" name="WorldSceneRenderer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneRenderer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__lit__render_8cpp.html</anchorfile>
+      <anchor>ad1de87fc3501c45e18fc60d354d2f517</anchor>
+      <arglist>(LitRenderTest, LaCarteDEssaiSeRendAuxQuatreHeures)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__lit__render_8cpp.html</anchorfile>
+      <anchor>a975e96f1a0753e471dfcbf92170da012</anchor>
+      <arglist>(LitRenderTest, AMidiLaLumiereNeChangePasLaFacture)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__lit__render_8cpp.html</anchorfile>
+      <anchor>af2d946edd3b5b2f4ec17f4f38699342c</anchor>
+      <arglist>(LitRenderTest, LesMaillagesJettentUneOmbreQueLeReglageRetire)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__lit__render_8cpp.html</anchorfile>
+      <anchor>a68971f5576bd6b15a9f038988666aeab</anchor>
+      <arglist>(LitRenderTest, UneLumiereDeNuitEclaireAutourDElle)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
     <name>test_maquette_tokens.cpp</name>
     <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
     <filename>test__maquette__tokens_8cpp.html</filename>
@@ -14292,6 +14547,13 @@
       <anchorfile>test__mesh__render_8cpp.html</anchorfile>
       <anchor>a9fa1e9033fb6063aded3ba7e807cf87f</anchor>
       <arglist>(MeshRenderTest, LePointageDUneCaseEstCeluiDAvant)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__mesh__render_8cpp.html</anchorfile>
+      <anchor>a9e3e396c2a97b9e149d83094170e993c</anchor>
+      <arglist>(MeshRenderTest, LAnticrenelageAdoucitLeBordDesMaillages)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -14752,6 +15014,66 @@
       <anchorfile>test__scene__folders_8cpp.html</anchorfile>
       <anchor>ae2f1a9fdc9020930e36e3beb19b5c470</anchor>
       <arglist>(SceneFoldersTest, LAncreDUnePieceRangeeSeLitDansLeManifesteDuLieu)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>test_scene_lighting.cpp</name>
+    <path>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/</path>
+    <filename>test__scene__lighting_8cpp.html</filename>
+    <includes id="IsoProjection_8h" name="IsoProjection.h" local="yes" import="no" module="no" objc="no">Core/Combat/IsoProjection.h</includes>
+    <includes id="Level_8h" name="Level.h" local="yes" import="no" module="no" objc="no">Core/Levels/Level.h</includes>
+    <includes id="MapEntity_8h" name="MapEntity.h" local="yes" import="no" module="no" objc="no">Core/Levels/MapEntity.h</includes>
+    <includes id="TileLayer_8h" name="TileLayer.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileLayer.h</includes>
+    <includes id="TileMap_8h" name="TileMap.h" local="yes" import="no" module="no" objc="no">Core/Levels/TileMap.h</includes>
+    <includes id="Scale_8h" name="Scale.h" local="yes" import="no" module="no" objc="no">Core/Rpg/Scale.h</includes>
+    <includes id="DayLight_8h" name="DayLight.h" local="yes" import="no" module="no" objc="no">Core/World/DayLight.h</includes>
+    <includes id="LightSource_8h" name="LightSource.h" local="yes" import="no" module="no" objc="no">Core/World/LightSource.h</includes>
+    <includes id="ComposedScene_8h" name="ComposedScene.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/ComposedScene.h</includes>
+    <includes id="IsoView_8h" name="IsoView.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/IsoView.h</includes>
+    <includes id="PlaceAppearance_8h" name="PlaceAppearance.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/PlaceAppearance.h</includes>
+    <includes id="SceneLighting_8h" name="SceneLighting.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/SceneLighting.h</includes>
+    <includes id="WorldSceneComposer_8h" name="WorldSceneComposer.h" local="yes" import="no" module="no" objc="no">HMI/Graphics/WorldSceneComposer.h</includes>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__lighting_8cpp.html</anchorfile>
+      <anchor>a3bfa43aab05c5524746a03501e96ab73</anchor>
+      <arglist>(SceneLightingTest, LeBlocEstNeutreParDefautEtDitLaLumiereDeLHeure)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__lighting_8cpp.html</anchorfile>
+      <anchor>ace699e69eb03b64a6ea04bde095b4247</anchor>
+      <arglist>(SceneLightingTest, LaCarteDOmbresCouvreLImageEtGlisseParTexels)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__lighting_8cpp.html</anchorfile>
+      <anchor>a93c955b9bcd6330dc16058ad91411196</anchor>
+      <arglist>(SceneLightingTest, LesLumieresDeNuitSontChoisiesPourLImage)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__lighting_8cpp.html</anchorfile>
+      <anchor>a7839e6a35ef9612d3c51dff30984b7c5</anchor>
+      <arglist>(SceneLightingTest, LesMatricesSInversentEtSeComposent)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__lighting_8cpp.html</anchorfile>
+      <anchor>aa0fe8f6e942d27ab7c3e6f1de7512c4e</anchor>
+      <arglist>(SceneLightingTest, UneCarteReleveSesLumieresEtSesBoitesDOmbre)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__scene__lighting_8cpp.html</anchorfile>
+      <anchor>ac80503eb3a537761167289cf86d8e6b0</anchor>
+      <arglist>(SceneLightingTest, ChaquePrimitiveDitCeQuElleRecoit)</arglist>
     </member>
   </compound>
   <compound kind="file">
@@ -15797,6 +16119,13 @@
       <anchorfile>test__ui__preferences__and__inventory_8cpp.html</anchorfile>
       <anchor>a982428c959474696b372caafcc8aeefb</anchor>
       <arglist>(UiPreferencesTest, HudSizeIsBoundedAndSurvivesReload)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>TEST</name>
+      <anchorfile>test__ui__preferences__and__inventory_8cpp.html</anchorfile>
+      <anchor>a05732b1dd076fbb4bb3e273483016208</anchor>
+      <arglist>(UiPreferencesTest, RenderSettingsTakeOnlyOfferedValues)</arglist>
     </member>
     <member kind="function">
       <type></type>
@@ -24818,6 +25147,13 @@
   <compound kind="struct">
     <name>hmi::ComposedQuad</name>
     <filename>structhmi_1_1ComposedQuad.html</filename>
+    <member kind="function">
+      <type>SpriteShading</type>
+      <name>shading</name>
+      <anchorfile>structhmi_1_1ComposedQuad.html</anchorfile>
+      <anchor>a7672d8cf9a2d3804b241a975e59608a4</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
     <member kind="variable">
       <type>RenderLayer</type>
       <name>layer</name>
@@ -24902,6 +25238,13 @@
       <anchor>a2ef2a5e645fee15467d36e8c4aaf38e2</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>glow</name>
+      <anchorfile>structhmi_1_1ComposedQuad.html</anchorfile>
+      <anchor>a539cbff4db1703e70bdede9b6b82e9d7</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::ComposedScene</name>
@@ -24945,8 +25288,8 @@
       <type>bool</type>
       <name>addSprite</name>
       <anchorfile>classhmi_1_1ComposedScene.html</anchorfile>
-      <anchor>a776bb0228de0fffc9caded06d5bc3e46</anchor>
-      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const SpriteQuad &amp;quad, int storey=0, const core::Rect &amp;occlusion={}, std::optional&lt; float &gt; footY=std::nullopt)</arglist>
+      <anchor>a5aaf4ee97410652c4f4b51854eb424c5</anchor>
+      <arglist>(RenderLayer layer, TextureHandle texture, std::int32_t sortOrder, const SpriteQuad &amp;quad, int storey=0, const core::Rect &amp;occlusion={}, std::optional&lt; float &gt; footY=std::nullopt, float glow=0.0F)</arglist>
     </member>
     <member kind="function">
       <type>bool</type>
@@ -25972,6 +26315,204 @@
       <name>trace</name>
       <anchorfile>structcore_1_1DamageWork.html</anchorfile>
       <anchor>aa783bbb5659ba98b03df5f3d340b4bec</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::DayLight</name>
+    <filename>structcore_1_1DayLight.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1DayLight.html</anchorfile>
+      <anchor>ac148b5f6d327d6730ac6ffe1f7f4f842</anchor>
+      <arglist>(const DayLight &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>LightColor</type>
+      <name>tint</name>
+      <anchorfile>structcore_1_1DayLight.html</anchorfile>
+      <anchor>a42d184985331fb350a201516c3f56bda</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>LightColor</type>
+      <name>ambient</name>
+      <anchorfile>structcore_1_1DayLight.html</anchorfile>
+      <anchor>a1263c005d37ae31ca9dab9a33eab01bc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>LightColor</type>
+      <name>sun</name>
+      <anchorfile>structcore_1_1DayLight.html</anchorfile>
+      <anchor>a435ed77b2134474d516f72575a67cd64</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>toSun</name>
+      <anchorfile>structcore_1_1DayLight.html</anchorfile>
+      <anchor>a96f5c9e6d0c26c78895b9a712833e93b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>shadow</name>
+      <anchorfile>structcore_1_1DayLight.html</anchorfile>
+      <anchor>aff940b26504bb16a66cbee1f1b039a8b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>lamps</name>
+      <anchorfile>structcore_1_1DayLight.html</anchorfile>
+      <anchor>a67fbc31fdfba1dce4ae2d90bbea495fb</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::DayLightKey</name>
+    <filename>structcore_1_1DayLightKey.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1DayLightKey.html</anchorfile>
+      <anchor>afb9f7984325f5b4fa9ba56a540ea09b1</anchor>
+      <arglist>(const DayLightKey &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>minutes</name>
+      <anchorfile>structcore_1_1DayLightKey.html</anchorfile>
+      <anchor>a10e24095626135be6337b451cb292342</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>LightColor</type>
+      <name>tint</name>
+      <anchorfile>structcore_1_1DayLightKey.html</anchorfile>
+      <anchor>ae07982c5f52331001a404705ff38c645</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>LightColor</type>
+      <name>ambient</name>
+      <anchorfile>structcore_1_1DayLightKey.html</anchorfile>
+      <anchor>a159c4fdf9869de1d28e670337b2fe579</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>LightColor</type>
+      <name>sun</name>
+      <anchorfile>structcore_1_1DayLightKey.html</anchorfile>
+      <anchor>aacd5db2e71047e72ddd9e3d44c3a6a50</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>azimuth</name>
+      <anchorfile>structcore_1_1DayLightKey.html</anchorfile>
+      <anchor>a41dbf7a3e37999576a6adf2c213dea19</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>elevation</name>
+      <anchorfile>structcore_1_1DayLightKey.html</anchorfile>
+      <anchor>a2a98e4b0a1e411487adcb54d4204f1d9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>shadow</name>
+      <anchorfile>structcore_1_1DayLightKey.html</anchorfile>
+      <anchor>aa3ea698606e707743ccfcd93a3511cf8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>lamps</name>
+      <anchorfile>structcore_1_1DayLightKey.html</anchorfile>
+      <anchor>a7d8bac6bd5726f25678bf6bfbc2bee41</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>core::DayLightTable</name>
+    <filename>classcore_1_1DayLightTable.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>DayLightTable</name>
+      <anchorfile>classcore_1_1DayLightTable.html</anchorfile>
+      <anchor>a64b980c3debc27c9b8a6fb1023b1d442</anchor>
+      <arglist>()=default</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>DayLightTable</name>
+      <anchorfile>classcore_1_1DayLightTable.html</anchorfile>
+      <anchor>aace1a4d97eafdbca79191f4acf2a6d7b</anchor>
+      <arglist>(std::vector&lt; DayLightKey &gt; keys)</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; DayLightKey &gt; &amp;</type>
+      <name>keys</name>
+      <anchorfile>classcore_1_1DayLightTable.html</anchorfile>
+      <anchor>ace4964785ae4e50dcd6c1246ae87088c</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>DayLight</type>
+      <name>sample</name>
+      <anchorfile>classcore_1_1DayLightTable.html</anchorfile>
+      <anchor>ad8b54f59d860be6457c4632d3fdbe919</anchor>
+      <arglist>(float minutes) const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>classcore_1_1DayLightTable.html</anchorfile>
+      <anchor>a95619b10bb8e29a17604fc78e257cb36</anchor>
+      <arglist>(const DayLightTable &amp;) const =default</arglist>
+    </member>
+    <member kind="function" static="yes">
+      <type>static const DayLightTable &amp;</type>
+      <name>factory</name>
+      <anchorfile>classcore_1_1DayLightTable.html</anchorfile>
+      <anchor>a14ac579e0d035a6310f04ebeb73c0a40</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::vector&lt; DayLightKey &gt;</type>
+      <name>_keys</name>
+      <anchorfile>classcore_1_1DayLightTable.html</anchorfile>
+      <anchor>ac7a96ee6584abc5de9624a01477d8e55</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::DayLightTableResult</name>
+    <filename>structcore_1_1DayLightTableResult.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>ok</name>
+      <anchorfile>structcore_1_1DayLightTableResult.html</anchorfile>
+      <anchor>a7f52b628a13b129ab61538237da6224b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable">
+      <type>DayLightTable</type>
+      <name>table</name>
+      <anchorfile>structcore_1_1DayLightTableResult.html</anchorfile>
+      <anchor>adf53ee163dce111d8929583c77740dc1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::string</type>
+      <name>message</name>
+      <anchorfile>structcore_1_1DayLightTableResult.html</anchorfile>
+      <anchor>a5629bb3bc85c1b9fc7efec2b3633d516</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -28006,6 +28547,13 @@
       <anchor>a87f6a7aaeb5f1c762b0439578ab9608e</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>MeshLighting</type>
+      <name>lighting</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1Draw.html</anchorfile>
+      <anchor>a45a24d7ab4c51ead9b4e7cc823da02d2</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>hmi::EditContextTarget</name>
@@ -28710,6 +29258,20 @@
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
       <anchor>a9f13d18b7e5c97c8ada215ece2745577</anchor>
       <arglist>(std::optional&lt; core::GridPosition &gt; from=std::nullopt)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLightHour</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>aba4fb44174099cfd4ef0c5ea25be51c1</anchor>
+      <arglist>(std::optional&lt; float &gt; minutes)</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::optional&lt; float &gt; &amp;</type>
+      <name>lightHour</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a69ba074e59ac4446bee60559f448fdaa</anchor>
+      <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -29621,6 +30183,13 @@
       <anchor>a44e7f1b24929d08333e8ced958c06f72</anchor>
       <arglist>() const</arglist>
     </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyLighting</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a11e08a10ec027e0ce825f4a516edce90</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="variable" protection="private">
       <type>QGraphicsScene *</type>
       <name>_canvasScene</name>
@@ -29906,6 +30475,27 @@
       <name>_playTimer</name>
       <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
       <anchor>a69e8e8563c25971d1c32c991e96f8ef6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::optional&lt; float &gt;</type>
+      <name>_lightHour</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>ace74b62a8e01a4f0242127db1088c8b2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>core::DayLightTable</type>
+      <name>_lightTable</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a0dfb7adfc4c3d62dcfd9d2fe2bb8960c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_playSeconds</name>
+      <anchorfile>classhmi_1_1EditorViewport.html</anchorfile>
+      <anchor>a59a40a4362b5aaa4f20ed1e5f15df8b0</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -32292,6 +32882,27 @@
       <arglist>() const noexcept</arglist>
     </member>
     <member kind="function">
+      <type>const WorldClock &amp;</type>
+      <name>clock</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>aa3ce8f07462234ed8cae4c52ff86f254</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>WorldClock &amp;</type>
+      <name>clock</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>a7b268311ce3f6e3640de13bcbb356c80</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>shownMinutes</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>ae4c06ccb881a6fbc711473ea6bb2298b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
       <type>void</type>
       <name>freeze</name>
       <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
@@ -32485,6 +33096,13 @@
       <name>_frozen</name>
       <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
       <anchor>a6aa8df4a937fec8ed16b697738d99994</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>WorldClock</type>
+      <name>_clock</name>
+      <anchorfile>classcore_1_1ExplorationSession.html</anchorfile>
+      <anchor>aa836e8199e082e253eb9d1fe2c3d7d29</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -37346,6 +37964,404 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>core::LightColor</name>
+    <filename>structcore_1_1LightColor.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1LightColor.html</anchorfile>
+      <anchor>af862704de2886a0a987553e0f1769359</anchor>
+      <arglist>(const LightColor &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>r</name>
+      <anchorfile>structcore_1_1LightColor.html</anchorfile>
+      <anchor>a5a5a459f86216711d3811873e431679c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>g</name>
+      <anchorfile>structcore_1_1LightColor.html</anchorfile>
+      <anchor>a4ff29628046eb94e9f4839a8a08ae397</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>b</name>
+      <anchorfile>structcore_1_1LightColor.html</anchorfile>
+      <anchor>a3eafefecfd16ea8b0626dc5cf16edf95</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::LightEmission</name>
+    <filename>structcore_1_1LightEmission.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>a5a079e4155ec0ff549cdd1b1caaba84c</anchor>
+      <arglist>(const LightEmission &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>LightColor</type>
+      <name>color</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>ad5fc93391a87e39ede4f6bae371e33cd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>radius</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>a27dc39c1381f5352b4107593a2c722e4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>height</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>ab34c6acad60a772ec4af9aae1e04eb6c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>intensity</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>a13222f41d88e9009af1c86f8f95e1abf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>flicker</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>a630f83f98d7dc2693cc774b54570f74f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>always</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>a64ba0a9106d05f87306f36d2e98804a1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr LightColor</type>
+      <name>DEFAULT_COLOR</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>a83131664e4988a7d2b1268e5d7b26926</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>DEFAULT_RADIUS_METRES</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>a03d06c8adcf5bedc145c2f9424f12d0d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>DEFAULT_HEIGHT_METRES</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>a8b7640d65e0d5fd7397da8ca534e68c1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>MAXIMUM_RADIUS_METRES</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>ab8ffee6ff69615529a08c45bbfefe2dd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>MAXIMUM_HEIGHT_METRES</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>af74be159684f17d446a7cb5745e4bfba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>MAXIMUM_INTENSITY</name>
+      <anchorfile>structcore_1_1LightEmission.html</anchorfile>
+      <anchor>ab9a4c2b2726e7ef96a25e58512a73826</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>hmi::LightingBlock</name>
+    <filename>classhmi_1_1LightingBlock.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>LightingBlock</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>ac8663307c744c7f52f6d135fe49d0f96</anchor>
+      <arglist>(QRhi *rhi)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~LightingBlock</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>ad897f146fdfdef601b938872e60484d3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LightingBlock</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a6c87d472aa8a3632ea28ddf2f2e028bb</anchor>
+      <arglist>(const LightingBlock &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>LightingBlock &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>ac1fa935a93b6b12ba0799255c4267688</anchor>
+      <arglist>(const LightingBlock &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>QRhiShaderResourceBinding</type>
+      <name>uniformBinding</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a76bd3f059a8b4776fd5637f48cf15875</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QRhiShaderResourceBinding</type>
+      <name>shadowBinding</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>ab2b397f66fbc05bdae21da83bac612b4</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>std::uint64_t</type>
+      <name>revision</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>ad5c367e4e676e9505bec10ade5388615</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>upload</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a33930bdeb0b27d5e05428d8cd0a8a60c</anchor>
+      <arglist>(QRhiResourceUpdateBatch *updates, const LightingUniforms &amp;uniforms)</arglist>
+    </member>
+    <member kind="function">
+      <type>QRhiResourceUpdateBatch *</type>
+      <name>takePendingUpload</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a2c487618067e92ef79d8201d3ce7b84e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>QRhiTextureRenderTarget *</type>
+      <name>ensureShadowMap</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>ac7e1ee2d098546768f56876950c38c4e</anchor>
+      <arglist>(int size)</arglist>
+    </member>
+    <member kind="function">
+      <type>QRhiTextureRenderTarget *</type>
+      <name>shadowTarget</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a4cd2398d7aa80bf7c24fa0f9b900b6b9</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr int</type>
+      <name>UNIFORM_BINDING</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a4cdda5a045ac94cf2bdeb79d9dfc4531</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr int</type>
+      <name>SHADOW_BINDING</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a5ec965a6753a7c2b4b47740888232409</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr int</type>
+      <name>MINIMUM_SHADOW_SIZE</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>abd4c7d41d4739ae9cb6aa5ba54ba5c2e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr int</type>
+      <name>MAXIMUM_SHADOW_SIZE</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a4e62f1c7e706c61df3444ac454d5eeb8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>bool</type>
+      <name>createMap</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a1214b6bff1704007dacf74e94febc46d</anchor>
+      <arglist>(int size, bool withTarget)</arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QRhi *</type>
+      <name>_rhi</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a4d8bdcd91f9e9e97f028b9850fec09e0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiBuffer &gt;</type>
+      <name>_buffer</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a8a18772ee42c19b6ec0d48786a4db848</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiSampler &gt;</type>
+      <name>_sampler</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>abe37b396a9f92810bbbf5da967a39f14</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiTexture &gt;</type>
+      <name>_map</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>ababed22e946c9300df4afc82f4ac08c2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiRenderPassDescriptor &gt;</type>
+      <name>_pass</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a94e850c32d140ad8249d4b2bdaf4f355</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiTextureRenderTarget &gt;</type>
+      <name>_target</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a7a78356770bafb35dc23b5cdda6d24d1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_size</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>ac822c80201b74cb2ca59b5e40de36d06</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::uint64_t</type>
+      <name>_revision</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>a3b60de77ccf04b6ffcf06b868a474a99</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QRhiResourceUpdateBatch *</type>
+      <name>_pendingUpload</name>
+      <anchorfile>classhmi_1_1LightingBlock.html</anchorfile>
+      <anchor>ae10fb18460c59c9d918760885e46665d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::LightingUniforms</name>
+    <filename>structhmi_1_1LightingUniforms.html</filename>
+    <member kind="variable">
+      <type>LightMatrix</type>
+      <name>viewToShadow</name>
+      <anchorfile>structhmi_1_1LightingUniforms.html</anchorfile>
+      <anchor>ac4e22647c20ff166ed290c550eea9fcf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 4 &gt;</type>
+      <name>tint</name>
+      <anchorfile>structhmi_1_1LightingUniforms.html</anchorfile>
+      <anchor>ad764851df144d046446fb65d4d255686</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 4 &gt;</type>
+      <name>ambient</name>
+      <anchorfile>structhmi_1_1LightingUniforms.html</anchorfile>
+      <anchor>aae900e707139b2e64b631d9b6f8567f5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 4 &gt;</type>
+      <name>sun</name>
+      <anchorfile>structhmi_1_1LightingUniforms.html</anchorfile>
+      <anchor>a8fde1612e69cd2efb763fa317f322903</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 4 &gt;</type>
+      <name>toSun</name>
+      <anchorfile>structhmi_1_1LightingUniforms.html</anchorfile>
+      <anchor>a38b1262af213ec223e2d816877a5bbe8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; float, 4 &gt;</type>
+      <name>up</name>
+      <anchorfile>structhmi_1_1LightingUniforms.html</anchorfile>
+      <anchor>a59cab2ac55a8db16db473c90c9f9790e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; std::array&lt; float, 4 &gt;, MAXIMUM_SCENE_LIGHTS &gt;</type>
+      <name>lightPosition</name>
+      <anchorfile>structhmi_1_1LightingUniforms.html</anchorfile>
+      <anchor>a4f2a523dbb27111e8c1fbf978c81289d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::array&lt; std::array&lt; float, 4 &gt;, MAXIMUM_SCENE_LIGHTS &gt;</type>
+      <name>lightColor</name>
+      <anchorfile>structhmi_1_1LightingUniforms.html</anchorfile>
+      <anchor>a8969d208f5d48a06969fc6c12313003e</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>core::LightSource</name>
+    <filename>structcore_1_1LightSource.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structcore_1_1LightSource.html</anchorfile>
+      <anchor>a0a244dfa700ff8216a64762f47b2924b</anchor>
+      <arglist>(const LightSource &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>column</name>
+      <anchorfile>structcore_1_1LightSource.html</anchorfile>
+      <anchor>a85db9f57edd185e25e4774c60ba93c36</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>row</name>
+      <anchorfile>structcore_1_1LightSource.html</anchorfile>
+      <anchor>a4bba0873803d0624c0df6448f858bb42</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>LightEmission</type>
+      <name>emission</name>
+      <anchorfile>structcore_1_1LightSource.html</anchorfile>
+      <anchor>a5e189fc03e1d416a452dd4a7e3df6d65</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::LineQuad</name>
     <filename>structhmi_1_1LineQuad.html</filename>
     <member kind="function">
@@ -37820,6 +38836,13 @@
       <anchor>ab6940837dc62d495d934ae0d0e4e4284</anchor>
       <arglist>(const MainWindow &amp;)=delete</arglist>
     </member>
+    <member kind="function">
+      <type>void</type>
+      <name>showLightHour</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a3307642b4abe23c9eb0f758db753b86f</anchor>
+      <arglist>(float minutes)</arglist>
+    </member>
     <member kind="function" protection="protected">
       <type>void</type>
       <name>closeEvent</name>
@@ -38261,6 +39284,13 @@
       <anchor>a5e2887cd1592ff97d25ae5f65861b7a0</anchor>
       <arglist>(const char *label, const std::string &amp;content)</arglist>
     </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyLightHour</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a285b84ca6ed6b902430f59f450b427d7</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function" protection="private" static="yes">
       <type>static int</type>
       <name>partyLevel</name>
@@ -38399,6 +39429,27 @@
       <name>_toolBar</name>
       <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
       <anchor>ab33c6cdb6968b9fb8550383780597a57</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QCheckBox *</type>
+      <name>_lightingCheck</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a462509187709bcde2f4aab1796d45960</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QSlider *</type>
+      <name>_hourSlider</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>abba52da2ee0e9238fef01c3fc49f587c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QLabel *</type>
+      <name>_hourLabel</name>
+      <anchorfile>classhmi_1_1MainWindow.html</anchorfile>
+      <anchor>a4adf52f1c8bea20035aa1e68f30b6c05</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -39371,6 +40422,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::string</type>
+      <name>hour</name>
+      <anchorfile>structhmi_1_1MapPropertiesChoice.html</anchorfile>
+      <anchor>a51a402274ffe8e04f6a374928a5cd801</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>MapState</type>
       <name>state</name>
       <anchorfile>structhmi_1_1MapPropertiesChoice.html</anchorfile>
@@ -39562,6 +40620,13 @@
       <name>canvas</name>
       <anchorfile>structhmi_1_1MapRenderOptions.html</anchorfile>
       <anchor>a8bd822402428740d579f84c04786eed2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; float &gt;</type>
+      <name>hour</name>
+      <anchorfile>structhmi_1_1MapRenderOptions.html</anchorfile>
+      <anchor>a3c0f680fcdd693399dc28d5c2f1e7e7d</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -40143,6 +41208,7 @@
     <name>hmi::MeshBatch</name>
     <filename>classhmi_1_1MeshBatch.html</filename>
     <class kind="struct">hmi::MeshBatch::GpuMesh</class>
+    <class kind="struct">hmi::MeshBatch::Pipeline</class>
     <class kind="struct">hmi::MeshBatch::Draw</class>
     <member kind="function">
       <type></type>
@@ -40187,6 +41253,13 @@
       <arglist>() noexcept</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>destroy</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a1892f3e9d64c3f83ab5d3b0ad5439637</anchor>
+      <arglist>(MeshHandle mesh) noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>std::size_t</type>
       <name>bytes</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
@@ -40204,8 +41277,15 @@
       <type>void</type>
       <name>draw</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
-      <anchor>afd8c62b4c3b682ba49a614907b7ebbae</anchor>
-      <arglist>(MeshHandle mesh, const DirectX::XMFLOAT4X4 &amp;clip, float opacity=1.0F, std::span&lt; const float &gt; bones={})</arglist>
+      <anchor>a64dee9f3c5b84b0c62586eadc9249caa</anchor>
+      <arglist>(MeshHandle mesh, const DirectX::XMFLOAT4X4 &amp;clip, float opacity=1.0F, std::span&lt; const float &gt; bones={}, const MeshLighting &amp;lighting={})</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLighting</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a70106e8f0e664f02b21465ebcf383245</anchor>
+      <arglist>(LightingBlock *lighting)</arglist>
     </member>
     <member kind="function">
       <type>std::size_t</type>
@@ -40235,6 +41315,20 @@
       <anchor>a19a3ef7a34a1cf66253febd88a53dcb2</anchor>
       <arglist>(QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target)</arglist>
     </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>prepareShadow</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a242863cb02c89f9c11c181991804e290</anchor>
+      <arglist>(QRhiRenderTarget *target)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>recordShadow</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a771a766058a6747787ad47b0ff221091</anchor>
+      <arglist>(QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target)</arglist>
+    </member>
     <member kind="variable" static="yes">
       <type>static constexpr std::size_t</type>
       <name>MAX_BONES</name>
@@ -40246,15 +41340,29 @@
       <type>bool</type>
       <name>ensurePipeline</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
-      <anchor>a7d35e80c397a56814213d241c401c374</anchor>
-      <arglist>(QRhiRenderTarget *target)</arglist>
+      <anchor>adf88ebff78083b6d3c14dc654e8ff4ac</anchor>
+      <arglist>(Pipeline &amp;kept, QRhiRenderTarget *target, bool skinned, bool shadow)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>bool</type>
-      <name>ensureSkinnedPipeline</name>
+      <name>ensureLayouts</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
-      <anchor>a709244fb4b33eb4c71a864496faa3a0e</anchor>
-      <arglist>(QRhiRenderTarget *target)</arglist>
+      <anchor>a35569474153ca7154af266f9f34e8691</anchor>
+      <arglist>(bool skinned)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>resetBindings</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a5119ca8a78ad9d4b50d9caddb5b1ac52</anchor>
+      <arglist>(bool skinnedOnly)</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>LightingBlock *</type>
+      <name>lighting</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>ad9f3dde3ccbe7f4434aa4e82325cd5c1</anchor>
+      <arglist>() const noexcept</arglist>
     </member>
     <member kind="function" protection="private">
       <type>bool</type>
@@ -40306,6 +41414,27 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; LightingBlock &gt;</type>
+      <name>_ownLighting</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a724a581738e9aea6066292d7f0a385b9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>LightingBlock *</type>
+      <name>_lighting</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>af947ca77e0af70db99af74d4fff368cd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::uint64_t</type>
+      <name>_lightingRevision</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a513c21542edac8d1f5dd5491bec838b4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
       <type>std::unique_ptr&lt; QRhiShaderResourceBindings &gt;</type>
       <name>_layoutBindings</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
@@ -40313,17 +41442,24 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>std::unique_ptr&lt; QRhiGraphicsPipeline &gt;</type>
+      <type>Pipeline</type>
       <name>_pipeline</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
-      <anchor>a42f001059e4fe8944ba6b7741bbbea39</anchor>
+      <anchor>a02e2eeb0aba95d70f9e9fd031fdf6d8e</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>QRhiRenderPassDescriptor *</type>
-      <name>_pipelinePass</name>
+      <type>std::unique_ptr&lt; QRhiShaderResourceBindings &gt;</type>
+      <name>_shadowBindings</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
-      <anchor>a997b9fc656c22d9ca49f542cda2600c3</anchor>
+      <anchor>ad2b9b230e122ceaf813518967f23710b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>Pipeline</type>
+      <name>_shadowPipeline</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a8168183aa8830ae060e61d33f24a5432</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -40355,17 +41491,24 @@
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>std::unique_ptr&lt; QRhiGraphicsPipeline &gt;</type>
+      <type>Pipeline</type>
       <name>_skinnedPipeline</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
-      <anchor>ae78ae12f0d35fc7f1f7d538058815a05</anchor>
+      <anchor>a6c59cda6a41423dd40249ea0dd6b8ebc</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
-      <type>QRhiRenderPassDescriptor *</type>
-      <name>_skinnedPipelinePass</name>
+      <type>std::unique_ptr&lt; QRhiShaderResourceBindings &gt;</type>
+      <name>_skinnedShadowBindings</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
-      <anchor>a61b948b2346403c0c7efba9d5417552b</anchor>
+      <anchor>ae5af07f0b26dd87a397b9660c411f371</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>Pipeline</type>
+      <name>_skinnedShadowPipeline</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>a8e5e35b55394afc778a780bcd93b70b8</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -40415,6 +41558,13 @@
       <name>_drawable</name>
       <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
       <anchor>ac21a115426f9f0babc594fbfdf891103</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_shadowDrawable</name>
+      <anchorfile>classhmi_1_1MeshBatch.html</anchorfile>
+      <anchor>acca912b9592d6cf1377a48358ac95fee</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -40670,6 +41820,31 @@
       <name>rotation</name>
       <anchorfile>structcore_1_1MeshJointTrack.html</anchorfile>
       <anchor>a6edcf4574ba8a83d4f51c9549ce2aa5d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::MeshLighting</name>
+    <filename>structhmi_1_1MeshLighting.html</filename>
+    <member kind="variable">
+      <type>LightMatrix</type>
+      <name>toView</name>
+      <anchorfile>structhmi_1_1MeshLighting.html</anchorfile>
+      <anchor>af836f8a2d0b9df94dc19af058c634333</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>LightMatrix</type>
+      <name>toShadowClip</name>
+      <anchorfile>structhmi_1_1MeshLighting.html</anchorfile>
+      <anchor>a9aac8bd442d369764062918958b5ca67</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>castsOnly</name>
+      <anchorfile>structhmi_1_1MeshLighting.html</anchorfile>
+      <anchor>a6525f0810ccde3d8808358f6204f64bf</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -41135,8 +42310,8 @@
       <type>QImage</type>
       <name>render</name>
       <anchorfile>classhmi_1_1OffscreenRhi.html</anchorfile>
-      <anchor>ae2fb680e56a4f9b52d0106f5925a62d8</anchor>
-      <arglist>(WorldSceneRenderer &amp;renderer, QSize size, const WorldFraming &amp;framing, const QColor &amp;clear, int tileSide=OFFSCREEN_TILE_SIDE)</arglist>
+      <anchor>a97dd156d808af3ff50372a43a3daa26e</anchor>
+      <arglist>(WorldSceneRenderer &amp;renderer, QSize size, const WorldFraming &amp;framing, const QColor &amp;clear, int tileSide=OFFSCREEN_TILE_SIDE, int samples=1)</arglist>
     </member>
     <member kind="function" static="yes">
       <type>static std::shared_ptr&lt; OffscreenRhi &gt;</type>
@@ -41156,8 +42331,8 @@
       <type>bool</type>
       <name>ensureTarget</name>
       <anchorfile>classhmi_1_1OffscreenRhi.html</anchorfile>
-      <anchor>acc4c1e503072d384ae933944e5853880</anchor>
-      <arglist>(QSize size)</arglist>
+      <anchor>a7c14bb5c49799f44aa2477b486133355</anchor>
+      <arglist>(QSize size, int samples)</arglist>
     </member>
     <member kind="variable" protection="private">
       <type>std::unique_ptr&lt; QRhi &gt;</type>
@@ -41171,6 +42346,20 @@
       <name>_texture</name>
       <anchorfile>classhmi_1_1OffscreenRhi.html</anchorfile>
       <anchor>ae9e338ead4b7a40ba0fb18630b3c6839</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; QRhiRenderBuffer &gt;</type>
+      <name>_multisample</name>
+      <anchorfile>classhmi_1_1OffscreenRhi.html</anchorfile>
+      <anchor>a976bd0e73c8b1d1f0bfbd79979ac0dc2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_samples</name>
+      <anchorfile>classhmi_1_1OffscreenRhi.html</anchorfile>
+      <anchor>a3e20fbc91e0dc954df9522761a6269a6</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -41325,6 +42514,27 @@
       <anchor>ab58c4b2199b558425c3b5988dacb4d02</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>antialiasingChanged</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>acf9a10eccc12a709b1f40d324b782c57</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>renderScaleChanged</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a61613b2330d4fbccc61e1463debd14aa</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>shadowsChanged</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>af25fdc9b31af71b787396d72d718b2d8</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="function">
       <type></type>
       <name>OptionsModel</name>
@@ -41379,6 +42589,48 @@
       <name>language</name>
       <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
       <anchor>ab752fc21fbc1785b1685e46abaa5ea34</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>antialiasing</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>add2712b038ff8a1f0e27dbb87e3e23df</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>renderScalePercent</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>ad12cd9a28e7b93dba48fb3de7522d398</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>QList&lt; int &gt;</type>
+      <name>antialiasingLevels</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a34343b6eca6512764cf00beec05eacb4</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QList&lt; int &gt;</type>
+      <name>renderScales</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a5933060836b3b493e92029d9e1c550e3</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>shadows</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>aec3208291e29f5c4f79329fb08922c09</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>QList&lt; int &gt;</type>
+      <name>shadowSizes</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a155ea0ab381e907aab62693948a0f632</anchor>
       <arglist>() const</arglist>
     </member>
     <member kind="function">
@@ -41452,6 +42704,27 @@
       <arglist>(const QString &amp;code)</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>setAntialiasing</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>ac73a6ca42b48c7dabf05af22942d6636</anchor>
+      <arglist>(int samples)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setRenderScalePercent</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>aacd03a93613f4a3053405a2704fe2639</anchor>
+      <arglist>(int percent)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setShadows</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a8d785320d3fe24dc0bc17d4f6e3859df</anchor>
+      <arglist>(int texels)</arglist>
+    </member>
+    <member kind="function">
       <type>Q_INVOKABLE QString</type>
       <name>saveLogs</name>
       <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
@@ -41498,6 +42771,48 @@
       <name>language</name>
       <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
       <anchor>a03c96660aaef740d4ce080cfb9a8f417</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>antialiasing</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a526eddfa647ae6d175c66273c251ab60</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>renderScalePercent</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a546ceb94423be473dc89ba4b0b38f37d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QList&lt; int &gt;</type>
+      <name>antialiasingLevels</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>ac81fb6024ec9abb0c3650e1ee5049963</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QList&lt; int &gt;</type>
+      <name>renderScales</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a234dbe54420d1fc941d5304ba5452193</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>shadows</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a68bdf68cc96189fd3895fa9ec8962d3e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QList&lt; int &gt;</type>
+      <name>shadowSizes</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a3254341163f5adefacd74880b6b313cf</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -41575,6 +42890,27 @@
       <name>_language</name>
       <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
       <anchor>a3493c096100070fb4963a76db2338fbc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_antialiasing</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a6c8377307119cf40b07ec4926231808d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_renderScalePercent</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a541055554a8cc3b66c515380c586aff2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_shadows</name>
+      <anchorfile>classhmi_1_1OptionsModel.html</anchorfile>
+      <anchor>a2c649bc92fc0433673ac8f23a7173202</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -42621,6 +43957,31 @@
       <name>error</name>
       <anchorfile>structhmi_1_1PieceTableResult.html</anchorfile>
       <anchor>a2508b49b737c93f8ee72d11c5a3b013c</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::MeshBatch::Pipeline</name>
+    <filename>structhmi_1_1MeshBatch_1_1Pipeline.html</filename>
+    <member kind="variable">
+      <type>std::unique_ptr&lt; QRhiGraphicsPipeline &gt;</type>
+      <name>pipeline</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1Pipeline.html</anchorfile>
+      <anchor>a1a5f25560b84e9e0b9be93911fd7aaa1</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QRhiRenderPassDescriptor *</type>
+      <name>pass</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1Pipeline.html</anchorfile>
+      <anchor>a32a80844a097ea6cd5bb2a8c4dc29aba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>samples</name>
+      <anchorfile>structhmi_1_1MeshBatch_1_1Pipeline.html</anchorfile>
+      <anchor>a1f304f41838ec1635a6b3be792ae45f4</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -45573,6 +46934,31 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::SceneLightFrame</name>
+    <filename>structhmi_1_1SceneLightFrame.html</filename>
+    <member kind="variable">
+      <type>LightingUniforms</type>
+      <name>uniforms</name>
+      <anchorfile>structhmi_1_1SceneLightFrame.html</anchorfile>
+      <anchor>a3ed662fd6ff1922fd1fbadda0549068f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>LightMatrix</type>
+      <name>metresToShadowClip</name>
+      <anchorfile>structhmi_1_1SceneLightFrame.html</anchorfile>
+      <anchor>a034d30eec899f87b1c9ea209cc5d76e5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>shadows</name>
+      <anchorfile>structhmi_1_1SceneLightFrame.html</anchorfile>
+      <anchor>a6bcbec85fe631f7705874ab9d57a54a9</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>hmi::SceneMesh</name>
     <filename>structhmi_1_1SceneMesh.html</filename>
     <member kind="variable">
@@ -45664,6 +47050,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>std::string</type>
+      <name>family</name>
+      <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
+      <anchor>aadce37f39f265dc0784751d2c7fe28a3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>ScenePieceClass</type>
       <name>pieceClass</name>
       <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
@@ -45738,6 +47131,20 @@
       <name>aliases</name>
       <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
       <anchor>a4c40e2acdc88439674762e5402ba224d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::optional&lt; LightEmission &gt;</type>
+      <name>light</name>
+      <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
+      <anchor>a11ecf895813937c40b2bdf9dfbb961d3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>glow</name>
+      <anchorfile>structcore_1_1ScenePiece.html</anchorfile>
+      <anchor>afaea89c28f89796d8062afd6bea4b259</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -47898,6 +49305,20 @@
       <arglist>(bool enabled) noexcept</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>setShading</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>adb55bd3b4be80b28f021d45b622d41fa</anchor>
+      <arglist>(SpriteShading shading) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLighting</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>ad72727642fde41d9f25430ac98201473</anchor>
+      <arglist>(LightingBlock *lighting)</arglist>
+    </member>
+    <member kind="function">
       <type>QRhiResourceUpdateBatch *</type>
       <name>prepare</name>
       <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
@@ -47922,8 +49343,8 @@
       <type>std::unique_ptr&lt; QRhiGraphicsPipeline &gt;</type>
       <name>createPipeline</name>
       <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
-      <anchor>a8a560c8e55b33b34a616539e3b1f7767</anchor>
-      <arglist>(QRhiRenderPassDescriptor *pass, bool depthTest)</arglist>
+      <anchor>a47e4aa606b610c571334d32dc56293ca</anchor>
+      <arglist>(QRhiRenderPassDescriptor *pass, int samples, bool depthTest)</arglist>
     </member>
     <member kind="function" protection="private">
       <type>bool</type>
@@ -47953,11 +49374,46 @@
       <anchor>a84a3a7057dab5bee8408b368cacfe612</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="function" protection="private">
+      <type>LightingBlock *</type>
+      <name>lighting</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>a15c10ca14258fae28dd939f9e0012116</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
     <member kind="variable" protection="private">
       <type>QRhi *</type>
       <name>_rhi</name>
       <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
       <anchor>afcfcb3f0f6cf5f2b96f21d72c04a7868</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; LightingBlock &gt;</type>
+      <name>_ownLighting</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>aa6327b8fa5d2bb9c0ad6e1a0b5dcb6f0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>LightingBlock *</type>
+      <name>_lighting</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>a1b2e566d0cadf76986f7aa585a5bd47d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::uint64_t</type>
+      <name>_lightingRevision</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>af4cbf1e7d8c1bc3e10d18074c0679292</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>SpriteShading</type>
+      <name>_shading</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>aa7ea900c3c80ec5de4da8671fe71e42a</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -48028,6 +49484,13 @@
       <name>_pipelinePass</name>
       <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
       <anchor>afbed412aa1ed69cb7f2ff6578ab10d3c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_pipelineSamples</name>
+      <anchorfile>classhmi_1_1SpriteBatch.html</anchorfile>
+      <anchor>a6a6199590053eaa3e8ae0243602b852f</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -48207,6 +49670,31 @@
       <name>a</name>
       <anchorfile>structhmi_1_1SpriteQuad.html</anchorfile>
       <anchor>a93b181adcb81b4e6d1ecbb2c7965108f</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::SpriteShading</name>
+    <filename>structhmi_1_1SpriteShading.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1SpriteShading.html</anchorfile>
+      <anchor>a248fd95b9179d6db36bfac8f6d3b7a5a</anchor>
+      <arglist>(const SpriteShading &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>lit</name>
+      <anchorfile>structhmi_1_1SpriteShading.html</anchorfile>
+      <anchor>ad53a462f0ce1ba67b9a5e747c139ce73</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>shadowed</name>
+      <anchorfile>structhmi_1_1SpriteShading.html</anchorfile>
+      <anchor>a0e198c672c28157cfea75079dbf88de5</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -49464,6 +50952,20 @@
       <anchor>a75f33a9e7282bcd3cd0df7bc1e08870d</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>lit</name>
+      <anchorfile>structhmi_1_1SpriteBatch_1_1Vertex.html</anchorfile>
+      <anchor>a7353f776a42978abcfa204f7e1d824b6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>shadowed</name>
+      <anchorfile>structhmi_1_1SpriteBatch_1_1Vertex.html</anchorfile>
+      <anchor>aec5bd3f62053c2380aa7bc8ed4482df2</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>core::View</name>
@@ -49781,6 +51283,13 @@
       <name>play</name>
       <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
       <anchor>a981935e53b6192d852fe2b4d1e13c777</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>QComboBox *</type>
+      <name>hour</name>
+      <anchorfile>structhmi_1_1AssetWorkshop_1_1Widgets.html</anchorfile>
+      <anchor>afdd004a1907dec7b656aed18481e86e3</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -50168,6 +51677,108 @@
       <name>_systems</name>
       <anchorfile>classcore_1_1World.html</anchorfile>
       <anchor>a6727aa6a37f820c7ae6d7555c27d55a1</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>core::WorldClock</name>
+    <filename>classcore_1_1WorldClock.html</filename>
+    <member kind="function">
+      <type>float</type>
+      <name>minutes</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a2b4938e7215acf6248bc6dcd69246ef8</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>hours</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a2d6a10ae1a0810b3f24b35275141658d</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>day</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a68871e790af13fc8f179bc178e9f4a34</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMinutes</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a14f736366c3d9be96a2e65c16e59d0d6</anchor>
+      <arglist>(float minutes) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>advance</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>aae3d1233b65f5128f4146dcb428739ae</anchor>
+      <arglist>(float seconds) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>running</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a5cb4aad2179010c1c1917577c1e2b2ba</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setRunning</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a70bce3282c74e1c08a589f8f3e1a74a0</anchor>
+      <arglist>(bool running) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a99b11e36d09f467f8662288ef6cf71fd</anchor>
+      <arglist>(const WorldClock &amp;) const =default</arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>MINUTES_PER_DAY</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a36c4e4b31d6cedb48192a66153c9a780</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>GAME_MINUTES_PER_SECOND</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a6b56589da18b5708ce5ee7ca868fc44f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" static="yes">
+      <type>static constexpr float</type>
+      <name>START_MINUTES</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a10847951aa658aa295b2e4345084b73d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_minutes</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>ae68166afdb0b9b5f49c0788623be6b4e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_day</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a3b6b7a85b775727083cb9637635cbf05</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>bool</type>
+      <name>_running</name>
+      <anchorfile>classcore_1_1WorldClock.html</anchorfile>
+      <anchor>a823092efbd7028221c325c6c6ff606ce</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -50886,6 +52497,45 @@
     </member>
   </compound>
   <compound kind="struct">
+    <name>hmi::WorldLighting</name>
+    <filename>structhmi_1_1WorldLighting.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1WorldLighting.html</anchorfile>
+      <anchor>a2e7af0bcb3db5f4c930cd5675656942d</anchor>
+      <arglist>(const WorldLighting &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>core::DayLight</type>
+      <name>light</name>
+      <anchorfile>structhmi_1_1WorldLighting.html</anchorfile>
+      <anchor>ad688a4d2f1ce14706a5a2b2832ba946e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>bool</type>
+      <name>shadows</name>
+      <anchorfile>structhmi_1_1WorldLighting.html</anchorfile>
+      <anchor>a6de1869f8dd3207c36ccb4d0341fc1bc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>int</type>
+      <name>shadowSize</name>
+      <anchorfile>structhmi_1_1WorldLighting.html</anchorfile>
+      <anchor>a2f91e2c52abcf93209375ee865982e1b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>seconds</name>
+      <anchorfile>structhmi_1_1WorldLighting.html</anchorfile>
+      <anchor>a4ec375ff30fc72177254a7d0267d746d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
     <name>core::WorldMapInput</name>
     <filename>structcore_1_1WorldMapInput.html</filename>
     <member kind="variable">
@@ -51127,6 +52777,13 @@
     </member>
     <member kind="signal">
       <type>void</type>
+      <name>hourChanged</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a0a5f7fa1ec0b960a6df13def41b1037f</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
       <name>heroMoved</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a0fa7eb478594477e7068a98c0936e5eb</anchor>
@@ -51271,6 +52928,34 @@
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>aa6c9dd581496acd75d2c0ecb94b5aa44</anchor>
       <arglist>(const QStringList &amp;flags)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setStartHour</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ad2c130aee78aaf17a20053a5cde912f7</anchor>
+      <arglist>(std::optional&lt; float &gt; minutes)</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>lightMinutes</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a164833563b15f46b667ef0a0599823d2</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>float</type>
+      <name>lightSeconds</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a83206d211640784c048fed49c9e5c451</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>hour</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a52ba61fd942bdfd507173f18362ed92e</anchor>
+      <arglist>() const</arglist>
     </member>
     <member kind="function">
       <type>Q_INVOKABLE QString</type>
@@ -51778,6 +53463,13 @@
     </member>
     <member kind="property">
       <type>QString</type>
+      <name>hour</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>ada5d5e031da7be37501fe1c171f6b2f3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
       <name>cityLocation</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>acf424613f83cbc23a161f7e8d960d33c</anchor>
@@ -51998,6 +53690,27 @@
       <name>_startFlags</name>
       <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
       <anchor>a4ef356b5ee7c5b34080f460a048b7fa4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::optional&lt; float &gt;</type>
+      <name>_startHour</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a22c0e146979306eaa1a89ebb26228139</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>float</type>
+      <name>_lightSeconds</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>aeac8c6e11f1926828f5f322d679680a9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>QString</type>
+      <name>_shownHour</name>
+      <anchorfile>classhmi_1_1WorldModel.html</anchorfile>
+      <anchor>a50939b2b51aa2b3b8b172fc4dce3518c</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable" protection="private">
@@ -52585,6 +54298,27 @@
       <arglist>(WorldComposeOptions options) noexcept</arglist>
     </member>
     <member kind="function">
+      <type>void</type>
+      <name>setLighting</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a18e173bbebfd58baa10914d88164250e</anchor>
+      <arglist>(std::optional&lt; WorldLighting &gt; lighting) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::optional&lt; WorldLighting &gt; &amp;</type>
+      <name>lighting</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>ad53b0185df69cdcf4a45252ad8829c06</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const SceneLightFrame &amp;</type>
+      <name>lightFrame</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a6da55f01f737e6588fddc51282b7f796</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
       <type>bool</type>
       <name>prepare</name>
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
@@ -52674,6 +54408,13 @@
       <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
       <anchor>a8815860ac208e1a7f941d78a5a9dc7d3</anchor>
       <arglist>() const</arglist>
+    </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>rebuildShadowBoxes</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>acdb4d71571c32c291648f1c653d4d032</anchor>
+      <arglist>()</arglist>
     </member>
     <member kind="function" protection="private">
       <type>std::optional&lt; LoadedTexture &gt;</type>
@@ -52850,6 +54591,34 @@
       <anchor>a4b8adcaabf36c1c7ab71cd8d411eba99</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable" protection="private">
+      <type>std::optional&lt; WorldLighting &gt;</type>
+      <name>_lighting</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a6976bf5f15cb569572cd5ff64d8f672e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>SceneLightFrame</type>
+      <name>_lightFrame</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a84b3ea037e8f716603d7c6243abb8e38</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>std::unique_ptr&lt; LightingBlock &gt;</type>
+      <name>_lightingBlock</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>a8e6a5b5dc286e72637c1bbce09122cc9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>MeshHandle</type>
+      <name>_shadowBoxes</name>
+      <anchorfile>classhmi_1_1WorldSceneRenderer.html</anchorfile>
+      <anchor>ac25cc5b6cb35fc5f85171c5c8544e323</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::WorldSceneSnapshot</name>
@@ -52994,6 +54763,27 @@
       <anchor>a575f623efd821f68adab02944b81eebf</anchor>
       <arglist></arglist>
     </member>
+    <member kind="variable">
+      <type>std::vector&lt; core::LightSource &gt;</type>
+      <name>lights</name>
+      <anchorfile>structhmi_1_1WorldSceneSnapshot.html</anchorfile>
+      <anchor>aafd26607a1a3308950ce262d3967a87b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::vector&lt; WorldShadowBox &gt;</type>
+      <name>shadowBoxes</name>
+      <anchorfile>structhmi_1_1WorldSceneSnapshot.html</anchorfile>
+      <anchor>a433b6c14b9ce8f047502c93122de5c0f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>std::map&lt; std::string, float, std::less&lt;&gt; &gt;</type>
+      <name>glows</name>
+      <anchorfile>structhmi_1_1WorldSceneSnapshot.html</anchorfile>
+      <anchor>a1aac6028d2955a80436dae48965ab79d</anchor>
+      <arglist></arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>hmi::WorldSceneSource</name>
@@ -53017,6 +54807,66 @@
       <name>entities</name>
       <anchorfile>structhmi_1_1WorldSceneSource.html</anchorfile>
       <anchor>ae07f3241de6be7a67f14494f1dd8dd17</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>hmi::WorldShadowBox</name>
+    <filename>structhmi_1_1WorldShadowBox.html</filename>
+    <member kind="function">
+      <type>bool</type>
+      <name>operator==</name>
+      <anchorfile>structhmi_1_1WorldShadowBox.html</anchorfile>
+      <anchor>af08f3ef586100bf6a1eb0c3cad2868c0</anchor>
+      <arglist>(const WorldShadowBox &amp;) const =default</arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>column</name>
+      <anchorfile>structhmi_1_1WorldShadowBox.html</anchorfile>
+      <anchor>a505d0390d59db9297a06ddd8541b3513</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>row</name>
+      <anchorfile>structhmi_1_1WorldShadowBox.html</anchorfile>
+      <anchor>a2df2c18cab67f0c23654aa318d173f71</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>columns</name>
+      <anchorfile>structhmi_1_1WorldShadowBox.html</anchorfile>
+      <anchor>a0cfbb2a44fea9782d7d8e5c8293f0095</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>rows</name>
+      <anchorfile>structhmi_1_1WorldShadowBox.html</anchorfile>
+      <anchor>a999e7685993a5538573fc1a450b822aa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>base</name>
+      <anchorfile>structhmi_1_1WorldShadowBox.html</anchorfile>
+      <anchor>acd7e60321cb0344b4a6d9aae2a348438</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>height</name>
+      <anchorfile>structhmi_1_1WorldShadowBox.html</anchorfile>
+      <anchor>a117e218aac1ab9c27f911fcc96e6c9ba</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>float</type>
+      <name>top</name>
+      <anchorfile>structhmi_1_1WorldShadowBox.html</anchorfile>
+      <anchor>a09683939b487a764c0423df034720a34</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -53309,6 +55159,20 @@
     </member>
     <member kind="signal">
       <type>void</type>
+      <name>renderScalePercentChanged</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>ace87718cd6f4c5e9419823670aeb355e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>shadowSizeChanged</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>a4f624466b2ea5724dbe81604417ae952</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
       <name>framingChanged</name>
       <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
       <anchor>a44b0b9b18da29ffd6923ee4bf9f470da</anchor>
@@ -53348,6 +55212,34 @@
       <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
       <anchor>a258310ac7a37b9b61fcbe108b62ee4c9</anchor>
       <arglist>(const QColor &amp;color)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>renderScalePercent</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>a0d744055820fef29d931289ef375e20d</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setRenderScalePercent</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>acd2fd58aabbc1938aa3cd92542ed20f8</anchor>
+      <arglist>(int percent)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>shadowSize</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>abe21cdd2c61b9183e1d915d3d0710bbf</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setShadowSize</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>af22f964c76dde97823461f92f2a5696d</anchor>
+      <arglist>(int texels)</arglist>
     </member>
     <member kind="function">
       <type>qreal</type>
@@ -53391,6 +55283,13 @@
       <anchor>ab8b67e28851df55bf00241ba69a00a7c</anchor>
       <arglist>() override</arglist>
     </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>itemChange</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>a22a6322fa952cfc4a6d7482e09432aee</anchor>
+      <arglist>(ItemChange change, const ItemChangeData &amp;value) override</arglist>
+    </member>
     <member kind="property">
       <type>hmi::WorldModel *</type>
       <name>model</name>
@@ -53403,6 +55302,20 @@
       <name>clearColor</name>
       <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
       <anchor>ad53fd20fad0cc665d0b02db9920e7bc8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>renderScalePercent</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>a07c74686d6edc1cc4a7f26a3192a8cb7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>shadowSize</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>a4b45c3aed5497ea139c329d956e2654f</anchor>
       <arglist></arglist>
     </member>
     <member kind="property">
@@ -53447,6 +55360,13 @@
       <anchor>ae82f1ab368ce7d0086df08bef3b41335</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="function" protection="private">
+      <type>void</type>
+      <name>applyRenderScale</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>a43be4500a7eb5c631adcacef7fc7026c</anchor>
+      <arglist>()</arglist>
+    </member>
     <member kind="variable" protection="private">
       <type>QPointer&lt; WorldModel &gt;</type>
       <name>_model</name>
@@ -53487,6 +55407,20 @@
       <name>_clearColor</name>
       <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
       <anchor>adfdc6f3c1cde80deb30ac77286470758</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_renderScalePercent</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>aa7b9d9ef1d92b27e76608be68921a1de</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="private">
+      <type>int</type>
+      <name>_shadowSize</name>
+      <anchorfile>classhmi_1_1WorldViewportItem.html</anchorfile>
+      <anchor>a2ce7d616ad39ee79f2d82b84e510ad2c</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -53794,6 +55728,10 @@
     <class kind="struct">core::CityPlanResult</class>
     <class kind="struct">core::CombatZone</class>
     <class kind="struct">core::CombatZoneTerrain</class>
+    <class kind="struct">core::DayLightKey</class>
+    <class kind="struct">core::DayLight</class>
+    <class kind="class">core::DayLightTable</class>
+    <class kind="struct">core::DayLightTableResult</class>
     <class kind="struct">core::EntityPropertySpec</class>
     <class kind="struct">core::EntityKind</class>
     <class kind="struct">core::EntityReferenceContext</class>
@@ -53805,6 +55743,10 @@
     <class kind="struct">core::ExplorationEvent</class>
     <class kind="class">core::ExplorationSession</class>
     <class kind="class">core::FollowTrail</class>
+    <class kind="struct">core::LightColor</class>
+    <class kind="struct">core::LightEmission</class>
+    <class kind="struct">core::LightSource</class>
+    <class kind="class">core::WorldClock</class>
     <class kind="struct">core::WorldMapInput</class>
     <class kind="struct">core::WorldMapNode</class>
     <class kind="struct">core::WorldPortalLink</class>
@@ -56880,6 +58822,27 @@
       <arglist>(const Level &amp;level, const CombatZone &amp;zone)</arglist>
     </member>
     <member kind="function">
+      <type>std::array&lt; float, 3 &gt;</type>
+      <name>sunDirection</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a94237b32074221faae4a6dc10ad13668</anchor>
+      <arglist>(float azimuth, float elevation) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>DayLightTableResult</type>
+      <name>readDayLightTable</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a77edf069b7f3d072387c875d1e348e03</anchor>
+      <arglist>(std::string_view json)</arglist>
+    </member>
+    <member kind="function">
+      <type>DayLightTableResult</type>
+      <name>readDayLightTableFile</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a1ccc1a698be6795160eba9961f945c83</anchor>
+      <arglist>(const std::filesystem::path &amp;path)</arglist>
+    </member>
+    <member kind="function">
       <type>const std::vector&lt; EntityKind &gt; &amp;</type>
       <name>knownEntityKinds</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -56983,6 +58946,41 @@
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a99be71340077821d583e53bf779c689d</anchor>
       <arglist>(GridPosition cell) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; LightColor &gt;</type>
+      <name>parseLightColor</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a66f72f5f732b685e0b60d51c58ca512e</anchor>
+      <arglist>(std::string_view text) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; LightSource &gt;</type>
+      <name>lightSourceOf</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a0141b044522bc38dd34b087a5b6c4d32</anchor>
+      <arglist>(const MapEntity &amp;entity)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; float &gt;</type>
+      <name>parseClockTime</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aaac58647b624c4e1f7618d43a0b56dcb</anchor>
+      <arglist>(std::string_view text) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::optional&lt; float &gt;</type>
+      <name>mapFixedMinutes</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aa8d2bd97dc739ab6c5c9a8cf9f5fcfa0</anchor>
+      <arglist>(const PropertyMap &amp;properties)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::string</type>
+      <name>formatClockTime</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a1463005a247ccccace3880fa139f6b66</anchor>
+      <arglist>(float minutes)</arglist>
     </member>
     <member kind="function">
       <type>WorldGraph</type>
@@ -57545,6 +59543,20 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>constexpr int</type>
+      <name>DAYLIGHT_FORMAT_VERSION</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ac15608f9efade22527684232484f9c7b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>DAYLIGHT_FILE</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a3a3b9c65a5cac7b7e24f540235fa97bb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>constexpr std::string_view</type>
       <name>PORTAL_ENTITY_TYPE</name>
       <anchorfile>namespacecore.html</anchorfile>
@@ -57717,6 +59729,118 @@
       <name>PRESENCE_VALUE_PROPERTY</name>
       <anchorfile>namespacecore.html</anchorfile>
       <anchor>a15e781af46f3ae8ec71feb9974b9f139</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>LIGHT_ENTITY_TYPE</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a264335fa53cb1258f8b0918fcc6c6cae</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>LIGHT_COLOR_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a8fee65f5d41ec70b4f149a85d8a66e46</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>LIGHT_RADIUS_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aece89b3deb8c220706a4981fed3e2b1c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>LIGHT_HEIGHT_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a9e8684acb0d0b5a463992e92975ae320</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>LIGHT_INTENSITY_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ac7df9226b6d7ac764eb730081a2e253a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>LIGHT_FLICKER_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>acf8046a268ad92e4c0ecb42438aae945</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>LIGHT_ALWAYS_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a50fc0ef4be6a06cbd37729cbda7e4d6f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>LIGHT_RADIUS_CELLS_DEFAULT</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aa626a285147843e2ba4cf34c51246bfd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>LIGHT_RADIUS_CELLS_MAXIMUM</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>accd9850d134a649460f8bb06831de7df</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>LIGHT_HEIGHT_DECIMETRES_DEFAULT</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>abbc5ab4b1de767066179526e1595e00f</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>LIGHT_HEIGHT_DECIMETRES_MAXIMUM</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ac90241c2d484ef7bb30ac999ea4c08bf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>LIGHT_INTENSITY_PERCENT_DEFAULT</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a2dba51c4f4085d745b7c84f4e861c649</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>LIGHT_INTENSITY_PERCENT_MINIMUM</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aabedcb38d8069e6080d6ebec5474a21b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr int</type>
+      <name>LIGHT_INTENSITY_PERCENT_MAXIMUM</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>aeab7eb7d5d4c30b85380ffd6a7999b65</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>LIGHT_COLOR_DEFAULT</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>ae592e197ba18bd5773166fb4c318d43c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::string_view</type>
+      <name>MAP_HOUR_PROPERTY</name>
+      <anchorfile>namespacecore.html</anchorfile>
+      <anchor>a5a6cb8086a90e77e9fbd904bea3a09ac</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
@@ -57961,9 +60085,11 @@
     <class kind="class">hmi::ComposedScene</class>
     <class kind="struct">hmi::DepthRange</class>
     <class kind="class">hmi::IsoView</class>
+    <class kind="class">hmi::LightingBlock</class>
     <class kind="struct">hmi::MaquetteColor</class>
     <class kind="struct">hmi::MaquetteShape</class>
     <class kind="struct">hmi::MaquetteTokenRequest</class>
+    <class kind="struct">hmi::MeshLighting</class>
     <class kind="class">hmi::MeshBatch</class>
     <class kind="class">hmi::OffscreenRhi</class>
     <class kind="class">hmi::PlaceAppearance</class>
@@ -57973,8 +60099,13 @@
     <class kind="struct">hmi::SpriteQuad</class>
     <class kind="struct">hmi::PolyQuad</class>
     <class kind="struct">hmi::LineQuad</class>
+    <class kind="struct">hmi::SpriteShading</class>
     <class kind="class">hmi::QuadRecorder</class>
     <class kind="struct">hmi::RhiContext</class>
+    <class kind="struct">hmi::WorldShadowBox</class>
+    <class kind="struct">hmi::WorldLighting</class>
+    <class kind="struct">hmi::LightingUniforms</class>
+    <class kind="struct">hmi::SceneLightFrame</class>
     <class kind="struct">hmi::SceneTexture</class>
     <class kind="struct">hmi::SceneMesh</class>
     <class kind="struct">hmi::SceneFigureModel</class>
@@ -58114,6 +60245,13 @@
       <name>TextureHandle</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a979f7ffd7c87877cb1f65f0d08e4419d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>std::array&lt; float, 16 &gt;</type>
+      <name>LightMatrix</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a2b854a1244b1efda06e401a13ea7d2f9</anchor>
       <arglist></arglist>
     </member>
     <member kind="typedef">
@@ -60089,6 +62227,13 @@
       <arglist>(const core::Rect &amp;painted, float tileWidth, const MapRenderOptions &amp;options)</arglist>
     </member>
     <member kind="function">
+      <type>core::DayLightTable</type>
+      <name>placeDayLight</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ad03f97e66187466ebe6a56db73429910</anchor>
+      <arglist>(const std::filesystem::path &amp;assetsDirectory)</arglist>
+    </member>
+    <member kind="function">
       <type>QImage</type>
       <name>renderMap</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -60502,6 +62647,41 @@
       <arglist>(QRhi *rhi, const DirectX::XMFLOAT4X4 &amp;projection)</arglist>
     </member>
     <member kind="function">
+      <type>LightMatrix</type>
+      <name>toLightMatrix</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>aed7b19b00bb0e017d845e2c9fc44959d</anchor>
+      <arglist>(const ViewTransform &amp;t) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>LightMatrix</type>
+      <name>metresToView</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a7c1212984502441cd0d5d43076ba1c5a</anchor>
+      <arglist>(const IsoView &amp;view) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>LightMatrix</type>
+      <name>multiplied</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a16ddef50f8e40f14d47e890c24102e19</anchor>
+      <arglist>(const LightMatrix &amp;left, const LightMatrix &amp;right) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>LightMatrix</type>
+      <name>invertedAffine</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ab526d60856b188444f20803309d17a9c</anchor>
+      <arglist>(const LightMatrix &amp;m) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>SceneLightFrame</type>
+      <name>buildSceneLighting</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>ab516a1dbb8a93ad2e7542de3a47c9b03</anchor>
+      <arglist>(const IsoView &amp;view, const core::Rect &amp;visible, const WorldLighting &amp;lighting, std::span&lt; const core::LightSource &gt; sources, bool flipShadowRows)</arglist>
+    </member>
+    <member kind="function">
       <type>float</type>
       <name>artTileWidth</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -60596,8 +62776,8 @@
       <type>void</type>
       <name>submitComposedScene</name>
       <anchorfile>namespacehmi.html</anchorfile>
-      <anchor>aab6c130d5df4f7a6ba739eb043380959</anchor>
-      <arglist>(SpriteBatch &amp;batch, const DirectX::XMFLOAT4X4 &amp;projection, const ComposedScene &amp;scene, const SceneDepth *depth=nullptr)</arglist>
+      <anchor>a7b185f9b855b7d1d28e3e99bce9e1d31</anchor>
+      <arglist>(SpriteBatch &amp;batch, const DirectX::XMFLOAT4X4 &amp;projection, const ComposedScene &amp;scene, const SceneDepth *depth=nullptr, bool lit=false)</arglist>
     </member>
     <member kind="function">
       <type>DirectX::XMFLOAT4X4</type>
@@ -61468,6 +63648,13 @@
       <arglist></arglist>
     </member>
     <member kind="variable">
+      <type>constexpr int</type>
+      <name>MAP_RENDER_SHADOW_SIZE</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a2fe297929e4550408ea3bf496b830964</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
       <type>constexpr char</type>
       <name>LAUNCH_LIST_SEPARATOR</name>
       <anchorfile>namespacehmi.html</anchorfile>
@@ -61591,6 +63778,13 @@
       <name>OFFSCREEN_TEXTURE_BUDGET_BYTES</name>
       <anchorfile>namespacehmi.html</anchorfile>
       <anchor>a50c22914893857d88acbf9c3813c0b52</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable">
+      <type>constexpr std::size_t</type>
+      <name>MAXIMUM_SCENE_LIGHTS</name>
+      <anchorfile>namespacehmi.html</anchorfile>
+      <anchor>a1b1c54dda0679c12a902fabdd5136344</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
@@ -62421,6 +64615,8 @@
     <file>EntityMarkers.h</file>
     <file>GraphicsLog.h</file>
     <file>IsoView.h</file>
+    <file>LightingBlock.cpp</file>
+    <file>LightingBlock.h</file>
     <file>MaquettePalette.h</file>
     <file>MaquetteTokens.cpp</file>
     <file>MaquetteTokens.h</file>
@@ -62442,6 +64638,8 @@
     <file>RenderLayer.h</file>
     <file>RhiContext.h</file>
     <file>RhiShaders.h</file>
+    <file>SceneLighting.cpp</file>
+    <file>SceneLighting.h</file>
     <file>ScenePieces.h</file>
     <file>SceneResources.cpp</file>
     <file>SceneResources.h</file>
@@ -62481,6 +64679,7 @@
     <file>test_hd_mockup_render.cpp</file>
     <file>test_image_encode.cpp</file>
     <file>test_iso_view.cpp</file>
+    <file>test_lit_render.cpp</file>
     <file>test_maquette_tokens.cpp</file>
     <file>test_mesh_composition.cpp</file>
     <file>test_mesh_render.cpp</file>
@@ -62493,6 +64692,7 @@
     <file>test_render_culling.cpp</file>
     <file>test_rhi_offscreen.cpp</file>
     <file>test_scene_folders.cpp</file>
+    <file>test_scene_lighting.cpp</file>
     <file>test_static_world_scene.cpp</file>
     <file>test_texture_atlas.cpp</file>
     <file>test_tile_visuals.cpp</file>
@@ -63045,6 +65245,8 @@
     <file>CityPlan.h</file>
     <file>CombatZone.cpp</file>
     <file>CombatZone.h</file>
+    <file>DayLight.cpp</file>
+    <file>DayLight.h</file>
     <file>EntityKinds.cpp</file>
     <file>EntityKinds.h</file>
     <file>EntityPresence.cpp</file>
@@ -63055,6 +65257,10 @@
     <file>ExplorationSession.h</file>
     <file>FollowTrail.cpp</file>
     <file>FollowTrail.h</file>
+    <file>LightSource.cpp</file>
+    <file>LightSource.h</file>
+    <file>WorldClock.cpp</file>
+    <file>WorldClock.h</file>
     <file>WorldGraph.cpp</file>
     <file>WorldGraph.h</file>
     <file>WorldTravel.cpp</file>
@@ -63074,6 +65280,7 @@
     <file>test_exploration_session.cpp</file>
     <file>test_quest_map_features.cpp</file>
     <file>test_world_graph.cpp</file>
+    <file>test_world_light.cpp</file>
     <file>test_world_travel.cpp</file>
   </compound>
   <compound kind="page">

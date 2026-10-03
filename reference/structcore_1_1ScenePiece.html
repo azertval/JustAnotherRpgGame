@@ -165,6 +165,8 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:aa07afc5d2306797a84be1b32a4981a80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fichier image, relatif au dossier du lieu (<span class="tt">wall-left.png</span>) ; vide pour une pièce en maillage.  <br /></td></tr>
 <tr class="memitem:adcddbb5308483c00c06b56a5751a3019" id="r_adcddbb5308483c00c06b56a5751a3019"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#adcddbb5308483c00c06b56a5751a3019">mesh</a></td></tr>
 <tr class="memdesc:adcddbb5308483c00c06b56a5751a3019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fichier de maillage, relatif au dossier du lieu (<span class="tt">walls/wall.glb</span>, <span class="tt">LOT-1003</span>) : la pièce est alors un <b>volume</b>, et non une image.  <br /></td></tr>
+<tr class="memitem:aadce37f39f265dc0784751d2c7fe28a3" id="r_aadce37f39f265dc0784751d2c7fe28a3"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aadce37f39f265dc0784751d2c7fe28a3">family</a></td></tr>
+<tr class="memdesc:aadce37f39f265dc0784751d2c7fe28a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">La famille de la pièce (<span class="tt"><a class="el" href="#aadce37f39f265dc0784751d2c7fe28a3" title="La famille de la pièce (family du manifeste : 02 murs, 08 mobilier…), telle qu&#39;écrite ; vide si le ma...">family</a></span> du manifeste : <span class="tt">02</span> murs, <span class="tt">08</span> mobilier…), telle qu'écrite ; vide si le manifeste ne la donne pas.  <br /></td></tr>
 <tr class="memitem:a922394e6582c74f12072082c93615121" id="r_a922394e6582c74f12072082c93615121"><td class="memItemLeft"><a class="el" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461">ScenePieceClass</a>&#160;</td><td class="memItemRight"><a class="el" href="#a922394e6582c74f12072082c93615121">pieceClass</a> = <a class="el" href="namespacecore.html#a4a3860a249c1a2e07497950f57f4d461a6311ae17c1ee52b36e68aaf4ad066387">ScenePieceClass::Other</a></td></tr>
 <tr class="memitem:a55c584d71565d87dcea8934b154e7c98" id="r_a55c584d71565d87dcea8934b154e7c98"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a55c584d71565d87dcea8934b154e7c98">className</a></td></tr>
 <tr class="memdesc:a55c584d71565d87dcea8934b154e7c98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classe telle qu'écrite (<span class="tt">floor</span>, <span class="tt">tall</span>, <span class="tt">wide</span>…), pour une classe inconnue.  <br /></td></tr>
@@ -183,6 +185,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a9a5d01fa7da564a436751b3a588d2660"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type tactique (<span class="tt"><a class="el" href="#a9a5d01fa7da564a436751b3a588d2660" title="Type tactique (tactical du manifeste).">tactical</a></span> du manifeste).  <br /></td></tr>
 <tr class="memitem:a4c40e2acdc88439674762e5402ba224d" id="r_a4c40e2acdc88439674762e5402ba224d"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4c40e2acdc88439674762e5402ba224d">aliases</a></td></tr>
 <tr class="memdesc:a4c40e2acdc88439674762e5402ba224d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Anciens noms courts sous lesquels une carte peut citer la pièce (<span class="tt"><a class="el" href="#a4c40e2acdc88439674762e5402ba224d" title="Anciens noms courts sous lesquels une carte peut citer la pièce (aliases).">aliases</a></span>).  <br /></td></tr>
+<tr class="memitem:a11ecf895813937c40b2bdf9dfbb961d3" id="r_a11ecf895813937c40b2bdf9dfbb961d3"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1LightEmission.html">LightEmission</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a11ecf895813937c40b2bdf9dfbb961d3">light</a></td></tr>
+<tr class="memdesc:a11ecf895813937c40b2bdf9dfbb961d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">La lumière que la pièce émet (<span class="tt"><a class="el" href="#a11ecf895813937c40b2bdf9dfbb961d3" title="La lumière que la pièce émet (light, LOT-1007) : un lampadaire, un brasero.">light</a></span>, <span class="tt">LOT-1007</span>) : un lampadaire, un brasero.  <br /></td></tr>
+<tr class="memitem:afaea89c28f89796d8062afd6bea4b259" id="r_afaea89c28f89796d8062afd6bea4b259"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#afaea89c28f89796d8062afd6bea4b259">glow</a> = 0.0F</td></tr>
+<tr class="memdesc:afaea89c28f89796d8062afd6bea4b259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce que l'image de la pièce garde de son éclat quand le lieu s'assombrit (<span class="tt"><a class="el" href="#afaea89c28f89796d8062afd6bea4b259" title="Ce que l&#39;image de la pièce garde de son éclat quand le lieu s&#39;assombrit (glow), de 0 — elle prend la ...">glow</a></span>), de 0 — elle prend la teinte de l'heure comme le reste — à 1 — elle reste telle que peinte : une flamme, un vitrail éclairé du dedans.  <br /></td></tr>
 <tr class="memitem:a2ae097df852961297b52126aaa598278" id="r_a2ae097df852961297b52126aaa598278"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a2ae097df852961297b52126aaa598278">directory</a></td></tr>
 <tr class="memdesc:a2ae097df852961297b52126aaa598278"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le dossier du manifeste qui la déclare, relatif à <span class="tt">Assets/</span> (<span class="tt">Regions/central-empire/capital/Common/Scene</span>) ; vide pour un manifeste lu seul.  <br /></td></tr>
 <tr class="memitem:ac36eb97c4fccbb4d271ca7a392fce780" id="r_ac36eb97c4fccbb4d271ca7a392fce780"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ac36eb97c4fccbb4d271ca7a392fce780">level</a></td></tr>
@@ -373,6 +379,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aadce37f39f265dc0784751d2c7fe28a3" name="aadce37f39f265dc0784751d2c7fe28a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadce37f39f265dc0784751d2c7fe28a3">&#9670;&#160;</a></span>family</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::ScenePiece::family</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La famille de la pièce (<span class="tt"><a class="el" href="#aadce37f39f265dc0784751d2c7fe28a3" title="La famille de la pièce (family du manifeste : 02 murs, 08 mobilier…), telle qu&#39;écrite ; vide si le ma...">family</a></span> du manifeste : <span class="tt">02</span> murs, <span class="tt">08</span> mobilier…), telle qu'écrite ; vide si le manifeste ne la donne pas. </p>
+
+</div>
+</div>
 <a id="aa07afc5d2306797a84be1b32a4981a80" name="aa07afc5d2306797a84be1b32a4981a80"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa07afc5d2306797a84be1b32a4981a80">&#9670;&#160;</a></span>file</h2>
 
@@ -419,6 +441,22 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="afaea89c28f89796d8062afd6bea4b259" name="afaea89c28f89796d8062afd6bea4b259"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaea89c28f89796d8062afd6bea4b259">&#9670;&#160;</a></span>glow</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::ScenePiece::glow = 0.0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ce que l'image de la pièce garde de son éclat quand le lieu s'assombrit (<span class="tt"><a class="el" href="#afaea89c28f89796d8062afd6bea4b259" title="Ce que l&#39;image de la pièce garde de son éclat quand le lieu s&#39;assombrit (glow), de 0 — elle prend la ...">glow</a></span>), de 0 — elle prend la teinte de l'heure comme le reste — à 1 — elle reste telle que peinte : une flamme, un vitrail éclairé du dedans. </p>
+
+</div>
+</div>
 <a id="a9529ec69148f8f8a393c21b188dcd7da" name="a9529ec69148f8f8a393c21b188dcd7da"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9529ec69148f8f8a393c21b188dcd7da">&#9670;&#160;</a></span>height</h2>
 
@@ -462,6 +500,23 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Le niveau qui la déclare (<span class="tt"><a class="el" href="structcore_1_1SceneLevel.html#abfcab0aafb3340be62611bafc8763967" title="Le nom du niveau, tel que la palette le montre : « Arena of Fate », « Capital », « World ».">core::SceneLevel::label</a></span>) ; vide pour un manifeste lu seul. </p>
+
+</div>
+</div>
+<a id="a11ecf895813937c40b2bdf9dfbb961d3" name="a11ecf895813937c40b2bdf9dfbb961d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11ecf895813937c40b2bdf9dfbb961d3">&#9670;&#160;</a></span>light</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;<a class="el" href="structcore_1_1LightEmission.html">LightEmission</a>&gt; core::ScenePiece::light</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La lumière que la pièce émet (<span class="tt"><a class="el" href="#a11ecf895813937c40b2bdf9dfbb961d3" title="La lumière que la pièce émet (light, LOT-1007) : un lampadaire, un brasero.">light</a></span>, <span class="tt">LOT-1007</span>) : un lampadaire, un brasero. </p>
+<p>Elle part du centre de son emprise. Absente : la pièce n'éclaire pas. </p>
 
 </div>
 </div>

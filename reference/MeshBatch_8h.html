@@ -147,22 +147,27 @@ $(function(){initNavTree('MeshBatch_8h.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;array&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;span&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;DirectXMath.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="MeshFile_8h_source.html">Core/Resources/MeshFile.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SceneLighting_8h_source.html">HMI/Graphics/SceneLighting.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TextureLoader_8h_source.html">HMI/Graphics/TextureLoader.h</a>&quot;</code><br />
 </div>
 <p><a href="MeshBatch_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3AMeshLighting" id="r_hmi_3A_3AMeshLighting"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MeshLighting.html">hmi::MeshLighting</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'un dessin donne à l'éclairage (<span class="tt">LOT-1007</span>).  <a href="structhmi_1_1MeshLighting.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AMeshBatch" id="r_hmi_3A_3AMeshBatch"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1MeshBatch.html">hmi::MeshBatch</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine des maillages texturés au travers de QRhi : sommets, normales, coordonnées de texture ; profondeur testée <b>et écrite</b> ; couleur de base seule, <b>sans éclairage</b> (la lumière est au <span class="tt">LOT-1007</span>).  <a href="classhmi_1_1MeshBatch.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AMeshBatch_3A_3AGpuMesh" id="r_hmi_3A_3AMeshBatch_3A_3AGpuMesh"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MeshBatch_1_1GpuMesh.html">hmi::MeshBatch::GpuMesh</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un maillage sur le GPU.  <a href="structhmi_1_1MeshBatch_1_1GpuMesh.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AMeshBatch_3A_3APipeline" id="r_hmi_3A_3AMeshBatch_3A_3APipeline"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">hmi::MeshBatch::Pipeline</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quatre pipelines : fixe ou animé, à l'image ou à la carte d'ombres.  <a href="structhmi_1_1MeshBatch_1_1Pipeline.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AMeshBatch_3A_3ADraw" id="r_hmi_3A_3AMeshBatch_3A_3ADraw"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MeshBatch_1_1Draw.html">hmi::MeshBatch::Draw</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un dessin enregistré : un maillage, sa matrice, sa teinte.  <a href="structhmi_1_1MeshBatch_1_1Draw.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">

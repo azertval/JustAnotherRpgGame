@@ -208,7 +208,7 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>L'<b>atelier des assets</b>, vue <em>Character</em> (<span class="tt">LOT-1008</span>, <span class="tt">EX-EDIT-102</span> à <span class="tt">EX-EDIT-104</span>) : écrire la fiche d'un personnage sans ouvrir un fichier. </p>
 <p>Un personnage est une fiche qui lie un modèle, son portrait et son jeton (<span class="tt">Planning/standards/personnages-3d.md</span>). Ce que l'auteur choisit dans la fenêtre <em>Asset workshop</em> tient dans une <b>fiche d'atelier</b> (<span class="tt"><a class="el" href="structhmi_1_1CharacterDraft.html" title="La fiche d&#39;atelier d&#39;un personnage : ce que la vue Character édite.">hmi::CharacterDraft</a></span>), un fichier JSON rangé avec les sources du personnage ; l'installer écrit, sous <span class="tt">Assets/&lt;niveau&gt;/&lt;nom&gt;/</span>, le modèle, la fiche <span class="tt">character.json</span>, le portrait et le jeton, et inscrit le personnage au manifeste de son niveau. Logique <b>pure</b> : la fenêtre l'appelle, <span class="tt">LevelEditor --apply</span> la rejoue sans fenêtre, et les deux écrivent les mêmes octets.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md82"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md89"></a>
 La fiche d'atelier</h2>
 <div class="fragment"><div class="line">{</div>
 <div class="line">  &quot;format&quot;: &quot;jadg-editor-character&quot;,</div>
@@ -234,10 +234,10 @@ La fiche d'atelier</h2>
 <li><span class="tt">model</span>, <span class="tt">portrait</span>, <span class="tt">token</span> : ce qu'on installe. Un champ <b>absent</b> garde ce qui est installé ; un personnage sans modèle installé doit en nommer un.</li>
 <li><span class="tt">workshop</span> : ce dont l'aller-retour par Blender a besoin (<span class="tt"><a class="el" href="namespacehmi.html#a53463b47dceacdd92d4434b99af659c4" title="Les fichiers de l&#39;aller-retour de draft.">hmi::retouchFiles</a></span>, <span class="tt"><a class="el" href="BlenderRetouch_8h.html" title="L&#39;aller-retour par Blender d&#39;un personnage (LOT-1008, EX-EDIT-103, décision D-44) : ce que l&#39;atelier ...">Editor/Logic/BlenderRetouch.h</a></span>) ; l'installation ne le lit pas.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md83"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md90"></a>
 Ce que l'installation vérifie</h2>
 <p>Le modèle se lit, porte un squelette, et <b>chaque clip que sa silhouette déclare</b> ; le portrait fait 512 × 512, le jeton 128 × 128 (<span class="tt">style-3d.md</span>, §7) — l'atelier ne retaille rien, il range ce qui est au standard. Tout est vérifié avant la première écriture : une fiche refusée n'écrit rien.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md84"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md91"></a>
 Le contrôle</h2>
 <p><span class="tt"><a class="el" href="namespacehmi.html#adafafddae0e19b0eece784e0dfb8cca6" title="Contrôle les personnages installés (EX-EDIT-104).">hmi::checkCharacters</a></span> relit ce qui est installé : c'est ce que <span class="tt">LevelEditor --check</span> ajoute au contrôle des cartes, et ce que montre le panneau <em>Problems</em>. </p>
 </div></div><!-- contents -->

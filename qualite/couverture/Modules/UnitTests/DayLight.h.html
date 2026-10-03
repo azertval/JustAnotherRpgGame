@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>DayLight.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;array&gt;
+#include &lt;filesystem&gt;
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+#include &lt;vector&gt;
+
+#include "Core/World/LightSource.h"
+
+/**
+ * @file Core/World/DayLight.h
+ * @brief La **lumiÃ¨re du jour** (`LOT-1007`, `EX-REN-052`) : ce que l'heure du monde fait de la
+ *        lumiÃ¨re, lu dans une table en donnÃ©es.
+ *
+ * ## La table
+ *
+ * `Assets/Common/Lighting/daylight.json` porte une liste de **clÃ©s**, une par heure remarquable ;
+ * entre deux clÃ©s, tout s'interpole en ligne droite, et la derniÃ¨re clÃ© du jour rejoint la
+ * premiÃ¨re du lendemain. Une nuit trop sombre, un couchant trop rouge se rÃ¨glent lÃ , sans
+ * recompiler â la lisibilitÃ© du combat la nuit est un critÃ¨re du lot, et c'est la table qui la
+ * tient.
+ *
+ *     { "version": 1,
+ *       "keys": [ { "time": "12:00", "tint": "#ffffff", "ambient": "#999999", "sun": "#808080",
+ *                   "azimuth": 50, "elevation": 58, "shadow": 0.35, "lamps": 0.0 } ] }
+ *
+ * | Champ | Ce qu'il rÃ¨gle |
+ * |---|---|
+ * | `tint` | ce par quoi une **image** est multipliÃ©e : le dÃ©cor peint, les effets |
+ * | `ambient` | la lumiÃ¨re que reÃ§oit toute face d'un **maillage**, d'oÃ¹ qu'elle regarde |
+ * | `sun` | la lumiÃ¨re **dirigÃ©e** â le soleil le jour, la lune la nuit â sur un maillage |
+ * | `azimuth`, `elevation` | d'oÃ¹ elle vient, en degrÃ©s (voir ci-dessous) |
+ * | `shadow` | ce qu'une ombre portÃ©e retire Ã  une image, de 0 (rien) Ã  1 (le noir) |
+ * | `lamps` | l'allumage des lumiÃ¨res de nuit, de 0 (Ã©teintes) Ã  1 |
+ *
+ * ## D'oÃ¹ vient la lumiÃ¨re
+ *
+ * Le repÃ¨re est celui d'un maillage posÃ© (`hmi::IsoView`) : +X suit les colonnes de la grille, +Z
+ * ses lignes, +Y monte. La camÃ©ra regarde depuis les grands indices : Ã  l'Ã©cran, la **gauche** est
+ * (âX, +Z) et le **fond** (âX, âZ).
+ *
+ * L'azimut tourne dans le plan du sol, de la gauche de l'Ã©cran vers sa droite en passant par le
+ * fond : 0Â° Ã  gauche, 45Â° en haut Ã  gauche (âX), 90Â° au fond, 180Â° Ã  droite ; nÃ©gatif, il passe
+ * par le devant (â90Â° : du cÃ´tÃ© de la camÃ©ra). L'Ã©lÃ©vation est l'angle au-dessus de l'horizon.
+ *
+ * Le dÃ©cor peint porte une lumiÃ¨re Â« du haut Ã  gauche Â» : sa face de gauche est Ã©clairÃ©e, sa face
+ * de droite Ã  l'ombre. C'est un soleil Ã  **0Â°** â Ã  gauche de l'Ã©cran, au-dessus â, et c'est lÃ 
+ * qu'est celui de midi : la lumiÃ¨re du moteur et celle des images ne se contredisent pas Ã 
+ * l'heure oÃ¹ on les compare. Le matin il vient du devant, le soir il passe derriÃ¨re le lieu et
+ * les ombres s'allongent vers la camÃ©ra.
+ *
+ * ## Un sol en maillage et un sol en image se raccordent
+ *
+ * Une face tournÃ©e vers le haut reÃ§oit `ambient + sun Ã (sin(elevation) + 0,3) / 1,3`. La table
+ * livrÃ©e tient cette somme Ã©gale Ã  `tint`, Ã  toute heure : un dallage modelÃ© et un dallage peint
+ * posÃ©s cÃ´te Ã  cÃ´te ont la mÃªme lumiÃ¨re.
+ *
+ * Logique pure, sans Qt ni GPU ; aucune lecture ne lÃ¨ve (`EX-NFR-040`).
+ */
+
+namespace core {
+
+/// Version du format de la table Ã©crite dans le fichier, et plus Ã©levÃ©e qui soit lue.
+inline constexpr int DAYLIGHT_FORMAT_VERSION = 1;
+
+/// @brief Le fichier de la table, relatif au dossier des assets.
+inline constexpr std::string_view DAYLIGHT_FILE = "Common/Lighting/daylight.json";
+
+/// @brief Une clÃ© de la table : la lumiÃ¨re d'une heure remarquable.
+struct DayLightKey {
+    /// L'heure de la clÃ©, en minutes depuis minuit, dans [0, 1440[.
+    float minutes = 0.0F;
+    LightColor tint{};
+    LightColor ambient{};
+    LightColor sun{};
+    /// D'oÃ¹ vient la lumiÃ¨re dirigÃ©e, en degrÃ©s (voir le fichier).
+    float azimuth = 45.0F;
+    float elevation = 60.0F;
+    /// Ce qu'une ombre portÃ©e retire Ã  une image, de 0 Ã  1.
+    float shadow = 0.0F;
+    /// L'allumage des lumiÃ¨res de nuit, de 0 Ã  1.
+    float lamps = 0.0F;
+
+    [[nodiscard]] bool operator==(const DayLightKey&amp;) const = default;
+};
+
+/// @brief La lumiÃ¨re d'un instant : ce que le rendu reÃ§oit.
+struct DayLight {
+    LightColor tint{};
+    LightColor ambient{};
+    LightColor sun{};
+    /// Le vecteur unitaire **vers** la source de la lumiÃ¨re dirigÃ©e, dans le repÃ¨re d'un maillage
+    /// posÃ© (X colonnes, Y hauteur, Z lignes).
+    std::array&lt;float, 3&gt; toSun{-0.5F, 0.7071F, 0.0F};
+    float shadow = 0.0F;
+    float lamps = 0.0F;
+
+    [[nodiscard]] bool operator==(const DayLight&amp;) const = default;
+};
+
+/// @return Le vecteur unitaire vers la source placÃ©e Ã  @p azimuth et @p elevation degrÃ©s.
+[[nodiscard]] std::array&lt;float, 3&gt; sunDirection(float azimuth, float elevation) noexcept;
+
+/// @brief La table des clÃ©s d'un jour, triÃ©e par heure.
+class DayLightTable {
+public:
+<span style = "background-color:#dfd">    DayLightTable() = default;</span>
+    /// @param keys Les clÃ©s, dans un ordre quelconque : elles sont triÃ©es par heure.
+    explicit DayLightTable(std::vector&lt;DayLightKey&gt; keys);
+
+    /// @return La table d'usine : celle du jeu si son fichier manque. Les mÃªmes clÃ©s que le
+    ///         fichier livrÃ©.
+    [[nodiscard]] static const DayLightTable&amp; factory();
+
+<span style = "background-color:#dfd">    [[nodiscard]] const std::vector&lt;DayLightKey&gt;&amp; keys() const noexcept {
+        return _keys;
+    }</span>
+
+    /**
+     * @brief La lumiÃ¨re Ã  @p minutes depuis minuit, interpolÃ©e entre les deux clÃ©s qui
+     *        l'encadrent ; la derniÃ¨re du jour rejoint la premiÃ¨re du lendemain.
+     * @return La lumiÃ¨re neutre (teinte blanche, ni ombre ni lampe) d'une table vide.
+     */
+    [[nodiscard]] DayLight sample(float minutes) const noexcept;
+
+    [[nodiscard]] bool operator==(const DayLightTable&amp;) const = default;
+
+private:
+    std::vector&lt;DayLightKey&gt; _keys;
+};
+
+/// @brief RÃ©sultat d'une lecture de table : la table, ou ce qui a Ã©chouÃ©.
+struct DayLightTableResult {
+    DayLightTable table;
+    /// Message technique, vide en cas de succÃ¨s.
+    std::string message;
+
+<span style = "background-color:#dfd">    [[nodiscard]] bool ok() const noexcept {
+        return message.empty();
+    }</span>
+};
+
+/// @brief Lit la table depuis le texte de son fichier.
+[[nodiscard]] DayLightTableResult readDayLightTable(std::string_view json);
+
+/// @brief Lit `daylight.json` ; un fichier absent est une erreur du rÃ©sultat.
+[[nodiscard]] DayLightTableResult readDayLightTableFile(const std::filesystem::path&amp; path);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,556 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: core::WorldClock Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classcore_1_1WorldClock.html','','classcore_1_1WorldClock-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">core::WorldClock Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>L'heure du monde, en minutes depuis minuit, et le compte des jours écoulés.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="WorldClock_8h_source.html">WorldClock.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2b4938e7215acf6248bc6dcd69246ef8" id="r_a2b4938e7215acf6248bc6dcd69246ef8"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a2b4938e7215acf6248bc6dcd69246ef8">minutes</a> () const noexcept</td></tr>
+<tr class="memitem:a2d6a10ae1a0810b3f24b35275141658d" id="r_a2d6a10ae1a0810b3f24b35275141658d"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a2d6a10ae1a0810b3f24b35275141658d">hours</a> () const noexcept</td></tr>
+<tr class="memitem:a68871e790af13fc8f179bc178e9f4a34" id="r_a68871e790af13fc8f179bc178e9f4a34"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a68871e790af13fc8f179bc178e9f4a34">day</a> () const noexcept</td></tr>
+<tr class="memitem:a14f736366c3d9be96a2e65c16e59d0d6" id="r_a14f736366c3d9be96a2e65c16e59d0d6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a14f736366c3d9be96a2e65c16e59d0d6">setMinutes</a> (float <a class="el" href="#a2b4938e7215acf6248bc6dcd69246ef8">minutes</a>) noexcept</td></tr>
+<tr class="memdesc:a14f736366c3d9be96a2e65c16e59d0d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Règle l'heure du jour ; une valeur hors du jour est ramenée dedans.  <br /></td></tr>
+<tr class="memitem:aae3d1233b65f5128f4146dcb428739ae" id="r_aae3d1233b65f5128f4146dcb428739ae"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aae3d1233b65f5128f4146dcb428739ae">advance</a> (float seconds) noexcept</td></tr>
+<tr class="memdesc:aae3d1233b65f5128f4146dcb428739ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fait passer <code class="param">seconds</code> de temps réel. Une durée négative ou non finie est ignorée.  <br /></td></tr>
+<tr class="memitem:a5cb4aad2179010c1c1917577c1e2b2ba" id="r_a5cb4aad2179010c1c1917577c1e2b2ba"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5cb4aad2179010c1c1917577c1e2b2ba">running</a> () const noexcept</td></tr>
+<tr class="memitem:a70bce3282c74e1c08a589f8f3e1a74a0" id="r_a70bce3282c74e1c08a589f8f3e1a74a0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a70bce3282c74e1c08a589f8f3e1a74a0">setRunning</a> (bool <a class="el" href="#a5cb4aad2179010c1c1917577c1e2b2ba">running</a>) noexcept</td></tr>
+<tr class="memdesc:a70bce3282c74e1c08a589f8f3e1a74a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fige ou relance l'horloge : figée, <span class="tt"><a class="el" href="#aae3d1233b65f5128f4146dcb428739ae" title="Fait passer seconds de temps réel. Une durée négative ou non finie est ignorée.">advance</a></span> ne fait rien.  <br /></td></tr>
+<tr class="memitem:a99b11e36d09f467f8662288ef6cf71fd" id="r_a99b11e36d09f467f8662288ef6cf71fd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a99b11e36d09f467f8662288ef6cf71fd">operator==</a> (const <a class="el" href="classcore_1_1WorldClock.html">WorldClock</a> &amp;) const =default</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a36c4e4b31d6cedb48192a66153c9a780" id="r_a36c4e4b31d6cedb48192a66153c9a780"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a36c4e4b31d6cedb48192a66153c9a780">MINUTES_PER_DAY</a> = 1440.0F</td></tr>
+<tr class="memdesc:a36c4e4b31d6cedb48192a66153c9a780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minutes d'un jour.  <br /></td></tr>
+<tr class="memitem:a6b56589da18b5708ce5ee7ca868fc44f" id="r_a6b56589da18b5708ce5ee7ca868fc44f"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a6b56589da18b5708ce5ee7ca868fc44f">GAME_MINUTES_PER_SECOND</a> = 1.0F</td></tr>
+<tr class="memdesc:a6b56589da18b5708ce5ee7ca868fc44f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minutes du monde par seconde réelle : une heure du monde par minute.  <br /></td></tr>
+<tr class="memitem:a10847951aa658aa295b2e4345084b73d" id="r_a10847951aa658aa295b2e4345084b73d"><td class="memItemLeft">static constexpr float&#160;</td><td class="memItemRight"><a class="el" href="#a10847951aa658aa295b2e4345084b73d">START_MINUTES</a> = 600.0F</td></tr>
+<tr class="memdesc:a10847951aa658aa295b2e4345084b73d"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'heure d'une partie neuve : dix heures du matin, le plein jour.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ae68166afdb0b9b5f49c0788623be6b4e" id="r_ae68166afdb0b9b5f49c0788623be6b4e"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae68166afdb0b9b5f49c0788623be6b4e">_minutes</a> = <a class="el" href="#a10847951aa658aa295b2e4345084b73d">START_MINUTES</a></td></tr>
+<tr class="memitem:a3b6b7a85b775727083cb9637635cbf05" id="r_a3b6b7a85b775727083cb9637635cbf05"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a3b6b7a85b775727083cb9637635cbf05">_day</a> = 0</td></tr>
+<tr class="memitem:a823092efbd7028221c325c6c6ff606ce" id="r_a823092efbd7028221c325c6c6ff606ce"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a823092efbd7028221c325c6c6ff606ce">_running</a> = true</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>L'heure du monde, en minutes depuis minuit, et le compte des jours écoulés. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="aae3d1233b65f5128f4146dcb428739ae" name="aae3d1233b65f5128f4146dcb428739ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae3d1233b65f5128f4146dcb428739ae">&#9670;&#160;</a></span>advance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::WorldClock::advance </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>seconds</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fait passer <code class="param">seconds</code> de temps réel. Une durée négative ou non finie est ignorée. </p>
+
+</div>
+</div>
+<a id="a68871e790af13fc8f179bc178e9f4a34" name="a68871e790af13fc8f179bc178e9f4a34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68871e790af13fc8f179bc178e9f4a34">&#9670;&#160;</a></span>day()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::WorldClock::day </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Les jours entiers écoulés depuis le début de la partie. </dd></dl>
+
+</div>
+</div>
+<a id="a2d6a10ae1a0810b3f24b35275141658d" name="a2d6a10ae1a0810b3f24b35275141658d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d6a10ae1a0810b3f24b35275141658d">&#9670;&#160;</a></span>hours()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::WorldClock::hours </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'heure du jour, en heures décimales, dans [0, 24[. </dd></dl>
+
+</div>
+</div>
+<a id="a2b4938e7215acf6248bc6dcd69246ef8" name="a2b4938e7215acf6248bc6dcd69246ef8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b4938e7215acf6248bc6dcd69246ef8">&#9670;&#160;</a></span>minutes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::WorldClock::minutes </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'heure du jour, en minutes depuis minuit, dans [0, 1440[. </dd></dl>
+
+</div>
+</div>
+<a id="a99b11e36d09f467f8662288ef6cf71fd" name="a99b11e36d09f467f8662288ef6cf71fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99b11e36d09f467f8662288ef6cf71fd">&#9670;&#160;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::WorldClock::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcore_1_1WorldClock.html">WorldClock</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel default">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5cb4aad2179010c1c1917577c1e2b2ba" name="a5cb4aad2179010c1c1917577c1e2b2ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cb4aad2179010c1c1917577c1e2b2ba">&#9670;&#160;</a></span>running()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::WorldClock::running </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Vrai si l'horloge avance (<span class="tt"><a class="el" href="#aae3d1233b65f5128f4146dcb428739ae" title="Fait passer seconds de temps réel. Une durée négative ou non finie est ignorée.">advance</a></span>) ; fausse, elle est figée par l'appelant. </dd></dl>
+
+</div>
+</div>
+<a id="a14f736366c3d9be96a2e65c16e59d0d6" name="a14f736366c3d9be96a2e65c16e59d0d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14f736366c3d9be96a2e65c16e59d0d6">&#9670;&#160;</a></span>setMinutes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::WorldClock::setMinutes </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minutes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Règle l'heure du jour ; une valeur hors du jour est ramenée dedans. </p>
+<p>Le jour ne change pas : c'est un réglage, pas du temps qui passe. </p>
+
+</div>
+</div>
+<a id="a70bce3282c74e1c08a589f8f3e1a74a0" name="a70bce3282c74e1c08a589f8f3e1a74a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70bce3282c74e1c08a589f8f3e1a74a0">&#9670;&#160;</a></span>setRunning()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::WorldClock::setRunning </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>running</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fige ou relance l'horloge : figée, <span class="tt"><a class="el" href="#aae3d1233b65f5128f4146dcb428739ae" title="Fait passer seconds de temps réel. Une durée négative ou non finie est ignorée.">advance</a></span> ne fait rien. </p>
+<p>Pour une commande de débug, une capture, un essai de l'éditeur à heure choisie. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a3b6b7a85b775727083cb9637635cbf05" name="a3b6b7a85b775727083cb9637635cbf05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b6b7a85b775727083cb9637635cbf05">&#9670;&#160;</a></span>_day</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::WorldClock::_day = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae68166afdb0b9b5f49c0788623be6b4e" name="ae68166afdb0b9b5f49c0788623be6b4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae68166afdb0b9b5f49c0788623be6b4e">&#9670;&#160;</a></span>_minutes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::WorldClock::_minutes = <a class="el" href="#a10847951aa658aa295b2e4345084b73d">START_MINUTES</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a823092efbd7028221c325c6c6ff606ce" name="a823092efbd7028221c325c6c6ff606ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a823092efbd7028221c325c6c6ff606ce">&#9670;&#160;</a></span>_running</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::WorldClock::_running = true</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6b56589da18b5708ce5ee7ca868fc44f" name="a6b56589da18b5708ce5ee7ca868fc44f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b56589da18b5708ce5ee7ca868fc44f">&#9670;&#160;</a></span>GAME_MINUTES_PER_SECOND</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::WorldClock::GAME_MINUTES_PER_SECOND = 1.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Minutes du monde par seconde réelle : une heure du monde par minute. </p>
+
+</div>
+</div>
+<a id="a36c4e4b31d6cedb48192a66153c9a780" name="a36c4e4b31d6cedb48192a66153c9a780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36c4e4b31d6cedb48192a66153c9a780">&#9670;&#160;</a></span>MINUTES_PER_DAY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::WorldClock::MINUTES_PER_DAY = 1440.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Minutes d'un jour. </p>
+
+</div>
+</div>
+<a id="a10847951aa658aa295b2e4345084b73d" name="a10847951aa658aa295b2e4345084b73d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10847951aa658aa295b2e4345084b73d">&#9670;&#160;</a></span>START_MINUTES</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::WorldClock::START_MINUTES = 600.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'heure d'une partie neuve : dix heures du matin, le plein jour. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/<a class="el" href="WorldClock_8h_source.html">WorldClock.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/<a class="el" href="WorldClock_8cpp.html">WorldClock.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacecore.html">core</a></li><li class="navelem"><a href="classcore_1_1WorldClock.html">WorldClock</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

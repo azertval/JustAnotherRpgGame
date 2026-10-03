@@ -143,15 +143,14 @@ $(function(){initNavTree('classhmi_1_1MeshBatch.html','','classhmi_1_1MeshBatch-
 </div><!--header-->
 <div class="contents">
 
-<p>Dessine des maillages texturés au travers de QRhi : sommets, normales, coordonnées de texture ; profondeur testée <b>et écrite</b> ; couleur de base seule, <b>sans éclairage</b> (la lumière est au <span class="tt">LOT-1007</span>).  
- <a href="#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="MeshBatch_8h_source.html">MeshBatch.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:GpuMesh" id="r_GpuMesh"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MeshBatch_1_1GpuMesh.html">GpuMesh</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un maillage sur le GPU.  <a href="structhmi_1_1MeshBatch_1_1GpuMesh.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Pipeline" id="r_Pipeline"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les quatre pipelines : fixe ou animé, à l'image ou à la carte d'ombres.  <a href="structhmi_1_1MeshBatch_1_1Pipeline.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Draw" id="r_Draw"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MeshBatch_1_1Draw.html">Draw</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un dessin enregistré : un maillage, sa matrice, sa teinte.  <a href="structhmi_1_1MeshBatch_1_1Draw.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -165,17 +164,25 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aee4ca5f6f31f0682e344725cd6935224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Charge un maillage sur le GPU : ses tampons, et la texture décodée de sa couleur de base (blanche s'il n'en a pas, ou si son image ne se décode pas).  <br /></td></tr>
 <tr class="memitem:abf00fdb36714710d6689d9ebd4c433b8" id="r_abf00fdb36714710d6689d9ebd4c433b8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abf00fdb36714710d6689d9ebd4c433b8">clear</a> () noexcept</td></tr>
 <tr class="memdesc:abf00fdb36714710d6689d9ebd4c433b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libère tous les maillages chargés ; leurs identités ne valent plus.  <br /></td></tr>
+<tr class="memitem:a1892f3e9d64c3f83ab5d3b0ad5439637" id="r_a1892f3e9d64c3f83ab5d3b0ad5439637"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1892f3e9d64c3f83ab5d3b0ad5439637">destroy</a> (<a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a> mesh) noexcept</td></tr>
+<tr class="memdesc:a1892f3e9d64c3f83ab5d3b0ad5439637"><td class="mdescLeft">&#160;</td><td class="mdescRight">Libère le maillage <code class="param">mesh</code> ; son identité ne vaut plus.  <br /></td></tr>
 <tr class="memitem:a9245b153434d165887ef55f1b7a6cc27" id="r_a9245b153434d165887ef55f1b7a6cc27"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a9245b153434d165887ef55f1b7a6cc27">bytes</a> () const noexcept</td></tr>
 <tr class="memitem:a3b2048c233a2424685b4ac2a56f4c211" id="r_a3b2048c233a2424685b4ac2a56f4c211"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3b2048c233a2424685b4ac2a56f4c211">beginFrame</a> ()</td></tr>
 <tr class="memdesc:a3b2048c233a2424685b4ac2a56f4c211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre l'enregistrement d'une image : oublie les dessins de la précédente.  <br /></td></tr>
-<tr class="memitem:afd8c62b4c3b682ba49a614907b7ebbae" id="r_afd8c62b4c3b682ba49a614907b7ebbae"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afd8c62b4c3b682ba49a614907b7ebbae">draw</a> (<a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a> mesh, const DirectX::XMFLOAT4X4 &amp;clip, float opacity=1.0F, std::span&lt; const float &gt; bones={})</td></tr>
-<tr class="memdesc:afd8c62b4c3b682ba49a614907b7ebbae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre un maillage à dessiner.  <br /></td></tr>
+<tr class="memitem:a64dee9f3c5b84b0c62586eadc9249caa" id="r_a64dee9f3c5b84b0c62586eadc9249caa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a64dee9f3c5b84b0c62586eadc9249caa">draw</a> (<a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a> mesh, const DirectX::XMFLOAT4X4 &amp;clip, float opacity=1.0F, std::span&lt; const float &gt; bones={}, const <a class="el" href="structhmi_1_1MeshLighting.html">MeshLighting</a> &amp;<a class="el" href="#ad9f3dde3ccbe7f4434aa4e82325cd5c1">lighting</a>={})</td></tr>
+<tr class="memdesc:a64dee9f3c5b84b0c62586eadc9249caa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enregistre un maillage à dessiner.  <br /></td></tr>
+<tr class="memitem:a70106e8f0e664f02b21465ebcf383245" id="r_a70106e8f0e664f02b21465ebcf383245"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a70106e8f0e664f02b21465ebcf383245">setLighting</a> (<a class="el" href="classhmi_1_1LightingBlock.html">LightingBlock</a> *<a class="el" href="#ad9f3dde3ccbe7f4434aa4e82325cd5c1">lighting</a>)</td></tr>
+<tr class="memdesc:a70106e8f0e664f02b21465ebcf383245"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lie le bloc d'éclairage <code class="param">lighting</code> aux pipelines (<span class="tt">LOT-1007</span>) ; <span class="tt">nullptr</span> : le bloc neutre du lot.  <br /></td></tr>
 <tr class="memitem:a283dca23f3445c646600af15c3a844dc" id="r_a283dca23f3445c646600af15c3a844dc"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a283dca23f3445c646600af15c3a844dc">skinnedDrawCount</a> () const noexcept</td></tr>
 <tr class="memitem:a8a954c36e43b4e6c2314be5ffda23f85" id="r_a8a954c36e43b4e6c2314be5ffda23f85"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a8a954c36e43b4e6c2314be5ffda23f85">drawCount</a> () const noexcept</td></tr>
 <tr class="memitem:a7566971a1eca41e67319fe6b1a822c91" id="r_a7566971a1eca41e67319fe6b1a822c91"><td class="memItemLeft">QRhiResourceUpdateBatch *&#160;</td><td class="memItemRight"><a class="el" href="#a7566971a1eca41e67319fe6b1a822c91">prepare</a> (QRhiRenderTarget *target, QRhiResourceUpdateBatch *updates)</td></tr>
 <tr class="memdesc:a7566971a1eca41e67319fe6b1a822c91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dépose les matrices de l'image enregistrée dans un lot, <b>hors</b> de toute passe.  <br /></td></tr>
 <tr class="memitem:a19a3ef7a34a1cf66253febd88a53dcb2" id="r_a19a3ef7a34a1cf66253febd88a53dcb2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a19a3ef7a34a1cf66253febd88a53dcb2">record</a> (QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target)</td></tr>
 <tr class="memdesc:a19a3ef7a34a1cf66253febd88a53dcb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émet les appels de dessin de l'image préparée, dans la passe ouverte par l'appelant.  <br /></td></tr>
+<tr class="memitem:a242863cb02c89f9c11c181991804e290" id="r_a242863cb02c89f9c11c181991804e290"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a242863cb02c89f9c11c181991804e290">prepareShadow</a> (QRhiRenderTarget *target)</td></tr>
+<tr class="memdesc:a242863cb02c89f9c11c181991804e290"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prépare la <b>passe d'ombres</b> (<span class="tt">LOT-1007</span>, <span class="tt">EX-REN-054</span>) de l'image enregistrée : ses pipelines, pour la cible <code class="param">target</code> de la carte d'ombres.  <br /></td></tr>
+<tr class="memitem:a771a766058a6747787ad47b0ff221091" id="r_a771a766058a6747787ad47b0ff221091"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a771a766058a6747787ad47b0ff221091">recordShadow</a> (QRhiCommandBuffer *commandBuffer, QRhiRenderTarget *target)</td></tr>
+<tr class="memdesc:a771a766058a6747787ad47b0ff221091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Émet les dessins de la passe d'ombres, dans la passe ouverte par l'appelant sur la carte d'ombres : chaque maillage enregistré, vu du soleil, profondeur seule.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -183,8 +190,13 @@ Static Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a7d35e80c397a56814213d241c401c374" id="r_a7d35e80c397a56814213d241c401c374"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7d35e80c397a56814213d241c401c374">ensurePipeline</a> (QRhiRenderTarget *target)</td></tr>
-<tr class="memitem:a709244fb4b33eb4c71a864496faa3a0e" id="r_a709244fb4b33eb4c71a864496faa3a0e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a709244fb4b33eb4c71a864496faa3a0e">ensureSkinnedPipeline</a> (QRhiRenderTarget *target)</td></tr>
+<tr class="memitem:adf88ebff78083b6d3c14dc654e8ff4ac" id="r_adf88ebff78083b6d3c14dc654e8ff4ac"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#adf88ebff78083b6d3c14dc654e8ff4ac">ensurePipeline</a> (<a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a> &amp;kept, QRhiRenderTarget *target, bool skinned, bool shadow)</td></tr>
+<tr class="memdesc:adf88ebff78083b6d3c14dc654e8ff4ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garantit le pipeline <code class="param">kept</code> pour la cible <code class="param">target</code> : fixe ou animé (<code class="param">skinned</code>), à l'image ou à la carte d'ombres (<code class="param">shadow</code>).  <br /></td></tr>
+<tr class="memitem:a35569474153ca7154af266f9f34e8691" id="r_a35569474153ca7154af266f9f34e8691"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a35569474153ca7154af266f9f34e8691">ensureLayouts</a> (bool skinned)</td></tr>
+<tr class="memdesc:a35569474153ca7154af266f9f34e8691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garantit les liaisons de référence et celles de la passe d'ombres.  <br /></td></tr>
+<tr class="memitem:a5119ca8a78ad9d4b50d9caddb5b1ac52" id="r_a5119ca8a78ad9d4b50d9caddb5b1ac52"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5119ca8a78ad9d4b50d9caddb5b1ac52">resetBindings</a> (bool skinnedOnly)</td></tr>
+<tr class="memdesc:a5119ca8a78ad9d4b50d9caddb5b1ac52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Oublie toutes les liaisons : le tampon uniforme, le bloc d'os ou le bloc d'éclairage qu'elles citent a changé.  <br /></td></tr>
+<tr class="memitem:ad9f3dde3ccbe7f4434aa4e82325cd5c1" id="r_ad9f3dde3ccbe7f4434aa4e82325cd5c1"><td class="memItemLeft"><a class="el" href="classhmi_1_1LightingBlock.html">LightingBlock</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad9f3dde3ccbe7f4434aa4e82325cd5c1">lighting</a> () const noexcept</td></tr>
 <tr class="memitem:a20a74e195d969429152fb70e90210236" id="r_a20a74e195d969429152fb70e90210236"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a20a74e195d969429152fb70e90210236">ensureUniformCapacity</a> (std::size_t <a class="el" href="#a8a954c36e43b4e6c2314be5ffda23f85">drawCount</a>)</td></tr>
 <tr class="memitem:a0693a5b08c6832436fff78cb5d634307" id="r_a0693a5b08c6832436fff78cb5d634307"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0693a5b08c6832436fff78cb5d634307">ensureBoneCapacity</a> (std::size_t poseCount)</td></tr>
 <tr class="memitem:aa7bdb7029b250fcb4b8db85ae1fa5312" id="r_aa7bdb7029b250fcb4b8db85ae1fa5312"><td class="memItemLeft">QRhiShaderResourceBindings *&#160;</td><td class="memItemRight"><a class="el" href="#aa7bdb7029b250fcb4b8db85ae1fa5312">bindingsFor</a> (<a class="el" href="structhmi_1_1MeshBatch_1_1GpuMesh.html">GpuMesh</a> &amp;mesh)</td></tr>
@@ -195,16 +207,26 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ac81e0add3e782bd07710dcdf621ab06a" id="r_ac81e0add3e782bd07710dcdf621ab06a"><td class="memItemLeft">QRhi *&#160;</td><td class="memItemRight"><a class="el" href="#ac81e0add3e782bd07710dcdf621ab06a">_rhi</a></td></tr>
 <tr class="memitem:aedfc2dcb186cfa8de749741f85447ae7" id="r_aedfc2dcb186cfa8de749741f85447ae7"><td class="memItemLeft">std::unique_ptr&lt; QRhiSampler &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aedfc2dcb186cfa8de749741f85447ae7">_sampler</a></td></tr>
 <tr class="memitem:ade19e41c33e8c16e3b17590cd8516295" id="r_ade19e41c33e8c16e3b17590cd8516295"><td class="memItemLeft">std::unique_ptr&lt; QRhiBuffer &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ade19e41c33e8c16e3b17590cd8516295">_uniformBuffer</a></td></tr>
+<tr class="memitem:a724a581738e9aea6066292d7f0a385b9" id="r_a724a581738e9aea6066292d7f0a385b9"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classhmi_1_1LightingBlock.html">LightingBlock</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a724a581738e9aea6066292d7f0a385b9">_ownLighting</a></td></tr>
+<tr class="memdesc:a724a581738e9aea6066292d7f0a385b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bloc d'éclairage neutre du lot, lié tant que l'appelant n'en donne pas un autre.  <br /></td></tr>
+<tr class="memitem:af947ca77e0af70db99af74d4fff368cd" id="r_af947ca77e0af70db99af74d4fff368cd"><td class="memItemLeft"><a class="el" href="classhmi_1_1LightingBlock.html">LightingBlock</a> *&#160;</td><td class="memItemRight"><a class="el" href="#af947ca77e0af70db99af74d4fff368cd">_lighting</a> = nullptr</td></tr>
+<tr class="memdesc:af947ca77e0af70db99af74d4fff368cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bloc de l'appelant (<span class="tt"><a class="el" href="#a70106e8f0e664f02b21465ebcf383245" title="Lie le bloc d&#39;éclairage lighting aux pipelines (LOT-1007) ; nullptr : le bloc neutre du lot.">setLighting</a></span>), non possédé ; <span class="tt">nullptr</span> : le bloc neutre.  <br /></td></tr>
+<tr class="memitem:a513c21542edac8d1f5dd5491bec838b4" id="r_a513c21542edac8d1f5dd5491bec838b4"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a513c21542edac8d1f5dd5491bec838b4">_lightingRevision</a> = 0</td></tr>
+<tr class="memdesc:a513c21542edac8d1f5dd5491bec838b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">La révision du bloc lié pour laquelle les liaisons ont été faites.  <br /></td></tr>
 <tr class="memitem:a4e367edc92f075e61cc0dd56fec7fc36" id="r_a4e367edc92f075e61cc0dd56fec7fc36"><td class="memItemLeft">std::unique_ptr&lt; QRhiShaderResourceBindings &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4e367edc92f075e61cc0dd56fec7fc36">_layoutBindings</a></td></tr>
-<tr class="memitem:a42f001059e4fe8944ba6b7741bbbea39" id="r_a42f001059e4fe8944ba6b7741bbbea39"><td class="memItemLeft">std::unique_ptr&lt; QRhiGraphicsPipeline &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a42f001059e4fe8944ba6b7741bbbea39">_pipeline</a></td></tr>
-<tr class="memitem:a997b9fc656c22d9ca49f542cda2600c3" id="r_a997b9fc656c22d9ca49f542cda2600c3"><td class="memItemLeft">QRhiRenderPassDescriptor *&#160;</td><td class="memItemRight"><a class="el" href="#a997b9fc656c22d9ca49f542cda2600c3">_pipelinePass</a> = nullptr</td></tr>
+<tr class="memitem:a02e2eeb0aba95d70f9e9fd031fdf6d8e" id="r_a02e2eeb0aba95d70f9e9fd031fdf6d8e"><td class="memItemLeft"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a>&#160;</td><td class="memItemRight"><a class="el" href="#a02e2eeb0aba95d70f9e9fd031fdf6d8e">_pipeline</a></td></tr>
+<tr class="memitem:ad2b9b230e122ceaf813518967f23710b" id="r_ad2b9b230e122ceaf813518967f23710b"><td class="memItemLeft">std::unique_ptr&lt; QRhiShaderResourceBindings &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad2b9b230e122ceaf813518967f23710b">_shadowBindings</a></td></tr>
+<tr class="memdesc:ad2b9b230e122ceaf813518967f23710b"><td class="mdescLeft">&#160;</td><td class="mdescRight">La passe d'ombres des maillages fixes : ses liaisons — le bloc du dessin, rien d'autre — valent pour tous les maillages.  <br /></td></tr>
+<tr class="memitem:a8168183aa8830ae060e61d33f24a5432" id="r_a8168183aa8830ae060e61d33f24a5432"><td class="memItemLeft"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8168183aa8830ae060e61d33f24a5432">_shadowPipeline</a></td></tr>
 <tr class="memitem:a4c71925c7a0f2d26ed5130a68780b297" id="r_a4c71925c7a0f2d26ed5130a68780b297"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#a4c71925c7a0f2d26ed5130a68780b297">_uniformSlots</a> = 0</td></tr>
 <tr class="memitem:ac476ef58cf459d4be240644130520823" id="r_ac476ef58cf459d4be240644130520823"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac476ef58cf459d4be240644130520823">_uniformStride</a> = 0</td></tr>
 <tr class="memitem:aa0de15c6dd93c83e63cf94ebb73dfe2e" id="r_aa0de15c6dd93c83e63cf94ebb73dfe2e"><td class="memItemLeft">std::unique_ptr&lt; QRhiBuffer &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa0de15c6dd93c83e63cf94ebb73dfe2e">_boneBuffer</a></td></tr>
 <tr class="memdesc:aa0de15c6dd93c83e63cf94ebb73dfe2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le pipeline des maillages animés, son tampon d'os (un bloc de <span class="tt"><a class="el" href="#adca70a34b15c6ba95083d6f72cdf2894">MAX_BONES</a></span> matrices par dessin animé) et ses liaisons de référence.  <br /></td></tr>
 <tr class="memitem:af5cf4458648c1e0e2d0736a1ca78ed8a" id="r_af5cf4458648c1e0e2d0736a1ca78ed8a"><td class="memItemLeft">std::unique_ptr&lt; QRhiShaderResourceBindings &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af5cf4458648c1e0e2d0736a1ca78ed8a">_skinnedLayoutBindings</a></td></tr>
-<tr class="memitem:ae78ae12f0d35fc7f1f7d538058815a05" id="r_ae78ae12f0d35fc7f1f7d538058815a05"><td class="memItemLeft">std::unique_ptr&lt; QRhiGraphicsPipeline &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae78ae12f0d35fc7f1f7d538058815a05">_skinnedPipeline</a></td></tr>
-<tr class="memitem:a61b948b2346403c0c7efba9d5417552b" id="r_a61b948b2346403c0c7efba9d5417552b"><td class="memItemLeft">QRhiRenderPassDescriptor *&#160;</td><td class="memItemRight"><a class="el" href="#a61b948b2346403c0c7efba9d5417552b">_skinnedPipelinePass</a> = nullptr</td></tr>
+<tr class="memitem:a6c59cda6a41423dd40249ea0dd6b8ebc" id="r_a6c59cda6a41423dd40249ea0dd6b8ebc"><td class="memItemLeft"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6c59cda6a41423dd40249ea0dd6b8ebc">_skinnedPipeline</a></td></tr>
+<tr class="memitem:ae5af07f0b26dd87a397b9660c411f371" id="r_ae5af07f0b26dd87a397b9660c411f371"><td class="memItemLeft">std::unique_ptr&lt; QRhiShaderResourceBindings &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae5af07f0b26dd87a397b9660c411f371">_skinnedShadowBindings</a></td></tr>
+<tr class="memdesc:ae5af07f0b26dd87a397b9660c411f371"><td class="mdescLeft">&#160;</td><td class="mdescRight">La passe d'ombres des maillages animés : le bloc du dessin et le bloc d'os.  <br /></td></tr>
+<tr class="memitem:a8e5e35b55394afc778a780bcd93b70b8" id="r_a8e5e35b55394afc778a780bcd93b70b8"><td class="memItemLeft"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8e5e35b55394afc778a780bcd93b70b8">_skinnedShadowPipeline</a></td></tr>
 <tr class="memitem:ae5c25e658a9be8215c8cf10b984f20c4" id="r_ae5c25e658a9be8215c8cf10b984f20c4"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#ae5c25e658a9be8215c8cf10b984f20c4">_boneSlots</a> = 0</td></tr>
 <tr class="memitem:a8d7a0bec581a2e1ffe7a01e3cc5b2b45" id="r_a8d7a0bec581a2e1ffe7a01e3cc5b2b45"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a8d7a0bec581a2e1ffe7a01e3cc5b2b45">_boneStride</a> = 0</td></tr>
 <tr class="memitem:ae61d08baf445a17379336c438673e8f7" id="r_ae61d08baf445a17379336c438673e8f7"><td class="memItemLeft">std::vector&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae61d08baf445a17379336c438673e8f7">_poses</a></td></tr>
@@ -213,16 +235,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aa8e401ce481b18f74d0bb4e5c5507197" id="r_aa8e401ce481b18f74d0bb4e5c5507197"><td class="memItemLeft">std::size_t&#160;</td><td class="memItemRight"><a class="el" href="#aa8e401ce481b18f74d0bb4e5c5507197">_bytes</a> = 0</td></tr>
 <tr class="memitem:a61063da2a9cfae78a4c76b4ea32924e1" id="r_a61063da2a9cfae78a4c76b4ea32924e1"><td class="memItemLeft">std::vector&lt; <a class="el" href="structhmi_1_1MeshBatch_1_1Draw.html">Draw</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a61063da2a9cfae78a4c76b4ea32924e1">_draws</a></td></tr>
 <tr class="memitem:ac21a115426f9f0babc594fbfdf891103" id="r_ac21a115426f9f0babc594fbfdf891103"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac21a115426f9f0babc594fbfdf891103">_drawable</a> = false</td></tr>
+<tr class="memitem:acca912b9592d6cf1377a48358ac95fee" id="r_acca912b9592d6cf1377a48358ac95fee"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acca912b9592d6cf1377a48358ac95fee">_shadowDrawable</a> = false</td></tr>
+<tr class="memdesc:acca912b9592d6cf1377a48358ac95fee"><td class="mdescLeft">&#160;</td><td class="mdescRight">La passe d'ombres a de quoi dessiner (<span class="tt"><a class="el" href="#a242863cb02c89f9c11c181991804e290" title="Prépare la passe d&#39;ombres (LOT-1007, EX-REN-054) de l&#39;image enregistrée : ses pipelines,...">prepareShadow</a></span>, lu par <span class="tt"><a class="el" href="#a771a766058a6747787ad47b0ff221091" title="Émet les dessins de la passe d&#39;ombres, dans la passe ouverte par l&#39;appelant sur la carte d&#39;ombres : c...">recordShadow</a></span>).  <br /></td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dessine des maillages texturés au travers de QRhi : sommets, normales, coordonnées de texture ; profondeur testée <b>et écrite</b> ; couleur de base seule, <b>sans éclairage</b> (la lumière est au <span class="tt">LOT-1007</span>). </p>
-<p>Le pendant de <span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence prémultipliée et un échantillonnage ...">hmi::SpriteBatch</a></span> pour ce qui a un volume, et le même découpage en deux temps que QRhi impose : <span class="tt"><a class="el" href="#afd8c62b4c3b682ba49a614907b7ebbae" title="Enregistre un maillage à dessiner.">draw</a></span> <b>enregistre</b> les maillages de l'image, <span class="tt"><a class="el" href="#a7566971a1eca41e67319fe6b1a822c91" title="Dépose les matrices de l&#39;image enregistrée dans un lot, hors de toute passe.">prepare</a></span> dépose leurs matrices dans le lot de téléversements, <span class="tt"><a class="el" href="#a19a3ef7a34a1cf66253febd88a53dcb2" title="Émet les appels de dessin de l&#39;image préparée, dans la passe ouverte par l&#39;appelant.">record</a></span> émet les appels de dessin dans la passe que l'appelant a ouverte. Les maillages se dessinent <b>avant</b> les quads de la même passe : ils écrivent la profondeur que les images testent ensuite.</p>
-<p>Un maillage chargé (<span class="tt"><a class="el" href="#aee4ca5f6f31f0682e344725cd6935224" title="Charge un maillage sur le GPU : ses tampons, et la texture décodée de sa couleur de base (blanche s&#39;i...">create</a></span>) possède ses tampons de sommets et d'indices, immuables, et la texture de sa couleur de base. La normale est téléversée et transmise au shader, qui ne la lit pas encore. Les faces ne sont pas triées par leur sens : aucune n'est écartée, la profondeur décide — un modèle généré n'a pas toujours un sens de face fiable.</p>
-<p>L'opacité d'un dessin (<span class="tt"><a class="el" href="#afd8c62b4c3b682ba49a614907b7ebbae" title="Enregistre un maillage à dessiner.">draw</a></span>) sert les calques grisés de l'éditeur ; à 1, le mélange prémultiplié du pipeline ne change rien à un maillage opaque.</p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md106"></a>
-Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
-<p>Un maillage lié à un squelette (<span class="tt"><a class="el" href="structcore_1_1MeshData.html#af90e06f15b58654581b1e4f1414f928a" title="La liaison de chaque sommet (LOT-1005), dans l&#39;ordre de vertices ; vide pour un maillage sans squelet...">core::MeshData::skin</a></span>) porte un second tampon de sommets — les quatre os et les quatre poids de chacun — et se dessine par un second pipeline, dont le shader déforme chaque sommet par les matrices de ses os. La <b>pose</b> est donnée au dessin (<span class="tt"><a class="el" href="#afd8c62b4c3b682ba49a614907b7ebbae" title="Enregistre un maillage à dessiner.">draw</a></span>, <span class="tt">bones</span>) : seize flottants par os, tels que <span class="tt"><a class="el" href="namespacecore.html#a06e6ef3c1d8c7e062c5e96b8ff6adb6d" title="Calcule la pose de rig à l&#39;instant seconds de clip.">core::poseSkeleton</a></span> les rend. Dessiné sans pose, un maillage lié reste dans sa pose de liaison, par le pipeline des maillages fixes. Un maillage fixe ne passe jamais par le second pipeline : son image est celle d'avant le lot. </p>
-</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a83f7a9303b114da3aeac6cc3f7db880d" name="a83f7a9303b114da3aeac6cc3f7db880d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a83f7a9303b114da3aeac6cc3f7db880d">&#9670;&#160;</a></span>MeshBatch() <span class="overload">[1/2]</span></h2>
 
@@ -428,8 +444,36 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
 
 </div>
 </div>
-<a id="afd8c62b4c3b682ba49a614907b7ebbae" name="afd8c62b4c3b682ba49a614907b7ebbae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd8c62b4c3b682ba49a614907b7ebbae">&#9670;&#160;</a></span>draw()</h2>
+<a id="a1892f3e9d64c3f83ab5d3b0ad5439637" name="a1892f3e9d64c3f83ab5d3b0ad5439637"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1892f3e9d64c3f83ab5d3b0ad5439637">&#9670;&#160;</a></span>destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MeshBatch::destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a></td>          <td class="paramname"><span class="paramname"><em>mesh</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Libère le maillage <code class="param">mesh</code> ; son identité ne vaut plus. </p>
+<p>Sans effet pour une identité nulle ou inconnue. À appeler hors de toute image enregistrée. </p>
+
+</div>
+</div>
+<a id="a64dee9f3c5b84b0c62586eadc9249caa" name="a64dee9f3c5b84b0c62586eadc9249caa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64dee9f3c5b84b0c62586eadc9249caa">&#9670;&#160;</a></span>draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -452,7 +496,12 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::span&lt; const float &gt;</td>          <td class="paramname"><span class="paramname"><em>bones</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+          <td class="paramtype">std::span&lt; const float &gt;</td>          <td class="paramname"><span class="paramname"><em>bones</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1MeshLighting.html">MeshLighting</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lighting</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -464,6 +513,7 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
     <tr><td class="paramname">clip</td><td>Matrice maillage → clip (<span class="tt"><a class="el" href="classhmi_1_1PlaceCamera.html#a552e94da10f066f60eeeb627a788b2dc" title="Matrice maillage → clip d&#39;un maillage posé par transform (hmi::IsoView::meshTransform) : la projectio...">hmi::PlaceCamera::meshMatrix</a></span>). </td></tr>
     <tr><td class="paramname">opacity</td><td>Opacité, de 0 à 1. </td></tr>
     <tr><td class="paramname">bones</td><td>La pose d'un maillage animé : seize flottants par os (<span class="tt"><a class="el" href="namespacecore.html#a06e6ef3c1d8c7e062c5e96b8ff6adb6d" title="Calcule la pose de rig à l&#39;instant seconds de clip.">core::poseSkeleton</a></span>). Vide, ou d'une taille qui n'est pas celle du squelette du maillage : il se dessine dans sa pose de liaison. </td></tr>
+    <tr><td class="paramname"><a class="el" href="#ad9f3dde3ccbe7f4434aa4e82325cd5c1">lighting</a></td><td>Ce que le dessin donne à l'éclairage (<span class="tt"><a class="el" href="structhmi_1_1MeshLighting.html" title="Ce qu&#39;un dessin donne à l&#39;éclairage (LOT-1007).">MeshLighting</a></span>) : sa pose dans la vue, sa projection dans la carte d'ombres. La valeur d'usine, sous le bloc d'éclairage neutre, est le dessin d'avant le <span class="tt">LOT-1007</span>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -521,8 +571,35 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
 
 </div>
 </div>
-<a id="a7d35e80c397a56814213d241c401c374" name="a7d35e80c397a56814213d241c401c374"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d35e80c397a56814213d241c401c374">&#9670;&#160;</a></span>ensurePipeline()</h2>
+<a id="a35569474153ca7154af266f9f34e8691" name="a35569474153ca7154af266f9f34e8691"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35569474153ca7154af266f9f34e8691">&#9670;&#160;</a></span>ensureLayouts()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MeshBatch::ensureLayouts </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>skinned</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Garantit les liaisons de référence et celles de la passe d'ombres. </p>
+
+</div>
+</div>
+<a id="adf88ebff78083b6d3c14dc654e8ff4ac" name="adf88ebff78083b6d3c14dc654e8ff4ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf88ebff78083b6d3c14dc654e8ff4ac">&#9670;&#160;</a></span>ensurePipeline()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -533,33 +610,22 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
         <tr>
           <td class="memname">bool hmi::MeshBatch::ensurePipeline </td>
           <td>(</td>
-          <td class="paramtype">QRhiRenderTarget *</td>          <td class="paramname"><span class="paramname"><em>target</em></span></td><td>)</td>
-          <td></td>
+          <td class="paramtype"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>kept</em></span>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a709244fb4b33eb4c71a864496faa3a0e" name="a709244fb4b33eb4c71a864496faa3a0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a709244fb4b33eb4c71a864496faa3a0e">&#9670;&#160;</a></span>ensureSkinnedPipeline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">bool hmi::MeshBatch::ensureSkinnedPipeline </td>
-          <td>(</td>
-          <td class="paramtype">QRhiRenderTarget *</td>          <td class="paramname"><span class="paramname"><em>target</em></span></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">QRhiRenderTarget *</td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>skinned</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>shadow</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -568,6 +634,8 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Garantit le pipeline <code class="param">kept</code> pour la cible <code class="param">target</code> : fixe ou animé (<code class="param">skinned</code>), à l'image ou à la carte d'ombres (<code class="param">shadow</code>). </p>
 
 </div>
 </div>
@@ -593,6 +661,32 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9f3dde3ccbe7f4434aa4e82325cd5c1" name="ad9f3dde3ccbe7f4434aa4e82325cd5c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9f3dde3ccbe7f4434aa4e82325cd5c1">&#9670;&#160;</a></span>lighting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1LightingBlock.html">LightingBlock</a> * hmi::MeshBatch::lighting </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le bloc d'éclairage lié : celui de l'appelant, sinon le bloc neutre du lot. </dd></dl>
 
 </div>
 </div>
@@ -660,6 +754,34 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
 
 </div>
 </div>
+<a id="a242863cb02c89f9c11c181991804e290" name="a242863cb02c89f9c11c181991804e290"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a242863cb02c89f9c11c181991804e290">&#9670;&#160;</a></span>prepareShadow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MeshBatch::prepareShadow </td>
+          <td>(</td>
+          <td class="paramtype">QRhiRenderTarget *</td>          <td class="paramname"><span class="paramname"><em>target</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prépare la <b>passe d'ombres</b> (<span class="tt">LOT-1007</span>, <span class="tt">EX-REN-054</span>) de l'image enregistrée : ses pipelines, pour la cible <code class="param">target</code> de la carte d'ombres. </p>
+<p>À appeler après <span class="tt"><a class="el" href="#a7566971a1eca41e67319fe6b1a822c91" title="Dépose les matrices de l&#39;image enregistrée dans un lot, hors de toute passe.">prepare</a></span>. </p><dl class="section return"><dt>Returns</dt><dd>Vrai s'il y a quelque chose à y dessiner. </dd></dl>
+
+</div>
+</div>
 <a id="a19a3ef7a34a1cf66253febd88a53dcb2" name="a19a3ef7a34a1cf66253febd88a53dcb2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19a3ef7a34a1cf66253febd88a53dcb2">&#9670;&#160;</a></span>record()</h2>
 
@@ -680,6 +802,77 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
 </div><div class="memdoc">
 
 <p>Émet les appels de dessin de l'image préparée, dans la passe ouverte par l'appelant. </p>
+<p>Un dessin qui ne fait que porter une ombre (<span class="tt"><a class="el" href="structhmi_1_1MeshLighting.html#a6525f0810ccde3d8808358f6204f64bf" title="Vrai : le maillage ne paraît pas à l&#39;image, il n&#39;y fait que porter son ombre — la boîte d&#39;une pièce d...">MeshLighting::castsOnly</a></span>) n'y paraît pas. </p>
+
+</div>
+</div>
+<a id="a771a766058a6747787ad47b0ff221091" name="a771a766058a6747787ad47b0ff221091"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a771a766058a6747787ad47b0ff221091">&#9670;&#160;</a></span>recordShadow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MeshBatch::recordShadow </td>
+          <td>(</td>
+          <td class="paramtype">QRhiCommandBuffer *</td>          <td class="paramname"><span class="paramname"><em>commandBuffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QRhiRenderTarget *</td>          <td class="paramname"><span class="paramname"><em>target</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Émet les dessins de la passe d'ombres, dans la passe ouverte par l'appelant sur la carte d'ombres : chaque maillage enregistré, vu du soleil, profondeur seule. </p>
+
+</div>
+</div>
+<a id="a5119ca8a78ad9d4b50d9caddb5b1ac52" name="a5119ca8a78ad9d4b50d9caddb5b1ac52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5119ca8a78ad9d4b50d9caddb5b1ac52">&#9670;&#160;</a></span>resetBindings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MeshBatch::resetBindings </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>skinnedOnly</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Oublie toutes les liaisons : le tampon uniforme, le bloc d'os ou le bloc d'éclairage qu'elles citent a changé. </p>
+
+</div>
+</div>
+<a id="a70106e8f0e664f02b21465ebcf383245" name="a70106e8f0e664f02b21465ebcf383245"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70106e8f0e664f02b21465ebcf383245">&#9670;&#160;</a></span>setLighting()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MeshBatch::setLighting </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classhmi_1_1LightingBlock.html">LightingBlock</a> *</td>          <td class="paramname"><span class="paramname"><em>lighting</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lie le bloc d'éclairage <code class="param">lighting</code> aux pipelines (<span class="tt">LOT-1007</span>) ; <span class="tt">nullptr</span> : le bloc neutre du lot. </p>
+<p>Le bloc doit vivre aussi longtemps qu'il est lié. </p>
 
 </div>
 </div>
@@ -891,6 +1084,54 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
 
 </div>
 </div>
+<a id="af947ca77e0af70db99af74d4fff368cd" name="af947ca77e0af70db99af74d4fff368cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af947ca77e0af70db99af74d4fff368cd">&#9670;&#160;</a></span>_lighting</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmi_1_1LightingBlock.html">LightingBlock</a>* hmi::MeshBatch::_lighting = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le bloc de l'appelant (<span class="tt"><a class="el" href="#a70106e8f0e664f02b21465ebcf383245" title="Lie le bloc d&#39;éclairage lighting aux pipelines (LOT-1007) ; nullptr : le bloc neutre du lot.">setLighting</a></span>), non possédé ; <span class="tt">nullptr</span> : le bloc neutre. </p>
+
+</div>
+</div>
+<a id="a513c21542edac8d1f5dd5491bec838b4" name="a513c21542edac8d1f5dd5491bec838b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a513c21542edac8d1f5dd5491bec838b4">&#9670;&#160;</a></span>_lightingRevision</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint64_t hmi::MeshBatch::_lightingRevision = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La révision du bloc lié pour laquelle les liaisons ont été faites. </p>
+
+</div>
+</div>
 <a id="af851c691f52ed1f59a45160bf98c6432" name="af851c691f52ed1f59a45160bf98c6432"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af851c691f52ed1f59a45160bf98c6432">&#9670;&#160;</a></span>_meshes</h2>
 
@@ -913,8 +1154,8 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
 
 </div>
 </div>
-<a id="a42f001059e4fe8944ba6b7741bbbea39" name="a42f001059e4fe8944ba6b7741bbbea39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42f001059e4fe8944ba6b7741bbbea39">&#9670;&#160;</a></span>_pipeline</h2>
+<a id="a724a581738e9aea6066292d7f0a385b9" name="a724a581738e9aea6066292d7f0a385b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a724a581738e9aea6066292d7f0a385b9">&#9670;&#160;</a></span>_ownLighting</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -923,7 +1164,7 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt;QRhiGraphicsPipeline&gt; hmi::MeshBatch::_pipeline</td>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classhmi_1_1LightingBlock.html">LightingBlock</a>&gt; hmi::MeshBatch::_ownLighting</td>
         </tr>
       </table>
   </td>
@@ -933,10 +1174,12 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
 </table>
 </div><div class="memdoc">
 
+<p>Le bloc d'éclairage neutre du lot, lié tant que l'appelant n'en donne pas un autre. </p>
+
 </div>
 </div>
-<a id="a997b9fc656c22d9ca49f542cda2600c3" name="a997b9fc656c22d9ca49f542cda2600c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a997b9fc656c22d9ca49f542cda2600c3">&#9670;&#160;</a></span>_pipelinePass</h2>
+<a id="a02e2eeb0aba95d70f9e9fd031fdf6d8e" name="a02e2eeb0aba95d70f9e9fd031fdf6d8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02e2eeb0aba95d70f9e9fd031fdf6d8e">&#9670;&#160;</a></span>_pipeline</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -945,7 +1188,7 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">QRhiRenderPassDescriptor* hmi::MeshBatch::_pipelinePass = nullptr</td>
+          <td class="memname"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a> hmi::MeshBatch::_pipeline</td>
         </tr>
       </table>
   </td>
@@ -1025,6 +1268,76 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
 
 </div>
 </div>
+<a id="ad2b9b230e122ceaf813518967f23710b" name="ad2b9b230e122ceaf813518967f23710b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2b9b230e122ceaf813518967f23710b">&#9670;&#160;</a></span>_shadowBindings</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QRhiShaderResourceBindings&gt; hmi::MeshBatch::_shadowBindings</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La passe d'ombres des maillages fixes : ses liaisons — le bloc du dessin, rien d'autre — valent pour tous les maillages. </p>
+
+</div>
+</div>
+<a id="acca912b9592d6cf1377a48358ac95fee" name="acca912b9592d6cf1377a48358ac95fee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acca912b9592d6cf1377a48358ac95fee">&#9670;&#160;</a></span>_shadowDrawable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::MeshBatch::_shadowDrawable = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La passe d'ombres a de quoi dessiner (<span class="tt"><a class="el" href="#a242863cb02c89f9c11c181991804e290" title="Prépare la passe d&#39;ombres (LOT-1007, EX-REN-054) de l&#39;image enregistrée : ses pipelines,...">prepareShadow</a></span>, lu par <span class="tt"><a class="el" href="#a771a766058a6747787ad47b0ff221091" title="Émet les dessins de la passe d&#39;ombres, dans la passe ouverte par l&#39;appelant sur la carte d&#39;ombres : c...">recordShadow</a></span>). </p>
+
+</div>
+</div>
+<a id="a8168183aa8830ae060e61d33f24a5432" name="a8168183aa8830ae060e61d33f24a5432"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8168183aa8830ae060e61d33f24a5432">&#9670;&#160;</a></span>_shadowPipeline</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a> hmi::MeshBatch::_shadowPipeline</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="af5cf4458648c1e0e2d0736a1ca78ed8a" name="af5cf4458648c1e0e2d0736a1ca78ed8a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af5cf4458648c1e0e2d0736a1ca78ed8a">&#9670;&#160;</a></span>_skinnedLayoutBindings</h2>
 
@@ -1047,8 +1360,8 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
 
 </div>
 </div>
-<a id="ae78ae12f0d35fc7f1f7d538058815a05" name="ae78ae12f0d35fc7f1f7d538058815a05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae78ae12f0d35fc7f1f7d538058815a05">&#9670;&#160;</a></span>_skinnedPipeline</h2>
+<a id="a6c59cda6a41423dd40249ea0dd6b8ebc" name="a6c59cda6a41423dd40249ea0dd6b8ebc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c59cda6a41423dd40249ea0dd6b8ebc">&#9670;&#160;</a></span>_skinnedPipeline</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1057,7 +1370,7 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt;QRhiGraphicsPipeline&gt; hmi::MeshBatch::_skinnedPipeline</td>
+          <td class="memname"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a> hmi::MeshBatch::_skinnedPipeline</td>
         </tr>
       </table>
   </td>
@@ -1069,8 +1382,8 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
 
 </div>
 </div>
-<a id="a61b948b2346403c0c7efba9d5417552b" name="a61b948b2346403c0c7efba9d5417552b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61b948b2346403c0c7efba9d5417552b">&#9670;&#160;</a></span>_skinnedPipelinePass</h2>
+<a id="ae5af07f0b26dd87a397b9660c411f371" name="ae5af07f0b26dd87a397b9660c411f371"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5af07f0b26dd87a397b9660c411f371">&#9670;&#160;</a></span>_skinnedShadowBindings</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1079,7 +1392,31 @@ Les maillages animés (<span class="tt">LOT-1005</span>)</h2>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">QRhiRenderPassDescriptor* hmi::MeshBatch::_skinnedPipelinePass = nullptr</td>
+          <td class="memname">std::unique_ptr&lt;QRhiShaderResourceBindings&gt; hmi::MeshBatch::_skinnedShadowBindings</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La passe d'ombres des maillages animés : le bloc du dessin et le bloc d'os. </p>
+
+</div>
+</div>
+<a id="a8e5e35b55394afc778a780bcd93b70b8" name="a8e5e35b55394afc778a780bcd93b70b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e5e35b55394afc778a780bcd93b70b8">&#9670;&#160;</a></span>_skinnedShadowPipeline</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structhmi_1_1MeshBatch_1_1Pipeline.html">Pipeline</a> hmi::MeshBatch::_skinnedShadowPipeline</td>
         </tr>
       </table>
   </td>

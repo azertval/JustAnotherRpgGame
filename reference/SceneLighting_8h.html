@@ -1,0 +1,234 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/SceneLighting.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('SceneLighting_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">SceneLighting.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>L'<b>éclairage d'une image</b> (<span class="tt">LOT-1007</span>, <span class="tt">EX-REN-053</span> à <span class="tt">EX-REN-056</span>), sans GPU : ce que la lumière d'une heure, les sources d'un lieu et le cadrage de la caméra donnent aux shaders.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;span&gt;</code><br />
+<code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DayLight_8h_source.html">Core/World/DayLight.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LightSource_8h_source.html">Core/World/LightSource.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IsoView_8h_source.html">HMI/Graphics/IsoView.h</a>&quot;</code><br />
+</div>
+<p><a href="SceneLighting_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:hmi_3A_3AWorldShadowBox" id="r_hmi_3A_3AWorldShadowBox"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldShadowBox.html">hmi::WorldShadowBox</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La boîte qu'une pièce de décor en <b>image</b> oppose au soleil (<span class="tt">LOT-1007</span>).  <a href="structhmi_1_1WorldShadowBox.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3AWorldLighting" id="r_hmi_3A_3AWorldLighting"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1WorldLighting.html">hmi::WorldLighting</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">La lumière que l'appelant donne au rendu d'un lieu.  <a href="structhmi_1_1WorldLighting.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3ALightingUniforms" id="r_hmi_3A_3ALightingUniforms"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1LightingUniforms.html">hmi::LightingUniforms</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bloc uniforme <span class="tt">Lighting</span> des shaders (<span class="tt">std140</span>), tel qu'il est téléversé.  <a href="structhmi_1_1LightingUniforms.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmi_3A_3ASceneLightFrame" id="r_hmi_3A_3ASceneLightFrame"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SceneLightFrame.html">hmi::SceneLightFrame</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'éclairage d'une image : le bloc des shaders, et la projection de la carte d'ombres.  <a href="structhmi_1_1SceneLightFrame.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:hmi" id="r_hmi"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html">hmi</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a2b854a1244b1efda06e401a13ea7d2f9" id="r_a2b854a1244b1efda06e401a13ea7d2f9"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a2b854a1244b1efda06e401a13ea7d2f9">hmi::LightMatrix</a> = std::array&lt;float, 16&gt;</td></tr>
+<tr class="memdesc:a2b854a1244b1efda06e401a13ea7d2f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une matrice 4 × 4 rangée <b>par colonnes</b>, appliquée à un vecteur colonne : celle d'un shader.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7c1212984502441cd0d5d43076ba1c5a" id="r_a7c1212984502441cd0d5d43076ba1c5a"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a2b854a1244b1efda06e401a13ea7d2f9">LightMatrix</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a7c1212984502441cd0d5d43076ba1c5a">hmi::metresToView</a> (const <a class="el" href="classhmi_1_1IsoView.html">IsoView</a> &amp;view) noexcept</td></tr>
+<tr class="memitem:ab526d60856b188444f20803309d17a9c" id="r_ab526d60856b188444f20803309d17a9c"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a2b854a1244b1efda06e401a13ea7d2f9">LightMatrix</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab526d60856b188444f20803309d17a9c">hmi::invertedAffine</a> (const <a class="el" href="namespacehmi.html#a2b854a1244b1efda06e401a13ea7d2f9">LightMatrix</a> &amp;m) noexcept</td></tr>
+<tr class="memitem:a16ddef50f8e40f14d47e890c24102e19" id="r_a16ddef50f8e40f14d47e890c24102e19"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a2b854a1244b1efda06e401a13ea7d2f9">LightMatrix</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a16ddef50f8e40f14d47e890c24102e19">hmi::multiplied</a> (const <a class="el" href="namespacehmi.html#a2b854a1244b1efda06e401a13ea7d2f9">LightMatrix</a> &amp;left, const <a class="el" href="namespacehmi.html#a2b854a1244b1efda06e401a13ea7d2f9">LightMatrix</a> &amp;right) noexcept</td></tr>
+<tr class="memitem:aed7b19b00bb0e017d845e2c9fc44959d" id="r_aed7b19b00bb0e017d845e2c9fc44959d"><td class="memItemLeft"><a class="el" href="namespacehmi.html#a2b854a1244b1efda06e401a13ea7d2f9">LightMatrix</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aed7b19b00bb0e017d845e2c9fc44959d">hmi::toLightMatrix</a> (const <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> &amp;t) noexcept</td></tr>
+<tr class="memitem:ab516a1dbb8a93ad2e7542de3a47c9b03" id="r_ab516a1dbb8a93ad2e7542de3a47c9b03"><td class="memItemLeft"><a class="el" href="structhmi_1_1SceneLightFrame.html">SceneLightFrame</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ab516a1dbb8a93ad2e7542de3a47c9b03">hmi::buildSceneLighting</a> (const <a class="el" href="classhmi_1_1IsoView.html">IsoView</a> &amp;view, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;visible, const <a class="el" href="structhmi_1_1WorldLighting.html">WorldLighting</a> &amp;lighting, std::span&lt; const <a class="el" href="structcore_1_1LightSource.html">core::LightSource</a> &gt; sources, bool flipShadowRows)</td></tr>
+<tr class="memdesc:ab516a1dbb8a93ad2e7542de3a47c9b03"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'éclairage d'une image.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a1b1c54dda0679c12a902fabdd5136344" id="r_a1b1c54dda0679c12a902fabdd5136344"><td class="memItemLeft">constexpr std::size_t&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a1b1c54dda0679c12a902fabdd5136344">hmi::MAXIMUM_SCENE_LIGHTS</a> = 16</td></tr>
+<tr class="memdesc:a1b1c54dda0679c12a902fabdd5136344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus grand nombre de lumières de nuit qu'une image éclaire.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>L'<b>éclairage d'une image</b> (<span class="tt">LOT-1007</span>, <span class="tt">EX-REN-053</span> à <span class="tt">EX-REN-056</span>), sans GPU : ce que la lumière d'une heure, les sources d'un lieu et le cadrage de la caméra donnent aux shaders. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md116"></a>
+Tout se calcule dans le repère de la vue</h2>
+<p>Un sommet d'image porte déjà sa position dans la vue (x, y, profondeur — <span class="tt"><a class="el" href="classhmi_1_1IsoView.html" title="La vue en volume d&#39;une grille projetée par core::IsoProjection.">hmi::IsoView</a></span>), et celle d'un maillage s'obtient par sa pose. La vue est une <b>rotation</b> de l'espace du lieu, à une échelle près : les angles et les rapports de distance y sont ceux du lieu. Le soleil, les sources et la verticale y sont donc amenés une fois par image, ici, et les shaders n'ont rien à inverser.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md117"></a>
+Qui reçoit quoi</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone">Un maillage  </th><th class="markdownTableHeadNone">Une image  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Ambiance et soleil  </td><td class="markdownTableBodyNone">selon sa normale  </td><td class="markdownTableBodyNone">—  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Teinte de l'heure  </td><td class="markdownTableBodyNone">—  </td><td class="markdownTableBodyNone">multipliée  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Lumières de nuit  </td><td class="markdownTableBodyNone">selon sa normale et la distance  </td><td class="markdownTableBodyNone">selon la distance  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Ombres portées  </td><td class="markdownTableBodyNone">reçues et portées  </td><td class="markdownTableBodyNone">reçues au sol ; portées par sa boîte (<span class="tt">WorldShadowBox</span>)  </td></tr>
+</table>
+<p>Une image n'a pas de normale : le soleil ne la modèle pas, elle garde la lumière qu'on lui a peinte. C'est la limite du décor en images, levée à la <span class="tt">0.0.3</span> (D-43).</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md118"></a>
+La carte d'ombres</h2>
+<p>Une seule, vue du soleil, en projection orthographique, couvrant ce que la caméra montre du sol. Son centre est <b>calé sur la grille de ses texels</b> : quand la caméra suit le héros, les bords d'ombre ne frémissent pas. Sa taille ne dépend que du cadrage et de la hauteur du soleil, jamais de la position de la caméra.</p>
+<p>Logique pure, sans GPU ni Qt. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="SceneLighting_8h.html">SceneLighting.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

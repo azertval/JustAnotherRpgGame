@@ -1,0 +1,236 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/LightSource.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LightSource_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LightSource.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Les <b>sources de lumière</b> d'un lieu (<span class="tt">LOT-1007</span>, <span class="tt">EX-REN-055</span>, <span class="tt">EX-EDIT-106</span>) : ce qu'un lampadaire, un brasero, une lanterne émettent, et les deux façons de le dire.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+</div>
+<p><a href="LightSource_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:core_3A_3ALightColor" id="r_core_3A_3ALightColor"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1LightColor.html">core::LightColor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une couleur de lumière : rouge, vert, bleu, de 0 à 1.  <a href="structcore_1_1LightColor.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3ALightEmission" id="r_core_3A_3ALightEmission"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1LightEmission.html">core::LightEmission</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ce qu'une source émet, en mètres : la valeur commune à la pièce et à l'entité.  <a href="structcore_1_1LightEmission.html#details">More...</a><br /></td></tr>
+<tr class="memitem:core_3A_3ALightSource" id="r_core_3A_3ALightSource"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcore_1_1LightSource.html">core::LightSource</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une source posée dans un lieu : où, et ce qu'elle émet.  <a href="structcore_1_1LightSource.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:core" id="r_core"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html">core</a></td></tr>
+<tr class="memdesc:namespacecore"><td class="mdescLeft">&#160;</td><td class="mdescRight">Espace de noms du moteur et de la logique de jeu. <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a66f72f5f732b685e0b60d51c58ca512e" id="r_a66f72f5f732b685e0b60d51c58ca512e"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1LightColor.html">LightColor</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a66f72f5f732b685e0b60d51c58ca512e">core::parseLightColor</a> (std::string_view text) noexcept</td></tr>
+<tr class="memitem:a0141b044522bc38dd34b087a5b6c4d32" id="r_a0141b044522bc38dd34b087a5b6c4d32"><td class="memItemLeft">std::optional&lt; <a class="el" href="structcore_1_1LightSource.html">LightSource</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a0141b044522bc38dd34b087a5b6c4d32">core::lightSourceOf</a> (const <a class="el" href="structcore_1_1MapEntity.html">MapEntity</a> &amp;entity)</td></tr>
+<tr class="memdesc:a0141b044522bc38dd34b087a5b6c4d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">La source que pose l'entité <code class="param">entity</code>, au centre de sa case.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a264335fa53cb1258f8b0918fcc6c6cae" id="r_a264335fa53cb1258f8b0918fcc6c6cae"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a264335fa53cb1258f8b0918fcc6c6cae">core::LIGHT_ENTITY_TYPE</a> = &quot;light&quot;</td></tr>
+<tr class="memdesc:a264335fa53cb1258f8b0918fcc6c6cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type d'entité d'une source de lumière posée dans l'éditeur.  <br /></td></tr>
+<tr class="memitem:a8fee65f5d41ec70b4f149a85d8a66e46" id="r_a8fee65f5d41ec70b4f149a85d8a66e46"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a8fee65f5d41ec70b4f149a85d8a66e46">core::LIGHT_COLOR_PROPERTY</a> = &quot;color&quot;</td></tr>
+<tr class="memdesc:a8fee65f5d41ec70b4f149a85d8a66e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une lumière : sa couleur, écrite <span class="tt">#rrggbb</span>.  <br /></td></tr>
+<tr class="memitem:aece89b3deb8c220706a4981fed3e2b1c" id="r_aece89b3deb8c220706a4981fed3e2b1c"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aece89b3deb8c220706a4981fed3e2b1c">core::LIGHT_RADIUS_PROPERTY</a> = &quot;radius&quot;</td></tr>
+<tr class="memdesc:aece89b3deb8c220706a4981fed3e2b1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une lumière : sa portée, en cases (1,5 m).  <br /></td></tr>
+<tr class="memitem:a9e8684acb0d0b5a463992e92975ae320" id="r_a9e8684acb0d0b5a463992e92975ae320"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a9e8684acb0d0b5a463992e92975ae320">core::LIGHT_HEIGHT_PROPERTY</a> = &quot;height&quot;</td></tr>
+<tr class="memdesc:a9e8684acb0d0b5a463992e92975ae320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une lumière : sa hauteur au-dessus du sol, en décimètres.  <br /></td></tr>
+<tr class="memitem:ac7df9226b6d7ac764eb730081a2e253a" id="r_ac7df9226b6d7ac764eb730081a2e253a"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ac7df9226b6d7ac764eb730081a2e253a">core::LIGHT_INTENSITY_PROPERTY</a> = &quot;intensity&quot;</td></tr>
+<tr class="memdesc:ac7df9226b6d7ac764eb730081a2e253a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une lumière : son intensité, en pour cent.  <br /></td></tr>
+<tr class="memitem:acf8046a268ad92e4c0ecb42438aae945" id="r_acf8046a268ad92e4c0ecb42438aae945"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#acf8046a268ad92e4c0ecb42438aae945">core::LIGHT_FLICKER_PROPERTY</a> = &quot;flicker&quot;</td></tr>
+<tr class="memdesc:acf8046a268ad92e4c0ecb42438aae945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une lumière : vrai si elle tremble comme une flamme.  <br /></td></tr>
+<tr class="memitem:a50fc0ef4be6a06cbd37729cbda7e4d6f" id="r_a50fc0ef4be6a06cbd37729cbda7e4d6f"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a50fc0ef4be6a06cbd37729cbda7e4d6f">core::LIGHT_ALWAYS_PROPERTY</a> = &quot;always&quot;</td></tr>
+<tr class="memdesc:a50fc0ef4be6a06cbd37729cbda7e4d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Propriété d'une lumière : vrai si elle reste allumée en plein jour.  <br /></td></tr>
+<tr class="memitem:aa626a285147843e2ba4cf34c51246bfd" id="r_aa626a285147843e2ba4cf34c51246bfd"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aa626a285147843e2ba4cf34c51246bfd">core::LIGHT_RADIUS_CELLS_DEFAULT</a> = 4</td></tr>
+<tr class="memdesc:aa626a285147843e2ba4cf34c51246bfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bornes des propriétés entières d'une lumière, et leurs valeurs à la création.  <br /></td></tr>
+<tr class="memitem:accd9850d134a649460f8bb06831de7df" id="r_accd9850d134a649460f8bb06831de7df"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#accd9850d134a649460f8bb06831de7df">core::LIGHT_RADIUS_CELLS_MAXIMUM</a> = 16</td></tr>
+<tr class="memitem:abbc5ab4b1de767066179526e1595e00f" id="r_abbc5ab4b1de767066179526e1595e00f"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#abbc5ab4b1de767066179526e1595e00f">core::LIGHT_HEIGHT_DECIMETRES_DEFAULT</a> = 22</td></tr>
+<tr class="memitem:ac90241c2d484ef7bb30ac999ea4c08bf" id="r_ac90241c2d484ef7bb30ac999ea4c08bf"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ac90241c2d484ef7bb30ac999ea4c08bf">core::LIGHT_HEIGHT_DECIMETRES_MAXIMUM</a> = 120</td></tr>
+<tr class="memitem:a2dba51c4f4085d745b7c84f4e861c649" id="r_a2dba51c4f4085d745b7c84f4e861c649"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#a2dba51c4f4085d745b7c84f4e861c649">core::LIGHT_INTENSITY_PERCENT_DEFAULT</a> = 100</td></tr>
+<tr class="memitem:aabedcb38d8069e6080d6ebec5474a21b" id="r_aabedcb38d8069e6080d6ebec5474a21b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aabedcb38d8069e6080d6ebec5474a21b">core::LIGHT_INTENSITY_PERCENT_MINIMUM</a> = 10</td></tr>
+<tr class="memitem:aeab7eb7d5d4c30b85380ffd6a7999b65" id="r_aeab7eb7d5d4c30b85380ffd6a7999b65"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#aeab7eb7d5d4c30b85380ffd6a7999b65">core::LIGHT_INTENSITY_PERCENT_MAXIMUM</a> = 300</td></tr>
+<tr class="memitem:ae592e197ba18bd5773166fb4c318d43c" id="r_ae592e197ba18bd5773166fb4c318d43c"><td class="memItemLeft">constexpr std::string_view&#160;</td><td class="memItemRight"><a class="el" href="namespacecore.html#ae592e197ba18bd5773166fb4c318d43c">core::LIGHT_COLOR_DEFAULT</a> = &quot;#ffbe7a&quot;</td></tr>
+<tr class="memdesc:ae592e197ba18bd5773166fb4c318d43c"><td class="mdescLeft">&#160;</td><td class="mdescRight">La couleur d'une lumière à sa création, telle qu'elle s'écrit.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Les <b>sources de lumière</b> d'un lieu (<span class="tt">LOT-1007</span>, <span class="tt">EX-REN-055</span>, <span class="tt">EX-EDIT-106</span>) : ce qu'un lampadaire, un brasero, une lanterne émettent, et les deux façons de le dire. </p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md79"></a>
+Deux façons de déclarer une source</h2>
+<ul>
+<li><b>La pièce</b> : une entrée du manifeste d'un kit porte un champ <span class="tt">light</span>. Toute carte qui pose la pièce reçoit sa lumière, sans rien écrire — un lampadaire éclaire parce qu'il est un lampadaire. <pre class="fragment">"prop-lamppost": { "file": "props/prop-lamppost.png", …,
+                   "light": { "color": "#ffbe7a", "radius": 6.0, "height": 3.2 } }
+</pre></li>
+</ul>
+<ul>
+<li><b>L'entité</b> : la famille <span class="tt">light</span> (<span class="tt"><a class="el" href="namespacecore.html#a3c877363f8258fc1ba137c48aa283397" title="Les familles que l&#39;éditeur sait poser, dans l&#39;ordre de sa liste.">core::knownEntityKinds</a></span>), posée dans l'éditeur comme un coffre. Pour ce qu'aucune pièce ne porte : la lueur d'une fenêtre, un feu, une lumière d'ambiance. Ses propriétés sont des scalaires (<span class="tt"><a class="el" href="namespacecore.html#a9f79b235a73b6264aa3a97d51267919d" title="Valeur d&#39;une propriété libre : booléen, entier, réel ou chaîne.">core::PropertyValue</a></span> n'a pas de composite) : la couleur en <span class="tt">#rrggbb</span>, la portée en <b>cases</b>, la hauteur en <b>décimètres</b>, l'intensité en <b>pour cent</b>.</li>
+</ul>
+<p>Les deux aboutissent à la même valeur, <span class="tt"><a class="el" href="structcore_1_1LightEmission.html" title="Ce qu&#39;une source émet, en mètres : la valeur commune à la pièce et à l&#39;entité.">core::LightEmission</a></span>, que le rendu lit en mètres.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md80"></a>
+Quand elle est allumée</h2>
+<p>Une source s'allume avec <span class="tt"><a class="el" href="structcore_1_1DayLight.html#a67fbc31fdfba1dce4ae2d90bbea495fb">core::DayLight::lamps</a></span> — au crépuscule —, sauf si elle est <span class="tt">always</span> : un sous-sol, une forge, un autel restent éclairés en plein jour.</p>
+<p>Logique pure, sans Qt ni GPU. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_c085377a8d45dfd2467facd710fb0ba3.html">World</a></li><li class="navelem"><a href="LightSource_8h.html">LightSource.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

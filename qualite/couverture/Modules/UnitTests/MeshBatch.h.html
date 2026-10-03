@@ -16,6 +16,7 @@
 
 #include &lt;array&gt;
 #include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
 #include &lt;memory&gt;
 #include &lt;span&gt;
 #include &lt;vector&gt;
@@ -24,6 +25,7 @@
 
 #include "Core/Resources/MeshFile.h"
 #include "HMI/Graphics/ComposedScene.h"
+#include "HMI/Graphics/SceneLighting.h"
 #include "HMI/Graphics/TextureLoader.h"
 
 class QRhi;
@@ -74,6 +76,22 @@ struct RhiContext;
  * un maillage liÃ© reste dans sa pose de liaison, par le pipeline des maillages fixes. Un maillage
  * fixe ne passe jamais par le second pipeline : son image est celle d'avant le lot.
  */
+class LightingBlock;
+
+/**
+ * @brief Ce qu'un dessin donne Ã  l'Ã©clairage (`LOT-1007`). La valeur d'usine â des matrices
+ *        nulles, sous le bloc d'Ã©clairage neutre â est le dessin d'avant le lot.
+ */
+struct MeshLighting {
+    /// Du repÃ¨re du maillage Ã  celui de la vue : la position et la normale Ã©clairÃ©es.
+    LightMatrix toView{};
+    /// Du repÃ¨re du maillage au clip de la carte d'ombres.
+    LightMatrix toShadowClip{};
+    /// Vrai : le maillage ne paraÃ®t pas Ã  l'image, il n'y fait que porter son ombre â la boÃ®te
+    /// d'une piÃ¨ce de dÃ©cor en image (`hmi::WorldShadowBox`).
+    bool castsOnly = false;
+};
+
 class MeshBatch {
 public:
     /// @param rhi Interface de rendu, non possÃ©dÃ©e ; doit survivre Ã  l'objet.
@@ -101,6 +119,10 @@ public:
     /// LibÃ¨re tous les maillages chargÃ©s ; leurs identitÃ©s ne valent plus.
     void clear() noexcept;
 
+    /// @brief LibÃ¨re le maillage @p mesh ; son identitÃ© ne vaut plus. Sans effet pour une identitÃ©
+    ///        nulle ou inconnue. Ã appeler hors de toute image enregistrÃ©e.
+    void destroy(MeshHandle mesh) noexcept;
+
     /// @return Les octets de mÃ©moire graphique que tiennent les maillages chargÃ©s : tampons,
     ///         textures et leurs mipmaps.
 <span style = "background-color:#dfd">    [[nodiscard]] std::size_t bytes() const noexcept {
@@ -118,9 +140,18 @@ public:
      * @param bones   La pose d'un maillage animÃ© : seize flottants par os (`core::poseSkeleton`).
      *                Vide, ou d'une taille qui n'est pas celle du squelette du maillage : il se
      *                dessine dans sa pose de liaison.
+     * @param lighting Ce que le dessin donne Ã  l'Ã©clairage (`MeshLighting`) : sa pose dans la vue,
+     *                sa projection dans la carte d'ombres. La valeur d'usine, sous le bloc
+     *                d'Ã©clairage neutre, est le dessin d'avant le `LOT-1007`.
      */
     void draw(MeshHandle mesh, const DirectX::XMFLOAT4X4&amp; clip, float opacity = 1.0F,
-              std::span&lt;const float&gt; bones = {});
+              std::span&lt;const float&gt; bones = {}, const MeshLighting&amp; lighting = {});
+
+    /**
+     * @brief Lie le bloc d'Ã©clairage @p lighting aux pipelines (`LOT-1007`) ; `nullptr` : le bloc
+     *        neutre du lot. Le bloc doit vivre aussi longtemps qu'il est liÃ©.
+     */
+    void setLighting(LightingBlock* lighting);
 
     /// @return Le nombre de dessins **animÃ©s** enregistrÃ©s pour l'image en cours.
     [[nodiscard]] std::size_t skinnedDrawCount() const noexcept {
@@ -142,7 +173,21 @@ public:
                                                    QRhiResourceUpdateBatch* updates);
 
     /// @brief Ãmet les appels de dessin de l'image prÃ©parÃ©e, dans la passe ouverte par l'appelant.
+    ///        Un dessin qui ne fait que porter une ombre (`MeshLighting::castsOnly`) n'y paraÃ®t
+    ///        pas.
     void record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target);
+
+    /**
+     * @brief PrÃ©pare la **passe d'ombres** (`LOT-1007`, `EX-REN-054`) de l'image enregistrÃ©e :
+     *        ses pipelines,
+     *        pour la cible @p target de la carte d'ombres. Ã appeler aprÃ¨s `prepare`.
+     * @return Vrai s'il y a quelque chose Ã  y dessiner.
+     */
+    [[nodiscard]] bool prepareShadow(QRhiRenderTarget* target);
+
+    /// @brief Ãmet les dessins de la passe d'ombres, dans la passe ouverte par l'appelant sur la
+    ///        carte d'ombres : chaque maillage enregistrÃ©, vu du soleil, profondeur seule.
+    void recordShadow(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target);
 
 private:
     /// Un maillage sur le GPU.
@@ -163,6 +208,14 @@ private:
         std::unique_ptr&lt;QRhiShaderResourceBindings&gt; skinnedBindings;
     };
 
+    /// Les quatre pipelines : fixe ou animÃ©, Ã  l'image ou Ã  la carte d'ombres.
+    struct Pipeline {
+        std::unique_ptr&lt;QRhiGraphicsPipeline&gt; pipeline;
+        /// La passe et le nombre d'Ã©chantillons de la cible pour laquelle il a Ã©tÃ© construit.
+        QRhiRenderPassDescriptor* pass = nullptr;
+        int samples = 1;
+    };
+
     /// Un dessin enregistrÃ© : un maillage, sa matrice, sa teinte.
     struct Draw {
         GpuMesh* mesh = nullptr;
@@ -170,10 +223,21 @@ private:
         float opacity = 1.0F;
         /// Le rang de sa pose parmi les dessins animÃ©s de l'image ; -1 : pose de liaison.
         int pose = -1;
+        MeshLighting lighting{};
     };
 
-    bool ensurePipeline(QRhiRenderTarget* target);
-    bool ensureSkinnedPipeline(QRhiRenderTarget* target);
+    /// Garantit le pipeline @p kept pour la cible @p target : fixe ou animÃ© (@p skinned), Ã 
+    /// l'image ou Ã  la carte d'ombres (@p shadow).
+    bool ensurePipeline(Pipeline&amp; kept, QRhiRenderTarget* target, bool skinned, bool shadow);
+    /// Garantit les liaisons de rÃ©fÃ©rence et celles de la passe d'ombres.
+    bool ensureLayouts(bool skinned);
+    /// Oublie toutes les liaisons : le tampon uniforme, le bloc d'os ou le bloc d'Ã©clairage
+    /// qu'elles citent a changÃ©.
+    void resetBindings(bool skinnedOnly);
+    /// @return Le bloc d'Ã©clairage liÃ© : celui de l'appelant, sinon le bloc neutre du lot.
+<span style = "background-color:#dfd">    [[nodiscard]] LightingBlock* lighting() const noexcept {
+        return _lighting != nullptr ? _lighting : _ownLighting.get();
+    }</span>
     bool ensureUniformCapacity(std::size_t drawCount);
     bool ensureBoneCapacity(std::size_t poseCount);
     QRhiShaderResourceBindings* bindingsFor(GpuMesh&amp; mesh);
@@ -182,18 +246,29 @@ private:
     QRhi* _rhi;  // non possÃ©dÃ©
     std::unique_ptr&lt;QRhiSampler&gt; _sampler;
     std::unique_ptr&lt;QRhiBuffer&gt; _uniformBuffer;
+    /// Le bloc d'Ã©clairage neutre du lot, liÃ© tant que l'appelant n'en donne pas un autre.
+    std::unique_ptr&lt;LightingBlock&gt; _ownLighting;
+    /// Le bloc de l'appelant (`setLighting`), non possÃ©dÃ© ; `nullptr` : le bloc neutre.
+<span style = "background-color:#dfd">    LightingBlock* _lighting = nullptr;</span>
+    /// La rÃ©vision du bloc liÃ© pour laquelle les liaisons ont Ã©tÃ© faites.
+<span style = "background-color:#dfd">    std::uint64_t _lightingRevision = 0;</span>
     std::unique_ptr&lt;QRhiShaderResourceBindings&gt; _layoutBindings;
-    std::unique_ptr&lt;QRhiGraphicsPipeline&gt; _pipeline;
-<span style = "background-color:#dfd">    QRhiRenderPassDescriptor* _pipelinePass = nullptr;
-    std::size_t _uniformSlots = 0;
+    Pipeline _pipeline;
+    /// La passe d'ombres des maillages fixes : ses liaisons â le bloc du dessin, rien d'autre â
+    /// valent pour tous les maillages.
+    std::unique_ptr&lt;QRhiShaderResourceBindings&gt; _shadowBindings;
+    Pipeline _shadowPipeline;
+<span style = "background-color:#dfd">    std::size_t _uniformSlots = 0;
     int _uniformStride = 0;</span>
     /// Le pipeline des maillages animÃ©s, son tampon d'os (un bloc de `MAX_BONES` matrices par
     /// dessin animÃ©) et ses liaisons de rÃ©fÃ©rence.
     std::unique_ptr&lt;QRhiBuffer&gt; _boneBuffer;
     std::unique_ptr&lt;QRhiShaderResourceBindings&gt; _skinnedLayoutBindings;
-    std::unique_ptr&lt;QRhiGraphicsPipeline&gt; _skinnedPipeline;
-<span style = "background-color:#dfd">    QRhiRenderPassDescriptor* _skinnedPipelinePass = nullptr;
-    std::size_t _boneSlots = 0;
+    Pipeline _skinnedPipeline;
+    /// La passe d'ombres des maillages animÃ©s : le bloc du dessin et le bloc d'os.
+    std::unique_ptr&lt;QRhiShaderResourceBindings&gt; _skinnedShadowBindings;
+    Pipeline _skinnedShadowPipeline;
+<span style = "background-color:#dfd">    std::size_t _boneSlots = 0;
     int _boneStride = 0;</span>
     /// Les poses de l'image : `MAX_BONES` matrices par dessin animÃ©, l'identitÃ© au-delÃ  du
     /// squelette.
@@ -203,6 +278,8 @@ private:
 <span style = "background-color:#dfd">    std::size_t _bytes = 0;</span>
     std::vector&lt;Draw&gt; _draws;
 <span style = "background-color:#dfd">    bool _drawable = false;</span>
+    /// La passe d'ombres a de quoi dessiner (`prepareShadow`, lu par `recordShadow`).
+<span style = "background-color:#dfd">    bool _shadowDrawable = false;</span>
 };
 
 }  // namespace hmi</pre>

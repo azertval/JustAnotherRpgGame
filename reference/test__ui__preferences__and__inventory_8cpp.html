@@ -156,6 +156,8 @@ $(function(){initNavTree('test__ui__preferences__and__inventory_8cpp.html','',''
 Functions</h2></td></tr>
 <tr class="memitem:a982428c959474696b372caafcc8aeefb" id="r_a982428c959474696b372caafcc8aeefb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a982428c959474696b372caafcc8aeefb">TEST</a> (UiPreferencesTest, HudSizeIsBoundedAndSurvivesReload)</td></tr>
 <tr class="memdesc:a982428c959474696b372caafcc8aeefb"><td class="mdescLeft">&#160;</td><td class="mdescRight">La taille du HUD est bornée de 75 % à 130 % et survit à un rechargement des préférences.  <br /></td></tr>
+<tr class="memitem:a05732b1dd076fbb4bb3e273483016208" id="r_a05732b1dd076fbb4bb3e273483016208"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a05732b1dd076fbb4bb3e273483016208">TEST</a> (UiPreferencesTest, RenderSettingsTakeOnlyOfferedValues)</td></tr>
+<tr class="memdesc:a05732b1dd076fbb4bb3e273483016208"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'anticrénelage, la définition du rendu et les ombres ne prennent que les valeurs proposées, et survivent à un rechargement.  <br /></td></tr>
 <tr class="memitem:a703065d151b817645bfbf040f36f15da" id="r_a703065d151b817645bfbf040f36f15da"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a703065d151b817645bfbf040f36f15da">TEST</a> (InventoryModelTest, EquipmentSurvivesReopeningAndCombatRecords)</td></tr>
 <tr class="memdesc:a703065d151b817645bfbf040f36f15da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un changement d'équipement reste sur le mercenaire affiché quand l'écran se rouvre, et après un relevé de combat.  <br /></td></tr>
 <tr class="memitem:a6261a504ce63edb11a1cc0c4c3b20344" id="r_a6261a504ce63edb11a1cc0c4c3b20344"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6261a504ce63edb11a1cc0c4c3b20344">TEST</a> (InventoryModelTest, RestPreservesEquipmentAndClearsSpentResources)</td></tr>
@@ -165,7 +167,7 @@ Functions</h2></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a703065d151b817645bfbf040f36f15da" name="a703065d151b817645bfbf040f36f15da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a703065d151b817645bfbf040f36f15da">&#9670;&#160;</a></span>TEST() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a703065d151b817645bfbf040f36f15da">&#9670;&#160;</a></span>TEST() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +203,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6261a504ce63edb11a1cc0c4c3b20344" name="a6261a504ce63edb11a1cc0c4c3b20344"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6261a504ce63edb11a1cc0c4c3b20344">&#9670;&#160;</a></span>TEST() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6261a504ce63edb11a1cc0c4c3b20344">&#9670;&#160;</a></span>TEST() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -233,7 +235,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="af22959de514f2e5996a26efac53af075" name="af22959de514f2e5996a26efac53af075"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af22959de514f2e5996a26efac53af075">&#9670;&#160;</a></span>TEST() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af22959de514f2e5996a26efac53af075">&#9670;&#160;</a></span>TEST() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -267,7 +269,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a982428c959474696b372caafcc8aeefb" name="a982428c959474696b372caafcc8aeefb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a982428c959474696b372caafcc8aeefb">&#9670;&#160;</a></span>TEST() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a982428c959474696b372caafcc8aeefb">&#9670;&#160;</a></span>TEST() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,6 +298,44 @@ Functions</h2></td></tr>
 </li>
 <li>Ecrire une valeur hors bornes dans les preferences et recharger.<br  />
  <b>Resultat attendu :</b> 120 est relu tel quel ; 1000 est ramene a 130, -1 a 75 ; le defaut vaut 100 ; une valeur enregistree hors bornes est ramenee a 130 au chargement. </li>
+</ol>
+
+</div>
+</div>
+<a id="a05732b1dd076fbb4bb3e273483016208" name="a05732b1dd076fbb4bb3e273483016208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05732b1dd076fbb4bb3e273483016208">&#9670;&#160;</a></span>TEST() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">UiPreferencesTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">RenderSettingsTakeOnlyOfferedValues</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'anticrénelage, la définition du rendu et les ombres ne prennent que les valeurs proposées, et survivent à un rechargement. </p>
+<p><b>Cas de test :</b> <b>Les reglages de rendu ne prennent que les valeurs proposees.</b><br  />
+ <b>Categorie :</b> Unitaire · Options<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Isoler les preferences dans un dossier temporaire.<br  />
+</p><ol type="1">
+<li>Lire les valeurs d'usine, puis regler 8 echantillons, 150 % et des ombres de 4096 texels ; relire par un second modele.<br  />
+</li>
+<li>Demander 3 echantillons, 137 % et 3000 texels, que l'ecran ne propose pas.<br  />
+</li>
+<li>Eteindre les ombres (0).<br  />
+</li>
+<li>Ecrire des valeurs non proposees dans les preferences et recharger.<br  />
+ <b>Resultat attendu :</b> L'usine vaut 4 echantillons, 100 % et 2048 texels ; 8, 150 et 4096 sont relus tels quels et annonces une fois chacun ; 3, 137 et 3000 sont ignores sans annonce ; 0 eteint les ombres ; des valeurs enregistrees non proposees rendent celles d'usine au chargement. </li>
 </ol>
 
 </div>

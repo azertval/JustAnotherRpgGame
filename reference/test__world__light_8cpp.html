@@ -1,0 +1,437 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/Core/World/test_world_light.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__world__light_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_world_light.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Tests de l'heure du monde, de la table de lumière et des sources de lumière (LOT-1007).  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ScenePieceManifest_8h_source.html">Core/Resources/ScenePieceManifest.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DayLight_8h_source.html">Core/World/DayLight.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="EntityKinds_8h_source.html">Core/World/EntityKinds.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LightSource_8h_source.html">Core/World/LightSource.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldClock_8h_source.html">Core/World/WorldClock.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a0af97a3eb9d109893e4c6ad35b560acf" id="r_a0af97a3eb9d109893e4c6ad35b560acf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0af97a3eb9d109893e4c6ad35b560acf">TEST</a> (WorldClockTest, LHeureAvancePasseMinuitEtSeFige)</td></tr>
+<tr class="memdesc:a0af97a3eb9d109893e4c6ad35b560acf"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'horloge avance d'une heure du monde par minute réelle, passe minuit en comptant un jour, et ne bouge pas quand elle est figée.  <br /></td></tr>
+<tr class="memitem:a1180fe0cc8f166d62e2960ea8b445276" id="r_a1180fe0cc8f166d62e2960ea8b445276"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1180fe0cc8f166d62e2960ea8b445276">TEST</a> (WorldClockTest, UneHeureSEcritEtSeRelit)</td></tr>
+<tr class="memdesc:a1180fe0cc8f166d62e2960ea8b445276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une heure s'écrit et se relit <span class="tt">HH:MM</span> ; un réglage hors du jour y est ramené.  <br /></td></tr>
+<tr class="memitem:ab1e1bab01eeafbd361e0591489df46cc" id="r_ab1e1bab01eeafbd361e0591489df46cc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab1e1bab01eeafbd361e0591489df46cc">TEST</a> (DayLightTest, LaTableInterpoleEtPasseMinuit)</td></tr>
+<tr class="memdesc:ab1e1bab01eeafbd361e0591489df46cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">La table interpole entre deux clés, rejoint le lendemain passé minuit, et rend à midi la lumière qui laisse les images telles que peintes.  <br /></td></tr>
+<tr class="memitem:a93b0e358a5ac0bcf9386be9e2bacc7ea" id="r_a93b0e358a5ac0bcf9386be9e2bacc7ea"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a93b0e358a5ac0bcf9386be9e2bacc7ea">TEST</a> (DayLightTest, LaLumiereNeSautePas)</td></tr>
+<tr class="memdesc:a93b0e358a5ac0bcf9386be9e2bacc7ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">La lumière ne saute pas : d'une minute à la suivante, sur tout le jour, la teinte, les lampes et la lumière que reçoit une face ne changent que d'un souffle.  <br /></td></tr>
+<tr class="memitem:afa49a2cbcb38be680b96351a24b39127" id="r_afa49a2cbcb38be680b96351a24b39127"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afa49a2cbcb38be680b96351a24b39127">TEST</a> (DayLightTest, LaTableLivreeSeLitEtUneFausseEstRefusee)</td></tr>
+<tr class="memdesc:afa49a2cbcb38be680b96351a24b39127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le fichier livré est la table d'usine, et une table mal écrite dit pourquoi.  <br /></td></tr>
+<tr class="memitem:a702e5bd3af956ae0186b1bfec39b08e5" id="r_a702e5bd3af956ae0186b1bfec39b08e5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a702e5bd3af956ae0186b1bfec39b08e5">TEST</a> (LightSourceTest, UneEntiteLightDonneUneSource)</td></tr>
+<tr class="memdesc:a702e5bd3af956ae0186b1bfec39b08e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une entité <span class="tt">light</span> donne une source en mètres, et la famille est connue de l'éditeur.  <br /></td></tr>
+<tr class="memitem:ad6eac19ea68092b95f6369e83ee7161a" id="r_ad6eac19ea68092b95f6369e83ee7161a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad6eac19ea68092b95f6369e83ee7161a">TEST</a> (LightSourceTest, UnePieceDuManifesteDeclareSaLumiere)</td></tr>
+<tr class="memdesc:ad6eac19ea68092b95f6369e83ee7161a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une pièce du manifeste déclare sa lumière et son éclat ; une pièce qui n'en dit rien n'éclaire pas.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Tests de l'heure du monde, de la table de lumière et des sources de lumière (LOT-1007). </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a93b0e358a5ac0bcf9386be9e2bacc7ea" name="a93b0e358a5ac0bcf9386be9e2bacc7ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93b0e358a5ac0bcf9386be9e2bacc7ea">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DayLightTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaLumiereNeSautePas</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La lumière ne saute pas : d'une minute à la suivante, sur tout le jour, la teinte, les lampes et la lumière que reçoit une face ne changent que d'un souffle. </p>
+<p><b>Cas de test :</b> <b>La lumiere du jour ne saute pas d'une minute a l'autre.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde · Lumière du jour<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire la table d'usine à chaque minute du jour, et à la minute suivante.<br  />
+</p><ol type="1">
+<li>Comparer la teinte, l'ambiance, l'allumage des lampes et la lumière dirigée que reçoit une face tournée vers le haut.<br  />
+ <b>Resultat attendu :</b> Aucun écart ne dépasse quatre centièmes : ni au lever, ni au coucher, ni aux deux bascules du soleil à la lune, où la lumière dirigée est noire. </li>
+</ol>
+
+</div>
+</div>
+<a id="ab1e1bab01eeafbd361e0591489df46cc" name="ab1e1bab01eeafbd361e0591489df46cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1e1bab01eeafbd361e0591489df46cc">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DayLightTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaTableInterpoleEtPasseMinuit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La table interpole entre deux clés, rejoint le lendemain passé minuit, et rend à midi la lumière qui laisse les images telles que peintes. </p>
+<p><b>Cas de test :</b> <b>La table de lumiere interpole entre ses cles et passe minuit.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde · Lumière du jour<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Bâtir une table de deux clés : 06:00 (teinte noire, lampes à 1) et 18:00 (teinte blanche, lampes à 0).<br  />
+</p><ol type="1">
+<li>La lire à 06:00, 12:00, 18:00, puis à 00:00.<br  />
+</li>
+<li>Lire la table d'usine à midi et à minuit.<br  />
+</li>
+<li>Lire une table vide.<br  />
+ <b>Resultat attendu :</b> À 06:00 et 18:00 la table rend ses clés ; à 12:00 leur milieu ; à 00:00, le milieu de 18:00 et de 06:00 du lendemain. La table d'usine a une teinte blanche et des lampes éteintes à midi, une teinte plus sombre et des lampes allumées à minuit ; son vecteur vers le soleil est unitaire et monte. Une table vide rend la lumière neutre. </li>
+</ol>
+
+</div>
+</div>
+<a id="afa49a2cbcb38be680b96351a24b39127" name="afa49a2cbcb38be680b96351a24b39127"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa49a2cbcb38be680b96351a24b39127">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">DayLightTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaTableLivreeSeLitEtUneFausseEstRefusee</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le fichier livré est la table d'usine, et une table mal écrite dit pourquoi. </p>
+<p><b>Cas de test :</b> <b>La table livree se lit, et une table fausse est refusee.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde · Lumière du jour<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire <span class="tt">Assets/Common/Lighting/daylight.json</span>.<br  />
+</p><ol type="1">
+<li>Lire un fichier absent, une table sans clé, une clé sans heure, une couleur fausse, une élévation nulle, une ombre hors de [0, 1], deux clés à la même heure.<br  />
+ <b>Resultat attendu :</b> Le fichier livré donne les mêmes clés que la table d'usine, aux arrondis de l'écriture près. Chaque table fausse est refusée, avec un message. </li>
+</ol>
+
+</div>
+</div>
+<a id="a702e5bd3af956ae0186b1bfec39b08e5" name="a702e5bd3af956ae0186b1bfec39b08e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a702e5bd3af956ae0186b1bfec39b08e5">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LightSourceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneEntiteLightDonneUneSource</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une entité <span class="tt">light</span> donne une source en mètres, et la famille est connue de l'éditeur. </p>
+<p><b>Cas de test :</b> <b>Une entite light donne une source de lumiere.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde · Sources de lumière<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire la famille <span class="tt">light</span> de la table des familles d'entités.<br  />
+</p><ol type="1">
+<li>Poser une lumière en (4, 2) : couleur <span class="tt">#80c0ff</span>, portée 6 cases, hauteur 30 dm, intensité 150 %, tremblante, toujours allumée.<br  />
+</li>
+<li>En poser une sans propriété, puis une aux valeurs hors bornes et mal typées.<br  />
+</li>
+<li>Demander la source d'un coffre.<br  />
+ <b>Resultat attendu :</b> La famille existe, ponctuelle, avec ses six propriétés ; la première source est au centre de sa case (4,5 ; 2,5), à 9 m de portée, 3 m de haut, intensité 1,5 ; la deuxième vaut une lanterne (4 cases, 2,2 m, intensité 1) ; la troisième est ramenée dans ses bornes et garde la couleur d'usine ; un coffre ne donne aucune source. </li>
+</ol>
+
+</div>
+</div>
+<a id="ad6eac19ea68092b95f6369e83ee7161a" name="ad6eac19ea68092b95f6369e83ee7161a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6eac19ea68092b95f6369e83ee7161a">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">LightSourceTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UnePieceDuManifesteDeclareSaLumiere</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une pièce du manifeste déclare sa lumière et son éclat ; une pièce qui n'en dit rien n'éclaire pas. </p>
+<p><b>Cas de test :</b> <b>Une piece du manifeste declare sa lumiere et son eclat.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde · Sources de lumière<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire un manifeste de trois pièces : un lampadaire (<span class="tt">light</span> complet), un brasero (<span class="tt">light</span> vide, <span class="tt">glow</span> à 0,8), un mur (ni l'un ni l'autre).<br  />
+</p><ol type="1">
+<li>Lire un lampadaire dont la portée dépasse la borne et dont la couleur est fausse.<br  />
+ <b>Resultat attendu :</b> Le lampadaire émet sa couleur à 7,5 m, depuis 3,2 m, sans trembler ; le brasero vaut une lanterne d'usine et garde 0,8 de son éclat ; le mur n'émet rien et ne garde rien. La portée trop grande est ramenée à 24 m, la couleur fausse à celle d'usine. </li>
+</ol>
+
+</div>
+</div>
+<a id="a0af97a3eb9d109893e4c6ad35b560acf" name="a0af97a3eb9d109893e4c6ad35b560acf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0af97a3eb9d109893e4c6ad35b560acf">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldClockTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LHeureAvancePasseMinuitEtSeFige</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'horloge avance d'une heure du monde par minute réelle, passe minuit en comptant un jour, et ne bouge pas quand elle est figée. </p>
+<p><b>Cas de test :</b> <b>L'heure du monde avance, passe minuit et se fige.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde · Heure<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire l'heure d'une horloge neuve.<br  />
+</p><ol type="1">
+<li>Faire passer soixante secondes, puis quatorze minutes réelles.<br  />
+</li>
+<li>Lui donner une durée négative, puis non finie.<br  />
+</li>
+<li>La figer, faire passer une heure réelle, la relancer.<br  />
+ <b>Resultat attendu :</b> Elle part de 10:00 au jour 0 ; soixante secondes l'amènent à 11:00 ; quatorze minutes de plus à 01:00 du jour 1 ; une durée négative ou non finie ne change rien ; figée, elle ne bouge pas. </li>
+</ol>
+
+</div>
+</div>
+<a id="a1180fe0cc8f166d62e2960ea8b445276" name="a1180fe0cc8f166d62e2960ea8b445276"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1180fe0cc8f166d62e2960ea8b445276">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">WorldClockTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneHeureSEcritEtSeRelit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une heure s'écrit et se relit <span class="tt">HH:MM</span> ; un réglage hors du jour y est ramené. </p>
+<p><b>Cas de test :</b> <b>Une heure s'ecrit et se relit HH:MM.</b><br  />
+ <b>Categorie :</b> Unitaire · Monde · Heure<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire <span class="tt">21:30</span>, <span class="tt">7:05</span>, <span class="tt">9</span>, puis <span class="tt">24:00</span>, <span class="tt">12:60</span>, <span class="tt">12:5</span>, <span class="tt">midi</span> et un texte vide.<br  />
+</p><ol type="1">
+<li>Écrire 1290 minutes, puis 1445 et −30.<br  />
+</li>
+<li>Régler une horloge à 1500 minutes.<br  />
+ <b>Resultat attendu :</b> Les trois premières valent 1290, 425 et 540 minutes ; les autres ne sont pas des heures ; 1290 s'écrit <span class="tt">21:30</span>, 1445 <span class="tt">00:05</span> et −30 <span class="tt">23:30</span> ; l'horloge réglée à 1500 est à 01:00, au même jour. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_91c068ebb4e479004bf485f61e4c8f6a.html">Core</a></li><li class="navelem"><a href="dir_5b9260db83130c4f37c3438064c80de4.html">World</a></li><li class="navelem"><a href="test__world__light_8cpp.html">test_world_light.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

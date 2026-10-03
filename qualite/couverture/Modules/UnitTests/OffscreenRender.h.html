@@ -103,22 +103,28 @@ public:
      * @param framing  Le centre de l'image et son Ã©chelle.
      * @param clear    Le fond ; transparent, l'image garde l'alpha de ce qui est dessinÃ©.
      * @param tileSide Le plus grand cÃ´tÃ© d'une tuile, en pixels.
+     * @param samples  Ãchantillons par pixel (anticrÃ©nelage) : 1 pour aucun. RamenÃ© au plus grand
+     *                 nombre que l'interface sait faire sans dÃ©passer la demande.
      * @return L'image, prÃ©multipliÃ©e (`QImage::Format_RGBA8888_Premultiplied`), nulle en cas
      *         d'Ã©chec.
      */
     [[nodiscard]] QImage render(WorldSceneRenderer&amp; renderer, QSize size,
                                 const WorldFraming&amp; framing, const QColor&amp; clear,
-                                int tileSide = OFFSCREEN_TILE_SIDE);
+                                int tileSide = OFFSCREEN_TILE_SIDE, int samples = 1);
 
 private:
     explicit OffscreenRhi(std::unique_ptr&lt;QRhi&gt; rhi);
 
-    /// Garantit une cible de @p size pixels ; la prÃ©cÃ©dente est rÃ©utilisÃ©e si elle convient.
-    [[nodiscard]] bool ensureTarget(QSize size);
+    /// Garantit une cible de @p size pixels Ã  @p samples Ã©chantillons ; la prÃ©cÃ©dente est
+    /// rÃ©utilisÃ©e si elle convient.
+    [[nodiscard]] bool ensureTarget(QSize size, int samples);
 
     // La cible meurt avant l'interface : l'ordre de dÃ©claration est l'ordre inverse de libÃ©ration.
     std::unique_ptr&lt;QRhi&gt; _rhi;
     std::unique_ptr&lt;QRhiTexture&gt; _texture;
+    /// Le tampon de couleur multi-Ã©chantillonnÃ©, rÃ©solu dans `_texture` ; nul Ã  un Ã©chantillon.
+    std::unique_ptr&lt;QRhiRenderBuffer&gt; _multisample;
+<span style = "background-color:#dfd">    int _samples = 1;</span>
     /// Le tampon de profondeur de la cible (`LOT-1003`), Ã  sa taille.
     std::unique_ptr&lt;QRhiRenderBuffer&gt; _depth;
     std::unique_ptr&lt;QRhiRenderPassDescriptor&gt; _pass;

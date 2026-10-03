@@ -1,0 +1,275 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Core/World/LightSource.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LightSource_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LightSource.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LightSource_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="MapEntity_8h.html">Core/Levels/MapEntity.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecore.html">core</a> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="structcore_1_1LightColor.html">   44</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1LightColor.html">LightColor</a> {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="structcore_1_1LightColor.html#a5a5a459f86216711d3811873e431679c">   45</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightColor.html#a5a5a459f86216711d3811873e431679c">r</a> = 1.0F;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="structcore_1_1LightColor.html#a4ff29628046eb94e9f4839a8a08ae397">   46</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightColor.html#a4ff29628046eb94e9f4839a8a08ae397">g</a> = 1.0F;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="structcore_1_1LightColor.html#a3eafefecfd16ea8b0626dc5cf16edf95">   47</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightColor.html#a3eafefecfd16ea8b0626dc5cf16edf95">b</a> = 1.0F;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="structcore_1_1LightColor.html#af862704de2886a0a987553e0f1769359">   49</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1LightColor.html#af862704de2886a0a987553e0f1769359">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1LightColor.html">LightColor</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
+</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>[[nodiscard]] std::optional&lt;LightColor&gt; <a class="code hl_function" href="namespacecore.html#a66f72f5f732b685e0b60d51c58ca512e">parseLightColor</a>(std::string_view text) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html">   56</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1LightEmission.html">LightEmission</a> {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#a83131664e4988a7d2b1268e5d7b26926">   58</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_struct" href="structcore_1_1LightColor.html">LightColor</a> <a class="code hl_variable" href="structcore_1_1LightEmission.html#a83131664e4988a7d2b1268e5d7b26926">DEFAULT_COLOR</a>{.r = 1.0F, .g = 0.745F, .b = 0.478F};</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#a03d06c8adcf5bedc145c2f9424f12d0d">   59</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightEmission.html#a03d06c8adcf5bedc145c2f9424f12d0d">DEFAULT_RADIUS_METRES</a> = 6.0F;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#a8b7640d65e0d5fd7397da8ca534e68c1">   60</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightEmission.html#a8b7640d65e0d5fd7397da8ca534e68c1">DEFAULT_HEIGHT_METRES</a> = 2.2F;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#ab8ffee6ff69615529a08c45bbfefe2dd">   62</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightEmission.html#ab8ffee6ff69615529a08c45bbfefe2dd">MAXIMUM_RADIUS_METRES</a> = 24.0F;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#af74be159684f17d446a7cb5745e4bfba">   63</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightEmission.html#af74be159684f17d446a7cb5745e4bfba">MAXIMUM_HEIGHT_METRES</a> = 12.0F;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#ab9a4c2b2726e7ef96a25e58512a73826">   64</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightEmission.html#ab9a4c2b2726e7ef96a25e58512a73826">MAXIMUM_INTENSITY</a> = 3.0F;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#ad5fc93391a87e39ede4f6bae371e33cd">   66</a></span>    <a class="code hl_struct" href="structcore_1_1LightColor.html">LightColor</a> <a class="code hl_variable" href="structcore_1_1LightEmission.html#ad5fc93391a87e39ede4f6bae371e33cd">color</a> = <a class="code hl_variable" href="structcore_1_1LightEmission.html#a83131664e4988a7d2b1268e5d7b26926">DEFAULT_COLOR</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#a27dc39c1381f5352b4107593a2c722e4">   68</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightEmission.html#a27dc39c1381f5352b4107593a2c722e4">radius</a> = <a class="code hl_variable" href="structcore_1_1LightEmission.html#a03d06c8adcf5bedc145c2f9424f12d0d">DEFAULT_RADIUS_METRES</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#ab34c6acad60a772ec4af9aae1e04eb6c">   70</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightEmission.html#ab34c6acad60a772ec4af9aae1e04eb6c">height</a> = <a class="code hl_variable" href="structcore_1_1LightEmission.html#a8b7640d65e0d5fd7397da8ca534e68c1">DEFAULT_HEIGHT_METRES</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#a13222f41d88e9009af1c86f8f95e1abf">   72</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightEmission.html#a13222f41d88e9009af1c86f8f95e1abf">intensity</a> = 1.0F;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#a630f83f98d7dc2693cc774b54570f74f">   74</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1LightEmission.html#a630f83f98d7dc2693cc774b54570f74f">flicker</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#a64ba0a9106d05f87306f36d2e98804a1">   76</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcore_1_1LightEmission.html#a64ba0a9106d05f87306f36d2e98804a1">always</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="structcore_1_1LightEmission.html#a5a079e4155ec0ff549cdd1b1caaba84c">   78</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1LightEmission.html#a5a079e4155ec0ff549cdd1b1caaba84c">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1LightEmission.html">LightEmission</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>};</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="};">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="structcore_1_1LightSource.html">   82</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structcore_1_1LightSource.html">LightSource</a> {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="structcore_1_1LightSource.html#a85db9f57edd185e25e4774c60ba93c36">   85</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightSource.html#a85db9f57edd185e25e4774c60ba93c36">column</a> = 0.0F;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="structcore_1_1LightSource.html#a4bba0873803d0624c0df6448f858bb42">   86</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="structcore_1_1LightSource.html#a4bba0873803d0624c0df6448f858bb42">row</a> = 0.0F;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="structcore_1_1LightSource.html#a5e189fc03e1d416a452dd4a7e3df6d65">   87</a></span>    <a class="code hl_struct" href="structcore_1_1LightEmission.html">LightEmission</a> <a class="code hl_variable" href="structcore_1_1LightSource.html#a5e189fc03e1d416a452dd4a7e3df6d65">emission</a>{};</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="structcore_1_1LightSource.html#a0a244dfa700ff8216a64762f47b2924b">   89</a></span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="structcore_1_1LightSource.html#a0a244dfa700ff8216a64762f47b2924b">operator==</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1LightSource.html">LightSource</a>&amp;) <span class="keyword">const</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>};</div>
+</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="namespacecore.html#a264335fa53cb1258f8b0918fcc6c6cae">   93</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#a264335fa53cb1258f8b0918fcc6c6cae">LIGHT_ENTITY_TYPE</a> = <span class="stringliteral">&quot;light&quot;</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="namespacecore.html#a8fee65f5d41ec70b4f149a85d8a66e46">   95</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#a8fee65f5d41ec70b4f149a85d8a66e46">LIGHT_COLOR_PROPERTY</a> = <span class="stringliteral">&quot;color&quot;</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="namespacecore.html#aece89b3deb8c220706a4981fed3e2b1c">   97</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#aece89b3deb8c220706a4981fed3e2b1c">LIGHT_RADIUS_PROPERTY</a> = <span class="stringliteral">&quot;radius&quot;</span>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="namespacecore.html#a9e8684acb0d0b5a463992e92975ae320">   99</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#a9e8684acb0d0b5a463992e92975ae320">LIGHT_HEIGHT_PROPERTY</a> = <span class="stringliteral">&quot;height&quot;</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="namespacecore.html#ac7df9226b6d7ac764eb730081a2e253a">  101</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#ac7df9226b6d7ac764eb730081a2e253a">LIGHT_INTENSITY_PROPERTY</a> = <span class="stringliteral">&quot;intensity&quot;</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="namespacecore.html#acf8046a268ad92e4c0ecb42438aae945">  103</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#acf8046a268ad92e4c0ecb42438aae945">LIGHT_FLICKER_PROPERTY</a> = <span class="stringliteral">&quot;flicker&quot;</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="namespacecore.html#a50fc0ef4be6a06cbd37729cbda7e4d6f">  105</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#a50fc0ef4be6a06cbd37729cbda7e4d6f">LIGHT_ALWAYS_PROPERTY</a> = <span class="stringliteral">&quot;always&quot;</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="namespacecore.html#aa626a285147843e2ba4cf34c51246bfd">  108</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#aa626a285147843e2ba4cf34c51246bfd">LIGHT_RADIUS_CELLS_DEFAULT</a> = 4;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="namespacecore.html#accd9850d134a649460f8bb06831de7df">  109</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#accd9850d134a649460f8bb06831de7df">LIGHT_RADIUS_CELLS_MAXIMUM</a> = 16;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="namespacecore.html#abbc5ab4b1de767066179526e1595e00f">  110</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#abbc5ab4b1de767066179526e1595e00f">LIGHT_HEIGHT_DECIMETRES_DEFAULT</a> = 22;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="namespacecore.html#ac90241c2d484ef7bb30ac999ea4c08bf">  111</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#ac90241c2d484ef7bb30ac999ea4c08bf">LIGHT_HEIGHT_DECIMETRES_MAXIMUM</a> = 120;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="namespacecore.html#a2dba51c4f4085d745b7c84f4e861c649">  112</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#a2dba51c4f4085d745b7c84f4e861c649">LIGHT_INTENSITY_PERCENT_DEFAULT</a> = 100;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="namespacecore.html#aabedcb38d8069e6080d6ebec5474a21b">  113</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#aabedcb38d8069e6080d6ebec5474a21b">LIGHT_INTENSITY_PERCENT_MINIMUM</a> = 10;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="namespacecore.html#aeab7eb7d5d4c30b85380ffd6a7999b65">  114</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacecore.html#aeab7eb7d5d4c30b85380ffd6a7999b65">LIGHT_INTENSITY_PERCENT_MAXIMUM</a> = 300;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="namespacecore.html#ae592e197ba18bd5773166fb4c318d43c">  116</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="namespacecore.html#ae592e197ba18bd5773166fb4c318d43c">LIGHT_COLOR_DEFAULT</a> = <span class="stringliteral">&quot;#ffbe7a&quot;</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>[[nodiscard]] std::optional&lt;LightSource&gt; <a class="code hl_function" href="namespacecore.html#a0141b044522bc38dd34b087a5b6c4d32">lightSourceOf</a>(<span class="keyword">const</span> <a class="code hl_struct" href="structcore_1_1MapEntity.html">MapEntity</a>&amp; entity);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>}  <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aMapEntity_8h_html"><div class="ttname"><a href="MapEntity_8h.html">MapEntity.h</a></div><div class="ttdoc">Entité placée sur une carte : PNJ, coffre, panneau, portail, déclencheur (LOT-04).</div></div>
+<div class="ttc" id="anamespacecore_html"><div class="ttname"><a href="namespacecore.html">core</a></div><div class="ttdoc">Espace de noms du moteur et de la logique de jeu.</div><div class="ttdef"><b>Definition</b> Bootstrap.h:9</div></div>
+<div class="ttc" id="anamespacecore_html_a0141b044522bc38dd34b087a5b6c4d32"><div class="ttname"><a href="namespacecore.html#a0141b044522bc38dd34b087a5b6c4d32">core::lightSourceOf</a></div><div class="ttdeci">std::optional&lt; LightSource &gt; lightSourceOf(const MapEntity &amp;entity)</div><div class="ttdoc">La source que pose l&#39;entité entity, au centre de sa case.</div><div class="ttdef"><b>Definition</b> LightSource.cpp:72</div></div>
+<div class="ttc" id="anamespacecore_html_a264335fa53cb1258f8b0918fcc6c6cae"><div class="ttname"><a href="namespacecore.html#a264335fa53cb1258f8b0918fcc6c6cae">core::LIGHT_ENTITY_TYPE</a></div><div class="ttdeci">constexpr std::string_view LIGHT_ENTITY_TYPE</div><div class="ttdoc">Type d&#39;entité d&#39;une source de lumière posée dans l&#39;éditeur.</div><div class="ttdef"><b>Definition</b> LightSource.h:93</div></div>
+<div class="ttc" id="anamespacecore_html_a2dba51c4f4085d745b7c84f4e861c649"><div class="ttname"><a href="namespacecore.html#a2dba51c4f4085d745b7c84f4e861c649">core::LIGHT_INTENSITY_PERCENT_DEFAULT</a></div><div class="ttdeci">constexpr int LIGHT_INTENSITY_PERCENT_DEFAULT</div><div class="ttdef"><b>Definition</b> LightSource.h:112</div></div>
+<div class="ttc" id="anamespacecore_html_a50fc0ef4be6a06cbd37729cbda7e4d6f"><div class="ttname"><a href="namespacecore.html#a50fc0ef4be6a06cbd37729cbda7e4d6f">core::LIGHT_ALWAYS_PROPERTY</a></div><div class="ttdeci">constexpr std::string_view LIGHT_ALWAYS_PROPERTY</div><div class="ttdoc">Propriété d&#39;une lumière : vrai si elle reste allumée en plein jour.</div><div class="ttdef"><b>Definition</b> LightSource.h:105</div></div>
+<div class="ttc" id="anamespacecore_html_a66f72f5f732b685e0b60d51c58ca512e"><div class="ttname"><a href="namespacecore.html#a66f72f5f732b685e0b60d51c58ca512e">core::parseLightColor</a></div><div class="ttdeci">std::optional&lt; LightColor &gt; parseLightColor(std::string_view text) noexcept</div><div class="ttdef"><b>Definition</b> LightSource.cpp:56</div></div>
+<div class="ttc" id="anamespacecore_html_a8fee65f5d41ec70b4f149a85d8a66e46"><div class="ttname"><a href="namespacecore.html#a8fee65f5d41ec70b4f149a85d8a66e46">core::LIGHT_COLOR_PROPERTY</a></div><div class="ttdeci">constexpr std::string_view LIGHT_COLOR_PROPERTY</div><div class="ttdoc">Propriété d&#39;une lumière : sa couleur, écrite #rrggbb.</div><div class="ttdef"><b>Definition</b> LightSource.h:95</div></div>
+<div class="ttc" id="anamespacecore_html_a9e8684acb0d0b5a463992e92975ae320"><div class="ttname"><a href="namespacecore.html#a9e8684acb0d0b5a463992e92975ae320">core::LIGHT_HEIGHT_PROPERTY</a></div><div class="ttdeci">constexpr std::string_view LIGHT_HEIGHT_PROPERTY</div><div class="ttdoc">Propriété d&#39;une lumière : sa hauteur au-dessus du sol, en décimètres.</div><div class="ttdef"><b>Definition</b> LightSource.h:99</div></div>
+<div class="ttc" id="anamespacecore_html_aa626a285147843e2ba4cf34c51246bfd"><div class="ttname"><a href="namespacecore.html#aa626a285147843e2ba4cf34c51246bfd">core::LIGHT_RADIUS_CELLS_DEFAULT</a></div><div class="ttdeci">constexpr int LIGHT_RADIUS_CELLS_DEFAULT</div><div class="ttdoc">Bornes des propriétés entières d&#39;une lumière, et leurs valeurs à la création.</div><div class="ttdef"><b>Definition</b> LightSource.h:108</div></div>
+<div class="ttc" id="anamespacecore_html_aabedcb38d8069e6080d6ebec5474a21b"><div class="ttname"><a href="namespacecore.html#aabedcb38d8069e6080d6ebec5474a21b">core::LIGHT_INTENSITY_PERCENT_MINIMUM</a></div><div class="ttdeci">constexpr int LIGHT_INTENSITY_PERCENT_MINIMUM</div><div class="ttdef"><b>Definition</b> LightSource.h:113</div></div>
+<div class="ttc" id="anamespacecore_html_abbc5ab4b1de767066179526e1595e00f"><div class="ttname"><a href="namespacecore.html#abbc5ab4b1de767066179526e1595e00f">core::LIGHT_HEIGHT_DECIMETRES_DEFAULT</a></div><div class="ttdeci">constexpr int LIGHT_HEIGHT_DECIMETRES_DEFAULT</div><div class="ttdef"><b>Definition</b> LightSource.h:110</div></div>
+<div class="ttc" id="anamespacecore_html_ac7df9226b6d7ac764eb730081a2e253a"><div class="ttname"><a href="namespacecore.html#ac7df9226b6d7ac764eb730081a2e253a">core::LIGHT_INTENSITY_PROPERTY</a></div><div class="ttdeci">constexpr std::string_view LIGHT_INTENSITY_PROPERTY</div><div class="ttdoc">Propriété d&#39;une lumière : son intensité, en pour cent.</div><div class="ttdef"><b>Definition</b> LightSource.h:101</div></div>
+<div class="ttc" id="anamespacecore_html_ac90241c2d484ef7bb30ac999ea4c08bf"><div class="ttname"><a href="namespacecore.html#ac90241c2d484ef7bb30ac999ea4c08bf">core::LIGHT_HEIGHT_DECIMETRES_MAXIMUM</a></div><div class="ttdeci">constexpr int LIGHT_HEIGHT_DECIMETRES_MAXIMUM</div><div class="ttdef"><b>Definition</b> LightSource.h:111</div></div>
+<div class="ttc" id="anamespacecore_html_accd9850d134a649460f8bb06831de7df"><div class="ttname"><a href="namespacecore.html#accd9850d134a649460f8bb06831de7df">core::LIGHT_RADIUS_CELLS_MAXIMUM</a></div><div class="ttdeci">constexpr int LIGHT_RADIUS_CELLS_MAXIMUM</div><div class="ttdef"><b>Definition</b> LightSource.h:109</div></div>
+<div class="ttc" id="anamespacecore_html_acf8046a268ad92e4c0ecb42438aae945"><div class="ttname"><a href="namespacecore.html#acf8046a268ad92e4c0ecb42438aae945">core::LIGHT_FLICKER_PROPERTY</a></div><div class="ttdeci">constexpr std::string_view LIGHT_FLICKER_PROPERTY</div><div class="ttdoc">Propriété d&#39;une lumière : vrai si elle tremble comme une flamme.</div><div class="ttdef"><b>Definition</b> LightSource.h:103</div></div>
+<div class="ttc" id="anamespacecore_html_ae592e197ba18bd5773166fb4c318d43c"><div class="ttname"><a href="namespacecore.html#ae592e197ba18bd5773166fb4c318d43c">core::LIGHT_COLOR_DEFAULT</a></div><div class="ttdeci">constexpr std::string_view LIGHT_COLOR_DEFAULT</div><div class="ttdoc">La couleur d&#39;une lumière à sa création, telle qu&#39;elle s&#39;écrit.</div><div class="ttdef"><b>Definition</b> LightSource.h:116</div></div>
+<div class="ttc" id="anamespacecore_html_aeab7eb7d5d4c30b85380ffd6a7999b65"><div class="ttname"><a href="namespacecore.html#aeab7eb7d5d4c30b85380ffd6a7999b65">core::LIGHT_INTENSITY_PERCENT_MAXIMUM</a></div><div class="ttdeci">constexpr int LIGHT_INTENSITY_PERCENT_MAXIMUM</div><div class="ttdef"><b>Definition</b> LightSource.h:114</div></div>
+<div class="ttc" id="anamespacecore_html_aece89b3deb8c220706a4981fed3e2b1c"><div class="ttname"><a href="namespacecore.html#aece89b3deb8c220706a4981fed3e2b1c">core::LIGHT_RADIUS_PROPERTY</a></div><div class="ttdeci">constexpr std::string_view LIGHT_RADIUS_PROPERTY</div><div class="ttdoc">Propriété d&#39;une lumière : sa portée, en cases (1,5 m).</div><div class="ttdef"><b>Definition</b> LightSource.h:97</div></div>
+<div class="ttc" id="astructcore_1_1LightColor_html"><div class="ttname"><a href="structcore_1_1LightColor.html">core::LightColor</a></div><div class="ttdoc">Une couleur de lumière : rouge, vert, bleu, de 0 à 1.</div><div class="ttdef"><b>Definition</b> LightSource.h:44</div></div>
+<div class="ttc" id="astructcore_1_1LightColor_html_a3eafefecfd16ea8b0626dc5cf16edf95"><div class="ttname"><a href="structcore_1_1LightColor.html#a3eafefecfd16ea8b0626dc5cf16edf95">core::LightColor::b</a></div><div class="ttdeci">float b</div><div class="ttdef"><b>Definition</b> LightSource.h:47</div></div>
+<div class="ttc" id="astructcore_1_1LightColor_html_a4ff29628046eb94e9f4839a8a08ae397"><div class="ttname"><a href="structcore_1_1LightColor.html#a4ff29628046eb94e9f4839a8a08ae397">core::LightColor::g</a></div><div class="ttdeci">float g</div><div class="ttdef"><b>Definition</b> LightSource.h:46</div></div>
+<div class="ttc" id="astructcore_1_1LightColor_html_a5a5a459f86216711d3811873e431679c"><div class="ttname"><a href="structcore_1_1LightColor.html#a5a5a459f86216711d3811873e431679c">core::LightColor::r</a></div><div class="ttdeci">float r</div><div class="ttdef"><b>Definition</b> LightSource.h:45</div></div>
+<div class="ttc" id="astructcore_1_1LightColor_html_af862704de2886a0a987553e0f1769359"><div class="ttname"><a href="structcore_1_1LightColor.html#af862704de2886a0a987553e0f1769359">core::LightColor::operator==</a></div><div class="ttdeci">bool operator==(const LightColor &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html"><div class="ttname"><a href="structcore_1_1LightEmission.html">core::LightEmission</a></div><div class="ttdoc">Ce qu&#39;une source émet, en mètres : la valeur commune à la pièce et à l&#39;entité.</div><div class="ttdef"><b>Definition</b> LightSource.h:56</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_a03d06c8adcf5bedc145c2f9424f12d0d"><div class="ttname"><a href="structcore_1_1LightEmission.html#a03d06c8adcf5bedc145c2f9424f12d0d">core::LightEmission::DEFAULT_RADIUS_METRES</a></div><div class="ttdeci">static constexpr float DEFAULT_RADIUS_METRES</div><div class="ttdef"><b>Definition</b> LightSource.h:59</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_a13222f41d88e9009af1c86f8f95e1abf"><div class="ttname"><a href="structcore_1_1LightEmission.html#a13222f41d88e9009af1c86f8f95e1abf">core::LightEmission::intensity</a></div><div class="ttdeci">float intensity</div><div class="ttdoc">Ce par quoi sa couleur est multipliée : 1 pour une lanterne.</div><div class="ttdef"><b>Definition</b> LightSource.h:72</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_a27dc39c1381f5352b4107593a2c722e4"><div class="ttname"><a href="structcore_1_1LightEmission.html#a27dc39c1381f5352b4107593a2c722e4">core::LightEmission::radius</a></div><div class="ttdeci">float radius</div><div class="ttdoc">La distance, en mètres, au-delà de laquelle la source n&#39;éclaire plus.</div><div class="ttdef"><b>Definition</b> LightSource.h:68</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_a5a079e4155ec0ff549cdd1b1caaba84c"><div class="ttname"><a href="structcore_1_1LightEmission.html#a5a079e4155ec0ff549cdd1b1caaba84c">core::LightEmission::operator==</a></div><div class="ttdeci">bool operator==(const LightEmission &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_a630f83f98d7dc2693cc774b54570f74f"><div class="ttname"><a href="structcore_1_1LightEmission.html#a630f83f98d7dc2693cc774b54570f74f">core::LightEmission::flicker</a></div><div class="ttdeci">bool flicker</div><div class="ttdoc">Vrai pour une flamme : son intensité tremble.</div><div class="ttdef"><b>Definition</b> LightSource.h:74</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_a64ba0a9106d05f87306f36d2e98804a1"><div class="ttname"><a href="structcore_1_1LightEmission.html#a64ba0a9106d05f87306f36d2e98804a1">core::LightEmission::always</a></div><div class="ttdeci">bool always</div><div class="ttdoc">Vrai si elle reste allumée en plein jour.</div><div class="ttdef"><b>Definition</b> LightSource.h:76</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_a83131664e4988a7d2b1268e5d7b26926"><div class="ttname"><a href="structcore_1_1LightEmission.html#a83131664e4988a7d2b1268e5d7b26926">core::LightEmission::DEFAULT_COLOR</a></div><div class="ttdeci">static constexpr LightColor DEFAULT_COLOR</div><div class="ttdoc">La couleur d&#39;une flamme de lanterne : ce que vaut une source qui ne dit pas la sienne.</div><div class="ttdef"><b>Definition</b> LightSource.h:58</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_a8b7640d65e0d5fd7397da8ca534e68c1"><div class="ttname"><a href="structcore_1_1LightEmission.html#a8b7640d65e0d5fd7397da8ca534e68c1">core::LightEmission::DEFAULT_HEIGHT_METRES</a></div><div class="ttdeci">static constexpr float DEFAULT_HEIGHT_METRES</div><div class="ttdef"><b>Definition</b> LightSource.h:60</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_ab34c6acad60a772ec4af9aae1e04eb6c"><div class="ttname"><a href="structcore_1_1LightEmission.html#ab34c6acad60a772ec4af9aae1e04eb6c">core::LightEmission::height</a></div><div class="ttdeci">float height</div><div class="ttdoc">La hauteur de la source au-dessus du sol, en mètres.</div><div class="ttdef"><b>Definition</b> LightSource.h:70</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_ab8ffee6ff69615529a08c45bbfefe2dd"><div class="ttname"><a href="structcore_1_1LightEmission.html#ab8ffee6ff69615529a08c45bbfefe2dd">core::LightEmission::MAXIMUM_RADIUS_METRES</a></div><div class="ttdeci">static constexpr float MAXIMUM_RADIUS_METRES</div><div class="ttdoc">Bornes de la portée et de la hauteur, en mètres ; de l&#39;intensité, sans unité.</div><div class="ttdef"><b>Definition</b> LightSource.h:62</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_ab9a4c2b2726e7ef96a25e58512a73826"><div class="ttname"><a href="structcore_1_1LightEmission.html#ab9a4c2b2726e7ef96a25e58512a73826">core::LightEmission::MAXIMUM_INTENSITY</a></div><div class="ttdeci">static constexpr float MAXIMUM_INTENSITY</div><div class="ttdef"><b>Definition</b> LightSource.h:64</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_ad5fc93391a87e39ede4f6bae371e33cd"><div class="ttname"><a href="structcore_1_1LightEmission.html#ad5fc93391a87e39ede4f6bae371e33cd">core::LightEmission::color</a></div><div class="ttdeci">LightColor color</div><div class="ttdef"><b>Definition</b> LightSource.h:66</div></div>
+<div class="ttc" id="astructcore_1_1LightEmission_html_af74be159684f17d446a7cb5745e4bfba"><div class="ttname"><a href="structcore_1_1LightEmission.html#af74be159684f17d446a7cb5745e4bfba">core::LightEmission::MAXIMUM_HEIGHT_METRES</a></div><div class="ttdeci">static constexpr float MAXIMUM_HEIGHT_METRES</div><div class="ttdef"><b>Definition</b> LightSource.h:63</div></div>
+<div class="ttc" id="astructcore_1_1LightSource_html"><div class="ttname"><a href="structcore_1_1LightSource.html">core::LightSource</a></div><div class="ttdoc">Une source posée dans un lieu : où, et ce qu&#39;elle émet.</div><div class="ttdef"><b>Definition</b> LightSource.h:82</div></div>
+<div class="ttc" id="astructcore_1_1LightSource_html_a0a244dfa700ff8216a64762f47b2924b"><div class="ttname"><a href="structcore_1_1LightSource.html#a0a244dfa700ff8216a64762f47b2924b">core::LightSource::operator==</a></div><div class="ttdeci">bool operator==(const LightSource &amp;) const =default</div></div>
+<div class="ttc" id="astructcore_1_1LightSource_html_a4bba0873803d0624c0df6448f858bb42"><div class="ttname"><a href="structcore_1_1LightSource.html#a4bba0873803d0624c0df6448f858bb42">core::LightSource::row</a></div><div class="ttdeci">float row</div><div class="ttdef"><b>Definition</b> LightSource.h:86</div></div>
+<div class="ttc" id="astructcore_1_1LightSource_html_a5e189fc03e1d416a452dd4a7e3df6d65"><div class="ttname"><a href="structcore_1_1LightSource.html#a5e189fc03e1d416a452dd4a7e3df6d65">core::LightSource::emission</a></div><div class="ttdeci">LightEmission emission</div><div class="ttdef"><b>Definition</b> LightSource.h:87</div></div>
+<div class="ttc" id="astructcore_1_1LightSource_html_a85db9f57edd185e25e4774c60ba93c36"><div class="ttname"><a href="structcore_1_1LightSource.html#a85db9f57edd185e25e4774c60ba93c36">core::LightSource::column</a></div><div class="ttdeci">float column</div><div class="ttdoc">Le point de grille de la source, en cases continues : le centre de la case (4, 2) est (4,...</div><div class="ttdef"><b>Definition</b> LightSource.h:85</div></div>
+<div class="ttc" id="astructcore_1_1MapEntity_html"><div class="ttname"><a href="structcore_1_1MapEntity.html">core::MapEntity</a></div><div class="ttdoc">Une entité de carte — ce qui n&#39;est pas une tuile.</div><div class="ttdef"><b>Definition</b> MapEntity.h:34</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a href="dir_c085377a8d45dfd2467facd710fb0ba3.html">World</a></li><li class="navelem"><a href="LightSource_8h.html">LightSource.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

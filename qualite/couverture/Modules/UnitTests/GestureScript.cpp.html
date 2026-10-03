@@ -252,6 +252,17 @@ private:
             }
 <span style = "background-color:#dfd">            _partyLevel = level-&gt;get&lt;int&gt;();</span>
         }
+        // Ce que fait le dialogue Â« Map propertiesâ¦ Â» (LOT-EDITOR-09) : les proprietes de la
+        // carte, en un pas d'annulation. Une chaine vide retire la propriete.
+<span style = "background-color:#dfd">        if (const nlohmann::json* properties = field("mapProperties")) {</span>
+<span style = "background-color:#fdd">            if (!properties-&gt;is_object()) {
+                throw GestureRefused("\"mapProperties\" must be an object of properties");</span>
+            }
+<span style = "background-color:#fdd">            const core::GestureScope gesture(_draft);
+            for (const auto&amp; [key, value] : properties-&gt;items()) {
+                static_cast&lt;void&gt;(_draft.setProperty(key, propertyValue(key, value)));
+            }
+        }</span>
 <span style = "background-color:#dfd">    }</span>
 
     // Ce que le canevas ecrit a cote de l'entite selectionnee (`hmi::entityVerdicts`, LOT-143),

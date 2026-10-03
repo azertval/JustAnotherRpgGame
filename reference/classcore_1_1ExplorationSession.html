@@ -183,6 +183,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a07cd4be941a029a036b79b0b98c200f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai si l'entité <code class="param">entity</code> de la carte courante est présente sous les drapeaux.  <br /></td></tr>
 <tr class="memitem:ab1517d211c44200e50a9195dfb0ca2b0" id="r_ab1517d211c44200e50a9195dfb0ca2b0"><td class="memItemLeft">const <a class="el" href="classcore_1_1WorldTravel.html">WorldTravel</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab1517d211c44200e50a9195dfb0ca2b0">travel</a> () const noexcept</td></tr>
 <tr class="memdesc:ab1517d211c44200e50a9195dfb0ca2b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">La traversée du monde sous-jacente : carte courante, position, dernier refus.  <br /></td></tr>
+<tr class="memitem:aa3ce8f07462234ed8cae4c52ff86f254" id="r_aa3ce8f07462234ed8cae4c52ff86f254"><td class="memItemLeft">const <a class="el" href="classcore_1_1WorldClock.html">WorldClock</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aa3ce8f07462234ed8cae4c52ff86f254">clock</a> () const noexcept</td></tr>
+<tr class="memitem:a7b268311ce3f6e3640de13bcbb356c80" id="r_a7b268311ce3f6e3640de13bcbb356c80"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldClock.html">WorldClock</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7b268311ce3f6e3640de13bcbb356c80">clock</a> () noexcept</td></tr>
+<tr class="memitem:ae4c06ccb881a6fbc711473ea6bb2298b" id="r_ae4c06ccb881a6fbc711473ea6bb2298b"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ae4c06ccb881a6fbc711473ea6bb2298b">shownMinutes</a> () const</td></tr>
 <tr class="memitem:a335330a71db09257b636e34996be93d0" id="r_a335330a71db09257b636e34996be93d0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a335330a71db09257b636e34996be93d0">freeze</a> (bool <a class="el" href="#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a>) noexcept</td></tr>
 <tr class="memdesc:a335330a71db09257b636e34996be93d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gèle ou dégèle la carte (dialogue, combat).  <br /></td></tr>
 <tr class="memitem:aef08d7c2386bfb79b7b5fa8f69c8f6b7" id="r_aef08d7c2386bfb79b7b5fa8f69c8f6b7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aef08d7c2386bfb79b7b5fa8f69c8f6b7">frozen</a> () const noexcept</td></tr>
@@ -237,6 +240,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a8de37f24a97f9319f841c471451aadb2" id="r_a8de37f24a97f9319f841c471451aadb2"><td class="memItemLeft"><a class="el" href="structcore_1_1GridPosition.html">GridPosition</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8de37f24a97f9319f841c471451aadb2">_lastCell</a> {}</td></tr>
 <tr class="memdesc:a8de37f24a97f9319f841c471451aadb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case du héros au pas précédent : un portail se franchit <b>en y arrivant</b>, pas à chaque pas où l'on reste dessus — sans quoi un portail qui ramène sur place bouclerait.  <br /></td></tr>
 <tr class="memitem:a6aa8df4a937fec8ed16b697738d99994" id="r_a6aa8df4a937fec8ed16b697738d99994"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6aa8df4a937fec8ed16b697738d99994">_frozen</a> = false</td></tr>
+<tr class="memitem:aa836e8199e082e253eb9d1fe2c3d7d29" id="r_aa836e8199e082e253eb9d1fe2c3d7d29"><td class="memItemLeft"><a class="el" href="classcore_1_1WorldClock.html">WorldClock</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa836e8199e082e253eb9d1fe2c3d7d29">_clock</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Le héros sur la carte courante : marche, interaction, portails. </p>
@@ -346,6 +350,57 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Les cases que les décors présents arrêtent (<span class="tt"><a class="el" href="namespacecore.html#a6656d1d305c8badc24a7cecb8c9ffa5c" title="Type d&#39;entité d&#39;un décor qui change (LOT-126) : une pièce du lieu posée comme entité,...">core::PROP_ENTITY_TYPE</a></span>, <span class="tt">LOT-126</span>) : une porte close est un mur tant qu'elle est là. </dd></dl>
+
+</div>
+</div>
+<a id="aa3ce8f07462234ed8cae4c52ff86f254" name="aa3ce8f07462234ed8cae4c52ff86f254"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3ce8f07462234ed8cae4c52ff86f254">&#9670;&#160;</a></span>clock() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classcore_1_1WorldClock.html">WorldClock</a> &amp; core::ExplorationSession::clock </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'heure du monde (<span class="tt">LOT-1007</span>) : elle avance avec <span class="tt"><a class="el" href="#af22834cdd0f0305a39eea299e837fcc3" title="Avance d&#39;un pas de seconds.">update</a></span>, donc ni pendant un dialogue ni pendant un combat, où la carte est gelée. </dd></dl>
+
+</div>
+</div>
+<a id="a7b268311ce3f6e3640de13bcbb356c80" name="a7b268311ce3f6e3640de13bcbb356c80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b268311ce3f6e3640de13bcbb356c80">&#9670;&#160;</a></span>clock() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1WorldClock.html">WorldClock</a> &amp; core::ExplorationSession::clock </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -1020,6 +1075,32 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ae4c06ccb881a6fbc711473ea6bb2298b" name="ae4c06ccb881a6fbc711473ea6bb2298b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4c06ccb881a6fbc711473ea6bb2298b">&#9670;&#160;</a></span>shownMinutes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::ExplorationSession::shownMinutes </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'heure à laquelle la carte courante se montre, en minutes depuis minuit : son heure fixe si elle en déclare une (<span class="tt"><a class="el" href="namespacecore.html#a5a6cb8086a90e77e9fbd904bea3a09ac" title="Clé de l&#39;heure fixe d&#39;une carte (LOT-1007), écrite HH:MM : une propriété de carte,...">core::MAP_HOUR_PROPERTY</a></span>), sinon celle du monde. </dd></dl>
+
+</div>
+</div>
 <a id="affe6baf83932a4eabcaa720517fbfddc" name="affe6baf83932a4eabcaa720517fbfddc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#affe6baf83932a4eabcaa720517fbfddc">&#9670;&#160;</a></span>start()</h2>
 
@@ -1148,6 +1229,28 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Cases arrêtées par les décors présents. </p>
+
+</div>
+</div>
+<a id="aa836e8199e082e253eb9d1fe2c3d7d29" name="aa836e8199e082e253eb9d1fe2c3d7d29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa836e8199e082e253eb9d1fe2c3d7d29">&#9670;&#160;</a></span>_clock</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore_1_1WorldClock.html">WorldClock</a> core::ExplorationSession::_clock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

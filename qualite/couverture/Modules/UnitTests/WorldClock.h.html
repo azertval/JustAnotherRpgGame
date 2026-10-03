@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>WorldClock.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;optional&gt;
+#include &lt;string&gt;
+#include &lt;string_view&gt;
+
+#include "Core/Levels/LevelProperties.h"
+
+/**
+ * @file Core/World/WorldClock.h
+ * @brief L'**heure du monde** (`LOT-1007`, `EX-EXP-015`) : une heure du jour qui avance avec le
+ *        temps de jeu.
+ *
+ * Elle n'a qu'un lecteur dans cette version : la lumiÃ¨re (`core::DayLightTable`). Rien du jeu n'en
+ * dÃ©pend â ni prÃ©sence d'un PNJ, ni boutique, ni rencontre : ce sont des rÃ¨gles, elles viendront
+ * avec les zones.
+ *
+ * ## Ce qui la fait avancer
+ *
+ * L'exploration (`core::ExplorationSession::update`), et elle seule : un combat, un dialogue, un
+ * menu ne font pas tourner la session, donc pas l'horloge. Un combat lancÃ© au crÃ©puscule se joue
+ * tout entier au crÃ©puscule â la lumiÃ¨re ne change pas pendant qu'on vise.
+ *
+ * ## Son allure
+ *
+ * Une heure du monde par **minute** rÃ©elle (`GAME_MINUTES_PER_SECOND`), soit un jour en
+ * vingt-quatre minutes : assez lent pour qu'une lumiÃ¨re ne bouge pas Ã  l'Åil, assez rapide pour
+ * qu'une sÃ©ance voie passer le soir. DÃ©cision du 3 octobre 2026 (D-45).
+ *
+ * Logique pure, sans Qt.
+ */
+
+namespace core {
+
+/// @brief L'heure du monde, en minutes depuis minuit, et le compte des jours Ã©coulÃ©s.
+class WorldClock {
+public:
+    /// Minutes d'un jour.
+    static constexpr float MINUTES_PER_DAY = 1440.0F;
+    /// Minutes du monde par seconde rÃ©elle : une heure du monde par minute.
+    static constexpr float GAME_MINUTES_PER_SECOND = 1.0F;
+    /// L'heure d'une partie neuve : dix heures du matin, le plein jour.
+    static constexpr float START_MINUTES = 600.0F;
+
+    /// @return L'heure du jour, en minutes depuis minuit, dans [0, 1440[.
+<span style = "background-color:#dfd">    [[nodiscard]] float minutes() const noexcept {
+        return _minutes;
+    }</span>
+
+    /// @return L'heure du jour, en heures dÃ©cimales, dans [0, 24[.
+<span style = "background-color:#dfd">    [[nodiscard]] float hours() const noexcept {
+        return _minutes / 60.0F;
+    }</span>
+
+    /// @return Les jours entiers Ã©coulÃ©s depuis le dÃ©but de la partie.
+<span style = "background-color:#dfd">    [[nodiscard]] int day() const noexcept {
+        return _day;
+    }</span>
+
+    /// @brief RÃ¨gle l'heure du jour ; une valeur hors du jour est ramenÃ©e dedans. Le jour ne
+    ///        change pas : c'est un rÃ©glage, pas du temps qui passe.
+    void setMinutes(float minutes) noexcept;
+
+    /// @brief Fait passer @p seconds de temps rÃ©el. Une durÃ©e nÃ©gative ou non finie est ignorÃ©e.
+    void advance(float seconds) noexcept;
+
+    /// @return Vrai si l'horloge avance (`advance`) ; fausse, elle est figÃ©e par l'appelant.
+    [[nodiscard]] bool running() const noexcept {
+        return _running;
+    }
+
+    /// @brief Fige ou relance l'horloge : figÃ©e, `advance` ne fait rien. Pour une commande de
+    ///        dÃ©bug, une capture, un essai de l'Ã©diteur Ã  heure choisie.
+<span style = "background-color:#dfd">    void setRunning(bool running) noexcept {
+        _running = running;
+    }</span>
+
+    [[nodiscard]] bool operator==(const WorldClock&amp;) const = default;
+
+private:
+    float _minutes = START_MINUTES;
+    int _day = 0;
+    bool _running = true;
+};
+
+/// @return Les minutes depuis minuit de l'heure Ã©crite `HH:MM` (ou `H:MM`, ou `HH`), dans
+///         [0, 1440[ ; rien si le texte n'est pas une heure.
+[[nodiscard]] std::optional&lt;float&gt; parseClockTime(std::string_view text) noexcept;
+
+/// @return L'heure @p minutes Ã©crite `HH:MM`, la minute tronquÃ©e.
+[[nodiscard]] std::string formatClockTime(float minutes);
+
+/**
+ * @brief ClÃ© de l'**heure fixe** d'une carte (`LOT-1007`), Ã©crite `HH:MM` : une propriÃ©tÃ© de
+ *        carte, pas un champ du format.
+ *
+ * Une carte qui la porte se montre toujours Ã  cette heure, quelle que soit celle du monde : un
+ * sous-sol reste dans la nuit de ses braseros, un sanctuaire dans son plein jour. L'horloge, elle,
+ * continue d'avancer â on ressort Ã  l'heure qu'il est.
+ */
+inline constexpr std::string_view MAP_HOUR_PROPERTY = "hour";
+
+/// @return L'heure fixe que dÃ©clarent les propriÃ©tÃ©s de carte @p properties, en minutes depuis
+///         minuit ; rien si la carte n'en dÃ©clare pas, ou si elle est mal Ã©crite.
+[[nodiscard]] std::optional&lt;float&gt; mapFixedMinutes(const PropertyMap&amp; properties);
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

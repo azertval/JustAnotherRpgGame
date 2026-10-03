@@ -87,23 +87,40 @@ constexpr int PIXEL_BYTES = 4;
 <span style = "background-color:#dfd">    return kept-&gt;ensureResources(_rhi.get()) ? kept.get() : nullptr;
 }</span>
 
-<span style = "background-color:#dfd">bool OffscreenRhi::ensureTarget(QSize size) {
-    if (_target &amp;&amp; _texture &amp;&amp; _texture-&gt;pixelSize() == size) {
+<span style = "background-color:#dfd">bool OffscreenRhi::ensureTarget(QSize size, int samples) {
+    if (_target &amp;&amp; _texture &amp;&amp; _texture-&gt;pixelSize() == size &amp;&amp; _samples == samples) {
         return true;</span>
     }
 <span style = "background-color:#dfd">    _target.reset();
     _pass.reset();
+    _multisample.reset();
+    _samples = samples;
     _texture.reset(_rhi-&gt;newTexture(QRhiTexture::RGBA8, size, 1,</span>
                                     QRhiTexture::RenderTarget | QRhiTexture::UsedAsTransferSource));
     // Le tampon de profondeur (LOT-1003) : les maillages d'un lieu s'y departagent, et ses images
     // s'y comparent. Une carte sans volume ne le lit ni ne l'ecrit.
-<span style = "background-color:#dfd">    _depth.reset(_rhi-&gt;newRenderBuffer(QRhiRenderBuffer::DepthStencil, size));
+<span style = "background-color:#dfd">    _depth.reset(_rhi-&gt;newRenderBuffer(QRhiRenderBuffer::DepthStencil, size, samples));
     if (!_texture-&gt;create() || !_depth-&gt;create()) {</span>
 <span style = "background-color:#fdd">        _texture.reset();
         _depth.reset();
         return false;</span>
     }
-<span style = "background-color:#dfd">    QRhiTextureRenderTargetDescription description{{_texture.get()}};
+    // A plusieurs echantillons, la passe dessine dans un tampon multi-echantillonne et le resout
+    // dans la texture relue : c'est le montage de `QQuickRhiItem`, donc celui du jeu.
+<span style = "background-color:#dfd">    QRhiColorAttachment color(_texture.get());
+    if (samples &gt; 1) {
+        _multisample.reset(</span>
+            _rhi-&gt;newRenderBuffer(QRhiRenderBuffer::Color, size, samples, {}, QRhiTexture::RGBA8));
+<span style = "background-color:#dfd">        if (!_multisample-&gt;create()) {</span>
+<span style = "background-color:#fdd">            _multisample.reset();
+            _texture.reset();
+            _depth.reset();
+            return false;</span>
+        }
+<span style = "background-color:#dfd">        color = QRhiColorAttachment(_multisample.get());
+        color.setResolveTexture(_texture.get());</span>
+    }
+<span style = "background-color:#dfd">    QRhiTextureRenderTargetDescription description{color};
     description.setDepthStencilBuffer(_depth.get());
     _target.reset(_rhi-&gt;newTextureRenderTarget(description));
     _pass.reset(_target-&gt;newCompatibleRenderPassDescriptor());
@@ -111,6 +128,7 @@ constexpr int PIXEL_BYTES = 4;
     if (!_target-&gt;create()) {</span>
 <span style = "background-color:#fdd">        _target.reset();
         _pass.reset();
+        _multisample.reset();
         _texture.reset();
         _depth.reset();
         return false;</span>
@@ -119,7 +137,7 @@ constexpr int PIXEL_BYTES = 4;
 }</span>
 
 QImage OffscreenRhi::render(WorldSceneRenderer&amp; renderer, QSize size, const WorldFraming&amp; framing,
-<span style = "background-color:#dfd">                            const QColor&amp; clear, int tileSide) {
+<span style = "background-color:#dfd">                            const QColor&amp; clear, int tileSide, int samples) {
     if (size.isEmpty() || framing.pixelsPerUnit &lt;= 0.0F || !renderer.ensureResources(_rhi.get())) {</span>
 <span style = "background-color:#fdd">        return {};</span>
     }
@@ -127,8 +145,15 @@ QImage OffscreenRhi::render(WorldSceneRenderer&amp; renderer, QSize size, const 
     // l'image, et seule leur part utile est recopiee. Une image qui tient dans une tuile se rend
     // d'un coup, dans une cible a sa taille.
 <span style = "background-color:#dfd">    const int side = std::max(1, tileSide);
-    const QSize tile(std::min(size.width(), side), std::min(size.height(), side));
-    if (!ensureTarget(tile)) {</span>
+    const QSize tile(std::min(size.width(), side), std::min(size.height(), side));</span>
+    // Le plus grand nombre d'echantillons que l'interface sait faire, sans depasser la demande.
+<span style = "background-color:#dfd">    int supported = 1;
+    for (const int count : _rhi-&gt;supportedSampleCounts()) {
+        if (count &lt;= samples) {
+            supported = std::max(supported, count);
+        }
+    }
+    if (!ensureTarget(tile, supported)) {</span>
 <span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Rendu hors ecran : la cible de rendu ne se cree pas.");
         return {};</span>
     }

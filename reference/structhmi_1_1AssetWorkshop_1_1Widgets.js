@@ -2,6 +2,7 @@ var structhmi_1_1AssetWorkshop_1_1Widgets =
 [
     [ "clip", "structhmi_1_1AssetWorkshop_1_1Widgets.html#ac2f761f7378cacb0f53b717479466177", null ],
     [ "editInBlender", "structhmi_1_1AssetWorkshop_1_1Widgets.html#a5e8caf5a491031deca26cc9090df6a3d", null ],
+    [ "hour", "structhmi_1_1AssetWorkshop_1_1Widgets.html#afdd004a1907dec7b656aed18481e86e3", null ],
     [ "importFromBlender", "structhmi_1_1AssetWorkshop_1_1Widgets.html#aac694630a174aacd3bf6904dc1120029", null ],
     [ "install", "structhmi_1_1AssetWorkshop_1_1Widgets.html#ac46fbc3e1066a1b2e07342fac7509202", null ],
     [ "installed", "structhmi_1_1AssetWorkshop_1_1Widgets.html#ac454fb1ece85eed9b58911de31dc9c3b", null ],

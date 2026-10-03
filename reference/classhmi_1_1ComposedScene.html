@@ -159,8 +159,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a62f6cc07caaeef96393c6c8e2de233b9" id="r_a62f6cc07caaeef96393c6c8e2de233b9"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a62f6cc07caaeef96393c6c8e2de233b9">isCullingEnabled</a> () const noexcept</td></tr>
 <tr class="memitem:a0a4e00be708093fbbf214379c1f73a99" id="r_a0a4e00be708093fbbf214379c1f73a99"><td class="memItemLeft"><a class="el" href="structcore_1_1Rect.html">core::Rect</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0a4e00be708093fbbf214379c1f73a99">cullingBounds</a> () const noexcept</td></tr>
 <tr class="memdesc:a0a4e00be708093fbbf214379c1f73a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rectangle réellement utilisé pour le culling : le cadrage élargi de la marge.  <br /></td></tr>
-<tr class="memitem:a776bb0228de0fffc9caded06d5bc3e46" id="r_a776bb0228de0fffc9caded06d5bc3e46"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a776bb0228de0fffc9caded06d5bc3e46">addSprite</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, std::int32_t sortOrder, const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;quad, int storey=0, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;occlusion={}, std::optional&lt; float &gt; footY=std::nullopt)</td></tr>
-<tr class="memdesc:a776bb0228de0fffc9caded06d5bc3e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un rectangle texturé à la scène, s'il est visible.  <br /></td></tr>
+<tr class="memitem:a5aaf4ee97410652c4f4b51854eb424c5" id="r_a5aaf4ee97410652c4f4b51854eb424c5"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5aaf4ee97410652c4f4b51854eb424c5">addSprite</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a979f7ffd7c87877cb1f65f0d08e4419d">TextureHandle</a> texture, std::int32_t sortOrder, const <a class="el" href="structhmi_1_1SpriteQuad.html">SpriteQuad</a> &amp;quad, int storey=0, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;occlusion={}, std::optional&lt; float &gt; footY=std::nullopt, float glow=0.0F)</td></tr>
+<tr class="memdesc:a5aaf4ee97410652c4f4b51854eb424c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un rectangle texturé à la scène, s'il est visible.  <br /></td></tr>
 <tr class="memitem:a9f7f68a120268b43d9f1feb65ac335ae" id="r_a9f7f68a120268b43d9f1feb65ac335ae"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9f7f68a120268b43d9f1feb65ac335ae">addMesh</a> (<a class="el" href="namespacehmi.html#a9b5452f2d3a1019a3229b90a4f000919">RenderLayer</a> layer, <a class="el" href="namespacehmi.html#a07a437313cbfa408c32343398b830168">MeshHandle</a> mesh, const <a class="el" href="namespacehmi.html#abc6aa80f158df082cfe0b7ee36210962">ViewTransform</a> &amp;toView, const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;bounds, int storey=0, std::span&lt; const float &gt; pose={})</td></tr>
 <tr class="memdesc:a9f7f68a120268b43d9f1feb65ac335ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ajoute un maillage placé à la scène, s'il est visible (<span class="tt">LOT-1003</span>).  <br /></td></tr>
 <tr class="memitem:ab2fbdb942d6f7386f573ccbb15400606" id="r_ab2fbdb942d6f7386f573ccbb15400606"><td class="memItemLeft">std::span&lt; const float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab2fbdb942d6f7386f573ccbb15400606">poseOf</a> (const <a class="el" href="structhmi_1_1ComposedMesh.html">ComposedMesh</a> &amp;mesh) const noexcept</td></tr>
@@ -371,8 +371,8 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a776bb0228de0fffc9caded06d5bc3e46" name="a776bb0228de0fffc9caded06d5bc3e46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a776bb0228de0fffc9caded06d5bc3e46">&#9670;&#160;</a></span>addSprite()</h2>
+<a id="a5aaf4ee97410652c4f4b51854eb424c5" name="a5aaf4ee97410652c4f4b51854eb424c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aaf4ee97410652c4f4b51854eb424c5">&#9670;&#160;</a></span>addSprite()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -410,7 +410,12 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::optional&lt; float &gt;</td>          <td class="paramname"><span class="paramname"><em>footY</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::nullopt</span>&#160;)</td>
+          <td class="paramtype">std::optional&lt; float &gt;</td>          <td class="paramname"><span class="paramname"><em>footY</em></span><span class="paramdefsep"> = </span><span class="paramdefval">std::nullopt</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>glow</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0.0F</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -425,6 +430,7 @@ Private Attributes</h2></td></tr>
     <tr><td class="paramname">storey</td><td>Étage de la pièce (<span class="tt">LOT-129</span>), 0 au rez. </td></tr>
     <tr><td class="paramname">occlusion</td><td>Ce que la pièce masque, pour l'effacer devant le héros (<span class="tt"><a class="el" href="structhmi_1_1ComposedQuad.html" title="Une primitive prête à soumettre, avec tout ce qui détermine quand la dessiner.">ComposedQuad</a></span>). </td></tr>
     <tr><td class="paramname">footY</td><td>La ligne du pied d'une primitive <b>dressée</b> (<span class="tt"><a class="el" href="structhmi_1_1ComposedQuad.html#a2ef2a5e645fee15467d36e8c4aaf38e2" title="L&#39;ordonnée de la ligne du pied d&#39;une primitive dressée, en unités monde : au-dessus,...">ComposedQuad::footY</a></span>) ; sans elle, le bas du rectangle. Sans effet sur un calque à plat ou d'interface. </td></tr>
+    <tr><td class="paramname">glow</td><td>Ce qu'elle garde de son éclat quand le lieu s'assombrit (<span class="tt"><a class="el" href="structhmi_1_1ComposedQuad.html#a539cbff4db1703e70bdede9b6b82e9d7" title="Ce que la primitive garde de son éclat quand le lieu s&#39;assombrit (LOT-1007), de 0 — elle prend la lum...">ComposedQuad::glow</a></span>). </td></tr>
   </table>
   </dd>
 </dl>

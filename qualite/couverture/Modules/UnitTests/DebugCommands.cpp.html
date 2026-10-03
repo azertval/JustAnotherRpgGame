@@ -40,6 +40,10 @@ constexpr std::array CATALOGUE = {
                 .syntax = "--flags=&lt;drapeau&gt;[=&lt;valeur&gt;],&lt;drapeau&gt;",
                 .description = "Pose ces drapeaux de monde : la carte telle qu'elle est apres une "
                                "quete."},
+    DebugOption{.name = "--hour=",
+                .syntax = "--hour=&lt;HH:MM|run&gt;",
+                .description = "Regle l'heure du monde et la fige ; Â« run Â» la laisse reprendre "
+                               "son cours."},
     DebugOption{.name = "--hero-figure=",
                 .syntax = "--hero-figure=&lt;dossier sous Assets/&gt;",
                 .description = "Remplace la figurine du heros."},

@@ -154,6 +154,7 @@ $(function(){initNavTree('MapRender_8h.html','',''); });
 <code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &quot;<a class="el" href="Rect_8h_source.html">Core/Math/Rect.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DayLight_8h_source.html">Core/World/DayLight.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="CanvasScene_8h_source.html">Editor/Logic/CanvasScene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Stamps_8h_source.html">Editor/Logic/Stamps.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneRenderer_8h_source.html">HMI/Graphics/WorldSceneRenderer.h</a>&quot;</code><br />
@@ -163,7 +164,6 @@ $(function(){initNavTree('MapRender_8h.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3AMapRenderOptions" id="r_hmi_3A_3AMapRenderOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapRenderOptions.html">hmi::MapRenderOptions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les réglages d'un rendu.  <a href="structhmi_1_1MapRenderOptions.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AMapImageGrid" id="r_hmi_3A_3AMapImageGrid"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapImageGrid.html">hmi::MapImageGrid</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Où tombe la <b>grille</b> de la carte sur son image, en fractions de sa largeur et de sa hauteur (<span class="tt">LOT-121</span>) : le point de grille (c, r) — la case c couvre [c, c + 1] — est en <span class="tt">origin + c × column + r × row</span>.  <a href="structhmi_1_1MapImageGrid.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3AMapRenderFrame" id="r_hmi_3A_3AMapRenderFrame"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1MapRenderFrame.html">hmi::MapRenderFrame</a></td></tr>
@@ -178,6 +178,7 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a615e8ce8a0c04cce11dd5c73e577f4c0" id="r_a615e8ce8a0c04cce11dd5c73e577f4c0"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a615e8ce8a0c04cce11dd5c73e577f4c0">hmi::renderPixelsPerUnit</a> (double scale)</td></tr>
+<tr class="memitem:ad03f97e66187466ebe6a56db73429910" id="r_ad03f97e66187466ebe6a56db73429910"><td class="memItemLeft"><a class="el" href="classcore_1_1DayLightTable.html">core::DayLightTable</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#ad03f97e66187466ebe6a56db73429910">hmi::placeDayLight</a> (const std::filesystem::path &amp;assetsDirectory)</td></tr>
 <tr class="memitem:a51708f03902af8e6f04911b5c9e4a862" id="r_a51708f03902af8e6f04911b5c9e4a862"><td class="memItemLeft"><a class="el" href="structhmi_1_1MapRenderFrame.html">MapRenderFrame</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a51708f03902af8e6f04911b5c9e4a862">hmi::mapRenderFrame</a> (const <a class="el" href="structcore_1_1Rect.html">core::Rect</a> &amp;painted, float tileWidth, const <a class="el" href="structhmi_1_1MapRenderOptions.html">MapRenderOptions</a> &amp;options)</td></tr>
 <tr class="memdesc:a51708f03902af8e6f04911b5c9e4a862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le cadre du rendu d'une carte dont la scène occupe <code class="param">painted</code>.  <br /></td></tr>
 <tr class="memitem:aea9d8742fc17bfd6135f669a67430cd7" id="r_aea9d8742fc17bfd6135f669a67430cd7"><td class="memItemLeft">std::optional&lt; <a class="el" href="structhmi_1_1IsoBandOpacity.html">IsoBandOpacity</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aea9d8742fc17bfd6135f669a67430cd7">hmi::parseRenderLayers</a> (std::string_view list)</td></tr>
@@ -193,6 +194,8 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:aeb0082433e6f2272d8c1d754ee3d499a" id="r_aeb0082433e6f2272d8c1d754ee3d499a"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#aeb0082433e6f2272d8c1d754ee3d499a">hmi::MAP_RENDER_MAX_SIDE</a> = 8192</td></tr>
 <tr class="memdesc:aeb0082433e6f2272d8c1d754ee3d499a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le plus grand côté d'une image de <span class="tt">--render</span> par défaut, en pixels (<span class="tt">LOT-125</span>).  <br /></td></tr>
+<tr class="memitem:a2fe297929e4550408ea3bf496b830964" id="r_a2fe297929e4550408ea3bf496b830964"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespacehmi.html#a2fe297929e4550408ea3bf496b830964">hmi::MAP_RENDER_SHADOW_SIZE</a> = 4096</td></tr>
+<tr class="memdesc:a2fe297929e4550408ea3bf496b830964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les réglages d'un rendu.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><span class="tt">LevelEditor --render</span> : une carte rendue <b>hors écran</b> en PNG, en isométrie, par le rendu du jeu (<span class="tt">LOT-EDITOR-13</span>, décision D9, <span class="tt">EX-EDIT-075</span>, <span class="tt">LOT-1002</span>). </p>

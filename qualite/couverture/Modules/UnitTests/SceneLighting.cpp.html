@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>SceneLighting.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Graphics/SceneLighting.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;utility&gt;
+#include &lt;vector&gt;
+
+#include "Core/Rpg/Scale.h"
+
+namespace hmi {
+
+namespace {
+
+using Vec3 = std::array&lt;float, 3&gt;;
+
+// La hauteur, en metres, jusqu'ou la carte d'ombres couvre ce que la camera montre : un
+// personnage debout, la tete d'une figurine a cheval. Plus haut, un soleil rasant etirerait la
+// carte bien au-dela de l'image pour des recepteurs qui n'existent pas.
+constexpr float RECEIVER_HEIGHT_METRES = 3.0F;
+// Ce dont la carte d'ombres recule vers le soleil, en metres : un toit hors de l'image, du cote
+// du soleil, y jette encore son ombre.
+constexpr float CASTER_MARGIN_METRES = 80.0F;
+// La marge derriere le recepteur le plus lointain, en metres.
+constexpr float FAR_MARGIN_METRES = 4.0F;
+// Le tremblement d'une flamme : ce qu'elle perd au plus de son intensite, et ses deux battements.
+constexpr float FLICKER_DEPTH = 0.16F;
+constexpr float FLICKER_SLOW_HERTZ = 2.3F;
+constexpr float FLICKER_FAST_HERTZ = 5.9F;
+// En dessous, une source ne vaut pas une lumiere du shader.
+constexpr float MINIMUM_LIGHT_POWER = 0.01F;
+
+<span style = "background-color:#dfd">[[nodiscard]] float dot(const Vec3&amp; a, const Vec3&amp; b) noexcept {
+    return (a[0] * b[0]) + (a[1] * b[1]) + (a[2] * b[2]);
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] Vec3 cross(const Vec3&amp; a, const Vec3&amp; b) noexcept {
+    return {(a[1] * b[2]) - (a[2] * b[1]), (a[2] * b[0]) - (a[0] * b[2]),</span>
+            (a[0] * b[1]) - (a[1] * b[0])};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] Vec3 normalized(const Vec3&amp; v, const Vec3&amp; fallback) noexcept {
+    const float length = std::sqrt(dot(v, v));
+    return length &gt; 1e-6F ? Vec3{v[0] / length, v[1] / length, v[2] / length} : fallback;
+}</span>
+
+// Le point `m` x (x, y, z, 1).
+<span style = "background-color:#dfd">[[nodiscard]] Vec3 transformed(const LightMatrix&amp; m, const Vec3&amp; p) noexcept {
+    return {(m[0] * p[0]) + (m[4] * p[1]) + (m[8] * p[2]) + m[12],</span>
+            (m[1] * p[0]) + (m[5] * p[1]) + (m[9] * p[2]) + m[13],
+            (m[2] * p[0]) + (m[6] * p[1]) + (m[10] * p[2]) + m[14]};
+<span style = "background-color:#dfd">}</span>
+
+// La direction `m` x (x, y, z, 0) : sans la translation.
+<span style = "background-color:#dfd">[[nodiscard]] Vec3 rotated(const LightMatrix&amp; m, const Vec3&amp; d) noexcept {
+    return {(m[0] * d[0]) + (m[4] * d[1]) + (m[8] * d[2]),</span>
+            (m[1] * d[0]) + (m[5] * d[1]) + (m[9] * d[2]),
+            (m[2] * d[0]) + (m[6] * d[1]) + (m[10] * d[2])};
+<span style = "background-color:#dfd">}</span>
+
+constexpr LightMatrix IDENTITY{1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 0.0F,
+                               0.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F};
+
+// Ce qu'une flamme garde de son intensite a l'instant `seconds` : deux battements dephases par
+// sa place, pour que deux braseros voisins ne tremblent pas ensemble.
+<span style = "background-color:#dfd">[[nodiscard]] float flicker(const core::LightSource&amp; source, float seconds) noexcept {
+    const float phase = (source.column * 12.9898F) + (source.row * 78.233F);
+    const float slow = std::sin((seconds * FLICKER_SLOW_HERTZ * 6.2831853F) + phase);
+    const float fast = std::sin((seconds * FLICKER_FAST_HERTZ * 6.2831853F) + (phase * 1.7F));
+    return 1.0F - (FLICKER_DEPTH * (0.5F + (0.3F * slow) + (0.2F * fast)));
+}</span>
+
+// Une source retenue pour l'image : sa place dans la vue, sa portee, sa couleur finale.
+struct ViewLight {
+    Vec3 position{};
+    float radius = 0.0F;
+    Vec3 color{};
+    float distance = 0.0F;
+};
+
+}  // namespace
+
+<span style = "background-color:#dfd">LightMatrix toLightMatrix(const ViewTransform&amp; t) noexcept {
+    return {t[0], t[4], t[8],  0.0F, t[1], t[5], t[9],  0.0F,</span>
+            t[2], t[6], t[10], 0.0F, t[3], t[7], t[11], 1.0F};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">LightMatrix metresToView(const IsoView&amp; view) noexcept {</span>
+    // La pose d'un maillage dont l'origine est le coin de grille (0, 0), au sol : son repere est
+    // celui du lieu, en metres.
+<span style = "background-color:#dfd">    return toLightMatrix(view.meshTransform({0.0F, 0.0F}, 0.0F));
+}</span>
+
+<span style = "background-color:#dfd">LightMatrix multiplied(const LightMatrix&amp; left, const LightMatrix&amp; right) noexcept {
+    LightMatrix out{};
+    for (std::size_t column = 0; column &lt; 4; ++column) {
+        for (std::size_t row = 0; row &lt; 4; ++row) {
+            float sum = 0.0F;
+            for (std::size_t k = 0; k &lt; 4; ++k) {
+                sum += left[(k * 4) + row] * right[(column * 4) + k];
+            }
+            out[(column * 4) + row] = sum;
+        }
+    }
+    return out;
+}</span>
+
+<span style = "background-color:#dfd">LightMatrix invertedAffine(const LightMatrix&amp; m) noexcept {</span>
+    // La partie lineaire (3 x 3) par sa comatrice, puis la translation ramenee.
+<span style = "background-color:#dfd">    const float a = m[0];
+    const float b = m[4];
+    const float c = m[8];
+    const float d = m[1];
+    const float e = m[5];
+    const float f = m[9];
+    const float g = m[2];
+    const float h = m[6];
+    const float i = m[10];
+    const float determinant =</span>
+        (a * ((e * i) - (f * h))) - (b * ((d * i) - (f * g))) + (c * ((d * h) - (e * g)));
+<span style = "background-color:#dfd">    if (std::fabs(determinant) &lt; 1e-12F) {</span>
+<span style = "background-color:#fdd">        return IDENTITY;</span>
+    }
+<span style = "background-color:#dfd">    const float inverse = 1.0F / determinant;
+    LightMatrix out = IDENTITY;
+    out[0] = ((e * i) - (f * h)) * inverse;
+    out[4] = ((c * h) - (b * i)) * inverse;
+    out[8] = ((b * f) - (c * e)) * inverse;
+    out[1] = ((f * g) - (d * i)) * inverse;
+    out[5] = ((a * i) - (c * g)) * inverse;
+    out[9] = ((c * d) - (a * f)) * inverse;
+    out[2] = ((d * h) - (e * g)) * inverse;
+    out[6] = ((b * g) - (a * h)) * inverse;
+    out[10] = ((a * e) - (b * d)) * inverse;
+    const Vec3 translation = rotated(out, {m[12], m[13], m[14]});
+    out[12] = -translation[0];
+    out[13] = -translation[1];
+    out[14] = -translation[2];
+    return out;
+}</span>
+
+SceneLightFrame buildSceneLighting(const IsoView&amp; view, const core::Rect&amp; visible,
+                                   const WorldLighting&amp; lighting,
+                                   std::span&lt;const core::LightSource&gt; sources,
+<span style = "background-color:#dfd">                                   bool flipShadowRows) {
+    SceneLightFrame frame;
+    LightingUniforms&amp; uniforms = frame.uniforms;
+    const core::DayLight&amp; light = lighting.light;
+    const LightMatrix toView = metresToView(view);
+    const LightMatrix toMetres = invertedAffine(toView);
+    const float unitsPerMetre = view.unitsPerMetre();</span>
+
+<span style = "background-color:#dfd">    uniforms.tint = {light.tint.r, light.tint.g, light.tint.b, 1.0F};
+    uniforms.ambient = {light.ambient.r, light.ambient.g, light.ambient.b,</span>
+                        std::clamp(light.shadow, 0.0F, 1.0F)};
+    const Vec3 toSun =
+<span style = "background-color:#dfd">        normalized({light.toSun[0], light.toSun[1], light.toSun[2]}, {0.0F, 1.0F, 0.0F});
+    const Vec3 sunInView = normalized(rotated(toView, toSun), {0.0F, -1.0F, 0.0F});
+    const Vec3 upInView = normalized(rotated(toView, {0.0F, 1.0F, 0.0F}), {0.0F, -1.0F, 0.0F});
+    uniforms.toSun = {sunInView[0], sunInView[1], sunInView[2], 0.0F};
+    uniforms.up = {upInView[0], upInView[1], upInView[2], 0.0F};</span>
+
+    // --- Les lumieres de nuit : allumees, a portee de l'image, les plus proches du centre.
+<span style = "background-color:#dfd">    const Vec3 centre{visible.position.x + (visible.size.x / 2.0F),
+                      visible.position.y + (visible.size.y / 2.0F), 0.0F};
+    std::vector&lt;ViewLight&gt; kept;
+    for (const core::LightSource&amp; source : sources) {
+        const core::LightEmission&amp; emission = source.emission;
+        float power =</span>
+            emission.intensity * (emission.always ? 1.0F : std::clamp(light.lamps, 0.0F, 1.0F));
+<span style = "background-color:#dfd">        if (emission.flicker) {
+            power *= flicker(source, lighting.seconds);</span>
+        }
+<span style = "background-color:#dfd">        if (power &lt; MINIMUM_LIGHT_POWER || emission.radius &lt;= 0.0F) {
+            continue;</span>
+        }
+        const Vec3 position =
+<span style = "background-color:#dfd">            transformed(toView, {source.column * core::METERS_PER_TILE, emission.height,</span>
+                                 source.row * core::METERS_PER_TILE});
+<span style = "background-color:#dfd">        const float radius = emission.radius * unitsPerMetre;</span>
+        // Hors de l'image, portee comprise : elle n'eclaire aucun pixel.
+        if (position[0] + radius &lt; visible.position.x ||
+            position[0] - radius &gt; visible.position.x + visible.size.x ||
+<span style = "background-color:#dfd">            position[1] + radius &lt; visible.position.y ||</span>
+            position[1] - radius &gt; visible.position.y + visible.size.y) {
+<span style = "background-color:#dfd">            continue;</span>
+        }
+<span style = "background-color:#dfd">        kept.push_back(ViewLight{</span>
+            .position = position,
+            .radius = radius,
+            .color = {emission.color.r * power, emission.color.g * power, emission.color.b * power},
+            .distance = std::hypot(position[0] - centre[0], position[1] - centre[1]) - radius});
+<span style = "background-color:#dfd">    }
+    std::ranges::stable_sort(kept, {}, &amp;ViewLight::distance);
+    const std::size_t count = std::min(kept.size(), MAXIMUM_SCENE_LIGHTS);
+    for (std::size_t index = 0; index &lt; count; ++index) {
+        const ViewLight&amp; one = kept[index];
+        uniforms.lightPosition[index] = {one.position[0], one.position[1], one.position[2],</span>
+                                         one.radius};
+<span style = "background-color:#dfd">        uniforms.lightColor[index] = {one.color[0], one.color[1], one.color[2], 0.0F};
+    }
+    uniforms.up[3] = static_cast&lt;float&gt;(count);</span>
+
+    // --- La lumiere dirigee et sa carte d'ombres.
+<span style = "background-color:#dfd">    uniforms.sun = {light.sun.r, light.sun.g, light.sun.b, 0.0F};
+    const bool lit = light.sun.r &gt; 0.0F || light.sun.g &gt; 0.0F || light.sun.b &gt; 0.0F;
+    if (!lighting.shadows || !lit || lighting.shadowSize &lt; 16 || visible.size.x &lt;= 0.0F ||</span>
+        visible.size.y &lt;= 0.0F) {
+<span style = "background-color:#dfd">        return frame;</span>
+    }
+    // Le repere du soleil, en metres : `right` et `above` tendent la carte, `toSun` est sa
+    // profondeur. Un soleil au zenith n'a pas de droite a lui : celle des colonnes.
+<span style = "background-color:#dfd">    const Vec3 right = normalized(cross({0.0F, 1.0F, 0.0F}, toSun), {1.0F, 0.0F, 0.0F});
+    const Vec3 above = cross(toSun, right);</span>
+
+    // Ce que la camera montre du sol, et la meme chose a hauteur d'homme.
+<span style = "background-color:#dfd">    const float left = visible.position.x;
+    const float top = visible.position.y;</span>
+    const std::array&lt;core::Vector2, 4&gt; corners{
+<span style = "background-color:#dfd">        core::Vector2{left, top}, core::Vector2{left + visible.size.x, top},
+        core::Vector2{left + visible.size.x, top + visible.size.y},
+        core::Vector2{left, top + visible.size.y}};
+    const Vec3 middle = transformed(toMetres, {centre[0], centre[1], view.groundDepth(centre[1])});
+    const float middleX = dot(middle, right);
+    const float middleY = dot(middle, above);
+    float extent = 0.0F;
+    float nearest = dot(middle, toSun);
+    float farthest = nearest;
+    for (const core::Vector2&amp; corner : corners) {
+        const Vec3 ground = transformed(toMetres, {corner.x, corner.y, view.groundDepth(corner.y)});
+        for (const float height : {0.0F, RECEIVER_HEIGHT_METRES}) {
+            const Vec3 point{ground[0], ground[1] + height, ground[2]};
+            extent = std::max({extent, std::fabs(dot(point, right) - middleX),</span>
+                               std::fabs(dot(point, above) - middleY)});
+<span style = "background-color:#dfd">            const float along = dot(point, toSun);
+            nearest = std::max(nearest, along);    // vers le soleil
+            farthest = std::min(farthest, along);  // loin de lui
+        }
+    }
+    if (extent &lt;= 0.0F) {</span>
+<span style = "background-color:#fdd">        return frame;</span>
+    }
+    // Le centre cale sur un texel : la carte glisse par pas entiers, ses bords ne fremissent pas.
+    // La carte s'elargit d'un texel de chaque cote : le calage a pu decaler le centre d'autant. Le
+    // texel se mesure sur la carte elargie -- c'est son pas, exactement.
+<span style = "background-color:#dfd">    const auto size = static_cast&lt;float&gt;(lighting.shadowSize);
+    const float half = extent * (1.0F + (2.0F / size));
+    const float texel = (2.0F * half) / size;
+    const float centreX = std::floor(middleX / texel) * texel;
+    const float centreY = std::floor(middleY / texel) * texel;
+    const float start = nearest + CASTER_MARGIN_METRES;
+    const float depth = (start - farthest) + FAR_MARGIN_METRES;</span>
+
+    // Metres -&gt; clip, a la convention d'OpenGL que QRhi impose a la source : x, y et la
+    // profondeur dans [-1, 1], de -1 (cote soleil) a 1. `QRhi::clipSpaceCorrMatrix` la ramene a
+    // celle de l'interface au moment de dessiner.
+<span style = "background-color:#dfd">    LightMatrix&amp; clip = frame.metresToShadowClip;
+    clip = IDENTITY;
+    for (std::size_t axis = 0; axis &lt; 3; ++axis) {
+        clip[(axis * 4) + 0] = right[axis] / half;
+        clip[(axis * 4) + 1] = above[axis] / half;
+        clip[(axis * 4) + 2] = -2.0F * toSun[axis] / depth;
+    }
+    clip[12] = -centreX / half;
+    clip[13] = -centreY / half;
+    clip[14] = (2.0F * start / depth) - 1.0F;</span>
+
+    // Clip -&gt; texture : (u, v) et la profondeur dans [0, 1] -- ce que la carte a garde --, la
+    // premiere ligne en haut du clip ou en bas selon l'interface.
+<span style = "background-color:#dfd">    LightMatrix bias = IDENTITY;
+    bias[0] = 0.5F;
+    bias[12] = 0.5F;
+    bias[5] = flipShadowRows ? -0.5F : 0.5F;
+    bias[13] = 0.5F;
+    bias[10] = 0.5F;
+    bias[14] = 0.5F;
+    uniforms.viewToShadow = multiplied(bias, multiplied(clip, toMetres));
+    uniforms.sun[3] = 1.0F;
+    uniforms.toSun[3] = 1.0F / size;
+    frame.shadows = true;
+    return frame;
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

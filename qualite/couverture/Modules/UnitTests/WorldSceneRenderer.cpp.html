@@ -15,6 +15,8 @@
 #include "HMI/Graphics/WorldSceneRenderer.h"
 
 #include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cstdint&gt;
 #include &lt;optional&gt;
 #include &lt;utility&gt;
 
@@ -23,9 +25,11 @@
 #include "Core/Resources/AssetMarker.h"
 #include "Core/Resources/MeshFile.h"
 #include "Core/Resources/SkeletonFile.h"
+#include "Core/Rpg/Scale.h"
 #include "HMI/Graphics/EntityMarkers.h"
 #include "HMI/Graphics/GraphicsLog.h"
 #include "HMI/Graphics/IsoView.h"
+#include "HMI/Graphics/LightingBlock.h"
 #include "HMI/Graphics/MaquetteTokens.h"
 #include "HMI/Graphics/MeshBatch.h"
 #include "HMI/Graphics/MissingTexture.h"
@@ -190,7 +194,12 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
         _textures.solid = SceneTexture{</span>
             .texture = _solid.handle(), .width = _solid.width, .height = _solid.height};
 <span style = "background-color:#dfd">    }
-    _meshes = std::make_unique&lt;MeshBatch&gt;(rhi);
+    _meshes = std::make_unique&lt;MeshBatch&gt;(rhi);</span>
+    // Un seul bloc d'eclairage pour les deux pipelines (LOT-1007) : neutre tant qu'aucune lumiere
+    // n'est reglee.
+<span style = "background-color:#dfd">    _lightingBlock = std::make_unique&lt;LightingBlock&gt;(rhi);
+    _resources.sprites().setLighting(_lightingBlock.get());
+    _meshes-&gt;setLighting(_lightingBlock.get());
     _resources.setFrameUpdates(nullptr);
     GRAPHICS_LOG_INFO("Lieu : ressources QRhi creees (" + std::string(rhi-&gt;backendName()) + ").");
     return true;
@@ -417,6 +426,7 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
     _textures.figureModels.clear();
     _skeletons.clear();
     _meshes.reset();
+    _shadowBoxes = nullptr;
     _textures.missing = SceneTexture{};
     _textures.solid = SceneTexture{};
     _loaded.clear();
@@ -428,7 +438,9 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
 <span style = "background-color:#fdd">        _pendingUploads-&gt;release();
         _pendingUploads = nullptr;</span>
     }
-<span style = "background-color:#dfd">    _resources.release();
+<span style = "background-color:#dfd">    _resources.release();</span>
+    // Le bloc d'eclairage apres les deux pipelines qui le lient.
+<span style = "background-color:#dfd">    _lightingBlock.reset();
     _rhi = nullptr;
 }</span>
 
@@ -460,6 +472,43 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
     return {_scene-&gt;columns, _scene-&gt;rows, core::ARENA_TILE_WIDTH_UNITS, _scene-&gt;diamondRatio};
 }</span>
 
+<span style = "background-color:#dfd">void WorldSceneRenderer::rebuildShadowBoxes() {
+    _meshes-&gt;destroy(std::exchange(_shadowBoxes, nullptr));
+    if (_scene-&gt;shadowBoxes.empty()) {
+        return;</span>
+    }
+    // Une boite par piece, dans le repere du lieu en metres : X le long des colonnes, Z des
+    // lignes, Y vers le haut. Douze triangles ; la normale et les coordonnees de texture ne
+    // servent pas -- la passe d'ombres n'ecrit que la profondeur.
+    static constexpr std::array&lt;std::array&lt;int, 3&gt;, 8&gt; CORNERS{
+        {{0, 0, 0}, {1, 0, 0}, {1, 0, 1}, {0, 0, 1}, {0, 1, 0}, {1, 1, 0}, {1, 1, 1}, {0, 1, 1}}};
+    static constexpr std::array&lt;std::uint32_t, 36&gt; FACES{0, 2, 1, 0, 3, 2, 4, 5, 6, 4, 6, 7,
+                                                         0, 1, 5, 0, 5, 4, 1, 2, 6, 1, 6, 5,
+                                                         2, 3, 7, 2, 7, 6, 3, 0, 4, 3, 4, 7};
+<span style = "background-color:#dfd">    core::MeshData boxes;
+    boxes.vertices.reserve(_scene-&gt;shadowBoxes.size() * CORNERS.size());
+    boxes.indices.reserve(_scene-&gt;shadowBoxes.size() * FACES.size());
+    for (const WorldShadowBox&amp; box : _scene-&gt;shadowBoxes) {
+        const auto first = static_cast&lt;std::uint32_t&gt;(boxes.vertices.size());
+        for (const std::array&lt;int, 3&gt;&amp; corner : CORNERS) {
+            core::MeshVertex vertex{};</span>
+            // Le sommet de la boite se resserre autour de son centre (`WorldShadowBox::top`).
+<span style = "background-color:#dfd">            const float keep = corner[1] == 0 ? 1.0F : std::clamp(box.top, 0.0F, 1.0F);
+            const float along = 0.5F + ((static_cast&lt;float&gt;(corner[0]) - 0.5F) * keep);
+            const float across = 0.5F + ((static_cast&lt;float&gt;(corner[2]) - 0.5F) * keep);
+            vertex.position = {(box.column + (along * box.columns)) * core::METERS_PER_TILE,</span>
+                               box.base + (static_cast&lt;float&gt;(corner[1]) * box.height),
+                               (box.row + (across * box.rows)) * core::METERS_PER_TILE};
+<span style = "background-color:#dfd">            vertex.normal = {0.0F, 1.0F, 0.0F};
+            boxes.vertices.push_back(vertex);
+        }
+        for (const std::uint32_t index : FACES) {
+            boxes.indices.push_back(first + index);
+        }
+    }
+    _shadowBoxes = _meshes-&gt;create(_resources.context(), boxes);
+}</span>
+
 <span style = "background-color:#dfd">void WorldSceneRenderer::refresh(const core::IsoProjection&amp; projection) {</span>
     // La carte : ses textures et sa composition, une fois par carte. Ce sont ses pieces qui disent
     // quoi charger, et la carte change au passage d'un portail.
@@ -470,6 +519,7 @@ WorldSceneRenderer::WorldSceneRenderer(std::filesystem::path assetsDirectory)
         ensureTextures(worldTexturePaths(*_scene));
         ensureMeshes(worldMeshPaths(*_scene));
         _statics.build(*_scene, projection, _textures, _composeOptions);
+        rebuildShadowBoxes();
         _sceneDirty = false;</span>
     }
     // Les figurines : leurs modeles, leurs marqueurs et les bandes des effets, quand elles
@@ -545,29 +595,73 @@ void WorldSceneRenderer::render(QRhiCommandBuffer* commandBuffer, QRhiRenderTarg
 
     // Les volumes (LOT-1003). Une image qui en a donne a chaque primitive sa profondeur, et la
     // camera ramene celle de toute la scene a l'etendue du tampon ; une image qui n'en a pas se
-    // dessine comme avant le lot : profondeur nulle, ni test ni ecriture.
+    // dessine comme avant le lot : profondeur nulle, ni test ni ecriture. Une image eclairee
+    // (LOT-1007) donne aussi sa profondeur a chaque primitive : c'est sa position dans la vue que
+    // la lumiere lit.
 <span style = "background-color:#dfd">    const bool volumes = !_composed.meshes().empty();
+    const bool lit = _lighting.has_value();
+    const IsoView view(projection);
     std::optional&lt;SceneDepth&gt; depth;
-    if (volumes) {
-        const IsoView view(projection);
+    if (volumes || lit) {
         camera.setDepthRange(view.depthRange());
         depth = SceneDepth{.view = view, .range = camera.depthRange()};</span>
     }
 
+    // L'eclairage de l'image : le bloc des shaders, et la carte d'ombres si le soleil en jette.
+<span style = "background-color:#dfd">    _lightFrame = lit ? buildSceneLighting(view, camera.visibleBounds(), *_lighting, _scene-&gt;lights,</span>
+                                           !_rhi-&gt;isYUpInFramebuffer())
+                      : SceneLightFrame{};
+<span style = "background-color:#dfd">    QRhiTextureRenderTarget* const shadowTarget =</span>
+        _lightFrame.shadows ? _lightingBlock-&gt;ensureShadowMap(_lighting-&gt;shadowSize) : nullptr;
+<span style = "background-color:#dfd">    if (shadowTarget == nullptr) {
+        _lightFrame.shadows = false;
+        _lightFrame.uniforms.sun[3] = 0.0F;</span>
+    }
+<span style = "background-color:#dfd">    _lightingBlock-&gt;upload(updates, _lightFrame.uniforms);</span>
+
 <span style = "background-color:#dfd">    SpriteBatch&amp; sprites = _resources.sprites();
     sprites.setDepthTest(volumes);
     sprites.beginFrame();
-    submitComposedScene(sprites, camera.projectionMatrix(), _composed, depth ? &amp;*depth : nullptr);
-    _meshes-&gt;beginFrame();
+    submitComposedScene(sprites, camera.projectionMatrix(), _composed, depth ? &amp;*depth : nullptr,</span>
+                        lit);
+<span style = "background-color:#dfd">    _meshes-&gt;beginFrame();</span>
+    // Du repere de la vue a celui du lieu en metres, puis au clip de la carte d'ombres.
+<span style = "background-color:#dfd">    const LightMatrix metresToViewMatrix = metresToView(view);</span>
+    const LightMatrix viewToShadowClip =
+<span style = "background-color:#dfd">        multiplied(_lightFrame.metresToShadowClip, invertedAffine(metresToViewMatrix));
     for (const ComposedMesh&amp; mesh : _composed.meshes()) {
-        _meshes-&gt;draw(mesh.mesh, camera.meshMatrix(mesh.toView), mesh.opacity,</span>
-                      _composed.poseOf(mesh));
+        MeshLighting lighting;
+        if (lit) {
+            lighting.toView = toLightMatrix(mesh.toView);
+            lighting.toShadowClip = multiplied(viewToShadowClip, lighting.toView);</span>
+        }
+<span style = "background-color:#dfd">        _meshes-&gt;draw(mesh.mesh, camera.meshMatrix(mesh.toView), mesh.opacity,</span>
+                      _composed.poseOf(mesh), lighting);
 <span style = "background-color:#dfd">    }</span>
+    // Les boites du decor en images : dans la carte d'ombres seulement.
+<span style = "background-color:#dfd">    if (_lightFrame.shadows &amp;&amp; _shadowBoxes != nullptr) {</span>
+<span style = "background-color:#fdd">        _meshes-&gt;draw(_shadowBoxes, DirectX::XMFLOAT4X4{}, 1.0F, {},</span>
+                      MeshLighting{.toView = metresToViewMatrix,
+                                   .toShadowClip = _lightFrame.metresToShadowClip,
+                                   .castsOnly = true});
+    }
 
-    // Une seule passe : les televersements d'abord, puis les maillages, qui ecrivent la profondeur,
-    // et les images, qui la testent dans l'ordre du peintre.
-<span style = "background-color:#dfd">    QRhiResourceUpdateBatch* const uploads =</span>
-        _meshes-&gt;prepare(target, sprites.prepare(target, updates));
+<span style = "background-color:#dfd">    QRhiResourceUpdateBatch* uploads = _meshes-&gt;prepare(target, sprites.prepare(target, updates));</span>
+    // La passe d'ombres (LOT-1007) : les maillages et les boites du decor, vus du soleil. Elle
+    // s'ouvre meme sans rien a y dessiner -- la carte doit etre effacee, pas gardee de l'image
+    // d'avant.
+<span style = "background-color:#dfd">    if (shadowTarget != nullptr) {
+        const bool casters = _meshes-&gt;prepareShadow(shadowTarget);
+        commandBuffer-&gt;beginPass(shadowTarget, Qt::black, {1.0F, 0},</span>
+                                 std::exchange(uploads, nullptr));
+<span style = "background-color:#dfd">        if (casters) {
+            _meshes-&gt;recordShadow(commandBuffer, shadowTarget);</span>
+        }
+<span style = "background-color:#dfd">        commandBuffer-&gt;endPass();</span>
+    }
+
+    // La passe de l'image : les televersements d'abord, puis les maillages, qui ecrivent la
+    // profondeur, et les images, qui la testent dans l'ordre du peintre.
 <span style = "background-color:#dfd">    commandBuffer-&gt;beginPass(target, QColor::fromRgbF(clear[0], clear[1], clear[2], clear[3]),</span>
                              {1.0F, 0}, uploads);
 <span style = "background-color:#dfd">    _meshes-&gt;record(commandBuffer, target);

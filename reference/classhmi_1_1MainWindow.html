@@ -164,6 +164,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a41b7d598449b1c44c3e159a67370faed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ouvre la fenêtre « Asset workshop » (<span class="tt">LOT-1008</span>, <span class="tt">EX-EDIT-102</span>), sur la fiche d'atelier <code class="param">sheet</code> si elle est donnée.  <br /></td></tr>
 <tr class="memitem:ab4c8e259baea81d2f887f07b47582e19" id="r_ab4c8e259baea81d2f887f07b47582e19"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab4c8e259baea81d2f887f07b47582e19">MainWindow</a> (const MainWindow &amp;)=delete</td></tr>
 <tr class="memitem:ab6940837dc62d495d934ae0d0e4e4284" id="r_ab6940837dc62d495d934ae0d0e4e4284"><td class="memItemLeft"><a class="el" href="#ad5314276368d312f8f32bc9e3bed3db2">MainWindow</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ab6940837dc62d495d934ae0d0e4e4284">operator=</a> (const <a class="el" href="#ad5314276368d312f8f32bc9e3bed3db2">MainWindow</a> &amp;)=delete</td></tr>
+<tr class="memitem:a3307642b4abe23c9eb0f758db753b86f" id="r_a3307642b4abe23c9eb0f758db753b86f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3307642b4abe23c9eb0f758db753b86f">showLightHour</a> (float minutes)</td></tr>
+<tr class="memdesc:a3307642b4abe23c9eb0f758db753b86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allume l'éclairage du canevas à l'heure <code class="param">minutes</code> (<span class="tt">--hour=</span>, <span class="tt">LOT-1007</span>), comme la case et le curseur de la barre d'outils le feraient ; arrondie au quart d'heure.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -275,6 +277,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a21acdde1725808677884e5337e5cb790"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare la carte sur disque à celle que l'éditeur a lue ou écrite, et réagit.  <br /></td></tr>
 <tr class="memitem:a5e2887cd1592ff97d25ae5f65861b7a0" id="r_a5e2887cd1592ff97d25ae5f65861b7a0"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5e2887cd1592ff97d25ae5f65861b7a0">keepAside</a> (const char *label, const std::string &amp;content)</td></tr>
 <tr class="memdesc:a5e2887cd1592ff97d25ae5f65861b7a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Met <code class="param">content</code> de côté pour la carte ouverte ;.  <br /></td></tr>
+<tr class="memitem:a285b84ca6ed6b902430f59f450b427d7" id="r_a285b84ca6ed6b902430f59f450b427d7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a285b84ca6ed6b902430f59f450b427d7">applyLightHour</a> ()</td></tr>
+<tr class="memdesc:a285b84ca6ed6b902430f59f450b427d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Donne au canevas courant l'heure que la barre d'outils montre.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
@@ -309,6 +313,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a4c72994d9c60618222b2e92b528c2eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'interface de rendu hors écran, tenue tant que la fenêtre vit (<span class="tt">LOT-1002</span>) : les vignettes des cartes et des préfabriqués partagent ainsi les textures d'un kit, chargées une fois.  <br /></td></tr>
 <tr class="memitem:aa11ea4bf8bdc5815fc36bee49cd1c0ed" id="r_aa11ea4bf8bdc5815fc36bee49cd1c0ed"><td class="memItemLeft"><a class="el" href="classhmi_1_1EditorActions.html">EditorActions</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa11ea4bf8bdc5815fc36bee49cd1c0ed">_actions</a> = nullptr</td></tr>
 <tr class="memitem:ab33c6cdb6968b9fb8550383780597a57" id="r_ab33c6cdb6968b9fb8550383780597a57"><td class="memItemLeft">QToolBar *&#160;</td><td class="memItemRight"><a class="el" href="#ab33c6cdb6968b9fb8550383780597a57">_toolBar</a> = nullptr</td></tr>
+<tr class="memitem:a462509187709bcde2f4aab1796d45960" id="r_a462509187709bcde2f4aab1796d45960"><td class="memItemLeft">QCheckBox *&#160;</td><td class="memItemRight"><a class="el" href="#a462509187709bcde2f4aab1796d45960">_lightingCheck</a> = nullptr</td></tr>
+<tr class="memdesc:a462509187709bcde2f4aab1796d45960"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'heure du canevas (<span class="tt">LOT-1007</span>) : la case qui allume l'éclairage, le curseur de l'heure et son étiquette, dans la barre d'outils.  <br /></td></tr>
+<tr class="memitem:abba52da2ee0e9238fef01c3fc49f587c" id="r_abba52da2ee0e9238fef01c3fc49f587c"><td class="memItemLeft">QSlider *&#160;</td><td class="memItemRight"><a class="el" href="#abba52da2ee0e9238fef01c3fc49f587c">_hourSlider</a> = nullptr</td></tr>
+<tr class="memitem:a4adf52f1c8bea20035aa1e68f30b6c05" id="r_a4adf52f1c8bea20035aa1e68f30b6c05"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#a4adf52f1c8bea20035aa1e68f30b6c05">_hourLabel</a> = nullptr</td></tr>
 <tr class="memitem:a4574a5a3f8e0d48448a4dcbbca2fc889" id="r_a4574a5a3f8e0d48448a4dcbbca2fc889"><td class="memItemLeft">QAction *&#160;</td><td class="memItemRight"><a class="el" href="#a4574a5a3f8e0d48448a4dcbbca2fc889">_resizeAction</a> = nullptr</td></tr>
 <tr class="memitem:a10ab1a96c0a996f8688f9b590a2f029b" id="r_a10ab1a96c0a996f8688f9b590a2f029b"><td class="memItemLeft">QAction *&#160;</td><td class="memItemRight"><a class="el" href="#a10ab1a96c0a996f8688f9b590a2f029b">_resetLayoutAction</a> = nullptr</td></tr>
 <tr class="memitem:aa0f18b423a6be1bda623de58166a835f" id="r_aa0f18b423a6be1bda623de58166a835f"><td class="memItemLeft">QByteArray&#160;</td><td class="memItemRight"><a class="el" href="#aa0f18b423a6be1bda623de58166a835f">_defaultState</a></td></tr>
@@ -521,6 +529,33 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>« Map properties… » écrit aussi où en est la carte : son état va dans l'annexe. </p>
+
+</div>
+</div>
+<a id="a285b84ca6ed6b902430f59f450b427d7" name="a285b84ca6ed6b902430f59f450b427d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a285b84ca6ed6b902430f59f450b427d7">&#9670;&#160;</a></span>applyLightHour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::applyLightHour </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Donne au canevas courant l'heure que la barre d'outils montre. </p>
 
 </div>
 </div>
@@ -2120,6 +2155,25 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3307642b4abe23c9eb0f758db753b86f" name="a3307642b4abe23c9eb0f758db753b86f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3307642b4abe23c9eb0f758db753b86f">&#9670;&#160;</a></span>showLightHour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::MainWindow::showLightHour </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>minutes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allume l'éclairage du canevas à l'heure <code class="param">minutes</code> (<span class="tt">--hour=</span>, <span class="tt">LOT-1007</span>), comme la case et le curseur de la barre d'outils le feraient ; arrondie au quart d'heure. </p>
+
+</div>
+</div>
 <a id="a77025d20fbce06f8f0fd55455cc6eca8" name="a77025d20fbce06f8f0fd55455cc6eca8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a77025d20fbce06f8f0fd55455cc6eca8">&#9670;&#160;</a></span>showTransientStatusMessage()</h2>
 
@@ -2556,6 +2610,50 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a4adf52f1c8bea20035aa1e68f30b6c05" name="a4adf52f1c8bea20035aa1e68f30b6c05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4adf52f1c8bea20035aa1e68f30b6c05">&#9670;&#160;</a></span>_hourLabel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QLabel* hmi::MainWindow::_hourLabel = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abba52da2ee0e9238fef01c3fc49f587c" name="abba52da2ee0e9238fef01c3fc49f587c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abba52da2ee0e9238fef01c3fc49f587c">&#9670;&#160;</a></span>_hourSlider</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QSlider* hmi::MainWindow::_hourSlider = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2ca20212f1ccc0c2df74dde270e8a6ff" name="a2ca20212f1ccc0c2df74dde270e8a6ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2ca20212f1ccc0c2df74dde270e8a6ff">&#9670;&#160;</a></span>_layers</h2>
 
@@ -2597,6 +2695,30 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a462509187709bcde2f4aab1796d45960" name="a462509187709bcde2f4aab1796d45960"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a462509187709bcde2f4aab1796d45960">&#9670;&#160;</a></span>_lightingCheck</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QCheckBox* hmi::MainWindow::_lightingCheck = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'heure du canevas (<span class="tt">LOT-1007</span>) : la case qui allume l'éclairage, le curseur de l'heure et son étiquette, dans la barre d'outils. </p>
 
 </div>
 </div>

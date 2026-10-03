@@ -143,9 +143,6 @@ $(function(){initNavTree('structhmi_1_1MapRenderOptions.html','','structhmi_1_1M
 </div><!--header-->
 <div class="contents">
 
-<p>Les réglages d'un rendu.  
- <a href="#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="MapRender_8h_source.html">MapRender.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -162,10 +159,10 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a5bfa8ff702b85bebff36a8aa13a78203"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Plan de principe</b> (<span class="tt">--<a class="el" href="#a5bfa8ff702b85bebff36a8aa13a78203" title="Plan de principe (--plan, LOT-128) : les blocs se couchent en losanges plats et une légende s&#39;ajoute.">plan</a></span>, <span class="tt">LOT-128</span>) : les blocs se couchent en losanges plats et une légende s'ajoute.  <br /></td></tr>
 <tr class="memitem:a8bd822402428740d579f84c04786eed2" id="r_a8bd822402428740d579f84c04786eed2"><td class="memItemLeft">std::optional&lt; QSize &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8bd822402428740d579f84c04786eed2">canvas</a></td></tr>
 <tr class="memdesc:a8bd822402428740d579f84c04786eed2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>Le cadre imposé</b> (<span class="tt">--<a class="el" href="#a8bd822402428740d579f84c04786eed2" title="Le cadre imposé (--canvas, LOT-121) : l&#39;image a cette taille, la carte y tient entière et centrée,...">canvas</a></span>, <span class="tt">LOT-121</span>) : l'image a cette taille, la carte y tient entière et centrée, quelle que soit l'échelle.  <br /></td></tr>
+<tr class="memitem:a3c0f680fcdd693399dc28d5c2f1e7e7d" id="r_a3c0f680fcdd693399dc28d5c2f1e7e7d"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3c0f680fcdd693399dc28d5c2f1e7e7d">hour</a></td></tr>
+<tr class="memdesc:a3c0f680fcdd693399dc28d5c2f1e7e7d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><b>L'heure</b> (<span class="tt">--<a class="el" href="#a3c0f680fcdd693399dc28d5c2f1e7e7d" title="L&#39;heure (--hour, LOT-1007), en minutes depuis minuit : la carte est éclairée comme le jeu l&#39;éclaire à...">hour</a></span>, <span class="tt">LOT-1007</span>), en minutes depuis minuit : la carte est éclairée comme le jeu l'éclaire à cette heure, ombres et lumières de nuit comprises.  <br /></td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Les réglages d'un rendu. </p>
-</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a89f063238dbb63764ecc40b0c4e5ba30" name="a89f063238dbb63764ecc40b0c4e5ba30"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89f063238dbb63764ecc40b0c4e5ba30">&#9670;&#160;</a></span>background</h2>
 
@@ -212,6 +209,23 @@ Public Attributes</h2></td></tr>
 
 <p><b>Le cadre imposé</b> (<span class="tt">--<a class="el" href="#a8bd822402428740d579f84c04786eed2" title="Le cadre imposé (--canvas, LOT-121) : l&#39;image a cette taille, la carte y tient entière et centrée,...">canvas</a></span>, <span class="tt">LOT-121</span>) : l'image a cette taille, la carte y tient entière et centrée, quelle que soit l'échelle. </p>
 <p>C'est la forme des cartes de l'onglet « Carte » (1920 × 1080). </p>
+
+</div>
+</div>
+<a id="a3c0f680fcdd693399dc28d5c2f1e7e7d" name="a3c0f680fcdd693399dc28d5c2f1e7e7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c0f680fcdd693399dc28d5c2f1e7e7d">&#9670;&#160;</a></span>hour</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; hmi::MapRenderOptions::hour</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><b>L'heure</b> (<span class="tt">--<a class="el" href="#a3c0f680fcdd693399dc28d5c2f1e7e7d" title="L&#39;heure (--hour, LOT-1007), en minutes depuis minuit : la carte est éclairée comme le jeu l&#39;éclaire à...">hour</a></span>, <span class="tt">LOT-1007</span>), en minutes depuis minuit : la carte est éclairée comme le jeu l'éclaire à cette heure, ombres et lumières de nuit comprises. </p>
+<p>Sans elle, la carte se rend sans éclairage, comme avant le lot. </p>
 
 </div>
 </div>

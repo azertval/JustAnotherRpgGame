@@ -152,10 +152,12 @@ $(function(){initNavTree('test__mesh__render_8cpp.html','',''); });
 <code>#include &lt;iostream&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &lt;rhi/qrhi.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
@@ -179,13 +181,15 @@ Functions</h2></td></tr>
 <tr class="memdesc:aefe1f78ba023f24245b13cd8af34547a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un maillage dont le fichier manque ne plante rien : sa pièce se voit sur le damier, et le fichier n'est demandé qu'une fois.  <br /></td></tr>
 <tr class="memitem:a9fa1e9033fb6063aded3ba7e807cf87f" id="r_a9fa1e9033fb6063aded3ba7e807cf87f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9fa1e9033fb6063aded3ba7e807cf87f">TEST</a> (MeshRenderTest, LePointageDUneCaseEstCeluiDAvant)</td></tr>
 <tr class="memdesc:a9fa1e9033fb6063aded3ba7e807cf87f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le pointage d'une case au sol donne la même case qu'avant le lot, sur toute la carte d'Arenarea : la caméra du lieu cadre comme la caméra 2D qu'elle remplace.  <br /></td></tr>
+<tr class="memitem:a9e3e396c2a97b9e149d83094170e993c" id="r_a9e3e396c2a97b9e149d83094170e993c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9e3e396c2a97b9e149d83094170e993c">TEST</a> (MeshRenderTest, LAnticrenelageAdoucitLeBordDesMaillages)</td></tr>
+<tr class="memdesc:a9e3e396c2a97b9e149d83094170e993c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une cible multi-échantillonnée reçoit le même lieu, ses bords adoucis.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La passe de maillages et le tampon de profondeur, sur la carte d'essai (<span class="tt">LOT-1003</span>). </p>
 <p>La carte d'essai (<span class="tt">Fixtures/Meshes</span>) — une cour dallée, un îlot de murs en anneau, un toit à l'étage, le tout en maillages au milieu d'un sol en images — rendue hors écran par le rendu du jeu, sur un <span class="tt">QRhi</span> Direct3D 11 sans fenêtre. La figurine témoin porte une teinte que rien d'autre n'a : ce que la profondeur en laisse voir se compte, pixel par pixel. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a93b013ecba54c30b0123fff060b3e5f9" name="a93b013ecba54c30b0123fff060b3e5f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93b013ecba54c30b0123fff060b3e5f9">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a93b013ecba54c30b0123fff060b3e5f9">&#9670;&#160;</a></span>TEST() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,8 +220,40 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9e3e396c2a97b9e149d83094170e993c" name="a9e3e396c2a97b9e149d83094170e993c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e3e396c2a97b9e149d83094170e993c">&#9670;&#160;</a></span>TEST() <span class="overload">[2/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">MeshRenderTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LAnticrenelageAdoucitLeBordDesMaillages</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une cible multi-échantillonnée reçoit le même lieu, ses bords adoucis. </p>
+<p><b>Cas de test :</b> <b>L'anticrenelage adoucit le bord des maillages.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu QRhi d'un lieu · Maillages<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Rendre la carte d'essai à un échantillon par pixel.<br  />
+</p><ol type="1">
+<li>La rendre à quatre échantillons, résolus dans la même image.<br  />
+ <b>Resultat attendu :</b> Les deux images ont la taille demandée : les pipelines des maillages et des images suivent le nombre d'échantillons de la cible. Les murs et le toit couvrent la même surface à un dixième près ; les deux images diffèrent, et celle à quatre échantillons porte plus de teintes — celles, intermédiaires, des bords. Les captures sont écrites pour l'œil. </li>
+</ol>
+
+</div>
+</div>
 <a id="a9fa1e9033fb6063aded3ba7e807cf87f" name="a9fa1e9033fb6063aded3ba7e807cf87f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fa1e9033fb6063aded3ba7e807cf87f">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fa1e9033fb6063aded3ba7e807cf87f">&#9670;&#160;</a></span>TEST() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -251,7 +287,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a75ce56bc06c4517451a0fb6eab9d0627" name="a75ce56bc06c4517451a0fb6eab9d0627"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75ce56bc06c4517451a0fb6eab9d0627">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a75ce56bc06c4517451a0fb6eab9d0627">&#9670;&#160;</a></span>TEST() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,7 +319,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a685d5e33d42d360b4bf2e80f60f4ce6d" name="a685d5e33d42d360b4bf2e80f60f4ce6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a685d5e33d42d360b4bf2e80f60f4ce6d">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a685d5e33d42d360b4bf2e80f60f4ce6d">&#9670;&#160;</a></span>TEST() <span class="overload">[5/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -315,7 +351,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa1c164b94e45ca2343c0f8aa2d785b21" name="aa1c164b94e45ca2343c0f8aa2d785b21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1c164b94e45ca2343c0f8aa2d785b21">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1c164b94e45ca2343c0f8aa2d785b21">&#9670;&#160;</a></span>TEST() <span class="overload">[6/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -349,7 +385,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aefe1f78ba023f24245b13cd8af34547a" name="aefe1f78ba023f24245b13cd8af34547a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefe1f78ba023f24245b13cd8af34547a">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aefe1f78ba023f24245b13cd8af34547a">&#9670;&#160;</a></span>TEST() <span class="overload">[7/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

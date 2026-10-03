@@ -158,8 +158,11 @@ $(function(){initNavTree('bench__canvas__frame_8cpp.html','',''); });
 <code>#include &lt;benchmark/benchmark.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="LevelLoader_8h_source.html">Core/Levels/LevelLoader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DayLight_8h_source.html">Core/World/DayLight.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LightSource_8h_source.html">Core/World/LightSource.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="OffscreenRender_8h_source.html">HMI/Graphics/OffscreenRender.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SceneLighting_8h_source.html">HMI/Graphics/SceneLighting.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="WorldSceneRenderer_8h_source.html">HMI/Graphics/WorldSceneRenderer.h</a>&quot;</code><br />
 </div><table class="memberdecls">
@@ -182,16 +185,21 @@ Functions</h2></td></tr>
 <tr class="memitem:abb47efe99f61d9af263e362a0f90a160" id="r_abb47efe99f61d9af263e362a0f90a160"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abb47efe99f61d9af263e362a0f90a160">BENCHMARK</a> (<a class="el" href="#a944d8f3a95af170aa42a138f5d31ef8a">WorldFrameOneModel1080p</a>) -&gt; Unit(benchmark::kMillisecond)</td></tr>
 <tr class="memitem:a5160eff9552f419ea288992cffe222bc" id="r_a5160eff9552f419ea288992cffe222bc"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a5160eff9552f419ea288992cffe222bc">WorldFrameEightModels1080p</a> (benchmark::State &amp;state)</td></tr>
 <tr class="memitem:aa745c04c464e79322e23cb7d89dbcaa1" id="r_aa745c04c464e79322e23cb7d89dbcaa1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa745c04c464e79322e23cb7d89dbcaa1">BENCHMARK</a> (<a class="el" href="#a5160eff9552f419ea288992cffe222bc">WorldFrameEightModels1080p</a>) -&gt; Unit(benchmark::kMillisecond)</td></tr>
+<tr class="memitem:a59ba7ab702ca835a461c9ba78e278085" id="r_a59ba7ab702ca835a461c9ba78e278085"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a59ba7ab702ca835a461c9ba78e278085">WorldFrameLitEightModels1080p</a> (benchmark::State &amp;state)</td></tr>
+<tr class="memdesc:a59ba7ab702ca835a461c9ba78e278085"><td class="mdescLeft">&#160;</td><td class="mdescRight">La même image à huit modèles, <b>éclairée</b> (<span class="tt">LOT-1007</span>) : le crépuscule et huit lumières de nuit à l'écran, sans puis avec la carte d'ombres — la passe d'ombres redessine les huit modèles et les boîtes du décor, vus du soleil.  <br /></td></tr>
+<tr class="memitem:a559176e0944ffcfa66650d45d2387182" id="r_a559176e0944ffcfa66650d45d2387182"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a559176e0944ffcfa66650d45d2387182">BENCHMARK</a> (<a class="el" href="#a59ba7ab702ca835a461c9ba78e278085">WorldFrameLitEightModels1080p</a>) -&gt; Unit(benchmark::kMillisecond)</td></tr>
+<tr class="memitem:a236e3c0683a5ff28029ee38932f872aa" id="r_a236e3c0683a5ff28029ee38932f872aa"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a236e3c0683a5ff28029ee38932f872aa">WorldFrameShadowedEightModels1080p</a> (benchmark::State &amp;state)</td></tr>
+<tr class="memitem:af23fb56c264c3494055d7d8ecd1f2a2f" id="r_af23fb56c264c3494055d7d8ecd1f2a2f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af23fb56c264c3494055d7d8ecd1f2a2f">BENCHMARK</a> (<a class="el" href="#a236e3c0683a5ff28029ee38932f872aa">WorldFrameShadowedEightModels1080p</a>) -&gt; Unit(benchmark::kMillisecond)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Mesure de <b>l'image du canevas</b> de l'éditeur, par le rendu du jeu (<span class="tt">LOT-1002</span>). </p>
 <p>Le canevas ne peint plus la scène : il la fait dessiner par <span class="tt"><a class="el" href="classhmi_1_1WorldSceneRenderer.html" title="Ce qui dessine un lieu : ressources GPU, textures des planches, et la passe qui soumet la scène compo...">hmi::WorldSceneRenderer</a></span>. La mesure est donc celle d'une image de ce rendu, sur la carte d'Arenarea <b>livrée</b> et les images de son kit, en 1920 × 1080, le long d'un <b>travelling</b> qui traverse la carte en diagonale — à deux échelles : une case à 100 px, comme l'essai immédiat et le jeu à 1080p ; et <b>dézoomée</b>, une case à 25 px, comme le canevas cadré sur une grande carte.</p>
-<p>Chaque image est dessinée hors écran puis <b>relue</b> (<span class="tt"><a class="el" href="classhmi_1_1OffscreenRhi.html#ae2fb680e56a4f9b52d0106f5925a62d8" title="Rend une image de size pixels du lieu de renderer, cadrée par framing.">hmi::OffscreenRhi::render</a></span>) : la relecture attend que la carte graphique ait fini, si bien que le temps mesuré est celui de l'image entière, processeur et carte graphique — et majore celui du canevas, qui ne relit rien. Les textures sont chargées avant la mesure : on mesure l'image, pas le disque.</p>
+<p>Chaque image est dessinée hors écran puis <b>relue</b> (<span class="tt"><a class="el" href="classhmi_1_1OffscreenRhi.html#a97dd156d808af3ff50372a43a3daa26e" title="Rend une image de size pixels du lieu de renderer, cadrée par framing.">hmi::OffscreenRhi::render</a></span>) : la relecture attend que la carte graphique ait fini, si bien que le temps mesuré est celui de l'image entière, processeur et carte graphique — et majore celui du canevas, qui ne relit rien. Les textures sont chargées avant la mesure : on mesure l'image, pas le disque.</p>
 <p>Avant le lot, le même travelling peint par <span class="tt">QPainter</span> (<span class="tt">hmi::paintComposedScene</span>, retiré) coûtait 7,3 ms par image à 100 px la case et 2,6 ms à 25 px, sur le poste de l'auteur le 2 octobre 2026. Le même jour, par le rendu du jeu : 5,8 ms et 5,7 ms <b>relecture comprise</b>, pour un plancher (<span class="tt"><a class="el" href="#a7ff7d396aa875081c2154ba9e195055e" title="Le plancher de la mesure : une carte vide, donc le seul effacement et la relecture de l&#39;image.">CanvasReadbackFloor</a></span>, effacer et relire une image vide) de 6,2 ms — la scène elle-même coûte donc moins que le bruit de la mesure, quelques dixièmes de milliseconde.</p>
 <p>Une cible séparée des mesures sans Qt (<span class="tt">Benchmarks</span>) : elle lie Qt Gui et QRhi, et ne se construit que là où Qt se trouve. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a513f97c7fc85367417fd28c666cff9ed" name="a513f97c7fc85367417fd28c666cff9ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a513f97c7fc85367417fd28c666cff9ed">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a513f97c7fc85367417fd28c666cff9ed">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -208,7 +216,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a7ba282a9a0e37383e5bd5218eac9fa51" name="a7ba282a9a0e37383e5bd5218eac9fa51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ba282a9a0e37383e5bd5218eac9fa51">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ba282a9a0e37383e5bd5218eac9fa51">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[2/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,7 +233,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="a0c8687225e7b462f6c0ea32254490f2c" name="a0c8687225e7b462f6c0ea32254490f2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c8687225e7b462f6c0ea32254490f2c">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c8687225e7b462f6c0ea32254490f2c">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,7 +250,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a id="aa745c04c464e79322e23cb7d89dbcaa1" name="aa745c04c464e79322e23cb7d89dbcaa1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa745c04c464e79322e23cb7d89dbcaa1">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa745c04c464e79322e23cb7d89dbcaa1">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,8 +266,25 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a559176e0944ffcfa66650d45d2387182" name="a559176e0944ffcfa66650d45d2387182"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a559176e0944ffcfa66650d45d2387182">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[5/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BENCHMARK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a59ba7ab702ca835a461c9ba78e278085">WorldFrameLitEightModels1080p</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> -&gt;  Unit(benchmark::kMillisecond)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="abb47efe99f61d9af263e362a0f90a160" name="abb47efe99f61d9af263e362a0f90a160"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb47efe99f61d9af263e362a0f90a160">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abb47efe99f61d9af263e362a0f90a160">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,8 +300,25 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="af23fb56c264c3494055d7d8ecd1f2a2f" name="af23fb56c264c3494055d7d8ecd1f2a2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af23fb56c264c3494055d7d8ecd1f2a2f">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BENCHMARK </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a236e3c0683a5ff28029ee38932f872aa">WorldFrameShadowedEightModels1080p</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> -&gt;  Unit(benchmark::kMillisecond)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a20abfca355c18a9233b62a6fdc5e96f7" name="a20abfca355c18a9233b62a6fdc5e96f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20abfca355c18a9233b62a6fdc5e96f7">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a20abfca355c18a9233b62a6fdc5e96f7">&#9670;&#160;</a></span>BENCHMARK() <span class="overload">[8/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -399,6 +441,33 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a59ba7ab702ca835a461c9ba78e278085" name="a59ba7ab702ca835a461c9ba78e278085"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59ba7ab702ca835a461c9ba78e278085">&#9670;&#160;</a></span>WorldFrameLitEightModels1080p()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WorldFrameLitEightModels1080p </td>
+          <td>(</td>
+          <td class="paramtype">benchmark::State &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>La même image à huit modèles, <b>éclairée</b> (<span class="tt">LOT-1007</span>) : le crépuscule et huit lumières de nuit à l'écran, sans puis avec la carte d'ombres — la passe d'ombres redessine les huit modèles et les boîtes du décor, vus du soleil. </p>
+
+</div>
+</div>
 <a id="a944d8f3a95af170aa42a138f5d31ef8a" name="a944d8f3a95af170aa42a138f5d31ef8a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a944d8f3a95af170aa42a138f5d31ef8a">&#9670;&#160;</a></span>WorldFrameOneModel1080p()</h2>
 
@@ -424,6 +493,31 @@ Functions</h2></td></tr>
 
 <p>La même image avec un, puis huit modèles animés à l'écran (<span class="tt">LOT-1005</span>) : la pose de leurs os, et leur dessin par la carte graphique. </p>
 <p><span class="tt">JADG_FIGURE_MODELS</span> désigne les modèles de l'atelier pour mesurer le budget d'un modèle livré ; sans elle, le mannequin d'essai. </p>
+
+</div>
+</div>
+<a id="a236e3c0683a5ff28029ee38932f872aa" name="a236e3c0683a5ff28029ee38932f872aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a236e3c0683a5ff28029ee38932f872aa">&#9670;&#160;</a></span>WorldFrameShadowedEightModels1080p()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WorldFrameShadowedEightModels1080p </td>
+          <td>(</td>
+          <td class="paramtype">benchmark::State &amp;</td>          <td class="paramname"><span class="paramname"><em>state</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

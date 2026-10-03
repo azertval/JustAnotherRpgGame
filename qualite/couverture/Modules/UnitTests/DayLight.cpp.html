@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>DayLight.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/World/DayLight.h"
+
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;numbers&gt;
+#include &lt;utility&gt;
+
+#include "Core/Data/JsonDocument.h"
+#include "Core/World/WorldClock.h"
+
+namespace core {
+
+namespace {
+
+using Json = nlohmann::json;
+
+// L'azimut 0 est la gauche de l'ecran, (-X, +Z) : 135 degres dans le plan (X, Z).
+constexpr float AZIMUTH_ORIGIN_DEGREES = 135.0F;
+
+<span style = "background-color:#dfd">[[nodiscard]] float radians(float degrees) noexcept {
+    return degrees * std::numbers::pi_v&lt;float&gt; / 180.0F;
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] float mix(float from, float to, float t) noexcept {
+    return from + ((to - from) * t);
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] LightColor mix(const LightColor&amp; from, const LightColor&amp; to, float t) noexcept {
+    return LightColor{</span>
+        .r = mix(from.r, to.r, t), .g = mix(from.g, to.g, t), .b = mix(from.b, to.b, t)};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] DayLightTableResult failed(std::string message) {
+    return DayLightTableResult{.table = {}, .message = std::move(message)};
+}</span>
+
+// Le nombre fini du champ `key`, dans [low, high] ; rien s'il manque ou sort de l'intervalle.
+[[nodiscard]] std::optional&lt;float&gt; boundedNumber(const Json&amp; object, const char* key, float low,
+<span style = "background-color:#dfd">                                                 float high) {
+    const auto found = object.find(key);
+    if (found == object.end() || !found-&gt;is_number()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    const auto value = found-&gt;get&lt;float&gt;();
+    return std::isfinite(value) &amp;&amp; value &gt;= low &amp;&amp; value &lt;= high ? std::optional&lt;float&gt;{value}</span>
+                                                                 : std::nullopt;
+<span style = "background-color:#dfd">}</span>
+
+// La couleur `#rrggbb` du champ `key` ; rien s'il manque ou n'en est pas une.
+<span style = "background-color:#dfd">[[nodiscard]] std::optional&lt;LightColor&gt; color(const Json&amp; object, const char* key) {
+    const auto found = object.find(key);
+    if (found == object.end() || !found-&gt;is_string()) {</span>
+<span style = "background-color:#fdd">        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    return parseLightColor(found-&gt;get&lt;std::string&gt;());
+}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] DayLightTableResult tableFrom(const JsonDocument&amp; document) {
+    if (!document.ok()) {
+        return failed(document.message);</span>
+    }
+<span style = "background-color:#dfd">    const auto keys = document.root.find("keys");
+    if (keys == document.root.end() || !keys-&gt;is_array() || keys-&gt;empty()) {
+        return failed("keys missing");</span>
+    }
+<span style = "background-color:#dfd">    std::vector&lt;DayLightKey&gt; read;
+    read.reserve(keys-&gt;size());
+    for (const Json&amp; entry : *keys) {
+        if (!entry.is_object()) {</span>
+<span style = "background-color:#fdd">            return failed("a key is not an object");</span>
+        }
+<span style = "background-color:#dfd">        const auto time = entry.find("time");
+        const std::optional&lt;float&gt; minutes = time != entry.end() &amp;&amp; time-&gt;is_string()</span>
+                                                 ? parseClockTime(time-&gt;get&lt;std::string&gt;())
+                                                 : std::nullopt;
+<span style = "background-color:#dfd">        if (!minutes) {
+            return failed("a key has no time written HH:MM");</span>
+        }
+<span style = "background-color:#dfd">        const std::string at = formatClockTime(*minutes);
+        const std::optional&lt;LightColor&gt; tint = color(entry, "tint");
+        const std::optional&lt;LightColor&gt; ambient = color(entry, "ambient");
+        const std::optional&lt;LightColor&gt; sun = color(entry, "sun");
+        if (!tint || !ambient || !sun) {
+            return failed("key " + at + ": tint, ambient and sun are colours written #rrggbb");</span>
+        }
+<span style = "background-color:#dfd">        const std::optional&lt;float&gt; azimuth = boundedNumber(entry, "azimuth", -360.0F, 360.0F);
+        const std::optional&lt;float&gt; elevation = boundedNumber(entry, "elevation", 1.0F, 90.0F);
+        if (!azimuth || !elevation) {
+            return failed("key " + at + ": azimuth in [-360, 360], elevation in [1, 90]");</span>
+        }
+<span style = "background-color:#dfd">        const std::optional&lt;float&gt; shadow = boundedNumber(entry, "shadow", 0.0F, 1.0F);
+        const std::optional&lt;float&gt; lamps = boundedNumber(entry, "lamps", 0.0F, 1.0F);
+        if (!shadow || !lamps) {
+            return failed("key " + at + ": shadow and lamps in [0, 1]");</span>
+        }
+<span style = "background-color:#dfd">        if (std::ranges::any_of(
+                read, [&amp;minutes](const DayLightKey&amp; known) { return known.minutes == *minutes; })) {
+            return failed("key " + at + " declared twice");</span>
+        }
+<span style = "background-color:#dfd">        read.push_back(DayLightKey{.minutes = *minutes,</span>
+                                   .tint = *tint,
+                                   .ambient = *ambient,
+                                   .sun = *sun,
+                                   .azimuth = *azimuth,
+                                   .elevation = *elevation,
+                                   .shadow = *shadow,
+                                   .lamps = *lamps});
+<span style = "background-color:#dfd">    }
+    return DayLightTableResult{.table = DayLightTable{std::move(read)}, .message = {}};
+}</span>
+
+// Une cle d'usine, ecrite comme dans le fichier : l'heure en heures et minutes, les couleurs en
+// `0xRRGGBB`.
+[[nodiscard]] DayLightKey key(int hours, int minutes, unsigned tint, unsigned ambient, unsigned sun,
+<span style = "background-color:#dfd">                              float azimuth, float elevation, float shadow, float lamps) {
+    const auto unpack = [](unsigned packed) {
+        return LightColor{.r = static_cast&lt;float&gt;((packed &gt;&gt; 16U) &amp; 0xFFU) / 255.0F,</span>
+                          .g = static_cast&lt;float&gt;((packed &gt;&gt; 8U) &amp; 0xFFU) / 255.0F,
+                          .b = static_cast&lt;float&gt;(packed &amp; 0xFFU) / 255.0F};
+<span style = "background-color:#dfd">    };
+    return DayLightKey{.minutes = static_cast&lt;float&gt;((hours * 60) + minutes),</span>
+                       .tint = unpack(tint),
+                       .ambient = unpack(ambient),
+                       .sun = unpack(sun),
+                       .azimuth = azimuth,
+                       .elevation = elevation,
+                       .shadow = shadow,
+                       .lamps = lamps};
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::array&lt;float, 3&gt; sunDirection(float azimuth, float elevation) noexcept {
+    const float around = radians(AZIMUTH_ORIGIN_DEGREES + azimuth);
+    const float above = radians(elevation);
+    const float flat = std::cos(above);
+    return {flat * std::cos(around), std::sin(above), flat * std::sin(around)};
+}</span>
+
+<span style = "background-color:#dfd">DayLightTable::DayLightTable(std::vector&lt;DayLightKey&gt; keys) : _keys(std::move(keys)) {
+    std::ranges::sort(_keys, {}, &amp;DayLightKey::minutes);
+}</span>
+
+<span style = "background-color:#dfd">const DayLightTable&amp; DayLightTable::factory() {</span>
+    // Les memes cles que `Assets/Common/Lighting/daylight.json` : un test les compare. La lumiere
+    // dirigee est le soleil de 05:31 a 20:30, la lune le reste du temps ; elle est noire aux deux
+    // bascules, qui ne se voient donc pas.
+<span style = "background-color:#dfd">    static const DayLightTable table{{</span>
+        key(0, 0, 0x7684BE, 0x5B699E, 0x1F212C, -15.0F, 50.0F, 0.20F, 1.0F),
+        key(4, 30, 0x7684BE, 0x606EA5, 0x1F212C, 20.0F, 35.0F, 0.20F, 1.0F),
+        key(5, 30, 0x8E90BA, 0x8C90BA, 0x000000, 30.0F, 25.0F, 0.00F, 1.0F),
+        key(5, 31, 0x8E90BA, 0x8C90BA, 0x000000, -165.0F, 4.0F, 0.00F, 1.0F),
+        key(6, 30, 0xF4CDB4, 0xC4A99B, 0x735C4B, -160.0F, 12.0F, 0.22F, 0.5F),
+        key(8, 0, 0xFFF2E0, 0xAAA8A5, 0x867968, -120.0F, 30.0F, 0.32F, 0.0F),
+        key(10, 0, 0xFFFAF0, 0x999DA2, 0x867D70, -60.0F, 42.0F, 0.35F, 0.0F),
+        key(12, 0, 0xFFFFFF, 0x9199A5, 0x868077, 0.0F, 48.0F, 0.36F, 0.0F),
+        key(16, 0, 0xFFF6E6, 0x9C9D9D, 0x867B6B, 50.0F, 40.0F, 0.34F, 0.0F),
+        key(18, 30, 0xFFD9A8, 0xC1A989, 0x866C4E, 80.0F, 16.0F, 0.30F, 0.2F),
+        key(19, 45, 0xD8A6A4, 0xBC9498, 0x4F3A35, 95.0F, 6.0F, 0.14F, 0.8F),
+        key(20, 30, 0x9A92BC, 0x9892BC, 0x000000, 100.0F, 3.0F, 0.00F, 1.0F),
+        key(20, 31, 0x9A92BC, 0x9892BC, 0x000000, -40.0F, 25.0F, 0.00F, 1.0F),
+        key(22, 0, 0x7684BE, 0x5D6BA2, 0x1F212C, -30.0F, 42.0F, 0.20F, 1.0F),
+    }};
+<span style = "background-color:#dfd">    return table;
+}</span>
+
+<span style = "background-color:#dfd">DayLight DayLightTable::sample(float minutes) const noexcept {
+    if (_keys.empty()) {
+        return DayLight{};</span>
+    }
+<span style = "background-color:#dfd">    WorldClock clock;
+    clock.setMinutes(minutes);
+    const float now = clock.minutes();</span>
+    // La cle qui suit l'instant, et celle qui le precede ; passe minuit, la derniere et la
+    // premiere s'encadrent d'un jour sur l'autre.
+<span style = "background-color:#dfd">    const auto after = std::ranges::upper_bound(_keys, now, {}, &amp;DayLightKey::minutes);
+    const DayLightKey&amp; next = after == _keys.end() ? _keys.front() : *after;
+    const DayLightKey&amp; previous = after == _keys.begin() ? _keys.back() : *(after - 1);
+    float span = next.minutes - previous.minutes;
+    float elapsed = now - previous.minutes;
+    if (span &lt;= 0.0F) {
+        span += WorldClock::MINUTES_PER_DAY;</span>
+    }
+<span style = "background-color:#dfd">    if (elapsed &lt; 0.0F) {
+        elapsed += WorldClock::MINUTES_PER_DAY;</span>
+    }
+<span style = "background-color:#dfd">    const float t = _keys.size() == 1 ? 0.0F : std::clamp(elapsed / span, 0.0F, 1.0F);
+    return DayLight{.tint = mix(previous.tint, next.tint, t),</span>
+                    .ambient = mix(previous.ambient, next.ambient, t),
+                    .sun = mix(previous.sun, next.sun, t),
+                    .toSun = sunDirection(mix(previous.azimuth, next.azimuth, t),
+                                          mix(previous.elevation, next.elevation, t)),
+                    .shadow = mix(previous.shadow, next.shadow, t),
+                    .lamps = mix(previous.lamps, next.lamps, t)};
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">DayLightTableResult readDayLightTable(std::string_view json) {
+    return tableFrom(readJsonObject(json, DAYLIGHT_FORMAT_VERSION, "daylight.json"));
+}</span>
+
+<span style = "background-color:#dfd">DayLightTableResult readDayLightTableFile(const std::filesystem::path&amp; path) {
+    return tableFrom(readJsonObjectFromFile(path, DAYLIGHT_FORMAT_VERSION));
+}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

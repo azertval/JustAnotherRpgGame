@@ -162,6 +162,8 @@ Classes</h2></td></tr>
 Signals</h2></td></tr>
 <tr class="memitem:af877b3063008a3eb18f8f3baef7694f8" id="r_af877b3063008a3eb18f8f3baef7694f8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af877b3063008a3eb18f8f3baef7694f8">modelChanged</a> ()</td></tr>
 <tr class="memitem:ad5d808a1a82bd2bf4b2f5bab09c614bb" id="r_ad5d808a1a82bd2bf4b2f5bab09c614bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad5d808a1a82bd2bf4b2f5bab09c614bb">clearColorChanged</a> ()</td></tr>
+<tr class="memitem:ace87718cd6f4c5e9419823670aeb355e" id="r_ace87718cd6f4c5e9419823670aeb355e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ace87718cd6f4c5e9419823670aeb355e">renderScalePercentChanged</a> ()</td></tr>
+<tr class="memitem:a4f624466b2ea5724dbe81604417ae952" id="r_a4f624466b2ea5724dbe81604417ae952"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4f624466b2ea5724dbe81604417ae952">shadowSizeChanged</a> ()</td></tr>
 <tr class="memitem:a44b0b9b18da29ffd6923ee4bf9f470da" id="r_a44b0b9b18da29ffd6923ee4bf9f470da"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a44b0b9b18da29ffd6923ee4bf9f470da">framingChanged</a> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -171,6 +173,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a67ec725a38e28c40557d3c212f9aecd0" id="r_a67ec725a38e28c40557d3c212f9aecd0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a67ec725a38e28c40557d3c212f9aecd0">setModel</a> (<a class="el" href="classhmi_1_1WorldModel.html">WorldModel</a> *<a class="el" href="#a0b977f00e9f4adf178bada111fdf4dde">model</a>)</td></tr>
 <tr class="memitem:ad20c98ddbbdc59656f8107c064f95c5a" id="r_ad20c98ddbbdc59656f8107c064f95c5a"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#ad20c98ddbbdc59656f8107c064f95c5a">clearColor</a> () const noexcept</td></tr>
 <tr class="memitem:a258310ac7a37b9b61fcbe108b62ee4c9" id="r_a258310ac7a37b9b61fcbe108b62ee4c9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a258310ac7a37b9b61fcbe108b62ee4c9">setClearColor</a> (const QColor &amp;color)</td></tr>
+<tr class="memitem:a0d744055820fef29d931289ef375e20d" id="r_a0d744055820fef29d931289ef375e20d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0d744055820fef29d931289ef375e20d">renderScalePercent</a> () const noexcept</td></tr>
+<tr class="memitem:acd2fd58aabbc1938aa3cd92542ed20f8" id="r_acd2fd58aabbc1938aa3cd92542ed20f8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acd2fd58aabbc1938aa3cd92542ed20f8">setRenderScalePercent</a> (int percent)</td></tr>
+<tr class="memdesc:acd2fd58aabbc1938aa3cd92542ed20f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bornée à [100, 200] : le rendu ne se dessine jamais plus petit que l'écran.  <br /></td></tr>
+<tr class="memitem:abe21cdd2c61b9183e1d915d3d0710bbf" id="r_abe21cdd2c61b9183e1d915d3d0710bbf"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#abe21cdd2c61b9183e1d915d3d0710bbf">shadowSize</a> () const noexcept</td></tr>
+<tr class="memitem:af22f964c76dde97823461f92f2a5696d" id="r_af22f964c76dde97823461f92f2a5696d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af22f964c76dde97823461f92f2a5696d">setShadowSize</a> (int texels)</td></tr>
 <tr class="memitem:ab36ab0bd3070f2b2bc5cfdffbcdee8cf" id="r_ab36ab0bd3070f2b2bc5cfdffbcdee8cf"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#ab36ab0bd3070f2b2bc5cfdffbcdee8cf">tileWidth</a> () const</td></tr>
 <tr class="memitem:a0e95d23ae12b53f710919939341392d8" id="r_a0e95d23ae12b53f710919939341392d8"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a0e95d23ae12b53f710919939341392d8">tileHeight</a> () const</td></tr>
 <tr class="memitem:a3972f0887b3e8130c9274e7609353fc5" id="r_a3972f0887b3e8130c9274e7609353fc5"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a3972f0887b3e8130c9274e7609353fc5">originX</a> () const</td></tr>
@@ -179,12 +186,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af61bff044e1170024568d5c933438d31"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case sous un point de l'élément — le geste de la souris.  <br /></td></tr>
 <tr class="memitem:ab8b67e28851df55bf00241ba69a00a7c" id="r_ab8b67e28851df55bf00241ba69a00a7c"><td class="memItemLeft">QQuickRhiItemRenderer *&#160;</td><td class="memItemRight"><a class="el" href="#ab8b67e28851df55bf00241ba69a00a7c">createRenderer</a> () override</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a22a6322fa952cfc4a6d7482e09432aee" id="r_a22a6322fa952cfc4a6d7482e09432aee"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a22a6322fa952cfc4a6d7482e09432aee">itemChange</a> (ItemChange change, const ItemChangeData &amp;value) override</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a0b977f00e9f4adf178bada111fdf4dde" id="r_a0b977f00e9f4adf178bada111fdf4dde"><td class="memItemLeft"><a class="el" href="classhmi_1_1WorldModel.html">hmi::WorldModel</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0b977f00e9f4adf178bada111fdf4dde">model</a></td></tr>
 <tr class="memdesc:a0b977f00e9f4adf178bada111fdf4dde"><td class="mdescLeft">&#160;</td><td class="mdescRight">La vue-modèle du lieu dessiné. Nulle : seul le fond est dessiné.  <br /></td></tr>
 <tr class="memitem:ad53fd20fad0cc665d0b02db9920e7bc8" id="r_ad53fd20fad0cc665d0b02db9920e7bc8"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#ad53fd20fad0cc665d0b02db9920e7bc8">clearColor</a></td></tr>
 <tr class="memdesc:ad53fd20fad0cc665d0b02db9920e7bc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Couleur d'effacement, qui vient de <span class="tt">Tokens.qml</span> comme le reste de l'identité du jeu.  <br /></td></tr>
+<tr class="memitem:a07c74686d6edc1cc4a7f26a3192a8cb7" id="r_a07c74686d6edc1cc4a7f26a3192a8cb7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a07c74686d6edc1cc4a7f26a3192a8cb7">renderScalePercent</a></td></tr>
+<tr class="memdesc:a07c74686d6edc1cc4a7f26a3192a8cb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Définition du rendu, en pourcentage de celle de l'élément à l'écran (100 à 200).  <br /></td></tr>
+<tr class="memitem:a4b45c3aed5497ea139c329d956e2654f" id="r_a4b45c3aed5497ea139c329d956e2654f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a4b45c3aed5497ea139c329d956e2654f">shadowSize</a></td></tr>
+<tr class="memdesc:a4b45c3aed5497ea139c329d956e2654f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le côté de la carte d'ombres, en texels (<span class="tt">LOT-1007</span>) ; 0 : aucune ombre portée.  <br /></td></tr>
 <tr class="memitem:a4f22e44bb5f3e72c61a85d0c1c74647b" id="r_a4f22e44bb5f3e72c61a85d0c1c74647b"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a4f22e44bb5f3e72c61a85d0c1c74647b">tileWidth</a></td></tr>
 <tr class="memdesc:a4f22e44bb5f3e72c61a85d0c1c74647b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Largeur du losange d'une case.  <br /></td></tr>
 <tr class="memitem:a7b602a9fde9650b5f46586141d5336dd" id="r_a7b602a9fde9650b5f46586141d5336dd"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a7b602a9fde9650b5f46586141d5336dd">tileHeight</a></td></tr>
@@ -198,6 +213,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a720d3e224acc4ba4b58936b2a810d10e" id="r_a720d3e224acc4ba4b58936b2a810d10e"><td class="memItemLeft"><a class="el" href="structhmi_1_1WorldViewportItem_1_1Framing.html">Framing</a>&#160;</td><td class="memItemRight"><a class="el" href="#a720d3e224acc4ba4b58936b2a810d10e">framing</a> () const</td></tr>
 <tr class="memitem:ae82f1ab368ce7d0086df08bef3b41335" id="r_ae82f1ab368ce7d0086df08bef3b41335"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae82f1ab368ce7d0086df08bef3b41335">onSceneChanged</a> ()</td></tr>
 <tr class="memdesc:ae82f1ab368ce7d0086df08bef3b41335"><td class="mdescLeft">&#160;</td><td class="mdescRight">La scène a changé : une nouvelle image est demandée.  <br /></td></tr>
+<tr class="memitem:a43be4500a7eb5c631adcacef7fc7026c" id="r_a43be4500a7eb5c631adcacef7fc7026c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a43be4500a7eb5c631adcacef7fc7026c">applyRenderScale</a> ()</td></tr>
+<tr class="memdesc:a43be4500a7eb5c631adcacef7fc7026c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recale la taille du tampon de couleur sur celle de l'élément, sa fenêtre et <span class="tt"><a class="el" href="#a07c74686d6edc1cc4a7f26a3192a8cb7" title="Définition du rendu, en pourcentage de celle de l&#39;élément à l&#39;écran (100 à 200).">renderScalePercent</a></span>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -208,6 +225,8 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:aa56faa46cc0ccb5ec5fd2e6fb47b32ae" id="r_aa56faa46cc0ccb5ec5fd2e6fb47b32ae"><td class="memItemLeft">QMetaObject::Connection&#160;</td><td class="memItemRight"><a class="el" href="#aa56faa46cc0ccb5ec5fd2e6fb47b32ae">_modelDestroyedConnection</a></td></tr>
 <tr class="memitem:adfdc6f3c1cde80deb30ac77286470758" id="r_adfdc6f3c1cde80deb30ac77286470758"><td class="memItemLeft">QColor&#160;</td><td class="memItemRight"><a class="el" href="#adfdc6f3c1cde80deb30ac77286470758">_clearColor</a> {0x10, 0x0d, 0x0a}</td></tr>
 <tr class="memdesc:adfdc6f3c1cde80deb30ac77286470758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nuit de pierre, jusqu'à ce que le QML en décide.  <br /></td></tr>
+<tr class="memitem:aa7b9d9ef1d92b27e76608be68921a1de" id="r_aa7b9d9ef1d92b27e76608be68921a1de"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa7b9d9ef1d92b27e76608be68921a1de">_renderScalePercent</a> = 100</td></tr>
+<tr class="memitem:a2ce7d616ad39ee79f2d82b84e510ad2c" id="r_a2ce7d616ad39ee79f2d82b84e510ad2c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a2ce7d616ad39ee79f2d82b84e510ad2c">_shadowSize</a> = 2048</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Surface QRhi de la carte courante, posée dans la vue de jeu. </p>
@@ -241,6 +260,34 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a43be4500a7eb5c631adcacef7fc7026c" name="a43be4500a7eb5c631adcacef7fc7026c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43be4500a7eb5c631adcacef7fc7026c">&#9670;&#160;</a></span>applyRenderScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldViewportItem::applyRenderScale </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Recale la taille du tampon de couleur sur celle de l'élément, sa fenêtre et <span class="tt"><a class="el" href="#a07c74686d6edc1cc4a7f26a3192a8cb7" title="Définition du rendu, en pourcentage de celle de l&#39;élément à l&#39;écran (100 à 200).">renderScalePercent</a></span>. </p>
+<p>À 100 %, le tampon suit l'élément de lui-même. </p>
+
+</div>
+</div>
 <a id="af61bff044e1170024568d5c933438d31" name="af61bff044e1170024568d5c933438d31"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af61bff044e1170024568d5c933438d31">&#9670;&#160;</a></span>cellAt()</h2>
 
@@ -390,6 +437,35 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a22a6322fa952cfc4a6d7482e09432aee" name="a22a6322fa952cfc4a6d7482e09432aee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22a6322fa952cfc4a6d7482e09432aee">&#9670;&#160;</a></span>itemChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldViewportItem::itemChange </td>
+          <td>(</td>
+          <td class="paramtype">ItemChange</td>          <td class="paramname"><span class="paramname"><em>change</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const ItemChangeData &amp;</td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a7fbe4cf51ce4b7657b28ce1bc879f9c7" name="a7fbe4cf51ce4b7657b28ce1bc879f9c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7fbe4cf51ce4b7657b28ce1bc879f9c7">&#9670;&#160;</a></span>model()</h2>
 
@@ -517,6 +593,56 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a0d744055820fef29d931289ef375e20d" name="a0d744055820fef29d931289ef375e20d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d744055820fef29d931289ef375e20d">&#9670;&#160;</a></span>renderScalePercent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldViewportItem::renderScalePercent </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace87718cd6f4c5e9419823670aeb355e" name="ace87718cd6f4c5e9419823670aeb355e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace87718cd6f4c5e9419823670aeb355e">&#9670;&#160;</a></span>renderScalePercentChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldViewportItem::renderScalePercentChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a258310ac7a37b9b61fcbe108b62ee4c9" name="a258310ac7a37b9b61fcbe108b62ee4c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a258310ac7a37b9b61fcbe108b62ee4c9">&#9670;&#160;</a></span>setClearColor()</h2>
 
@@ -547,6 +673,92 @@ Private Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acd2fd58aabbc1938aa3cd92542ed20f8" name="acd2fd58aabbc1938aa3cd92542ed20f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd2fd58aabbc1938aa3cd92542ed20f8">&#9670;&#160;</a></span>setRenderScalePercent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldViewportItem::setRenderScalePercent </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>percent</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Bornée à [100, 200] : le rendu ne se dessine jamais plus petit que l'écran. </p>
+
+</div>
+</div>
+<a id="af22f964c76dde97823461f92f2a5696d" name="af22f964c76dde97823461f92f2a5696d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af22f964c76dde97823461f92f2a5696d">&#9670;&#160;</a></span>setShadowSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldViewportItem::setShadowSize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>texels</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abe21cdd2c61b9183e1d915d3d0710bbf" name="abe21cdd2c61b9183e1d915d3d0710bbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe21cdd2c61b9183e1d915d3d0710bbf">&#9670;&#160;</a></span>shadowSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldViewportItem::shadowSize </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4f624466b2ea5724dbe81604417ae952" name="a4f624466b2ea5724dbe81604417ae952"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f624466b2ea5724dbe81604417ae952">&#9670;&#160;</a></span>shadowSizeChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldViewportItem::shadowSizeChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -736,6 +948,50 @@ Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aa7b9d9ef1d92b27e76608be68921a1de" name="aa7b9d9ef1d92b27e76608be68921a1de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7b9d9ef1d92b27e76608be68921a1de">&#9670;&#160;</a></span>_renderScalePercent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldViewportItem::_renderScalePercent = 100</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ce7d616ad39ee79f2d82b84e510ad2c" name="a2ce7d616ad39ee79f2d82b84e510ad2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ce7d616ad39ee79f2d82b84e510ad2c">&#9670;&#160;</a></span>_shadowSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldViewportItem::_shadowSize = 2048</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
 <a id="ad53fd20fad0cc665d0b02db9920e7bc8" name="ad53fd20fad0cc665d0b02db9920e7bc8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad53fd20fad0cc665d0b02db9920e7bc8">&#9670;&#160;</a></span>clearColor</h2>
@@ -828,6 +1084,56 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a07c74686d6edc1cc4a7f26a3192a8cb7" name="a07c74686d6edc1cc4a7f26a3192a8cb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07c74686d6edc1cc4a7f26a3192a8cb7">&#9670;&#160;</a></span>renderScalePercent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldViewportItem::renderScalePercent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Définition du rendu, en pourcentage de celle de l'élément à l'écran (100 à 200). </p>
+<p>Au-delà de 100, la scène est dessinée dans un tampon plus grand, que Qt Quick réduit en le composant : le suréchantillonnage. L'anticrénelage, lui, est le <span class="tt">sampleCount</span> hérité de <span class="tt">QQuickRhiItem</span>. </p>
+
+</div>
+</div>
+<a id="a4b45c3aed5497ea139c329d956e2654f" name="a4b45c3aed5497ea139c329d956e2654f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b45c3aed5497ea139c329d956e2654f">&#9670;&#160;</a></span>shadowSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::WorldViewportItem::shadowSize</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span><span class="mlabel write">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le côté de la carte d'ombres, en texels (<span class="tt">LOT-1007</span>) ; 0 : aucune ombre portée. </p>
+<p>Le lieu, lui, est toujours éclairé à l'heure de son modèle. </p>
 
 </div>
 </div>

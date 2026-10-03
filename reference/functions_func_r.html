@@ -158,6 +158,7 @@ $(function(){initNavTree('functions_func_r.html','',''); });
 <li>rebuildInteractables()&#160;:&#160;<a class="el" href="classcore_1_1ExplorationSession.html#a39d384fd1e8c3dccb780aa04017592d0">core::ExplorationSession</a></li>
 <li>rebuildKinds()&#160;:&#160;<a class="el" href="classhmi_1_1EntityPanel.html#a5f5a6bf5b8d0d1a220dc1080a46f5b0e">hmi::EntityPanel</a></li>
 <li>rebuildSession()&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#a8020d76261bedca7939d0f2d4f0aeb18">hmi::WorldModel</a></li>
+<li>rebuildShadowBoxes()&#160;:&#160;<a class="el" href="classhmi_1_1WorldSceneRenderer.html#acdb4d71571c32c291648f1c653d4d032">hmi::WorldSceneRenderer</a></li>
 <li>rebuildTable()&#160;:&#160;<a class="el" href="classhmi_1_1EntityPanel.html#a85c60b874a072b7f4f0fa38653d6306c">hmi::EntityPanel</a></li>
 <li>rebuildWarnings()&#160;:&#160;<a class="el" href="classhmi_1_1EntityPanel.html#af08df6945e608ada373cb52b27dbdab1">hmi::EntityPanel</a></li>
 <li>receiveItem()&#160;:&#160;<a class="el" href="classcore_1_1CharacterListener.html#a795691de4dfbe5559ff4c67bcb89c0a8">core::CharacterListener</a>, <a class="el" href="classcore_1_1DialogueListener.html#ab913b0303d4a9067ea84fcca7b082c9f">core::DialogueListener</a></li>
@@ -165,6 +166,7 @@ $(function(){initNavTree('functions_func_r.html','',''); });
 <li>record()&#160;:&#160;<a class="el" href="classcore_1_1ArenaSession.html#a5fc4ae039fa18816d42b39cfaa381e76">core::ArenaSession</a>, <a class="el" href="classcore_1_1FollowTrail.html#ac28f7f163312d66053ebf6056626c925">core::FollowTrail</a>, <a class="el" href="classcore_1_1PartyLedger.html#a291aafc913cbe6f54412858ce5ca5a85">core::PartyLedger</a>, <a class="el" href="classhmi_1_1MeshBatch.html#a19a3ef7a34a1cf66253febd88a53dcb2">hmi::MeshBatch</a>, <a class="el" href="classhmi_1_1QuadRecorder.html#a5b17f404e66d00792587142c72277263">hmi::QuadRecorder</a>, <a class="el" href="classhmi_1_1SpriteBatch.html#ac4d1f7956b63e74b96283ca16328c3e1">hmi::SpriteBatch</a></li>
 <li>recordDeathSave()&#160;:&#160;<a class="el" href="classcore_1_1CombatState.html#a58ab865ce5dce4958ed07e3ad59612e3">core::CombatState</a></li>
 <li>recordMember()&#160;:&#160;<a class="el" href="classhmi_1_1WorldModel.html#a65f08bfa75b50fa3418b0b882ae665f1">hmi::WorldModel</a></li>
+<li>recordShadow()&#160;:&#160;<a class="el" href="classhmi_1_1MeshBatch.html#a771a766058a6747787ad47b0ff221091">hmi::MeshBatch</a></li>
 <li>Rect()&#160;:&#160;<a class="el" href="structcore_1_1Rect.html#a0056591f956d7bff60c90b4b953be031">core::Rect</a></li>
 <li>redo()&#160;:&#160;<a class="el" href="classcore_1_1LevelDraft.html#a4c48b964ac9310a3b90a3d364aae97aa">core::LevelDraft</a>, <a class="el" href="classhmi_1_1EditContextTarget.html#a977196ba3e313798f6a4285b9d29eb29">hmi::EditContextTarget</a>, <a class="el" href="classhmi_1_1EditorViewport.html#a3dcdc1db20f07dd27ce73c3267568b0f">hmi::EditorViewport</a></li>
 <li>reentrant()&#160;:&#160;<a class="el" href="classcore_1_1CombatState.html#a5882ba9f52bd6f27c182605457552795">core::CombatState</a></li>
@@ -225,8 +227,12 @@ $(function(){initNavTree('functions_func_r.html','',''); });
 <li>renameSelectedArrival()&#160;:&#160;<a class="el" href="classhmi_1_1MainWindow.html#ab8b4e13592c690cd85a8f368f131d5e3">hmi::MainWindow</a></li>
 <li>renameSelectedEntityId()&#160;:&#160;<a class="el" href="classhmi_1_1MainWindow.html#add63f35bd189a2936e8f2c36260ed487">hmi::MainWindow</a></li>
 <li>renameStep()&#160;:&#160;<a class="el" href="classhmi_1_1QuestsPanel.html#ad7e68665d8723d1b08548ff620ddcdf6">hmi::QuestsPanel</a></li>
-<li>render()&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryRenderer.html#a28a2aa93b231f8ec4b09cb2a7a03f205">hmi::AssetGalleryRenderer</a>, <a class="el" href="classhmi_1_1OffscreenRhi.html#ae2fb680e56a4f9b52d0106f5925a62d8">hmi::OffscreenRhi</a>, <a class="el" href="classhmi_1_1SceneSurface.html#a7f1a54be31004ff852167a2c7198d0fd">hmi::SceneSurface</a>, <a class="el" href="classhmi_1_1WorldSceneRenderer.html#a6aab3318c68d4afcb4ae3f9c72f03e9e">hmi::WorldSceneRenderer</a></li>
+<li>render()&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryRenderer.html#a28a2aa93b231f8ec4b09cb2a7a03f205">hmi::AssetGalleryRenderer</a>, <a class="el" href="classhmi_1_1OffscreenRhi.html#a97dd156d808af3ff50372a43a3daa26e">hmi::OffscreenRhi</a>, <a class="el" href="classhmi_1_1SceneSurface.html#a7f1a54be31004ff852167a2c7198d0fd">hmi::SceneSurface</a>, <a class="el" href="classhmi_1_1WorldSceneRenderer.html#a6aab3318c68d4afcb4ae3f9c72f03e9e">hmi::WorldSceneRenderer</a></li>
 <li>renderer()&#160;:&#160;<a class="el" href="classhmi_1_1OffscreenRhi.html#ada0bde7f4d049deec15f6569c4355b0d">hmi::OffscreenRhi</a>, <a class="el" href="classhmi_1_1SceneSurface.html#afc21b5218545a099d4e51b0e2584ba76">hmi::SceneSurface</a></li>
+<li>renderScaleChanged()&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#a61613b2330d4fbccc61e1463debd14aa">hmi::OptionsModel</a></li>
+<li>renderScalePercent()&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#ad12cd9a28e7b93dba48fb3de7522d398">hmi::OptionsModel</a>, <a class="el" href="classhmi_1_1WorldViewportItem.html#a0d744055820fef29d931289ef375e20d">hmi::WorldViewportItem</a></li>
+<li>renderScalePercentChanged()&#160;:&#160;<a class="el" href="classhmi_1_1WorldViewportItem.html#ace87718cd6f4c5e9419823670aeb355e">hmi::WorldViewportItem</a></li>
+<li>renderScales()&#160;:&#160;<a class="el" href="classhmi_1_1OptionsModel.html#a5933060836b3b493e92029d9e1c550e3">hmi::OptionsModel</a></li>
 <li>replaceEntity()&#160;:&#160;<a class="el" href="classcore_1_1LevelDraft.html#a9bd7a3e2c524f4f2ebbaa0bf89fbb513">core::LevelDraft</a></li>
 <li>replacePieceOnMaps()&#160;:&#160;<a class="el" href="classhmi_1_1MainWindow.html#a651024fdf37254beedcecbd6c72ed467">hmi::MainWindow</a></li>
 <li>replacePieces()&#160;:&#160;<a class="el" href="classcore_1_1LevelDraft.html#afe371b92fcdac56ae41550ee9eef6c45">core::LevelDraft</a>, <a class="el" href="classhmi_1_1EditorViewport.html#a7a36fd2f80e18da0782e75694b2c76cd">hmi::EditorViewport</a></li>
@@ -240,6 +246,7 @@ $(function(){initNavTree('functions_func_r.html','',''); });
 <li>requiredMechanisms()&#160;:&#160;<a class="el" href="structcore_1_1Bestiary.html#a45f72f2f66a9915ba56d7bea01df572c">core::Bestiary</a>, <a class="el" href="structcore_1_1CharacterOptions.html#a16bbc94de1a6157fd6ff0f4c6bdb02d4">core::CharacterOptions</a></li>
 <li>reserves()&#160;:&#160;<a class="el" href="classcore_1_1CombatState.html#aee8ca6f077852d4866fe08c7834712fb">core::CombatState</a></li>
 <li>reset()&#160;:&#160;<a class="el" href="classcore_1_1FollowTrail.html#a15edb5ec18d79b01b0618a30c6b43793">core::FollowTrail</a>, <a class="el" href="classhmi_1_1LayerViewState.html#ae106c075fdfb11908bb0544c19adb1d6">hmi::LayerViewState</a></li>
+<li>resetBindings()&#160;:&#160;<a class="el" href="classhmi_1_1MeshBatch.html#a5119ca8a78ad9d4b50d9caddb5b1ac52">hmi::MeshBatch</a></li>
 <li>resetCamera()&#160;:&#160;<a class="el" href="classhmi_1_1EditorViewport.html#a35b41810acc18a8e660a73f99f38c31c">hmi::EditorViewport</a></li>
 <li>resetToDefaults()&#160;:&#160;<a class="el" href="classhmi_1_1EditorKeyBindings.html#a4ed5db3dc8cda02777fe976d6ad15e5c">hmi::EditorKeyBindings</a></li>
 <li>resetZones()&#160;:&#160;<a class="el" href="classcore_1_1ExplorationSession.html#a80c93fd1d3b8b24ceda252f6f2b4dfda">core::ExplorationSession</a></li>
@@ -263,7 +270,7 @@ $(function(){initNavTree('functions_func_r.html','',''); });
 <li>restoreLayout()&#160;:&#160;<a class="el" href="classhmi_1_1MainWindow.html#aef77702f265c861ebec3ef8c62c9cbf9">hmi::MainWindow</a></li>
 <li>resume()&#160;:&#160;<a class="el" href="classhmi_1_1ScreenRouter.html#aa8fed1e22f7cfd03742406907e388676">hmi::ScreenRouter</a></li>
 <li>revealCell()&#160;:&#160;<a class="el" href="classhmi_1_1EditorViewport.html#a9ead4403c48f80fe66824bba17f646be">hmi::EditorViewport</a></li>
-<li>revision()&#160;:&#160;<a class="el" href="classcore_1_1LevelDraft.html#ae1dc7f0a73b888edbcc04e114116fefe">core::LevelDraft</a>, <a class="el" href="classcore_1_1WorldFlags.html#ada3af1270ee61d22889203ed8def3df5">core::WorldFlags</a></li>
+<li>revision()&#160;:&#160;<a class="el" href="classcore_1_1LevelDraft.html#ae1dc7f0a73b888edbcc04e114116fefe">core::LevelDraft</a>, <a class="el" href="classcore_1_1WorldFlags.html#ada3af1270ee61d22889203ed8def3df5">core::WorldFlags</a>, <a class="el" href="classhmi_1_1LightingBlock.html#ad5c367e4e676e9505bec10ade5388615">hmi::LightingBlock</a></li>
 <li>revive()&#160;:&#160;<a class="el" href="classcore_1_1CombatState.html#a64d2d6f283513d20fbc83c41cff336cf">core::CombatState</a></li>
 <li>rhi()&#160;:&#160;<a class="el" href="classhmi_1_1AssetGalleryRenderer.html#a67a82faa46c76903a9c1239eee92851a">hmi::AssetGalleryRenderer</a>, <a class="el" href="classhmi_1_1OffscreenRhi.html#aeabf86177b2acde950069a242e5ada80">hmi::OffscreenRhi</a>, <a class="el" href="classhmi_1_1SpriteBatch.html#a7cf3b7de85ca3bfd5e083cfda5c4e9ba">hmi::SpriteBatch</a>, <a class="el" href="classhmi_1_1WorldSceneRenderer.html#ad87c56a7fbbc2e1f735eeeadb5377e1a">hmi::WorldSceneRenderer</a></li>
 <li>right()&#160;:&#160;<a class="el" href="structcore_1_1Rect.html#a492b3f92664cc6d42eed5aab8a7ac2a8">core::Rect</a></li>
@@ -281,7 +288,7 @@ $(function(){initNavTree('functions_func_r.html','',''); });
 <li>runCheck()&#160;:&#160;<a class="el" href="classcore_1_1DialogueRunner.html#a6a4d53f7665cab3dad057a3355847333">core::DialogueRunner</a></li>
 <li>runContentCheck()&#160;:&#160;<a class="el" href="classhmi_1_1MainWindow.html#ab5fd27ff6544e711305b36ae6e9f2653">hmi::MainWindow</a></li>
 <li>runInGame()&#160;:&#160;<a class="el" href="classhmi_1_1MainWindow.html#ae58dfac3b4b241974f322ffac9230283">hmi::MainWindow</a></li>
-<li>running()&#160;:&#160;<a class="el" href="classcore_1_1CombatState.html#a20bd1b31111e341582b808664570a07a">core::CombatState</a></li>
+<li>running()&#160;:&#160;<a class="el" href="classcore_1_1CombatState.html#a20bd1b31111e341582b808664570a07a">core::CombatState</a>, <a class="el" href="classcore_1_1WorldClock.html#a5cb4aad2179010c1c1917577c1e2b2ba">core::WorldClock</a></li>
 <li>runStage()&#160;:&#160;<a class="el" href="classcore_1_1DamagePipeline.html#a26df699e34a74d91e4d796c135adffd0">core::DamagePipeline</a></li>
 </ul>
 </div><!-- contents -->

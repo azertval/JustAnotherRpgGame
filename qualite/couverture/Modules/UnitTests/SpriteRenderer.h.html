@@ -63,9 +63,14 @@ struct SceneDepth {
  * @param projection Matrice de projection vue â clip (fournie par la camÃ©ra).
  * @param scene      ScÃ¨ne **dÃ©jÃ  triÃ©e** (`ComposedScene::sort()`).
  * @param depth      La vue en volume d'une image qui a des maillages ; `nullptr` sinon.
+ * @param lit        Vrai si l'image est Ã©clairÃ©e (`LOT-1007`) : chaque primitive dit alors ce
+ *                   qu'elle reÃ§oit de la lumiÃ¨re du lieu (`ComposedQuad::shading`). Faux, toutes
+ *                   gardent leur Ã©clat, comme avant le lot. Une image Ã©clairÃ©e donne @p depth :
+ *                   la lumiÃ¨re se calcule sur la position de chaque sommet dans la vue.
  */
 void submitComposedScene(SpriteBatch&amp; batch, const DirectX::XMFLOAT4X4&amp; projection,
-                         const ComposedScene&amp; scene, const SceneDepth* depth = nullptr);
+                         const ComposedScene&amp; scene, const SceneDepth* depth = nullptr,
+                         bool lit = false);
 
 /**
  * @brief Construit la projection **Ã©cran â clip**, indÃ©pendante de `PlaceCamera`.

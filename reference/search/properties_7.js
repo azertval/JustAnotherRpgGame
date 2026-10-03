@@ -10,5 +10,6 @@ var searchData=
   ['hitdice_7',['hitDice',['../classhmi_1_1CharacterSheetModel.html#a4b978f6c7ab3ce3685386856f2e0ce7b',1,'hmi::CharacterSheetModel']]],
   ['hitpoints_8',['hitPoints',['../classhmi_1_1CharacterSheetModel.html#a384b8402c63b849101a42552691f9174',1,'hmi::CharacterSheetModel']]],
   ['hitpointsmax_9',['hitPointsMax',['../classhmi_1_1CharacterSheetModel.html#aadbae877ac72d8ca4a6e5dd3784876e2',1,'hmi::CharacterSheetModel']]],
-  ['hudscalepercent_10',['hudScalePercent',['../classhmi_1_1OptionsModel.html#a78c707ffabce443087d7ae5c1161f4bd',1,'hmi::OptionsModel']]]
+  ['hour_10',['hour',['../classhmi_1_1WorldModel.html#ada5d5e031da7be37501fe1c171f6b2f3',1,'hmi::WorldModel']]],
+  ['hudscalepercent_11',['hudScalePercent',['../classhmi_1_1OptionsModel.html#a78c707ffabce443087d7ae5c1161f4bd',1,'hmi::OptionsModel']]]
 ];

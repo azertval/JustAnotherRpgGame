@@ -197,6 +197,9 @@ var NAVTREEINDEX0 =
 "DataRoot_8cpp.html":[4,0,0,3,0,18],
 "DataRoot_8h.html":[4,0,0,3,0,19],
 "DataRoot_8h_source.html":[4,0,0,3,0,19],
+"DayLight_8cpp.html":[4,0,0,2,10,8],
+"DayLight_8h.html":[4,0,0,2,10,9],
+"DayLight_8h_source.html":[4,0,0,2,10,9],
 "DebugCommands_8cpp.html":[4,0,0,6,1,4],
 "DebugCommands_8h.html":[4,0,0,6,1,5],
 "DebugCommands_8h_source.html":[4,0,0,6,1,5],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "EditorSidecar_8cpp.html":[4,0,0,3,0,27],
 "EditorSidecar_8h.html":[4,0,0,3,0,28],
 "EditorSidecar_8h_source.html":[4,0,0,3,0,28],
-"EditorStatus_8cpp.html":[4,0,0,3,0,29],
-"EditorStatus_8h.html":[4,0,0,3,0,30],
-"EditorStatus_8h_source.html":[4,0,0,3,0,30],
-"EditorTool_8h.html":[4,0,0,3,0,31]
+"EditorStatus_8cpp.html":[4,0,0,3,0,29]
 };

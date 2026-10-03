@@ -158,6 +158,8 @@ Inheritance diagram for hmi::WorldModel:</div>
 Signals</h2></td></tr>
 <tr class="memitem:a147868bb8bedd3fbf84fa1f244f8838c" id="r_a147868bb8bedd3fbf84fa1f244f8838c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a147868bb8bedd3fbf84fa1f244f8838c">changed</a> ()</td></tr>
 <tr class="memdesc:a147868bb8bedd3fbf84fa1f244f8838c"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte, son nom, son état : tout ce que l'écran relit d'un coup.  <br /></td></tr>
+<tr class="memitem:a0a5f7fa1ec0b960a6df13def41b1037f" id="r_a0a5f7fa1ec0b960a6df13def41b1037f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0a5f7fa1ec0b960a6df13def41b1037f">hourChanged</a> ()</td></tr>
+<tr class="memdesc:a0a5f7fa1ec0b960a6df13def41b1037f"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'heure du monde a passé une minute, ou a été réglée (<span class="tt">LOT-1007</span>).  <br /></td></tr>
 <tr class="memitem:a0fa7eb478594477e7068a98c0936e5eb" id="r_a0fa7eb478594477e7068a98c0936e5eb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0fa7eb478594477e7068a98c0936e5eb">heroMoved</a> ()</td></tr>
 <tr class="memdesc:a0fa7eb478594477e7068a98c0936e5eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le héros a bougé : la caméra suit, la scène se redessine.  <br /></td></tr>
 <tr class="memitem:a5a1c17085a8c8813ab684d3617efa125" id="r_a5a1c17085a8c8813ab684d3617efa125"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5a1c17085a8c8813ab684d3617efa125">figuresChanged</a> ()</td></tr>
@@ -200,6 +202,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ae546c1db5e612db7df1816cfbffbe7fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">La case où « Nouvelle partie » pose le héros, à la place de l'entrée de la carte (<span class="tt">--at=</span>, <span class="tt">LOT-EDITOR-10</span>) : l'endroit de la carte qu'on veut voir, tout de suite.  <br /></td></tr>
 <tr class="memitem:aa6c9dd581496acd75d2c0ecb94b5aa44" id="r_aa6c9dd581496acd75d2c0ecb94b5aa44"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa6c9dd581496acd75d2c0ecb94b5aa44">setStartFlags</a> (const QStringList &amp;<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>)</td></tr>
 <tr class="memdesc:aa6c9dd581496acd75d2c0ecb94b5aa44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux de monde acquis avant le premier pas (<span class="tt">--<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>=</span>, <span class="tt">LOT-EDITOR-10</span>) : la carte telle qu'elle est <b>après</b> une quête, sans avoir à la jouer.  <br /></td></tr>
+<tr class="memitem:ad2c130aee78aaf17a20053a5cde912f7" id="r_ad2c130aee78aaf17a20053a5cde912f7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad2c130aee78aaf17a20053a5cde912f7">setStartHour</a> (std::optional&lt; float &gt; minutes)</td></tr>
+<tr class="memdesc:ad2c130aee78aaf17a20053a5cde912f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'heure du monde imposée (<span class="tt">--<a class="el" href="#ada5d5e031da7be37501fe1c171f6b2f3" title="L&#39;heure du monde, écrite HH:MM (LOT-1007) ; annoncée à chaque minute qui passe.">hour</a>=</span>, <span class="tt">LOT-1007</span>) : l'horloge y est réglée et <b>figée</b>, pour cette partie et les suivantes.  <br /></td></tr>
+<tr class="memitem:a164833563b15f46b667ef0a0599823d2" id="r_a164833563b15f46b667ef0a0599823d2"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a164833563b15f46b667ef0a0599823d2">lightMinutes</a> () const</td></tr>
+<tr class="memitem:a83206d211640784c048fed49c9e5c451" id="r_a83206d211640784c048fed49c9e5c451"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a83206d211640784c048fed49c9e5c451">lightSeconds</a> () const noexcept</td></tr>
+<tr class="memitem:a52ba61fd942bdfd507173f18362ed92e" id="r_a52ba61fd942bdfd507173f18362ed92e"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a52ba61fd942bdfd507173f18362ed92e">hour</a> () const</td></tr>
 <tr class="memitem:ab0f15d4cca95ae49757560bf0b30b3d7" id="r_ab0f15d4cca95ae49757560bf0b30b3d7"><td class="memItemLeft">Q_INVOKABLE QString&#160;</td><td class="memItemRight"><a class="el" href="#ab0f15d4cca95ae49757560bf0b30b3d7">mapOfDistrict</a> (const QString &amp;<a class="el" href="#a7aff4f8e9deb81cb1dd60d9747307a08">districtId</a>) const</td></tr>
 <tr class="memitem:a5c5d079b8d494c9ce9eb02cb7bb0e94d" id="r_a5c5d079b8d494c9ce9eb02cb7bb0e94d"><td class="memItemLeft">Q_INVOKABLE void&#160;</td><td class="memItemRight"><a class="el" href="#a5c5d079b8d494c9ce9eb02cb7bb0e94d">setMove</a> (qreal x, qreal y)</td></tr>
 <tr class="memdesc:a5c5d079b8d494c9ce9eb02cb7bb0e94d"><td class="mdescLeft">&#160;</td><td class="mdescRight">La direction que le joueur demande, de longueur au plus 1.  <br /></td></tr>
@@ -309,6 +316,8 @@ Properties</h2></td></tr>
 <tr class="memdesc:ac69f3c3985bc1b48dfdfa79738255454"><td class="mdescLeft">&#160;</td><td class="mdescRight">La figurine du héros — le <b>meneur</b> du groupe : celle de sa classe (<span class="tt">LOT-138</span>).  <br /></td></tr>
 <tr class="memitem:a0f39a57d440f80dc7cd85924a70a1340" id="r_a0f39a57d440f80dc7cd85924a70a1340"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0f39a57d440f80dc7cd85924a70a1340">frozen</a></td></tr>
 <tr class="memdesc:a0f39a57d440f80dc7cd85924a70a1340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vrai quand la carte est gelée : un dialogue ou un combat est à l'écran.  <br /></td></tr>
+<tr class="memitem:ada5d5e031da7be37501fe1c171f6b2f3" id="r_ada5d5e031da7be37501fe1c171f6b2f3"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ada5d5e031da7be37501fe1c171f6b2f3">hour</a></td></tr>
+<tr class="memdesc:ada5d5e031da7be37501fe1c171f6b2f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'heure du monde, écrite <span class="tt">HH:MM</span> (<span class="tt">LOT-1007</span>) ; annoncée à chaque minute qui passe.  <br /></td></tr>
 <tr class="memitem:acf424613f83cbc23a161f7e8d960d33c" id="r_acf424613f83cbc23a161f7e8d960d33c"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#acf424613f83cbc23a161f7e8d960d33c">cityLocation</a></td></tr>
 <tr class="memdesc:acf424613f83cbc23a161f7e8d960d33c"><td class="mdescLeft">&#160;</td><td class="mdescRight">La fiche d'atlas de la ville qu'on parcourt, qui est aussi la clé de son plan (<span class="tt">world-maps.json</span>) ; vide si la ville n'a pas pu être lue (<span class="tt">LOT-96</span>).  <br /></td></tr>
 <tr class="memitem:a7aff4f8e9deb81cb1dd60d9747307a08" id="r_a7aff4f8e9deb81cb1dd60d9747307a08"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a7aff4f8e9deb81cb1dd60d9747307a08">districtId</a></td></tr>
@@ -372,6 +381,12 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a1e39e071f83fd8ce132426c2b29e434d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les dossiers de <span class="tt">--levels=</span>, lus avant le <span class="tt">Levels/</span> du contenu (<span class="tt">LOT-EDITOR-10</span>).  <br /></td></tr>
 <tr class="memitem:a4ef356b5ee7c5b34080f460a048b7fa4" id="r_a4ef356b5ee7c5b34080f460a048b7fa4"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a4ef356b5ee7c5b34080f460a048b7fa4">_startFlags</a></td></tr>
 <tr class="memdesc:a4ef356b5ee7c5b34080f460a048b7fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les drapeaux de <span class="tt">--<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>=</span> : reposés à chaque partie neuve (<span class="tt"><a class="el" href="#a3ecec460681d282a80941ae0062fec99" title="La partie est finie (LOT-119) : mort, ou retour au menu depuis l&#39;écran de fin.">endGame</a></span>).  <br /></td></tr>
+<tr class="memitem:a22c0e146979306eaa1a89ebb26228139" id="r_a22c0e146979306eaa1a89ebb26228139"><td class="memItemLeft">std::optional&lt; float &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a22c0e146979306eaa1a89ebb26228139">_startHour</a></td></tr>
+<tr class="memdesc:a22c0e146979306eaa1a89ebb26228139"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'heure de <span class="tt">--<a class="el" href="#ada5d5e031da7be37501fe1c171f6b2f3" title="L&#39;heure du monde, écrite HH:MM (LOT-1007) ; annoncée à chaque minute qui passe.">hour</a>=</span>, absente sinon : reposée et figée à chaque partie neuve.  <br /></td></tr>
+<tr class="memitem:aeac8c6e11f1926828f5f322d679680a9" id="r_aeac8c6e11f1926828f5f322d679680a9"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aeac8c6e11f1926828f5f322d679680a9">_lightSeconds</a> = 0.0F</td></tr>
+<tr class="memdesc:aeac8c6e11f1926828f5f322d679680a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le temps écoulé depuis l'ouverture du jeu, en secondes (<span class="tt"><a class="el" href="#a83206d211640784c048fed49c9e5c451">lightSeconds</a></span>).  <br /></td></tr>
+<tr class="memitem:a50939b2b51aa2b3b8b172fc4dce3518c" id="r_a50939b2b51aa2b3b8b172fc4dce3518c"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a50939b2b51aa2b3b8b172fc4dce3518c">_shownHour</a></td></tr>
+<tr class="memdesc:a50939b2b51aa2b3b8b172fc4dce3518c"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'heure du monde telle qu'annoncée la dernière fois (<span class="tt"><a class="el" href="#a0a5f7fa1ec0b960a6df13def41b1037f" title="L&#39;heure du monde a passé une minute, ou a été réglée (LOT-1007).">hourChanged</a></span>).  <br /></td></tr>
 <tr class="memitem:a5df27225ac4e015c412c775937ce34cf" id="r_a5df27225ac4e015c412c775937ce34cf"><td class="memItemLeft">std::vector&lt; <a class="el" href="structcore_1_1PartyCandidate.html">core::PartyCandidate</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5df27225ac4e015c412c775937ce34cf">_candidates</a></td></tr>
 <tr class="memdesc:a5df27225ac4e015c412c775937ce34cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les personnages qu'on peut prendre, lus une fois (<span class="tt">Rpg/characters/</span>, <span class="tt">LOT-138</span>).  <br /></td></tr>
 <tr class="memitem:a183c0a674260f7b16e971a6dbaf825fb" id="r_a183c0a674260f7b16e971a6dbaf825fb"><td class="memItemLeft"><a class="el" href="classcore_1_1Party.html">core::Party</a>&#160;</td><td class="memItemRight"><a class="el" href="#a183c0a674260f7b16e971a6dbaf825fb">_party</a></td></tr>
@@ -398,7 +413,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle de l'exploration — <b>la partie en cours</b> : entrer sur une carte, marcher, parler, franchir. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md143"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md153"></a>
 Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 <p>Elle tient une <span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html" title="Le héros sur la carte courante : marche, interaction, portails.">core::ExplorationSession</a></span> et fait tourner son <b>pas fixe</b> ; chaque geste de l'écran devient une intention passée à la session, et ce que l'écran montre est relu d'elle. Elle ne décide rien du monde : ni la collision, ni la traversée, ni ce qu'un PNJ répond.</p>
 <p>Même partage que le combat : la surface de rendu (<span class="tt"><a class="el" href="classhmi_1_1WorldViewportItem.html" title="Surface QRhi de la carte courante, posée dans la vue de jeu.">hmi::WorldViewportItem</a></span>) prend un <b>instantané en valeurs</b> (<span class="tt"><a class="el" href="structhmi_1_1WorldSceneSnapshot.html" title="Une carte en valeurs, telle que la composition la lit : sa grille, ses pièces par case,...">hmi::WorldSceneSnapshot</a></span>) dans <span class="tt">synchronize()</span>, pendant que le fil graphique est bloqué. Le modèle ne lui passe jamais la session. </p>
@@ -1182,6 +1197,59 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a52ba61fd942bdfd507173f18362ed92e" name="a52ba61fd942bdfd507173f18362ed92e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52ba61fd942bdfd507173f18362ed92e">&#9670;&#160;</a></span>hour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldModel::hour </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'heure du monde, écrite <span class="tt">HH:MM</span>. </dd></dl>
+
+</div>
+</div>
+<a id="a0a5f7fa1ec0b960a6df13def41b1037f" name="a0a5f7fa1ec0b960a6df13def41b1037f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a5f7fa1ec0b960a6df13def41b1037f">&#9670;&#160;</a></span>hourChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::hourChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel signal">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'heure du monde a passé une minute, ou a été réglée (<span class="tt">LOT-1007</span>). </p>
+
+</div>
+</div>
 <a id="af41780c1c561d5a49d25358501b58ff9" name="af41780c1c561d5a49d25358501b58ff9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af41780c1c561d5a49d25358501b58ff9">&#9670;&#160;</a></span>installQuests()</h2>
 
@@ -1476,6 +1544,58 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 <p>Donne un niveau à <code class="param">characterId</code> — <span class="tt"><a class="el" href="#a326f6e58ef31097654a987d65f457d39">party</a></span> : à chaque membre du groupe (<span class="tt">LOT-141</span>). </p>
 <p>La montée est <b>donnée</b> (quête, débogage) tant que l'expérience n'arrive pas : la fiche monte au seuil du niveau suivant (<span class="tt"><a class="el" href="namespacecore.html#a0a201eb28d48b7c290055b13fb49fab4" title="Monte sheet jusqu&#39;au niveau level, par le chemin d&#39;une partie (LOT-141) : l&#39;expérience du seuil (gain...">core::levelUpTo</a></span>), et le registre du groupe retient le niveau et les points de vie qui en résultent. Bornée au maximum de la table. </p><dl class="section return"><dt>Returns</dt><dd>Vrai si un personnage au moins a gagné un niveau. </dd></dl>
+
+</div>
+</div>
+<a id="a164833563b15f46b667ef0a0599823d2" name="a164833563b15f46b667ef0a0599823d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a164833563b15f46b667ef0a0599823d2">&#9670;&#160;</a></span>lightMinutes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::WorldModel::lightMinutes </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>L'heure à laquelle la carte courante se montre, en minutes depuis minuit (<span class="tt"><a class="el" href="classcore_1_1ExplorationSession.html#ae4c06ccb881a6fbc711473ea6bb2298b">core::ExplorationSession::shownMinutes</a></span>) : ce que la lumière du lieu lit. </dd></dl>
+
+</div>
+</div>
+<a id="a83206d211640784c048fed49c9e5c451" name="a83206d211640784c048fed49c9e5c451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83206d211640784c048fed49c9e5c451">&#9670;&#160;</a></span>lightSeconds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::WorldModel::lightSeconds </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Le temps écoulé depuis l'ouverture du jeu, en secondes : ce qui fait trembler une flamme. Il passe aussi en combat et en dialogue, où l'heure, elle, est figée. </dd></dl>
 
 </div>
 </div>
@@ -2400,6 +2520,26 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="ad2c130aee78aaf17a20053a5cde912f7" name="ad2c130aee78aaf17a20053a5cde912f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2c130aee78aaf17a20053a5cde912f7">&#9670;&#160;</a></span>setStartHour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::WorldModel::setStartHour </td>
+          <td>(</td>
+          <td class="paramtype">std::optional&lt; float &gt;</td>          <td class="paramname"><span class="paramname"><em>minutes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'heure du monde imposée (<span class="tt">--<a class="el" href="#ada5d5e031da7be37501fe1c171f6b2f3" title="L&#39;heure du monde, écrite HH:MM (LOT-1007) ; annoncée à chaque minute qui passe.">hour</a>=</span>, <span class="tt">LOT-1007</span>) : l'horloge y est réglée et <b>figée</b>, pour cette partie et les suivantes. </p>
+<p>Vide : elle reprend son cours. </p>
+
+</div>
+</div>
 <a id="a003fba20061dd2037731373390a8962d" name="a003fba20061dd2037731373390a8962d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a003fba20061dd2037731373390a8962d">&#9670;&#160;</a></span>setStartOverride()</h2>
 
@@ -2941,6 +3081,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="aeac8c6e11f1926828f5f322d679680a9" name="aeac8c6e11f1926828f5f322d679680a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeac8c6e11f1926828f5f322d679680a9">&#9670;&#160;</a></span>_lightSeconds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float hmi::WorldModel::_lightSeconds = 0.0F</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le temps écoulé depuis l'ouverture du jeu, en secondes (<span class="tt"><a class="el" href="#a83206d211640784c048fed49c9e5c451">lightSeconds</a></span>). </p>
+
+</div>
+</div>
 <a id="abebba2b18b07805157fe133092ef526b" name="abebba2b18b07805157fe133092ef526b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abebba2b18b07805157fe133092ef526b">&#9670;&#160;</a></span>_move</h2>
 
@@ -3057,6 +3221,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 
 </div>
 </div>
+<a id="a50939b2b51aa2b3b8b172fc4dce3518c" name="a50939b2b51aa2b3b8b172fc4dce3518c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50939b2b51aa2b3b8b172fc4dce3518c">&#9670;&#160;</a></span>_shownHour</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldModel::_shownHour</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'heure du monde telle qu'annoncée la dernière fois (<span class="tt"><a class="el" href="#a0a5f7fa1ec0b960a6df13def41b1037f" title="L&#39;heure du monde a passé une minute, ou a été réglée (LOT-1007).">hourChanged</a></span>). </p>
+
+</div>
+</div>
 <a id="aa23f8ac54fa6c1029f8ba9fd4e3def64" name="aa23f8ac54fa6c1029f8ba9fd4e3def64"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa23f8ac54fa6c1029f8ba9fd4e3def64">&#9670;&#160;</a></span>_startArrivalOverride</h2>
 
@@ -3124,6 +3312,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
 </div><div class="memdoc">
 
 <p>Les drapeaux de <span class="tt">--<a class="el" href="#a14e589a9a79f090cd11e12278c24e761">flags</a>=</span> : reposés à chaque partie neuve (<span class="tt"><a class="el" href="#a3ecec460681d282a80941ae0062fec99" title="La partie est finie (LOT-119) : mort, ou retour au menu depuis l&#39;écran de fin.">endGame</a></span>). </p>
+
+</div>
+</div>
+<a id="a22c0e146979306eaa1a89ebb26228139" name="a22c0e146979306eaa1a89ebb26228139"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22c0e146979306eaa1a89ebb26228139">&#9670;&#160;</a></span>_startHour</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt;float&gt; hmi::WorldModel::_startHour</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'heure de <span class="tt">--<a class="el" href="#ada5d5e031da7be37501fe1c171f6b2f3" title="L&#39;heure du monde, écrite HH:MM (LOT-1007) ; annoncée à chaque minute qui passe.">hour</a>=</span>, absente sinon : reposée et figée à chaque partie neuve. </p>
 
 </div>
 </div>
@@ -3456,6 +3668,30 @@ Ce qu'elle tient, et ce qu'elle ne décide pas</h2>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada5d5e031da7be37501fe1c171f6b2f3" name="ada5d5e031da7be37501fe1c171f6b2f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada5d5e031da7be37501fe1c171f6b2f3">&#9670;&#160;</a></span>hour</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString hmi::WorldModel::hour</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel read">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>L'heure du monde, écrite <span class="tt">HH:MM</span> (<span class="tt">LOT-1007</span>) ; annoncée à chaque minute qui passe. </p>
 
 </div>
 </div>

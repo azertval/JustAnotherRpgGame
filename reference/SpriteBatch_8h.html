@@ -147,6 +147,7 @@ $(function(){initNavTree('SpriteBatch_8h.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;array&gt;</code><br />
 <code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -161,7 +162,7 @@ Classes</h2></td></tr>
 <tr class="memitem:hmi_3A_3ASpriteBatch" id="r_hmi_3A_3ASpriteBatch"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classhmi_1_1SpriteBatch.html">hmi::SpriteBatch</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dessine des quads texturés au travers de QRhi, avec transparence <b>prémultipliée</b> et un échantillonnage qui suit la nature de chaque texture : bilinéaire avec mipmaps pour l'art peint, au plus proche pour une image engendrée (<span class="tt">EX-ARCH-022</span>, <span class="tt">LOT-103</span>).  <a href="classhmi_1_1SpriteBatch.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ASpriteBatch_3A_3AVertex" id="r_hmi_3A_3ASpriteBatch_3A_3AVertex"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SpriteBatch_1_1Vertex.html">hmi::SpriteBatch::Vertex</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sommet envoyé au GPU : position de la vue (x, y, profondeur), UV, couleur RVBA.  <a href="structhmi_1_1SpriteBatch_1_1Vertex.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sommet envoyé au GPU : position de la vue (x, y, profondeur), UV, couleur RVBA, puis ce qu'il reçoit de la lumière du lieu (<span class="tt"><a class="el" href="structhmi_1_1SpriteShading.html" title="Ce qu&#39;une primitive reçoit de la lumière du lieu (LOT-1007).">SpriteShading</a></span>).  <a href="structhmi_1_1SpriteBatch_1_1Vertex.html#details">More...</a><br /></td></tr>
 <tr class="memitem:hmi_3A_3ASpriteBatch_3A_3ABatch" id="r_hmi_3A_3ASpriteBatch_3A_3ABatch"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structhmi_1_1SpriteBatch_1_1Batch.html">hmi::SpriteBatch::Batch</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un lot enregistré : une texture, une projection, une plage contiguë de quads.  <a href="structhmi_1_1SpriteBatch_1_1Batch.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">

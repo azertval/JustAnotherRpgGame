@@ -207,7 +207,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>La vue-modèle du groupe : qui en est, qui mène, et ce que dit la fiche de chacun. </p>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md136"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md146"></a>
 Ce qu'elle tient, et ce qu'elle ne tient pas</h2>
 <p>Le groupe <b>appartient à la partie</b> (<span class="tt"><a class="el" href="classhmi_1_1WorldModel.html" title="La vue-modèle de l&#39;exploration — la partie en cours : entrer sur une carte, marcher,...">hmi::WorldModel</a></span>, un singleton) : ce modèle n'en garde aucune copie. Il lit, à sa construction, la fiche de chaque personnage qu'on peut prendre — les catalogues une fois, les fiches ensuite (<span class="tt"><a class="el" href="namespacehmi.html#a9003cdd50645942c3d35fd424f91d060" title="Les tables de valeurs de chaque fiche de characterFiles, dans cet ordre : les catalogues lus une fois...">hmi::loadCharacterValues</a></span>) — et relit la composition dans la partie à chaque changement. Ce que l'écran demande (prendre, retirer, mener, avancer dans l'ordre de marche) passe à la partie, qui décide et l'annonce (<span class="tt">partyChanged</span>).</p>
 <p>Sans partie (l'atelier), le groupe est vide et le modèle aussi. </p>

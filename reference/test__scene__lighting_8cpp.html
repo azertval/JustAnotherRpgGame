@@ -1,0 +1,407 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/Test/Unit/HMI/Graphics/test_scene_lighting.cpp File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('test__scene__lighting_8cpp.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">test_scene_lighting.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>L'éclairage d'une image, <b>sans GPU</b> (<span class="tt">LOT-1007</span>) : ce que la lumière d'une heure, les sources d'un lieu et le cadrage donnent aux shaders, et ce qu'une carte relève de ses pièces — leurs lumières, leur éclat, leurs boîtes d'ombre.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;gtest/gtest.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="IsoProjection_8h_source.html">Core/Combat/IsoProjection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Level_8h_source.html">Core/Levels/Level.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="MapEntity_8h_source.html">Core/Levels/MapEntity.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileLayer_8h_source.html">Core/Levels/TileLayer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="TileMap_8h_source.html">Core/Levels/TileMap.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Scale_8h_source.html">Core/Rpg/Scale.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="DayLight_8h_source.html">Core/World/DayLight.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="LightSource_8h_source.html">Core/World/LightSource.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ComposedScene_8h_source.html">HMI/Graphics/ComposedScene.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IsoView_8h_source.html">HMI/Graphics/IsoView.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="PlaceAppearance_8h_source.html">HMI/Graphics/PlaceAppearance.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="SceneLighting_8h_source.html">HMI/Graphics/SceneLighting.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="WorldSceneComposer_8h_source.html">HMI/Graphics/WorldSceneComposer.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3bfa43aab05c5524746a03501e96ab73" id="r_a3bfa43aab05c5524746a03501e96ab73"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3bfa43aab05c5524746a03501e96ab73">TEST</a> (SceneLightingTest, LeBlocEstNeutreParDefautEtDitLaLumiereDeLHeure)</td></tr>
+<tr class="memdesc:a3bfa43aab05c5524746a03501e96ab73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le bloc neutre laisse les shaders dessiner comme avant le lot, et un éclairage réglé dit la teinte, l'ambiance et un soleil unitaire dans la vue.  <br /></td></tr>
+<tr class="memitem:ace699e69eb03b64a6ea04bde095b4247" id="r_ace699e69eb03b64a6ea04bde095b4247"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ace699e69eb03b64a6ea04bde095b4247">TEST</a> (SceneLightingTest, LaCarteDOmbresCouvreLImageEtGlisseParTexels)</td></tr>
+<tr class="memdesc:ace699e69eb03b64a6ea04bde095b4247"><td class="mdescLeft">&#160;</td><td class="mdescRight">La carte d'ombres couvre ce que la caméra montre : le centre de l'image tombe au milieu de la carte, un point élevé est plus près du soleil, et la carte glisse par texels entiers.  <br /></td></tr>
+<tr class="memitem:a93c955b9bcd6330dc16058ad91411196" id="r_a93c955b9bcd6330dc16058ad91411196"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a93c955b9bcd6330dc16058ad91411196">TEST</a> (SceneLightingTest, LesLumieresDeNuitSontChoisiesPourLImage)</td></tr>
+<tr class="memdesc:a93c955b9bcd6330dc16058ad91411196"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les lumières de nuit s'allument au crépuscule, sauf celles qui restent toujours allumées ; seules celles qui touchent l'image sont gardées, seize au plus, les plus proches du centre.  <br /></td></tr>
+<tr class="memitem:a7839e6a35ef9612d3c51dff30984b7c5" id="r_a7839e6a35ef9612d3c51dff30984b7c5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7839e6a35ef9612d3c51dff30984b7c5">TEST</a> (SceneLightingTest, LesMatricesSInversentEtSeComposent)</td></tr>
+<tr class="memdesc:a7839e6a35ef9612d3c51dff30984b7c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">L'inverse d'une matrice affine la défait, et la pose d'un maillage se range par colonnes.  <br /></td></tr>
+<tr class="memitem:aa0fe8f6e942d27ab7c3e6f1de7512c4e" id="r_aa0fe8f6e942d27ab7c3e6f1de7512c4e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa0fe8f6e942d27ab7c3e6f1de7512c4e">TEST</a> (SceneLightingTest, UneCarteReleveSesLumieresEtSesBoitesDOmbre)</td></tr>
+<tr class="memdesc:aa0fe8f6e942d27ab7c3e6f1de7512c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Une carte relève de ses pièces leurs lumières, leur éclat et leurs boîtes d'ombre, et de ses entités <span class="tt">light</span> les leurs.  <br /></td></tr>
+<tr class="memitem:ac80503eb3a537761167289cf86d8e6b0" id="r_ac80503eb3a537761167289cf86d8e6b0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac80503eb3a537761167289cf86d8e6b0">TEST</a> (SceneLightingTest, ChaquePrimitiveDitCeQuElleRecoit)</td></tr>
+<tr class="memdesc:ac80503eb3a537761167289cf86d8e6b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chaque primitive dit ce qu'elle reçoit de la lumière : le sol prend la lumière et les ombres, une pièce dressée la lumière seule, un effet garde son éclat, une marque ne reçoit rien.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>L'éclairage d'une image, <b>sans GPU</b> (<span class="tt">LOT-1007</span>) : ce que la lumière d'une heure, les sources d'un lieu et le cadrage donnent aux shaders, et ce qu'une carte relève de ses pièces — leurs lumières, leur éclat, leurs boîtes d'ombre. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ac80503eb3a537761167289cf86d8e6b0" name="ac80503eb3a537761167289cf86d8e6b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac80503eb3a537761167289cf86d8e6b0">&#9670;&#160;</a></span>TEST() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SceneLightingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ChaquePrimitiveDitCeQuElleRecoit</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Chaque primitive dit ce qu'elle reçoit de la lumière : le sol prend la lumière et les ombres, une pièce dressée la lumière seule, un effet garde son éclat, une marque ne reçoit rien. </p>
+<p><b>Cas de test :</b> <b>Chaque primitive dit ce qu'elle recoit de la lumiere.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Lumière<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Composer un sol, une pièce dressée, une pièce dressée d'éclat 0,8, un effet (éclat 1), une marque d'interface, une face de bloc de maquette élevée et son losange à plat.<br  />
+</p><ol type="1">
+<li>Lire ce que chacune reçoit (<span class="tt">ComposedQuad::shading</span>).<br  />
+ <b>Resultat attendu :</b> Le sol : toute la lumière, et les ombres. La pièce dressée : toute la lumière, sans ombres. L'éclat 0,8 : un cinquième de la lumière. L'effet et la marque : rien, ils gardent leur éclat. La face élevée : la lumière, sans l'ombre de sa propre boîte ; le losange à plat : les ombres. </li>
+</ol>
+
+</div>
+</div>
+<a id="ace699e69eb03b64a6ea04bde095b4247" name="ace699e69eb03b64a6ea04bde095b4247"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace699e69eb03b64a6ea04bde095b4247">&#9670;&#160;</a></span>TEST() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SceneLightingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LaCarteDOmbresCouvreLImageEtGlisseParTexels</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>La carte d'ombres couvre ce que la caméra montre : le centre de l'image tombe au milieu de la carte, un point élevé est plus près du soleil, et la carte glisse par texels entiers. </p>
+<p><b>Cas de test :</b> <b>La carte d'ombres couvre l'image et glisse par texels entiers.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Lumière<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Bâtir l'éclairage de midi et amener dans la carte d'ombres le point du sol au centre de l'image, ses quatre coins, et le centre élevé de deux mètres.<br  />
+</p><ol type="1">
+<li>Décaler le cadrage de quelques centièmes d'unité, cent fois, et relever à chaque fois où tombe un même point du lieu.<br  />
+ <b>Resultat attendu :</b> Le centre tombe à moins d'un texel du milieu (0,5 ; 0,5) ; les coins sont dans la carte ; toutes les profondeurs sont dans ]0, 1[ et le point élevé est plus proche du soleil que le sol sous lui. D'un cadrage au suivant, le point ne se déplace dans la carte que d'un nombre entier de texels. </li>
+</ol>
+
+</div>
+</div>
+<a id="a3bfa43aab05c5524746a03501e96ab73" name="a3bfa43aab05c5524746a03501e96ab73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bfa43aab05c5524746a03501e96ab73">&#9670;&#160;</a></span>TEST() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SceneLightingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LeBlocEstNeutreParDefautEtDitLaLumiereDeLHeure</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Le bloc neutre laisse les shaders dessiner comme avant le lot, et un éclairage réglé dit la teinte, l'ambiance et un soleil unitaire dans la vue. </p>
+<p><b>Cas de test :</b> <b>Le bloc d'eclairage est neutre par defaut, et dit la lumiere de l'heure.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Lumière<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Lire un bloc <span class="tt">LightingUniforms</span> d'usine.<br  />
+</p><ol type="1">
+<li>Bâtir l'éclairage de midi sur le cadrage d'essai.<br  />
+</li>
+<li>Le bâtir sans ombres, puis à une heure où la lumière dirigée est noire (20:30).<br  />
+ <b>Resultat attendu :</b> Le bloc d'usine est inactif (<span class="tt">tint.a</span> nul) et sans lumière. À midi il est actif, sa teinte est blanche, ses vecteurs vers le soleil et vers le haut sont unitaires, et une passe d'ombres est demandée, son texel valant 1/2048. Sans ombres, ou sous une lumière dirigée noire, aucune passe n'est demandée et les shaders ne lisent pas la carte. </li>
+</ol>
+
+</div>
+</div>
+<a id="a93c955b9bcd6330dc16058ad91411196" name="a93c955b9bcd6330dc16058ad91411196"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93c955b9bcd6330dc16058ad91411196">&#9670;&#160;</a></span>TEST() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SceneLightingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesLumieresDeNuitSontChoisiesPourLImage</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Les lumières de nuit s'allument au crépuscule, sauf celles qui restent toujours allumées ; seules celles qui touchent l'image sont gardées, seize au plus, les plus proches du centre. </p>
+<p><b>Cas de test :</b> <b>Les lumieres de nuit sont choisies pour l'image.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Lumière<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Donner deux sources, dont une toujours allumée, à midi puis à minuit.<br  />
+</p><ol type="1">
+<li>Donner une source hors de l'image, au-delà de sa portée.<br  />
+</li>
+<li>Donner quarante sources en ligne, de plus en plus loin du centre.<br  />
+</li>
+<li>Donner une flamme et lire sa couleur à cent instants.<br  />
+ <b>Resultat attendu :</b> À midi, seule la source toujours allumée est gardée ; à minuit, les deux. La source hors de l'image est écartée. Des quarante, seize sont gardées, et ce sont les plus proches du centre. La flamme tremble : sa couleur varie d'un instant à l'autre, sans jamais dépasser sa pleine intensité ni tomber sous les quatre cinquièmes. </li>
+</ol>
+
+</div>
+</div>
+<a id="a7839e6a35ef9612d3c51dff30984b7c5" name="a7839e6a35ef9612d3c51dff30984b7c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7839e6a35ef9612d3c51dff30984b7c5">&#9670;&#160;</a></span>TEST() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SceneLightingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">LesMatricesSInversentEtSeComposent</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>L'inverse d'une matrice affine la défait, et la pose d'un maillage se range par colonnes. </p>
+<p><b>Cas de test :</b> <b>Les matrices de l'eclairage s'inversent et se composent.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Lumière<br  />
+ <b>Criticite :</b> Majeur<br  />
+ <b>Etapes :</b><br  />
+ 1. Prendre la matrice qui amène le lieu en mètres dans la vue, et son inverse.<br  />
+</p><ol type="1">
+<li>Amener trois points dans la vue, puis les ramener.<br  />
+</li>
+<li>Comparer la vue du point de grille (3, 2) à celle de sa projection.<br  />
+ <b>Resultat attendu :</b> Chaque point revient à sa place, au millième près ; le produit des deux matrices est l'identité ; le point de grille (3, 2), au sol, tombe où <span class="tt"><a class="el" href="classcore_1_1IsoProjection.html" title="La projection isométrique d&#39;une grille de combat de columns × rows cases.">core::IsoProjection</a></span> le met, à la profondeur du sol. </li>
+</ol>
+
+</div>
+</div>
+<a id="aa0fe8f6e942d27ab7c3e6f1de7512c4e" name="aa0fe8f6e942d27ab7c3e6f1de7512c4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0fe8f6e942d27ab7c3e6f1de7512c4e">&#9670;&#160;</a></span>TEST() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TEST </td>
+          <td>(</td>
+          <td class="paramtype">SceneLightingTest</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UneCarteReleveSesLumieresEtSesBoitesDOmbre</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Une carte relève de ses pièces leurs lumières, leur éclat et leurs boîtes d'ombre, et de ses entités <span class="tt">light</span> les leurs. </p>
+<p><b>Cas de test :</b> <b>Une carte releve ses lumieres, ses eclats et ses boites d'ombre.</b><br  />
+ <b>Categorie :</b> Unitaire · Rendu d'un lieu · Lumière<br  />
+ <b>Criticite :</b> Bloquant<br  />
+ <b>Etapes :</b><br  />
+ 1. Écrire un lieu d'essai : un mur, un lampadaire qui éclaire, un brasero qui éclaire et garde son éclat, un tapis, un dallage.<br  />
+</p><ol type="1">
+<li>Composer une carte de 4 × 4 : le mur en (0, 0) et à l'étage au-dessus, le lampadaire en (1, 1), le brasero en (2, 2), le tapis en (3, 3), une entité <span class="tt">light</span> en (3, 0).<br  />
+ <b>Resultat attendu :</b> Trois sources : le lampadaire au centre de sa case, à 3 m ; le brasero, tremblant ; l'entité, toujours allumée. Un seul éclat, celui du brasero. Quatre boîtes d'ombre : le mur du rez — toute sa case, 2,4 m de haut, droit — ; le mur d'étage, sur une base de 2,4 m ; le lampadaire, un quart de case de large, 3 m de haut, resserré ; le brasero. Ni le dallage ni le tapis, trop bas, n'en ont. </li>
+</ol>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_2200d1144f304f0b8fdcca1251782e8e.html">Test</a></li><li class="navelem"><a href="dir_c93feed3c4fd1e74851cc11896f1a53c.html">Unit</a></li><li class="navelem"><a href="dir_2675e67548493d20626cf18c4081fab8.html">HMI</a></li><li class="navelem"><a href="dir_9c2c1d58a156aa8e30c089ae7a4e31f9.html">Graphics</a></li><li class="navelem"><a href="test__scene__lighting_8cpp.html">test_scene_lighting.cpp</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

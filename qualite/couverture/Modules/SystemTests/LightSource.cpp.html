@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>LightSource.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "Core/World/LightSource.h"
+
+#include &lt;algorithm&gt;
+#include &lt;array&gt;
+#include &lt;cstdint&gt;
+#include &lt;string&gt;
+#include &lt;variant&gt;
+
+#include "Core/Rpg/Scale.h"
+
+namespace core {
+
+namespace {
+
+// La valeur d'un chiffre hexadecimal ; -1 pour tout autre caractere.
+<span style = "background-color:#dfd">[[nodiscard]] int hexDigit(char digit) noexcept {
+    if (digit &gt;= '0' &amp;&amp; digit &lt;= '9') {
+        return digit - '0';</span>
+    }
+<span style = "background-color:#dfd">    if (digit &gt;= 'a' &amp;&amp; digit &lt;= 'f') {
+        return digit - 'a' + 10;</span>
+    }
+<span style = "background-color:#fdd">    if (digit &gt;= 'A' &amp;&amp; digit &lt;= 'F') {
+        return digit - 'A' + 10;</span>
+    }
+<span style = "background-color:#fdd">    return -1;</span>
+<span style = "background-color:#dfd">}</span>
+
+// L'entier de la propriete `key`, ramene dans [low, high] ; `fallback` si elle manque ou n'en est
+// pas un.
+[[nodiscard]] int integerOf(const PropertyMap&amp; properties, std::string_view key, int fallback,
+<span style = "background-color:#dfd">                            int low, int high) {
+    const auto found = properties.find(std::string{key});
+    if (found == properties.end()) {
+        return fallback;</span>
+    }
+<span style = "background-color:#dfd">    const auto* const value = std::get_if&lt;std::int64_t&gt;(&amp;found-&gt;second);
+    return value != nullptr ? static_cast&lt;int&gt;(std::clamp&lt;std::int64_t&gt;(*value, low, high))</span>
+                            : fallback;
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">[[nodiscard]] bool flagOf(const PropertyMap&amp; properties, std::string_view key) {
+    const auto found = properties.find(std::string{key});
+    if (found == properties.end()) {
+        return false;</span>
+    }
+<span style = "background-color:#dfd">    const auto* const value = std::get_if&lt;bool&gt;(&amp;found-&gt;second);
+    return value != nullptr &amp;&amp; *value;
+}</span>
+
+}  // namespace
+
+<span style = "background-color:#dfd">std::optional&lt;LightColor&gt; parseLightColor(std::string_view text) noexcept {
+    if (text.size() != 7 || text.front() != '#') {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    std::array&lt;float, 3&gt; channels{};
+    for (std::size_t channel = 0; channel &lt; channels.size(); ++channel) {
+        const int high = hexDigit(text[1 + (channel * 2)]);
+        const int low = hexDigit(text[2 + (channel * 2)]);
+        if (high &lt; 0 || low &lt; 0) {</span>
+<span style = "background-color:#fdd">            return std::nullopt;</span>
+        }
+<span style = "background-color:#dfd">        channels[channel] = static_cast&lt;float&gt;((high * 16) + low) / 255.0F;
+    }
+    return LightColor{.r = channels[0], .g = channels[1], .b = channels[2]};
+}</span>
+
+<span style = "background-color:#dfd">std::optional&lt;LightSource&gt; lightSourceOf(const MapEntity&amp; entity) {
+    if (entity.type != LIGHT_ENTITY_TYPE) {
+        return std::nullopt;</span>
+    }
+<span style = "background-color:#dfd">    LightEmission emission;
+    if (const auto color = entity.properties.find(std::string{LIGHT_COLOR_PROPERTY});
+        color != entity.properties.end()) {
+        if (const auto* const text = std::get_if&lt;std::string&gt;(&amp;color-&gt;second)) {
+            emission.color = parseLightColor(*text).value_or(LightEmission::DEFAULT_COLOR);</span>
+        }
+<span style = "background-color:#dfd">    }
+    emission.radius =</span>
+        static_cast&lt;float&gt;(integerOf(entity.properties, LIGHT_RADIUS_PROPERTY,
+                                     LIGHT_RADIUS_CELLS_DEFAULT, 1, LIGHT_RADIUS_CELLS_MAXIMUM)) *
+        METERS_PER_TILE;
+<span style = "background-color:#dfd">    emission.height = static_cast&lt;float&gt;(integerOf(entity.properties, LIGHT_HEIGHT_PROPERTY,</span>
+                                                   LIGHT_HEIGHT_DECIMETRES_DEFAULT, 0,
+                                                   LIGHT_HEIGHT_DECIMETRES_MAXIMUM)) /
+                      10.0F;
+<span style = "background-color:#dfd">    emission.intensity =</span>
+        static_cast&lt;float&gt;(
+            integerOf(entity.properties, LIGHT_INTENSITY_PROPERTY, LIGHT_INTENSITY_PERCENT_DEFAULT,
+                      LIGHT_INTENSITY_PERCENT_MINIMUM, LIGHT_INTENSITY_PERCENT_MAXIMUM)) /
+        100.0F;
+<span style = "background-color:#dfd">    emission.flicker = flagOf(entity.properties, LIGHT_FLICKER_PROPERTY);
+    emission.always = flagOf(entity.properties, LIGHT_ALWAYS_PROPERTY);
+    return LightSource{.column = static_cast&lt;float&gt;(entity.position.column) + 0.5F,</span>
+                       .row = static_cast&lt;float&gt;(entity.position.row) + 0.5F,
+                       .emission = emission};
+<span style = "background-color:#dfd">}</span>
+
+}  // namespace core</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

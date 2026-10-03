@@ -29,6 +29,7 @@
 #include "Core/Math/Vector2.h"
 #include "HMI/Graphics/ComposedScene.h"
 #include "HMI/Graphics/PlaceCamera.h"
+#include "HMI/Graphics/SceneLighting.h"
 #include "HMI/Graphics/ScenePieces.h"
 #include "HMI/Graphics/SceneResources.h"
 #include "HMI/Graphics/SceneTextureTraits.h"
@@ -98,6 +99,7 @@ class QRhiResourceUpdateBatch;
 
 namespace hmi {
 
+class LightingBlock;
 class MeshBatch;
 
 /**
@@ -249,6 +251,24 @@ public:
     void setComposeOptions(WorldComposeOptions options) noexcept;
 
     /**
+     * @brief La lumiÃ¨re du lieu (`LOT-1007`) : celle de l'heure, et les rÃ©glages d'ombre.
+     *
+     * `std::nullopt` â l'Ã©tat d'usine â dessine le lieu **sans Ã©clairage**, comme avant le lot :
+     * c'est ce que rendent un test qui ne s'occupe pas de lumiÃ¨re, une vignette, un plan. Les
+     * sources de lumiÃ¨re, elles, viennent de la carte (`WorldSceneSnapshot::lights`).
+     */
+<span style = "background-color:#dfd">    void setLighting(std::optional&lt;WorldLighting&gt; lighting) noexcept {
+        _lighting = lighting;
+    }</span>
+    [[nodiscard]] const std::optional&lt;WorldLighting&gt;&amp; lighting() const noexcept {
+        return _lighting;
+    }
+    /// @return L'Ã©clairage de la derniÃ¨re image dessinÃ©e : ce que les shaders ont reÃ§u.
+    [[nodiscard]] const SceneLightFrame&amp; lightFrame() const noexcept {
+        return _lightFrame;
+    }
+
+    /**
      * @brief Charge les textures et compose la carte **maintenant**, sans dessiner (`LOT-1002`).
      *
      * Ce que `render` fait Ã  sa premiÃ¨re image, avancÃ© : les tÃ©lÃ©versements attendent dans le lot
@@ -308,6 +328,8 @@ private:
     void refresh(const core::IsoProjection&amp; projection);
     /// @return La projection de la carte courante.
     [[nodiscard]] core::IsoProjection sceneProjection() const;
+    /// Refait le maillage des boÃ®tes d'ombre de la carte (`WorldSceneSnapshot::shadowBoxes`).
+    void rebuildShadowBoxes();
     /// Le marqueur d'une figurine sans image (`hmi::figureMarkerKey`), rien pour une autre piece.
     [[nodiscard]] std::optional&lt;LoadedTexture&gt; figureMarker(const std::string&amp; path);
 
@@ -350,6 +372,14 @@ private:
     /// maillages sont ceux que `_textures.meshes` dÃ©signe.
     std::unique_ptr&lt;MeshBatch&gt; _meshes;
     ScenePieceTextures _textures;
+    /// L'Ã©clairage (`LOT-1007`) : ce que l'appelant rÃ¨gle, ce que la derniÃ¨re image en a tirÃ©, et
+    /// le bloc que lisent les deux pipelines. Le bloc meurt aprÃ¨s eux.
+    std::optional&lt;WorldLighting&gt; _lighting;
+    SceneLightFrame _lightFrame;
+    std::unique_ptr&lt;LightingBlock&gt; _lightingBlock;
+    /// Les boÃ®tes d'ombre de la carte, en un maillage que seule la carte d'ombres voit ; nul si
+    /// la carte n'en a pas.
+<span style = "background-color:#dfd">    MeshHandle _shadowBoxes = nullptr;</span>
 };
 
 }  // namespace hmi</pre>

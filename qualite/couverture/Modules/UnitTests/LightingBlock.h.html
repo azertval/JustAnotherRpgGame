@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>LightingBlock.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;cstdint&gt;
+#include &lt;memory&gt;
+
+#include "HMI/Graphics/SceneLighting.h"
+
+class QRhi;
+class QRhiBuffer;
+class QRhiRenderPassDescriptor;
+class QRhiResourceUpdateBatch;
+class QRhiSampler;
+class QRhiShaderResourceBinding;
+class QRhiTexture;
+class QRhiTextureRenderTarget;
+
+/**
+ * @file HMI/Graphics/LightingBlock.h
+ * @brief Les ressources GPU de l'**Ã©clairage d'une image** (`LOT-1007`) : le bloc uniforme que
+ *        lisent les deux pipelines, et la carte d'ombres.
+ */
+
+namespace hmi {
+
+/**
+ * @brief Le bloc `Lighting` des shaders et la carte d'ombres, sur un `QRhi`.
+ *
+ * `hmi::SpriteBatch` et `hmi::MeshBatch` lient chacun un bloc aux points 3 et 4 de leurs shaders.
+ * Chacun possÃ¨de le sien, **neutre**, dÃ¨s sa construction : un rendu qui ne rÃ¨gle pas d'Ã©clairage
+ * â la galerie des assets, un test â dessine comme avant le lot. Le rendu d'un lieu leur en donne
+ * un commun (`setLighting`), qu'il remplit Ã  chaque image.
+ *
+ * La carte d'ombres est une texture de profondeur lue par comparaison. Tant qu'aucune n'est
+ * demandÃ©e (`ensureShadowMap`), une carte d'un texel tient sa place : les liaisons d'un pipeline
+ * doivent Ãªtre complÃ¨tes, et le bloc neutre dit aux shaders de ne pas la lire.
+ *
+ * `revision()` avance quand la carte d'ombres change d'objet : les liaisons qui la citaient sont
+ * alors Ã  refaire.
+ */
+class LightingBlock {
+public:
+    /// Points de liaison du bloc et de la carte d'ombres dans les shaders.
+    static constexpr int UNIFORM_BINDING = 3;
+    static constexpr int SHADOW_BINDING = 4;
+    /// Bornes du cÃ´tÃ© de la carte d'ombres, en texels.
+    static constexpr int MINIMUM_SHADOW_SIZE = 256;
+    static constexpr int MAXIMUM_SHADOW_SIZE = 8192;
+
+    /// @throws std::runtime_error Si le tampon, la carte ou l'Ã©chantillonneur ne se crÃ©ent pas.
+    explicit LightingBlock(QRhi* rhi);
+    ~LightingBlock();
+
+    LightingBlock(const LightingBlock&amp;) = delete;
+    LightingBlock&amp; operator=(const LightingBlock&amp;) = delete;
+
+    /// @return La liaison du bloc uniforme, au point `UNIFORM_BINDING` de l'Ã©tage de fragment.
+    [[nodiscard]] QRhiShaderResourceBinding uniformBinding() const;
+    /// @return La liaison de la carte d'ombres, au point `SHADOW_BINDING` de l'Ã©tage de fragment.
+    [[nodiscard]] QRhiShaderResourceBinding shadowBinding() const;
+
+    /// @return Un compte qui avance quand la carte d'ombres change d'objet.
+<span style = "background-color:#dfd">    [[nodiscard]] std::uint64_t revision() const noexcept {
+        return _revision;
+    }</span>
+
+    /// @brief DÃ©pose @p uniforms dans @p updates : le bloc de la prochaine passe.
+    void upload(QRhiResourceUpdateBatch* updates, const LightingUniforms&amp; uniforms);
+
+    /**
+     * @brief Le tÃ©lÃ©versement du bloc **neutre** posÃ© Ã  la construction, s'il attend encore.
+     *
+     * Un tÃ©lÃ©versement ne se soumet qu'avec une passe : qui lie le bloc le prend Ã  sa premiÃ¨re
+     * image et le joint Ã  son lot. `nullptr` une fois pris.
+     */
+    [[nodiscard]] QRhiResourceUpdateBatch* takePendingUpload() noexcept;
+
+    /**
+     * @brief Garantit une carte d'ombres de @p size texels de cÃ´tÃ© et sa cible de rendu.
+     * @return La cible, ou `nullptr` si elle ne se crÃ©e pas : l'image se dessine alors sans ombres.
+     */
+    [[nodiscard]] QRhiTextureRenderTarget* ensureShadowMap(int size);
+
+    /// @return La cible de la carte d'ombres courante ; `nullptr` tant qu'aucune n'est demandÃ©e.
+    [[nodiscard]] QRhiTextureRenderTarget* shadowTarget() const noexcept {
+        return _target.get();
+    }
+
+private:
+    /// CrÃ©e la carte de @p size texels ; la prÃ©cÃ©dente est gardÃ©e en cas d'Ã©chec.
+    [[nodiscard]] bool createMap(int size, bool withTarget);
+
+    QRhi* _rhi;  // non possÃ©dÃ©
+    std::unique_ptr&lt;QRhiBuffer&gt; _buffer;
+    std::unique_ptr&lt;QRhiSampler&gt; _sampler;
+    std::unique_ptr&lt;QRhiTexture&gt; _map;
+    std::unique_ptr&lt;QRhiRenderPassDescriptor&gt; _pass;
+    std::unique_ptr&lt;QRhiTextureRenderTarget&gt; _target;
+<span style = "background-color:#dfd">    int _size = 0;
+    std::uint64_t _revision = 0;</span>
+    /// Le tÃ©lÃ©versement du bloc neutre, tant qu'aucune passe ne l'a emportÃ©.
+<span style = "background-color:#dfd">    QRhiResourceUpdateBatch* _pendingUpload = nullptr;</span>
+};
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

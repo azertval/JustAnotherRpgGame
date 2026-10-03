@@ -23,6 +23,7 @@
 
 #include "Core/Levels/PieceFootprint.h"
 #include "Core/Resources/ScenePlace.h"
+#include "Core/World/LightSource.h"
 
 /**
  * @file Core/Resources/ScenePieceManifest.h
@@ -111,6 +112,9 @@ struct ScenePiece {
     /// Fichier de maillage, relatif au dossier du lieu (`walls/wall.glb`, `LOT-1003`) : la piÃ¨ce
     /// est alors un **volume**, et non une image. Une entrÃ©e qui cite les deux est un maillage.
     std::string mesh;
+    /// La famille de la piÃ¨ce (`family` du manifeste : `02` murs, `08` mobilierâ¦), telle
+    /// qu'Ã©crite ; vide si le manifeste ne la donne pas.
+    std::string family;
     ScenePieceClass pieceClass = ScenePieceClass::Other;
     /// Classe telle qu'Ã©crite (`floor`, `tall`, `wide`â¦), pour une classe inconnue.
     std::string className;
@@ -131,6 +135,13 @@ struct ScenePiece {
     PieceTactical tactical = PieceTactical::Solid;
     /// Anciens noms courts sous lesquels une carte peut citer la piÃ¨ce (`aliases`).
     std::vector&lt;std::string&gt; aliases;
+    /// La lumiÃ¨re que la piÃ¨ce Ã©met (`light`, `LOT-1007`) : un lampadaire, un brasero. Elle part
+    /// du centre de son emprise. Absente : la piÃ¨ce n'Ã©claire pas.
+    std::optional&lt;LightEmission&gt; light;
+    /// Ce que l'image de la piÃ¨ce garde de son Ã©clat quand le lieu s'assombrit (`glow`), de 0 â
+    /// elle prend la teinte de l'heure comme le reste â Ã  1 â elle reste telle que peinte : une
+    /// flamme, un vitrail Ã©clairÃ© du dedans.
+    float glow = 0.0F;
     /// Le dossier du manifeste qui la dÃ©clare, relatif Ã  `Assets/`
     /// (`Regions/central-empire/capital/Common/Scene`) ; vide pour un manifeste lu seul.
     std::string directory;

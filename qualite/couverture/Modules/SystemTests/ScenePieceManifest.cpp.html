@@ -15,6 +15,7 @@
 #include "Core/Resources/ScenePieceManifest.h"
 
 #include &lt;algorithm&gt;
+#include &lt;cmath&gt;
 #include &lt;system_error&gt;
 #include &lt;tuple&gt;
 #include &lt;utility&gt;
@@ -52,6 +53,41 @@ namespace {
 <span style = "background-color:#dfd">    return {(*found)[0].get&lt;int&gt;(), (*found)[1].get&lt;int&gt;()};
 }</span>
 
+// Le nombre fini du champ `key`, ramene dans [low, high] ; `fallback` s'il manque.
+[[nodiscard]] float boundedNumber(const nlohmann::json&amp; object, const char* key, float fallback,
+<span style = "background-color:#dfd">                                  float low, float high) {
+    const auto found = object.find(key);
+    if (found == object.end() || !found-&gt;is_number()) {
+        return fallback;</span>
+    }
+<span style = "background-color:#dfd">    const auto value = found-&gt;get&lt;float&gt;();
+    return std::isfinite(value) ? std::clamp(value, low, high) : fallback;
+}</span>
+
+// La lumiere d'une piece (LOT-1007), en metres. Un champ absent ou faux vaut ce que vaut une
+// lanterne : une piece mal ecrite eclaire quand meme, et `check_hd_assets` dit ce qui est faux.
+<span style = "background-color:#dfd">[[nodiscard]] LightEmission readEmission(const nlohmann::json&amp; value) {
+    LightEmission emission;
+    if (const auto color = value.find("color"); color != value.end() &amp;&amp; color-&gt;is_string()) {
+        emission.color =</span>
+            parseLightColor(color-&gt;get&lt;std::string&gt;()).value_or(LightEmission::DEFAULT_COLOR);
+<span style = "background-color:#dfd">    }
+    emission.radius = boundedNumber(value, "radius", LightEmission::DEFAULT_RADIUS_METRES, 0.5F,</span>
+                                    LightEmission::MAXIMUM_RADIUS_METRES);
+<span style = "background-color:#dfd">    emission.height = boundedNumber(value, "height", LightEmission::DEFAULT_HEIGHT_METRES, 0.0F,</span>
+                                    LightEmission::MAXIMUM_HEIGHT_METRES);
+<span style = "background-color:#dfd">    emission.intensity =</span>
+        boundedNumber(value, "intensity", 1.0F, 0.1F, LightEmission::MAXIMUM_INTENSITY);
+<span style = "background-color:#dfd">    if (const auto flicker = value.find("flicker");
+        flicker != value.end() &amp;&amp; flicker-&gt;is_boolean()) {
+        emission.flicker = flicker-&gt;get&lt;bool&gt;();
+    }
+    if (const auto always = value.find("always"); always != value.end() &amp;&amp; always-&gt;is_boolean()) {
+        emission.always = always-&gt;get&lt;bool&gt;();
+    }
+    return emission;
+}</span>
+
 <span style = "background-color:#dfd">[[nodiscard]] ScenePiece readPiece(const std::string&amp; key, const nlohmann::json&amp; value) {
     ScenePiece piece;
     piece.key = key;
@@ -67,6 +103,9 @@ namespace {
         piece.className = found-&gt;get&lt;std::string&gt;();
     }
     piece.pieceClass = parseScenePieceClass(piece.className);
+    if (const auto family = value.find("family"); family != value.end() &amp;&amp; family-&gt;is_string()) {
+        piece.family = family-&gt;get&lt;std::string&gt;();
+    }
     const auto [columns, rows] = intPair(value, "footprint", {1, 1});
     piece.footprintColumns = std::max(1, columns);
     piece.footprintRows = std::max(1, rows);
@@ -82,6 +121,12 @@ namespace {
 <span style = "background-color:#dfd">    if (const auto tactical = value.find("tactical");
         tactical != value.end() &amp;&amp; tactical-&gt;is_string()) {
         piece.tactical = parsePieceTactical(tactical-&gt;get&lt;std::string&gt;()).value_or(piece.tactical);
+    }
+    if (const auto light = value.find("light"); light != value.end() &amp;&amp; light-&gt;is_object()) {
+        piece.light = readEmission(*light);
+    }
+    if (const auto glow = value.find("glow"); glow != value.end() &amp;&amp; glow-&gt;is_number()) {
+        piece.glow = std::clamp(glow-&gt;get&lt;float&gt;(), 0.0F, 1.0F);
     }
     if (const auto aliases = value.find("aliases"); aliases != value.end() &amp;&amp; aliases-&gt;is_array()) {
         for (const nlohmann::json&amp; alias : *aliases) {

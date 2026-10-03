@@ -11,7 +11,8 @@ var searchData=
   ['vertices_8',['vertices',['../structcore_1_1MeshData.html#a01021132a8943efe3b79460ba05d50e8',1,'core::MeshData::vertices'],['../structhmi_1_1MeshBatch_1_1GpuMesh.html#aaf3d71e8551483f30dac91de95e9c889',1,'hmi::MeshBatch::GpuMesh::vertices']]],
   ['view_9',['view',['../structhmi_1_1GestureState.html#a8adce05e1195b2d4125d88f61be85071',1,'hmi::GestureState::view'],['../structhmi_1_1SceneDepth.html#ae5983c9254a8d047ce6f109f4a009758',1,'hmi::SceneDepth::view']]],
   ['viewtabs_10',['viewTabs',['../structhmi_1_1LevelBrowserPanel_1_1Widgets.html#aaf6af167086a860ae413e638887ffe4a',1,'hmi::LevelBrowserPanel::Widgets']]],
-  ['visible_11',['visible',['../structhmi_1_1LayerDisplay.html#a8a9b2b56a414ed5020c74472bad68d10',1,'hmi::LayerDisplay']]],
-  ['voice_12',['voice',['../structhmi_1_1DialogueModel_1_1Session.html#a5356505bd96865acf4060d271a2bad89',1,'hmi::DialogueModel::Session']]],
-  ['voices_13',['voices',['../structhmi_1_1DialogueModel_1_1Session.html#acbea76570712e2dcadcbbd6d9f576962',1,'hmi::DialogueModel::Session']]]
+  ['viewtoshadow_11',['viewToShadow',['../structhmi_1_1LightingUniforms.html#ac4e22647c20ff166ed290c550eea9fcf',1,'hmi::LightingUniforms']]],
+  ['visible_12',['visible',['../structhmi_1_1LayerDisplay.html#a8a9b2b56a414ed5020c74472bad68d10',1,'hmi::LayerDisplay']]],
+  ['voice_13',['voice',['../structhmi_1_1DialogueModel_1_1Session.html#a5356505bd96865acf4060d271a2bad89',1,'hmi::DialogueModel::Session']]],
+  ['voices_14',['voices',['../structhmi_1_1DialogueModel_1_1Session.html#acbea76570712e2dcadcbbd6d9f576962',1,'hmi::DialogueModel::Session']]]
 ];

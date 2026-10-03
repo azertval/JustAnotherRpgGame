@@ -1,0 +1,257 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: /home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/LightingBlock.h Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('LightingBlock_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">LightingBlock.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="LightingBlock_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// SPDX-FileCopyrightText: 2026 Valentin Eloy</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="SceneLighting_8h.html">HMI/Graphics/SceneLighting.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">class </span>QRhi;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">class </span>QRhiBuffer;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">class </span>QRhiRenderPassDescriptor;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">class </span>QRhiResourceUpdateBatch;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">class </span>QRhiSampler;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">class </span>QRhiShaderResourceBinding;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">class </span>QRhiTexture;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">class </span>QRhiTextureRenderTarget;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacehmi.html">hmi</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span></div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html">   43</a></span><span class="keyword">class </span><a class="code hl_function" href="classhmi_1_1LightingBlock.html#ac8663307c744c7f52f6d135fe49d0f96">LightingBlock</a> {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#a4cdda5a045ac94cf2bdeb79d9dfc4531">   46</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#a4cdda5a045ac94cf2bdeb79d9dfc4531">UNIFORM_BINDING</a> = 3;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#a5ec965a6753a7c2b4b47740888232409">   47</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#a5ec965a6753a7c2b4b47740888232409">SHADOW_BINDING</a> = 4;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#abd4c7d41d4739ae9cb6aa5ba54ba5c2e">   49</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#abd4c7d41d4739ae9cb6aa5ba54ba5c2e">MINIMUM_SHADOW_SIZE</a> = 256;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#a4e62f1c7e706c61df3444ac454d5eeb8">   50</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#a4e62f1c7e706c61df3444ac454d5eeb8">MAXIMUM_SHADOW_SIZE</a> = 8192;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="classhmi_1_1LightingBlock.html#ac8663307c744c7f52f6d135fe49d0f96">LightingBlock</a>(QRhi* rhi);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_function" href="classhmi_1_1LightingBlock.html#ad897f146fdfdef601b938872e60484d3">~LightingBlock</a>();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#a6c87d472aa8a3632ea28ddf2f2e028bb">   56</a></span>    <a class="code hl_function" href="classhmi_1_1LightingBlock.html#a6c87d472aa8a3632ea28ddf2f2e028bb">LightingBlock</a>(<span class="keyword">const</span> <a class="code hl_function" href="classhmi_1_1LightingBlock.html#ac8663307c744c7f52f6d135fe49d0f96">LightingBlock</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#ac1fa935a93b6b12ba0799255c4267688">   57</a></span>    <a class="code hl_function" href="classhmi_1_1LightingBlock.html#ac8663307c744c7f52f6d135fe49d0f96">LightingBlock</a>&amp; <a class="code hl_function" href="classhmi_1_1LightingBlock.html#ac1fa935a93b6b12ba0799255c4267688">operator=</a>(<span class="keyword">const</span> <a class="code hl_function" href="classhmi_1_1LightingBlock.html#ac8663307c744c7f52f6d135fe49d0f96">LightingBlock</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    [[nodiscard]] QRhiShaderResourceBinding <a class="code hl_function" href="classhmi_1_1LightingBlock.html#a76bd3f059a8b4776fd5637f48cf15875">uniformBinding</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    [[nodiscard]] QRhiShaderResourceBinding <a class="code hl_function" href="classhmi_1_1LightingBlock.html#ab2b397f66fbc05bdae21da83bac612b4">shadowBinding</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#ad5c367e4e676e9505bec10ade5388615">   65</a></span>    [[nodiscard]] std::uint64_t <a class="code hl_function" href="classhmi_1_1LightingBlock.html#ad5c367e4e676e9505bec10ade5388615">revision</a>() const noexcept {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#a3b60de77ccf04b6ffcf06b868a474a99">_revision</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classhmi_1_1LightingBlock.html#a33930bdeb0b27d5e05428d8cd0a8a60c">upload</a>(QRhiResourceUpdateBatch* updates, <span class="keyword">const</span> <a class="code hl_struct" href="structhmi_1_1LightingUniforms.html">LightingUniforms</a>&amp; uniforms);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    [[nodiscard]] QRhiResourceUpdateBatch* <a class="code hl_function" href="classhmi_1_1LightingBlock.html#a2c487618067e92ef79d8201d3ce7b84e">takePendingUpload</a>() noexcept;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    [[nodiscard]] QRhiTextureRenderTarget* <a class="code hl_function" href="classhmi_1_1LightingBlock.html#ac7e1ee2d098546768f56876950c38c4e">ensureShadowMap</a>(<span class="keywordtype">int</span> size);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
+<div class="foldopen" id="foldopen00087" data-start="{" data-end="}">
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#a4cd2398d7aa80bf7c24fa0f9b900b6b9">   87</a></span>    [[nodiscard]] QRhiTextureRenderTarget* <a class="code hl_function" href="classhmi_1_1LightingBlock.html#a4cd2398d7aa80bf7c24fa0f9b900b6b9">shadowTarget</a>() const noexcept {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#a7a78356770bafb35dc23b5cdda6d24d1">_target</a>.get();</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
+</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code hl_function" href="classhmi_1_1LightingBlock.html#a1214b6bff1704007dacf74e94febc46d">createMap</a>(<span class="keywordtype">int</span> size, <span class="keywordtype">bool</span> withTarget);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#a4d8bdcd91f9e9e97f028b9850fec09e0">   95</a></span>    QRhi* <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#a4d8bdcd91f9e9e97f028b9850fec09e0">_rhi</a>;  <span class="comment">// non possédé</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#a8a18772ee42c19b6ec0d48786a4db848">   96</a></span>    std::unique_ptr&lt;QRhiBuffer&gt; <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#a8a18772ee42c19b6ec0d48786a4db848">_buffer</a>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#abe37b396a9f92810bbbf5da967a39f14">   97</a></span>    std::unique_ptr&lt;QRhiSampler&gt; <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#abe37b396a9f92810bbbf5da967a39f14">_sampler</a>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#ababed22e946c9300df4afc82f4ac08c2">   98</a></span>    std::unique_ptr&lt;QRhiTexture&gt; <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#ababed22e946c9300df4afc82f4ac08c2">_map</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#a94e850c32d140ad8249d4b2bdaf4f355">   99</a></span>    std::unique_ptr&lt;QRhiRenderPassDescriptor&gt; <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#a94e850c32d140ad8249d4b2bdaf4f355">_pass</a>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#a7a78356770bafb35dc23b5cdda6d24d1">  100</a></span>    std::unique_ptr&lt;QRhiTextureRenderTarget&gt; <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#a7a78356770bafb35dc23b5cdda6d24d1">_target</a>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#ac822c80201b74cb2ca59b5e40de36d06">  101</a></span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#ac822c80201b74cb2ca59b5e40de36d06">_size</a> = 0;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#a3b60de77ccf04b6ffcf06b868a474a99">  102</a></span>    std::uint64_t <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#a3b60de77ccf04b6ffcf06b868a474a99">_revision</a> = 0;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="classhmi_1_1LightingBlock.html#ae10fb18460c59c9d918760885e46665d">  104</a></span>    QRhiResourceUpdateBatch* <a class="code hl_variable" href="classhmi_1_1LightingBlock.html#ae10fb18460c59c9d918760885e46665d">_pendingUpload</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>};</div>
+</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}  <span class="comment">// namespace hmi</span></div>
+<div class="ttc" id="aSceneLighting_8h_html"><div class="ttname"><a href="SceneLighting_8h.html">SceneLighting.h</a></div><div class="ttdoc">L&#39;éclairage d&#39;une image (LOT-1007, EX-REN-053 à EX-REN-056), sans GPU : ce que la lumière d&#39;une heure...</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a1214b6bff1704007dacf74e94febc46d"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a1214b6bff1704007dacf74e94febc46d">hmi::LightingBlock::createMap</a></div><div class="ttdeci">bool createMap(int size, bool withTarget)</div><div class="ttdoc">Crée la carte de size texels ; la précédente est gardée en cas d&#39;échec.</div><div class="ttdef"><b>Definition</b> LightingBlock.cpp:77</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a2c487618067e92ef79d8201d3ce7b84e"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a2c487618067e92ef79d8201d3ce7b84e">hmi::LightingBlock::takePendingUpload</a></div><div class="ttdeci">QRhiResourceUpdateBatch * takePendingUpload() noexcept</div><div class="ttdoc">Le téléversement du bloc neutre posé à la construction, s&#39;il attend encore.</div><div class="ttdef"><b>Definition</b> LightingBlock.cpp:73</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a33930bdeb0b27d5e05428d8cd0a8a60c"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a33930bdeb0b27d5e05428d8cd0a8a60c">hmi::LightingBlock::upload</a></div><div class="ttdeci">void upload(QRhiResourceUpdateBatch *updates, const LightingUniforms &amp;uniforms)</div><div class="ttdoc">Dépose uniforms dans updates : le bloc de la prochaine passe.</div><div class="ttdef"><b>Definition</b> LightingBlock.cpp:60</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a3b60de77ccf04b6ffcf06b868a474a99"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a3b60de77ccf04b6ffcf06b868a474a99">hmi::LightingBlock::_revision</a></div><div class="ttdeci">std::uint64_t _revision</div><div class="ttdef"><b>Definition</b> LightingBlock.h:102</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a4cd2398d7aa80bf7c24fa0f9b900b6b9"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a4cd2398d7aa80bf7c24fa0f9b900b6b9">hmi::LightingBlock::shadowTarget</a></div><div class="ttdeci">QRhiTextureRenderTarget * shadowTarget() const noexcept</div><div class="ttdef"><b>Definition</b> LightingBlock.h:87</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a4cdda5a045ac94cf2bdeb79d9dfc4531"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a4cdda5a045ac94cf2bdeb79d9dfc4531">hmi::LightingBlock::UNIFORM_BINDING</a></div><div class="ttdeci">static constexpr int UNIFORM_BINDING</div><div class="ttdoc">Points de liaison du bloc et de la carte d&#39;ombres dans les shaders.</div><div class="ttdef"><b>Definition</b> LightingBlock.h:46</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a4d8bdcd91f9e9e97f028b9850fec09e0"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a4d8bdcd91f9e9e97f028b9850fec09e0">hmi::LightingBlock::_rhi</a></div><div class="ttdeci">QRhi * _rhi</div><div class="ttdef"><b>Definition</b> LightingBlock.h:95</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a4e62f1c7e706c61df3444ac454d5eeb8"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a4e62f1c7e706c61df3444ac454d5eeb8">hmi::LightingBlock::MAXIMUM_SHADOW_SIZE</a></div><div class="ttdeci">static constexpr int MAXIMUM_SHADOW_SIZE</div><div class="ttdef"><b>Definition</b> LightingBlock.h:50</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a5ec965a6753a7c2b4b47740888232409"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a5ec965a6753a7c2b4b47740888232409">hmi::LightingBlock::SHADOW_BINDING</a></div><div class="ttdeci">static constexpr int SHADOW_BINDING</div><div class="ttdef"><b>Definition</b> LightingBlock.h:47</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a6c87d472aa8a3632ea28ddf2f2e028bb"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a6c87d472aa8a3632ea28ddf2f2e028bb">hmi::LightingBlock::LightingBlock</a></div><div class="ttdeci">LightingBlock(const LightingBlock &amp;)=delete</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a76bd3f059a8b4776fd5637f48cf15875"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a76bd3f059a8b4776fd5637f48cf15875">hmi::LightingBlock::uniformBinding</a></div><div class="ttdeci">QRhiShaderResourceBinding uniformBinding() const</div><div class="ttdef"><b>Definition</b> LightingBlock.cpp:50</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a7a78356770bafb35dc23b5cdda6d24d1"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a7a78356770bafb35dc23b5cdda6d24d1">hmi::LightingBlock::_target</a></div><div class="ttdeci">std::unique_ptr&lt; QRhiTextureRenderTarget &gt; _target</div><div class="ttdef"><b>Definition</b> LightingBlock.h:100</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a8a18772ee42c19b6ec0d48786a4db848"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a8a18772ee42c19b6ec0d48786a4db848">hmi::LightingBlock::_buffer</a></div><div class="ttdeci">std::unique_ptr&lt; QRhiBuffer &gt; _buffer</div><div class="ttdef"><b>Definition</b> LightingBlock.h:96</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_a94e850c32d140ad8249d4b2bdaf4f355"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#a94e850c32d140ad8249d4b2bdaf4f355">hmi::LightingBlock::_pass</a></div><div class="ttdeci">std::unique_ptr&lt; QRhiRenderPassDescriptor &gt; _pass</div><div class="ttdef"><b>Definition</b> LightingBlock.h:99</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_ab2b397f66fbc05bdae21da83bac612b4"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#ab2b397f66fbc05bdae21da83bac612b4">hmi::LightingBlock::shadowBinding</a></div><div class="ttdeci">QRhiShaderResourceBinding shadowBinding() const</div><div class="ttdef"><b>Definition</b> LightingBlock.cpp:55</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_ababed22e946c9300df4afc82f4ac08c2"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#ababed22e946c9300df4afc82f4ac08c2">hmi::LightingBlock::_map</a></div><div class="ttdeci">std::unique_ptr&lt; QRhiTexture &gt; _map</div><div class="ttdef"><b>Definition</b> LightingBlock.h:98</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_abd4c7d41d4739ae9cb6aa5ba54ba5c2e"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#abd4c7d41d4739ae9cb6aa5ba54ba5c2e">hmi::LightingBlock::MINIMUM_SHADOW_SIZE</a></div><div class="ttdeci">static constexpr int MINIMUM_SHADOW_SIZE</div><div class="ttdoc">Bornes du côté de la carte d&#39;ombres, en texels.</div><div class="ttdef"><b>Definition</b> LightingBlock.h:49</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_abe37b396a9f92810bbbf5da967a39f14"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#abe37b396a9f92810bbbf5da967a39f14">hmi::LightingBlock::_sampler</a></div><div class="ttdeci">std::unique_ptr&lt; QRhiSampler &gt; _sampler</div><div class="ttdef"><b>Definition</b> LightingBlock.h:97</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_ac1fa935a93b6b12ba0799255c4267688"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#ac1fa935a93b6b12ba0799255c4267688">hmi::LightingBlock::operator=</a></div><div class="ttdeci">LightingBlock &amp; operator=(const LightingBlock &amp;)=delete</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_ac7e1ee2d098546768f56876950c38c4e"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#ac7e1ee2d098546768f56876950c38c4e">hmi::LightingBlock::ensureShadowMap</a></div><div class="ttdeci">QRhiTextureRenderTarget * ensureShadowMap(int size)</div><div class="ttdoc">Garantit une carte d&#39;ombres de size texels de côté et sa cible de rendu.</div><div class="ttdef"><b>Definition</b> LightingBlock.cpp:104</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_ac822c80201b74cb2ca59b5e40de36d06"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#ac822c80201b74cb2ca59b5e40de36d06">hmi::LightingBlock::_size</a></div><div class="ttdeci">int _size</div><div class="ttdef"><b>Definition</b> LightingBlock.h:101</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_ac8663307c744c7f52f6d135fe49d0f96"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#ac8663307c744c7f52f6d135fe49d0f96">hmi::LightingBlock::LightingBlock</a></div><div class="ttdeci">LightingBlock(QRhi *rhi)</div><div class="ttdef"><b>Definition</b> LightingBlock.cpp:23</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_ad5c367e4e676e9505bec10ade5388615"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#ad5c367e4e676e9505bec10ade5388615">hmi::LightingBlock::revision</a></div><div class="ttdeci">std::uint64_t revision() const noexcept</div><div class="ttdef"><b>Definition</b> LightingBlock.h:65</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_ad897f146fdfdef601b938872e60484d3"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#ad897f146fdfdef601b938872e60484d3">hmi::LightingBlock::~LightingBlock</a></div><div class="ttdeci">~LightingBlock()</div><div class="ttdef"><b>Definition</b> LightingBlock.cpp:44</div></div>
+<div class="ttc" id="aclasshmi_1_1LightingBlock_html_ae10fb18460c59c9d918760885e46665d"><div class="ttname"><a href="classhmi_1_1LightingBlock.html#ae10fb18460c59c9d918760885e46665d">hmi::LightingBlock::_pendingUpload</a></div><div class="ttdeci">QRhiResourceUpdateBatch * _pendingUpload</div><div class="ttdoc">Le téléversement du bloc neutre, tant qu&#39;aucune passe ne l&#39;a emporté.</div><div class="ttdef"><b>Definition</b> LightingBlock.h:104</div></div>
+<div class="ttc" id="anamespacehmi_html"><div class="ttname"><a href="namespacehmi.html">hmi</a></div><div class="ttdef"><b>Definition</b> Autosave.cpp:14</div></div>
+<div class="ttc" id="astructhmi_1_1LightingUniforms_html"><div class="ttname"><a href="structhmi_1_1LightingUniforms.html">hmi::LightingUniforms</a></div><div class="ttdoc">Le bloc uniforme Lighting des shaders (std140), tel qu&#39;il est téléversé.</div><div class="ttdef"><b>Definition</b> SceneLighting.h:105</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a href="dir_176b5c6fb722225b64367f2880eb44f3.html">HMI</a></li><li class="navelem"><a href="dir_1f83c05e1f2f20b6a532ccaeb0dbcc81.html">Graphics</a></li><li class="navelem"><a href="LightingBlock_8h.html">LightingBlock.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

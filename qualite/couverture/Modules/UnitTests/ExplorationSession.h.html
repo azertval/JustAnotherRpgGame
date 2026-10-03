@@ -25,6 +25,7 @@
 #include "Core/Levels/Level.h"
 #include "Core/Math/Vector2.h"
 #include "Core/World/FollowTrail.h"
+#include "Core/World/WorldClock.h"
 #include "Core/World/WorldTravel.h"
 
 /**
@@ -233,6 +234,19 @@ public:
         return _travel;
     }
 
+    /// @return L'heure du monde (`LOT-1007`) : elle avance avec `update`, donc ni pendant un
+    ///         dialogue ni pendant un combat, oÃ¹ la carte est gelÃ©e.
+    [[nodiscard]] const WorldClock&amp; clock() const noexcept {
+        return _clock;
+    }
+    [[nodiscard]] WorldClock&amp; clock() noexcept {
+        return _clock;
+    }
+
+    /// @return L'heure Ã  laquelle la carte courante se montre, en minutes depuis minuit : son
+    ///         heure fixe si elle en dÃ©clare une (`core::MAP_HOUR_PROPERTY`), sinon celle du monde.
+    [[nodiscard]] float shownMinutes() const;
+
     /// @brief GÃ¨le ou dÃ©gÃ¨le la carte (dialogue, combat).
 <span style = "background-color:#dfd">    void freeze(bool frozen) noexcept {
         _frozen = frozen;
@@ -296,6 +310,7 @@ private:
     /// oÃ¹ l'on reste dessus â sans quoi un portail qui ramÃ¨ne sur place bouclerait.
 <span style = "background-color:#dfd">    GridPosition _lastCell{};
     bool _frozen = false;</span>
+    WorldClock _clock;
 };
 
 }  // namespace core</pre>

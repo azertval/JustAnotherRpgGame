@@ -36,6 +36,8 @@
 #include "Core/Levels/LevelLoader.h"
 #include "Core/Levels/TileLayer.h"
 #include "Core/Levels/TileTypeName.h"
+#include "Core/World/DayLight.h"
+#include "Core/World/WorldClock.h"
 #include "Core/World/WorldGraph.h"
 #include "Editor/Logic/CanvasPicking.h"
 #include "Editor/Logic/LayerView.h"
@@ -350,6 +352,12 @@ MapRenderFrame mapRenderFrame(const core::Rect&amp; painted, float tileWidth,
 <span style = "background-color:#dfd">    return frame;
 }</span>
 
+<span style = "background-color:#fdd">core::DayLightTable placeDayLight(const std::filesystem::path&amp; assetsDirectory) {
+    const core::DayLightTableResult read =</span>
+        core::readDayLightTableFile(assetsDirectory / core::DAYLIGHT_FILE);
+<span style = "background-color:#fdd">    return read.ok() ? read.table : core::DayLightTable::factory();
+}</span>
+
 QImage renderMap(const core::Level&amp; level, const std::filesystem::path&amp; dataRoot,
 <span style = "background-color:#dfd">                 const MapRenderOptions&amp; options, MapImageGrid* grid) {
     const std::shared_ptr&lt;OffscreenRhi&gt; offscreen = OffscreenRhi::shared();
@@ -379,8 +387,18 @@ QImage renderMap(const core::Level&amp; level, const std::filesystem::path&amp; 
     }
 <span style = "background-color:#dfd">    WorldSceneRenderer&amp; renderer = *kept;
     renderer.setComposeOptions(WorldComposeOptions{.flatBlocks = options.plan});
-    renderer.setSnapshot(std::move(snapshot));
-    const IsoBandOpacity&amp; bands = options.bands;
+    renderer.setSnapshot(std::move(snapshot));</span>
+    // L'eclairage se regle a chaque appel : le rendu garde, lui, garde celui de l'appel d'avant.
+    // Un plan de principe ne s'eclaire pas -- il dit ce que la carte contient, pas ce qu'on y voit.
+<span style = "background-color:#dfd">    renderer.setLighting(</span>
+        options.hour &amp;&amp; !options.plan
+            ? std::optional&lt;WorldLighting&gt;{WorldLighting{
+                  .light = placeDayLight(dataRoot / "Assets").sample(*options.hour),
+                  .shadows = true,
+                  .shadowSize = MAP_RENDER_SHADOW_SIZE,
+                  .seconds = 0.0F}}
+            : std::nullopt);
+<span style = "background-color:#dfd">    const IsoBandOpacity&amp; bands = options.bands;
     renderer.setQuadOpacity([bands](const ComposedQuad&amp; quad) { return bandOpacity(bands, quad); });</span>
 
     const MapRenderFrame frame =
@@ -472,6 +490,14 @@ struct RenderCommandLine {
     }
 <span style = "background-color:#fdd">}</span>
 
+// `--hour &lt;HH:MM&gt;` : l'heure a laquelle la carte est eclairee.
+<span style = "background-color:#fdd">void applyHourOption(RenderCommandLine&amp; line, const std::string&amp; value) {
+    line.options.hour = core::parseClockTime(value);
+    if (!line.options.hour) {
+        line.error = "--hour takes a time written HH:MM";</span>
+    }
+<span style = "background-color:#fdd">}</span>
+
 // `--scale &lt;n&gt;` : l'Ã©chelle, dans ]0, 4].
 <span style = "background-color:#dfd">void applyScaleOption(RenderCommandLine&amp; line, const std::string&amp; value) {
     bool ok = false;
@@ -502,7 +528,9 @@ struct RenderCommandLine {
 <span style = "background-color:#fdd">            applyCanvasOption(line, arguments[++index]);</span>
 <span style = "background-color:#dfd">        } else if (argument == "--scale" &amp;&amp; hasValue) {
             applyScaleOption(line, arguments[++index]);
-        } else if (line.render &amp;&amp; !argument.starts_with("--")) {
+        } else if (argument == "--hour" &amp;&amp; hasValue) {</span>
+<span style = "background-color:#fdd">            applyHourOption(line, arguments[++index]);</span>
+<span style = "background-color:#dfd">        } else if (line.render &amp;&amp; !argument.starts_with("--")) {
             line.targets.push_back(argument);</span>
         }
 <span style = "background-color:#dfd">    }

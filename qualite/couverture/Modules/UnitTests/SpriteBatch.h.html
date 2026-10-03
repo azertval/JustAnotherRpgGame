@@ -16,6 +16,7 @@
 
 #include &lt;array&gt;
 #include &lt;cstddef&gt;
+#include &lt;cstdint&gt;
 #include &lt;memory&gt;
 #include &lt;unordered_map&gt;
 #include &lt;vector&gt;
@@ -35,6 +36,10 @@ class QRhiResourceUpdateBatch;
 class QRhiSampler;
 class QRhiShaderResourceBindings;
 class QRhiTexture;
+
+namespace hmi {
+class LightingBlock;
+}  // namespace hmi
 
 /**
  * @file HMI/Graphics/SpriteBatch.h
@@ -162,6 +167,22 @@ public:
     }</span>
 
     /**
+     * @brief Ce que les quads **suivants** reÃ§oivent de la lumiÃ¨re du lieu (`LOT-1007`).
+     *
+     * L'Ã©tat d'usine â rien â est celui d'avant le lot : un quad garde son Ã©clat, quel que soit
+     * le bloc d'Ã©clairage liÃ©. `beginFrame` y revient.
+     */
+<span style = "background-color:#dfd">    void setShading(SpriteShading shading) noexcept {
+        _shading = shading;
+    }</span>
+
+    /**
+     * @brief Lie le bloc d'Ã©clairage @p lighting aux pipelines ; `nullptr` : le bloc neutre du
+     *        lot. Le bloc doit vivre aussi longtemps qu'il est liÃ©.
+     */
+    void setLighting(LightingBlock* lighting);
+
+    /**
      * @brief DÃ©pose dans un lot les tÃ©lÃ©versements de l'image enregistrÃ©e â sommets, projections,
      *        et le tampon d'indices Ã  sa premiÃ¨re image â, **hors** de toute passe.
      *
@@ -180,7 +201,8 @@ public:
     void record(QRhiCommandBuffer* commandBuffer, QRhiRenderTarget* target);
 
 private:
-    /// Sommet envoyÃ© au GPU : position de la vue (x, y, profondeur), UV, couleur RVBA.
+    /// Sommet envoyÃ© au GPU : position de la vue (x, y, profondeur), UV, couleur RVBA, puis ce
+    /// qu'il reÃ§oit de la lumiÃ¨re du lieu (`SpriteShading`).
     struct Vertex {
         float x;
         float y;
@@ -191,6 +213,8 @@ private:
         float g;
         float b;
         float a;
+        float lit;
+        float shadowed;
     };
 
     /// Un lot enregistrÃ© : une texture, une projection, une plage contiguÃ« de quads.
@@ -209,9 +233,10 @@ private:
 
     /// CrÃ©e (ou recrÃ©e) les pipelines pour la passe de rendu donnÃ©e. Idempotent.
     bool ensurePipeline(QRhiRenderTarget* target);
-    /// Construit un pipeline pour @p pass, avec ou sans test de profondeur.
+    /// Construit un pipeline pour @p pass et @p samples Ã©chantillons, avec ou sans test de
+    /// profondeur.
     [[nodiscard]] std::unique_ptr&lt;QRhiGraphicsPipeline&gt; createPipeline(
-        QRhiRenderPassDescriptor* pass, bool depthTest);
+        QRhiRenderPassDescriptor* pass, int samples, bool depthTest);
     /// Redimensionne le tampon de sommets si l'image enregistrÃ©e n'y tient pas.
     bool ensureVertexCapacity(std::size_t quadCount);
     /// Redimensionne le tampon uniforme pour @p batchCount emplacements de projection.
@@ -221,7 +246,20 @@ private:
     /// Ferme le lot en cours d'enregistrement, s'il y en a un.
     void closeBatch();
 
+    /// @return Le bloc d'Ã©clairage liÃ© : celui de l'appelant, sinon le bloc neutre du lot.
+<span style = "background-color:#dfd">    [[nodiscard]] LightingBlock* lighting() const noexcept {
+        return _lighting != nullptr ? _lighting : _ownLighting.get();
+    }</span>
+
     QRhi* _rhi;  // non possÃ©dÃ©
+    /// Le bloc d'Ã©clairage neutre du lot, liÃ© tant que l'appelant n'en donne pas un autre.
+    std::unique_ptr&lt;LightingBlock&gt; _ownLighting;
+    /// Le bloc de l'appelant (`setLighting`), non possÃ©dÃ© ; `nullptr` : le bloc neutre.
+<span style = "background-color:#dfd">    LightingBlock* _lighting = nullptr;</span>
+    /// La rÃ©vision du bloc liÃ© pour laquelle les liaisons ont Ã©tÃ© faites.
+<span style = "background-color:#dfd">    std::uint64_t _lightingRevision = 0;</span>
+    /// Ce que les prochains quads reÃ§oivent de la lumiÃ¨re.
+<span style = "background-color:#dfd">    SpriteShading _shading{};</span>
     std::unique_ptr&lt;QRhiBuffer&gt; _vertexBuffer;
     std::unique_ptr&lt;QRhiBuffer&gt; _indexBuffer;
     std::unique_ptr&lt;QRhiBuffer&gt; _uniformBuffer;
@@ -239,6 +277,8 @@ private:
     /// Descripteur de la passe pour laquelle `_pipeline` a Ã©tÃ© construit : un changement de cible
     /// (redimensionnement du widget, changement de fenÃªtre) impose de le reconstruire.
 <span style = "background-color:#dfd">    QRhiRenderPassDescriptor* _pipelinePass = nullptr;</span>
+    /// Nombre d'Ã©chantillons de la cible pour laquelle les pipelines ont Ã©tÃ© construits.
+<span style = "background-color:#dfd">    int _pipelineSamples = 1;</span>
     /// Liaisons par texture, gardÃ©es d'une image Ã  l'autre : les recrÃ©er Ã  chaque lot allouerait
     /// des ressources GPU des centaines de fois par seconde.
     std::unordered_map&lt;QRhiTexture*, std::unique_ptr&lt;QRhiShaderResourceBindings&gt;&gt; _bindings;

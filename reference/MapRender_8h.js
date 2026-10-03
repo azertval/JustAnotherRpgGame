@@ -5,9 +5,11 @@ var MapRender_8h =
     [ "hmi::MapRenderFrame", "structhmi_1_1MapRenderFrame.html", "structhmi_1_1MapRenderFrame" ],
     [ "hmi::mapRenderFrame", "namespacehmi.html#a51708f03902af8e6f04911b5c9e4a862", null ],
     [ "hmi::parseRenderLayers", "namespacehmi.html#aea9d8742fc17bfd6135f669a67430cd7", null ],
+    [ "hmi::placeDayLight", "namespacehmi.html#ad03f97e66187466ebe6a56db73429910", null ],
     [ "hmi::renderMap", "namespacehmi.html#a3c843b87b8612e61a4c7b1747f90f229", null ],
     [ "hmi::renderPixelsPerUnit", "namespacehmi.html#a615e8ce8a0c04cce11dd5c73e577f4c0", null ],
     [ "hmi::renderStamp", "namespacehmi.html#ae7f247079ad6dfe5c32dcc3dbc814f84", null ],
     [ "hmi::runRenderCommand", "namespacehmi.html#ad551059312355ed10cda2f2300d1a6b9", null ],
-    [ "hmi::MAP_RENDER_MAX_SIDE", "namespacehmi.html#aeb0082433e6f2272d8c1d754ee3d499a", null ]
+    [ "hmi::MAP_RENDER_MAX_SIDE", "namespacehmi.html#aeb0082433e6f2272d8c1d754ee3d499a", null ],
+    [ "hmi::MAP_RENDER_SHADOW_SIZE", "namespacehmi.html#a2fe297929e4550408ea3bf496b830964", null ]
 ];

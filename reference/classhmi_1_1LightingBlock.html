@@ -1,0 +1,829 @@
+<!-- SPDX-FileCopyrightText: 2026 Valentin Eloy
+     SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+     En-tête HTML de la référence de code (Doxygen 1.16.1).
+     C'est le gabarit livré par `doxygen -w html`, à une addition près : la barre commune du site,
+     insérée en premier enfant de `#top`. Elle y est, et pas avant, parce que Doxygen mesure la
+     hauteur de `#top` pour poser l'arbre de navigation et le contenu (`navtree.js`) : une barre
+     posée hors de ce bloc décalerait les deux de sa propre hauteur.
+     `Doxyfile` le charge par `HTML_HEADER`, et `DISABLE_INDEX = YES` remplace les onglets de
+     Doxygen par cette barre-ci — sinon le site aurait deux rangées de navigation qui se
+     répondent mal. La version de Doxygen est épinglée (ci.yml, docs.yml) : à sa prochaine montée,
+     regénérer ce gabarit et y réinsérer la barre, plutôt que de le rafistoler.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>JustAnotherRpgGame: hmi::LightingBlock Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="tokens.css" rel="stylesheet" type="text/css"/>
+<link href="topbar.css" rel="stylesheet" type="text/css"/>
+<link href="reference.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<header class="topbar topbar--flux">
+  <a class="brand" href="../index.html"><span>Just Another RPG Game</span> Documentation</a>
+  <nav>
+    <a href="../index.html">Accueil</a>
+    <a href="../Guide/index.html">Guide</a>
+    <a href="../Specification/index.html">Spécifications</a>
+    <a href="../CahierTest/index.html">Cahier de test</a>
+    <a href="index.html">Référence du code</a>
+    <a href="annotated.html">Classes</a>
+    <a href="namespaces.html">Espaces de noms</a>
+    <a href="files.html">Fichiers</a>
+  </nav>
+  <div class="links">
+    <a class="active" href="../index.html">Documentation</a>
+    <a href="../planning/index.html">Planification</a>
+    <a href="../qualite/index.html">Qualité</a>
+  </div>
+</header>
+<script type="text/javascript">
+/* La section courante, marquée à l'affichage : le gabarit est le même pour toutes les pages, et
+   seul le navigateur sait laquelle il montre. Une page de classe ou de fichier n'allume rien. */
+(function() {
+  var here = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.topbar nav a').forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href.indexOf('../') < 0 && href.split('/').pop() === here) { link.className = 'active'; }
+  });
+})();
+</script>
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">JustAnotherRpgGame<span id="projectnumber">&#160;0.0.2</span>
+   </div>
+   <div id="projectbrief">Jeu de rôle tactique au d20, vue de dessus, en C++/Qt</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('classhmi_1_1LightingBlock.html','','classhmi_1_1LightingBlock-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">hmi::LightingBlock Class Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Le bloc <span class="tt">Lighting</span> des shaders et la carte d'ombres, sur un <span class="tt">QRhi</span>.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LightingBlock_8h_source.html">LightingBlock.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac8663307c744c7f52f6d135fe49d0f96" id="r_ac8663307c744c7f52f6d135fe49d0f96"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac8663307c744c7f52f6d135fe49d0f96">LightingBlock</a> (QRhi *rhi)</td></tr>
+<tr class="memitem:ad897f146fdfdef601b938872e60484d3" id="r_ad897f146fdfdef601b938872e60484d3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad897f146fdfdef601b938872e60484d3">~LightingBlock</a> ()</td></tr>
+<tr class="memitem:a6c87d472aa8a3632ea28ddf2f2e028bb" id="r_a6c87d472aa8a3632ea28ddf2f2e028bb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6c87d472aa8a3632ea28ddf2f2e028bb">LightingBlock</a> (const LightingBlock &amp;)=delete</td></tr>
+<tr class="memitem:ac1fa935a93b6b12ba0799255c4267688" id="r_ac1fa935a93b6b12ba0799255c4267688"><td class="memItemLeft"><a class="el" href="#ac8663307c744c7f52f6d135fe49d0f96">LightingBlock</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ac1fa935a93b6b12ba0799255c4267688">operator=</a> (const <a class="el" href="#ac8663307c744c7f52f6d135fe49d0f96">LightingBlock</a> &amp;)=delete</td></tr>
+<tr class="memitem:a76bd3f059a8b4776fd5637f48cf15875" id="r_a76bd3f059a8b4776fd5637f48cf15875"><td class="memItemLeft">QRhiShaderResourceBinding&#160;</td><td class="memItemRight"><a class="el" href="#a76bd3f059a8b4776fd5637f48cf15875">uniformBinding</a> () const</td></tr>
+<tr class="memitem:ab2b397f66fbc05bdae21da83bac612b4" id="r_ab2b397f66fbc05bdae21da83bac612b4"><td class="memItemLeft">QRhiShaderResourceBinding&#160;</td><td class="memItemRight"><a class="el" href="#ab2b397f66fbc05bdae21da83bac612b4">shadowBinding</a> () const</td></tr>
+<tr class="memitem:ad5c367e4e676e9505bec10ade5388615" id="r_ad5c367e4e676e9505bec10ade5388615"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#ad5c367e4e676e9505bec10ade5388615">revision</a> () const noexcept</td></tr>
+<tr class="memitem:a33930bdeb0b27d5e05428d8cd0a8a60c" id="r_a33930bdeb0b27d5e05428d8cd0a8a60c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a33930bdeb0b27d5e05428d8cd0a8a60c">upload</a> (QRhiResourceUpdateBatch *updates, const <a class="el" href="structhmi_1_1LightingUniforms.html">LightingUniforms</a> &amp;uniforms)</td></tr>
+<tr class="memdesc:a33930bdeb0b27d5e05428d8cd0a8a60c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dépose <code class="param">uniforms</code> dans <code class="param">updates</code> : le bloc de la prochaine passe.  <br /></td></tr>
+<tr class="memitem:a2c487618067e92ef79d8201d3ce7b84e" id="r_a2c487618067e92ef79d8201d3ce7b84e"><td class="memItemLeft">QRhiResourceUpdateBatch *&#160;</td><td class="memItemRight"><a class="el" href="#a2c487618067e92ef79d8201d3ce7b84e">takePendingUpload</a> () noexcept</td></tr>
+<tr class="memdesc:a2c487618067e92ef79d8201d3ce7b84e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le téléversement du bloc <b>neutre</b> posé à la construction, s'il attend encore.  <br /></td></tr>
+<tr class="memitem:ac7e1ee2d098546768f56876950c38c4e" id="r_ac7e1ee2d098546768f56876950c38c4e"><td class="memItemLeft">QRhiTextureRenderTarget *&#160;</td><td class="memItemRight"><a class="el" href="#ac7e1ee2d098546768f56876950c38c4e">ensureShadowMap</a> (int size)</td></tr>
+<tr class="memdesc:ac7e1ee2d098546768f56876950c38c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Garantit une carte d'ombres de <code class="param">size</code> texels de côté et sa cible de rendu.  <br /></td></tr>
+<tr class="memitem:a4cd2398d7aa80bf7c24fa0f9b900b6b9" id="r_a4cd2398d7aa80bf7c24fa0f9b900b6b9"><td class="memItemLeft">QRhiTextureRenderTarget *&#160;</td><td class="memItemRight"><a class="el" href="#a4cd2398d7aa80bf7c24fa0f9b900b6b9">shadowTarget</a> () const noexcept</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a4cdda5a045ac94cf2bdeb79d9dfc4531" id="r_a4cdda5a045ac94cf2bdeb79d9dfc4531"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a4cdda5a045ac94cf2bdeb79d9dfc4531">UNIFORM_BINDING</a> = 3</td></tr>
+<tr class="memdesc:a4cdda5a045ac94cf2bdeb79d9dfc4531"><td class="mdescLeft">&#160;</td><td class="mdescRight">Points de liaison du bloc et de la carte d'ombres dans les shaders.  <br /></td></tr>
+<tr class="memitem:a5ec965a6753a7c2b4b47740888232409" id="r_a5ec965a6753a7c2b4b47740888232409"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a5ec965a6753a7c2b4b47740888232409">SHADOW_BINDING</a> = 4</td></tr>
+<tr class="memitem:abd4c7d41d4739ae9cb6aa5ba54ba5c2e" id="r_abd4c7d41d4739ae9cb6aa5ba54ba5c2e"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#abd4c7d41d4739ae9cb6aa5ba54ba5c2e">MINIMUM_SHADOW_SIZE</a> = 256</td></tr>
+<tr class="memdesc:abd4c7d41d4739ae9cb6aa5ba54ba5c2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bornes du côté de la carte d'ombres, en texels.  <br /></td></tr>
+<tr class="memitem:a4e62f1c7e706c61df3444ac454d5eeb8" id="r_a4e62f1c7e706c61df3444ac454d5eeb8"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a4e62f1c7e706c61df3444ac454d5eeb8">MAXIMUM_SHADOW_SIZE</a> = 8192</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a1214b6bff1704007dacf74e94febc46d" id="r_a1214b6bff1704007dacf74e94febc46d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1214b6bff1704007dacf74e94febc46d">createMap</a> (int size, bool withTarget)</td></tr>
+<tr class="memdesc:a1214b6bff1704007dacf74e94febc46d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Crée la carte de <code class="param">size</code> texels ; la précédente est gardée en cas d'échec.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a4d8bdcd91f9e9e97f028b9850fec09e0" id="r_a4d8bdcd91f9e9e97f028b9850fec09e0"><td class="memItemLeft">QRhi *&#160;</td><td class="memItemRight"><a class="el" href="#a4d8bdcd91f9e9e97f028b9850fec09e0">_rhi</a></td></tr>
+<tr class="memitem:a8a18772ee42c19b6ec0d48786a4db848" id="r_a8a18772ee42c19b6ec0d48786a4db848"><td class="memItemLeft">std::unique_ptr&lt; QRhiBuffer &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8a18772ee42c19b6ec0d48786a4db848">_buffer</a></td></tr>
+<tr class="memitem:abe37b396a9f92810bbbf5da967a39f14" id="r_abe37b396a9f92810bbbf5da967a39f14"><td class="memItemLeft">std::unique_ptr&lt; QRhiSampler &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abe37b396a9f92810bbbf5da967a39f14">_sampler</a></td></tr>
+<tr class="memitem:ababed22e946c9300df4afc82f4ac08c2" id="r_ababed22e946c9300df4afc82f4ac08c2"><td class="memItemLeft">std::unique_ptr&lt; QRhiTexture &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ababed22e946c9300df4afc82f4ac08c2">_map</a></td></tr>
+<tr class="memitem:a94e850c32d140ad8249d4b2bdaf4f355" id="r_a94e850c32d140ad8249d4b2bdaf4f355"><td class="memItemLeft">std::unique_ptr&lt; QRhiRenderPassDescriptor &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a94e850c32d140ad8249d4b2bdaf4f355">_pass</a></td></tr>
+<tr class="memitem:a7a78356770bafb35dc23b5cdda6d24d1" id="r_a7a78356770bafb35dc23b5cdda6d24d1"><td class="memItemLeft">std::unique_ptr&lt; QRhiTextureRenderTarget &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7a78356770bafb35dc23b5cdda6d24d1">_target</a></td></tr>
+<tr class="memitem:ac822c80201b74cb2ca59b5e40de36d06" id="r_ac822c80201b74cb2ca59b5e40de36d06"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac822c80201b74cb2ca59b5e40de36d06">_size</a> = 0</td></tr>
+<tr class="memitem:a3b60de77ccf04b6ffcf06b868a474a99" id="r_a3b60de77ccf04b6ffcf06b868a474a99"><td class="memItemLeft">std::uint64_t&#160;</td><td class="memItemRight"><a class="el" href="#a3b60de77ccf04b6ffcf06b868a474a99">_revision</a> = 0</td></tr>
+<tr class="memitem:ae10fb18460c59c9d918760885e46665d" id="r_ae10fb18460c59c9d918760885e46665d"><td class="memItemLeft">QRhiResourceUpdateBatch *&#160;</td><td class="memItemRight"><a class="el" href="#ae10fb18460c59c9d918760885e46665d">_pendingUpload</a> = nullptr</td></tr>
+<tr class="memdesc:ae10fb18460c59c9d918760885e46665d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Le téléversement du bloc neutre, tant qu'aucune passe ne l'a emporté.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Le bloc <span class="tt">Lighting</span> des shaders et la carte d'ombres, sur un <span class="tt">QRhi</span>. </p>
+<p><span class="tt"><a class="el" href="classhmi_1_1SpriteBatch.html" title="Dessine des quads texturés au travers de QRhi, avec transparence prémultipliée et un échantillonnage ...">hmi::SpriteBatch</a></span> et <span class="tt"><a class="el" href="classhmi_1_1MeshBatch.html">hmi::MeshBatch</a></span> lient chacun un bloc aux points 3 et 4 de leurs shaders. Chacun possède le sien, <b>neutre</b>, dès sa construction : un rendu qui ne règle pas d'éclairage — la galerie des assets, un test — dessine comme avant le lot. Le rendu d'un lieu leur en donne un commun (<span class="tt">setLighting</span>), qu'il remplit à chaque image.</p>
+<p>La carte d'ombres est une texture de profondeur lue par comparaison. Tant qu'aucune n'est demandée (<span class="tt"><a class="el" href="#ac7e1ee2d098546768f56876950c38c4e" title="Garantit une carte d&#39;ombres de size texels de côté et sa cible de rendu.">ensureShadowMap</a></span>), une carte d'un texel tient sa place : les liaisons d'un pipeline doivent être complètes, et le bloc neutre dit aux shaders de ne pas la lire.</p>
+<p><span class="tt"><a class="el" href="#ad5c367e4e676e9505bec10ade5388615">revision()</a></span> avance quand la carte d'ombres change d'objet : les liaisons qui la citaient sont alors à refaire. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac8663307c744c7f52f6d135fe49d0f96" name="ac8663307c744c7f52f6d135fe49d0f96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8663307c744c7f52f6d135fe49d0f96">&#9670;&#160;</a></span>LightingBlock() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::LightingBlock::LightingBlock </td>
+          <td>(</td>
+          <td class="paramtype">QRhi *</td>          <td class="paramname"><span class="paramname"><em>rhi</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel explicit">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>Si le tampon, la carte ou l'échantillonneur ne se créent pas. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad897f146fdfdef601b938872e60484d3" name="ad897f146fdfdef601b938872e60484d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad897f146fdfdef601b938872e60484d3">&#9670;&#160;</a></span>~LightingBlock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::LightingBlock::~LightingBlock </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c87d472aa8a3632ea28ddf2f2e028bb" name="a6c87d472aa8a3632ea28ddf2f2e028bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c87d472aa8a3632ea28ddf2f2e028bb">&#9670;&#160;</a></span>LightingBlock() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">hmi::LightingBlock::LightingBlock </td>
+          <td>(</td>
+          <td class="paramtype">const LightingBlock &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a1214b6bff1704007dacf74e94febc46d" name="a1214b6bff1704007dacf74e94febc46d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1214b6bff1704007dacf74e94febc46d">&#9670;&#160;</a></span>createMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool hmi::LightingBlock::createMap </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>withTarget</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Crée la carte de <code class="param">size</code> texels ; la précédente est gardée en cas d'échec. </p>
+
+</div>
+</div>
+<a id="ac7e1ee2d098546768f56876950c38c4e" name="ac7e1ee2d098546768f56876950c38c4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7e1ee2d098546768f56876950c38c4e">&#9670;&#160;</a></span>ensureShadowMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QRhiTextureRenderTarget * hmi::LightingBlock::ensureShadowMap </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>size</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Garantit une carte d'ombres de <code class="param">size</code> texels de côté et sa cible de rendu. </p>
+<dl class="section return"><dt>Returns</dt><dd>La cible, ou <span class="tt">nullptr</span> si elle ne se crée pas : l'image se dessine alors sans ombres. </dd></dl>
+
+</div>
+</div>
+<a id="ac1fa935a93b6b12ba0799255c4267688" name="ac1fa935a93b6b12ba0799255c4267688"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1fa935a93b6b12ba0799255c4267688">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ac8663307c744c7f52f6d135fe49d0f96">LightingBlock</a> &amp; hmi::LightingBlock::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#ac8663307c744c7f52f6d135fe49d0f96">LightingBlock</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad5c367e4e676e9505bec10ade5388615" name="ad5c367e4e676e9505bec10ade5388615"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5c367e4e676e9505bec10ade5388615">&#9670;&#160;</a></span>revision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint64_t hmi::LightingBlock::revision </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Un compte qui avance quand la carte d'ombres change d'objet. </dd></dl>
+
+</div>
+</div>
+<a id="ab2b397f66fbc05bdae21da83bac612b4" name="ab2b397f66fbc05bdae21da83bac612b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2b397f66fbc05bdae21da83bac612b4">&#9670;&#160;</a></span>shadowBinding()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QRhiShaderResourceBinding hmi::LightingBlock::shadowBinding </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La liaison de la carte d'ombres, au point <span class="tt"><a class="el" href="#a5ec965a6753a7c2b4b47740888232409">SHADOW_BINDING</a></span> de l'étage de fragment. </dd></dl>
+
+</div>
+</div>
+<a id="a4cd2398d7aa80bf7c24fa0f9b900b6b9" name="a4cd2398d7aa80bf7c24fa0f9b900b6b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cd2398d7aa80bf7c24fa0f9b900b6b9">&#9670;&#160;</a></span>shadowTarget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QRhiTextureRenderTarget * hmi::LightingBlock::shadowTarget </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La cible de la carte d'ombres courante ; <span class="tt">nullptr</span> tant qu'aucune n'est demandée. </dd></dl>
+
+</div>
+</div>
+<a id="a2c487618067e92ef79d8201d3ce7b84e" name="a2c487618067e92ef79d8201d3ce7b84e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c487618067e92ef79d8201d3ce7b84e">&#9670;&#160;</a></span>takePendingUpload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QRhiResourceUpdateBatch * hmi::LightingBlock::takePendingUpload </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le téléversement du bloc <b>neutre</b> posé à la construction, s'il attend encore. </p>
+<p>Un téléversement ne se soumet qu'avec une passe : qui lie le bloc le prend à sa première image et le joint à son lot. <span class="tt">nullptr</span> une fois pris. </p>
+
+</div>
+</div>
+<a id="a76bd3f059a8b4776fd5637f48cf15875" name="a76bd3f059a8b4776fd5637f48cf15875"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76bd3f059a8b4776fd5637f48cf15875">&#9670;&#160;</a></span>uniformBinding()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QRhiShaderResourceBinding hmi::LightingBlock::uniformBinding </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>La liaison du bloc uniforme, au point <span class="tt"><a class="el" href="#a4cdda5a045ac94cf2bdeb79d9dfc4531" title="Points de liaison du bloc et de la carte d&#39;ombres dans les shaders.">UNIFORM_BINDING</a></span> de l'étage de fragment. </dd></dl>
+
+</div>
+</div>
+<a id="a33930bdeb0b27d5e05428d8cd0a8a60c" name="a33930bdeb0b27d5e05428d8cd0a8a60c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33930bdeb0b27d5e05428d8cd0a8a60c">&#9670;&#160;</a></span>upload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void hmi::LightingBlock::upload </td>
+          <td>(</td>
+          <td class="paramtype">QRhiResourceUpdateBatch *</td>          <td class="paramname"><span class="paramname"><em>updates</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmi_1_1LightingUniforms.html">LightingUniforms</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>uniforms</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dépose <code class="param">uniforms</code> dans <code class="param">updates</code> : le bloc de la prochaine passe. </p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a8a18772ee42c19b6ec0d48786a4db848" name="a8a18772ee42c19b6ec0d48786a4db848"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a18772ee42c19b6ec0d48786a4db848">&#9670;&#160;</a></span>_buffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QRhiBuffer&gt; hmi::LightingBlock::_buffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ababed22e946c9300df4afc82f4ac08c2" name="ababed22e946c9300df4afc82f4ac08c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ababed22e946c9300df4afc82f4ac08c2">&#9670;&#160;</a></span>_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QRhiTexture&gt; hmi::LightingBlock::_map</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a94e850c32d140ad8249d4b2bdaf4f355" name="a94e850c32d140ad8249d4b2bdaf4f355"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94e850c32d140ad8249d4b2bdaf4f355">&#9670;&#160;</a></span>_pass</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QRhiRenderPassDescriptor&gt; hmi::LightingBlock::_pass</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae10fb18460c59c9d918760885e46665d" name="ae10fb18460c59c9d918760885e46665d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae10fb18460c59c9d918760885e46665d">&#9670;&#160;</a></span>_pendingUpload</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QRhiResourceUpdateBatch* hmi::LightingBlock::_pendingUpload = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Le téléversement du bloc neutre, tant qu'aucune passe ne l'a emporté. </p>
+
+</div>
+</div>
+<a id="a3b60de77ccf04b6ffcf06b868a474a99" name="a3b60de77ccf04b6ffcf06b868a474a99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b60de77ccf04b6ffcf06b868a474a99">&#9670;&#160;</a></span>_revision</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint64_t hmi::LightingBlock::_revision = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4d8bdcd91f9e9e97f028b9850fec09e0" name="a4d8bdcd91f9e9e97f028b9850fec09e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d8bdcd91f9e9e97f028b9850fec09e0">&#9670;&#160;</a></span>_rhi</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QRhi* hmi::LightingBlock::_rhi</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abe37b396a9f92810bbbf5da967a39f14" name="abe37b396a9f92810bbbf5da967a39f14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe37b396a9f92810bbbf5da967a39f14">&#9670;&#160;</a></span>_sampler</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QRhiSampler&gt; hmi::LightingBlock::_sampler</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac822c80201b74cb2ca59b5e40de36d06" name="ac822c80201b74cb2ca59b5e40de36d06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac822c80201b74cb2ca59b5e40de36d06">&#9670;&#160;</a></span>_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::LightingBlock::_size = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a78356770bafb35dc23b5cdda6d24d1" name="a7a78356770bafb35dc23b5cdda6d24d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a78356770bafb35dc23b5cdda6d24d1">&#9670;&#160;</a></span>_target</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;QRhiTextureRenderTarget&gt; hmi::LightingBlock::_target</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e62f1c7e706c61df3444ac454d5eeb8" name="a4e62f1c7e706c61df3444ac454d5eeb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e62f1c7e706c61df3444ac454d5eeb8">&#9670;&#160;</a></span>MAXIMUM_SHADOW_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::LightingBlock::MAXIMUM_SHADOW_SIZE = 8192</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abd4c7d41d4739ae9cb6aa5ba54ba5c2e" name="abd4c7d41d4739ae9cb6aa5ba54ba5c2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd4c7d41d4739ae9cb6aa5ba54ba5c2e">&#9670;&#160;</a></span>MINIMUM_SHADOW_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::LightingBlock::MINIMUM_SHADOW_SIZE = 256</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bornes du côté de la carte d'ombres, en texels. </p>
+
+</div>
+</div>
+<a id="a5ec965a6753a7c2b4b47740888232409" name="a5ec965a6753a7c2b4b47740888232409"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ec965a6753a7c2b4b47740888232409">&#9670;&#160;</a></span>SHADOW_BINDING</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::LightingBlock::SHADOW_BINDING = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4cdda5a045ac94cf2bdeb79d9dfc4531" name="a4cdda5a045ac94cf2bdeb79d9dfc4531"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cdda5a045ac94cf2bdeb79d9dfc4531">&#9670;&#160;</a></span>UNIFORM_BINDING</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int hmi::LightingBlock::UNIFORM_BINDING = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Points de liaison du bloc et de la carte d'ombres dans les shaders. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="LightingBlock_8h_source.html">LightingBlock.h</a></li>
+<li>/home/runner/work/JustAnotherRpgGame/JustAnotherRpgGame/Source/HMI/Graphics/<a class="el" href="LightingBlock_8cpp.html">LightingBlock.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="namespacehmi.html">hmi</a></li><li class="navelem"><a href="classhmi_1_1LightingBlock.html">LightingBlock</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

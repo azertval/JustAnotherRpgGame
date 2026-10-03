@@ -3,7 +3,7 @@ var classhmi_1_1ComposedScene =
     [ "addLine", "classhmi_1_1ComposedScene.html#a84dc1784abf8931b638de5929894ad54", null ],
     [ "addMesh", "classhmi_1_1ComposedScene.html#a9f7f68a120268b43d9f1feb65ac335ae", null ],
     [ "addPoly", "classhmi_1_1ComposedScene.html#a0c47046f62c3e7fec88c4e28bfb649b8", null ],
-    [ "addSprite", "classhmi_1_1ComposedScene.html#a776bb0228de0fffc9caded06d5bc3e46", null ],
+    [ "addSprite", "classhmi_1_1ComposedScene.html#a5aaf4ee97410652c4f4b51854eb424c5", null ],
     [ "batchCount", "classhmi_1_1ComposedScene.html#a751bbaba08ad6bd4f8104723af3b95df", null ],
     [ "clear", "classhmi_1_1ComposedScene.html#ab51e478d9d4ad48ceeaac4f1e384d1ae", null ],
     [ "clearVisibleBounds", "classhmi_1_1ComposedScene.html#a6ddbe31611a024e417b36bf6f8680da1", null ],

@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>LightingBlock.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#include "HMI/Graphics/LightingBlock.h"
+
+#include &lt;algorithm&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+
+#include &lt;rhi/qrhi.h&gt;
+
+#include "HMI/Graphics/GraphicsLog.h"
+
+namespace hmi {
+
+namespace {
+
+constexpr int UNIFORM_BYTES = static_cast&lt;int&gt;(sizeof(LightingUniforms));
+
+}  // namespace
+
+<span style = "background-color:#dfd">LightingBlock::LightingBlock(QRhi* rhi) : _rhi(rhi) {
+    if (_rhi == nullptr) {</span>
+<span style = "background-color:#fdd">        throw std::runtime_error("LightingBlock : QRhi nul");</span>
+    }
+<span style = "background-color:#dfd">    _buffer.reset(_rhi-&gt;newBuffer(QRhiBuffer::Dynamic, QRhiBuffer::UniformBuffer, UNIFORM_BYTES));</span>
+    // Lue par comparaison, lissee : quatre texels compares se melangent en une lecture, ce qui
+    // adoucit deja le bord d'une ombre. Hors de la carte, le bord est repete -- le shader n'y lit
+    // pas.
+<span style = "background-color:#dfd">    _sampler.reset(_rhi-&gt;newSampler(QRhiSampler::Linear, QRhiSampler::Linear, QRhiSampler::None,</span>
+                                    QRhiSampler::ClampToEdge, QRhiSampler::ClampToEdge));
+<span style = "background-color:#dfd">    _sampler-&gt;setTextureCompareOp(QRhiSampler::LessOrEqual);
+    if (!_buffer-&gt;create() || !_sampler-&gt;create() || !createMap(1, false)) {</span>
+<span style = "background-color:#fdd">        throw std::runtime_error("LightingBlock : echec de creation du bloc d'eclairage");</span>
+    }
+    // Le bloc neutre : tant que personne n'en televerse un autre, les shaders dessinent comme
+    // avant le lot.
+<span style = "background-color:#dfd">    QRhiResourceUpdateBatch* const initial = _rhi-&gt;nextResourceUpdateBatch();
+    upload(initial, LightingUniforms{});
+    _pendingUpload = initial;
+}</span>
+
+<span style = "background-color:#dfd">LightingBlock::~LightingBlock() {
+    if (_pendingUpload != nullptr) {
+        _pendingUpload-&gt;release();</span>
+    }
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">QRhiShaderResourceBinding LightingBlock::uniformBinding() const {
+    return QRhiShaderResourceBinding::uniformBuffer(</span>
+        UNIFORM_BINDING, QRhiShaderResourceBinding::FragmentStage, _buffer.get());
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">QRhiShaderResourceBinding LightingBlock::shadowBinding() const {
+    return QRhiShaderResourceBinding::sampledTexture(</span>
+        SHADOW_BINDING, QRhiShaderResourceBinding::FragmentStage, _map.get(), _sampler.get());
+<span style = "background-color:#dfd">}</span>
+
+<span style = "background-color:#dfd">void LightingBlock::upload(QRhiResourceUpdateBatch* updates, const LightingUniforms&amp; uniforms) {
+    if (updates == nullptr) {</span>
+<span style = "background-color:#fdd">        return;</span>
+    }
+    // Le bloc neutre de la construction n'a plus lieu d'etre : joint au lot apres ce
+    // televersement, il l'ecraserait -- et la premiere image serait sans lumiere.
+<span style = "background-color:#dfd">    if (updates != _pendingUpload &amp;&amp; _pendingUpload != nullptr) {
+        _pendingUpload-&gt;release();
+        _pendingUpload = nullptr;</span>
+    }
+<span style = "background-color:#dfd">    updates-&gt;updateDynamicBuffer(_buffer.get(), 0, UNIFORM_BYTES, &amp;uniforms);
+}</span>
+
+<span style = "background-color:#dfd">QRhiResourceUpdateBatch* LightingBlock::takePendingUpload() noexcept {
+    return std::exchange(_pendingUpload, nullptr);
+}</span>
+
+<span style = "background-color:#dfd">bool LightingBlock::createMap(int size, bool withTarget) {
+    std::unique_ptr&lt;QRhiTexture&gt; map(</span>
+        _rhi-&gt;newTexture(QRhiTexture::D32F, QSize(size, size), 1, QRhiTexture::RenderTarget));
+<span style = "background-color:#dfd">    if (!map-&gt;create()) {</span>
+<span style = "background-color:#fdd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    std::unique_ptr&lt;QRhiTextureRenderTarget&gt; target;
+    std::unique_ptr&lt;QRhiRenderPassDescriptor&gt; pass;
+    if (withTarget) {
+        QRhiTextureRenderTargetDescription description;
+        description.setDepthTexture(map.get());
+        target.reset(_rhi-&gt;newTextureRenderTarget(description));
+        pass.reset(target-&gt;newCompatibleRenderPassDescriptor());
+        target-&gt;setRenderPassDescriptor(pass.get());
+        if (!target-&gt;create()) {</span>
+<span style = "background-color:#fdd">            return false;</span>
+        }
+<span style = "background-color:#dfd">    }</span>
+    // L'ordre : la cible designe la carte et sa passe.
+<span style = "background-color:#dfd">    _target = std::move(target);
+    _pass = std::move(pass);
+    _map = std::move(map);
+    _size = size;
+    ++_revision;
+    return true;
+}</span>
+
+<span style = "background-color:#dfd">QRhiTextureRenderTarget* LightingBlock::ensureShadowMap(int size) {
+    const int wanted = std::clamp(size, MINIMUM_SHADOW_SIZE, MAXIMUM_SHADOW_SIZE);
+    if (_target &amp;&amp; _size == wanted) {
+        return _target.get();</span>
+    }
+<span style = "background-color:#dfd">    if (!createMap(wanted, true)) {</span>
+<span style = "background-color:#fdd">        GRAPHICS_LOG_WARNING("Eclairage : la carte d'ombres de " + std::to_string(wanted) +</span>
+                             " texels ne se cree pas, l'image se dessine sans ombres");
+<span style = "background-color:#fdd">        return nullptr;</span>
+    }
+<span style = "background-color:#dfd">    return _target.get();
+}</span>
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

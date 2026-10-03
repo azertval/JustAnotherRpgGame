@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>Quad.h</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+// SPDX-FileCopyrightText: 2026 Valentin Eloy
+// SPDX-License-Identifier: PolyForm-Noncommercial-1.0.0
+
+#pragma once
+
+#include &lt;array&gt;
+
+/**
+ * @file HMI/Graphics/Quad.h
+ * @brief Primitives de dessin 2D (quads texturÃ©s), **indÃ©pendantes de Direct3D**.
+ *
+ * Ces structures dÃ©crivent *quoi* dessiner, jamais *comment* : elles ne rÃ©fÃ©rencent aucune
+ * ressource Direct3D et sont donc manipulables par la **composition** du rendu
+ * (`hmi::ComposedScene`), qui doit rester testable sans GPU (`EX-NFR-004`). `hmi::SpriteBatch` les
+ * consomme cÃ´tÃ© soumission ; son contrat public est inchangÃ© (il les expose toujours via
+ * `HMI/Graphics/SpriteBatch.h`, qui inclut ce fichier).
+ */
+
+namespace hmi {
+
+/**
+ * @brief Un quad texturÃ© Ã  dessiner : rectangle en **unitÃ©s monde**, rÃ©gion de texture
+ *        (coordonnÃ©es normalisÃ©es) et teinte.
+ *
+ * Le coin (`x`, `y`) est haut-gauche **avant rotation**, l'axe Y va vers le bas (convention du
+ * projet). Les coordonnÃ©es de texture `u,v` sont normalisÃ©es dans [0, 1] ; la conversion depuis
+ * une rÃ©gion d'atlas en pixels est faite en amont (par le rendu des sprites). `rotation` (radians)
+ * tourne le rectangle autour de **son propre centre** â nul par dÃ©faut, donc
+ * sans coÃ»t ni diffÃ©rence visuelle pour les quads alignÃ©s aux axes (tuiles, personnage).
+ */
+struct SpriteQuad {
+    float x = 0.0f;
+    float y = 0.0f;
+    float width = 0.0f;
+    float height = 0.0f;
+<span style = "background-color:#dfd">    float rotation = 0.0f;
+    float u0 = 0.0f;
+    float v0 = 0.0f;
+    float u1 = 1.0f;
+    float v1 = 1.0f;
+    float r = 1.0f;
+    float g = 1.0f;
+    float b = 1.0f;
+    float a = 1.0f;</span>
+
+    [[nodiscard]] bool operator==(const SpriteQuad&amp;) const = default;
+};
+
+/**
+ * @brief Un quadrilatÃ¨re Ã  **quatre sommets libres**, en unitÃ©s monde, d'une seule teinte â la
+ *        primitive du **rendu de maquette** (`LOT-128`, dÃ©cision D1).
+ *
+ * Un losange isomÃ©trique n'est ni un `SpriteQuad` (rectangle alignÃ© sur les axes) ni un `LineQuad`
+ * (segment) : au rapport 0,62, ce n'est mÃªme pas un carrÃ© tournÃ©, puisque sa hauteur et sa largeur
+ * ne sont pas dans le mÃªme rapport que ses cÃ´tÃ©s. Les faces d'un bloc extrudÃ© sont, elles, des
+ * parallÃ©logrammes. Un quad Ã  sommets libres couvre les deux, et n'est **pas** un cas nouveau pour
+ * le GPU : un quad, ce sont dÃ©jÃ  quatre sommets, et `SpriteBatch::draw(const LineQuad&amp;)` en produit
+ * dÃ©jÃ  Ã  des positions libres.
+ *
+ * Les sommets se donnent dans l'ordre du **pourtour** (sans croisement), mÃªme convention que les
+ * coins des deux autres primitives : le tampon d'indices attend un quadrilatÃ¨re convexe cohÃ©rent.
+ * La texture liÃ©e est l'aplat blanc 1 Ã 1 (`hmi::ScenePieceTextures::solid`), de sorte que la
+ * teinte seule dÃ©cide de la couleur, et que le culling, le regroupement par texture et le tri
+ * restent ceux de toutes les autres primitives.
+ */
+struct PolyQuad {
+    std::array&lt;float, 4&gt; x{};
+    std::array&lt;float, 4&gt; y{};
+    /// L'**Ã©lÃ©vation** de chaque sommet au-dessus du sol, mesurÃ©e Ã  l'Ã©cran en unitÃ©s monde
+    /// (`LOT-1003`) : 0 pour un sommet posÃ© au sol, la hauteur d'un bloc pour son dessus. Elle ne
+    /// dÃ©place rien â `y` est dÃ©jÃ  l'ordonnÃ©e du sommet Ã©levÃ© â et ne sert qu'Ã  sa **profondeur**,
+    /// quand la scÃ¨ne a des maillages (`hmi::IsoView::raisedDepth`).
+    std::array&lt;float, 4&gt; rise{};
+    float u0 = 0.0f;
+    float v0 = 0.0f;
+    float u1 = 1.0f;
+    float v1 = 1.0f;
+    float r = 1.0f;
+    float g = 1.0f;
+    float b = 1.0f;
+    float a = 1.0f;
+
+    [[nodiscard]] bool operator==(const PolyQuad&amp;) const = default;
+};
+
+/**
+ * @brief Un segment Ã©pais Ã  dessiner : deux extrÃ©mitÃ©s en **unitÃ©s monde**, une Ã©paisseur
+ *        (perpendiculaire au segment, unitÃ©s monde) et une teinte.
+ *
+ * Contrairement Ã  `SpriteQuad` (rectangle toujours alignÃ© aux axes), ce quad peut Ãªtre **orientÃ©**
+ * dans n'importe quelle direction â utilisÃ© pour les liens de mÃ©canismes (flÃ¨ches
+ * dÃ©clencheur â cible). MÃªmes conventions que `SpriteQuad` (Y vers le bas, UV normalisÃ©es).
+ */
+struct LineQuad {
+    float ax = 0.0f;
+    float ay = 0.0f;
+    float bx = 0.0f;
+    float by = 0.0f;
+    float thickness = 0.0f;
+    float u0 = 0.0f;
+    float v0 = 0.0f;
+    float u1 = 1.0f;
+    float v1 = 1.0f;
+    float r = 1.0f;
+    float g = 1.0f;
+    float b = 1.0f;
+    float a = 1.0f;
+
+    [[nodiscard]] bool operator==(const LineQuad&amp;) const = default;
+};
+
+/**
+ * @brief Ce qu'une primitive reÃ§oit de la **lumiÃ¨re du lieu** (`LOT-1007`).
+ *
+ * La valeur d'usine â rien â est celle d'avant le lot : la primitive garde son Ã©clat. C'est celle
+ * d'une marque d'interface, d'un jeton, d'un effet lumineux.
+ */
+struct SpriteShading {
+    /// La part de la lumiÃ¨re du lieu qu'elle prend, de 0 (elle garde son Ã©clat) Ã  1 (elle prend
+    /// la teinte de l'heure et les lumiÃ¨res de nuit comme le reste du dÃ©cor).
+    float lit = 0.0F;
+    /// Vrai si elle reÃ§oit les ombres portÃ©es : le sol.
+    bool shadowed = false;
+
+    [[nodiscard]] bool operator==(const SpriteShading&amp;) const = default;
+};
+
+}  // namespace hmi</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

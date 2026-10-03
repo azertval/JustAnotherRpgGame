@@ -90,7 +90,7 @@ namespace {
 
 // Soumet une scene composee au pipeline de dessin, une passe par groupe de texture.
 void submitComposedScene(SpriteBatch&amp; batch, const DirectX::XMFLOAT4X4&amp; projection,
-<span style = "background-color:#dfd">                         const ComposedScene&amp; scene, const SceneDepth* depth) {
+<span style = "background-color:#dfd">                         const ComposedScene&amp; scene, const SceneDepth* depth, bool lit) {
     const std::vector&lt;ComposedQuad&gt;&amp; quads = scene.quads();
     TextureHandle current = nullptr;
     bool open = false;</span>
@@ -108,6 +108,9 @@ void submitComposedScene(SpriteBatch&amp; batch, const DirectX::XMFLOAT4X4&amp; 
 <span style = "background-color:#dfd">            batch.begin(projection, composed.texture);
             current = composed.texture;
             open = true;</span>
+        }
+<span style = "background-color:#dfd">        if (lit) {
+            batch.setShading(composed.shading());</span>
         }
 <span style = "background-color:#dfd">        if (depth != nullptr) {
             drawInDepth(batch, composed, *depth);
