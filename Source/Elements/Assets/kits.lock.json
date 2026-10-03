@@ -2,13 +2,13 @@
   "version": 1,
   "kits": [
     {
-      "id": "Common@7",
+      "id": "Common@8",
       "path": "Common",
       "release": "assets-common",
-      "asset": "common-7.zip",
-      "sha256": "a1b1c140893353d1f572fdf1bbce48a7afb4d4298dcca3c560b22f8b1e83b3e2",
-      "bytes": 41607273,
-      "files": 35
+      "asset": "common-8.zip",
+      "sha256": "9fb493d66e057207d70284a166d85e2ceda629a29f61f3816586a86c6cb9b883",
+      "bytes": 68290935,
+      "files": 38
     },
     {
       "id": "Maps@1",
@@ -20,22 +20,22 @@
       "files": 16
     },
     {
-      "id": "Regions/central-empire/Common@2",
+      "id": "Regions/central-empire/Common@3",
       "path": "Regions/central-empire/Common",
       "release": "assets-central-empire",
-      "asset": "regions-central-empire-common-2.zip",
-      "sha256": "0bc7c37c22eb632d9611926010ec7434afa270e4aba75d76f99b8060cdd64215",
-      "bytes": 761292,
-      "files": 6
+      "asset": "regions-central-empire-common-3.zip",
+      "sha256": "dfaa003c084696ac70ed65c3c34011316c3da7d6a2dec34f2e2629208429e2c1",
+      "bytes": 10619520,
+      "files": 7
     },
     {
-      "id": "Regions/central-empire/capital/Common@2",
+      "id": "Regions/central-empire/capital/Common@3",
       "path": "Regions/central-empire/capital/Common",
       "release": "assets-central-empire",
-      "asset": "regions-central-empire-capital-common-2.zip",
-      "sha256": "b0bb2d1447defd28789d2391fac2f7c5c5bfec45afab633c1e561335f63a9d73",
-      "bytes": 106692773,
-      "files": 1736
+      "asset": "regions-central-empire-capital-common-3.zip",
+      "sha256": "ec4460ec8824ab6aec1efae772f9ec1491d8889ba586280d7c5e9af9cf60f88b",
+      "bytes": 116052085,
+      "files": 1737
     },
     {
       "id": "Regions/central-empire/capital/arenarea@2",
@@ -47,22 +47,22 @@
       "files": 463
     },
     {
-      "id": "Regions/central-empire/capital/arenarea/arena-of-fate@3",
+      "id": "Regions/central-empire/capital/arenarea/arena-of-fate@4",
       "path": "Regions/central-empire/capital/arenarea/arena-of-fate",
       "release": "assets-central-empire",
-      "asset": "regions-central-empire-capital-arenarea-arena-of-fate-3.zip",
-      "sha256": "2bd4808c5f10d9c9cf87fb620ac2ff4312a21e120291b3b73edc0e74f266f302",
-      "bytes": 17969352,
-      "files": 46
+      "asset": "regions-central-empire-capital-arenarea-arena-of-fate-4.zip",
+      "sha256": "ee54df003cb545714c03b2b5b87e4d26ca98d9dff6ffe59222aad0bfb5d89ce9",
+      "bytes": 112018464,
+      "files": 56
     },
     {
-      "id": "Regions/central-empire/capital/martpart@2",
+      "id": "Regions/central-empire/capital/martpart@3",
       "path": "Regions/central-empire/capital/martpart",
       "release": "assets-central-empire",
-      "asset": "regions-central-empire-capital-martpart-2.zip",
-      "sha256": "f9a9da7c0239aab555796de5841311ef8859775b784f39063a2848d117e76947",
-      "bytes": 826143,
-      "files": 3
+      "asset": "regions-central-empire-capital-martpart-3.zip",
+      "sha256": "791af15a32044ebb813a51758efaf7f3fecd2c9d4df942928d0a5266601db7a2",
+      "bytes": 10268355,
+      "files": 4
     },
     {
       "id": "UI@6",

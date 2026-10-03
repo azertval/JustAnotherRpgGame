@@ -4,8 +4,7 @@
     256,
     159
   ],
-  "npcs": [],
-  "portraits": [
+  "npcs": [
     "mother"
   ],
   "sources": {
@@ -16,6 +15,23 @@
     "mother/token.png": {
       "file": "Personnages/mother/portraits/source.png",
       "sha256": "1e507ca656198fbceea40fb5cef74f92ad75136862fdaad70358f1c297d34414"
+    }
+  },
+  "models": {
+    "mother": {
+      "model": "mother/mother.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.729,
+        1.902,
+        0.503
+      ],
+      "sha256": "c37585ef1572c8087f20f20612e2a0809c259e6f72405b91bafb4c443a4e14b0",
+      "source": {
+        "file": "Lies/mother/mother.glb",
+        "sha256": "c37585ef1572c8087f20f20612e2a0809c259e6f72405b91bafb4c443a4e14b0"
+      }
     }
   }
 }

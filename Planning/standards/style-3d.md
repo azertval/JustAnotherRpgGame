@@ -202,7 +202,7 @@ plus rien ne s'y ajoute.
 | Le **contour sombre** : passe dédiée, ou abandon | l'auteur, sur le kit rendu avec et sans | LOT-151 |
 | La **forme** — maillage ou image — de chaque pièce des familles 02, 03, 04, 07, 09, 10 | la fiche du lot, pièce par pièce | LOT-151 |
 | Le budget d'un maillage **de décor** | la mesure sur le kit de la Capitale | LOT-151 |
-| Le squelette `quadruped`, ses clips, son image de référence | le lion et le loup de l'arène | LOT-1009 |
+| Le squelette `quadruped`, ses clips, son image de référence | le lion et le loup de l'arène | LOT-1011 |
 | La silhouette `flying` : un squelette par morphologie | ses créatures | avec le premier lot qui en produit une |
 
 ## 9. Ce que le standard interdit

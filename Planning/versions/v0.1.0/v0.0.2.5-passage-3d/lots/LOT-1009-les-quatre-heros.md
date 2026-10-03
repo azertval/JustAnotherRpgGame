@@ -3,7 +3,7 @@ id = "LOT-1009"
 titre = "Les personnages de la démo"
 version = "0.0.2.5"
 filiere = "pnj"
-statut = "a-faire"
+statut = "livre"
 taille = "L"
 resume = "Les quatre héros, les PNJ de la quête, les adversaires et les fauves de l'arène sont des modèles produits par la chaîne du standard : une image de référence, un maillage sans arme, une fiche de liaison — la première série, et son coût."
 prerequis = ["LOT-1008"]
@@ -22,6 +22,11 @@ criteres = [
   "La liste `portraits` n'existe plus dans le manifeste `Characters/` ; `check_hd_assets.py` refuse un héros sans modèle.",
 ]
 +++
+
+> **Livré le 3 octobre 2026 sur les dix-huit humanoïdes** (PR #174). Le squelette `quadruped`
+> n'existait pas ; les deux fauves sont un lot à part, le [LOT-1011](LOT-1011-les-fauves-de-l-arene.md),
+> comme le prévoyait la rubrique « Risques » ci-dessous. La liste `portraits` ne porte plus que le
+> lion et le loup, et part avec eux.
 
 ## Pourquoi
 
@@ -74,9 +79,9 @@ Dehors, nommément :
 
 | Quoi | Où | Pourquoi maintenant |
 |---|---|---|
-| Le **portrait d'attente** : un héros sans figurine, porté par la liste `portraits` | `Source/Elements/Assets/Common/Characters/manifest.json` ; sa prise en charge dans `check_hd_assets.py`, `install_hd_asset.py` et `hmi::AssetGallery` | les quatre ont leur modèle ; le concept (`LOT-145`) n'a plus de cas |
-| Le brawler et le scoundrel **de la preuve** | atelier local `Tools/Assets3D/Meshy-test/` ; le modèle du brawler installé au LOT-1006 | les quatre héros sont refaits au standard (décision de l'auteur) ; les données d'essai du moteur (`Source/Test/Fixtures/`) restent, elles ne sont pas des héros |
-| Le repli de ces personnages sur le mannequin ou le jeton | les propriétés `figure` vides des cartes de la démo : elles nomment leur modèle | plus aucun personnage de la démo ne doit y tomber |
+| Le **portrait d'attente** : un héros sans figurine, porté par la liste `portraits` | `Source/Elements/Assets/Common/Characters/manifest.json` ; sa prise en charge dans `check_hd_assets.py`, `install_hd_asset.py` et `hmi::AssetGallery` — **retiré pour les héros** (la liste a quitté le manifeste du commun, `check_hd_assets.py` refuse un héros sans modèle ; la part de l'installateur est partie au LOT-1008) ; la liste ne porte plus que le lion et le loup, et part avec eux au LOT-1011 | les quatre ont leur modèle ; le concept (`LOT-145`) n'a plus de cas |
+| Le brawler et le scoundrel **de la preuve** | atelier local `Tools/Assets3D/Meshy-test/` ; le modèle du brawler installé au LOT-1006 — **fait** : le brawler installé est le modèle de production, le dossier de la preuve n'est plus dans l'atelier | les quatre héros sont refaits au standard (décision de l'auteur) ; les données d'essai du moteur (`Source/Test/Fixtures/`) restent, elles ne sont pas des héros |
+| Le repli de ces personnages sur le mannequin ou le jeton | les propriétés `figure` vides des cartes de la démo : elles nomment leur modèle — **fait**, toutes nomment leur personnage ; seuls le lion et le loup tombent encore sur le mannequin (LOT-1011) | plus aucun personnage de la démo ne doit y tomber |
 | Les sources 2D des quatre classes | atelier local : `Tools/AssetHd/NPC/Classes/LOT-136-v1/` | à archiver par l'auteur : les images en pose neutre les remplacent |
 
 ## Conception
@@ -97,10 +102,72 @@ Dehors, nommément :
   standard nommait sans les produire. Le lion les fixe, le loup prouve qu'ils se rejouent. Leur
   image de référence est de trois quarts, sur quatre pattes séparées — rien n'en est mesuré.
 
+## Décisions de réalisation
+
+Livré le 3 octobre 2026, **PR #174**, sur la branche `lot-1009-personnages-de-la-demo`.
+
+- Les **dix-huit humanoïdes** de l'inventaire — les quatre héros, tous refaits (le brawler installé
+  est déjà le modèle `LOT_1009_Brawler_T` de l'atelier, pas celui de la preuve), la mère, l'enfant,
+  le garde, le maître d'arène, les neuf adversaires de l'arène — sont installés par l'**atelier des
+  assets** du LOT-1008 : une fiche d'atelier par personnage (`Tools/Assets3D/Fiches/<nom>.character.json`,
+  atelier local), rejouée par `LevelEditor --apply Tools/Assets3D/Fiches/*.character.json --check`.
+  Les modèles liés sont ceux de `Tools/Assets3D/Lies/`, produits au LOT-1006 par
+  `reduce_model.py` puis `rig_character.py` depuis les maillages Meshy de production ; le
+  contrôle du standard les a tous acceptés (« 19 modèle(s), 0 avec écart »). Les portraits et les
+  jetons restent ceux installés au LOT-1006.
+- `combattant-de-l-arene` est le nom du jeu (sa fiche de règles) ; l'atelier local l'appelle
+  `arena-fighter`.
+- Les kits sont republiés : `Common@8`, `central-empire/Common@3`, `capital/Common@3`,
+  `arena-of-fate@4`, `martpart@3`.
+- `check_hd_assets.py` refuse désormais un héros (`Heroes/…`) sans modèle.
+- Les créatures `zombie` et `skeleton` n'ont pas de `silhouette` dans leur fiche de règles : elles
+  sont humanoïdes par défaut, et leur modèle est lié au squelette `humanoid`.
+- Dans le jeu : la série de l'arène et la quête se jouent (suites d'intégration et système vertes),
+  et une capture du combat du capitaine montre héros et berserkers en modèles texturés.
+
+### Le coût d'un personnage
+
+Ce que la chaîne mesure, personnage par personnage (relevés de `Tools/Assets3D/Lies/*/releve.json`,
+contrôle `check_character_model.py`) :
+
+| Modèle | Taille | Triangles | `.glb` lié | Fiche de liaison |
+|---|---|---|---|---|
+| `brawler` | 1,80 m | 100 000 | 8,9 Mio | écrite (hauteur fixée) |
+| `mage` | 1,90 m | 99 999 | 8,5 Mio | estimée |
+| `priest` | 1,85 m | 100 000 | 8,6 Mio | estimée |
+| `scoundrel` | 1,90 m | 100 000 | 8,3 Mio | estimée |
+| `mother` | 1,90 m | 100 000 | 9,0 Mio | estimée |
+| `child` | 1,25 m | 100 000 | 8,9 Mio | estimée |
+| `ironhand-soldier` | 1,90 m | 100 000 | 9,4 Mio | estimée |
+| `arena-master` | 1,86 m | 100 000 | 8,3 Mio | estimée |
+| `bandit` | 1,90 m | 100 000 | 8,8 Mio | estimée |
+| `bandit-archer` | 1,90 m | 100 000 | 8,7 Mio | estimée |
+| `bandit-captain` | 1,90 m | 99 999 | 8,4 Mio | estimée |
+| `thug` | 1,86 m | 100 000 | 8,2 Mio | estimée |
+| `berserker` | 1,90 m | 99 999 | 10,0 Mio | estimée |
+| `veteran` | 1,88 m | 100 000 | 8,6 Mio | estimée |
+| `gladiator` | 1,90 m | 100 000 | 8,8 Mio | estimée |
+| `combattant-de-l-arene` | 1,90 m | 100 000 | 8,7 Mio | estimée |
+| `zombie` | 1,84 m | 100 000 | 9,1 Mio | estimée |
+| `skeleton` | 1,90 m | 100 000 | 10,8 Mio | estimée |
+
+Pénétration du sol : 0,74 mm au plus (vétéran, à la marche) ; glissement du pied posé : 0,17 px
+d'art au plus (bandit, gladiateur), sous le seuil de 0,53 px. Dix-sept fiches sur dix-huit sont
+**estimées** par le script sans correction : aucune n'a demandé de retouche de maillage, de poids
+ni d'animation. Les kits pèsent 65 Mio (`Common`), 107 Mio (`arena-of-fate`), 10 Mio
+(`central-empire/Common`, `martpart`) : vingt modèles de 8 à 11 Mio font bien les 300 Mio
+annoncés, répartis par niveau.
+
+Ce que le dépôt ne mesure pas et que l'auteur tient dans l'atelier : les crédits Meshy
+(30 par personnage selon le standard, §4 — image vers 3D 20, texture 10 — avant toute
+régénération), le temps passé par personnage et le nombre de régénérations. **À compléter par
+l'auteur** sur cette fiche ; c'est ce coût que les lots de PNJ de la `0.0.3` reprendront.
+
 ## Risques et questions ouvertes
 
 - **Le quadrupède fait grossir le lot** : un squelette, cinq clips et une marche à quatre appuis à
   faire approuver. S'il déborde, il devient un lot à part, et les fauves restent des jetons d'ici là.
+  **Survenu** : le [LOT-1011](LOT-1011-les-fauves-de-l-arene.md).
 
 - Si un personnage ne se reconnaît pas depuis sa vue de face, il se régénère ; au-delà de trois
   essais, la décision D-39 se rouvre pour lui.

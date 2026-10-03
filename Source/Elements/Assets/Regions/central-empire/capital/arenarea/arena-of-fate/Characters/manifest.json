@@ -5,9 +5,34 @@
     159
   ],
   "npcs": [
-    "bandit"
+    "arena-master",
+    "bandit",
+    "bandit-archer",
+    "bandit-captain",
+    "berserker",
+    "combattant-de-l-arene",
+    "gladiator",
+    "skeleton",
+    "thug",
+    "veteran",
+    "zombie"
   ],
   "models": {
+    "arena-master": {
+      "model": "arena-master/arena-master.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.903,
+        1.86,
+        0.468
+      ],
+      "sha256": "3a5400673ef61afdff675e873a5ed42e71c2f217e81c8956340966959260923c",
+      "source": {
+        "file": "Lies/arena-master/arena-master.glb",
+        "sha256": "3a5400673ef61afdff675e873a5ed42e71c2f217e81c8956340966959260923c"
+      }
+    },
     "bandit": {
       "model": "bandit/bandit.glb",
       "skeleton": "humanoid",
@@ -21,6 +46,141 @@
       "source": {
         "file": "Lies/bandit/bandit.glb",
         "sha256": "f61062dc2cff2803e8516855e3a100ce717ec7cb56662b6b6100cb8f7949e888"
+      }
+    },
+    "bandit-archer": {
+      "model": "bandit-archer/bandit-archer.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.738,
+        1.903,
+        0.377
+      ],
+      "sha256": "474659dfb9f7c32df600f52033b4c4b47ecf53667197eb2f04c6a199e8141594",
+      "source": {
+        "file": "Lies/bandit-archer/bandit-archer.glb",
+        "sha256": "474659dfb9f7c32df600f52033b4c4b47ecf53667197eb2f04c6a199e8141594"
+      }
+    },
+    "bandit-captain": {
+      "model": "bandit-captain/bandit-captain.glb",
+      "skeleton": "humanoid",
+      "triangles": 99999,
+      "size": [
+        1.74,
+        1.902,
+        0.488
+      ],
+      "sha256": "097a7c96b8df3ef582b5b8ecf20e11ff0111d8bddd92061b3c344d17b3d88b39",
+      "source": {
+        "file": "Lies/bandit-captain/bandit-captain.glb",
+        "sha256": "097a7c96b8df3ef582b5b8ecf20e11ff0111d8bddd92061b3c344d17b3d88b39"
+      }
+    },
+    "berserker": {
+      "model": "berserker/berserker.glb",
+      "skeleton": "humanoid",
+      "triangles": 99999,
+      "size": [
+        1.864,
+        1.902,
+        0.466
+      ],
+      "sha256": "1a47ef7330b2fb7bede1eed6fe052a78299a0659167f90a42c70ce8ca5813e47",
+      "source": {
+        "file": "Lies/berserker/berserker.glb",
+        "sha256": "1a47ef7330b2fb7bede1eed6fe052a78299a0659167f90a42c70ce8ca5813e47"
+      }
+    },
+    "combattant-de-l-arene": {
+      "model": "combattant-de-l-arene/combattant-de-l-arene.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.844,
+        1.902,
+        0.381
+      ],
+      "sha256": "3e02ea35b738c37d91e9d98b269a6c8c97e724e47d4a793f8d5b4c7607b6a57a",
+      "source": {
+        "file": "Lies/arena-fighter/arena-fighter.glb",
+        "sha256": "3e02ea35b738c37d91e9d98b269a6c8c97e724e47d4a793f8d5b4c7607b6a57a"
+      }
+    },
+    "gladiator": {
+      "model": "gladiator/gladiator.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.874,
+        1.901,
+        0.398
+      ],
+      "sha256": "8b7765fbad137d8133a9e5b24efa20fb3385e609406937d499a560a546987dcd",
+      "source": {
+        "file": "Lies/gladiator/gladiator.glb",
+        "sha256": "8b7765fbad137d8133a9e5b24efa20fb3385e609406937d499a560a546987dcd"
+      }
+    },
+    "skeleton": {
+      "model": "skeleton/skeleton.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.9,
+        1.901,
+        0.377
+      ],
+      "sha256": "48bd6562fbeb10a021732b85250abffbb8bd496d2620d9641fa4b2ac56eff348",
+      "source": {
+        "file": "Lies/skeleton/skeleton.glb",
+        "sha256": "48bd6562fbeb10a021732b85250abffbb8bd496d2620d9641fa4b2ac56eff348"
+      }
+    },
+    "thug": {
+      "model": "thug/thug.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.902,
+        1.862,
+        0.545
+      ],
+      "sha256": "2e825ac5f2bfcb6a31d95aef256cf8bd81e5039e69a99ab45830b77184c1b0f4",
+      "source": {
+        "file": "Lies/thug/thug.glb",
+        "sha256": "2e825ac5f2bfcb6a31d95aef256cf8bd81e5039e69a99ab45830b77184c1b0f4"
+      }
+    },
+    "veteran": {
+      "model": "veteran/veteran.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.904,
+        1.881,
+        0.418
+      ],
+      "sha256": "e8796a62722cc965de0b148c9281261624abf1099534b888bb58cc8088145041",
+      "source": {
+        "file": "Lies/veteran/veteran.glb",
+        "sha256": "e8796a62722cc965de0b148c9281261624abf1099534b888bb58cc8088145041"
+      }
+    },
+    "zombie": {
+      "model": "zombie/zombie.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.903,
+        1.841,
+        0.431
+      ],
+      "sha256": "3f6ccfd1af0a8515508ef1c740afc02225378a43bf0856d4457afa01724d5a08",
+      "source": {
+        "file": "Lies/zombie/zombie.glb",
+        "sha256": "3f6ccfd1af0a8515508ef1c740afc02225378a43bf0856d4457afa01724d5a08"
       }
     }
   },
@@ -131,17 +291,7 @@
     }
   },
   "portraits": [
-    "arena-master",
-    "bandit-archer",
-    "bandit-captain",
-    "berserker",
-    "combattant-de-l-arene",
-    "gladiator",
     "lion",
-    "skeleton",
-    "thug",
-    "veteran",
-    "wolf",
-    "zombie"
+    "wolf"
   ]
 }

@@ -6,6 +6,15 @@ le projet suit le [versionnage sémantique](https://semver.org/lang/fr/).
 
 ## [Non publié]
 
+- **LOT-1009 — Les personnages de la démo.** Les dix-huit humanoïdes de la démo — les quatre
+  héros refaits, la mère, l'enfant, le garde Ironhand, le maître d'arène et les neuf adversaires de
+  l'arène — sont des modèles liés au squelette commun, installés par l'atelier des assets
+  (`LevelEditor --apply`, une fiche d'atelier par personnage) : plus aucun ne s'affiche par le
+  mannequin. Le lion et le loup attendent le squelette `quadruped`, lot à part (`LOT-1011`) ; la
+  liste `portraits` ne porte plus qu'eux. `check_hd_assets.py` refuse un héros sans modèle. Kits
+  republiés : `Common@8`, `central-empire/Common@3`, `capital/Common@3`, `arena-of-fate@4`,
+  `martpart@3`.
+
 - **LOT-1008 — L'atelier des assets, vue Character.** La fiche d'un personnage s'écrit dans
   l'éditeur, sans ouvrir un fichier, et se règle dans Blender.
   - La fenêtre **Asset workshop** (*Assets* › *Asset workshop…*) : les personnages installés, la

@@ -4,8 +4,7 @@
     256,
     159
   ],
-  "npcs": [],
-  "portraits": [
+  "npcs": [
     "ironhand-soldier"
   ],
   "sources": {
@@ -16,6 +15,23 @@
     "ironhand-soldier/token.png": {
       "file": "Personnages/ironhand-soldier/portraits/source.png",
       "sha256": "8fd17afe3478bf2a1433e199423240f4f71112d6f8fc0666b2b057dcebf79c56"
+    }
+  },
+  "models": {
+    "ironhand-soldier": {
+      "model": "ironhand-soldier/ironhand-soldier.glb",
+      "skeleton": "humanoid",
+      "triangles": 100000,
+      "size": [
+        1.769,
+        1.902,
+        0.512
+      ],
+      "sha256": "ace87d9c6d788240e2d6f32e06cedd5abeb666be9702ee0a7df18f8ea2dce9fd",
+      "source": {
+        "file": "Lies/ironhand-soldier/ironhand-soldier.glb",
+        "sha256": "ace87d9c6d788240e2d6f32e06cedd5abeb666be9702ee0a7df18f8ea2dce9fd"
+      }
     }
   }
 }
